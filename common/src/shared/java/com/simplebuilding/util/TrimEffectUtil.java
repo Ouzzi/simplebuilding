@@ -120,10 +120,19 @@ public class TrimEffectUtil {
         return NON_PLAYER_MULTIPLIER;
     }
 
+    /**
+     * Exakter Vergleich (REV24-F-10): Pfad gleich {@code name} und Namensraum Vanilla oder ein Simple-Mod
+     * (simplebuilding, simpletrims ...). Fremde Muster/Materialien mit aehnlichem Namen (oddeye, smoky_quartz) zaehlen nicht.
+     */
+    public static boolean isOwn(Identifier id, String name) {
+        String ns = id.getNamespace();
+        return id.getPath().equals(name) && (ns.equals("minecraft") || ns.startsWith("simple"));
+    }
+
     /** Gewicht eines Besatzteils fuer sein Muster, abhaengig vom Besatzmaterial. */
     public static float patternWeight(String materialName) {
-        if (materialName.contains("enderite")) return PATTERN_WEIGHT_ENDERITE;
-        if (materialName.contains("netherite")) return PATTERN_WEIGHT_NETHERITE;
+        if (materialName.equals("enderite")) return PATTERN_WEIGHT_ENDERITE;
+        if (materialName.equals("netherite")) return PATTERN_WEIGHT_NETHERITE;
         return PATTERN_WEIGHT_DEFAULT;
     }
 
@@ -143,10 +152,9 @@ public class TrimEffectUtil {
                 var optionalTrim = stack.get(DataComponents.TRIM);
 
                 if (optionalTrim != null) {
-                    String patternId = optionalTrim.pattern().value().assetId().getPath();
-                    if (patternId.contains(patternPath)) {
+                    if (isOwn(optionalTrim.pattern().value().assetId(), patternPath)) {
                         String materialName = optionalTrim.material().unwrapKey()
-                                .map(key -> key.identifier().getPath()).orElse("");
+                                .map(key -> isOwn(key.identifier(), key.identifier().getPath()) ? key.identifier().getPath() : "").orElse("");
                         score += patternWeight(materialName);
                     }
                 }
@@ -168,8 +176,7 @@ public class TrimEffectUtil {
                 ItemStack stack = entity.getItemBySlot(slot);
                 var optionalTrim = stack.get(DataComponents.TRIM);
                 if (optionalTrim != null) {
-                    String materialId = optionalTrim.material().unwrapKey().map(key -> key.identifier().getPath()).orElse("");
-                    if (materialId.contains(materialPath)) {
+                    if (optionalTrim.material().unwrapKey().map(key -> isOwn(key.identifier(), materialPath)).orElse(false)) {
                         count++;
                     }
                 }

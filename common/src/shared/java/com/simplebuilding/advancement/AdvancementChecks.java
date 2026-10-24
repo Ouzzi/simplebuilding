@@ -5,6 +5,7 @@ import com.simplebuilding.util.TrimBonusCatalog;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,9 +47,9 @@ public final class AdvancementChecks {
         if (player instanceof TrimBenefitUser user && !user.simplebuilding$areTrimBenefitsEnabled()) {
             return false;
         }
-        String pattern = null;
+        Identifier pattern = null;
         for (EquipmentSlot slot : ARMOR) {
-            String own = patternOf(player.getItemBySlot(slot).get(DataComponents.TRIM));
+            Identifier own = patternOf(player.getItemBySlot(slot).get(DataComponents.TRIM));
             if (own == null || (pattern != null && !pattern.equals(own))) {
                 return false;
             }
@@ -57,7 +58,7 @@ public final class AdvancementChecks {
         return !TrimBonusCatalog.forPattern(pattern).isEmpty();
     }
 
-    private static @Nullable String patternOf(@Nullable ArmorTrim trim) {
-        return trim == null ? null : trim.pattern().value().assetId().getPath();
+    private static @Nullable Identifier patternOf(@Nullable ArmorTrim trim) {
+        return trim == null ? null : trim.pattern().value().assetId();
     }
 }

@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
 /**
  * Welche Boni ein Besatzmuster bzw. -material gibt, mit den Raten aus {@link TrimEffectUtil}.
- * Die Zuordnung spiegelt die {@code contains}-Pruefungen dort; Tooltip und Nachschlage-Bildschirm
+ * Die Zuordnung spiegelt die exakten Pruefungen dort ({@link TrimEffectUtil#isOwn}, REV24-F-10); Tooltip und Nachschlage-Bildschirm
  * lesen nur von hier, damit angezeigte und wirkende Werte nicht wieder auseinanderlaufen
  * (vorher standen im Tooltip eigene, teils halbierte oder erfundene Zahlen).
  */
@@ -58,78 +59,78 @@ public final class TrimBonusCatalog {
 
     private TrimBonusCatalog() {}
 
-    public static List<Bonus> forPattern(String patternPath) {
+    public static List<Bonus> forPattern(Identifier pattern) {
         List<Bonus> list = new ArrayList<>();
-        if (patternPath.contains("sentry")) list.add(new Bonus("projectile_protection", SENTRY_PROJECTILE, Kind.PERCENT));
-        if (patternPath.contains("vex")) list.add(new Bonus("magic_protection", VEX_MAGIC, Kind.PERCENT));
-        if (patternPath.contains("wild")) list.add(new Bonus("thorn_protection", WILD_THORNS, Kind.PERCENT));
-        if (patternPath.contains("dune")) list.add(new Bonus("blast_protection", DUNE_BLAST, Kind.PERCENT));
-        if (patternPath.contains("coast")) {
+        if (isOwn(pattern, "sentry")) list.add(new Bonus("projectile_protection", SENTRY_PROJECTILE, Kind.PERCENT));
+        if (isOwn(pattern, "vex")) list.add(new Bonus("magic_protection", VEX_MAGIC, Kind.PERCENT));
+        if (isOwn(pattern, "wild")) list.add(new Bonus("thorn_protection", WILD_THORNS, Kind.PERCENT));
+        if (isOwn(pattern, "dune")) list.add(new Bonus("blast_protection", DUNE_BLAST, Kind.PERCENT));
+        if (isOwn(pattern, "coast")) {
             list.add(new Bonus("drowning_protection", COAST_DROWN, Kind.PERCENT));
             list.add(new Bonus("breath_saving", COAST_AIR_SAVE, Kind.PERCENT));
         }
-        if (patternPath.contains("ward")) list.add(new Bonus("all_protection", WARD_ALL, Kind.PERCENT));
-        if (patternPath.contains("silence")) {
+        if (isOwn(pattern, "ward")) list.add(new Bonus("all_protection", WARD_ALL, Kind.PERCENT));
+        if (isOwn(pattern, "silence")) {
             list.add(new Bonus("sonic_protection", SILENCE_SONIC, Kind.PERCENT));
             list.add(new Bonus("stealth", SILENCE_STEALTH, Kind.PERCENT));
         }
-        if (patternPath.contains("snout")) list.add(new Bonus("fire_protection", SNOUT_FIRE, Kind.PERCENT));
-        if (patternPath.contains("rib")) {
+        if (isOwn(pattern, "snout")) list.add(new Bonus("fire_protection", SNOUT_FIRE, Kind.PERCENT));
+        if (isOwn(pattern, "rib")) {
             list.add(new Bonus("wither_protection", RIB_WITHER, Kind.PERCENT));
             list.add(new Bonus("wither_shortening", RIB_WITHER_TICKS, Kind.TICKS));
         }
-        if (patternPath.contains("eye")) list.add(new Bonus("dragon_breath_protection", EYE_DRAGON_BREATH, Kind.PERCENT));
-        if (patternPath.contains("spire")) list.add(new Bonus("fall_protection", SPIRE_FALL, Kind.PERCENT));
-        if (patternPath.contains("flow")) list.add(new Bonus("wind_charge_protection", FLOW_WIND_CHARGE, Kind.PERCENT));
-        if (patternPath.contains("bolt")) {
+        if (isOwn(pattern, "eye")) list.add(new Bonus("dragon_breath_protection", EYE_DRAGON_BREATH, Kind.PERCENT));
+        if (isOwn(pattern, "spire")) list.add(new Bonus("fall_protection", SPIRE_FALL, Kind.PERCENT));
+        if (isOwn(pattern, "flow")) list.add(new Bonus("wind_charge_protection", FLOW_WIND_CHARGE, Kind.PERCENT));
+        if (isOwn(pattern, "bolt")) {
             list.add(new Bonus("lightning_protection", BOLT_LIGHTNING, Kind.PERCENT));
             list.add(new Bonus("walking_speed", BOLT_SPEED, Kind.PERCENT));
         }
-        if (patternPath.contains("tide")) list.add(new Bonus("swimming_speed", TIDE_SWIM, Kind.PERCENT));
-        if (patternPath.contains("wayfinder")) list.add(new Bonus("sprint_hunger", WAYFINDER_SPRINT_HUNGER, Kind.PERCENT));
-        if (patternPath.contains("raiser")) list.add(new Bonus("experience", RAISER_XP, Kind.PERCENT));
-        if (patternPath.contains("host")) list.add(new Bonus("luck", HOST_LUCK, Kind.POINTS));
-        if (patternPath.contains("shaper")) list.add(new Bonus("block_reach", SHAPER_REACH, Kind.POINTS));
+        if (isOwn(pattern, "tide")) list.add(new Bonus("swimming_speed", TIDE_SWIM, Kind.PERCENT));
+        if (isOwn(pattern, "wayfinder")) list.add(new Bonus("sprint_hunger", WAYFINDER_SPRINT_HUNGER, Kind.PERCENT));
+        if (isOwn(pattern, "raiser")) list.add(new Bonus("experience", RAISER_XP, Kind.PERCENT));
+        if (isOwn(pattern, "host")) list.add(new Bonus("luck", HOST_LUCK, Kind.POINTS));
+        if (isOwn(pattern, "shaper")) list.add(new Bonus("block_reach", SHAPER_REACH, Kind.POINTS));
         return list;
     }
 
-    public static List<Bonus> forMaterial(String materialPath) {
+    public static List<Bonus> forMaterial(Identifier material) {
         List<Bonus> list = new ArrayList<>();
-        if (materialPath.contains("diamond")) list.add(new Bonus("physical_protection", DIAMOND_PHYSICAL, Kind.PERCENT));
-        if (materialPath.contains("gold")) list.add(new Bonus("magic_protection", GOLD_MAGIC, Kind.PERCENT));
-        if (materialPath.contains("lapis")) {
+        if (isOwn(material, "diamond")) list.add(new Bonus("physical_protection", DIAMOND_PHYSICAL, Kind.PERCENT));
+        if (isOwn(material, "gold")) list.add(new Bonus("magic_protection", GOLD_MAGIC, Kind.PERCENT));
+        if (isOwn(material, "lapis")) {
             list.add(new Bonus("magic_protection", LAPIS_MAGIC, Kind.PERCENT));
             list.add(new Bonus("experience", LAPIS_XP, Kind.PERCENT));
         }
-        if (materialPath.contains("iron")) list.add(new Bonus("projectile_protection", IRON_PROJECTILE, Kind.PERCENT));
-        if (materialPath.contains("emerald")) {
+        if (isOwn(material, "iron")) list.add(new Bonus("projectile_protection", IRON_PROJECTILE, Kind.PERCENT));
+        if (isOwn(material, "emerald")) {
             list.add(new Bonus("illager_protection", EMERALD_ILLAGER, Kind.PERCENT));
             list.add(new Bonus("luck", EMERALD_LUCK, Kind.POINTS));
         }
-        if (materialPath.contains("netherite")) {
+        if (isOwn(material, "netherite")) {
             list.add(new Bonus("wither_piercing_protection", NETHERITE_WITHER_PIERCING, Kind.PERCENT));
             list.add(new Bonus("pattern_strength", PATTERN_WEIGHT_NETHERITE, Kind.FACTOR));
         }
-        if (materialPath.contains("quartz")) {
+        if (isOwn(material, "quartz")) {
             list.add(new Bonus("fire_protection", QUARTZ_FIRE, Kind.PERCENT));
             list.add(new Bonus("experience", QUARTZ_XP, Kind.PERCENT));
         }
-        if (materialPath.contains("enderite")) {
+        if (isOwn(material, "enderite")) {
             list.add(new Bonus("all_protection", ENDERITE_ALL, Kind.PERCENT));
             list.add(new Bonus("pattern_strength", PATTERN_WEIGHT_ENDERITE, Kind.FACTOR));
         }
-        if (materialPath.contains("astralit")) {
+        if (isOwn(material, "astralit")) {
             list.add(new Bonus("physical_protection", ASTRALIT_PHYSICAL, Kind.PERCENT));
             list.add(new Bonus("jump_boost", 0f, Kind.TEXT));
         }
-        if (materialPath.contains("nihilith")) {
+        if (isOwn(material, "nihilith")) {
             list.add(new Bonus("physical_protection", NIHILITH_PHYSICAL, Kind.PERCENT));
             list.add(new Bonus("dive", 0f, Kind.TEXT));
         }
-        if (materialPath.contains("redstone")) list.add(new Bonus("walking_speed", REDSTONE_SPEED, Kind.PERCENT));
-        if (materialPath.contains("amethyst")) list.add(new Bonus("healing_chance", AMETHYST_HEAL_CHANCE, Kind.PERCENT));
-        if (materialPath.contains("copper")) list.add(new Bonus("lightning_protection", COPPER_LIGHTNING, Kind.PERCENT));
-        if (materialPath.contains("resin")) list.add(new Bonus("knockback_resistance", RESIN_KNOCKBACK_RESISTANCE, Kind.KNOCKBACK));
+        if (isOwn(material, "redstone")) list.add(new Bonus("walking_speed", REDSTONE_SPEED, Kind.PERCENT));
+        if (isOwn(material, "amethyst")) list.add(new Bonus("healing_chance", AMETHYST_HEAL_CHANCE, Kind.PERCENT));
+        if (isOwn(material, "copper")) list.add(new Bonus("lightning_protection", COPPER_LIGHTNING, Kind.PERCENT));
+        if (isOwn(material, "resin")) list.add(new Bonus("knockback_resistance", RESIN_KNOCKBACK_RESISTANCE, Kind.KNOCKBACK));
         return list;
     }
 
@@ -139,15 +140,17 @@ public final class TrimBonusCatalog {
      * uebergebenen Resonanz; das Muster ist schon mit dem Materialgewicht verrechnet.
      */
     public static List<Component> tooltipLines(ArmorTrim trim, float resonance) {
-        String pattern = trim.pattern().value().assetId().getPath();
-        String material = trim.material().unwrapKey().map(key -> key.identifier().getPath()).orElse("");
-        float weight = patternWeight(material);
+        Identifier pattern = trim.pattern().value().assetId();
+        Identifier material = trim.material().unwrapKey().map(key -> key.identifier()).orElse(null);
+        // Wie TrimEffectUtil.getTrimCount: fremde Materialien zaehlen mit Normalgewicht
+        float weight = material != null && isOwn(material, "enderite") ? PATTERN_WEIGHT_ENDERITE
+                : material != null && isOwn(material, "netherite") ? PATTERN_WEIGHT_NETHERITE : PATTERN_WEIGHT_DEFAULT;
 
         List<Component> lines = new ArrayList<>();
         for (Bonus bonus : forPattern(pattern)) {
             lines.add(bonus.describe(weight, resonance).copy().withStyle(ChatFormatting.BLUE));
         }
-        for (Bonus bonus : forMaterial(material)) {
+        for (Bonus bonus : material == null ? List.<Bonus>of() : forMaterial(material)) {
             lines.add(bonus.describe(1.0f, resonance).copy().withStyle(ChatFormatting.BLUE));
         }
         if (lines.isEmpty()) return lines;

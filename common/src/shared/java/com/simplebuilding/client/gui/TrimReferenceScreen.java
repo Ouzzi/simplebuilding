@@ -97,12 +97,12 @@ public class TrimReferenceScreen extends Screen {
 
     private void addMaterial(Item item, String namespace, String path, float resonance) {
         addEntry(item, Component.translatable("trim_material." + namespace + "." + path),
-                TrimBonusCatalog.forMaterial(path), resonance);
+                TrimBonusCatalog.forMaterial(Identifier.fromNamespaceAndPath(namespace, path)), resonance);
     }
 
     private void addPattern(Item item, String path, float resonance) {
         addEntry(item, Component.translatable("trim_pattern.minecraft." + path),
-                TrimBonusCatalog.forPattern(path), resonance);
+                TrimBonusCatalog.forPattern(Identifier.fromNamespaceAndPath("minecraft", path)), resonance);
     }
 
     /** Werte je Teil bei der aktuellen Resonanz, im Stil der Vanilla-Attributzeilen. */
