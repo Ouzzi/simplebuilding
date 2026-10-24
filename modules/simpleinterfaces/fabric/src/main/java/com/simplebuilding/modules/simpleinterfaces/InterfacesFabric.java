@@ -31,8 +31,17 @@ public final class InterfacesFabric implements ModInitializer {
             ServerPlayNetworking.send(p, payload);
             return true;
         };
-        InteractionGuard.permission = (p, pos) -> net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
-                .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
+        // The probe fires the real BEFORE handlers; area hammers must not take it for a break (HammerActions veto).
+        com.simplelib.api.HammerActions.registerAreaVeto(() -> InteractionGuard.probing > 0);
+        InteractionGuard.permission = (p, pos) -> {
+            InteractionGuard.probing++;
+            try {
+                return net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
+                        .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
+            } finally {
+                InteractionGuard.probing--;
+            }
+        };
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(s -> SimpleInterfaces.onChange = () -> s.getPlayerList().getPlayers().forEach(InterfacesFabric::sync));
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((h, sender, s) -> sync(h.player));
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p, w, hand, hit) -> LinkedContainers.onRightClickBlock(p, hand, hit.getBlockPos()));

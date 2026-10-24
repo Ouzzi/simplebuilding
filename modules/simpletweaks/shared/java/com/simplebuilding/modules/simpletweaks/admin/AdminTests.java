@@ -330,6 +330,19 @@ public final class AdminTests {
         yes(h, moves.stream().anyMatch(e -> e.action() == 'O' && e.id().equals("minecraft:diamond") && e.count() == 2 && e.name().equals("#hopper"))
                 && moves.stream().anyMatch(e -> e.action() == 'I' && e.id().equals("minecraft:emerald") && e.count() == 1), "Hopper moves summed and logged: " + moves);
         yes(h, get(BlockLog.at(level, hopperPos)).isEmpty(), "The hopper itself is not logged");
+        // a stuck writer must not grow the queue without limit: over the cap new entries are dropped
+        BlockLog.flushNow();
+        var capped = new BlockPos[5];
+        for (int i = 0; i < capped.length; i++) capped[i] = h.absolutePos(new BlockPos(1 + i, 2, 8));
+        int old = BlockLog.maxQueue;
+        BlockLog.maxQueue = 2;
+        try {
+            for (var pos : capped) BlockLog.record(level, "#cap", 'X', pos, "minecraft:dirt", 1, null);
+            BlockLog.flushNow();
+        } finally { BlockLog.maxQueue = old; }
+        int kept = 0;
+        for (var pos : capped) if (!get(BlockLog.at(level, pos)).isEmpty()) kept++;
+        yes(h, kept == 2, "Queue cap drops entries over the limit: kept " + kept);
         h.succeed();
     }
     private static List<net.minecraft.server.network.FilteredText> signLines(String... text) {

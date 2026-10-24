@@ -264,6 +264,21 @@ final class WebHttpTests {
         WebHttp.RateLimit full = new WebHttp.RateLimit(5);
         for (int i = 0; i < WebHttp.RateLimit.MAX_CLIENTS; i++) full.allow("c" + i, t);
         h.assertTrue(!full.allow("new", t) && full.allow("c0", t), "full table refuses new clients only");
+        // Slowloris: a sender that drips one byte per read runs into the total deadline, a prompt one does not.
+        java.io.InputStream drip = new java.io.InputStream() {
+            @Override
+            public int read() {
+                try { Thread.sleep(40); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+                return 'a';
+            }
+        };
+        try {
+            h.assertTrue(WebHttp.readLine(drip, System.nanoTime() + 200_000_000L) == null, "a slow sender hits the total deadline");
+            h.assertTrue("GET / HTTP/1.1".equals(WebHttp.readLine(new java.io.ByteArrayInputStream("GET / HTTP/1.1\r\n".getBytes(StandardCharsets.US_ASCII)),
+                    System.nanoTime() + 5_000_000_000L)), "a prompt request line is read");
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
         Path dir = WebTests.temp();
         WebHttp http = null;
         try {

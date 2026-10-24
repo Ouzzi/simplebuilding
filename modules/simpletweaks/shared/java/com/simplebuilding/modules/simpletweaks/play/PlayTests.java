@@ -585,6 +585,14 @@ public final class PlayTests {
         p.setPos(p.getX(), 140, p.getZ());
         NetherRoof.moveDown(level, p);
         yes(h, p.getY() < NetherRoof.ROOF, "Moved below the roof: " + p.getY());
+        // a remembered place that is solid or under lava by now is not used any more
+        var stale = h.absolutePos(new BlockPos(1, 3, 1));
+        h.setBlock(new BlockPos(1, 3, 1), Blocks.STONE);
+        NetherRoof.remember(p.getUUID(), net.minecraft.world.phys.Vec3.atBottomCenterOf(stale));
+        p.setPos(p.getX(), 140, p.getZ());
+        NetherRoof.moveDown(level, p);
+        yes(h, p.getY() < NetherRoof.ROOF && Math.abs(p.getY() - stale.getY()) >= 1, "A remembered place that became solid is skipped: " + p.getY());
+        NetherRoof.forget(p.getUUID());
         h.succeed();
     }
 

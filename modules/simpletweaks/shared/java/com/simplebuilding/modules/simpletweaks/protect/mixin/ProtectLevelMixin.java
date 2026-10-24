@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ProtectLevelMixin {
     @Inject(method = "sendBlockUpdated", at = @At("TAIL"))
     private void simpletweaks$reveal(BlockPos pos, BlockState old, BlockState current, int flags, CallbackInfo ci) {
-        if (old != current) AntiXray.revealAround((ServerLevel) (Object) this, pos);
+        if (old == current) return;
+        AntiXray.forget((ServerLevel) (Object) this, pos);
+        AntiXray.revealAround((ServerLevel) (Object) this, pos);
     }
 }

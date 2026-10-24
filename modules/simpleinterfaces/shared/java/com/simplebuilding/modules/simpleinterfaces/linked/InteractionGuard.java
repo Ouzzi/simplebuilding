@@ -3,6 +3,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 public final class InteractionGuard {
  public static final double MAX_REACH=4.5;
+ /** >0 while the fabric permission probe runs: its break event is no real break (area hammers must not start, see M-11). */
+ public static int probing;
  public static java.util.function.BiPredicate<Player,BlockPos> permission=(p,pos)->true;
  public static boolean mayChange(Player p,BlockPos pos){return allow(p,pos)&&permission.test(p,pos);}
  private static final java.util.Map<Player,Integer> LAST=new java.util.WeakHashMap<>();

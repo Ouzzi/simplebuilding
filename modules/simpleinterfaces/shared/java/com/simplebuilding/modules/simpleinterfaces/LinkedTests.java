@@ -168,6 +168,13 @@ public final class LinkedTests {
             InteractionGuard.permission = (a, b) -> false;
             h.assertTrue(LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs) == InteractionResult.PASS && LinkedContainers.mark(p) == null, "Claim veto refuses the mark");
             InteractionGuard.permission = (a, b) -> true;
+            LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs);
+            h.assertTrue(LinkedContainers.mark(p) != null, "Marked again for the revoke check");
+            InteractionGuard.permission = (a, b) -> false;
+            p.tickCount = 40;
+            LinkedContainers.tick(p);
+            h.assertTrue(LinkedContainers.mark(p) == null, "A right revoked after marking ends the mark within a second");
+            InteractionGuard.permission = (a, b) -> true;
             SimpleInterfaces.config().enableLinkedContainers = false;
             h.assertTrue(LinkedContainers.onRightClickBlock(p, InteractionHand.MAIN_HAND, abs) == InteractionResult.PASS && LinkedContainers.mark(p) == null, "Switch off refuses the mark");
             SimpleInterfaces.config().enableLinkedContainers = true;

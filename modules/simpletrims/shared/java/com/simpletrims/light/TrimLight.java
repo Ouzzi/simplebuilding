@@ -2,7 +2,9 @@ package com.simpletrims.light;
 
 import com.simpletrims.SimpleTrims;
 import com.simpletrims.TrimGlow;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.IntSupplier;
@@ -11,6 +13,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -35,7 +39,13 @@ import net.minecraft.world.level.block.state.BlockState;
  * every carrier sets level 0, so standing lights go away with the next tick of their carrier.
  */
 public final class TrimLight {
-    private static final Map<UUID, BlockPos> PLAYER_LIGHTS = new HashMap<>();
+    /** A standing light block with the dimension it was set in (a player may have left that dimension since). */
+    private record Lit(ResourceKey<Level> dimension, BlockPos pos) {}
+    private static final Map<UUID, Lit> PLAYER_LIGHTS = new HashMap<>();
+    /** Lights whose chunk was unloaded when they should go (teleport away): removed once it loads again, never loaded just for that. */
+    private static final List<Lit> STALE = new ArrayList<>();
+    private static final int STALE_MAX = 1024;
+    private static long staleSweep;
     /** Resting carriers check only every so many ticks (offset by entity id). */
     public static final int HOLDER_INTERVAL = 10;
     /** Walking carriers check more often so the light follows them. */
@@ -106,16 +116,17 @@ public final class TrimLight {
         UUID uuid = player.getUUID();
         BlockPos head = player.blockPosition().above();
         int light = enabled() ? lightOf(player) : 0;
-        BlockPos old = PLAYER_LIGHTS.get(uuid);
-        if (old != null && !old.equals(head)) {
-            removeLight(level, old);
+        sweepStale(level);
+        Lit old = PLAYER_LIGHTS.get(uuid);
+        if (old != null && !(old.pos().equals(head) && old.dimension().equals(level.dimension()))) {
+            release(level, old);
             PLAYER_LIGHTS.remove(uuid);
             old = null;
         }
         if (light > 0) {
-            if (placeOrUpdate(level, head, light, old != null)) PLAYER_LIGHTS.put(uuid, head);
+            if (placeOrUpdate(level, head, light, old != null)) PLAYER_LIGHTS.put(uuid, new Lit(level.dimension(), head));
         } else if (old != null) {
-            removeLight(level, old);
+            release(level, old);
             PLAYER_LIGHTS.remove(uuid);
         }
     }
@@ -160,6 +171,33 @@ public final class TrimLight {
         return true;
     }
 
+    /** Removes {@code lit} in its own dimension; an unloaded chunk is not loaded for it, the light waits in {@link #STALE}. */
+    private static void release(Level level, Lit lit) {
+        if (level.getServer() == null) return;
+        ServerLevel target = level.getServer().getLevel(lit.dimension());
+        if (target == null) return;
+        if (target.hasChunkAt(lit.pos())) removeLight(target, lit.pos());
+        else if (STALE.size() < STALE_MAX) STALE.add(lit);
+    }
+
+    /** Once a second (any player tick): lights whose chunk is loaded again go now. */
+    private static void sweepStale(Level level) {
+        if (STALE.isEmpty() || level.getServer() == null || level.getGameTime() - staleSweep < 20 && level.getGameTime() >= staleSweep) return;
+        staleSweep = level.getGameTime();
+        STALE.removeIf(lit -> {
+            ServerLevel target = level.getServer().getLevel(lit.dimension());
+            if (target == null) return true;
+            if (!target.hasChunkAt(lit.pos())) return false;
+            removeLight(target, lit.pos());
+            return true;
+        });
+    }
+
+    /** Pending lights (tests, server stop). */
+    public static int staleCount() {
+        return STALE.size();
+    }
+
     private static void removeLight(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.is(Blocks.LIGHT)) {
@@ -169,8 +207,8 @@ public final class TrimLight {
 
     /** Drops a player's light and table entry (tests: mock players are never removed through the level). */
     public static void forget(Player player) {
-        BlockPos pos = PLAYER_LIGHTS.remove(player.getUUID());
-        if (pos != null) removeLight(player.level(), pos);
+        Lit lit = PLAYER_LIGHTS.remove(player.getUUID());
+        if (lit != null) release(player.level(), lit);
     }
 
     /**
@@ -182,8 +220,8 @@ public final class TrimLight {
         Level level = entity.level();
         if (level == null || level.isClientSide()) return;
         if (entity instanceof ServerPlayer) {
-            BlockPos pos = PLAYER_LIGHTS.remove(entity.getUUID());
-            if (pos != null) removeLight(level, pos);
+            Lit lit = PLAYER_LIGHTS.remove(entity.getUUID());
+            if (lit != null) release(level, lit);
         } else if (entity instanceof OwnedLightHolder holder) {
             BlockPos owned = holder.simpletrims$getOwnedLight();
             if (owned != null && reason.shouldDestroy()) {

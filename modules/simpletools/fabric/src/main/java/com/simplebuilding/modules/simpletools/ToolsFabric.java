@@ -25,8 +25,17 @@ public final class ToolsFabric implements ModInitializer {
                 out.insertAfter(net.minecraft.world.item.Items.BRUSH, ToolsRegistry.brushStacks(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) -> ToolsLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> ToolsCommands.register(d));
-        InteractionGuard.permission = (p, pos) -> net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
-                .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
+        // The probe fires the real BEFORE handlers; area hammers must not take it for a break (HammerActions veto).
+        com.simplelib.api.HammerActions.registerAreaVeto(() -> InteractionGuard.probing > 0);
+        InteractionGuard.permission = (p, pos) -> {
+            InteractionGuard.probing++;
+            try {
+                return net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
+                        .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
+            } finally {
+                InteractionGuard.probing--;
+            }
+        };
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p, w, hand, hit) ->
                 FurnaceLavaFillHandler.onRightClickBlock(p, hand, hit.getBlockPos(), hit.getDirection()));
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simpletools.network.ConfigSyncPayload.TYPE, com.simplebuilding.modules.simpletools.network.ConfigSyncPayload.STREAM_CODEC);

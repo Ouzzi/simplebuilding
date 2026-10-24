@@ -53,6 +53,7 @@ public final class Play {
         ServerEvents.shutdown();
         Leaderboard.stop(s);
         NewPlayerShield.reset();
+        NetherRoof.forgetAll();
         state.save();
         server = null;
         state = new PlayState();
@@ -87,6 +88,7 @@ public final class Play {
         Playtime.left(player);
         Afk.left(player);
         Votes.left(player);
+        NetherRoof.forget(player.getUUID());
     }
     /** T14 integration: is {@code id} a vanished admin that {@code viewer} (null or non-player = console/block, sees all) may not see? */
     public static boolean hidden(java.util.UUID id, net.minecraft.commands.CommandSourceStack viewer) {

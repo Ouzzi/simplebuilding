@@ -97,6 +97,13 @@ public final class WandererTests {
         });
 
         // --- exactly one per village ------------------------------------------------------------------------------------------
+        ALL.put("find_spot_skips_unloaded", h -> {
+            var far = new net.minecraft.core.BlockPos(20_000_000, 64, 20_000_000);
+            h.assertTrue(!h.getLevel().hasChunkAt(far), "the far chunk is not loaded");
+            h.assertTrue(com.simplewanderers.logic.WandererSpawner.findSpot(h.getLevel(), far, 8, h.getLevel().getRandom()) == null, "no spot in an unloaded area");
+            h.assertTrue(!h.getLevel().hasChunkAt(far), "and the search did not load it");
+            h.succeed();
+        });
         ALL.put("spawn_one_per_village", h -> {
             try {
                 ServerLevel level = h.getLevel();

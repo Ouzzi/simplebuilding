@@ -225,6 +225,23 @@ public final class MusicTests {
             h.assertTrue(played == 2, "at most maxTonesPerTick: " + played);
             h.succeed();
         });
+        ALL.put("upload_abandoned_expires", h -> {
+            ServerPlayer alice = h.makeMockServerPlayerInLevel();
+            capture(alice);
+            try {
+                alice.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(MusicRegistry.SHEET_MUSIC));
+                long[] now = {1_000_000L};
+                MusicServer.clock = () -> now[0];
+                MusicServer.handleUploadBegin(new UploadBeginPayload(0, "Idle", 1000), alice);
+                h.assertTrue(MusicServer.uploading(alice.getUUID()), "upload announced");
+                now[0] += UploadSession.TIMEOUT_MILLIS + 1;
+                MusicServer.tick(h.getLevel().getServer());
+                h.assertTrue(!MusicServer.uploading(alice.getUUID()), "abandoned upload freed by the tick, no foreign begin needed");
+                h.succeed();
+            } finally {
+                restore();
+            }
+        });
         ALL.put("upload_moderation_download", h -> {
             ServerPlayer alice = h.makeMockServerPlayerInLevel();
             ServerPlayer bob = h.makeMockServerPlayerInLevel();

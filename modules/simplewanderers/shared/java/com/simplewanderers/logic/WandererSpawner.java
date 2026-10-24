@@ -54,7 +54,8 @@ public final class WandererSpawner {
     /** Vanilla villages: a bell (meeting POI) that is part of a village structure; player-built bells do not count. */
     public static Optional<Village> locateVanilla(ServerLevel level, BlockPos near, int radius) {
         Optional<BlockPos> bell = level.getPoiManager().find(p -> p.is(PoiTypes.MEETING), pos -> true, near, radius, PoiManager.Occupancy.ANY);
-        if (bell.isEmpty()) return Optional.empty();
+        // the structure lookup reads chunks: never for a bell whose chunk is not loaded (it would be loaded synchronously)
+        if (bell.isEmpty() || !level.hasChunkAt(bell.get())) return Optional.empty();
         StructureStart start = level.structureManager().getStructureWithPieceAt(bell.get(), StructureTags.VILLAGE);
         if (start == null || !start.isValid()) return Optional.empty();
         String type = VillagerType.byBiome(level.getBiome(bell.get())).identifier().getPath();
@@ -133,6 +134,7 @@ public final class WandererSpawner {
         for (int i = 0; i < 12; i++) {
             int x = around.getX() + random.nextInt(radius * 2 + 1) - radius;
             int z = around.getZ() + random.nextInt(radius * 2 + 1) - radius;
+            if (!level.hasChunkAt(new BlockPos(x, around.getY(), z))) continue; // reading it would load the chunk
             for (int dy = 3; dy >= -3; dy--) {
                 BlockPos feet = new BlockPos(x, around.getY() + dy, z);
                 BlockState floor = level.getBlockState(feet.below());

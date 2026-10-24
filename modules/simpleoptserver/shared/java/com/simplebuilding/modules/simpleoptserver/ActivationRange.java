@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
@@ -14,7 +15,7 @@ import net.minecraft.world.entity.npc.villager.AbstractVillager;
  * often"). Changes gameplay, so the area defaults off. A mob with no living player within {@code range} blocks runs its
  * full tick only every {@code interval}-th tick; Vanilla's common tick (age counter, invulnerability) always runs.
  * Mobs whose state would visibly drift stay fully active: vehicles, leashed, with a target, hurt, airborne, in water or
- * lava, burning, babies, in love, tamed, villagers and traders (farms, trading), bosses.
+ * lava, burning, babies, with active potion effects, in love or on breeding cooldown, hens, tamed, villagers and traders (farms, trading), bosses.
  */
 public final class ActivationRange {
     public static final int MIN_RANGE = 16, MAX_RANGE = 128, MAX_INTERVAL = 20;
@@ -34,8 +35,10 @@ public final class ActivationRange {
     public static boolean exempt(Entity e) {
         if (!(e instanceof Mob mob)) return true;
         if (mob.isVehicle() || mob.isLeashed() || mob.getTarget() != null || mob.hurtTime > 0 || !mob.onGround()
-                || mob.isInWater() || mob.isInLava() || mob.isOnFire() || mob.isBaby()) return true;
-        return mob instanceof Animal a && a.isInLove() || mob instanceof TamableAnimal t && t.isTame()
+                || mob.isInWater() || mob.isInLava() || mob.isOnFire() || mob.isBaby()
+                || !mob.getActiveEffects().isEmpty()) return true;
+        // adults with a breeding cooldown (age > 0) and hens (egg timer runs in aiStep) must not slow down
+        return mob instanceof Animal a && (a.isInLove() || a.getAge() != 0) || mob instanceof Chicken || mob instanceof TamableAnimal t && t.isTame()
                 || mob instanceof AbstractVillager || mob instanceof WitherBoss || mob instanceof EnderDragon;
     }
 
