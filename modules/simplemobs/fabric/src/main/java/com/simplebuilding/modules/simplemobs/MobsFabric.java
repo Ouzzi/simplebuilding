@@ -82,7 +82,7 @@ public final class MobsFabric implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!MobsConfig.vanillaTabs() || !MobsRegistry.on()) return;
-            out.insertAfter(Items.ELYTRA, java.util.List.of(new ItemStack(WitherWings.WITHER), new ItemStack(WitherWings.NETHER)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            out.insertAfter(Items.ELYTRA, java.util.List.of(new ItemStack(WitherWings.WITHER), new ItemStack(WitherWings.NETHER), new ItemStack(WitherWings.END)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!MobsConfig.vanillaTabs()) return;

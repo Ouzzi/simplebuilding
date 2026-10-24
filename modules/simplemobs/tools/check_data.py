@@ -5,7 +5,7 @@ MODULE = Path(__file__).resolve().parents[1]
 DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder'}
 _vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
 assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
@@ -165,3 +165,7 @@ for stage, base, add in (('wither_wings', 'minecraft:elytra', 'simplemobs:nether
         assert (r['fabric:load_conditions'][0]['condition'] == 'fabric:not') == negated and (r['neoforge:conditions'][0]['type'] == 'neoforge:not') == negated
     assert (MODULE / f'shared/resources/assets/simplemobs/equipment/{stage}.json').is_file()
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/equipment/wings/{stage}.png').is_file()
+# WA24-2 End Wings (stage 3): item, look and speed exist, but no recipe and no loot yet (material of a later End boss)
+assert (MODULE / 'shared/resources/assets/simplemobs/equipment/end_wings.json').is_file()
+assert (MODULE / 'shared/resources/assets/simplemobs/textures/entity/equipment/wings/end_wings.png').is_file()
+assert not list((MODULE / 'shared/resources/data/simplemobs').rglob('*end_wings*')), 'End Wings must not be craftable or dropped yet'

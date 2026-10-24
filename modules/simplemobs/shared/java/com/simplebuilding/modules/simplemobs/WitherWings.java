@@ -23,7 +23,9 @@ import net.minecraft.world.phys.Vec3;
  * smithing table with the Strong Upgrade (Simple Beacons; without it the Netherite Upgrade) and the Nether Heart, then once more
  * with the Red Nether Gem. They glide like the Elytra; only the top speed a firework rocket pushes towards is raised
  * ({@link MobsConfig#witherWingsSpeedFactor} x2, {@link MobsConfig#netherWingsSpeedFactor} x4). Hitting a wall hurts by the
- * Vanilla formula, so more speed means more risk.
+ * Vanilla formula, so more speed means more risk. Stage 3, the End Wings (WA24-2, x6), exists as an item with look and speed but has
+ * no recipe and no loot yet: its material will drop from a later End boss (queue "End-Boss-Material"). It is only given by commands,
+ * the creative tab and the test centre.
  */
 public final class WitherWings {
     public static final String ID = MobsRegistry.ID;
@@ -38,9 +40,12 @@ public final class WitherWings {
     public static final ResourceKey<EquipmentAsset> WITHER_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "wither_wings"));
     public static final ResourceKey<EquipmentAsset> NETHER_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "nether_wings"));
     /** Elytra 432; each stage about the Diamond -> Netherite step (+1/3). Wear per flight time stays Vanilla (1 per second). */
-    public static final int WITHER_DURABILITY = 576, NETHER_DURABILITY = 768;
+    public static final int WITHER_DURABILITY = 576, NETHER_DURABILITY = 768, END_DURABILITY = 960;
+    public static final ResourceKey<Item> END_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "end_wings"));
+    public static final ResourceKey<EquipmentAsset> END_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "end_wings"));
     public static final Item WITHER = new Item(wings(WITHER_DURABILITY, WITHER_ASSET).setId(WITHER_KEY));
     public static final Item NETHER = new Item(wings(NETHER_DURABILITY, NETHER_ASSET).setId(NETHER_KEY));
+    public static final Item END = new Item(wings(END_DURABILITY, END_ASSET).setId(END_KEY));
 
     private WitherWings() {}
 
@@ -56,18 +61,24 @@ public final class WitherWings {
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {
         sink.accept(WITHER_KEY, WITHER);
         sink.accept(NETHER_KEY, NETHER);
+        sink.accept(END_KEY, END);
+    }
+
+    public static boolean isWings(ItemStack stack) {
+        return stack.is(WITHER) || stack.is(NETHER) || stack.is(END);
     }
 
     /** The server config factor of a stack (1 for anything that is not a pair of wings). */
     public static float configFactor(ItemStack stack) {
         if (stack.is(WITHER)) return clamp(MobsConfig.witherWingsSpeedFactor);
         if (stack.is(NETHER)) return clamp(MobsConfig.netherWingsSpeedFactor);
+        if (stack.is(END)) return clamp(MobsConfig.endWingsSpeedFactor);
         return 1.0f;
     }
 
     /** The factor a stack flies with: the server's stamp when there is one, else the config (defaults on a client). */
     public static float factor(ItemStack stack) {
-        if (!stack.is(WITHER) && !stack.is(NETHER)) return 1.0f;
+        if (!isWings(stack)) return 1.0f;
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
         if (data == null) return configFactor(stack);
         return clamp(data.copyTag().getFloatOr(STAMP, configFactor(stack)));
@@ -75,7 +86,7 @@ public final class WitherWings {
 
     /** Server: writes the current config factor into the stack when it differs (the item sync carries it to the client). */
     public static void stamp(ItemStack stack) {
-        if (!stack.is(WITHER) && !stack.is(NETHER)) return;
+        if (!isWings(stack)) return;
         float want = configFactor(stack);
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
         if (data != null && data.copyTag().getFloatOr(STAMP, -1.0f) == want) return;
@@ -86,7 +97,7 @@ public final class WitherWings {
     public static ItemStack worn(LivingEntity entity) {
         for (EquipmentSlot slot : EquipmentSlot.VALUES) {
             ItemStack stack = entity.getItemBySlot(slot);
-            if ((stack.is(WITHER) || stack.is(NETHER)) && LivingEntity.canGlideUsing(stack, slot)) return stack;
+            if (isWings(stack) && LivingEntity.canGlideUsing(stack, slot)) return stack;
         }
         return ItemStack.EMPTY;
     }

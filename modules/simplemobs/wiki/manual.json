@@ -402,6 +402,7 @@
           "Smithing table: Strong Upgrade template (Simple Beacons) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings. Without Simple Beacons the Netherite Upgrade template takes its place. Enchantments and wear carry over.",
           "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67 m/s and 133 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
           "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2) and netherWingsSpeedFactor (default 4), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
+          "Stage 3, the End Wings (x6, endWingsSpeedFactor, 960 durability, own End look), exists but cannot be made yet: it has no recipe and no loot, its material will come from a later End boss. Until then it is only given by commands, the creative tab and the test centre.",
           "576 and 768 durability (Elytra 432), repaired with phantom membrane, fire-proof like Netherite, own feather look on the back."
         ]
       },
@@ -412,6 +413,7 @@
           "Schmiedetisch: Vorlage Starke Aufwertung (Simple Beacons) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen. Ohne Simple Beacons tritt die Netherit-Aufwertung an ihre Stelle. Verzauberungen und Abnutzung bleiben.",
           "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67 m/s und 133 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
           "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2) und netherWingsSpeedFactor (Standard 4), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
+          "Stufe 3, die End-Schwingen (x6, endWingsSpeedFactor, 960 Haltbarkeit, eigene End-Optik), gibt es schon, sie sind aber noch nicht herstellbar: kein Rezept, keine Beute, das Material kommt später von einem neuen End-Boss. Bis dahin nur per Befehl, Kreativ-Reiter und Testzentrale.",
           "576 bzw. 768 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, eigene Federoptik auf dem Rücken."
         ]
       }
@@ -612,6 +614,14 @@
       },
       "de": {
         "summary": "Schwingen Stufe 2: Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel am Schmiedetisch (ohne Simple Beacons die Netherit-Aufwertung). Raketen erreichen die vierfache Vanilla-Höchstgeschwindigkeit; 768 Haltbarkeit."
+      }
+    },
+    "simplemobs:end_wings": {
+      "en": {
+        "summary": "Stage 3 wings with an End look: rockets reach six times the Vanilla top speed; 960 durability. Not craftable yet (no recipe, no loot): the material will drop from a later End boss."
+      },
+      "de": {
+        "summary": "Schwingen Stufe 3 mit End-Optik: Raketen erreichen die sechsfache Vanilla-Höchstgeschwindigkeit; 960 Haltbarkeit. Noch nicht herstellbar (kein Rezept, keine Beute): das Material fällt später von einem neuen End-Boss."
       }
     }
   }

@@ -72,6 +72,7 @@ public final class MobsDiscover {
             "simplemobs:illusion_shard",
             "simplemobs:nether_gem",
             "simplemobs:nether_heart",
+            "simplemobs:end_wings",
             "simplemobs:nether_wings",
             "simplemobs:potion_of_silence",
             "simplemobs:shellker",
