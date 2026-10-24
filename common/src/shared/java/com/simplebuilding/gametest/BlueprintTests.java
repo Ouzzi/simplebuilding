@@ -1097,12 +1097,11 @@ public final class BlueprintTests {
         helper.assertTrue(first != null && !first.finished() && BlueprintBuilder.building(player), "no job to drop: " + first);
         BlueprintBuilder.onDisconnect(player);
         helper.assertTrue(!BlueprintBuilder.building(player), "the job survived the disconnect");
-        click(helper, player, wand, blueprint);
-        helper.assertTrue(BlueprintBuilder.building(player), "no second job to drop");
+        // Rotator/BuildingCore: no pending state for this player; the calls must be safe. (clearAll() is not
+        // called here: tests run side by side and it would wipe their jobs.)
         com.simplebuilding.items.custom.RotatorItem.onDisconnect(player);
         com.simplebuilding.items.custom.BuildingCoreItem.onDisconnect(player);
-        BlueprintBuilder.clearAll();
-        helper.assertTrue(!BlueprintBuilder.building(player) && BlueprintBuilder.heldState() == 0, "clearAll left state behind: " + BlueprintBuilder.heldState());
+        helper.assertTrue(!BlueprintBuilder.building(player), "a job came back");
         clear(helper);
         helper.succeed();
     }
