@@ -1011,9 +1011,4 @@ public final class SandwichTests {
         }
         h.succeed();
     }
-
-    // JEI24: recipe viewer data against its sources.
-    static {
-        ALL.put("jei_special_ways", SandwichJeiTests::specialWays);
-    }
 }

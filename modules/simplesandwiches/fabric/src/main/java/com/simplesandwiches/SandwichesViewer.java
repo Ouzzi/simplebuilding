@@ -17,7 +17,8 @@ import net.minecraft.world.item.Items;
 /**
  * Simple Sandwiches in the recipe viewer (JEI24), tab "Special Ways": milk ripening into butter and cheese in a cauldron
  * (was SimpleBuilding's "Cauldron and Crucible" tab), the knife's slices and the sandwich on the cutting board. Free of
- * JEI classes; registered from {@link Sandwiches#init}.
+ * JEI classes; registered from {@code SandwichesFabric} (Fabric only: the shared code meets SimpleLib only by id, here
+ * the Fabric build compiles against it).
  */
 public final class SandwichesViewer {
     public static final String NOTE = "jei.simplesandwiches.note.";

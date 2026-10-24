@@ -181,6 +181,6 @@ public final class ModuleGameTest {
 
     @GameTest
     public void jeiSpecialWays(GameTestHelper h) {
-        SandwichTests.ALL.get("jei_special_ways").accept(h);
+        com.simplesandwiches.test.SandwichJeiTests.specialWays(h);
     }
 }

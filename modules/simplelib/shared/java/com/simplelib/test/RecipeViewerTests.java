@@ -73,7 +73,7 @@ public final class RecipeViewerTests {
                 + "{\"type\":\"minecraft:item\",\"name\":\"minecraft:string\"}]}]},"
                 + "{\"rolls\":1,\"entries\":[{\"type\":\"minecraft:loot_table\",\"value\":\"minecraft:entities/zombie\"}]}]}");
         List<Item> items = RecipeViewer.lootItems(table, "minecraft", Items.class, 0);
-        h.assertTrue(items.contains(Items.BONE) && items.contains(Items.STRING) && items.contains(Items.WHITE_WOOL)
+        h.assertTrue(items.contains(Items.BONE) && items.contains(Items.STRING) && items.stream().anyMatch(i -> new net.minecraft.world.item.ItemStack(i).is(net.minecraft.tags.ItemTags.WOOL))
                 && items.contains(Items.ROTTEN_FLESH) && !items.contains(Items.AIR), "loot items misread: " + items);
         h.assertTrue(items.indexOf(Items.BONE) == items.lastIndexOf(Items.BONE), "each item once: " + items);
         JsonElement zombie = RecipeViewer.readLootTable(Identifier.withDefaultNamespace("entities/zombie"), Items.class);

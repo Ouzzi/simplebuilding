@@ -26,7 +26,6 @@ public final class Sandwiches {
 
     public static void init(java.nio.file.Path configDir) {
         com.simplesandwiches.config.SandwichConfig.load(configDir);
-        SandwichesViewer.register(); // JEI24: milk, knife and board ways in the recipe viewer (no JEI class)
     }
 
     private Sandwiches() {}

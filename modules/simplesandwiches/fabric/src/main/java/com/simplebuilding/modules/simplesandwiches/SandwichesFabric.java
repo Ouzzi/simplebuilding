@@ -16,6 +16,8 @@ public final class SandwichesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Sandwiches.init(FabricLoader.getInstance().getConfigDir());
+        // JEI24: milk, knife and board ways in SimpleLib's recipe viewer tab (Fabric only for now; no JEI class).
+        com.simplesandwiches.SandwichesViewer.register();
         Sandwiches.simpleEnd = FabricLoader.getInstance().isModLoaded("simpleend");
         ModComponents.register();
         com.simplesandwiches.registry.ModSounds.register();
