@@ -526,6 +526,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:stonecutter": ("stonecutter", "Steinmetz"),
     "minecraft:iron_ingot": ("iron ingot", "Eisenbarren"),
