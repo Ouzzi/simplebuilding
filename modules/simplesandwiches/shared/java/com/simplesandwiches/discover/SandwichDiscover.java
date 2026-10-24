@@ -53,6 +53,7 @@ public final class SandwichDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplesandwiches:*_cutting_board",
             "simplesandwiches:butter_block",
+            "simplesandwiches:butter_carpet",
             "simplesandwiches:butter_slice",
             "simplesandwiches:cake_slice",
             "simplesandwiches:cheese_and_butter",

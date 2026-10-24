@@ -122,7 +122,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 73
     },
-    "dataHash": "3152cb7b4f46"
+    "dataHash": "ea6b68b8926b"
   },
   {
     "id": "simpleriding",
@@ -423,11 +423,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 18,
+      "blocks": 19,
       "recipes": 17,
       "features": 6
     },
-    "dataHash": "fc7348a0ab85"
+    "dataHash": "1448f0cb7a4f"
   },
   {
     "id": "simplelib",
