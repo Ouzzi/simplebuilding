@@ -1,7 +1,7 @@
 """Own block sounds of the redstone lines Astral, Nihil and Bridge (owner 22.10., Queue SP22-5,
 docs/ai/PLAN-B-REDSOUND22-2026-10-22.md). Until then dust, lamps and pistons all used SoundType.AMETHYST.
 
-Usage: python tools/sounds/make_redstone_line_sounds.py [--flat DIR] [--lamp synth|vanilla] [--piston-move vanilla|synth]
+Usage: python tools/sounds/make_redstone_line_sounds.py [--flat DIR] [--lamp keep|synth|vanilla] [--piston-move vanilla|synth]
        (Python with numpy, scipy and soundfile; howler_dsp.py next to this file)
 
 Synthesised only - no samples, no Vanilla audio - so the files are committed:
@@ -138,38 +138,44 @@ def crystal(rng, n, at, f, ring, soft=False):
                  strike=0.003 if soft else 0.0012, noise_lp=3000 if soft else 9000)
 
 
+#: Lamp tuning (owner 24.10., SP22-5b: "zu grell, ohne Tiefe"): fundamental Hz, recording low-pass, partial level
+#: (higher partials are scaled down so the ring stays warm).
+LAMP_F = {"astral": 880, "nihil": 560}
+LAMP_LP = {"astral": 4800, "nihil": 2400}
+LAMP_PARTIAL = 0.55
+
+
 def lamp(seed, tint, v, step):
     rng = v.rng
-    n = n_of((0.42 if step else 0.75) * v.d)
-    p = tint.p * v.p
-    f = 1400 * p
-    x = unit(crystal(rng, n, 0.0, f, tint.ring, soft=step))
-    if not step:  # crystal core and glass housing: a second, higher strike just after
-        x += 0.55 * unit(crystal(rng, n, rng.uniform(0.018, 0.04), f * rng.uniform(1.17, 1.24), tint.ring * 0.8))
-        crack = grains(rng, n, 4000, 3000, 9000, dur=(0.0005, 0.002), density=decay(n, 0.02), amp_sd=0.6)
-        x += 0.35 * unit(crack)
-    if tint.glass > 0.1:  # Astral shimmer: a few high, slowly fading sines
+    line = "astral" if tint.glass > 0.5 else "nihil"
+    n = n_of((0.3 if step else 0.5) * v.d)
+    f = LAMP_F[line] * v.p
+    x = unit(crystal(rng, n, 0.0, f, tint.ring * 0.7, soft=True))
+    x += unit(modal(rng, n, 0.0, (f * 0.5, f * 0.25), (0.06, 0.04), (1.0, 0.6), strike=0.004, noise_lp=700)) \
+        * (0.5 + 0.7 * tint.body)  # soft low body under the glass
+    if not step:  # glass housing: a second, softer strike just after
+        x += 0.4 * unit(crystal(rng, n, rng.uniform(0.02, 0.04), f * rng.uniform(1.17, 1.24), tint.ring * 0.5, soft=True))
+    if tint.glass > 0.5:  # Astral: a faint, low-passed starry shimmer
         t = np.arange(n) / SR
-        sh = sum(np.sin(2 * np.pi * rng.uniform(5200, 8800) * t + rng.uniform(0, 6.3)) * decay(n, 0.22, rng.uniform(0.01, 0.08))
+        sh = sum(np.sin(2 * np.pi * rng.uniform(2600, 4200) * t + rng.uniform(0, 6.3)) * decay(n, 0.18, rng.uniform(0.01, 0.06))
                  for _ in range(3))
-        x += unit(sh) * 0.18 * tint.glass
-    if tint.body:  # Nihil: the crystal sits in stone
-        x += unit(modal(rng, n, 0.0, (230 * p, 420 * p), (0.035, 0.02), (1.0, 0.5), strike=0.003, noise_lp=900)) \
-             * 0.6 * tint.body
-    x = room(rng, x, wet=0.14, rt60=0.5)
-    return master(x, -33 if step else -25, lp=tint.lp + 3000, hp=150, fade_out=0.08)
+        x += unit(sh) * 0.1
+    x = room(rng, x, wet=0.12, rt60=0.4)
+    return master(x, -33 if step else -26, lp=LAMP_LP[line], hp=90, fade_in=0.006, fade_out=0.1)
 
 
 def lamp_toggle(seed, tint, v, on):
-    """Own on/off ping instead of the copper bulb: a click and two crystal tones, rising (on) or falling (off)."""
+    """Own on/off sound instead of the copper bulb: a soft click and two warm crystal tones, rising (on) or falling (off)."""
     rng = v.rng
-    n = n_of(0.24)
-    f = (2100 if tint.glass > 0.5 else 1150) * (1.0 if on else 0.8)
+    line = "astral" if tint.glass > 0.5 else "nihil"
+    n = n_of(0.3)
+    f = LAMP_F[line] * (1.0 if on else 0.82)
     a, b = (f, f * 1.5) if on else (f * 1.5, f)
-    x = 0.5 * unit(modal(rng, n, 0.0, (3200, 5100), (0.004, 0.003), (1.0, 0.5), strike=0.0008, noise_lp=9000))
-    x += unit(crystal(rng, n, 0.004, a, 0.35 * tint.ring)) + 0.8 * unit(crystal(rng, n, 0.05, b, 0.45 * tint.ring))
+    x = 0.4 * unit(modal(rng, n, 0.0, (1800, 2600), (0.005, 0.004), (1.0, 0.5), strike=0.002, noise_lp=3500))
+    x += unit(crystal(rng, n, 0.004, a, 0.3 * tint.ring, soft=True)) + 0.8 * unit(crystal(rng, n, 0.05, b, 0.4 * tint.ring, soft=True))
+    x += 0.5 * unit(modal(rng, n, 0.0, (f * 0.5,), (0.07,), (1.0,), strike=0.004, noise_lp=700))
     x = room(rng, x, wet=0.1, rt60=0.3)
-    return master(x, -28, lp=tint.lp + 3000, hp=200, fade_out=0.05)
+    return master(x, -29, lp=LAMP_LP[line], hp=90, fade_in=0.006, fade_out=0.08)
 
 
 # --- piston: stone and mechanics ------------------------------------------------------------------------------------
@@ -295,7 +301,7 @@ def write(path, x):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--flat", help="write every take to this folder (preview), leave the repository alone")
-    ap.add_argument("--lamp", choices=("synth", "vanilla"), default="synth")
+    ap.add_argument("--lamp", choices=("synth", "vanilla", "keep"), default="keep")
     ap.add_argument("--piston-move", choices=("vanilla", "synth"), default="vanilla")
     args = ap.parse_args()
     made = files()
@@ -304,10 +310,15 @@ def main():
             write(os.path.join(args.flat, name.replace("/", "__") + ".ogg"), make())
         print(f"{len(made)} takes -> {args.flat}")
         return
-    entries = events(args.lamp, args.piston_move)
+    # keep: the lamp files stay as committed (ElevenLabs takes, owner 24.10.); the synth lamp is the A/B candidate "synth"
+    entries = events("synth" if args.lamp == "keep" else args.lamp, args.piston_move)
     keep = set(used_files(entries))
     root = os.path.join(ASSETS, "sounds", "block")
+    if args.lamp == "keep":
+        keep = {k for k in keep if BLOCKS[k.split("/")[0]][0] != "lamp"}
     for block in BLOCKS:  # drop takes the chosen variants no longer use
+        if args.lamp == "keep" and BLOCKS[block][0] == "lamp":
+            continue
         folder = os.path.join(root, block)
         if os.path.isdir(folder):
             for f in os.listdir(folder):
