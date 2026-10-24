@@ -103,6 +103,14 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Besitzer 24.10. vormittags – Wahlen zu den Nacht-Vorschauen (WA24)
+- [~] (B, b-wa24trim, 24.10.) WA24-1 Inverser Besatz in 3 Stufen (statt einer Variante): Stufe 1 = HARD (flach), Stufe 2 = RIM (1-px-Rand), Stufe 3 = breiterer Rand mit zusätzlichem 1-px-Übergang (weicher Verlauf). Stufen-Erwerb analog Umwandlungs-Schema/Conduit (Agent schlägt vor, z. B. erneut umwandeln = nächste Stufe). Vorschau aller 3 Stufen.
+- [~] (B, b-wa24wings, 24.10.) WA24-2 Wither-/Nether-Schwingen: Look A ist gut, aber Grundform ≈ Vanilla-Elytra (leicht verändert), Muster von A darauf; Stufe 1 und Stufe 2 je eigenes Muster, Standard-Optik eher wie Stufe 2. Neue Stufe 3 (Item + Optik + Tempo-Faktor) existiert, ist aber vorerst NICHT herstellbar (Material fehlt: später Item von einem neuen End-Boss → eigener Queue-Punkt „End-Boss-Material“, nur notieren). Vorschau vor Einbau.
+- [~] (B, b-wa24butter, 24.10.) WA24-3 Butter-Teppich: Form wie Vanilla-Teppich (Variante A), zusätzlich sinkt man leicht ein (wie Seelensand/Schnee-Gefühl) und rutscht; danach Slippery-Effekt wie NA24-5.
+- [~] (B, b-wa24butter, 24.10.) WA24-4 Gefärbte Köcher: Pfeilfedern heben sich vom getönten Rohr nicht ab, v. a. Weiß → Kontrast sichern (Federn/Umriss nicht mittönen oder dunkler Rand). Vorschau mit allen 16 Farben.
+- [~] (B, b-wa24gem, 24.10.) WA24-5 Nether-Juwel (nether_gem): Textur cooler, Animation langsam, mystisch/episch. Exemplarisch 2–3 Varianten (GIF).
+- [~] (B, b-wa24earth, 24.10.) WA24-6 Simple-Earth-Vorschau: Fehler – beim Überqueren einer Kante springt das Bild ruckartig statt fließend; Wechsel/Umklappen der anderen Seite verbessern. Neue Varianten V4, V5, V6 ausarbeiten, je eigene Vorschau, plus Spieler-Ansicht (Ich-Perspektive: was der Spieler im Orbit sieht). Quelle /root/sb-tools-a/previews/earth-konzept.html, Konzept docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md.
+
 ## Besitzer 24.10. 00:20 – Nachträge aus alter Sitzung (NA24)
 - [x] (B, b-shops24, 24.10.) NA24-1 Trade Terminal nur mit Behutsamkeit (Silk Touch) abbaubar, sonst droppt nur ein Lesepult. → Loot nur mit Behutsamkeit, sonst Lesepult; Test terminal_drops_lectern_without_silk_touch
 - [x] (B, b-shops24, 24.10.) NA24-2 Rezepte: Sales-Block + oben ein Trichter; Sales Storage zwei Trichter (einer oben Mitte, einer unten Mitte); Display = Holzdruckplatte unten, Glasblock, ringsum Eisennuggets. → Verkaufsblock PHP/IEI/PCP (Trichter ersetzt oberes Mittelbrett – Besitzer bestätigen), Lager PHP/IEI/PHP, Vitrine NNN/NGN/NPN; Test shops_recipes_na24
