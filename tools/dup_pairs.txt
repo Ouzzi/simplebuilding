@@ -1,0 +1,115 @@
+# core path, module path, allow: drift accepted so far (tools/check_dup_impl.py --baseline rewrites this)
+common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java allow: CheckerShapes/4 EndAlternates/4 EndPalette/14 alternates/0 blocks/0 boards/0 hammockBlockEntityBlocks/0 lightPanes/0 register/0 registerModBlocks/0 slabs/0 squareChain/0 stairs/0 tieredChests/0 trappedCopperChests/0 walls/0
+common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java allow: canSurvive/3 codec/0 getStateForPlacement/1 onPlace/5 storedStack/1 tick/4 updateShape/8
+common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
+common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlock.java allow: codec/0 isQuiver/0 onPlace/5 storedStack/1 tick/4
+common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlockEntity.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlockEntity.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
+common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java allow: create/0
+common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java allow: palette/2 slotColor/1
+common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestScreen.java
+common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackTooltip.java
+common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackBlockTint.java
+common/src/shared/java/com/simplebuilding/client/render/BackpackLayer.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java
+common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java
+common/src/shared/java/com/simplebuilding/client/render/QuiverLayer.java modules/simplestorage/shared/java/com/simplestorage/client/QuiverLayer.java allow: backItem/1
+common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestRenderer.java
+common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TieredShulkerBoxRenderer.java
+common/src/shared/java/com/simplebuilding/client/render/TrappedCopperChestRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/TrappedCopperChestRenderer.java
+common/src/shared/java/com/simplebuilding/client/render/TrimPulseTextures.java modules/simpletrims/shared/java/com/simpletrims/client/TrimPulseTextures.java
+common/src/shared/java/com/simplebuilding/component/BackpackContents.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackContents.java
+common/src/shared/java/com/simplebuilding/component/ContainerCounts.java modules/simplestorage/shared/java/com/simplestorage/chest/ContainerCounts.java
+common/src/shared/java/com/simplebuilding/config/ConfigOptions.java modules/simplevisuals/shared/java/com/simplevisuals/ConfigOptions.java allow: Option/3 Option/7 all/0 all/1 appliesOnReload/0 clientSide/0 defaultValue/0 get/0 hidden/0 hidden/1 hiddenFields/0 isValueType/1 normalize/1 recipesOnReload/0 restartRequired/0 set/1 set/2 type/0 typeName/0 visible/0
+common/src/shared/java/com/simplebuilding/effect/ModEffects.java modules/simplefun/shared/java/com/simplefun/registry/ModEffects.java allow: holder/0 registerEffects/0 registerPotions/0
+common/src/shared/java/com/simplebuilding/effect/ModEffects.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModEffects.java allow: friction/2 register/0 registerEffects/0 registerPotions/0 slip/2
+common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java modules/simplefun/shared/java/com/simplefun/registry/ModEnchantments.java allow: bootstrap/1
+common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlockEntity.java
+common/src/shared/java/com/simplebuilding/entity/ModEntities.java modules/simplefun/shared/java/com/simplefun/registry/ModEntities.java allow: registerModEntities/0
+common/src/shared/java/com/simplebuilding/entity/vehicle/TieredFurnaceMinecart.java modules/simpleovens/shared/java/com/simpleovens/cart/TieredFurnaceMinecart.java allow: fuelFactor/1 topSpeedShare/1
+common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplefun/shared/java/com/simplefun/registry/ModItems.java allow: createEnchantedEnderiteFoodEffects/0 createEnchantedNetheriteFoodEffects/0 createEnderiteFoodEffects/1 createNetheriteFoodEffects/1 registerModItems/0 trappedCopperChests/0
+common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java allow: createEnchantedEnderiteFoodEffects/0 createEnchantedNetheriteFoodEffects/0 createEnderiteFoodEffects/1 createNetheriteFoodEffects/1 register/0 registerModItems/0 trappedCopperChests/0
+common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java allow: carriedEntries/1 refillHandFromWornBackpack/3 replaceSlot/3
+common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java
+common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
+common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
+common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
+common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTooltipData.java
+common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simplemoney/shared/java/com/simplemoney/WeightedEnchantFunction.java
+common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simpleriding/shared/java/com/simpleriding/WeightedEnchantFunction.java
+common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/AbstractArrowPickupMixin.java
+common/src/shared/java/com/simplebuilding/mixin/AbstractFurnaceMenuMixin.java modules/simpleovens/shared/java/com/simpleovens/mixin/AbstractFurnaceMenuMixin.java
+common/src/shared/java/com/simplebuilding/mixin/BowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/BowItemMixin.java
+common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplemaps/shared/java/com/simplemaps/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
+common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplemusic/shared/java/com/simplemusic/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
+common/src/shared/java/com/simplebuilding/mixin/CarvedStairMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/CarvedStairMixin.java
+common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/CrossbowItemMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplebeacons/shared/java/com/simplebeacons/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleblocks/shared/java/com/simpleblocks/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplecrucibles/shared/java/com/simplecrucibles/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplelib/shared/java/com/simplelib/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplemusic/shared/java/com/simplemusic/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleoctets/shared/java/com/simpleoctets/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleovens/shared/java/com/simpleovens/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplesandwiches/shared/java/com/simplesandwiches/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/DisplayStrikeAccessor.java
+common/src/shared/java/com/simplebuilding/mixin/ItemDisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/ItemDisplayStrikeAccessor.java
+common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/ItemEntityMixin.java allow: getItem/0
+common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java modules/simpletrims/shared/java/com/simpletrims/mixin/ItemUseOnMixin.java
+common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/mixin/LivingEntityMixin.java
+common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/LivingEntityMixin.java allow: getItemBlockingWith/0 isFallFlying/0
+common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/simplefun/fabric/src/main/java/com/simplefun/mixin/fabric/PlayerEntityMixin.java allow: getInventory/0
+common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/simplefun/forge/src/main/java/com/simplebuilding/modules/simplefun/forge/mixin/PlayerEntityMixin.java allow: getInventory/0
+common/src/shared/java/com/simplebuilding/mixin/ShapelessRecipeMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/ShapelessRecipeMixin.java
+common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java modules/simplefun/shared/java/com/simplefun/mixin/ItemMixin.java
+common/src/shared/java/com/simplebuilding/mixin/client/MultiPlayerGameModeHammerProgressMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/client/MultiPlayerGameModeHammerProgressMixin.java
+common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackUpgradeRecipe.java
+common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleRecipe.java
+common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackArmorSlot.java
+common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackContainer.java
+common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackLayout.java
+common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackMenu.java allow: extraSlots/0
+common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackMenuProviders.java allow: open/2 openCarriedIfAllowed/1
+common/src/shared/java/com/simplebuilding/screen/BackpackOpenData.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackOpenData.java
+common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackSlot.java
+common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestMenu.java
+common/src/shared/java/com/simplebuilding/screen/TieredChestOpenData.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestOpenData.java
+common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestSlot.java
+common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java modules/simplestorage/shared/java/com/simplestorage/backpack/WornBackpackContainer.java
+common/src/shared/java/com/simplebuilding/tweaks/heads/HeadAbilities.java modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java allow: active/2 calmsBees/1 dig/3 flickerTorches/2 friction/2 gaze/3 greet/2 interact/3 is/2 jumpPower/2 layEgg/2 muffledStep/1 ramKnockback/1 resetForTests/1 scaresCreepers/1 seed/1 sniffGround/1 sparesTurtleEggs/1 tick/1 truffle/1 truffleGround/1 wolvesSpare/1
+common/src/shared/java/com/simplebuilding/tweaks/mixin/FireBlockInvoker.java modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/FireBlockInvoker.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/FireBlockInvoker.java modules/simplestorage/shared/java/com/simplestorage/mixin/FireBlockInvoker.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityConsumeEffectMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityConsumeEffectMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityEntityMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityEntityMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityFarmlandMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityFarmlandMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityLivingEntityMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityLivingEntityMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityPlayerMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityPlayerMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityShulkerBoxMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityShulkerBoxMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/SkullBlockEntityTypeMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/client/WornModHeadMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/WornModHeadMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 limit/2 limit/3 max/2 mirror/2 tryRemove/3
+common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
+common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java modules/simpleovens/shared/java/com/simpleovens/LongCookContainerData.java
+common/src/shared/java/com/simplebuilding/util/ModSounds.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModSounds.java allow: register/0 registerSounds/0
+common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplefun/shared/java/com/simplefun/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1
+common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1
+common/src/shared/java/com/simplebuilding/util/MusicDiscs.java modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java allow: Disc/2 Disc/5 Song/4 aSide/0 archaeology/0 bSide/0 bootstrap/1 discs/0 hasTrack/1 items/0 length/1 loot/3 register/1 song/0 songKey/1 songNames/0 sound/0 soundId/1 trackFile/1 trackName/1 tracks/0
+common/src/shared/java/com/simplebuilding/util/OwnedLightHolder.java modules/simpletrims/shared/java/com/simpletrims/light/OwnedLightHolder.java
+common/src/shared/java/com/simplebuilding/util/PlacedBundles.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundles.java allow: arrowsShown/1
+common/src/shared/java/com/simplebuilding/util/PlacedPlate.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedPlate.java allow: buildDisc/2 discPlace/3
+common/src/shared/java/com/simplebuilding/util/PlacedSolids.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedSolids.java allow: discBoxes/0 has/1 modelId/1 modelId/2
+common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java allow: consumeMaterials/1 extraMaterials/1 hasMaterials/1 isHammerStance/1 isHammerTarget/3 isPlaceGesture/3 isPlaceable/1 isPlaceableBlueprint/1 isPlaceableOctant/1 isPlaceableSmall/1 isPlaceableTemplate/1 isPlacedOctant/2 isToolStance/1 isToolTarget/3 isTrimTemplate/1 itemListed/2 leftToSimpleTrims/1 mayChange/3 migrateToSimpleTrims/4 opensPlacedBlueprint/2 toggleFlat/5 toggleOctantOutline/4 upgrades/0 usePlacedBlueprint/3
+common/src/shared/java/com/simplebuilding/util/ShulkerShells.java modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java allow: canUpgrade/3 shellOf/1 targetIndex/2 upgrade/4
+common/src/shared/java/com/simplebuilding/util/StorageDyes.java modules/simplestorage/shared/java/com/simplestorage/bundle/StorageDyes.java
+common/src/shared/java/com/simplebuilding/util/TieredChests.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChests.java allow: maxStackSize/3
+common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxes.java
+common/src/shared/java/com/simplebuilding/util/TrimUpgrades.java modules/simpletrims/shared/java/com/simpletrims/TrimUpgrades.java allow: Upgrade/2
