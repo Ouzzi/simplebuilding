@@ -19,7 +19,7 @@ public final class FabricItemAutomation implements ItemAutomation {
 
     /** An outer transaction, or a nested one when a transfer operation of another mod is running on this thread (openOuter would throw). */
     private static Transaction open() {
-        Transaction current = Transaction.getCurrentUnsafe();
+        net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext current = Transaction.getCurrentUnsafe();
         return current == null ? Transaction.openOuter() : Transaction.openNested(current);
     }
 
