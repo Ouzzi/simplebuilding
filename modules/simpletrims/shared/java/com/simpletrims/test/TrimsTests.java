@@ -187,8 +187,12 @@ public final class TrimsTests {
             h.assertTrue(TrimGlow.isPulsating(pulsing) && TrimGlow.getGlowLevel(pulsing) == 1, "Pulsating combines with Glowing: " + pulsing);
             h.assertTrue(smith(table, TrimsRegistry.PULSATING_TRIM_TEMPLATE, pulsing, Items.ECHO_SHARD).isEmpty(), "Pulsating only once");
             ItemStack inverted = smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, pulsing, Items.INK_SAC);
-            h.assertTrue(TrimGlow.isInverted(inverted) && TrimGlow.isPulsating(inverted) && TrimGlow.getGlowLevel(inverted) == 1, "Inverting combines: " + inverted);
-            h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, inverted, Items.INK_SAC).isEmpty(), "Inverting only once");
+            h.assertTrue(TrimGlow.getInvertLevel(inverted) == 1 && TrimGlow.isPulsating(inverted) && TrimGlow.getGlowLevel(inverted) == 1, "Inverting combines: " + inverted);
+            ItemStack stage2 = smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, inverted, Items.INK_SAC);
+            h.assertTrue(TrimGlow.getInvertLevel(stage2) == 2 && TrimGlow.isPulsating(stage2), "Inverting stage 2: " + stage2);
+            ItemStack stage3 = smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, stage2, Items.INK_SAC);
+            h.assertTrue(TrimGlow.getInvertLevel(stage3) == 3, "Inverting stage 3: " + stage3);
+            h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, stage3, Items.INK_SAC).isEmpty(), "Inverting stage 3 stays");
             h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, armor, Items.GLOW_INK_SAC).isEmpty(), "glow ink does not invert");
             h.assertTrue(smith(table, TrimsRegistry.GLOWING_TRIM_TEMPLATE, armor, Items.GLOWSTONE_DUST).isEmpty(), "wrong material: nothing");
             h.assertTrue(smith(table, TrimsRegistry.GLOWING_TRIM_TEMPLATE, new ItemStack(Items.STICK), Items.GLOW_INK_SAC).isEmpty(), "no armor: nothing");
@@ -216,9 +220,9 @@ public final class TrimsTests {
             wrongTool().ifPresent(wrong -> h.assertTrue(craft(h, pulsatingGrid(wrong)).isEmpty(), "the other tool does not craft: " + wrong));
             h.succeed();
         });
-        // Inverting upgrade as pure maths: pattern cut out, rest filled, rim only in RIM mode, ghost keeps a veil.
+        // Inverting upgrade as pure maths: pattern cut out, rest filled; stage 2 adds a 1 px rim, stage 3 a 2 px rim + 1 px transition.
         ALL.put("trim_inversion", h -> {
-            int w = 4, hgt = 3;
+            int w = 8, hgt = 3;
             int[] pattern = new int[w * hgt];
             pattern[1 * w + 1] = 0xFFFFFFFF;
             pattern[1 * w + 2] = 0xFFFFFFFF;
@@ -226,9 +230,12 @@ public final class TrimsTests {
             int[] hard = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
             h.assertTrue(hard[1 * w + 1] == 0 && hard[1 * w + 2] == 0 && hard[0] == fill && hard[1 * w] == fill, "hard: cut-out + flat fill");
             int[] withRim = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.RIM);
-            h.assertTrue(withRim[1 * w] == rim && withRim[1 * w + 3] == rim && withRim[2 * w + 1] == rim && withRim[0] == fill, "rim: border around the cut-out only");
-            int[] ghost = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.GHOST);
-            h.assertTrue((ghost[1 * w + 1] >>> 24) == com.simpletrims.TrimInversion.GHOST_ALPHA && ghost[0] == fill, "ghost: faint pattern");
+            h.assertTrue(withRim[1 * w] == rim && withRim[1 * w + 3] == rim && withRim[2 * w + 1] == rim && withRim[0] == fill && withRim[1 * w + 4] == fill, "rim: 1 px border around the cut-out only");
+            int[] soft = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.SOFT);
+            int mid = soft[1 * w + 5];
+            h.assertTrue(soft[1 * w + 3] == rim && soft[1 * w + 4] == rim && mid != rim && mid != fill && soft[1 * w + 6] == fill && soft[1 * w + 1] == 0, "soft: 2 px rim, 1 px transition, then fill");
+            h.assertTrue(com.simpletrims.TrimInversion.mode(1) == com.simpletrims.TrimInversion.Mode.HARD && com.simpletrims.TrimInversion.mode(2) == com.simpletrims.TrimInversion.Mode.RIM
+                    && com.simpletrims.TrimInversion.mode(3) == com.simpletrims.TrimInversion.Mode.SOFT, "stage -> mode");
             int[] twice = com.simpletrims.TrimInversion.invert(hard, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.HARD);
             h.assertTrue(twice[1 * w + 1] == fill && twice[0] == 0, "inverting twice swaps back the mask");
             int[] colours = com.simpletrims.TrimInversion.colours(new int[] {0xFFFFFFFF, 0xFFC0C0C0, 0xFF808080, 0xFF404040, 0xFF202020}, pattern);

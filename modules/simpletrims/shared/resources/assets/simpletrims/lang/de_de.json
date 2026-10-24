@@ -34,7 +34,7 @@
   "item.simpletrims.inverting_trim_template.ingredients": "Tintenbeutel",
   "item.simpletrims.inverting_trim_template.base_slot_description": "Rüstung hinzufügen",
   "item.simpletrims.inverting_trim_template.additions_slot_description": "Tintenbeutel hinzufügen",
-  "tooltip.simpletrims.inverted": "Invertiert",
+  "tooltip.simpletrims.inverted_level": "Invertiert %s",
   "tooltip.simpletrims.inverted.desc": "Muster ausgespart, Rüstung nimmt Farbe an",
   "jei.simpletrims.note.in_world": "Vorlage ablegen, dann %s-mal mit dem Werkzeug schlagen (Tinte in der Nebenhand).",
   "jei.simpletrims.note.durability": "Kostet das Werkzeug %s Haltbarkeit je Schlag.",
