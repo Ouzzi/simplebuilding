@@ -48,7 +48,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 Ältere Abschnitte sind aufgelöst: ihre offenen Zeilen stehen unter „Offene Einzelpunkte“ mit Herkunft, das Erledigte im Archiv (23.10.).
 
 ### (A) In Arbeit
-- B (ab 24.10. 01:00 dt.): Bündel 55 GRÜN → master 9815ae661 (24.10. 04:50 UTC: b-revmid24, b-revcore24, b-revlow24 Review-Fixes; b-kitchen24 NA24-4/5/7; b-aud6 AUD-6 Bild→Kartenwand). Davor Bündel 54 → 0c311307a. Laufen für Bündel 56: b-octhammer24 (+b-music24 NA24-8), b-revrest24 (fertig), b-revvault24, b-revmixin24, b-revstate24, b-revtrim24.
+- B (ab 24.10. 01:00 dt.): Bündel 56 GRÜN → master 292858d10 (24.10. 06:30 UTC: b-revvault24, b-revmixin24 ohne Client-Mixins (geparkt b-revmixin24-client), b-revtrim24 inkl. b-revrest24). Davor 55 → 9815ae661, 54 → 0c311307a. Laufen für Bündel 57: b-octhammer24 (+b-music24 NA24-8), b-revstate24 (fertig), b-revupload24 (fertig), b-flakydim24, b-revbackup24, b-revlight24.
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (1) Wartet auf Besitzer-Wahl → Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
