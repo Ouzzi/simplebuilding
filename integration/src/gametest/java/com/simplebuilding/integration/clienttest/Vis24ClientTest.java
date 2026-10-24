@@ -301,9 +301,9 @@ public final class Vis24ClientTest implements FabricClientGameTest {
     // ---- items with a screen --------------------------------------------------------------------------------------
 
     private void items(ClientGameTestContext context, TestSingleplayerContext world) {
-        List<String> ids = new ArrayList<>(List.of("simplemusic:sheet_music", "simplemusic:blank_disc",
-                "simplemaps:wayfinder_map", "simplemaps:picture_map", "simpletweaks:claim_deed",
-                "simplebuilding:octant", "simplebuilding:netherite_building_wand"));
+        // (octant and wand screens open by key, the core client suite photographs them)
+        List<String> ids = new ArrayList<>(List.of("simplemusic:sheet_music", "simplemaps:wayfinder_map",
+                "simpletweaks:claim_deed"));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             // German pass: the mega guide only (the module books are Vanilla books, they wrap by themselves).
             if (id.getPath().startsWith("guide_book") && (lang.isEmpty() || id.toString().equals("simplebuilding:guide_book"))) {
