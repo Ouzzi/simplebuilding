@@ -21,7 +21,8 @@ public abstract class PiggyFoodMixin {
   private void simplefun$onCompleteUsingItem(CallbackInfo ci) {
     if ((Object) this instanceof net.minecraft.server.level.ServerPlayer player)
       com.simplefun.FunDelights.food(player, this.useItem);
-    if (!SimplefunCommon.getConfig().fun.enablePiggyEffect) return;
+    // Super-mod switch off = inert (REV2-A: the piggy effect still came with every porkchop).
+    if (!SimplefunCommon.on() || !SimplefunCommon.getConfig().fun.enablePiggyEffect) return;
 
     LivingEntity entity = (LivingEntity) (Object) this;
     if (this.useItem.is(Items.PORKCHOP) || this.useItem.is(Items.COOKED_PORKCHOP)) {

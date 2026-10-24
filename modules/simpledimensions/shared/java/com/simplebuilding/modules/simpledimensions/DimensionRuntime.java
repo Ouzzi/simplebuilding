@@ -71,7 +71,7 @@ public final class DimensionRuntime {
    ||permittedPortal(p,l,at,be,config(be.definition)));
  }
  public record ReturnAddress(String dimension,long pos){}
- private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;}
+ private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;long rescueAt;}
  public static DimensionRuntime get(MinecraftServer s){return SERVERS.computeIfAbsent(s,DimensionRuntime::new);}
  public static void stop(MinecraftServer s){SERVERS.remove(s);}
  private DimensionRuntime(MinecraftServer s){
@@ -127,7 +127,8 @@ public final class DimensionRuntime {
      if(++c.warmup>delay){c.warmup=0;if(travel(p,touched)) {c.cooldown=server.getTickCount()+Math.max(settings.teleportCooldownTicks,cfg==null?60:cfg.teleportCooldownTicks);c.exit=true;}else{c.cooldown=server.getTickCount()+20;signal(l,touched,false);}}
     }
    }
-   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimension")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))) emergencyReturn(p);
+   if(p.level()==l&&l.dimension().identifier().getNamespace().equals("simpledimension")&&(p.getY()<l.getMinY()+3||configs.stream().noneMatch(d->d.targetDimensionId.equals(l.dimension().identifier().toString())))
+    &&server.getTickCount()>=c.rescueAt&&!emergencyReturn(p))c.rescueAt=server.getTickCount()+20; // REV2-A: a failed rescue (chunk loads, ~3000 checks) retries once a second, not every tick
  }
  private BlockPos findTouched(ServerLevel l,ServerPlayer p){
   var box=p.getBoundingBox();if(box.maxX-box.minX>3||box.maxY-box.minY>5||box.maxZ-box.minZ>3)return null;for(var q:BlockPos.betweenClosed(BlockPos.containing(box.minX,box.minY,box.minZ),BlockPos.containing(box.maxX,box.maxY,box.maxZ)))if(DimensionRegistry.portal(l.getBlockState(q)))return q.immutable();return null;

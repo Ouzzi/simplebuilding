@@ -240,9 +240,15 @@ public final class CrucibleTests {
             if (resaved == null || resaved.toString().contains(from.toString())) problems.add("stack saved back as " + resaved);
             // block state palette entry of a chunk
             net.minecraft.nbt.CompoundTag state = net.minecraft.nbt.NbtUtils.writeBlockState(block.defaultBlockState());
-            state.putString("Name", from.toString());
+            // 26.3 palette entries name the block under "id" (BlockState.CODEC, NbtUtils); the old probe set "Name" and never read the old id.
+            if (!state.contains("id")) problems.add("palette entry without id: " + state);
+            state.remove("Name");
+            state.putString("id", from.toString());
             if (!net.minecraft.nbt.NbtUtils.readBlockState(h.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), state).is(block))
                 problems.add("palette " + state);
+            // The chunk section codec decodes the palette through BlockState.CODEC.
+            BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, state).result().orElse(null);
+            if (decoded == null || !decoded.is(block)) problems.add("chunk codec loads " + state + " as " + decoded);
         }
         var blank = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("simplelib:crucible_blank"));
         if (blank != CrucibleBlocks.CRUCIBLE_BLANK) problems.add("the old crucible blank does not resolve");
@@ -586,6 +592,18 @@ public final class CrucibleTests {
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
         ItemStack axe = new ItemStack(Items.IRON_AXE);
+        if (com.simplelib.api.SimpleLibApi.axeWaysEnabled()) {
+            // REV2-A: the axe way runs at the head of ItemStack.useOn (before Vanilla's Adventure check) - it must not build for non-builders.
+            net.minecraft.world.entity.player.Player adventurer = h.makeMockPlayer(GameType.ADVENTURE);
+            adventurer.getAbilities().mayBuild = false; // the mock player keeps default abilities
+            adventurer.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
+            ItemStack adventureAxe = new ItemStack(Items.IRON_AXE);
+            adventurer.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, adventureAxe);
+            adventureAxe.useOn(new net.minecraft.world.item.context.UseOnContext(adventurer, net.minecraft.world.InteractionHand.MAIN_HAND,
+                    new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs), Direction.UP, abs, false)));
+            check(h, h.getLevel().getBlockState(abs).is(Blocks.CAULDRON) && adventurer.getOffhandItem().getCount() == 16,
+                    "Adventure mode builds nothing: " + h.getLevel().getBlockState(abs));
+        }
         check(h, !CrucibleBlankBlock.fitsNext(0, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE)), "pressure plates are no longer a part");
         check(h, CrucibleBlankBlock.strikesAt(Blocks.WATER_CAULDRON.defaultBlockState()) < 0
                 && CrucibleBlankBlock.strikesAt(Blocks.IRON_BLOCK.defaultBlockState()) < 0, "only an empty cauldron starts the build");

@@ -783,6 +783,15 @@ public final class EndTests {
             mite.snapTo(abs.getX() + 0.5, abs.getY(), abs.getZ() + 0.5, 0f, 0f);
             mite.setNoAi(true);
             h.getLevel().addFreshEntity(mite);
+            var rules = h.getLevel().getGameRules();
+            boolean griefing = rules.get(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING);
+            try {
+                // REV2-A: mobGriefing off - the mite chews, the End stone stays.
+                rules.set(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING, false, h.getLevel().getServer());
+                h.assertTrue(!mite.nibble() && h.getBlockState(at.below()).is(Blocks.END_STONE), "mobGriefing off keeps the End stone");
+            } finally {
+                rules.set(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING, griefing, h.getLevel().getServer());
+            }
             h.assertTrue(mite.nibble(), "nibbles the End stone below");
             h.assertTrue(h.getBlockState(at.below()).is(EndRegistry.BURROWED_END_STONE), "End stone became Burrowed End Stone");
             h.assertTrue(!mite.nibble(), "burrowed stone is not nibbled again");

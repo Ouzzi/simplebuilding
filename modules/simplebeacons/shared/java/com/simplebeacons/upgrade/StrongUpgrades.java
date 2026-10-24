@@ -88,7 +88,11 @@ public final class StrongUpgrades {
         InWorldStrikes.clearPreview(level, pos);
         if (!player.hasInfiniteMaterials()) {
             int star = starSlot(player);
-            if (star < 0) return;
+            if (star < 0) {
+                // The star was put away between the strikes: same answer as a first strike without it (REV2-A).
+                level.playSound(null, pos, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.5F, 1.4F);
+                return;
+            }
             player.getInventory().getItem(star).shrink(1);
             player.getOffhandItem().shrink(1);
         }

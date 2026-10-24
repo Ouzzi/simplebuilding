@@ -103,6 +103,12 @@ public final class FunTests {
       // buildContents directly: tryRebuildTabContents is a no-op while its parameters stay the same.
       funTab().buildContents(displayParameters(h));
       h.assertTrue(funTab().getDisplayItems().isEmpty(), "Own tab empty while off");
+      // REV2-A: inert while off - a porkchop gives no piggy effect.
+      var p = player(h);
+      p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.PORKCHOP));
+      p.startUsingItem(net.minecraft.world.InteractionHand.MAIN_HAND);
+      for (int i = 0; i < 40; i++) p.doTick();
+      h.assertTrue(!p.hasEffect(ModEffects.holder()), "No piggy effect while off");
     } finally {
       com.simplebuilding.framework.api.SubMods.set("simplefun", sw);
       funTab().buildContents(displayParameters(h));

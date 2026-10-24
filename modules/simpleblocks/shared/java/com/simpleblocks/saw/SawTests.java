@@ -267,6 +267,12 @@ public final class SawTests {
         ServerPlayer poor = upgradeScene(h, rel, tool.copy(), SawUpgrade.NUGGETS - 1);
         h.assertTrue(!SawUpgrade.tryUpgrade(level, pos, poor, hand, hammer, rule), name + ": refused with 3 nuggets");
         h.assertTrue(h.getBlockState(rel).is(net.minecraft.world.level.block.Blocks.STONECUTTER) && poor.getInventory().countItem(Items.IRON_NUGGET) == 3, name + ": nothing used");
+        // REV2-A: a player who may not build (Adventure) changes nothing, even with tool and nuggets.
+        ServerPlayer adventurer = upgradeScene(h, rel, tool.copy(), SawUpgrade.NUGGETS + 1);
+        adventurer.setGameMode(net.minecraft.world.level.GameType.ADVENTURE);
+        h.assertTrue(!SawUpgrade.tryUpgrade(level, pos, adventurer, hand, hammer, rule), name + ": refused in Adventure mode");
+        h.assertTrue(h.getBlockState(rel).is(net.minecraft.world.level.block.Blocks.STONECUTTER)
+                && adventurer.getInventory().countItem(Items.IRON_NUGGET) == SawUpgrade.NUGGETS + 1, name + ": Adventure uses nothing");
         // Enough nuggets: the stonecutter becomes the saw facing the same way, 4 nuggets are used.
         ServerPlayer player = upgradeScene(h, rel, tool.copy(), SawUpgrade.NUGGETS + 1);
         h.assertTrue(SawUpgrade.tryUpgrade(level, pos, player, hand, hammer, rule), name + ": upgrade runs");

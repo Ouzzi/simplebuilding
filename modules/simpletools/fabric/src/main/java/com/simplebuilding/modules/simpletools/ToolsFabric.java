@@ -41,6 +41,8 @@ public final class ToolsFabric implements ModInitializer {
                 FurnaceLavaFillHandler.onRightClickBlock(p, hand, hit.getBlockPos(), hit.getDirection()));
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simpletools.network.ConfigSyncPayload.TYPE, com.simplebuilding.modules.simpletools.network.ConfigSyncPayload.STREAM_CODEC);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(s -> SimpleTools.onChange = () -> s.getPlayerList().getPlayers().forEach(ToolsFabric::sync));
+        // REV2-B-1 (done with group A): do not keep the stopped server referenced.
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(s -> SimpleTools.onChange = () -> {});
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((h, sender, s) -> sync(h.player));
     }
     private static void sync(net.minecraft.server.level.ServerPlayer p) {

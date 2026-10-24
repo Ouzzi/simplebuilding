@@ -100,9 +100,14 @@ public final class IdMovesTests {
         if (resaved == null || resaved.toString().contains(OLD + ":")) problems.add("stack is saved back as " + resaved);
 
         CompoundTag stateTag = NbtUtils.writeBlockState(block.defaultBlockState());
-        stateTag.putString("Name", OLD_BLOCK.toString());
+        // 26.3 palette entries name the block under "id" (the old probe set "Name" and never read the old id).
+        if (!stateTag.contains("id")) problems.add("palette entry without id: " + stateTag);
+        stateTag.remove("Name");
+        stateTag.putString("id", OLD_BLOCK.toString());
         BlockState state = NbtUtils.readBlockState(h.getLevel().holderLookup(Registries.BLOCK), stateTag);
         if (!state.is(block)) problems.add("palette state " + stateTag + " loads as " + state);
+        BlockState decoded = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, stateTag).result().orElse(null);
+        if (decoded == null || !decoded.is(block)) problems.add("chunk codec loads " + stateTag + " as " + decoded);
 
         Identifier unknown = Identifier.fromNamespaceAndPath(OLD, "never_moved");
         if (BuiltInRegistries.ITEM.get(unknown).isPresent() || BuiltInRegistries.BLOCK.containsKey(unknown)) problems.add(unknown + " resolves although it never moved");

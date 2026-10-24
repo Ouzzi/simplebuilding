@@ -38,7 +38,8 @@ public final class SimplefunCommon {
     try {
       config.normalize();
       Files.createDirectories(Path.of("config"));
-      Files.writeString(
+      // Atomic like every other module config (REV24-N-4): a crash mid-write must not leave half a file.
+      com.simplebuilding.framework.api.ConfigFiles.writeAtomic(
           Path.of("config/simplefun.json"),
           new GsonBuilder().setPrettyPrinting().create().toJson(config));
     } catch (Exception e) {

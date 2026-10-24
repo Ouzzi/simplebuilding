@@ -227,17 +227,23 @@ public class Nibblemite extends TamableAnimal {
         return state.is(Blocks.END_STONE) || state.is(EndRegistry.BURROWED_END_STONE);
     }
 
-    /** One nibble: End stone below becomes Burrowed End Stone (with crumbs); the mite is fed (young ones grow). */
+    /**
+     * One nibble: End stone below becomes Burrowed End Stone (with crumbs); the mite is fed (young ones grow). True when
+     * the block changed (not with the gamerule mobGriefing off).
+     */
     public boolean nibble() {
         if (!SimpleEnd.on()) return false;
         BlockPos below = blockPosition().below();
         BlockState state = level().getBlockState(below);
         if (!state.is(Blocks.END_STONE)) return false;
         level().levelEvent(2001, below, Block.getId(state));
-        level().setBlock(below, EndRegistry.BURROWED_END_STONE.defaultBlockState(), 2);
+        // Like a sheep eating grass (REV2-A): with mobGriefing off it is still fed, the block stays.
+        boolean griefing = level() instanceof net.minecraft.server.level.ServerLevel server
+                && server.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING);
+        if (griefing) level().setBlock(below, EndRegistry.BURROWED_END_STONE.defaultBlockState(), 2);
         if (isBaby()) ageUp(60);
         else heal(1.0F);
-        return true;
+        return griefing;
     }
 
     static final class NibbleGoal extends Goal {

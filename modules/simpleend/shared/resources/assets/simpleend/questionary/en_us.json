@@ -65,7 +65,7 @@
       "Wiry grass that grows on End stone, tinted grey-brown like the leaves around it."
     ],
     "use": [
-      "Shears pick it up. Bone meal spreads a few tufts onto neighbouring End stone."
+      "Shears pick it up. Bone meal spreads a few tufts onto neighboring End stone."
     ]
   },
   "end_bush": {
@@ -78,7 +78,7 @@
   },
   "nibblemite_spawn_egg": {
     "lore": [
-      "Nibblemites live in small groups in Ash Valley and the Dawnlands and wear the colours of their biome."
+      "Nibblemites live in small groups in Ash Valley and the Dawnlands and wear the colors of their biome."
     ],
     "use": [
       "They nibble End stone like sheep graze; the stone recovers by itself. Chorus fruit tempts and breeds them."

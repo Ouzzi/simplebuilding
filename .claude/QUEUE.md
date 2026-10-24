@@ -382,6 +382,24 @@ Besitzer 24.10.: „Die Befehle einmal überarbeiten, dass alles sauber ist. Zu 
 - [ ] **CMD24-2** Config-Befehl für Module ohne simplelib (farming, loot, mobmanners, movement, weather, fun, money, dimensions, end, enddragonfight, wanderers, aesthetics, opt*): simplelib bündeln (wie simpletools) oder Entscheidung Besitzer; Liste PENDING in tools/check_config_commands.py
 - [ ] **CMD24-3** simpletweaks: Record-Configs (play/admin/protect/claims) mit `ConfigCommands.server(...).gson(...)` anmelden
 - [ ] **CMD24-4** NeoForge/Forge-Hook für `ConfigCommands.registerAll` (Port-Run); simplesandwiches/simplequalityoflife melden bisher nur im Fabric-Einstieg an
+## Review 2 24.10. (REV2)
+
+Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe A (b-rev2a24): Bericht `docs/ai/REVIEW2-GRUPPE-A-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2A-2026-10-24.md`. P1/P2/kleine P3 dort behoben; hier P4 und Größeres.
+
+- [x] (B, b-rev2a24) **REV2-A Gruppe A** 14 Module geprüft (aesthetics, beacons, blocks, crucibles, dimensions, end, enddragonfight, farming, fun, hammers, interfaces, lib, loot, maps); behoben: Maps-Rahmen-Texte (P2), Nibblemite/mobGriefing (P2), 9× P3 (Beacon-Race, Stern-Rückmeldung, Säge/Tiegel-Axt nur mit `mayBuild`, Notrückkehr gedrosselt, Piggy aus, Fun-Config atomar, Gras-Umriss, BE-Englisch), neuer Wächter `tools/check_lang_keys.py` in `checkModuleData`.
+- [ ] REV2-A-1 simplebeacons: Reichweite bis 340 Blöcke per Config – Obergrenze/Hinweis für die Entity-Suche alle 80 Ticks.
+- [ ] REV2-A-2 Guide-/Wiki-Texte weiterer Module mit britischem Englisch (`tools/audit_data.py lang`: simplemodels, simplemusic, simplequalityoflife, simpletools, simpletweaks, Kern-Testzentrale).
+- [ ] REV2-A-3 simpleblocks Shapecutter: `Sawing.clientEntries`/`cachedManager` bei Disconnect bzw. Server-Stopp leeren.
+- [ ] REV2-A-4 simplecrucibles: (a) Laden kürzt Mengen über dem Stapel-Limit still – Überschuss auswerfen; (b) Feldküche nur mit `SimpleCrucibles.on()`; (c) Kupfer-Wasser auf Wasserquelle ersetzt die Quelle; (d) gerahmter Kupfereimer: `fixed`/Bau-Rechte prüfen; (e) `CrucibleTests` nutzt interne `LibComponents`.
+- [ ] REV2-A-5 simpledimensions: (a) `DimensionRuntime.save` wirft im Tick bei Schreibfehler – loggen und später erneut; (b) `CONFIG_ROOT` hängt am Arbeitsverzeichnis (Umzug mit Migration); (c) verworfene Definitionen/Rezepte über Logger melden; (d) `SkyPortalBlockEntity.getUpdateTag` ohne Link-/Anker-Koordinaten; (e) tote Klasse `ExampleItems` entfernen.
+- [ ] REV2-A-6 simpleend: leere-sichere Items bekommen Schwerkraft zurück, sobald sie über dem Weltboden liegen.
+- [ ] REV2-A-7 simpleenddragonfight: statische Kampf-Sitzung (Warteschlange mit `Player`-Objekten, Teilnehmer, Faktoren) bei `SERVER_STOPPED` über `PlayerState.onStop` zurücksetzen.
+- [x] (B, b-rev2a24) REV2-A-8 simplefarming: `onChange` bei `SERVER_STOPPED` geleert (mit REV2-B-1, auch simpletools). Offen nur InteractionGuard-Kopie (REV24-N-5).
+- [ ] REV2-A-9 simplefun: `getConfig()` normalisiert bei jedem Aufruf (auch aus `hurtServer`); Config-Pfad am Arbeitsverzeichnis; Rückstoß-Kappe wirkt auch ausgeschaltet (gewollt, im Wiki vermerken).
+- [ ] REV2-A-10 simplehammers: (a) Amboss kombiniert Hämmer verschiedener Stufen immer für 1 Stufe (Verzauberungs-Transfer ohne Kosten) – gleiche Stufe verlangen oder Vanilla-Kosten; (b) `ShapelessRecipeMixin` enger fassen; (c) Kern-Tag `simplebuilding:craftable` auf `simplehammers:*_sledgehammer` umstellen; (d) `SledgehammerProgress` liest Einträge mit `BLOCK.byNameCodec` strikt – ein Block einer entfernten Mod verwirft alle gespeicherten Schlag-Stände (eintragsweise lesen).
+- [x] (B, b-rev2a24) REV2-A-11 simpleinterfaces: `onChange` bei `SERVER_STOPPED` geleert.
+- [ ] REV2-A-12 simplelib: `CarriedStacks` Quellen-Fehler loggen; `OwnedLights.sweep` nach Chunk gruppieren; warm-blinder Menü-Sync (`WarmStackingMixin`) prüfen.
+- [ ] REV2-A-13 simplemaps: `handleTiles` Render-Aufrufe je Paket begrenzen (nicht nur Antwort-Bytes).
 
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
