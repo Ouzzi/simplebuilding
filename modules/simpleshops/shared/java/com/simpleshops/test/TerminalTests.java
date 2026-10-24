@@ -66,7 +66,8 @@ final class TerminalTests {
             ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
             silk.enchant(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
             h.assertTrue(dropsOnly(Block.getDrops(state, level, pos, null, null, silk), ShopsRegistry.TRADE_TERMINAL_ITEM), "silk touch keeps the terminal");
-            h.assertTrue(dropsOnly(Block.getDrops(state, level, pos, null, null, new ItemStack(Items.IRON_AXE)), Items.LECTERN), "an axe yields only a lectern");
+            var axeDrops = Block.getDrops(state, level, pos, null, null, new ItemStack(Items.IRON_AXE));
+            h.assertTrue(dropsOnly(axeDrops, Items.LECTERN), "an axe yields only a lectern, got " + axeDrops);
             h.assertTrue(dropsOnly(Block.getDrops(state, level, pos, null, null, ItemStack.EMPTY), Items.LECTERN), "bare hands yield only a lectern");
             h.succeed();
         });
@@ -88,12 +89,14 @@ final class TerminalTests {
             stranger.gameMode.useItemOn(stranger, level, dye, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
             h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.NONE && dye.getCount() == 2, "a stranger cannot tint");
             owner.setShiftKeyDown(false);
+            owner.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, dye);
             owner.gameMode.useItemOn(owner, level, dye, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
             h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.NONE, "without sneaking the dye is goods");
             h.assertTrue(c.box().goods().stream().anyMatch(g -> g.is(Items.DYE.red())), "dye stocked as goods");
             c.box().goods().clear();
             ItemStack dye2 = new ItemStack(Items.DYE.red(), 2);
             owner.setShiftKeyDown(true);
+            owner.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, dye2);
             owner.gameMode.useItemOn(owner, level, dye2, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
             h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.RED && dye2.getCount() == 1, "owner tints, one dye used");
             h.assertTrue(level.getBlockEntity(c.box) instanceof com.simpleshops.block.DisplayCaseBlockEntity, "the case keeps its entity");
