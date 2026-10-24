@@ -18,11 +18,26 @@ public final class ProtectionProbe {
 
     private static final Set<BlockPos> REFUSED = ConcurrentHashMap.newKeySet();
 
+    private static volatile Runnable activator;
+
     private ProtectionProbe() {
+    }
+
+    /**
+     * A loader hands in its listener registration; it runs once, with the first {@link #refuseAt}, so a real game never
+     * carries the test listener. Loaders that register their listener up front need not call this.
+     */
+    public static void activateOnFirstUse(Runnable register) {
+        activator = register;
     }
 
     /** The loader's break and place listeners refuse {@code pos} until the returned runnable runs. */
     public static Runnable refuseAt(BlockPos pos) {
+        Runnable register = activator;
+        if (register != null) {
+            activator = null;
+            register.run();
+        }
         BlockPos key = pos.immutable();
         REFUSED.add(key);
         return () -> REFUSED.remove(key);

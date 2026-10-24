@@ -705,6 +705,36 @@ public final class DeathTests {
                     && deaths.getFirst().entries.stream().anyMatch(e -> e.fate() == Fate.LYING), "fates and flags kept");
             var lost = DeathVault.lost(loaded, owner);
             h.assertTrue(lost.size() == 1 && lost.getFirst().entry().stack.getDamageValue() == 100, "stack snapshot with its damage kept");
+            // Broken data must not cost the rest of the ledger (REV24-M-9); old saves lack the optional fields.
+            var root = (net.minecraft.nbt.CompoundTag) tag;
+            var players = root.getCompoundOrEmpty("players");
+            var ownerDeaths = players.getListOrEmpty(owner.toString().toLowerCase(java.util.Locale.ROOT));
+            var deathTag = ownerDeaths.getCompoundOrEmpty(0);
+            var entryTags = deathTag.getListOrEmpty("entries");
+            entryTags.add(new net.minecraft.nbt.CompoundTag());
+            deathTag.put("entries", entryTags);
+            ownerDeaths.add(new net.minecraft.nbt.CompoundTag());
+            players.put(owner.toString(), ownerDeaths);
+            players.put("not-a-uuid", new net.minecraft.nbt.ListTag());
+            UUID other = UUID.randomUUID();
+            var otherEntry = new net.minecraft.nbt.CompoundTag();
+            otherEntry.putIntArray("entity", net.minecraft.core.UUIDUtil.uuidToIntArray(UUID.randomUUID()));
+            otherEntry.put("stack", ItemStack.CODEC.encodeStart(ops, new ItemStack(Items.DIRT)).getOrThrow());
+            otherEntry.putInt("state", Fate.LYING.id);
+            var otherEntries = new net.minecraft.nbt.ListTag();
+            otherEntries.add(otherEntry);
+            var otherDeath = new net.minecraft.nbt.CompoundTag();
+            otherDeath.putLong("time", 5);
+            otherDeath.put("entries", otherEntries);
+            var otherDeaths = new net.minecraft.nbt.ListTag();
+            otherDeaths.add(otherDeath);
+            players.put(other.toString(), otherDeaths);
+            DeathLedger tolerant = DeathLedger.CODEC.parse(ops, root).getOrThrow();
+            var kept = tolerant.deaths(owner);
+            h.assertTrue(kept.size() == 1 && kept.getFirst().entries.size() == 2, "broken entry and death skipped, the rest kept: " + kept.size());
+            h.assertTrue(tolerant.tracked(lying.getUUID()), "lying entries of the damaged player stay tracked");
+            h.assertTrue(tolerant.deaths(other).size() == 1 && tolerant.deaths(other).getFirst().entries.getFirst().age == 0
+                    && tolerant.tracked(tolerant.deaths(other).getFirst().entries.getFirst().entity), "old entry without optional fields loads, other player intact");
             SimpleTools.config().deathVaultMaxDeaths = 2;
             for (int i = 0; i < 4; i++) loaded.record(owner, 100 + i, Optional.empty(), List.of(spawn(h, new ItemStack(Items.DIRT), new BlockPos(2, 2, 2))));
             h.assertTrue(loaded.deaths(owner).size() == 2 && loaded.deaths(owner).getFirst().time == 102, "only the newest deaths are kept");

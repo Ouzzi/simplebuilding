@@ -21,8 +21,8 @@ public final class FabricBuildGuard implements BuildGuard {
 
     public static void install() {
         PlatformServices.setBuildGuard(new FabricBuildGuard());
-        // An ordinary listener like a claim mod's; it refuses only what a game test registered.
-        PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> !ProtectionProbe.refused(pos));
+        // An ordinary listener like a claim mod's, registered only when a game test first refuses a position.
+        ProtectionProbe.activateOnFirstUse(() -> PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> !ProtectionProbe.refused(pos)));
     }
 
     @Override
