@@ -24,6 +24,7 @@ HANDLED_TYPES = {
     "simpletrims:trim_upgrade": "smithing extension (TrimsJeiPlugin)",
     "simpletrims:tool_shapeless": "shapeless subclass, JEI crafting",
     "simpletweaks:claim_deed_copy": "RecipeViewer.special (DeedViewer)",
+    "simplebuilding:fletching": "RecipeViewer.special (LibServices, SimpleBuilding 26.3)",
     "simplebuilding:count_based_smithing": "SimpleBuilding's smithing extension (only loaded with SimpleBuilding)",
 }
 VANILLA_PREFIXES = ("minecraft:", "forge:", "neoforge:", "fabric:", "c:")
@@ -58,7 +59,7 @@ def main() -> int:
                 continue
             if kind and not kind.startswith(VANILLA_PREFIXES):
                 types[kind] = types.get(kind, 0) + 1
-        viewer = sorted(set(re.findall(r"RecipeViewer\.(inWorld|special|mobDrops|lootDrops)\(", java)))
+        viewer = sorted(set(re.findall(r"RecipeViewer\.(inWorld|special|mobDrops|lootDrops|info)\(", java)))
         info_class = any(p.name.endswith("JeiInfo.java") for p in module_files(mdir, "*.java"))
         plugin = "IModPlugin" in java
         mob_ok = not loot or "lootDrops" in viewer or "mobDrops" in viewer or info_class

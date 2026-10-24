@@ -196,5 +196,7 @@
   "jei.simplemusic.note.press": "In the disc press, %s s",
   "jei.simplemusic.note.press_sheet": "The sheet stays; the disc carries its music",
   "jei.simplemusic.note.copy": "Cartography table: a signed sheet on top",
-  "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy"
+  "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy",
+  "jei.simplemusic.note.disc_chest": "No recipe: found only in the chests of %s (%s in 100).",
+  "jei.simplemusic.note.disc_brushed": "No recipe: found only by brushing suspicious gravel of %s (weight %s)."
 }

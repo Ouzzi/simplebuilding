@@ -53,6 +53,9 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
         }
         registration.addRecipes(InWorldUpgradeCategory.SPECIAL, RecipeViewer.special());
         registration.addRecipes(MobDropCategory.TYPE, RecipeViewer.mobDrops());
+        for (RecipeViewer.Info page : RecipeViewer.info()) {
+            if (!page.items().isEmpty()) registration.addItemStackInfo(page.items(), page.lines().toArray(new net.minecraft.network.chat.Component[0]));
+        }
     }
 
     @Override

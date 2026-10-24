@@ -23,6 +23,20 @@ public final class MusicViewer {
 
     public static void register() {
         RecipeViewer.special(SimpleMusic.MOD_ID, MusicViewer::entries);
+        RecipeViewer.info(SimpleMusic.MOD_ID, MusicViewer::discPages);
+    }
+
+    /** The six structure discs: no recipe, only one structure's chests (or its brushed gravel) - an info page each. */
+    public static List<RecipeViewer.Info> discPages() {
+        List<RecipeViewer.Info> out = new ArrayList<>();
+        var discs = com.simplemusic.disc.MusicDiscs.DISCS;
+        var items = com.simplemusic.disc.MusicDiscs.ITEMS;
+        for (int i = 0; i < Math.min(discs.size(), items.size()); i++) {
+            var disc = discs.get(i);
+            out.add(new RecipeViewer.Info(List.of(new ItemStack(items.get(i))), List.of(Component.translatable(
+                    NOTE + (disc.archaeology() ? "disc_brushed" : "disc_chest"), disc.table().identifier().toString(), disc.weight()))));
+        }
+        return out;
     }
 
     public static List<InWorldUpgrade> entries() {

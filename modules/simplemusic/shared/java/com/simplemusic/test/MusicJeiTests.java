@@ -17,6 +17,7 @@ public final class MusicJeiTests {
         h.assertTrue(entries.stream().anyMatch(e -> e.id().equals("simplemusic/disc_press") && e.output().is(MusicRegistry.CUSTOM_DISC)
                 && e.tools().contains(MusicRegistry.DISC_PRESS_ITEM)), "disc press: " + entries);
         h.assertTrue(entries.stream().anyMatch(e -> e.id().equals("simplemusic/sheet_copy") && e.output().is(MusicRegistry.SHEET_MUSIC)), "sheet copy");
+        h.assertTrue(RecipeViewer.info(SimpleMusic.MOD_ID).size() == com.simplemusic.disc.MusicDiscs.DISCS.size(), "an info page per structure disc");
         h.succeed();
     }
 }

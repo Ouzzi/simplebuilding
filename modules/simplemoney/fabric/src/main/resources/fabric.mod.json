@@ -18,6 +18,9 @@
     ],
     "fabric-gametest": [
       "com.simplemoney.MoneyGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simplemoney.client.MoneyLinksJei"
     ]
   },
   "depends": {

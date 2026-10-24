@@ -60,6 +60,11 @@ public final class RecipeViewer {
     private static final Map<String, List<Supplier<List<InWorldUpgrade>>>> IN_WORLD = new LinkedHashMap<>();
     private static final Map<String, List<Supplier<List<InWorldUpgrade>>>> SPECIAL = new LinkedHashMap<>();
     private static final Map<String, List<Supplier<List<MobDrop>>>> MOB_DROPS = new LinkedHashMap<>();
+    private static final Map<String, List<Supplier<List<Info>>>> INFO = new LinkedHashMap<>();
+
+    /** A JEI info page: the items that carry it and its lines (for items only loot or code gives). */
+    public record Info(List<ItemStack> items, List<Component> lines) {
+    }
     private static volatile Predicate<Block> partnerShows = block -> false;
     private static volatile BiPredicate<String, Item> toolGrade = (grade, tool) -> true;
 
@@ -81,6 +86,11 @@ public final class RecipeViewer {
     /** Mob drops of {@code owner} for the tab "Mob Drops". */
     public static synchronized void mobDrops(String owner, Supplier<List<MobDrop>> drops) {
         MOB_DROPS.computeIfAbsent(owner, k -> new ArrayList<>()).add(drops);
+    }
+
+    /** Info pages of {@code owner} (items no recipe, loot tab or way shows, e.g. structure loot). */
+    public static synchronized void info(String owner, Supplier<List<Info>> pages) {
+        INFO.computeIfAbsent(owner, k -> new ArrayList<>()).add(pages);
     }
 
     /** The default loot tables of every mob of {@code namespace}, read from the jar of {@code anchor} (a class of that mod). */
@@ -130,11 +140,20 @@ public final class RecipeViewer {
         return collect(MOB_DROPS, owner);
     }
 
+    public static List<Info> info() {
+        return collect(INFO, null);
+    }
+
+    public static List<Info> info(String owner) {
+        return collect(INFO, owner);
+    }
+
     /** Owners that announced anything (tests, coverage script). */
     public static synchronized Set<String> owners() {
         Set<String> out = new LinkedHashSet<>(IN_WORLD.keySet());
         out.addAll(SPECIAL.keySet());
         out.addAll(MOB_DROPS.keySet());
+        out.addAll(INFO.keySet());
         return out;
     }
 

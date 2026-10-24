@@ -66,8 +66,10 @@ public final class LibServices {
         // enchanting table; SimpleLib's shared upgrade tab shows every other entry of the table (ovens, storage tiers, crucibles).
         com.simplelib.api.RecipeViewer.shownByPartner(block -> Simplebuilding.MOD_ID.equals(
                 net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace())
-                || block == net.minecraft.world.level.block.Blocks.COPPER_CHEST || block == net.minecraft.world.level.block.Blocks.SHULKER_BOX
+                || block == net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("copper_chest")) || block == net.minecraft.world.level.block.Blocks.SHULKER_BOX
                 || block == net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE);
+        // JEI24: the fletching table's parts (recipe type simplebuilding:fletching only feeds its recipe book) in "Special Ways".
+        com.simplelib.api.RecipeViewer.special(Simplebuilding.MOD_ID, LibServices::fletchingEntries);
         SimpleLibApi.materialLootByPartner();
         // Split stage 8b: the tiered chests and shulker boxes, their upgrade handlers and the double chest parts are Simple
         // Storage's (it registers them itself).
@@ -209,5 +211,23 @@ public final class LibServices {
     /** A blueprint build placed {@code state}: SimpleLib's tool placements (Simple Tweaks' block log listens). */
     public static void toolPlaced(ServerLevel level, net.minecraft.server.level.ServerPlayer player, BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         com.simplelib.api.ToolPlacements.placed(level, player, pos, state);
+    }
+
+    /** One entry: any tip + shaft + fletching on the fletching table gives a crafted arrow (JEI24). */
+    static java.util.List<com.simplelib.compat.jei.InWorldUpgrade> fletchingEntries() {
+        if (!com.simplebuilding.version.McVersion.FLETCHING || com.simplebuilding.items.ModItems.CRAFTED_ARROW == null) return java.util.List.of();
+        java.util.List<com.simplelib.compat.jei.InWorldUpgrade.Input> inputs = new java.util.ArrayList<>();
+        for (com.simplebuilding.fletching.FletchingRecipe.Kind kind : com.simplebuilding.fletching.FletchingRecipe.Kind.values()) {
+            java.util.List<net.minecraft.world.item.Item> parts = new java.util.ArrayList<>();
+            for (String part : kind.parts()) {
+                net.minecraft.world.item.Item item = kind.input(part);
+                if (item != net.minecraft.world.item.Items.AIR && !parts.contains(item)) parts.add(item);
+            }
+            if (parts.isEmpty()) return java.util.List.of();
+            inputs.add(new com.simplelib.compat.jei.InWorldUpgrade.Input(parts, 1));
+        }
+        return java.util.List.of(new com.simplelib.compat.jei.InWorldUpgrade("simplebuilding/fletching", inputs,
+                java.util.List.of(net.minecraft.world.item.Items.FLETCHING_TABLE), new net.minecraft.world.item.ItemStack(com.simplebuilding.items.ModItems.CRAFTED_ARROW),
+                java.util.List.of(net.minecraft.network.chat.Component.translatable("jei.simplebuilding.note.fletching"))));
     }
 }

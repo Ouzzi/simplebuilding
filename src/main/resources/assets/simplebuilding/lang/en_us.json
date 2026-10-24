@@ -3603,5 +3603,6 @@
   "simplebuilding.testcentre.blocks.row.copper_light_panes": "Copper light panes",
   "simplebuilding.testcentre.blocks.row.copper_light_panes_colored": "Colored copper panes",
   "simplebuilding.testcentre.blocks.row.sulfur_lights": "Sulfur lights",
-  "simplebuilding.testcentre.modules.itemless": "Without item"
+  "simplebuilding.testcentre.modules.itemless": "Without item",
+  "jei.simplebuilding.note.fletching": "One tip, one shaft, one fletching: a crafted arrow"
 }
