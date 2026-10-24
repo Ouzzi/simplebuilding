@@ -336,7 +336,7 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [~] (B, b-revrest24 geprüft: Jar 45,7 MB, 42 % SB-Klassen gametest; Vorschlag eigenes Sourceset + Release-Filter → Besitzer-Entscheidung) **REV24-F-14** Mod-Jar enthält Test- und Dev-Code in großem Umfang (prüfen) – `common/src/shared/java/com/simplebuilding/gametest, dev; build.gradle:121-130`
 - [x] (B, b-revcore24, Bündel 55) **REV24-F-15** DataTablesSyncPayload: Einzeldatei-Grenze entspricht der Paketgrenze – `common/.../networking/DataTablesSyncPayload.java`
 - [x] (B, verworfen b-revcore24: Fabric ohne Platzier-Event, Kompromiss in docs/MODPACK.md) **REV24-F-16** Fabric-Bauschutz feuert Abbau-Ereignisse für Platzierungen – `mc26_3/fabric/.../platform/FabricBuildGuard.java`
-- [ ] (B, b-revstate24 f9157d8e9) **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid)
+- [ ] (B, b-revstate24 f9157d8e9) **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid). TEILSTAND b-revf17: Schritt 1 erledigt (tools/check_dup_impl.py + tools/dup_pairs.txt, 114 Paare, in check als checkDupImpl); Schritt 2 offen; Schritt 3 braucht Besitzer-Freigabe
 - [ ] (B, b-revstate24 f9157d8e9) **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (erst nach dem Anvil-Mixin-Agenten)
 - [x] (B, b-revcore24, Bündel 55) **REV24-F-19** ChunkLoaderRegistry.reconcile lädt beim Wecken alle Chunks synchron (pro Tick nur N) – `common/.../tweaks/block/entity/ChunkLoaderRegistry.java`
 - [x] (B, b-revcore24, Bündel 55) **REV24-F-20** AutonomousCrafter verwirft Rest von addItem(result) – `common/.../blocks/entity/custom/AutonomousCrafterBlockEntity.java`
@@ -416,5 +416,5 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 ### Review 24.10. Zustand/Struktur (b-revstate24)
 - [x] **REV24-N-1** Pro-Spieler-Zustand: `PlayerState.onLeave/onStop` (simplelib), Fear/Herobrine/NetherRoof/TrimLight darüber geräumt (Fabric; NeoForge/Forge TODO im Plan). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md
 - [ ] **REV24-N-5** InteractionGuard 3x/Testhelfer 5x nach simplelib. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Farming braucht simplelib-Abhängigkeit)
-- [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid)
+- [ ] **REV24-F-17** doppelte Implementierungen Kern/Module (ReinforcedBundleItem u. a.). Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (Prüfskript zuerst, Löschen erst nach 26.2-Entscheid). TEILSTAND b-revf17: Schritt 1 erledigt (tools/check_dup_impl.py + tools/dup_pairs.txt, 114 Paare, in check als checkDupImpl); Schritt 2 offen; Schritt 3 braucht Besitzer-Freigabe
 - [ ] **REV24-F-18** Hammer-Amboss-Logik Kern → Simple Hammers. Plan: docs/ai/PLAN-B-REVSTATE24-2026-10-24.md (erst nach dem Anvil-Mixin-Agenten)
