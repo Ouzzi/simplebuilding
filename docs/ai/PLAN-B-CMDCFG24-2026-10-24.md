@@ -55,7 +55,7 @@ meisten Optionen, (3) `/simplemodels reload` ohne Rückmeldung, (4) keine Hilfe 
 |---|---|---|---|---|---|
 | Kern | simplebuilding.json | S+C | ConfigOptions | – | schon `/simplebuilding config` |
 | simplelib | simplelib-server.json | S | static apply/toJson (+ fremde Schlüssel `kept`) | selbst | **neu** `/simplelib config` (nur eigene Schlüssel) |
-| simplelib | simplelib-client.json | C | UiBrightness | selbst | **neu** `/simplelib clientconfig` |
+| simplelib | simplelib-client.json | C | UiBrightness | selbst | **neu** `/simpleclient simplelib` |
 | simplebeacons | simplebeacons-server.json | S | static | ja | **neu** |
 | simplecrucibles | simplecrucibles-server.json | S | static | ja | **neu** |
 | simplehammers | simplehammers-server.json | S | static | ja | **neu** |
@@ -90,11 +90,13 @@ meisten Optionen, (3) `/simplemodels reload` ohne Rückmeldung, (4) keine Hilfe 
 /<modid> config set <option> <wert>      -> Typprüfung, Grenzen der Config-Klasse, speichern, live
 /<modid> config reset <option>           -> Standardwert
 /<modid> config help                     -> Kurzhilfe
-/<modid> clientconfig …                  -> dasselbe für Client-Configs (clientseitiger Befehl, ohne Rechte)
+/simpleclient <modid> …                   -> dasselbe für Client-Configs (clientseitiger Befehl, ohne Rechte)
 ```
 Begründung: Besitzer kennt `/simplebuilding config …`; get/set/reset als Wörter vermeidet Kollisionen zwischen
-Optionsnamen und Werten; Client- und Server-Befehl brauchen getrennte Wörter (`clientconfig`), weil Fabric einen
-Client-Befehl vor dem gleichnamigen Server-Befehl auswertet.
+Optionsnamen und Werten. Client-Configs bekommen eine **eigene Wurzel** `/simpleclient`, weil Fabric einen Client-Befehl
+zuerst ausführt und einen Befehl, dessen Wurzel der Client kennt, nicht mehr an den Server gibt (geprüft in
+`ClientCommandInternals`: nur „unbekannter Befehl“ geht weiter) – eine Client-Wurzel `/<modid>` würde die
+Server-Unterbefehle verdecken.
 
 **Baustein** `com.simplelib.api.config.ConfigCommands` (simplelib, gebündelt per Regel 6a, damit standalone):
 - Ein Modul meldet seine Config einmal an: `ConfigCommands.server(MOD_ID).json(X::toJson, X::apply).file(dir.resolve(X.FILE)).register()`
@@ -117,7 +119,14 @@ Client-Befehl vor dem gleichnamigen Server-Befehl auswertet.
 - Rechte für Config-Änderungen einheitlich Stufe 2: `/simplemobheads`, `/simplefun`, `/simpletools`,
   `/simplefarming`, `/simpleloot`, `/simplemobmanners`, `/simplemovement`, `/simplequalityoflife submod`,
   `/simplevisuals config` (bisher 3/4). Keine Funktion entfernt, keine Umbenennung.
-- `/simplemodels reload`: Rückmeldung (Anzahl Modelle) mit Lang EN/DE.
+- `/simplemodels reload`: Rückmeldung (Anzahl Modelle) mit Lang EN/DE; `/simplevisuals config visuals enableAnvilFormatting <wert>`:
+  Rückmeldung beim Setzen.
+- **Gefundener Fehler (beim Umsetzen):** Client-Wurzeln mit dem Namen eines Server-Befehls verdecken dessen Unterbefehle,
+  weil Fabric Client-Befehle zuerst ausführt und nur „unbekannter Befehl“ an den Server weitergibt. Betroffen:
+  `/simplemaps picture` (Client) verdeckt `/simplemaps web …`, die Client-Optionen `/simplevisuals …` verdecken
+  `/simplevisuals config visuals enableAnvilFormatting`. Fix: unbekannte Eingaben dieser Client-Wurzeln gehen als
+  Befehlspaket an den Server (`ConfigCommands.forwardToServer`, `simplelib/api/client/ServerCommand`; nicht über
+  `sendCommand`, das Fabric wieder abfängt). Client-Configs deshalb unter eigener Wurzel `/simpleclient`.
 - Bestehende Einzel-Schalter bleiben als Kurzformen neben `config`.
 
 ## 4. Tests / Prüfung

@@ -10,6 +10,6 @@ public final class VisualsCommands {
    .then(Commands.literal("config").requires(source->source.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER))
     .then(Commands.literal("visuals").then(Commands.literal("enableAnvilFormatting")
      .executes(ctx->{ctx.getSource().sendSuccess(()->Component.translatable("simplevisuals.server_formatting",Visuals.serverFormatting()),false);return 1;})
-     .then(Commands.argument("enabled",BoolArgumentType.bool()).executes(ctx->{boolean value=BoolArgumentType.getBool(ctx,"enabled");Visuals.setServerFormatting(value);Visuals.CONFIG.visuals.enableAnvilFormatting=value;Visuals.save();return 1;}))))));
+     .then(Commands.argument("enabled",BoolArgumentType.bool()).executes(ctx->{boolean value=BoolArgumentType.getBool(ctx,"enabled");Visuals.setServerFormatting(value);Visuals.CONFIG.visuals.enableAnvilFormatting=value;Visuals.save();ctx.getSource().sendSuccess(()->Component.translatable("simplevisuals.server_formatting",value),true);return 1;}))))));
  }
 }

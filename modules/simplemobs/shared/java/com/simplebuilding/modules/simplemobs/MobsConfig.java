@@ -77,7 +77,7 @@ public final class MobsConfig {
     /** Reads (and writes if missing) the client config; unreadable files fall back to the defaults. */
     public static void loadClient(Path dir) {
         Path file = dir == null ? null : dir.resolve(CLIENT_FILE);
-        // CMD24: /simplemobs clientconfig reduceMotion.
+        // CMD24: /simpleclient simplemobs (reduceMotion).
         com.simplelib.api.config.ConfigCommands.client(MobsRegistry.ID).json(() -> {
             JsonObject o = new JsonObject();
             o.addProperty("reduceMotion", reduceMotion);

@@ -37,7 +37,7 @@ import net.minecraft.network.chat.Component;
  * shape as SimpleBuilding's {@code /simplebuilding config}:
  * <pre>
  * /&lt;modid&gt; config [list [filter] | get &lt;option&gt; | set &lt;option&gt; &lt;value&gt; | reset &lt;option&gt; | help]
- * /&lt;modid&gt; clientconfig ...   (client configs, a client-side command)
+ * /simpleclient &lt;modid&gt; ...   (client configs, a client-side command)
  * </pre>
  * A module announces its config once, after loading it:
  * {@code ConfigCommands.server(MOD_ID).json(X::toJson, X::apply).file(dir.resolve(X.FILE)).register();}
@@ -46,7 +46,9 @@ import net.minecraft.network.chat.Component;
  * is reported as clamped. Set and reset save the file and take effect at once (the modules read their fields when used);
  * options that are only read at start are marked with {@link Builder#restart} and get a hint. The Fabric entry of SimpleLib
  * adds every announced config under {@code /<modid>} in a late registration phase, so an existing root keeps its own
- * permission check; the config node itself needs permission level 2 (server) and nothing on the client.
+ * permission check; the config node itself needs permission level 2. Client configs get their own root
+ * {@code /simpleclient}: Fabric runs a client command before the server's, so a client root {@code /<modid>} would hide
+ * the server's {@code /<modid> ...} (see {@link #forwardToServer} for client roots that must share the name).
  */
 public final class ConfigCommands {
     /** Value kinds, from the default value of an option. */
@@ -91,7 +93,7 @@ public final class ConfigCommands {
         return new Builder(modId, false);
     }
 
-    /** A client config of {@code modId} ({@code /<modid> clientconfig}, registered by the client entry only). */
+    /** A client config of {@code modId} ({@code /simpleclient <modid>}, registered by the client entry only). */
     public static Builder client(String modId) {
         return new Builder(modId, true);
     }
@@ -104,11 +106,27 @@ public final class ConfigCommands {
         return (client ? CLIENT : SERVER).get(modId);
     }
 
-    /** Adds {@code /<modid> config} (or {@code clientconfig}) for every announced config of that side. */
+    /** Root of the client configs. */
+    public static final String CLIENT_ROOT = "simpleclient";
+
+    /** Adds {@code /<modid> config} (server) or {@code /simpleclient <modid>} (client) for every announced config of that side. */
     public static <S> void registerAll(CommandDispatcher<S> dispatcher, boolean client, Predicate<S> requires, Io<S> io) {
         for (Spec spec : specs(client)) {
-            dispatcher.register(LiteralArgumentBuilder.<S>literal(spec.modId).then(tree(spec, requires, io)));
+            dispatcher.register(LiteralArgumentBuilder.<S>literal(client ? CLIENT_ROOT : spec.modId).then(tree(spec, requires, io)));
         }
+    }
+
+    /**
+     * For a client command root that has the name of a server command ({@code /simplemaps picture} next to the server's
+     * {@code /simplemaps web}): Fabric executes client commands first and does not pass on a command whose root it knows,
+     * so the client tree hides the server's subcommands. This greedy argument sends everything the client tree does not
+     * know to the server ({@code send} must bypass the client command hook, e.g. a raw command packet).
+     */
+    public static <S> RequiredArgumentBuilder<S, String> forwardToServer(String prefix, Consumer<String> send) {
+        return RequiredArgumentBuilder.<S, String>argument("server_command", StringArgumentType.greedyString()).executes(c -> {
+            send.accept(prefix + " " + StringArgumentType.getString(c, "server_command"));
+            return 1;
+        });
     }
 
     public static final class Builder {
@@ -269,9 +287,14 @@ public final class ConfigCommands {
             return file;
         }
 
-        /** The literal under {@code /<modid>}: {@code config} or {@code clientconfig}. */
+        /** The literal under the root: {@code config} (under {@code /<modid>}) or the mod id (under {@code /simpleclient}). */
         public String literal() {
-            return client ? "clientconfig" : "config";
+            return client ? modId : "config";
+        }
+
+        /** The command as typed: {@code /<modid> config} or {@code /simpleclient <modid>}. */
+        public String command() {
+            return client ? "/" + CLIENT_ROOT + " " + modId : "/" + modId + " config";
         }
 
         /** The defaults; without a source a snapshot: current values, {@code apply(empty)}, current values back. */
@@ -518,7 +541,7 @@ public final class ConfigCommands {
         return Component.translatable("simplelib.config.type." + kind.name().toLowerCase(Locale.ROOT));
     }
 
-    /** {@code config} (or {@code clientconfig}) with list, get, set, reset and help for one spec. */
+    /** {@code config} (or the mod id under {@code /simpleclient}) with list, get, set, reset and help for one spec. */
     public static <S> LiteralArgumentBuilder<S> tree(Spec spec, Predicate<S> requires, Io<S> io) {
         SuggestionProvider<S> options = (c, b) -> SharedSuggestionProvider.suggest(spec.options().stream().map(Option::path), b);
         SuggestionProvider<S> groups = (c, b) -> SharedSuggestionProvider.suggest(spec.options().stream()
@@ -535,7 +558,7 @@ public final class ConfigCommands {
         return LiteralArgumentBuilder.<S>literal(spec.literal()).requires(requires)
                 .executes(c -> list(spec, "", c.getSource(), io))
                 .then(LiteralArgumentBuilder.<S>literal("help").executes(c -> {
-                    io.info(c.getSource(), Component.translatable("simplelib.config.help", "/" + spec.modId() + " " + spec.literal())
+                    io.info(c.getSource(), Component.translatable("simplelib.config.help", spec.command())
                             .withStyle(ChatFormatting.YELLOW));
                     return 1;
                 }))

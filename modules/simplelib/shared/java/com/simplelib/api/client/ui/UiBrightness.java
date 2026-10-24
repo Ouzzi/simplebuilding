@@ -84,7 +84,7 @@ public enum UiBrightness {
         }
     }
 
-    /** CMD24: {@code /simplelib clientconfig ... inventoryBrightness light|dawn|dark} (called by the client entry). */
+    /** CMD24: {@code /simpleclient simplelib set inventoryBrightness light|dawn|dark} (called by the client entry). */
     public static void registerConfigCommand() {
         com.simplelib.api.config.ConfigCommands.client(com.simplelib.SimpleLib.MOD_ID)
                 .json(() -> {
