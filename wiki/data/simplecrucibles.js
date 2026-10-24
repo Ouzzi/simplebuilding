@@ -212,6 +212,26 @@ window.WIKI_MODULE_DATA["simplecrucibles"] = {
           "Der gemeinsame Schalter simplecrucibles.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplecrucibles/shared/java/com/simplecrucibles/SimpleCrucibles.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplecrucibles config shows and changes every option of config/simplecrucibles-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": [
+          "Example: /simplecrucibles config get <option> shows the value, the default and the type; /simplecrucibles config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplecrucibles config zeigt und ändert jede Option von config/simplecrucibles-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplecrucibles config get <Option> zeigt Wert, Standard und Typ; /simplecrucibles config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1241,10 +1261,10 @@ window.WIKI_MODULE_DATA["simplecrucibles"] = {
           "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + cauldron. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Crucibles\" gives one for free."
+          "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + cauldron. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Crucibles\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kessel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Crucibles\" eins."
+          "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kessel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Crucibles\" eins."
         }
       },
       "texture": "assets/textures/simplecrucibles/item/guide_book.png",
@@ -1739,7 +1759,7 @@ window.WIKI_MODULE_DATA["simplecrucibles"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 7,
+    "features": 8,
     "recipes": 6,
     "lootTables": 11,
     "tags": 11,

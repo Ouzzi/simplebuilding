@@ -174,4 +174,19 @@ public final class ModuleGameTest {
     public void legendaryToastSwitch(GameTestHelper h) {
         LibTests.ALL.get("legendary_toast_switch").accept(h);
     }
+
+    @GameTest
+    public void configCommandTypes(GameTestHelper h) {
+        LibTests.ALL.get("config_command_types").accept(h);
+    }
+
+    @GameTest
+    public void configCommandLib(GameTestHelper h) {
+        LibTests.ALL.get("config_command_lib").accept(h);
+    }
+
+    @GameTest
+    public void configCommandEveryOption(GameTestHelper h) {
+        LibTests.ALL.get("config_command_every_option").accept(h);
+    }
 }

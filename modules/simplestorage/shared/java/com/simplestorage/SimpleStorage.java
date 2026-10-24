@@ -143,6 +143,9 @@ public final class SimpleStorage {
     /** Loader entry points call this with their config folder (bundle click option, {@code config/simplestorage.json}). */
     public static void loadConfig(java.nio.file.Path configDir) {
         com.simplestorage.config.StorageConfig.load(configDir);
+        // CMD24: /simplestorage config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplestorage.config.StorageConfig::toJson, com.simplestorage.config.StorageConfig::apply)
+                .file(configDir, com.simplestorage.config.StorageConfig.FILE).register();
     }
 
     /** Vanilla's boat woods and Simple End's, as the chest boat recipes name them ({@code <tier>_chest_boat_<wood>}). */

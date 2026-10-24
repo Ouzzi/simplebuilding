@@ -41,6 +41,9 @@ public final class SimpleTrims {
 
     public static void init(java.nio.file.Path configDir) {
         com.simpletrims.config.TrimsConfig.load(configDir);
+        // CMD24: /simpletrims config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simpletrims.config.TrimsConfig::toJson, com.simpletrims.config.TrimsConfig::apply)
+                .file(configDir, com.simpletrims.config.TrimsConfig.FILE).register();
         registerIdMoves();
         com.simpletrims.placed.PlateHint.register();
     }

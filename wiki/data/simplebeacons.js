@@ -244,6 +244,26 @@ window.WIKI_MODULE_DATA["simplebeacons"] = {
           "Der gemeinsame Schalter simplebeacons.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/SimpleBeacons.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplebeacons config shows and changes every option of config/simplebeacons-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": [
+          "Example: /simplebeacons config get <option> shows the value, the default and the type; /simplebeacons config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplebeacons config zeigt und ändert jede Option von config/simplebeacons-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplebeacons config get <Option> zeigt Wert, Standard und Typ; /simplebeacons config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -570,10 +590,10 @@ window.WIKI_MODULE_DATA["simplebeacons"] = {
           "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 17 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 17 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
         }
       },
       "texture": "assets/textures/simplebeacons/item/guide_book.png",
@@ -836,7 +856,7 @@ window.WIKI_MODULE_DATA["simplebeacons"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
+    "features": 9,
     "recipes": 6,
     "lootTables": 2,
     "tags": 1,

@@ -14,7 +14,7 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 
 /**
- * {@code /simplemobmanners} (owners): suffix lists and piglin switches, formerly {@code /simplequalityoflife tweaks};
+ * {@code /simplemobmanners} (game masters, level 2): suffix lists and piglin switches, formerly {@code /simplequalityoflife tweaks};
  * {@code /simplecreatures} (name before the rename) stays as an alias with a hint.
  */
 public final class MobMannersCommands {
@@ -31,7 +31,7 @@ public final class MobMannersCommands {
 
     private static LiteralArgumentBuilder<CommandSourceStack> tree(String name, boolean legacy) {
         return Commands.literal(name)
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(suffixes("muteSuffixes", c -> c.nametagMuteSuffixes, legacy))
                 .then(suffixes("babySuffixes", c -> c.nametagBabySuffixes, legacy))
                 .then(suffixes("mutedEntities", c -> c.mutedEntities, legacy))

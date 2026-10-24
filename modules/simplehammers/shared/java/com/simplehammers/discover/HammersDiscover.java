@@ -54,6 +54,7 @@ public final class HammersDiscover {
             "simplehammers:*_sledgehammer",
             "simplehammers:anvil",
             "simplehammers:break_through",
+            "simplehammers:commands",
             "simplehammers:config_server",
             "simplehammers:copper_sledgehammer",
             "simplehammers:crafting_tool",

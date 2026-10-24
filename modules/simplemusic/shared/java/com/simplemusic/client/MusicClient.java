@@ -10,6 +10,9 @@ public final class MusicClient {
     public static void init() {
         SimpleMusic.openSheet = SheetMusicScreen::open;
         MusicClientConfig.load(SimpleMusic.configDir);
+        // CMD24: /simpleclient simplemusic (load foreign music).
+        com.simplelib.api.config.ConfigCommands.client(SimpleMusic.MOD_ID).json(MusicClientConfig::toJson, MusicClientConfig::apply)
+                .file(SimpleMusic.configDir, MusicClientConfig.FILE).register();
     }
 
     /** True (and one action-bar hint per track) when "Load foreign music" is off and the track is not ours. */

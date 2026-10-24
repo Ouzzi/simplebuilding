@@ -286,15 +286,22 @@ window.WIKI_MODULE_DATA["simpletools"] = {
     {
       "id": "commands",
       "sources": [
-        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsCommands.java"
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/ToolsCommands.java",
+        "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/SimpleTools.java"
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock and itemFrameReverseRotate <true|false>; changes are saved to config/simpletools.json."
+        "summary": "Permission level 2: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock and itemFrameReverseRotate <true|false>; changes are saved to config/simpletools.json.",
+        "details": [
+          "/simpletools config shows and changes every option of config/simpletools.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
+        ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock und itemFrameReverseRotate <true|false>; Speichern in config/simpletools.json."
+        "summary": "Berechtigung 2: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock und itemFrameReverseRotate <true|false>; Speichern in config/simpletools.json.",
+        "details": [
+          "/simpletools config zeigt und ändert jede Option von config/simpletools.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
+        ]
       }
     },
     {

@@ -285,6 +285,26 @@ window.WIKI_MODULE_DATA["simplehammers"] = {
         "summary": "Eigener Tab mit den sieben Hämmern, dem Handbuch und den drei Verzauberungsbüchern. Ohne SimpleBuilding steht jeder Hammer zusätzlich hinter der Hacke seiner Stufe im Vanilla-Werkzeugtab (Schalter addItemsToVanillaTabs).",
         "details": []
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplehammers/shared/java/com/simplehammers/SimpleHammers.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplehammers config shows and changes every option of config/simplehammers-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": [
+          "Example: /simplehammers config get <option> shows the value, the default and the type; /simplehammers config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplehammers config zeigt und ändert jede Option von config/simplehammers-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplehammers config get <Option> zeigt Wert, Standard und Typ; /simplehammers config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1283,10 +1303,10 @@ window.WIKI_MODULE_DATA["simplehammers"] = {
           "modules/simplehammers/shared/resources/data/simplehammers/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
+          "summary": "Guide to this mod: 24 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
+          "summary": "Handbuch zu dieser Mod: 24 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
         }
       },
       "texture": "assets/textures/simplehammers/item/guide_book.png",
@@ -1412,7 +1432,7 @@ window.WIKI_MODULE_DATA["simplehammers"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 10,
+    "features": 11,
     "recipes": 11,
     "lootTables": 0,
     "tags": 2,

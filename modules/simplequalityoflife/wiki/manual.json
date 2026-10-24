@@ -101,15 +101,22 @@
     {
       "id": "commands",
       "sources": [
-        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/command/ModCommands.java"
+        "modules/simplequalityoflife/shared/java/com/simplequalityoflife/command/ModCommands.java",
+        "modules/simplequalityoflife/fabric/src/main/java/com/simplebuilding/modules/simplequalityoflife/QualityOfLifeFabric.java"
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> switches a bundled sub-mod; the former tweak commands moved with their features into the sub-mods (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Changes are saved to config/simplequalityoflife.json."
+        "summary": "Permission level 2: /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> switches a bundled sub-mod; the former tweak commands moved with their features into the sub-mods (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Changes are saved to config/simplequalityoflife.json.",
+        "details": [
+          "/simplequalityoflife config shows and changes every option of config/simplequalityoflife.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
+        ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> schaltet eine gebündelte Sub-Mod; die früheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json."
+        "summary": "Berechtigung 2: /simplequalityoflife submod <weather|interfaces|loot|mobmanners|farming|tools|movement> <true|false> schaltet eine gebündelte Sub-Mod; die früheren tweak-Befehle sind mit ihren Funktionen in die Sub-Mods gewandert (/simpleloot, /simplemobmanners, /simplefarming, /simpletools, /simplemovement). Speichern in config/simplequalityoflife.json.",
+        "details": [
+          "/simplequalityoflife config zeigt und ändert jede Option von config/simplequalityoflife.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
+        ]
       }
     },
     {
@@ -143,10 +150,10 @@
         "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 87 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+        "summary": "Guide to this mod: 89 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 87 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+        "summary": "Handbuch zu dieser Mod: 89 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
       }
     }
   }

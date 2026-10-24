@@ -84,6 +84,17 @@ public enum UiBrightness {
         }
     }
 
+    /** CMD24: {@code /simpleclient simplelib set inventoryBrightness light|dawn|dark} (called by the client entry). */
+    public static void registerConfigCommand() {
+        com.simplelib.api.config.ConfigCommands.client(com.simplelib.SimpleLib.MOD_ID)
+                .json(() -> {
+                    com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+                    json.addProperty("inventoryBrightness", current.id());
+                    return json;
+                }, json -> set(json.has("inventoryBrightness") ? parse(json.get("inventoryBrightness").getAsString()) : LIGHT))
+                .choices("inventoryBrightness", "light", "dawn", "dark").save(UiBrightness::save).register();
+    }
+
     /** Writes the current brightness next to the other configs (no-op before {@link #load}). */
     public static void save() {
         Path dir = configDir;

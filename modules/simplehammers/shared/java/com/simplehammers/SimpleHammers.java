@@ -75,6 +75,9 @@ public final class SimpleHammers {
     public static void init(Path configDir, Predicate<String> modLoaded) {
         loaded = modLoaded;
         HammerConfig.load(configDir);
+        // CMD24: /simplehammers config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplehammers.config.HammerConfig::toJson, com.simplehammers.config.HammerConfig::apply)
+                .file(configDir, com.simplehammers.config.HammerConfig.FILE).register();
         registerIdMoves();
         MATERIALS.forEach(SimpleLibApi::requestMaterial);
         // Principle 5a / split plan §2.6: with a hammer mod the in-world ways run with the hammer only, the Vanilla axe ways go off.

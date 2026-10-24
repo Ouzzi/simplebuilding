@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void configCommand(GameTestHelper helper) {
+        MobHeadTests.ALL.get("config_command").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
     public void mobsHaveHeads(GameTestHelper helper) {
         MobHeadTests.ALL.get("mobs_have_heads").accept(helper);
     }

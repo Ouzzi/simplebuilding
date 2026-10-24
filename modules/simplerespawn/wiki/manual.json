@@ -115,20 +115,23 @@
     {
       "id": "commands",
       "sources": [
-        "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/RespawnCommands.java"
+        "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/RespawnCommands.java",
+        "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/RespawnConfig.java"
       ],
       "en": {
         "title": "Commands",
         "summary": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters.",
         "details": [
-          "down and revive need permission level 2 and are meant for testing (test centre)."
+          "down and revive need permission level 2 and are meant for testing (test centre).",
+          "/simplerespawn config shows and changes every option of config/simplerespawn.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
         ]
       },
       "de": {
         "title": "Befehle",
         "summary": "/simplerespawn giveup für den Niedergeschlagenen (der Knopf Aufgeben); /simplerespawn down <Spieler> und /simplerespawn revive <Spieler> für Spielleiter.",
         "details": [
-          "down und revive brauchen Berechtigungsstufe 2 und sind zum Testen gedacht (Testzentrale)."
+          "down und revive brauchen Berechtigungsstufe 2 und sind zum Testen gedacht (Testzentrale).",
+          "/simplerespawn config zeigt und ändert jede Option von config/simplerespawn.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
         ]
       }
     },

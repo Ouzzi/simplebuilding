@@ -20,6 +20,9 @@ public final class SimpleLib {
     public static void init(java.nio.file.Path configDir) {
         com.simplelib.config.LibConfig.load(configDir);
         com.simplelib.api.client.ui.UiBrightness.load(configDir); // N49: local look, plain file (no client classes)
+        // CMD24: /simplelib config for the own keys of simplelib-server.json (the file keeps keys of other owners).
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplelib.config.LibConfig::toJson, com.simplelib.config.LibConfig::apply)
+                .keys(com.simplelib.config.LibConfig.KEYS).save(com.simplelib.config.LibConfig::save).register();
         com.simplelib.test.IdMovesTests.registerTestMoves();
     }
 

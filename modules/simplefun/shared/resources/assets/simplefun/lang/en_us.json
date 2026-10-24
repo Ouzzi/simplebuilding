@@ -69,7 +69,7 @@
   "simplefun.guide.page.6.title": "Knockback V",
   "simplefun.guide.page.6": "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.",
   "simplefun.guide.page.7.title": "Admin Commands",
-  "simplefun.guide.page.7": "Permission level 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
+  "simplefun.guide.page.7": "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
   "simplefun.guide.page.8.title": "Brick Snowball",
   "simplefun.guide.page.8": "Four snowballs around one brick craft one. Stack 16. Separate switch; damage 0–4, throw cooldown 10 ticks.",
   "simplefun.guide.page.9.title": "Flower Sniff",

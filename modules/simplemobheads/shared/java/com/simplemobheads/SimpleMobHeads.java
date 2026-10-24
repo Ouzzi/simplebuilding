@@ -39,6 +39,12 @@ public final class SimpleMobHeads {
         HeadMoves.register();
         adoptFunConfig(dir);
         config();
+        // CMD24: /simplemobheads config for every switch (the hint book is added when loot tables load).
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).gson(MobHeadsConfig.class, SimpleMobHeads::config, SimpleMobHeads::setConfig, () -> {
+            MobHeadsConfig d = new MobHeadsConfig();
+            d.normalize(abilityIds());
+            return d;
+        }).save(SimpleMobHeads::saveConfig).restart("hintBook").register();
         LOG.info("Simple Mobheads: {} heads", HeadTable.HEADS.size());
     }
 

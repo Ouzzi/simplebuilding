@@ -14,7 +14,7 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 
 /**
- * {@code /simplemobheads} (admins): the server switches of {@link MobHeadsConfig}. {@code /simplefun pvp headDrops} stays as
+ * {@code /simplemobheads} (game masters, level 2): the server switches of {@link MobHeadsConfig}. {@code /simplefun pvp headDrops} stays as
  * an alias since the PvP head moved here from Simple Fun (concept §3.3): it sets the same switch and names the new command.
  */
 public final class MobHeadsCommands {
@@ -23,7 +23,7 @@ public final class MobHeadsCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("simplemobheads")
-                .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("pvp").then(toggle("headDrops", (c, v) -> c.playerHeadDrops = v)))
                 .then(Commands.literal("drops")
                         .then(toggle("creeper", (c, v) -> c.creeperDrops = v))
@@ -55,7 +55,7 @@ public final class MobHeadsCommands {
                         })))));
         // Alias of the moved PvP switch (Simple Fun 1.3 and older): same switch, plus a hint to the new command.
         dispatcher.register(Commands.literal("simplefun")
-                .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("pvp").then(Commands.literal("headDrops").then(Commands.argument("enabled", BoolArgumentType.bool())
                         .executes(ctx -> {
                             boolean value = BoolArgumentType.getBool(ctx, "enabled");

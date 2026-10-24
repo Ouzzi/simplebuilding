@@ -131,7 +131,7 @@
   "simpletools.guide.page.20.title": "Repairing keeps the anvil cost",
   "simpletools.guide.page.20": "Server option anvilRepairKeepsCost (default true).",
   "simpletools.guide.page.21.title": "Commands",
-  "simpletools.guide.page.21": "Owner-level /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock and itemFrameReverseRotate <true|false>; changes are saved to config/simpletools.json.",
+  "simpletools.guide.page.21": "Permission level 2: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock and itemFrameReverseRotate <true|false>; changes are saved to config/simpletools.json.",
   "simpletools.guide.page.22.title": "Sub-mod of Simple QoL",
   "simpletools.guide.page.22": "Playable alone (config/simpletools.json). Bundled in Simple QoL, which can switch it off with \"Enable Simple Tools\".",
   "simpletools.guide.page.23.title": "Sub-mod of Simple QoL",

@@ -46,5 +46,22 @@
   "text.autoconfig.simplelib.option.legendaryAdvancements.@Tooltip": "Advancement ids added to the built-in list,\ne.g. minecraft:story/enter_the_end.",
   "text.autoconfig.simplelib.option.legendaryEnchantments": "More Legendary Enchantments",
   "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Enchantment ids added to the tag\n#simplelib:legendary, e.g. minecraft:mending.",
-  "jei.simplelib.category.in_world_upgrade": "In-World Upgrades"
+  "jei.simplelib.category.in_world_upgrade": "In-World Upgrades",
+  "commands.simplelib.config.list": "%s: %s options (gold = changed)",
+  "commands.simplelib.config.get": "%s = %s (default %s, %s)",
+  "commands.simplelib.config.set": "%s: %s set to %s",
+  "commands.simplelib.config.reset": "%s: %s reset to %s",
+  "commands.simplelib.config.clamped": "Out of range: stored %s instead.",
+  "commands.simplelib.config.invalid": "\"%s\" is not valid (expected %s) for %s",
+  "commands.simplelib.config.unknown": "Unknown option: %s",
+  "commands.simplelib.config.save_failed": "%s was changed to %s but the file could not be saved (see log).",
+  "commands.simplelib.config.restart": "Takes effect after a restart.",
+  "commands.simplelib.config.choices": "Values: %s",
+  "commands.simplelib.config.help": "%1$s [list [group] | get <option> | set <option> <value> | reset <option>]: shows and changes every option of this mod; Tab completes options and values.",
+  "commands.simplelib.config.type.bool": "true/false",
+  "commands.simplelib.config.type.int": "whole number",
+  "commands.simplelib.config.type.decimal": "number",
+  "commands.simplelib.config.type.text": "text",
+  "commands.simplelib.config.type.list": "list (a, b, c or JSON)",
+  "commands.simplelib.config.type.object": "JSON object"
 }

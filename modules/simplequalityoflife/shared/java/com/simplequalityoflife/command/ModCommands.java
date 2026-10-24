@@ -10,7 +10,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 /**
- * {@code /simplequalityoflife submod <name> <true|false>} (owners): the super-mod switches. The former tweak commands
+ * {@code /simplequalityoflife submod <name> <true|false>} (game masters, level 2): the super-mod switches. The former tweak commands
  * moved with their features into the sub-mods ({@code /simpleloot}, {@code /simplemobmanners}, {@code /simplefarming},
  * {@code /simpletools}, {@code /simplemovement}, {@code /simpleinterfaces}; {@code /crawl} belongs to Simple Movement).
  */
@@ -28,7 +28,7 @@ public class ModCommands {
         submod.then(toggle("tools", (c, v) -> c.enableSimpleTools = v));
         submod.then(toggle("movement", (c, v) -> c.enableSimpleMovement = v));
         dispatcher.register(Commands.literal("simplequalityoflife")
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(submod));
     }
 

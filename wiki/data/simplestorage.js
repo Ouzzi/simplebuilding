@@ -650,6 +650,26 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
           "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplestorage config shows and changes every option of config/simplestorage.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": [
+          "Example: /simplestorage config get <option> shows the value, the default and the type; /simplestorage config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplestorage config zeigt und ändert jede Option von config/simplestorage.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplestorage config get <Option> zeigt Wert, Standard und Typ; /simplestorage config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -8408,10 +8428,10 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
           "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 30 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+          "summary": "Guide to this mod: 32 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 30 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+          "summary": "Handbuch zu dieser Mod: 32 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
         }
       },
       "texture": "assets/textures/simplestorage/item/guide_book.png",
@@ -11491,7 +11511,7 @@ window.WIKI_MODULE_DATA["simplestorage"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 12,
+    "features": 13,
     "recipes": 177,
     "lootTables": 36,
     "tags": 8,

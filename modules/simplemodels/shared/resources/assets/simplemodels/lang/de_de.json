@@ -38,6 +38,7 @@
   "simplemodels.browser.sort.base_item": "Basisitem",
   "simplemodels.browser.author": "Autor: %s",
   "simplemodels.browser.readonly": "Nur Lesen: Serveradmins bearbeiten config/simplemodels/config.json.",
+  "simplemodels.command.reload": "Simple Models: %s Modelle neu geladen und an alle Spieler geschickt.",
   "item.simplemodels.guide_book": "Simple-Models-Handbuch",
   "simplemodels.guide.page.1.title": "Simple Models",
   "simplemodels.guide.page.1": "Vom Server freigegebene eigene Itemmodelle, Zuweisung am Amboss und ein durchsuchbarer Modell-Browser.",

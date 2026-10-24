@@ -53,6 +53,7 @@ public final class RidingDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simpleriding:*_horseshoe",
             "simpleriding:armor",
+            "simpleriding:commands",
             "simpleriding:config-enchantments-horseJump-armorEnchantability",
             "simpleriding:config-enchantments-horseJump-featherFallingReduction",
             "simpleriding:config-enchantments-horseJump-jumpStrengthMultiplier",

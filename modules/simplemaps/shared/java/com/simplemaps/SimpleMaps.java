@@ -36,6 +36,9 @@ public final class SimpleMaps {
 
     public static void init(Path configDir) {
         MapsConfig.load(configDir);
+        // CMD24: /simplemaps config; the access token stays hidden, the HTTP server reads bind/port when it starts.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(MapsConfig::toJson, MapsConfig::apply).file(configDir, MapsConfig.FILE).secret("webHttpToken")
+                .choices("webClaimStyle", MapsConfig.WEB_CLAIM_HIDE, MapsConfig.WEB_CLAIM_PIXELATE).restart("webHttpEnabled", "webHttpBind", "webHttpPort").register();
     }
 
     private SimpleMaps() {}

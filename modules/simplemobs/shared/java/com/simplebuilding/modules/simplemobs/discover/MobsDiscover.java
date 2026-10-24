@@ -53,6 +53,7 @@ public final class MobsDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplemobs:blighted_wither",
             "simplemobs:calm_amulet",
+            "simplemobs:commands",
             "simplemobs:creative_tab_switch",
             "simplemobs:deceiver_cloak",
             "simplemobs:deceiver_cloth",

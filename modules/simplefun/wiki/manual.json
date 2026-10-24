@@ -111,16 +111,16 @@
       "id": "commands",
       "en": {
         "title": "Admin Commands",
-        "summary": "Permission level 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
+        "summary": "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
         "details": [
-          "Permission level 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side."
+          "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side."
         ]
       },
       "de": {
         "title": "Adminbefehle",
-        "summary": "Berechtigung 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
+        "summary": "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
         "details": [
-          "Berechtigung 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte."
+          "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte."
         ]
       },
       "sources": [
@@ -738,7 +738,7 @@
         "title": "Server Configuration",
         "summary": "Two tabs cover gameplay and small delights; every option explains its default. Gameplay uses only server settings.",
         "details": [
-          "The client screen edits the local simplefun.json for the next local server start. Remote clients cannot submit settings. Remote admins use the original level-4 commands or change the server file and restart.",
+          "The client screen edits the local simplefun.json for the next local server start. Remote clients cannot submit settings. Remote admins use the original commands (permission level 2) or change the server file and restart.",
           "Librarian trades are selected when server data loads; changing their file switches requires restart."
         ]
       },
@@ -746,7 +746,7 @@
         "title": "Serverkonfiguration",
         "summary": "Zwei Reiter für Spielmechanik und kleine Freuden; jede Option erklärt ihren Standardwert. Nur Serverwerte bestimmen das Spiel.",
         "details": [
-          "Der Clientbildschirm bearbeitet die lokale simplefun.json für den nächsten lokalen Serverstart. Fremde Clients können keine Einstellungen senden. Entfernte Administratoren nutzen die alten Befehle mit Stufe 4 oder ändern die Serverdatei und starten neu.",
+          "Der Clientbildschirm bearbeitet die lokale simplefun.json für den nächsten lokalen Serverstart. Fremde Clients können keine Einstellungen senden. Entfernte Administratoren nutzen die alten Befehle (Berechtigung 2) oder ändern die Serverdatei und starten neu.",
           "Bibliothekarhandel wird beim Laden der Serverdaten ausgewählt; Dateischalter brauchen einen Neustart."
         ]
       }

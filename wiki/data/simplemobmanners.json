@@ -152,11 +152,11 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "Owner-level /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>. Changes are saved to config/simplemobmanners.json. Formerly Simple Creatures: /simplecreatures still works as an alias with a hint, config/simplecreatures.json and the super-mod switch are taken over once."
+        "summary": "Permission level 2: /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>. Changes are saved to config/simplemobmanners.json. Formerly Simple Creatures: /simplecreatures still works as an alias with a hint, config/simplecreatures.json and the super-mod switch are taken over once."
       },
       "de": {
         "title": "Befehle",
-        "summary": "Besitzerberechtigung: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Früher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig übernommen."
+        "summary": "Berechtigung 2: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Früher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig übernommen."
       }
     },
     {

@@ -28,6 +28,8 @@ public final class SimpleShops {
 
     public static void init(Path configDir) {
         ShopsConfig.load(configDir);
+        // CMD24: /simpleshops config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(ShopsConfig::toJson, ShopsConfig::apply).file(configDir, ShopsConfig.FILE).register();
         registerMapLayer();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "shops", "simpleshops.testcentre.station",

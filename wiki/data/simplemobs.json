@@ -415,24 +415,44 @@
       ],
       "en": {
         "title": "Wither Wings",
-        "summary": "Four Elytra stages that raise only the top speed a firework rocket reaches: x2 Wither, x4 Nether, x6 End and x8 Void Wings. Gliding without a rocket stays Vanilla.",
+        "summary": "Two Elytra stages from the Wither's loot that raise only the top speed a firework rocket reaches: x2 (Wither Wings) and x4 (Nether Wings). Gliding without a rocket stays Vanilla.",
         "details": [
-          "Smithing table: Strong Upgrade template (Simple Beacons) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings; + Nether Wings + Ender Heart = End Wings; + End Wings + Ender Gem = Void Wings. Without Simple Beacons the Netherite Upgrade template takes its place. Enchantments and wear carry over.",
-          "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67, 133, 200 and 267 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
-          "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) and voidWingsSpeedFactor (8), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
-          "Ender Heart (stage 3) and Ender Gem (stage 4) have no loot yet: they will drop from a later End boss. Until then they are only given by commands, the creative tab and the test centre. Their look is provisional.",
-          "576, 768, 960 and 1152 durability (Elytra 432), repaired with phantom membrane, fire-proof like Netherite, Elytra-like shape with an own pattern per stage on the back. The Void Wings are mythic."
+          "Smithing table: Strong Upgrade template (Simple Beacons) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings. Without Simple Beacons the Netherite Upgrade template takes its place. Enchantments and wear carry over.",
+          "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67 m/s and 133 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
+          "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2) and netherWingsSpeedFactor (default 4), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
+          "Stage 3, the End Wings (x6, endWingsSpeedFactor, 960 durability, own End look), exists but cannot be made yet: it has no recipe and no loot, its material will come from a later End boss. Until then it is only given by commands, the creative tab and the test centre.",
+          "576 and 768 durability (Elytra 432), repaired with phantom membrane, fire-proof like Netherite, own feather look on the back."
         ]
       },
       "de": {
         "title": "Wither-Schwingen",
-        "summary": "Vier Elytra-Stufen, die nur die Höchstgeschwindigkeit mit Feuerwerksraketen anheben: x2 Wither-, x4 Nether-, x6 End- und x8 Leeren-Schwingen. Gleiten ohne Rakete bleibt Vanilla.",
+        "summary": "Zwei Elytra-Stufen aus der Wither-Beute, die nur die Höchstgeschwindigkeit mit Feuerwerksraketen anheben: x2 (Wither-Schwingen) und x4 (Nether-Schwingen). Gleiten ohne Rakete bleibt Vanilla.",
         "details": [
-          "Schmiedetisch: Vorlage Starke Aufwertung (Simple Beacons) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen; + Nether-Schwingen + Ender-Herz = End-Schwingen; + End-Schwingen + Ender-Juwel = Leeren-Schwingen. Ohne Simple Beacons tritt die Netherit-Aufwertung an ihre Stelle. Verzauberungen und Abnutzung bleiben.",
-          "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67, 133, 200 und 267 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
-          "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) und voidWingsSpeedFactor (8), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
-          "Ender-Herz (Stufe 3) und Ender-Juwel (Stufe 4) haben noch keine Beute-Quelle: sie fallen später von einem neuen End-Boss. Bis dahin nur per Befehl, Kreativ-Reiter und Testzentrale. Ihre Optik ist vorläufig.",
-          "576, 768, 960 bzw. 1152 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, Elytren-nahe Form mit eigenem Muster je Stufe auf dem Rücken. Die Leeren-Schwingen sind mythisch."
+          "Schmiedetisch: Vorlage Starke Aufwertung (Simple Beacons) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen. Ohne Simple Beacons tritt die Netherit-Aufwertung an ihre Stelle. Verzauberungen und Abnutzung bleiben.",
+          "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67 m/s und 133 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
+          "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2) und netherWingsSpeedFactor (Standard 4), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
+          "Stufe 3, die End-Schwingen (x6, endWingsSpeedFactor, 960 Haltbarkeit, eigene End-Optik), gibt es schon, sie sind aber noch nicht herstellbar: kein Rezept, keine Beute, das Material kommt später von einem neuen End-Boss. Bis dahin nur per Befehl, Kreativ-Reiter und Testzentrale.",
+          "576 bzw. 768 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, eigene Federoptik auf dem Rücken."
+        ]
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplemobs config shows and changes every option of config/simplemobs-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2. /simpleclient simplemobs (list, get, set, reset, help) does the same for config/simplemobs-client.json on your own client.",
+        "details": [
+          "Example: /simplemobs config get <option> shows the value, the default and the type; /simplemobs config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplemobs config zeigt und ändert jede Option von config/simplemobs-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2. /simpleclient simplemobs (list, get, set, reset, help) macht dasselbe für config/simplemobs-client.json auf dem eigenen Client.",
+        "details": [
+          "Beispiel: /simplemobs config get <Option> zeigt Wert, Standard und Typ; /simplemobs config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
     }
@@ -1593,114 +1613,6 @@
       }
     },
     {
-      "id": "simplemobs:end_wings_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplemobs:end_wings",
-        "count": 1
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/end_wings_smithing.json",
-      "ingredients": [
-        "simplebeacons:strong_upgrade_template",
-        "simplemobs:ender_heart",
-        "simplemobs:nether_wings"
-      ],
-      "slots": {
-        "template": [
-          "simplebeacons:strong_upgrade_template"
-        ],
-        "base": [
-          "simplemobs:nether_wings"
-        ],
-        "addition": [
-          "simplemobs:ender_heart"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebeacons:strong_upgrade_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:elytra",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:ender_heart",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_gem",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplemobs:end_wings_smithing_without_simplebeacons",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplemobs:end_wings",
-        "count": 1
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/end_wings_smithing_without_simplebeacons.json",
-      "ingredients": [
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplemobs:ender_heart",
-        "simplemobs:nether_wings"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplemobs:nether_wings"
-        ],
-        "addition": [
-          "simplemobs:ender_heart"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebeacons:strong_upgrade_template",
-            "count": 2
-          },
-          {
-            "id": "minecraft:elytra",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:ender_heart",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_gem",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplemobs:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1942,122 +1854,6 @@
         "materials": [
           {
             "id": "simplemobs:soulfire_rod",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplemobs:void_wings_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplemobs:void_wings",
-        "count": 1
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/void_wings_smithing.json",
-      "ingredients": [
-        "simplebeacons:strong_upgrade_template",
-        "simplemobs:end_wings",
-        "simplemobs:ender_gem"
-      ],
-      "slots": {
-        "template": [
-          "simplebeacons:strong_upgrade_template"
-        ],
-        "base": [
-          "simplemobs:end_wings"
-        ],
-        "addition": [
-          "simplemobs:ender_gem"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebeacons:strong_upgrade_template",
-            "count": 4
-          },
-          {
-            "id": "minecraft:elytra",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:ender_gem",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:ender_heart",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_gem",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplemobs:void_wings_smithing_without_simplebeacons",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplemobs:void_wings",
-        "count": 1
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/void_wings_smithing_without_simplebeacons.json",
-      "ingredients": [
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplemobs:end_wings",
-        "simplemobs:ender_gem"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplemobs:end_wings"
-        ],
-        "addition": [
-          "simplemobs:ender_gem"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplebeacons:strong_upgrade_template",
-            "count": 3
-          },
-          {
-            "id": "minecraft:elytra",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:ender_gem",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:ender_heart",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_gem",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_heart",
             "count": 1
           }
         ]
@@ -2797,63 +2593,15 @@
       },
       "note": {
         "en": {
-          "summary": "Stage 3 wings: Strong Upgrade + Nether Wings + Ender Heart at the smithing table (without Simple Beacons the Netherite Upgrade). Rockets reach six times the Vanilla top speed; 960 durability."
+          "summary": "Stage 3 wings with an End look: rockets reach six times the Vanilla top speed; 960 durability. Not craftable yet (no recipe, no loot): the material will drop from a later End boss."
         },
         "de": {
-          "summary": "Schwingen Stufe 3: Starke Aufwertung + Nether-Schwingen + Ender-Herz am Schmiedetisch (ohne Simple Beacons die Netherit-Aufwertung). Raketen erreichen die sechsfache Vanilla-Höchstgeschwindigkeit; 960 Haltbarkeit."
+          "summary": "Schwingen Stufe 3 mit End-Optik: Raketen erreichen die sechsfache Vanilla-Höchstgeschwindigkeit; 960 Haltbarkeit. Noch nicht herstellbar (kein Rezept, keine Beute): das Material fällt später von einem neuen End-Boss."
         }
       },
       "texture": "assets/textures/simplemobs/item/end_wings.png",
-      "craftedBy": [
-        "simplemobs:end_wings_smithing",
-        "simplemobs:end_wings_smithing_without_simplebeacons"
-      ],
-      "usedIn": [
-        "simplemobs:void_wings_smithing",
-        "simplemobs:void_wings_smithing_without_simplebeacons"
-      ]
-    },
-    {
-      "id": "simplemobs:ender_gem",
-      "name": {
-        "en_us": "Ender Gem",
-        "de_de": "Ender-Juwel"
-      },
-      "note": {
-        "en": {
-          "summary": "Mythic material of the Void Wings (stage 4, with the End Wings at the smithing table). No loot yet: it will drop from a later End boss; until then commands, creative tab and test centre only. Provisional look."
-        },
-        "de": {
-          "summary": "Mythisches Material der Leeren-Schwingen (Stufe 4, mit den End-Schwingen am Schmiedetisch). Noch keine Beute: es fällt später von einem neuen End-Boss; bis dahin nur Befehl, Kreativ-Reiter und Testzentrale. Vorläufige Optik."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/ender_gem.png",
       "craftedBy": [],
-      "usedIn": [
-        "simplemobs:void_wings_smithing",
-        "simplemobs:void_wings_smithing_without_simplebeacons"
-      ]
-    },
-    {
-      "id": "simplemobs:ender_heart",
-      "name": {
-        "en_us": "Ender Heart",
-        "de_de": "Ender-Herz"
-      },
-      "note": {
-        "en": {
-          "summary": "Material of the End Wings (stage 3, with the Nether Wings at the smithing table). No loot yet: it will drop from a later End boss; until then commands, creative tab and test centre only. Provisional look."
-        },
-        "de": {
-          "summary": "Material der End-Schwingen (Stufe 3, mit den Nether-Schwingen am Schmiedetisch). Noch keine Beute: es fällt später von einem neuen End-Boss; bis dahin nur Befehl, Kreativ-Reiter und Testzentrale. Vorläufige Optik."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/ender_heart.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplemobs:end_wings_smithing",
-        "simplemobs:end_wings_smithing_without_simplebeacons"
-      ]
+      "usedIn": []
     },
     {
       "id": "simplemobs:guide_book",
@@ -2867,10 +2615,10 @@
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "texture": "assets/textures/simplemobs/item/guide_book.png",
@@ -3048,10 +2796,7 @@
         "simplemobs:nether_wings_smithing",
         "simplemobs:nether_wings_smithing_without_simplebeacons"
       ],
-      "usedIn": [
-        "simplemobs:end_wings_smithing",
-        "simplemobs:end_wings_smithing_without_simplebeacons"
-      ]
+      "usedIn": []
     },
     {
       "id": "simplemobs:shellker_helmet",
@@ -3390,27 +3135,6 @@
       "usedIn": []
     },
     {
-      "id": "simplemobs:void_wings",
-      "name": {
-        "en_us": "Void Wings",
-        "de_de": "Leeren-Schwingen"
-      },
-      "note": {
-        "en": {
-          "summary": "Stage 4 wings, mythic: Strong Upgrade + End Wings + Ender Gem at the smithing table (without Simple Beacons the Netherite Upgrade). Rockets reach eight times the Vanilla top speed; 1152 durability."
-        },
-        "de": {
-          "summary": "Schwingen Stufe 4, mythisch: Starke Aufwertung + End-Schwingen + Ender-Juwel am Schmiedetisch (ohne Simple Beacons die Netherit-Aufwertung). Raketen erreichen die achtfache Vanilla-Höchstgeschwindigkeit; 1152 Haltbarkeit."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_wings.png",
-      "craftedBy": [
-        "simplemobs:void_wings_smithing",
-        "simplemobs:void_wings_smithing_without_simplebeacons"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplemobs:watcher_eye",
       "name": {
         "en_us": "Watcher Eye",
@@ -3607,13 +3331,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
-    "recipes": 70,
+    "features": 14,
+    "recipes": 66,
     "lootTables": 10,
     "tags": 7,
     "advancements": 0,
     "enchantments": 0,
-    "items": 26,
+    "items": 23,
     "blocks": 2,
     "trades": 0,
     "config": 0,

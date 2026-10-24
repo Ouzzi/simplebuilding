@@ -301,6 +301,26 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "Der gemeinsame Schalter simplemaps.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplemaps/shared/java/com/simplemaps/SimpleMaps.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplemaps config shows and changes every option of config/simplemaps-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": [
+          "Example: /simplemaps config get <option> shows the value, the default and the type; /simplemaps config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplemaps config zeigt und ändert jede Option von config/simplemaps-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplemaps config get <Option> zeigt Wert, Standard und Typ; /simplemaps config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -957,10 +977,10 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
           "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
         }
       },
       "texture": "assets/textures/simplemaps/item/guide_book.png",
@@ -1137,7 +1157,7 @@ window.WIKI_MODULE_DATA["simplemaps"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
+    "features": 10,
     "recipes": 7,
     "lootTables": 0,
     "tags": 4,

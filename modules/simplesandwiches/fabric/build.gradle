@@ -3,6 +3,6 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 // Bundles the shared framework API (guide-book quest installer) for standalone runs.
 dependencies { include project(':framework') }
 // SimpleLib (crucibles, warm food) nested per principle 6a.
-dependencies { include project(':modules:simplelib:fabric') }
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Simple Crucibles (crucibles, barrels, cauldron: split stage 5) nested like SimpleLib before, so worlds with crucibles keep them.
 dependencies { include project(':modules:simplecrucibles:fabric') }

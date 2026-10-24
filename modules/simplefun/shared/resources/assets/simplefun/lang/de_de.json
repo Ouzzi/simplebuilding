@@ -69,7 +69,7 @@
   "simplefun.guide.page.6.title": "Rückstoß V",
   "simplefun.guide.page.6": "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
   "simplefun.guide.page.7.title": "Adminbefehle",
-  "simplefun.guide.page.7": "Berechtigung 4: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
+  "simplefun.guide.page.7": "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
   "simplefun.guide.page.8.title": "Ziegelschneeball",
   "simplefun.guide.page.8": "Vier Schneebälle um einen Ziegel ergeben einen. Stapel 16. Eigener Schalter; Schaden 0–4, Wurfsperre 10 Ticks.",
   "simplefun.guide.page.9.title": "Blumenschnuppern",

@@ -286,16 +286,16 @@ window.WIKI_MODULE_DATA["simplevisuals"] = {
       ],
       "en": {
         "title": "Configuration commands",
-        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], administrator only. Cosmetic options use the local client screen; server settings never overwrite another player's HUD.",
+        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD.",
         "details": [
-          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], administrator only. Cosmetic options use the local client screen; server settings never overwrite another player's HUD."
+          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], permission level 2. Cosmetic options use the local client screen; server settings never overwrite another player's HUD."
         ]
       },
       "de": {
         "title": "Konfigurationsbefehle",
-        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], nur Administratoren. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD.",
+        "summary": "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD.",
         "details": [
-          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], nur Administratoren. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD."
+          "Server: /simplevisuals config visuals enableAnvilFormatting [true|false], Berechtigung 2. Optische Optionen verwenden den lokalen Clientbildschirm; Serverwerte überschreiben kein fremdes HUD."
         ]
       }
     },

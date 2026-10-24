@@ -53,6 +53,7 @@ public final class MusicDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplemusic:*_pocket_jukebox",
             "simplemusic:blank_disc",
+            "simplemusic:commands",
             "simplemusic:config_server",
             "simplemusic:creative_tab_switch",
             "simplemusic:custom_disc",

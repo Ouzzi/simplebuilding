@@ -131,7 +131,7 @@
   "simpletools.guide.page.20.title": "Reparieren hält die Ambosskosten",
   "simpletools.guide.page.20": "Nur eine Änderung der Verzauberungen erhöht sie wie in Vanilla. Server-Option anvilRepairKeepsCost (Standard true).",
   "simpletools.guide.page.21.title": "Befehle",
-  "simpletools.guide.page.21": "Besitzerberechtigung: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock und itemFrameReverseRotate <true|false>; Speichern in config/simpletools.json.",
+  "simpletools.guide.page.21": "Berechtigung 2: /simpletools fullDurabilityBonus, anvilRepairKeepsCost, furnaceLava, itemFrameInvisible, itemFrameLock und itemFrameReverseRotate <true|false>; Speichern in config/simpletools.json.",
   "simpletools.guide.page.22.title": "Sub-Mod von Simple QoL",
   "simpletools.guide.page.22": "Allein spielbar (config/simpletools.json). In Simple QoL gebuendelt, dort mit \"Simple Tools aktivieren\" abschaltbar.",
   "simpletools.guide.page.23.title": "Sub-Mod von Simple QoL",

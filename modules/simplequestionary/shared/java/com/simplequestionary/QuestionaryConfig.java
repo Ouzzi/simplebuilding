@@ -27,6 +27,12 @@ public final class QuestionaryConfig {
         JsonObject read = com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file, t -> GSON.fromJson(t, JsonObject.class), SimpleQuestionary.LOG::warn);
         autoFacts = read == null || !read.has("autoFacts") || !read.get("autoFacts").isJsonPrimitive() || read.get("autoFacts").getAsBoolean();
         enabled = hostAllows(dir);
+        // CMD24: /simplequestionary config autoFacts.
+        com.simplelib.api.config.ConfigCommands.server("simplequestionary").json(() -> {
+            JsonObject o = new JsonObject();
+            o.addProperty("autoFacts", autoFacts);
+            return o;
+        }, j -> autoFacts = !j.has("autoFacts") || !j.get("autoFacts").isJsonPrimitive() || j.get("autoFacts").getAsBoolean()).file(file).register();
         if (file == null) return;
         try {
             Files.createDirectories(dir);

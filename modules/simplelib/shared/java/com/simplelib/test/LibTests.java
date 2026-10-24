@@ -55,6 +55,9 @@ public final class LibTests {
         ALL.put("legendary_advancements", LegendaryTests::advancements);
         ALL.put("legendary_enchantments", LegendaryTests::enchantments);
         ALL.put("legendary_toast_switch", LegendaryTests::toastSwitch);
+        ALL.put("config_command_types", ConfigCommandTests::types);
+        ALL.put("config_command_lib", ConfigCommandTests::lib);
+        ALL.put("config_command_every_option", ConfigCommandTests::everyOption);
     }
 
     // ------------------------------------------------------------ helpers

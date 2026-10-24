@@ -316,7 +316,8 @@ tasks.named('check') { dependsOn 'checkBalance' }
  'checkLootFormat': 'tools/check_loot_format.py --strict', 'checkUiContrast': 'tools/check_ui_contrast.py',
  'checkItemProperties': 'tools/check_item_properties.py', 'checkMissingTextures': 'tools/check_missing_textures.py',
  'checkTextureLayers': 'tools/textures/layers.py check', 'checkModIcons': 'tools/check_mod_icons.py',
- 'checkModuleStyle': 'tools/check_module_style.py', 'checkDupImpl': 'tools/check_dup_impl.py'].each { taskName, script ->
+ 'checkModuleStyle': 'tools/check_module_style.py', 'checkDupImpl': 'tools/check_dup_impl.py',
+ 'checkConfigCommands': 'tools/check_config_commands.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."

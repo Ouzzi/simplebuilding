@@ -10,7 +10,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
-/** {@code /crawl} for players and {@code /simplemovement} (owners), formerly in Simple QoL. */
+/** {@code /crawl} for players and {@code /simplemovement} (game masters, level 2), formerly in Simple QoL. */
 public final class MovementCommands {
     private MovementCommands() {}
 
@@ -24,7 +24,7 @@ public final class MovementCommands {
             return 1;
         }));
         dispatcher.register(Commands.literal(SimpleMovement.MOD_ID)
-                .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(toggle("autowalk", (c, v) -> c.enableAutowalk = v))
                 .then(toggle("frostWalkerSnow", (c, v) -> c.frostWalkerWalkOnPowderSnow = v))
                 .then(toggle("jumpBoostStep", (c, v) -> c.jumpBoostStepUp = v))
