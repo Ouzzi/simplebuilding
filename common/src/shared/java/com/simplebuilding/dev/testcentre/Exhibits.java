@@ -88,8 +88,8 @@ public final class Exhibits {
             return null;
         }
         Block block = state.getBlock();
-        if (block instanceof com.simplebuilding.blocks.custom.AbstractLightPaneBlock) {
-            return state.setValue(com.simplebuilding.blocks.custom.AbstractLightPaneBlock.FACING, Direction.NORTH);
+        if (com.simplebuilding.util.LightRefs.isPane(block)) { // Simple Lights (WB24-6), by id
+            return state.setValue(BlockStateProperties.FACING, Direction.NORTH);
         }
         if (block instanceof ButtonBlock) {
             return state.setValue(ButtonBlock.FACE, AttachFace.WALL).setValue(ButtonBlock.FACING, Direction.NORTH);
@@ -149,9 +149,9 @@ public final class Exhibits {
         if (block instanceof ButtonBlock) {
             return List.of(state.setValue(ButtonBlock.FACE, AttachFace.FLOOR));
         }
-        if (block instanceof com.simplebuilding.blocks.custom.AbstractLightPaneBlock) {
-            // Lichtscheiben haengen flach am Block hinter sich: auf dem Boden liegen sie nach oben.
-            return List.of(state.setValue(com.simplebuilding.blocks.custom.AbstractLightPaneBlock.FACING, Direction.UP));
+        if (com.simplebuilding.util.LightRefs.isPane(block)) {
+            // Lichtscheiben (Simple Lights, per Id) haengen flach am Block hinter sich: auf dem Boden liegen sie nach oben.
+            return List.of(state.setValue(BlockStateProperties.FACING, Direction.UP));
         }
         if (octet(state) || block instanceof LanternBlock || block instanceof BaseTorchBlock || block instanceof CandleBlock || block instanceof BasePressurePlateBlock || block instanceof CarpetBlock
                 || block instanceof AbstractSkullBlock || block instanceof FlowerPotBlock || block instanceof CampfireBlock

@@ -215,7 +215,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             alternates.alternates().forEach(this::dropSelf);
         }
 
-        ModBlocks.lightPanes().forEach(this::dropSelf); // Light Panes (N57): each drops itself, no tool needed
+        // Light Panes (N57): loot tables are Simple Lights' since WB24-6.
 
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Die Sculk-Kiefer droppt sich selbst; die Naturvarianten (N24/N25) haben seit b-blocksmove ihre Beute in Simple Blocks.

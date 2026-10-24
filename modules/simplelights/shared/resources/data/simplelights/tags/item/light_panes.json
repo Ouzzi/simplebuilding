@@ -1,0 +1,21 @@
+{
+  "values": [
+    "simplelights:light_pane",
+    "simplelights:white_light_pane",
+    "simplelights:orange_light_pane",
+    "simplelights:magenta_light_pane",
+    "simplelights:light_blue_light_pane",
+    "simplelights:yellow_light_pane",
+    "simplelights:lime_light_pane",
+    "simplelights:pink_light_pane",
+    "simplelights:gray_light_pane",
+    "simplelights:light_gray_light_pane",
+    "simplelights:cyan_light_pane",
+    "simplelights:purple_light_pane",
+    "simplelights:blue_light_pane",
+    "simplelights:brown_light_pane",
+    "simplelights:green_light_pane",
+    "simplelights:red_light_pane",
+    "simplelights:black_light_pane"
+  ]
+}

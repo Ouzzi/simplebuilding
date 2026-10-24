@@ -30,21 +30,15 @@
     "simplebuilding:bamboo_sheet",
     "simplebuilding:birch_cauldron",
     "simplebuilding:birch_sheet",
-    "simplebuilding:black_copper_light_pane",
     "simplebuilding:black_hammock",
-    "simplebuilding:black_light_pane",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:blackstone_quartz_checker_slab",
     "simplebuilding:blackstone_quartz_checker_stairs",
     "simplebuilding:blazing_obsidian",
-    "simplebuilding:blue_copper_light_pane",
     "simplebuilding:blue_hammock",
-    "simplebuilding:blue_light_pane",
     "simplebuilding:bridge_redstone",
     "simplebuilding:bridge_redstone_block",
-    "simplebuilding:brown_copper_light_pane",
     "simplebuilding:brown_hammock",
-    "simplebuilding:brown_light_pane",
     "simplebuilding:carved_acacia_log",
     "simplebuilding:carved_bamboo_block",
     "simplebuilding:carved_birch_log",
@@ -67,18 +61,14 @@
     "simplebuilding:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
-    "simplebuilding:copper_light_pane",
     "simplebuilding:copper_pressure_plate",
-    "simplebuilding:copper_redstone_light_pane",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crimson_cauldron",
     "simplebuilding:crimson_sheet",
     "simplebuilding:crystalline_astralit",
     "simplebuilding:crystalline_nihilith",
-    "simplebuilding:cyan_copper_light_pane",
     "simplebuilding:cyan_hammock",
-    "simplebuilding:cyan_light_pane",
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:dark_oak_sheet",
     "simplebuilding:deepslate_sage_ore",
@@ -116,12 +106,8 @@
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
     "simplebuilding:gold_pole",
-    "simplebuilding:gray_copper_light_pane",
     "simplebuilding:gray_hammock",
-    "simplebuilding:gray_light_pane",
-    "simplebuilding:green_copper_light_pane",
     "simplebuilding:green_hammock",
-    "simplebuilding:green_light_pane",
     "simplebuilding:hammock_rope",
     "simplebuilding:hollow_acacia_log",
     "simplebuilding:hollow_bamboo_block",
@@ -157,19 +143,10 @@
     "simplebuilding:lapis_quartz_checker_stairs",
     "simplebuilding:launchpad",
     "simplebuilding:layered_astralit",
-    "simplebuilding:light_blue_copper_light_pane",
     "simplebuilding:light_blue_hammock",
-    "simplebuilding:light_blue_light_pane",
-    "simplebuilding:light_gray_copper_light_pane",
     "simplebuilding:light_gray_hammock",
-    "simplebuilding:light_gray_light_pane",
-    "simplebuilding:light_pane",
-    "simplebuilding:lime_copper_light_pane",
     "simplebuilding:lime_hammock",
-    "simplebuilding:lime_light_pane",
-    "simplebuilding:magenta_copper_light_pane",
     "simplebuilding:magenta_hammock",
-    "simplebuilding:magenta_light_pane",
     "simplebuilding:mangrove_cauldron",
     "simplebuilding:mangrove_sheet",
     "simplebuilding:nether_brick_quartz_checker",
@@ -209,15 +186,11 @@
     "simplebuilding:note_amplifier",
     "simplebuilding:oak_cauldron",
     "simplebuilding:oak_sheet",
-    "simplebuilding:orange_copper_light_pane",
     "simplebuilding:orange_hammock",
-    "simplebuilding:orange_light_pane",
     "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:pale_oak_cauldron",
     "simplebuilding:pale_oak_sheet",
-    "simplebuilding:pink_copper_light_pane",
     "simplebuilding:pink_hammock",
-    "simplebuilding:pink_light_pane",
     "simplebuilding:placed_blueprint",
     "simplebuilding:placed_egg",
     "simplebuilding:placed_paint_box",
@@ -246,19 +219,14 @@
     "simplebuilding:polished_nihilith_wall",
     "simplebuilding:potion_pad",
     "simplebuilding:potted_silent_dandelion",
-    "simplebuilding:purple_copper_light_pane",
     "simplebuilding:purple_hammock",
-    "simplebuilding:purple_light_pane",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:purpur_quartz_checker_slab",
     "simplebuilding:purpur_quartz_checker_stairs",
-    "simplebuilding:red_copper_light_pane",
     "simplebuilding:red_hammock",
-    "simplebuilding:red_light_pane",
     "simplebuilding:red_nether_brick_quartz_checker",
     "simplebuilding:red_nether_brick_quartz_checker_slab",
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
-    "simplebuilding:redstone_light_pane",
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
     "simplebuilding:reinforced_hopper",
@@ -309,7 +277,6 @@
     "simplebuilding:sulfur_lantern",
     "simplebuilding:sulfur_torch",
     "simplebuilding:sulfur_wall_torch",
-    "simplebuilding:transparent_light_pane",
     "simplebuilding:veined_astralit",
     "simplebuilding:veined_nihilith",
     "simplebuilding:warped_blazewood_bookshelf",
@@ -321,12 +288,8 @@
     "simplebuilding:waxed_oxidized_copper_pressure_plate",
     "simplebuilding:waxed_weathered_copper_pressure_plate",
     "simplebuilding:weathered_copper_pressure_plate",
-    "simplebuilding:white_copper_light_pane",
     "simplebuilding:white_hammock",
-    "simplebuilding:white_light_pane",
-    "simplebuilding:yellow_copper_light_pane",
-    "simplebuilding:yellow_hammock",
-    "simplebuilding:yellow_light_pane"
+    "simplebuilding:yellow_hammock"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -478,14 +441,8 @@
       "id": "simplebuilding:birch_sheet"
     },
     {
-      "id": "simplebuilding:black_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:black_light_pane"
     },
     {
       "id": "simplebuilding:blackstone_chess_bishop",
@@ -558,14 +515,8 @@
       "id": "simplebuilding:blazing_obsidian_chip"
     },
     {
-      "id": "simplebuilding:blue_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:blue_light_pane"
     },
     {
       "id": "simplebuilding:blueprint",
@@ -578,14 +529,8 @@
       "id": "simplebuilding:bridge_redstone_block"
     },
     {
-      "id": "simplebuilding:brown_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:brown_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:brown_light_pane"
     },
     {
       "id": "simplebuilding:carved_acacia_log"
@@ -670,13 +615,7 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:copper_light_pane"
-    },
-    {
       "id": "simplebuilding:copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:copper_redstone_light_pane"
     },
     {
       "cooldownTicks": 25,
@@ -725,14 +664,8 @@
       "id": "simplebuilding:crystalline_nihilith"
     },
     {
-      "id": "simplebuilding:cyan_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:cyan_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:cyan_light_pane"
     },
     {
       "id": "simplebuilding:dark_oak_cauldron"
@@ -1107,24 +1040,12 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:gray_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:gray_hammock",
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:gray_light_pane"
-    },
-    {
-      "id": "simplebuilding:green_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:green_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:green_light_pane"
     },
     {
       "id": "simplebuilding:guide_book",
@@ -1320,47 +1241,20 @@
       "id": "simplebuilding:leather_sheet"
     },
     {
-      "id": "simplebuilding:light_blue_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:light_blue_light_pane"
-    },
-    {
-      "id": "simplebuilding:light_gray_copper_light_pane"
     },
     {
       "id": "simplebuilding:light_gray_hammock",
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:light_gray_light_pane"
-    },
-    {
-      "id": "simplebuilding:light_pane"
-    },
-    {
-      "id": "simplebuilding:lime_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:lime_hammock",
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:lime_light_pane"
-    },
-    {
-      "id": "simplebuilding:magenta_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:magenta_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:magenta_light_pane"
     },
     {
       "id": "simplebuilding:magnet",
@@ -1771,14 +1665,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:orange_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:orange_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:orange_light_pane"
     },
     {
       "id": "simplebuilding:oxidized_copper_pressure_plate"
@@ -1794,14 +1682,8 @@
       "id": "simplebuilding:pale_oak_sheet"
     },
     {
-      "id": "simplebuilding:pink_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:pink_light_pane"
     },
     {
       "id": "simplebuilding:polished_astralit"
@@ -2027,14 +1909,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:purple_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:purple_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:purple_light_pane"
     },
     {
       "id": "simplebuilding:purpur_chess_bishop",
@@ -2150,14 +2026,8 @@
       "maxStackSize": 99
     },
     {
-      "id": "simplebuilding:red_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:red_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:red_light_pane"
     },
     {
       "id": "simplebuilding:red_nether_brick_chess_bishop",
@@ -2219,9 +2089,6 @@
     },
     {
       "id": "simplebuilding:red_nether_brick_quartz_checker_stairs"
-    },
-    {
-      "id": "simplebuilding:redstone_light_pane"
     },
     {
       "id": "simplebuilding:reinforced_elytra_pad",
@@ -2475,9 +2342,6 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:transparent_light_pane"
-    },
-    {
       "id": "simplebuilding:veined_astralit"
     },
     {
@@ -2518,27 +2382,15 @@
       "id": "simplebuilding:weathered_copper_pressure_plate"
     },
     {
-      "id": "simplebuilding:white_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:white_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:white_light_pane"
     },
     {
       "id": "simplebuilding:yarn_ball"
     },
     {
-      "id": "simplebuilding:yellow_copper_light_pane"
-    },
-    {
       "id": "simplebuilding:yellow_hammock",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:yellow_light_pane"
     }
   ],
   "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",

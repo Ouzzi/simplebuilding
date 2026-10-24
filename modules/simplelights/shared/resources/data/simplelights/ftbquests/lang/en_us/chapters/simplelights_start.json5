@@ -1,0 +1,10 @@
+{
+	"chapter.6E2BAF7F594613FA.title": "{\"translate\": \"quests.simplelights.start.title\"}",
+	"chapter.6E2BAF7F594613FA.chapter_subtitle": [
+		"{\"translate\": \"quests.simplelights.start.subtitle\"}"
+	],
+	"quest.2C981C4C01434425.title": "{\"translate\": \"quests.simplelights.start.welcome.title\"}",
+	"quest.2C981C4C01434425.quest_desc": [
+		"{\"translate\": \"quests.simplelights.start.welcome.description\"}"
+	]
+}

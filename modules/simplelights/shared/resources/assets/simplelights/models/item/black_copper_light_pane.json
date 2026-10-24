@@ -1,0 +1,6 @@
+{
+  "parent": "simplelights:item/light_pane_item_base",
+  "textures": {
+    "panel": "simplelights:block/black_copper_light_pane"
+  }
+}

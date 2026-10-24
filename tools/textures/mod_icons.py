@@ -596,6 +596,7 @@ ITEM_MOTIFS = {
     "simplemaps": "wayfinder_map", "simpletweaks": "claim_deed", "simplelib": "enderite_ingot",
     "simplecrucibles": "ceramic_lava_bucket", "simpleend": "drift_fruit", "simpleenddragonfight": "dragon_chitin",
     "simplemobmanners": "frog_bucket", "simpletrims": "glowing_trim_template",
+    "simplelights": "light_pane",
 }
 BG = {
     "wiringexample": "#8a9098", "simplemodels": "#34406a", "simplefun": "#8cc4e8", "simplesounds": "#f0d8a0",
@@ -609,6 +610,7 @@ BG = {
     "simpleblocks": "#a0c8e8", "simplecrucibles": "#7088a0", "simpleoctets": "#90c890", "simplehammers": "#d09060",
     "simpleoptimization": "#4a5aa8", "simpleoptrender": "#7a6ac0", "simpleoptmemory": "#c0c8e8",
     "simpleoptserver": "#2e3a6a", "simplestorage": "#90b8a0", "simplemusic": "#e0a858",
+    "simplelights": "#e8c870",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 

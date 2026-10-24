@@ -191,6 +191,13 @@ MODULES = [
                 "auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr "
                 "Plätzen und größeren Stapeln, und Bündel und Köcher in drei Stufen mit den Lager-Verzauberungen "
                 "Schublade, Tiefe Taschen und Trichter.")),
+    dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
+         author="Simple Lights", recipe="minecraft:glowstone_dust",
+         name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
+         intro=("Light Panes: flat lamps on any block side - plain, transparent, in sixteen colors, a redstone pane whose color "
+                "follows the signal strength and copper panes that toggle like the Copper Bulb.",
+                "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, "
+                "deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -248,6 +255,7 @@ QUEST = {
                      "aus einem Buch und %s herstellen."),
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
+    "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
@@ -518,6 +526,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:stonecutter": ("stonecutter", "Steinmetz"),
     "minecraft:iron_ingot": ("iron ingot", "Eisenbarren"),

@@ -281,8 +281,7 @@ public class ModItems {
     public static final Item LEVITATING_GRAVEL = com.simplebuilding.version.McVersion.BLOCKS_IN_SB ? registerItem("levitating_gravel", s -> new BlockItem(ModBlocks.LEVITATING_GRAVEL, s)) : null;
     // Naturvarianten (N24/N25): seit b-blocksmove in Simple Blocks (util/BlockRefs); die Sculk-Kiefer bleibt hier.
     public static final Item SCULK_JAW = com.simplebuilding.version.McVersion.NATURE_VARIANTS ? registerItem("sculk_jaw", s -> new BlockItem(ModBlocks.SCULK_JAW, s)) : null;
-    // Light Panes (N57): the block items of ModBlocks.lightPanes(), same order (normal, transparent, 16 colors, redstone).
-    public static final List<Item> LIGHT_PANES = com.simplebuilding.version.McVersion.LIGHT_PANES ? lightPaneItems() : List.of();
+    // Light Panes (N57): since WB24-6 Simple Lights' items (util/LightRefs).
 
 
 
@@ -1327,15 +1326,6 @@ public class ModItems {
                         net.minecraft.core.Direction.DOWN, s)),
                 registerItem("sulfur_lantern", s -> new BlockItem(com.simplebuilding.blocks.custom.SulfurLights.LANTERN, s)),
                 registerItem("sulfur_campfire", s -> new BlockItem(com.simplebuilding.blocks.custom.SulfurLights.CAMPFIRE, s)));
-    }
-
-    private static List<Item> lightPaneItems() {
-        List<Item> out = new java.util.ArrayList<>();
-        for (net.minecraft.world.level.block.Block block : ModBlocks.lightPanes()) {
-            String name = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
-            out.add(registerItem(name, s -> new BlockItem(block, s)));
-        }
-        return List.copyOf(out);
     }
 
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {

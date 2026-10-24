@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "#simplelights:copper_light_panes",
+    "minecraft:yellow_dye"
+  ],
+  "result": {
+    "id": "simplelights:yellow_copper_light_pane"
+  }
+}

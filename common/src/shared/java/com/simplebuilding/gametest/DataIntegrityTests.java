@@ -1705,7 +1705,7 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.chess.ChessItems.pieces().values());
         items.addAll(com.simplebuilding.chess.ChessItems.shapes());
         // Holz-/Material-Achtel: seit Stufe 6 Simple Octets' Items (dessen eigene Checks).
-        items.addAll(ModItems.LIGHT_PANES);
+        // Light Panes: since WB24-6 Simple Lights' items (its own checks).
         items.addAll(ModItems.SULFUR_LIGHTS);
         // Holzwerk (McVersion.WOODWORK): je Holzart in einer Schleife registriert (WoodBlocks).
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
@@ -1752,9 +1752,7 @@ public final class DataIntegrityTests {
             blocks.add(shapes.slab());
         }
         // Holz-/Material-Achtel: seit Stufe 6 Simple Octets' Bloecke.
-        // Light Panes (N57): the sixteen single colors are registered in a loop.
-        blocks.addAll(ModBlocks.COLORED_LIGHT_PANES);
-        blocks.addAll(ModBlocks.COPPER_COLORED_LIGHT_PANES); // N68
+        // Light Panes (N57): since WB24-6 Simple Lights' blocks.
         // Holzwerk: je Holzart in einer Schleife registriert (ModBlocks.WOOD_FAMILIES).
         blocks.addAll(com.simplebuilding.woodwork.WoodBlocks.blocks());
         return blocks;
@@ -2827,7 +2825,9 @@ public final class DataIntegrityTests {
                     // Split stage 7: Simple Hammers' sledgehammers keep their row in SimpleBuilding's tools tab (by id).
                     && !com.simplebuilding.util.HammerRefs.all().contains(item)
                     // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
-                    && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+                    && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // WB24-6: Simple Lights' panes keep their rows in SimpleBuilding's building tab (by id).
+                    && !com.simplebuilding.util.LightRefs.items().contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }

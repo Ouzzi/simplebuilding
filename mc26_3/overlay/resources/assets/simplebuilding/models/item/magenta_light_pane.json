@@ -1,6 +1,0 @@
-{
-  "parent": "simplebuilding:item/light_pane_item_base",
-  "textures": {
-    "panel": "simplebuilding:block/magenta_light_pane"
-  }
-}

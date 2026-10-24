@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplelights:item/transparent_light_pane"
+  }
+}
