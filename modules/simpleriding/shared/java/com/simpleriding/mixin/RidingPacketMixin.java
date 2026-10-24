@@ -1,5 +1,7 @@
 package com.simpleriding.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simpleriding.RidingSecurity;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,10 +39,10 @@ public abstract class RidingPacketMixin {
             }
         }
     }
-    @Redirect(method="handleMoveVehicle", at=@At(value="INVOKE", target="Lnet/minecraft/network/protocol/game/ServerboundMoveVehiclePacket;onGround()Z"))
-    private boolean simpleriding$ground(ServerboundMoveVehiclePacket packet) {
+    @WrapOperation(method="handleMoveVehicle", at=@At(value="INVOKE", target="Lnet/minecraft/network/protocol/game/ServerboundMoveVehiclePacket;onGround()Z"))
+    private boolean simpleriding$ground(ServerboundMoveVehiclePacket packet, Operation<Boolean> original) {
         var mount=player.getRootVehicle();
-        if (!RidingSecurity.supported(mount)) return packet.onGround();
+        if (!RidingSecurity.supported(mount)) return original.call(packet);
         return !player.level().noCollision(mount,mount.getBoundingBox().move(0,-.01,0));
     }
 }
