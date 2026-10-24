@@ -103,6 +103,17 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Offene Besitzer-Wünsche 24.10. (OW24)
+Quelle: `docs/ai/OFFENE-WUENSCHE-2026-10-24.md` (b-openreq24; alle Quellen gegen den Code geprüft). Nur (b)/(c); bestehende Zeilen sind verlinkt, nicht dupliziert.
+- [ ] **OW24-1** (S, Queue-Pflege) Veraltete `[~]`/`[ ]`-Zeilen schließen bzw. kürzen (Liste: OFFENE-WUENSCHE §B): WB24-3/WA24-5/WA24-6, W23-1…6, B23-T1…T4, B23-M11/M13, TX22-1/2/3/5, SAGE23, QT23, SP22-3/-8, AUD-3/-4/-6, TEX21, ENDREP; Überblick (A)/(1) auf Stand bringen.
+- [ ] **OW24-2** (c, M) Simple Gadgets (MA-N70 Stufe 6: Rotator, Messuhr, Detektor, Magnet, Oktant, Echolot, Attractor) und Simple Enderite (Stufe 8) als Sub-Mods; Plan `docs/ai/PLAN-MODULFAMILIE-2026-10-16.md`; derzeit weder `modules/simplegadgets` noch `modules/simpleenderite`.
+- [ ] **OW24-3** (c, M) WA24-7 End-Boss-Material: Konzept + Umsetzung, oder Entscheidung begründen, dass das Ender-Herz-Rezept (WB24-2) reicht.
+- [ ] **OW24-4** (c, S) Rissiges Eis neu texturieren (exemplarisch 2–3 Varianten, Ebenen, Vanilla-nah) – Zeile „Funde 23.10.“.
+- [ ] **OW24-5** (c, S) Sandwiches: alte Stacks bei Config-Änderung neu berechnen (`SandwichContents.FORMULA`, Memory `sandwiches-offen`).
+- [ ] **OW24-6** (b, S) Halb gefüllte Eimer (Kapazität 2): alle Flüssigkeits-/Stufen-Modelle auf vorhandene `*_half`-Texturen prüfen, fehlende ergänzen (Memory `tex7-offen`).
+- [ ] **OW24-7** (b, M) HOW-2 Visual-/Animationsteil + HOW-1 H4 Herz (Klang schon eingebaut, W24-3) – Vorschau zuerst.
+- Verlinkt (nicht doppelt): WC24-4 (Simple Earth, größter offener Punkt), AUDM24-1…5 + CMD24-2/3 (JEI/Befehle, laufen auf b-jei24/b-cmdcfg24), AUDM24-4 (Aschholz ohne Simple End), REV24-F-17/N-5, WEB Stufe 4, TZ22-9.
+
 ## Besitzer 24.10. nachmittags – Antworten Sammelseite, Runde 2 (WC24)
 Abgenommen: WB24-2 Schwingen Stufe 1–4 (Name „Leeren-Schwingen“, x8/1152/MYTHIC), WB24-4 Notenblatt-Editor („noten blatt e3“ = E3-Ansicht so lassen, flaches Neuschreiben ok).
 - [x] (B, b-wc24gem, 24.10., Plan docs/ai/PLAN-B-WC24GEM-2026-10-24.md: Endfassungen in tools/textures/wb24_gems/wb24_gems.py (`--install`/`--check`, Unittest test_wb24_gems), eingebaut als simplemobs:item/nether_gem|ender_gem|ender_heart (PNG+.mcmeta+.layers.json), Item nether_gem aus wither21_textures.py genommen (Block nether_gem unverändert), Wiki/textures.js neu; Kaninchen-Lesart nur Vorschau (variants/ender_heart_alt_kaninchen); Vorschau /root/sb-tools-b/previews/wc24-1-gems-final.html; offen: Besitzer-/Client-Sicht) WC24-1 (WB24-3) Nether-Juwel = **A3 Seelenflamme mit höherer Seelenflamme**. Ender-Juwel = **E2 Leerenschliff, aber anpassen** (verfeinern). Ender-Herz = **H3 Chorusherz fusioniert mit H1** (Chorusfarbe mit dem Türkis), Form „ähnlich einem kanicken Herzen“ (Diktat; gelesen als **kantiges** Pixel-Herz). Danach als echte Texturen von nether_gem/ender_gem/ender_heart einbauen (ersetzt vorläufig H1/E1), Vorschau dazu.
