@@ -40,6 +40,7 @@ PENDING = {
     "simpleoptrender": "no SimpleLib dependency yet",
     "simpleoptserver": "no SimpleLib dependency yet",
     "simpletweaks": "record configs in several files (play, admin, protect, claims) still to announce",
+    "simpleearth": "new module (WC24-4, merged in bundle 66): own client/server config classes, the menu covers the client side; command still to announce",
 }
 # Modules that only keep state or data files, no options.
 NO_OPTIONS = {
