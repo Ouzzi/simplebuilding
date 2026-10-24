@@ -50,7 +50,7 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
       ],
       "en": {
         "title": "Trim upgrades at the smithing table",
-        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once). The template is used up like any smithing template.",
+        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once), Inverting (Ink Sac, once). The template is used up like any smithing template.",
         "details": [
           "Glowing draws the trim at full light. Pulsating alone fades the trim colors to gray and back; with Glowing its brightness swells between 1 and 15.",
           "Radiance gives 3 light per level to an invisible light block over the wearer's head (sum of all worn pieces, at most 15).",
@@ -315,6 +315,65 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
             "id": "minecraft:leather",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpletrims:inverting_armor_upgrade",
+      "type": "simpletrims:trim_upgrade",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simpletrims/shared/resources/data/simpletrims/recipe/inverting_armor_upgrade.json",
+      "ingredients": [
+        "#minecraft:trimmable_armor",
+        "minecraft:ink_sac",
+        "simpletrims:inverting_trim_template"
+      ],
+      "slots": {
+        "template": [
+          "simpletrims:inverting_trim_template"
+        ],
+        "base": [
+          "#minecraft:trimmable_armor"
+        ],
+        "addition": [
+          "minecraft:ink_sac"
+        ]
+      }
+    },
+    {
+      "id": "simpletrims:inverting_trim_template_duplication",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpletrims:inverting_trim_template",
+        "count": 2
+      },
+      "source": "modules/simpletrims/shared/resources/data/simpletrims/recipe/inverting_trim_template_duplication.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:obsidian",
+        "simpletrims:inverting_trim_template"
+      ],
+      "pattern": [
+        "DTD",
+        "DBD",
+        "DDD"
+      ],
+      "key": {
+        "B": [
+          "minecraft:obsidian"
+        ],
+        "D": [
+          "minecraft:diamond"
+        ],
+        "T": [
+          "simpletrims:inverting_trim_template"
         ]
       }
     },
@@ -683,6 +742,58 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
       "usedIn": []
     },
     {
+      "id": "simpletrims:inverting_trim_template",
+      "name": {
+        "en_us": "Inverting Armor Trim",
+        "de_de": "Invertierender Rüstungsbesatz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpletrims/shared/java/com/simpletrims/TrimsRegistry.java",
+          "modules/simpletrims/shared/java/com/simpletrims/TrimInversion.java",
+          "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
+        ],
+        "en": {
+          "summary": "Smithing: trimmed armor + Ink Sac = Inverted trim (pattern cut out, the rest of the armor in the trim color). Made by forging a placed armor trim template with an Ink Sac (4 diamonds, 2 obsidian)."
+        },
+        "de": {
+          "summary": "Schmieden: Rüstung mit Besatz + Tintenbeutel = invertierter Besatz (Muster ausgespart, Rest der Rüstung in der Besatzfarbe). Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Tintenbeutel (4 Diamanten, 2 Obsidian)."
+        }
+      },
+      "texture": "assets/textures/simpletrims/item/inverting_trim_template.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A trim turned inside out."
+          ],
+          "use": [
+            "Place a trim template and strike it with an axe (with Simple Hammers: a sledgehammer) while holding an Ink Sac in the off hand; costs 4 diamonds and 2 obsidian. One template, 7 diamonds and an obsidian block make 2."
+          ],
+          "secret": [
+            "At the smithing table, template, trimmed armor and an Ink Sac cut the trim pattern out and paint the rest of the armor in the trim color."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Besatz von innen nach außen."
+          ],
+          "use": [
+            "Besatzvorlage ablegen und mit einer Axt (mit Simple Hammers: Vorschlaghammer) schlagen, einen Tintenbeutel in der Nebenhand; kostet 4 Diamanten und 2 Obsidian. Eine Vorlage, 7 Diamanten und ein Obsidianblock ergeben 2."
+          ],
+          "secret": [
+            "Am Schmiedetisch sparen Vorlage, Rüstung mit Besatz und ein Tintenbeutel das Besatzmuster aus und färben den Rest der Rüstung in der Besatzfarbe."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simpletrims:inverting_trim_template_duplication"
+      ],
+      "usedIn": [
+        "simpletrims:inverting_armor_upgrade",
+        "simpletrims:inverting_trim_template_duplication"
+      ]
+    },
+    {
       "id": "simpletrims:pulsating_trim_template",
       "name": {
         "en_us": "Pulsating Armor Trim",
@@ -797,12 +908,12 @@ window.WIKI_MODULE_DATA["simpletrims"] = {
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 8,
+    "recipes": 10,
     "lootTables": 0,
     "tags": 2,
     "advancements": 3,
     "enchantments": 0,
-    "items": 4,
+    "items": 5,
     "blocks": 1,
     "trades": 0,
     "config": 0,

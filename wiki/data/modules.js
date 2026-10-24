@@ -441,7 +441,9 @@ window.WIKI_MODULES = [
       "forge"
     ],
     "requires": [],
-    "optional": [],
+    "optional": [
+      "jei"
+    ],
     "overview": {
       "status": "fertig (wächst mit)",
       "open": "4",
@@ -541,12 +543,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABj0lEQVR42oWTzUsCQRyGOyp9f1C3ig4hQZFkhGVYaNShIrUvDYswRDEsMzLD1RIR+iBCgijo4KW6Bt3r2slrx6COXfoLfvUOzrTTah2eZXd23mfenWUqPFPd9BudrlJQ6r2aClw+Xm4ECFmsLjLN+mjQExIi9Rzw+rQpC96fM/T59igEHOvqOrnjB0KEeQjnjxxaAQ87U1kKnV9KIg4XlRXw8G2hQIn7B43A6t+i+oZWsT9CoK4OiToMIcZwjzAkJQXGPhujxzjK4OG7Yhv77h4TjEUVWcBXnw5GaClzSBNxRUgAwmjQ2NQm6kt7gIH+GTcLK9d5Go/GGMP+ELV39DIQ5EgCPAzN+cgW3ibvSY7s4R2aTGYo8H0PiVPZlwSYL/1GDIz4w7R8miNDl0XgPT6jxXSWSXj1soIBh4c6DWZJgCb+iyuqqW2hqupmJuFhjQABCEyulZ8GxU9AGDiS6dIC9eExza+R2RNksoVYilXW6+vItpGQwhoBH+AiCABWhsAaiIidVyMEfx3n/471F3h08EUyFpsCAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 4,
+      "items": 5,
       "blocks": 1,
-      "recipes": 8,
+      "recipes": 10,
       "features": 6
     },
-    "dataHash": "722f6419ce54"
+    "dataHash": "c260d9c40914"
   },
   {
     "id": "simplemobs",
