@@ -1,11 +1,12 @@
 package com.simplebuilding.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplebuilding.fletching.ArrowRecovery;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 /**
  * Pfeil-Rueckgabe (2026-10-02, {@link ArrowRecovery}): am Aufruf von {@code doPostHurtEffects} in
@@ -14,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowRecoveryMixin {
 
-    @Redirect(method = "onHitEntity", at = @At(value = "INVOKE",
+    @WrapOperation(method = "onHitEntity", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;doPostHurtEffects(Lnet/minecraft/world/entity/LivingEntity;)V"))
-    private void simplebuilding$rememberArrow(AbstractArrow arrow, LivingEntity target) {
-        ((AbstractArrowAccessor) arrow).simplebuilding$doPostHurtEffects(target);
+    private void simplebuilding$rememberArrow(AbstractArrow arrow, LivingEntity target, Operation<Void> original) {
+        original.call(arrow, target);
         ArrowRecovery.onHit(arrow, target);
     }
 }

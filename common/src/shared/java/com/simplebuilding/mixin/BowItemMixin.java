@@ -1,5 +1,7 @@
 package com.simplebuilding.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplebuilding.items.custom.QuiverItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,7 +14,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BowItem.class)
@@ -33,18 +34,18 @@ public class BowItemMixin {
     private static final ThreadLocal<ItemStack> quiverProjectile = ThreadLocal.withInitial(() -> ItemStack.EMPTY);
 
     // 1. "use": Prüft zuerst den Köcher (Priorität!)
-    @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
-    private ItemStack checkQuiverOnUse(Player player, ItemStack stack) {
+    @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
+    private ItemStack checkQuiverOnUse(Player player, ItemStack stack, Operation<ItemStack> original) {
         ItemStack quiverArrow = QuiverItem.findProjectileForBow(player);
         if (!quiverArrow.isEmpty()) {
             return quiverArrow;
         }
-        return player.getProjectile(stack);
+        return original.call(player, stack);
     }
 
     // 2. "onStoppedUsing": Prüft zuerst den Köcher und setzt das Flag
-    @Redirect(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
-    private ItemStack checkQuiverOnStop(Player player, ItemStack stack) {
+    @WrapOperation(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
+    private ItemStack checkQuiverOnStop(Player player, ItemStack stack, Operation<ItemStack> original) {
         usedQuiver.set(false); // Reset
         quiverProjectile.set(ItemStack.EMPTY);
 
@@ -55,7 +56,7 @@ public class BowItemMixin {
             return quiverArrow;
         }
 
-        return player.getProjectile(stack);
+        return original.call(player, stack);
     }
 
     // 3. Verbrauch: Entfernt den Pfeil NUR, wenn das Flag gesetzt ist

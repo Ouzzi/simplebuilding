@@ -1,5 +1,7 @@
 package com.simplebuilding.modules.simpleinterfaces.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplebuilding.modules.simpleinterfaces.client.LinkedPanel;
 import com.simplebuilding.modules.simpleinterfaces.client.LinkedScreen;
 import com.simplebuilding.modules.simpleinterfaces.linked.LinkedMenu;
@@ -15,7 +17,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -59,12 +60,12 @@ public abstract class ContainerScreenLinkedMixin extends Screen implements Linke
         if (panel != null) panel.render(graphics, this.font);
     }
 
-    @Redirect(method = {"mouseClicked", "mouseReleased"}, at = @At(value = "INVOKE",
+    @WrapOperation(method = {"mouseClicked", "mouseReleased"}, at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;hasClickedOutside(DDII)Z"))
-    private boolean qol$outside(AbstractContainerScreen<?> self, double x, double y, int left, int top) {
+    private boolean qol$outside(AbstractContainerScreen<?> self, double x, double y, int left, int top, Operation<Boolean> original) {
         LinkedPanel panel = this.qol$panel();
         if (panel != null && panel.contains(x, y, this.leftPos, this.topPos)) return false;
-        return this.hasClickedOutside(x, y, left, top);
+        return original.call(self, x, y, left, top);
     }
 
     @Inject(method = "mouseScrolled", at = @At("HEAD"), cancellable = true)

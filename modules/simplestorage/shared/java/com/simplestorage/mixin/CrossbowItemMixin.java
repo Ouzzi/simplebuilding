@@ -1,5 +1,7 @@
 package com.simplestorage.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplestorage.bundle.QuiverItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -9,7 +11,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
@@ -31,14 +32,14 @@ public class CrossbowItemMixin {
     @Unique
     private static final ThreadLocal<Integer> simplestorage$countBefore = ThreadLocal.withInitial(() -> 0);
 
-    @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
-    private ItemStack simplestorage$quiverOnUse(Player player, ItemStack crossbow) {
+    @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
+    private ItemStack simplestorage$quiverOnUse(Player player, ItemStack crossbow, Operation<ItemStack> original) {
         ItemStack arrow = QuiverItem.findProjectileForCrossbow(player, crossbow);
-        return arrow.isEmpty() ? player.getProjectile(crossbow) : arrow;
+        return arrow.isEmpty() ? original.call(player, crossbow) : arrow;
     }
 
-    @Redirect(method = "tryLoadProjectiles", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
-    private static ItemStack simplestorage$quiverOnLoad(LivingEntity shooter, ItemStack crossbow) {
+    @WrapOperation(method = "tryLoadProjectiles", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"))
+    private static ItemStack simplestorage$quiverOnLoad(LivingEntity shooter, ItemStack crossbow, Operation<ItemStack> original) {
         simplestorage$quiverArrow.set(ItemStack.EMPTY);
         if (shooter instanceof Player player) {
             ItemStack arrow = QuiverItem.findProjectileForCrossbow(player, crossbow);
@@ -48,7 +49,7 @@ public class CrossbowItemMixin {
                 return arrow;
             }
         }
-        return shooter.getProjectile(crossbow);
+        return original.call(shooter, crossbow);
     }
 
     @Inject(method = "tryLoadProjectiles", at = @At("RETURN"))

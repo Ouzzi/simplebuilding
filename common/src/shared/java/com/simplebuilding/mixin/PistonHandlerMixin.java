@@ -1,5 +1,6 @@
 package com.simplebuilding.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simplebuilding.blocks.custom.ReinforcedPistonBlock;
@@ -16,9 +17,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -49,7 +48,7 @@ public class PistonHandlerMixin {
 
     // WICHTIG: Nur EINE Methode benutzen.
     // Diese ersetzt ALLE "12"er in der Methode "tryMove" durch 18, wenn es unser Piston ist.
-    @ModifyConstant(method = "addBlockLine", constant = @Constant(intValue = 12))
+    @ModifyExpressionValue(method = "addBlockLine", at = @At(value = "CONSTANT", args = "intValue=12"))
     private int modifyPistonLimit(int originalLimit) {
         BlockState state = this.level.getBlockState(this.pistonPos);
 
