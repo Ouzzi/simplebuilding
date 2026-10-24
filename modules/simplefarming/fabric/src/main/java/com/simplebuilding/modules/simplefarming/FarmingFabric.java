@@ -9,17 +9,8 @@ public final class FarmingFabric implements ModInitializer {
         SimpleFarming.load();
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> FarmingCommands.register(d));
         HoeHarvestHint.register();
-        // The probe fires the real BEFORE handlers; area hammers must not take it for a break (HammerActions veto).
-        com.simplelib.api.HammerActions.registerAreaVeto(() -> InteractionGuard.probing > 0);
-        InteractionGuard.permission = (p, pos) -> {
-            InteractionGuard.probing++;
-            try {
-                return net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
-                        .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
-            } finally {
-                InteractionGuard.probing--;
-            }
-        };
+        InteractionGuard.permission = (p, pos) -> net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()
+                .beforeBlockBreak(p.level(), p, pos, p.level().getBlockState(pos), p.level().getBlockEntity(pos));
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p, w, hand, hit) ->
                 HoeHarvestHandler.onRightClickBlock(p, hand, hit.getBlockPos(), hit.getDirection()));
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simplefarming.network.ConfigSyncPayload.TYPE, com.simplebuilding.modules.simplefarming.network.ConfigSyncPayload.STREAM_CODEC);

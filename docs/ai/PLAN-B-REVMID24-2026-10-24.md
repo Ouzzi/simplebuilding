@@ -14,5 +14,5 @@ Nur 26.3 Fabric. Verifikation: Compile Fabric + Modul-Fabric, gezielte Gametests
 | M-8 | bestaetigt | `collect()` vor Abschluss-Drain, Queue-Grenze 200 000 (neue verwerfen + eine Warnung) | `worldEvents` erweitert |
 | M-9 | nur statischer Zwischenzustand | `@WrapMethod` mit try/finally statt HEAD/RETURN | vorhandene soulbound-/vault-Tests |
 | M-10 | bestaetigt | Ort vor Teleport pruefen (`standable`), bei Disconnect/Stop vergessen | `roof` erweitert |
-| M-11 | bestaetigt | Probe zaehlt `InteractionGuard.probing`, Veto fuer Flaechenhaemmer (`HammerActions.registerAreaVeto`); gemeinsame Probe in simplelib bleibt offen | Fabric-Test `permissionProbeVetoesAreas` |
+| M-11 | bestaetigt (simplefarming hat keine simplelib-Abhaengigkeit: dort offen) | Probe zaehlt `InteractionGuard.probing`, Veto fuer Flaechenhaemmer (`HammerActions.registerAreaVeto`); gemeinsame Probe in simplelib bleibt offen | Fabric-Test `permissionProbeVetoesAreas` |
 | M-12 | Teil bestaetigt (Chunk-Zugriffe); Drosselung gibt es schon (INTERVAL = 200 Ticks) -> verworfen | `hasChunkAt` vor Bell-Struktursuche und in `findSpot` | neu `find_spot_skips_unloaded` |
