@@ -115,7 +115,13 @@ Schwere: **P1** Absturz/Datenverlust/Exploit, **P2** Datenverlust im Einzelfall/
 
 Neue/erweiterte GameTests: simpleoctets `mixed_cell_keeps_readable_materials`, simplemusic `pocket_keeps_readable_discs`,
 simplemovement `climb_boosts`, simplemoney `config_file_gone`, simplemobheads `animal_abilities` (forgetAll); JUnit
-simplemusic `UploadStoreTest.damagedIndexEntrySkipsOnlyItself`. Ergebnisse siehe Abschlussbericht/Memory.
+simplemusic `UploadStoreTest.damagedIndexEntrySkipsOnlyItself`.
+
+Ergebnis (sb-test, 24.10.): module-{simpleoctets,simplemusic,simplemovement,simplemoney,simplemobheads}-fabric-263 und
+-standalone-fabric-263 **296/296 grün** (alle neuen Tests im Bericht), JUnit simplemusic grün, Compile simplemobs/simplequalityoflife
+grün, Generatoren (Guides, Wiki, Discover) ohne Änderung, `./gradlew check` grün (Drift `forgetAll/0` der reduzierten
+Kern-`HeadAbilities` in `tools/dup_pairs.txt` erlaubt). Nicht laufen gelassen: simplemobs/-qualityoflife/-mobmanners/-models/-ovens/
+-opt*-Module (nur Compile bzw. keine Änderung), Client-Tests (Lecks der Client-Caches nur per Code-Lesen belegt).
 
 ## Nicht oder nur teilweise geprüft
 
