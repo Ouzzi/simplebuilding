@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:clock"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplegadgets:guide_book"
+  }
+}
