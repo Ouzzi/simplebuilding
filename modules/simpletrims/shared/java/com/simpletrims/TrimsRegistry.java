@@ -44,9 +44,13 @@ public final class TrimsRegistry {
     public static final DataComponentType<Boolean> PULSATING = DataComponentType.<Boolean>builder()
             .persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build();
 
-    /** Inverting upgrade (NA24-6): the trim is drawn as the negative of its pattern over the armor. */
-    public static final DataComponentType<Boolean> INVERTED_TRIM = DataComponentType.<Boolean>builder()
-            .persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build();
+    /**
+     * Inverting upgrade (NA24-6, WA24-1): stage 1-3, the trim is drawn as the negative of its pattern over the armor
+     * ({@link TrimInversion}). The first version stored a boolean: {@code true} reads as stage 2 (RIM, its look then).
+     */
+    public static final DataComponentType<Integer> INVERTED_TRIM = DataComponentType.<Integer>builder()
+            .persistent(Codec.withAlternative(Codec.intRange(1, TrimInversion.MAX_LEVEL), Codec.BOOL, b -> b ? 2 : 1))
+            .networkSynchronized(ByteBufCodecs.VAR_INT).build();
 
     public static Item GLOWING_TRIM_TEMPLATE, EMITTING_TRIM_TEMPLATE, PULSATING_TRIM_TEMPLATE, INVERTING_TRIM_TEMPLATE;
     public static PlacedTrimTemplateBlock PLACED_TEMPLATE;

@@ -41,7 +41,7 @@ public final class TrimPulseTextures {
     private TrimPulseTextures() {
     }
 
-    private record Key(Identifier base, Identifier keyPalette, @Nullable Identifier palette, boolean inverted) {
+    private record Key(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int inverted) {
     }
 
     private static final class Entry {
@@ -60,12 +60,12 @@ public final class TrimPulseTextures {
      * in den Farben von {@code palette} (PNG, eine Zeile; die Schluesselfarben stehen in {@code keyPalette}),
      * entsaettigt auf Stufe {@code step}. {@code palette == null}: die Ebene bleibt in ihren eigenen Farben.
      *
-     * @param inverted Inverting upgrade: the layer is the negative of the pattern ({@link com.simpletrims.TrimInversion}); then
+     * @param inverted Inverting stage (0 = none, 1-3): the layer is the negative of the pattern ({@link com.simpletrims.TrimInversion}); then
      *                 step 0 (full colour) is a texture of its own, too
      * @return die Textur, oder {@code null} bei Stufe 0 ohne Invertierung (volle Farbe - Vanilla zeichnen) und wenn eine Datei fehlt
      */
-    public static @Nullable Identifier texture(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int step, boolean inverted) {
-        if (step < (inverted ? 0 : 1) || step >= TrimGlow.DESATURATION_STEPS) {
+    public static @Nullable Identifier texture(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int step, int inverted) {
+        if (step < (inverted > 0 ? 0 : 1) || step >= TrimGlow.DESATURATION_STEPS) {
             return null;
         }
         dropIfReloaded();
@@ -135,7 +135,7 @@ public final class TrimPulseTextures {
 
     /** The Inverting upgrade: replaces the coloured layer by its negative (fill = palette colour), else the layer itself. */
     private static NativeImage invertIf(Key key, NativeImage colored, int @Nullable [] palette) {
-        if (!key.inverted()) {
+        if (key.inverted() <= 0) {
             return colored;
         }
         int w = colored.getWidth();
@@ -147,7 +147,7 @@ public final class TrimPulseTextures {
             }
         }
         int[] colours = TrimInversion.colours(palette, pattern);
-        int[] out = TrimInversion.invert(pattern, w, h, colours[0], colours[1], TrimInversion.DEFAULT);
+        int[] out = TrimInversion.invert(pattern, w, h, colours[0], colours[1], TrimInversion.mode(key.inverted()));
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 colored.setPixel(x, y, out[y * w + x]);

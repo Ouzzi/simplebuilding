@@ -79,12 +79,17 @@ public final class TrimGlow {
 
     /** Inverting upgrade: only worn trims show it (the trim layer is drawn as the negative of its pattern). */
     public static boolean isInverted(ItemStack stack) {
-        return !stack.isEmpty() && stack.getOrDefault(TrimsRegistry.INVERTED_TRIM, false);
+        return getInvertLevel(stack) > 0;
     }
 
-    public static void setInverted(ItemStack stack, boolean inverted) {
+    /** Inverting stage 0 (none) to {@link TrimInversion#MAX_LEVEL}. */
+    public static int getInvertLevel(ItemStack stack) {
+        return stack.isEmpty() ? 0 : stack.getOrDefault(TrimsRegistry.INVERTED_TRIM, 0);
+    }
+
+    public static void setInvertLevel(ItemStack stack, int level) {
         if (stack.isEmpty()) return;
-        if (inverted) stack.set(TrimsRegistry.INVERTED_TRIM, true);
+        if (level > 0) stack.set(TrimsRegistry.INVERTED_TRIM, Math.min(level, TrimInversion.MAX_LEVEL));
         else stack.remove(TrimsRegistry.INVERTED_TRIM);
     }
 

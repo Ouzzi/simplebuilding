@@ -548,7 +548,7 @@ window.WIKI_MODULES = [
       "recipes": 10,
       "features": 6
     },
-    "dataHash": "c260d9c40914"
+    "dataHash": "a37470937f54"
   },
   {
     "id": "simplemobs",

@@ -81,13 +81,13 @@ public class EquipmentLayerRendererMixin {
     private static Identifier simpletrims$desaturatedTrim(ItemStack stack, ArmorTrim trim,
                                                              EquipmentClientInfo.LayerType layerType,
                                                              EquipmentClientInfo equipmentInfo) {
-        boolean inverted = TrimGlow.isInverted(stack);
+        int inverted = TrimGlow.getInvertLevel(stack);
         boolean fade = TrimGlow.isPulsating(stack) && TrimGlow.getGlowLevel(stack) <= 0;
-        if (!fade && !inverted) {
+        if (!fade && inverted <= 0) {
             return null;
         }
         int step = fade ? TrimGlow.desaturationStep(System.currentTimeMillis()) : 0;
-        if (step <= 0 && !inverted) {
+        if (step <= 0 && inverted <= 0) {
             return null;
         }
         Identifier textureId = trim.pattern().value().assetId();

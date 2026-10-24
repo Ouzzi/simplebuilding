@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * The four trim upgrades at the smithing table, in one place: Glowing (glow ink, one level), Emitting (glowstone
- * dust, radiance up to 5) Pulsating (echo shard, once) and Inverting (ink sac, once). Read by the recipe type {@code simpletrims:trim_upgrade},
+ * dust, radiance up to 5) Pulsating (echo shard, once) and Inverting (ink sac, three stages: HARD, RIM, SOFT). Read by the recipe type {@code simpletrims:trim_upgrade},
  * so Vanilla's smithing table, SimpleBuilding's auto smither and recipe displays all get the same result.
  */
 public final class TrimUpgrades {
@@ -45,9 +45,10 @@ public final class TrimUpgrades {
             return out;
         }
         if (template.is(TrimsRegistry.INVERTING_TRIM_TEMPLATE) && material.is(Items.INK_SAC)) {
-            if (TrimGlow.isInverted(armor)) return ItemStack.EMPTY;
+            int stage = TrimGlow.getInvertLevel(armor);
+            if (stage >= TrimInversion.MAX_LEVEL) return ItemStack.EMPTY;
             ItemStack out = armor.copyWithCount(1);
-            TrimGlow.setInverted(out, true);
+            TrimGlow.setInvertLevel(out, stage + 1);
             return out;
         }
         return null;

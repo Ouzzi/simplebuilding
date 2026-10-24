@@ -24,7 +24,7 @@ public class ItemTooltipMixin {
         if (emission > 0) lines.accept(Component.translatable("tooltip.simpletrims.radiance_level", emission).withStyle(ChatFormatting.GOLD));
         if (glow > 0) lines.accept(Component.translatable("tooltip.simpletrims.glow_level").withStyle(ChatFormatting.AQUA));
         if (TrimGlow.isInverted(stack)) {
-            lines.accept(Component.translatable("tooltip.simpletrims.inverted").withStyle(ChatFormatting.DARK_GRAY));
+            lines.accept(Component.translatable("tooltip.simpletrims.inverted_level", net.minecraft.network.chat.Component.literal("I".repeat(TrimGlow.getInvertLevel(stack)))).withStyle(ChatFormatting.DARK_GRAY));
             lines.accept(Component.translatable("tooltip.simpletrims.inverted.desc").withStyle(ChatFormatting.GRAY));
         }
         if (TrimGlow.isPulsating(stack)) {
