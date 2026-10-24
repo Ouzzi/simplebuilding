@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "tint=none": {
       "model": "simpleshops:block/glow_display_case"
+    },
+    "tint=red": {
+      "model": "simpleshops:block/glow_display_case_red"
     }
   }
 }

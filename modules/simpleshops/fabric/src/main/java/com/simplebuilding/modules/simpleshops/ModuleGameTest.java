@@ -317,6 +317,21 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void terminalDropsLecternWithoutSilkTouch(GameTestHelper h) {
+        ShopsTests.ALL.get("terminal_drops_lectern_without_silk_touch").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void shopsRecipesNa24(GameTestHelper h) {
+        ShopsTests.ALL.get("shops_recipes_na24").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
+    public void displayTintRed(GameTestHelper h) {
+        ShopsTests.ALL.get("display_tint_red").accept(h);
+    }
+
+    @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void terminalRegistered(GameTestHelper h) {
         ShopsTests.ALL.get("terminal_registered").accept(h);
     }

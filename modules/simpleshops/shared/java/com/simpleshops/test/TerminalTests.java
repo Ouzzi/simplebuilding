@@ -28,7 +28,12 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -52,6 +57,49 @@ final class TerminalTests {
                     "an ordinary block: it holds nothing");
             ShopsConfig.reset();
             h.assertTrue(ShopsConfig.remoteTake() && ShopsConfig.remoteDelaySeconds == 2 && !ShopsConfig.remoteCrossDimension, "KONZ20 defaults");
+            h.succeed();
+        });
+        all.put("terminal_drops_lectern_without_silk_touch", h -> {
+            var level = h.getLevel();
+            BlockPos pos = h.absolutePos(new BlockPos(2, 1, 2));
+            BlockState state = ShopsRegistry.TRADE_TERMINAL.defaultBlockState();
+            ItemStack silk = new ItemStack(Items.IRON_PICKAXE);
+            silk.enchant(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), 1);
+            h.assertTrue(dropsOnly(Block.getDrops(state, level, pos, null, null, silk), ShopsRegistry.TRADE_TERMINAL_ITEM), "silk touch keeps the terminal");
+            var axeDrops = Block.getDrops(state, level, pos, null, null, new ItemStack(Items.IRON_AXE));
+            h.assertTrue(dropsOnly(axeDrops, Items.LECTERN), "an axe yields only a lectern, got " + axeDrops);
+            h.assertTrue(dropsOnly(Block.getDrops(state, level, pos, null, null, ItemStack.EMPTY), Items.LECTERN), "bare hands yield only a lectern");
+            h.succeed();
+        });
+        all.put("shops_recipes_na24", h -> {
+            var recipes = h.getLevel().getServer().getRecipeManager();
+            h.assertTrue(recipeHas(recipes, "sales_block", Items.HOPPER, Items.ENDER_PEARL, Items.CHEST), "sales block: hopper on top");
+            h.assertTrue(recipeHas(recipes, "sales_storage", Items.HOPPER, Items.ENDER_PEARL), "sales storage: hoppers");
+            h.assertTrue(recipeHas(recipes, "display_case", Items.OAK_PRESSURE_PLATE, Items.GLASS, Items.IRON_NUGGET), "display case: plate, glass block, nuggets");
+            h.succeed();
+        });
+        all.put("display_tint_red", h -> {
+            ServerPlayer owner = player(h, GameType.SURVIVAL);
+            ServerPlayer stranger = player(h, GameType.SURVIVAL);
+            StorageTests.Column c = StorageTests.column(h, owner, 0);
+            var level = h.getLevel();
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(c.box), Direction.UP, c.box, false);
+            ItemStack dye = new ItemStack(Items.DYE.red(), 2);
+            stranger.setShiftKeyDown(true);
+            level.getBlockState(c.box).useItemOn(dye, level, stranger, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+            h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.NONE && dye.getCount() == 2, "a stranger cannot tint");
+            owner.setShiftKeyDown(false);
+            owner.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, dye);
+            level.getBlockState(c.box).useItemOn(dye, level, owner, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+            h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.NONE, "without sneaking the dye is goods");
+            h.assertTrue(c.box().goods().stream().anyMatch(g -> g.is(Items.DYE.red())), "dye stocked as goods");
+            c.box().goods().clear();
+            ItemStack dye2 = new ItemStack(Items.DYE.red(), 2);
+            owner.setShiftKeyDown(true);
+            owner.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, dye2);
+            level.getBlockState(c.box).useItemOn(dye2, level, owner, net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+            h.assertTrue(level.getBlockState(c.box).getValue(com.simpleshops.block.DisplayCaseBlock.TINT) == com.simpleshops.block.DisplayCaseBlock.Tint.RED && dye2.getCount() == 1, "owner tints, one dye used");
+            h.assertTrue(level.getBlockEntity(c.box) instanceof com.simpleshops.block.DisplayCaseBlockEntity, "the case keeps its entity");
             h.succeed();
         });
         all.put("terminal_remote_buy_equals_on_site", h -> {
@@ -351,6 +399,18 @@ final class TerminalTests {
             h.succeed();
         });
         ShopsTests.MAX_TICKS.put("terminal_dupe_fuzz", 400);
+    }
+
+    private static boolean dropsOnly(List<ItemStack> drops, Item item) {
+        return drops.size() == 1 && drops.get(0).is(item) && drops.get(0).getCount() == 1;
+    }
+
+    private static boolean recipeHas(net.minecraft.world.item.crafting.RecipeManager recipes, String name, Item... items) {
+        var r = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, com.simpleshops.SimpleShops.id(name)));
+        if (r.isEmpty()) return false;
+        var ings = r.get().value().placementInfo().ingredients();
+        for (Item item : items) if (ings.stream().noneMatch(i -> i.test(new ItemStack(item)))) return false;
+        return true;
     }
 
     static TradeTerminalMenu open(GameTestHelper h, ServerPlayer p) {

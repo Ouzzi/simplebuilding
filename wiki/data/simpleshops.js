@@ -32,7 +32,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       ],
       "en": {
         "title": "Display Case",
-        "summary": "A glass case with five goods slots that shows what is for sale; the lid is glass too, so the goods are visible from above. It stands anywhere, but it is a shop (protected, sells) only on a Sales Block of the same owner. Craft: 3 iron nuggets, 3 glass, 3 planks. The Glow Display Case (Display Case + glow ink sac, shapeless) draws the goods fully bright and gives off weak light (6).",
+        "summary": "A glass case with five goods slots that shows what is for sale; the lid is glass too, so the goods are visible from above. It stands anywhere, but it is a shop (protected, sells) only on a Sales Block of the same owner. Craft: 8 iron nuggets, 1 glass block, 1 wooden pressure plate (plate below, glass in the middle, nuggets around). The Glow Display Case (Display Case + glow ink sac, shapeless) draws the goods fully bright and gives off weak light (6).",
         "details": [
           "Owner, empty hand: the goods menu with five real slots. An item in = for sale, taken out = not for sale any more. Owner with an item in hand: the whole stack goes into the next free slot.",
           "One goods stack per slot; one piece of the chosen stack changes hands per trade. Up to five different goods share the price of the Sales Block below.",
@@ -43,7 +43,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       },
       "de": {
         "title": "Vitrine",
-        "summary": "Ein Glaskasten mit fünf Warenplätzen, der zeigt, was verkauft wird; auch der Deckel ist aus Glas, so sieht man die Ware von oben. Er steht überall, ist aber nur auf einem Verkaufsblock desselben Besitzers ein Shop (geschützt, verkauft). Rezept: 3 Eisennuggets, 3 Glas, 3 Bretter. Die Glow-Vitrine (Vitrine + Leuchttintenbeutel, formlos) zeichnet die Ware voll hell und gibt schwaches Licht (6) ab.",
+        "summary": "Ein Glaskasten mit fünf Warenplätzen, der zeigt, was verkauft wird; auch der Deckel ist aus Glas, so sieht man die Ware von oben. Er steht überall, ist aber nur auf einem Verkaufsblock desselben Besitzers ein Shop (geschützt, verkauft). Rezept: 8 Eisennuggets, 1 Glasblock, 1 Holzdruckplatte (Platte unten, Glas in der Mitte, Nuggets ringsum). Die Glow-Vitrine (Vitrine + Leuchttintenbeutel, formlos) zeichnet die Ware voll hell und gibt schwaches Licht (6) ab.",
         "details": [
           "Besitzer, leere Hand: das Waren-Menü mit fünf echten Plätzen. Item hinein = steht zum Verkauf, herausgenommen = nicht mehr. Besitzer mit Item in der Hand: der ganze Stapel kommt in den nächsten freien Platz.",
           "Ein Warenstapel je Platz; je Tausch wechselt ein Stück des gewählten Stapels den Besitzer. Bis zu fünf verschiedene Waren teilen sich den Preis des Verkaufsblocks darunter.",
@@ -65,7 +65,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       ],
       "en": {
         "title": "Sales Block",
-        "summary": "The cash register of a shop: a wooden block under the Display Case. One price per Sales Block, up to five price items, plus 27 slots for the earnings. Craft: 5 planks, 2 iron ingots, 1 ender pearl, 1 chest. Its owner is the player who placed it.",
+        "summary": "The cash register of a shop: a wooden block under the Display Case. One price per Sales Block, up to five price items, plus 27 slots for the earnings. Craft: 4 planks, 2 iron ingots, 1 ender pearl, 1 hopper (on top), 1 chest. Its owner is the player who placed it.",
         "details": [
           "Price row (filter principle): hold an item on the cursor and click a price slot. Right click adds the cursor stack size, left click adds 1; a different item replaces the entry; an empty cursor removes it. The price slots only hold templates: the cursor stack is never used up and no price item can be taken out.",
           "Layout: five positions. An empty row shows only the middle one; a filled middle shows one empty slot on each side, and a filled side slot shows the next one outward (maximum five). Removing a price moves the outer ones inward.",
@@ -76,7 +76,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       },
       "de": {
         "title": "Verkaufsblock",
-        "summary": "Die Kasse eines Shops: ein Holzblock unter der Vitrine. Ein Preis je Verkaufsblock, bis zu fünf Preis-Items, dazu 27 Plätze für die Einnahmen. Rezept: 5 Bretter, 2 Eisenbarren, 1 Enderperle, 1 Truhe. Besitzer ist, wer ihn gesetzt hat.",
+        "summary": "Die Kasse eines Shops: ein Holzblock unter der Vitrine. Ein Preis je Verkaufsblock, bis zu fünf Preis-Items, dazu 27 Plätze für die Einnahmen. Rezept: 4 Bretter, 2 Eisenbarren, 1 Enderperle, 1 Trichter (oben), 1 Truhe. Besitzer ist, wer ihn gesetzt hat.",
         "details": [
           "Preiszeile (Filter-Prinzip): Item auf den Cursor nehmen und einen Preisplatz anklicken. Rechtsklick addiert die Stapelgröße des Cursors, Linksklick 1; ein anderes Item ersetzt den Eintrag; ein leerer Cursor entfernt ihn. Die Preisplätze halten nur Vorlagen: der Cursor-Stapel wird nie verbraucht und kein Preis-Item lässt sich herausnehmen.",
           "Anordnung: fünf Positionen. Eine leere Zeile zeigt nur die Mitte; ist die Mitte gefüllt, erscheint rechts und links je ein leerer Platz, und ein gefüllter Seitenplatz zeigt den nächsten weiter außen (höchstens fünf). Wird ein Preis entfernt, rücken die äußeren nach innen.",
@@ -362,14 +362,14 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
       },
       "source": "modules/simpleshops/shared/resources/data/simpleshops/recipe/display_case.json",
       "ingredients": [
-        "#minecraft:planks",
+        "#minecraft:wooden_pressure_plates",
         "minecraft:glass",
         "minecraft:iron_nugget"
       ],
       "pattern": [
         "NNN",
-        "GGG",
-        "PPP"
+        "NGN",
+        "NPN"
       ],
       "key": {
         "N": [
@@ -379,7 +379,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "minecraft:glass"
         ],
         "P": [
-          "#minecraft:planks"
+          "#minecraft:wooden_pressure_plates"
         ]
       },
       "baseMaterials": {
@@ -387,19 +387,19 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "materials": [
           {
             "id": "minecraft:sand",
-            "count": 3
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.75
+            "count": 1
           },
           {
             "id": "minecraft:iron_ingot",
-            "count": 0.333
+            "count": 0.778
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
           }
         ],
         "tagExamples": [
-          "#minecraft:planks"
+          "#minecraft:wooden_pressure_plates"
         ]
       }
     },
@@ -429,20 +429,20 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:sand",
-            "count": 3
-          },
-          {
             "id": "minecraft:glow_ink_sac",
             "count": 1
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.75
+            "id": "minecraft:sand",
+            "count": 1
           },
           {
             "id": "minecraft:iron_ingot",
-            "count": 0.333
+            "count": 0.778
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.5
           }
         ]
       }
@@ -501,10 +501,11 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "#minecraft:planks",
         "minecraft:chest",
         "minecraft:ender_pearl",
+        "minecraft:hopper",
         "minecraft:iron_ingot"
       ],
       "pattern": [
-        "PPP",
+        "PHP",
         "IEI",
         "PCP"
       ],
@@ -520,18 +521,21 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         ],
         "P": [
           "#minecraft:planks"
+        ],
+        "H": [
+          "minecraft:hopper"
         ]
       },
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:oak_log",
-            "count": 3.25
+            "id": "minecraft:iron_ingot",
+            "count": 7
           },
           {
-            "id": "minecraft:iron_ingot",
-            "count": 2
+            "id": "minecraft:oak_log",
+            "count": 5
           },
           {
             "id": "minecraft:ender_pearl",
@@ -560,7 +564,7 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "minecraft:iron_ingot"
       ],
       "pattern": [
-        "PPP",
+        "PHP",
         "IEI",
         "PHP"
       ],
@@ -583,11 +587,11 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 7
+            "count": 12
           },
           {
             "id": "minecraft:oak_log",
-            "count": 3.25
+            "count": 5
           },
           {
             "id": "minecraft:ender_pearl",
@@ -745,11 +749,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
         {
           "rolls": 1,
           "items": [
-            "simpleshops:trade_terminal"
+            "simpleshops:trade_terminal",
+            "minecraft:lectern"
           ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
+          "conditions": [],
           "functions": []
         }
       ],
@@ -894,10 +897,10 @@ window.WIKI_MODULE_DATA["simpleshops"] = {
           "modules/simpleshops/shared/resources/data/simpleshops/recipe/sales_block.json"
         ],
         "en": {
-          "summary": "Cash register of a shop: price row of up to five template items and 27 earnings slots. Only the owner opens that menu; everyone else buys. Planks, iron ingots, an ender pearl and a chest."
+          "summary": "Cash register of a shop: price row of up to five template items and 27 earnings slots. Only the owner opens that menu; everyone else buys. Planks, iron ingots, an ender pearl, a hopper and a chest."
         },
         "de": {
-          "summary": "Kasse eines Shops: Preiszeile aus bis zu fünf Vorlagen-Items und 27 Einnahme-Plätzen. Nur der Besitzer öffnet dieses Menü; alle anderen kaufen. Bretter, Eisenbarren, eine Enderperle und eine Truhe."
+          "summary": "Kasse eines Shops: Preiszeile aus bis zu fünf Vorlagen-Items und 27 Einnahme-Plätzen. Nur der Besitzer öffnet dieses Menü; alle anderen kaufen. Bretter, Eisenbarren, eine Enderperle, ein Trichter und eine Truhe."
         }
       },
       "questionary": {

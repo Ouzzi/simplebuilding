@@ -24,9 +24,9 @@ for locale in ('en_us', 'de_de'):
         assert data.get(k), (locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
-assert recipes['sales_block']['pattern'] == ['PPP', 'IEI', 'PCP'], 'sales block recipe (ender pearl, KONZ20)'
-assert recipes['sales_storage']['pattern'] == ['PPP', 'IEI', 'PHP'], 'sales storage recipe (ender pearl, KONZ20)'
-assert recipes['display_case']['pattern'] == ['NNN', 'GGG', 'PPP'], 'display case recipe'
+assert recipes['sales_block']['pattern'] == ['PHP', 'IEI', 'PCP'] and recipes['sales_block']['key']['H'] == 'minecraft:hopper', 'sales block recipe (ender pearl + hopper on top, NA24)'
+assert recipes['sales_storage']['pattern'] == ['PHP', 'IEI', 'PHP'], 'sales storage recipe (two hoppers, NA24)'
+assert recipes['display_case']['pattern'] == ['NNN', 'NGN', 'NPN'] and recipes['display_case']['key']['P'] == '#minecraft:wooden_pressure_plates', 'display case recipe (NA24)'
 assert recipes['trade_terminal']['pattern'] == ['GEG', 'BLB', 'PPP'], 'trade terminal recipe (KONZ20 §3)'
 assert recipes['glow_display_case']['ingredients'] == [f'{NS}:display_case', 'minecraft:glow_ink_sac'], 'glow case recipe'
 for name in BLOCKS:
@@ -39,7 +39,8 @@ for name in BLOCKS:
         assert (RES / f'assets/{NS}/{sub}/{name}.json').is_file(), (sub, name)
 # The trade terminal holds nothing: an ordinary block (axe, own loot with the explosion rule, never in the immune tags).
 loot = json.loads((RES / f'data/{NS}/loot_table/blocks/trade_terminal.json').read_text(encoding='utf-8'))
-assert loot['pools'][0]['entries'][0]['name'] == f'{NS}:trade_terminal'
+alt = loot['pools'][0]['entries'][0]['children']
+assert alt[0]['name'] == f'{NS}:trade_terminal' and alt[0]['condition'] == 'minecraft:tool/can_silk_touch' and alt[1]['name'] == 'minecraft:lectern', 'terminal: silk touch or a lectern (NA24)'
 for kind in ('wither_immune', 'dragon_immune'):
     assert f'{NS}:trade_terminal' not in json.loads((RES / f'data/minecraft/tags/block/{kind}.json').read_text(encoding='utf-8'))['values']
 for sub in ('blockstates', 'items', 'models/block'):
