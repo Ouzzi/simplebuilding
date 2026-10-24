@@ -48,7 +48,7 @@ final class WingsTests {
 
     static void addAll(BiConsumer<String, Consumer<GameTestHelper>> add) {
         add.accept("wings_items", h -> {
-            for (var item : java.util.List.of(WitherWings.WITHER, WitherWings.NETHER)) {
+            for (var item : java.util.List.of(WitherWings.WITHER, WitherWings.NETHER, WitherWings.END)) {
                 ItemStack s = new ItemStack(item);
                 h.assertTrue(s.has(DataComponents.GLIDER), "glides: " + item);
                 var eq = s.get(DataComponents.EQUIPPABLE);
@@ -63,6 +63,9 @@ final class WingsTests {
             h.assertTrue(new ItemStack(Items.ELYTRA).getMaxDamage() == 432, "Vanilla Elytra 432");
             h.assertTrue(new ItemStack(WitherWings.WITHER).getMaxDamage() == 576 && new ItemStack(WitherWings.NETHER).getMaxDamage() == 768,
                     "durability 576 / 768 (Elytra 432, +1/3 per stage)");
+            h.assertTrue(new ItemStack(WitherWings.END).getMaxDamage() == 960 && WitherWings.configFactor(new ItemStack(WitherWings.END)) == 6.0f,
+                    "End Wings (stage 3): 960 durability, x6");
+            h.assertTrue(!recipe(h, "end_wings_smithing") && !recipe(h, "end_wings_smithing_without_simplebeacons"), "End Wings are not craftable yet");
             h.succeed();
         });
         add.accept("wings_recipes", h -> {

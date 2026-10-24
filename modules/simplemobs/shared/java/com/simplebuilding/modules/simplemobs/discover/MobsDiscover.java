@@ -62,6 +62,7 @@ public final class MobsDiscover {
             "simplemobs:dread_link",
             "simplemobs:dread_spawn_egg",
             "simplemobs:echo_core",
+            "simplemobs:end_wings",
             "simplemobs:first_pickup_tips",
             "simplemobs:guide_book",
             "simplemobs:high_gravity",
