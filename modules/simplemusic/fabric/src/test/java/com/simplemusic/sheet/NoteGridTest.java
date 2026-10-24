@@ -44,7 +44,7 @@ class NoteGridTest {
 
     @Test
     void roundTripKeepsTheSong() {
-        roundTrip("tempo 6\nharp: c4 e4 g4 - c5 . . g4\nbass: c3 . [c3 g3] .");
+        roundTrip("tempo 6\nharp: c4 e4 g4 - c5 . . g4\nbass: c3 . [c2 g2] .");
         roundTrip("# comment\n$h = harp\n$h: x2 { c4 d4 } @vol 0.6 e4\nx2 {\n  bass: c3\n  bell: c6 d6\n}\nflute: . . . . . . . .");
         roundTrip("$k = sound minecraft:entity.cat.ambient\n$k: f#4 . 3\ncreeper: c4 . c4");
         // two tracks of the same instrument: 8 tones in one step need a second voice
