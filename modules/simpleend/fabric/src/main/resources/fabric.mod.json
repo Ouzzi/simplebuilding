@@ -34,8 +34,7 @@
     "java": ">=25"
   },
   "suggests": {
-    "simpleenddragonfight": "*",
-    "jei": "*"
+    "simpleenddragonfight": "*"
   },
   "mixins": [
     "simpleend.mixins.json"
