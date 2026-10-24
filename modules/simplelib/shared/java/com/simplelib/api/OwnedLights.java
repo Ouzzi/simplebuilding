@@ -1,6 +1,7 @@
 package com.simplelib.api;
 
 import com.mojang.serialization.Codec;
+import com.simplelib.SimpleLib;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
