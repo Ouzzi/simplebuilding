@@ -402,6 +402,149 @@ def h3_chorusherz():
     return frames, {'frametime': 6, 'interpolate': True}
 
 
+# ------------------------------------------------------------------ WC24-1 Endfassungen (Besitzer-Wahl 24.10.)
+def nether_final():
+    """A3 mit hoeherer Seelenflamme: Zungen steigen bis in die Krone, dunkler Karmesin-Saum ueber den Spitzen,
+    die oberste Kronenreihe bleibt Karmesin (Stein bleibt als Nether-Juwel lesbar)."""
+    c, base, b = nether_base()
+    frames = []
+    for t in range(16):
+        a = 2 * math.pi * t / 16
+        f = dict(base)
+        for (x, y), ch in c.items():
+            if ch == 'o' or y < 5:
+                continue
+            hx = 4.6 + 2.4 * math.sin(a + x * 1.7) + 0.8 * math.sin(2 * a + x * 2.9)  # Zungenhoehe je Spalte (2-8 px)
+            dy = 12.5 - y
+            if dy < hx:
+                f[(x, y)] = pick(SOUL, 0.1 + 0.9 * (1 - dy / hx) ** 0.8)
+            elif dy < hx + 1:
+                f[(x, y)] = CRIMSON[2]  # Saum: Flamme hebt sich vom Stein ab
+        if t in (6, 7):  # kurzer Glanz oben links
+            f[(4, 4)] = CRIMSON[7]
+            f[(5, 4)] = SOUL[4] if t == 6 else CRIMSON[7]
+        frames.append(f)
+    return frames, {'frametime': 8, 'interpolate': True}
+
+
+ENDER_GEM_FINAL = [  # E2-Schliff mit klaren Facetten: aeussere/innere Facette je Seite, Grat H|h bzw. K|m
+    "................",
+    ".......oo.......",
+    "......oHho......",
+    ".....oAHhRo.....",
+    "....oALHhRro....",
+    "...oAALHhRrro...",
+    "..oAALLHhRRrro..",
+    "..oGGGGGgggggo..",
+    "..olnnnKmsssro..",
+    "...olnnKmssro...",
+    "....olnKmsro....",
+    ".....olKmro.....",
+    "......oKmo......",
+    "......oKmo......",
+    ".......oo.......",
+    "................",
+]
+ENDER_FINAL_ZONE = {'o': 0, 'H': 7, 'A': 6, 'L': 5, 'h': 4, 'R': 3, 'r': 2, 'G': 6, 'g': 4,
+                    'n': 5, 'l': 4, 'K': 5, 'm': 3, 's': 3}
+
+
+def ender_final():
+    """E2 verfeinert: Leere-Violett, Facetten in klaren Flaechen; der Enderperl-Kern faerbt die Facetten nur ein
+    (gleiche Stufe in der Perl-Rampe, Linien bleiben), ruhiger Puls, einmal je Runde ein Glanz oben links."""
+    c, b = base_index(ENDER_GEM_FINAL, ENDER_FINAL_ZONE)
+    base = {k: (VOIDP[v] if c[k] != 'o' else VOIDP[0]) for k, v in b.items()}
+    frames = []
+    for t in range(16):
+        s = 0.5 - 0.5 * math.cos(2 * math.pi * t / 16)
+        f = dict(base)
+        r = 1.4 + 1.2 * s
+        for (x, y), ch in c.items():
+            if ch in 'oH':
+                continue
+            d = math.hypot((x - 7.5) * 1.2, y - 8.0)
+            if d < r:
+                f[(x, y)] = PEARL[max(2, min(7, b[(x, y)] + (1 if d < r * 0.5 and s > 0.5 else 0)))]
+        if t in (3, 4):
+            f[(5, 4)] = VOIDP[7]
+            if t == 3:
+                star(f, c, 5, 5, VOIDP[7], VOIDP[6])
+        frames.append(f)
+    return frames, {'frametime': 10, 'interpolate': True}
+
+
+HEART_FINAL = [  # kantiges Herz: flache Kuppeln mit Chorus-Stielen, gerade Seiten, 45-Grad-Spitze, Facettenflaechen
+    "................",
+    "....oo....oo....",
+    "...oSSo..oSSo...",
+    "..oASSAooBSSCo..",
+    ".oAAAAAKKBBBCCo.",
+    ".oAAAAKKKKBBCCo.",
+    ".oDAAKKKKKKBCCo.",
+    ".oDDKKKKKKKKCCo.",
+    "..oDDKKKKKKCCo..",
+    "...oDEKKKKFCo...",
+    "....oEEKKFFo....",
+    ".....oEEFFo.....",
+    "......oEFo......",
+    ".......oo.......",
+    "................",
+    "................",
+]
+HEART_RABBIT = [  # Alternativ-Lesart "Kaninchen": Stiele werden zu langen Ohren (nur Vorschau)
+    "...oo......oo...",
+    "..oSSo....oSSo..",
+    "..oSSo....oSSo..",
+    "..oASSAooBSSCo..",
+] + HEART_FINAL[4:]
+HEART_FINAL_ZONE = {'A': 5, 'B': 4, 'D': 3, 'K': 3, 'C': 2, 'E': 2, 'F': 1}
+HEART_OUTLINE = hexc('#24102a')
+
+
+def _heart_final(grid, veins, caps):
+    c = cells(grid)
+    base = {}
+    for (x, y), ch in c.items():
+        if ch == 'o':
+            base[(x, y)] = HEART_OUTLINE
+        elif ch == 'S':
+            base[(x, y)] = PURPUR[5] if c.get((x, y - 1)) == 'o' else PURPUR[4] if x in (3, 4, 10) else PURPUR[3]
+        else:
+            base[(x, y)] = PURPUR[HEART_FINAL_ZONE[ch]]
+    base[(3, 4)] = base[(4, 4)] = PURPUR[6]  # Glanzkante oben links
+    frames = []
+    for s in BEAT:
+        f = dict(base)
+        for (x, y), ch in c.items():
+            if ch != 'K':
+                continue
+            d = abs(x - 7.5) + abs(y - 7.0)  # rautenfoermiger Kern (kantig wie die Mittelfacette)
+            if d < 2.1 + 1.1 * s:
+                left = 1 if x < 8 and y < 8 else 0  # Facette oben links etwas heller
+                f[(x, y)] = PEARL[max(3, min(7, int(round(4 + left + 2.5 * s * (1 - d / 3.2)))))]
+        f[(6, 6)] = PEARL[6 if s < 0.5 else 7]  # Glanzpunkt auf dem Kern
+        for line in veins:
+            for i, p in enumerate(line):
+                glow = s - i * 0.2
+                f[p] = PEARL[6] if glow > 0.55 else PEARL[4] if glow > 0.2 else PEARL[2]
+        if s > 0.6:
+            for p in caps:
+                f[p] = PEARL[6]
+        frames.append(f)
+    return frames, heartbeat(60)
+
+
+def heart_final():
+    """H3 + H1: Chorus-Purpur, Chorus-Stiele, tuerkiser Enderperl-Kern; im Herzschlag laufen Adern zu den Stielen."""
+    veins = [[(6, 4), (5, 3), (5, 2)], [(9, 4), (10, 3), (10, 2)], [(7, 11), (7, 12)]]
+    return _heart_final(HEART_FINAL, veins, ((4, 1), (5, 1), (10, 1), (11, 1)))
+
+
+def heart_rabbit():
+    veins = [[(6, 4), (5, 3), (4, 2), (4, 1)], [(9, 4), (10, 3), (11, 2), (11, 1)], [(7, 11), (7, 12)]]
+    return _heart_final(HEART_RABBIT, veins, ((3, 0), (4, 0), (11, 0), (12, 0)))
+
+
 VARIANTS = {
     'nether_gem_a1_seelenkern': a1_seelenkern,
     'nether_gem_a2_seelenwirbel': a2_seelenwirbel,
@@ -412,10 +555,20 @@ VARIANTS = {
     'ender_heart_h1_leerenkern': h1_leerenkern,
     'ender_heart_h2_perlherz': h2_perlherz,
     'ender_heart_h3_chorusherz': h3_chorusherz,
+    # WC24-1 Endfassungen (Besitzer-Wahl 24.10. nachmittags)
+    'nether_gem_final': nether_final,
+    'ender_gem_final': ender_final,
+    'ender_heart_final': heart_final,
+    'ender_heart_alt_kaninchen': heart_rabbit,  # nur Vorschau
 }
+INSTALL = {'nether_gem_final': 'nether_gem', 'ender_gem_final': 'ender_gem', 'ender_heart_final': 'ender_heart'}
+MOBS_ITEM = os.path.join(REPO, 'modules/simplemobs/shared/resources/assets/simplemobs/textures/item')
+GRIDS = {'nether_gem_final': NETHER_GEM, 'ender_gem_final': ENDER_GEM_FINAL, 'ender_heart_final': HEART_FINAL,
+         'ender_heart_alt_kaninchen': HEART_RABBIT}
 
 
-def write(name, frames, meta):
+def render(name, frames, meta):
+    """-> (PIL-Bild, mcmeta-Text, Ebenen-Text); Ebenen Kontur/Grundform aus Frame 0, Effekt = Abweichungen."""
     n = len(frames)
     first = frames[0]
     kontur = Image.new('RGBA', (16, 16 * n))
@@ -431,24 +584,54 @@ def write(name, frames, meta):
                 tgt.putpixel((x, y + 16 * i), base)
             if col != base:
                 eff.putpixel((x, y + 16 * i), col)
-    png = os.path.join(OUT, name + '.png')
-    full.save(png)
-    with open(png + '.mcmeta', 'w', newline='\n') as fh:
-        fh.write(json.dumps({'animation': meta}, indent=2) + '\n')
     doc = layers.from_layers(16, 16 * n, [('Kontur', kontur.tobytes()), ('Grundform', grund.tobytes()), ('Effekt', eff.tobytes())])
-    got = layers.compose(doc)
-    assert bytes(got) == full.tobytes(), name + ': Ebenen ergeben nicht das PNG'
-    layers.write_beside(png, doc)
-    print(name, n, 'Frames', meta.get('frametime', 'frames-Liste'))
+    assert bytes(layers.compose(doc)) == full.tobytes(), name + ': Ebenen ergeben nicht das PNG'
+    return full, json.dumps({'animation': meta}, indent=2) + '\n', layers.dumps(doc)
+
+
+def write(png, img, meta_text, layers_text):
+    img.save(png)
+    with open(png + '.mcmeta', 'w', newline='\n') as fh:
+        fh.write(meta_text)
+    with open(layers.layers_path(__import__('pathlib').Path(png)), 'w', newline='\n', encoding='utf-8') as fh:
+        fh.write(layers_text)
+
+
+def stale(png, img, meta_text, layers_text):
+    """True, wenn PNG/.mcmeta/.layers.json nicht dem Generator entsprechen."""
+    lp = png[:-4] + '.layers.json'
+    if not all(os.path.isfile(p) for p in (png, png + '.mcmeta', lp)):
+        return True
+    with Image.open(png) as cur:
+        same = cur.convert('RGBA').tobytes() == img.tobytes() and cur.size == img.size
+    return not same or open(png + '.mcmeta', encoding='utf-8').read() != meta_text \
+        or open(lp, encoding='utf-8').read() != layers_text
 
 
 def _is_outline(name, x, y):
-    grid = NETHER_GEM if name.startswith('nether_gem') else ENDER_GEM if name.startswith('ender_gem') else \
-        HEART_CHORUS if 'chorus' in name else HEART
+    grid = GRIDS.get(name) or (NETHER_GEM if name.startswith('nether_gem') else ENDER_GEM if name.startswith('ender_gem') else
+                               HEART_CHORUS if 'chorus' in name else HEART)
     return grid[y][x] == 'o'
 
 
-if __name__ == '__main__':
+def main(argv):
+    """ohne Argument: Varianten nach variants/ schreiben; --install: zusaetzlich Endfassungen als echte Texturen;
+    --check: nur pruefen, ob die eingebauten Texturen dem Generator entsprechen."""
+    if '--check' in argv:
+        bad = [t for v, t in INSTALL.items() if stale(os.path.join(MOBS_ITEM, t + '.png'), *render(v, *VARIANTS[v]()))]
+        print('veraltet: ' + ', '.join(bad) if bad else 'wb24_gems: eingebaute Texturen aktuell')
+        return 1 if bad else 0
     os.makedirs(OUT, exist_ok=True)
     for name, fn in VARIANTS.items():
-        write(name, *fn())
+        frames, meta = fn()
+        out = render(name, frames, meta)
+        write(os.path.join(OUT, name + '.png'), *out)
+        print(name, len(frames), 'Frames', meta.get('frametime', 'frames-Liste'))
+        if '--install' in argv and name in INSTALL:
+            write(os.path.join(MOBS_ITEM, INSTALL[name] + '.png'), *out)
+            print('  -> simplemobs/textures/item/' + INSTALL[name] + '.png')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
