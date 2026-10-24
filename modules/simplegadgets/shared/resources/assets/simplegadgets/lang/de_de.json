@@ -1,0 +1,15 @@
+{
+  "itemgroup.simplegadgets.gadgets": "Simple Gadgets",
+  "simplegadgets.testcentre.station": "Simple Gadgets",
+  "item.simplegadgets.velocity_gauge": "Messuhr",
+  "tooltip.simplegadgets.velocity_gauge.tooltip": "Gehalten: zeigt dein Tempo.",
+  "tooltip.simplegadgets.velocity_gauge.touch_hint": "Berührung des Konstrukteurs:",
+  "hud.simplegadgets.velocity_gauge.stats": "Max: %s  Schnitt: %s",
+  "hud.simplegadgets.velocity_gauge.unit": "B/s",
+  "hud.simplegadgets.velocity_gauge.ground": "⬇ %s m",
+  "hud.simplegadgets.velocity_gauge.ground_far": "⬇ > %s m",
+  "hud.simplegadgets.velocity_gauge.impact": "✖ %s ❤",
+  "tooltip.simplegadgets.velocity_gauge.tooltip.2": "In der Luft: zeigt die Höhe über dem Boden.",
+  "tooltip.simplegadgets.velocity_gauge.touch_hint.2": "Höchst- und Durchschnittstempo;",
+  "tooltip.simplegadgets.velocity_gauge.touch_hint.3": "Reichweite: tieferer Höhenmesser."
+}

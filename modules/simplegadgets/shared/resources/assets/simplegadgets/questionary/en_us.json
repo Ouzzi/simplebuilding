@@ -1,0 +1,13 @@
+{
+  "velocity_gauge": {
+    "lore": [
+      "A clock for how fast the world goes by."
+    ],
+    "use": [
+      "Shows speed while held in either hand, with a moving needle and a HUD dial. In the air it also shows the distance to the ground and an estimated fall damage before armor."
+    ],
+    "secret": [
+      "Right-click toggles auto-walk. With Constructor's Touch it adds peak and average speed; Range extends the fall depth it can read, up to 64 blocks."
+    ]
+  }
+}

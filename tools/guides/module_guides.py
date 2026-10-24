@@ -198,6 +198,13 @@ MODULES = [
                 "follows the signal strength and copper panes that toggle like the Copper Bulb.",
                 "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, "
                 "deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten.")),
+    dict(module="simplegadgets", ns="simplegadgets", package="com.simplegadgets.guide", cls="GadgetsGuide", kind="item",
+         author="Simple Gadgets", recipe="minecraft:clock",
+         name=("Simple Gadgets Guide", "Simple-Gadgets-Handbuch"),
+         intro=("Gadgets you hold and use: for now the Gauge - a speed dial, an altimeter that warns of fall damage and "
+                "auto-walk along paths and rails.",
+                "Geräte, die man in der Hand hält und benutzt: vorerst die Messuhr - ein Tacho, ein Höhenmesser, der vor "
+                "Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -283,6 +290,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:anvil": ("an anvil", "einem Amboss"),
     "minecraft:ender_pearl": ("an ender pearl", "einer Enderperle"),
     "minecraft:barrel": ("a barrel", "einem Fass"),
+    "minecraft:clock": ("a clock", "einer Uhr"),
 }
 
 
@@ -549,6 +557,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:compass": ("compass", "Kompass"), "minecraft:anvil": ("anvil", "Amboss"),
     "minecraft:ender_pearl": ("ender pearl", "Enderperle"),
     "minecraft:barrel": ("barrel", "Fass"),
+    "minecraft:clock": ("clock", "Uhr"),
 }
 
 

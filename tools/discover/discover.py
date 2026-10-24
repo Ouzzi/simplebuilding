@@ -152,6 +152,8 @@ MODS = [
                 "Benutzen zum Anlegen, dann Rucksack-Taste (B)")]),
     dict(id="simplelights", ns=["simplelights"], cls="LightsDiscover", package="com.simplelights.discover",
          own_packages=["com.simplelights."]),
+    dict(id="simplegadgets", ns=["simplegadgets"], cls="GadgetsDiscover", package="com.simplegadgets.discover",
+         own_packages=["com.simplegadgets."]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

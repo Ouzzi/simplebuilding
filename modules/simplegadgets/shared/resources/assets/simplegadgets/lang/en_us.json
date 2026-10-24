@@ -1,0 +1,15 @@
+{
+  "itemgroup.simplegadgets.gadgets": "Simple Gadgets",
+  "simplegadgets.testcentre.station": "Simple Gadgets",
+  "item.simplegadgets.velocity_gauge": "Gauge",
+  "tooltip.simplegadgets.velocity_gauge.tooltip": "Held: shows speed.",
+  "tooltip.simplegadgets.velocity_gauge.touch_hint": "Constructor's Touch:",
+  "hud.simplegadgets.velocity_gauge.stats": "Top: %s  Avg: %s",
+  "hud.simplegadgets.velocity_gauge.unit": "b/s",
+  "hud.simplegadgets.velocity_gauge.ground": "⬇ %s m",
+  "hud.simplegadgets.velocity_gauge.ground_far": "⬇ > %s m",
+  "hud.simplegadgets.velocity_gauge.impact": "✖ %s ❤",
+  "tooltip.simplegadgets.velocity_gauge.tooltip.2": "Airborne: shows height above ground.",
+  "tooltip.simplegadgets.velocity_gauge.touch_hint.2": "Top and average speed;",
+  "tooltip.simplegadgets.velocity_gauge.touch_hint.3": "Range: deeper altimeter."
+}

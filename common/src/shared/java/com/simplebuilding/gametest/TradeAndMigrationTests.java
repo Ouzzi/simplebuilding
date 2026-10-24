@@ -1416,7 +1416,7 @@ public final class TradeAndMigrationTests {
         List<String> problems = new ArrayList<>();
         net.minecraft.core.RegistryAccess registries = helper.getLevel().registryAccess();
         Map<String, Item> renamed = new LinkedHashMap<>();
-        renamed.put("velocity-gauge", ModItems.VELOCITY_GAUGE);
+        renamed.put("velocity-gauge", com.simplebuilding.util.GadgetRefs.gauge()); // 26.3: chains on to simplegadgets:velocity_gauge
         renamed.put("echo_compass", com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS);
         renamed.put("laser_pointer", com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
         renamed.put("ore_detector", ModItems.ORE_DETECTOR);

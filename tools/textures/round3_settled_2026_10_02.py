@@ -28,8 +28,12 @@ HUB = (117, 40, 2)
 ORB_FRAMES = 12            # vanilla pulse: sin(age / 2) -> one cycle in 4 pi ~ 12.6 ticks
 
 
+# OW24-2 G1 (2026-10-24): on 26.3 the Gauge is Simple Gadgets' - its textures live in the module.
+GADGETS_T = os.path.join(HERE, '..', '..', 'modules', 'simplegadgets', 'shared', 'resources', 'assets', 'simplegadgets', 'textures')
+
+
 def save(image, path):
-    target = os.path.join(T, path + '.png')
+    target = os.path.join(GADGETS_T if path.startswith('item/velocity_gauge') else T, path + '.png')
     os.makedirs(os.path.dirname(target), exist_ok=True)
     image.save(target)
 

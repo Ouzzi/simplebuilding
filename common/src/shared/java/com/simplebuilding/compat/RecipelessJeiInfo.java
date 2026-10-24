@@ -89,7 +89,7 @@ public final class RecipelessJeiInfo {
                 com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), com.simplebuilding.util.OvenRefs.block("netherite_smoker"), com.simplebuilding.util.OvenRefs.block("enderite_smoker"),
                 com.simplebuilding.util.OvenRefs.block("reinforced_blast_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace")));
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE));
+            if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) map.put("velocity_gauge", List.of(ModItems.VELOCITY_GAUGE)); // 26.3: Simple Gadgets
         }
         if (com.simplebuilding.version.McVersion.SILENT_DANDELION) {
             map.put("silent_dandelion", List.of(ModItems.SILENT_DANDELION));

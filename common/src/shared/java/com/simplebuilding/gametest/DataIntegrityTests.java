@@ -3827,7 +3827,7 @@ public final class DataIntegrityTests {
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(CreativeTabLayout.Row.of("gadgets",
                 Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
-                ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
+                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
                 ModItems.OCTANT));
         List<ItemStack> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
@@ -4126,7 +4126,7 @@ public final class DataIntegrityTests {
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
-                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
+                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, com.simplebuilding.util.GadgetRefs.gauge(),
                 Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {
@@ -4994,6 +4994,7 @@ public final class DataIntegrityTests {
             keys.add("item.simplebuilding." + tier + "_spatula");
         }
 
+        if (!McVersion.GADGETS_IN_SB) keys.removeIf(key -> key.contains(".velocity_gauge.")); // 26.3: Simple Gadgets' lang
         List<String> problems = new ArrayList<>();
         for (String key : keys) {
             String english = en.has(key) ? en.get(key).getAsString() : null;
@@ -5062,7 +5063,7 @@ public final class DataIntegrityTests {
             }
         }
         java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
-        expected.put("item.simplebuilding.velocity_gauge", new String[]{"Gauge", "Messuhr"});
+        if (McVersion.GADGETS_IN_SB) expected.put("item.simplebuilding.velocity_gauge", new String[]{"Gauge", "Messuhr"}); // 26.3: GadgetsTests
         expected.put("item.simplebuilding.amethyst_lens", new String[]{"Resonance Rod", "Resonanzstab"});
         expected.put("item.simplebuilding.echo_sounder", new String[]{"Echo Sounder", "Echolot"});
         for (var entry : expected.entrySet()) {

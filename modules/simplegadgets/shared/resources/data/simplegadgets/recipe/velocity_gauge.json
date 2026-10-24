@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "C": "minecraft:clock",
+    "K": "simplebuilding:copper_core",
+    "N": "minecraft:copper_nugget"
+  },
+  "pattern": [
+    "NAN",
+    "NCN",
+    "NKN"
+  ],
+  "result": {
+    "id": "simplegadgets:velocity_gauge"
+  }
+}

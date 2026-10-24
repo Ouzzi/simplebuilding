@@ -523,8 +523,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // 26.3 Nachtrag 8: Leerstellen fuellen, Rand einen Slot im Uhrzeigersinn drehen.
                 // Sechs Kupfernuggets; Amethyst oben mittig, Kupferkern unten mittig. 26.2 bleibt unveraendert.
+                // OW24-2 G1: on 26.3 the Gauge and its recipe are Simple Gadgets' (modules/simplegadgets).
                 Item gaugeCentre = com.simplebuilding.version.McVersion.GADGET_REWORK ? Items.CLOCK : Items.COMPASS;
-                shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
+                if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
                         .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "NAN" : " NA")
                         .pattern("NCN")
                         .pattern(com.simplebuilding.version.McVersion.GADGET_REWORK ? "NKN" : "KN ")
