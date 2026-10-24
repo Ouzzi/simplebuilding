@@ -45,7 +45,8 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
-      "simplemusic"
+      "simplemusic",
+      "simpleearth"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -1370,5 +1371,32 @@ window.WIKI_MODULES = [
       "features": 15
     },
     "dataHash": "f92d7df2e9c4"
+  },
+  {
+    "id": "simpleearth",
+    "displayName": "Simple Earth",
+    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (nine display versions, standard V6 folding net) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
+      "de": "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPgEVT8TwlmABEl1VNIxnJaQagG2Hlk/Z81fyOYhmEBETkwRhYDYZBmMTlrTAPQNTLUMIAxskEgzSCLsBoAU1i/yQKuGYRBfBCGyWN1AUwjOv7+cjEKdnD4D1aL1YD4Li0wBinCht3S5MGYoAHoBsE0EjQgK8AEjJENQdboZ6UGxgQNQDYIWSPJBoAwumacBiBHIy4D8EYjLJGAMLJB6BphGMMAUOpCVoBsELo4hgEwAVIx3ABKMAAu0bZX7cyK6wAAAABJRU5ErkJggg==",
+    "counts": {
+      "features": 5
+    },
+    "dataHash": "1a1d78bfe688"
   }
 ];
