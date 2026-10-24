@@ -42,6 +42,8 @@ public final class Vis24ClientTest implements FabricClientGameTest {
     private final List<String> faults = new ArrayList<>();
     private int shots;
     private int index;
+    /** "" for the English pass, "de-" for the German one (the owner plays in German: longer labels). */
+    private String lang = "";
 
     @Override
     public void runTest(ClientGameTestContext context) {
@@ -75,6 +77,18 @@ public final class Vis24ClientTest implements FabricClientGameTest {
             entities(context, world, at);
             items(context, world);
             configs(context);
+            // Second pass in German: the same screens, where longer words overflow first.
+            guard("language-de", () -> {
+                language(context, "de_de");
+                lang = "de-";
+                hud(context, world);
+                menus(context);
+                blocks(context, world, at);
+                entities(context, world, at);
+                items(context, world);
+                configs(context);
+                language(context, "en_us");
+            });
         }
         faults.forEach(line -> System.out.println("[vis24] FAULT " + line));
         System.out.println("[vis24] screens shot: " + shots + ", faults: " + faults.size());
@@ -97,7 +111,9 @@ public final class Vis24ClientTest implements FabricClientGameTest {
         context.runOnClient(c -> c.player.getInventory().setSelectedSlot(1));
         context.waitTicks(10);
         guard("hud-hotbar-wand", () -> shot(context, "hud-hotbar-wand"));
-        // Survival inventory with tooltip hover over every hotbar item (the tooltips of the mod items).
+        // Survival inventory (creative would open the creative screen) with tooltip hover over every hotbar item.
+        world.getServer().runCommand("gamemode survival @a");
+        world.getConnection().waitForClientboundPackets();
         guard("inventory", () -> {
             context.runOnClient(c -> c.setScreenAndShow(new InventoryScreen(c.player)));
             context.waitTicks(5);
@@ -111,6 +127,8 @@ public final class Vis24ClientTest implements FabricClientGameTest {
             }
             context.setScreen(() -> null);
         });
+        world.getServer().runCommand("gamemode creative @a");
+        world.getConnection().waitForClientboundPackets();
     }
 
     // ---- menus ----------------------------------------------------------------------------------------------------
@@ -127,7 +145,8 @@ public final class Vis24ClientTest implements FabricClientGameTest {
             context.clickScreenButton("options.controls");
             context.waitTicks(5);
             shot(context, "options-controls");
-            context.clickScreenButton("controls.keybinds");
+            context.runOnClient(c -> c.setScreenAndShow(new net.minecraft.client.gui.screens.options.controls.KeyBindsScreen(
+                    c.gui.screen(), c.options)));
             context.waitTicks(5);
             shot(context, "key-binds");
             // Interaction: the mouse wheel through the key list, down to the mod categories.
@@ -286,9 +305,13 @@ public final class Vis24ClientTest implements FabricClientGameTest {
                 "simplemaps:wayfinder_map", "simplemaps:picture_map", "simpletweaks:claim_deed",
                 "simplebuilding:octant", "simplebuilding:netherite_building_wand"));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if (id.getPath().startsWith("guide_book")) ids.add(id.toString());
+            // German pass: the mega guide only (the module books are Vanilla books, they wrap by themselves).
+            if (id.getPath().startsWith("guide_book") && (lang.isEmpty() || id.toString().equals("simplebuilding:guide_book"))) {
+                ids.add(id.toString());
+            }
         }
         ids.sort(null);
+        context.waitTicks(20);
         for (String id : ids) {
             if (!known(id)) {
                 skip(id, "no such item in this pack");
@@ -300,6 +323,10 @@ public final class Vis24ClientTest implements FabricClientGameTest {
                 context.runOnClient(c -> c.player.getInventory().setSelectedSlot(0));
                 context.waitTicks(3);
                 context.runOnClient(c -> c.gameMode.useItem(c.player, InteractionHand.MAIN_HAND));
+                if (!quietScreen(context)) {
+                    context.waitTicks(10);
+                    context.runOnClient(c -> c.gameMode.useItem(c.player, InteractionHand.MAIN_HAND));
+                }
                 if (!awaitScreen(context, id)) {
                     skip(id, "use opens no screen");
                     return;
@@ -334,6 +361,22 @@ public final class Vis24ClientTest implements FabricClientGameTest {
                 }
                 context.waitTicks(5);
                 shot(context, "config-" + mod);
+                // A tab labelled with a raw key: open it to see what it holds.
+                double[] tab = context.computeOnClient(c -> {
+                    for (var child : c.gui.screen().children()) {
+                        if (child instanceof AbstractWidget w && RAW_KEY.matcher(w.getMessage().getString().strip()).matches()) {
+                            double scale = (double) c.getWindow().getScreenWidth() / c.getWindow().getGuiScaledWidth();
+                            return new double[] {(w.getX() + 4) * scale, (w.getY() + w.getHeight() / 2.0) * scale};
+                        }
+                    }
+                    return null;
+                });
+                if (tab != null) {
+                    context.getInput().setCursorPos(tab[0], tab[1]);
+                    context.getInput().pressMouse(InputConstants.MOUSE_BUTTON_LEFT);
+                    context.waitTicks(5);
+                    shot(context, "config-" + mod + "-rawtab");
+                }
                 context.setScreen(() -> null);
             });
         }
@@ -360,7 +403,29 @@ public final class Vis24ClientTest implements FabricClientGameTest {
         return null;
     }
 
+    private static void language(ClientGameTestContext context, String language) {
+        var reload = context.computeOnClient(c -> {
+            c.setScreenAndShow(null);
+            c.getLanguageManager().setSelected(language);
+            c.options.languageCode = language;
+            return c.reloadResourcePacks();
+        });
+        context.waitFor(c -> reload.isDone(), 2400);
+        reload.join();
+        context.waitFor(c -> c.gui.overlay() == null, 600);
+    }
+
     // ---- helpers --------------------------------------------------------------------------------------------------
+
+    /** True when a screen opened within 20 ticks; no fault recorded (the caller retries). */
+    private static boolean quietScreen(ClientGameTestContext context) {
+        try {
+            context.waitFor(c -> c.gui.screen() != null, 20);
+            return true;
+        } catch (Throwable e) {
+            return false;
+        }
+    }
 
     private boolean awaitScreen(ClientGameTestContext context, String what) {
         try {
@@ -406,9 +471,12 @@ public final class Vis24ClientTest implements FabricClientGameTest {
     }
 
     private void shot(ClientGameTestContext context, String name) {
+        context.runOnClient(c -> c.getToastManager().clear());
+        if (!name.startsWith("tooltip-") && !name.startsWith("interaction-")) context.getInput().setCursorPos(1, 1);
+        context.waitTicks(1);
         String rawKeys = context.computeOnClient(Vis24ClientTest::rawKeys);
         String screen = context.computeOnClient(c -> c.gui.screen() == null ? "-" : c.gui.screen().getClass().getName());
-        String file = String.format(Locale.ROOT, "vis24-%03d-%s", index++, name);
+        String file = String.format(Locale.ROOT, "vis24-%03d-%s%s", index++, lang, name);
         context.takeScreenshot(file);
         shots++;
         System.out.println("[vis24] OK " + file + " -> " + screen);

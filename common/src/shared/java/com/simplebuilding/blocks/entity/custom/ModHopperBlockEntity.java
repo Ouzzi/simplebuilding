@@ -223,7 +223,10 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
     }
 
     @Override
-    protected Component getDefaultName() { return Component.translatable("container.hopper"); }
+    protected Component getDefaultName() {
+        // The tier's own name, like the tiered chests (VIS24: all three said "Item Hopper").
+        return Component.translatable(getBlockState().getBlock().getDescriptionId());
+    }
 
     @Override
     protected NonNullList<ItemStack> getItems() { return inventory; }
