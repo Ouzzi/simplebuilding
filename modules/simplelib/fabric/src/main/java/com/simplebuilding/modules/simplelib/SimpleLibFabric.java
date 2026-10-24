@@ -37,7 +37,7 @@ public final class SimpleLibFabric implements ModInitializer {
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.InWorldStrikes::tick);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.LegendaryMoments::tick);
         // Carried-light blocks that outlived their carrier (crash): swept when their chunk loads (OwnedLights).
-        net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> com.simplelib.api.OwnedLights.sweep(level, chunk.getPos()));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_LOAD.register((level, chunk, generated) -> com.simplelib.api.OwnedLights.sweep(level, chunk.getPos()));
         // Per-player static state of the modules (PlayerState): dropped on disconnect and server stop.
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplelib.api.PlayerState.left(handler.getPlayer()));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.api.PlayerState.stopped());
