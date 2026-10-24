@@ -538,7 +538,7 @@ public final class ConfigCommands {
     // ------------------------------------------------------------ command tree
 
     private static Component type(Kind kind) {
-        return Component.translatable("simplelib.config.type." + kind.name().toLowerCase(Locale.ROOT));
+        return Component.translatable("commands.simplelib.config.type." + kind.name().toLowerCase(Locale.ROOT));
     }
 
     /** {@code config} (or the mod id under {@code /simpleclient}) with list, get, set, reset and help for one spec. */
@@ -558,7 +558,7 @@ public final class ConfigCommands {
         return LiteralArgumentBuilder.<S>literal(spec.literal()).requires(requires)
                 .executes(c -> list(spec, "", c.getSource(), io))
                 .then(LiteralArgumentBuilder.<S>literal("help").executes(c -> {
-                    io.info(c.getSource(), Component.translatable("simplelib.config.help", spec.command())
+                    io.info(c.getSource(), Component.translatable("commands.simplelib.config.help", spec.command())
                             .withStyle(ChatFormatting.YELLOW));
                     return 1;
                 }))
@@ -573,11 +573,11 @@ public final class ConfigCommands {
                         .then(RequiredArgumentBuilder.<S, String>argument("option", StringArgumentType.word()).suggests(options)
                                 .then(RequiredArgumentBuilder.<S, String>argument("value", StringArgumentType.greedyString()).suggests(values)
                                         .executes(c -> report(spec, spec.set(StringArgumentType.getString(c, "option"),
-                                                StringArgumentType.getString(c, "value")), "simplelib.config.set", c.getSource(), io)))))
+                                                StringArgumentType.getString(c, "value")), "commands.simplelib.config.set", c.getSource(), io)))))
                 .then(LiteralArgumentBuilder.<S>literal("reset")
                         .then(RequiredArgumentBuilder.<S, String>argument("option", StringArgumentType.word()).suggests(options)
                                 .executes(c -> report(spec, spec.reset(StringArgumentType.getString(c, "option")),
-                                        "simplelib.config.reset", c.getSource(), io))));
+                                        "commands.simplelib.config.reset", c.getSource(), io))));
     }
 
     private static <S> int list(Spec spec, String filter, S source, Io<S> io) {
@@ -590,10 +590,10 @@ public final class ConfigCommands {
             count++;
         }
         if (count == 0) {
-            io.fail(source, Component.translatable("simplelib.config.unknown", filter));
+            io.fail(source, Component.translatable("commands.simplelib.config.unknown", filter));
             return 0;
         }
-        io.info(source, Component.translatable("simplelib.config.list", spec.modId(), count).withStyle(ChatFormatting.YELLOW));
+        io.info(source, Component.translatable("commands.simplelib.config.list", spec.modId(), count).withStyle(ChatFormatting.YELLOW));
         return count;
     }
 
@@ -601,40 +601,40 @@ public final class ConfigCommands {
         String path = StringArgumentType.getString(c, "option");
         Option o = spec.option(path);
         if (o == null) {
-            io.fail(c.getSource(), Component.translatable("simplelib.config.unknown", path));
+            io.fail(c.getSource(), Component.translatable("commands.simplelib.config.unknown", path));
             return 0;
         }
-        io.info(c.getSource(), Component.translatable("simplelib.config.get", path, spec.shown(path, spec.value(path)), show(o.defaultValue()), type(o.kind()))
+        io.info(c.getSource(), Component.translatable("commands.simplelib.config.get", path, spec.shown(path, spec.value(path)), show(o.defaultValue()), type(o.kind()))
                 .withStyle(ChatFormatting.YELLOW));
         List<String> allowed = spec.choices(path);
-        if (!allowed.isEmpty()) io.info(c.getSource(), Component.translatable("simplelib.config.choices", String.join(", ", allowed)).withStyle(ChatFormatting.GRAY));
-        if (spec.restart(path)) io.info(c.getSource(), Component.translatable("simplelib.config.restart").withStyle(ChatFormatting.GRAY));
+        if (!allowed.isEmpty()) io.info(c.getSource(), Component.translatable("commands.simplelib.config.choices", String.join(", ", allowed)).withStyle(ChatFormatting.GRAY));
+        if (spec.restart(path)) io.info(c.getSource(), Component.translatable("commands.simplelib.config.restart").withStyle(ChatFormatting.GRAY));
         return 1;
     }
 
     private static <S> int report(Spec spec, Result r, String key, S source, Io<S> io) {
         switch (r.status()) {
             case UNKNOWN -> {
-                io.fail(source, Component.translatable("simplelib.config.unknown", r.path()));
+                io.fail(source, Component.translatable("commands.simplelib.config.unknown", r.path()));
                 return 0;
             }
             case INVALID -> {
                 Option o = spec.option(r.path());
                 List<String> allowed = spec.choices(r.path());
                 Component expected = allowed.isEmpty() ? type(o.kind()) : Component.literal(String.join(", ", allowed));
-                io.fail(source, Component.translatable("simplelib.config.invalid", r.value(), expected, r.path()));
+                io.fail(source, Component.translatable("commands.simplelib.config.invalid", r.value(), expected, r.path()));
                 return 0;
             }
             case FAILED -> {
-                io.fail(source, Component.translatable("simplelib.config.save_failed", r.path(), r.value()));
+                io.fail(source, Component.translatable("commands.simplelib.config.save_failed", r.path(), r.value()));
                 return 0;
             }
             default -> {
             }
         }
         io.changed(source, Component.translatable(key, spec.modId(), r.path(), r.value()).withStyle(ChatFormatting.GREEN));
-        if (r.status() == Status.CLAMPED) io.info(source, Component.translatable("simplelib.config.clamped", r.value()).withStyle(ChatFormatting.GOLD));
-        if (spec.restart(r.path())) io.info(source, Component.translatable("simplelib.config.restart").withStyle(ChatFormatting.GOLD));
+        if (r.status() == Status.CLAMPED) io.info(source, Component.translatable("commands.simplelib.config.clamped", r.value()).withStyle(ChatFormatting.GOLD));
+        if (spec.restart(r.path())) io.info(source, Component.translatable("commands.simplelib.config.restart").withStyle(ChatFormatting.GOLD));
         return 1;
     }
 }
