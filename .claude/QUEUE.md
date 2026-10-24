@@ -304,39 +304,39 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [x] **REV24-M-10** Nether-Dach: gemerkter Ort wird vor Teleport geprüft, bei Disconnect/Stop vergessen – `modules/simpletweaks/.../play/roof/NetherRoof.java` – Beleg: Branch b-revmid24, Test roof.
 - [x] **REV24-M-11** Berechtigungsprobe setzt Hammer-Veto (Fabric); gemeinsame Probe in simplelib offen; simplefarming-Rest verworfen (Veto bräuchte harte simplelib-Abhängigkeit, Modul-Unabhängigkeit) – `modules/simpletools|simpleinterfaces Fabric-Klassen` – Beleg: Branch b-revmid24, Fabric-Test permissionProbeVetoesAreas.
 - [x] **REV24-M-12** Dorf-Wanderer: hasChunkAt vor Struktursuche und in findSpot (Drosselung bestand schon, 200 Ticks) – `modules/simplewanderers/.../logic/WandererSpawner.java` – Beleg: Branch b-revmid24, Test find_spot_skips_unloaded.
-- [ ] **REV24-M-1** Mehrere @Redirect auf häufige Vanilla-Aufrufe (Köcher, Riding) -> @WrapOperation + ThreadLocal in try/finally – `modules/simplestorage/.../BowItemMixin.java u. a.`
+- [x] (B, b-revmixin24 4e70df46e: Köcher/Riding/FallingStorage → @WrapOperation; ThreadLocal-try/finally begründet gelassen; Client-Mixins geparkt auf b-revmixin24-client (Client-Smoke-Lauf offen)) **REV24-M-1** Mehrere @Redirect auf häufige Vanilla-Aufrufe (Köcher, Riding) -> @WrapOperation + ThreadLocal in try/finally – `modules/simplestorage/.../BowItemMixin.java u. a.`
 - [x] **REV24-M-9** Death Vault: toleranter Ledger-Codec (kaputte Einträge/Tode/Spieler geloggt + übersprungen, Rest bleibt; Encode unverändert); reindex() lief schon über alle Spieler (verworfen) – `modules/simpletools/.../vault/DeathLedger.java` – Beleg: Branch b-revvault24, Test vault_persistence erweitert.
-- [ ] **REV24-N-1** Statische Pro-Spieler-Zustände (FearNet, MISSES/LAST, Pvp, HerobrineHaunt) bei Stop/Disconnect nicht geräumt -> gemeinsamer Hook in simplelib – `modules/simplemobs/.../FearNet.java u. a.`
-- [ ] **REV24-N-2** simplecrucibles importiert interne simplelib-Klassen statt com.simplelib.api – `modules/simplecrucibles/.../CrucibleJob.java`
-- [ ] **REV24-N-3** options.txt-Migration doppelt und nicht atomar -> ein simplelib-Helfer – `modules/simplestorage/.../BackpackKeyMigration.java`
-- [ ] **REV24-N-4** Config-Dateien nicht atomar geschrieben (~30 Stellen) -> ConfigFiles.writeAtomic – `modules/simplemobs/.../MobsConfig.java u. a.`
-- [ ] **REV24-N-5** Kopierter Code (InteractionGuard 3x, Test-Helfer 5x) nach simplelib/Test-Util – `modules/simplefarming|simpletools|simpleinterfaces InteractionGuard.java`
-- [ ] **REV24-N-6** Backup-Worker: shutdown() ohne Warten, ZIP liest lebende Dateien, .part-Reste (Backups-Datei gehört b-revfix24) – `modules/simpletweaks/.../admin/backup/Backups.java`
-- [ ] **REV24-N-7** Maps: Waypoint-/Display-Handler ohne MapsConfig.enabled-Prüfung (MapsNetwork gehört b-revfix24) – `modules/simplemaps/.../net/MapsNetwork.java`
-- [ ] **REV24-N-8** Sledgehammer-Fläche: statisches HARVESTED_BLOCKS ohne Dimension – `modules/simplehammers/.../engine/SledgehammerUsageEvent.java`
-- [ ] **REV24-F-07** Schutzprüfung nur am Chunk-Eck-Punkt: Claims unterhalb Chunk-Größe umgehbar – `common/.../api/WorldPermissions.java`
-- [ ] **REV24-F-08** Gehaltener Attractor schickt pro Item und Tick ein Bewegungspaket – `common/.../items/custom/MagnetItem.java`
-- [ ] **REV24-F-09** Amboss: Hammer + Hammer kombiniert Verzauberungen ohne Verträglichkeitsprüfung – `common/.../mixin/AnvilScreenHandlerMixin.java`
-- [ ] **REV24-F-10** Trim-Muster/-Material per String.contains auf dem Asset-Pfad erkannt – `common/.../util/TrimEffectUtil.java`
-- [ ] **REV24-F-11** Trim-Puls-Texturen: Cache bei Ressourcen-Reload nicht geleert – `common/.../client/render/TrimPulseTextures.java`
-- [ ] **REV24-F-12** Daten-Fixer läuft auf 26.3 bei jedem DataFixTypes.update auch bei aktueller Version – `common/.../datafix/ModDataFixer.java`
-- [ ] **REV24-F-13** @Redirect/@ModifyConstant auf häufig angefassten Zielen (Mod-Kompatibilität) – `common/.../mixin/AbstractArrowRecoveryMixin.java u. a.`
-- [ ] **REV24-F-14** Mod-Jar enthält Test- und Dev-Code in großem Umfang (prüfen) – `common/src/shared/java/com/simplebuilding/gametest, dev; build.gradle:121-130`
-- [ ] **REV24-F-15** DataTablesSyncPayload: Einzeldatei-Grenze entspricht der Paketgrenze – `common/.../networking/DataTablesSyncPayload.java`
-- [ ] **REV24-F-16** Fabric-Bauschutz feuert Abbau-Ereignisse für Platzierungen – `mc26_3/fabric/.../platform/FabricBuildGuard.java`
-- [ ] **REV24-F-17** Doppelte Implementierungen im Kern und in den Modulen (Konsistenzregel) – `common/.../items/custom/ReinforcedBundleItem.java u. a.`
-- [ ] **REV24-F-18** Kern enthält Logik für Sub-Mod-Gegenstände (Hammer im Amboss) – `common/.../mixin/AnvilScreenHandlerMixin.java`
-- [ ] **REV24-F-19** ChunkLoaderRegistry.reconcile lädt beim Wecken alle Chunks synchron (pro Tick nur N) – `common/.../tweaks/block/entity/ChunkLoaderRegistry.java`
-- [ ] **REV24-F-20** AutonomousCrafter verwirft Rest von addItem(result) – `common/.../blocks/entity/custom/AutonomousCrafterBlockEntity.java`
-- [ ] **REV24-F-22** LivingEntityMixin: drei tick-Injektionen je Lebewesen, Namenslücke modifyVoidDamage – `common/.../mixin/LivingEntityMixin.java`
-- [ ] **REV24-F-23** BlockItemMixin kopiert bei jeder Platzierung den Stapel in einen ThreadLocal – `common/.../mixin/BlockItemMixin.java`
-- [ ] **REV24-F-24** SpeakerBoost.inRelayRange: Brute-Force je Kettenschritt – `common/.../util/SpeakerBoost.java`
-- [ ] **REV24-F-26** WornHeads.extra: Listen-Allokation je Aufruf, Fehler still geschluckt – `framework/.../WornHeads.java`
-- [ ] **REV24-F-27** ConfigFiles.quarantine: Namenskollision innerhalb einer Sekunde – `framework/.../ConfigFiles.java`
+- [~] (B, b-revlow24 21ccdf4bc: FearNet/HerobrineHaunt bei Disconnect (Fabric); Rest in b-revstate24) **REV24-N-1** Statische Pro-Spieler-Zustände (FearNet, MISSES/LAST, Pvp, HerobrineHaunt) bei Stop/Disconnect nicht geräumt -> gemeinsamer Hook in simplelib – `modules/simplemobs/.../FearNet.java u. a.`
+- [x] (B, b-revlow24 21ccdf4bc, Bündel 55) **REV24-N-2** simplecrucibles importiert interne simplelib-Klassen statt com.simplelib.api – `modules/simplecrucibles/.../CrucibleJob.java`
+- [x] (B, b-revlow24, Bündel 55 (ConfigFiles.migrateOptions)) **REV24-N-3** options.txt-Migration doppelt und nicht atomar -> ein simplelib-Helfer – `modules/simplestorage/.../BackpackKeyMigration.java`
+- [x] (B, b-revlow24, Bündel 55 (ConfigFiles.writeAtomic, 29 Schreiber)) **REV24-N-4** Config-Dateien nicht atomar geschrieben (~30 Stellen) -> ConfigFiles.writeAtomic – `modules/simplemobs/.../MobsConfig.java u. a.`
+- [~] (B, Plan in b-revstate24) **REV24-N-5** Kopierter Code (InteractionGuard 3x, Test-Helfer 5x) nach simplelib/Test-Util – `modules/simplefarming|simpletools|simpleinterfaces InteractionGuard.java`
+- [x] (B, b-revlow24, Bündel 55 (awaitTermination 5 s; ZIP/part-Reste offen)) **REV24-N-6** Backup-Worker: shutdown() ohne Warten, ZIP liest lebende Dateien, .part-Reste (Backups-Datei gehört b-revfix24) – `modules/simpletweaks/.../admin/backup/Backups.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-N-7** Maps: Waypoint-/Display-Handler ohne MapsConfig.enabled-Prüfung (MapsNetwork gehört b-revfix24) – `modules/simplemaps/.../net/MapsNetwork.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-N-8** Sledgehammer-Fläche: statisches HARVESTED_BLOCKS ohne Dimension – `modules/simplehammers/.../engine/SledgehammerUsageEvent.java`
+- [x] (B, b-revcore24 31041aa2b, Bündel 55) **REV24-F-07** Schutzprüfung nur am Chunk-Eck-Punkt: Claims unterhalb Chunk-Größe umgehbar – `common/.../api/WorldPermissions.java`
+- [x] (B, b-revcore24, Bündel 55) **REV24-F-08** Gehaltener Attractor schickt pro Item und Tick ein Bewegungspaket – `common/.../items/custom/MagnetItem.java`
+- [x] (B, b-revcore24, Bündel 55) **REV24-F-09** Amboss: Hammer + Hammer kombiniert Verzauberungen ohne Verträglichkeitsprüfung – `common/.../mixin/AnvilScreenHandlerMixin.java`
+- [x] (B, b-revrest24 1087ebf56 + b-revtrim24 8377dc360 (Tooltip/Advancements exakt)) **REV24-F-10** Trim-Muster/-Material per String.contains auf dem Asset-Pfad erkannt – `common/.../util/TrimEffectUtil.java`
+- [x] (B, b-revrest24 1087ebf56) **REV24-F-11** Trim-Puls-Texturen: Cache bei Ressourcen-Reload nicht geleert – `common/.../client/render/TrimPulseTextures.java`
+- [x] (B, b-revcore24, Bündel 55: nur Präfixtest, Frühausstieg bleibt (inhaltliche Migration)) **REV24-F-12** Daten-Fixer läuft auf 26.3 bei jedem DataFixTypes.update auch bei aktueller Version – `common/.../datafix/ModDataFixer.java`
+- [x] (B, b-revmixin24 (AbstractArrowRecovery, PistonHandler); Client-HUD-Mixins geparkt auf b-revmixin24-client) **REV24-F-13** @Redirect/@ModifyConstant auf häufig angefassten Zielen (Mod-Kompatibilität) – `common/.../mixin/AbstractArrowRecoveryMixin.java u. a.`
+- [~] (B, b-revrest24 geprüft: Jar 45,7 MB, 42 % SB-Klassen gametest; Vorschlag eigenes Sourceset + Release-Filter → Besitzer-Entscheidung) **REV24-F-14** Mod-Jar enthält Test- und Dev-Code in großem Umfang (prüfen) – `common/src/shared/java/com/simplebuilding/gametest, dev; build.gradle:121-130`
+- [x] (B, b-revcore24, Bündel 55) **REV24-F-15** DataTablesSyncPayload: Einzeldatei-Grenze entspricht der Paketgrenze – `common/.../networking/DataTablesSyncPayload.java`
+- [x] (B, verworfen b-revcore24: Fabric ohne Platzier-Event, Kompromiss in docs/MODPACK.md) **REV24-F-16** Fabric-Bauschutz feuert Abbau-Ereignisse für Platzierungen – `mc26_3/fabric/.../platform/FabricBuildGuard.java`
+- [~] (B, Plan in b-revstate24) **REV24-F-17** Doppelte Implementierungen im Kern und in den Modulen (Konsistenzregel) – `common/.../items/custom/ReinforcedBundleItem.java u. a.`
+- [~] (B, Plan in b-revstate24) **REV24-F-18** Kern enthält Logik für Sub-Mod-Gegenstände (Hammer im Amboss) – `common/.../mixin/AnvilScreenHandlerMixin.java`
+- [x] (B, b-revcore24, Bündel 55) **REV24-F-19** ChunkLoaderRegistry.reconcile lädt beim Wecken alle Chunks synchron (pro Tick nur N) – `common/.../tweaks/block/entity/ChunkLoaderRegistry.java`
+- [x] (B, b-revcore24, Bündel 55) **REV24-F-20** AutonomousCrafter verwirft Rest von addItem(result) – `common/.../blocks/entity/custom/AutonomousCrafterBlockEntity.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-F-22** LivingEntityMixin: drei tick-Injektionen je Lebewesen, Namenslücke modifyVoidDamage – `common/.../mixin/LivingEntityMixin.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-F-23** BlockItemMixin kopiert bei jeder Platzierung den Stapel in einen ThreadLocal – `common/.../mixin/BlockItemMixin.java`
+- [x] (B, b-revrest24: maybeHas gab es schon, BlockPos-Rest behoben) **REV24-F-24** SpeakerBoost.inRelayRange: Brute-Force je Kettenschritt – `common/.../util/SpeakerBoost.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-F-26** WornHeads.extra: Listen-Allokation je Aufruf, Fehler still geschluckt – `framework/.../WornHeads.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-F-27** ConfigFiles.quarantine: Namenskollision innerhalb einer Sekunde – `framework/.../ConfigFiles.java`
 - [x] **REV24-F-28** Test-Hooks: Listener der Probes werden erst beim ersten Test-Aufruf registriert (Fabric) – `src/main/.../platform/FabricBuildGuard.java, FabricPistonBreakGuard.java, common/.../ProtectionProbe, PistonEventProbe` – Beleg: Branch b-revvault24.
-- [ ] **REV24-F-29** FabricItemAutomation: Transaction.openOuter() in verschachtelter Lage – `mc26_3/fabric/.../platform/FabricItemAutomation.java`
-- [ ] **REV24-F-30** BuildPermissions.probing globaler Zähler, nicht thread-lokal – `common/.../util/BuildPermissions.java`
-- [ ] **REV24-F-31** Protection.PROVIDERS nicht thread-sicher, kein Aufräumen beim Server-Stopp – `framework/.../Protection.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-F-29** FabricItemAutomation: Transaction.openOuter() in verschachtelter Lage – `mc26_3/fabric/.../platform/FabricItemAutomation.java`
+- [x] (B, b-revlow24, Bündel 55) **REV24-F-30** BuildPermissions.probing globaler Zähler, nicht thread-lokal – `common/.../util/BuildPermissions.java`
+- [x] (B, b-revrest24 1087ebf56 (synchronized + clear bei SERVER_STOPPED)) **REV24-F-31** Protection.PROVIDERS nicht thread-sicher, kein Aufräumen beim Server-Stopp – `framework/.../Protection.java`
 
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
