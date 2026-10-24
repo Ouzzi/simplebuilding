@@ -5,7 +5,7 @@ MODULE = Path(__file__).resolve().parents[1]
 DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder'}
 _vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
 assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings', 'void_wings', 'ender_heart', 'ender_gem')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
@@ -156,16 +156,19 @@ import vanilla_derived_sounds as _vd  # stdlib only at import time
 assert _vd.selected('vanilla') == list(_short_ord := [k.removeprefix('entity.hollow_howler.') for k in _snd])
 assert _vd.selected('mix') == [e for e in _short_ord if _map['mix'][e] == 'vanilla'] and _vd.selected('synth') == []
 print(f'simplemobs: Hollow Howler voice {len(_snd)} events, {len(_seen)} takes, mode {_map["mode"]}')
-# EL24-1 Wither/Nether Wings: Strong Upgrade with Simple Beacons, Netherite Upgrade without (not-conditions in all loader forms)
-for stage, base, add in (('wither_wings', 'minecraft:elytra', 'simplemobs:nether_heart'), ('nether_wings', 'simplemobs:wither_wings', 'simplemobs:nether_gem')):
+# EL24-1 Wither/Nether Wings, WB24-2 End/Void Wings: Strong Upgrade with Simple Beacons, Netherite Upgrade without (not-conditions in all
+# loader forms)
+for stage, base, add in (('wither_wings', 'minecraft:elytra', 'simplemobs:nether_heart'), ('nether_wings', 'simplemobs:wither_wings', 'simplemobs:nether_gem'),
+                         ('end_wings', 'simplemobs:nether_wings', 'simplemobs:ender_heart'), ('void_wings', 'simplemobs:end_wings', 'simplemobs:ender_gem')):
     for suffix, template, negated in (('_smithing', 'simplebeacons:strong_upgrade_template', False),
                                       ('_smithing_without_simplebeacons', 'minecraft:netherite_upgrade_smithing_template', True)):
         r = json.loads((MODULE / f'shared/resources/data/simplemobs/recipe/{stage}{suffix}.json').read_text(encoding='utf-8'))
         assert (r['type'], r['template'], r['base'], r['addition']) == ('minecraft:smithing_transform', template, base, add), (stage, suffix)
         assert (r['fabric:load_conditions'][0]['condition'] == 'fabric:not') == negated and (r['neoforge:conditions'][0]['type'] == 'neoforge:not') == negated
+        assert r['result']['id'] == f'simplemobs:{stage}', (stage, suffix)
     assert (MODULE / f'shared/resources/assets/simplemobs/equipment/{stage}.json').is_file()
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/equipment/wings/{stage}.png').is_file()
-# WA24-2 End Wings (stage 3): item, look and speed exist, but no recipe and no loot yet (material of a later End boss)
-assert (MODULE / 'shared/resources/assets/simplemobs/equipment/end_wings.json').is_file()
-assert (MODULE / 'shared/resources/assets/simplemobs/textures/entity/equipment/wings/end_wings.png').is_file()
-assert not list((MODULE / 'shared/resources/data/simplemobs').rglob('*end_wings*')), 'End Wings must not be craftable or dropped yet'
+# WB24-2 Ender Heart / Ender Gem: no loot yet (source = a later End boss, WA24-7), only commands, creative tab and test centre
+for _p in (MODULE / 'shared/resources/data/simplemobs/loot_table').rglob('*.json'):
+    _t = _p.read_text(encoding='utf-8')
+    assert 'ender_heart' not in _t and 'ender_gem' not in _t and 'end_wings' not in _t and 'void_wings' not in _t, f'{_p.name}: no End material loot yet'

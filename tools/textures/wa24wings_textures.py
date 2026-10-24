@@ -2,10 +2,11 @@
 
 The base shape is Vanilla's Elytra silhouette (item icon and the wing plate of the worn sheet, read from the Vanilla client
 jar) with a few cut-outs, so the wings read as "Elytra, slightly changed". Stage 1, stage 2 and stage 3 each get an own
-pattern, two variants per stage (1, 2). Stage 3 (End Wings) is not craftable yet; its built-in look is variant 1.
+pattern, two variants per stage (1, 2). Owner 24.10. (queue WB24-2): stages 1, 2 and 3 are built in as variant 1, and variant 2
+of stage 3 became stage 4, the Void Wings.
 
-    python tools/textures/wa24wings_textures.py                 # write the built-in end_wings look into simplemobs
-    python tools/textures/wa24wings_textures.py --check         # fail when a committed end_wings PNG/source differs
+    python tools/textures/wa24wings_textures.py                 # write the built-in looks of all four stages into simplemobs
+    python tools/textures/wa24wings_textures.py --check         # fail when a committed wings PNG/source differs
     python tools/textures/wa24wings_textures.py --variants DIR  # all stage/variant PNGs + sheets + data (preview page, tools/)
     python tools/textures/wa24wings_textures.py --vanilla JAR   # (with --variants) read the Vanilla masks from the client jar
 """
@@ -21,7 +22,8 @@ import layers  # noqa: E402
 
 ROOT = el.ROOT
 MOBS = el.MOBS
-BUILT_IN_STAGE3 = 1
+# built-in looks: file name -> (stage pattern, variant)
+BUILT_IN = {'wither_wings': (1, 1), 'nether_wings': (2, 1), 'end_wings': (3, 1), 'void_wings': (3, 2)}
 
 # Vanilla's wing plate (south face of the 64x32 sheet, 10x20) and item icon (16x16) as silhouette masks. Stored so the generator
 # runs without the Vanilla jar; --vanilla JAR re-reads and verifies them.
@@ -149,13 +151,13 @@ def palette(stage, var):
 STAGE_NAMES = {1: 'wither_wings', 2: 'nether_wings', 3: 'end_wings'}
 
 
-def textures(stage: int, var: int) -> dict[str, dict]:
+def textures(stage: int, var: int, name: str | None = None) -> dict[str, dict]:
     pal = palette(stage, var)
     s, l = plate(stage, var)
     mirrored = [r[::-1] for r in s], [r[::-1] for r in l]       # sheet() paints north = given, south = its mirror = S
     s64, l64 = el.sheet(*mirrored)
     i, il = icon(stage, var)
-    name = STAGE_NAMES[stage]
+    name = name or STAGE_NAMES[stage]
     return {f'item/{name}': el.doc(i, il, pal, 16),
             f'item/{name}_broken': el.doc(*el.broken(i, il), pal, 16),
             f'entity/equipment/wings/{name}': el.doc(s64, l64, pal, 64)}
@@ -175,7 +177,8 @@ def main(argv: list[str]) -> int:
         print(f'variants in {out}')
         return 0
     bad = []
-    for name, d in textures(3, BUILT_IN_STAGE3).items():
+    built = {k: v for n, (st, var) in BUILT_IN.items() for k, v in textures(st, var, n).items()}
+    for name, d in built.items():
         png = MOBS / f'{name}.png'
         src = layers.layers_path(png)
         text = layers.dumps(d)

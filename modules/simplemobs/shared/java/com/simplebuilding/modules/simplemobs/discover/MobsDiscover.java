@@ -63,6 +63,8 @@ public final class MobsDiscover {
             "simplemobs:dread_spawn_egg",
             "simplemobs:echo_core",
             "simplemobs:end_wings",
+            "simplemobs:ender_gem",
+            "simplemobs:ender_heart",
             "simplemobs:first_pickup_tips",
             "simplemobs:guide_book",
             "simplemobs:high_gravity",
@@ -86,6 +88,7 @@ public final class MobsDiscover {
             "simplemobs:soulfire_powder",
             "simplemobs:soulfire_rod",
             "simplemobs:trick_mirror",
+            "simplemobs:void_wings",
             "simplemobs:watcher_eye",
             "simplemobs:wither_wings");
     static final List<Tip> TIPS = List.of(
