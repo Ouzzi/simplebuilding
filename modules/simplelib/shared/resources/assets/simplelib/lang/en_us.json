@@ -45,5 +45,6 @@
   "text.autoconfig.simplelib.option.legendaryAdvancements": "More Legendary Advancements",
   "text.autoconfig.simplelib.option.legendaryAdvancements.@Tooltip": "Advancement ids added to the built-in list,\ne.g. minecraft:story/enter_the_end.",
   "text.autoconfig.simplelib.option.legendaryEnchantments": "More Legendary Enchantments",
-  "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Enchantment ids added to the tag\n#simplelib:legendary, e.g. minecraft:mending."
+  "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Enchantment ids added to the tag\n#simplelib:legendary, e.g. minecraft:mending.",
+  "jei.simplelib.category.in_world_upgrade": "In-World Upgrades"
 }

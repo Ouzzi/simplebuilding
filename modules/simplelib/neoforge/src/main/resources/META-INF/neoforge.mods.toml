@@ -16,3 +16,10 @@ versionRange="[26.3,26.4)"
 
 [[mixins]]
 config="simplelib.mixins.json"
+
+[[dependencies.simplelib]]
+modId="jei"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

@@ -25,7 +25,7 @@ public final class PlacedSolids {
         for (String trim : TRIMS) {
             ids.add("minecraft:" + trim + "_armor_trim_smithing_template");
         }
-        for (String own : List.of("glowing", "emitting", "pulsating")) {
+        for (String own : List.of("glowing", "emitting", "pulsating", "inverting")) {
             ids.add("simpletrims:" + own + "_trim_template");
         }
         IDS = Set.copyOf(ids);

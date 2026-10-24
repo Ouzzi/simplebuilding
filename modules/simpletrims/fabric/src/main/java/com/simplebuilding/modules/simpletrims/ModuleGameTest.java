@@ -57,6 +57,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void trimInversion(GameTestHelper h) {
+        TrimsTests.ALL.get("trim_inversion").accept(h);
+    }
+
+    @GameTest
     public void duplicationRecipes(GameTestHelper h) {
         TrimsTests.ALL.get("duplication_recipes").accept(h);
     }

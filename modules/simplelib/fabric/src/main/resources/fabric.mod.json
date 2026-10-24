@@ -22,6 +22,9 @@
     "client": [
       "com.simplebuilding.modules.simplelib.SimpleLibFabricClient"
     ],
+    "jei_mod_plugin": [
+      "com.simplelib.compat.jei.SimpleLibJeiPlugin"
+    ],
     "modmenu": [
       "com.simplebuilding.modules.simplelib.SimpleLibModMenu"
     ],
@@ -37,5 +40,8 @@
     "minecraft": "~26.3",
     "java": ">=25",
     "fabric-api": "*"
+  },
+  "suggests": {
+    "jei": "*"
   }
 }

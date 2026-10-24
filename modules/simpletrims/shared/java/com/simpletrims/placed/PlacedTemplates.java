@@ -108,11 +108,12 @@ public final class PlacedTemplates {
 
     // ----- upgrading -------------------------------------------------------------------------------
 
-    /** Off-hand material -> result, in a fixed order (glow ink: Glowing, glowstone dust: Emitting). */
+    /** Off-hand material -> result, in a fixed order (glow ink: Glowing, glowstone dust: Emitting, ink sac: Inverting). */
     public static Map<Item, Item> upgrades() {
         Map<Item, Item> upgrades = new LinkedHashMap<>();
         upgrades.put(Items.GLOW_INK_SAC, TrimsRegistry.GLOWING_TRIM_TEMPLATE);
         upgrades.put(Items.GLOWSTONE_DUST, TrimsRegistry.EMITTING_TRIM_TEMPLATE);
+        upgrades.put(Items.INK_SAC, TrimsRegistry.INVERTING_TRIM_TEMPLATE);
         return upgrades;
     }
 
@@ -121,7 +122,7 @@ public final class PlacedTemplates {
         Map<Item, Integer> materials = new LinkedHashMap<>();
         if (upgrades().containsKey(catalyst)) {
             materials.put(Items.DIAMOND, 4);
-            materials.put(catalyst == Items.GLOW_INK_SAC ? Items.GLOWSTONE : Items.BLAZE_POWDER, 2);
+            materials.put(catalyst == Items.GLOW_INK_SAC ? Items.GLOWSTONE : catalyst == Items.INK_SAC ? Items.OBSIDIAN : Items.BLAZE_POWDER, 2);
         }
         return materials;
     }

@@ -32,6 +32,17 @@
       "Am Schmiedetisch lassen Vorlage, Rüstung und eine Echoscherbe den Besatz alle 2,4 Sekunden von voller Farbe zu Grau pulsieren. Zusammen mit Leuchtend pulsiert auch die Helligkeit."
     ]
   },
+  "inverting_trim_template": {
+    "lore": [
+      "Ein Besatz von innen nach außen."
+    ],
+    "use": [
+      "Besatzvorlage ablegen und mit einer Axt (mit Simple Hammers: Vorschlaghammer) schlagen, einen Tintenbeutel in der Nebenhand; kostet 4 Diamanten und 2 Obsidian. Eine Vorlage, 7 Diamanten und ein Obsidianblock ergeben 2."
+    ],
+    "secret": [
+      "Am Schmiedetisch sparen Vorlage, Rüstung mit Besatz und ein Tintenbeutel das Besatzmuster aus und färben den Rest der Rüstung in der Besatzfarbe."
+    ]
+  },
   "guide_book": {
     "lore": [
       "Ein Buch, das den Glanz jedes Besatzes festhält."

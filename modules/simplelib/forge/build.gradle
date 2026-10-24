@@ -3,5 +3,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
 ext.moduleVersion = '0.3.0'
+// Forge 26.3 has no JEI (the plugin sources are left out).
+ext.forgeExcludedSources = ['**/compat/jei/**']
 ext.forgeMixinConfigs = ['simplelib.mixins.json', 'simplelib.forge.mixins.json']
 apply from: rootProject.file('gradle/module-forge.gradle')

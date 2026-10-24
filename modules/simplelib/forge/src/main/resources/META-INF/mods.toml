@@ -22,3 +22,10 @@ mandatory=true
 versionRange="[26.3,26.4)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.simplelib]]
+modId="jei"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

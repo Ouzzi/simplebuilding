@@ -3,6 +3,7 @@ package com.simpletrims.client;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
 import com.simpletrims.TrimGlow;
+import com.simpletrims.TrimInversion;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public final class TrimPulseTextures {
     private TrimPulseTextures() {
     }
 
-    private record Key(Identifier base, Identifier keyPalette, @Nullable Identifier palette) {
+    private record Key(Identifier base, Identifier keyPalette, @Nullable Identifier palette, boolean inverted) {
     }
 
     private static final class Entry {
@@ -57,20 +58,22 @@ public final class TrimPulseTextures {
      * in den Farben von {@code palette} (PNG, eine Zeile; die Schluesselfarben stehen in {@code keyPalette}),
      * entsaettigt auf Stufe {@code step}. {@code palette == null}: die Ebene bleibt in ihren eigenen Farben.
      *
-     * @return die Textur, oder {@code null} bei Stufe 0 (volle Farbe - Vanilla zeichnen) und wenn eine Datei fehlt
+     * @param inverted Inverting upgrade: the layer is the negative of the pattern ({@link com.simpletrims.TrimInversion}); then
+     *                 step 0 (full colour) is a texture of its own, too
+     * @return die Textur, oder {@code null} bei Stufe 0 ohne Invertierung (volle Farbe - Vanilla zeichnen) und wenn eine Datei fehlt
      */
-    public static @Nullable Identifier texture(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int step) {
-        if (step <= 0 || step >= TrimGlow.DESATURATION_STEPS) {
+    public static @Nullable Identifier texture(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int step, boolean inverted) {
+        if (step < (inverted ? 0 : 1) || step >= TrimGlow.DESATURATION_STEPS) {
             return null;
         }
-        Entry entry = CACHE.computeIfAbsent(new Key(base, keyPalette, palette), TrimPulseTextures::load);
+        Entry entry = CACHE.computeIfAbsent(new Key(base, keyPalette, palette, inverted), TrimPulseTextures::load);
         if (entry.colored == null) {
             return null;
         }
         Identifier id = entry.steps[step];
         if (id == null) {
             float amount = TrimGlow.desaturationAmount(step);
-            NativeImage image = entry.colored.mappedCopy(argb -> TrimGlow.desaturate(argb, amount));
+            NativeImage image = step == 0 ? entry.colored.mappedCopy(argb -> argb) : entry.colored.mappedCopy(argb -> TrimGlow.desaturate(argb, amount));
             id = Identifier.fromNamespaceAndPath("simpletrims", "trim_pulse/" + entry.index + "_" + step);
             String label = id.toString();
             Minecraft.getInstance().getTextureManager().register(id, new DynamicTexture(() -> label, image));
@@ -83,7 +86,7 @@ public final class TrimPulseTextures {
         ResourceManager resources = Minecraft.getInstance().getResourceManager();
         try (NativeImage base = read(resources, key.base())) {
             if (key.palette() == null) {
-                return new Entry(base.mappedCopy(argb -> argb), nextIndex++);
+                return new Entry(invertIf(key, base.mappedCopy(argb -> argb), null), nextIndex++);
             }
             int[] from = paletteRow(resources, key.keyPalette());
             int[] to = paletteRow(resources, key.palette());
@@ -100,11 +103,34 @@ public final class TrimPulseTextures {
                 }
                 return argb;
             });
-            return new Entry(colored, nextIndex++);
+            return new Entry(invertIf(key, colored, to), nextIndex++);
         } catch (IOException | RuntimeException e) {
             LOGGER.debug("No pulsating trim texture for {} with palette {}: {}", key.base(), key.palette(), e.toString());
             return MISSING;
         }
+    }
+
+    /** The Inverting upgrade: replaces the coloured layer by its negative (fill = palette colour), else the layer itself. */
+    private static NativeImage invertIf(Key key, NativeImage colored, int @Nullable [] palette) {
+        if (!key.inverted()) {
+            return colored;
+        }
+        int w = colored.getWidth();
+        int h = colored.getHeight();
+        int[] pattern = new int[w * h];
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                pattern[y * w + x] = colored.getPixel(x, y);
+            }
+        }
+        int[] colours = TrimInversion.colours(palette, pattern);
+        int[] out = TrimInversion.invert(pattern, w, h, colours[0], colours[1], TrimInversion.DEFAULT);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                colored.setPixel(x, y, out[y * w + x]);
+            }
+        }
+        return colored;
     }
 
     private static NativeImage read(ResourceManager resources, Identifier id) throws IOException {

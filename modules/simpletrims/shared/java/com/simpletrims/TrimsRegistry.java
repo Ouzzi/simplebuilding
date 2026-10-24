@@ -44,7 +44,11 @@ public final class TrimsRegistry {
     public static final DataComponentType<Boolean> PULSATING = DataComponentType.<Boolean>builder()
             .persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build();
 
-    public static Item GLOWING_TRIM_TEMPLATE, EMITTING_TRIM_TEMPLATE, PULSATING_TRIM_TEMPLATE;
+    /** Inverting upgrade (NA24-6): the trim is drawn as the negative of its pattern over the armor. */
+    public static final DataComponentType<Boolean> INVERTED_TRIM = DataComponentType.<Boolean>builder()
+            .persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build();
+
+    public static Item GLOWING_TRIM_TEMPLATE, EMITTING_TRIM_TEMPLATE, PULSATING_TRIM_TEMPLATE, INVERTING_TRIM_TEMPLATE;
     public static PlacedTrimTemplateBlock PLACED_TEMPLATE;
     public static BlockEntityType<PlacedTrimTemplateBlockEntity> PLACED_TEMPLATE_BE;
 
@@ -53,6 +57,7 @@ public final class TrimsRegistry {
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleTrims.id("visual_glow"), VISUAL_GLOW);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleTrims.id("light_source"), LIGHT_SOURCE);
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleTrims.id("pulsating"), PULSATING);
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleTrims.id("inverted_trim"), INVERTED_TRIM);
     }
 
     public static void registerBlocks() {
@@ -71,6 +76,8 @@ public final class TrimsRegistry {
         EMITTING_TRIM_TEMPLATE = template("emitting_trim_template", ChatFormatting.GOLD, armor, glowMaterials);
         PULSATING_TRIM_TEMPLATE = template("pulsating_trim_template", ChatFormatting.DARK_AQUA, armor,
                 List.of(Identifier.withDefaultNamespace("container/slot/amethyst_shard")));
+        INVERTING_TRIM_TEMPLATE = template("inverting_trim_template", ChatFormatting.DARK_GRAY, armor,
+                List.of(Identifier.withDefaultNamespace("container/slot/ingot")));
         com.simpletrims.guide.TrimsGuide.register();
     }
 
@@ -83,10 +90,11 @@ public final class TrimsRegistry {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTrims.id("tool_shapeless"), ToolShapelessRecipe.SERIALIZER);
     }
 
-    /** The three templates, for the creative tab (empty while the module is switched off). */
+    /** The four templates, for the creative tab (empty while the module is switched off). */
     public static List<ItemStack> tabStacks() {
         if (!SimpleTrims.on()) return List.of();
-        return List.of(new ItemStack(GLOWING_TRIM_TEMPLATE), new ItemStack(EMITTING_TRIM_TEMPLATE), new ItemStack(PULSATING_TRIM_TEMPLATE));
+        return List.of(new ItemStack(GLOWING_TRIM_TEMPLATE), new ItemStack(EMITTING_TRIM_TEMPLATE), new ItemStack(PULSATING_TRIM_TEMPLATE),
+                new ItemStack(INVERTING_TRIM_TEMPLATE));
     }
 
     private static Item template(String name, ChatFormatting appliesTo, List<Identifier> baseIcons, List<Identifier> additionIcons) {

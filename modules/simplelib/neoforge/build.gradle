@@ -13,3 +13,7 @@ neoForge.runs {
 }
 // Bundles the shared framework API (creative-tab switch) for standalone runs.
 dependencies { jarJar project(':framework') }
+
+// Optional JEI plugin (shared/java/com/simplelib/compat/jei, the shared in-world upgrade tab): compiled against, never bundled.
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

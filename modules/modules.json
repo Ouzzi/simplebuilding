@@ -1192,7 +1192,9 @@
         "forge"
       ],
       "requires": [],
-      "optional": [],
+      "optional": [
+        "jei"
+      ],
       "checks": [
         "modules/simplelib/tools/check_data.py"
       ],

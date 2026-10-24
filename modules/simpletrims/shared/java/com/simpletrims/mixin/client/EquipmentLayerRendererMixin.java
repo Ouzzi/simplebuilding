@@ -44,7 +44,7 @@ public class EquipmentLayerRendererMixin {
         }
     };
 
-    /** Pulsating ohne Glowing: der Besatz-Submit zeichnet die entsaettigte Kopie (siehe 26.2-Zwilling). */
+    /** Pulsating ohne Glowing oder Inverting: der Besatz-Submit zeichnet die entsaettigte bzw. invertierte Kopie (siehe 26.2-Zwilling). */
     @WrapOperation(
             method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
             slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;armorTrim(Lnet/minecraft/resources/Identifier;Z)Lnet/minecraft/client/renderer/rendertype/RenderType;")),
@@ -81,11 +81,13 @@ public class EquipmentLayerRendererMixin {
     private static Identifier simpletrims$desaturatedTrim(ItemStack stack, ArmorTrim trim,
                                                              EquipmentClientInfo.LayerType layerType,
                                                              EquipmentClientInfo equipmentInfo) {
-        if (!TrimGlow.isPulsating(stack) || TrimGlow.getGlowLevel(stack) > 0) {
+        boolean inverted = TrimGlow.isInverted(stack);
+        boolean fade = TrimGlow.isPulsating(stack) && TrimGlow.getGlowLevel(stack) <= 0;
+        if (!fade && !inverted) {
             return null;
         }
-        int step = TrimGlow.desaturationStep(System.currentTimeMillis());
-        if (step <= 0) {
+        int step = fade ? TrimGlow.desaturationStep(System.currentTimeMillis()) : 0;
+        if (step <= 0 && !inverted) {
             return null;
         }
         Identifier textureId = trim.pattern().value().assetId();
@@ -102,6 +104,6 @@ public class EquipmentLayerRendererMixin {
                 textureId.withPath(path -> "textures/" + prefix + "/" + path + ".png"),
                 Identifier.withDefaultNamespace("textures/palettes/trim_base.png"),
                 paletteId == null ? null : paletteId.withPath(path -> "textures/palettes/" + path + ".png"),
-                step);
+                step, inverted);
     }
 }

@@ -1,7 +1,11 @@
 package com.simpletrims.compat;
 
 import com.simpletrims.SimpleTrims;
+import com.simplelib.compat.jei.InWorldUpgrade;
+import com.simplelib.compat.jei.InWorldUpgradeCategory;
+import com.simpletrims.TemplateTools;
 import com.simpletrims.TrimUpgrades;
+import com.simpletrims.placed.PlacedTemplates;
 import com.simpletrims.recipe.TrimUpgradeRecipe;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +16,12 @@ import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.extensions.vanilla.smithing.ISmithingCategoryExtension;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -26,6 +35,49 @@ public final class TrimsJeiPlugin implements IModPlugin {
     @Override
     public Identifier getPluginUid() {
         return SimpleTrims.id("jei");
+    }
+
+    /**
+     * The in-world forging of templates (placed template + tool + ink in the off hand, strikes) in SimpleLib's shared
+     * tab {@link InWorldUpgradeCategory}. SimpleBuilding's own tab of the same ways is empty with Simple Trims (its
+     * table is switched off there), so this is what shows the Glowing, Emitting and Inverting templates' origin.
+     */
+    @Override
+    public void registerRecipes(IRecipeRegistration registration) {
+        registration.addRecipes(InWorldUpgradeCategory.TYPE, inWorldUpgrades());
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        for (Item tool : tools()) registration.addCraftingStation(InWorldUpgradeCategory.TYPE, tool);
+    }
+
+    /** One entry per upgrade of {@link PlacedTemplates#upgrades()}: any Vanilla template + catalyst (+ extras) -> the upgraded template. */
+    static List<InWorldUpgrade> inWorldUpgrades() {
+        List<Item> templates = new ArrayList<>();
+        BuiltInRegistries.ITEM.forEach(item -> {
+            if (PlacedTemplates.isTrimTemplate(new ItemStack(item))) templates.add(item);
+        });
+        List<Item> tools = tools();
+        List<InWorldUpgrade> out = new ArrayList<>();
+        if (templates.isEmpty() || tools.isEmpty()) return out;
+        List<Component> notes = List.of(Component.translatable("jei.simpletrims.note.in_world", PlacedTemplates.PLACED_HITS),
+                Component.translatable("jei.simpletrims.note.durability", PlacedTemplates.TOOL_DAMAGE));
+        PlacedTemplates.upgrades().forEach((catalyst, result) -> {
+            List<InWorldUpgrade.Input> inputs = new ArrayList<>();
+            inputs.add(new InWorldUpgrade.Input(templates, 1));
+            inputs.add(InWorldUpgrade.Input.of(catalyst, PlacedTemplates.CATALYST_COST));
+            PlacedTemplates.extraMaterials(catalyst).forEach((item, count) -> inputs.add(InWorldUpgrade.Input.of(item, count)));
+            out.add(new InWorldUpgrade("simpletrims/" + BuiltInRegistries.ITEM.getKey(result).getPath(), inputs, tools, new ItemStack(result), notes));
+        });
+        return out;
+    }
+
+    /** The tools of the current mode: axes, or the hammers once a hammer partner switched the axe ways off. */
+    private static List<Item> tools() {
+        List<Item> tools = new ArrayList<>();
+        BuiltInRegistries.ITEM.getTagOrEmpty(TemplateTools.currentTag()).forEach(holder -> tools.add(holder.value()));
+        return tools;
     }
 
     @Override
