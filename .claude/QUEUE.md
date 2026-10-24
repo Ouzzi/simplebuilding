@@ -103,6 +103,12 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Besitzer 24.10. nachmittags – Antworten Sammelseite, Runde 2 (WC24)
+Abgenommen: WB24-2 Schwingen Stufe 1–4 (Name „Leeren-Schwingen“, x8/1152/MYTHIC), WB24-4 Notenblatt-Editor („noten blatt e3“ = E3-Ansicht so lassen, flaches Neuschreiben ok).
+- [ ] WC24-1 (WB24-3) Nether-Juwel = **A3 Seelenflamme mit höherer Seelenflamme**. Ender-Juwel = **E2 Leerenschliff, aber anpassen** (verfeinern). Ender-Herz = **H3 Chorusherz fusioniert mit H1** (Chorusfarbe mit dem Türkis), Form „ähnlich einem kanicken Herzen“ (Diktat; gelesen als **kantiges** Pixel-Herz). Danach als echte Texturen von nether_gem/ender_gem/ender_heart einbauen (ersetzt vorläufig H1/E1), Vorschau dazu.
+- [ ] WC24-2 (WB24-1) Inverser Besatz **ohne Übergang**: Stufe 1 = 1 px invers, Stufe 2 = 2 px, Stufe 3 = 3 px (Randbreite wächst je Stufe, Stufe 3 hat damit am wenigsten Trim-Farbe außen herum). Rand bleibt Subtraktion.
+- [ ] WC24-3 (WB24-5) Vitrinen: **oben auch Glas** (Deckel/Oberseite aus demselben sanft getönten Glas statt Rahmen/Holz).
+
 ## Besitzer 24.10. mittags – Antworten Sammelseite (WB24, https://claude.ai/artifact/RAjUgcgKEaVmC36M4PLxqr)
 Abgenommen ohne Folgearbeit: WA24-3 Butter-Teppich „passt“, WA24-4 Köcher, NA24-2 Verkaufsblock-Deutung „richtig“, AUD-1/2 (schon eingebaut als W24-3). Rest der Seite (WA24-6 Earth, SP22-5, Earth E1–E12) folgt später.
 - [x] WB24-1 (WA24-1) Inverser Besatz abgenommen, aber den Rand als **Subtraktion** bilden (Grundfarbe des Besatzes abdunkeln/abziehen), nicht als neue Farbe. → ERLEDIGT 24.10.: Rand = Fuellfarbe minus 80/Kanal (TrimInversion.RIM_SUBTRACT), Uebergang = halbe Subtraktion; Vorschau wb24-1-trim-subtract.html; b-wb24small (Client-Sicht offen).
