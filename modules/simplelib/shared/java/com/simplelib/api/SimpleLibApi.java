@@ -87,6 +87,21 @@ public final class SimpleLibApi {
         return com.simplelib.warm.Warm.warmable(input);
     }
 
+    /** Whether warm food {@code stack} is still warm in {@code level}. */
+    public static boolean isWarm(ItemStack stack, net.minecraft.world.level.Level level) {
+        return com.simplelib.warm.Warm.isWarm(stack, level);
+    }
+
+    /** Warms {@code stack} for the full duration from game time {@code now}. */
+    public static void warm(ItemStack stack, long now) {
+        com.simplelib.warm.Warm.warm(stack, now);
+    }
+
+    /** Eating time in ticks of warm food (the owner's faster-use bonus applied to {@code ticks}). */
+    public static int warmFasterUse(int ticks) {
+        return com.simplelib.warm.Warm.fasterUse(ticks);
+    }
+
     // ------------------------------------------------------------ shared materials (split stage 3d)
 
     /**

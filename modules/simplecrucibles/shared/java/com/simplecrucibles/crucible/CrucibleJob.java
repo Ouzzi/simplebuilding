@@ -1,8 +1,7 @@
 package com.simplecrucibles.crucible;
 
-import com.simplelib.config.LibConfig;
 import com.simplecrucibles.registry.CrucibleTags;
-import com.simplelib.warm.Warm;
+import com.simplelib.api.SimpleLibApi;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.server.level.ServerLevel;
@@ -45,8 +44,8 @@ public record CrucibleJob(int ticks, ItemStack result, float experience, HeatLev
         }
         if (allowed != null) return allowed;
         if (lowest != null) return lowest;
-        if (Warm.warmable(stack) && !Warm.isWarm(stack, level)) {
-            return new CrucibleJob(LibConfig.warmBaseTicks, stack.copy(), 0.0F, HeatLevel.MEDIUM, true);
+        if (SimpleLibApi.warmable(stack) && !SimpleLibApi.isWarm(stack, level)) {
+            return new CrucibleJob(SimpleLibApi.warmingTicks(), stack.copy(), 0.0F, HeatLevel.MEDIUM, true);
         }
         return null;
     }

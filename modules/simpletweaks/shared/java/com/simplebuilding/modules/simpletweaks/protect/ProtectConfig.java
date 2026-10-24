@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpletweaks.protect;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.*;
 import java.nio.file.*;
 import com.simplebuilding.modules.simpletweaks.play.AutoOff;
@@ -128,7 +129,7 @@ public record ProtectConfig(int permission, AntiXray antiXray, Freecam freecam, 
         try {
             if (!Files.exists(path)) {
                 Files.createDirectories(path.toAbsolutePath().getParent());
-                Files.writeString(path, GSON.toJson(DEFAULT));
+                ConfigFiles.writeAtomic(path, GSON.toJson(DEFAULT));
                 return DEFAULT;
             }
             if (Files.isSymbolicLink(path) || Files.size(path) > 65536) throw new java.io.IOException("Unsafe protect config");

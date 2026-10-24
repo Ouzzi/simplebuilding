@@ -18,6 +18,7 @@ import java.util.function.Function;
  */
 public final class WornHeads {
     private static final Map<String, Function<Object, List<?>>> PROVIDERS = new ConcurrentHashMap<>();
+    private static final java.util.Set<String> FAILED = ConcurrentHashMap.newKeySet();
     private static final Map<String, SkullLook> LOOKS = new ConcurrentHashMap<>();
 
     /**
@@ -61,7 +62,8 @@ public final class WornHeads {
             return List.of();
         }
         List<Object> out = new ArrayList<>();
-        for (Function<Object, List<?>> provider : PROVIDERS.values()) {
+        for (Map.Entry<String, Function<Object, List<?>>> entry : PROVIDERS.entrySet()) {
+            Function<Object, List<?>> provider = entry.getValue();
             try {
                 List<?> heads = provider.apply(entity);
                 if (heads != null) {
@@ -71,8 +73,11 @@ public final class WornHeads {
                         }
                     }
                 }
-            } catch (RuntimeException ignored) {
-                // a broken provider must not break the wearer
+            } catch (RuntimeException e) {
+                // a broken provider must not break the wearer; say so once per provider
+                if (FAILED.add(entry.getKey())) {
+                    System.getLogger("WornHeads").log(System.Logger.Level.WARNING, "Extra-head provider '" + entry.getKey() + "' failed (further failures are not logged)", e);
+                }
             }
         }
         return out;

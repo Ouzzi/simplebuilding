@@ -81,57 +81,42 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
         }
     }
 
-    // --- RIB TRIM ---
+    // Ein tick-Hook fuer alle Besatz-Effekte (jedes Lebewesen laeuft hier durch): RIB (Wither), Amethyst, Radiance/Attribute.
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickEffects(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (!entity.level().isClientSide() && entity.tickCount % 20 == 0) {
-            if (entity.hasEffect(MobEffects.WITHER)) {
-                int reduction = TrimEffectUtil.getWitherReductionAmount(entity);
-                if (reduction > 0) {
-                    MobEffectInstance effect = entity.getEffect(MobEffects.WITHER);
-                    // Wenn Restzeit klein ist, entfernen
-                    if (effect != null && effect.getDuration() <= reduction) {
-                        entity.removeEffect(MobEffects.WITHER);
-                    } else if (effect != null) {
-                        // Leider kann man Duration nicht einfach setzen ohne Accessor.
-                        // Workaround: Wir heilen den Wither-Schaden einfach gegen.
-                        // Da Wither alle 2 Sek Schaden macht (bei Level 1), heilen wir leicht.
-                        entity.heal(0.5f); // Halbes Herz gegenheilen
-                    }
-                }
-            }
-        }
-    }
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void simplebuilding$materialTickEffects(CallbackInfo ci) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-
-        if (!entity.level().isClientSide() && entity.tickCount % 200 == 0) { // Alle 10 Sekunden
-
-            float chance = TrimEffectUtil.getAmethystHealChance(entity);
-
-            if (chance > 0 && entity.getHealth() < entity.getMaxHealth()) {
-                if (entity.getRandom().nextFloat() < chance) {
-                    entity.heal(1.0f);
-                }
-            }
-        }
-    }
-
-    // --- RADIANCE (emittierende Ruestung) und Besatz-Attribute ---
-    // Licht: jeder Traeger ausser Spielern (die haben ihren eigenen Pfad im DynamicLightHandler),
-    // also Ruestungsstaender und Mobs; Schimmer clientseitig an jedem Traeger.
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void simplebuilding$radianceTick(CallbackInfo ci) {
-        LivingEntity entity = (LivingEntity) (Object) this;
+        // --- RADIANCE (emittierende Ruestung) und Besatz-Attribute ---
+        // Licht: jeder Traeger ausser Spielern (die haben ihren eigenen Pfad im DynamicLightHandler),
+        // also Ruestungsstaender und Mobs; Schimmer clientseitig an jedem Traeger.
         if (entity.level().isClientSide()) {
             DynamicLightHandler.tickGlowMotes(entity, () -> DynamicLightHandler.wornEmission(entity));
-        } else {
-            DynamicLightHandler.tickWearer(entity);
-            TrimAttributeHandler.tick(entity);
+            return;
         }
+        // --- RIB TRIM ---
+        if (entity.tickCount % 20 == 0 && entity.hasEffect(MobEffects.WITHER)) {
+            int reduction = TrimEffectUtil.getWitherReductionAmount(entity);
+            if (reduction > 0) {
+                MobEffectInstance effect = entity.getEffect(MobEffects.WITHER);
+                // Wenn Restzeit klein ist, entfernen
+                if (effect != null && effect.getDuration() <= reduction) {
+                    entity.removeEffect(MobEffects.WITHER);
+                } else if (effect != null) {
+                    // Leider kann man Duration nicht einfach setzen ohne Accessor.
+                    // Workaround: Wir heilen den Wither-Schaden einfach gegen.
+                    // Da Wither alle 2 Sek Schaden macht (bei Level 1), heilen wir leicht.
+                    entity.heal(0.5f); // Halbes Herz gegenheilen
+                }
+            }
+        }
+        // --- AMETHYST: alle 10 Sekunden ---
+        if (entity.tickCount % 200 == 0) {
+            float chance = TrimEffectUtil.getAmethystHealChance(entity);
+            if (chance > 0 && entity.getHealth() < entity.getMaxHealth() && entity.getRandom().nextFloat() < chance) {
+                entity.heal(1.0f);
+            }
+        }
+        DynamicLightHandler.tickWearer(entity);
+        TrimAttributeHandler.tick(entity);
     }
 
     // Vom Traeger gesetzter Lichtblock (Ruestungsstaender, Mobs), mit der Entity gespeichert.
@@ -181,7 +166,7 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
-    private void modifyVoidDamage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void simplebuilding$modifyVoidDamage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.is(DamageTypes.FELL_OUT_OF_WORLD) && (Object) this instanceof Player player) {
 
             int enderitePieces = 0;

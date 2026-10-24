@@ -22,7 +22,10 @@ import org.jetbrains.annotations.Nullable;
  * (split stage 7). While the extra blocks break, SimpleLib {@link HammerActions#areaBreaking()} is true.
  */
 public class SledgehammerUsageEvent {
-    private static final Set<BlockPos> HARVESTED_BLOCKS = new HashSet<>();
+    /** A cell with its dimension: a foreign destroyBlock handler may jump into another level at the same coordinates. */
+    private record Cell(net.minecraft.resources.ResourceKey<Level> dimension, BlockPos pos) {}
+
+    private static final Set<Cell> HARVESTED_BLOCKS = new HashSet<>();
 
     protected SledgehammerUsageEvent() {
     }
@@ -34,7 +37,7 @@ public class SledgehammerUsageEvent {
         // A permission probe of another mod (no real break) or the module switched off: no area break.
         if (HammerActions.areaBreaking() || HammerActions.areaVetoed() || !SimpleHammers.on()) return true;
         if (!HammerProtection.mayAct(world, player, pos, Protection.Action.DESTROY)) return false;
-        if (HARVESTED_BLOCKS.contains(pos)) {
+        if (HARVESTED_BLOCKS.contains(new Cell(world.dimension(), pos.immutable()))) {
             return true;
         }
 
@@ -55,7 +58,8 @@ public class SledgehammerUsageEvent {
                 continue;
             }
 
-            HARVESTED_BLOCKS.add(position);
+            Cell cell = new Cell(world.dimension(), position.immutable());
+            HARVESTED_BLOCKS.add(cell);
             HammerActions.areaBreaking(true);
             try {
                 boolean wasBroken = serverPlayer.gameMode.destroyBlock(position);
@@ -73,7 +77,7 @@ public class SledgehammerUsageEvent {
                 }
             } finally {
                 HammerActions.areaBreaking(false);
-                HARVESTED_BLOCKS.remove(position);
+                HARVESTED_BLOCKS.remove(cell);
             }
         }
         return true;

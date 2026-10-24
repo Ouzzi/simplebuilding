@@ -12,7 +12,7 @@ import com.simplecrucibles.crucible.HeatLevel;
 import com.simplecrucibles.registry.CrucibleBlockEntities;
 import com.simplecrucibles.registry.CrucibleBlocks;
 import com.simplelib.registry.LibComponents;
-import com.simplelib.warm.Warm;
+import com.simplelib.api.SimpleLibApi;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -490,7 +490,7 @@ public final class CrucibleTests {
         run(h, be, 405);
         check(h, be.slotState(0) == CrucibleBlockEntity.COLD, "raw iron needs high heat (blue)");
         check(h, be.getItem(4).is(Items.COOKED_BEEF), "beef cooked on a campfire");
-        check(h, Warm.isWarm(be.getItem(4), h.getLevel()), "cooked food comes out warm");
+        check(h, SimpleLibApi.isWarm(be.getItem(4), h.getLevel()), "cooked food comes out warm");
         h.succeed();
     }
 
@@ -528,7 +528,7 @@ public final class CrucibleTests {
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         int cold = new ItemStack(Items.COOKED_PORKCHOP).getUseDuration(player);
         int fast = warm.getUseDuration(player);
-        check(h, fast == Warm.fasterUse(cold) && fast < cold, "warm food is eaten 15 % faster");
+        check(h, fast == SimpleLibApi.warmFasterUse(cold) && fast < cold, "warm food is eaten 15 % faster");
         long until = warm.get(LibComponents.WARM).until();
         run(h, be, 40);
         check(h, be.getItem(2).get(LibComponents.WARM).until() >= until, "does not cool inside the crucible (owner 39)");

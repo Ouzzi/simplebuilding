@@ -2,7 +2,7 @@ package com.simplecrucibles.crucible;
 
 import com.simplecrucibles.config.CrucibleConfig;
 import com.simplecrucibles.registry.CrucibleBlockEntities;
-import com.simplelib.warm.Warm;
+import com.simplelib.api.SimpleLibApi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -157,7 +157,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
                 lastInput[i] = ItemStack.EMPTY;
                 continue;
             }
-            boolean same = Warm.warmable(stack) ? ItemStack.isSameItem(stack, lastInput[i])
+            boolean same = SimpleLibApi.warmable(stack) ? ItemStack.isSameItem(stack, lastInput[i])
                     : ItemStack.isSameItemSameComponents(stack, lastInput[i]);
             if (!same) {
                 result[i] = false;
@@ -173,7 +173,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
             ItemStack stack = items.get(i);
             if (stack.isEmpty()) { state[i] = IDLE; continue; }
             if (result[i]) { state[i] = RESULT; continue; }
-            if (Warm.warmable(stack) && Warm.isWarm(stack, level)) {
+            if (SimpleLibApi.warmable(stack) && SimpleLibApi.isWarm(stack, level)) {
                 result[i] = true;
                 state[i] = RESULT;
                 continue;
@@ -264,8 +264,8 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         boolean changed = false;
         long now = level.getGameTime();
         for (ItemStack stack : items) {
-            if (Warm.isWarm(stack, level)) {
-                Warm.warm(stack, now);
+            if (SimpleLibApi.isWarm(stack, level)) {
+                SimpleLibApi.warm(stack, now);
                 changed = true;
             }
         }
@@ -373,13 +373,13 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         int t = target[i];
         if (job.warming()) {
             ItemStack warm = items.get(i).copy();
-            Warm.warm(warm, level.getGameTime());
+            SimpleLibApi.warm(warm, level.getGameTime());
             items.set(i, warm);
             result[i] = true;
             lastInput[i] = warm.copyWithCount(1);
         } else {
             ItemStack out = job.result().copy();
-            if (Warm.warmable(out)) Warm.warm(out, level.getGameTime());
+            if (SimpleLibApi.warmable(out)) SimpleLibApi.warm(out, level.getGameTime());
             if (t >= BARREL) {
                 CrucibleBarrelBlockEntity b = barrel();
                 if (b == null) return;

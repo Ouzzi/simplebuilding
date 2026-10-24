@@ -1,5 +1,6 @@
 package com.simplequestionary;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -31,7 +32,7 @@ public final class QuestionaryConfig {
             Files.createDirectories(dir);
             JsonObject out = new JsonObject();
             out.addProperty("autoFacts", autoFacts);
-            Files.writeString(file, GSON.toJson(out));
+            ConfigFiles.writeAtomic(file, GSON.toJson(out));
         } catch (Exception e) {
             SimpleQuestionary.LOG.warn("Could not write {}: {}", FILE, e.toString());
         }

@@ -55,7 +55,7 @@ public final class SimpleOptimization {
         if (file != null) {
             try {
                 Files.createDirectories(dir);
-                Files.writeString(file, GSON.toJson(config));
+                ConfigFiles.writeAtomic(file, GSON.toJson(config));
             } catch (Exception e) {
                 LOG.warn("Could not write {}: {}", FILE, e.toString());
             }

@@ -70,7 +70,7 @@ public final class MapsNetwork {
     }
 
     public static void handleWaypoint(WaypointEditPayload payload, ServerPlayer player) {
-        if (payload.hand() < 0 || payload.hand() > 1) return;
+        if (!com.simplemaps.MapsConfig.enabled || payload.hand() < 0 || payload.hand() > 1) return;
         ItemStack stack = player.getItemInHand(payload.hand() == 0 ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
         if (!MapsItems.isWayfinder(stack)) return;
         Waypoint w = payload.waypoint();
@@ -104,7 +104,7 @@ public final class MapsNetwork {
     }
 
     public static void handleDisplay(DisplayPayload payload, ServerPlayer player) {
-        if (payload.hand() < 0 || payload.hand() > 1) return;
+        if (!com.simplemaps.MapsConfig.enabled || payload.hand() < 0 || payload.hand() > 1) return;
         ItemStack stack = player.getItemInHand(payload.hand() == 0 ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND);
         if (!MapsItems.isWayfinder(stack)) return;
         if (payload.display().equals(MapsComponents.Display.DEFAULT)) stack.remove(MapsComponents.DISPLAY);

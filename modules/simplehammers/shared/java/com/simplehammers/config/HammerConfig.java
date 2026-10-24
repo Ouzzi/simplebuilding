@@ -1,5 +1,6 @@
 package com.simplehammers.config;
 
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -56,7 +57,7 @@ public final class HammerConfig {
         if (file != null) {
             try {
                 Files.createDirectories(dir);
-                Files.writeString(file, GSON.toJson(toJson()));
+                ConfigFiles.writeAtomic(file, GSON.toJson(toJson()));
             } catch (Exception e) {
                 SimpleHammers.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }

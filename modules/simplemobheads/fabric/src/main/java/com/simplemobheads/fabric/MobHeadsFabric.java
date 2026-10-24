@@ -30,6 +30,8 @@ public final class MobHeadsFabric implements ModInitializer {
         }
         LootTableEvents.MODIFY.register((key, table, source, registries) -> HeadDrops.apply(key, table::withPool, registries));
         ServerLivingEntityEvents.AFTER_DEATH.register(HeadDrops::onDeath);
+        // a haunting is counted in game ticks of one world: it must not survive the player leaving
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplemobheads.ritual.HerobrineHaunt.stop(handler.getPlayer()));
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> MobHeadsCommands.register(dispatcher));
         // Behind the dragon head (the last Vanilla head) in Functional Blocks, so the search tab lists them beside the Vanilla heads.
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
