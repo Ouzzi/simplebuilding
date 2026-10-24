@@ -30,6 +30,8 @@ public final class EarthFabricClient implements ClientModInitializer {
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> client.execute(EarthClient::left));
         LevelRenderEvents.COLLECT_SUBMITS.register(context ->
                 EarthRenderer.render(context.submitNodeCollector(), context.poseStack(), context.levelState().cameraRenderState.pos));
+        net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback.EVENT.register(
+                (dispatcher, registry) -> com.simplebuilding.modules.simpleearth.client.EarthGuideCommand.register(dispatcher));
         ScreenEvents.AFTER_INIT.register((client, screen, w, h) -> EarthClient.decorate(screen, w, h));
     }
 }

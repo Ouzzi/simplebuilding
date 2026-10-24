@@ -118,7 +118,7 @@ public final class EarthClient {
 
     public static void endTick(Minecraft mc) {
         while (KEY.consumeClick()) {
-            if (mc.gui.screen() == null && mc.player != null) mc.setScreen(new EarthScreen());
+            if (mc.gui.screen() == null && mc.player != null) mc.gui.setScreen(new EarthScreen());
         }
         LocalPlayer player = mc.player;
         prevX = predX;
@@ -212,7 +212,7 @@ public final class EarthClient {
     /** Adds the dev button (top left of the pause menu) that opens the earth menu. */
     public static void decorate(Screen screen, int width, int height) {
         if (!(screen instanceof PauseScreen) || !devButton()) return;
-        Button button = Button.builder(Component.translatable("simpleearth.screen.dev_button"), b -> Minecraft.getInstance().setScreen(new EarthScreen()))
+        Button button = Button.builder(Component.translatable("simpleearth.screen.dev_button"), b -> Minecraft.getInstance().gui.setScreen(new EarthScreen()))
                 .bounds(4, 4, 52, 20).tooltip(Tooltip.create(Component.translatable("simpleearth.screen.dev_button.tip"))).build();
         net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen).add(button);
     }

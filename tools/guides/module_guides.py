@@ -211,6 +211,12 @@ MODULES = [
                 "your own mono Ogg files onto blank discs.",
                 "Notenblätter als Text schreiben, im Editor probehören und für die Jukebox auf einen Rohling pressen. "
                 "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
+    dict(module="simpleearth", ns="simpleearth", package="com.simplebuilding.modules.simpleearth.guide", cls="EarthGuide",
+         kind="client", author="Simple Earth",
+         intro=("Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from "
+                "the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
+                "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus "
+                "dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.")),
     dict(module="simplestats", ns="simplestats", package="com.simplebuilding.modules.simplestats.guide", cls="StatsGuide",
          kind="item", author="Simple Stats", recipe="minecraft:flint",
          name=("Simple Stats Guide", "Simple-Stats-Handbuch"),

@@ -50,4 +50,9 @@ public final class ModuleGameTest {
     public void viewsInGame(GameTestHelper h) {
         EarthTests.ALL.get("views_in_game").accept(h);
     }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void guidePages(GameTestHelper h) {
+        com.simplebuilding.modules.simpleearth.guide.EarthGuide.gameTest(h);
+    }
 }
