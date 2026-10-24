@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 589,
+      "count": 552,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5308,53 +5308,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:black_copper_light_pane",
-      "name": {
-        "en_us": "Black Copper Pane",
-        "de_de": "Schwarze Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/black_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:black_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/black_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "name": {
         "en_us": "Black Hammock",
@@ -5429,53 +5382,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:black_light_pane",
-      "name": {
-        "en_us": "Black Pane",
-        "de_de": "Schwarze Scheibe"
-      },
-      "texture": "assets/textures/block/black_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:black_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/black_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -6469,53 +6375,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blue_copper_light_pane",
-      "name": {
-        "en_us": "Blue Copper Pane",
-        "de_de": "Blaue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/blue_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:blue_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blue_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -6590,53 +6449,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:blue_light_pane",
-      "name": {
-        "en_us": "Blue Pane",
-        "de_de": "Blaue Scheibe"
-      },
-      "texture": "assets/textures/block/blue_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:blue_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blue_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -6832,53 +6644,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:brown_copper_light_pane",
-      "name": {
-        "en_us": "Brown Copper Pane",
-        "de_de": "Braune Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/brown_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:brown_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/brown_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:brown_hammock",
       "name": {
         "en_us": "Brown Hammock",
@@ -6953,53 +6718,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:brown_light_pane",
-      "name": {
-        "en_us": "Brown Pane",
-        "de_de": "Braune Scheibe"
-      },
-      "texture": "assets/textures/block/brown_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:brown_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/brown_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -8410,100 +8128,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:copper_light_pane",
-      "name": {
-        "en_us": "Copper Pane",
-        "de_de": "Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:copper_redstone_light_pane",
-      "name": {
-        "en_us": "Copper Redstone Pane",
-        "de_de": "Kupfer-Redstone-Scheibe"
-      },
-      "texture": "assets/textures/item/copper_redstone_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:copper_redstone_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/copper_redstone_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:crafted_arrow",
       "name": {
         "en_us": "Crafted Arrow",
@@ -9226,53 +8850,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:cyan_copper_light_pane",
-      "name": {
-        "en_us": "Cyan Copper Pane",
-        "de_de": "Türkise Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/cyan_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:cyan_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cyan_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:cyan_hammock",
       "name": {
         "en_us": "Cyan Hammock",
@@ -9347,53 +8924,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cyan_light_pane",
-      "name": {
-        "en_us": "Cyan Pane",
-        "de_de": "Türkise Scheibe"
-      },
-      "texture": "assets/textures/block/cyan_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:cyan_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cyan_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -13844,53 +13374,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:gray_copper_light_pane",
-      "name": {
-        "en_us": "Gray Copper Pane",
-        "de_de": "Graue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/gray_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:gray_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gray_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:gray_hammock",
       "name": {
         "en_us": "Gray Hammock",
@@ -13970,100 +13453,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:gray_light_pane",
-      "name": {
-        "en_us": "Gray Pane",
-        "de_de": "Graue Scheibe"
-      },
-      "texture": "assets/textures/block/gray_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:gray_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gray_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:green_copper_light_pane",
-      "name": {
-        "en_us": "Green Copper Pane",
-        "de_de": "Grüne Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/green_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:green_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/green_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:green_hammock",
       "name": {
         "en_us": "Green Hammock",
@@ -14138,53 +13527,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:green_light_pane",
-      "name": {
-        "en_us": "Green Pane",
-        "de_de": "Grüne Scheibe"
-      },
-      "texture": "assets/textures/block/green_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:green_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/green_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -17186,53 +16528,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:light_blue_copper_light_pane",
-      "name": {
-        "en_us": "Light Blue Copper Pane",
-        "de_de": "Hellblaue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/light_blue_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_blue_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_blue_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "name": {
         "en_us": "Light Blue Hammock",
@@ -17307,100 +16602,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:light_blue_light_pane",
-      "name": {
-        "en_us": "Light Blue Pane",
-        "de_de": "Hellblaue Scheibe"
-      },
-      "texture": "assets/textures/block/light_blue_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_blue_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_blue_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:light_gray_copper_light_pane",
-      "name": {
-        "en_us": "Light Gray Copper Pane",
-        "de_de": "Hellgraue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/light_gray_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_gray_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_gray_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -17485,147 +16686,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:light_gray_light_pane",
-      "name": {
-        "en_us": "Light Gray Pane",
-        "de_de": "Hellgraue Scheibe"
-      },
-      "texture": "assets/textures/block/light_gray_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_gray_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_gray_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:light_pane",
-      "name": {
-        "en_us": "Pane",
-        "de_de": "Scheibe"
-      },
-      "texture": "assets/textures/block/light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:lime_copper_light_pane",
-      "name": {
-        "en_us": "Lime Copper Pane",
-        "de_de": "Hellgrüne Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/lime_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:lime_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/lime_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:lime_hammock",
       "name": {
         "en_us": "Lime Hammock",
@@ -17705,100 +16765,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:lime_light_pane",
-      "name": {
-        "en_us": "Lime Pane",
-        "de_de": "Hellgrüne Scheibe"
-      },
-      "texture": "assets/textures/block/lime_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:lime_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/lime_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:magenta_copper_light_pane",
-      "name": {
-        "en_us": "Magenta Copper Pane",
-        "de_de": "Magenta Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/magenta_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:magenta_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/magenta_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:magenta_hammock",
       "name": {
         "en_us": "Magenta Hammock",
@@ -17873,53 +16839,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:magenta_light_pane",
-      "name": {
-        "en_us": "Magenta Pane",
-        "de_de": "Magenta Scheibe"
-      },
-      "texture": "assets/textures/block/magenta_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:magenta_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/magenta_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22477,53 +21396,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:orange_copper_light_pane",
-      "name": {
-        "en_us": "Orange Copper Pane",
-        "de_de": "Orange Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/orange_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:orange_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/orange_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:orange_hammock",
       "name": {
         "en_us": "Orange Hammock",
@@ -22598,53 +21470,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:orange_light_pane",
-      "name": {
-        "en_us": "Orange Pane",
-        "de_de": "Orange Scheibe"
-      },
-      "texture": "assets/textures/block/orange_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:orange_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/orange_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -22795,53 +21620,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:pink_copper_light_pane",
-      "name": {
-        "en_us": "Pink Copper Pane",
-        "de_de": "Rosa Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/pink_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:pink_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/pink_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "name": {
         "en_us": "Pink Hammock",
@@ -22916,53 +21694,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:pink_light_pane",
-      "name": {
-        "en_us": "Pink Pane",
-        "de_de": "Rosa Scheibe"
-      },
-      "texture": "assets/textures/block/pink_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:pink_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/pink_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -25564,53 +24295,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:purple_copper_light_pane",
-      "name": {
-        "en_us": "Purple Copper Pane",
-        "de_de": "Violette Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/purple_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:purple_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/purple_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:purple_hammock",
       "name": {
         "en_us": "Purple Hammock",
@@ -25685,53 +24369,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:purple_light_pane",
-      "name": {
-        "en_us": "Purple Pane",
-        "de_de": "Violette Scheibe"
-      },
-      "texture": "assets/textures/block/purple_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:purple_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/purple_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -27202,53 +25839,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:red_copper_light_pane",
-      "name": {
-        "en_us": "Red Copper Pane",
-        "de_de": "Rote Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/red_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:red_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/red_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:red_hammock",
       "name": {
         "en_us": "Red Hammock",
@@ -27323,53 +25913,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:red_light_pane",
-      "name": {
-        "en_us": "Red Pane",
-        "de_de": "Rote Scheibe"
-      },
-      "texture": "assets/textures/block/red_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:red_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/red_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -28170,53 +26713,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:redstone_light_pane",
-      "name": {
-        "en_us": "Redstone Pane",
-        "de_de": "Redstone-Scheibe"
-      },
-      "texture": "assets/textures/item/redstone_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:redstone_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/redstone_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_hopper",
@@ -31507,53 +30003,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:transparent_light_pane",
-      "name": {
-        "en_us": "Transparent Pane",
-        "de_de": "Transparente Scheibe"
-      },
-      "texture": "assets/textures/block/transparent_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:transparent_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/transparent_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -31873,53 +30322,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:white_copper_light_pane",
-      "name": {
-        "en_us": "White Copper Pane",
-        "de_de": "Weiße Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/white_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:white_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/white_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:white_hammock",
       "name": {
         "en_us": "White Hammock",
@@ -31999,53 +30401,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:white_light_pane",
-      "name": {
-        "en_us": "White Pane",
-        "de_de": "Weiße Scheibe"
-      },
-      "texture": "assets/textures/block/white_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:white_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/white_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:yarn_ball",
       "name": {
         "en_us": "Ball of Yarn",
@@ -32102,53 +30457,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "common/src/shared/java/com/simplebuilding/util/PlacedSmallParts.java",
           "tools/textures/silent_dandelion_2026_10_03.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:yellow_copper_light_pane",
-      "name": {
-        "en_us": "Yellow Copper Pane",
-        "de_de": "Gelbe Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/yellow_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:yellow_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/yellow_copper_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -32228,53 +30536,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:yellow_light_pane",
-      "name": {
-        "en_us": "Yellow Pane",
-        "de_de": "Gelbe Scheibe"
-      },
-      "texture": "assets/textures/block/yellow_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:yellow_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/yellow_light_pane.png",
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -33551,57 +31812,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:black_copper_light_pane",
-      "name": {
-        "en_us": "Black Copper Pane",
-        "de_de": "Schwarze Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/black_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:black_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/black_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/black_copper_light_pane",
-      "drops": [
-        "simplebuilding:black_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "name": {
         "en_us": "Black Hammock",
@@ -33680,57 +31890,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:black_light_pane",
-      "name": {
-        "en_us": "Black Pane",
-        "de_de": "Schwarze Scheibe"
-      },
-      "texture": "assets/textures/block/black_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:black_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/black_light_pane.png",
-      "lootTable": "simplebuilding:blocks/black_light_pane",
-      "drops": [
-        "simplebuilding:black_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -33948,57 +32107,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:blue_copper_light_pane",
-      "name": {
-        "en_us": "Blue Copper Pane",
-        "de_de": "Blaue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/blue_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:blue_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blue_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/blue_copper_light_pane",
-      "drops": [
-        "simplebuilding:blue_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "name": {
         "en_us": "Blue Hammock",
@@ -34077,57 +32185,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:blue_light_pane",
-      "name": {
-        "en_us": "Blue Pane",
-        "de_de": "Blaue Scheibe"
-      },
-      "texture": "assets/textures/block/blue_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:blue_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/blue_light_pane.png",
-      "lootTable": "simplebuilding:blocks/blue_light_pane",
-      "drops": [
-        "simplebuilding:blue_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -34257,57 +32314,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:brown_copper_light_pane",
-      "name": {
-        "en_us": "Brown Copper Pane",
-        "de_de": "Braune Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/brown_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:brown_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/brown_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/brown_copper_light_pane",
-      "drops": [
-        "simplebuilding:brown_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:brown_hammock",
       "name": {
         "en_us": "Brown Hammock",
@@ -34386,57 +32392,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:brown_light_pane",
-      "name": {
-        "en_us": "Brown Pane",
-        "de_de": "Braune Scheibe"
-      },
-      "texture": "assets/textures/block/brown_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:brown_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/brown_light_pane.png",
-      "lootTable": "simplebuilding:blocks/brown_light_pane",
-      "drops": [
-        "simplebuilding:brown_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -35487,57 +33442,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:copper_light_pane",
-      "name": {
-        "en_us": "Copper Pane",
-        "de_de": "Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/copper_light_pane",
-      "drops": [
-        "simplebuilding:copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:copper_pressure_plate",
       "name": {
         "en_us": "Copper Pressure Plate",
@@ -35590,57 +33494,6 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:copper_redstone_light_pane",
-      "name": {
-        "en_us": "Copper Redstone Pane",
-        "de_de": "Kupfer-Redstone-Scheibe"
-      },
-      "texture": "assets/textures/block/black_copper_light_pane_off.png",
-      "craftedBy": [
-        "simplebuilding:copper_redstone_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/copper_redstone_light_pane.png",
-      "lootTable": "simplebuilding:blocks/copper_redstone_light_pane",
-      "drops": [
-        "simplebuilding:copper_redstone_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:crimson_blazewood_bookshelf",
@@ -35855,57 +33708,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:cyan_copper_light_pane",
-      "name": {
-        "en_us": "Cyan Copper Pane",
-        "de_de": "Türkise Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/cyan_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:cyan_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cyan_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/cyan_copper_light_pane",
-      "drops": [
-        "simplebuilding:cyan_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:cyan_hammock",
       "name": {
         "en_us": "Cyan Hammock",
@@ -35984,57 +33786,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:cyan_light_pane",
-      "name": {
-        "en_us": "Cyan Pane",
-        "de_de": "Türkise Scheibe"
-      },
-      "texture": "assets/textures/block/cyan_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:cyan_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/cyan_light_pane.png",
-      "lootTable": "simplebuilding:blocks/cyan_light_pane",
-      "drops": [
-        "simplebuilding:cyan_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -38025,57 +35776,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:gray_copper_light_pane",
-      "name": {
-        "en_us": "Gray Copper Pane",
-        "de_de": "Graue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/gray_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:gray_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gray_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/gray_copper_light_pane",
-      "drops": [
-        "simplebuilding:gray_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:gray_hammock",
       "name": {
         "en_us": "Gray Hammock",
@@ -38159,108 +35859,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:gray_light_pane",
-      "name": {
-        "en_us": "Gray Pane",
-        "de_de": "Graue Scheibe"
-      },
-      "texture": "assets/textures/block/gray_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:gray_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/gray_light_pane.png",
-      "lootTable": "simplebuilding:blocks/gray_light_pane",
-      "drops": [
-        "simplebuilding:gray_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:green_copper_light_pane",
-      "name": {
-        "en_us": "Green Copper Pane",
-        "de_de": "Grüne Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/green_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:green_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/green_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/green_copper_light_pane",
-      "drops": [
-        "simplebuilding:green_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:green_hammock",
       "name": {
         "en_us": "Green Hammock",
@@ -38339,57 +35937,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:green_light_pane",
-      "name": {
-        "en_us": "Green Pane",
-        "de_de": "Grüne Scheibe"
-      },
-      "texture": "assets/textures/block/green_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:green_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/green_light_pane.png",
-      "lootTable": "simplebuilding:blocks/green_light_pane",
-      "drops": [
-        "simplebuilding:green_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -40263,57 +37810,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:light_blue_copper_light_pane",
-      "name": {
-        "en_us": "Light Blue Copper Pane",
-        "de_de": "Hellblaue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/light_blue_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_blue_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_blue_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/light_blue_copper_light_pane",
-      "drops": [
-        "simplebuilding:light_blue_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "name": {
         "en_us": "Light Blue Hammock",
@@ -40392,108 +37888,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:light_blue_light_pane",
-      "name": {
-        "en_us": "Light Blue Pane",
-        "de_de": "Hellblaue Scheibe"
-      },
-      "texture": "assets/textures/block/light_blue_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_blue_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_blue_light_pane.png",
-      "lootTable": "simplebuilding:blocks/light_blue_light_pane",
-      "drops": [
-        "simplebuilding:light_blue_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:light_gray_copper_light_pane",
-      "name": {
-        "en_us": "Light Gray Copper Pane",
-        "de_de": "Hellgraue Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/light_gray_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_gray_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_gray_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/light_gray_copper_light_pane",
-      "drops": [
-        "simplebuilding:light_gray_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -40582,159 +37976,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:light_gray_light_pane",
-      "name": {
-        "en_us": "Light Gray Pane",
-        "de_de": "Hellgraue Scheibe"
-      },
-      "texture": "assets/textures/block/light_gray_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_gray_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_gray_light_pane.png",
-      "lootTable": "simplebuilding:blocks/light_gray_light_pane",
-      "drops": [
-        "simplebuilding:light_gray_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:light_pane",
-      "name": {
-        "en_us": "Pane",
-        "de_de": "Scheibe"
-      },
-      "texture": "assets/textures/block/light_pane.png",
-      "craftedBy": [
-        "simplebuilding:light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/light_pane.png",
-      "lootTable": "simplebuilding:blocks/light_pane",
-      "drops": [
-        "simplebuilding:light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:lime_copper_light_pane",
-      "name": {
-        "en_us": "Lime Copper Pane",
-        "de_de": "Hellgrüne Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/lime_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:lime_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/lime_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/lime_copper_light_pane",
-      "drops": [
-        "simplebuilding:lime_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:lime_hammock",
       "name": {
         "en_us": "Lime Hammock",
@@ -40818,108 +38059,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:lime_light_pane",
-      "name": {
-        "en_us": "Lime Pane",
-        "de_de": "Hellgrüne Scheibe"
-      },
-      "texture": "assets/textures/block/lime_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:lime_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/lime_light_pane.png",
-      "lootTable": "simplebuilding:blocks/lime_light_pane",
-      "drops": [
-        "simplebuilding:lime_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:magenta_copper_light_pane",
-      "name": {
-        "en_us": "Magenta Copper Pane",
-        "de_de": "Magenta Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/magenta_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:magenta_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/magenta_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/magenta_copper_light_pane",
-      "drops": [
-        "simplebuilding:magenta_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:magenta_hammock",
       "name": {
         "en_us": "Magenta Hammock",
@@ -40998,57 +38137,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:magenta_light_pane",
-      "name": {
-        "en_us": "Magenta Pane",
-        "de_de": "Magenta Scheibe"
-      },
-      "texture": "assets/textures/block/magenta_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:magenta_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/magenta_light_pane.png",
-      "lootTable": "simplebuilding:blocks/magenta_light_pane",
-      "drops": [
-        "simplebuilding:magenta_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -43063,57 +40151,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:orange_copper_light_pane",
-      "name": {
-        "en_us": "Orange Copper Pane",
-        "de_de": "Orange Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/orange_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:orange_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/orange_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/orange_copper_light_pane",
-      "drops": [
-        "simplebuilding:orange_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:orange_hammock",
       "name": {
         "en_us": "Orange Hammock",
@@ -43192,57 +40229,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:orange_light_pane",
-      "name": {
-        "en_us": "Orange Pane",
-        "de_de": "Orange Scheibe"
-      },
-      "texture": "assets/textures/block/orange_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:orange_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/orange_light_pane.png",
-      "lootTable": "simplebuilding:blocks/orange_light_pane",
-      "drops": [
-        "simplebuilding:orange_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -43387,57 +40373,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:pink_copper_light_pane",
-      "name": {
-        "en_us": "Pink Copper Pane",
-        "de_de": "Rosa Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/pink_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:pink_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/pink_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/pink_copper_light_pane",
-      "drops": [
-        "simplebuilding:pink_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "name": {
         "en_us": "Pink Hammock",
@@ -43516,57 +40451,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:pink_light_pane",
-      "name": {
-        "en_us": "Pink Pane",
-        "de_de": "Rosa Scheibe"
-      },
-      "texture": "assets/textures/block/pink_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:pink_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/pink_light_pane.png",
-      "lootTable": "simplebuilding:blocks/pink_light_pane",
-      "drops": [
-        "simplebuilding:pink_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -44673,57 +41557,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:purple_copper_light_pane",
-      "name": {
-        "en_us": "Purple Copper Pane",
-        "de_de": "Violette Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/purple_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:purple_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/purple_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/purple_copper_light_pane",
-      "drops": [
-        "simplebuilding:purple_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:purple_hammock",
       "name": {
         "en_us": "Purple Hammock",
@@ -44802,57 +41635,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:purple_light_pane",
-      "name": {
-        "en_us": "Purple Pane",
-        "de_de": "Violette Scheibe"
-      },
-      "texture": "assets/textures/block/purple_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:purple_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/purple_light_pane.png",
-      "lootTable": "simplebuilding:blocks/purple_light_pane",
-      "drops": [
-        "simplebuilding:purple_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -44999,57 +41781,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:red_copper_light_pane",
-      "name": {
-        "en_us": "Red Copper Pane",
-        "de_de": "Rote Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/red_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:red_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/red_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/red_copper_light_pane",
-      "drops": [
-        "simplebuilding:red_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:red_hammock",
       "name": {
         "en_us": "Red Hammock",
@@ -45128,57 +41859,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:red_light_pane",
-      "name": {
-        "en_us": "Red Pane",
-        "de_de": "Rote Scheibe"
-      },
-      "texture": "assets/textures/block/red_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:red_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/red_light_pane.png",
-      "lootTable": "simplebuilding:blocks/red_light_pane",
-      "drops": [
-        "simplebuilding:red_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -45323,57 +42003,6 @@ window.WIKI_DATA = {
         }
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:redstone_light_pane",
-      "name": {
-        "en_us": "Redstone Pane",
-        "de_de": "Redstone-Scheibe"
-      },
-      "texture": "assets/textures/block/white_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:redstone_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/redstone_light_pane.png",
-      "lootTable": "simplebuilding:blocks/redstone_light_pane",
-      "drops": [
-        "simplebuilding:redstone_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_elytra_pad",
@@ -48046,57 +44675,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:transparent_light_pane",
-      "name": {
-        "en_us": "Transparent Pane",
-        "de_de": "Transparente Scheibe"
-      },
-      "texture": "assets/textures/block/transparent_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:transparent_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/transparent_light_pane.png",
-      "lootTable": "simplebuilding:blocks/transparent_light_pane",
-      "drops": [
-        "simplebuilding:transparent_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:veined_astralit",
       "name": {
         "en_us": "Veined Astralit",
@@ -48562,57 +45140,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:white_copper_light_pane",
-      "name": {
-        "en_us": "White Copper Pane",
-        "de_de": "Weiße Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/white_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:white_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/white_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/white_copper_light_pane",
-      "drops": [
-        "simplebuilding:white_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:white_hammock",
       "name": {
         "en_us": "White Hammock",
@@ -48696,108 +45223,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:white_light_pane",
-      "name": {
-        "en_us": "White Pane",
-        "de_de": "Weiße Scheibe"
-      },
-      "texture": "assets/textures/block/white_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:white_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/white_light_pane.png",
-      "lootTable": "simplebuilding:blocks/white_light_pane",
-      "drops": [
-        "simplebuilding:white_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:yellow_copper_light_pane",
-      "name": {
-        "en_us": "Yellow Copper Pane",
-        "de_de": "Gelbe Kupfer-Scheibe"
-      },
-      "texture": "assets/textures/block/yellow_copper_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:yellow_copper_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/yellow_copper_light_pane.png",
-      "lootTable": "simplebuilding:blocks/yellow_copper_light_pane",
-      "drops": [
-        "simplebuilding:yellow_copper_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:yellow_hammock",
       "name": {
         "en_us": "Yellow Hammock",
@@ -48876,57 +45301,6 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
           "tools/textures/hammock.py",
           "common/src/shared/java/com/simplebuilding/client/render/HammockLeashRenderer.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:yellow_light_pane",
-      "name": {
-        "en_us": "Yellow Pane",
-        "de_de": "Gelbe Scheibe"
-      },
-      "texture": "assets/textures/block/yellow_light_pane.png",
-      "craftedBy": [
-        "simplebuilding:yellow_light_pane"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/yellow_light_pane.png",
-      "lootTable": "simplebuilding:blocks/yellow_light_pane",
-      "drops": [
-        "simplebuilding:yellow_light_pane"
-      ],
-      "note": {
-        "en": {
-          "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",
-          "details": [
-            "Right-click a side of a block to hang the pane on it (it looks away from that block). It needs a block with a full face behind it (not a fence, a glass pane or half of a slab); when that block goes, the pane drops as an item. It has no collision (walk through it), a 1 px selection box, and can be waterlogged. Break it by hand, no tool needed.",
-            "The plain panes (normal, transparent, colored) are dark by default and shine like a lamp (light level 15) only while they get a redstone signal; the state is lit/not lit. The Transparent Pane is a clear glass frame with a faint white veil: the veil lies over the block behind it and, together with the light, makes its surface brighter. The 16 colored panes are frosted panels in a toned-down dye color, darker when off.",
-            "Redstone Pane: dark without a signal. A signal of strength s (1 to 15) shows color (start + s - 1) mod 16 of the dye order (white, orange, magenta, light blue, yellow, lime, pink, gray, light gray, cyan, purple, blue, brown, green, red, black). Right-click (even with an item in the hand; sneak to place something against it) advances the start color, the color of strength 1, like a note block advances its note: a note sound and a note particle in that color, the other strengths follow in sequence. Without a signal (and as placed) it shows a plain black, dark panel.",
-            "Copper Pane: its own riveted copper plate with a round lens, one fixed color. It works like the Copper Bulb: every rising redstone edge (signal from none to some) toggles it on or off, a falling edge changes nothing; placed next to a powered source it switches at once. It plays the Copper Bulb sounds and gives a comparator signal of 15 while lit. It has no oxidation stages.",
-            "Recipes: 1 glass pane + 2 glowstone dust = 2 Panes; 2 glass panes + 1 glowstone dust = 2 Transparent Panes; a Pane or any colored pane + a dye = that color (also recoloring); a Pane + redstone = Redstone Pane; the Copper Bulb shape (copper block, blaze powder in the middle instead of a blaze rod, redstone below) = 4 Copper Panes."
-          ]
-        },
-        "de": {
-          "summary": "Eine flache Lampenscheibe, 1 px dick wie ein Itemrahmen, die an jeder Seite eines Blocks haftet: normal, transparent, in den 16 Farbstofffarben als Redstone-Variante, deren Farbe der Signalstärke folgt, und als Kupfer-Variante, die bei jedem Redstone-Puls umschaltet.",
-          "details": [
-            "Rechtsklick auf eine Blockseite hängt die Scheibe daran (sie schaut vom Block weg). Sie braucht dahinter einen Block mit voller Fläche (kein Zaun, keine Glasscheibe, keine halbe Stufe); verschwindet er, fällt die Scheibe als Item ab. Sie hat keine Kollision (man läuft hindurch), eine 1-px-Auswahlbox und lässt sich fluten. Von Hand abbaubar, kein Werkzeug nötig.",
-            "Die einfachen Scheiben (normal, transparent, farbig) sind standardmäßig dunkel und leuchten wie eine Lampe (Lichtstärke 15) nur, solange sie ein Redstone-Signal bekommen; der Zustand ist an/aus. Die Transparente Scheibe ist ein klarer Glasrahmen mit einem schwachen weißen Schleier: der Schleier liegt über dem Block dahinter und macht dessen Fläche zusammen mit dem Licht heller. Die 16 farbigen Scheiben sind mattierte Platten in gedämpfter Farbstofffarbe, ausgeschaltet dunkler.",
-            "Redstone-Scheibe: ohne Signal dunkel. Ein Signal der Stärke s (1 bis 15) zeigt die Farbe (Start + s - 1) mod 16 der Farbstoff-Reihenfolge (Weiß, Orange, Magenta, Hellblau, Gelb, Hellgrün, Rosa, Grau, Hellgrau, Türkis, Violett, Blau, Braun, Grün, Rot, Schwarz). Rechtsklick (auch mit Item in der Hand; zum Anlegen schleichen) schaltet die Startfarbe weiter, die Farbe für Stärke 1, wie der Notenblock seinen Ton: ein Notenton und ein Notenpartikel in dieser Farbe, die übrigen Stärken folgen der Reihe nach. Ohne Signal (und frisch gesetzt) zeigt sie eine schlichte schwarze, dunkle Platte.",
-            "Kupfer-Scheibe: eigene genietete Kupferplatte mit runder Linse, eine feste Farbe. Sie funktioniert wie die Kupferbirne: jede steigende Redstone-Flanke (Signal von keinem zu einem) schaltet sie an oder aus, eine fallende ändert nichts; neben eine bestromte Quelle gesetzt schaltet sie sofort. Sie spielt die Kupferbirnen-Geräusche und gibt ein Komparatorsignal von 15, solange sie leuchtet. Sie hat keine Oxidationsstufen.",
-            "Rezepte: 1 Glasscheibe + 2 Glowstone-Staub = 2 Scheiben; 2 Glasscheiben + 1 Glowstone-Staub = 2 Transparente Scheiben; eine Scheibe oder jede farbige Scheibe + ein Farbstoff = diese Farbe (auch Umfärben); eine Scheibe + Redstone = Redstone-Scheibe; die Kupferbirnen-Form (Kupferblock, Lohenpulver statt Lohenrute in der Mitte, Redstone unten) = 4 Kupfer-Scheiben."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/AbstractLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/LightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/RedstoneLightPaneBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/CopperLightPaneBlock.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "tools/textures/light_panes_2026_10_14.py",
-          "tools/textures/copper_light_pane_2026_10_15.py"
         ]
       },
       "hasCustomBehaviour": false
@@ -52010,56 +48384,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:black_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:black_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/black_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:black_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:black_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:black_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -52178,52 +48502,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:black_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:black_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/black_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:black_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:black_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -53026,56 +49304,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:blue_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blue_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:blue_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:blue_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:blue_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -53194,52 +49422,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:blue_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:blue_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/blue_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:blue_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:blue_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -55186,56 +51368,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:brown_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:brown_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:brown_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:brown_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:cocoa_beans",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:brown_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -55354,52 +51486,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:brown_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:brown_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/brown_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:brown_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:brown_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cocoa_beans",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -56450,58 +52536,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:copper_light_pane",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:copper_light_pane",
-        "count": 4
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/copper_light_pane.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:copper_block",
-        "minecraft:redstone"
-      ],
-      "pattern": [
-        " C ",
-        "CBC",
-        " R "
-      ],
-      "key": {
-        "B": [
-          "minecraft:blaze_powder"
-        ],
-        "C": [
-          "minecraft:copper_block"
-        ],
-        "R": [
-          "minecraft:redstone"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 4,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 27
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:copper_pressure_plate",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -56534,52 +52568,6 @@ window.WIKI_DATA = {
             "id": "minecraft:copper_ingot",
             "count": 18
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:copper_redstone_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:copper_redstone_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/copper_redstone_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:redstone"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
         ]
       }
     },
@@ -56928,60 +52916,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:cyan_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cyan_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:cyan_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:cyan_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:cyan_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -57108,56 +53042,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:cyan_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:cyan_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/cyan_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:cyan_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:cyan_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -63786,60 +59670,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:gray_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gray_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:gray_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:gray_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.167
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:gray_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -63970,106 +59800,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:gray_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:gray_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/gray_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:gray_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:gray_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:ink_sac",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.167
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:green_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:green_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/green_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:green_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:green_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:green_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -64188,52 +59918,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:green_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:green_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/green_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:green_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:green_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cactus",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -66824,56 +62508,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:light_blue_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:light_blue_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:light_blue_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:light_blue_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:blue_orchid",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -66996,102 +62630,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:light_blue_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:light_blue_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/light_blue_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:light_blue_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:light_blue_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:blue_orchid",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:light_gray_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:light_gray_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:light_gray_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:light_gray_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:azure_bluet",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:light_gray_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -67210,148 +62748,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:light_gray_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:light_gray_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/light_gray_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:light_gray_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:light_gray_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:azure_bluet",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:light_pane",
-        "count": 2
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/light_pane.json",
-      "ingredients": [
-        "minecraft:glass_pane",
-        "minecraft:glowstone_dust"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:glass_pane"
-        ],
-        [
-          "minecraft:glowstone_dust"
-        ],
-        [
-          "minecraft:glowstone_dust"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 2,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 2
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.375
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:lime_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:lime_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:lime_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:lime_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.167
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
         ]
       }
     },
@@ -67486,106 +62882,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:lime_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:lime_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/lime_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:lime_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:lime_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:cactus",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.167
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:magenta_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:magenta_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:magenta_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:magenta_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:allium",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:magenta_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -67704,52 +63000,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:magenta_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:magenta_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/magenta_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:magenta_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:magenta_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:allium",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -73124,56 +68374,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:orange_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:orange_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:orange_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:orange_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:open_eyeblossom",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:orange_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -73292,52 +68492,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:orange_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:orange_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/orange_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:orange_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:orange_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:open_eyeblossom",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -73480,56 +68634,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:pink_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:pink_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:pink_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:pink_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:cactus_flower",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:pink_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -73648,52 +68752,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:pink_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:pink_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/pink_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:pink_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:pink_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:cactus_flower",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -77757,60 +72815,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:purple_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:purple_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:purple_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:purple_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:beetroot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:purple_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -77937,56 +72941,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:purple_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:purple_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/purple_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:purple_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:purple_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:beetroot",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 0.5
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -79173,56 +74127,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:red_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:red_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/red_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:red_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:red_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:red_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -79341,52 +74245,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:red_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:red_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/red_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:red_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:red_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -80128,52 +74986,6 @@ window.WIKI_DATA = {
             "id": "minecraft:netherrack",
             "count": 1
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:redstone_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:redstone_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/redstone_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:redstone"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:redstone"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     },
@@ -83569,48 +78381,6 @@ window.WIKI_DATA = {
           {
             "id": "minecraft:stone",
             "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:transparent_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:transparent_light_pane",
-        "count": 2
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/transparent_light_pane.json",
-      "ingredients": [
-        "minecraft:glass_pane",
-        "minecraft:glowstone_dust"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:glass_pane"
-        ],
-        [
-          "minecraft:glass_pane"
-        ],
-        [
-          "minecraft:glowstone_dust"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 2,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.75
           }
         ]
       }
@@ -87351,56 +82121,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:white_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:white_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/white_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:white_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:white_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.333
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:white_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -87523,52 +82243,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:white_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:white_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/white_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:white_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:white_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:bone",
-            "count": 0.333
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:wool_from_yarn_balls",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -87633,56 +82307,6 @@ window.WIKI_DATA = {
         ],
         "tagExamples": [
           "#minecraft:wool"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:yellow_copper_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:yellow_copper_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_copper_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:copper_light_panes",
-        "minecraft:yellow_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:copper_light_panes"
-        ],
-        [
-          "minecraft:yellow_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 6.75
-          },
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 0.25
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.125
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:copper_light_panes"
         ]
       }
     },
@@ -87805,52 +82429,6 @@ window.WIKI_DATA = {
             "id": "minecraft:oak_log",
             "count": 0.125
           }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:yellow_light_pane",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:yellow_light_pane",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/yellow_light_pane.json",
-      "ingredients": [
-        "#simplebuilding:light_panes",
-        "minecraft:yellow_dye"
-      ],
-      "ingredientGroups": [
-        [
-          "#simplebuilding:light_panes"
-        ],
-        [
-          "minecraft:yellow_dye"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 0.188
-          }
-        ],
-        "tagExamples": [
-          "#simplebuilding:light_panes"
         ]
       }
     }
@@ -95547,24 +90125,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/birch_sheet.json"
     },
     {
-      "id": "simplebuilding:blocks/black_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:black_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/black_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/black_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -95581,24 +90141,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/black_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/black_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:black_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/black_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/blackstone_quartz_checker",
@@ -95671,24 +90213,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blazing_obsidian.json"
     },
     {
-      "id": "simplebuilding:blocks/blue_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:blue_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/blue_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -95705,24 +90229,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/blue_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:blue_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/blue_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/bridge_redstone",
@@ -95761,24 +90267,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/bridge_redstone_block.json"
     },
     {
-      "id": "simplebuilding:blocks/brown_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:brown_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/brown_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/brown_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -95795,24 +90283,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/brown_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/brown_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:brown_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/brown_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/carved_acacia_log",
@@ -96193,24 +90663,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/construction_light.json"
     },
     {
-      "id": "simplebuilding:blocks/copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/copper_pressure_plate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -96227,24 +90679,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/copper_pressure_plate.json"
-    },
-    {
-      "id": "simplebuilding:blocks/copper_redstone_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:copper_redstone_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/copper_redstone_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/crimson_blazewood_bookshelf",
@@ -96354,24 +90788,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/crystalline_nihilith.json"
     },
     {
-      "id": "simplebuilding:blocks/cyan_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cyan_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cyan_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/cyan_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -96388,24 +90804,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cyan_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/cyan_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:cyan_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/cyan_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/dark_oak_cauldron",
@@ -97061,24 +91459,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gold_pole.json"
     },
     {
-      "id": "simplebuilding:blocks/gray_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:gray_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gray_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/gray_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -97097,42 +91477,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gray_hammock.json"
     },
     {
-      "id": "simplebuilding:blocks/gray_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:gray_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/gray_light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/green_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:green_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/green_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/green_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -97149,24 +91493,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/green_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/green_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:green_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/green_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/hollow_acacia_log",
@@ -97851,24 +92177,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/layered_astralit.json"
     },
     {
-      "id": "simplebuilding:blocks/light_blue_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:light_blue_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_blue_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/light_blue_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -97885,42 +92193,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_blue_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/light_blue_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:light_blue_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_blue_light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/light_gray_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:light_gray_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_gray_copper_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/light_gray_hammock",
@@ -97941,60 +92213,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_gray_hammock.json"
     },
     {
-      "id": "simplebuilding:blocks/light_gray_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:light_gray_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_gray_light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/lime_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:lime_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lime_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/lime_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -98013,42 +92231,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lime_hammock.json"
     },
     {
-      "id": "simplebuilding:blocks/lime_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:lime_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/lime_light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/magenta_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:magenta_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/magenta_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -98065,24 +92247,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/magenta_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:magenta_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/magenta_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/mangrove_cauldron",
@@ -98743,24 +92907,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oak_sheet.json"
     },
     {
-      "id": "simplebuilding:blocks/orange_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:orange_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/orange_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/orange_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -98777,24 +92923,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/orange_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/orange_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:orange_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/orange_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
@@ -98851,24 +92979,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pale_oak_sheet.json"
     },
     {
-      "id": "simplebuilding:blocks/pink_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:pink_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pink_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/pink_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -98885,24 +92995,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pink_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/pink_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:pink_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/pink_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit",
@@ -99317,24 +93409,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/potted_silent_dandelion.json"
     },
     {
-      "id": "simplebuilding:blocks/purple_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:purple_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purple_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/purple_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -99351,24 +93425,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purple_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/purple_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:purple_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purple_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/purpur_quartz_checker",
@@ -99423,24 +93479,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/purpur_quartz_checker_stairs.json"
     },
     {
-      "id": "simplebuilding:blocks/red_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:red_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/red_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -99457,24 +93495,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/red_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:red_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/red_nether_brick_quartz_checker",
@@ -99527,24 +93547,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/red_nether_brick_quartz_checker_stairs.json"
-    },
-    {
-      "id": "simplebuilding:blocks/redstone_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:redstone_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/redstone_light_pane.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_elytra_pad",
@@ -100443,24 +94445,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sulfur_torch.json"
     },
     {
-      "id": "simplebuilding:blocks/transparent_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:transparent_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/transparent_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/veined_astralit",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -100658,24 +94642,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
     },
     {
-      "id": "simplebuilding:blocks/white_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:white_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/white_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/white_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -100694,42 +94660,6 @@ window.WIKI_DATA = {
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/white_hammock.json"
     },
     {
-      "id": "simplebuilding:blocks/white_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:white_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/white_light_pane.json"
-    },
-    {
-      "id": "simplebuilding:blocks/yellow_copper_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:yellow_copper_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_copper_light_pane.json"
-    },
-    {
       "id": "simplebuilding:blocks/yellow_hammock",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -100746,24 +94676,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_hammock.json"
-    },
-    {
-      "id": "simplebuilding:blocks/yellow_light_pane",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:yellow_light_pane"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/yellow_light_pane.json"
     },
     {
       "id": "simplebuilding:chests/end_wreck",
@@ -104430,81 +98342,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/copper_chests.json"
     },
     {
-      "id": "simplebuilding:item/copper_light_panes",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplebuilding:copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:white_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:orange_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:magenta_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:light_blue_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:yellow_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:lime_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:pink_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:gray_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:light_gray_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:cyan_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:purple_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:blue_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:brown_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:green_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:red_copper_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:black_copper_light_pane",
-          "required": true
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/copper_light_panes.json"
-    },
-    {
       "id": "simplebuilding:item/craftable",
       "replace": false,
       "values": [
@@ -106017,83 +99854,83 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:light_pane",
+          "id": "simplelights:light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:transparent_light_pane",
+          "id": "simplelights:transparent_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:white_light_pane",
+          "id": "simplelights:white_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:orange_light_pane",
+          "id": "simplelights:orange_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:magenta_light_pane",
+          "id": "simplelights:magenta_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:light_blue_light_pane",
+          "id": "simplelights:light_blue_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:yellow_light_pane",
+          "id": "simplelights:yellow_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:lime_light_pane",
+          "id": "simplelights:lime_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:pink_light_pane",
+          "id": "simplelights:pink_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:gray_light_pane",
+          "id": "simplelights:gray_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:light_gray_light_pane",
+          "id": "simplelights:light_gray_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:cyan_light_pane",
+          "id": "simplelights:cyan_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:purple_light_pane",
+          "id": "simplelights:purple_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:blue_light_pane",
+          "id": "simplelights:blue_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:brown_light_pane",
+          "id": "simplelights:brown_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:green_light_pane",
+          "id": "simplelights:green_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:red_light_pane",
+          "id": "simplelights:red_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:black_light_pane",
+          "id": "simplelights:black_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:redstone_light_pane",
+          "id": "simplelights:redstone_light_pane",
           "required": true
         },
         {
-          "id": "simplebuilding:copper_light_pane",
+          "id": "simplelights:copper_light_pane",
           "required": true
         }
       ],
@@ -106720,81 +100557,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/tags/item/indestructible.json"
-    },
-    {
-      "id": "simplebuilding:item/light_panes",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplebuilding:light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:white_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:orange_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:magenta_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:light_blue_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:yellow_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:lime_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:pink_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:gray_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:light_gray_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:cyan_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:purple_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:blue_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:brown_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:green_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:red_light_pane",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:black_light_pane",
-          "required": true
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/tags/item/light_panes.json"
     },
     {
       "id": "simplebuilding:item/master_builder_enchantable",
@@ -108397,6 +102159,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Music aktivieren",
       "tooltip": "Turns the bundled Simple Music module on or off: sheet music, the Disc Press, uploaded discs and the Pocket Jukebox. Off hides its creative tab entries and stops playing, pressing and uploads; items, blocks and discs stay. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Music ein oder aus: Notenblätter, Plattenpresse, hochgeladene Platten und die Taschen-Jukebox. Aus blendet seine Kreativtab-Einträge aus und stoppt Abspielen, Pressen und Hochladen; Items, Blöcke und Platten bleiben. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleLights",
+      "shortName": "enableSimpleLights",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Lights",
+      "labelDe": "Simple Lights aktivieren",
+      "tooltip": "Turns the bundled Simple Lights module on or off: the Light Panes. Off hides the module's creative tab, its Vanilla tab entries and its guide; the panes and their recipes stay and keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das mitgelieferte Modul Simple Lights an oder aus: die Lichtscheiben. Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Scheiben und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -137551,14 +131333,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 547,
-    "blocks": 325,
-    "recipes": 861,
-    "lootTables": 343,
+    "items": 510,
+    "blocks": 288,
+    "recipes": 824,
+    "lootTables": 306,
     "trades": 20,
     "enchantments": 13,
-    "tags": 57,
-    "config": 228,
+    "tags": 55,
+    "config": 229,
     "inWorld": 481,
     "advancements": 116,
     "features": 48,

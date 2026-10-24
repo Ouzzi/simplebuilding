@@ -80,6 +80,18 @@
     }
   ],
   "notes": {
+    "simplelights:guide_book": {
+      "sources": [
+        "modules/simplelights/shared/java/com/simplelights/guide/LightsGuide.java",
+        "modules/simplelights/shared/resources/data/simplelights/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + glowstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Lights\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Glowstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Lights\" eins."
+      }
+    },
     "simplelights:*light_pane": {
       "en": {
         "summary": "A flat lamp panel, 1 px thick like an item frame, that sticks to any side of a block: plain, transparent, in the 16 dye colors, a redstone version whose color follows the signal strength, and a copper version that toggles with every redstone pulse.",

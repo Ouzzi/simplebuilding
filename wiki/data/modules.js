@@ -19,7 +19,8 @@ window.WIKI_MODULES = [
       "simpleoctets",
       "simpleblocks",
       "simplehammers",
-      "simplestorage"
+      "simplestorage",
+      "simplelights"
     ],
     "optional": [
       "jei",
@@ -1370,5 +1371,35 @@ window.WIKI_MODULES = [
       "features": 15
     },
     "dataHash": "f92d7df2e9c4"
+  },
+  {
+    "id": "simplelights",
+    "displayName": "Simple Lights",
+    "description": "Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb, moved from SimpleBuilding (ids migrate). Fabric only for now.",
+    "version": "0.9.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Light Panes: flat lamps on any block side - plain, transparent, in sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb.",
+      "de": "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABzUlEQVR42qWTSVIiYRCFvVCfwQu46AsY4VJRS6ooCmXQ6A7deAlnwBYoQS2gmERBRgdEIxSXfZDn+5PQTbHCRUbUP+T3v3yZNTP/+xe0hdmpQuXOqI9XNzxVqNxvgLO3iML+Evq5INp2ALXEGkrHGgaFCFq2ybWGPM/VWS8bnAzYMefQONPRvwhJcjMdxFM+gm5WrVdRPFyWO3dpwwvoZU3cX4ZQiWtwjzT0Lzf4egzNjIXblIlHJyxgZ28J5eMVL6CRMkRq/Z+BWtLAw1UE77W/XJuoJgx0c+ton1tUsSJKPAAlsXyyJpL7F1TEuLPXMShucS/G5JDAn+nJPZV4ALWkH9WkzjLCkvC/sysxqu/go76NRtoSyIsbE4gHoDYfnQiuTwMiWyWNGF+gt+of8aQS97PcgBfQzVpiVMu2WLOOobuF0fU2TQzJ6y+lTbwybpRHbLEHUFYesHUdGjUsRul8kGqU+1HCNlmizvW4xb2c5QUUD30cFJ8cPjlhSVDdGBSioqya8IvRPQ5aKzNhDhpnfhkSh5DKiSaQcaIu7rft8ZyoO+6kNnY5SM2UzuRV5A98MhMd+uKyrDKBrUxAJlBNbOloAmDqn+mnv/MnD8+4wCHaIPwAAAAASUVORK5CYII=",
+    "counts": {
+      "items": 1,
+      "blocks": 37,
+      "recipes": 38,
+      "features": 3
+    },
+    "dataHash": "f3d55e9ca44c"
   }
 ];

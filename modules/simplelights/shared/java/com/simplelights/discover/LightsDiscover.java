@@ -53,6 +53,7 @@ public final class LightsDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplelights:*light_pane",
             "simplelights:creative_tab_switch",
+            "simplelights:guide_book",
             "simplelights:light_panes",
             "simplelights:migration");
     static final List<Tip> TIPS = List.of();

@@ -1,0 +1,41 @@
+{
+	"id": "6E2BAF7F594613FA",
+	"order_index": 0,
+	"filename": "simplelights_start",
+	"icon": {
+		"id": "simplelights:guide_book"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "2C981C4C01434425",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": [],
+			"tasks": [
+				{
+					"id": "46611B8E2B573FDB",
+					"type": "item",
+					"item": {
+						"id": "minecraft:crafting_table",
+						"count": 1
+					}
+				}
+			],
+			"rewards": [
+				{
+					"id": "76E32F3A5066F716",
+					"type": "item",
+					"item": {
+						"id": "simplelights:guide_book",
+						"count": 1
+					}
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}
