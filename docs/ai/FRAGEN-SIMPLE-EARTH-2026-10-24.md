@@ -33,3 +33,7 @@ gewählt ist jeweils die Empfehlung aus `KONZEPT-SIMPLE-EARTH-2026-10-23.md` §7
 - **N7 Mod-Biome:** Farbe = nächste Kartenfarbe zur Grasfarbe des Bioms; eine Datapack-Tabelle `simpleearth:biome_colors` ist noch nicht gebaut. → a) reicht · b) Tabelle bauen
 - **N8 Shader (Iris) / Distant Horizons:** nicht geprüft (kein Client mit Shadern). → a) später prüfen · b) jetzt eigene Stufe
 - **N9 Andere Loader:** nur Fabric 26.3 gebaut (Besitzer 22.10.). NeoForge/Forge erst auf Anforderung.
+- **N10 Fleckigkeit:** Bei 256 Blöcken je Pixel sieht die Karte fleckig aus (echte Biomwechsel; schon mit 2×2-Mehrheit je Pixel
+  und „flache Senken bleiben Land“). Client-Bilder: `/root/sb-tools-b/previews/wc24-4-earth-client.html`. → a) passt · b) stärker glätten (z. B. 3×3-Mehrheit, kostet Abtastzeit) · c) Standard-Abtastraster 512
+- **N11 Nahsicht:** Direkt über der Umschalthöhe füllt die Fläche den Blick (echte Höhe ≈ 4,5 % der halben Kante); der Würfel-/Netzcharakter
+  zeigt sich erst weiter oben (Deckenhöhe 6 144, Orbit-Abstand 3). → a) passt · b) schneller herauszoomen (Orbit-Abstand/Deckenhöhe kleiner)
