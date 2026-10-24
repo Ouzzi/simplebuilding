@@ -38,7 +38,7 @@
   "simplemodels.browser.sort.base_item": "Base Item",
   "simplemodels.browser.author": "Author: %s",
   "simplemodels.browser.readonly": "Read only: server admins edit config/simplemodels/config.json.",
-  "commands.simplemodels.reload": "Simple Models: %s models reloaded and sent to all players.",
+  "simplemodels.command.reload": "Simple Models: %s models reloaded and sent to all players.",
   "item.simplemodels.guide_book": "Simple Models Guide",
   "simplemodels.guide.page.1.title": "Simple Models",
   "simplemodels.guide.page.1": "Server-approved custom item models, anvil assignment and a searchable model browser.",

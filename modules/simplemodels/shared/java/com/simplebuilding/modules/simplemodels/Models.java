@@ -53,7 +53,7 @@ public final class Models {
                 .then(net.minecraft.commands.Commands.literal("reload").executes(c -> {
                     reload(); c.getSource().getServer().getPlayerList().getPlayers().forEach(send);
                     int count = server.models().size();
-                    c.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.translatable("commands.simplemodels.reload", count), true);
+                    c.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.translatable("simplemodels.command.reload", count), true);
                     return count;
                 })));
     }

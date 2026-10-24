@@ -51,7 +51,7 @@ def check():
             assert 'text.autoconfig.simpleriding.option.' + option['tab'] in language
     manual = read(MODULE / 'wiki/manual.json')['features']
     assert len({f['id'] for f in manual}) == len(manual)
-    assert len(manual) == 10 + len(options) and any(f['id'] == 'forge_263' for f in manual), 'all gameplay/registry/security/horseshoe and creative-tab chapters, config options and the Forge support chapter'
+    assert len(manual) == 11 + len(options) and any(f['id'] == 'forge_263' for f in manual) and any(f['id'] == 'commands' for f in manual), 'all gameplay/registry/security/horseshoe and creative-tab chapters, config options, the commands (CMD24) and the Forge support chapter'
     for feature in manual:
         for language in ('en', 'de'):
             assert feature[language]['title'] and feature[language]['summary'] and feature[language]['details']
