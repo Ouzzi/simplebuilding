@@ -73,5 +73,9 @@
   "quests.simplehammers.start.title": "Welcome to Simple Hammers",
   "quests.simplehammers.start.subtitle": "Your free guide",
   "quests.simplehammers.start.welcome.title": "A free guide",
-  "quests.simplehammers.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Hammers Guide as a reward. You can also craft it from a book and an iron ingot."
+  "quests.simplehammers.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Hammers Guide as a reward. You can also craft it from a book and an iron ingot.",
+  "jei.simplehammers.note.crush.strikes": "%s strikes with right-click",
+  "jei.simplehammers.note.crush.iron": "Iron tier or better",
+  "jei.simplehammers.note.durability": "%s durability per strike",
+  "jei.simplehammers.note.reshape.how": "Sneak and hold use: carves the aimed octet off"
 }

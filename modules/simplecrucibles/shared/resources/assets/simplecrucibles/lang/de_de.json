@@ -123,5 +123,10 @@
   "quests.simplecrucibles.start.title": "Willkommen bei Simple Crucibles",
   "quests.simplecrucibles.start.subtitle": "Dein Handbuch gratis",
   "quests.simplecrucibles.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplecrucibles.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Crucibles-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kessel herstellen."
+  "quests.simplecrucibles.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Crucibles-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kessel herstellen.",
+  "jei.simplecrucibles.note.crucible_build.how": "%s-mal auf einen leeren Kessel schlagen",
+  "jei.simplecrucibles.note.crucible_build.parts": "Nebenhand: %s Wandteile, dann %s Griffe",
+  "jei.simplecrucibles.note.strike_damage": "%s Haltbarkeit je Schlag",
+  "jei.simplecrucibles.note.barrel_attach.how": "Fass neben einem Tiegel: %s Schläge",
+  "jei.simplecrucibles.note.barrel_attach.use": "Ergebnisse kommen zuerst dorthin (%s Plätze)"
 }

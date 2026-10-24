@@ -190,4 +190,9 @@ public final class ModuleGameTest {
     public void musicDiscLoot(GameTestHelper h) {
         MusicTests.ALL.get("music_disc_loot").accept(h);
     }
+
+    @GameTest(structure = "simplemusic:empty", maxTicks = 100)
+    public void jeiPressAndCopy(GameTestHelper h) {
+        MusicTests.ALL.get("jei_press_and_copy").accept(h);
+    }
 }

@@ -17,4 +17,5 @@ public final class ModuleGameTest {
  @GameTest public void claimsAndOldCommandsAreNotRegistered(GameTestHelper h) { CompatibilityTests.TESTS.get("claims_and_old_commands_are_not_registered").accept(h); }
  @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpletweaks.discover.TweaksDiscover.recipeUnlocks(h); }
  @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpletweaks.discover.TweaksDiscover.behaviourHints(h); }
+ @GameTest public void jeiDeedCopy(GameTestHelper h) { com.simplebuilding.modules.simpletweaks.deed.DeedJeiTests.deedCopy(h); }
 }

@@ -90,4 +90,14 @@ public final class ModuleGameTest {
     public void anvilHammerRepair(GameTestHelper h) {
         HammerTests.ALL.get("anvil_hammer_repair").accept(h);
     }
+
+    @GameTest(structure = "simplehammers:empty")
+    public void jeiStandaloneWays(GameTestHelper h) {
+        HammerTests.ALL.get("jei_standalone_ways").accept(h);
+    }
+
+    @GameTest(structure = "simplehammers:empty")
+    public void jeiToolGrades(GameTestHelper h) {
+        HammerTests.ALL.get("jei_tool_grades").accept(h);
+    }
 }

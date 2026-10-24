@@ -181,5 +181,7 @@
   "quests.simplestorage.start.title": "Willkommen bei Simple Storage",
   "quests.simplestorage.start.subtitle": "Dein Handbuch gratis",
   "quests.simplestorage.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen."
+  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen.",
+  "jei.simplestorage.note.rare_shulker": "Ein seltener Shulker lässt 0-%s Schalen seiner Stufe fallen",
+  "jei.simplestorage.note.rare_shulker_where": "Verstärkt, Netherit oder Enderit, Endsiedlungen"
 }

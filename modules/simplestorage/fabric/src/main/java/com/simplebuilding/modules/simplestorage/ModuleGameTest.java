@@ -604,4 +604,9 @@ public final class ModuleGameTest {
     public void backpackKeepsUnreadableEntries(GameTestHelper h) {
         StorageTests.ALL.get("backpack_keeps_unreadable_entries").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void jeiShellsAndTiers(GameTestHelper h) {
+        StorageTests.ALL.get("jei_shells_and_tiers").accept(h);
+    }
 }

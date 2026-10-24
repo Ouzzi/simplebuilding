@@ -62,6 +62,12 @@ public final class LibServices {
         // syncs them; it also feeds the Enderite loot with its own switches - SimpleLib's own load/sync and its material
         // loot for mods without a partner (Simple Ovens alone) stay idle.
         InWorldUpgrades.loadedByPartner();
+        // JEI24: SimpleBuilding's "Machine Upgrade" tab shows its own blocks and the Vanilla copper chest, shulker box and
+        // enchanting table; SimpleLib's shared upgrade tab shows every other entry of the table (ovens, storage tiers, crucibles).
+        com.simplelib.api.RecipeViewer.shownByPartner(block -> Simplebuilding.MOD_ID.equals(
+                net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace())
+                || block == net.minecraft.world.level.block.Blocks.COPPER_CHEST || block == net.minecraft.world.level.block.Blocks.SHULKER_BOX
+                || block == net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE);
         SimpleLibApi.materialLootByPartner();
         // Split stage 8b: the tiered chests and shulker boxes, their upgrade handlers and the double chest parts are Simple
         // Storage's (it registers them itself).

@@ -130,5 +130,8 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
+  "jei.simplemobs.note.wither_drops": "Wenn der %s stirbt",
+  "jei.simplemobs.note.wither_counts": "%s-%s Klumpen aus dem Metall der Krone",
+  "jei.simplemobs.note.shellker_dress": "Rechtsklick mit der Schale auf einen Shulker"
 }

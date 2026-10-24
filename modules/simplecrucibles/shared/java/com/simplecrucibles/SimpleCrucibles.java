@@ -78,6 +78,7 @@ public final class SimpleCrucibles {
         SimpleLibApi.registerToolUse(com.simplecrucibles.crucible.AxeWays::wants);
         // Split stage 7: the hammer ways (build, attach, staged crucible upgrades) through SimpleLib's hammer contract.
         com.simplecrucibles.crucible.HammerWays.register();
+        com.simplecrucibles.compat.CruciblesViewer.register(); // JEI24: build and attach in the recipe viewer, also alone
         // In-world upgrades into a crucible or barrel tier move contents, progress and experience (InWorldUpgrades).
         InWorldUpgrades.registerHandler(com.simplecrucibles.api.SimpleCruciblesApi::upgradesInPlace, (level, pos, to) -> {
             com.simplecrucibles.crucible.CrucibleUpgrades.upgradeInPlace(level, pos, to);

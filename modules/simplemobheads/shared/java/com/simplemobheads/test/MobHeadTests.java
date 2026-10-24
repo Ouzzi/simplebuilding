@@ -1463,4 +1463,9 @@ public final class MobHeadTests {
     public static ResourceKey<?> key(String name) {
         return ResourceKey.create(Registries.TEST_FUNCTION, SimpleMobHeads.id("module_game_test_" + name));
     }
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        put("jei_charged_creeper_heads", HeadJeiTests::chargedCreeperHeads);
+    }
 }

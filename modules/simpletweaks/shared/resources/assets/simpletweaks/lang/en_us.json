@@ -497,5 +497,7 @@
   "quests.simpletweaks.start.title": "Welcome to Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Your free guide",
   "quests.simpletweaks.start.welcome.title": "A free guide",
-  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper."
+  "quests.simpletweaks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Tweaks Guide as a reward. You can also craft it from a book and paper.",
+  "jei.simpletweaks.note.deed_copy": "Bound deed + empty deed: a second deed",
+  "jei.simpletweaks.note.deed_copy_once": "The original stays; a copy cannot be copied"
 }

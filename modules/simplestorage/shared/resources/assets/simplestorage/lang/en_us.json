@@ -181,5 +181,7 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
+  "jei.simplestorage.note.rare_shulker": "A rare shulker drops 0-%s shells of its tier",
+  "jei.simplestorage.note.rare_shulker_where": "Reinforced, Netherite or Enderite, end cities"
 }

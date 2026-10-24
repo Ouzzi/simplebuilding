@@ -44,4 +44,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void vanillaTabStacks(GameTestHelper helper) { EndTests.ALL.get("vanilla_tab_stacks").accept(helper); }
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplebuilding.modules.simpleend.discover.EndDiscover.behaviourHints(h); }
+
+    @GameTest(structure = "simpleend:grove", maxTicks = 200)
+    public void jeiMobDropPages(GameTestHelper h) {
+        EndTests.ALL.get("jei_mob_drop_pages").accept(h);
+    }
 }

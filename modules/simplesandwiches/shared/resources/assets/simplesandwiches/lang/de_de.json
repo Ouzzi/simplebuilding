@@ -54,5 +54,12 @@
   "quests.simplesandwiches.start.title": "Willkommen bei Simple Sandwiches",
   "quests.simplesandwiches.start.subtitle": "Dein Handbuch gratis",
   "quests.simplesandwiches.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen."
+  "quests.simplesandwiches.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Sandwiches-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Brot herstellen.",
+  "jei.simplesandwiches.note.milk_butter": "Milch reift von selbst: Butter nach %s s",
+  "jei.simplesandwiches.note.milk_cheese": "Butter liegen lassen: Käse nach %s s",
+  "jei.simplesandwiches.note.milk_take": "Mit leerer Hand nehmen (oder Trichter)",
+  "jei.simplesandwiches.note.knife": "Eine Scheibe je Klick mit dem Messer",
+  "jei.simplesandwiches.note.sandwich.open": "Brot aufs Brett, das Messer öffnet es",
+  "jei.simplesandwiches.note.sandwich.fill": "Butter nach Wunsch, dann bis zu %s Zutaten",
+  "jei.simplesandwiches.note.sandwich.close": "Leere Hand schließt und nimmt es"
 }

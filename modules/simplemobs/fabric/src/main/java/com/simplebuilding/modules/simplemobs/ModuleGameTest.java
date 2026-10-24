@@ -111,4 +111,9 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void howlerJawRules(GameTestHelper helper) { MobsTests.ALL.get("howler_jaw_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void howlerJawSpawn(GameTestHelper helper) { MobsTests.ALL.get("howler_jaw_spawn").accept(helper); }
     @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void witherBossbarPhases(GameTestHelper helper) { MobsTests.ALL.get("wither_bossbar_phases").accept(helper); }
+
+    @GameTest
+    public void jeiMobDrops(GameTestHelper h) {
+        MobsTests.ALL.get("jei_mob_drops").accept(h);
+    }
 }

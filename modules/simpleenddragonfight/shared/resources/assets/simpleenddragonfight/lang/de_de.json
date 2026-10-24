@@ -68,5 +68,6 @@
   "quests.simpleenddragonfight.start.title": "Willkommen bei Simple End Dragon Fight",
   "quests.simpleenddragonfight.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleenddragonfight.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleenddragonfight.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Enddrachenkampf-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Enderperle herstellen."
+  "quests.simpleenddragonfight.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Enddrachenkampf-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Enderperle herstellen.",
+  "jei.simpleenddragonfight.info.dragonmite_drops": "Dragonmites erscheinen, sobald der Enderdrache nur noch die Hälfte seiner Lebenspunkte hat. Ein Dragonmite, der stirbt, kann Drachen-Chitin fallen lassen."
 }

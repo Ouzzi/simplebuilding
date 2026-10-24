@@ -178,4 +178,9 @@ public final class ModuleGameTest {
     @GameTest public void discoverRecipeUnlocks(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.recipeUnlocks(h); }
     @GameTest public void discoverBehaviourHints(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.behaviourHints(h); }
     @GameTest public void discoverFirstPickupTips(GameTestHelper h) { com.simplesandwiches.discover.SandwichDiscover.firstPickupTips(h); }
+
+    @GameTest
+    public void jeiSpecialWays(GameTestHelper h) {
+        SandwichTests.ALL.get("jei_special_ways").accept(h);
+    }
 }

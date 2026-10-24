@@ -174,4 +174,19 @@ public final class ModuleGameTest {
     public void legendaryToastSwitch(GameTestHelper h) {
         LibTests.ALL.get("legendary_toast_switch").accept(h);
     }
+
+    @GameTest
+    public void recipeViewerTableEntries(GameTestHelper h) {
+        LibTests.ALL.get("recipe_viewer_table_entries").accept(h);
+    }
+
+    @GameTest
+    public void recipeViewerLootItems(GameTestHelper h) {
+        LibTests.ALL.get("recipe_viewer_loot_items").accept(h);
+    }
+
+    @GameTest
+    public void recipeViewerPartnerShown(GameTestHelper h) {
+        LibTests.ALL.get("recipe_viewer_partner_shown").accept(h);
+    }
 }

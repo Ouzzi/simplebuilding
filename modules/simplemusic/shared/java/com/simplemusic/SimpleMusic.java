@@ -47,6 +47,7 @@ public final class SimpleMusic {
         configDir = dir;
         MusicConfig.load(dir);
         registerIdMoves();
+        com.simplemusic.press.MusicViewer.register(); // JEI24: disc press and sheet copy in the recipe viewer (no JEI class)
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "music", "simplemusic.testcentre.station",
                 java.util.stream.Stream.concat(java.util.stream.Stream.of("simplemusic:sheet_music", "simplemusic:disc_press",
                         "simplemusic:blank_disc", "simplemusic:custom_disc", "simplemusic:guide_book", "simplemusic:pocket_jukebox"),

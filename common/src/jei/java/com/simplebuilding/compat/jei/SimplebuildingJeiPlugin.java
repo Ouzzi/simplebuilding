@@ -76,9 +76,8 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addRecipeCategories(new InWorldCategory(kind, gui, catalog().of(kind)));
         }
         registration.addRecipeCategories(new MobDropCategory(gui));
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            registration.addRecipeCategories(new CauldronWorldCategory(gui, com.simplebuilding.compat.CauldronWorldCatalog.entries()));
-        }
+        // JEI24: "Cauldron and Crucible" is gone - Simple Crucibles (build, attach), SimpleLib's upgrade table (tiers) and
+        // Simple Sandwiches (milk) show those ways themselves, also without SimpleBuilding.
     }
 
     @Override
@@ -96,7 +95,6 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addRecipes(InWorldCategory.recipeType(kind), catalog().of(kind));
         }
         registration.addRecipes(MobDropCategory.TYPE, MobDropCatalog.drops());
-        registration.addRecipes(CauldronWorldCategory.TYPE, com.simplebuilding.compat.CauldronWorldCatalog.entries());
         // Besatz-Aufwertungen am Schmiedetisch mit der Ruestung als Ergebnis (die Platzhalter-Rezepte
         // nennen die Vorlage; sie werden in onRuntimeAvailable ausgeblendet).
         List<RecipeHolder<SmithingRecipe>> trimUpgrades = new ArrayList<>();
@@ -151,11 +149,6 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        if (com.simplebuilding.version.McVersion.CRUCIBLE) {
-            for (Item item : com.simplebuilding.compat.CauldronWorldCatalog.catalysts()) {
-                registration.addCraftingStation(CauldronWorldCategory.TYPE, item);
-            }
-        }
         registration.addCraftingStation(MobDropCategory.TYPE, net.minecraft.world.item.Items.CREEPER_SPAWN_EGG);
         for (InWorldRecipeCatalog.Kind kind : InWorldRecipeCatalog.Kind.values()) {
             for (Item tool : catalog().toolsOf(kind)) {

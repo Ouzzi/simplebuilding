@@ -24,6 +24,7 @@ public final class LegacyDeed {
     /** The {@code simpletweaks:claim_deed_copy} recipe serializer. */
     public static void registerRecipes() {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath("simpletweaks", "claim_deed_copy"), DeedCloningRecipe.SERIALIZER);
+        com.simplebuilding.modules.simpletweaks.deed.DeedViewer.register(); // JEI24: the copy in the recipe viewer (no JEI class)
     }
     private LegacyDeed() {}
 

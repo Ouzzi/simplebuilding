@@ -351,4 +351,9 @@ public final class ModuleGameTest {
     public void loadKeepsReadableSlotsAroundAnUnreadableOne(GameTestHelper h) {
         CrucibleTests.ALL.get("load_keeps_readable_slots_around_an_unreadable_one").accept(h);
     }
+
+    @GameTest(structure = "simplecrucibles:empty")
+    public void jeiBuildAttachAndUpgrades(GameTestHelper h) {
+        CrucibleTests.ALL.get("jei_build_attach_and_upgrades").accept(h);
+    }
 }

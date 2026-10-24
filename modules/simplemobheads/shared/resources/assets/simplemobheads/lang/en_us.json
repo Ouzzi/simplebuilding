@@ -527,5 +527,6 @@
   "quests.simplemobheads.start.title": "Welcome to Simple Mobheads",
   "quests.simplemobheads.start.subtitle": "Your free guide",
   "quests.simplemobheads.start.welcome.title": "A free guide",
-  "quests.simplemobheads.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobheads Guide as a reward. You can also craft it from a book and a skeleton skull."
+  "quests.simplemobheads.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobheads Guide as a reward. You can also craft it from a book and a skeleton skull.",
+  "jei.simplemobheads.note.charged_creeper": "%s killed by a charged creeper's explosion"
 }

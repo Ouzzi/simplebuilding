@@ -527,5 +527,6 @@
   "quests.simplemobheads.start.title": "Willkommen bei Simple Mobheads",
   "quests.simplemobheads.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobheads.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobheads.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobheads-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Skelettschädel herstellen."
+  "quests.simplemobheads.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobheads-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Skelettschädel herstellen.",
+  "jei.simplemobheads.note.charged_creeper": "%s durch die Explosion eines geladenen Creepers getötet"
 }

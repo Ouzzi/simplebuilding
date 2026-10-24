@@ -55,6 +55,9 @@ public final class LibTests {
         ALL.put("legendary_advancements", LegendaryTests::advancements);
         ALL.put("legendary_enchantments", LegendaryTests::enchantments);
         ALL.put("legendary_toast_switch", LegendaryTests::toastSwitch);
+        ALL.put("recipe_viewer_table_entries", RecipeViewerTests::tableEntries);
+        ALL.put("recipe_viewer_loot_items", RecipeViewerTests::lootItems);
+        ALL.put("recipe_viewer_partner_shown", RecipeViewerTests::partnerShown);
     }
 
     // ------------------------------------------------------------ helpers

@@ -340,6 +340,8 @@ public final class HammerTests {
         ALL.put("discover_recipe_unlocks", com.simplehammers.discover.HammersDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplehammers.discover.HammersDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplehammers.discover.HammersDiscover::firstPickupTips);
+        ALL.put("jei_standalone_ways", HammerJeiTests::standaloneWays);
+        ALL.put("jei_tool_grades", HammerJeiTests::toolGrades);
     }
 
     private HammerTests() {}

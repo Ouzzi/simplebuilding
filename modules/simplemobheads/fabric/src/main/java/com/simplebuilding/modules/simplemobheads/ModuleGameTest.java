@@ -225,4 +225,9 @@ public final class ModuleGameTest {
     public void giantCowHead(GameTestHelper helper) {
         MobHeadTests.ALL.get("giant_cow_head").accept(helper);
     }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void jeiChargedCreeperHeads(GameTestHelper h) {
+        MobHeadTests.ALL.get("jei_charged_creeper_heads").accept(h);
+    }
 }

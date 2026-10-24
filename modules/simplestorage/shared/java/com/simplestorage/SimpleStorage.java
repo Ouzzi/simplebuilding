@@ -48,6 +48,7 @@ public final class SimpleStorage {
         MATERIALS.forEach(com.simplelib.api.SimpleLibApi::requestMaterial);
         // The shipped upgrade file (data/simplestorage/in_world_upgrades) applies before datapack files of other namespaces.
         com.simplelib.api.InWorldUpgrades.registerDefaults(MOD_ID);
+        com.simplestorage.rare.StorageViewer.register(); // JEI24: rare shulker shells in the recipe viewer (no JEI class)
         // An upgrade into a tiered chest keeps the contents of both halves; into a tier shulker box its contents and color.
         com.simplelib.api.InWorldUpgrades.registerHandler(block -> block instanceof com.simplestorage.chest.TieredChestBlock,
                 com.simplestorage.chest.TieredChests::upgradeInPlace);

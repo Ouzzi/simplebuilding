@@ -46,5 +46,14 @@
   "text.autoconfig.simplelib.option.legendaryAdvancements.@Tooltip": "Fortschritts-IDs zusätzlich zur eingebauten\nListe, z. B. minecraft:story/enter_the_end.",
   "text.autoconfig.simplelib.option.legendaryEnchantments": "Weitere legendäre Verzauberungen",
   "text.autoconfig.simplelib.option.legendaryEnchantments.@Tooltip": "Verzauberungs-IDs zusätzlich zum Tag\n#simplelib:legendary, z. B. minecraft:mending.",
-  "jei.simplelib.category.in_world_upgrade": "Upgrades in der Welt"
+  "jei.simplelib.category.in_world_upgrade": "Upgrades in der Welt",
+  "jei.simplelib.category.special": "Besondere Wege",
+  "jei.simplelib.category.mob_drop": "Mob-Drops",
+  "jei.simplelib.note.upgrade.strikes": "%s Schläge, Material in der Nebenhand",
+  "jei.simplelib.note.upgrade.min_tool": "Mindestens: %s",
+  "jei.simplelib.note.upgrade.damage": "%s Haltbarkeit je Schlag",
+  "jei.simplelib.note.mob_drop.loot": "Wenn %s stirbt (Beutetabelle)",
+  "jei.simplelib.grade.diamond": "Diamantstufe",
+  "jei.simplelib.grade.netherite": "Netheritstufe",
+  "jei.simplelib.grade.enderite": "Enderitstufe"
 }

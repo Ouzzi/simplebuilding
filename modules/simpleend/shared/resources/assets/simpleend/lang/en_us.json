@@ -129,5 +129,6 @@
   "quests.simpleend.start.title": "Welcome to Simple End",
   "quests.simpleend.start.subtitle": "Your free guide",
   "quests.simpleend.start.welcome.title": "A free guide",
-  "quests.simpleend.start.welcome.description": "Craft or pick up a crafting table and claim the Simple End Guide as a reward. You can also craft it from a book and a chorus fruit."
+  "quests.simpleend.start.welcome.description": "Craft or pick up a crafting table and claim the Simple End Guide as a reward. You can also craft it from a book and a chorus fruit.",
+  "jei.simpleend.info.nibblemite_drops": "When a Nibblemite dies it may drop a Chorus Fruit (more with Looting)."
 }

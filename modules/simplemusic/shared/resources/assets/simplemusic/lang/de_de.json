@@ -192,5 +192,9 @@
   "quests.simplemusic.start.title": "Willkommen bei Simple Music",
   "quests.simplemusic.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemusic.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemusic.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Music-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Notenblock herstellen."
+  "quests.simplemusic.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Music-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Notenblock herstellen.",
+  "jei.simplemusic.note.press": "In der Plattenpresse, %s s",
+  "jei.simplemusic.note.press_sheet": "Das Notenblatt bleibt; die Platte trägt seine Musik",
+  "jei.simplemusic.note.copy": "Kartentisch: ein signiertes Blatt oben",
+  "jei.simplemusic.note.copy_slots": "Ein leeres Blatt unten wird zur Kopie"
 }

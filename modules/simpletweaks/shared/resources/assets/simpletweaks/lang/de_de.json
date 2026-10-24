@@ -497,5 +497,7 @@
   "quests.simpletweaks.start.title": "Willkommen bei Simple Tweaks",
   "quests.simpletweaks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpletweaks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen."
+  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen.",
+  "jei.simpletweaks.note.deed_copy": "Gebundene + leere Urkunde: eine zweite Urkunde",
+  "jei.simpletweaks.note.deed_copy_once": "Das Original bleibt; eine Kopie lässt sich nicht kopieren"
 }

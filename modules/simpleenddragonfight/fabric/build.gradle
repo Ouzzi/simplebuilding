@@ -2,3 +2,6 @@ plugins { id 'net.fabricmc.fabric-loom' }
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // framework (SubMods switch of the SimpleBuilding super-mod) nested per principle 3.
 dependencies { include project(':framework') }
+// JEI24: optional JEI plugin (fabric/src: mob drop info pages), compiled against, never bundled.
+repositories { maven { url = "https://maven.blamejared.com" } }
+dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }

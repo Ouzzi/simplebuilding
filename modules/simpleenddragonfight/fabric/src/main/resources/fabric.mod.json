@@ -23,6 +23,9 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simpleenddragonfight.ModuleGameTest"
+    ],
+    "jei_mod_plugin": [
+      "com.simplebuilding.modules.simpleenddragonfight.DragonFightJeiPlugin"
     ]
   },
   "depends": {
@@ -33,5 +36,8 @@
   "mixins": [
     "simpleenddragonfight.mixins.json"
   ],
-  "description": "Ender Dragon fight: +1 health bar per player, a faster dragon, entry animations and Dragonmites."
+  "description": "Ender Dragon fight: +1 health bar per player, a faster dragon, entry animations and Dragonmites.",
+  "suggests": {
+    "jei": "*"
+  }
 }

@@ -130,5 +130,8 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
+  "jei.simplemobs.note.wither_drops": "When the %s dies",
+  "jei.simplemobs.note.wither_counts": "%s-%s nuggets of the crown's metal",
+  "jei.simplemobs.note.shellker_dress": "Right-click a Shulker with the shell"
 }

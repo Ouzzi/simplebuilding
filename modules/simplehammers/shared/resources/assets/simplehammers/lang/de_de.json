@@ -73,5 +73,9 @@
   "quests.simplehammers.start.title": "Willkommen bei Simple Hammers",
   "quests.simplehammers.start.subtitle": "Dein Handbuch gratis",
   "quests.simplehammers.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplehammers.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Hammers-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Eisenbarren herstellen."
+  "quests.simplehammers.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Hammers-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Eisenbarren herstellen.",
+  "jei.simplehammers.note.crush.strikes": "%s Schläge mit Rechtsklick",
+  "jei.simplehammers.note.crush.iron": "Ab der Eisenstufe",
+  "jei.simplehammers.note.durability": "%s Haltbarkeit je Schlag",
+  "jei.simplehammers.note.reshape.how": "Schleichen und halten: trägt das angezielte Achtel ab"
 }

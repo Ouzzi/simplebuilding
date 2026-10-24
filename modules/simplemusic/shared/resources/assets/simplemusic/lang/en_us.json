@@ -192,5 +192,9 @@
   "quests.simplemusic.start.title": "Welcome to Simple Music",
   "quests.simplemusic.start.subtitle": "Your free guide",
   "quests.simplemusic.start.welcome.title": "A free guide",
-  "quests.simplemusic.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Music Guide as a reward. You can also craft it from a book and a note block."
+  "quests.simplemusic.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Music Guide as a reward. You can also craft it from a book and a note block.",
+  "jei.simplemusic.note.press": "In the disc press, %s s",
+  "jei.simplemusic.note.press_sheet": "The sheet stays; the disc carries its music",
+  "jei.simplemusic.note.copy": "Cartography table: a signed sheet on top",
+  "jei.simplemusic.note.copy_slots": "An empty sheet below becomes the copy"
 }

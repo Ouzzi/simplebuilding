@@ -37,6 +37,7 @@ public final class SimpleMobHeads {
     public static void init(Path dir) {
         configDir = dir;
         HeadMoves.register();
+        com.simplemobheads.drop.HeadsViewer.register(); // JEI24: charged-creeper heads in the recipe viewer (no JEI class)
         adoptFunConfig(dir);
         config();
         LOG.info("Simple Mobheads: {} heads", HeadTable.HEADS.size());

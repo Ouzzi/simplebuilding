@@ -684,4 +684,9 @@ public final class StorageTests {
     }
 
     private StorageTests() {}
+
+    // JEI24: recipe viewer data against its sources.
+    static {
+        ALL.put("jei_shells_and_tiers", StorageJeiTests::shellsAndTiers);
+    }
 }

@@ -110,6 +110,7 @@ public final class InWorldUpgrades {
     private static volatile Map<String, String> lastFiles = Map.of();
     private static final List<Registered> HANDLERS = new CopyOnWriteArrayList<>();
     private static volatile @Nullable Map<Block, Entry> loaded;
+    private static final List<Runnable> APPLY_LISTENERS = new CopyOnWriteArrayList<>();
 
     /** Files of {@code namespace} apply before all others (a mod's own shipped defaults). */
     public static void registerDefaults(String namespace) {
@@ -263,6 +264,18 @@ public final class InWorldUpgrades {
     /** Replaces the effective table with what {@code files} (file id -> JSON) say. */
     public static void apply(Map<Identifier, JsonElement> files) {
         loaded = parse(files);
+        for (Runnable listener : APPLY_LISTENERS) {
+            try {
+                listener.run();
+            } catch (RuntimeException e) {
+                SimpleLib.LOG.warn("In-world upgrade listener failed: {}", e.toString());
+            }
+        }
+    }
+
+    /** Runs after every {@link #apply} (JEI24: the recipe viewer adds the table once it arrives after JEI started). */
+    public static void onApply(Runnable listener) {
+        APPLY_LISTENERS.add(listener);
     }
 
     /** The table {@code files} describe, without touching the effective one. */
