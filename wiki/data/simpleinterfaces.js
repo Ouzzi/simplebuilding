@@ -954,12 +954,16 @@ window.WIKI_MODULE_DATA["simpleinterfaces"] = {
       "en": {
         "title": "Commands",
         "summary": "/simpleinterfaces config shows and changes every option of config/simpleinterfaces-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
-        "details": []
+        "details": [
+          "Example: /simpleinterfaces config get <option> shows the value, the default and the type; /simpleinterfaces config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
       },
       "de": {
         "title": "Befehle",
         "summary": "/simpleinterfaces config zeigt und ändert jede Option von config/simpleinterfaces-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
-        "details": []
+        "details": [
+          "Beispiel: /simpleinterfaces config get <Option> zeigt Wert, Standard und Typ; /simpleinterfaces config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
       }
     }
   ],

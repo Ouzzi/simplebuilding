@@ -154,7 +154,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 36
     },
-    "dataHash": "f346422f813d"
+    "dataHash": "a855d9455af6"
   },
   {
     "id": "simplemodels",
@@ -427,7 +427,7 @@ window.WIKI_MODULES = [
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "0e24977f6b49"
+    "dataHash": "614e3424e8e2"
   },
   {
     "id": "simplelib",
@@ -457,7 +457,7 @@ window.WIKI_MODULES = [
       "recipes": 29,
       "features": 5
     },
-    "dataHash": "b980b57fc400"
+    "dataHash": "881d4ee11df3"
   },
   {
     "id": "simpleinterfaces",
@@ -484,7 +484,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 44
     },
-    "dataHash": "e9a4e04b7741"
+    "dataHash": "8f60e451e0ff"
   },
   {
     "id": "simplemaps",
@@ -515,7 +515,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 10
     },
-    "dataHash": "c1339c34462a"
+    "dataHash": "fc5f4658ac5b"
   },
   {
     "id": "simpletrims",
@@ -548,7 +548,7 @@ window.WIKI_MODULES = [
       "recipes": 10,
       "features": 7
     },
-    "dataHash": "62b963db8b2a"
+    "dataHash": "b2320ea51dab"
   },
   {
     "id": "simplemobs",
@@ -578,7 +578,7 @@ window.WIKI_MODULES = [
       "recipes": 66,
       "features": 14
     },
-    "dataHash": "a283f69f0a47"
+    "dataHash": "80bfa5dbd00d"
   },
   {
     "id": "simpleweather",
@@ -769,7 +769,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 3
     },
-    "dataHash": "f30e2d8c2100"
+    "dataHash": "554547e4755c"
   },
   {
     "id": "simpleaesthetics",
@@ -920,7 +920,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 9
     },
-    "dataHash": "9154b80635da"
+    "dataHash": "c985d044d905"
   },
   {
     "id": "simpleovens",
@@ -952,7 +952,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 8
     },
-    "dataHash": "322f077717cb"
+    "dataHash": "39cfe95ad656"
   },
   {
     "id": "simplemobheads",
@@ -1024,7 +1024,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 12
     },
-    "dataHash": "b039db84f4bf"
+    "dataHash": "9d812b356920"
   },
   {
     "id": "simplewanderers",
@@ -1149,7 +1149,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "21283b47b3ea"
+    "dataHash": "7bc0bf3a5faa"
   },
   {
     "id": "simpleoctets",
@@ -1217,7 +1217,7 @@ window.WIKI_MODULES = [
       "recipes": 11,
       "features": 11
     },
-    "dataHash": "682139533658"
+    "dataHash": "a1aec4baa2e4"
   },
   {
     "id": "simpleoptimization",
@@ -1336,7 +1336,7 @@ window.WIKI_MODULES = [
       "recipes": 177,
       "features": 13
     },
-    "dataHash": "10c2078b535b"
+    "dataHash": "a14afabc4dc2"
   },
   {
     "id": "simplemusic",
@@ -1369,6 +1369,6 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "aeea8d6a1c28"
+    "dataHash": "06009f5e91d3"
   }
 ];
