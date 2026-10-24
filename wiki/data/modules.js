@@ -513,7 +513,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 9
     },
-    "dataHash": "6d1eb3963af4"
+    "dataHash": "ce5e3752750d"
   },
   {
     "id": "simpletrims",
