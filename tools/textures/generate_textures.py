@@ -3105,8 +3105,25 @@ def quiver_dyed_textures(tex):
         tinted = {(x, y) for y in range(16) for x in range(16)
                   if px[x, y][3] and "#%02x%02x%02x" % px[x, y][:3] in QUIVER_LEATHER[tier]}
         tinted -= glimmer_points(rel)
-        out[f"item/{prefix}quiver_dyed.png"], out[f"item/{prefix}quiver_dyed_overlay.png"] = split_dyed(src, tinted, tier)
+        dyed, overlay = split_dyed(src, tinted, tier)
+        quiver_feather_outline(overlay, px[3, 3][:3] + (255,))
+        out[f"item/{prefix}quiver_dyed.png"], out[f"item/{prefix}quiver_dyed_overlay.png"] = dyed, overlay
     return out
+
+
+QUIVER_FEATHER_GREYS = {(0xc6, 0xc6, 0xc6), (0xe0, 0xe0, 0xe0), (0x88, 0x88, 0x88), (0x3f, 0x3f, 0x3f)}
+
+
+def quiver_feather_outline(overlay, colour):
+    """WA24-4: die hellgrauen Pfeilfedern (vier Grautoene der Beschlag-Ebene) bekommen einen dunklen Umriss
+    auf allen freien Nachbarpixeln, damit sie sich von hellem (z. B. weissem) Rohr und hellem Hintergrund abheben."""
+    px = overlay.load()
+    feather = {(x, y) for y in range(16) for x in range(16) if px[x, y][3] and px[x, y][:3] in QUIVER_FEATHER_GREYS}
+    for x, y in feather:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < 16 and 0 <= ny < 16 and not px[nx, ny][3]:
+                px[nx, ny] = colour
 
 
 # Offene Buendel (im Inventar, sobald ein Eintrag ausgewaehlt ist): wie Vanillas

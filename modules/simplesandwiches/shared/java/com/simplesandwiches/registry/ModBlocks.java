@@ -29,6 +29,8 @@ public final class ModBlocks {
     public static final List<String> END_WOODS = List.of("ashwood", "duskwood");
     /** Butter block friction (owner decision F7 = B; normal 0.6, ice 0.98). */
     public static final float BUTTER_FRICTION = 0.9F;
+    /** WA24-3: the butter carpet has no collision (the walker sinks its 1 px) and slows like soul sand (0.4) but gentler. */
+    public static final float BUTTER_CARPET_SPEED = 0.75F;
     /** Cheese is springy like a bed (owner 2026-10-05): Vanilla bed bounce restitution and fall distance reduction. */
     public static final float CHEESE_BOUNCE = 0.75F, CHEESE_FALL_REDUCTION = 0.5F;
 
@@ -64,7 +66,7 @@ public final class ModBlocks {
         BUTTER_BLOCK = register("butter_block", new SliceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
                 .strength(0.5F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).setId(key("butter_block")), () -> ModItems.BUTTER_SLICE, () -> ModSounds.BUTTER_CUT));
         BUTTER_CARPET = register("butter_carpet", new ButterCarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND)
-                .strength(0.1F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).pushReaction(PushReaction.POPPED)
+                .strength(0.1F).sound(SoundType.HONEY_BLOCK).friction(BUTTER_FRICTION).speedFactor(BUTTER_CARPET_SPEED).noCollision().pushReaction(PushReaction.POPPED)
                 .setId(key("butter_carpet"))));
         MILK_CAULDRON = register("milk_cauldron", new MilkCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)
                 .setId(key("milk_cauldron"))));
