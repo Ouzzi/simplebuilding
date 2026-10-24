@@ -49,3 +49,11 @@ Testläufe gar nicht (sie nutzen die Klassen-Ordner) und trifft genau das ausgel
   fabric.mod.json ohne gametest-Einträge).
 - `fabric-263` voll, `integration-263`, 2–3 Standalone-Module, `./gradlew check`, Generatoren.
 - Gate-Skript auf sb-test muss nicht geändert werden (nimmt weiter `jar`-Ausgabe).
+
+## Nachtrag 24.10. (Koordinator): Testzentrale bleibt im Release-Jar
+
+Der Besitzer baut und nimmt die Testzentrale (`/sbtestcentre`) in der eigenen Welt ab (Queue CL-6, END-10, TZ22-9). Darum:
+- Filter nur noch `com/simplebuilding/gametest/**` (Testfälle, Fabric-Adapter, Overlay-Helfer) + fabric-gametest-Einträge.
+  `com.simplebuilding.dev` (nur `testcentre`, importiert nichts aus `gametest`) bleibt im Jar.
+- `ModEnvironment.hasTestCentre()` und die drei Wächter wieder entfernt (Schritt 2 oben entfällt).
+- Jar-Prüfung: keine gametest-Klasse, alle Entrypoints vorhanden, `TestCentreCommand` muss im Jar liegen.

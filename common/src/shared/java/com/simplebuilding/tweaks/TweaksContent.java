@@ -79,9 +79,7 @@ public final class TweaksContent {
         }
         LaunchSafety.serverTick(server);
         // Testzentrale: faelliger Neubau einer veralteten Zentrale (nur in der Entwicklungswelt geplant).
-        if (com.simplebuilding.platform.ModEnvironment.hasTestCentre()) {
-            com.simplebuilding.dev.testcentre.TestCentreCommand.serverTick(server);
-        }
+        com.simplebuilding.dev.testcentre.TestCentreCommand.serverTick(server);
     }
 
     public static void onPlayerJoin(ServerPlayer player) {

@@ -47,11 +47,8 @@ public final class SimplebuildingCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        // Eigene Wurzel /sbtestcentre (Befehlsrechte statt nur Operator-Spieler, damit Befehlsbloecke ihn nutzen);
-        // nur wo die Testzentrale mitgeliefert ist (nicht im 26.3-Fabric-Release-Jar).
-        if (com.simplebuilding.platform.ModEnvironment.hasTestCentre()) {
-            com.simplebuilding.dev.testcentre.TestCentreCommand.register(dispatcher);
-        }
+        // Eigene Wurzel /sbtestcentre (Befehlsrechte statt nur Operator-Spieler, damit Befehlsbloecke ihn nutzen).
+        com.simplebuilding.dev.testcentre.TestCentreCommand.register(dispatcher);
         dispatcher.register(Commands.literal("simplebuilding")
                 // Admin: alle Chunk-Loader auflisten / entfernen (Besitzer 2026-09-28).
                 .then(com.simplebuilding.tweaks.command.ChunkLoaderCommand.node())
