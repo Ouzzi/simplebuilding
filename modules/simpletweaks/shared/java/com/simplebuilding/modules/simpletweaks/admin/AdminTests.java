@@ -776,6 +776,8 @@ public final class AdminTests {
                 new AdminConfig.Backups(true, 3, 6, 2, dir), d.maintenance(), d.lagFinder()));
         Path target = Backups.directory(server);
         Path[] done = {null};
+        Path stale = target.resolve("old-19990101-000000.zip.part");
+        try { Files.createDirectories(target); Files.writeString(stale, "x"); } catch (Exception e) { throw new AssertionError(e); }
         boolean started = Backups.begin(server, p -> done[0] = p);
         h.succeedWhen(() -> {
             h.assertTrue(started, "Backup started");
@@ -784,6 +786,9 @@ public final class AdminTests {
             try (var zip = new java.util.zip.ZipFile(done[0].toFile())) { levelDat = zip.stream().anyMatch(e -> e.getName().endsWith("/level.dat")); }
             catch (java.io.IOException e) { throw new AssertionError(e); }
             h.assertTrue(levelDat, "The archive holds level.dat");
+            h.assertTrue(!Files.exists(stale), "A stale .part leftover is cleaned up");
+            try (var list = Files.list(target)) { h.assertTrue(list.noneMatch(p -> p.toString().endsWith(".part")), "No .part stays after a backup"); }
+            catch (java.io.IOException e) { throw new AssertionError(e); }
             h.assertTrue(server.getAllLevels().iterator().next().noSave == false, "Saving resumed");
             try {
                 String name = done[0].getFileName().toString();

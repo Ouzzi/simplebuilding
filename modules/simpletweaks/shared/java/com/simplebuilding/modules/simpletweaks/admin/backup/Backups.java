@@ -39,6 +39,7 @@ public final class Backups {
     public static void start(MinecraftServer server) {
         running = false;
         if (!Admin.config().backups().enabled()) return;
+        try { Files.createDirectories(directory(server)); cleanParts(directory(server)); } catch (IOException ignored) {}
         worker = Executors.newSingleThreadExecutor(r -> { var t = new Thread(r, "simpletweaks-backup"); t.setDaemon(true); return t; });
         try { last = Long.parseLong(Files.readString(marker(server)).strip()); }
         catch (Exception e) { last = System.currentTimeMillis(); } // first start: the first backup comes one interval later
@@ -61,14 +62,21 @@ public final class Backups {
         if (running || worker == null) return false;
         running = true;
         cancelled = false;
-        for (var level : server.getAllLevels()) if (!level.noSave) { level.noSave = true; PAUSED.add(level); }
-        server.saveEverything(true, true, true);
+        // save-off + save-all flush; if anything fails (or the worker is gone) saving must be on again (N-6)
+        try {
+            for (var level : server.getAllLevels()) if (!level.noSave) { level.noSave = true; PAUSED.add(level); }
+            server.saveEverything(true, true, true);
+        } catch (RuntimeException e) {
+            resume();
+            running = false;
+            throw e;
+        }
         Path world = server.getWorldPath(LevelResource.ROOT).toAbsolutePath().normalize();
         Path dir = directory(server).toAbsolutePath().normalize();
         String name = world.getFileName() + "-" + DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(LocalDateTime.now()) + ".zip";
         int keep = Admin.config().backups().keep();
         broadcast(server, Component.translatable("simpletweaks.admin.backup.started").withStyle(ChatFormatting.GRAY));
-        worker.submit(() -> {
+        try { worker.submit(() -> {
             Path archive = null;
             try { archive = zip(world, dir, name); prune(dir, world.getFileName() + "-", keep); }
             catch (Exception e) { LOG.error("World backup failed", e); }
@@ -82,7 +90,11 @@ public final class Backups {
                         : Component.translatable("simpletweaks.admin.backup.done", result.getFileName().toString(), size(result)).withStyle(ChatFormatting.GREEN));
                 if (done != null) done.accept(result);
             });
-        });
+        }); } catch (RuntimeException e) { // e.g. RejectedExecutionException while stopping
+            resume();
+            running = false;
+            throw e;
+        }
         return true;
     }
     /** Saving back on for every level this backup paused; harmless to call twice. */
@@ -113,6 +125,7 @@ public final class Backups {
 
     static Path zip(Path world, Path dir, String name) throws IOException {
         Files.createDirectories(dir);
+        cleanParts(dir);
         Path part = dir.resolve(name + ".part"), out = dir.resolve(name);
         try {
             writeZip(world, dir, name, part);
@@ -120,8 +133,17 @@ public final class Backups {
             Files.deleteIfExists(part);
             throw e;
         }
-        Files.move(part, out, StandardCopyOption.REPLACE_EXISTING);
+        try { Files.move(part, out, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING); }
+        catch (AtomicMoveNotSupportedException e) { Files.move(part, out, StandardCopyOption.REPLACE_EXISTING); }
         return out;
+    }
+    /** Leftovers of backups that were cancelled or crashed mid-write (the worker runs one backup at a time). */
+    static void cleanParts(Path dir) {
+        try (var list = Files.list(dir)) {
+            for (var p : (Iterable<Path>) list.filter(x -> x.getFileName().toString().endsWith(".zip.part"))::iterator) {
+                try { Files.deleteIfExists(p); } catch (IOException e) { LOG.warn("Could not remove {}: {}", p, e.toString()); }
+            }
+        } catch (IOException ignored) {}
     }
     private static void writeZip(Path world, Path dir, String name, Path part) throws IOException {
         try (var zip = new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(part)));
