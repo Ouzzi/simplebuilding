@@ -7,8 +7,8 @@ the wing box of ElytraModel (texOffs 22,0, box 10x20x2) is painted. The front fa
 mirror and the two side faces its edge columns, so the cut-out feather tips line up on the 2 px thick plate; the bottom face
 follows the last row. Stage 2 (Nether Wings) is the same shape with ember-red Nether Gem veins.
 
-    python tools/textures/elytra24_textures.py            # write look A into simplemobs
-    python tools/textures/elytra24_textures.py --check    # fail when a committed PNG/layer source differs
+    python tools/textures/elytra24_textures.py            # no-op now: built-in looks come from wa24wings_textures.py (WB24-2)
+    python tools/textures/elytra24_textures.py --check    # no-op now (wa24wings_textures.py --check)
     python tools/textures/elytra24_textures.py --preview DIR   # PNGs of all looks, 1x and 16x/8x (preview page)
 """
 from __future__ import annotations
@@ -285,6 +285,10 @@ def main(argv: list[str]) -> int:
                 (out / f'{look}_{base}_1x.png').write_bytes(scaled(d, 1))
         print(f'previews in {out}')
         return 0
+    # WB24-2 (owner 24.10.): the built-in wings looks come from wa24wings_textures.py now; this file stays the shared library
+    # (sheet, doc, broken) and the look-A preview.
+    print('built-in wings looks: see tools/textures/wa24wings_textures.py')
+    return 0
     bad = []
     for name, d in textures(BUILT_IN).items():
         png = MOBS / f'{name}.png'

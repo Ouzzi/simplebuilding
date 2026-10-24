@@ -55,8 +55,8 @@ public final class MobsConfig {
     public static boolean witherWilt = true;
     /** Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on. */
     public static boolean trickMirrorEnabled = false;
-    /** Wither/Nether/End Wings (EL24-1, WA24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8). */
-    public static float witherWingsSpeedFactor = 2.0f, netherWingsSpeedFactor = 4.0f, endWingsSpeedFactor = 6.0f;
+    /** Wither/Nether/End/Void Wings (EL24-1, WA24-2, WB24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8). */
+    public static float witherWingsSpeedFactor = 2.0f, netherWingsSpeedFactor = 4.0f, endWingsSpeedFactor = 6.0f, voidWingsSpeedFactor = 8.0f;
 
     /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
     public static boolean howlerRagePulse = true;
@@ -178,6 +178,7 @@ public final class MobsConfig {
         witherWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "witherWingsSpeedFactor", 2.0f)));
         netherWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "netherWingsSpeedFactor", 4.0f)));
         endWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "endWingsSpeedFactor", 6.0f)));
+        voidWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "voidWingsSpeedFactor", 8.0f)));
     }
 
     public static JsonObject toJson() {
@@ -223,6 +224,7 @@ public final class MobsConfig {
         o.addProperty("witherWingsSpeedFactor", witherWingsSpeedFactor);
         o.addProperty("netherWingsSpeedFactor", netherWingsSpeedFactor);
         o.addProperty("endWingsSpeedFactor", endWingsSpeedFactor);
+        o.addProperty("voidWingsSpeedFactor", voidWingsSpeedFactor);
         return o;
     }
 

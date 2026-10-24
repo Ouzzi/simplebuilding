@@ -23,9 +23,9 @@ import net.minecraft.world.phys.Vec3;
  * smithing table with the Strong Upgrade (Simple Beacons; without it the Netherite Upgrade) and the Nether Heart, then once more
  * with the Red Nether Gem. They glide like the Elytra; only the top speed a firework rocket pushes towards is raised
  * ({@link MobsConfig#witherWingsSpeedFactor} x2, {@link MobsConfig#netherWingsSpeedFactor} x4). Hitting a wall hurts by the
- * Vanilla formula, so more speed means more risk. Stage 3, the End Wings (WA24-2, x6), exists as an item with look and speed but has
- * no recipe and no loot yet: its material will drop from a later End boss (queue "End-Boss-Material"). It is only given by commands,
- * the creative tab and the test centre.
+ * Vanilla formula, so more speed means more risk. Stage 3, the End Wings (WA24-2, x6), and stage 4, the Void Wings (WB24-2, x8), are
+ * smithed the same way from the stage below with the Ender Heart and the Ender Gem. Both materials have no loot yet: they will drop
+ * from a later End boss (queue WA24-7), until then they are only given by commands, the creative tab and the test centre.
  */
 public final class WitherWings {
     public static final String ID = MobsRegistry.ID;
@@ -40,18 +40,27 @@ public final class WitherWings {
     public static final ResourceKey<EquipmentAsset> WITHER_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "wither_wings"));
     public static final ResourceKey<EquipmentAsset> NETHER_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "nether_wings"));
     /** Elytra 432; each stage about the Diamond -> Netherite step (+1/3). Wear per flight time stays Vanilla (1 per second). */
-    public static final int WITHER_DURABILITY = 576, NETHER_DURABILITY = 768, END_DURABILITY = 960;
+    public static final int WITHER_DURABILITY = 576, NETHER_DURABILITY = 768, END_DURABILITY = 960, VOID_DURABILITY = 1152;
     public static final ResourceKey<Item> END_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "end_wings"));
     public static final ResourceKey<EquipmentAsset> END_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "end_wings"));
-    public static final Item WITHER = new Item(wings(WITHER_DURABILITY, WITHER_ASSET).setId(WITHER_KEY));
-    public static final Item NETHER = new Item(wings(NETHER_DURABILITY, NETHER_ASSET).setId(NETHER_KEY));
-    public static final Item END = new Item(wings(END_DURABILITY, END_ASSET).setId(END_KEY));
+    public static final ResourceKey<Item> VOID_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "void_wings"));
+    public static final ResourceKey<EquipmentAsset> VOID_ASSET = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(ID, "void_wings"));
+    /** Materials of stage 3 and 4 (WB24-2/WB24-3); their look is provisional until the owner picks one, their source is WA24-7. */
+    public static final ResourceKey<Item> ENDER_HEART_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "ender_heart"));
+    public static final ResourceKey<Item> ENDER_GEM_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "ender_gem"));
+    public static final Item WITHER = new Item(wings(com.simplelib.api.SimpleRarity.CURSED, WITHER_DURABILITY, WITHER_ASSET).setId(WITHER_KEY));
+    public static final Item NETHER = new Item(wings(com.simplelib.api.SimpleRarity.CURSED, NETHER_DURABILITY, NETHER_ASSET).setId(NETHER_KEY));
+    public static final Item END = new Item(wings(com.simplelib.api.SimpleRarity.CURSED, END_DURABILITY, END_ASSET).setId(END_KEY));
+    /** Stage 4: the top stage is mythic like the Ender Gem it is made with. */
+    public static final Item VOID = new Item(wings(com.simplelib.api.SimpleRarity.MYTHIC, VOID_DURABILITY, VOID_ASSET).setId(VOID_KEY));
+    public static final Item ENDER_HEART = new Item(com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties()).fireResistant().setId(ENDER_HEART_KEY));
+    public static final Item ENDER_GEM = new Item(com.simplelib.api.SimpleRarity.MYTHIC.apply(new Item.Properties()).fireResistant().setId(ENDER_GEM_KEY));
 
     private WitherWings() {}
 
     /** Vanilla Elytra components with an own look, repaired with phantom membrane, fire-proof like Netherite. */
-    private static Item.Properties wings(int durability, ResourceKey<EquipmentAsset> asset) {
-        return com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties()).durability(durability).fireResistant()
+    private static Item.Properties wings(com.simplelib.api.SimpleRarity rarity, int durability, ResourceKey<EquipmentAsset> asset) {
+        return rarity.apply(new Item.Properties()).durability(durability).fireResistant()
                 .component(DataComponents.GLIDER, Unit.INSTANCE)
                 .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST).setEquipSound(SoundEvents.ARMOR_EQUIP_ELYTRA)
                         .setAsset(asset).setDamageOnHurt(false).build())
@@ -62,10 +71,13 @@ public final class WitherWings {
         sink.accept(WITHER_KEY, WITHER);
         sink.accept(NETHER_KEY, NETHER);
         sink.accept(END_KEY, END);
+        sink.accept(VOID_KEY, VOID);
+        sink.accept(ENDER_HEART_KEY, ENDER_HEART);
+        sink.accept(ENDER_GEM_KEY, ENDER_GEM);
     }
 
     public static boolean isWings(ItemStack stack) {
-        return stack.is(WITHER) || stack.is(NETHER) || stack.is(END);
+        return stack.is(WITHER) || stack.is(NETHER) || stack.is(END) || stack.is(VOID);
     }
 
     /** The server config factor of a stack (1 for anything that is not a pair of wings). */
@@ -73,6 +85,7 @@ public final class WitherWings {
         if (stack.is(WITHER)) return clamp(MobsConfig.witherWingsSpeedFactor);
         if (stack.is(NETHER)) return clamp(MobsConfig.netherWingsSpeedFactor);
         if (stack.is(END)) return clamp(MobsConfig.endWingsSpeedFactor);
+        if (stack.is(VOID)) return clamp(MobsConfig.voidWingsSpeedFactor);
         return 1.0f;
     }
 

@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.phys.Vec3;
 
-/** Wither/Nether Wings GameTests (EL24-1, Fabric wrappers in ModuleGameTest). Standalone-safe: the recipe test follows Simple Beacons. */
+/** Wither/Nether/End/Void Wings GameTests (EL24-1, WA24-2, WB24-2, Fabric wrappers in ModuleGameTest). Standalone-safe: the recipe test follows Simple Beacons. */
 final class WingsTests {
     private WingsTests() {}
 
@@ -48,7 +48,7 @@ final class WingsTests {
 
     static void addAll(BiConsumer<String, Consumer<GameTestHelper>> add) {
         add.accept("wings_items", h -> {
-            for (var item : java.util.List.of(WitherWings.WITHER, WitherWings.NETHER, WitherWings.END)) {
+            for (var item : java.util.List.of(WitherWings.WITHER, WitherWings.NETHER, WitherWings.END, WitherWings.VOID)) {
                 ItemStack s = new ItemStack(item);
                 h.assertTrue(s.has(DataComponents.GLIDER), "glides: " + item);
                 var eq = s.get(DataComponents.EQUIPPABLE);
@@ -57,7 +57,8 @@ final class WingsTests {
                 h.assertTrue(s.isValidRepairItem(new ItemStack(Items.PHANTOM_MEMBRANE)) && !s.isValidRepairItem(new ItemStack(Items.LEATHER)),
                         "repaired with phantom membrane like the Elytra: " + item);
                 h.assertTrue(s.has(DataComponents.DAMAGE_RESISTANT), "fire-proof like Netherite: " + item);
-                h.assertTrue(com.simplelib.api.SimpleRarity.of(s) == com.simplelib.api.SimpleRarity.CURSED, "cursed like heart and gem: " + item);
+                h.assertTrue(com.simplelib.api.SimpleRarity.of(s) == (item == WitherWings.VOID ? com.simplelib.api.SimpleRarity.MYTHIC
+                        : com.simplelib.api.SimpleRarity.CURSED), "stages 1-3 cursed, stage 4 mythic: " + item);
                 h.assertTrue(BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MobsRegistry.ID), "registered: " + item);
             }
             h.assertTrue(new ItemStack(Items.ELYTRA).getMaxDamage() == 432, "Vanilla Elytra 432");
@@ -65,15 +66,22 @@ final class WingsTests {
                     "durability 576 / 768 (Elytra 432, +1/3 per stage)");
             h.assertTrue(new ItemStack(WitherWings.END).getMaxDamage() == 960 && WitherWings.configFactor(new ItemStack(WitherWings.END)) == 6.0f,
                     "End Wings (stage 3): 960 durability, x6");
-            h.assertTrue(!recipe(h, "end_wings_smithing") && !recipe(h, "end_wings_smithing_without_simplebeacons"), "End Wings are not craftable yet");
+            h.assertTrue(new ItemStack(WitherWings.VOID).getMaxDamage() == 1152 && WitherWings.configFactor(new ItemStack(WitherWings.VOID)) == 8.0f,
+                    "Void Wings (stage 4): 1152 durability, x8");
+            h.assertTrue(!WitherWings.isWings(new ItemStack(WitherWings.ENDER_HEART)) && !WitherWings.isWings(new ItemStack(WitherWings.ENDER_GEM))
+                    && com.simplelib.api.SimpleRarity.of(new ItemStack(WitherWings.ENDER_GEM)) == com.simplelib.api.SimpleRarity.MYTHIC
+                    && BuiltInRegistries.ITEM.getKey(WitherWings.ENDER_HEART).getPath().equals("ender_heart"), "Ender Heart / Ender Gem registered");
             h.succeed();
         });
         add.accept("wings_recipes", h -> {
             boolean beacons = BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebeacons", "strong_upgrade_template"));
-            h.assertTrue(recipe(h, "wither_wings_smithing") == beacons && recipe(h, "nether_wings_smithing") == beacons,
+            h.assertTrue(recipe(h, "wither_wings_smithing") == beacons && recipe(h, "nether_wings_smithing") == beacons
+                    && recipe(h, "end_wings_smithing") == beacons && recipe(h, "void_wings_smithing") == beacons,
                     "Strong Upgrade recipes only with Simple Beacons (loaded: " + beacons + ")");
             h.assertTrue(recipe(h, "wither_wings_smithing_without_simplebeacons") == !beacons
-                    && recipe(h, "nether_wings_smithing_without_simplebeacons") == !beacons, "Netherite Upgrade way only without Simple Beacons");
+                    && recipe(h, "nether_wings_smithing_without_simplebeacons") == !beacons
+                    && recipe(h, "end_wings_smithing_without_simplebeacons") == !beacons
+                    && recipe(h, "void_wings_smithing_without_simplebeacons") == !beacons, "Netherite Upgrade way only without Simple Beacons");
             String suffix = beacons ? "_smithing" : "_smithing_without_simplebeacons";
             ItemStack template = beacons ? new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebeacons", "strong_upgrade_template")))
                     : new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
@@ -83,16 +91,25 @@ final class WingsTests {
             h.assertTrue(wither.is(WitherWings.WITHER) && wither.getDamageValue() == 17, "Elytra + Nether Heart -> Wither Wings, wear kept: " + wither);
             ItemStack nether = smith(h, "nether_wings" + suffix, template, wither, new ItemStack(WitherMobs.GEM));
             h.assertTrue(nether.is(WitherWings.NETHER), "Wither Wings + Red Nether Gem -> Nether Wings");
+            ItemStack end = smith(h, "end_wings" + suffix, template, nether, new ItemStack(WitherWings.ENDER_HEART));
+            h.assertTrue(end.is(WitherWings.END) && end.getDamageValue() == 17, "Nether Wings + Ender Heart -> End Wings, wear kept: " + end);
+            ItemStack voidWings = smith(h, "void_wings" + suffix, template, end, new ItemStack(WitherWings.ENDER_GEM));
+            h.assertTrue(voidWings.is(WitherWings.VOID) && voidWings.getDamageValue() == 17, "End Wings + Ender Gem -> Void Wings: " + voidWings);
+            var skip = new SmithingRecipeInput(template, nether.copy(), new ItemStack(WitherWings.ENDER_GEM));
+            h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING, skip, h.getLevel())
+                    .map(r -> !r.value().assemble(skip).is(WitherWings.VOID)).orElse(true), "the Ender Gem does not skip stage 3");
             var wrong = new SmithingRecipeInput(template, new ItemStack(Items.ELYTRA), new ItemStack(WitherMobs.GEM));
             h.assertTrue(h.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMITHING, wrong, h.getLevel())
                     .map(r -> !r.value().assemble(wrong).is(WitherWings.NETHER)).orElse(true), "the gem does not skip stage 1");
             h.succeed();
         });
         add.accept("wings_speed_cap", h -> {
-            double vanilla = steadySpeed(1), wither = steadySpeed(2), nether = steadySpeed(4);
+            double vanilla = steadySpeed(1), wither = steadySpeed(2), nether = steadySpeed(4), end = steadySpeed(6), voidWings = steadySpeed(8);
             h.assertTrue(Math.abs(vanilla - 1.666) < 0.01, "Vanilla rocket top speed ~1.67 blocks/tick: " + vanilla);
             h.assertTrue(Math.abs(wither / vanilla - 2) < 1.0E-3 && Math.abs(nether / vanilla - 4) < 1.0E-3,
                     "top speed x2 / x4: " + wither + " / " + nether);
+            h.assertTrue(Math.abs(end / vanilla - 6) < 1.0E-3 && Math.abs(voidWings / vanilla - 8) < 1.0E-3,
+                    "top speed x6 / x8: " + end + " / " + voidWings);
             Vec3 v = new Vec3(0.3, -0.2, 0.9), look = new Vec3(0, 0, 1);
             h.assertTrue(WitherWings.boost(v, look, 1.0) == v, "factor 1 leaves Vanilla untouched");
             h.succeed();
@@ -100,9 +117,10 @@ final class WingsTests {
         add.accept("wings_rocket_tick", h -> {
             float oldWither = MobsConfig.witherWingsSpeedFactor;
             try {
-                double[] got = new double[3];
-                ItemStack[] chest = {new ItemStack(Items.ELYTRA), new ItemStack(WitherWings.WITHER), new ItemStack(WitherWings.NETHER)};
-                for (int i = 0; i < 3; i++) {
+                ItemStack[] chest = {new ItemStack(Items.ELYTRA), new ItemStack(WitherWings.WITHER), new ItemStack(WitherWings.NETHER),
+                        new ItemStack(WitherWings.VOID)};
+                double[] got = new double[chest.length];
+                for (int i = 0; i < chest.length; i++) {
                     var player = h.makeMockServerPlayerInLevel();
                     player.setItemSlot(EquipmentSlot.CHEST, chest[i]);
                     player.setXRot(0f);
@@ -119,6 +137,8 @@ final class WingsTests {
                 h.assertTrue(Math.abs(got[0] - WitherWings.VANILLA_PUSH) < 1.0E-6, "Vanilla first push 0.85: " + got[0]);
                 h.assertTrue(Math.abs(got[1] - 2 * got[0]) < 1.0E-6 && Math.abs(got[2] - 4 * got[0]) < 1.0E-6,
                         "pushed towards x2 / x4: " + got[1] + " / " + got[2]);
+                h.assertTrue(Math.abs(got[3] - 8 * got[0]) < 1.0E-6 && WitherWings.factor(chest[3]) == 8.0f,
+                        "Void Wings (stage 4) pushed towards x8: " + got[3]);
                 h.assertTrue(WitherWings.factor(chest[1]) == 2.0f, "server stamped its factor into the worn wings");
                 // the server's config wins over the client's defaults: a changed factor is stamped on the next push
                 MobsConfig.witherWingsSpeedFactor = 3.0f;
