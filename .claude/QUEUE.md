@@ -48,7 +48,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 Ältere Abschnitte sind aufgelöst: ihre offenen Zeilen stehen unter „Offene Einzelpunkte“ mit Herkunft, das Erledigte im Archiv (23.10.).
 
 ### (A) In Arbeit
-- B (ab 24.10. 01:00 dt.): Bündel 63 GRÜN → master 5879b18a9 (24.10. 16:45 UTC: b-revn5, b-wb24editor, b-corelight24, b-wb24wings). Davor 62 → b184ae933, 61 → b74998032, 60 → e11eed7ef, 59 → b7af3e8d7, 58 → 880f3ae6c, 57 → 3f7a6ec69, 56 → 292858d10, 55 → 9815ae661, 54 → 0c311307a. Bündel 58: b-octhammer24, b-music24 (NA24-8), b-wa24gem, b-wa24earth. Laufen: b-revlight24b, b-wa24trim, b-wa24wings, b-wa24butter, b-aud7.
+- B (ab 24.10. 01:00 dt.): Bündel 65 GRÜN → master 73c0d7be0 (24.10. 21:38 UTC: audmods24, wc24gem, cmdcfg24, lampsound24, wc24small, wb24lights). Davor 64 → a36a841a6, 63 → 5879b18a9, 62 → b184ae933, 61 → b74998032, 60 → e11eed7ef, 59 → b7af3e8d7, 58 → 880f3ae6c, 57 → 3f7a6ec69, 56 → 292858d10, 55 → 9815ae661, 54 → 0c311307a. Bündel 58: b-octhammer24, b-music24 (NA24-8), b-wa24gem, b-wa24earth. Laufen: b-revlight24b, b-wa24trim, b-wa24wings, b-wa24butter, b-aud7.
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (1) Wartet auf Besitzer-Wahl → Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
