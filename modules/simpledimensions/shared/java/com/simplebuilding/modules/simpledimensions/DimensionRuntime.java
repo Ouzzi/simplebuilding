@@ -113,6 +113,9 @@ public final class DimensionRuntime {
   contacts.keySet().removeIf(id->server.getPlayerList().getPlayer(id)==null);
   for(var p:server.getPlayerList().getPlayers())tickPlayer(p);
  }
+ // Test entries: all game tests share one server, so a parallel test's build in the same tick must not fail an unrelated travel on the one-build-per-tick throttle.
+ boolean travelTest(ServerPlayer player,BlockPos contact){lastBuildTick=-1;return travel(player,contact);}
+ void tickPlayerTest(ServerPlayer p){lastBuildTick=-1;tickPlayer(p);}
  public void tickPlayer(ServerPlayer p){
    var l=p.level();var touched=DimensionRegistry.on()?findTouched(l,p):null;var c=contacts.computeIfAbsent(p.getUUID(),id->new Contact());
    if(touched==null){c.portal="";c.warmup=0;c.exit=false;}
