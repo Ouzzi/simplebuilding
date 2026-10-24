@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -566,11 +567,22 @@ public final class LightsTests {
         props.putString("facing", "north");
         props.putString("start", "3");
         stateTag.put("Properties", props);
+        // Diagnose the lookup paths of an old block id (chunk palette, NBT helpers, registry key).
+        Identifier oldId = SimpleLights.old("redstone_light_pane");
+        net.minecraft.resources.ResourceKey<Block> oldKey = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BLOCK, oldId);
+        String paths = "getValue=" + BuiltInRegistries.BLOCK.getValue(oldId)
+                + " getKey=" + BuiltInRegistries.BLOCK.get(oldKey).map(Object::toString).orElse("-")
+                + " getId=" + BuiltInRegistries.BLOCK.get(oldId).map(Object::toString).orElse("-")
+                + " getOptional=" + BuiltInRegistries.BLOCK.getOptional(oldId).map(Object::toString).orElse("-")
+                + " level=" + helper.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK).get(oldKey).map(Object::toString).orElse("-")
+                + " nbt=" + net.minecraft.nbt.NbtUtils.readBlockState(helper.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), stateTag)
+                + " codec=" + BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, stateTag);
+        SimpleLights.LOG.info("[migration paths] {}", paths);
         // The chunk palette decodes through BlockState.CODEC (the block registry's name codec).
         BlockState old = BlockState.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, stateTag).result().orElse(Blocks.AIR.defaultBlockState());
         if (!old.is(LightsRegistry.REDSTONE_LIGHT_PANE) || old.getValue(AbstractLightPaneBlock.FACING) != Direction.NORTH
                 || old.getValue(RedstoneLightPaneBlock.START) != 3) {
-            problems.add("old block state loads as " + old);
+            problems.add("old block state loads as " + old + " | " + paths);
         } else if (!BlockState.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, old).result()
                 .map(t -> ((net.minecraft.nbt.CompoundTag) t).getStringOr("Name", "")).orElse("").equals("simplelights:redstone_light_pane")) {
             problems.add("old block state saves under another id");
