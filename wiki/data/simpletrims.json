@@ -49,7 +49,7 @@
       ],
       "en": {
         "title": "Trim upgrades at the smithing table",
-        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once), Inverting (Ink Sac, once). The template is used up like any smithing template.",
+        "summary": "Template + armor + material: Glowing (Glow Ink Sac, once), Radiance (Glowstone Dust, up to level 5), Pulsating (Echo Shard, once), Inverting (Ink Sac, three times: flat, rimmed, soft rim). The template is used up like any smithing template.",
         "details": [
           "Glowing draws the trim at full light. Pulsating alone fades the trim colors to gray and back; with Glowing its brightness swells between 1 and 15.",
           "Radiance gives 3 light per level to an invisible light block over the wearer's head (sum of all worn pieces, at most 15).",
@@ -704,10 +704,10 @@
           "modules/simpletrims/shared/resources/data/simpletrims/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
+          "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
+          "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
         }
       },
       "texture": "assets/textures/simpletrims/item/guide_book.png",
@@ -753,10 +753,10 @@
           "modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java"
         ],
         "en": {
-          "summary": "Smithing: trimmed armor + Ink Sac = Inverted trim (pattern cut out, the rest of the armor in the trim color). Made by forging a placed armor trim template with an Ink Sac (4 diamonds, 2 obsidian)."
+          "summary": "Smithing: trimmed armor + Ink Sac = Inverted trim (pattern cut out, the rest of the armor in the trim color); repeat with another Ink Sac for stage 2 (1 px rim) and stage 3 (wider, soft rim). Made by forging a placed armor trim template with an Ink Sac (4 diamonds, 2 obsidian)."
         },
         "de": {
-          "summary": "Schmieden: Rüstung mit Besatz + Tintenbeutel = invertierter Besatz (Muster ausgespart, Rest der Rüstung in der Besatzfarbe). Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Tintenbeutel (4 Diamanten, 2 Obsidian)."
+          "summary": "Schmieden: Rüstung mit Besatz + Tintenbeutel = invertierter Besatz (Muster ausgespart, Rest der Rüstung in der Besatzfarbe); erneut mit Tintenbeutel: Stufe 2 (1-px-Rand), Stufe 3 (breiter, weicher Rand). Entsteht beim Schmieden einer abgelegten Besatzvorlage mit Tintenbeutel (4 Diamanten, 2 Obsidian)."
         }
       },
       "texture": "assets/textures/simpletrims/item/inverting_trim_template.png",
