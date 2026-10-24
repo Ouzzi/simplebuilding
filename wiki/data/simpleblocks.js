@@ -137,7 +137,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       ],
       "en": {
         "title": "Sculk Tiles",
-        "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+        "summary": "Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
         "details": [
           "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
           "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."
@@ -9250,7 +9250,7 @@ window.WIKI_MODULE_DATA["simpleblocks"] = {
       "note": {
         "en": {
           "title": "Sculk Tiles",
-          "summary": "Deepslate tiles in sculk colours: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
+          "summary": "Deepslate tiles in sculk colors: each tile a little lighter or darker, a few sculk sparks breathe slowly.",
           "details": [
             "Recipe (shaped, 2 x 2): two Deepslate Tiles and two Sculk, crossed, make two Sculk Tiles.",
             "A plain building block with the hardness, tool and sound of Deepslate Tiles; it drops itself. Unlike the Hushed Deepslate Tiles it does not dampen vibrations."

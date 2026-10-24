@@ -861,7 +861,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "e568ae829397"
+    "dataHash": "7ca6fa90fee7"
   },
   {
     "id": "simplerespawn",
@@ -1115,7 +1115,7 @@ window.WIKI_MODULES = [
       "recipes": 283,
       "features": 9
     },
-    "dataHash": "62f5deff48f1"
+    "dataHash": "9e816099735f"
   },
   {
     "id": "simplecrucibles",
