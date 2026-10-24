@@ -255,6 +255,7 @@ QUEST = {
                      "aus einem Buch und %s herstellen."),
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
+    "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
