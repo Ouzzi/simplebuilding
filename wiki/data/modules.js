@@ -1022,7 +1022,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 11
     },
-    "dataHash": "f4275fd6e203"
+    "dataHash": "0657e1d4052c"
   },
   {
     "id": "simplewanderers",
