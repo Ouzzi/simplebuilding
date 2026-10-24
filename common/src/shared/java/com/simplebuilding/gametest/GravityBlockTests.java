@@ -1135,12 +1135,10 @@ public final class GravityBlockTests {
      * control: the lookup has to be able to say no, and sand has no business being pickaxe
      * mineable.
      *
-     * <p>All four gravity blocks are then read out of both tool tags, which is the marker for
-     * defect 6 - the shovel bonus their vanilla originals have is gone, and nothing but this pair
-     * of lines would notice it coming back or the pickaxe list growing a gravel entry. Vanilla sand
-     * and gravel are asserted to <em>be</em> shovel mineable first, because a
-     * {@code mineable/shovel} lookup that answered no to everything would otherwise make the four
-     * negatives below pass without meaning anything.
+     * <p>All four gravity blocks are then read out of both tool tags. Defect 6 (the shovel bonus
+     * their vanilla originals have was missing) is fixed since AUDM24, so they must be shovel
+     * mineable and never pickaxe mineable. Vanilla sand and gravel are asserted to <em>be</em>
+     * shovel mineable first, so a {@code mineable/shovel} lookup that is broken shows up there.
      *
      * <p>The strength half reads the same {@code getDestroySpeed} the breaker test compares its
      * threshold against, and the explosion resistance next to it. A vanilla piston is measured in
@@ -1172,14 +1170,14 @@ public final class GravityBlockTests {
         assertPickaxeMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), false);
         assertPickaxeMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), false);
 
-        // --- the shovel tag the four gravity blocks are missing from; see defect 6 ---
+        // --- the shovel tag; defect 6 is fixed (AUDM24: the four gravity blocks are in mineable/shovel) ---
         // The two vanilla lines are the proof that the lookup can say yes at all.
         assertShovelMineable(helper, Blocks.SAND, true);
         assertShovelMineable(helper, Blocks.GRAVEL, true);
-        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), false);
-        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), false);
-        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), false);
-        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), false);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_SAND), true);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_SAND), true);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.LEVITATING_GRAVEL), true);
+        assertShovelMineable(helper, com.simplebuilding.util.BlockRefs.block(com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL), true);
 
         // --- strength, measured through the state, against vanilla's piston ---
         float vanillaSpeed = Blocks.PISTON.defaultBlockState().getDestroySpeed(level, absoluteProbe);
