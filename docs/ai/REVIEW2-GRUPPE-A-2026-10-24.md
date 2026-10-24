@@ -144,6 +144,8 @@ geprüft), Werkbank-Rest (Hammer nimmt 1 Schaden, Vanilla-Reste bleiben), 5 + 4 
   dasselbe tun); enger wäre ein `@ModifyReturnValue` nur bei Hämmern im Raster. (REV2-A-10)
 - P4 Tag `simplebuilding:craftable` (Kern, `mc26_3/overlay`) listet noch 7 `simplebuilding:*_sledgehammer` (laufen über IdMoves, im Gate
   grün) – auf `simplehammers:*` umstellen. (REV2-A-10)
+- P4 `engine/SledgehammerProgress`: Liste mit `BLOCK.byNameCodec` strikt gelesen – ein Block einer entfernten Mod verwirft alle
+  gespeicherten Schlag-Stände (nur Fortschritt, kein Item-Verlust). (REV2-A-10)
 
 ## simpleinterfaces (92 Dateien, 81 Java, 6 JSON)
 Geprüft: Verknüpfte GUIs (REV24-M-4 Gegenprobe: Rechte jede Sekunde neu), tragbare Shulker/Endertruhe (Schreiben ins Item nur, solange

@@ -365,6 +365,25 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [x] (B, b-revlow24, Bündel 55) **REV24-F-30** BuildPermissions.probing globaler Zähler, nicht thread-lokal – `common/.../util/BuildPermissions.java`
 - [x] (B, b-revrest24 1087ebf56 (synchronized + clear bei SERVER_STOPPED)) **REV24-F-31** Protection.PROVIDERS nicht thread-sicher, kein Aufräumen beim Server-Stopp – `framework/.../Protection.java`
 
+## Review 2 24.10. (REV2)
+
+Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe A (b-rev2a24): Bericht `docs/ai/REVIEW2-GRUPPE-A-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2A-2026-10-24.md`. P1/P2/kleine P3 dort behoben; hier P4 und Größeres.
+
+- [x] (B, b-rev2a24) **REV2-A Gruppe A** 14 Module geprüft (aesthetics, beacons, blocks, crucibles, dimensions, end, enddragonfight, farming, fun, hammers, interfaces, lib, loot, maps); behoben: Maps-Rahmen-Texte (P2), Nibblemite/mobGriefing (P2), 9× P3 (Beacon-Race, Stern-Rückmeldung, Säge/Tiegel-Axt nur mit `mayBuild`, Notrückkehr gedrosselt, Piggy aus, Fun-Config atomar, Gras-Umriss, BE-Englisch), neuer Wächter `tools/check_lang_keys.py` in `checkModuleData`.
+- [ ] REV2-A-1 simplebeacons: Reichweite bis 340 Blöcke per Config – Obergrenze/Hinweis für die Entity-Suche alle 80 Ticks.
+- [ ] REV2-A-2 Guide-/Wiki-Texte weiterer Module mit britischem Englisch (`tools/audit_data.py lang`: simplemodels, simplemusic, simplequalityoflife, simpletools, simpletweaks, Kern-Testzentrale).
+- [ ] REV2-A-3 simpleblocks Shapecutter: `Sawing.clientEntries`/`cachedManager` bei Disconnect bzw. Server-Stopp leeren.
+- [ ] REV2-A-4 simplecrucibles: (a) Laden kürzt Mengen über dem Stapel-Limit still – Überschuss auswerfen; (b) Feldküche nur mit `SimpleCrucibles.on()`; (c) Kupfer-Wasser auf Wasserquelle ersetzt die Quelle; (d) gerahmter Kupfereimer: `fixed`/Bau-Rechte prüfen; (e) `CrucibleTests` nutzt interne `LibComponents`.
+- [ ] REV2-A-5 simpledimensions: (a) `DimensionRuntime.save` wirft im Tick bei Schreibfehler – loggen und später erneut; (b) `CONFIG_ROOT` hängt am Arbeitsverzeichnis (Umzug mit Migration); (c) verworfene Definitionen/Rezepte über Logger melden; (d) `SkyPortalBlockEntity.getUpdateTag` ohne Link-/Anker-Koordinaten; (e) tote Klasse `ExampleItems` entfernen.
+- [ ] REV2-A-6 simpleend: leere-sichere Items bekommen Schwerkraft zurück, sobald sie über dem Weltboden liegen.
+- [ ] REV2-A-7 simpleenddragonfight: statische Kampf-Sitzung (Warteschlange mit `Player`-Objekten, Teilnehmer, Faktoren) bei `SERVER_STOPPED` über `PlayerState.onStop` zurücksetzen.
+- [ ] REV2-A-8 simplefarming: `onChange` hält nach Server-Stopp den alten Server; InteractionGuard-Kopie (REV24-N-5).
+- [ ] REV2-A-9 simplefun: `getConfig()` normalisiert bei jedem Aufruf (auch aus `hurtServer`); Config-Pfad am Arbeitsverzeichnis; Rückstoß-Kappe wirkt auch ausgeschaltet (gewollt, im Wiki vermerken).
+- [ ] REV2-A-10 simplehammers: (a) Amboss kombiniert Hämmer verschiedener Stufen immer für 1 Stufe (Verzauberungs-Transfer ohne Kosten) – gleiche Stufe verlangen oder Vanilla-Kosten; (b) `ShapelessRecipeMixin` enger fassen; (c) Kern-Tag `simplebuilding:craftable` auf `simplehammers:*_sledgehammer` umstellen; (d) `SledgehammerProgress` liest Einträge mit `BLOCK.byNameCodec` strikt – ein Block einer entfernten Mod verwirft alle gespeicherten Schlag-Stände (eintragsweise lesen).
+- [ ] REV2-A-11 simpleinterfaces: `onChange` hält nach Server-Stopp den alten Server.
+- [ ] REV2-A-12 simplelib: `CarriedStacks` Quellen-Fehler loggen; `OwnedLights.sweep` nach Chunk gruppieren; warm-blinder Menü-Sync (`WarmStackingMixin`) prüfen.
+- [ ] REV2-A-13 simplemaps: `handleTiles` Render-Aufrufe je Paket begrenzen (nicht nur Antwort-Bytes).
+
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
 - [x] (A, claude-s6-octets, 17.10.; in master seit 18.10.) 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
