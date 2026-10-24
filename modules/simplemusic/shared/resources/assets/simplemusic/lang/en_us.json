@@ -45,6 +45,7 @@
   "simplemusic.code.error.blocked_sound": "This server blocks the sound %s",
   "simplemusic.code.error.unknown_sound": "Unknown sound: %s",
   "simplemusic.code.error.sound_not_allowed": "This server allows only instruments here: %s",
+  "simplemusic.foreign_off": "Foreign music is switched off in simplemusic-client.json",
   "simplemusic.burn.title": "Upload a Track",
   "simplemusic.burn.choose": "Choose an Ogg file",
   "simplemusic.burn.folder": "Files from %s",

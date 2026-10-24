@@ -111,7 +111,8 @@ Quelle: `docs/ai/AUDIT-BESITZER-WUENSCHE-2026-10-23.md` (a-audit23; alle Besitze
 - [x] (Besitzer 23.10.: erledigt) AUD-4 (Besitzer 21.10., B) TEX21-Widerspruch: Besitzer meldete „tex21 schon abgearbeitet“, Zeile TEX21 steht als Wahl offen → Wahl von der Abnahme-Seite/Kommentaren ermitteln, `CHOSEN` umstellen, Zeile schließen.
 - [ ] AUD-5 (Besitzer 17.10., A, später) Lichtscheiben + Schwefellichter: Ziel-Sub-Mod klären („später nachbearbeiten“); bisher nur als erledigte Entscheidung im Archiv.
 - [ ] AUD-6 (Besitzer 18.10., A) Bild-Bauplan Stufe 3: Bild als Karte bzw. Kartenwand (Simple Maps), Konzept `docs/ai/KONZEPT-BILD-BAUPLAN-2026-10-19.md`; Stufen 1+2 erledigt (b-picture).
-- [ ] AUD-7 (Besitzer 19.10., A) Simple-Music-Reste aus b-music20: Raster-Editor E2/E3 fürs Notenblatt, Client-Schalter „Fremde Musik laden“.
+- [x] (B, b-music24, 23.10.; Beleg b-music24 03165ea0e: 9 Beispielblätter, @vol-Fix im Server-Player, simplemusic 35/35 fab+sa; offen Hörabnahme) NA24-8 Simple Music Notenblatt: Beispiel(e) mitliefern, mehrere von einfach bis komplex – 3 erfundene Eigenkreationen + Rest coole copyright-freie Stücke (gemeinfrei). Spieler (Player) setzen einiges noch falsch um → Fehler suchen und fixen (Gametests).
+- [~] (B, b-aud7, 24.10.) AUD-7 Simple-Music-Reste aus b-music20: Raster-Editor E2/E3 fürs Notenblatt, Client-Schalter „Fremde Musik laden“. — Teilstand: Schalter fertig (`MusicClientConfig`, `config/simplemusic-client.json` loadForeignMusic, Standard an, aus = nur eigene Uploads; Plan docs/ai/PLAN-B-AUD7-2026-10-24.md); Raster-Editor nur Vorschau (E2 A/B, E3 A/B) /root/sb-tools-b/previews/aud7-music-editor.html, Java erst nach Besitzer-Wahl.
 
 ## Funde 23.10.
 - [ ] (Besitzer 23.10., später) Rissiges Eis: Textur als eigenes Thema überarbeiten (bei B23-T4 bewusst ausgenommen).

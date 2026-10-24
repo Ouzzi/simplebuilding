@@ -46,6 +46,7 @@ public final class TrackPlayer {
             startSong(pos, payload);
             return;
         }
+        if (MusicClient.refuseForeign(payload.sha256())) return;
         Pending pending = new Pending(payload.sha256(), payload.offsetTicks(), ticks);
         if (TrackCache.has(payload.sha256())) {
             start(pos, pending);

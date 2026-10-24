@@ -73,6 +73,8 @@ for locale in ('en', 'de'):
     text = ' '.join(config[locale]['details'])
     for k in config_keys:
         assert k in text, ('wiki config lacks', locale, k)
+for locale in ('en', 'de'):
+    assert 'loadForeignMusic' in ' '.join(config[locale]['details']), ('wiki lacks the client key', locale)
 for f in manual['features']:
     for src in f['sources']:
         assert (MODULE.parents[1] / src).is_file(), src

@@ -74,6 +74,8 @@ public final class PocketPlayer {
                         .filter(song -> song.soundEvent().value().location().equals(event)).findFirst()
                         .map(JukeboxSong::description).ifPresent(mc.gui.hud::setNowPlaying);
             }
+        } else if (MusicClient.refuseForeign(payload.sha256())) {
+            SESSIONS.remove(id);
         } else if (TrackCache.has(payload.sha256())) {
             start(entry, PocketSound.upload(payload.sha256(), payload.offsetTicks() / 20, anchor));
         } else {

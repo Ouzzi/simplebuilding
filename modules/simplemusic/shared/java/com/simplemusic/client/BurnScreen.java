@@ -119,6 +119,7 @@ public class BurnScreen extends Screen {
         sending = true;
         burn.active = false;
         status(Component.translatable("simplemusic.burn.sending", 0), INK);
+        com.simplemusic.config.MusicClientConfig.own(UploadSession.sha256(data));
         SimpleMusic.toServer.accept(new UploadBeginPayload(hand, titleBox.getValue().strip(), data.length));
     }
 
