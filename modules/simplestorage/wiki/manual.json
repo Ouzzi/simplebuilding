@@ -631,6 +631,22 @@
           "Alte Welten: simplebuilding:deep_pockets, drawer und funnel auf Items werden zu diesen (ID-Umzug). Auf Minecraft 26.2 gehören sie weiter SimpleBuilding."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/SimpleStorage.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplestorage config shows and changes every option of config/simplestorage.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplestorage config zeigt und ändert jede Option von config/simplestorage.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": []
+      }
     }
   ],
   "notes": {

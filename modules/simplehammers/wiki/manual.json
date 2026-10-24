@@ -266,6 +266,22 @@
         "summary": "Eigener Tab mit den sieben Hämmern, dem Handbuch und den drei Verzauberungsbüchern. Ohne SimpleBuilding steht jeder Hammer zusätzlich hinter der Hacke seiner Stufe im Vanilla-Werkzeugtab (Schalter addItemsToVanillaTabs).",
         "details": []
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplehammers/shared/java/com/simplehammers/SimpleHammers.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplehammers config shows and changes every option of config/simplehammers-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplehammers config zeigt und ändert jede Option von config/simplehammers-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
+        "details": []
+      }
     }
   ],
   "notes": {

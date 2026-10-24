@@ -358,6 +358,13 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 - [x] (B, b-revlow24, Bündel 55) **REV24-F-30** BuildPermissions.probing globaler Zähler, nicht thread-lokal – `common/.../util/BuildPermissions.java`
 - [x] (B, b-revrest24 1087ebf56 (synchronized + clear bei SERVER_STOPPED)) **REV24-F-31** Protection.PROVIDERS nicht thread-sicher, kein Aufräumen beim Server-Stopp – `framework/.../Protection.java`
 
+## Befehle & Config 24.10. (CMD24)
+Besitzer 24.10.: „Die Befehle einmal überarbeiten, dass alles sauber ist. Zu den Konfigurationen auch, zu jeder Konfiguration auch ein Befehl.“ Plan + Inventar: docs/ai/PLAN-B-CMDCFG24-2026-10-24.md
+- [~] (B, b-cmdcfg24, 24.10.) **CMD24-1** Baustein `ConfigCommands` (simplelib): `/<modid> config list|get|set|reset|help`, `/<modid> clientconfig`, Typprüfung, Grenzen, Speichern, Neustart-Hinweis, Rechte 2; 19 Module angemeldet; Rechte der Config-Befehle auf 2; `/simplemodels reload` Rückmeldung; Tests + `tools/check_config_commands.py`
+- [ ] **CMD24-2** Config-Befehl für Module ohne simplelib (farming, loot, mobmanners, movement, weather, fun, money, dimensions, end, enddragonfight, wanderers, aesthetics, opt*): simplelib bündeln (wie simpletools) oder Entscheidung Besitzer; Liste PENDING in tools/check_config_commands.py
+- [ ] **CMD24-3** simpletweaks: Record-Configs (play/admin/protect/claims) mit `ConfigCommands.server(...).gson(...)` anmelden
+- [ ] **CMD24-4** NeoForge/Forge-Hook für `ConfigCommands.registerAll` (Port-Run); simplesandwiches/simplequalityoflife melden bisher nur im Fabric-Einstieg an
+
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
 - [x] (A, claude-s6-octets, 17.10.; in master seit 18.10.) 6 `claude-split-s6-octets`: Octets nach Modulpfad (106 Blöcke, 377 Rezepte)
