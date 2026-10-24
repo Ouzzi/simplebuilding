@@ -32,6 +32,7 @@ public final class EarthColors {
         if (path.contains("stony_shore")) return MapColor.STONE;
         if (biome.is(BiomeTags.IS_BEACH)) return path.contains("snowy") ? MapColor.SNOW : MapColor.SAND;
         if (path.contains("desert")) return MapColor.SAND;
+        if (path.contains("cherry")) return MapColor.COLOR_PINK;
         if (path.contains("snowy") || path.contains("frozen") || path.contains("ice") || path.contains("grove") || path.contains("jagged")) {
             return MapColor.SNOW;
         }
