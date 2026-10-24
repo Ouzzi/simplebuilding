@@ -1,6 +1,11 @@
 package com.simplebuilding.modules.simpletools.vault;
 
+import com.mojang.datafixers.util.Pair;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.Decoder;
+import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.modules.simpletools.SimpleTools;
 import java.util.ArrayList;
@@ -113,11 +118,52 @@ public final class DeathLedger extends SavedData {
         static final Codec<Death> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.LONG.fieldOf("time").forGetter(d -> d.time),
                 UUIDUtil.CODEC.optionalFieldOf("killer").forGetter(d -> d.killer),
-                Entry.CODEC.listOf().fieldOf("entries").forGetter(d -> d.entries)).apply(i, Death::new));
+                lenientList(Entry.CODEC, "entry").fieldOf("entries").forGetter(d -> d.entries)).apply(i, Death::new));
     }
 
-    public static final Codec<DeathLedger> CODEC = Codec.unboundedMap(UUIDUtil.STRING_CODEC, Death.CODEC.listOf())
-            .xmap(DeathLedger::new, l -> l.players).fieldOf("players").codec();
+    private static final org.slf4j.Logger LOGGER = LogUtils.getLogger();
+
+    /**
+     * Like {@code codec.listOf()}, but a broken element is logged and skipped instead of failing the whole list (and with it
+     * the whole ledger, which Vanilla would then replace by an empty one). Encoding is unchanged, so old saves still load.
+     */
+    private static <T> Codec<List<T>> lenientList(Codec<T> element, String what) {
+        return Codec.of(element.listOf(), new Decoder<List<T>>() {
+            @Override
+            public <O> DataResult<Pair<List<T>, O>> decode(DynamicOps<O> ops, O input) {
+                return ops.getStream(input).map(stream -> {
+                    List<T> out = new ArrayList<>();
+                    stream.forEach(item -> element.parse(ops, item).resultOrPartial(
+                            err -> LOGGER.error("Death ledger: skipping broken {}: {}", what, err)).ifPresent(out::add));
+                    return Pair.of(out, input);
+                });
+            }
+        });
+    }
+
+    /** Players: a broken player key or death list is logged and skipped, the other players stay. */
+    private static final Codec<Map<UUID, List<Death>>> PLAYERS = Codec.of(
+            Codec.unboundedMap(UUIDUtil.STRING_CODEC, Death.CODEC.listOf()),
+            new Decoder<Map<UUID, List<Death>>>() {
+                private final Codec<List<Death>> deaths = lenientList(Death.CODEC, "death");
+
+                @Override
+                public <O> DataResult<Pair<Map<UUID, List<Death>>, O>> decode(DynamicOps<O> ops, O input) {
+                    return ops.getMapValues(input).map(entries -> {
+                        Map<UUID, List<Death>> out = new LinkedHashMap<>();
+                        entries.forEach(e -> {
+                            var key = UUIDUtil.STRING_CODEC.parse(ops, e.getFirst());
+                            var value = deaths.parse(ops, e.getSecond());
+                            if (key.result().isPresent() && value.result().isPresent()) out.put(key.result().get(), value.result().get());
+                            else LOGGER.error("Death ledger: skipping broken player entry {}: {}", e.getFirst(),
+                                    key.error().isPresent() ? key.error().get().message() : value.error().map(DataResult.Error::message).orElse("?"));
+                        });
+                        return Pair.of(out, input);
+                    });
+                }
+            });
+
+    public static final Codec<DeathLedger> CODEC = PLAYERS.xmap(DeathLedger::new, l -> l.players).fieldOf("players").codec();
 
     public static final SavedDataType<DeathLedger> TYPE = new SavedDataType<>(
             Identifier.fromNamespaceAndPath(SimpleTools.MOD_ID, "death_ledger"), DeathLedger::new, CODEC, DataFixTypes.SAVED_DATA_COMMAND_STORAGE);

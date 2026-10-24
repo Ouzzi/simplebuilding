@@ -21,8 +21,8 @@ public final class FabricPistonBreakGuard implements PistonBreakGuard {
     public static void install() {
         PlatformServices.setPistonBreakGuard(new FabricPistonBreakGuard());
         PistonEventProbe.declare(false, true);
-        // An ordinary listener like a claim mod's; it refuses only what a game test registered.
-        PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> !PistonEventProbe.breakRefused(pos));
+        // An ordinary listener like a claim mod's, registered only when a game test first refuses a position.
+        PistonEventProbe.activateBreakOnFirstUse(() -> PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> !PistonEventProbe.breakRefused(pos)));
     }
 
     @Override

@@ -23,7 +23,14 @@ public final class PistonEventProbe {
     private static volatile boolean firesPistonEvent;
     private static volatile boolean firesBreakEvent;
 
+    private static volatile Runnable breakActivator;
+
     private PistonEventProbe() {
+    }
+
+    /** A loader hands in its break listener registration; it runs once, with the first {@link #refuseBreakAt}. */
+    public static void activateBreakOnFirstUse(Runnable register) {
+        breakActivator = register;
     }
 
     /** Called by the loader's guard installer. */
@@ -44,6 +51,11 @@ public final class PistonEventProbe {
 
     /** The loader's block break listener refuses {@code pos} until the returned runnable runs. */
     public static Runnable refuseBreakAt(BlockPos pos) {
+        Runnable register = breakActivator;
+        if (register != null) {
+            breakActivator = null;
+            register.run();
+        }
         BlockPos key = pos.immutable();
         REFUSED_BREAKS.add(key);
         return () -> REFUSED_BREAKS.remove(key);
