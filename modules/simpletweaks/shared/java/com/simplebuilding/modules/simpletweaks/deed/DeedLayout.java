@@ -84,7 +84,10 @@ public final class DeedLayout {
         return new Rect(buttons.right() - (count - index) * w - (count - 1 - index) * GAP, buttons.y(), w, BUTTON_H);
     }
     public int leftWidth() { return Math.min(56, (buttons.w() - rightGroupWidth(2) - 3 * GAP - HELP_W - 12) / 2); }
-    private int rightWidth(int count) { return Math.min(count == 1 ? 80 : 60, (buttons.w() - 12) / (count + 3)); }
+    /** The small sheet has no left group, so its buttons may use the row (VIS24: "Beanspruchen" was cut to 50 px). */
+    private int rightWidth(int count) {
+        return edit ? Math.min(count == 1 ? 80 : 60, (buttons.w() - 12) / (count + 3)) : Math.min(80, (buttons.w() - GAP) / count);
+    }
     private int rightGroupWidth(int count) { return count * Math.min(60, (buttons.w() - 12) / (count + 3)) + (count - 1) * GAP; }
 
     /** The label of the chip row ("Online:") and where the first chip starts. */
