@@ -27,6 +27,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simpleend:grove", maxTicks = 300) public void endLeavesCatchFall(GameTestHelper helper) { EndTests.ALL.get("end_leaves_catch_fall").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesDensityState(GameTestHelper helper) { EndTests.ALL.get("end_leaves_density_state").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesDensityBrake(GameTestHelper helper) { EndTests.ALL.get("end_leaves_density_brake").accept(helper); }
+    @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesWaxFreezesDensity(GameTestHelper helper) { EndTests.ALL.get("end_leaves_wax_freezes_density").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 100) public void endLeavesHoeTool(GameTestHelper helper) { EndTests.ALL.get("end_leaves_hoe_tool").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void driftFruitGlide(GameTestHelper helper) { EndTests.ALL.get("drift_fruit_glide").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void voidSafeItems(GameTestHelper helper) { EndTests.ALL.get("void_safe_items").accept(helper); }

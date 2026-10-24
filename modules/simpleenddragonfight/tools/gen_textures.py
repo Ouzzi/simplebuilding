@@ -165,7 +165,7 @@ def outputs():
         TEX / 'entity/dragonmite/dragonmite.png': ent,
         TEX / 'entity/dragonmite/dragonmite_eyes.png': eyes(ent),
         TEX / 'item/dragon_chitin.png': snap_grid(grid(CHITIN, CHITIN_PAL), CHITIN, CHITIN_PAL, GRID_LAYERS, 'Panzer'),
-        TEX / 'item/dragonmite_spawn_egg.png': snap_grid(grid(EGG, EGG_PAL), EGG, EGG_PAL, GRID_LAYERS, 'Schale'),
+        # item/dragonmite_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
     }
 
 

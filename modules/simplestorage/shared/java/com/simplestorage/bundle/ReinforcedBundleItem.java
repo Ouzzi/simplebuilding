@@ -313,6 +313,12 @@ public class ReinforcedBundleItem extends BundleItem {
         }
     }
 
+    /** Filled share 0..1 as the bar shows it (tier and enchantments); W24-2: the placed quiver's arrows follow it. */
+    public float visualFill(ItemStack stack) {
+        BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
+        return data == null || data.isEmpty() ? 0.0f : fillLevel(data, getMaxCapacityForVisuals(stack));
+    }
+
     @Override
     public boolean isBarVisible(ItemStack stack) {
         BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);

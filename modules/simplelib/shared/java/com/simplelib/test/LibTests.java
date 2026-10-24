@@ -53,6 +53,7 @@ public final class LibTests {
         ALL.put("simple_rarity_names", LibTests::simpleRarityNames);
         ALL.put("legendary_advancements", LegendaryTests::advancements);
         ALL.put("legendary_enchantments", LegendaryTests::enchantments);
+        ALL.put("legendary_toast_switch", LegendaryTests::toastSwitch);
     }
 
     // ------------------------------------------------------------ helpers

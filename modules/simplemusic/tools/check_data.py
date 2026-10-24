@@ -46,16 +46,14 @@ for k in pockets:  # owner 21.10.: a diamond instead of the blank disc, the colo
     assert (RES / f'assets/{NS}/textures/block/{k}_case.png').is_file(), k
     state = json.loads((RES / f'assets/{NS}/blockstates/{k}.json').read_text(encoding='utf-8'))
     fallback = json.loads((RES / f'assets/{NS}/items/{k}.json').read_text(encoding='utf-8'))['model']['fallback']
-    if k == 'pocket_jukebox':
-        # a-pjuke23 (exemplary on the undyed one): turning record while playing, copper contacts to lines
-        assert any(p['apply']['model'] == f'{NS}:block/pocket_jukebox_playing' for p in state['multipart']), k
-        assert any(p['apply']['model'] == f'{NS}:block/pocket_jukebox_link' for p in state['multipart']), k
-        assert fallback['on_false']['model'] == f'{NS}:block/{k}' and fallback['on_true']['model'] == f'{NS}:block/pocket_jukebox_playing', k
-        for tex in ('block/pocket_jukebox_spin', 'item/pocket_jukebox_playing'):
-            assert (RES / f'assets/{NS}/textures/{tex}.png.mcmeta').is_file(), tex
-    else:
-        assert state['variants'], k
-        assert fallback['model'] == f'{NS}:block/{k}', k
+    # a-pjuke23 + W24-2 (all 17): turning record while playing, contacts to lines in the line's colour (one per side)
+    assert any(p['apply']['model'] == f'{NS}:block/{k}_playing' for p in state['multipart']), k
+    for side in ('north', 'east', 'south', 'west'):
+        assert any(p['apply']['model'] == f'{NS}:block/pocket_jukebox_link_{side}' and p['when'] == {side: 'true'}
+                   for p in state['multipart']), (k, side)
+    assert fallback['on_false']['model'] == f'{NS}:block/{k}' and fallback['on_true']['model'] == f'{NS}:block/{k}_playing', k
+    for tex in ('block/pocket_jukebox_spin', f'item/{k}_playing'):
+        assert (RES / f'assets/{NS}/textures/{tex}.png.mcmeta').is_file(), tex
     loot = json.loads((RES / f'data/{NS}/loot_table/blocks/{k}.json').read_text(encoding='utf-8'))
     entry = loot['pools'][0]['entries'][0]
     assert entry['name'] == f'{NS}:{k}' and entry['modifier'] == {'type': 'minecraft:copy_components', 'source': 'block_entity'}, k
@@ -78,4 +76,25 @@ for locale in ('en', 'de'):
 for f in manual['features']:
     for src in f['sources']:
         assert (MODULE.parents[1] / src).is_file(), src
+# W24-3: the six music discs - song data, streamed mono Ogg (at most 1 MiB), sound event with subtitle, item model,
+# texture, both languages, a wiki entry
+discs = re.findall(r'new Disc\("([a-z_]+)", ([0-9.]+)F, (\d+), table\("([a-z_/]+)"\), (\d+)\)',
+                   (JAVA / 'disc/MusicDiscs.java').read_text(encoding='utf-8'))
+assert len(discs) == 6, discs
+sounds_json = json.loads((RES / f'assets/{NS}/sounds.json').read_text(encoding='utf-8'))
+for disc, seconds, comparator, table, weight in discs:
+    song = json.loads((RES / f'data/{NS}/jukebox_song/{disc}.json').read_text(encoding='utf-8'))
+    assert song['length_in_seconds'] == float(seconds) and song['comparator_output'] == int(comparator), disc
+    assert song['sound_event'] == {'sound_id': f'{NS}:music_disc.{disc}'} and song['description'] == {'translate': f'jukebox_song.{NS}.{disc}'}, disc
+    event = sounds_json[f'music_disc.{disc}']
+    assert event['sounds'] == [{'name': f'{NS}:records/{disc}', 'stream': True}], disc
+    ogg = (RES / f'assets/{NS}/sounds/records/{disc}.ogg').read_bytes()
+    assert ogg[:4] == b'OggS' and ogg[0x27] == 1 and len(ogg) <= 1024 * 1024, (disc, 'mono Ogg, at most 1 MiB')
+    assert (RES / f'assets/{NS}/textures/item/music_disc_{disc}.png').is_file(), disc
+    assert json.loads((RES / f'assets/{NS}/items/music_disc_{disc}.json').read_text(encoding='utf-8'))['model']['model'] == f'{NS}:item/music_disc_{disc}'
+    for locale in ('en_us', 'de_de'):
+        for k in (f'item.{NS}.music_disc_{disc}', f'jukebox_song.{NS}.{disc}', event['subtitle']):
+            assert langs[locale].get(k), (locale, k)
+        assert langs[locale][f'jukebox_song.{NS}.{disc}'].startswith('Simple Music - '), (locale, disc)
+assert any(f['id'] == 'music_discs' for f in manual['features']), 'wiki entry music_discs'
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure and wiki valid')

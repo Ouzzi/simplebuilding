@@ -14,6 +14,7 @@ Built in (--write):
 * Animations A1 style A (breathing glow): dimensional scraps (overworld/nether/end, side + top), deepslate sage ore,
   crimson/warped blazewood planks + bookshelves - accepted texture as resting frame, only glowing pixels move.
 * Piggy effect P2 (frontal head, Vanilla-like, pupils outside, funny).
+* Butter inner X (W24-1, creamy: soft gradient, a few light flecks), Simple Sandwiches butter_block_inner.
 * Loose Ashwood leaves L1 (about 30 % opaque): gen_textures.leaves_loose (written through gen_textures.write).
 
 Candidates only (page): note block frame variants B/C, sales storage/table B1, backpack D/E/F (turned clockwise like
@@ -475,7 +476,11 @@ BACKPACKS = {
 }
 
 
-def backpack(v):
+def backpack(v, leather=None, buckle=None):
+    """Backpack icon v in the given leather ramp (8 tones dark -> light) and buckle ramp (4); default the basic tier.
+    W24 (a-tex24b): E is built in for every tier through w24b_2026_10_23.py, which reads t.body/t.handle/t.straps."""
+    LEATHER_SOFT = leather or globals()['LEATHER_SOFT']
+    BUCKLE = buckle or globals()['BUCKLE']
     spec = BACKPACKS[v]
     fw, sw = spec['fw'], spec['sw']
     top, bot = 4, 14
@@ -499,6 +504,7 @@ def backpack(v):
                 side[(x, y)] = ((x - sa) / max(1, sb - sa), (y - top) / (bot - top))
     body = set(front) | set(side)
     t = Tex()
+    t.body = body                                                 # leather pixels (the dye layer of w24b)
     base = t.layer('Basis: Leder (Front + Seitenteil)')
     out = mix(LEATHER_SOFT[0], LEATHER_SOFT[1], 0.3)
     for (x, y), (u, w) in front.items():
@@ -742,6 +748,7 @@ def a1_strip(name):
 
 SHOP_TABLE_CHOICE = 'B2'
 PIGGY_CHOICE = 'P2'
+BUTTER_CHOICE = 'X'   # W24-1 (owner 23.10. late: all open choices accepted, recommendation X)
 
 
 def built():
@@ -752,6 +759,7 @@ def built():
     for n, t in storage_table_soft(SHOP_TABLE_CHOICE).items():
         out[STORAGE / 'block' / f'{n}.png'] = (t, None)
     out[FUN / 'piggy_effect.png'] = (piggy(PIGGY_CHOICE), None)
+    out[SAN / 'butter_block_inner.png'] = (butter_inner(BUTTER_CHOICE), None)   # sandwiches.py leaves this one out
     for n in A1:
         out[OVERLAY / 'block' / f'{n}.png'] = (a1_strip(n)[0], ANIM_MCMETA)
     return out

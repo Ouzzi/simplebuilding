@@ -17,6 +17,7 @@ public final class LibConfigScreen {
     public static Screen create(Screen parent) {
         boolean[] effects = {LibConfig.legendaryEffects};
         boolean[] allChallenges = {LibConfig.legendaryAllChallenges};
+        boolean[] muteToast = {LibConfig.legendaryMuteToast};
         List<List<String>> lists = new ArrayList<>(List.of(strings(LibConfig.legendaryAdvancements), strings(LibConfig.legendaryEnchantments)));
         var b = me.shedaniel.clothconfig2.api.ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("simplelib.title"));
         var e = b.entryBuilder();
@@ -25,6 +26,8 @@ public final class LibConfigScreen {
                 .setTooltip(tip("legendaryEffects")).setSaveConsumer(v -> effects[0] = v).build());
         legendary.addEntry(e.startBooleanToggle(name("legendaryAllChallenges"), allChallenges[0]).setDefaultValue(false)
                 .setTooltip(tip("legendaryAllChallenges")).setSaveConsumer(v -> allChallenges[0] = v).build());
+        legendary.addEntry(e.startBooleanToggle(name("legendaryMuteToast"), muteToast[0]).setDefaultValue(true)
+                .setTooltip(tip("legendaryMuteToast")).setSaveConsumer(v -> muteToast[0] = v).build());
         legendary.addEntry(e.startStrList(name("legendaryAdvancements"), lists.get(0)).setDefaultValue(List.of())
                 .setTooltip(tip("legendaryAdvancements")).setSaveConsumer(v -> lists.set(0, v)).build());
         legendary.addEntry(e.startStrList(name("legendaryEnchantments"), lists.get(1)).setDefaultValue(List.of())
@@ -32,6 +35,7 @@ public final class LibConfigScreen {
         b.setSavingRunnable(() -> {
             LibConfig.legendaryEffects = effects[0];
             LibConfig.legendaryAllChallenges = allChallenges[0];
+            LibConfig.legendaryMuteToast = muteToast[0];
             LibConfig.legendaryAdvancements = LibConfig.ids(lists.get(0));
             LibConfig.legendaryEnchantments = LibConfig.ids(lists.get(1));
             LibConfig.save();

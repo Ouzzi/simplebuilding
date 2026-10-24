@@ -171,7 +171,7 @@ def outputs():
         RES / 'textures/entity/deceiver/deceiver.png': skin(),
         RES / 'textures/entity/deceiver/deceiver_eyes.png': eyes(),
         RES / 'textures/item/deceiver_cloth.png': cloth(),
-        RES / 'textures/item/deceiver_spawn_egg.png': egg(),
+        # textures/item/deceiver_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
     }
 
 

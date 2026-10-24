@@ -6,6 +6,7 @@ import com.simplemusic.config.MusicConfig;
 import com.simplemusic.disc.CustomDiscItem;
 import com.simplemusic.disc.DiscPlayback;
 import com.simplemusic.disc.JukeboxDiscs;
+import com.simplemusic.disc.MusicDiscs;
 import com.simplemusic.disc.TrackRef;
 import com.simplemusic.net.SheetEditPayload;
 import com.simplemusic.net.TrackDataPayload;
@@ -994,6 +995,71 @@ public final class MusicTests {
         ALL.put("discover_recipe_unlocks", com.simplemusic.discover.MusicDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemusic.discover.MusicDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplemusic.discover.MusicDiscover::firstPickupTips);
+        // W24-3: the six music discs - item, song (length, comparator), streamed sound in sounds.json and its Ogg file
+        ALL.put("music_discs", h -> {
+            var songs = h.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.JUKEBOX_SONG);
+            com.google.gson.JsonObject sounds;
+            try (var in = SimpleMusic.class.getResourceAsStream("/assets/simplemusic/sounds.json")) {
+                h.assertTrue(in != null, "assets/simplemusic/sounds.json on the class path");
+                sounds = com.google.gson.JsonParser.parseString(new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            } catch (java.io.IOException e) {
+                throw h.assertionException("sounds.json unreadable: " + e);
+            }
+            h.assertTrue(MusicDiscs.DISCS.size() == 6 && MusicDiscs.ITEMS.size() == 6, "six discs registered");
+            for (int i = 0; i < MusicDiscs.DISCS.size(); i++) {
+                MusicDiscs.Disc disc = MusicDiscs.DISCS.get(i);
+                ItemStack stack = new ItemStack(MusicDiscs.ITEMS.get(i));
+                h.assertTrue(BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(SimpleMusic.id("music_disc_" + disc.id())), "id of " + disc.id());
+                h.assertTrue(stack.getMaxStackSize() == 1 && stack.get(net.minecraft.core.component.DataComponents.RARITY) == net.minecraft.world.item.Rarity.RARE,
+                        disc.id() + ": stacks to 1, rare");
+                var holder = net.minecraft.world.item.JukeboxSong.fromStack(stack);
+                h.assertTrue(holder.isPresent() && holder.get().is(disc.song()) && songs.get(disc.song()).isPresent(), disc.id() + ": plays its loaded song");
+                var song = holder.get().value();
+                h.assertTrue(song.lengthInSeconds() == disc.seconds() && song.comparatorOutput() == disc.comparator(),
+                        disc.id() + ": length " + song.lengthInSeconds() + " comparator " + song.comparatorOutput());
+                h.assertTrue(song.soundEvent().value().location().equals(disc.sound()), disc.id() + ": sound " + song.soundEvent().value().location());
+                var event = sounds.getAsJsonObject("music_disc." + disc.id());
+                h.assertTrue(event != null && event.has("subtitle"), disc.id() + ": sound event with subtitle in sounds.json");
+                var take = event.getAsJsonArray("sounds").get(0).getAsJsonObject();
+                h.assertTrue(take.get("stream").getAsBoolean() && take.get("name").getAsString().equals("simplemusic:records/" + disc.id()), disc.id() + ": streamed record");
+                try (var ogg = SimpleMusic.class.getResourceAsStream("/assets/simplemusic/sounds/records/" + disc.id() + ".ogg")) {
+                    h.assertTrue(ogg != null && ogg.readNBytes(4).length == 4, disc.id() + ": Ogg file present");
+                } catch (java.io.IOException e) {
+                    throw h.assertionException(disc.id() + ": " + e);
+                }
+            }
+            h.succeed();
+        });
+        // W24-3: every disc lies in its structure (the loader's loot hook on the real tables), other tables stay untouched
+        ALL.put("music_disc_loot", h -> {
+            var server = h.getLevel().getServer();
+            var origin = net.minecraft.world.phys.Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1)));
+            ServerPlayer brusher = h.makeMockServerPlayerInLevel();
+            for (int i = 0; i < MusicDiscs.DISCS.size(); i++) {
+                MusicDiscs.Disc disc = MusicDiscs.DISCS.get(i);
+                var table = server.reloadableRegistries().getLootTable(disc.table());
+                var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(h.getLevel())
+                        .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN, origin);
+                if (disc.archaeology()) {
+                    // brushing: the player and the brush (26.3 requires both for archaeology tables)
+                    params.withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY, brusher)
+                            .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.TOOL, new ItemStack(Items.BRUSH));
+                }
+                var built = params.create(disc.archaeology() ? net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ARCHAEOLOGY
+                        : net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
+                boolean found = false;
+                for (int roll = 0; roll < 800 && !found; roll++) {
+                    var items = table.getRandomItems(built);
+                    if (disc.archaeology()) h.assertTrue(items.size() <= 1, "brushing still yields one item");
+                    for (ItemStack stack : items) found |= stack.is(MusicDiscs.ITEMS.get(i));
+                }
+                h.assertTrue(found, disc.id() + " never found in " + disc.table().identifier());
+            }
+            int[] calls = {0};
+            MusicDiscs.loot(net.minecraft.world.level.storage.loot.BuiltInLootTables.SIMPLE_DUNGEON, pool -> calls[0]++, change -> calls[0]++);
+            h.assertTrue(calls[0] == 0, "other tables untouched");
+            h.succeed();
+        });
     }
 
     /** The last play/stop message of Pocket Jukebox session {@code id} (tests run in parallel, others send too). */

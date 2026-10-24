@@ -104,6 +104,19 @@ public final class PlacedBundles {
     }
 
     /**
+     * W24-2 (Besitzer 23.10.: "5 Pfeile drin und den Fuellstand zeigen, dann je nach dem immer weniger"): wie viele Pfeile
+     * ein abgestellter Koecher zeigt - voll 5, sonst aufgerundet nach dem Fuellstand des Balkens, leer 0, schon ein Pfeil 1.
+     * Fuer alles andere 0.
+     */
+    public static int arrowsShown(ItemStack stack) {
+        if (!(stack.getItem() instanceof QuiverItem quiver)) {
+            return 0;
+        }
+        float fill = quiver.visualFill(stack);
+        return fill <= 0.0f ? 0 : Math.min(PlacedBundleBlock.MAX_ARROWS, (int) Math.ceil(fill * PlacedBundleBlock.MAX_ARROWS - 1.0e-4f));
+    }
+
+    /**
      * Die Farbe (0xRRGGBB) der Leder-Ebene: die Komponente {@code dyed_color}, sonst die Farbe eines
      * farbigen Vanilla-Buendels, sonst {@link DyedStorage#UNDYED}.
      */

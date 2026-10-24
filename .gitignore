@@ -164,6 +164,25 @@ mc26_3/overlay/resources/assets/simplebuilding/textures/block/dull_nihilith_ore.
 wiki/assets/textures/block/dull_nihilith_ore.png
 wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/dull_nihilith_ore.png
 wiki/assets/textures/render/dull_nihilith_ore.png
+# W24-4 (23.10.): the brushing stages and the freed (animated) End ores (sbtex23_2026_10_23.derived()).
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_ore_brushed_1.png
+wiki/assets/textures/block/astralit_ore_brushed_1.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/astralit_ore_brushed_1.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_ore_brushed_2.png
+wiki/assets/textures/block/astralit_ore_brushed_2.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/astralit_ore_brushed_2.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/astralit_ore_exposed.png
+wiki/assets/textures/block/astralit_ore_exposed.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/astralit_ore_exposed.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_ore_brushed_1.png
+wiki/assets/textures/block/nihilith_ore_brushed_1.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/nihilith_ore_brushed_1.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_ore_brushed_2.png
+wiki/assets/textures/block/nihilith_ore_brushed_2.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/nihilith_ore_brushed_2.png
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/nihilith_ore_exposed.png
+wiki/assets/textures/block/nihilith_ore_exposed.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/nihilith_ore_exposed.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/astral_rail.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/astral_rail_on.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/block/copper_fire_0.png

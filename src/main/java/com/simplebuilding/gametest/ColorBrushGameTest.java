@@ -54,4 +54,14 @@ public final class ColorBrushGameTest {
     public void keepsContentsAndBedHalvesButLeavesWood(GameTestHelper helper) {
         ColorBrushTests.keepsContentsAndBedHalvesButLeavesWood(helper);
     }
+
+    @GameTest
+    public void paintBoxPlacedAndPickedUpWithContents(GameTestHelper helper) {
+        ColorBrushTests.paintBoxPlacedAndPickedUpWithContents(helper);
+    }
+
+    @GameTest
+    public void paintBoxPlacedDropsWithContents(GameTestHelper helper) {
+        ColorBrushTests.paintBoxPlacedDropsWithContents(helper);
+    }
 }

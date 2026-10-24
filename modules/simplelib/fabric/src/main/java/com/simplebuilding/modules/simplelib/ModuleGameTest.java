@@ -164,4 +164,9 @@ public final class ModuleGameTest {
     public void legendaryEnchantments(GameTestHelper h) {
         LibTests.ALL.get("legendary_enchantments").accept(h);
     }
+
+    @GameTest
+    public void legendaryToastSwitch(GameTestHelper h) {
+        LibTests.ALL.get("legendary_toast_switch").accept(h);
+    }
 }

@@ -48,6 +48,21 @@ public class PlacedBundleBlockEntity extends BlockEntity implements Nameable {
         this.dyeColor = PlacedBundles.dyeColor(this.bundle);
         this.shown = clamp(this.shown);
         changed();
+        syncArrows();
+    }
+
+    /** W24-2: der Blockzustand zeigt so viele Pfeile, wie der Koecher gefuellt ist ({@link PlacedBundles#arrowsShown}). */
+    private void syncArrows() {
+        if (this.level == null || this.level.isClientSide()) {
+            return;
+        }
+        BlockState state = this.level.getBlockState(this.worldPosition);
+        if (state.hasProperty(PlacedBundleBlock.ARROWS)) {
+            int arrows = PlacedBundles.arrowsShown(this.bundle);
+            if (state.getValue(PlacedBundleBlock.ARROWS) != arrows) {
+                this.level.setBlock(this.worldPosition, state.setValue(PlacedBundleBlock.ARROWS, arrows), Block.UPDATE_ALL);
+            }
+        }
     }
 
     /** Der Inhalt als Kopien, oberstes Item zuerst. */

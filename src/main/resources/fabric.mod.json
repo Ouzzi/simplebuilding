@@ -147,6 +147,7 @@
       "com.simplebuilding.gametest.EndSystemsGameTest",
       "com.simplebuilding.gametest.RedstoneLinesGameTest",
       "com.simplebuilding.gametest.Mech23GameTest",
+      "com.simplebuilding.gametest.Mech24GameTest",
       "com.simplebuilding.gametest.EndStructureGameTest"
     ]
   },

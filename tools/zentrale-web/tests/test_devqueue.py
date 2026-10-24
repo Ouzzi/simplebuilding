@@ -161,5 +161,51 @@ class DevQueueTest(unittest.TestCase):
         self.assertEqual(self.call('DELETE', '/api/queue/' + queue[0]['id'])[0], 204)
 
 
+    def req(self, method, path, body=None, user='u@test'):
+        conn = self.conn()
+        headers = {'Content-Type': 'application/json'}
+        if user:
+            headers['Cf-Access-Authenticated-User-Email'] = user
+        conn.request(method, path, body=None if body is None else (body if isinstance(body, str) else json.dumps(body)), headers=headers)
+        resp = conn.getresponse()
+        data = resp.read()
+        conn.close()
+        return resp.status, (json.loads(data) if data else None)
+
+    def test_texture_save_flow(self):
+        """TX22-5: listed own texture only, checked layers, pickup states; never mixed into Claude runs."""
+        sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'textures'))
+        import editor_save
+        import layers as ly
+        wl = editor_save.load_whitelist(self.server.repo)
+        entry = next(t for t in wl.values() if t['w'] == 16 and t['h'] == 16 and not t['source'].startswith('build/'))
+        doc = ly.from_rgba(16, 16, bytes([200, 10, 10, 255]) * 256)
+        body = {'id': entry['id'], 'source': entry['source'], 'layers': ly.dumps(doc), 'comment': 'rot'}
+        self.assertEqual(self.req('POST', '/api/textures', body, user=None)[0], 403)
+        status, save = self.req('POST', '/api/textures', body)
+        self.assertEqual(status, 201, save)
+        self.assertEqual((save['state'], save['by'], save['source']), ('new', 'u@test', entry['source']))
+        self.assertNotIn('layers', save)
+        sid = save['sid']
+        derived = next((t for t in wl.values() if t['source'].startswith('build/')), None)
+        bad = [dict(body, id='simplebuilding:block/nope'), dict(body, source='build.gradle'),
+               dict(body, source='src/main/resources/assets/x/textures/../../../../../build.gradle'),
+               dict(body, layers='{"format": "x"}')]
+        if derived:
+            bad.append(dict(body, id=derived['id'], source=derived['source']))
+        for b in bad:
+            self.assertEqual(self.req('POST', '/api/textures', b)[0], 400, b.get('id'))
+        self.assertEqual(self.req('POST', '/api/textures', 'x' * (editor_save.MAX_BODY + 10))[0], 413)
+        status, full = self.req('GET', f'/api/textures/{sid}')
+        self.assertEqual((status, ly.png_read(ly.png_write(16, 16, ly.compose(json.loads(full['layers']))))[0]), (200, 16))
+        status, listed = self.req('GET', '/api/textures')
+        self.assertEqual([s['sid'] for s in listed], [sid])
+        self.assertNotIn('layers', listed[0])
+        self.assertEqual(self.req('GET', '/api/textures/../queue')[0], 404)
+        self.assertEqual(self.req('PATCH', f'/api/textures/{sid}', {'state': 'bogus'})[0], 400)
+        status, done = self.req('PATCH', f'/api/textures/{sid}', {'state': 'ready', 'note': 'tex-x', 'branch': 'tex-x-' + sid})
+        self.assertEqual((status, done['state'], done['branch']), (200, 'ready', 'tex-x-' + sid))
+        self.assertEqual(self.req('GET', '/api/runs')[1], [], 'saves are no Claude runs')
+
 if __name__ == '__main__':
     unittest.main()

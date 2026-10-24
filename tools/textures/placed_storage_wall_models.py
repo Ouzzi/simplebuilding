@@ -10,7 +10,11 @@ Writes into modules/simplestorage/shared/resources/assets/simplestorage:
     dropped (the faces no longer lie on the block border), and a ``_wall`` child of every tier model;
   - blockstates/placed_bundle.json and the four backpack blockstates with the ``wall`` property.
 
-Run from the repo root: python3.12 tools/textures/placed_storage_wall_models.py [--arrows 3|5] [--preview DIR]
+W24-2 (a-tex24b): the placed quiver shows its fill level (owner: "5 Pfeile drin und den Fuellstand zeigen, dann je nach
+dem immer weniger"): template_placed_quiver_<n> for n = 0..5 arrows (the first n of the five arrow spots), a model per tier
+and count (``placed_<tier>_<n>``, PlacedBundleBlock.ARROWS) and the ``arrows`` property in the blockstate.
+
+Run from the repo root: python3.12 tools/textures/placed_storage_wall_models.py
 """
 from __future__ import annotations
 
@@ -152,9 +156,10 @@ def uvq(name, dx=0, dy=0, w=None, h=None):
     return [(x0 + dx) / 2, (y0 + dy) / 2, (x0 + dx + w) / 2, (y0 + dy + h) / 2]
 
 
-# Arrow positions (x, z) in the tube opening and their height; 3 (A) or 5 (B) arrows.
-ARROWS = {3: [(6.5, 7.0, 15), (8.5, 6.5, 16), (8.0, 8.8, 14.5)],
-          5: [(6.3, 6.6, 15), (8.7, 6.4, 16), (7.6, 8.9, 14.5), (9.4, 8.2, 15.5), (6.6, 8.6, 16)]}
+# Arrow spots (x, z) in the tube opening and their height (variant B, five arrows), in the order they appear while the
+# quiver fills: one arrow stands in the middle, the full quiver shows all five.
+ARROW_SPOTS = [(8.0, 7.6, 16), (6.3, 6.6, 15), (9.4, 8.2, 15.5), (8.7, 6.4, 14.5), (6.6, 8.9, 15.5)]
+MAX_ARROWS = len(ARROW_SPOTS)
 
 
 def quiver_model(arrows: int):
@@ -172,7 +177,7 @@ def quiver_model(arrows: int):
         faces['up'] = {"uv": uvq('top', x0 - 5, z0 - 5, w, d), "texture": tex}
         faces['down'] = {"uv": uvq('bottom', x0 - 5, 11 - z1, w, d), "texture": tex, "cullface": "down"}
         E.append({"from": [x0, 0, z0], "to": [x1, 11, z1], "faces": faces})
-    for (x, z, top) in ARROWS[arrows]:
+    for (x, z, top) in ARROW_SPOTS[:arrows]:
         # shaft out of the opening, then the fletching as two crossed planes (like Vanilla's arrow)
         E.append({"from": [x - 0.5, 10, z - 0.5], "to": [x + 0.5, top - 2.5, z + 0.5], "faces": {
             s: {"uv": uvq('shaft'), "texture": tex} for s in ('north', 'south', 'east', 'west')}})
@@ -180,8 +185,8 @@ def quiver_model(arrows: int):
             sides = ('north', 'south') if rot_axis == 'x' else ('east', 'west')
             E.append({"from": f, "to": t, "shade": False, "faces": {s: {"uv": uvq('feather'), "texture": tex} for s in sides}})
     return {"__comment": "Abgestellter Koecher (PlacedBundleBlock, Stufe *_quiver, B23-M11): Lederrohr 6x11x6 mit gestuften Ecken, "
-                        "Rand, Riemen mit Schnalle, Pfeile mit gekreuzten Federn. Textur 32x32, ein Texel je Modellpixel; erzeugt "
-                        "von tools/textures/placed_storage_wall_models.py. Trefferform PlacedBundleBlock#QUIVER_NORTH.",
+                        f"Rand, Riemen mit Schnalle, {arrows} Pfeile mit gekreuzten Federn (Fuellstand, W24-2). Textur 32x32, ein Texel "
+                        "je Modellpixel; erzeugt von tools/textures/placed_storage_wall_models.py. Trefferform PlacedBundleBlock#QUIVER_NORTH.",
             "parent": "block/block", "ambientocclusion": False,
             "textures": {"particle": "#quiver"}, "elements": E}
 
@@ -214,22 +219,23 @@ def child_wall(child: str, template: str) -> None:
 
 def blockstate_placed_bundle() -> dict:
     variants = {}
-    for dyed in (False, True):
-        for facing, y in sorted(FACINGS.items()):
-            for tier in BUNDLE_TIERS + QUIVER_TIERS:
-                for wall in (False, True):
-                    if tier in QUIVER_TIERS:
-                        model = f'placed_{tier}'                              # quivers stand undyed for now
-                    else:
-                        model = 'placed_bundle' if tier == 'bundle' else f'placed_{tier}_bundle'
-                        if dyed:
-                            model += '_dyed'
-                    if wall:
-                        model += '_wall'
-                    v = {"model": f"{NS}:block/{model}"}
-                    if y:
-                        v["y"] = y
-                    variants[f"dyed={str(dyed).lower()},facing={facing},tier={tier},wall={str(wall).lower()}"] = v
+    for arrows in range(MAX_ARROWS + 1):
+        for dyed in (False, True):
+            for facing, y in sorted(FACINGS.items()):
+                for tier in BUNDLE_TIERS + QUIVER_TIERS:
+                    for wall in (False, True):
+                        if tier in QUIVER_TIERS:
+                            model = f'placed_{tier}_{arrows}'                     # quivers stand undyed for now
+                        else:
+                            model = 'placed_bundle' if tier == 'bundle' else f'placed_{tier}_bundle'
+                            if dyed:
+                                model += '_dyed'
+                        if wall:
+                            model += '_wall'
+                        v = {"model": f"{NS}:block/{model}"}
+                        if y:
+                            v["y"] = y
+                        variants[f"arrows={arrows},dyed={str(dyed).lower()},facing={facing},tier={tier},wall={str(wall).lower()}"] = v
     return {"variants": variants}
 
 
@@ -248,21 +254,23 @@ def blockstate_backpack(name: str) -> dict:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('--arrows', type=int, default=3, choices=sorted(ARROWS))
     ap.add_argument('--out', type=Path, default=ASSETS, help='asset root to write (default: the module)')
     args = ap.parse_args(argv)
     out = args.out
     models, tex = out / 'models/block', out / 'textures/block'
-    # placed quiver: template, one sheet and one model per tier
-    dump(models / 'template_placed_quiver.json', quiver_model(args.arrows))
+    # placed quiver: one template per arrow count, one sheet per tier, one model per tier and count (W24-2)
+    for arrows in range(MAX_ARROWS + 1):
+        dump(models / f'template_placed_quiver_{arrows}.json', quiver_model(arrows))
     for tier in QUIVER_TIERS:
         tex.mkdir(parents=True, exist_ok=True)
-        save(quiver_sheet(tier, args.arrows), tex / f'placed_{tier}.png')
-        dump(models / f'placed_{tier}.json', {"parent": f"{NS}:block/template_placed_quiver",
-                                              "textures": {"quiver": f"{NS}:block/placed_{tier}", "particle": f"{NS}:block/placed_{tier}"}})
+        save(quiver_sheet(tier, MAX_ARROWS), tex / f'placed_{tier}.png')
+        for arrows in range(MAX_ARROWS + 1):
+            dump(models / f'placed_{tier}_{arrows}.json', {"parent": f"{NS}:block/template_placed_quiver_{arrows}",
+                                                           "textures": {"quiver": f"{NS}:block/placed_{tier}", "particle": f"{NS}:block/placed_{tier}"}})
     # wall templates and children
     for template, fam in (('template_placed_bundle', 'placed'), ('template_placed_bundle_dyed', 'placed'),
-                          ('template_placed_quiver', 'placed'), ('template_backpack', 'backpack'), ('template_backpack_dyed', 'backpack')):
+                          ('template_backpack', 'backpack'), ('template_backpack_dyed', 'backpack')) + tuple(
+                             (f'template_placed_quiver_{n}', 'placed') for n in range(MAX_ARROWS + 1)):
         src = models / f'{template}.json'
         if not src.exists():
             src = MODELS / f'{template}.json'
@@ -274,7 +282,8 @@ def main(argv=None):
             child_wall(base, 'template_placed_bundle')
             child_wall(base + '_dyed', 'template_placed_bundle_dyed')
         for tier in QUIVER_TIERS:
-            child_wall(f'placed_{tier}', 'template_placed_quiver')
+            for n in range(MAX_ARROWS + 1):
+                child_wall(f'placed_{tier}_{n}', f'template_placed_quiver_{n}')
         for name in ('backpack', 'reinforced_backpack', 'netherite_backpack', 'enderite_backpack'):
             child_wall(name, 'template_backpack')
             child_wall(name + '_dyed', 'template_backpack_dyed')

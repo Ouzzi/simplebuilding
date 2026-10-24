@@ -25,15 +25,33 @@
             ]
           },
           "on_false": {
-            "type": "minecraft:model",
-            "model": "simplemusic:item/purple_pocket_jukebox"
+            "type": "minecraft:condition",
+            "property": "minecraft:has_component",
+            "component": "simplemusic:playing",
+            "on_true": {
+              "type": "minecraft:model",
+              "model": "simplemusic:item/purple_pocket_jukebox_playing"
+            },
+            "on_false": {
+              "type": "minecraft:model",
+              "model": "simplemusic:item/purple_pocket_jukebox"
+            }
           }
         }
       }
     ],
     "fallback": {
-      "type": "minecraft:model",
-      "model": "simplemusic:block/purple_pocket_jukebox"
+      "type": "minecraft:condition",
+      "property": "minecraft:has_component",
+      "component": "simplemusic:playing",
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "simplemusic:block/purple_pocket_jukebox_playing"
+      },
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "simplemusic:block/purple_pocket_jukebox"
+      }
     }
   }
 }

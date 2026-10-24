@@ -68,65 +68,31 @@ def spiral(n):
 
 # ---------------------------------------------------------------- 16x16 block textures (N44 B1/B3)
 
+# W24-1 (owner 23.10. late, all open choices accepted): bark, log tops and stripped grain of both woods come from the
+# TX22-3 variant B "Rauten" (modules/simpleend/tools/tx22_textures.py, docs/ai/PLAN-A-TEX24A-2026-10-23.md).
+# Ashwood: ash diamond net, round rings with a drying crack, grain around a knot. Duskwood: its own palette and motif -
+# a wide 45-degree lattice, rounded-square rings (its old square rings) and straight grain.
+TX22_B = {'b1': dict(net='ash', rings='b', grain='b'), 'b3': dict(net='dusk', rings='a', grain='a')}
+
+
+def _tx22(s):
+    import tx22_textures as t  # lazy: tx22_textures imports this module for the leaves
+    return t, (t.ASH if s['key'] == 'b1' else t.DUSK), TX22_B[s['key']]
+
+
 def log_side(s):
-    b, a, sd = s['bark'], s['accent'], s['seed']
-    im = new()
-    for y in range(16):
-        for x in range(16):
-            if s['key'] == 'b1':
-                t = 0.5 + 0.5 * vnoise(x * 3, y, 4, sd) - (0.35 if (x + (y // 6)) % 4 == 0 else 0)
-            else:
-                t = 0.5 + 0.4 * vnoise(x, y, 4, sd) - (0.35 if (x + y // 2) % 5 == 0 else 0)
-            put(im, x, y, b[min(5, max(0, int(t * 6)))])
-    snap(im, 'Rinde')
-    if s['key'] == 'b1':
-        for kx, ky in ((3, 4), (11, 10), (7, 14)):
-            put(im, kx, ky, a[1])
-            put(im, kx + 1, ky, a[2])
-            put(im, kx, ky - 1, a[2])
-            put(im, kx + 1, ky - 1, a[3])
-            put(im, kx + 1, ky + 1, b[0])
-    else:
-        for x, y in ((2, 3), (9, 8), (13, 13)):
-            put(im, x, y, a[1])
-            put(im, x + 1, y - 1, a[2])
-    return snap(im, 'Astknoten')
+    t, pal, v = _tx22(s)
+    return t.bark_b(seed=23 if s['key'] == 'b1' else 41, pal=pal, net=v['net'])
 
 
 def rings(s, stripped):
-    w, b, a = s['wood'], s['bark'], s['accent']
-    im = new()
-    for y in range(16):
-        for x in range(16):
-            dx, dy = abs(x - 7.5), abs(y - 7.5)
-            d = max(dx, dy) if s['key'] != 'b1' else (dx * dx + dy * dy) ** 0.5 * 0.82
-            if not stripped and (x in (0, 15) or y in (0, 15)):
-                c = b[2] if hsh(x, y, 3) < 0.6 else b[1]
-            elif s['key'] == 'b3' and d < 2.2:
-                c = a[1] if (x + y) % 2 else a[2]
-            else:
-                c = w[2] if int(d) % 2 else w[4]
-                if d < 1.5:
-                    c = a[2] if s['key'] == 'b1' else w[1]
-            put(im, x, y, c)
-    snap(im, 'Jahresringe')
-    if stripped:
-        for i in range(16):
-            for p in ((i, 0), (0, i), (i, 15), (15, i)):
-                put(im, p[0], p[1], w[1])
-    return snap(im, 'Rand')
+    t, pal, v = _tx22(s)
+    return t.rings(v['rings'], stripped, seed=11 if s['key'] == 'b1' else 29, pal=pal)
 
 
 def stripped_side(s):
-    w, sd = s['wood'], s['seed']
-    im = new()
-    for y in range(16):
-        for x in range(16):
-            t = 0.55 + 0.3 * vnoise(x * 4, y, 4, sd + 5)
-            if x % 4 == 1 and hsh(x, y // 3, sd) < 0.6:
-                t -= 0.25
-            put(im, x, y, w[min(5, max(0, int(t * 6)))])
-    return im
+    t, pal, v = _tx22(s)
+    return t.stripped(v['grain'], seed=19 if s['key'] == 'b1' else 43, pal=pal)
 
 
 def planks(s):
@@ -814,7 +780,7 @@ def main(argv=None):
     write(nibblemite('dusk'), TEX / 'entity/nibblemite/dusk.png', out)
     write(nibblemite_glow('ash'), TEX / 'entity/nibblemite/ash_glow.png', out)
     write(nibblemite_glow('dusk'), TEX / 'entity/nibblemite/dusk_glow.png', out)
-    write(nibble_egg(), TEX / 'item/nibblemite_spawn_egg.png', out)
+    # item/nibblemite_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
     import guide_book_textures as books  # the shared module-guide form, cover in Ashwood bark colours
     books.COVERS['simpleend'] = ('#2b2724', '#423c37', '#aaa096', '#8e857b', '#5a534c')
     books.MEGA_GEM['simpleend'] = '#b9a3cc'

@@ -575,6 +575,54 @@ public final class EndSystemsTests {
         helper.succeed();
     }
 
+    /**
+     * W24-6: the lid event reaches a vault like a Vanilla ender chest (control). Vanilla's opener counter sends it as
+     * {@code Blocks.ENDER_CHEST}, which the level drops at a vault; {@code EnderChestOpenerMixin} resends it.
+     */
+    public static void vaultLidOpensLikeEnderChest(GameTestHelper helper) {
+        if (!active(helper)) return;
+        var blocks = List.of(Blocks.ENDER_CHEST, ModBlocks.ASTRAL_VAULT, ModBlocks.NIHIL_VAULT);
+        var world = helper.getLevel();
+        var players = new java.util.ArrayList<ServerPlayer>();
+        boolean astral = ServerTuning.get().features.astralVault, nihil = ServerTuning.get().features.nihilVault;
+        try {
+            ServerTuning.get().features.astralVault = true;
+            ServerTuning.get().features.nihilVault = true;
+            for (int i = 0; i < blocks.size(); i++) {
+                var pos = new BlockPos(1 + 2 * i, 1, 1);
+                helper.setBlock(pos, blocks.get(i));
+                var absolute = helper.absolutePos(pos);
+                var player = helper.makeMockServerPlayerInLevel();
+                player.setPos(Vec3.atCenterOf(absolute));
+                world.getBlockState(absolute).useWithoutItem(world, player,
+                        new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false));
+                helper.assertTrue(player.containerMenu instanceof ChestMenu, blocks.get(i) + " did not open");
+                players.add(player);
+            }
+        } finally {
+            ServerTuning.get().features.astralVault = astral;
+            ServerTuning.get().features.nihilVault = nihil;
+        }
+        helper.runAfterDelay(2, () -> {
+            for (int i = 0; i < blocks.size(); i++) {
+                var absolute = helper.absolutePos(new BlockPos(1 + 2 * i, 1, 1));
+                var chest = (EnderChestBlockEntity) world.getBlockEntity(absolute);
+                for (int t = 0; t < 12; t++) EnderChestBlockEntity.lidAnimateTick(world, absolute, world.getBlockState(absolute), chest);
+                helper.assertTrue(chest.getOpenNess(1.0F) > 0.9F, blocks.get(i) + " lid did not open");
+                players.get(i).closeContainer();
+            }
+            helper.runAfterDelay(2, () -> {
+                for (int i = 0; i < blocks.size(); i++) {
+                    var absolute = helper.absolutePos(new BlockPos(1 + 2 * i, 1, 1));
+                    var chest = (EnderChestBlockEntity) world.getBlockEntity(absolute);
+                    for (int t = 0; t < 12; t++) EnderChestBlockEntity.lidAnimateTick(world, absolute, world.getBlockState(absolute), chest);
+                    helper.assertTrue(chest.getOpenNess(1.0F) < 0.1F, blocks.get(i) + " lid did not close");
+                }
+                helper.succeed();
+            });
+        });
+    }
+
     // ------------------------------------------------------------------------------------------------
     // Astral-/Nihil-Schienen (2026-10-04, docs/ai/PLAN-ASTRAL-NIHIL-SCHIENEN-2026-10-02.md)
     // ------------------------------------------------------------------------------------------------

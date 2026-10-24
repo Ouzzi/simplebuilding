@@ -1,0 +1,80 @@
+{
+  "__comment": "Abgestellter Farbkasten (PlacedPaintBoxBlock, W24-2): flacher Koffer 14x3x11, Deckel = Icon B4 von oben, Schloss vorn (Norden). Textur 32x32, ein Texel je Modellpixel; erzeugt von tools/textures/w24b_2026_10_23.py. Trefferform PlacedPaintBoxBlock#SHAPE.",
+  "parent": "block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#box"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        0,
+        3
+      ],
+      "to": [
+        15,
+        3,
+        14
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            7.0,
+            5.5
+          ],
+          "rotation": 180,
+          "texture": "#box"
+        },
+        "down": {
+          "uv": [
+            0.0,
+            6.0,
+            7.0,
+            11.5
+          ],
+          "texture": "#box",
+          "cullface": "down"
+        },
+        "north": {
+          "uv": [
+            8.0,
+            0.0,
+            15.0,
+            1.5
+          ],
+          "texture": "#box"
+        },
+        "south": {
+          "uv": [
+            8.0,
+            2.0,
+            15.0,
+            3.5
+          ],
+          "texture": "#box"
+        },
+        "west": {
+          "uv": [
+            8.0,
+            4.0,
+            13.5,
+            5.5
+          ],
+          "texture": "#box"
+        },
+        "east": {
+          "uv": [
+            8.0,
+            6.0,
+            13.5,
+            7.5
+          ],
+          "texture": "#box"
+        }
+      }
+    }
+  ]
+}

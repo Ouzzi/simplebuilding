@@ -126,6 +126,11 @@ public class ModBlockEntities {
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity::new, ModBlocks.PLACED_SMALL_PARTS).build());
         }
 
+        // W24-2: abgestellter Farbkasten (Typ liegt an der Block-Entity, damit der gemeinsame Code ohne Loader-Feld auskommt).
+        com.simplebuilding.blocks.entity.custom.PlacedPaintBoxBlockEntity.TYPE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_paint_box"),
+                FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedPaintBoxBlockEntity::new, ModBlocks.PLACED_PAINT_BOX).build());
+
         if (ModBlocks.GOAT_HORN_HOLDER != null) {
             GOAT_HORN_HOLDER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "goat_horn_holder"),

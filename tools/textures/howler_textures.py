@@ -418,7 +418,7 @@ def outputs():
         RES / 'textures/entity/hollow_howler/hollow_howler_antennae.png': antenna_glow(),
         RES / 'textures/entity/hollow_howler/hollow_howler_heart.png': heart(),
         RES / 'textures/item/echo_core.png': echo_core(),
-        RES / 'textures/item/hollow_howler_spawn_egg.png': egg(),
+        # textures/item/hollow_howler_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
         RES / 'textures/mob_effect/silence.png': silence_icon(),
     }
 

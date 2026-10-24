@@ -833,7 +833,7 @@ public final class WorldAndPlayerTests {
 
     /** Rolls one ore's loot table with a bare hand, with silk touch and with Fortune III. */
     private static void assertOreDrops(GameTestHelper helper, Block ore, Item dust, Item oreItem) {
-        BlockState state = ore.defaultBlockState();
+        BlockState state = com.simplebuilding.blocks.custom.HiddenOreBlock.freedOrDefault(ore); // W24-4: the freed ore drops in full
         LootTable table = lootTableOf(helper, ore);
         String name = BuiltInRegistries.BLOCK.getKey(ore).toString();
 

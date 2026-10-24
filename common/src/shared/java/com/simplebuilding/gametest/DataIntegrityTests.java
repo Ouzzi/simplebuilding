@@ -150,7 +150,7 @@ public final class DataIntegrityTests {
 
     private static Set<String> blocksWithoutItem() {
         Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
-                "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts",
+                "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts", "placed_paint_box",
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
                 "hammock_rope",
                 // a stick/bone/blaze/breeze/diamond rod standing upright: placed and dropped as the rod item itself
@@ -191,6 +191,8 @@ public final class DataIntegrityTests {
             "placed_smithing_template", "placed_blueprint",
             // drops the bundle (with its contents) stored in its block entity (PlacedBundleBlock#getDrops)
             "placed_bundle",
+            // drops the paint box (with its dyes) stored in its block entity (PlacedPaintBoxBlock#getDrops, W24-2)
+            "placed_paint_box",
             // silk touch pops the egg, otherwise it breaks and may hatch (PlacedEggBlock#spawnAfterBreak)
             "placed_egg",
             // drops the parts stored in its block entity, eggs only with silk touch (PlacedSmallPartsBlock#getDrops)
@@ -1239,7 +1241,7 @@ public final class DataIntegrityTests {
     private static List<List<ItemStack>> rollBlockLoot(GameTestHelper helper, Block block, LootTable table) {
         LootParams params = new LootParams.Builder(helper.getLevel())
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(BlockPos.ZERO)))
-                .withParameter(LootContextParams.BLOCK_STATE, block.defaultBlockState())
+                .withParameter(LootContextParams.BLOCK_STATE, com.simplebuilding.blocks.custom.HiddenOreBlock.freedOrDefault(block)) // W24-4: freed ore = full drop
                 .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
                 .create(LootContextParamSets.BLOCK);
 
@@ -1262,7 +1264,7 @@ public final class DataIntegrityTests {
 
     public static void brokenModBlocksDropTheirExpectedItem(GameTestHelper helper) {
         for (DropCase dropCase : DROP_CASES) {
-            helper.setBlock(dropCase.pos(), dropCase.block());
+            helper.setBlock(dropCase.pos(), com.simplebuilding.blocks.custom.HiddenOreBlock.freedOrDefault(dropCase.block())); // W24-4: freed ore
             helper.assertBlockPresent(dropCase.block(), dropCase.pos());
         }
 
@@ -3165,8 +3167,8 @@ public final class DataIntegrityTests {
         if (McVersion.END_SYSTEMS) {
             expected.add(CreativeTabLayout.Row.of("end_signals", ModItems.NIHIL_REDSTONE, ModItems.NIHILITH_LAMP, ModItems.NIHIL_PISTON, gap,
                     ModItems.BRIDGE_REDSTONE, gap, ModItems.ASTRAL_REDSTONE, ModItems.ASTRALIT_LAMP, ModItems.ASTRAL_PISTON));
-            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_TORCH, gap, gap,
-                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_TORCH));
+            expected.add(CreativeTabLayout.Row.of("end_signal_blocks", ModItems.NIHIL_REDSTONE_BLOCK, ModItems.NIHIL_REDSTONE_TORCH, ModItems.NIHILITH_END_ROD, gap,
+                    ModItems.BRIDGE_REDSTONE_BLOCK, gap, ModItems.ASTRAL_REDSTONE_BLOCK, ModItems.ASTRAL_REDSTONE_TORCH, ModItems.ASTRALIT_END_ROD));
         }
         if (McVersion.END_RAILS) {
             // Astral-/Nihil-Schienen (2026-10-04) direkt unter den End-Signalen.

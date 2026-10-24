@@ -12,6 +12,8 @@ Variants (owner rule "UI/Optik erst exemplarisch"): A wooden stick (recommended,
 C dark obsidian stick. Only A is written into the 26.3 overlay; --preview DIR writes every variant (and a 16x sheet)
 outside the repo (and nothing else).
 
+W24-4 (23.10.): the Astralit / Nihilit End rods on Vanilla's End-rod layout, variants A (built in) / B (see draw_rod).
+
 Run: python3.12 tools/textures/line_torches_2026_10_23.py [--preview DIR]
 """
 import argparse
@@ -85,6 +87,62 @@ def draw(line, variant, lit):
     return img
 
 
+# ---------------------------------------------------------------- W24-4 line End rods (owner 23.10.)
+# Vanilla's End rod layout (the model reads it): rod 2x15 at x 0-1 / y 0-14 (all four sides), rod tip 2x2 at x 2-3 /
+# y 0-1, base top 4x4 at x 2-5 / y 2-5, base side row 6 (x 2-5), row 7 a dark rim like Vanilla. Layers: Fuß, Stab, Glanz.
+# A (recommended, built in) "line crystal": the whole glowing rod in the line ramp - Astral a white-pink core column and
+# a pink one, brightest in the middle; Nihil the "anti-glow" of the torch: pale cyan ends around a dark void middle.
+# B "Vanilla-pale": the pale End-rod stick (own warm whites) with one core column in the line colour. Base: dark ramp steps.
+ROD_PALE = [(246, 228, 206), (250, 236, 214), (252, 244, 228), (255, 248, 236), (255, 252, 244), (255, 255, 250)]
+
+
+def rod_column(line, variant, col, y):
+    """Colour of rod column col (0 light side, 1 shade side) at row y (0-14)."""
+    ramp = RAMPS[line]
+    mid = 1.0 - abs(y - 7) / 7.0                 # 0 at the ends, 1 in the middle
+    if variant == 'B':
+        if col == 1:
+            return ramp[4] if line == 'astral' else ramp[1]
+        return ROD_PALE[min(5, int(mid * 5.99))]
+    if line == 'astral':
+        steps = [ramp[4], ramp[5], (255, 236, 248), (255, 246, 252)] if col == 0 else [ramp[3], ramp[4], ramp[4], ramp[5]]
+        return steps[min(3, int(mid * 3.99))]
+    steps = [ramp[5], ramp[4], ramp[2], ramp[1]] if col == 0 else [ramp[4], ramp[3], ramp[1], ramp[0]]
+    return steps[min(3, int(mid * 3.99))]
+
+
+def draw_rod(line, variant):
+    ramp = RAMPS[line]
+    img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    dark, mid, light = ramp[0], ramp[1], ramp[2]
+    for x in range(2, 6):
+        for y in range(2, 7):
+            rim = x in (2, 5)
+            put(img, x, y, (dark if y == 2 and rim else mid) if rim or y == 2 else light)
+        put(img, x, 7, dark)
+    for x in (2, 5):
+        put(img, x, 2, dark)
+    layers.snap(img, 'Fuß')
+    for y in range(15):
+        for col in (0, 1):
+            put(img, col, y, rod_column(line, variant, col, y))
+    for x, y in ((2, 0), (3, 0), (2, 1), (3, 1)):
+        put(img, x, y, rod_column(line, variant, (x + y) % 2, 0))
+    layers.snap(img, 'Stab')
+    if line == 'astral' or variant == 'B':
+        put(img, 0, 5, (255, 255, 255))
+        put(img, 0, 6, (255, 255, 255))
+    else:
+        put(img, 0, 1, (236, 255, 255))
+        put(img, 0, 13, (236, 255, 255))
+    put(img, 2, 0, rod_column(line, variant, 0, 7))
+    layers.snap(img, 'Glanz')
+    return img
+
+
+ROD_NAMES = {'astral': 'astralit_end_rod', 'nihil': 'nihilith_end_rod'}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--preview', help='write every variant here (outside the repo) instead of the overlay textures')
@@ -94,7 +152,9 @@ def main():
             for lit in (True, False):
                 name = f'{line}_redstone_torch' + ('' if lit else '_off')
                 layers.save(draw(line, 'A', lit), os.path.join(OUT, name + '.png'))
-        print('line torches written (variant A)')
+        for line, name in ROD_NAMES.items():
+            layers.save(draw_rod(line, 'A'), os.path.join(OUT, name + '.png'))
+        print('line torches and End rods written (variant A)')
     else:
         os.makedirs(args.preview, exist_ok=True)
         for variant in STICKS:
@@ -102,6 +162,9 @@ def main():
                 for lit in (True, False):
                     name = f'{variant}_{line}_redstone_torch' + ('' if lit else '_off')
                     draw(line, variant, lit).save(os.path.join(args.preview, name + '.png'))
+        for variant in ('A', 'B'):
+            for line, name in ROD_NAMES.items():
+                draw_rod(line, variant).save(os.path.join(args.preview, f'{variant}_{name}.png'))
         print('preview variants written to', args.preview)
 
 

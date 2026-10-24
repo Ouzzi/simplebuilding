@@ -65,6 +65,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("end_systems_game_test_redstone_aliases_resolve_items_and_blocks", EndSystemsTests::redstoneAliasesResolveItemsAndBlocks).build(),
             GameTestSpec.named("end_systems_game_test_vault_shares_only_its_first_half_and_persists", EndSystemsTests::vaultSharesOnlyItsFirstHalfAndPersists).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_vault_opens_and_config_preserves_contents", EndSystemsTests::vaultOpensAndConfigPreservesContents).maxTicks(220).build(),
+            GameTestSpec.named("end_systems_game_test_vault_lid_opens_like_ender_chest", EndSystemsTests::vaultLidOpensLikeEnderChest).maxTicks(100).build(),
             GameTestSpec.named("redstone_lines_game_test_lines_stay_separate_side_by_side", RedstoneLinesTests::linesStaySeparateSideBySide).build(),
             GameTestSpec.named("redstone_lines_game_test_lines_stay_separate_through_ablock", RedstoneLinesTests::linesStaySeparateThroughABlock).build(),
             GameTestSpec.named("redstone_lines_game_test_vanilla_sources_feed_astral_and_nihil", RedstoneLinesTests::vanillaSourcesFeedAstralAndNihil).build(),
@@ -85,6 +86,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("redstone_lines_game_test_line_torch_recipe_and_drop", RedstoneLinesTests::lineTorchRecipeAndDrop).build(),
             GameTestSpec.named("mech23game_test_chips_fly_and_hurt_slightly", Mech23Tests::chipsFlyAndHurtSlightly).maxTicks(100).build(),
             GameTestSpec.named("mech23game_test_cores_and_warden_tendril_are_rare", Mech23Tests::coresAndWardenTendrilAreRare).build(),
+            GameTestSpec.named("mech24game_test_line_end_rods_glow_and_face_like_vanilla", Mech24Tests::lineEndRodsGlowAndFaceLikeVanilla).build(),
+            GameTestSpec.named("mech24game_test_hidden_ore_brushes_free_in_six_strokes", Mech24Tests::hiddenOreBrushesFreeInSixStrokes).build(),
+            GameTestSpec.named("mech24game_test_hidden_ore_drops_less_unless_brushed", Mech24Tests::hiddenOreDropsLessUnlessBrushed).maxTicks(100).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_powder_connects_like_redstone_wire", EndSystemsTests::powderConnectsLikeRedstoneWire).maxTicks(220).build(),
             GameTestSpec.named("end_systems_game_test_piston_pushes_all_six_at_once", EndSystemsTests::pistonPushesAllSixAtOnce).maxTicks(100).build(),
@@ -118,6 +122,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("color_brush_game_test_paint_box_holds_one_stack_per_colour_per_tier", ColorBrushTests::paintBoxHoldsOneStackPerColourPerTier)
                     .build(),
             GameTestSpec.named("color_brush_game_test_paint_box_scroll_selection", ColorBrushTests::paintBoxScrollSelection)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_paint_box_placed_and_picked_up_with_contents", ColorBrushTests::paintBoxPlacedAndPickedUpWithContents)
+                    .build(),
+            GameTestSpec.named("color_brush_game_test_paint_box_placed_drops_with_contents", ColorBrushTests::paintBoxPlacedDropsWithContents)
                     .build(),
             GameTestSpec.named("color_brush_game_test_recipes_make_the_brush_and_upgrade_the_box", ColorBrushTests::recipesMakeTheBrushAndUpgradeTheBox)
                     .build(),

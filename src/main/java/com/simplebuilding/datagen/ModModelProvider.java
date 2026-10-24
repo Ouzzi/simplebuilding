@@ -168,10 +168,11 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_BLOCK));
         }
 
-        blockStateModelGenerator.createTrivialCube(ModBlocks.NIHILITH_ORE);
+        // W24-4: on 26.3 the brushed stages come from the overlay (blockstate + 4 models).
+        if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) blockStateModelGenerator.createTrivialCube(ModBlocks.NIHILITH_ORE);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE));
 
-        blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRALIT_ORE);
+        if (!com.simplebuilding.version.McVersion.BRUSHED_ORES) blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRALIT_ORE);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE));
 
 

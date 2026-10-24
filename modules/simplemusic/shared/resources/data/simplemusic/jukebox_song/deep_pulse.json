@@ -1,0 +1,10 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.simplemusic.deep_pulse"
+  },
+  "length_in_seconds": 90.0,
+  "sound_event": {
+    "sound_id": "simplemusic:music_disc.deep_pulse"
+  }
+}

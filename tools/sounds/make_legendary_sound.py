@@ -1,4 +1,8 @@
-"""Synthesises SimpleLib's legendary fanfare (simplelib:legendary, owner SP22-2, 2026-10-22).
+"""Synthesises SimpleLib's former legendary fanfare (simplelib:legendary, owner SP22-2, 2026-10-22).
+
+W24-3 (owner 23.10.): the shipped legendary1/2.ogg are now the ElevenLabs takes s07_chor_aufloesung_a/b (low choir,
+minor to major; docs/ai/PLAN-A-SOUND24-2026-10-23.md). This synthesis stays as a tool: it writes into --out only
+(never into the module's assets).
 
 The owner liked Vanilla's challenge jingle ("so etwas oder besser"); this one is bigger and has its own shape, built
 only from oscillators and noise (no samples), with the room/loudness tools of the Hollow Howler (howler_dsp):
@@ -35,7 +39,6 @@ import howler_dsp as d  # noqa: E402
 SR = d.SR
 DUR = 3.4
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(REPO, "modules/simplelib/shared/resources/assets/simplelib/sounds")
 
 
 def hz(semitones_from_a4):
@@ -271,16 +274,19 @@ def write_variants(out_dir):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=False, help="directory for legendary1/2.ogg (the assets hold the ElevenLabs takes)")
     ap.add_argument("--wav", help="also write WAV copies into this directory (previews)")
     ap.add_argument("--variants", help="only write the SP22-2 candidates A/B/C as WAV into this directory")
     args = ap.parse_args()
     if args.variants:
         write_variants(args.variants)
         return
-    os.makedirs(OUT, exist_ok=True)
+    if not args.out:
+        ap.error("--out DIR is required (W24-3: the module's legendary sounds are the ElevenLabs takes)")
+    os.makedirs(args.out, exist_ok=True)
     for idx, (seed, pitch) in enumerate(((22, 1.0), (1022, 0.985)), start=1):
         x = make(seed, pitch)
-        sf.write(os.path.join(OUT, f"legendary{idx}.ogg"), x, SR, format="OGG", subtype="VORBIS")
+        sf.write(os.path.join(args.out, f"legendary{idx}.ogg"), x, SR, format="OGG", subtype="VORBIS")
         if args.wav:
             os.makedirs(args.wav, exist_ok=True)
             sf.write(os.path.join(args.wav, f"legendary{idx}.wav"), x, SR, subtype="PCM_16")

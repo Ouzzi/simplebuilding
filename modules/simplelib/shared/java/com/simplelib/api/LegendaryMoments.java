@@ -84,6 +84,14 @@ public final class LegendaryMoments {
                 || enchantment.unwrapKey().map(k -> LibConfig.legendaryEnchantments.contains(k.identifier())).orElse(false);
     }
 
+    /**
+     * W24-3: whether Vanilla's challenge toast of this advancement stays silent ({@code LegendaryToastMixin}, client) -
+     * switch {@code legendaryMuteToast} and only where the legendary choir plays instead.
+     */
+    public static boolean muteToast(AdvancementHolder holder) {
+        return LibConfig.legendaryMuteToast && isLegendary(holder);
+    }
+
     /** Called when an advancement just became done for the player. */
     public static void advancementDone(ServerPlayer player, AdvancementHolder holder) {
         if (isLegendary(holder)) celebrate(player);

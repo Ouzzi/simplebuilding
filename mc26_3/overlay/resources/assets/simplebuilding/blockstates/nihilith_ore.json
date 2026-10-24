@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "brushed=0": {
+      "model": "simplebuilding:block/nihilith_ore"
+    },
+    "brushed=1": {
+      "model": "simplebuilding:block/nihilith_ore_brushed_1"
+    },
+    "brushed=2": {
+      "model": "simplebuilding:block/nihilith_ore_brushed_1"
+    },
+    "brushed=3": {
+      "model": "simplebuilding:block/nihilith_ore_brushed_2"
+    },
+    "brushed=4": {
+      "model": "simplebuilding:block/nihilith_ore_brushed_2"
+    },
+    "brushed=5": {
+      "model": "simplebuilding:block/nihilith_ore_brushed_2"
+    },
+    "brushed=6": {
+      "model": "simplebuilding:block/nihilith_ore_exposed"
+    }
+  }
+}

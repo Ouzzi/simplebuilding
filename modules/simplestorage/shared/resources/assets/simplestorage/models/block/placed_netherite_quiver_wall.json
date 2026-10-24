@@ -1,7 +1,0 @@
-{
-  "parent": "simplestorage:block/template_placed_quiver_wall",
-  "textures": {
-    "quiver": "simplestorage:block/placed_netherite_quiver",
-    "particle": "simplestorage:block/placed_netherite_quiver"
-  }
-}

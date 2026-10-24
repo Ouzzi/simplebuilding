@@ -2043,6 +2043,8 @@ def all_textures():
         for pos in range(5):
             files[item(f'sandwich/layer_{pos}_{key}')] = filling_n18(key, pos)
     for name, im in cheese_textures().items():
+        if name == 'butter_block_inner':
+            continue  # W24-1: drawn by misctex23b_2026_10_23.py (butter inner X, owner 23.10.)
         files[block(name)] = im
     for wood in WOODS:
         t, s = board_v4(wood)

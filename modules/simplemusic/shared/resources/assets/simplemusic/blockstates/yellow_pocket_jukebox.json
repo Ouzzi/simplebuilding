@@ -1,19 +1,117 @@
 {
-  "variants": {
-    "facing=north": {
-      "model": "simplemusic:block/yellow_pocket_jukebox"
+  "multipart": [
+    {
+      "when": {
+        "facing": "north",
+        "playing": "false"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox"
+      }
     },
-    "facing=east": {
-      "model": "simplemusic:block/yellow_pocket_jukebox",
-      "y": 90
+    {
+      "when": {
+        "facing": "north",
+        "playing": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox_playing"
+      }
     },
-    "facing=south": {
-      "model": "simplemusic:block/yellow_pocket_jukebox",
-      "y": 180
+    {
+      "when": {
+        "facing": "east",
+        "playing": "false"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox",
+        "y": 90
+      }
     },
-    "facing=west": {
-      "model": "simplemusic:block/yellow_pocket_jukebox",
-      "y": 270
+    {
+      "when": {
+        "facing": "east",
+        "playing": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox_playing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "playing": "false"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "playing": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox_playing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "playing": "false"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "playing": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/yellow_pocket_jukebox_playing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/pocket_jukebox_link_north"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/pocket_jukebox_link_east",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/pocket_jukebox_link_south",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "simplemusic:block/pocket_jukebox_link_west",
+        "y": 270
+      }
     }
-  }
+  ]
 }

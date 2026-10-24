@@ -240,6 +240,34 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       }
     },
     {
+      "id": "music_discs",
+      "sources": [
+        "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java",
+        "modules/simplemusic/shared/resources/data/simplemusic/jukebox_song/ember_forge.json",
+        "modules/simplemusic/fabric/src/main/java/com/simplebuilding/modules/simplemusic/MusicFabric.java"
+      ],
+      "en": {
+        "title": "Music Discs",
+        "summary": "Six music discs by Simple Music, each found only in one kind of structure, like Vanilla's Pigstep or Otherside. They play in every jukebox and the Pocket Jukebox.",
+        "details": [
+          "Ember Forge (Nether groove, comparator 13): bastion chests, 5 %. Obsidian Throne (epic boss piece, 9): Nether fortress chests, 4 %. End Departure (floating islands, 14): End city chests, 4 %.",
+          "Fortress March (dark march, 8): stronghold corridor chests, 4 %. Deep Pulse (deep caverns, 15): ancient city chests, 4 %. Sky Forge (flight and conquest, 4): brushing suspicious gravel of trail ruins (rare pool, as rare as Relic).",
+          "No recipe, like Vanilla's discs. Lengths 90-100 s; the comparator next to a playing jukebox reads the level given above.",
+          "Instrumental music made with ElevenLabs Music for this mod (artist: Simple Music); part of the game, not a sample library."
+        ]
+      },
+      "de": {
+        "title": "Schallplatten",
+        "summary": "Sechs Schallplatten von Simple Music, jede nur in einer Art Bauwerk zu finden, wie Vanillas Pigstep oder Otherside. Sie spielen in jeder Jukebox und in der Taschen-Jukebox.",
+        "details": [
+          "Glutschmiede (Nether-Groove, Komparator 13): Bastions-Truhen, 5 %. Obsidianthron (epischer Bosskampf, 9): Netherfestungs-Truhen, 4 %. Endaufbruch (schwebende Inseln, 14): Endsiedlungs-Truhen, 4 %.",
+          "Festungsmarsch (düsterer Marsch, 8): Gang-Truhen der Festung, 4 %. Tiefenpuls (tiefe Höhlen, 15): Truhen der antiken Stadt, 4 %. Himmelsschmiede (Flug und Eroberung, 4): seltsamen Kies der Pfadruinen abpinseln (seltener Pool, so selten wie Relic).",
+          "Kein Rezept, wie Vanillas Platten. Länge 90-100 s; ein Komparator neben der spielenden Jukebox zeigt die oben genannte Stufe.",
+          "Instrumentalmusik, mit ElevenLabs Music für diese Mod erstellt (Künstler: Simple Music); Teil des Spiels, keine Sample-Sammlung."
+        ]
+      }
+    },
+    {
       "id": "pocket_jukebox",
       "sources": [
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
@@ -280,6 +308,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
         "modules/simplemusic/shared/java/com/simplemusic/pocket/PocketJukeboxItem.java",
         "modules/simplemusic/shared/java/com/simplemusic/disc/DiscPlayback.java",
         "modules/simplemusic/shared/resources/data/simplemusic/loot_table/blocks/pocket_jukebox.json",
+        "modules/simplemusic/shared/java/com/simplemusic/client/PocketLinkTint.java",
         "modules/simplemusic/shared/java/com/simplemusic/client/PocketJukeboxRenderer.java",
         "modules/simplemusic/shared/resources/data/simplemusic/tags/block/pocket_jukebox_links.json"
       ],
@@ -290,7 +319,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "Right click with a disc puts it in (up to 20); if nothing played, it starts. Right click without a disc plays or pauses. Sneaking and looking at it shows the current disc above it; sneak + mouse wheel goes through the discs, sneak + right click with an empty hand takes the shown one out.",
           "Same order, loop and pause as in the hand: the first disc in plays first, after the last the first again, a pause keeps the position. A jukebox that played in your hand goes on playing where you put it down.",
           "The sound comes from the block like a jukebox (64 blocks, Jukebox/Note Blocks volume); players who come near later hear it from where the song is. Track discs are heard only by those allowed to hear them (moderation).",
-          "Redstone: signal 15 out of the front while it plays; a redstone pulse from any other side, above or below starts or pauses it. A comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Redstone dust (and with SimpleBuilding Astral, Nihil and Bridge dust) gets a copper contact. Parrots dance, allays and sculk sensors hear it.",
+          "Redstone: signal 15 out of the front while it plays; a redstone pulse from any other side, above or below starts or pauses it. A comparator reads the current disc's Vanilla value (a track disc 1, empty 0). Redstone dust (and with SimpleBuilding Astral, Nihil and Bridge dust) gets a contact in the line's color (redstone red, Astralit pink, Nihilit teal, the bridge in between). Parrots dance, allays and sculk sensors hear it.",
           "Breaking it (any tool, also explosions and pistons) gives the pocket jukebox back with all its discs and the position (a playing one goes on playing as the dropped item); in creative a jukebox with discs drops like a shulker box. It also goes on after a restart."
         ]
       },
@@ -301,7 +330,7 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "Rechtsklick mit einer Platte legt sie hinein (bis 20); lief nichts, startet sie. Rechtsklick ohne Platte spielt oder pausiert. Wer schleichend darauf schaut, sieht die aktuelle Platte darüber; Schleichen + Mausrad blättert durch die Platten, Schleichen + Rechtsklick mit leerer Hand nimmt die gezeigte heraus.",
           "Reihenfolge, Schleife und Pause wie in der Hand: die zuerst eingelegte zuerst, nach der letzten von vorn, die Pause merkt sich die Stelle. Spielte die Jukebox in der Hand, spielt sie abgestellt an derselben Stelle weiter.",
           "Der Klang kommt wie bei der Jukebox vom Block (64 Blöcke, Lautstärke Jukebox/Notenblöcke); wer später dazukommt, hört ab der aktuellen Stelle. Titel-Platten hören nur die, die sie hören dürfen (Freigabe).",
-          "Redstone: Signal 15 nach vorn, solange sie spielt; ein Redstone-Impuls von einer anderen Seite, von oben oder unten startet oder pausiert sie. Ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Redstone-Staub (mit SimpleBuilding auch Astral-, Nihil- und Brückenstaub) bekommt einen Kupferkontakt. Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
+          "Redstone: Signal 15 nach vorn, solange sie spielt; ein Redstone-Impuls von einer anderen Seite, von oben oder unten startet oder pausiert sie. Ein Komparator liest den Vanilla-Wert der aktuellen Platte (Titel-Platte 1, leer 0). Redstone-Staub (mit SimpleBuilding auch Astral-, Nihil- und Brückenstaub) bekommt einen Kontakt in der Linienfarbe (Redstone rot, Astralit rosa, Nihilit türkis, die Brücke dazwischen). Papageien tanzen, Allays und Sculk-Sensoren hören sie.",
           "Abbauen (jedes Werkzeug, auch Explosionen und Kolben) gibt die Taschen-Jukebox mit allen Platten und der Stelle zurück (spielte sie, spielt sie als Item weiter); im Kreativmodus fällt eine Jukebox mit Platten wie eine Shulkerkiste heraus. Nach einem Neustart spielt sie weiter."
         ]
       }
@@ -2292,10 +2321,10 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
           "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 18 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 18 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
@@ -2326,6 +2355,132 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
       "craftedBy": [
         "simplemusic:guide_book"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_deep_pulse",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_deep_pulse.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_ember_forge",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_ember_forge.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_end_departure",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_end_departure.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_fortress_march",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_fortress_march.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_obsidian_throne",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_obsidian_throne.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplemusic:music_disc_sky_forge",
+      "name": {
+        "en_us": "Music Disc",
+        "de_de": "Schallplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java"
+        ],
+        "en": {
+          "summary": "A music disc by Simple Music (see Music Discs): plays in a jukebox or the Pocket Jukebox; found only in the structure of its theme, no recipe."
+        },
+        "de": {
+          "summary": "Eine Schallplatte von Simple Music (siehe Schallplatten): spielt in der Jukebox oder der Taschen-Jukebox; nur im Bauwerk ihres Themas zu finden, kein Rezept."
+        }
+      },
+      "texture": "assets/textures/simplemusic/item/music_disc_sky_forge.png",
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -2875,13 +3030,13 @@ window.WIKI_MODULE_DATA["simplemusic"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 14,
+    "features": 15,
     "recipes": 37,
     "lootTables": 18,
     "tags": 2,
     "advancements": 0,
     "enchantments": 0,
-    "items": 4,
+    "items": 10,
     "blocks": 18,
     "trades": 0,
     "config": 0,

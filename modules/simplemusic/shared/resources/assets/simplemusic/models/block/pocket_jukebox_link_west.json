@@ -1,0 +1,74 @@
+{
+  "textures": {
+    "parts": "simplemusic:block/pocket_jukebox_parts",
+    "particle": "simplemusic:block/pocket_jukebox_parts"
+  },
+  "elements": [
+    {
+      "name": "contact",
+      "from": [
+        7,
+        0,
+        0
+      ],
+      "to": [
+        9,
+        1,
+        4.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            9,
+            6,
+            10
+          ],
+          "texture": "#parts",
+          "tintindex": 4
+        },
+        "east": {
+          "uv": [
+            4,
+            9,
+            8,
+            10
+          ],
+          "texture": "#parts",
+          "tintindex": 4
+        },
+        "west": {
+          "uv": [
+            4,
+            9,
+            8,
+            10
+          ],
+          "texture": "#parts",
+          "tintindex": 4
+        },
+        "up": {
+          "uv": [
+            4,
+            8,
+            6,
+            9
+          ],
+          "texture": "#parts",
+          "tintindex": 4
+        },
+        "down": {
+          "uv": [
+            4,
+            8,
+            6,
+            9
+          ],
+          "texture": "#parts",
+          "tintindex": 4,
+          "cullface": "down"
+        }
+      }
+    }
+  ]
+}
