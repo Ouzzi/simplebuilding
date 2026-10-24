@@ -33,6 +33,16 @@ public class SandwichItem extends Item {
         return super.use(level, player, hand);
     }
 
+    /** Config changes (butter bonus) recompute older stacks; the count and the ingredients stay. */
+    @Override
+    public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity owner,
+                              net.minecraft.world.entity.EquipmentSlot slot) {
+        SandwichContents c = contents(stack);
+        if (c.formula() != SandwichContents.current(c.buttered())) {
+            SandwichFormula.apply(stack, new SandwichContents(c.ingredients(), c.buttered()));
+        }
+    }
+
     public static SandwichContents contents(ItemStack stack) {
         return stack.getOrDefault(ModComponents.SANDWICH_CONTENTS, SandwichContents.EMPTY);
     }

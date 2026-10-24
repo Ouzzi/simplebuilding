@@ -53,6 +53,21 @@ public final class WoodworkTests {
     private WoodworkTests() {
     }
 
+    /** AUDM24-4: Ashwood/Duskwood woodwork exists (hence tab, JEI, recipe book) only while Simple End is loaded. */
+    public static void endWoodsOnlyWithSimpleEnd(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        for (WoodKind wood : WoodKind.values()) {
+            if (!wood.external()) continue;
+            for (String path : WoodBlocks.blockIds(wood)) {
+                Identifier id = Identifier.fromNamespaceAndPath("simplebuilding", path);
+                if (BuiltInRegistries.BLOCK.containsKey(id) != wood.available()) problems.add("block " + path);
+                if (BuiltInRegistries.ITEM.containsKey(id) != wood.available()) problems.add("item " + path);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "End-wood woodwork must match Simple End being loaded: " + problems);
+        helper.succeed();
+    }
+
     private static WoodBlocks.Family oak() {
         return WoodBlocks.family(WoodKind.OAK);
     }

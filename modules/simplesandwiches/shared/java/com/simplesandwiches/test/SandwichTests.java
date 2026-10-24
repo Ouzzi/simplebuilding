@@ -73,6 +73,8 @@ public final class SandwichTests {
         ALL.put("ingredient_tag_complete", SandwichTests::ingredientTagComplete);
         ALL.put("hunger_sum_without_cap", SandwichTests::hungerSum);
         ALL.put("butter_bonus", SandwichTests::butterBonus);
+        ALL.put("end_boards_only_with_simple_end", SandwichTests::endBoardsOnlyWithSimpleEnd);
+        ALL.put("stale_stack_recompute", SandwichTests::staleStackRecompute);
         ALL.put("effect_merge", SandwichTests::effectMerge);
         ALL.put("deterministic_stacking", SandwichTests::deterministicStacking);
         ALL.put("board_full_cycle", SandwichTests::boardFullCycle);
@@ -261,6 +263,38 @@ public final class SandwichTests {
         float[] p = new float[1];
         MobEffectInstance hunger = effect(SandwichFormula.create(contents(true, Items.CHICKEN)), MobEffects.HUNGER, p);
         h.assertTrue(hunger != null && hunger.getDuration() == 660, "butter +10 % effect duration (600 -> 660)");
+        h.succeed();
+    }
+
+    /** AUDM24-4: Ashwood/Duskwood boards exist (so show in tab/JEI) only while Simple End is loaded. */
+    static void endBoardsOnlyWithSimpleEnd(GameTestHelper h) {
+        boolean end = net.minecraft.core.registries.BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals("simpleend"));
+        for (String wood : ModBlocks.END_WOODS) {
+            net.minecraft.resources.Identifier id = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplesandwiches", wood + "_cutting_board");
+            h.assertTrue(net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(id) == end, wood + " board block iff Simple End");
+            h.assertTrue(net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(id) == end, wood + " board item iff Simple End");
+        }
+        h.succeed();
+    }
+
+    /** OW24-5: a buttered stack made under another butterBonus is recomputed in the inventory, count kept. */
+    static void staleStackRecompute(GameTestHelper h) {
+        double old = SandwichConfig.butterBonus;
+        try {
+            SandwichConfig.butterBonus = 0.25;
+            ItemStack stale = SandwichFormula.create(contents(true, Items.COOKED_BEEF));
+            stale.setCount(3);
+            SandwichConfig.butterBonus = 0.1;
+            ModItems.SANDWICH.inventoryTick(stale, h.getLevel(), player(h, new BlockPos(2, 2, 2)), null);
+            ItemStack fresh = SandwichFormula.create(contents(true, Items.COOKED_BEEF));
+            h.assertTrue(stale.getCount() == 3, "count kept");
+            h.assertTrue(stale.get(DataComponents.FOOD).nutrition() == Math.round((5 + 8) * 1.1), "recomputed with the new bonus");
+            h.assertTrue(ItemStack.isSameItemSameComponents(stale, fresh), "stale stack now stacks with a fresh one");
+            ItemStack plain = SandwichFormula.create(contents(false, Items.COOKED_BEEF));
+            h.assertTrue(SandwichContents.current(false) == plain.get(com.simplesandwiches.registry.ModComponents.SANDWICH_CONTENTS).formula(), "plain stamp ignores the bonus");
+        } finally {
+            SandwichConfig.butterBonus = old;
+        }
         h.succeed();
     }
 

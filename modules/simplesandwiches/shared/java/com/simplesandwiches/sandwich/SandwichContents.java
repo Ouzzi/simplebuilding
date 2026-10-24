@@ -36,6 +36,14 @@ public record SandwichContents(List<Holder<Item>> ingredients, boolean buttered,
     }
 
     public SandwichContents(List<Holder<Item>> ingredients, boolean buttered) {
-        this(ingredients, buttered, FORMULA);
+        this(ingredients, buttered, current(buttered));
+    }
+
+    /**
+     * Formula stamp of freshly computed stacks. Buttered ones also carry the butter bonus, so a changed
+     * config makes older stacks stale ({@link SandwichItem#inventoryTick} recomputes them).
+     */
+    public static int current(boolean buttered) {
+        return buttered ? FORMULA * 1000 + (int) Math.round(com.simplesandwiches.config.SandwichConfig.butterBonus * 1000) : FORMULA;
     }
 }
