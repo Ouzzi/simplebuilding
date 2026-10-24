@@ -16,7 +16,7 @@ public final class Simplequalityoflife {
    var parsed=com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(file));if(!parsed.isJsonObject())return false;
    var root=parsed.getAsJsonObject();boolean changed=false;
    for(String[] r:RENAMED_SWITCHES)if(root.has(r[0])){var value=root.remove(r[0]);if(!root.has(r[1]))root.add(r[1],value);changed=true;}
-   if(changed){java.nio.file.Files.writeString(file,new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(root));LOGGER.info("Renamed old sub-mod switches in {}",file.getFileName());}
+   if(changed){com.simplebuilding.framework.api.ConfigFiles.writeAtomic(file,new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(root));LOGGER.info("Renamed old sub-mod switches in {}",file.getFileName());}
    return changed;
   }catch(java.io.IOException|RuntimeException e){LOGGER.warn("Cannot adopt renamed switches in {}",file,e);return false;}
  }

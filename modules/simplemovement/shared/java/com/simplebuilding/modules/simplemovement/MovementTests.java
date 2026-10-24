@@ -30,6 +30,7 @@ public final class MovementTests {
   ALL.put("powder_snow",MovementTests::powderSnow);
   ALL.put("real_movement_packets",MovementTests::realMovementPackets);
   ALL.put("feature_switches",MovementTests::featureSwitches);
+  ALL.put("climb_boosts",MovementTests::climbBoosts);
   ALL.put("enchant_step_height",MovementTests::enchantStepHeight);ALL.put("enchant_sprint",MovementTests::enchantSprint);ALL.put("enchant_treasure_rules",MovementTests::enchantTreasureRules);ALL.put("jump_boost_step",MovementTests::jumpBoostStep);
   // ALL-END
  }
@@ -106,6 +107,19 @@ public final class MovementTests {
   p.connection.handleMovePlayer(new net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.Pos(p.getX(),y+5,p.getZ(),false,false));h.assertTrue(audit.qol$rejectedMovementPackets()==before+1,"Actual C2S out-of-range movement rejected by module");close(h,p.getY(),y,"Rejected packet cannot move player");
   p.connection.handleMovePlayer(new net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.Pos(p.getX(),y+.4,p.getZ(),false,false));h.assertTrue(audit.qol$rejectedMovementPackets()==before+1,"Legal packet accepted by module");
   p.connection.handleMovePlayer(new net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.Pos(p.getX(),y+.8,p.getZ(),false,false));h.assertTrue(audit.qol$rejectedMovementPackets()==before+2,"Packet spam cannot buy another climb allowance");
+ });h.succeed();}
+ /** REV2-B: Jump Boost lifts a jump off the ladder's foot, Levitation carries the player up: no rubber band (P3, 24.10.). */
+ public static void climbBoosts(GameTestHelper h){configured(()->{
+  var pos=new BlockPos(2,2,2);h.setBlock(pos.south(),Blocks.STONE);h.setBlock(pos,Blocks.LADDER);
+  java.util.function.Function<net.minecraft.world.effect.MobEffectInstance,Long> rejected=effect->{
+   var p=h.makeMockServerPlayerInLevel();p.setGameMode(GameType.SURVIVAL);p.setPos(Vec3.atCenterOf(h.absolutePos(pos)));if(effect!=null)p.addEffect(effect);
+   var audit=(ClimbAudit)p.connection;long before=audit.qol$rejectedMovementPackets();double y=p.getY();
+   p.connection.handleMovePlayer(new net.minecraft.network.protocol.game.ServerboundMovePlayerPacket.Pos(p.getX(),y+(effect!=null&&effect.is(net.minecraft.world.effect.MobEffects.LEVITATION)?.8:.52),p.getZ(),false,false));
+   return audit.qol$rejectedMovementPackets()-before;};
+  h.assertTrue(rejected.apply(null)==1,"a 0.52 jump on a ladder without Jump Boost is still refused");
+  h.assertTrue(rejected.apply(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.JUMP_BOOST,200,0))==0,"Jump Boost I jump off the ladder's foot accepted");
+  h.assertTrue(rejected.apply(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,200,4))==0,"Levitation carries the player up the ladder");
+  var c=new MovementConfig();h.assertTrue(!ClimbSecurity.allowed(.6,1,c,.1)&&ClimbSecurity.allowed(.55,1,c,.1)&&!ClimbSecurity.allowed(.6,1,c,-5),"extra budget bounded, never negative");
  });h.succeed();}
  public static void featureSwitches(GameTestHelper h){configured(()->{var p=player(h,new BlockPos(2,2,2));var abs=h.absolutePos(new BlockPos(2,2,2));h.assertTrue(!SimpleMovement.config().enableAutowalk,"Autowalk disabled by server default");SimpleMovement.config().enableManualCrawl=false;h.assertTrue(!CrawlLimiter.allow(p),"Disabled crawl refused by server");});h.succeed();}
 

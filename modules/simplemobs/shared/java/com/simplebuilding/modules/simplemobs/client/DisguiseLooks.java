@@ -44,6 +44,15 @@ public final class DisguiseLooks {
 
     private DisguiseLooks() {}
 
+    /**
+     * Leaving a world (REV2-B): a stand-in references its client level, which holds the key entity, so the weak keys never
+     * clear by themselves and the old world would stay in memory.
+     */
+    public static void clear() {
+        STAND_INS.clear();
+        SPECS.clear();
+    }
+
     public static Entity look(Entity entity) {
         if (!(entity instanceof Player player)) return entity;
         String spec = Disguise.spec(player);

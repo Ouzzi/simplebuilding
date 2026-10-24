@@ -116,6 +116,7 @@ public final class TrackPlayer {
         PLAYING.clear();
         WAITING.clear();
         SONGS.clear();
+        TrackCache.forgetIncoming();
         PocketPlayer.clear();
     }
 }

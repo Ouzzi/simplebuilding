@@ -27,6 +27,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleoctets:empty")
+    public void mixedCellKeepsReadableMaterials(GameTestHelper h) {
+        OctetTests.ALL.get("mixed_cell_keeps_readable_materials").accept(h);
+    }
+
+    @GameTest(structure = "simpleoctets:empty")
     public void foreignMaterialsOnlyWithTheirMod(GameTestHelper h) {
         OctetTests.ALL.get("foreign_materials_only_with_their_mod").accept(h);
     }

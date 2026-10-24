@@ -57,6 +57,7 @@ public final class OctetTests {
         ALL.put("sub_mod_switch", OctetTests::subModSwitch);
         ALL.put("migration_from_simplebuilding", OctetTests::migrationFromSimplebuilding);
         ALL.put("foreign_materials_only_with_their_mod", OctetTests::foreignMaterialsOnlyWithTheirMod);
+        ALL.put("mixed_cell_keeps_readable_materials", OctetTests::mixedCellKeepsReadableMaterials);
         ALL.put("recipes_cut_and_craft_back", OctetTests::recipesCutAndCraftBack);
         ALL.put("cells_for_carving_tools", OctetTests::cellsForCarvingTools);
         ALL.put("octets_place_into_the_sub_grid", OctetTests::octetsPlaceIntoTheSubGrid);
@@ -211,6 +212,31 @@ public final class OctetTests {
             problems.add("old mixed cell loads as " + loaded + (loaded instanceof MixedOctetBlockEntity be ? java.util.Arrays.toString(be.parts()) : "") + " from " + tag);
         }
         h.assertTrue(problems.isEmpty(), "migration: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * REV2-B: a mixed cell whose saved palette names a block of a removed mod keeps every other material (before, the strict
+     * list codec dropped the whole palette and left an invisible cell without drops).
+     */
+    static void mixedCellKeepsReadableMaterials(GameTestHelper h) {
+        BlockState[] parts = new BlockState[8];
+        parts[0] = material(Blocks.OAK_PLANKS);
+        parts[1] = material(Blocks.STONE);
+        OctetCells.set(h.getLevel(), h.absolutePos(CELL), parts, false, Block.UPDATE_ALL);
+        BlockState mixed = h.getBlockState(CELL);
+        CompoundTag saved = h.getLevel().getBlockEntity(h.absolutePos(CELL)).saveWithFullMetadata(h.getLevel().registryAccess());
+        String gone = BuiltInRegistries.BLOCK.getKey(parts[1].getBlock()).toString();
+        CompoundTag tag;
+        try {
+            tag = net.minecraft.nbt.TagParser.parseCompoundFully(saved.toString().replace(gone, "removedmod:gone_octet"));
+        } catch (Exception e) {
+            throw h.assertionException("tag: " + e);
+        }
+        h.assertTrue(tag.toString().contains("removedmod:gone_octet"), "palette names the removed block: " + tag);
+        BlockEntity loaded = BlockEntity.loadStatic(h.absolutePos(CELL), mixed, tag, h.getLevel().registryAccess());
+        h.assertTrue(loaded instanceof MixedOctetBlockEntity be && be.part(0) == parts[0] && be.part(1) == null,
+                "the readable material stays: " + (loaded instanceof MixedOctetBlockEntity be ? java.util.Arrays.toString(be.parts()) : String.valueOf(loaded)));
         h.succeed();
     }
 

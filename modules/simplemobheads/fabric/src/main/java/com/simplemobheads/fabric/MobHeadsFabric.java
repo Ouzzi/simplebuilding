@@ -33,6 +33,7 @@ public final class MobHeadsFabric implements ModInitializer {
         // a haunting is counted in game ticks of one world: it must not survive the player leaving
         com.simplelib.api.PlayerState.onLeave("simplemobheads:haunt", com.simplemobheads.ritual.HerobrineHaunt::stop);
         com.simplelib.api.PlayerState.onStop("simplemobheads:haunt", com.simplemobheads.ritual.HerobrineHaunt::stopAll);
+        com.simplelib.api.PlayerState.onStop("simplemobheads:abilities", com.simplemobheads.ability.HeadAbilities::forgetAll);
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> MobHeadsCommands.register(dispatcher));
         // Behind the dragon head (the last Vanilla head) in Functional Blocks, so the search tab lists them beside the Vanilla heads.
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {

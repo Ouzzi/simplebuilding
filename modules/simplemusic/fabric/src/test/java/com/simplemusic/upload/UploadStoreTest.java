@@ -101,4 +101,24 @@ class UploadStoreTest {
         assertFalse(Files.exists(dir.resolve("tmp").resolve("crashed.part")));
         assertEquals(one.length, again.read(a.hash()).length);
     }
+
+    /** REV2-B: a damaged entry in index.json (hand edit) skips only itself; the others keep their status, the index stays. */
+    @Test
+    void damagedIndexEntrySkipsOnlyItself() throws Exception {
+        Path dir = Files.createTempDirectory("simplemusic-index");
+        UUID alice = UUID.randomUUID();
+        TrackStore store = new TrackStore(dir);
+        TrackStore.Track a = store.add(OggFiles.mono().build(), "One", 10, alice, "Alice", true, 1000);
+        store.ban(alice, true);
+        Path index = dir.resolve("index.json");
+        String text = Files.readString(index);
+        text = text.replace("\"tracks\": [", "\"tracks\": [{\"hash\": \"" + "e".repeat(64) + "\", \"status\": \"APPROVED\"},");
+        text = text.replace("\"banned\": [", "\"banned\": [\"not-a-uuid\",");
+        Files.writeString(index, text);
+        TrackStore again = new TrackStore(dir);
+        assertEquals(TrackStore.Status.APPROVED, again.get(a.hash()).status(), "the good entry keeps its status");
+        assertNull(again.get("e".repeat(64)), "the damaged entry is skipped");
+        assertTrue(again.banned(alice), "the good ban stays");
+        assertTrue(Files.isRegularFile(index), "the index is not moved aside");
+    }
 }

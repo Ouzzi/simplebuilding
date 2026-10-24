@@ -334,11 +334,28 @@ public class PocketJukeboxBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        contents = input.read("Discs", BundleContents.CODEC).orElse(BundleContents.EMPTY);
+        contents = readDiscs(input);
         state = input.read("State", PocketState.CODEC).orElse(PocketState.NEW);
         playing = input.getBooleanOr("Playing", false);
         shown = input.getIntOr("Shown", -1);
         current = null;
+    }
+
+    /**
+     * The discs disc by disc (REV2-B): the bundle codec fails as a whole, so one disc of a removed mod emptied the whole
+     * placed Pocket Jukebox. An unreadable disc is skipped, the others stay in their order.
+     */
+    static BundleContents readDiscs(ValueInput input) {
+        var whole = input.read("Discs", BundleContents.CODEC);
+        if (whole.isPresent()) return whole.get();
+        List<com.mojang.serialization.Dynamic<?>> raw = input.read("Discs", com.mojang.serialization.Codec.PASSTHROUGH.listOf()).orElse(List.of());
+        List<ItemStackTemplate> items = new ArrayList<>();
+        for (com.mojang.serialization.Dynamic<?> disc : raw) one(disc).ifPresent(b -> items.addAll(b.items()));
+        return items.isEmpty() ? BundleContents.EMPTY : new BundleContents(items);
+    }
+
+    private static <T> java.util.Optional<BundleContents> one(com.mojang.serialization.Dynamic<T> disc) {
+        return BundleContents.CODEC.parse(disc.getOps(), disc.getOps().createList(java.util.stream.Stream.of(disc.getValue()))).result();
     }
 
     @Override

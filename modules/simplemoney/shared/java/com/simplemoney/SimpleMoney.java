@@ -27,22 +27,33 @@ public final class SimpleMoney {
   public boolean enableWandererTrades=true; }
  private static Path configFile;
  private static java.nio.file.attribute.FileTime lastRead;
+ private static final org.slf4j.Logger LOG=org.slf4j.LoggerFactory.getLogger("SimpleMoney");
  public static void loadConfig(Path dir) {
   Path file=dir.resolve("simplemoney.json"); Gson gson=new Gson();
-  Config read=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,t->gson.fromJson(t,Config.class),org.slf4j.LoggerFactory.getLogger("SimpleMoney")::warn);
-  if(read!=null&&read.trades==null) { org.slf4j.LoggerFactory.getLogger("SimpleMoney").warn("simplemoney.json has no trades section, old file kept as {}",com.simplebuilding.framework.api.ConfigFiles.quarantine(file)); read=null; }
+  Config read=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(file,t->gson.fromJson(t,Config.class),LOG::warn);
+  if(read!=null&&read.trades==null) { LOG.warn("simplemoney.json has no trades section, old file kept as {}",com.simplebuilding.framework.api.ConfigFiles.quarantine(file)); read=null; }
   config=read!=null?read:new Config();
-  try { if(read==null) { Files.createDirectories(dir); Files.writeString(file,gson.toJson(config)); }
-   if(config.links==null) config.links=new Links(); config.links.normalize();
-   configFile=file; lastRead=Files.getLastModifiedTime(file);
-  } catch(Exception e) { throw new IllegalStateException("Cannot load "+file,e); }
+  if(config.links==null) config.links=new Links(); config.links.normalize();
+  configFile=file;
+  // REV2-B: a file that cannot be written or read keeps the values in use (resource conditions call this, they must not throw).
+  try { if(read==null) { Files.createDirectories(dir); com.simplebuilding.framework.api.ConfigFiles.writeAtomic(file,gson.toJson(config)); }
+   lastRead=Files.getLastModifiedTime(file);
+  } catch(Exception e) { LOG.warn("Cannot write {}: {}",file,e.toString()); lastRead=null; }
  }
+ /** The directory of the config file in use (tests restore it), null before {@link #loadConfig}. */
+ public static Path configDir() { return configFile==null?null:configFile.getParent(); }
  public static synchronized boolean enabled(String flag) {
   // Resource conditions run at world load and /reload. Observe disk changes there,
   // keeping a remote server's settings independent of any client config screen.
-  try {
-   if(configFile!=null && !Files.getLastModifiedTime(configFile).equals(lastRead)) loadConfig(configFile.getParent());
-  } catch(java.io.IOException e) { throw new IllegalStateException("Cannot inspect "+configFile,e); }
+  if(configFile!=null) {
+   try {
+    if(!Files.getLastModifiedTime(configFile).equals(lastRead)) loadConfig(configFile.getParent());
+   } catch(java.io.IOException e) {
+    // deleted or unreadable while running: keep the values in use, warn once
+    if(lastRead!=null) LOG.warn("Cannot inspect {} ({}), keeping the loaded settings",configFile,e.toString());
+    lastRead=null;
+   }
+  }
   if(!on()) return false;
   if(flag.startsWith("links:")) return MoneyLinks.enabled(flag.substring(6));
   return switch(flag) {case "enableVillagerTrades" -> config.trades.enableVillagerTrades; case "enableWanderingTrades" -> config.trades.enableWanderingTrades; case "enableWandererTrades" -> config.trades.enableWandererTrades; default -> false;};

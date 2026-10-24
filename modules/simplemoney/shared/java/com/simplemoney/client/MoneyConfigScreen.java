@@ -26,7 +26,7 @@ public final class MoneyConfigScreen {
     links.addEntry(fields.startIntField(Component.translatable(linkPrefix+key),value).setDefaultValue(def).setMin(min).setMax(max).setTooltip(Component.translatable(linkPrefix+key+".tooltip")).setSaveConsumer(v->{try{field.setInt(draft.links,v);}catch(IllegalAccessException e){throw new IllegalStateException(e);}}).build());
    }catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
   }
-  builder.setSavingRunnable(()-> { try { draft.links.normalize(); Files.writeString(configDir.resolve("simplemoney.json"),new com.google.gson.Gson().toJson(draft)); } catch(Exception e) { throw new IllegalStateException(e); } });
+  builder.setSavingRunnable(()-> { try { draft.links.normalize(); com.simplebuilding.framework.api.ConfigFiles.writeAtomic(configDir.resolve("simplemoney.json"),new com.google.gson.Gson().toJson(draft)); } catch(Exception e) { org.slf4j.LoggerFactory.getLogger("SimpleMoney").warn("Cannot save simplemoney.json: {}",e.toString()); } });
   return builder.build();
  }
 }

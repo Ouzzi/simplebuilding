@@ -42,7 +42,7 @@ public final class MusicClientConfig {
         if (file != null) {
             try {
                 Files.createDirectories(dir);
-                Files.writeString(file, GSON.toJson(toJson()));
+                com.simplebuilding.framework.api.ConfigFiles.writeAtomic(file, GSON.toJson(toJson()));
             } catch (Exception e) {
                 SimpleMusic.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }

@@ -22,6 +22,7 @@ public final class MoneyTests {
   ALL.put("money_game_test_launch_smoke",MoneyTests::launchSmoke);
   ALL.put("money_game_test_guide_book",com.simplemoney.guide.MoneyGuide::gameTest);
   ALL.put("money_game_test_bill_use",MoneyTests::billUse);
+  ALL.put("money_game_test_config_file_gone",MoneyTests::configFileGone);
   ALL.put("money_game_test_creative_tabs",MoneyTests::creativeTabs);
   ALL.put("money_game_test_recipes",MoneyTests::recipes);
   ALL.put("money_game_test_recipe_outputs",MoneyTests::recipeOutputs);
@@ -172,6 +173,18 @@ public final class MoneyTests {
  public static void config(GameTestHelper h) {
   h.assertTrue(new SimpleMoney.Config().trades.enableVillagerTrades && new SimpleMoney.Config().trades.enableWanderingTrades && new SimpleMoney.Config().trades.enableWandererTrades,"source defaults");
   var original=SimpleMoney.config;try {SimpleMoney.config=new SimpleMoney.Config();SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades") && SimpleMoney.enabled("enableWandererTrades"),"wandering switch");SimpleMoney.config.trades.enableWandererTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWandererTrades"),"village wanderer switch");h.assertValueEqual(SimpleMoney.merchantFlag("village_wanderer"),"enableWandererTrades","village wanderer flag");h.assertValueEqual(SimpleMoney.merchantFlag("mason"),"enableVillagerTrades","profession flag");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");}finally{SimpleMoney.config=original;}h.succeed();
+ }
+ /** REV2-B: the config file deleted while the server runs: /reload and world load keep the loaded switches, nothing throws. */
+ public static void configFileGone(GameTestHelper h) {
+  var live=SimpleMoney.config;var liveDir=SimpleMoney.configDir();
+  try {
+   var dir=java.nio.file.Files.createTempDirectory("simplemoney-gone");SimpleMoney.loadConfig(dir);
+   SimpleMoney.config.trades.enableVillagerTrades=false;java.nio.file.Files.delete(dir.resolve("simplemoney.json"));
+   h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades")&&SimpleMoney.enabled("enableWanderingTrades"),"deleted file: loaded values stay, no exception");
+   h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades"),"second check after the warning");
+  }catch(IOException e){throw new IllegalStateException(e);}
+  finally{if(liveDir!=null)SimpleMoney.loadConfig(liveDir);SimpleMoney.config=live;}
+  h.succeed();
  }
  public static void languagesAndAssets(GameTestHelper h) {
   try {

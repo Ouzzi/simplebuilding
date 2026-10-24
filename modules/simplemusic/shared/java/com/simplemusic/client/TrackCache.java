@@ -37,9 +37,18 @@ public final class TrackCache {
         return f != null && Files.isRegularFile(f);
     }
 
+    /** Downloads collected at once (the server queues at most three per player). */
+    public static final int MAX_INCOMING = 4;
+
+    /** Leaving a world (REV2-B): half downloads would otherwise keep their buffers for the whole session. */
+    public static void forgetIncoming() {
+        INCOMING.clear();
+    }
+
     /** Collects a chunk; returns true when the file is complete, checked and stored. */
     public static boolean receive(TrackDataPayload chunk) {
         if (!UploadSession.isHash(chunk.sha256()) || chunk.total() <= 0 || chunk.total() > (64 << 20)) return false;
+        if (!INCOMING.containsKey(chunk.sha256()) && (chunk.index() != 0 || INCOMING.size() >= MAX_INCOMING)) return false;
         ByteArrayOutputStream buffer = INCOMING.computeIfAbsent(chunk.sha256(), k -> new ByteArrayOutputStream());
         if (chunk.index() == 0) buffer.reset();
         buffer.writeBytes(chunk.bytes());

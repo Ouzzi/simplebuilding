@@ -569,6 +569,12 @@ public final class MobHeadTests {
                 .size() == 1, "the sheep head wearer gave no wool");
         helper.assertTrue(HeadAbilities.interact(wearer, user, InteractionHand.MAIN_HAND) == net.minecraft.world.InteractionResult.PASS,
                 "the wool grew back at once");
+        // REV2-B: a server stop forgets the game-time cooldowns (the next world in single player has its own clock)
+        HeadAbilities.forgetAll();
+        clearItems(helper);
+        HeadAbilities.interact(wearer, user, InteractionHand.MAIN_HAND);
+        helper.assertTrue(level.getEntitiesOfClass(ItemEntity.class, wearer.getBoundingBox().inflate(4.0), e -> e.getItem().is(Items.WOOL.pick(DyeColor.WHITE)))
+                .size() == 1, "after a server stop the sheep head wearer can be shorn again");
         wear(wearer, null);
         user.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BUCKET));
         helper.assertTrue(HeadAbilities.interact(wearer, user, InteractionHand.MAIN_HAND) == null, "a bare head gives milk");

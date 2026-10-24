@@ -24,6 +24,8 @@ public final class MovementFabric implements ModInitializer {
         });
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simplemovement.network.ConfigSyncPayload.TYPE, com.simplebuilding.modules.simplemovement.network.ConfigSyncPayload.STREAM_CODEC);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(s -> SimpleMovement.onChange = () -> s.getPlayerList().getPlayers().forEach(MovementFabric::sync));
+        // REV2-B: the hook holds the server; a stopped one (single player) must not stay in memory with its world.
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(s -> SimpleMovement.onChange = () -> {});
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((h, sender, s) -> sync(h.player));
     }
     private static void sync(net.minecraft.server.level.ServerPlayer p) {

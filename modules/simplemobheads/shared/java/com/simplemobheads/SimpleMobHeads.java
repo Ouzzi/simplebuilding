@@ -78,7 +78,7 @@ public final class SimpleMobHeads {
         config().normalize(abilityIds());
         try {
             Files.createDirectories(configDir);
-            Files.writeString(configDir.resolve(MOD_ID + ".json"), GSON.toJson(config));
+            com.simplebuilding.framework.api.ConfigFiles.writeAtomic(configDir.resolve(MOD_ID + ".json"), GSON.toJson(config));
         } catch (java.io.IOException e) {
             LOG.warn("Simple Mobheads: could not write the config: {}", e.toString());
         }
