@@ -7,7 +7,8 @@
     "CarvedStairMixin",
     "HammerMiningSpeedMixin",
     "ShapelessRecipeMixin",
-    "DiscoverTipMixin"
+    "DiscoverTipMixin",
+    "HammerAnvilMixin"
   ],
   "client": [
     "client.MultiPlayerGameModeHammerProgressMixin",

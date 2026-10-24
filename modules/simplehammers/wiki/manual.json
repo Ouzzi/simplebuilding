@@ -192,6 +192,23 @@
       }
     },
     {
+      "id": "anvil",
+      "sources": [
+        "modules/simplehammers/shared/java/com/simplehammers/engine/HammerAnvil.java",
+        "modules/simplehammers/shared/java/com/simplehammers/mixin/HammerAnvilMixin.java"
+      ],
+      "en": {
+        "title": "Sledgehammers at the anvil",
+        "summary": "Two sledgehammers combine for 1 level: both durabilities plus 12 % of the maximum, enchantments merged like vanilla (incompatible ones from the right hammer are dropped). With its repair material a damaged hammer mends one eleventh per piece for 1 level per piece (+1 for a new name, at most 39). Hammer results never raise the repair cost.",
+        "details": []
+      },
+      "de": {
+        "title": "Vorschlaghämmer am Amboss",
+        "summary": "Zwei Vorschlaghämmer verbinden sich für 1 Stufe: beide Haltbarkeiten plus 12 % des Höchstwerts, Verzauberungen wie in Vanilla vereint (unverträgliche des rechten Hammers fallen weg). Mit seinem Reparaturmaterial wird ein beschädigter Hammer je Stück um ein Elftel repariert, 1 Stufe je Stück (+1 für einen neuen Namen, höchstens 39). Hammer-Ergebnisse erhöhen die Arbeitskosten nie.",
+        "details": []
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simplehammers/shared/java/com/simplehammers/config/HammerConfig.java"
