@@ -25,6 +25,8 @@ public abstract class AxeBuildMixin {
     private void simplecrucibles$buildCrucible(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = context.getPlayer();
         if (player == null || context.getHand() != InteractionHand.MAIN_HAND || !SimpleLibApi.axeWaysEnabled()) return;
+        // HEAD runs before Vanilla's Adventure check in useOn: building/upgrading is building (REV2-A).
+        if (!player.mayBuild()) return;
         if (!CrucibleBlankBlock.isAxe((ItemStack) (Object) this)) return;
         var state = context.getLevel().getBlockState(context.getClickedPos());
         if (com.simplecrucibles.crucible.CrucibleUpgrades.stepFor(state, player.getOffhandItem()) != null) {

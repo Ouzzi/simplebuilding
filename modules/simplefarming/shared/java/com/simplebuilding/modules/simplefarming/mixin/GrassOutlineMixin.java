@@ -46,6 +46,9 @@ public class GrassOutlineMixin {
             return;
         }
 
+        // getShape is a hot path (outlines, every ray clip): test the state before the enchantment lookup (REV2-A).
+        if (!VegetationUtil.isCuttable((BlockState) (Object) this)) return;
+
         var registryManager = player.level().registryAccess();
         var enchantmentRegistry = registryManager.lookup(Registries.ENCHANTMENT);
 
@@ -56,11 +59,7 @@ public class GrassOutlineMixin {
                 int level = EnchantmentHelper.getItemEnchantmentLevel(sharpnessEntry.get(), mainHand);
 
                 if (level >= 3) {
-                    BlockState state = (BlockState) (Object) this;
-
-                    if (VegetationUtil.isCuttable(state)) {
-                        cir.setReturnValue(Shapes.empty());
-                    }
+                    cir.setReturnValue(Shapes.empty());
                 }
             }
         }

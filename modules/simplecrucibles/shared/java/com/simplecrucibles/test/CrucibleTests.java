@@ -575,6 +575,18 @@ public final class CrucibleTests {
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
         ItemStack axe = new ItemStack(Items.IRON_AXE);
+        if (com.simplelib.api.SimpleLibApi.axeWaysEnabled()) {
+            // REV2-A: the axe way runs at the head of ItemStack.useOn (before Vanilla's Adventure check) - it must not build for non-builders.
+            net.minecraft.world.entity.player.Player adventurer = h.makeMockPlayer(GameType.ADVENTURE);
+            adventurer.getAbilities().mayBuild = false; // the mock player keeps default abilities
+            adventurer.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 16));
+            ItemStack adventureAxe = new ItemStack(Items.IRON_AXE);
+            adventurer.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, adventureAxe);
+            adventureAxe.useOn(new net.minecraft.world.item.context.UseOnContext(adventurer, net.minecraft.world.InteractionHand.MAIN_HAND,
+                    new net.minecraft.world.phys.BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(abs), Direction.UP, abs, false)));
+            check(h, h.getLevel().getBlockState(abs).is(Blocks.CAULDRON) && adventurer.getOffhandItem().getCount() == 16,
+                    "Adventure mode builds nothing: " + h.getLevel().getBlockState(abs));
+        }
         check(h, !CrucibleBlankBlock.fitsNext(0, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE)), "pressure plates are no longer a part");
         check(h, CrucibleBlankBlock.strikesAt(Blocks.WATER_CAULDRON.defaultBlockState()) < 0
                 && CrucibleBlankBlock.strikesAt(Blocks.IRON_BLOCK.defaultBlockState()) < 0, "only an empty cauldron starts the build");
