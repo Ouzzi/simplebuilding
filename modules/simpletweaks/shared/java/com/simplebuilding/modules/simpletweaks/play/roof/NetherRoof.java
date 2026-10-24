@@ -47,7 +47,6 @@ public final class NetherRoof {
     public static void remember(UUID id, Vec3 at) { SAFE.put(id, at); }
     /** Disconnect or server stop: the remembered place goes (it would be hours old, maybe in another world). */
     public static void forget(UUID id) { SAFE.remove(id); }
-    public static void forgetAll() { SAFE.clear(); }
     /** Two air blocks over a solid block, no fluid: the remembered place may be old, so it is checked again before the teleport. */
     static boolean standable(ServerLevel level, BlockPos at) {
         return level.getBlockState(at).isAir() && level.getBlockState(at.above()).isAir()
