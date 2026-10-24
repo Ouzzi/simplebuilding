@@ -367,7 +367,7 @@ Quelle: `/root/sb-tools-b/review24/teil1-kern.md`, `teil2-module.md` (mittel/nie
 
 ## Review 2 24.10. (REV2)
 
-Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe C (b-rev2c24): Bericht `docs/ai/REVIEW2-GRUPPE-C-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2C-2026-10-24.md`. P2/kleine P3 dort behoben (Admin-/Play-Zustand beiseitelegen, Storage-Paletten-Migrationstest, Visuals-DE, atomare Client-Configs, Biom-Pinsel, Trim-Rezept); hier P4 und Größeres.
+Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe C (b-rev2c24): Bericht `docs/ai/REVIEW2-GRUPPE-C-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2C-2026-10-24.md`. P2/kleine P3 dort behoben (Funnel-Aufnahme fragt Claims, fabric-api-Abhängigkeit, Admin-/Play-Zustand beiseitelegen, Storage-Paletten-Migrationstest, Visuals-DE, atomare Client-Configs, Biom-Pinsel, Trim-Rezept); hier P4 und Größeres.
 
 - [ ] **REV2-C-1** Kern-Daten 26.3 nennen alte `simplebuilding:`-Ids (Tags `craftable`/`not_allowed_in_backpack` 33×, `c:ores/*`, Vault-Rezepte `enderite_nugget`); laden nur per IdMoves-Rückfall → neue Ids, `required:false` – `mc26_3/overlay/resources/data/...`
 - [ ] **REV2-C-2** 17 Mixin-Injektoren mit `require = 0` (Kern + Gruppe C) fallen bei Ziel-Änderung still aus → Testrunner-Prüflauf mit `-Dmixin.debug.countInjections=true`, Warnung je 0 Treffer

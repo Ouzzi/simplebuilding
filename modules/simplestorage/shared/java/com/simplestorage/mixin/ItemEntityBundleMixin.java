@@ -57,6 +57,8 @@ public abstract class ItemEntityBundleMixin extends Entity {
         // Vanilla's own pickup conditions for every way: expired pickup delay, no other target (audit 2026-09-26 #14).
         if (this.pickupDelay != 0) return;
         if (this.target != null && !this.target.equals(player.getUUID())) return;
+        // Claims (framework Protection): a drop in land without the containers right is not swept up (REV2-C).
+        if (!com.simplestorage.chest.StorageProtection.mayPickUp(this.level(), player, this.blockPosition())) return;
         // Taken before: the ways below shrink the stack on the ground (audit N7).
         int countBefore = itemOnGround.getCount();
         Item pickedItem = itemOnGround.getItem();

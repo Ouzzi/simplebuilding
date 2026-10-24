@@ -170,6 +170,7 @@ public final class StorageTests {
         ALL.put("placed_bundle_deposit_into_placed_mod_bundle_plays_the_insert_sound", PlacedBundleTests::depositIntoPlacedModBundlePlaysTheInsertSound);
         ALL.put("bundle_wiring_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks);
         ALL.put("bundle_wiring_funnel_honours_pickup_delay_and_target_in_the_hand", BundleWiringTests::funnelHonoursPickupDelayAndTargetInTheHand);
+        ALL.put("bundle_wiring_funnel_respects_protection", BundleWiringTests::funnelRespectsProtection);
         ALL.put("bundle_wiring_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions);
         ALL.put("bundle_wiring_selection_packet_reaches_entries_past_the_twelfth", BundleWiringTests::selectionPacketReachesEntriesPastTheTwelfth);
         ALL.put("bundle_wiring_funnel_pickup_counts_what_it_took", BundleWiringTests::funnelPickupCountsWhatItTook);

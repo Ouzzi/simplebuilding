@@ -104,6 +104,11 @@ Befehle (Stufe 2), Komponente/Budget. Kein Fund.
 Geprüft: Netz (`BundleNet`, `BackpackNet`: Slot-Grenzen, Schleichen/Reichweite/Rechte, Server wählt den Rucksack), IdMoves-Tabelle
 (Blöcke, Items, BE-Typen, Komponenten, Verzauberungen, Rezepte, Advancements), Migrationstests, Kisten-Laden.
 - **P2 (Testlücke) behoben**: Paletten-Migration aller verschobenen Blöcke unter `id` (s. oben).
+- **P2 behoben** `mixin/ItemEntityBundleMixin` (Funnel-Bündel/-Rucksack): die Funnel-Aufnahme ist ein HEAD-Inject auf
+  `ItemEntity#playerTouch` mit Priorität 900, die Claim-Sperre von Simple Tweaks (`ClaimPickupMixin`) einer mit Standard-Priorität –
+  die niedrigere Priorität läuft zuerst, so saugte ein Funnel-Bündel Drops in fremdem Land ein, die die Claims sperren. Jetzt fragt
+  der Funnel selbst die framework-`Protection` (Recht Behälter, `StorageProtection.mayPickUp`); verweigert geht es mit Vanillas
+  Aufnahme weiter, dort entscheiden die Claims. Test `bundle_wiring_funnel_respects_protection` (Test-Anbieter verweigert eine Spalte).
 - P4 `crate/CrateBlockEntity.loadAdditional`: `Order` über strikten `ItemStack.CODEC.listOf()` – ein unlesbares Element verliert nur
   die Reihenfolge (Inhalt bleibt über `ContainerHelper`). Nur Hinweis.
 
@@ -152,7 +157,8 @@ Gelesen bzw. per Durchlauf: Spawner (REV24 M-12), Entity-Speichern, Wetter-Confi
 
 ## Geänderte Dateien
 `modules/simplevisuals/.../lang/de_de.json`, `simplevisuals/Visuals.java`, `simplesounds/SoundClient.java`,
-`simpleriding/client/RidingConfigScreen.java`, `simplestorage/test/StorageTests.java`, `simpletools/brush/BiomeBrush.java`,
+`simpleriding/client/RidingConfigScreen.java`, `simplestorage/test/StorageTests.java`, `simplestorage/test/BundleWiringTests.java`, `simplestorage/mixin/ItemEntityBundleMixin.java`,
+`simplestorage/chest/StorageProtection.java`, Storage-`ModuleGameTest`, `simpletools/brush/BiomeBrush.java`,
 `simpletrims/recipe/TrimUpgradeRecipe.java`, `simpletweaks/admin/AdminState.java`, `simpletweaks/play/PlayState.java`,
 `simpletweaks/admin/AdminTests.java`, `simpletweaks/play/PlayTests.java`, Fabric-Adapter `AdminGameTest`, `PlayGameTest`,
 `fabric.mod.json` von simplerespawn/simplesounds/simplevisuals/simpletweaks, Guide-Texte simpletools/simpletweaks (manual.json + Lang).
