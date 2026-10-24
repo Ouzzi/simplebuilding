@@ -401,6 +401,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void bundleWiringFunnelRespectsProtection(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_wiring_funnel_respects_protection").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void bundleWiringNetheriteBundleOnTheGroundSurvivesFireAndExplosions(GameTestHelper h) {
         StorageTests.ALL.get("bundle_wiring_netherite_bundle_on_the_ground_survives_fire_and_explosions").accept(h);
     }

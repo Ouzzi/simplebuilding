@@ -77,7 +77,7 @@
   "simplequalityoflife.guide.page.29.title": "Better item frames",
   "simplequalityoflife.guide.page.29": "Without sneaking everything stays Vanilla, so a Simple Maps wayfinder in a frame still opens on a plain right-click. Server side only, sounds and wax particles are Vanilla's.",
   "simplequalityoflife.guide.page.30.title": "Better item frames",
-  "simplequalityoflife.guide.page.30": "With SimpleBuilding installed there is still only this one behaviour:",
+  "simplequalityoflife.guide.page.30": "With SimpleBuilding installed there is still only this one behavior:",
   "simplequalityoflife.guide.page.31.title": "Better item frames",
   "simplequalityoflife.guide.page.31": "its older frame actions (own glass-pane lock state, sneaking shows a hidden frame) step aside when Simple Tools is loaded, and frames locked by the old state (SimpleBuildingLocked) become Fixed when they load.",
   "simplequalityoflife.guide.page.32.title": "Better item frames",

@@ -144,10 +144,11 @@ public final class BiomeBrush {
                     BlockPos centre = new BlockPos(QuartPos.toBlock(qx) + 2, QuartPos.toBlock(qy) + 2, QuartPos.toBlock(qz) + 2);
                     if (!level.isInWorldBounds(centre) || !mayEdit(level, player, centre)) continue;
                     if (level.getNoiseBiome(qx, qy, qz).is(LOCKED)) continue;
-                    if (level.structureManager().getStructureWithPieceAt(centre, s -> true).isValid()) continue;
+                    // Loaded chunks only, checked before the structure lookup (that one reads chunks by itself).
                     int chx = SectionPos.blockToSectionCoord(centre.getX()), chz = SectionPos.blockToSectionCoord(centre.getZ());
                     ChunkAccess chunk = chunks.computeIfAbsent(ChunkPos.pack(chx, chz), k -> level.getChunk(chx, chz, ChunkStatus.FULL, false));
                     if (chunk == null) continue;
+                    if (level.structureManager().getStructureWithPieceAt(centre, s -> true).isValid()) continue;
                     cells.add(BlockPos.asLong(qx, qy, qz));
                 }
         int changed = 0;

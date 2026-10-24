@@ -34,6 +34,18 @@ public final class StorageProtection {
     }
 
     /**
+     * REV2-C: whether {@code player} may sweep the drop at {@code pos} into a bundle or backpack (Funnel). The claim's own pickup
+     * check is a HEAD inject on {@code ItemEntity#playerTouch} that runs after the Funnel one (default priority, Funnel 900), so the Funnel
+     * asks the framework {@link Protection} itself (containers right). Refused: Vanilla's pickup goes on and claims decide there.
+     */
+    public static boolean mayPickUp(Level level, Player player, BlockPos pos) {
+        if (!(level instanceof ServerLevel server) || !(player instanceof ServerPlayer serverPlayer) || !Protection.active(server.getServer())) return true;
+        boolean admin = Commands.hasPermission(Commands.LEVEL_OWNERS).test(serverPlayer.createCommandSourceStack());
+        var target = new Protection.Target(serverPlayer.getUUID(), server.dimension().identifier().toString(), pos.getX(), pos.getY(), pos.getZ(), admin);
+        return Protection.allows(server.getServer(), target, Protection.Action.CONTAINER);
+    }
+
+    /**
      * Whether {@code player} may change the clicked block at {@code pos} with {@code stack}: the question a block placement
      * asks (spectator, adventure mode, spawn protection) and the claims above.
      */

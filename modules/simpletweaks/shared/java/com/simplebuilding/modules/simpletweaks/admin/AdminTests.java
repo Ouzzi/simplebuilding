@@ -60,6 +60,7 @@ public final class AdminTests {
         TESTS.put("backup_stop_resumes_saving", AdminTests::backupStop);
         TESTS.put("maintenance_login_and_motd", AdminTests::maintenance);
         TESTS.put("lag_finder_samples", AdminTests::lag);
+        TESTS.put("unreadable_state_file_kept", h -> unreadableStateKept(h, AdminState.fileOf(h.getLevel().getServer()), () -> AdminState.load(h.getLevel().getServer())));
     }
 
     /** Time limits of the tests that wait (async IO, countdowns, sculk); all others finish in their first tick. */
@@ -830,6 +831,27 @@ public final class AdminTests {
     }
 
     // ------------------------------------------------------------------ T34
+    /** REV2-C: an unreadable state file is moved aside before the empty state starts (the next save would overwrite it). */
+    static void unreadableStateKept(GameTestHelper h, Path file, Runnable load) {
+        try {
+            String before = Files.isRegularFile(file) ? Files.readString(file) : null;
+            Files.createDirectories(file.getParent());
+            Files.writeString(file, "{not json");
+            load.run();
+            List<Path> kept = new ArrayList<>();
+            try (var files = Files.list(file.getParent())) {
+                files.filter(p -> p.getFileName().toString().startsWith(file.getFileName() + ".broken-")).forEach(kept::add);
+            }
+            boolean ok = !Files.exists(file) && kept.size() == 1 && Files.readString(kept.get(0)).equals("{not json");
+            for (Path p : kept) Files.deleteIfExists(p);
+            if (before != null) Files.writeString(file, before);
+            h.assertTrue(ok, "unreadable " + file.getFileName() + " not kept: " + kept);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        }
+        h.succeed();
+    }
+
     static void lag(GameTestHelper h) {
         var level = h.getLevel();
         var server = level.getServer();

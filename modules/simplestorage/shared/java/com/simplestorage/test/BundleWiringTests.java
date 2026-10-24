@@ -276,6 +276,35 @@ final class BundleWiringTests {
     }
 
     /**
+     * REV2-C: a claim that refuses the containers right keeps the drop out of the Funnel bundle (framework Protection,
+     * asked by the Funnel itself, because the claim's own pickup check runs after it). Without the refusal the same drop is
+     * swept up.
+     */
+    public static void funnelRespectsProtection(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack bundle = funnelBundle(helper);
+        armHand(player, bundle);
+        Object server = helper.getLevel().getServer();
+        BlockPos denied = helper.absolutePos(new BlockPos(2, 2, 2));
+        com.simplebuilding.framework.api.Protection.register(server, "rev2c-test", new com.simplebuilding.framework.api.Protection.Check() {
+            @Override public boolean allows(com.simplebuilding.framework.api.Protection.Target target) {
+                return !(target.x() == denied.getX() && target.z() == denied.getZ());
+            }
+        });
+        try {
+            ItemEntity refused = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(2.5, 2.0, 2.5), 0);
+            refused.playerTouch(player);
+            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 0, "the Funnel bundle took a drop the claim refuses");
+            ItemEntity allowed = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(4.5, 2.0, 2.5), 0);
+            allowed.playerTouch(player);
+            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8, "the Funnel bundle did not take an allowed drop");
+        } finally {
+            com.simplebuilding.framework.api.Protection.unregister(server, "rev2c-test");
+        }
+        helper.succeed();
+    }
+
+    /**
      * The funnel obeys the same two gates as vanilla's own pickup, on the hand path too: the
      * pickup delay must be over and the drop must not be reserved for someone else
      * ({@code ItemEntity#target}). The hand loop used to run before both checks, so a Funnel

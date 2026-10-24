@@ -92,9 +92,13 @@ public class TrimUpgradeRecipe implements SmithingRecipe {
         return Optional.of(addition);
     }
 
+    /** Built once like Vanilla's smithing recipes (asked for every recipe-book and smithing-table lookup). */
+    private PlacementInfo placementInfo;
+
     @Override
     public PlacementInfo placementInfo() {
-        return PlacementInfo.createFromOptionals(List.of(Optional.of(template), Optional.of(base), Optional.of(addition)));
+        if (placementInfo == null) placementInfo = PlacementInfo.createFromOptionals(List.of(Optional.of(template), Optional.of(base), Optional.of(addition)));
+        return placementInfo;
     }
 
     /** Like Vanilla's trim display: the result slot shows the armor (it keeps its look, the upgrade is invisible here). */

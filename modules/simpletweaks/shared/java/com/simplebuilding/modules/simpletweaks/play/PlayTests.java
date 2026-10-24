@@ -79,6 +79,7 @@ public final class PlayTests {
         TESTS.put("cleanup_spares_named_and_rare", PlayTests::cleanup);
         TESTS.put("pregen_spiral_and_generates", PlayTests::pregen);
         TESTS.put("vanished_admins_stay_hidden", PlayTests::vanished);
+        TESTS.put("unreadable_state_file_kept", h -> unreadableStateKept(h, PlayState.fileOf(h.getLevel().getServer()), () -> PlayState.load(h.getLevel().getServer())));
     }
 
     public static int maxTicks(String name) { return name.equals("pregen_spiral_and_generates") ? 12000 : 100; /* test servers tick unthrottled, chunk generation takes real seconds */ }
@@ -698,6 +699,27 @@ public final class PlayTests {
     }
 
     // ------------------------------------------------------------------ T32
+    /** REV2-C: an unreadable state file is moved aside before the empty state starts (the next save would overwrite it). */
+    static void unreadableStateKept(GameTestHelper h, Path file, Runnable load) {
+        try {
+            String before = Files.isRegularFile(file) ? Files.readString(file) : null;
+            Files.createDirectories(file.getParent());
+            Files.writeString(file, "{not json");
+            load.run();
+            List<Path> kept = new ArrayList<>();
+            try (var files = Files.list(file.getParent())) {
+                files.filter(p -> p.getFileName().toString().startsWith(file.getFileName() + ".broken-")).forEach(kept::add);
+            }
+            boolean ok = !Files.exists(file) && kept.size() == 1 && Files.readString(kept.get(0)).equals("{not json");
+            for (Path p : kept) Files.deleteIfExists(p);
+            if (before != null) Files.writeString(file, before);
+            h.assertTrue(ok, "unreadable " + file.getFileName() + " not kept: " + kept);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        }
+        h.succeed();
+    }
+
     static void cleanup(GameTestHelper h) {
         var level = h.getLevel();
         var pos = Vec3.atCenterOf(h.absolutePos(new BlockPos(2, 2, 2)));

@@ -724,7 +724,7 @@
       "id": "play_afk",
       "en": {
         "title": "AFK detection (T24)",
-        "summary": "After minutes (default 5) without any action, or with /simpletweaks afk, a player is AFK: grey with [AFK] in the tab list and not counted for sleeping.",
+        "summary": "After minutes (default 5) without any action, or with /simpletweaks afk, a player is AFK: gray with [AFK] in the tab list and not counted for sleeping.",
         "details": [
           "AFK players do not count for votes either. Any action ends it.",
           "The kick after kickMinutes is off by default (Vanilla also has player-idle-timeout).",

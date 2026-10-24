@@ -413,6 +413,16 @@ Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe B (b-re
 - [ ] **REV2-B-9** `simplemodels` `ModelBrowser` „Ordner öffnen“ über denselben Config-Pfad wie der Server (`Models.root`) statt `gameDir/config`.
 - [ ] **REV2-B-10** Besitzer-Frage: Tarnumhang, Howler-Ritual und Trickspiegel melden per Aktionsleiste (Regel 4 „kein Text für Gadgets“) – so lassen oder auf Klang/Partikel umstellen?
 - [ ] **REV2-B-11** Vorschlag simplelib: `SafeCodecs.listLenient` für BE-/SavedData-Listen + Prüfskript gegen `input.read(..., X.listOf())`; `ClientState.onDisconnect` für Client-Caches; Check gegen `Files.writeString` auf Config-JSON.
+Besitzer 24.10.: Sub-Mods Datei für Datei prüfen + Vorschläge. Gruppe C (b-rev2c24): Bericht `docs/ai/REVIEW2-GRUPPE-C-2026-10-24.md`, Plan `docs/ai/PLAN-B-REV2C-2026-10-24.md`. P2/kleine P3 dort behoben (Funnel-Aufnahme fragt Claims, fabric-api-Abhängigkeit, Admin-/Play-Zustand beiseitelegen, Storage-Paletten-Migrationstest, Visuals-DE, atomare Client-Configs, Biom-Pinsel, Trim-Rezept); hier P4 und Größeres.
+- [ ] **REV2-C-1** Kern-Daten 26.3 nennen alte `simplebuilding:`-Ids (Tags `craftable`/`not_allowed_in_backpack` 33×, `c:ores/*`, Vault-Rezepte `enderite_nugget`); laden nur per IdMoves-Rückfall → neue Ids, `required:false` – `mc26_3/overlay/resources/data/...`
+- [ ] **REV2-C-2** 17 Mixin-Injektoren mit `require = 0` (Kern + Gruppe C) fallen bei Ziel-Änderung still aus → Testrunner-Prüflauf mit `-Dmixin.debug.countInjections=true`, Warnung je 0 Treffer
+- [ ] **REV2-C-3** Questionary: `QuestionaryFacts.compute` läuft je Slot-Änderung über alle Rezepte → Ergebnis je Item bis `/reload` cachen – `modules/simplequestionary/.../QuestionaryFacts.java`
+- [ ] **REV2-C-4** Respawn: Paket-Sperre am `HEAD` (Netz-Thread); verworfener Container-Klick ohne Neuabgleich → nach `ensureRunningOnSameThread` einhängen, `sendAllDataToRemote` – `modules/simplerespawn/.../mixin/ServerGamePacketListenerMixin.java`
+- [ ] **REV2-C-5** Riding: Aufwärtsbewegung ohne Sprung (Levitation, Schleim, Explosion) wird zurückgesetzt → bei Levitation/Server-Impuls erlauben, Test – `modules/simpleriding/.../RidingSecurity.java`
+- [ ] **REV2-C-6** Sandwiches: Bündel-Essen isst am Ende, was dann oben liegt → beim Start merken, bei Wechsel abbrechen – `modules/simplesandwiches/.../item/BundleEating.java`
+- [ ] **REV2-C-7** Tweaks: kleine statische Spielerlisten ohne Abmelde-Aufräumen (`Freeze.AT`, `BlockLogCommands.PAGES`, `DeedService.LAST*`, `Pvp.TOGGLED`, `Coords.LAST`, `Inspect`) → `PlayerState.onLeave`
+- [ ] **REV2-C-8** Visuals: `Visuals.save` wirft bei Schreibfehler (Config-Bildschirm = Absturz) → loggen – `modules/simplevisuals/.../Visuals.java`
+- [x] (B, b-rev2c24: manual.json + Lang, audit_data 0 Treffer in Gruppe C) **REV2-C-9** Britisches Englisch in Guide-Seiten `simpletools.guide.page.9` („behaviour“), `simpletweaks.guide.page.51` („grey“)
 
 ## Modulaufteilung (Plan docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md §4; Stufen 1a–3b erledigt)
 Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strikt nacheinander.
