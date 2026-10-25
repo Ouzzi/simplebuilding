@@ -30,6 +30,7 @@ public final class EarthServerConfig {
     public static int minActivationY;
     /** Render switch at least this far above the activation height. */
     public static int minSwitchGap;
+    /** Fastest glide (blocks per second) the server accepts; the client scales its orbit speed with the height (WD25-22). */
     public static int maxOrbitSpeed;
     public static int minEdge;
     public static int maxEdge;
@@ -94,7 +95,7 @@ public final class EarthServerConfig {
         }
         minActivationY = integer(json, "minActivationY", 1024, 384, 16384);
         minSwitchGap = integer(json, "minSwitchGap", 128, 32, 8192);
-        maxOrbitSpeed = integer(json, "maxOrbitSpeed", 2048, 16, 8192);
+        maxOrbitSpeed = integer(json, "maxOrbitSpeed", 32768, 16, 262144);
         minEdge = integer(json, "minEdge", 8192, 1024, 262144);
         maxEdge = integer(json, "maxEdge", 262144, minEdge, 1048576);
         exploredOnly = bool(json, "exploredOnly", false);

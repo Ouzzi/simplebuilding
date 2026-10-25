@@ -52,7 +52,8 @@ public final class EarthSettings {
             i("tileCache", 256, 16384, 2048, 256),
             d("faceEdge", 0, 1, 0.28, 0.04),
             t("moonPhases", true),
-            t("showOthers", true));
+            t("showOthers", true),
+            t("speedWithHeight", true));
     /** Heights, edge, speed, sampling - every version has its own copy (E1, E2, E11). */
     public static final List<Setting> SHARED = List.of(
             i("activationY", 512, 16384, 1024, 64),

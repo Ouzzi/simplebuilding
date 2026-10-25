@@ -63,7 +63,7 @@ public final class EarthTests {
             h.assertTrue(EarthServerConfig.activationY(500, 1200) == 1264, "never below build height + 64");
             h.assertTrue(EarthServerConfig.switchY(1000, 1024) == 1152, "switch at least 128 above activation");
             h.assertTrue(EarthServerConfig.edge(1) == 8192 && EarthServerConfig.edge(9_999_999) == 262144, "edge 8192..262144 (E1)");
-            h.assertTrue(EarthServerConfig.speed(99999) == 2048, "orbit speed cap");
+            h.assertTrue(EarthServerConfig.speed(9_999_999) == 32768 && EarthServerConfig.maxOrbitSpeed == 32768, "orbit speed cap");
             h.assertTrue(EarthClientConfig.version == EarthSettings.DEFAULT_VERSION && EarthSettings.DEFAULT_VERSION == 6, "standard V6");
             h.assertTrue(EarthSettings.VERSIONS == 12, "V1-V12 (WD25-17)");
             h.assertTrue(EarthServerConfig.minGrid == 5 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
@@ -381,8 +381,8 @@ public final class EarthTests {
             player.setPos(x0 + 2, 1600, z0);
             OrbitTracker.tick(player, true);
             h.assertTrue(s.parked && s.ox == x0 + 2, "render switch: parked");
-            OrbitTracker.handleMove(player, new OrbitMovePayload(1000, 0));
-            h.assertTrue(Math.abs(s.ox - (x0 + 2 + 256 / 20.0 * 1.25)) < 1e-6, "glide step capped by the orbit speed: " + s.ox);
+            OrbitTracker.handleMove(player, new OrbitMovePayload(1_000_000, 0));
+            h.assertTrue(Math.abs(s.ox - (x0 + 2 + EarthServerConfig.maxOrbitSpeed / 20.0 * 1.25)) < 1e-6, "glide step capped by the server speed limit: " + s.ox);
             OrbitTracker.handleMove(player, new OrbitMovePayload(Float.NaN, 0));
             h.assertTrue(Double.isFinite(s.ox), "NaN ignored");
             double target = s.ox;

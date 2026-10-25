@@ -32,7 +32,7 @@ public final class EarthClient {
     static boolean development;
     static boolean enabled, active, parked;
     static double ax, az, ox, oz;
-    static int activationY = 1024, switchY = 1536, edge = 65536, seaLevel = 63, minGrid = 5;
+    static int activationY = 1024, switchY = 1536, edge = 65536, seaLevel = 63, minGrid = 5, maxSpeed = 32768;
     static float speed = 256;
     static boolean exploredOnly;
     static List<float[]> others = List.of();
@@ -73,6 +73,7 @@ public final class EarthClient {
         seaLevel = p.seaLevel();
         exploredOnly = p.exploredOnly();
         minGrid = p.minGrid();
+        maxSpeed = p.maxSpeed();
         others = p.others();
         ox = p.ox();
         oz = p.oz();
@@ -84,7 +85,7 @@ public final class EarthClient {
         }
         if (!parked) holding = false;
         // the server is authoritative; small differences are prediction lag, large ones a correction (border, teleport)
-        if (!parked || Math.hypot(predX - ox, predZ - oz) > speed * 2) {
+        if (!parked || Math.hypot(predX - ox, predZ - oz) > Math.max(speed * 2, maxSpeed)) {
             predX = prevX = ox;
             predZ = prevZ = oz;
         }
@@ -131,7 +132,7 @@ public final class EarthClient {
             if (Math.hypot(player.getX() - parkX, player.getZ() - parkZ) > 0.25) player.setPos(parkX, player.getY(), parkZ);
             double len = Math.hypot(glideStrafe, glideForward);
             if (len > 1e-3) {
-                double yaw = Math.toRadians(player.getYRot()), step = speed / 20.0;
+                double yaw = Math.toRadians(player.getYRot()), step = glideSpeed(player.getEyeY()) / 20.0;
                 double fx = -Math.sin(yaw), fz = Math.cos(yaw), sx = Math.cos(yaw), sz = Math.sin(yaw);
                 double k = Math.min(1, len) / len;
                 double dx = (fx * glideForward + sx * glideStrafe) * k * step, dz = (fz * glideForward + sz * glideStrafe) * k * step;
@@ -173,6 +174,16 @@ public final class EarthClient {
         if (!enabled || !active) return 0;
         double band = Math.max(1, EarthClientConfig.get("fadeBand"));
         return Math.max(0, Math.min(1, (cameraY - switchY) / band));
+    }
+
+    /**
+     * Glide speed in blocks per second: the orbit speed at the render switch; with {@code speedWithHeight} (standard) times the
+     * eye height over the earth, so the surface passes the screen equally fast at every height (WD25-22: high up 256 b/s looked
+     * like standing still); never above the server limit.
+     */
+    public static double glideSpeed(double eyeY) {
+        double factor = EarthClientConfig.renderOn("speedWithHeight") ? Math.max(1, eyeHeight(eyeY) / eyeHeight(switchY)) : 1;
+        return Math.min(maxSpeed, speed * factor);
     }
 
     /** 0 at the render switch, 1 at the ceiling height (V12 turns its corner up with it). */
