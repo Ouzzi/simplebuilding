@@ -125,6 +125,7 @@ public final class OrbitTracker {
             s.parkZ = player.getZ();
             s.ox = s.parkX;
             s.oz = s.parkZ;
+            hover(player, true);
             s.dirty = true;
         } else if (s.parked && y < s.switchY - HYSTERESIS) {
             reenter(player, s);
@@ -151,8 +152,18 @@ public final class OrbitTracker {
     }
 
     /** Re-entry (E6): to the orbit position (or with reentryAtOrbit off the park point) at the current height, slow falling unless flying. */
+    /**
+     * WF25-1: parked players hover - no gravity (also exempts them from the flying kick), elytra folded (no wear while
+     * parked); the client moves them up/down with jump/sneak. Re-entry restores gravity.
+     */
+    static void hover(ServerPlayer player, boolean on) {
+        player.setNoGravity(on);
+        if (on && player.isFallFlying()) player.stopFallFlying();
+    }
+
     static void reenter(ServerPlayer player, State s) {
         s.parked = false;
+        hover(player, false);
         ServerLevel level = player.level();
         if (!EarthServerConfig.reentryAtOrbit) {
             s.ox = s.parkX;
@@ -177,6 +188,7 @@ public final class OrbitTracker {
     public static void disconnect(ServerPlayer player) {
         State s = peek(player.getUUID());
         if (s != null && s.parked) {
+            hover(player, false);
             if (EarthServerConfig.reentryAtOrbit) player.setPos(s.ox, player.getY(), s.oz);
             else player.setPos(s.parkX, player.getY(), s.parkZ);
         }

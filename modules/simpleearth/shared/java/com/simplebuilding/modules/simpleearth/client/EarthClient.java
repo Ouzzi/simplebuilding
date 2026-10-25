@@ -116,9 +116,15 @@ public final class EarthClient {
     public static void startTick(Minecraft mc) {
         LocalPlayer player = mc.player;
         if (player == null || !holding) return;
-        // parked: the figure stays over the park point, only the height changes (Vanilla flight up/down keeps working)
+        // parked: the figure stays over the park point, only the height changes - Vanilla flight up/down, and without creative
+        // flight (elytra, WF25-1: the server switched gravity off) jump/sneak move up/down, sprint four times faster
         var motion = player.getDeltaMovement();
-        player.setDeltaMovement(0, motion.y, 0);
+        double vy = motion.y;
+        if (!player.getAbilities().flying) {
+            var o = mc.options;
+            vy = ((o.keyJump.isDown() ? 1 : 0) - (o.keyShift.isDown() ? 1 : 0)) * (o.keySprint.isDown() ? 4.0 : 1.0);
+        }
+        player.setDeltaMovement(0, vy, 0);
     }
 
     public static void endTick(Minecraft mc) {

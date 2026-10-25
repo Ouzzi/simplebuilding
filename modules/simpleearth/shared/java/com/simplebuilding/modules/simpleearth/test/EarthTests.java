@@ -381,6 +381,7 @@ public final class EarthTests {
             player.setPos(x0 + 2, 1600, z0);
             OrbitTracker.tick(player, true);
             h.assertTrue(s.parked && s.ox == x0 + 2, "render switch: parked");
+            h.assertTrue(player.isNoGravity(), "WF25-1: parked players hover (no gravity, no flying kick, elytra folded)");
             OrbitTracker.handleMove(player, new OrbitMovePayload(1_000_000, 0));
             h.assertTrue(Math.abs(s.ox - (x0 + 2 + EarthServerConfig.maxOrbitSpeed / 20.0 * 1.25)) < 1e-6, "glide step capped by the server speed limit: " + s.ox);
             OrbitTracker.handleMove(player, new OrbitMovePayload(Float.NaN, 0));
@@ -389,6 +390,7 @@ public final class EarthTests {
             player.setPos(x0 + 2, 1500, z0);
             OrbitTracker.tick(player, true);
             h.assertTrue(!s.parked && s.active, "below the switch: re-entry");
+            h.assertTrue(!player.isNoGravity(), "gravity back after re-entry");
             h.assertTrue(Math.abs(player.getX() - target) < 1e-6, "re-entry at the orbit position (E6): " + player.getX());
             h.assertTrue(player.getAbilities().flying || player.hasEffect(MobEffects.SLOW_FALLING), "slow falling after re-entry");
             player.setPos(player.getX(), 900, z0);

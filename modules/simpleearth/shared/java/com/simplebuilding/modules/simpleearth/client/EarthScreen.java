@@ -261,8 +261,9 @@ public final class EarthScreen extends Screen {
                 store(row, value(row) >= 0.5 ? 0 : 1);
                 return true;
             }
-            int y = rowY(i) + 12, tx = trackX(), tw = trackW();
-            if (event.y() >= y - 2 && event.y() <= y + 9) {
+            int tx = trackX(), tw = trackW();
+            // WF25-2: the whole row height counts (it was only the 12 px band round the track)
+            {
                 if (event.x() >= panelX + PAD && event.x() < tx - 2) {
                     step(row, -1);
                     return true;

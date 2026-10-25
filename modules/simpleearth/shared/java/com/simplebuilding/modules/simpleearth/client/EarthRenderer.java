@@ -40,7 +40,27 @@ public final class EarthRenderer {
     private static double ghostAlpha;
     private static float[] stars;
 
+    /**
+     * WF25-3: every earth point is pushed this many blocks further from the camera along its line of sight, so the picture
+     * from the eye stays exactly the same but nothing of the earth is ever nearer than this - in third person (F5 looking
+     * down at yourself) the earth used to slide between camera and player once its scaled surface came closer than the
+     * camera distance (with 20+ chunks render distance just below y 2778).
+     */
+    static final double PUSH = 32;
+    /** Nearest earth distance of the last frame (client test). */
+    public static volatile double lastNearest = Double.NaN;
+    private static double nearest;
+
     private EarthRenderer() {}
+
+    /** Scaled into the near range, then pushed {@link #PUSH} blocks back along the line of sight (same direction, same picture). */
+    static V3 place(V3 rel, double scale) {
+        V3 v = rel.mul(scale);
+        double len = v.length();
+        if (len < 1e-9) return new V3(0, -PUSH, 0);
+        if (len + PUSH < nearest) nearest = len + PUSH;
+        return v.mul((PUSH + len) / len);
+    }
 
     public static void render(SubmitNodeCollector collector, PoseStack poseStack, Vec3 camera) {
         Minecraft mc = Minecraft.getInstance();
@@ -55,6 +75,8 @@ public final class EarthRenderer {
         }
         ensureTextures();
         FaceTextures.newFrame();
+        lastNearest = nearest;
+        nearest = Double.MAX_VALUE;
         float partial = mc.getDeltaTracker().getGameTimeDeltaPartialTick(false);
         EarthView view = EarthClient.view();
         double edge = EarthClient.edge();
@@ -151,7 +173,7 @@ public final class EarthRenderer {
                 if (scene.closedBody && n.dot(at.sub(center)) < 0) n = n.mul(-1);
                 double light = 0.38 + 0.8 * Math.max(0, n.dot(sun));
                 int k = j * cols + i;
-                V3 r = at.sub(eye).mul(scale);
+                V3 r = place(at.sub(eye), scale);
                 xyz[3 * k] = (float) r.x();
                 xyz[3 * k + 1] = (float) r.y();
                 xyz[3 * k + 2] = (float) r.z();
@@ -219,7 +241,7 @@ public final class EarthRenderer {
                     cb += (0.25 - cb) * dusk;
                     int a = (int) (255 * Meshes.clamp(rim * 1.3 * strength * fade, 0, 1));
                     argb[k] = a << 24 | (int) (cr * 255) << 16 | (int) (cg * 255) << 8 | (int) (cb * 255);
-                    V3 r = at.sub(eye).mul(scale);
+                    V3 r = place(at.sub(eye), scale);
                     xyz[3 * k] = (float) r.x();
                     xyz[3 * k + 1] = (float) r.y();
                     xyz[3 * k + 2] = (float) r.z();
@@ -243,7 +265,7 @@ public final class EarthRenderer {
                 double[] l = scene.lines.get(k);
                 double alpha = l[6] * fade;
                 if (alpha <= 0.01) continue;
-                V3 a = new V3(l[0], l[1], l[2]).sub(eye).mul(scale), b = new V3(l[3], l[4], l[5]).sub(eye).mul(scale);
+                V3 a = place(new V3(l[0], l[1], l[2]).sub(eye), scale), b = place(new V3(l[3], l[4], l[5]).sub(eye), scale);
                 V3 mid = V3.lerp(a, b, 0.5), dir = b.sub(a), side = dir.cross(mid).normalize().mul(Math.max(0.004, mid.length() * 0.0025));
                 if (!side.finite() || side.length() < 1e-9) continue;
                 int c = shade(scene.lineColors.get(k), 1, alpha);
@@ -273,13 +295,14 @@ public final class EarthRenderer {
         }
         if (dots.isEmpty()) return;
         collector.submitCustomGeometry(poseStack, RenderTypes.text(WHITE), (pose, buffer) -> {
-            for (V3 d : dots) billboard(pose, buffer, d.sub(eye).mul(scale), Math.max(0.05, d.sub(eye).mul(scale).length() * 0.012), shade(0xFFFFF2A0, 1, fade));
+            for (V3 d : dots) billboard(pose, buffer, place(d.sub(eye), scale), Math.max(0.05, place(d.sub(eye), scale).length() * 0.012), shade(0xFFFFF2A0, 1, fade));
         });
     }
 
     /** Black sky (a cube inside the view range that hides the Vanilla sky), stars, the flat sun and the cube moon. */
     private static void sky(SubmitNodeCollector collector, PoseStack poseStack, double maxDist, V3 sun, double fade, long clock) {
-        double r = maxDist * 0.95 / Math.sqrt(3);
+        // the sky box lies behind the whole earth (which ends at PUSH + maxDist, see place)
+        double r = (maxDist + PUSH) * 1.08;
         double starLevel = EarthClientConfig.get("stars");
         int black = shade(0xFF020308, 1, fade);
         collector.submitCustomGeometry(poseStack, RenderTypes.text(WHITE), (pose, buffer) -> {
@@ -319,7 +342,7 @@ public final class EarthRenderer {
         int phase = EarthClientConfig.renderOn("moonPhases") ? (int) ((clock / 24000L % 8L + 8L) % 8L) : 0;
         double angle = Math.PI - phase * Math.PI / 4;
         V3 dir = Quat.axisAngle(new V3(0, 0, 1), angle).rotate(sun).normalize();
-        V3 centre = dir.mul(r * 0.55);
+        V3 centre = dir.mul(r * 0.96);
         double half = r * 0.035 * size;
         Quat spin = Quat.fromUnitVectors(new V3(0, 0, 1), dir.mul(-1));
         collector.submitCustomGeometry(poseStack, RenderTypes.text(MOON), (pose, buffer) -> {
