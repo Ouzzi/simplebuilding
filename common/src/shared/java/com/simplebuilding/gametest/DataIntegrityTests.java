@@ -2827,7 +2827,9 @@ public final class DataIntegrityTests {
                     // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
                     && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // WB24-6: Simple Lights' panes keep their rows in SimpleBuilding's building tab (by id).
-                    && !com.simplebuilding.util.LightRefs.items().contains(item)) {
+                    && !com.simplebuilding.util.LightRefs.items().contains(item)
+                    // OW24-2 G1: Simple Gadgets' Gauge keeps its place in SimpleBuilding's tools tab (by id).
+                    && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
