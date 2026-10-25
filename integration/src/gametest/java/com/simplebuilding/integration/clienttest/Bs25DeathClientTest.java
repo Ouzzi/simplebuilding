@@ -44,6 +44,7 @@ public final class Bs25DeathClientTest implements FabricClientGameTest {
             watchdog.setDaemon(true);
             watchdog.start();
             step("world ready");
+            playerCommand(context, world, "control before any death");
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
             for (String command : new String[] {"time set noon", "weather clear", "gamerule spawn_mobs false"}) {
@@ -114,10 +115,7 @@ public final class Bs25DeathClientTest implements FabricClientGameTest {
             click(context, "deathScreen.respawn");
             context.waitFor(c -> c.gui.screen() == null && c.player != null && c.player.isAlive(), 400);
             step(name + ": command as player");
-            context.runOnClient(c -> c.player.connection.sendCommand("gamemode creative"));
-            context.waitFor(c -> c.player != null && c.player.isCreative(), 200);
-            context.runOnClient(c -> c.player.connection.sendCommand("gamemode survival"));
-            context.waitFor(c -> c.player != null && !c.player.isCreative(), 200);
+            playerCommand(context, world, name + " after respawn");
             String held = world.getServer().computeOnServer(server -> server.getPlayerList().getPlayers().getFirst()
                     .getItemBySlot(EquipmentSlot.HEAD).toString());
             System.out.println("[bs25] OK " + name + " (head after respawn: " + held + ")");
@@ -125,7 +123,33 @@ public final class Bs25DeathClientTest implements FabricClientGameTest {
         } catch (RuntimeException | AssertionError e) {
             faults++;
             System.out.println("[bs25] FAIL " + name + " at " + step + ": " + e);
+            System.out.println("[bs25] state client: " + context.computeOnClient(c -> "screen=" + c.gui.screen() + " player="
+                    + (c.player == null ? "null" : "alive=" + c.player.isAlive() + " health=" + c.player.getHealth() + " fire=" + c.player.isOnFire()))
+                    + " | server: " + world.getServer().computeOnServer(srv -> {
+                        ServerPlayer p = srv.getPlayerList().getPlayers().getFirst();
+                        return "health=" + p.getHealth() + " fireTicks=" + p.getRemainingFireTicks() + " block=" + p.level().getBlockState(p.blockPosition())
+                                + " below=" + p.level().getBlockState(p.blockPosition().below()) + " pos=" + p.position() + " mode=" + p.gameMode();
+                    }));
             context.setScreen(() -> null);
+        }
+    }
+
+    /** /gamemode creative and back, typed by the player (not the server console); prints what happened instead of asserting. */
+    private void playerCommand(ClientGameTestContext context, TestSingleplayerContext world, String name) {
+        for (String mode : new String[] {"creative", "survival"}) {
+            context.runOnClient(c -> c.player.connection.sendCommand("gamemode " + mode));
+            context.waitTicks(20);
+            String client = context.computeOnClient(c -> "screen=" + c.gui.screen() + " alive=" + (c.player != null && c.player.isAlive())
+                    + " creative=" + (c.player != null && c.player.isCreative()) + " clientPlayer=" + System.identityHashCode(c.player));
+            String server = world.getServer().computeOnServer(srv -> {
+                ServerPlayer p = srv.getPlayerList().getPlayers().getFirst();
+                return "mode=" + p.gameMode() + " op=" + srv.getPlayerList().isOp(p.nameAndId()) + " perms=" + p.permissions()
+                        + " connPlayerSame=" + (p.connection.player == p) + " players=" + srv.getPlayerList().getPlayers().size()
+                        + " alive=" + p.isAlive() + " removed=" + p.isRemoved();
+            });
+            boolean ok = server.startsWith("mode=" + mode.toUpperCase(java.util.Locale.ROOT));
+            if (!ok) faults++;
+            System.out.println("[bs25] " + (ok ? "CMD-OK " : "CMD-FAIL ") + name + " /gamemode " + mode + " | client " + client + " | server " + server);
         }
     }
 
