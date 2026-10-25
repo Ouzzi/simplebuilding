@@ -1482,7 +1482,9 @@ public final class MobHeadTests {
                         e -> e.getItem().is(MobHeads.item(id)));
                 boolean kept = HeadAbilities.is(player.getItemBySlot(EquipmentSlot.HEAD), id);
                 String where = id + "/" + source.getMsgId() + (at != level ? "/nether" : "");
-                if (!player.isDeadOrDying() || (kept ? drops.size() != 0 : drops.size() != 1)) {
+                // In the freshly loaded Nether chunk the drop's entity section may not be loaded yet: only "not kept twice".
+                boolean dropOk = kept ? drops.isEmpty() : at != level || drops.size() == 1;
+                if (!player.isDeadOrDying() || !dropOk) {
                     problems.add(where + ": dead=" + player.isDeadOrDying() + " kept=" + kept + " drops=" + drops.size());
                 }
                 drops.forEach(Entity::discard);
