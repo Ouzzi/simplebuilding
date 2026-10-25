@@ -83,7 +83,7 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplegadgets:empty")
     public void rotatorATurnQueuesTheEnderEchoShortlyAfterTheRatchet(GameTestHelper h) {
-        GadgetsTests.ALL.get("rotator_a_turn_queues_the_ender_echo_shortly_after_the_ratchet").accept(h);
+        GadgetsTests.ALL.get("rotator_aturn_queues_the_ender_echo_shortly_after_the_ratchet").accept(h);
     }
 
     @GameTest(structure = "simplegadgets:empty")

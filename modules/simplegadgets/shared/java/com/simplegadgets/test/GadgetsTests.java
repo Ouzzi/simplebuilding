@@ -60,7 +60,7 @@ public final class GadgetsTests {
         ALL.put("rotator_charge_runs_down_but_the_rotator_never_breaks", RotatorTests::chargeRunsDownButTheRotatorNeverBreaks);
         ALL.put("rotator_anvil_recharges_with_sixteen_ender_pearls_for_no_levels", RotatorTests::anvilRechargesWithSixteenEnderPearlsForNoLevels);
         ALL.put("rotator_anvil_takes_unbreaking_but_refuses_mending", RotatorTests::anvilTakesUnbreakingButRefusesMending);
-        ALL.put("rotator_a_turn_queues_the_ender_echo_shortly_after_the_ratchet", RotatorTests::aTurnQueuesTheEnderEchoShortlyAfterTheRatchet);
+        ALL.put("rotator_aturn_queues_the_ender_echo_shortly_after_the_ratchet", RotatorTests::aTurnQueuesTheEnderEchoShortlyAfterTheRatchet);
         ALL.put("rotator_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape);
         ALL.put("rotator_swap_replaces_the_block_gives_the_drops_and_uses_the_offhand_block", RotatorTests::swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock);
         ALL.put("rotator_swap_windup_grows_with_hardness_and_shrinks_with_efficiency", RotatorTests::swapWindupGrowsWithHardnessAndShrinksWithEfficiency);
