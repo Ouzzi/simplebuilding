@@ -136,6 +136,11 @@ public final class DevEnchantedTab {
         return enchantments.stream().filter(e -> e.value().isSupportedItem(stack)).toList();
     }
 
+    /** SimpleBuilding's own items and, on 26.3, Simple Gadgets' gadgets (they left SimpleBuilding, OW24-2) count as the mod's carriers. */
+    private static boolean isFamilyItem(Identifier id) {
+        return Simplebuilding.MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.GADGETS_NAMESPACE.equals(id.getNamespace());
+    }
+
     private static boolean isMod(Holder<Enchantment> enchantment) {
         return enchantment.unwrapKey().map(k -> Simplebuilding.MOD_ID.equals(k.identifier().getNamespace())).orElse(false);
     }
@@ -149,7 +154,7 @@ public final class DevEnchantedTab {
         Set<Item> modItems = new LinkedHashSet<>();
         ModItemGroupsContent.populate((CreativeModeTab.Output) (stack, visibility) -> {
             Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-            if (Simplebuilding.MOD_ID.equals(id.getNamespace()) && stack.getItem() != ModItems.CREATIVE_SPACER) {
+            if (isFamilyItem(id) && stack.getItem() != ModItems.CREATIVE_SPACER) {
                 modItems.add(stack.getItem());
             }
         }, lookup);
@@ -162,7 +167,7 @@ public final class DevEnchantedTab {
                 .toList();
         List<Item> vanillaCandidates = new ArrayList<>();
         for (Item item : BuiltInRegistries.ITEM) {
-            if (Simplebuilding.MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+            if (isFamilyItem(BuiltInRegistries.ITEM.getKey(item))) {
                 continue;
             }
             ItemStack stack = new ItemStack(item);

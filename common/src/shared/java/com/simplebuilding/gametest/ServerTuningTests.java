@@ -353,6 +353,7 @@ public final class ServerTuningTests {
      * The laser switch for creatures: off, the beam may not set a living target on fire, on it may.
      */
     public static void theLaserSwitchesStopWhatTheBeamIgnites(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         SimplebuildingConfig config = Simplebuilding.getConfig();
         boolean entities = config.server.laser.igniteEntities;
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));

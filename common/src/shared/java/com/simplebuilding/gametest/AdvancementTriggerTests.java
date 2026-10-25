@@ -422,7 +422,7 @@ public final class AdvancementTriggerTests {
         AdvancementHolder focus = require(helper, manager, "gadgets/burning_focus");
         AdvancementHolder detonation = require(helper, manager, "gadgets/remote_detonation");
         ServerPlayer player = mockPlayer(helper, new Vec3(5.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         var rules = helper.getLevel().getGameRules();
         boolean tntExplodes = rules.get(GameRules.TNT_EXPLODES);
         try {
@@ -430,14 +430,14 @@ public final class AdvancementTriggerTests {
             BlockPos ice = new BlockPos(2, 2, 4);
             helper.setBlock(ice.below(), Blocks.STONE);
             helper.setBlock(ice, Blocks.ICE);
-            beam(helper, player, lens, ice, LaserBeam.MELT_TICKS);
+            lensBeam(helper, player, lens, ice, LaserBeam.MELT_TICKS, false);
             helper.assertTrue(done(player, focus), "test setup broken: melting ice did not earn Burning Focus");
             helper.assertTrue(!done(player, detonation), "melting ice earned Remote Detonation");
 
             BlockPos tnt = new BlockPos(3, 2, 2);
             helper.setBlock(tnt.below(), Blocks.STONE);
             helper.setBlock(tnt, Blocks.TNT);
-            beam(helper, player, lens, tnt, LaserBeam.IGNITE_TICKS);
+            lensBeam(helper, player, lens, tnt, LaserBeam.IGNITE_TICKS, true);
             helper.assertTrue(helper.getBlockState(tnt).isAir(), "test setup broken: the beam did not prime the TNT");
             helper.assertTrue(done(player, detonation), "priming TNT with the lens did not earn Remote Detonation");
             helper.getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(helper.absolutePos(tnt)).inflate(1.0)).forEach(PrimedTnt::discard);
@@ -448,6 +448,22 @@ public final class AdvancementTriggerTests {
     }
 
     // -------------------------------------------------------------------------------------
+
+    /**
+     * The beam on a block. 26.2: SimpleBuilding's own beam. 26.3 (OW24-2 G2): the rod is Simple Gadgets' - its module tests drive the
+     * beam, here its event through SimpleLib's GadgetActions stands in (what the beam fires when its effect lands).
+     */
+    private static void lensBeam(GameTestHelper helper, ServerPlayer player, ItemStack lens, BlockPos relative, int ticks, boolean primesTnt) {
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
+            beam(helper, player, lens, relative, ticks);
+            return;
+        }
+        com.simplebuilding.util.LibServices.fireGadgetEvent("lens_beam", player);
+        if (primesTnt) {
+            com.simplebuilding.util.LibServices.fireGadgetEvent("laser_tnt", player);
+            helper.setBlock(relative, Blocks.AIR);
+        }
+    }
 
     private static void beam(GameTestHelper helper, ServerPlayer player, ItemStack lens, BlockPos relative, int ticks) {
         BlockPos pos = helper.absolutePos(relative);

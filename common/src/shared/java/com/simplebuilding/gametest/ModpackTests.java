@@ -193,8 +193,9 @@ public final class ModpackTests {
      * <p>What breaks it: dropping {@code claimAllows} from {@code LaserBeam#beamAt}.
      */
     public static void lensBeamLeavesBlocksTheLoaderEventsProtect(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         BlockPos target = new BlockPos(2, 2, 2);
         helper.setBlock(target.below(), Blocks.STONE);
         helper.setBlock(target, Blocks.ICE);

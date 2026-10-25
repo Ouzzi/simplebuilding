@@ -1,0 +1,44 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplebuilding"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simplebuilding"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:iron_ingot",
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:ender_pearl"
+  },
+  "pattern": [
+    " I ",
+    "IPI",
+    "CI "
+  ],
+  "result": {
+    "id": "simplegadgets:rotator"
+  }
+}

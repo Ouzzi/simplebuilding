@@ -9277,7 +9277,7 @@
     ],
     "maxCharge": 1024,
     "pearlsForFull": 16,
-    "tool": "simplebuilding:rotator"
+    "tool": "simplegadgets:rotator"
   },
   "schema": 1,
   "shearWool": {

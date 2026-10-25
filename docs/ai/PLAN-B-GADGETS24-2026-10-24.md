@@ -116,3 +116,51 @@ module-simplegadgets-fabric-263 10/10, standalone 10/10; fabric-263 `*gauge*` 4/
 `*guide*` 16/16, `*core_tooltips*` 1/1, `*renamed_item_ids*` 1/1, `*data_integrity*` 51/51; integration-263 4/4; Datagen 26.3, Guides,
 Wiki, Discover, Money-Links, Ebenen erzeugt; `./gradlew check` grün (f50633c90). (d) Abweichung: die SB-Lang-Schlüssel der Messuhr bleiben im
 26.3-Overlay (`check_tooltip_text`: das Overlay muss jeden gemeinsamen Schlüssel halten); nur die JEI-Info entfällt dort nicht, ist aber ungenutzt.
+
+## 7. Stufe G2 (Branch `b-gadgets25`, Basis `b-gadgets24`): Transposer + Resonanzstab
+
+Nach dem Muster von G1 (§3, E1-E10): SB-Klassen bleiben für 26.2 (`McVersion.GADGETS_IN_SB`), auf 26.3 sind `ModItems.ROTATOR` und
+`TweaksItems.LASER_POINTER` `null`, SB erreicht beide per Id (`util/GadgetRefs`). Zwei Commits: **G2a Transposer**, **G2b Resonanzstab**
+(der Stab hängt an Netzwerk, Renderer, drei Client-Mixins und eigener Config, deshalb getrennt prüfbar).
+
+- **E11 Gemeinsame Verträge in SimpleLib (Regel 6a):** `api/AnvilRechargeable` + `mixin/AnvilRechargeMixin` (Aufladen im Amboss ohne Stufen,
+  dasselbe Verhalten wie SBs Mixin, andere Schnittstelle, damit SB (26.2) und Modul sich nie doppeln); `api/GadgetActions`: Ereignisse
+  (`ROTATE`, `LENS_BEAM`, `LASER_TNT`; SB hört in `LibServices` und feuert seine Freischaltungen), Werte-Tabelle (`fact`) für SBs In-World-Katalog,
+  Hand-Hinweis (`registerItemHint`/`itemHint` für SBs `TransformTargets`, `registerHandHint` Client: SB beantwortet für das Modell-Prädikat
+  mit seiner vollen Prüfung). Berechtigungen: Modul `GadgetProtection` (framework `Protection` + `HammerActions.mayChange`, Muster `HammerProtection`).
+- **E12 Config `config/simplegadgets-server.json`** (`GadgetsConfig`, Muster `HammerConfig`, Übernahme der SB-Werte beim ersten Start über
+  `ConfigFiles.adoptLegacy`: `tools.rotator*`, `server.charges.{rotator,lens}MaxCharge`, später `server.laser.*`, `tweaks.laserPointer.*`). SBs Schlüssel
+  bleiben (Stufe 9: ausblenden). Höchstladung wird beim Registrieren gelesen (Neustart nötig, wie vorher).
+- **E13 Ids:** ITEM `rotator`/`amethyst_lens`, RECIPE gleich, ADVANCEMENT `recipes/tools/<id>` `simplebuilding:` -> `simplegadgets:` (IdMoves). Kein Block,
+  keine BlockEntity -> kein Paletten-Test (Pflicht erst G3). `ModTriggers.ROTATE/LENS_BEAM/LASER_TNT` und die SB-Freischaltungen (`gadgets/spin_doctor`,
+  `burning_focus`, `remote_detonation`) bleiben SBs, Symbol per Id.
+- **E14 Rezepte:** mit SB `simplebuilding:iron_core` + `iron_pole`; ohne SB (`*_without_simplebuilding`): Eisenbarren statt Kern/Stab (Muster Messuhr).
+- **E15 Hand-Hinweis des Transposers:** Modell-Eigenschaft `simplegadgets:transform_hint` (statt `simplebuilding:transform_hint`); mit SB gilt dessen volle Prüfung.
+- **E16 Tests:** `RotatorTests` -> `com.simplegadgets.test.RotatorTests` (1:1 portiert), Stab-Tests aus `TweaksTests`/`CombatTests`/`ModpackTests`/`ServerTuningTests`/
+  `ConfigOptionTests`/`AdvancementTriggerTests` -> `GadgetsTests` bzw. Modul-Tests; SB-Tests per `GADGETS_IN_SB`-Wächter bzw. `GadgetRefs`. Jeder neue Test mit Fabric-Adapter (`ModuleGameTest`).
+
+### Stand G2 und Abweichungen (25.10.)
+
+Umgesetzt wie in §7 geplant: Modul `simplegadgets` trägt jetzt Messuhr, Transponierer (`com.simplegadgets.rotator.RotatorItem`/`RotatorSwap`,
+`TransformHintModelProperty`) und Resonanzstab (`rod.ResonanceRodItem`/`RodBeam`/`LensMeasurement`, `network.LaserPayload`/`RodNetwork`,
+`client.RodClient`/`RodRenderer`, Mixins `RodCrosshair`/`RodSteadyView`/`RodHandTilt`/`FireIgniteOddsInvoker`, Komponente
+`simplegadgets:lens_measurement`), dazu `GadgetsConfig` (`config/simplegadgets-server.json`, Übernahme der SB-Werte) und `GadgetProtection`
+(framework `Protection` + loader-Break-Ereignis über einen vom Fabric-Einstieg gesetzten `BuildGuard`). SimpleLib: `AnvilRechargeable` +
+`AnvilRechargeMixin`, `XpRepairRefusalMixin` (Tag `simplelib:xp_repair_incompatible`), `GadgetActions`. SB: `McVersion.GADGETS_IN_SB` setzt
+`ModItems.ROTATOR`, `TweaksItems.LASER_POINTER`, `ModDataComponentTypes.LENS_MEASUREMENT` auf 26.3 auf `null`; `GadgetRefs.rotator()/rod()`;
+`TransformTargets` fragt `GadgetActions.itemHint`, `LibServices` übersetzt die Ereignisse in `ModTriggers`, `LibClientServices` beantwortet den
+Hand-Hinweis und lässt den ROD-Slot weg; Datagen (Rezepte, Modelle, Tags, Freischaltungen per Id), Handbuch-Kapitel per Id, Tests per
+`GADGETS_IN_SB`-Wächter bzw. `GadgetRefs`. Tests im Modul: `RotatorTests` (15, aus SB portiert), `RodTests` (21, aus `TweaksTests`/`CombatTests`/
+`ServerTuningTests`/`ModpackTests` portiert), Migration von altem Transponierer-/Resonanzstab-Stapel (Schaden, Messungs-Komponente, Truhe),
+Registrierung, Rezepte mit/ohne SB.
+
+Abweichungen: (a) Kein Block/keine BlockEntity: kein Paletten-Test (Pflicht erst G3). (b) Werte sind server-lokal wie bei den Hämmern: der
+Strahl-Client rechnet mit seiner eigenen Datei (kein Sync-Paket mehr; der Server prüft Reichweite und Schalter weiter selbst). (c) SBs Config-
+Schlüssel (`tools.rotator*`, `server.charges.*`, `server.laser.*`, `tweaks.laserPointer.*`) bleiben stehen (Stufe 9: ausblenden); SBs
+`RecipeFilter`-Schalter `laserPointer.enable` blendet das Modul-Rezept nicht mehr aus (der Schalter `rodEnabled` sperrt nur den Strahl).
+(d) JEI-Infoseiten des Resonanzstabs (`TweaksJeiInfo`) entfallen auf 26.3 wie die der Messuhr. (e) Der Discover-Tipp „Transponierer“ ist jetzt der
+des Moduls; SBs 26.2-Linie verliert ihn. (f) Gemeinsamer Verzauberungs-Mixin: Modul-Transponierer nimmt Unbreaking, kein Mending auch allein
+(SimpleLib-Tag statt SB-Tag). (g) Client-Tests (`GadgetsClientTest`) nicht angepasst/gelaufen (keine Client-Läufe).
+
+Belege G2 (sb-test): module-simplegadgets integriert 46/46, standalone 46/46, integration-263 4/4, module-simpletweaks 164/164, module-simplehammers 17/17; fabric-263 gefiltert: renamed_item_ids 1/1, data_integrity 51/51, guide 16/16, config_option 20/20, test_centre 21/21, advancement_trigger 11/11, item_behaviour 7/7, consumption 6/6, hint 8/8, tweaks 112/112, combat 11/11, server_tuning 8/8, modpack 11/11; Datagen 26.3, Money-Links, Guides, Wiki, Discover erzeugt; `./gradlew check` grün (77a14b664).
+Weitere Abweichungen: (h) `LegacyAliases` (simpletweaks) führt `simpletweaks:laser_pointer` jetzt direkt auf `simplegadgets:amethyst_lens`. (i) `DevEnchantedTab` zählt `simplegadgets:*` als Träger der Mod. (j) SB-Shared-Code erreicht SimpleLib nur über `LibServices` (26.2-Stubs), da die 26.2-Linie SimpleLib nicht hat. G3 nicht begonnen (Besitzer: halbes Tempo).

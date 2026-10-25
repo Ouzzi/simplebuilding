@@ -35,7 +35,8 @@ public final class LegacyAliases {
         if (r.key().equals(Registries.BLOCK) && BLOCKS.contains(path)) target = path;
         if (r.key().equals(Registries.ITEM)) {
             if (BLOCKS.contains(path) || path.equals("spawn_elytra")) target = path;
-            if (path.equals("laser_pointer")) target = "amethyst_lens";
+            // The Resonance Rod is Simple Gadgets' since OW24-2 G2: the old Tweaks id goes straight to its final id.
+            if (path.equals("laser_pointer")) return Identifier.fromNamespaceAndPath("simplegadgets", "amethyst_lens");
         }
         if (r.key().equals(Registries.BLOCK_ENTITY_TYPE) && BLOCK_ENTITIES.contains(path)) target = path;
         if (r.key().equals(Registries.DATA_COMPONENT_TYPE) && COMPONENTS.contains(path)) target = path;

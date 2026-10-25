@@ -555,7 +555,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Rotator (Besitzer 2026-09-27): Eisen-Baukern unten links, vier Eisenbarren im Kreuz, Enderperle in der Mitte;
                 // seit 2026-10-02 vier Eisenstaebe statt der Barren.
-                shaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
+                // OW24-2 G2: on 26.3 the Transposer and its recipe are Simple Gadgets' (modules/simplegadgets).
+                if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) shaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
                         .pattern(" I ")
                         .pattern("IPI")
                         .pattern("CI ")
@@ -1600,7 +1601,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Amethystlinse (Id amethyst_lens; Simple Tweaks hatte kein Rezept): Eisen-Baukern in
                 // der Mitte, Amethystsplitter rechts, Redstone rechts oben und unten,
                 // Eisenbarren links und oben/unten mittig.
-                if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
+                // OW24-2 G2: on 26.3 the Resonance Rod and its recipe are Simple Gadgets' (modules/simplegadgets).
+                if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) {
+                    // no recipe here
+                } else if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
                     // Nachtrag 4: Redstone/Nuggets getauscht; rechts und unter dem Kern je eines entfernt.
                     shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
                             .pattern(" NA")

@@ -84,7 +84,8 @@ class RecipeProseTests(unittest.TestCase):
 
     def test_followup_four_recipe_layouts(self):
         directory = ROOT / 'mc26_3/generated/data/simplebuilding/recipe'
-        rod = json.loads((directory / 'amethyst_lens.json').read_text(encoding='utf-8'))
+        # OW24-2 G2: on 26.3 the rod and its recipe are Simple Gadgets' too.
+        rod = json.loads((ROOT / 'modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens.json').read_text(encoding='utf-8'))
         self.assertEqual(rod['pattern'], [' NA', 'RC ', 'I  '])
         self.assertEqual(rod['key']['N'], 'minecraft:iron_nugget')
         self.assertEqual(rod['key']['R'], 'minecraft:redstone')
@@ -124,7 +125,7 @@ class RecipeProseTests(unittest.TestCase):
                      'mc26_3/overlay/resources': ('mc26_3/overlay/resources', 'mc26_3/generated', 'src/main/generated')}
             for directory, recipe_dirs in lines.items():
                 candidates = [ROOT / d / 'data/simplebuilding/recipe' / (item + '.json') for d in recipe_dirs]
-                if directory.startswith('mc26_3'):  # OW24-2 G1: on 26.3 the Gauge's recipe is Simple Gadgets'
+                if directory.startswith('mc26_3') and item in ('velocity_gauge', 'amethyst_lens'):  # OW24-2 G1/G2: on 26.3 the Gauge's and the rod's recipes are Simple Gadgets'
                     candidates.insert(0, ROOT / 'modules/simplegadgets/shared/resources/data/simplegadgets/recipe' / (item + '.json'))
                 source = next(path for path in candidates if path.exists())
                 recipe = json.loads(source.read_text(encoding='utf-8'))

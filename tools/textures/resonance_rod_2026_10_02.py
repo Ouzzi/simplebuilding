@@ -5,7 +5,7 @@ Vanilla item language: diagonal like a tool, iron shaft three pixels thick with 
 amethyst_shard palette - a long one on the axis, a short one up and a short one to the right.
 item/amethyst_lens = charged, item/amethyst_lens_empty = no charge (shards and redstone dimmed).
 
-Usage: python tools/textures/resonance_rod_2026_10_02.py [out dir]  (default: the 26.3 overlay)
+Usage: python tools/textures/resonance_rod_2026_10_02.py [out dir]  (default: Simple Gadgets' textures)
 Afterwards run gadget_animations_2026_10_03.py: it turns item/amethyst_lens into the idle animation strip."""
 import os
 import sys
@@ -13,8 +13,9 @@ import sys
 from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', '..', 'mc26_3', 'overlay', 'resources', 'assets',
-                                                         'simplebuilding', 'textures', 'item')
+# OW24-2 G2 (2026-10-25): the Resonance Rod is Simple Gadgets' on 26.3 - its textures live in the module.
+OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', '..', 'modules', 'simplegadgets', 'shared', 'resources',
+                                                         'assets', 'simplegadgets', 'textures', 'item')
 PAL = {
     # amethyst (vanilla item/amethyst_shard)
     'o': (84, 57, 138), 'a': (111, 79, 171), 'g': (141, 106, 204), 'd': (179, 142, 243), 'f': (207, 160, 243),

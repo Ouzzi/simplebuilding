@@ -239,10 +239,11 @@ public final class CombatTests {
      * anderer Spieler ohne {@code scanPlayers} nie; mit Schalter aus leuchtet nichts.
      */
     public static void theResonanceRodScansCreaturesButNotPlayers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = shooter(helper);
         Vec3 eye = helper.absoluteVec(new Vec3(2.5, 2.0, 6.5));
         player.snapTo(eye.x, eye.y, eye.z, 180.0F, 0.0F);
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
         Mob blaze = helper.spawnWithNoFreeWill(EntityTypes.BLAZE, new BlockPos(2, 2, 2));
         var switches = ServerTuning.get().laser;

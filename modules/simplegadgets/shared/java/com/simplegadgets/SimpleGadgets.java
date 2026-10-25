@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Simple Gadgets (OW24-2, docs/ai/PLAN-B-GADGETS24-2026-10-24.md; family plan 2026-10-16): the gadgets you hold and use -
- * measure, turn, pull, locate - moved out of SimpleBuilding stage by stage. Stage G1: the Gauge ({@code velocity_gauge}).
+ * measure, turn, pull, locate - moved out of SimpleBuilding stage by stage. Stage G1: the Gauge ({@code velocity_gauge}); stage G2: the Transposer ({@code rotator}) and the Resonance Rod ({@code amethyst_lens}).
  * The loader entry point calls {@link #init} once before it registers anything, so the id moves out of SimpleBuilding are
  * known in time.
  */
@@ -20,7 +20,7 @@ public final class SimpleGadgets {
     /** The mod the gadgets came from; old worlds hold its ids. */
     public static final String OLD_NAMESPACE = "simplebuilding";
     /** The moved items with their recipe unlock folder ({@code recipes/<folder>/<path>}), in tab order. */
-    public static final List<String> MOVED_ITEMS = List.of("velocity_gauge");
+    public static final List<String> MOVED_ITEMS = List.of("velocity_gauge", "rotator", "amethyst_lens");
 
     private static boolean movesRegistered;
 
@@ -37,8 +37,13 @@ public final class SimpleGadgets {
         return com.simplebuilding.framework.api.SubMods.enabled(MOD_ID);
     }
 
-    public static void init() {
+    public static void init(java.nio.file.Path configDir) {
+        com.simplegadgets.config.GadgetsConfig.load(configDir);
+        // CMD24: /simplegadgets config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplegadgets.config.GadgetsConfig::toJson, com.simplegadgets.config.GadgetsConfig::apply)
+                .file(configDir, com.simplegadgets.config.GadgetsConfig.FILE).register();
         registerIdMoves();
+        com.simplegadgets.rotator.RotatorItem.publishFacts();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         List<String> items = new ArrayList<>();
         MOVED_ITEMS.forEach(path -> items.add(MOD_ID + ":" + path));
@@ -55,6 +60,8 @@ public final class SimpleGadgets {
             IdMoves.move(Registries.RECIPE, old(path), id(path));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/tools/" + path), id("recipes/tools/" + path));
         }
+        // The Resonance Rod's last measurement keeps its component on old stacks.
+        IdMoves.move(Registries.DATA_COMPONENT_TYPE, old("lens_measurement"), id("lens_measurement"));
     }
 
     private SimpleGadgets() {}

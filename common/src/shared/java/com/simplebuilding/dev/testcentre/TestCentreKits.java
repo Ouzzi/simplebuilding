@@ -190,7 +190,7 @@ public final class TestCentreKits {
             case "tweaks" -> main = full(new ItemStack(Items.WIND_CHARGE));
             case "states" -> {
                 // Leerer Resonanzstab und sein Lade-Material: am Amboss der Station aufladen.
-                main = FeatureStations.worn(new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER), 1F);
+                main = FeatureStations.worn(new ItemStack(com.simplebuilding.util.GadgetRefs.rod()), 1F);
                 off = full(new ItemStack(Items.AMETHYST_SHARD));
             }
             case "placeables" -> {

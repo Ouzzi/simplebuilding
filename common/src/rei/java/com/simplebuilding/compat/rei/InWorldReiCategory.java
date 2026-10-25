@@ -56,7 +56,7 @@ final class InWorldReiCategory implements DisplayCategory<InWorldDisplay> {
             case CAULDRON_WASH -> Items.CAULDRON;
             case PISTON_REPAIR -> ModItems.NETHERITE_NUGGET;
             case COPPER_PLATE -> Items.HONEYCOMB;
-            case ROTATE -> ModItems.ROTATOR;
+            case ROTATE -> com.simplebuilding.util.GadgetRefs.rotator();
             case CONSTRUCTORS_TOUCH -> Items.STICK;
             case CORE_ORE -> ModItems.DIAMOND_CORE;
             case SHELL_UPGRADE -> Items.SHULKER_SHELL;

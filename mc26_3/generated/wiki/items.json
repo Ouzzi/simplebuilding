@@ -300,11 +300,6 @@
       "id": "simplebuilding:acacia_sheet"
     },
     {
-      "durability": 640,
-      "id": "simplebuilding:amethyst_lens",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:astral_enchanting_table"
     },
     {
@@ -2179,12 +2174,6 @@
     },
     {
       "id": "simplebuilding:resin_quartz_checker_stairs"
-    },
-    {
-      "durability": 1024,
-      "enchantability": 15,
-      "id": "simplebuilding:rotator",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:sage_orb",

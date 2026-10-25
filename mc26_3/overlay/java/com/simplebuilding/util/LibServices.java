@@ -51,6 +51,24 @@ public final class LibServices {
     }
 
     /** After the blocks and items are registered (ModItems.registerModItems). */
+    /** Simple Gadgets (OW24-2 G2) through SimpleLib's GadgetActions: the item's own hand hint, its published numbers, its events. */
+    public static boolean gadgetItemHint(Item item, net.minecraft.world.item.context.UseOnContext context) {
+        return com.simplelib.api.GadgetActions.itemHint(item, context);
+    }
+
+    public static int gadgetFact(String key, int fallback) {
+        return com.simplelib.api.GadgetActions.fact(key, fallback);
+    }
+
+    public static void fireGadgetEvent(String event, net.minecraft.world.entity.player.Player player) {
+        com.simplelib.api.GadgetActions.fire(event, player);
+    }
+
+    /** A gadget's claim probe fires the loader's break event right now (SimpleLib's counter). */
+    public static boolean gadgetProbing() {
+        return com.simplelib.api.InteractionGuard.probing > 0;
+    }
+
     public static void init() {
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();
@@ -126,6 +144,13 @@ public final class LibServices {
                 com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE));
         HammerActions.listen(HammerActions.UPGRADE_ENDERITE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
                 com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE));
+        // OW24-2 G2: Simple Gadgets tells what its gadgets did; the advancements stay SimpleBuilding's.
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ROTATE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.ROTATE));
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.LENS_BEAM, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.LENS_BEAM));
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.LASER_TNT, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.LASER_TNT));
         HammerActions.listen(HammerActions.AREA_BLOCK, player -> com.simplebuilding.advancement.ModCounters.add(player,
                 com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1));
         // Queue 738: Simple Hammers draws the area outline, its cracks and the upgrade swing itself; SimpleBuilding's

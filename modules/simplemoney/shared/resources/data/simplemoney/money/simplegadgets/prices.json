@@ -1,6 +1,6 @@
 {
   "module": "simplegadgets",
-  "derivation": "The Gauge moved here from SimpleBuilding with its row unchanged (OW24-2 stage G1): copper, a clock and an amethyst shard with SimpleBuilding's Copper Core, sold by the toolsmith.",
+  "derivation": "The Gauge (OW24-2 stage G1), the Transposer and the Resonance Rod (stage G2) moved here from SimpleBuilding with their rows unchanged: copper, a clock and an amethyst shard with SimpleBuilding's Copper Core, sold by the toolsmith. The Transposer: iron core, iron rods and an ender pearl, sold by the toolsmith. The Resonance Rod: iron core, iron rod, nugget, redstone and an amethyst shard, sold by the toolsmith.",
   "excluded": {},
   "prices": [
     {
@@ -11,6 +11,28 @@
       "safetyFloor": 8,
       "merchant": "toolsmith",
       "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplegadgets:rotator",
+      "tier": 1,
+      "hours": 6.7,
+      "craft": 6,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 2,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplegadgets:amethyst_lens",
+      "tier": 1,
+      "hours": 6.7,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 2,
       "stock": 2,
       "chance": 1
     }

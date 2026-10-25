@@ -675,7 +675,8 @@ public class ModItems {
 
     public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1)));
 
-    public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
+    // OW24-2 stage G2: on 26.3 the Transposer is Simple Gadgets' (McVersion.GADGETS_IN_SB false, field null, util/GadgetRefs).
+    public static final Item ROTATOR = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("rotator", settings -> new RotatorItem(settings.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
 
     public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 

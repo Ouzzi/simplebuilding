@@ -100,7 +100,7 @@ public final class ItemBehaviourTests {
      */
     public static void rotatorTurnsLogsByClickedFaceAndRim(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
-        ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+        ItemStack rotator = new ItemStack(com.simplebuilding.util.GadgetRefs.rotator());
         BlockPos log = new BlockPos(2, 1, 2);
 
         // --- centre of the top face: the log already points along Y, so it advances Y -> Z ---
@@ -137,7 +137,7 @@ public final class ItemBehaviourTests {
      */
     public static void rotatorCyclesFacingBlocksAndLeavesPlainBlocksAlone(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
-        ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+        ItemStack rotator = new ItemStack(com.simplebuilding.util.GadgetRefs.rotator());
         BlockPos furnace = new BlockPos(4, 1, 2);
 
         // --- clockwise around Y: north -> east ---

@@ -9,5 +9,27 @@
     "secret": [
       "Right-click toggles auto-walk. With Constructor's Touch it adds peak and average speed; Range extends the fall depth it can read, up to 64 blocks."
     ]
+  },
+  "rotator": {
+    "lore": [
+      "A tool for those who like things to face the right way."
+    ],
+    "use": [
+      "Right-click an orientable block (logs, furnaces, pistons, hoppers and the like) to turn it in place without breaking it. Built around an iron core."
+    ],
+    "secret": [
+      "It turns the thing you click, not the thing you wish you had clicked. Mind the face you aim at."
+    ]
+  },
+  "amethyst_lens": {
+    "lore": [
+      "A rod with a lens of amethyst, made for those who like to aim at things from far away."
+    ],
+    "use": [
+      "While held in use it projects a light amethyst dot up to 512 blocks. Where the beam rests, flammable blocks ignite (about 3 s up close), ice melts and creatures catch fire. Charge 640; empty rods do not break, and 16 amethyst shards recharge one at an anvil."
+    ],
+    "secret": [
+      "The longer the distance, the longer it takes: about 20 s to ignite at 200 blocks. Creatures in water or rain and fire-immune ones are spared. Craft: iron nugget, amethyst shard, redstone, iron core and iron rod."
+    ]
   }
 }

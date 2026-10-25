@@ -103,10 +103,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                             ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL,
                             ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
                             ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
-                            ModItems.OCTANT, ModItems.ROTATOR, ModItems.CONSTRUCTION_LIGHT));
+                            ModItems.OCTANT, com.simplebuilding.util.GadgetRefs.rotator(), ModItems.CONSTRUCTION_LIGHT));
             AdvancementHolder tweaks = tab("tweaks/root", TweaksBlocks.NETHERITE_LAUNCHPAD, "block/copper_block", "gadget",
                     any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, ModItems.MAGNET,
-                            ModItems.ORE_DETECTOR, com.simplebuilding.util.GadgetRefs.gauge(), TweaksItems.LASER_POINTER, ModItems.NETHERITE_APPLE,
+                            ModItems.ORE_DETECTOR, com.simplebuilding.util.GadgetRefs.gauge(), com.simplebuilding.util.GadgetRefs.rod(), ModItems.NETHERITE_APPLE,
                             ModItems.NETHERITE_CARROT, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
             AdvancementHolder end = tab("end/root", ModItems.ASTRAL_END_STONE, "gui/advancements/backgrounds/end", "end_stone",
                     any(Items.END_STONE));
@@ -252,7 +252,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("wand/wand_erful", oneClick, ModItems.NETHERITE_BUILDING_WAND, AdvancementType.GOAL, "netherite_wand",
                     any(ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
             counter("wand/master_mason", oneClick, ModItems.GOLD_BUILDING_WAND, AdvancementType.CHALLENGE, ModCounters.WAND_BLOCKS, 10_000);
-            feature("gadgets/spin_doctor", building, ModItems.ROTATOR, AdvancementType.TASK, ModTriggers.ROTATE);
+            feature("gadgets/spin_doctor", building, com.simplebuilding.util.GadgetRefs.rotator(), AdvancementType.TASK, ModTriggers.ROTATE);
 
             AdvancementHolder measure = feature("octant/measure_twice", building, ModItems.OCTANT, AdvancementType.TASK, ModTriggers.OCTANT_MARK);
             AdvancementHolder coloured = node("octant/colour_coded", measure, ModItems.COLORED_OCTANT_ITEMS.get(DyeColor.LIGHT_BLUE),
@@ -280,7 +280,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
         private void gadgets(AdvancementHolder tweaks) {
             node("gadgets/attractive_personality", tweaks, ModItems.MAGNET, AdvancementType.TASK, "magnet", any(ModItems.MAGNET));
-            AdvancementHolder focus = feature("gadgets/burning_focus", tweaks, TweaksItems.LASER_POINTER, AdvancementType.TASK, ModTriggers.LENS_BEAM);
+            AdvancementHolder focus = feature("gadgets/burning_focus", tweaks, com.simplebuilding.util.GadgetRefs.rod(), AdvancementType.TASK, ModTriggers.LENS_BEAM);
             feature("gadgets/remote_detonation", focus, Items.TNT, AdvancementType.GOAL, ModTriggers.LASER_TNT);
             // Boot and armor enchantments at work.
             feature("tweaks/leap_of_faith", tweaks, Items.FEATHER, AdvancementType.TASK, ModTriggers.AIR_JUMP);

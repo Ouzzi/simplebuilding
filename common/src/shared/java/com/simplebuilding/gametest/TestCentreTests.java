@@ -815,7 +815,7 @@ public final class TestCentreTests {
         TestCentreLayout.Section states = plan.section("states");
         Map<BlockPos, ItemStack> frames = frames(states);
         List<String> problems = new ArrayList<>();
-        for (Item gadget : List.of(TweaksItems.LASER_POINTER, ModItems.ROTATOR)) {
+        for (Item gadget : List.of(com.simplebuilding.util.GadgetRefs.rod(), com.simplebuilding.util.GadgetRefs.rotator())) {
             boolean empty = frames.values().stream().anyMatch(s -> s.is(gadget) && s.getDamageValue() == s.getMaxDamage());
             boolean half = frames.values().stream().anyMatch(s -> s.is(gadget) && s.getDamageValue() > 0 && s.getDamageValue() < s.getMaxDamage());
             boolean full = frames.values().stream().anyMatch(s -> s.is(gadget) && s.getDamageValue() == 0);

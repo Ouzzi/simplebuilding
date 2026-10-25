@@ -74,7 +74,8 @@ public class ModDataComponentTypes {
                     .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT));
 
     // Amethystlinse mit Beruehrung des Konstrukteurs: letzte gemessene Entfernung (Tooltip).
-    public static final DataComponentType<LensMeasurement> LENS_MEASUREMENT =
+    // OW24-2 G2: Simple Gadgets' simplegadgets:lens_measurement on 26.3 (McVersion.GADGETS_IN_SB, null here; SimpleLib id move).
+    public static final DataComponentType<LensMeasurement> LENS_MEASUREMENT = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null :
             register("lens_measurement", builder -> builder
                     .persistent(LensMeasurement.CODEC)
                     .networkSynchronized(LensMeasurement.STREAM_CODEC)

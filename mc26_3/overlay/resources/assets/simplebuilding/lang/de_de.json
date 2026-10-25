@@ -3574,7 +3574,6 @@
   "tip.simplebuilding.building_wand": "Auf Blockseite benutzen: füllt Fläche aus dem Inventar",
   "tip.simplebuilding.blueprint": "Mit einem Baustab in der anderen Hand bauen",
   "tip.simplebuilding.magnet": "Halten zieht Items an; Schleichen pausiert",
-  "tip.simplebuilding.rotator": "Auf Block benutzen: dreht ihn an Ort und Stelle",
   "tip.simplebuilding.autonomous_crafter": "Craftet selbst in einen Trichter darunter; Redstone stoppt",
   "tip.simplebuilding.auto_smither": "Schmiedet einmal pro Redstone-Impuls",
   "tip.simplebuilding.detector": "Halten: die Nadel zeigt zum nächsten Erz",

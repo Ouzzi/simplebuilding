@@ -1637,12 +1637,12 @@ public final class ConfigOptionTests {
 
             // --- tools.rotatorChargePerTurn: one real turn of a log ---
             BlockPos log = new BlockPos(2, 1, 2);
-            int[] costs = {1, 3, 0};
+            int[] costs = com.simplebuilding.version.McVersion.GADGETS_IN_SB ? new int[] {1, 3, 0} : new int[0]; // 26.3: Simple Gadgets' own config and tests
             for (int cost : costs) {
                 config.tools.rotatorChargePerTurn = cost;
                 helper.setBlock(log, net.minecraft.world.level.block.Blocks.OAK_LOG.defaultBlockState()
                         .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AXIS, net.minecraft.core.Direction.Axis.Y));
-                ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+                ItemStack rotator = new ItemStack(com.simplebuilding.util.GadgetRefs.rotator());
                 player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, rotator);
                 BlockPos abs = helper.absolutePos(log);
                 Vec3 hit = new Vec3(abs.getX() + 0.5, abs.getY() + 1.0, abs.getZ() + 0.5);
@@ -1858,31 +1858,33 @@ public final class ConfigOptionTests {
                 b.discard();
             }
 
-            // --- tweaks.laserPointer.chargePerSecond: the first tick of beaming ---
-            tweaks.laserPointer.enable = true;
-            ItemStack beamLens = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
-            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, beamLens);
-            tweaks.laserPointer.chargePerSecond = 3;
-            beamLens.getItem().onUseTick(helper.getLevel(), player, beamLens, beamLens.getItem().getUseDuration(beamLens, player));
-            helper.assertTrue(beamLens.getDamageValue() == 3, "the first second of beaming at cost 3 took " + beamLens.getDamageValue() + " charge");
-            com.simplebuilding.tweaks.item.LaserBeam.reset(player);
+            if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) { // 26.3: Simple Gadgets tests the rod's cost options (its own config)
+                // --- tweaks.laserPointer.chargePerSecond: the first tick of beaming ---
+                tweaks.laserPointer.enable = true;
+                ItemStack beamLens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
+                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, beamLens);
+                tweaks.laserPointer.chargePerSecond = 3;
+                beamLens.getItem().onUseTick(helper.getLevel(), player, beamLens, beamLens.getItem().getUseDuration(beamLens, player));
+                helper.assertTrue(beamLens.getDamageValue() == 3, "the first second of beaming at cost 3 took " + beamLens.getDamageValue() + " charge");
+                com.simplebuilding.tweaks.item.LaserBeam.reset(player);
 
-            // --- tweaks.laserPointer.effectCost: lighting a candle ---
-            int[] effectCosts = {5, 2};
-            for (int cost : effectCosts) {
-                tweaks.laserPointer.effectCost = cost;
-                BlockPos candle = new BlockPos(3, 1, 1);
-                helper.setBlock(candle, net.minecraft.world.level.block.Blocks.CANDLE);
-                ItemStack effectLens = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
-                BlockPos abs = helper.absolutePos(candle);
-                net.minecraft.world.phys.BlockHitResult hit = new net.minecraft.world.phys.BlockHitResult(
-                        Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false);
-                com.simplebuilding.tweaks.item.LaserBeam.Effect fired = null;
-                for (int tick = 0; tick < 200 && fired == null; tick++) {
-                    fired = com.simplebuilding.tweaks.item.LaserBeam.beamAt(player, effectLens, hit);
+                // --- tweaks.laserPointer.effectCost: lighting a candle ---
+                int[] effectCosts = {5, 2};
+                for (int cost : effectCosts) {
+                    tweaks.laserPointer.effectCost = cost;
+                    BlockPos candle = new BlockPos(3, 1, 1);
+                    helper.setBlock(candle, net.minecraft.world.level.block.Blocks.CANDLE);
+                    ItemStack effectLens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
+                    BlockPos abs = helper.absolutePos(candle);
+                    net.minecraft.world.phys.BlockHitResult hit = new net.minecraft.world.phys.BlockHitResult(
+                            Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false);
+                    com.simplebuilding.tweaks.item.LaserBeam.Effect fired = null;
+                    for (int tick = 0; tick < 200 && fired == null; tick++) {
+                        fired = com.simplebuilding.tweaks.item.LaserBeam.beamAt(player, effectLens, hit);
+                    }
+                    helper.assertTrue(fired == com.simplebuilding.tweaks.item.LaserBeam.Effect.LIGHT, "the beam did not light the candle: " + fired);
+                    helper.assertTrue(effectLens.getDamageValue() == cost, "lighting a candle at effectCost " + cost + " took " + effectLens.getDamageValue() + " charge");
                 }
-                helper.assertTrue(fired == com.simplebuilding.tweaks.item.LaserBeam.Effect.LIGHT, "the beam did not light the candle: " + fired);
-                helper.assertTrue(effectLens.getDamageValue() == cost, "lighting a candle at effectCost " + cost + " took " + effectLens.getDamageValue() + " charge");
             }
 
             // --- tweaks.balancing.echoSounderJumpCooldownTicks ---

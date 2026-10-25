@@ -48,9 +48,12 @@ public final class LibClientServices {
         // OW24-2 G1: the gadget readouts stack through SimpleLib's GadgetHud, so Simple Gadgets' Gauge (order 1) sits between
         // the Octant (0) and the Resonance Rod (2) as before; where the boxes go stays SimpleBuilding's client config.
         for (HudPanel.Slot slot : HudPanel.Slot.values()) {
-            if (slot == HudPanel.Slot.GAUGE && !com.simplebuilding.version.McVersion.GADGETS_IN_SB) continue;
+            // The Gauge and the Resonance Rod register their boxes themselves on 26.3 (Simple Gadgets).
+            if ((slot == HudPanel.Slot.GAUGE || slot == HudPanel.Slot.ROD) && !com.simplebuilding.version.McVersion.GADGETS_IN_SB) continue;
             GadgetHud.register(hudSlotId(slot), slot.ordinal(), client -> HudPanel.active(slot, client));
         }
+        // OW24-2 G2: the Transposer's model property (Simple Gadgets) asks SimpleBuilding's full hand-hint question.
+        com.simplelib.api.GadgetActions.registerHandHint(com.simplebuilding.util.TransformTargets::canTransformTarget);
         GadgetHud.useSettings(() -> {
             var config = com.simplebuilding.Simplebuilding.getConfig();
             return config == null ? GadgetHud.DEFAULTS

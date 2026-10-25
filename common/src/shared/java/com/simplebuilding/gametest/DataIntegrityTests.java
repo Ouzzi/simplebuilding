@@ -2849,7 +2849,7 @@ public final class DataIntegrityTests {
         }
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
-                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ROTATOR, ModItems.BLUEPRINT,
+                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, com.simplebuilding.util.GadgetRefs.rotator(), ModItems.BLUEPRINT,
                 ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
         // Waffen und Ruestung (Besitzer 2026-10-02: wie in Vanilla getrennt von den Werkzeugen).
         pinned.put(ModItemGroupsContent.Tab.COMBAT, List.of(
@@ -3829,7 +3829,7 @@ public final class DataIntegrityTests {
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(CreativeTabLayout.Row.of("gadgets",
                 Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
-                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
+                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.rod(),
                 ModItems.OCTANT));
         List<ItemStack> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
@@ -4128,7 +4128,7 @@ public final class DataIntegrityTests {
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
-                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, com.simplebuilding.util.GadgetRefs.gauge(),
+                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.gauge(),
                 Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {
@@ -4486,39 +4486,42 @@ public final class DataIntegrityTests {
      * a still picture (resonance_rod_2026_10_02.py or round5 run without gadget_animations_2026_10_03.py).
      */
     public static void gadgetAnimationsHangOnTheirModelConditions(GameTestHelper helper) {
+        // 26.3 (OW24-2 G2): the rod and the Transposer are Simple Gadgets' (its namespace, its transform_hint property).
+        String gadgets = McVersion.GADGETS_IN_SB ? MOD_ID : McVersion.GADGETS_NAMESPACE;
         java.util.Map<String, String> conditions = java.util.Map.of("amethyst_lens", "minecraft:using_item",
-                "rotator", MOD_ID + ":transform_hint");
+                "rotator", gadgets + ":transform_hint");
         for (java.util.Map.Entry<String, String> e : conditions.entrySet()) {
             String item = e.getKey();
-            JsonObject definition = shippedJson("assets/" + MOD_ID + "/items/" + item + ".json", json -> true);
+            JsonObject definition = shippedJson("assets/" + gadgets + "/items/" + item + ".json", json -> true);
             helper.assertTrue(definition != null, "no item definition for " + item);
             JsonObject model = definition.getAsJsonObject("model");
             helper.assertValueEqual(model.get("type").getAsString(), "minecraft:range_dispatch", item + " model type");
             helper.assertValueEqual(model.get("property").getAsString(), "minecraft:damage", item + " dispatch property");
             JsonObject emptyEntry = model.getAsJsonArray("entries").get(0).getAsJsonObject();
             helper.assertValueEqual(emptyEntry.getAsJsonObject("model").get("model").getAsString(),
-                    MOD_ID + ":item/" + item + "_empty", item + " empty model");
+                    gadgets + ":item/" + item + "_empty", item + " empty model");
             JsonObject charged = model.getAsJsonObject("fallback");
             if (McVersion.GADGET_REWORK) {
                 helper.assertValueEqual(charged.get("type").getAsString(), "minecraft:condition", item + " charged model type");
                 helper.assertValueEqual(charged.get("property").getAsString(), e.getValue(), item + " condition");
                 helper.assertValueEqual(charged.getAsJsonObject("on_true").get("model").getAsString(),
-                        MOD_ID + ":item/" + item + "_active", item + " model while active");
+                        gadgets + ":item/" + item + "_active", item + " model while active");
                 helper.assertValueEqual(charged.getAsJsonObject("on_false").get("model").getAsString(),
-                        MOD_ID + ":item/" + item, item + " idle model");
+                        gadgets + ":item/" + item, item + " idle model");
             } else {
-                helper.assertValueEqual(charged.get("model").getAsString(), MOD_ID + ":item/" + item, item + " charged model (26.2)");
+                helper.assertValueEqual(charged.get("model").getAsString(), gadgets + ":item/" + item, item + " charged model (26.2)");
             }
         }
         if (McVersion.GADGET_REWORK) {
             for (String texture : List.of("amethyst_lens", "amethyst_lens_active", "rotator", "rotator_active", "magnet")) {
-                int[] size = pngSize("assets/" + MOD_ID + "/textures/item/" + texture + ".png");
+                String owner = texture.equals("magnet") ? MOD_ID : gadgets;
+                int[] size = pngSize("assets/" + owner + "/textures/item/" + texture + ".png");
                 helper.assertTrue(size[0] == 16 && size[1] % 16 == 0 && size[1] > 16, texture + ".png is no animation strip: " + size[0] + "x" + size[1]);
-                JsonObject meta = shippedJson("assets/" + MOD_ID + "/textures/item/" + texture + ".png.mcmeta", json -> true);
+                JsonObject meta = shippedJson("assets/" + owner + "/textures/item/" + texture + ".png.mcmeta", json -> true);
                 helper.assertTrue(meta != null && meta.has("animation"), texture + ".png.mcmeta missing");
             }
             for (String texture : List.of("amethyst_lens_empty", "rotator_empty")) {
-                int[] size = pngSize("assets/" + MOD_ID + "/textures/item/" + texture + ".png");
+                int[] size = pngSize("assets/" + gadgets + "/textures/item/" + texture + ".png");
                 helper.assertTrue(size[0] == 16 && size[1] == 16, texture + ".png should stay a still picture");
             }
         }

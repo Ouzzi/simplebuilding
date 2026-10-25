@@ -52,6 +52,42 @@ public final class GadgetsTests {
         ALL.put("gauge_autowalk_keeps_walking_under_non_pausing_screens", GadgetsTests::gaugeAutowalkKeepsWalkingUnderNonPausingScreens);
         ALL.put("gauge_autowalk_follows_paths_and_rails_around_corners", GadgetsTests::gaugeAutowalkFollowsPathsAndRailsAroundCorners);
         ALL.put("gauge_altimeter_reads_the_ground_and_range_reaches_deeper", GadgetsTests::gaugeAltimeterReadsTheGroundAndRangeReachesDeeper);
+        ALL.put("rotator_log_axis_cycles_through_all_three_axes_and_ignores_sneaking", RotatorTests::logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking);
+        ALL.put("rotator_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside", RotatorTests::rimIsTheOuterEighthOfEveryFaceAndNowhereInside);
+        ALL.put("rotator_facing_blocks_turn_one_quarter_around_the_clicked_axis_or_jump_to_its_start", RotatorTests::facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart);
+        ALL.put("rotator_rim_aims_facing_blocks_at_the_rim_its_opposite_or_the_next_valid_value", RotatorTests::rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue);
+        ALL.put("rotator_sixteen_step_blocks_step_once_in_the_middle_and_four_times_at_the_rim", RotatorTests::sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim);
+        ALL.put("rotator_charge_runs_down_but_the_rotator_never_breaks", RotatorTests::chargeRunsDownButTheRotatorNeverBreaks);
+        ALL.put("rotator_anvil_recharges_with_sixteen_ender_pearls_for_no_levels", RotatorTests::anvilRechargesWithSixteenEnderPearlsForNoLevels);
+        ALL.put("rotator_anvil_takes_unbreaking_but_refuses_mending", RotatorTests::anvilTakesUnbreakingButRefusesMending);
+        ALL.put("rotator_turn_queues_the_ender_echo_shortly_after_the_ratchet", RotatorTests::aTurnQueuesTheEnderEchoShortlyAfterTheRatchet);
+        ALL.put("rotator_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape);
+        ALL.put("rotator_swap_replaces_the_block_gives_the_drops_and_uses_the_offhand_block", RotatorTests::swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock);
+        ALL.put("rotator_swap_windup_grows_with_hardness_and_shrinks_with_efficiency", RotatorTests::swapWindupGrowsWithHardnessAndShrinksWithEfficiency);
+        ALL.put("rotator_swap_windup_starts_on_click_and_only_finishes_on_the_same_aimed_block", RotatorTests::swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock);
+        ALL.put("rotator_swap_allows_stone_tool_blocks_and_keeps_valuables_and_lists_decide", RotatorTests::swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide);
+        ALL.put("rotator_swap_refusals_change_nothing_and_creative_swaps_for_free", RotatorTests::swapRefusalsChangeNothingAndCreativeSwapsForFree);
+        ALL.put("rod_the_laser_relay_checks_the_sender_and_only_reaches_nearby_players", RodTests::theLaserRelayChecksTheSenderAndOnlyReachesNearbyPlayers);
+        ALL.put("rod_the_amethyst_lens_is_crafted_around_an_iron_core", RodTests::theAmethystLensIsCraftedAroundAnIronCore);
+        ALL.put("rod_the_lens_beam_melts_ice_and_snow", RodTests::theLensBeamMeltsIceAndSnow);
+        ALL.put("rod_the_lens_beam_ignites_flammable_blocks_only_after_dwelling", RodTests::theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling);
+        ALL.put("rod_the_lens_beam_lights_soul_fire_campfires_and_candles", RodTests::theLensBeamLightsSoulFireCampfiresAndCandles);
+        ALL.put("rod_the_lens_beam_never_lights_nether_portals", RodTests::theLensBeamNeverLightsNetherPortals);
+        ALL.put("rod_the_lens_beam_primes_tnt_after_dwelling_but_respects_the_rules", RodTests::theLensBeamPrimesTntAfterDwellingButRespectsTheRules);
+        ALL.put("rod_the_lens_drains_charge_even_when_it_points_into_the_air", RodTests::theLensDrainsChargeEvenWhenItPointsIntoTheAir);
+        ALL.put("rod_the_lens_records_the_last_measurement_only_with_constructors_touch", RodTests::theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch);
+        ALL.put("rod_the_lens_dwell_time_grows_moderately_with_distance", RodTests::theLensDwellTimeGrowsModeratelyWithDistance);
+        ALL.put("rod_the_lens_sets_living_entities_on_fire_taking_twice_as_long", RodTests::theLensSetsLivingEntitiesOnFireTakingTwiceAsLong);
+        ALL.put("rod_the_lens_only_ignites_players_when_pvp_allows_it", RodTests::theLensOnlyIgnitesPlayersWhenPvpAllowsIt);
+        ALL.put("rod_the_lens_hums_on_any_surface_and_sizzles_or_crackles_while_heating", RodTests::theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating);
+        ALL.put("rod_the_lens_beam_dries_wet_sponges", RodTests::theLensBeamDriesWetSponges);
+        ALL.put("rod_the_lens_beam_respects_adventure_mode_and_the_fire_spread_rule", RodTests::theLensBeamRespectsAdventureModeAndTheFireSpreadRule);
+        ALL.put("rod_the_lens_charge_runs_down_but_the_lens_never_breaks", RodTests::theLensChargeRunsDownButTheLensNeverBreaks);
+        ALL.put("rod_anvil_recharge_with_amethyst_shards_costs_no_levels", RodTests::anvilRechargeWithAmethystShardsCostsNoLevels);
+        ALL.put("rod_the_rod_drains_four_charge_per_second_of_beaming", RodTests::theRodDrainsFourChargePerSecondOfBeaming);
+        ALL.put("rod_the_resonance_rod_scans_creatures_but_not_players", RodTests::theResonanceRodScansCreaturesButNotPlayers);
+        ALL.put("rod_the_laser_switches_stop_what_the_beam_ignites", RodTests::theLaserSwitchesStopWhatTheBeamIgnites);
+        ALL.put("rod_lens_beam_leaves_blocks_the_loader_events_protect", RodTests::lensBeamLeavesBlocksTheLoaderEventsProtect);
         ALL.put("discover_recipe_unlocks", com.simplegadgets.discover.GadgetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplegadgets.discover.GadgetsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplegadgets.guide.GadgetsGuide::gameTest);
@@ -75,6 +111,22 @@ public final class GadgetsTests {
             problems.add("gauge item " + GadgetsRegistry.VELOCITY_GAUGE);
         }
         if (new ItemStack(GadgetsRegistry.VELOCITY_GAUGE).getMaxStackSize() != 1) problems.add("gauge stacks");
+        if (!(GadgetsRegistry.ROTATOR instanceof com.simplegadgets.rotator.RotatorItem)
+                || !BuiltInRegistries.ITEM.getKey(GadgetsRegistry.ROTATOR).equals(SimpleGadgets.id("rotator"))) {
+            problems.add("rotator item " + GadgetsRegistry.ROTATOR);
+        }
+        ItemStack transposer = new ItemStack(GadgetsRegistry.ROTATOR);
+        if (transposer.getMaxStackSize() != 1 || transposer.getMaxDamage() != com.simplegadgets.config.GadgetsConfig.rotatorMaxCharge
+                || !(GadgetsRegistry.ROTATOR instanceof com.simplelib.api.AnvilRechargeable)) {
+            problems.add("transposer stack/charge/recharge");
+        }
+        if (!(GadgetsRegistry.AMETHYST_LENS instanceof com.simplegadgets.rod.ResonanceRodItem)
+                || !BuiltInRegistries.ITEM.getKey(GadgetsRegistry.AMETHYST_LENS).equals(SimpleGadgets.id("amethyst_lens"))
+                || !(GadgetsRegistry.AMETHYST_LENS instanceof com.simplelib.api.AnvilRechargeable)
+                || new ItemStack(GadgetsRegistry.AMETHYST_LENS).getMaxDamage() != com.simplegadgets.config.GadgetsConfig.rodMaxCharge) {
+            problems.add("rod item " + GadgetsRegistry.AMETHYST_LENS);
+        }
+        if (!BuiltInRegistries.DATA_COMPONENT_TYPE.containsKey(SimpleGadgets.id("lens_measurement"))) problems.add("lens_measurement component");
         if (!BuiltInRegistries.ITEM.containsKey(SimpleGadgets.id("guide_book"))) problems.add("guide book");
         if (!BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleGadgets.id("gadgets"))) problems.add("tab");
         if (GadgetsRegistry.tabStacks().size() != SimpleGadgets.MOVED_ITEMS.size() + 1) problems.add("tab stacks " + GadgetsRegistry.tabStacks().size());
@@ -146,6 +198,56 @@ public final class GadgetsTests {
             }
         } else {
             problems.add("no chest block entity");
+        }
+        // The Transposer (G2): an old stack keeps its charge (damage component) and a saved chest slot loads it.
+        CompoundTag rotatorTag = new CompoundTag();
+        rotatorTag.putString("id", "simplebuilding:rotator");
+        rotatorTag.putInt("count", 1);
+        CompoundTag rotatorComponents = new CompoundTag();
+        rotatorComponents.putInt("minecraft:damage", 7);
+        rotatorTag.put("components", rotatorComponents);
+        ItemStack rotator = ItemStack.CODEC.parse(ops, rotatorTag).result().orElse(ItemStack.EMPTY);
+        if (!rotator.is(GadgetsRegistry.ROTATOR) || rotator.getDamageValue() != 7) {
+            problems.add("old Transposer loads as " + rotator + " damage " + rotator.getDamageValue());
+        } else if (!ItemStack.CODEC.encodeStart(ops, rotator).result().map(t -> ((CompoundTag) t).getStringOr("id", "")).orElse("").equals("simplegadgets:rotator")) {
+            problems.add("old Transposer saves with the old id");
+        }
+        BlockPos rotatorChest = new BlockPos(3, 1, 1);
+        helper.setBlock(rotatorChest, Blocks.CHEST);
+        if (helper.getBlockEntity(rotatorChest, ChestBlockEntity.class) instanceof ChestBlockEntity chest) {
+            CompoundTag chestTag = new CompoundTag();
+            ListTag items = new ListTag();
+            CompoundTag entry = new CompoundTag();
+            entry.putByte("Slot", (byte) 2);
+            entry.putString("id", "simplebuilding:rotator");
+            entry.putInt("count", 1);
+            items.add(entry);
+            chestTag.put("Items", items);
+            chest.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING,
+                    level.registryAccess(), chestTag));
+            if (!chest.getItem(2).is(GadgetsRegistry.ROTATOR)) problems.add("old chest slot loads the Transposer as " + chest.getItem(2));
+        } else {
+            problems.add("no chest block entity for the Transposer");
+        }
+        // The Resonance Rod (G2): an old stack keeps its damage and its last measurement (the component type moved too).
+        CompoundTag rodTag = new CompoundTag();
+        rodTag.putString("id", "simplebuilding:amethyst_lens");
+        rodTag.putInt("count", 1);
+        CompoundTag rodComponents = new CompoundTag();
+        rodComponents.putInt("minecraft:damage", 11);
+        CompoundTag measurement = new CompoundTag();
+        measurement.putFloat("distance", 12.5f);
+        measurement.putInt("height_difference", 3);
+        measurement.putString("target", "block.minecraft.stone");
+        rodComponents.put("simplebuilding:lens_measurement", measurement);
+        rodTag.put("components", rodComponents);
+        ItemStack rod = ItemStack.CODEC.parse(ops, rodTag).result().orElse(ItemStack.EMPTY);
+        com.simplegadgets.rod.LensMeasurement kept = rod.get(com.simplegadgets.GadgetComponents.LENS_MEASUREMENT);
+        if (!rod.is(GadgetsRegistry.AMETHYST_LENS) || rod.getDamageValue() != 11 || kept == null || kept.distance() != 12.5f || kept.heightDifference() != 3) {
+            problems.add("old Resonance Rod loads as " + rod + " damage " + rod.getDamageValue() + " measurement " + kept);
+        } else {
+            String saved = ItemStack.CODEC.encodeStart(ops, rod).result().map(Object::toString).orElse("");
+            if (!saved.contains("simplegadgets:amethyst_lens") || saved.contains("simplebuilding:")) problems.add("old rod saves " + saved);
         }
         helper.assertTrue(problems.isEmpty(), "migration: " + problems);
         helper.succeed();

@@ -9,5 +9,27 @@
     "secret": [
       "Rechtsklick schaltet das Selbstgehen um. Mit Berührung des Konstrukteurs zeigt sie zusätzlich Spitzen- und Durchschnittstempo; Reichweite verlängert die lesbare Falltiefe, bis 64 Blöcke."
     ]
+  },
+  "rotator": {
+    "lore": [
+      "Ein Werkzeug für alle, die Dinge gern richtig ausgerichtet haben."
+    ],
+    "use": [
+      "Rechtsklick auf einen ausrichtbaren Block (Stämme, Öfen, Kolben, Trichter und dergleichen) dreht ihn an Ort und Stelle, ohne ihn abzubauen. Gebaut um einen Eisenkern."
+    ],
+    "secret": [
+      "Er dreht das, was du anklickst, nicht das, was du gern angeklickt hättest. Achte auf die Seite, auf die du zielst."
+    ]
+  },
+  "amethyst_lens": {
+    "lore": [
+      "Eine Stange mit Amethystlinse, gemacht für alle, die gern aus der Ferne auf Dinge zielen."
+    ],
+    "use": [
+      "Beim Benutzen wirft sie einen hellen Amethystpunkt bis 512 Blöcke weit. Wo der Strahl ruht, entzünden sich brennbare Blöcke (nah etwa 3 s), Eis schmilzt und Kreaturen fangen Feuer. Ladung 640; leere Stäbe brechen nicht, und 16 Amethystsplitter laden einen am Amboss auf."
+    ],
+    "secret": [
+      "Je weiter entfernt, desto länger dauert es: etwa 20 s zum Entzünden bei 200 Blöcken. Kreaturen im Wasser oder Regen und feuerfeste bleiben verschont. Herstellung: Eisenklumpen, Amethystsplitter, Redstone, Eisenkern und Eisenstange."
+    ]
   }
 }
