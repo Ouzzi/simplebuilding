@@ -44,6 +44,9 @@ public final class Bs25DeathClientTest implements FabricClientGameTest {
             watchdog.setDaemon(true);
             watchdog.start();
             step("world ready");
+            // A test world has no cheats: op the player like "Allow commands" does, so its own /gamemode counts.
+            world.getServer().runOnServer(server -> server.getPlayerList().op(server.getPlayerList().getPlayers().getFirst().nameAndId()));
+            world.getConnection().waitForClientboundPackets();
             playerCommand(context, world, "control before any death");
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
@@ -96,6 +99,7 @@ public final class Bs25DeathClientTest implements FabricClientGameTest {
                 case "soul_fire" -> world.getServer().runOnServer(server -> {
                     ServerPlayer p = server.getPlayerList().getPlayers().getFirst();
                     p.setHealth(2.0F);
+                    p.level().setBlockAndUpdate(p.blockPosition().below(), Blocks.SOUL_SAND.defaultBlockState());
                     p.level().setBlockAndUpdate(p.blockPosition(), Blocks.SOUL_FIRE.defaultBlockState());
                 });
                 case "on_fire" -> world.getServer().runCommand("damage @p 1000 minecraft:on_fire");
