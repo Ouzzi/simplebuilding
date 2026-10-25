@@ -4996,7 +4996,6 @@ public final class DataIntegrityTests {
             keys.add("item.simplebuilding." + tier + "_spatula");
         }
 
-        if (!McVersion.GADGETS_IN_SB) keys.removeIf(key -> key.contains(".velocity_gauge.")); // 26.3: Simple Gadgets' lang
         List<String> problems = new ArrayList<>();
         for (String key : keys) {
             String english = en.has(key) ? en.get(key).getAsString() : null;
@@ -5065,7 +5064,7 @@ public final class DataIntegrityTests {
             }
         }
         java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
-        if (McVersion.GADGETS_IN_SB) expected.put("item.simplebuilding.velocity_gauge", new String[]{"Gauge", "Messuhr"}); // 26.3: GadgetsTests
+        expected.put("item.simplebuilding.velocity_gauge", new String[]{"Gauge", "Messuhr"});
         expected.put("item.simplebuilding.amethyst_lens", new String[]{"Resonance Rod", "Resonanzstab"});
         expected.put("item.simplebuilding.echo_sounder", new String[]{"Echo Sounder", "Echolot"});
         for (var entry : expected.entrySet()) {
