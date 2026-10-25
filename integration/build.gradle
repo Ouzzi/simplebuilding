@@ -200,17 +200,20 @@ def generateClientTestMetadata = tasks.register('generateClientTestMetadata') {
         def bench = requested == 'bench'
         // 'compat' is no module either: Simple Optimization next to the mods it covers (tools/testrunner target compat-opt-263).
         def compat = requested == 'compat'
+        // 'bs25death' is no module either: BS25-19, a real client dies wearing the soulfire blaze head (Bs25DeathClientTest).
+        def bs25 = requested == 'bs25death'
         // 'vis24' / 'vis24all' (Client-Sicht 24.10.): every screen opened and photographed (Vis24ClientTest), alone or after all module smokes.
         def vis = requested in ['vis24', 'vis24all']
-        def entries = (audit || bench || compat || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
-        if (requested && !audit && !bench && !compat && !vis && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
+        def entries = (audit || bench || compat || bs25 || requested == 'vis24') ? [] : registry.modules.findAll { it.tests?.client && (!requested || requested == 'vis24all' || it.id == requested) }
+        if (requested && !audit && !bench && !compat && !bs25 && !vis && entries.isEmpty()) throw new GradleException("Unknown client test module: ${requested}")
         def metadata = [schemaVersion:1, id:'sbmodules-clienttest', version:'1.0.0',
             name:'Module Client Tests', environment:'client',
             entrypoints:['fabric-client-gametest':audit ? ['com.simplebuilding.integration.clienttest.ModelAuditClientTest']
                 : bench ? ['com.simplebuilding.integration.clienttest.BenchClientTest']
                 : compat ? ['com.simplebuilding.integration.clienttest.CompatClientTest']
+                : bs25 ? ['com.simplebuilding.integration.clienttest.Bs25DeathClientTest']
                 : entries.collectMany { it.tests.client.entrypoints } + (vis ? ['com.simplebuilding.integration.clienttest.Vis24ClientTest'] : [])],
-            depends:(audit || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
+            depends:(audit || bs25 || requested == 'vis24' ? ['simplebuilding'] : (bench || compat) ? [] : entries.collectMany { it.tests.requires ?: [it.id] }.unique()).collectEntries { requiredId ->
                 def producer = registry.modules.find { it.id == requiredId }
                 [(producer?.modId ?: requiredId):'*']
             }]
