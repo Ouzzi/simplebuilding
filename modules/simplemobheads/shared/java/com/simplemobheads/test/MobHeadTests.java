@@ -123,6 +123,7 @@ public final class MobHeadTests {
         put("giant_head_wearing", MobHeadTests::giantHeadWearing);
         put("giant_cow_hay", MobHeadTests::giantCowHay);
         put("giant_cow_head", MobHeadTests::giantCowHead);
+        put("worn_head_death", MobHeadTests::wornHeadDeath);
     }
 
     private MobHeadTests() {
@@ -1425,6 +1426,41 @@ public final class MobHeadTests {
             }
         }
         return false;
+    }
+
+    /**
+     * BS25-19: a survival player who dies wearing a head (soulfire blaze head first, then every head; also by fire, lava and
+     * soul fire) is dead afterwards, the head left the head slot as a drop, and the server goes on ticking.
+     */
+    public static void wornHeadDeath(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<String> problems = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        ids.add("soulfire_blaze");
+        for (HeadDef head : MobHeads.heads()) {
+            if (MobHeads.item(head.id()) != null && !ids.contains(head.id())) ids.add(head.id());
+        }
+        var sources = List.of(level.damageSources().generic(), level.damageSources().inFire(), level.damageSources().onFire(),
+                level.damageSources().lava());
+        for (String id : ids) {
+            for (var source : id.equals("soulfire_blaze") ? sources : List.of(level.damageSources().generic())) {
+                ServerPlayer player = player(helper);
+                player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+                wear(player, id);
+                player.hurtServer(level, source, 100000.0F);
+                List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
+                        e -> e.getItem().is(MobHeads.item(id)));
+                if (!player.isDeadOrDying() || !player.getItemBySlot(EquipmentSlot.HEAD).isEmpty() || drops.size() != 1) {
+                    problems.add(id + "/" + source.getMsgId() + ": dead=" + player.isDeadOrDying() + " slot="
+                            + player.getItemBySlot(EquipmentSlot.HEAD) + " drops=" + drops.size());
+                }
+                drops.forEach(Entity::discard);
+                player.discard();
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "death with a worn head: " + problems);
+        long start = level.getGameTime();
+        helper.succeedWhen(() -> helper.assertTrue(level.getGameTime() >= start + 5, "the server stopped ticking"));
     }
 
     private static void wear(ServerPlayer player, String head) {
