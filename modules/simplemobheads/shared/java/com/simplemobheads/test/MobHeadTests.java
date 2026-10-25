@@ -1429,8 +1429,9 @@ public final class MobHeadTests {
     }
 
     /**
-     * BS25-19: a survival player who dies wearing a head (soulfire blaze head first, then every head; also by fire, lava and
-     * soul fire) is dead afterwards, the head left the head slot as a drop, and the server goes on ticking.
+     * BS25-19: a survival player who dies wearing a head (soulfire blaze head with several deaths, then every head) is dead
+     * afterwards and the head either dropped once or stayed in the head slot (Simple Tweaks' partial keep inventory keeps
+     * armor); the soulfire blaze wearer respawns (the head comes along when it was kept) and the server goes on ticking.
      */
     public static void wornHeadDeath(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1443,19 +1444,30 @@ public final class MobHeadTests {
         var sources = List.of(level.damageSources().generic(), level.damageSources().inFire(), level.damageSources().onFire(),
                 level.damageSources().lava());
         for (String id : ids) {
-            for (var source : id.equals("soulfire_blaze") ? sources : List.of(level.damageSources().generic())) {
+            boolean soul = id.equals("soulfire_blaze");
+            for (var source : soul ? sources : List.of(level.damageSources().generic())) {
                 ServerPlayer player = player(helper);
                 player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
                 wear(player, id);
                 player.hurtServer(level, source, 100000.0F);
                 List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
                         e -> e.getItem().is(MobHeads.item(id)));
-                if (!player.isDeadOrDying() || !player.getItemBySlot(EquipmentSlot.HEAD).isEmpty() || drops.size() != 1) {
-                    problems.add(id + "/" + source.getMsgId() + ": dead=" + player.isDeadOrDying() + " slot="
-                            + player.getItemBySlot(EquipmentSlot.HEAD) + " drops=" + drops.size());
+                boolean kept = HeadAbilities.is(player.getItemBySlot(EquipmentSlot.HEAD), id);
+                String where = id + "/" + source.getMsgId();
+                if (!player.isDeadOrDying() || (kept ? drops.size() != 0 : drops.size() != 1)) {
+                    problems.add(where + ": dead=" + player.isDeadOrDying() + " kept=" + kept + " drops=" + drops.size());
                 }
                 drops.forEach(Entity::discard);
-                player.discard();
+                if (soul) {
+                    ServerPlayer fresh = level.getServer().getPlayerList().respawn(player, false, Entity.RemovalReason.KILLED);
+                    for (int i = 0; i < 3; i++) fresh.doTick();
+                    if (!fresh.isAlive() || kept != HeadAbilities.is(fresh.getItemBySlot(EquipmentSlot.HEAD), id)) {
+                        problems.add(where + " respawn: alive=" + fresh.isAlive() + " head=" + fresh.getItemBySlot(EquipmentSlot.HEAD));
+                    }
+                    level.getServer().getPlayerList().remove(fresh);
+                } else {
+                    player.discard();
+                }
             }
         }
         helper.assertTrue(problems.isEmpty(), "death with a worn head: " + problems);
