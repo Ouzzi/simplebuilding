@@ -206,6 +206,9 @@ public class SimplebuildingConfig implements ConfigData {
     public double trimBenefitBaseMultiplier = 2.0;
 
     // Obergrenze des Befehls und der geladenen Datei; fest, nicht gespeichert, nicht im Bildschirm.
+    // Kategorie trotzdem: Cloths AutoConfig liest auch statische Felder und legte sonst einen leeren Reiter
+    // "text.autoconfig.simplebuilding.category.default" an (VIS24).
+    @ConfigEntry.Category("equipment")
     @ConfigEntry.Gui.Excluded
     public static double maxMultiplierLimit = 10.0;
 

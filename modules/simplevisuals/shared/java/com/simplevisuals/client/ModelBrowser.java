@@ -18,6 +18,8 @@ public final class ModelBrowser extends Screen {
  }
  public void extractBackground(net.minecraft.client.gui.GuiGraphicsExtractor g,int mx,int my,float delta){super.extractBackground(g,mx,my,delta);if(com.simplelib.api.client.ui.UiStyleToggle.isEnabled())com.simplelib.api.client.ui.UiBoxes.box(g,width/2-110,6,220,height-12,PALETTE);}
  public void extractRenderState(net.minecraft.client.gui.GuiGraphicsExtractor g,int mx,int my,float delta){super.extractRenderState(g,mx,my,delta);g.text(font,title,width/2-102,12,PALETTE.label(),false);
+  // VIS24-9: an empty list says why instead of leaving the box blank
+  if(shown.isEmpty()){var empty=Component.translatable(search.getValue().isBlank()?"simplevisuals.models.empty":"simplevisuals.models.no_match");g.text(font,empty,(width-font.width(empty))/2,70,PALETTE.label(),false);}
   g.nextStratum();for(int i=0;i<shown.size();i++){var stack=new net.minecraft.world.item.ItemStack(item);stack.set(DataComponents.ITEM_MODEL,shown.get(i).renderedModel());g.item(stack,grid.get(i).getX()+9,grid.get(i).getY()+9);}
   if(selected!=null){var stack=new net.minecraft.world.item.ItemStack(item);stack.set(DataComponents.CUSTOM_NAME,Component.literal(selected.name()));g.item(stack,width/2-8,height-70);var text=Component.translatable("simplevisuals.rename_to",selected.name());g.text(font,text,(width-font.width(text))/2,height-48,PALETTE.label(),false);}
  }

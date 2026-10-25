@@ -19,6 +19,7 @@
     "SmithingStationMixin",
     "GrindstoneStationMixin",
     "StonecutterStationMixin",
+    "ShapecutterStationMixin",
     "LoomStationMixin",
     "CartographyStationMixin",
     "MerchantStationMixin",

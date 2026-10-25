@@ -368,9 +368,21 @@ def split_to(title: str, body: str, count: int) -> list[str]:
         if len(words) < 2:
             parts.append("")
             continue
-        half = len(words) // 2
+        half = split_point(words)
         parts[i:i + 1] = [" ".join(words[:half]), " ".join(words[half:])]
     return parts
+
+
+def split_point(words: list[str]) -> int:
+    """Where a page of the shorter language is split in two (VIS24-3: never mid-sentence when it can be helped): the
+    sentence end, else the comma, nearest the middle within its central half; else the middle word."""
+    half = len(words) // 2
+    lo, hi = max(1, len(words) // 4), len(words) - len(words) // 4
+    for ends in ((".", "!", "?", ":"), (",", ";")):
+        cuts = [k for k in range(lo, hi + 1) if k < len(words) and words[k - 1].endswith(ends)]
+        if cuts:
+            return min(cuts, key=lambda k: abs(k - half))
+    return half
 
 
 def build_pages(cfg: dict) -> list[tuple[tuple[str, str], tuple[str, str]]]:

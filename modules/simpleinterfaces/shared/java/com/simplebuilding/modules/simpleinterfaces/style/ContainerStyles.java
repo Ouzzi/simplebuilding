@@ -35,9 +35,12 @@ public final class ContainerStyles {
     /**
      * The style for menu {@code type} shown by the screen class {@code screenClass}, or {@code null}. A menu without a
      * type ({@code null}: mount inventories, the player inventory) matches styles with an empty menu list. Known
-     * subclasses of other mods ({@link StationStyles#SUBCLASSES}) count as their Vanilla screen.
+     * subclasses of other mods ({@link StationStyles#SUBCLASSES}) count as their Vanilla screen, look-alikes with their own
+     * menu type ({@link StationStyles#LOOKALIKES}) as the style they copy.
      */
     public static @Nullable ScreenStyle find(@Nullable MenuType<?> type, String screenClass) {
+        String lookalike = StationStyles.LOOKALIKES.get(screenClass);
+        if (lookalike != null) return byId(lookalike);
         screenClass = StationStyles.SUBCLASSES.getOrDefault(screenClass, screenClass);
         for (ScreenStyle style : ALL) {
             if (style.screenClass().equals(screenClass) && (type == null ? style.menus().isEmpty() : style.menus().contains(type))) return style;

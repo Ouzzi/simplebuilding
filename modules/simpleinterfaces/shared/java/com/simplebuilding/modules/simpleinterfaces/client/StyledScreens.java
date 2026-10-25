@@ -225,7 +225,10 @@ public final class StyledScreens {
         if (layout == null) return false;
         // every styled screen: the title at (8, 6) as in the W0-B preview (Vanilla centres or moves it for the dispenser,
         // crafter, furnaces, anvil, smithing table ...)
-        g.text(font, title, TITLE_X, TITLE_Y, palette(screen, style).label(), false);
+        // VIS24-8: except the cartography table, whose map field starts at y 13 - its long title touched the frame there;
+        // Vanilla lifts exactly this title (to y 4) for that reason
+        int y = style.id().equals("cartography_table") ? Math.min(TITLE_Y, titleY) : TITLE_Y;
+        g.text(font, title, TITLE_X, y, palette(screen, style).label(), false);
         return true;
     }
 

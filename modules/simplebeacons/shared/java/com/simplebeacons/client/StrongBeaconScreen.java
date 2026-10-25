@@ -58,6 +58,8 @@ public class StrongBeaconScreen extends BeaconScreen {
     private final List<StrongButton> strongButtons = new ArrayList<>();
     /** The menu with the server's settings (max pyramid, range, switched-off effects). */
     private final StrongBeaconMenu strongMenu;
+    /** VIS24-2: how far the image is moved up when the window is lower than it (mouse wheel), 0 when it fits. */
+    private int scroll;
 
     public StrongBeaconScreen(StrongBeaconMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -105,6 +107,39 @@ public class StrongBeaconScreen extends BeaconScreen {
                 widget.setY(widget.getY() + EXTRA);
             }
         }
+        // VIS24-2: a window lower than the image (854x480 at GUI scale 2 gives 240 px) cut off the top and the hotbar; then
+        // the image stands at the top and scrolls with the mouse wheel - layout and look stay Vanilla's (owner T12)
+        int max = this.overflow();
+        this.scroll = Math.min(this.scroll, max);
+        if (max > 0) {
+            int shift = MARGIN - this.scroll - this.topPos;
+            this.topPos += shift;
+            for (GuiEventListener child : this.children()) {
+                if (child instanceof AbstractWidget widget) widget.setY(widget.getY() + shift);
+            }
+        }
+    }
+
+    /** Gap kept above and below the image when it does not fit. */
+    private static final int MARGIN = 2;
+
+    /** Pixels of the image that do not fit into the window (0 when it fits). */
+    private int overflow() {
+        return Math.max(0, FULL_HEIGHT + 2 * MARGIN - this.height);
+    }
+
+    @Override
+    public boolean mouseScrolled(double x, double y, double scrollX, double scrollY) {
+        int max = this.overflow();
+        if (max > 0 && scrollY != 0) {
+            int next = Math.max(0, Math.min(max, this.scroll - (int) Math.signum(scrollY) * ROW_STEP));
+            if (next != this.scroll) {
+                this.scroll = next;
+                this.rebuildWidgets();
+            }
+            return true;
+        }
+        return super.mouseScrolled(x, y, scrollX, scrollY);
     }
 
     /** Left edge of column {@code c} of a centred row with {@code count} buttons (Vanilla's formula). */
@@ -156,6 +191,13 @@ public class StrongBeaconScreen extends BeaconScreen {
         graphics.item(new ItemStack(Items.DIAMOND), this.leftPos + 41 + 22, y);
         graphics.item(new ItemStack(Items.GOLD_INGOT), this.leftPos + 42 + 44, y);
         graphics.item(new ItemStack(Items.IRON_INGOT), this.leftPos + 42 + 66, y);
+        int max = this.overflow();
+        if (max > 0) { // where the window is on the image: a thin bar right of it (like the linked panel's)
+            int track = full - 2 * MARGIN, thumb = Math.max(8, track * full / (FULL_HEIGHT + 2 * MARGIN));
+            int x = this.leftPos + IMAGE_WIDTH + 3, top = MARGIN + (track - thumb) * this.scroll / max;
+            graphics.fill(x, MARGIN, x + 2, MARGIN + track, FIELD);
+            graphics.fill(x, top, x + 2, top + thumb, LABEL);
+        }
     }
 
     @Override

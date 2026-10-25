@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * The hoof panel left of the horse inventory in the container style (SimpleLib's style blocks, IRON palette;
- * simpleinterfaces preview W0-B decision 9): a tab whose right end lies under the horse window's left frame, so the
+ * simpleinterfaces preview W0-B decision 9; VIS24-5: saddle leather like the mount box while another mod restyles the screen): a tab whose right end lies under the horse window's left frame, so the
  * slot (x -20) and two frames fit into the 20 px. Drawn right after the dimmed world and before the horse window
  * (Vanilla PNG or a styled box), which then covers that end. Empty hoof slots keep their own horseshoe icon
  * ({@code HorseshoeSlot#getNoItemIcon}, drawn by Vanilla over the slot).
@@ -26,7 +26,8 @@ public abstract class HorseshoeScreenMixin<T extends AbstractMountInventoryMenu>
  private void simpleriding$panel(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float a,CallbackInfo ci){
   if(!HorseshoePanel.hasShoeSlots(this.menu))return;
   int xo=this.leftPos, yo=this.topPos;
-  UiPalette p=UiPalette.IRON;
+  // the styled mount box's saddle leather (simpleinterfaces StorageStyles.HORSE): a gray tab stood out beside it (VIS24-5)
+  UiPalette p=com.simplebuilding.framework.api.ContainerStyleHints.isRestyled(this)?UiPalette.derived(0xFF8B5E3C):UiPalette.IRON;
   UiBoxes.box(graphics,xo+HorseshoePanel.X,yo+HorseshoePanel.Y,HorseshoePanel.BOX_W,HorseshoePanel.H,p);
   for(Slot slot:this.menu.slots){
    if(!(slot instanceof HorseshoeSlot))continue;

@@ -35,8 +35,8 @@ public class DiscPressScreen extends AbstractContainerScreen<DiscPressMenu> {
             super.extractLabels(g, mouseX, mouseY);
             return;
         }
+        // Title only, like the other boxed screens: the vanilla "Inventory" label sat on the inventory box's top frame (VIS24).
         g.text(font, title, titleLabelX, titleLabelY, BOX.label(), false);
-        g.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, UiPalette.INVENTORY.label(), false);
     }
 
     @Override
