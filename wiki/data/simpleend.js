@@ -230,6 +230,26 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "Config-Schlüssel (config/simpleend.json): enabled, enableSimpleEndDragonFight, biomes, biomeChance, budsGrowAlone, voidSafeItems, longerDespawn, forestFogWall, forestFogStrength."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/SimpleEnd.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleend config shows and changes every option of config/simpleend.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "details": [
+          "Example: /simpleend config get <option> shows the value, the default and the type; /simpleend config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleend config zeigt und ändert jede Option von config/simpleend.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simpleend config get <Option> zeigt Wert, Standard und Typ; /simpleend config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -2746,10 +2766,10 @@ window.WIKI_MODULE_DATA["simpleend"] = {
           "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 20 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 20 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
         }
       },
       "texture": "assets/textures/simpleend/item/guide_book.png",
@@ -3828,7 +3848,7 @@ window.WIKI_MODULE_DATA["simpleend"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
+    "features": 9,
     "recipes": 35,
     "lootTables": 44,
     "tags": 8,

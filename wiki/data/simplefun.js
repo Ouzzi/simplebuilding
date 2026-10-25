@@ -130,21 +130,24 @@ window.WIKI_MODULE_DATA["simplefun"] = {
       "id": "commands",
       "en": {
         "title": "Admin Commands",
-        "summary": "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
+        "summary": "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side. /simplefun config shows and changes every option of config/simplefun.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
         "details": [
-          "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side."
+          "Permission level 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Values are bounded server-side.",
+          "Example: /simplefun config get <option> shows the value, the default and the type; /simplefun config reset <option> brings the default back; a wrong type is refused and nothing is saved."
         ]
       },
       "de": {
         "title": "Adminbefehle",
-        "summary": "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
+        "summary": "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte. /simplefun config zeigt und ändert jede Option von config/simplefun.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
         "details": [
-          "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte."
+          "Berechtigung 2: /simplefun tweaks yeet toggle/strength; /simplefun tweaks bricks enable/breakGlass/damage/snowballDamage. Server begrenzt Werte.",
+          "Beispiel: /simplefun config get <Option> zeigt Wert, Standard und Typ; /simplefun config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       },
       "sources": [
         "modules/simplefun/shared/java/com/simplefun/config/SimplefunConfig.java",
-        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java"
+        "modules/simplefun/shared/java/com/simplefun/command/SimplefunCommands.java",
+        "modules/simplefun/shared/java/com/simplefun/SimplefunCommon.java"
       ]
     },
     {
@@ -1075,10 +1078,10 @@ window.WIKI_MODULE_DATA["simplefun"] = {
           "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
+          "summary": "Guide to this mod: 21 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
+          "summary": "Handbuch zu dieser Mod: 21 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
         }
       },
       "texture": "assets/textures/simplefun/item/guide_book.png",

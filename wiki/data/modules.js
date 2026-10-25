@@ -121,9 +121,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 9,
-      "features": 73
+      "features": 74
     },
-    "dataHash": "ea6b68b8926b"
+    "dataHash": "346c010e5d2c"
   },
   {
     "id": "simpleriding",
@@ -218,7 +218,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "f4188d199ab4"
+    "dataHash": "16af04ba4479"
   },
   {
     "id": "simplevisuals",
@@ -323,7 +323,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "aa63fabbf78e"
+    "dataHash": "e9ef67e644bc"
   },
   {
     "id": "simpletweaks",
@@ -357,9 +357,9 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 3,
-      "features": 41
+      "features": 42
     },
-    "dataHash": "23374f49bf26"
+    "dataHash": "f68cc64ae2ad"
   },
   {
     "id": "simpledimensions",
@@ -395,9 +395,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 2,
       "recipes": 1,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "4d2fff5f6bf4"
+    "dataHash": "8752a5f35afa"
   },
   {
     "id": "simplesandwiches",
@@ -603,9 +603,9 @@ window.WIKI_MODULES = [
     "bundle": "required",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnUlEQVR42mOQVtD5TwlmABHdk5aSjF0C8lANiMto+r96wz4wDcJZxQ0oGCYOwiDNhlb+mAYga/706RMKhhkC0gyyCKsBMNvQNSMbAsMYBuDTiMswuAGkaqbYgB0HzmAaABIkBaMYAAsDUjDWWLCvfwCPKhAG8WFsdD6GAaRoxpmQkBUQwhgGgFIXMTbD+CgGwARAkiAahgnx4QZQggHab2K50IVYOwAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 3
+      "features": 4
     },
-    "dataHash": "bc9c18e432a3"
+    "dataHash": "0f8fdb6102eb"
   },
   {
     "id": "simplemovement",
@@ -631,7 +631,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "8386ade1e20c"
+    "dataHash": "ff547e609d6d"
   },
   {
     "id": "simpletools",
@@ -692,7 +692,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 8
     },
-    "dataHash": "32f5a8b14fe5"
+    "dataHash": "5a2aa6207e2f"
   },
   {
     "id": "simplemobmanners",
@@ -719,7 +719,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "a4f7a762dfb5"
+    "dataHash": "6ae5b6c4044a"
   },
   {
     "id": "simpleloot",
@@ -745,7 +745,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "dfd69a9b0655"
+    "dataHash": "752ae8182097"
   },
   {
     "id": "simplequestionary",
@@ -797,9 +797,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAp0lEQVR42mNIcHD4TwlmABHfjhwhGX9YsADVgE9r1/7/ceUKmCaEQZrXFhdjGgDCXnoiODFMM8girAaAFJ2YHoUTwwzC6gKY5hsGBmAM02SQcAOM0Q1CMQDZZmIMgBmC1QB8+MMFAzDGaYDBAgcwRvczWQbAAguE0V2IEQbIgYgt1NHFcKYDbBqwGYrTAGQn48IwNRgGgFIXTJIYjGIATIBUDDeAEgwA2P53d0BxE80AAAAASUVORK5CYII=",
     "counts": {
-      "features": 1
+      "features": 2
     },
-    "dataHash": "8f0a91afc1e7"
+    "dataHash": "22397e01bd96"
   },
   {
     "id": "simpleenddragonfight",
@@ -824,9 +824,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 3,
       "recipes": 1,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "5c8bd4f16cf9"
+    "dataHash": "b60f8400bd3e"
   },
   {
     "id": "simpleend",
@@ -860,9 +860,9 @@ window.WIKI_MODULES = [
       "items": 8,
       "blocks": 47,
       "recipes": 35,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "e568ae829397"
+    "dataHash": "0d076181b085"
   },
   {
     "id": "simplerespawn",
@@ -1054,9 +1054,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 2,
       "recipes": 1,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "1fef4fce7082"
+    "dataHash": "02be1306fcb6"
   },
   {
     "id": "simplestats",
@@ -1243,9 +1243,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAj0lEQVR42mOQU3H+TwlmABH9M0/ixVleHCgYJOYVtQLVgOTCLf/Xbb0BppExSMP/Bw5g/GCBApgP0mzqWIlpALGaQRYRNACXZhjGawA2zegYpwHImrFhmIF4DUDHZAciSCHMAPRwIGgAPs0EDSCkGa8BxGjGaQCyZlwacRoASl0wAwhpxjAAJkAqhhtACQYAbsktVjUvMIsAAAAASUVORK5CYII=",
     "counts": {
-      "features": 1
+      "features": 2
     },
-    "dataHash": "c6d6d341c731"
+    "dataHash": "a04762ea5ac6"
   },
   {
     "id": "simpleoptrender",
@@ -1262,9 +1262,9 @@ window.WIKI_MODULES = [
     "bundle": "required",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42mMw1PL9TwlmABFrF98gGVdlHUA1oLf+5P/Dex6DaUIYpDnCpwvTAGI1gyzCa4CWlhVWDNIMw1gNgCn88OEDVoxsEIYB6Bqtum6gYHSDUAzApRkEBCQUcBpC0ACQZqIMoNgLVAlE5HgmOxqRFRDCGAaAUhfZBsAESMVwAyjBAB7LeXTJODZuAAAAAElFTkSuQmCC",
     "counts": {
-      "features": 7
+      "features": 8
     },
-    "dataHash": "b2d1f93d90d8"
+    "dataHash": "4b490ad7b555"
   },
   {
     "id": "simpleoptmemory",
@@ -1281,9 +1281,9 @@ window.WIKI_MODULES = [
     "bundle": "required",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAe0lEQVR42mPwDYj9TwlmABE37n4kGR848QLVgJMXXv9//OwrmCaEQZq7JizHNIBYzSCLUAzgsxIhC6MYoNVlRRLGaoCUlBQYwxTh49PGAIq88OKAw3+5LC2iaQwDKIoF5HQAimdiMNaERKxmrAaAUhfZBsAESMVwAyjBAPycZS9pdCIrAAAAAElFTkSuQmCC",
     "counts": {
-      "features": 2
+      "features": 3
     },
-    "dataHash": "6f05fd404d00"
+    "dataHash": "e968689ad0fc"
   },
   {
     "id": "simpleoptserver",
@@ -1300,9 +1300,9 @@ window.WIKI_MODULES = [
     "bundle": "required",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mMQEtf6TwlmABG1rYtJxnpWWagGeIfV/5eSUSAKgzQravlgN2DWghV4MUjNwmV78BugpWeCgkFiDg8S4AZQ7AKCBgxOF3w4YDBiwiAqIQMvxmkAKHWRnZRhAqRiuAGUYABjgOz4Wx7bWwAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 2
+      "features": 3
     },
-    "dataHash": "c718c2a98ad5"
+    "dataHash": "8b21ace17cb6"
   },
   {
     "id": "simplestorage",

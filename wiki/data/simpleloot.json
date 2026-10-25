@@ -63,15 +63,22 @@
     {
       "id": "commands",
       "sources": [
-        "modules/simpleloot/shared/java/com/simplebuilding/modules/simpleloot/LootCommands.java"
+        "modules/simpleloot/shared/java/com/simplebuilding/modules/simpleloot/LootCommands.java",
+        "modules/simpleloot/shared/java/com/simplebuilding/modules/simpleloot/SimpleLoot.java"
       ],
       "en": {
         "title": "Commands",
-        "summary": "Permission level 2: /simpleloot vaults cooldown <days> and /simpleloot vaults repeat <true|false>; changes are saved to config/simpleloot.json."
+        "summary": "Permission level 2: /simpleloot vaults cooldown <days> and /simpleloot vaults repeat <true|false>; changes are saved to config/simpleloot.json. /simpleloot config shows and changes every option of config/simpleloot.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "details": [
+          "Example: /simpleloot config get <option> shows the value, the default and the type; /simpleloot config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "Berechtigung 2: /simpleloot vaults cooldown <Tage> und /simpleloot vaults repeat <true|false>; Speichern in config/simpleloot.json."
+        "summary": "Berechtigung 2: /simpleloot vaults cooldown <Tage> und /simpleloot vaults repeat <true|false>; Speichern in config/simpleloot.json. /simpleloot config zeigt und ändert jede Option von config/simpleloot.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simpleloot config get <Option> zeigt Wert, Standard und Typ; /simpleloot config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
       }
     },
     {

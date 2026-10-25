@@ -2991,6 +2991,26 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
         "modules/simplemoney/shared/resources/data/simplemoney/money/wiringexample/prices.json"
       ],
       "related": []
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplemoney/shared/java/com/simplemoney/SimpleMoney.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplemoney config shows and changes every option of config/simplemoney.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "details": [
+          "Example: /simplemoney config get <option> shows the value, the default and the type; /simplemoney config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplemoney config zeigt und ändert jede Option von config/simplemoney.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplemoney config get <Option> zeigt Wert, Standard und Typ; /simplemoney config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -3579,10 +3599,10 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
           "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
+          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
+          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
         }
       },
       "texture": "assets/textures/simplemoney/item/guide_book.png",
@@ -4016,7 +4036,7 @@ window.WIKI_MODULE_DATA["simplemoney"] = {
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 73,
+    "features": 74,
     "recipes": 9,
     "lootTables": 0,
     "tags": 0,
