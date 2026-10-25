@@ -37,3 +37,12 @@ Hänger im Testlauf blockiert sb-test bis Timeout → Lauf mit Watchdog (jstack 
   im Zusatz-Kopfplatz saß, Todesursache, Dimension.
 - Tests bleiben als Regression: `simplemobheads:module_game_test_worn_head_death`,
   `simplebuilding:mob_head_game_test_extra_head_death_and_respawn_keep_the_server_running`.
+
+## Client-Lauf 25.10. (Ausnahme, Koordinator)
+`Bs25DeathClientTest` (integration/src/gametest/.../clienttest, Aufruf `xvfb-run -a ./gradlew :integration:runClientGameTest
+-PmoduleClientTest=bs25death`), volles Paket (47 Module), echter Client: Überleben, Seelenfeuer-Lohenkopf im Helm (Seelenfeuer
+auf Seelensand, on_fire, generic) und im Zusatz-Kopfplatz (Seelenfeuer, generic), Todesbildschirm 3 s, Respawn-Knopf geklickt,
+`/gamemode creative|survival` vom Spieler getippt, Welt gespeichert + verlassen. Watchdog: Stack-Dump nach 45 s je Schritt,
+Halt nach 120 s. Ergebnis: 5 Tode, 0 Fehler, kein Dump, Speichern+Verlassen in < 1 s. NICHT reproduziert.
+Nebenbefund: ohne „Cheats erlauben“ (Testwelt ohne OP) schlagen /gamemode und F3+F4 still fehl – vor wie nach dem Tod.
+Falls die Besitzer-Welt keine Cheats hat, erklärt das „keine Befehle, kein Moduswechsel“, nicht aber den Speicher-Hänger.
