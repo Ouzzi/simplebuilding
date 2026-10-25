@@ -34871,7 +34871,7 @@
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:276",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:279",
         "cooldownTicks": 1,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -38697,7 +38697,7 @@
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:271",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:274",
         "cooldownTicks": 2,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -42209,7 +42209,7 @@
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:273",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:276",
         "cooldownTicks": 4,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -101905,6 +101905,26 @@
       "reload": "restart",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleEarth",
+      "shortName": "enableSimpleEarth",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Earth",
+      "labelDe": "Simple Earth aktivieren",
+      "tooltip": "Turns the bundled Simple Earth module on or off: far above the world (activation height, default 1024) the Overworld shows as a cube with map-coloured terrain read from the world generator. Off: no orbit, everything stays Vanilla. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Earth ein oder aus: weit über der Welt (Aktivierungshöhe, Standard 1024) erscheint die Oberwelt als Würfel mit Terrain in Kartenfarben aus dem Weltgenerator. Aus: kein Orbit, alles bleibt Vanilla. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableSimpleGadgets",
       "shortName": "enableSimpleGadgets",
       "type": "boolean",
@@ -131079,7 +131099,7 @@
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
-    "config": 230,
+    "config": 231,
     "inWorld": 481,
     "advancements": 116,
     "features": 48,
