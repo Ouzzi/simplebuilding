@@ -1064,7 +1064,7 @@ window.WIKI_MODULE_DATA["simpletweaks"] = {
     {
       "id": "commands",
       "sources": [
-        "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/TweaksConfigCommand.java"
+        "modules/simpletweaks/fabric/src/main/java/com/simplebuilding/modules/simpletweaks/TweaksConfigCommand.java"
       ],
       "en": {
         "title": "Commands",
