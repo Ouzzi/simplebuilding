@@ -54,7 +54,7 @@ public abstract class EarthView {
         return curTz;
     }
 
-    /** All nine versions, index 0 = V1. */
+    /** All twelve versions, index 0 = V1. */
     public static EarthView create(int version) {
         return switch (version) {
             case 1 -> new CubeJumpView(1);
@@ -65,7 +65,11 @@ public abstract class EarthView {
             case 6 -> new FoldingNetView(FoldingNetView.Style.PLAIN);
             case 7 -> new FoldingNetView(FoldingNetView.Style.CELLS);
             case 8 -> new FoldingNetView(FoldingNetView.Style.INVERSION);
-            default -> new FoldShellView();
+            case 9 -> new FoldShellView();
+            case 10 -> new CubeShapeView(CubeShapeView.Style.TIP);
+            case 11 -> new CubeShapeView(CubeShapeView.Style.CELLS);
+            case 12 -> new CubeShapeView(CubeShapeView.Style.CORNER);
+            default -> new FoldingNetView(FoldingNetView.Style.PLAIN);
         };
     }
 }

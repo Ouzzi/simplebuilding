@@ -14,18 +14,19 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Terrain tiles the client got from the server (map colour ids + heights on the global grid), an LRU, and the request queue:
+ * Terrain tiles the client got from the server (map colour ids + heights on the global grid), an LRU (size: client option
+ * {@code tileCache}), and the request queue:
  * the renderer says which tiles it wants this frame, nearest first; each tick a batch goes out, a capped number stays in
  * flight. {@link #version} counts arrivals so face images know when to repaint.
  */
 public final class ClientTiles {
-    public static final int MAX_TILES = 2048, MAX_IN_FLIGHT = 96;
+    public static final int MAX_IN_FLIGHT = 96;
     public record Tile(byte[] colors, short[] heights) {}
 
     private static final Map<Long, Tile> TILES = new LinkedHashMap<>(256, 0.75f, true) {
         @Override
         protected boolean removeEldestEntry(Map.Entry<Long, Tile> eldest) {
-            return size() > MAX_TILES;
+            return size() > (int) com.simplebuilding.modules.simpleearth.config.EarthClientConfig.render("tileCache");
         }
     };
     private static final Set<Long> IN_FLIGHT = new HashSet<>();

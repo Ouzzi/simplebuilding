@@ -14,14 +14,15 @@ import java.util.List;
 
 /**
  * Server config {@code config/simpleearth-server.json} (server authority, A9): the floors and caps every client value is
- * clamped to, sampling budget and cache, seed protection (E8) and which dimensions get an orbit (E7). Missing or broken keys
+ * clamped to, sampling budget, grid and cache, surface detail, seed protection (E8), which dimensions get an orbit (E7), the
+ * cube centre (E4), the way up (E5) and the landing (E6). Missing or broken keys
  * use the defaults and the file is rewritten complete.
  */
 public final class EarthServerConfig {
     public static final String FILE = "simpleearth-server.json";
     public static final List<String> KEYS = List.of("enabled", "dimensions", "minActivationY", "minSwitchGap", "maxOrbitSpeed",
             "minEdge", "maxEdge", "exploredOnly", "showOthers", "workerThreads", "tilesPerSecond", "memoryTiles", "diskCacheMiB",
-            "slowFallSeconds");
+            "slowFallSeconds", "minGrid", "biomeVotes", "surfaceDetail", "globalGrid", "requireFlight", "reentryAtOrbit");
 
     public static boolean enabled;
     public static final List<String> dimensions = new ArrayList<>();
@@ -41,6 +42,18 @@ public final class EarthServerConfig {
     public static int memoryTiles;
     public static int diskCacheMiB;
     public static int slowFallSeconds;
+    /** Finest sample grid served (2^minGrid blocks per sample; 5 = 32): caps what high client detail levels cost the server. */
+    public static int minGrid;
+    /** N10: biome votes per sample cell from 128 blocks on (1 = one point, 2 = 2 x 2 as before, 3 = 3 x 3). */
+    public static int biomeVotes;
+    /** WD25-16 "Block-Nutzung": snow by Vanilla's height temperature, stone on steep slopes, badlands bands, frozen water. */
+    public static boolean surfaceDetail;
+    /** E4: false = the cube centre A is where each player crosses the activation height; true = the nearest point of a global grid. */
+    public static boolean globalGrid;
+    /** E5: false = any way up counts; true = only while flying (creative flight or elytra). */
+    public static boolean requireFlight;
+    /** E6/N3: true = re-entry and logout at the orbit position; false = back to the park point. */
+    public static boolean reentryAtOrbit;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -86,6 +99,12 @@ public final class EarthServerConfig {
         memoryTiles = integer(json, "memoryTiles", 1024, 16, 65536);
         diskCacheMiB = integer(json, "diskCacheMiB", 256, 0, 65536);
         slowFallSeconds = integer(json, "slowFallSeconds", 30, 0, 600);
+        minGrid = integer(json, "minGrid", 5, com.simplebuilding.modules.simpleearth.terrain.TileMath.MIN_E, 10);
+        biomeVotes = integer(json, "biomeVotes", 2, 1, 3);
+        surfaceDetail = bool(json, "surfaceDetail", true);
+        globalGrid = bool(json, "globalGrid", false);
+        requireFlight = bool(json, "requireFlight", false);
+        reentryAtOrbit = bool(json, "reentryAtOrbit", true);
     }
 
     public static JsonObject toJson() {
@@ -106,6 +125,12 @@ public final class EarthServerConfig {
         o.addProperty("memoryTiles", memoryTiles);
         o.addProperty("diskCacheMiB", diskCacheMiB);
         o.addProperty("slowFallSeconds", slowFallSeconds);
+        o.addProperty("minGrid", minGrid);
+        o.addProperty("biomeVotes", biomeVotes);
+        o.addProperty("surfaceDetail", surfaceDetail);
+        o.addProperty("globalGrid", globalGrid);
+        o.addProperty("requireFlight", requireFlight);
+        o.addProperty("reentryAtOrbit", reentryAtOrbit);
         return o;
     }
 

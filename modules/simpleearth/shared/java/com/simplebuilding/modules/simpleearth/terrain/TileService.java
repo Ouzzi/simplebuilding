@@ -65,14 +65,26 @@ public final class TileService {
     public static synchronized TileStore store(ServerLevel level) {
         return STORES.computeIfAbsent(level.dimension(), k -> {
             boolean disk = !EarthServerConfig.exploredOnly && EarthServerConfig.diskCacheMiB > 0;
-            var dir = disk ? level.getServer().getWorldPath(LevelResource.ROOT).resolve("data").resolve(SimpleEarth.MOD_ID)
-                    .resolve(k.identifier().getNamespace()).resolve(k.identifier().getPath()) : null;
+            var base = level.getServer().getWorldPath(LevelResource.ROOT).resolve("data").resolve(SimpleEarth.MOD_ID)
+                    .resolve(k.identifier().getNamespace()).resolve(k.identifier().getPath());
+            var dir = disk ? base.resolve(signature()) : null;
+            if (disk) TileStore.dropOthers(base, signature());
             return new TileStore(dir, EarthServerConfig.memoryTiles, EarthServerConfig.diskCacheMiB * 1024L * 1024L);
         });
     }
 
+    /** What the cached colours depend on (colour table, biome votes, surface detail): a change starts a fresh disk cache. */
+    public static String signature() {
+        return "c" + EarthColors.table().signature() + "-v" + EarthServerConfig.biomeVotes + (EarthServerConfig.surfaceDetail ? "s" : "p");
+    }
+
+    /** After a /reload or config change: tiles are sampled again with the new table/rules (in-flight work finishes). */
+    public static synchronized void invalidate() {
+        STORES.clear();
+    }
+
     public static boolean validKey(TileRequestPayload.Key k) {
-        if (k.e() < TileMath.MIN_E || k.e() > TileMath.MAX_E) return false;
+        if (k.e() < Math.max(TileMath.MIN_E, EarthServerConfig.minGrid) || k.e() > TileMath.MAX_E) return false;
         long limit = TileMath.WORLD_LIMIT / ((long) TileMath.TILE << k.e()) + 1;
         return Math.abs((long) k.tx()) <= limit && Math.abs((long) k.tz()) <= limit;
     }

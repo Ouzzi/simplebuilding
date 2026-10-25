@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpleearth.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.simplebuilding.modules.simpleearth.SimpleEarth;
+import com.simplebuilding.modules.simpleearth.config.EarthClientConfig;
 import com.simplebuilding.modules.simpleearth.terrain.TileMath;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,10 +15,13 @@ import net.minecraft.world.level.material.MapColor;
  * Face images of the earth (concept §4.4): one image per terrain face (= tile of the edge length, relative to A), painted
  * pixel by pixel from {@link ClientTiles} in Vanilla map colours and brightness (pixels stay sharp). Missing samples fall back
  * to coarser grids already here (Chunkbase-like progress: coarse first, sharper as tiles arrive); unexplored stays dark.
- * Blended faces (V4/V5 side faces) and the cone-folded faces (V2) are their own images. LRU, at most a few repaints a frame.
+ * Blended faces (V4/V5 side faces) and the cone-folded faces (V2) are their own images. LRU of {@code textureCache} images.
+ * Painting is spread over frames (WD25-16): at most {@code paintBudget} kilopixels a frame, row by row, the renderer asks
+ * for the face under the player first; an image still waiting for tiles is repainted at most every {@link #REPAINT_MS}.
  */
 public final class FaceTextures {
-    public static final int MAX = 64, REPAINTS_PER_FRAME = 3;
+    public static final int MAX_RES = TileMath.MAX_RES;
+    public static final long REPAINT_MS = 250;
     public static final int UNKNOWN = 0xFF1E2333, LOADING = 0xFF2B3044;
 
     /** What an image shows; tile indices are absolute (relative to A), {@code mixQ} = blend weight in 1/16. */
@@ -25,22 +29,29 @@ public final class FaceTextures {
                       int foldQ, int reliefQ) {}
 
     /** Painting context of the current frame. */
-    public record Context(double ax, double az, double edge, int e, int seaLevel, double relief, double foldRadius) {}
+    public record Context(double ax, double az, double edge, int e, int seaLevel, double relief, double foldRadius, int res, double px, double pz) {}
 
     private static final class Entry {
         Identifier id;
         DynamicTexture texture;
+        /** Tiles version the finished image shows, -1 = never finished. */
         int version = -1;
         boolean complete;
+        /** Next row of the pass in progress ({@code res} = no pass running) and what that pass has seen so far. */
+        int row;
+        int passVersion;
+        boolean passComplete = true;
+        long lastPass;
     }
 
     private static final Map<Key, Entry> CACHE = new LinkedHashMap<>(64, 0.75f, true);
-    private static int counter, repaints;
+    private static int counter;
+    private static long budget;
 
     private FaceTextures() {}
 
     public static void newFrame() {
-        repaints = 0;
+        budget = (long) EarthClientConfig.render("paintBudget") * 1024;
     }
 
     /** The image for a key, painted (or repainted when new tiles arrived) within the frame budget. Render thread only. */
@@ -51,20 +62,26 @@ public final class FaceTextures {
             e.id = SimpleEarth.id("earth_face/" + (counter++));
             String label = e.id.toString();
             e.texture = new DynamicTexture(() -> label, key.res(), key.res(), true);
+            NativeImage img = e.texture.getPixels();
+            if (img != null) img.fillRect(0, 0, key.res(), key.res(), LOADING);
             Minecraft.getInstance().getTextureManager().register(e.id, e.texture);
             CACHE.put(key, e);
             evict();
-            paint(e, key, ctx);
-            repaints++;
-        } else if (!e.complete && e.version != ClientTiles.version && repaints < REPAINTS_PER_FRAME) {
-            paint(e, key, ctx);
-            repaints++;
+            e.row = 0;
+            e.passVersion = ClientTiles.version;
+        } else if (e.row >= key.res() && !e.complete && e.version != ClientTiles.version
+                && System.currentTimeMillis() - e.lastPass >= REPAINT_MS) {
+            e.row = 0;
+            e.passVersion = ClientTiles.version;
+            e.passComplete = true;
         }
+        if (e.row < key.res() && budget > 0) paint(e, key, ctx);
         return e.id;
     }
 
     private static void evict() {
-        while (CACHE.size() > MAX) {
+        int max = (int) EarthClientConfig.render("textureCache");
+        while (CACHE.size() > max) {
             var it = CACHE.entrySet().iterator();
             Entry old = it.next().getValue();
             it.remove();
@@ -77,35 +94,55 @@ public final class FaceTextures {
         CACHE.clear();
     }
 
-    /** Requests the tiles a face needs at its grid (and the next coarser one, the quick preview). */
+    /** Requests the tiles a face needs at its grid (and the next coarser one, the quick preview), nearest the player first. */
     public static void request(int tx, int tz, Context ctx) {
         double minX = ctx.ax() + tx * ctx.edge() - ctx.edge() / 2, minZ = ctx.az() + tz * ctx.edge() - ctx.edge() / 2;
         for (int e : new int[]{Math.min(TileMath.MAX_E, ctx.e() + 2), ctx.e()}) {
             int t0x = TileMath.tileOf(TileMath.sampleOf(minX, e)), t1x = TileMath.tileOf(TileMath.sampleOf(minX + ctx.edge(), e));
             int t0z = TileMath.tileOf(TileMath.sampleOf(minZ, e)), t1z = TileMath.tileOf(TileMath.sampleOf(minZ + ctx.edge(), e));
-            for (int z = t0z; z <= t1z; z++) for (int x = t0x; x <= t1x; x++) ClientTiles.want(e, x, z);
+            double size = (double) TileMath.TILE * (1L << e);
+            java.util.List<long[]> tiles = new java.util.ArrayList<>();
+            for (int z = t0z; z <= t1z; z++) {
+                for (int x = t0x; x <= t1x; x++) {
+                    double dx = (x + 0.5) * size - ctx.px(), dz = (z + 0.5) * size - ctx.pz();
+                    tiles.add(new long[]{x, z, (long) (dx * dx / 1e6 + dz * dz / 1e6)});
+                }
+            }
+            tiles.sort(java.util.Comparator.comparingLong(t -> t[2]));
+            for (long[] t : tiles) ClientTiles.want(e, (int) t[0], (int) t[1]);
         }
     }
 
+    /** Paints rows of the running pass until the frame budget is used up; uploads what changed. */
     private static void paint(Entry entry, Key key, Context ctx) {
         int n = key.res();
         NativeImage img = entry.texture.getPixels();
         if (img == null) return;
         Sampler a = new Sampler(ctx), b = key.mixQ() > 0 ? new Sampler(ctx) : null;
-        boolean complete = true;
-        double w = key.mixQ() / 16.0;
-        for (int j = 0; j < n; j++) {
+        double w = key.mixQ() / 16.0, edgeShade = 1 - EarthClientConfig.render("faceEdge");
+        int start = entry.row;
+        while (entry.row < n && budget > 0) {
+            int j = entry.row++;
             for (int i = 0; i < n; i++) {
                 int c = a.pixel(key.tx(), key.tz(), key.mirror(), i, j, n, key);
                 if (b != null) c = blend(c, b.pixel(key.mtx(), key.mtz(), key.mmirror(), i, j, n, key), w);
-                if (i == 0 || j == 0 || i == n - 1 || j == n - 1) c = scale(c, 0.72); // 1 px edge in map shadow colour
+                if (i == 0 || j == 0 || i == n - 1 || j == n - 1) c = scale(c, edgeShade); // 1 px edge in map shadow colour
                 img.setPixel(i, j, c);
             }
+            budget -= n;
         }
-        complete = a.complete && (b == null || b.complete);
-        entry.texture.upload();
-        entry.version = ClientTiles.version;
-        entry.complete = complete;
+        entry.passComplete &= a.complete && (b == null || b.complete);
+        if (entry.row > start) entry.texture.upload();
+        if (entry.row >= n) {
+            entry.version = entry.passVersion;
+            entry.complete = entry.passComplete;
+            entry.lastPass = System.currentTimeMillis();
+        }
+    }
+
+    /** Pixels the frame may still paint (renderer debug and tests). */
+    public static long budgetLeft() {
+        return budget;
     }
 
     /** Looks samples up on the global grid; remembers the last tile (pixels run along a row). */

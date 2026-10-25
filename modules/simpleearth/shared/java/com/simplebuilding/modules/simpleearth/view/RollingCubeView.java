@@ -96,7 +96,7 @@ final class RollingCubeView extends EarthView {
     }
 
     /** Side face mix: half towards the edge along the flight axis, fading out where the face itself is about to become top/bottom. */
-    private static double side(double along, double cross) {
+    static double side(double along, double cross) {
         return 0.5 * Meshes.smooth(0.3, 1, along) * (1 - Meshes.smooth(0.85, 1, cross));
     }
 }

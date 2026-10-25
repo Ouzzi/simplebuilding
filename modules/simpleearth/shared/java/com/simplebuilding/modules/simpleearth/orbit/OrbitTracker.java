@@ -106,10 +106,12 @@ public final class OrbitTracker {
         }
         double y = player.getY();
         if (!s.active) {
-            if (y >= s.activationY) {
+            if (y >= s.activationY && (!EarthServerConfig.requireFlight || flying(player))) {
                 s.active = true;
-                s.ax = s.ox = player.getX();
-                s.az = s.oz = player.getZ();
+                s.ax = centre(player.getX(), s.edge);
+                s.az = centre(player.getZ(), s.edge);
+                s.ox = player.getX();
+                s.oz = player.getZ();
                 s.dirty = true;
             }
         } else if (y < s.activationY - HYSTERESIS) {
@@ -135,10 +137,24 @@ public final class OrbitTracker {
         if (s.dirty || (s.active && --s.sendIn <= 0)) send(player, s);
     }
 
-    /** Re-entry (E6): to the orbit position at the current height, slow falling unless flying. */
+    /** E4: the cube centre for a crossing at {@code c} - there (standard) or the nearest point of the global edge grid. */
+    public static double centre(double c, int edge) {
+        return EarthServerConfig.globalGrid ? Math.round(c / edge) * (double) edge : c;
+    }
+
+    /** E5 with {@code requireFlight}: creative flight or elytra. */
+    static boolean flying(ServerPlayer player) {
+        return player.getAbilities().flying || player.isFallFlying();
+    }
+
+    /** Re-entry (E6): to the orbit position (or with reentryAtOrbit off the park point) at the current height, slow falling unless flying. */
     static void reenter(ServerPlayer player, State s) {
         s.parked = false;
         ServerLevel level = player.level();
+        if (!EarthServerConfig.reentryAtOrbit) {
+            s.ox = s.parkX;
+            s.oz = s.parkZ;
+        }
         player.teleportTo(level, s.ox, player.getY(), s.oz, Set.of(), player.getYRot(), player.getXRot(), false);
         if (!player.getAbilities().flying && EarthServerConfig.slowFallSeconds > 0) {
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, EarthServerConfig.slowFallSeconds * 20, 0, false, false));
@@ -158,7 +174,8 @@ public final class OrbitTracker {
     public static void disconnect(ServerPlayer player) {
         State s = peek(player.getUUID());
         if (s != null && s.parked) {
-            player.setPos(s.ox, player.getY(), s.oz);
+            if (EarthServerConfig.reentryAtOrbit) player.setPos(s.ox, player.getY(), s.oz);
+            else player.setPos(s.parkX, player.getY(), s.parkZ);
         }
         forget(player.getUUID());
     }
@@ -175,6 +192,6 @@ public final class OrbitTracker {
         }
         SimpleEarth.toClient.accept(player, new OrbitStatePayload(allowed(player), s.active, s.parked, s.ax, s.az, s.ox, s.oz,
                 s.activationY, s.switchY, s.edge, (float) s.speed, player.level().getChunkSource().getGenerator().getSeaLevel(),
-                EarthServerConfig.exploredOnly, others));
+                EarthServerConfig.exploredOnly, EarthServerConfig.minGrid, others));
     }
 }

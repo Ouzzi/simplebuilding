@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.simplebuilding.modules.simpleearth.config.EarthSettings;
 import com.simplebuilding.modules.simpleearth.view.EarthView;
 import com.simplebuilding.modules.simpleearth.view.Patch;
 import com.simplebuilding.modules.simpleearth.view.Quat;
@@ -13,7 +14,7 @@ import com.simplebuilding.modules.simpleearth.view.V3;
 import com.simplebuilding.modules.simpleearth.view.ViewParams;
 import org.junit.jupiter.api.Test;
 
-/** The fold/turn maths of V1-V9 without the game: finite, point under the player on top, no jumps where none are announced. */
+/** The fold/turn maths of V1-V12 without the game: finite, point under the player on top, no jumps where none are announced. */
 class EarthViewTest {
     static final double L = 65536, H = L / 2, DT = 1 / 60.0;
 
@@ -43,7 +44,7 @@ class EarthViewTest {
     @Test
     void everyVersionStaysFiniteOnLongFlights() {
         double[][] dirs = {{0, -1}, {1, 0}, {0.7071, -0.7071}, {-0.6, 0.8}, {0.31, 0.95}};
-        for (int ver = 1; ver <= 9; ver++) {
+        for (int ver = 1; ver <= EarthSettings.VERSIONS; ver++) {
             for (double[] d : dirs) {
                 EarthView view = EarthView.create(ver);
                 double x = 0, z = 0, step = L * 0.004;
@@ -61,7 +62,7 @@ class EarthViewTest {
     @Test
     void pointUnderThePlayerIsTheContactPointOnTop() {
         double[][] spots = {{0, 0}, {0.3, -0.2}, {-0.7, 0.55}, {0.92, 0.1}, {0.85, -0.8}};
-        for (int ver = 1; ver <= 9; ver++) {
+        for (int ver = 1; ver <= EarthSettings.VERSIONS; ver++) {
             for (double[] sp : spots) {
                 EarthView view = EarthView.create(ver);
                 Scene s = settle(view, sp[0] * H, sp[1] * H);
@@ -142,7 +143,7 @@ class EarthViewTest {
 
     @Test
     void newTerrainBehindEveryEdgeLikeATesseract() {
-        for (int ver = 1; ver <= 9; ver++) {
+        for (int ver = 1; ver <= EarthSettings.VERSIONS; ver++) {
             EarthView view = EarthView.create(ver);
             Scene s = null;
             for (double z = 0; z >= -4.2 * L; z -= L * 0.01) s = view.step(0, z, DT, params());
@@ -198,5 +199,46 @@ class EarthViewTest {
         Scene s = settle(EarthView.create(7), 0.2 * H, 0.2 * H);
         assertTrue(s.patches.stream().anyMatch(p -> p.kind == Patch.COLOR));
         assertTrue(s.lines.size() >= 12);
+    }
+
+    @Test
+    void v10TipsOverTheEdgeWithoutAJumpAndEndsLevel() {
+        for (int ver = 10; ver <= 12; ver++) {
+            EarthView view = EarthView.create(ver);
+            settle(view, 0.995 * H, 0.2 * H);
+            double[][] anchors = {{1.3 * H, 0.3 * H}, {0.6 * H, 0.1 * H}};
+            Scene before = view.step(0.999 * H, 0.2 * H, 1e-4, params());
+            Scene at = view.step(1.001 * H, 0.2 * H, 1e-4, params());
+            assertEquals("edge", at.event, "V" + ver);
+            for (double[] a : anchors) {
+                V3 p0 = relative(view, before, a[0], a[1]), p1 = relative(view, at, a[0], a[1]);
+                if (p0 != null && p1 != null) assertTrue(p0.distance(p1) < 0.02, "V" + ver + " renamed picture jumps " + p0.distance(p1));
+            }
+            Scene end = null;
+            for (int i = 0; i < 90; i++) end = view.step(1.001 * H, 0.2 * H, DT, params());
+            assertTrue(end.orientation.angleTo(Quat.IDENTITY) < 1e-3, "V" + ver + " level again after the tip");
+            assertTrue(end.contact.distance(V3.UP) < 1e-9, "V" + ver);
+            // during the tip the cube turns about the point under the player
+            Scene mid = view.step(1.001 * H, 0.2 * H, 1e-4, params());
+            assertTrue(mid.finite());
+        }
+    }
+
+    @Test
+    void v10HasEdgeLinesV11CellsV12TurnsItsCornerUp() {
+        Scene v10 = settle(EarthView.create(10), 0.2 * H, 0.1 * H);
+        assertEquals(12, v10.lines.size(), "twelve cube edges");
+        Scene v11 = settle(EarthView.create(11), 0.2 * H, 0.1 * H);
+        assertEquals(6 + 6 * 9, v11.patches.size(), "6 cores + 3 x 3 pieces per face");
+        assertEquals(6, v11.patches.stream().filter(p -> p.kind == Patch.COLOR).count());
+        EarthView v12 = EarthView.create(12);
+        ViewParams high = params().set("heightFraction", 1);
+        Scene s = null;
+        for (int i = 0; i < 600; i++) s = v12.step(0.4 * H, -0.3 * H, DT, high);
+        V3 corner = s.orientation.rotate(new V3(1, 1, -1)).normalize();
+        assertTrue(corner.distance(V3.UP) < 1e-6, "the corner of the player's quarter points up: " + corner);
+        assertTrue(s.bodyOffset.add(s.orientation.rotate(new V3(1, 1, -1))).distance(V3.UP) < 1e-6, "and sits under the eye");
+        Scene low = settle(EarthView.create(12), 0.4 * H, -0.3 * H);
+        assertTrue(low.orientation.angleTo(Quat.IDENTITY) < 1e-6, "near the switch height the top stays level");
     }
 }

@@ -13,8 +13,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Client config {@code config/simpleearth-client.json}: the chosen version (standard V6) and one value set per version
- * (schema {@link EarthSettings}). The menu edits it live; every value is clamped to its range.
+ * Client config {@code config/simpleearth-client.json}: the chosen version (standard V6, E3), the display settings of all
+ * versions ({@code render}, {@link EarthSettings#RENDER}: detail level, render distance, budgets, E9/E10) and one value set
+ * per version (schema {@link EarthSettings}). The menu edits it live; every value is clamped to its range.
  */
 public final class EarthClientConfig {
     public static final String FILE = "simpleearth-client.json";
@@ -24,6 +25,7 @@ public final class EarthClientConfig {
     /** Dev button in the pause menu: AUTO = only in a development environment. */
     public static DevButton devButton = DevButton.AUTO;
     private static final Map<Integer, Map<String, Double>> VALUES = new LinkedHashMap<>();
+    private static final Map<String, Double> RENDER = new LinkedHashMap<>();
     private static Path file;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -60,36 +62,47 @@ public final class EarthClientConfig {
         } catch (RuntimeException e) {
             devButton = DevButton.AUTO;
         }
+        JsonObject render = json.has("render") && json.get("render").isJsonObject() ? json.getAsJsonObject("render") : new JsonObject();
+        RENDER.clear();
+        for (EarthSettings.Setting s : EarthSettings.RENDER) RENDER.put(s.key(), read(s, render.get(s.key())));
         JsonObject versions = json.has("versions") && json.get("versions").isJsonObject() ? json.getAsJsonObject("versions") : new JsonObject();
         VALUES.clear();
         for (int ver = 1; ver <= EarthSettings.VERSIONS; ver++) {
             JsonObject own = versions.has("V" + ver) && versions.get("V" + ver).isJsonObject() ? versions.getAsJsonObject("V" + ver) : new JsonObject();
             Map<String, Double> map = new LinkedHashMap<>();
-            for (EarthSettings.Setting s : EarthSettings.forVersion(ver)) {
-                double value = s.def();
-                JsonElement e = own.get(s.key());
-                try {
-                    if (e != null) value = e.getAsDouble();
-                } catch (RuntimeException ignored) {
-                }
-                map.put(s.key(), s.clamp(value));
-            }
+            for (EarthSettings.Setting s : EarthSettings.forVersion(ver)) map.put(s.key(), read(s, own.get(s.key())));
             VALUES.put(ver, map);
         }
+    }
+
+    /** A stored value (number, or true/false for a toggle), clamped; the default when missing or broken. */
+    private static double read(EarthSettings.Setting s, JsonElement e) {
+        double value = s.def();
+        try {
+            if (e != null && e.isJsonPrimitive() && e.getAsJsonPrimitive().isBoolean()) value = e.getAsBoolean() ? 1 : 0;
+            else if (e != null) value = e.getAsDouble();
+        } catch (RuntimeException ignored) {
+        }
+        return s.clamp(value);
+    }
+
+    private static void write(JsonObject out, EarthSettings.Setting s, String k, double val) {
+        if (s != null && s.kind() == EarthSettings.Kind.TOGGLE) out.addProperty(k, val >= 0.5);
+        else if (s != null && s.kind() == EarthSettings.Kind.INT) out.addProperty(k, (long) Math.round(val));
+        else out.addProperty(k, val);
     }
 
     public static JsonObject toJson() {
         JsonObject o = new JsonObject();
         o.addProperty("version", version);
         o.addProperty("devButton", devButton.name().toLowerCase(java.util.Locale.ROOT));
+        JsonObject render = new JsonObject();
+        RENDER.forEach((k, val) -> write(render, EarthSettings.findRender(k), k, val));
+        o.add("render", render);
         JsonObject versions = new JsonObject();
         VALUES.forEach((ver, map) -> {
             JsonObject own = new JsonObject();
-            map.forEach((k, val) -> {
-                EarthSettings.Setting s = EarthSettings.find(ver, k);
-                if (s != null && s.kind() == EarthSettings.Kind.INT) own.addProperty(k, (long) Math.round(val));
-                else own.addProperty(k, val);
-            });
+            map.forEach((k, val) -> write(own, EarthSettings.find(ver, k), k, val));
             versions.add("V" + ver, own);
         });
         o.add("versions", versions);
@@ -115,6 +128,30 @@ public final class EarthClientConfig {
         double c = s.clamp(value);
         VALUES.computeIfAbsent(ver, k -> new LinkedHashMap<>()).put(key, c);
         return c;
+    }
+
+    /** A display value of all versions ({@link EarthSettings#RENDER}). */
+    public static double render(String key) {
+        Double v = RENDER.get(key);
+        if (v != null) return v;
+        EarthSettings.Setting s = EarthSettings.findRender(key);
+        return s == null ? 0 : s.def();
+    }
+
+    public static boolean renderOn(String key) {
+        return render(key) >= 0.5;
+    }
+
+    public static double setRender(String key, double value) {
+        EarthSettings.Setting s = EarthSettings.findRender(key);
+        if (s == null) return 0;
+        double c = s.clamp(value);
+        RENDER.put(key, c);
+        return c;
+    }
+
+    public static void resetRender() {
+        for (EarthSettings.Setting s : EarthSettings.RENDER) setRender(s.key(), s.def());
     }
 
     public static void resetVersion(int ver) {

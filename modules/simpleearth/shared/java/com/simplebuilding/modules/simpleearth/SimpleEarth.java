@@ -42,7 +42,16 @@ public final class SimpleEarth {
         configDir = dir;
         EarthServerConfig.load(dir);
         // CMD24: /simpleearth config (server options; every value is clamped by EarthServerConfig.apply).
-        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(EarthServerConfig::toJson, EarthServerConfig::apply).file(dir, EarthServerConfig.FILE).register();
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(EarthServerConfig::toJson, json -> {
+            EarthServerConfig.apply(json);
+            com.simplebuilding.modules.simpleearth.terrain.TileService.invalidate(); // biome votes / surface detail change the colours
+        }).file(dir, EarthServerConfig.FILE).register();
+    }
+
+    /** Server start and /reload: the biome colour tables of all data packs (N7/N8), fresh tile caches. */
+    public static void dataLoaded(net.minecraft.server.packs.resources.ResourceManager resources) {
+        com.simplebuilding.modules.simpleearth.terrain.EarthColors.load(resources);
+        com.simplebuilding.modules.simpleearth.terrain.TileService.invalidate();
     }
 
     private SimpleEarth() {}

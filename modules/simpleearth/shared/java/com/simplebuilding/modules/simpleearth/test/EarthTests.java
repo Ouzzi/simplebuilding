@@ -65,12 +65,161 @@ public final class EarthTests {
             h.assertTrue(EarthServerConfig.edge(1) == 8192 && EarthServerConfig.edge(9_999_999) == 262144, "edge 8192..262144 (E1)");
             h.assertTrue(EarthServerConfig.speed(99999) == 2048, "orbit speed cap");
             h.assertTrue(EarthClientConfig.version == EarthSettings.DEFAULT_VERSION && EarthSettings.DEFAULT_VERSION == 6, "standard V6");
+            h.assertTrue(EarthSettings.VERSIONS == 12, "V1-V12 (WD25-17)");
+            h.assertTrue(EarthServerConfig.minGrid == 5 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
+                    && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight && EarthServerConfig.reentryAtOrbit
+                    && EarthServerConfig.slowFallSeconds == 30, "WD25-16 server defaults (E4 per player, E5 any flight, E6 orbit position)");
             for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
                 h.assertTrue(EarthSettings.find(v, "activationY").def() == 1024 && EarthSettings.find(v, "switchY").def() == 1536
                         && EarthSettings.find(v, "ceilingY").def() == 6144 && EarthSettings.find(v, "edge").def() == 65536
                         && EarthSettings.find(v, "orbitSpeed").def() == 256, "E1/E2/E11 defaults in V" + v);
             }
             h.assertTrue(EarthSettings.find(1, "edge").clamp(1e9) == 262144 && EarthSettings.find(6, "foldStart").clamp(-3) == 0, "client clamps");
+            h.succeed();
+        });
+
+        ALL.put("render_config", h -> {
+            com.google.gson.JsonObject saved = EarthClientConfig.toJson();
+            try {
+                EarthClientConfig.apply(new com.google.gson.JsonObject());
+                h.assertTrue(EarthClientConfig.render("detail") == 3 && EarthClientConfig.render("detailRange") == 0
+                        && EarthClientConfig.render("renderDistance") == 2 && EarthClientConfig.render("paintBudget") == 192
+                        && EarthClientConfig.render("textureCache") == 64 && EarthClientConfig.render("tileCache") == 2048
+                        && Math.abs(EarthClientConfig.render("faceEdge") - 0.28) < 1e-9, "display defaults");
+                h.assertTrue(EarthClientConfig.renderOn("moonPhases") && EarthClientConfig.renderOn("showOthers"), "E9/E10 on by default");
+                var json = com.google.gson.JsonParser.parseString("{\"version\": 12, \"render\": {\"detail\": 99, \"moonPhases\": false,"
+                        + " \"faceEdge\": \"x\", \"renderDistance\": 1}, \"versions\": {\"V11\": {\"cells\": 40}}}").getAsJsonObject();
+                EarthClientConfig.apply(json);
+                h.assertTrue(EarthClientConfig.version == 12 && EarthClientConfig.render("detail") == 5 && !EarthClientConfig.renderOn("moonPhases")
+                        && Math.abs(EarthClientConfig.render("faceEdge") - 0.28) < 1e-9 && EarthClientConfig.render("renderDistance") == 1,
+                        "clamped, toggles as booleans, broken value = default");
+                h.assertTrue(EarthClientConfig.get(11, "cells") == 8, "V11 cells clamped to 8");
+                var out = EarthClientConfig.toJson();
+                h.assertTrue(out.getAsJsonObject("render").get("moonPhases").getAsJsonPrimitive().isBoolean(), "toggle written as true/false");
+                EarthClientConfig.apply(out);
+                h.assertTrue(EarthClientConfig.toJson().equals(out), "JSON round trip");
+                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 13}").getAsJsonObject());
+                h.assertTrue(EarthClientConfig.version == 6, "unknown version -> V6");
+                h.assertTrue(EarthSettings.find(10, "tipTime").def() == 0.6 && EarthSettings.find(10, "rounding").def() == 0.02
+                        && EarthSettings.find(1, "rounding").def() == 0.07 && EarthSettings.find(11, "cells").def() == 3
+                        && EarthSettings.find(12, "cornerTilt").def() == 1 && EarthSettings.find(12, "tiltStart") != null, "V10-V12 own values");
+                // detail level: 2 = the old 256 px on the own tile, standard 3 = 512 near, halved per ring outside detailRange
+                int[] old = TileMath.ringResolutions(65536, 0.3, 256, 2, 0, 5), std = TileMath.ringResolutions(65536, 0.3, 256, 3, 0, 5);
+                h.assertTrue(old[0] == 256 && std[0] == 512 && std[1] == 256 && std[2] == 128, "rings " + Arrays.toString(std));
+                int[] ranged = TileMath.ringResolutions(65536, 0.3, 256, 3, 1, 5), top = TileMath.ringResolutions(65536, 0.3, 256, 5, 2, 5);
+                h.assertTrue(ranged[1] == 512 && top[0] == TileMath.MAX_RES && top[2] == TileMath.MAX_RES, "range and cap");
+                int[] small = TileMath.ringResolutions(8192, 0.3, 256, 5, 0, 5);
+                h.assertTrue(small[0] == 8192 >> 5, "never finer than the server grid: " + small[0]);
+                h.assertTrue(TileMath.ringResolutions(65536, 3, 256, 3, 0, 5)[0] == 128, "high above: coarser");
+            } finally {
+                EarthClientConfig.apply(saved);
+            }
+            h.succeed();
+        });
+
+        ALL.put("orbit_options", h -> {
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            try {
+                EarthServerConfig.reset();
+                EarthServerConfig.globalGrid = true;
+                OrbitTracker.forget(player.getUUID());
+                OrbitTracker.State s = OrbitTracker.state(player);
+                s.configure(1024, 1536, 65536, 256, h.getLevel().getMaxY());
+                player.setPos(40000, 1100, -20000);
+                OrbitTracker.tick(player, true);
+                h.assertTrue(s.active && s.ax == 65536 && s.az == 0 && s.ox == 40000, "E4 global grid: centre " + s.ax + "/" + s.az);
+                h.assertTrue(OrbitTracker.centre(40000, 65536) == 65536, "grid point");
+                EarthServerConfig.globalGrid = false;
+                h.assertTrue(OrbitTracker.centre(40000, 65536) == 40000, "per player");
+                // E5: only while flying
+                EarthServerConfig.requireFlight = true;
+                OrbitTracker.forget(player.getUUID());
+                s = OrbitTracker.state(player);
+                player.getAbilities().flying = false;
+                player.setPos(10, 1100, 10);
+                OrbitTracker.tick(player, true);
+                h.assertTrue(!s.active, "E5: not flying = no orbit");
+                player.getAbilities().flying = true;
+                OrbitTracker.tick(player, true);
+                h.assertTrue(s.active, "E5: flying starts the orbit");
+                EarthServerConfig.requireFlight = false;
+                // E6 off: back to the park point
+                EarthServerConfig.reentryAtOrbit = false;
+                player.setPos(12, 1600, 14);
+                OrbitTracker.tick(player, true);
+                h.assertTrue(s.parked, "parked");
+                OrbitTracker.handleMove(player, new OrbitMovePayload(10, 0));
+                player.setPos(12, 1500, 14);
+                OrbitTracker.tick(player, true);
+                h.assertTrue(!s.parked && Math.abs(player.getX() - 12) < 1e-6 && Math.abs(player.getZ() - 14) < 1e-6,
+                        "E6 off: re-entry at the park point " + player.getX());
+            } finally {
+                EarthServerConfig.reset();
+                OrbitTracker.forget(player.getUUID());
+            }
+            h.succeed();
+        });
+
+        ALL.put("biome_table", h -> {
+            h.assertTrue(EarthColors.NAMES.length == 62, "62 map colours");
+            for (int i = 0; i < EarthColors.NAMES.length; i++) {
+                h.assertTrue(EarthColors.byName(new com.google.gson.JsonPrimitive(EarthColors.NAMES[i])) == MapColor.byId(i), "name " + EarthColors.NAMES[i]);
+            }
+            h.assertTrue(EarthColors.byName(new com.google.gson.JsonPrimitive("GLOW_LICHEN")) == MapColor.GLOW_LICHEN
+                    && EarthColors.byName(new com.google.gson.JsonPrimitive("deepslate")) == MapColor.DEEPSLATE
+                    && EarthColors.byName(new com.google.gson.JsonPrimitive("terracotta_orange")) == MapColor.TERRACOTTA_ORANGE
+                    && EarthColors.byName(new com.google.gson.JsonPrimitive(12)) == MapColor.WATER
+                    && EarthColors.byName(new com.google.gson.JsonPrimitive("rainbow")) == null, "names and ids");
+            // the shipped table (data/simpleearth/simpleearth/biome_colors.json), loaded at server start
+            EarthColors.Table shipped = EarthColors.table();
+            h.assertTrue(shipped.biomes().get("simpleend:ash_valley") == MapColor.COLOR_LIGHT_GRAY && shipped.biomes().size() >= 4
+                    && shipped.tags().size() >= 20, "shipped table: " + shipped.biomes().size() + " biomes, " + shipped.tags().size() + " tags");
+            var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
+            ResourceKey<Biome> ash = ResourceKey.create(Registries.BIOME, net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleend", "ash_valley"));
+            var ashHolder = biomes.get(ash);
+            if (ashHolder.isPresent()) h.assertTrue(EarthColors.color(ashHolder.get(), false) == MapColor.COLOR_LIGHT_GRAY, "Simple End ash valley");
+            try {
+                var a = com.google.gson.JsonParser.parseString("{\"biomes\": {\"minecraft:plains\": \"color_red\", \"minecraft:desert\": \"rainbow\"},"
+                        + " \"tags\": [{\"tag\": \"minecraft:is_forest\", \"color\": \"color_blue\"}]}").getAsJsonObject();
+                var b = com.google.gson.JsonParser.parseString("{\"biomes\": {\"minecraft:plains\": \"color_yellow\"},"
+                        + " \"tags\": [{\"tag\": \"#minecraft:is_forest\", \"color\": 25}]}").getAsJsonObject();
+                EarthColors.Table t = EarthColors.parse(List.of(a, b));
+                h.assertTrue(t.biomes().get("minecraft:plains") == MapColor.COLOR_YELLOW && !t.biomes().containsKey("minecraft:desert"),
+                        "later file wins, unknown colour skipped");
+                h.assertTrue(t.tag(biomes.getOrThrow(Biomes.FOREST)) == MapColor.COLOR_BLUE && t.tag(biomes.getOrThrow(Biomes.PLAINS)) == null,
+                        "tag rules, later file first");
+                h.assertTrue(!t.signature().equals(shipped.signature()), "signature follows the content");
+                EarthColors.use(t);
+                h.assertTrue(EarthColors.color(biomes.getOrThrow(Biomes.PLAINS), false) == MapColor.COLOR_YELLOW, "exact entry beats the built-in rule");
+                h.assertTrue(EarthColors.color(biomes.getOrThrow(Biomes.PLAINS), true) == MapColor.WATER, "below sea level still water");
+                h.assertTrue(EarthColors.color(biomes.getOrThrow(Biomes.FOREST), false) == MapColor.PLANT, "Vanilla biomes keep their rules over tags");
+                h.assertTrue(EarthColors.nearest(0x79C05A) == MapColor.GRASS && EarthColors.nearest(0xDBD3A0) == MapColor.SAND, "grass colour fallback");
+            } finally {
+                EarthColors.use(shipped);
+            }
+            h.assertTrue(EarthColors.color(biomes.getOrThrow(Biomes.PLAINS), false) == MapColor.GRASS, "table restored");
+            h.succeed();
+        });
+
+        ALL.put("surface_rules", h -> {
+            var biomes = h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
+            var plains = biomes.getOrThrow(Biomes.PLAINS);
+            int sea = 63;
+            h.assertTrue(EarthColors.surface(MapColor.GRASS, plains, 0, 70, 0, sea, 0) == MapColor.GRASS, "plains low: grass");
+            h.assertTrue(EarthColors.surface(MapColor.GRASS, plains, 0, 900, 0, sea, 0) == MapColor.SNOW, "plains at 900: snow (height temperature)");
+            h.assertTrue(EarthColors.surface(MapColor.GRASS, plains, 0, 90, 0, sea, 2) == MapColor.STONE, "very steep: stone");
+            h.assertTrue(EarthColors.surface(MapColor.SAND, biomes.getOrThrow(Biomes.DESERT), 0, 900, 0, sea, 0) == MapColor.SAND, "desert never snows");
+            var badlands = biomes.getOrThrow(Biomes.BADLANDS);
+            h.assertTrue(EarthColors.surface(MapColor.TERRACOTTA_ORANGE, badlands, 0, 70, 0, sea, 0) == MapColor.COLOR_ORANGE, "badlands: red sand");
+            h.assertTrue(EarthColors.surface(MapColor.TERRACOTTA_ORANGE, badlands, 0, 90, 0, sea, 1) == EarthColors.band(90), "badlands slope: band");
+            h.assertTrue(EarthColors.surface(MapColor.WATER, biomes.getOrThrow(Biomes.SNOWY_PLAINS), 0, 60, 0, sea, 0) == MapColor.ICE, "cold water freezes");
+            h.assertTrue(EarthColors.surface(MapColor.WATER, plains, 0, 60, 0, sea, 0) == MapColor.WATER, "warm water stays");
+            h.assertTrue(EarthColors.surface(MapColor.SNOW, biomes.getOrThrow(Biomes.JAGGED_PEAKS), 0, 200, 0, sea, 0.7) == MapColor.STONE, "steep peak: stone");
+            h.assertTrue(EarthColors.surface(MapColor.SNOW, biomes.getOrThrow(Biomes.FROZEN_PEAKS), 0, 200, 0, sea, 0.7) == MapColor.ICE, "steep frozen peak: packed ice");
+            h.assertTrue(EarthColors.surface(MapColor.NETHER, biomes.getOrThrow(Biomes.NETHER_WASTES), 0, 900, 0, sea, 3) == MapColor.NETHER, "Nether untouched");
+            short[] heights = new short[TileMath.AREA];
+            heights[TileMath.TILE + 1] = 512;
+            h.assertTrue(TerrainSampler.slope(heights, 1, 1, 256) == 2 && TerrainSampler.slope(heights, 5, 5, 256) == 0, "slope from neighbours");
             h.succeed();
         });
 
@@ -106,7 +255,8 @@ public final class EarthTests {
                 int i = k % TileMath.TILE, j = k / TileMath.TILE;
                 int x = (int) TileMath.sampleBlock((long) tx * TileMath.TILE + i, e), z = (int) TileMath.sampleBlock((long) tz * TileMath.TILE + j, e);
                 int height = generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
-                MapColor expected = TerrainSampler.color(independent, x, Math.max(height, sea), z, height < sea - TerrainSampler.LAKE_DEPTH, 1 << e);
+                double slope = EarthServerConfig.surfaceDetail ? TerrainSampler.slope(tile.heights(), i, j, 1 << e) : -1;
+                MapColor expected = TerrainSampler.colorAt(independent, x, height, z, sea, 1 << e, EarthServerConfig.biomeVotes, slope);
                 h.assertTrue(tile.colors()[k] == (byte) expected.id, "sample " + i + "/" + j + " at " + x + "/" + z + ": " + tile.colors()[k] + " vs " + expected.id);
                 h.assertTrue(tile.heights()[k] == height, "height at " + x + "/" + z);
                 h.assertTrue(tile.colors()[k] != 0, "every sample known");

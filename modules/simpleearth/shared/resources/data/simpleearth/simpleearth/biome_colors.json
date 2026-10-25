@@ -1,0 +1,37 @@
+{
+  "_comment": "Simple Earth biome colour table (N7/N8). Any data pack may add data/<namespace>/simpleearth/biome_colors.json; later files win. biomes: exact biome id -> map colour name (MapColor in lower case, e.g. grass, plant, sand, snow, stone, water, color_light_gray, terracotta_orange) or id. tags: checked in order for mod biomes that have no exact entry (first match wins); Vanilla biomes keep the built-in rules. Without any match the colour nearest the biome's grass colour is used.",
+  "biomes": {
+    "simpleend:ash_valley": "color_light_gray",
+    "simpleend:ash_valley_fringe": "sand",
+    "simpleend:dawnlands": "terracotta_light_gray",
+    "simpleend:dawnlands_fringe": "sand"
+  },
+  "tags": [
+    {"tag": "c:is_mushroom", "color": "color_purple"},
+    {"tag": "c:is_badlands", "color": "terracotta_orange"},
+    {"tag": "c:is_desert", "color": "sand"},
+    {"tag": "c:is_sandy", "color": "sand"},
+    {"tag": "c:is_beach", "color": "sand"},
+    {"tag": "c:is_stony_shores", "color": "stone"},
+    {"tag": "c:is_icy", "color": "ice"},
+    {"tag": "c:is_snowy", "color": "snow"},
+    {"tag": "c:is_mountain_peak", "color": "stone"},
+    {"tag": "c:is_cave", "color": "stone"},
+    {"tag": "c:is_wasteland", "color": "dirt"},
+    {"tag": "c:is_dead", "color": "terracotta_brown"},
+    {"tag": "c:is_swamp", "color": "color_green"},
+    {"tag": "c:is_spooky", "color": "color_green"},
+    {"tag": "c:is_jungle", "color": "plant"},
+    {"tag": "c:is_lush", "color": "plant"},
+    {"tag": "c:is_coniferous_tree", "color": "plant"},
+    {"tag": "c:is_dense_vegetation", "color": "plant"},
+    {"tag": "c:is_forest", "color": "plant"},
+    {"tag": "minecraft:is_forest", "color": "plant"},
+    {"tag": "minecraft:is_taiga", "color": "plant"},
+    {"tag": "minecraft:is_jungle", "color": "plant"},
+    {"tag": "c:is_savanna", "color": "grass"},
+    {"tag": "c:is_plains", "color": "grass"},
+    {"tag": "c:is_floral", "color": "grass"},
+    {"tag": "c:is_mountain_slope", "color": "snow"}
+  ]
+}
