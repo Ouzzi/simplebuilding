@@ -19,7 +19,8 @@ window.WIKI_MODULES = [
       "simpleoctets",
       "simpleblocks",
       "simplehammers",
-      "simplestorage"
+      "simplestorage",
+      "simplelights"
     ],
     "optional": [
       "jei",
@@ -45,7 +46,8 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
-      "simplemusic"
+      "simplemusic",
+      "simpleearth"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -65,10 +67,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 547,
-      "blocks": 325,
-      "recipes": 861,
-      "config": 228,
+      "items": 510,
+      "blocks": 288,
+      "recipes": 824,
+      "config": 230,
       "features": 48
     }
   },
@@ -174,9 +176,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 35
+      "features": 36
     },
-    "dataHash": "6a80bd9b6558"
+    "dataHash": "9686d23d310e"
   },
   {
     "id": "simplemodels",
@@ -250,7 +252,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "2fd4610f7d00"
+    "dataHash": "141a82a512e2"
   },
   {
     "id": "simplevisuals",
@@ -288,7 +290,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "f33a1152f6b9"
+    "dataHash": "314f96b911d5"
   },
   {
     "id": "simplesounds",
@@ -373,7 +375,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "a541151d7fff"
+    "dataHash": "7caa44151688"
   },
   {
     "id": "simpletweaks",
@@ -433,7 +435,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 41
     },
-    "dataHash": "8b727b0628c7"
+    "dataHash": "03627290d5c3"
   },
   {
     "id": "simpledimensions",
@@ -508,9 +510,9 @@ window.WIKI_MODULES = [
       "items": 6,
       "blocks": 19,
       "recipes": 17,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "4b23be006093"
+    "dataHash": "513e78aa0d4e"
   },
   {
     "id": "simplelib",
@@ -542,9 +544,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 4
+      "features": 5
     },
-    "dataHash": "dbccf9bbe390"
+    "dataHash": "a33cdc057568"
   },
   {
     "id": "simpleinterfaces",
@@ -573,9 +575,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 43
+      "features": 44
     },
-    "dataHash": "99be471fa83d"
+    "dataHash": "e10cc3060dd6"
   },
   {
     "id": "simplemaps",
@@ -611,9 +613,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 5,
       "recipes": 7,
-      "features": 9
+      "features": 10
     },
-    "dataHash": "ccab2c05de1a"
+    "dataHash": "d798810b7b3d"
   },
   {
     "id": "simpletrims",
@@ -648,9 +650,9 @@ window.WIKI_MODULES = [
       "items": 5,
       "blocks": 1,
       "recipes": 10,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "b4b26e577c97"
+    "dataHash": "189baf8adad2"
   },
   {
     "id": "simplemobs",
@@ -682,9 +684,9 @@ window.WIKI_MODULES = [
       "items": 26,
       "blocks": 2,
       "recipes": 70,
-      "features": 13
+      "features": 14
     },
-    "dataHash": "8beff9e63ed1"
+    "dataHash": "ed23c346918f"
   },
   {
     "id": "simpleweather",
@@ -747,7 +749,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "e6fab04fa635"
+    "dataHash": "12b924862908"
   },
   {
     "id": "simpletools",
@@ -785,7 +787,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 32
     },
-    "dataHash": "79c12ed321b6"
+    "dataHash": "0581d5057530"
   },
   {
     "id": "simplefarming",
@@ -816,7 +818,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 8
     },
-    "dataHash": "126ef2604b6e"
+    "dataHash": "c071b405e733"
   },
   {
     "id": "simplemobmanners",
@@ -847,7 +849,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "c664cdf7b9f3"
+    "dataHash": "3799780864c9"
   },
   {
     "id": "simpleloot",
@@ -877,7 +879,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "98f0828ef405"
+    "dataHash": "6e92e23b0138"
   },
   {
     "id": "simplequestionary",
@@ -904,9 +906,9 @@ window.WIKI_MODULES = [
     "counts": {
       "blocks": 1,
       "recipes": 1,
-      "features": 2
+      "features": 3
     },
-    "dataHash": "8bc56c95a4a9"
+    "dataHash": "33deba19b1fe"
   },
   {
     "id": "simpleaesthetics",
@@ -1010,7 +1012,7 @@ window.WIKI_MODULES = [
       "recipes": 35,
       "features": 8
     },
-    "dataHash": "10970a67bfcd"
+    "dataHash": "ccaa2a7c6402"
   },
   {
     "id": "simplerespawn",
@@ -1041,7 +1043,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 6
     },
-    "dataHash": "18a7dbce88cf"
+    "dataHash": "e73f958abb2e"
   },
   {
     "id": "simplebeacons",
@@ -1075,9 +1077,9 @@ window.WIKI_MODULES = [
       "items": 3,
       "blocks": 2,
       "recipes": 6,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "851cdd106cf9"
+    "dataHash": "701ad7619008"
   },
   {
     "id": "simpleovens",
@@ -1111,9 +1113,9 @@ window.WIKI_MODULES = [
       "items": 4,
       "blocks": 9,
       "recipes": 9,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "598a4269b2e7"
+    "dataHash": "49e4e83b9c36"
   },
   {
     "id": "simplemobheads",
@@ -1159,7 +1161,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 15
     },
-    "dataHash": "858d5a4918b4"
+    "dataHash": "3035c34060e2"
   },
   {
     "id": "simpleshops",
@@ -1198,9 +1200,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 5,
       "recipes": 6,
-      "features": 11
+      "features": 12
     },
-    "dataHash": "9b3219985409"
+    "dataHash": "e88cb51860e8"
   },
   {
     "id": "simplewanderers",
@@ -1303,7 +1305,7 @@ window.WIKI_MODULES = [
       "recipes": 283,
       "features": 9
     },
-    "dataHash": "8791865303c1"
+    "dataHash": "0c3439764a93"
   },
   {
     "id": "simplecrucibles",
@@ -1339,9 +1341,9 @@ window.WIKI_MODULES = [
       "items": 27,
       "blocks": 11,
       "recipes": 6,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "41785e1d903e"
+    "dataHash": "d3c4fc219e2d"
   },
   {
     "id": "simpleoctets",
@@ -1415,9 +1417,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 11,
-      "features": 10
+      "features": 11
     },
-    "dataHash": "02a31a17436b"
+    "dataHash": "bcb93301041a"
   },
   {
     "id": "simpleoptimization",
@@ -1557,9 +1559,9 @@ window.WIKI_MODULES = [
       "items": 17,
       "blocks": 37,
       "recipes": 177,
-      "features": 12
+      "features": 13
     },
-    "dataHash": "3a176903e874"
+    "dataHash": "fedde42b8786"
   },
   {
     "id": "simplemusic",
@@ -1597,8 +1599,65 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 18,
       "recipes": 37,
-      "features": 15
+      "features": 16
     },
-    "dataHash": "735fa44cb623"
+    "dataHash": "db7d548043b8"
+  },
+  {
+    "id": "simplelights",
+    "displayName": "Simple Lights",
+    "description": "Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb, moved from SimpleBuilding (ids migrate). Fabric only for now.",
+    "version": "0.9.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Light Panes: flat lamps on any block side - plain, transparent, in sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb.",
+      "de": "Lichtscheiben: flache Lampen an jeder Blockseite - normal, transparent, in sechzehn Farben, eine Redstone-Scheibe, deren Farbe der Signalstärke folgt, und Kupfer-Scheiben, die wie die Kupferbirne umschalten."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABzUlEQVR42qWTSVIiYRCFvVCfwQu46AsY4VJRS6ooCmXQ6A7deAlnwBYoQS2gmERBRgdEIxSXfZDn+5PQTbHCRUbUP+T3v3yZNTP/+xe0hdmpQuXOqI9XNzxVqNxvgLO3iML+Evq5INp2ALXEGkrHGgaFCFq2ybWGPM/VWS8bnAzYMefQONPRvwhJcjMdxFM+gm5WrVdRPFyWO3dpwwvoZU3cX4ZQiWtwjzT0Lzf4egzNjIXblIlHJyxgZ28J5eMVL6CRMkRq/Z+BWtLAw1UE77W/XJuoJgx0c+ton1tUsSJKPAAlsXyyJpL7F1TEuLPXMShucS/G5JDAn+nJPZV4ALWkH9WkzjLCkvC/sysxqu/go76NRtoSyIsbE4gHoDYfnQiuTwMiWyWNGF+gt+of8aQS97PcgBfQzVpiVMu2WLOOobuF0fU2TQzJ6y+lTbwybpRHbLEHUFYesHUdGjUsRul8kGqU+1HCNlmizvW4xb2c5QUUD30cFJ8cPjlhSVDdGBSioqya8IvRPQ5aKzNhDhpnfhkSh5DKiSaQcaIu7rft8ZyoO+6kNnY5SM2UzuRV5A98MhMd+uKyrDKBrUxAJlBNbOloAmDqn+mnv/MnD8+4wCHaIPwAAAAASUVORK5CYII=",
+    "counts": {
+      "items": 1,
+      "blocks": 37,
+      "recipes": 38,
+      "features": 3
+    },
+    "dataHash": "04d87eebe8c0"
+  },
+  {
+    "id": "simpleearth",
+    "displayName": "Simple Earth",
+    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (nine display versions, standard V6 folding net) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
+      "de": "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPgEVT8TwlmABEl1VNIxnJaQagG2Hlk/Z81fyOYhmEBETkwRhYDYZBmMTlrTAPQNTLUMIAxskEgzSCLsBoAU1i/yQKuGYRBfBCGyWN1AUwjOv7+cjEKdnD4D1aL1YD4Li0wBinCht3S5MGYoAHoBsE0EjQgK8AEjJENQdboZ6UGxgQNQDYIWSPJBoAwumacBiBHIy4D8EYjLJGAMLJB6BphGMMAUOpCVoBsELo4hgEwAVIx3ABKMAAu0bZX7cyK6wAAAABJRU5ErkJggg==",
+    "counts": {
+      "features": 5
+    },
+    "dataHash": "f8036775fca7"
   }
 ];

@@ -146,7 +146,5 @@
   "simpleearth.guide.page.21.title": "Menu",
   "simpleearth.guide.page.21": "the list shows that version's own values (heights, edge length, orbit speed, sampling grid, orbit distance, shading, atmosphere, moon, stars and its own style values) as sliders - drag, click minus or plus, or Shift and the wheel.",
   "simpleearth.guide.page.22.title": "Menu",
-  "simpleearth.guide.page.22": "Changes apply at once and are saved per version; the server clamps heights, edge and speed.",
-  "simpleearth.guide.page.23.title": "Commands",
-  "simpleearth.guide.page.23": "/simpleearth config shows and changes every server option (list, get, set, reset, help); /simpleclient simpleearth does the same for the client file (version, dev button, values of every version). Values are clamped to their range."
+  "simpleearth.guide.page.22": "Changes apply at once and are saved per version; the server clamps heights, edge and speed."
 }
