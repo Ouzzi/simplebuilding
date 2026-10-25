@@ -1470,6 +1470,7 @@ public final class MobHeadTests {
                 if (soul && source.is(net.minecraft.world.damagesource.DamageTypes.LAVA) && nether != null) {
                     nether.getChunk(0, 0);
                     player.teleportTo(nether, 0.5, 70.0, 0.5, java.util.Set.of(), 0.0F, 0.0F, false);
+                    player.hasChangedDimension(); // what the client's arrival confirms; until then the player is invulnerable
                 }
                 ServerLevel at = player.level();
                 if (soul) {
