@@ -79,11 +79,14 @@ public final class OrbitTracker {
         s.configure(p.activationY(), p.switchY(), p.edge(), p.speed(), player.level().getMaxY());
     }
 
-    /** A glide step from the client: only while parked, capped to the orbit speed (plus 25 % for tick jitter), stopped at the border. */
+    /**
+     * A glide step from the client: only while parked, capped to the server limit {@code maxOrbitSpeed} (plus 25 % for tick
+     * jitter; the client scales the orbit speed with its height), stopped at the border. Parked players load no chunks.
+     */
     public static void handleMove(ServerPlayer player, OrbitMovePayload p) {
         State s = state(player);
         if (!s.parked || !Float.isFinite(p.dx()) || !Float.isFinite(p.dz())) return;
-        double dx = p.dx(), dz = p.dz(), len = Math.hypot(dx, dz), cap = s.speed / 20.0 * 1.25;
+        double dx = p.dx(), dz = p.dz(), len = Math.hypot(dx, dz), cap = EarthServerConfig.maxOrbitSpeed / 20.0 * 1.25;
         if (len > cap) {
             dx *= cap / len;
             dz *= cap / len;
@@ -192,6 +195,6 @@ public final class OrbitTracker {
         }
         SimpleEarth.toClient.accept(player, new OrbitStatePayload(allowed(player), s.active, s.parked, s.ax, s.az, s.ox, s.oz,
                 s.activationY, s.switchY, s.edge, (float) s.speed, player.level().getChunkSource().getGenerator().getSeaLevel(),
-                EarthServerConfig.exploredOnly, EarthServerConfig.minGrid, others));
+                EarthServerConfig.exploredOnly, EarthServerConfig.minGrid, EarthServerConfig.maxOrbitSpeed, others));
     }
 }

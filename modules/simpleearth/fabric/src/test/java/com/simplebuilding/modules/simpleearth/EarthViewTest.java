@@ -241,4 +241,19 @@ class EarthViewTest {
         Scene low = settle(EarthView.create(12), 0.4 * H, -0.3 * H);
         assertTrue(low.orientation.angleTo(Quat.IDENTITY) < 1e-6, "near the switch height the top stays level");
     }
+
+    @Test
+    void v3CornerWindowLiesOnTheRoundedBody() {
+        // WE25-2: the window used to be a flat triangle across the sharp corner, standing off the body like a loose plate
+        Scene s = settle(EarthView.create(3), 0.95 * H, -0.95 * H);
+        Patch w = s.patches.stream().filter(p -> p.overlay && p.kind == Patch.TERRAIN).findFirst().orElseThrow();
+        for (V3 p : w.pos) {
+            V3 b = s.orientation.conjugate().rotate(p).mul(1 / 1.004);
+            double r = 0.07, lim = 1 - r;
+            V3 inner = new V3(Math.max(-lim, Math.min(lim, b.x())), Math.max(-lim, Math.min(lim, b.y())), Math.max(-lim, Math.min(lim, b.z())));
+            double off = b.distance(inner), max = Math.max(Math.abs(b.x()), Math.max(Math.abs(b.y()), Math.abs(b.z())));
+            // on the rounded cube: r away from the inner box, or on a flat face (one coordinate 1)
+            assertTrue(Math.abs(off - r) < 1e-6 || Math.abs(max - 1) < 1e-6, "window vertex on the body: " + b + " off " + off);
+        }
+    }
 }

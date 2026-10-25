@@ -22,7 +22,7 @@ public final class EarthServerConfig {
     public static final String FILE = "simpleearth-server.json";
     public static final List<String> KEYS = List.of("enabled", "dimensions", "minActivationY", "minSwitchGap", "maxOrbitSpeed",
             "minEdge", "maxEdge", "exploredOnly", "showOthers", "workerThreads", "tilesPerSecond", "memoryTiles", "diskCacheMiB",
-            "slowFallSeconds", "minGrid", "biomeVotes", "surfaceDetail", "globalGrid", "requireFlight", "reentryAtOrbit");
+            "slowFallSeconds", "minGrid", "biomeVotes", "surfaceDetail", "globalGrid", "requireFlight", "reentryAtOrbit", "fastHeights");
 
     public static boolean enabled;
     public static final List<String> dimensions = new ArrayList<>();
@@ -30,6 +30,7 @@ public final class EarthServerConfig {
     public static int minActivationY;
     /** Render switch at least this far above the activation height. */
     public static int minSwitchGap;
+    /** Fastest glide (blocks per second) the server accepts; the client scales its orbit speed with the height (WD25-22). */
     public static int maxOrbitSpeed;
     public static int minEdge;
     public static int maxEdge;
@@ -54,6 +55,11 @@ public final class EarthServerConfig {
     public static boolean requireFlight;
     /** E6/N3: true = re-entry and logout at the orbit position; false = back to the park point. */
     public static boolean reentryAtOrbit;
+    /**
+     * WD25-22, like Chunkbase: true = ground height from the generator's preliminary surface level (one density function per
+     * column, about 10-100x faster); false = the exact noise column ({@code getBaseHeight}, the whole column per sample).
+     */
+    public static boolean fastHeights;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -89,12 +95,12 @@ public final class EarthServerConfig {
         }
         minActivationY = integer(json, "minActivationY", 1024, 384, 16384);
         minSwitchGap = integer(json, "minSwitchGap", 128, 32, 8192);
-        maxOrbitSpeed = integer(json, "maxOrbitSpeed", 2048, 16, 8192);
+        maxOrbitSpeed = integer(json, "maxOrbitSpeed", 32768, 16, 262144);
         minEdge = integer(json, "minEdge", 8192, 1024, 262144);
         maxEdge = integer(json, "maxEdge", 262144, minEdge, 1048576);
         exploredOnly = bool(json, "exploredOnly", false);
         showOthers = bool(json, "showOthers", true);
-        workerThreads = integer(json, "workerThreads", 2, 1, Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
+        workerThreads = integer(json, "workerThreads", Math.max(2, Math.min(4, Runtime.getRuntime().availableProcessors() / 2)), 1, Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
         tilesPerSecond = integer(json, "tilesPerSecond", 24, 1, 512);
         memoryTiles = integer(json, "memoryTiles", 1024, 16, 65536);
         diskCacheMiB = integer(json, "diskCacheMiB", 256, 0, 65536);
@@ -105,6 +111,7 @@ public final class EarthServerConfig {
         globalGrid = bool(json, "globalGrid", false);
         requireFlight = bool(json, "requireFlight", false);
         reentryAtOrbit = bool(json, "reentryAtOrbit", true);
+        fastHeights = bool(json, "fastHeights", true);
     }
 
     public static JsonObject toJson() {
@@ -131,6 +138,7 @@ public final class EarthServerConfig {
         o.addProperty("globalGrid", globalGrid);
         o.addProperty("requireFlight", requireFlight);
         o.addProperty("reentryAtOrbit", reentryAtOrbit);
+        o.addProperty("fastHeights", fastHeights);
         return o;
     }
 
