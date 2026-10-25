@@ -152,7 +152,7 @@ MODS = [
     dict(id="simplelights", ns=["simplelights"], cls="LightsDiscover", package="com.simplelights.discover",
          own_packages=["com.simplelights."]),
     dict(id="simplegadgets", ns=["simplegadgets"], cls="GadgetsDiscover", package="com.simplegadgets.discover",
-         own_packages=["com.simplegadgets."],
+         mixin_package="com.simplegadgets.mixin", own_packages=["com.simplegadgets."],
          tips=[("rotator", ["rotator"], "Use on a block to turn it in place",
                 "Auf Block benutzen: dreht ihn an Ort und Stelle")]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
