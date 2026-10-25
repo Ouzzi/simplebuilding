@@ -103,6 +103,21 @@ END-1…END-16 (Block unten): Optimization e3/e5 (Besitzer-PC/Modpack), Mod-Icon
 
 ---
 
+## Client-Sicht 24.10. (VIS24)
+Echter Client (Integration, alle Module), jeder Screen wie ein Spieler geöffnet (`Vis24ClientTest`, Ziel `vis24-client-263`, Lauf nur mit `xvfb-run`), Plan docs/ai/PLAN-B-CLIENTVIS24-2026-10-24.md, Vorschau /root/sb-tools-b/previews/vis24-client.html.
+- [x] (B, b-clientvis24, 25.10.) VIS24-0 Sichtlauf gebaut + ausgewertet; direkt behoben: Urkunden-Knöpfe „Beanspruchen/Abbrechen“ abgeschnitten (DeedLayout), Trichter-Titel aller Stufen „Item Hopper“ → Stufenname, Disc-Presse „Inventar“-Beschriftung auf dem Rahmen.
+- [x] VIS24-1 SimpleBuilding-Config: leerer Reiter `text.autoconfig.simplebuilding.category.default` – Ursache: Cloths AutoConfig liest auch statische Felder, `maxMultiplierLimit` (static, Excluded) hatte keine Kategorie → Kategorie „equipment“; Test `config_option…every_option_has_name_tooltip_and_tab` prüft jetzt auch statische/ausgeschlossene Felder (b-clientvis24). (1.21.11-Zweig hat dasselbe Feld, nur 26.3 angepasst.)
+- [ ] VIS24-2 Starkes Leuchtfeuer (simplebeacons): Screen höher als 480er-Fenster (GUI-Skala 2) – oben „Primary Power“ und unten die Hotbar abgeschnitten → kompakter oder scrollbar.
+- [ ] VIS24-3 Modul-Handbücher (Vanilla-Buch): kürzere Sprache wird zur Seitenzahl-Angleichung mitten im Satz halbiert (z. B. Simple Blocks S. 1 endet „…, the missing“, Rest der Seite leer) → `split_to` in tools/guides/module_guides.py an Satz-/Kommagrenze teilen.
+- [x] VIS24-4 „simplebeacons-Handbuch öffnet nichts“ war ein Testartefakt (erstes Item landete im falschen Hotbar-Slot), im Test behoben.
+- [ ] VIS24-5 Pferde-Inventar: Hufeisen-Seitenkasten grau (Eisen-Palette) neben braunem Pferde-Kasten – Palette angleichen.
+- [ ] VIS24-6 Formsäge (Shapecutter) noch im alten Einkasten-Look mit „Inventar“-Label, nicht im Kasten-Stil der übrigen Stationen.
+- [ ] VIS24-7 Verknüpfte Truhe (Simple Interfaces): Kasten „Markiert: Truhe“ über dem Inventar ragt bei 854×480 oben aus dem Bild.
+- [ ] VIS24-8 Kartentisch: Titel „Cartography Table“ läuft in den Rahmen der Kartenvorschau.
+- [ ] VIS24-9 Hinweise (Vorschlag): Simple-Models-Hilfe nennt Entwicklerpfad `docs/modules/simplemodels.md`; Simple-Visuals-Modelle-Liste leer ohne Leerhinweis; Pausenmenü-Iconreihe ohne Abstand zur Optionen-Zeile; Fletching-Kasten oben leer.
+- [ ] VIS24-10 Modul-Smoke `simpletweaks` (Urkunden-Editor) scheitert im Sammellauf `vis24all-client-263` nach den anderen Smokes (Zweiter `waitForScreen(DeedScreen)` läuft ab); einzeln grün → Reihenfolge-/Zustandsabhängigkeit prüfen. Sammellauf bricht dort ab (Fabric stoppt beim ersten Fehler).
+- [ ] VIS24-11 Kein Screen per Rechtsklick (erwartet?): Kisten (simplestorage `*_crate`), Shop-Blöcke ohne Besitzer (Sales Block/Storage, Vitrine) – Shops sind in ihrem Modul-Smoke abgedeckt.
+
 ## Besitzer 24.10. nachmittags – Antworten Sammelseite, Runde 2 (WC24)
 Abgenommen: WB24-2 Schwingen Stufe 1–4 (Name „Leeren-Schwingen“, x8/1152/MYTHIC), WB24-4 Notenblatt-Editor („noten blatt e3“ = E3-Ansicht so lassen, flaches Neuschreiben ok).
 - [x] (B, b-wc24gem, 24.10., Plan docs/ai/PLAN-B-WC24GEM-2026-10-24.md: Endfassungen in tools/textures/wb24_gems/wb24_gems.py (`--install`/`--check`, Unittest test_wb24_gems), eingebaut als simplemobs:item/nether_gem|ender_gem|ender_heart (PNG+.mcmeta+.layers.json), Item nether_gem aus wither21_textures.py genommen (Block nether_gem unverändert), Wiki/textures.js neu; Kaninchen-Lesart nur Vorschau (variants/ender_heart_alt_kaninchen); Vorschau /root/sb-tools-b/previews/wc24-1-gems-final.html; offen: Besitzer-/Client-Sicht) WC24-1 (WB24-3) Nether-Juwel = **A3 Seelenflamme mit höherer Seelenflamme**. Ender-Juwel = **E2 Leerenschliff, aber anpassen** (verfeinern). Ender-Herz = **H3 Chorusherz fusioniert mit H1** (Chorusfarbe mit dem Türkis), Form „ähnlich einem kanicken Herzen“ (Diktat; gelesen als **kantiges** Pixel-Herz). Danach als echte Texturen von nether_gem/ender_gem/ender_heart einbauen (ersetzt vorläufig H1/E1), Vorschau dazu.

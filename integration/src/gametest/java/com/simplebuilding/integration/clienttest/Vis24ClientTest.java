@@ -87,7 +87,7 @@ public final class Vis24ClientTest implements FabricClientGameTest {
                 entities(context, world, at);
                 items(context, world);
                 configs(context);
-                language(context, "en_us");
+                // (no switch back to English: a resource reload right before leaving the world hung the shutdown)
             });
         }
         faults.forEach(line -> System.out.println("[vis24] FAULT " + line));
@@ -311,6 +311,9 @@ public final class Vis24ClientTest implements FabricClientGameTest {
             }
         }
         ids.sort(null);
+        // Select slot 0 first and let the server hear it: "weapon.mainhand" is the server's selected slot, and with the
+        // HUD pass's slot 1 still selected there the first item went into the wrong slot (the first book "opened nothing").
+        context.runOnClient(c -> c.player.getInventory().setSelectedSlot(0));
         context.waitTicks(20);
         for (String id : ids) {
             if (!known(id)) {

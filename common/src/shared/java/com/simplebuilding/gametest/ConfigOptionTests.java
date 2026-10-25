@@ -1356,14 +1356,19 @@ public final class ConfigOptionTests {
 
         List<String> tabs = new ArrayList<>();
         for (Field field : SimplebuildingConfig.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) || !Modifier.isPublic(field.getModifiers())
-                    || field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded.class)) {
+            if (field.isSynthetic()) {
                 continue;
             }
             me.shedaniel.autoconfig.annotation.ConfigEntry.Category category =
                     field.getAnnotation(me.shedaniel.autoconfig.annotation.ConfigEntry.Category.class);
+            // Checked before the skip below: Cloth's AutoConfig walks every declared field, static and excluded ones
+            // too, and opens an empty, raw-named "default" tab for one without a category (VIS24, maxMultiplierLimit).
             if (category == null) {
                 problems.add(field.getName() + " carries no @ConfigEntry.Category, so Cloth puts it on a stray \"default\" tab");
+                continue;
+            }
+            if (Modifier.isStatic(field.getModifiers()) || !Modifier.isPublic(field.getModifiers())
+                    || field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded.class)) {
                 continue;
             }
             if (!tabs.contains(category.value())) {
