@@ -123,6 +123,7 @@ public final class MobHeadTests {
         put("giant_head_wearing", MobHeadTests::giantHeadWearing);
         put("giant_cow_hay", MobHeadTests::giantCowHay);
         put("giant_cow_head", MobHeadTests::giantCowHead);
+        put("worn_head_death", MobHeadTests::wornHeadDeath);
     }
 
     private MobHeadTests() {
@@ -1425,6 +1426,86 @@ public final class MobHeadTests {
             }
         }
         return false;
+    }
+
+    /**
+     * BS25-19: a survival player who dies wearing a head (soulfire blaze head with several deaths, then every head) is dead
+     * afterwards and the head either dropped once or stayed in the head slot (Simple Tweaks' partial keep inventory keeps
+     * armor); the soulfire blaze wearer respawns (the head comes along when it was kept) and the server goes on ticking.
+     */
+    public static void wornHeadDeath(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<String> problems = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        ids.add("soulfire_blaze");
+        for (HeadDef head : MobHeads.heads()) {
+            if (MobHeads.item(head.id()) != null && !ids.contains(head.id())) ids.add(head.id());
+        }
+        List<net.minecraft.world.damagesource.DamageSource> sources = new ArrayList<>(List.of(level.damageSources().generic(),
+                level.damageSources().inFire(), level.damageSources().onFire(), level.damageSources().lava(),
+                level.damageSources().genericKill()));
+        // With Simple Mobs: killed by a soulfire blaze, in melee and by its soul fireball (what SoulFireball#onHitEntity does).
+        Entity blaze = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse("simplemobs:soulfire_blaze"))
+                .map(type -> (Entity) type.create(level, EntitySpawnReason.MOB_SUMMONED)).orElse(null);
+        Entity ball = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse("simplemobs:soul_fireball"))
+                .map(type -> (Entity) type.create(level, EntitySpawnReason.MOB_SUMMONED)).orElse(null);
+        if (blaze instanceof LivingEntity living) {
+            blaze.snapTo(helper.absoluteVec(new Vec3(4.5, 2.0, 4.5)));
+            level.addFreshEntity(blaze);
+            sources.add(level.damageSources().mobAttack(living));
+            if (ball != null) sources.add(level.damageSources().fireball((net.minecraft.world.entity.projectile.hurtingprojectile.Fireball) ball, blaze));
+        }
+        var soulBurn = BuiltInRegistries.MOB_EFFECT.get(Identifier.parse("simplecrucibles:soul_burn"));
+        for (String id : ids) {
+            boolean soul = id.equals("soulfire_blaze");
+            for (var source : soul ? sources : List.of(level.damageSources().generic())) {
+                ServerPlayer player = player(helper);
+                player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+                player.getAbilities().invulnerable = false;
+                // A mock player is invulnerable until its "client" says it loaded (ServerPlayer#isInvulnerableTo).
+                player.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
+                wear(player, id);
+                // The soul sand valley case: dying in the Nether, respawning in the Overworld.
+                ServerLevel nether = level.getServer().getLevel(net.minecraft.world.level.Level.NETHER);
+                if (soul && source.is(net.minecraft.world.damagesource.DamageTypes.LAVA) && nether != null) {
+                    nether.getChunk(0, 0);
+                    player.teleportTo(nether, 0.5, 70.0, 0.5, java.util.Set.of(), 0.0F, 0.0F, false);
+                    player.hasChangedDimension(); // what the client's arrival confirms; until then the player is invulnerable
+                }
+                ServerLevel at = player.level();
+                if (soul) {
+                    player.igniteForSeconds(5.0F);
+                    soulBurn.ifPresent(burn -> player.addEffect(new MobEffectInstance(burn, 2400, 0)));
+                }
+                player.hurtServer(at, source, 100000.0F);
+                List<ItemEntity> drops = at.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
+                        e -> e.getItem().is(MobHeads.item(id)));
+                boolean kept = HeadAbilities.is(player.getItemBySlot(EquipmentSlot.HEAD), id);
+                String where = id + "/" + source.getMsgId() + (at != level ? "/nether" : "");
+                // In the freshly loaded Nether chunk the drop's entity section may not be loaded yet: only "not kept twice".
+                boolean dropOk = kept ? drops.isEmpty() : at != level || drops.size() == 1;
+                if (!player.isDeadOrDying() || !dropOk) {
+                    problems.add(where + ": dead=" + player.isDeadOrDying() + " kept=" + kept + " drops=" + drops.size());
+                }
+                drops.forEach(Entity::discard);
+                if (soul) {
+                    // The dead player goes on ticking until the respawn (death screen): mod tick hooks see it dead.
+                    for (int i = 0; i < 40; i++) player.doTick();
+                    ServerPlayer fresh = level.getServer().getPlayerList().respawn(player, false, Entity.RemovalReason.KILLED);
+                    for (int i = 0; i < 3; i++) fresh.doTick();
+                    if (!fresh.isAlive() || kept != HeadAbilities.is(fresh.getItemBySlot(EquipmentSlot.HEAD), id)) {
+                        problems.add(where + " respawn: alive=" + fresh.isAlive() + " head=" + fresh.getItemBySlot(EquipmentSlot.HEAD));
+                    }
+                    level.getServer().getPlayerList().remove(fresh);
+                } else {
+                    player.discard();
+                }
+            }
+        }
+        if (blaze != null) blaze.discard();
+        helper.assertTrue(problems.isEmpty(), "death with a worn head: " + problems);
+        long start = level.getGameTime();
+        helper.succeedWhen(() -> helper.assertTrue(level.getGameTime() >= start + 5, "the server stopped ticking"));
     }
 
     private static void wear(ServerPlayer player, String head) {

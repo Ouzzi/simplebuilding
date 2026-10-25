@@ -235,4 +235,9 @@ public final class ModuleGameTest {
     public void jeiChargedCreeperHeads(GameTestHelper h) {
         MobHeadTests.ALL.get("jei_charged_creeper_heads").accept(h);
     }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void wornHeadDeath(GameTestHelper helper) {
+        MobHeadTests.ALL.get("worn_head_death").accept(helper);
+    }
 }

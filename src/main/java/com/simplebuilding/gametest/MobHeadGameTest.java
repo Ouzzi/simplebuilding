@@ -101,6 +101,11 @@ public final class MobHeadGameTest {
     }
 
     @GameTest
+    public void extraHeadDeathAndRespawnKeepTheServerRunning(GameTestHelper helper) {
+        MobHeadTests.extraHeadDeathAndRespawnKeepTheServerRunning(helper);
+    }
+
+    @GameTest
     public void extraHeadEffectsWorkLikeTheHelmetSlot(GameTestHelper helper) {
         MobHeadTests.extraHeadEffectsWorkLikeTheHelmetSlot(helper);
     }
