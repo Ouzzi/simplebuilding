@@ -34,6 +34,7 @@ public final class EarthScreen extends Screen {
     private int dragging = -1;
     private final List<Row> rows = new ArrayList<>();
     private final List<Button> versionButtons = new ArrayList<>();
+    private Button resetButton, doneButton;
     private long lastSend;
     private boolean serverDirty;
 
@@ -59,12 +60,12 @@ public final class EarthScreen extends Screen {
             versionButtons.add(addRenderableWidget(b));
         }
         int by = panelY + panelH - 26;
-        addRenderableWidget(Button.builder(Component.translatable("simpleearth.screen.reset"), b -> {
+        resetButton = addRenderableWidget(Button.builder(Component.translatable("simpleearth.screen.reset"), b -> {
             EarthClientConfig.resetVersion(EarthClientConfig.version);
             EarthClientConfig.resetRender();
             changed(null);
         }).bounds(panelX + PAD, by, 96, 20).tooltip(Tooltip.create(Component.translatable("simpleearth.screen.reset.tip"))).build());
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(panelX + W - PAD - 96, by, 96, 20).build());
+        doneButton = addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(panelX + W - PAD - 96, by, 96, 20).build());
         listTop = panelY + 104;
         listBottom = by - 6;
         rebuild();
@@ -187,6 +188,18 @@ public final class EarthScreen extends Screen {
         return new int[]{panelX + W / 2, (listTop + listBottom) / 2};
     }
 
+    /** Centre of the reset (true) or done (false) button. */
+    public int[] testButton(boolean reset) {
+        Button b = reset ? resetButton : doneButton;
+        return new int[]{b.getX() + b.getWidth() / 2, b.getY() + b.getHeight() / 2};
+    }
+
+    /** Diagnosis for the client test: what the Vanilla dispatch finds at a point. */
+    public String testChildAt(double x, double y) {
+        return getChildAt(x, y).map(c -> c.getClass().getSimpleName() + (c instanceof Button b ? " " + b.getMessage().getString() + " active=" + b.active : "")).orElse("none")
+                + ", children " + children().size();
+    }
+
     public double testScroll() {
         return scroll;
     }
@@ -226,6 +239,21 @@ public final class EarthScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        // WD25-23: the panel's own buttons are hit-tested here, like the sliders (in the owner's game the Vanilla widget
+        // dispatch never reached them, the client test confirmed it); they press with the usual click sound
+        if (event.button() == 0) {
+            List<Button> own = new ArrayList<>(versionButtons);
+            own.add(resetButton);
+            own.add(doneButton);
+            for (Button b : own) {
+                if (b != null && b.active && b.visible && event.x() >= b.getX() && event.x() < b.getX() + b.getWidth()
+                        && event.y() >= b.getY() && event.y() < b.getY() + b.getHeight()) {
+                    b.playDownSound(minecraft.getSoundManager());
+                    b.onPress(event);
+                    return true;
+                }
+            }
+        }
         int i = rowAt(event.x(), event.y());
         if (i >= 0 && event.button() == 0) {
             Row row = rows.get(i);

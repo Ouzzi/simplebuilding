@@ -103,7 +103,7 @@
   "text.autoconfig.simpleearth.option.speedWithHeight": "Faster when higher",
   "text.autoconfig.simpleearth.option.speedWithHeight.@Tooltip": "The orbit speed applies at the render switch; higher up it grows with your height so the earth passes equally fast (up to the server limit). Default: on.",
   "text.autoconfig.simpleearth.option.workerThreads": "Sampling threads",
-  "text.autoconfig.simpleearth.option.workerThreads.@Tooltip": "Server: background threads that read terrain from the world generator. Default: 2.",
+  "text.autoconfig.simpleearth.option.workerThreads.@Tooltip": "Server: background threads that read terrain from the world generator. Default: half the CPU cores, 2 to 4.",
   "text.autoconfig.simpleearth.option.tilesPerSecond": "Tiles per second",
   "text.autoconfig.simpleearth.option.tilesPerSecond.@Tooltip": "Server: terrain tiles each player gets per second. Default: 24.",
   "text.autoconfig.simpleearth.option.memoryTiles": "Tiles in memory",

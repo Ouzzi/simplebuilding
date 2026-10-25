@@ -100,7 +100,7 @@ public final class EarthServerConfig {
         maxEdge = integer(json, "maxEdge", 262144, minEdge, 1048576);
         exploredOnly = bool(json, "exploredOnly", false);
         showOthers = bool(json, "showOthers", true);
-        workerThreads = integer(json, "workerThreads", 2, 1, Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
+        workerThreads = integer(json, "workerThreads", Math.max(2, Math.min(4, Runtime.getRuntime().availableProcessors() / 2)), 1, Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
         tilesPerSecond = integer(json, "tilesPerSecond", 24, 1, 512);
         memoryTiles = integer(json, "memoryTiles", 1024, 16, 65536);
         diskCacheMiB = integer(json, "diskCacheMiB", 256, 0, 65536);

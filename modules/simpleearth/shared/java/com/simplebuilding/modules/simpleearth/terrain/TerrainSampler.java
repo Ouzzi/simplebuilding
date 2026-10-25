@@ -132,10 +132,11 @@ public final class TerrainSampler {
      */
     public static MapColor colorAt(BiomeResolver biomes, int x, int h, int z, int sea, int step, int votes, double slope) {
         int y = Math.max(h, sea);
-        MapColor c = color(biomes, x, y, z, h < sea - LAKE_DEPTH, step, votes);
-        if (slope < 0) return c;
-        Holder<Biome> centre = biomes.getNoiseBiome(QuartPos.fromBlock(x), QuartPos.fromBlock(y), QuartPos.fromBlock(z));
-        return EarthColors.surface(c, centre, x, h, z, sea, slope);
+        boolean underwater = h < sea - LAKE_DEPTH;
+        // WD25-22: the vote winner doubles as the surface biome (one biome lookup less per sample)
+        Holder<Biome> biome = winner(biomes, x, y, z, underwater, step, votes);
+        MapColor c = EarthColors.color(biome, underwater);
+        return slope < 0 ? c : EarthColors.surface(c, biome, x, h, z, sea, slope);
     }
 
     /** Largest height difference to the four neighbour samples (inside the tile) per block of spacing. */
@@ -162,30 +163,36 @@ public final class TerrainSampler {
     }
 
     public static MapColor color(BiomeResolver biomes, int x, int y, int z, boolean underwater, int step, int votes) {
+        return EarthColors.color(winner(biomes, x, y, z, underwater, step, votes), underwater);
+    }
+
+    /** The biome of a sample cell: a biome with the most frequent colour of the votes (or the middle point, see {@link #color}). */
+    public static Holder<Biome> winner(BiomeResolver biomes, int x, int y, int z, boolean underwater, int step, int votes) {
         int qy = QuartPos.fromBlock(y);
         int n = Math.max(1, Math.min(3, votes));
-        if (step < 128 || n == 1) return EarthColors.color(biomes.getNoiseBiome(QuartPos.fromBlock(x), qy, QuartPos.fromBlock(z)), underwater);
+        if (step < 128 || n == 1) return biomes.getNoiseBiome(QuartPos.fromBlock(x), qy, QuartPos.fromBlock(z));
+        @SuppressWarnings("unchecked") Holder<Biome>[] held = new Holder[n * n];
         MapColor[] list = new MapColor[n * n];
         int k = 0;
         for (int b = 0; b < n; b++) {
             int dz = (int) Math.round((b + 0.5) / n * step - step / 2.0);
             for (int a = 0; a < n; a++) {
                 int dx = (int) Math.round((a + 0.5) / n * step - step / 2.0);
-                Holder<Biome> biome = biomes.getNoiseBiome(QuartPos.fromBlock(x + dx), qy, QuartPos.fromBlock(z + dz));
-                list[k++] = EarthColors.color(biome, underwater);
+                held[k] = biomes.getNoiseBiome(QuartPos.fromBlock(x + dx), qy, QuartPos.fromBlock(z + dz));
+                list[k] = EarthColors.color(held[k], underwater);
+                k++;
             }
         }
-        MapColor best = list[0];
-        int bestCount = 0;
-        for (MapColor c : list) {
+        int best = 0, bestCount = 0;
+        for (int i = 0; i < list.length; i++) {
             int count = 0;
-            for (MapColor o : list) if (o == c) count++;
+            for (MapColor o : list) if (o == list[i]) count++;
             if (count > bestCount) {
-                best = c;
+                best = i;
                 bestCount = count;
             }
         }
-        return best;
+        return held[best];
     }
 
     /** The dimension's region folder (E8: a region file there = explored). */

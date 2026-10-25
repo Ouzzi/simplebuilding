@@ -92,7 +92,6 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(10);
             context.takeScreenshot("simpleearth-menu");
             menu(context);
-            context.takeScreenshot("simpleearth-menu-used");
             context.setScreen(() -> null);
             if (!FAILURES.isEmpty()) throw new AssertionError(String.join("; ", FAILURES));
         }
@@ -156,10 +155,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     private static void menu(ClientGameTestContext context) {
         double k = context.computeOnClient(mc -> mc.getWindow().getScreenWidth() / (double) mc.getWindow().getGuiScaledWidth());
         int[] v10 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testVersionButton(10));
+        System.out.println("[earth-measure] V10 button at " + v10[0] + "/" + v10[1] + " (scale " + k + "), Vanilla dispatch finds: "
+                + context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testChildAt(v10[0], v10[1])));
         context.getInput().setCursorPos(v10[0] * k, v10[1] * k);
         context.getInput().pressMouse(0);
         context.waitTicks(3);
         check(context.computeOnClient(mc -> EarthClientConfig.version) == 10, "click V10 selects version 10");
+        context.runOnClient(mc -> EarthClientConfig.version = 10); // keep the rest of the checks meaningful
         context.runOnClient(mc -> EarthClientConfig.setRender("detail", 3));
         int[] end = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testSlider("detail", 1.0));
         context.getInput().setCursorPos(end[0] * k, end[1] * k);
@@ -192,6 +194,18 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         double s1 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testScroll());
         check(s1 > s0, "mouse wheel scrolls the list: " + s0 + " -> " + s1);
         check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "menu still open");
+        context.runOnClient(mc -> EarthClientConfig.setRender("detail", 5));
+        int[] reset = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testButton(true));
+        context.getInput().setCursorPos(reset[0] * k, reset[1] * k);
+        context.getInput().pressMouse(0);
+        context.waitTicks(3);
+        check(context.computeOnClient(mc -> EarthClientConfig.render("detail")) == 3, "click Defaults resets the display values");
+        context.takeScreenshot("simpleearth-menu-used");
+        int[] done = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testButton(false));
+        context.getInput().setCursorPos(done[0] * k, done[1] * k);
+        context.getInput().pressMouse(0);
+        context.waitTicks(3);
+        check(context.computeOnClient(mc -> mc.gui.screen() == null), "click Done closes the menu");
         context.runOnClient(mc -> {
             EarthClientConfig.setRender("detail", 3);
             EarthClientConfig.setRender("moonPhases", 1);

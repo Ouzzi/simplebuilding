@@ -103,7 +103,7 @@
   "text.autoconfig.simpleearth.option.speedWithHeight": "Schneller in der Höhe",
   "text.autoconfig.simpleearth.option.speedWithHeight.@Tooltip": "Das Flugtempo gilt an der Umschalthöhe; weiter oben wächst es mit deiner Höhe, damit die Erde gleich schnell vorbeizieht (bis zur Server-Grenze). Standard: an.",
   "text.autoconfig.simpleearth.option.workerThreads": "Abtast-Threads",
-  "text.autoconfig.simpleearth.option.workerThreads.@Tooltip": "Server: Hintergrund-Threads, die Terrain aus dem Weltgenerator lesen. Standard: 2.",
+  "text.autoconfig.simpleearth.option.workerThreads.@Tooltip": "Server: Hintergrund-Threads, die Terrain aus dem Weltgenerator lesen. Standard: halbe CPU-Kerne, 2 bis 4.",
   "text.autoconfig.simpleearth.option.tilesPerSecond": "Kacheln pro Sekunde",
   "text.autoconfig.simpleearth.option.tilesPerSecond.@Tooltip": "Server: Terrain-Kacheln pro Spieler und Sekunde. Standard: 24.",
   "text.autoconfig.simpleearth.option.memoryTiles": "Kacheln im Speicher",
