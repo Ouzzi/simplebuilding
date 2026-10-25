@@ -25,7 +25,7 @@ public abstract class CartographyStationMixin extends AbstractContainerScreen<Ca
             target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
     private boolean simpleinterfaces$error(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int w, int h) {
         if (!sprite.getPath().equals("container/cartography_table/error") || !StationScreens.active(this)) return true;
-        StationScreens.error(graphics, this.leftPos + 41, this.topPos + 37, UiSymbols.ARROW_SMALL.width(), UiSymbols.ARROW_SMALL.height());
+        StationScreens.error(graphics, this.leftPos + 41, this.topPos + StationScreens.CARTO_SYMBOL_Y, UiSymbols.ARROW_SMALL.width(), UiSymbols.ARROW_SMALL.height());
         return false;
     }
 }

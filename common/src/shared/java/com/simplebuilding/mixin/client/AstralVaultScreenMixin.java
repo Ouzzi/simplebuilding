@@ -1,7 +1,6 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.api.ModuleScreenStyles;
-import com.simplebuilding.client.gui.BackpackScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -16,14 +15,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Astralgewoelbe: die drei Zusatzreihen (das Astrallager hinter den 27 Endertruhen-Slots) tragen dieselbe
- * violette Toenung wie die Zusatzspalten des Rucksacks (Besitzer 2026-10-01). Das Gewoelbe oeffnet ein
+ * Astralgewoelbe: die drei Zusatzreihen (das Astrallager hinter den 27 Endertruhen-Slots) sind dunkler getoent - eine
+ * dunkle Fassung der oberen Slotfarbe statt des Rucksack-Violetts (Besitzer WD25-8, 2026-10-25; vorher 2026-10-01 violett). Das Gewoelbe oeffnet ein
  * Vanilla-{@link ChestMenu} mit sechs Reihen und dem Titel {@code block.simplebuilding.astral_vault}.
  */
 @Mixin(ContainerScreen.class)
 public abstract class AstralVaultScreenMixin extends AbstractContainerScreen<ChestMenu> {
     private static final String SIMPLEBUILDING$VAULT_TITLE = "block.simplebuilding.astral_vault";
     private static final int SIMPLEBUILDING$ENDER_SLOTS = 27;
+    /** Schwarzer Schleier ueber dem Vanilla-Slotgrau (#8B8B8B wird etwa #5A5A5A). */
+    private static final int SIMPLEBUILDING$ASTRAL_TINT = 0x5A000000;
 
     private AstralVaultScreenMixin(ChestMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -39,7 +40,7 @@ public abstract class AstralVaultScreenMixin extends AbstractContainerScreen<Che
             Slot slot = this.menu.slots.get(i);
             int sx = this.leftPos + slot.x;
             int sy = this.topPos + slot.y;
-            graphics.fill(sx, sy, sx + 16, sy + 16, BackpackScreen.TINT_EXTRA_COLUMN);
+            graphics.fill(sx, sy, sx + 16, sy + 16, SIMPLEBUILDING$ASTRAL_TINT);
         }
     }
 }

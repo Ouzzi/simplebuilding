@@ -34,10 +34,12 @@ public final class StorageStyles {
     /** Mounts (horse, donkey, mule, llama, camel, nautilus ...): saddle leather (W1 G1). */
     public static final UiPalette HORSE = UiPalette.derived(0xFF8B5E3C);
     /**
-     * SimpleBuilding's astral vault (an ender chest with three astral rows below): the astral rows' slots in the
-     * enderite violet of the preview (its tint in Vanilla look is SimpleBuilding's own, switched off while styled).
+     * SimpleBuilding's astral vault (an ender chest with three astral rows below): the astral rows' slots in a dark
+     * version of the ender box colour (owner WD25-8, 2026-10-25, instead of the enderite violet): slot 0.5 x and its
+     * top line 0.38 x the box fill, light edge and label of the box (its tint in Vanilla look is SimpleBuilding's own,
+     * switched off while styled). Declared after {@link #ENDER}.
      */
-    public static final UiPalette ASTRAL_SLOTS = new UiPalette(0xFF8E6CB0, 0xFFB99AD6, 0xFF735693, 0xFF70538E, 0xFF594073, 0xFFF7F0FF);
+    public static final UiPalette ASTRAL_SLOTS = astralSlots(ENDER);
     /** Title key of SimpleBuilding's astral vault (a six-row chest menu; only a string, no class of that mod). */
     public static final String ASTRAL_VAULT_TITLE = "block.simplebuilding.astral_vault";
     /**
@@ -63,6 +65,15 @@ public final class StorageStyles {
             // mount menus have no MenuType: an empty list matches menus without one, on the exact screen class
             new ScreenStyle("mount", ScreenStyle.VANILLA + "HorseInventoryScreen", List.of(), context -> HORSE),
             new ScreenStyle("nautilus", ScreenStyle.VANILLA + "NautilusInventoryScreen", List.of(), context -> HORSE));
+
+    /** The astral rows' slot palette: {@code box} with darker slots (WD25-8). */
+    static UiPalette astralSlots(UiPalette box) {
+        return new UiPalette(box.fill(), box.light(), box.shade(), UiPalette.scale(box.fill(), ASTRAL_DARK),
+                UiPalette.scale(box.fill(), ASTRAL_DARK * 0.76), box.label());
+    }
+
+    /** Brightness of the astral slots against the box fill (preview variants 0.62 / 0.5 / 0.4, default 0.5). */
+    static final double ASTRAL_DARK = 0.5;
 
     private StorageStyles() {}
 

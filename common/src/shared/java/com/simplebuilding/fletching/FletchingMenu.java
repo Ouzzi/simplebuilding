@@ -37,6 +37,8 @@ public class FletchingMenu extends RecipeBookMenu {
     public static final int FLETCHING_SLOT = 2;
     public static final int RESULT_SLOT = 3;
     private static final int INV_START = 4;
+    /** Item-Position der Befiederung (links, Schaft und Spitze je 18 px weiter), des Ergebnisses und die Zeile (WD25-12). */
+    public static final int PART_X = 42, RESULT_X = 136, ROW_Y = 34;
     private static final int INV_END = 31;
     private static final int HOTBAR_END = 40;
 
@@ -65,11 +67,12 @@ public class FletchingMenu extends RecipeBookMenu {
     public FletchingMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
         super(ModScreenHandlers.FLETCHING_MENU, containerId);
         this.access = access;
-        // Wie beim Schmiedetisch: die drei Teile liegen in einer geraden Reihe, das Ergebnis rechts daneben.
-        this.addSlot(new PartSlot(this.parts, TIP_SLOT, 66, 48));
-        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, 48, 48));
-        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, 30, 48));
-        this.addSlot(new Slot(this.result, 0, 124, 48) {
+        // Wie beim Schmiedetisch: die drei Teile liegen in einer geraden Reihe, das Ergebnis rechts daneben; die Reihe
+        // (mit Rezeptbuch-Knopf) steht waagerecht und senkrecht mittig im oberen Kasten (Besitzer WD25-12, 2026-10-25).
+        this.addSlot(new PartSlot(this.parts, TIP_SLOT, PART_X + 36, ROW_Y));
+        this.addSlot(new PartSlot(this.parts, SHAFT_SLOT, PART_X + 18, ROW_Y));
+        this.addSlot(new PartSlot(this.parts, FLETCHING_SLOT, PART_X, ROW_Y));
+        this.addSlot(new Slot(this.result, 0, RESULT_X, ROW_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;

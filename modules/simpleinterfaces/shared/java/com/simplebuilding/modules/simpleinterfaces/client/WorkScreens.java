@@ -5,18 +5,22 @@ import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simpleinterfaces.style.ScreenStyle;
 import com.simplelib.api.client.ui.UiBoxes;
 import com.simplelib.api.client.ui.UiBoxes.ProgressColors;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiMotifs;
 import com.simplelib.api.client.ui.UiPalette;
 import com.simplelib.api.client.ui.UiSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
+import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.inventory.BrewingStandMenu;
 import net.minecraft.world.inventory.Slot;
 import org.jetbrains.annotations.Nullable;
@@ -269,19 +273,61 @@ public final class WorkScreens {
     }
 
     /**
-     * Beacon (one box over the whole image): the primary (pyramid) and secondary (star) power fields as sunk panels,
-     * the payment slot; the buttons draw themselves ({@code BeaconButtonMixin}).
+     * Beacon (one box over the whole image): the primary and secondary power fields as sunk panels on Vanilla's panel
+     * bounds, with Vanilla's tier pyramids (owner WD25-11, 2026-10-25: "compare with Vanilla") left of each primary row
+     * and above the secondary row, the dividers between the payment items and the payment slot; the labels come from
+     * {@link #beaconLabels}, the buttons draw themselves ({@code BeaconButtonMixin}).
      */
     public static boolean beacon(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int w, int h, int titleY) {
         UiPalette p = base(screen, g, left, top, w, h, titleY, new int[][] {{164, 107, 186, 129}, {190, 107, 212, 129}}, true,
                 new int[0][], List.of(), false);
         if (p == null) return false;
-        UiBoxes.inset(g, left + 18, top + 8, 110, 92, p);
-        UiBoxes.inset(g, left + 140, top + 8, 72, 92, p);
-        UiSymbols.engrave(g, UiSymbols.PYRAMID, left + 64, top + 12, p);
-        UiSymbols.engrave(g, UiSymbols.STAR, left + 171, top + 12, p);
+        UiBoxes.inset(g, left + BEACON_PRIMARY_X, top + 8, 105, 92, p);
+        UiBoxes.inset(g, left + BEACON_SECONDARY_X, top + 8, 104, 92, p);
+        int levels = screen.getMenu() instanceof BeaconMenu menu ? menu.getLevels() : 0;
+        for (int tier = 0; tier < 3; tier++) beaconTier(g, p, left + 18, top + 22 + tier * 25, tier + 1, levels > tier);
+        beaconTier(g, p, left + 158, top + 22, 4, levels > 3);
+        for (int x : BEACON_DIVIDERS) UiSymbols.engrave(g, BEACON_DIVIDER, left + x, top + 108, p);
         slots(screen, g, left, top, w, p, List.of(), List.of());
         return true;
+    }
+
+    /** Left edges of the beacon's power fields (Vanilla's panels 9..114 and 117..221). */
+    static final int BEACON_PRIMARY_X = 9, BEACON_SECONDARY_X = 117;
+    /** Vanilla's divider between two payment items (5 x 18), at these x (y 108). */
+    static final UiSymbols.Bitmap BEACON_DIVIDER = UiSymbols.Bitmap.of("...##", "..###", "..##.", "..##.", "..#..", "..#..", "..#..",
+            "..#..", "..#..", "..#..", "..#..", "..#..", "..#..", "..#..", ".##..", ".##..", "###..", "##...");
+    static final int[] BEACON_DIVIDERS = {36, 58, 80, 102};
+    private static final Component BEACON_PRIMARY = Component.translatable("block.minecraft.beacon.primary");
+    private static final Component BEACON_SECONDARY = Component.translatable("block.minecraft.beacon.secondary");
+
+    /**
+     * Vanilla's tier pyramid (19 x 20 at {@code x, y}): an 8 px beam, a 3 px cap and four steps (7/11/15/19 px wide, 2 px
+     * high). The first {@code needed} steps from the top belong to the tier: white with a gold cap once the beacon has
+     * {@code reached} it, else in the dark slot top line; the other steps engraved like every symbol.
+     */
+    static void beaconTier(GuiGraphicsExtractor g, UiPalette p, int x, int y, int needed, boolean reached) {
+        int lit = reached ? UiSymbols.PROGRESS : p.slotTop();
+        g.fill(x + 9, y, x + 10, y + 9, p.slot());
+        g.fill(x + 8, y + 9, x + 11, y + 11, reached ? BEACON_GOLD : lit);
+        for (int step = 0; step < 4; step++) {
+            int half = 3 + 2 * step, sy = y + 11 + 2 * step;
+            g.fill(x + 9 - half, sy, x + 10 + half, sy + 2, step < needed ? lit : p.slot());
+        }
+        g.fill(x, y + 19, x + 19, y + 20, p.light());
+    }
+
+    /** The gold of Vanilla's pyramid cap (a lit tier). */
+    static final int BEACON_GOLD = 0xFFFDC733;
+
+    /**
+     * The "Primary Power" / "Secondary Power" labels at Vanilla's places, centred over the power fields, in the box's
+     * label colour made readable (at least 4.5:1) on the field.
+     */
+    public static void beaconLabels(GuiGraphicsExtractor g, Font font, UiPalette p) {
+        int color = UiContrast.ensure(p.label(), UiPalette.mix(p.slot(), p.fill(), 0.35));
+        g.text(font, BEACON_PRIMARY, 62 - font.width(BEACON_PRIMARY) / 2, 10, color, false);
+        g.text(font, BEACON_SECONDARY, 169 - font.width(BEACON_SECONDARY) / 2, 10, color, false);
     }
 
     /** The palette of a styled beacon screen (Vanilla's fixed 230 x 219 image), or {@code null}. */

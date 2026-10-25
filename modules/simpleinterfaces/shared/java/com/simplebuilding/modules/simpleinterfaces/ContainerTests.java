@@ -402,6 +402,26 @@ public final class ContainerTests {
         });
         h.assertTrue(BoxLayout.compute(station(carto, new int[0][]), 176, 166, 6).variant() == BoxLayout.Variant.TWO_BOXES,
                 "without its map field the cartography table would get two boxes (the field counts)");
+        // WD25-9/10: the styled screens move some slots on the client; the table's Vanilla places must be Vanilla's and
+        // the moved places keep the boxes
+        var inventory = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL).getInventory();
+        Map<String, net.minecraft.world.inventory.AbstractContainerMenu> menus = Map.of(
+                "grindstone", new net.minecraft.world.inventory.GrindstoneMenu(0, inventory),
+                "cartography_table", new net.minecraft.world.inventory.CartographyTableMenu(0, inventory));
+        Map<String, int[][]> positions = Map.of("grindstone", grindstone, "cartography_table", carto);
+        StationStyles.SLOT_MOVES.forEach((id, moves) -> {
+            int[][] moved = java.util.Arrays.stream(positions.get(id)).map(int[]::clone).toArray(int[][]::new);
+            for (int[] m : moves) {
+                var slot = menus.get(id).getSlot(m[0]);
+                h.assertTrue(slot.x == m[1] && slot.y == m[2], id + " slot " + m[0] + " at Vanilla's " + m[1] + "/" + m[2]
+                        + ", is " + slot.x + "/" + slot.y);
+                moved[m[0]][1] = m[3];
+            }
+            BoxLayout.Layout l = station(id, moved, 2);
+            BoxLayout.Layout vanilla = id.equals("grindstone") ? two.get(id) : one.get(id);
+            h.assertTrue(l != null && l.variant() == vanilla.variant() && l.container().equals(vanilla.container()),
+                    id + ": moved slots keep the boxes");
+        });
         h.succeed();
     }
 

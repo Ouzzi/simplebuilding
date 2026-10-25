@@ -29,9 +29,9 @@ public final class ModScreenLayout {
     public static final int BACKPACK_SEAM_Y = BackpackLayout.FIRST_ROW_Y - 3;
     /**
      * Fletching table's recipe book button (relative to the image): left of the part row, as on the crafting table;
-     * one row reads book, feather, shaft, tip, arrow, result.
+     * one row reads book, feather, shaft, tip, arrow, result, centred in the container box (WD25-12).
      */
-    public static final int FLETCHING_BOOK_X = 6, FLETCHING_BOOK_Y = 47, FLETCHING_BOOK_W = 20, FLETCHING_BOOK_H = 18;
+    public static final int FLETCHING_BOOK_X = 18, FLETCHING_BOOK_Y = 33, FLETCHING_BOOK_W = 20, FLETCHING_BOOK_H = 18;
     /** Storage Crafting Table's recipe book button: Vanilla's crafting table spot (left of the grid's middle row). */
     public static final int CRAFTING_BOOK_X = 5, CRAFTING_BOOK_Y = 34;
 
