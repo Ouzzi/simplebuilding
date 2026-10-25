@@ -60,7 +60,7 @@ public final class StationStyles {
             "grindstone", List.of(new BoxLayout.Rect(67, 30, 54, 24)),
             "stonecutter", List.of(new BoxLayout.Rect(51, 14, 66, 56), new BoxLayout.Rect(119, 15, 12, 55)), // as the preview counts them
             "loom", List.of(new BoxLayout.Rect(59, 12, 59, 59), new BoxLayout.Rect(119, 13, 13, 58)),
-            "cartography_table", List.of(new BoxLayout.Rect(67, 13 + CARTO_TOP, 67, 67)),
+            "cartography_table", List.of(new BoxLayout.Rect(67, 13 + StationStyles.CARTO_TOP, 67, 67)),
             "smithing_table", List.of(new BoxLayout.Rect(121, 8, 49, 69)),
             "player_inventory", List.of(new BoxLayout.Rect(26, 8, 50, 71)));
 
