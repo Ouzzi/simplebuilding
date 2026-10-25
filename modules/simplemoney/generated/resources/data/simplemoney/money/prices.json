@@ -45,17 +45,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:amethyst_lens",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:astral_end_stone",
       "tier": 4,
       "hours": 25.0,
@@ -2014,17 +2003,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:rotator",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 6,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:spawn_elytra",
       "tier": 5,
       "hours": 38.1,
@@ -2296,6 +2274,28 @@
       "safetyFloor": 8,
       "merchant": "toolsmith",
       "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplegadgets:rotator",
+      "tier": 1,
+      "hours": 6.7,
+      "craft": 6,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 2,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplegadgets:amethyst_lens",
+      "tier": 1,
+      "hours": 6.7,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 2,
       "stock": 2,
       "chance": 1
     },

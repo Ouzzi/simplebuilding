@@ -1421,15 +1421,15 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "Gadgets you hold and use: for now the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails.",
-      "de": "Geräte, die man in der Hand hält und benutzt: vorerst die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen."
+      "en": "Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, and the Resonance Rod, a beam that points, melts, ignites and measures.",
+      "de": "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, der Blöcke an Ort und Stelle dreht und tauscht, und der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA90lEQVR42mMIMJD9jw1vShFEwbjUMYCIu6v74Bim4e/XeDD+dc0LjGHiMHUnKjxQDbjQnQTX+Pv79v+/vj1BwS83isINAmmeEGaCagBMM7pGDAw1BK8BIDa6RrgY0IBSDSZUA4i2Hck7IEMwDMBmMzaXYDXghJzcfw0lCCbLBSBBGIYZBFKELI6MUQwAcUBeuDNNGB7vIPzv9LP/m/s+o4iB1IAsxDAAJIGccGCae7PO/A+x7MJvACgasRmCTTPM+RjpACQIMhmkCBeGJWesBjw7tBZuCLJB6JkKpAYjKcMEQBikANkgZI0wm2EYbgA2DNMAw7jUAQAPg4NVZ9x2CgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 2,
-      "recipes": 3,
-      "features": 4
+      "items": 4,
+      "recipes": 7,
+      "features": 5
     },
-    "dataHash": "0dba192f165e"
+    "dataHash": "fda930f28f6f"
   }
 ];

@@ -52,10 +52,69 @@
       }
     },
     {
+      "id": "rotator",
+      "related": [
+        "simplegadgets:rotator"
+      ],
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorSwap.java",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator.json",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator_without_simplebuilding.json",
+        "modules/simplelib/shared/java/com/simplelib/api/AnvilRechargeable.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/AnvilRechargeMixin.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/config/GadgetsConfig.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/test/RotatorTests.java"
+      ],
+      "en": {
+        "title": "Transposer",
+        "summary": "The Transposer is a handy tool for turning orientable blocks right where they are in the world, without breaking and replacing them. It helps above all when building with logs and pillars, with furnaces, pistons or hoppers, and with every block that turns in 16 steps. Where you click on a block face decides how it turns. It never breaks: its durability is a charge that you top up at the anvil with ender pearls.",
+        "details": [
+          "Crafted from 4 iron ingots, 1 Iron Core and 1 ender pearl; the recipe shows up as soon as you own an iron ingot.",
+          "Charge instead of wear (owner 2026-09-28, like the Resonance Rod): 1024 charge, every successful rotation costs 1 (Unbreaking saves charge as usual, nothing in creative mode). The Transposer never breaks - at 0 charge it stays in your inventory, shows a dimmed ender pearl, refuses to turn anything (a dry click) and its tooltip says it is empty. Recharge it in an anvil with ender pearls for no levels: every pearl restores 1/16 (64 charge), 16 pearls - one stack - fill an empty Transposer, and only the pearls it needs are taken. Enchantability 15 and the tag minecraft:enchantable/durability stay, so Unbreaking and Mending still fit. The cost per rotation is the config option rotatorChargePerTurn (config/simplegadgets-server.json) (default 1, 0 = free).",
+          "Right-click the middle of a face to turn forward, sneak + right-click to turn backwards (no difference on logs and pillars).",
+          "Click the rim of a face (outer 2 pixels) and the block aligns to that edge: logs lay their axis toward the edge, furnaces or pistons point toward the edge, 16-step blocks turn a quarter turn.",
+          "Logs and pillars: clicking the middle of a face lays the axis in the direction of that face; if it already lies that way, it moves on in the cycle X -> Y -> Z -> X.",
+          "Blocks with a facing: clicking the middle turns them clockwise around the axis of the clicked face; if the block points along that axis or cannot take the new direction, it snaps to an allowed starting direction or steps through its allowed directions in turn.",
+          "Sound and particles: a rotation first plays the metallic ratchet of the spyglass, and shortly before it fades (6 ticks later) a quiet ender teleport at the turned block - the first is the metal, the second says that something was teleported. Every rotation sends a small burst of portal particles around the block, the second sound a few reverse portal particles. Blocks without an orientation (stone, for example) do not react at all, and then no charge is used either.",
+          "Extended pistons, piston heads and moving blocks are never turned: a turned extended piston would lose its head and, on retracting, delete whatever block its head cell then points at.",
+          "Second function - swap (queue entry 63): a placeable block in the off hand + right-click on a block with the Transposer in the main hand swaps the clicked block. The old block's drops go into your inventory (the block itself if its drops are empty, e.g. glass), the off-hand block is used up like a placement and takes the orientation of a click on that face; the swap costs twice the charge of a turn (RotatorSwap.COST_FACTOR = 2). Without a swappable block the click turns as before.",
+          "Which blocks (RotatorSwap.canSwapTarget): only blocks a stone tool can mine - hardness up to 6 (rotatorSwapMaxHardness) and, if the block needs the correct tool, one that a stone pickaxe, axe, shovel or hoe harvests, so no obsidian and no diamond ore. Never, and no list lifts this: air and fluids, extended pistons, halves of double blocks (doors, tall plants, beds, double chests), unbreakable blocks, blocks with a block entity other than an empty container (beacons, spawners, signs, chests with content or an unopened loot table), the dragon egg, budding amethyst, reinforced deepslate and infested blocks.",
+          "Lists (server config rotatorSwapWhitelist and rotatorSwapBlacklist, comma separated block tags like #minecraft:logs and block IDs like minecraft:glass): the blacklist wins over everything, the whitelist allows a block regardless of hardness and tool rule; rotatorSwapEnabled switches the swap off. Claims and protection are asked like for a placement (TransformTargets.mayTransform) before and again after the wind-up.",
+          "Wind-up (hold the click): (20 ticks + 4 per point of hardness) x (5 - Efficiency level) / 5, so 26 ticks for stone and 40 for an iron block; Efficiency V and creative mode swap at once (the Transposer is in #minecraft:enchantable/mining for this), rotatorSwapWindupTicks (0 to 200, default 20) sets the base. The hand pulls back like a bow, the item spins (item/rotator_active), a quiet chime rises in pitch and more portal particles gather at the block - no text on screen. Releasing, looking away or a changed block cancels it at no cost; after a swap the Transposer has a 10-tick cooldown so a held click does not turn the new block.",
+          "Tooltip: two gray hints - recharging (anvil + ender pearls, 16 = full) and the swap (off-hand block + click) - plus a red \"Empty\" line when the charge is used up.",
+          "Found in the creative tab \"SimpleTools\", right after the Attractor.",
+          "The item id is simplegadgets:rotator (until 25.10.2026 simplebuilding:rotator; old worlds migrate). Recipe with SimpleBuilding: its Iron Core and four Iron Rods; without it (simplegadgets:rotator_without_simplebuilding) iron ingots take their place. Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start); the maximum charge is read when the items register."
+        ]
+      },
+      "de": {
+        "title": "Transponierer",
+        "summary": "Der Transponierer ist ein handliches Werkzeug, mit dem sich ausrichtbare Blöcke direkt in der Welt drehen lassen, ohne sie abzubauen und neu zu setzen. Er hilft vor allem beim Bauen mit Stämmen und Säulen, bei Öfen, Kolben oder Trichtern und bei allen Blöcken, die sich in 16 Schritten drehen lassen. Wo man auf eine Blockfläche klickt, entscheidet, wie gedreht wird. Er zerbricht nie: Seine Haltbarkeit ist eine Ladung, die du im Amboss mit Enderperlen auffüllst.",
+        "details": [
+          "Herstellung aus 4 Eisenbarren, 1 Eisenkern und 1 Enderperle; das Rezept erscheint, sobald man einen Eisenbarren besitzt.",
+          "Ladung statt Abnutzung (Besitzer 2026-09-28, wie die Resonanzstab): 1024 Ladung, jede erfolgreiche Drehung kostet 1 (Haltbarkeit spart wie gewohnt, im Kreativmodus kostet nichts). Der Transponierer zerbricht nie - bei 0 Ladung bleibt er im Inventar, zeigt eine erloschene Enderperle, dreht nichts mehr (nur ein trockenes Klicken) und sein Tooltip meldet ihn als leer. Aufladen im Amboss mit Enderperlen ohne Stufenkosten: jede Perle gibt 1/16 (64 Ladung) zurück, 16 Perlen - ein Stapel - füllen einen leeren Transponierer, verbraucht werden nur die nötigen. Verzauberbarkeit 15 und der Tag minecraft:enchantable/durability bleiben, Haltbarkeit und Reparatur passen also weiterhin. Die Kosten je Drehung sind die Config-Option rotatorChargePerTurn (config/simplegadgets-server.json) (Standard 1, 0 = kostenlos).",
+          "Rechtsklick auf die Mitte einer Fläche dreht vorwärts, Schleichen + Rechtsklick dreht rückwärts (bei Stämmen und Säulen ohne Unterschied).",
+          "Klickt man auf den Rand einer Fläche (äußere 2 Pixel), richtet sich der Block an dieser Kante aus: Stämme legen ihre Achse in Richtung der Kante, Öfen oder Kolben zeigen zur Kante hin, 16-stufige Blöcke drehen eine Vierteldrehung.",
+          "Stämme und Säulen: Klick auf die Mitte einer Fläche legt die Achse in die Richtung dieser Fläche; liegt sie schon so, geht es weiter im Zyklus X -> Y -> Z -> X.",
+          "Blöcke mit Blickrichtung: Klick auf die Mitte dreht im Uhrzeigersinn um die Achse der angeklickten Fläche; zeigt der Block entlang dieser Achse oder kann er die neue Richtung nicht annehmen, springt er auf eine erlaubte Startrichtung oder schaltet der Reihe nach durch seine erlaubten Richtungen.",
+          "Klang und Partikel: Eine Drehung spielt zuerst das metallische Ratschen des Fernrohrs und kurz bevor es verklingt (6 Ticks später) ein leises Ender-Teleport am gedrehten Block - das erste ist das Metall, das zweite sagt, dass etwas teleportiert wurde. Jede Drehung schickt eine kleine Wolke Portal-Partikel um den Block, der zweite Klang ein paar umgekehrte Portal-Partikel. Blöcke ohne Ausrichtung (z.B. Stein) reagieren gar nicht, und dann wird auch keine Ladung verbraucht.",
+          "Ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke werden nie gedreht: Ein gedrehter ausgefahrener Kolben verlöre seinen Kopf und würde beim Einfahren den Block löschen, auf den seine Kopfzelle dann zeigt.",
+          "Zweite Funktion - Tauschen (Queue-Eintrag 63): ein platzierbarer Block in der Nebenhand + Rechtsklick mit dem Transponierer in der Haupthand auf einen Block tauscht den angeklickten Block. Die Drops des alten Blocks landen im Inventar (bei leeren Drops, z. B. Glas, der Block selbst), der Nebenhand-Block wird wie beim Platzieren verbraucht und richtet sich wie bei einem Klick auf diese Fläche aus; der Tausch kostet doppelt so viel Ladung wie eine Drehung (RotatorSwap.COST_FACTOR = 2). Ohne tauschbaren Block dreht der Klick wie bisher.",
+          "Welche Blöcke (RotatorSwap.canSwapTarget): nur Blöcke, die ein Steinwerkzeug abbauen kann - Härte bis 6 (rotatorSwapMaxHardness) und, wenn der Block das richtige Werkzeug braucht, eines, das eine Steinspitzhacke, -axt, -schaufel oder -hacke erntet; also kein Obsidian, kein Diamanterz. Nie, und keine Liste hebt das auf: Luft und Flüssigkeiten, ausgefahrene Kolben, Hälften von Doppelblöcken (Türen, hohe Pflanzen, Betten, Doppeltruhen), unzerstörbare Blöcke, Blöcke mit Blockentität, die kein leerer Container ist (Leuchtfeuer, Spawner, Schilder, Truhen mit Inhalt oder ungeöffneter Beutetabelle), das Drachenei, Knospender Amethyst, Verstärkter Tiefenschiefer und befallene Blöcke.",
+          "Listen (Server-Config rotatorSwapWhitelist und rotatorSwapBlacklist, kommagetrennte Block-Tags wie #minecraft:logs und Block-IDs wie minecraft:glass): die Blacklist hat vor allem Vorrang, die Whitelist erlaubt einen Block unabhängig von Härte und Werkzeug-Regel; rotatorSwapEnabled schaltet das Tauschen ab. Schutz und Claims werden wie beim Platzieren gefragt (TransformTargets.mayTransform), vor und nach dem Ausholen.",
+          "Ausholen (Klick halten): (20 Ticks + 4 je Härtepunkt) x (5 - Effizienzstufe) / 5, also 26 Ticks für Stein und 40 für einen Eisenblock; Effizienz V und der Kreativmodus tauschen sofort (der Transponierer steht dafür in #minecraft:enchantable/mining), rotatorSwapWindupTicks (0 bis 200, Standard 20) legt die Basis fest. Die Hand zieht wie beim Bogen zurück, das Item dreht sich (item/rotator_active), ein leiser Klang steigt in der Tonhöhe und mehr Portal-Partikel sammeln sich am Block - kein Text auf dem Bildschirm. Loslassen, Wegschauen oder ein veränderter Block bricht kostenlos ab; nach einem Tausch hat der Transponierer 10 Ticks Abklingzeit, damit ein gehaltener Klick den neuen Block nicht dreht.",
+          "Tooltip: zwei graue Hinweise - Aufladen (Amboss + Enderperlen, 16 = voll) und das Tauschen (Nebenhand-Block + Klick) - dazu eine rote Zeile „Leer“, wenn die Ladung verbraucht ist.",
+          "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Attraktor.",
+          "Die Item-ID ist simplegadgets:rotator (bis 25.10.2026 simplebuilding:rotator; alte Welten wandern mit). Rezept mit SimpleBuilding: dessen Eisenkern und vier Eisenstäbe; ohne (simplegadgets:rotator_without_simplebuilding) nehmen Eisenbarren deren Platz. Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen); die Höchstladung wird beim Registrieren gelesen."
+        ]
+      }
+    },
+    {
       "id": "gadget_hud",
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/api/client/GadgetHud.java",
-        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeHud.java"
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeHud.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/RodRenderer.java"
       ],
       "en": {
         "title": "Readout box",
@@ -76,19 +135,19 @@
       ],
       "en": {
         "title": "Moved from SimpleBuilding",
-        "summary": "The Gauge, its recipe and recipe unlock were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplegadgets:* through SimpleLib's id moves and save the new ids - in inventories, chests and on the ground alike.",
+        "summary": "The Gauge, the Transposer and the Resonance Rod, their recipes and recipe unlocks were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplegadgets:* through SimpleLib's id moves and save the new ids - in inventories, chests and on the ground alike.",
         "details": [
           "SimpleBuilding needs Simple Gadgets and bundles it on Fabric; Simple Gadgets runs on its own with SimpleLib, which it bundles. SimpleBuilding's enchantments Range and Constructor's Touch still work on the Gauge when SimpleBuilding is there; alone they do not exist.",
-          "More gadgets follow stage by stage (Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush, Octant).",
+          "More gadgets follow stage by stage (Detector, Attractor, Echo Sounder, Color Brush, Octant).",
           "For now Simple Gadgets exists for Fabric only (NeoForge and Forge follow with the port)."
         ]
       },
       "de": {
         "title": "Aus SimpleBuilding umgezogen",
-        "summary": "Die Messuhr, ihr Rezept und ihre Rezeptfreischaltung gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplegadgets:* und speichern die neuen Ids - im Inventar, in Truhen und auf dem Boden.",
+        "summary": "Die Messuhr, der Transponierer und der Resonanzstab, ihre Rezepte und Rezeptfreischaltungen gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplegadgets:* und speichern die neuen Ids - im Inventar, in Truhen und auf dem Boden.",
         "details": [
           "SimpleBuilding braucht Simple Gadgets und bündelt es auf Fabric; Simple Gadgets läuft allein mit SimpleLib, das es mitbringt. SimpleBuildings Verzauberungen Reichweite und Berührung des Konstrukteurs wirken auf der Messuhr weiter, wenn SimpleBuilding da ist; allein gibt es sie nicht.",
-          "Weitere Geräte folgen Stufe für Stufe (Transposer, Resonanzstab, Detektor, Attractor, Echolot, Farbpinsel, Oktant).",
+          "Weitere Geräte folgen Stufe für Stufe (Detektor, Attractor, Echolot, Farbpinsel, Oktant).",
           "Simple Gadgets gibt es vorerst nur für Fabric (NeoForge und Forge folgen mit dem Port)."
         ]
       }
@@ -112,6 +171,127 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simplegadgets:amethyst_lens",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplegadgets:amethyst_lens",
+        "count": 1
+      },
+      "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:iron_nugget",
+        "minecraft:redstone",
+        "simplebuilding:iron_core",
+        "simplebuilding:iron_pole"
+      ],
+      "pattern": [
+        " NA",
+        "RC ",
+        "I  "
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "simplebuilding:iron_core"
+        ],
+        "I": [
+          "simplebuilding:iron_pole"
+        ],
+        "N": [
+          "minecraft:iron_nugget"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_pole",
+            "count": 1
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplegadgets:amethyst_lens_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplegadgets:amethyst_lens",
+        "count": 1
+      },
+      "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:iron_ingot",
+        "minecraft:iron_nugget",
+        "minecraft:redstone"
+      ],
+      "pattern": [
+        " NA",
+        "RC ",
+        "I  "
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "minecraft:iron_ingot"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "N": [
+          "minecraft:iron_nugget"
+        ],
+        "R": [
+          "minecraft:redstone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2.111
+          },
+          {
+            "id": "minecraft:amethyst_shard",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
     {
       "id": "simplegadgets:guide_book",
       "type": "minecraft:crafting_shapeless",
@@ -151,6 +331,99 @@
           },
           {
             "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplegadgets:rotator",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplegadgets:rotator",
+        "count": 1
+      },
+      "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator.json",
+      "ingredients": [
+        "minecraft:ender_pearl",
+        "simplebuilding:iron_core",
+        "simplebuilding:iron_pole"
+      ],
+      "pattern": [
+        " I ",
+        "IPI",
+        "CI "
+      ],
+      "key": {
+        "C": [
+          "simplebuilding:iron_core"
+        ],
+        "I": [
+          "simplebuilding:iron_pole"
+        ],
+        "P": [
+          "minecraft:ender_pearl"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:iron_pole",
+            "count": 4
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_core",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplegadgets:rotator_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplegadgets:rotator",
+        "count": 1
+      },
+      "source": "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:ender_pearl",
+        "minecraft:iron_ingot"
+      ],
+      "pattern": [
+        " I ",
+        "IPI",
+        "CI "
+      ],
+      "key": {
+        "C": [
+          "minecraft:iron_ingot"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "P": [
+          "minecraft:ender_pearl"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:ender_pearl",
             "count": 1
           }
         ]
@@ -276,10 +549,102 @@
     }
   ],
   "lootTables": [],
-  "tags": [],
+  "tags": [
+    {
+      "id": "simplegadgets:item/repairs_resonance_rod",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:amethyst_shard",
+          "required": true
+        }
+      ],
+      "source": "modules/simplegadgets/shared/resources/data/simplegadgets/tags/item/repairs_resonance_rod.json"
+    }
+  ],
   "advancements": [],
   "enchantments": [],
   "items": [
+    {
+      "id": "simplegadgets:amethyst_lens",
+      "name": {
+        "en_us": "Resonance Rod",
+        "de_de": "Resonanzstab"
+      },
+      "note": {
+        "sources": [
+          "modules/simplegadgets/shared/java/com/simplegadgets/rod/ResonanceRodItem.java",
+          "modules/simplegadgets/shared/java/com/simplegadgets/rod/RodBeam.java",
+          "modules/simplegadgets/shared/java/com/simplegadgets/client/RodRenderer.java",
+          "modules/simplegadgets/shared/java/com/simplegadgets/network/RodNetwork.java",
+          "modules/simplegadgets/shared/java/com/simplegadgets/network/LaserPayload.java",
+          "modules/simplegadgets/shared/java/com/simplegadgets/rod/LensMeasurement.java",
+          "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens.json",
+          "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/amethyst_lens_without_simplebuilding.json"
+        ],
+        "en": {
+          "summary": "The Resonance Rod projects a light amethyst aiming dot while held in use. The rod tilts far forward (60 degrees) so the beam seems to leave its tip, and emits particles; the normal crosshair is hidden while aiming.",
+          "details": [
+            "Range, color and dot size come from the config section tweaks.laserPointer (default 512 blocks, light amethyst #B38EF3; a config file that still holds the former default red #FF0000 switches to amethyst on load, other picked colors stay). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
+            "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
+            "Distance: the dwell time grows moderately with the distance from your eyes to the dot: base x (1 + 0.096 x max(0, d - 5)^0.773). Up to 5 blocks the base applies (3 s to ignite), at 10 blocks it is about 1 s more (4 s), at 200 blocks about 20 s; it keeps growing smoothly up to the lens range. More than range + 8 blocks away nothing happens.",
+            "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
+            "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
+            "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
+            "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Pole). One nugget and one redstone; the fields right of and below the core are empty.",
+            "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge. On 26.3 the repair material tag simplebuilding:repairs_resonance_rod contains amethyst shards and controls both the repair component and anvil recharging.",
+            "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
+            "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe.",
+            "The item id is simplegadgets:amethyst_lens (until 25.10.2026 simplebuilding:amethyst_lens; old worlds migrate, the measurement component too). Values come from config/simplegadgets-server.json (taken over from SimpleBuilding's config on the first start; colour and size are the client's own). Constructor's Touch is SimpleBuilding's enchantment: without SimpleBuilding the rod only points. Without SimpleBuilding iron ingots replace the Iron Core and Iron Rod in the recipe."
+          ]
+        },
+        "de": {
+          "summary": "Der Resonanzstab zeigt beim Benutzen einen hell-amethystfarbenen Zielpunkt. Er neigt sich weit nach vorn (60 Grad), sodass der Strahl aus der Spitze zu kommen scheint, und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
+          "details": [
+            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, helles Amethyst #B38EF3; eine Config-Datei mit dem früheren Standard Rot #FF0000 wechselt beim Laden auf Amethyst, andere gewählte Farben bleiben). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
+            "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
+            "Abstand: die Verweildauer wächst mäßig mit dem Abstand zwischen Auge und Punkt: Basis x (1 + 0,096 x max(0, d - 5)^0,773). Bis 5 Blöcke gilt die Basis (3 s zum Anzünden), bei 10 Blöcken etwa 1 s mehr (4 s), bei 200 Blöcken rund 20 s; darüber wächst sie stetig bis zur Reichweite. Mehr als Reichweite + 8 Blöcke entfernt passiert nichts.",
+            "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
+            "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
+            "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
+            "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung. Auf 26.3 enthält der Reparaturmaterial-Tag simplebuilding:repairs_resonance_rod Amethystscherben und steuert sowohl die Reparaturkomponente als auch das Aufladen am Amboss.",
+            "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
+            "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstange). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren).",
+            "Die Item-ID ist simplegadgets:amethyst_lens (bis 25.10.2026 simplebuilding:amethyst_lens; alte Welten wandern mit, die Messungs-Komponente auch). Werte stehen in config/simplegadgets-server.json (beim ersten Start aus SimpleBuildings Config übernommen; Farbe und Größe gelten je Client). Berührung des Konstrukteurs ist SimpleBuildings Verzauberung: ohne SimpleBuilding zeigt der Stab nur den Punkt. Ohne SimpleBuilding ersetzen Eisenbarren Eisenkern und Eisenstab im Rezept."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplegadgets/item/amethyst_lens.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A rod with a lens of amethyst, made for those who like to aim at things from far away."
+          ],
+          "use": [
+            "While held in use it projects a light amethyst dot up to 512 blocks. Where the beam rests, flammable blocks ignite (about 3 s up close), ice melts and creatures catch fire. Charge 640; empty rods do not break, and 16 amethyst shards recharge one at an anvil."
+          ],
+          "secret": [
+            "The longer the distance, the longer it takes: about 20 s to ignite at 200 blocks. Creatures in water or rain and fire-immune ones are spared. Craft: iron nugget, amethyst shard, redstone, iron core and iron rod."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Eine Stange mit Amethystlinse, gemacht für alle, die gern aus der Ferne auf Dinge zielen."
+          ],
+          "use": [
+            "Beim Benutzen wirft sie einen hellen Amethystpunkt bis 512 Blöcke weit. Wo der Strahl ruht, entzünden sich brennbare Blöcke (nah etwa 3 s), Eis schmilzt und Kreaturen fangen Feuer. Ladung 640; leere Stäbe brechen nicht, und 16 Amethystsplitter laden einen am Amboss auf."
+          ],
+          "secret": [
+            "Je weiter entfernt, desto länger dauert es: etwa 20 s zum Entzünden bei 200 Blöcken. Kreaturen im Wasser oder Regen und feuerfeste bleiben verschont. Herstellung: Eisenklumpen, Amethystsplitter, Redstone, Eisenkern und Eisenstange."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplegadgets:amethyst_lens",
+        "simplegadgets:amethyst_lens_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
     {
       "id": "simplegadgets:guide_book",
       "name": {
@@ -292,15 +657,152 @@
           "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + clock. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Gadgets\" gives one for free."
+          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + clock. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Gadgets\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Uhr. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Gadgets\" eins."
+          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Uhr. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Gadgets\" eins."
         }
       },
       "texture": "assets/textures/simplegadgets/item/guide_book.png",
       "craftedBy": [
         "simplegadgets:guide_book"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplegadgets:rotator",
+      "name": {
+        "en_us": "Transposer",
+        "de_de": "Transponierer"
+      },
+      "note": {
+        "en": {
+          "summary": "The Transposer is a tool that turns orientable blocks (logs, furnaces, pistons, hoppers and the like) in place with a right-click, without breaking them.",
+          "details": [
+            "In game the item is called \"Transposer\" in both English and German.",
+            "Recipe (crafting table, shaped \" I \" / \"IPI\" / \"CI \", P = ender pearl, C = Iron Core bottom left): on MC 26.3 the four I are Iron Poles (owner 2026-10-02), on 26.2 iron ingots; recipe category \"equipment\" (RecipeCategory.TOOLS). The item texture shows a small ender pearl inside the arc.",
+            "The recipe is unlocked as soon as you have an iron ingot in your inventory.",
+            "Charge: 1024 (the durability is the charge); enchantability 15; every successful rotation costs 1 charge (RotatorItem.drain: Unbreaking applies through EnchantmentHelper.processDurabilityChange, creative costs nothing). The Transposer never breaks - at full damage it stays, is empty (RotatorItem.isEmpty), shows item/rotator_empty (range_dispatch on damage) and answers FAIL with a dispenser-fail click instead of turning. Recharge at the anvil (AnvilRechargeable, shared with the Resonance Rod): ender pearls, 0 levels, 64 charge per pearl, 16 pearls = full, only the needed pearls are consumed. The cost is the config option rotatorChargePerTurn (config/simplegadgets-server.json) (default 1).",
+            "Second function: a placeable block in the off hand + right-click swaps the clicked block (RotatorSwap, details on the Transposer page): the old block's drops go into the inventory, a swap costs twice the charge of a turn, Efficiency shortens the wind-up (V = instant).",
+            "Stack size 1.",
+            "Found in the creative tab \"SimpleTools\", right after the Attractor.",
+            "The item model has the parent model minecraft:item/handheld, so the Transposer is held like a tool.",
+            "The Transposer is in the tag minecraft:enchantable/durability; enchantments allowed through that tag (such as Unbreaking and Mending) can be applied with an anvil and an enchanted book, and since the item settings carry enchantable(15) the enchanting table accepts the Transposer too.",
+            "Turning only works on blocks that carry one of three block state properties: an axis (axis - logs, pillars), a facing (facing - furnace, piston, hopper) or a 16-step rotation (rotation, values 0 to 15).",
+            "Check order: if a block has an axis, only the axis is turned; otherwise the facing; otherwise the 16-step rotation. Only the first matching property is changed.",
+            "Rim detection: if the click lands in the outer 0.125 of a block (2 of 16 pixels) on a face, it counts as a rim click toward that edge; anything further in counts as a click on the middle.",
+            "In a corner the edge that is checked first wins: on the top/bottom face west, east, north, south; on the east/west face down, up, north, south; on the north/south face down, up, west, east.",
+            "Axis blocks, middle of a face: the axis jumps to the axis of the clicked face (clicking the north side of an upright log lays it north-south); if the block already lies on that axis, it moves on to the next one in the cycle X -> Y -> Z -> X (clicking the top of an upright log lays it north-south).",
+            "Axis blocks, rim of a face: the axis is laid along the direction of the clicked edge, regardless of the face itself (west rim of the top face -> east-west axis, north rim of the top face -> north-south axis, upper rim of a side face -> upright).",
+            "Facing blocks, middle of a face: the block turns clockwise around the axis of the clicked face (clicked on the top face: north -> east -> south -> west); with sneak, counter-clockwise.",
+            "Around the east-west axis (click on the east/west face) clockwise runs up -> north -> down -> south, around the north-south axis (click on the north/south face) up -> east -> down -> west.",
+            "Facing blocks, rim of a face: the block then points toward the clicked edge; if it cannot take that direction, it points the opposite way, provided that is allowed; if that is not allowed either, it is turned as if you had clicked the middle.",
+            "If a facing block points exactly along the axis it is to be turned around (a piston pointing up, clicked on the top face, for example), it snaps to a default starting direction: when the top/bottom face is clicked it prefers north, then east, south, west; on the east/west face up, then north, down, south; on the north/south face up, then east, down, west; if none of those is allowed, the block's first allowed direction.",
+            "If the default starting direction is already the current facing, or if the calculated direction is not allowed for the block (a furnace that would have to point up or down when a side face is clicked, say), it steps through the block's allowed directions in turn, in the order of the block property; with sneak, backwards.",
+            "Blocks with 16-step rotation: a click on the middle turns 1 step forward, with sneak 1 step back; a rim click turns 4 steps (a quarter turn), with sneak 4 steps back; which edge was hit does not matter here; after 15 comes 0 again.",
+            "On every successful rotation the block is set server-side with a full block update (Block.UPDATE_ALL, neighbors are notified), the spyglass sound (spyglass_use) is played (source BLOCKS, volume 1.0, pitch 1.0) and 14 portal particles appear around the block; 6 ticks later (RotatorItem.ECHO_DELAY_TICKS, queued per player and played from the rotator's inventory tick) the enderman teleport sound follows at the block (volume 0.3, pitch 1.6) with 5 reverse portal particles.",
+            "If nothing about the block changes, or the block has no matching property, nothing happens: no durability, no sound, and the click is passed on to the game (InteractionResult.PASS; a click on stone stays without effect).",
+            "The player's own facing does not matter; only the clicked face, the spot on it and the sneak state count.",
+            "Both behaviours are covered by gametests: log axis via the middle and the rim of a face, furnace clockwise and backwards while sneaking, and that stone stays unchanged and returns PASS."
+          ],
+          "controls": [
+            "Right-click the middle of a block face: turns forward (axis to the face's axis or on to the next in the cycle, clockwise around the axis of the face, or +1 step for 16-step rotation).",
+            "Sneak + right-click the middle: turns backwards (counter-clockwise or -1 step); no difference on axis blocks.",
+            "Right-click the rim of a face (outer 2 pixels): lays the axis toward the clicked edge, turns facing blocks straight to the edge (or to the opposite direction), or turns 16-step blocks a quarter turn (4 steps, backwards with sneak)."
+          ],
+          "caveats": [
+            "On axis blocks (logs, pillars) sneaking has no effect: handleAxisRotation is not handed the sneak state, so middle and rim clicks behave the same with and without sneaking.",
+            "The tooltip texts \"Use to rotate blocks.\" (en_us) and \"Dreht Blöcke ohne Abbau.\" (de_de) under tooltip.simplebuilding.rotator only exist in the language files; RotatorItem has no appendHoverText, the global ItemMixin only appends trim/glow lines, and no other code refers to the key. The text therefore does not appear in game.",
+            "For axes only the complete property BlockStateProperties.AXIS (X/Y/Z) counts; a horizontal-only axis property (horizontal_axis) is not recognised.",
+            "For facing blocks only a property named facing, horizontal_facing or hopper_facing with direction values is recognised; blocks that store their orientation under another name cannot be turned.",
+            "If a facing block already points toward the clicked edge, a rim click changes nothing (same state), so neither durability is taken nor a sound played.",
+            "The charge is taken off the stack in the hand that was used (context.getItemInHand()), never below empty.",
+            "There is no cooldown and no reach change: the Transposer only works on the block you can click normally.",
+            "Extended pistons (any block whose extended property is true), piston heads (PistonHeadBlock) and moving blocks (MovingPistonBlock) are refused, so no durability is taken and no sound plays. Turning an extended piston would detach its head, and its retraction deletes the block in the head cell without any hardness check - bedrock included."
+          ],
+          "title": null
+        },
+        "de": {
+          "summary": "Der Transponierer ist ein Werkzeug, mit dem man ausrichtbare Blöcke (Stämme, Öfen, Kolben, Trichter und ähnliche) per Rechtsklick an Ort und Stelle drehen kann, ohne sie abzubauen.",
+          "details": [
+            "Im Spiel heißt das Item auf Deutsch und Englisch \"Transponierer\".",
+            "Rezept (Werkbank, geformt \" I \" / \"IPI\" / \"CI \", P = Enderperle, C = Eisenkern unten links): auf MC 26.3 sind die vier I Eisenstangen (Besitzer 2026-10-02), auf 26.2 Eisenbarren; Rezeptkategorie \"equipment\". Die Item-Textur zeigt eine kleine Enderperle im Bogen.",
+            "Das Rezept wird freigeschaltet, sobald man einen Eisenbarren im Inventar hat.",
+            "Ladung: 1024 (die Haltbarkeit ist die Ladung); Verzauberbarkeit 15; jede erfolgreiche Drehung kostet 1 Ladung (RotatorItem.drain: Haltbarkeit/Unbreaking wirkt über EnchantmentHelper.processDurabilityChange, Kreativ kostet nichts). Der Transponierer zerbricht nie - bei vollem Schaden bleibt er, ist leer (RotatorItem.isEmpty), zeigt item/rotator_empty (range_dispatch nach Schaden) und antwortet mit FAIL und einem Werfer-Fehlklick, statt zu drehen. Aufladen im Amboss (AnvilRechargeable, gemeinsam mit der Resonanzstab): Enderperlen, 0 Stufen, 64 Ladung je Perle, 16 Perlen = voll, verbraucht werden nur die nötigen. Die Kosten sind die Config-Option rotatorChargePerTurn (config/simplegadgets-server.json) (Standard 1).",
+            "Zweite Funktion: ein platzierbarer Block in der Nebenhand + Rechtsklick tauscht den angeklickten Block (RotatorSwap, Einzelheiten auf der Transponierer-Seite): die Drops des alten Blocks landen im Inventar, ein Tausch kostet doppelt so viel Ladung wie eine Drehung, Effizienz verkürzt das Ausholen (V = sofort).",
+            "Stapelgröße 1.",
+            "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Attraktor.",
+            "Das Item-Modell hat das Elternmodell minecraft:item/handheld, der Transponierer wird also wie ein Werkzeug in der Hand gehalten.",
+            "Der Transponierer steht im Tag minecraft:enchantable/durability; Verzauberungen, die über diesen Tag zugelassen werden (etwa Haltbarkeit und Reparatur), lassen sich per Amboss und verzaubertem Buch anbringen, und da die Item-Einstellungen enchantable(15) setzen, nimmt auch der Verzauberungstisch den Transponierer an.",
+            "Das Drehen wirkt nur auf Blöcke mit einer der drei Eigenschaften: Achse (axis, z.B. Stämme, Säulen), Blickrichtung (facing, z.B. Ofen, Kolben, Trichter) oder 16-stufige Drehung (rotation, Wert 0 bis 15).",
+            "Prüfreihenfolge: Hat ein Block eine Achse, wird nur die Achse gedreht; sonst die Blickrichtung; sonst die 16-stufige Drehung. Nur die erste zutreffende Eigenschaft wird verändert.",
+            "Rand-Erkennung: Trifft der Klick die äußeren 0,125 Block (2 von 16 Pixeln) einer Fläche, gilt er als Randklick in Richtung dieser Kante; alles weiter innen zählt als Klick auf die Mitte.",
+            "In einer Ecke gewinnt die zuerst geprüfte Kante: auf Ober-/Unterseite West, Ost, Nord, Süd; auf Ost-/Westseite Unten, Oben, Nord, Süd; auf Nord-/Südseite Unten, Oben, West, Ost.",
+            "Achsen-Blöcke, Mitte einer Fläche: Die Achse springt auf die Achse der angeklickten Fläche (Klick auf die Nordseite eines stehenden Stamms legt ihn in Nord-Süd-Richtung); liegt der Block schon in dieser Achse, wechselt er zur nächsten im Zyklus X -> Y -> Z -> X (Klick auf die Oberseite eines stehenden Stamms legt ihn in Nord-Süd-Richtung).",
+            "Achsen-Blöcke, Rand einer Fläche: Die Achse wird auf die Richtung der angeklickten Kante gelegt, unabhängig von der Fläche selbst (Westrand der Oberseite -> Ost-West-Achse, Nordrand der Oberseite -> Nord-Süd-Achse, oberer Rand einer Seitenfläche -> senkrecht).",
+            "Blickrichtungs-Blöcke, Mitte einer Fläche: Der Block dreht sich im Uhrzeigersinn um die Achse der angeklickten Fläche (auf die Oberseite geklickt: Norden -> Osten -> Süden -> Westen); mit Schleichen gegen den Uhrzeigersinn.",
+            "Um die Ost-West-Achse (Klick auf Ost-/Westseite) läuft der Uhrzeigersinn Oben -> Norden -> Unten -> Süden, um die Nord-Süd-Achse (Klick auf Nord-/Südseite) Oben -> Osten -> Unten -> Westen.",
+            "Blickrichtungs-Blöcke, Rand einer Fläche: Der Block zeigt danach in Richtung der angeklickten Kante; kann er diese Richtung nicht annehmen, zeigt er in die Gegenrichtung, sofern die erlaubt ist; ist auch die nicht erlaubt, wird wie bei einem Klick auf die Mitte gedreht.",
+            "Zeigt ein Blickrichtungs-Block genau entlang der Achse, um die gedreht werden soll (z.B. ein nach oben zeigender Kolben, Klick auf die Oberseite), springt er auf eine Standard-Startrichtung: bei Klick auf Ober-/Unterseite bevorzugt Norden, dann Osten, Süden, Westen; bei Klick auf Ost-/Westseite bevorzugt Oben, dann Norden, Unten, Süden; bei Klick auf Nord-/Südseite bevorzugt Oben, dann Osten, Unten, Westen; ist keine davon erlaubt, die erste erlaubte Richtung des Blocks.",
+            "Ist die Standard-Startrichtung bereits die aktuelle Blickrichtung, oder ist die berechnete Richtung für den Block nicht erlaubt (z.B. ein Ofen, der bei Klick auf eine Seitenfläche nach oben oder unten zeigen müsste), wird der Reihe nach durch die erlaubten Richtungen des Blocks geschaltet, in der Reihenfolge der Block-Eigenschaft; mit Schleichen rückwärts.",
+            "Blöcke mit 16-stufiger Drehung: Ein Klick auf die Mitte dreht um 1 Schritt weiter, mit Schleichen um 1 Schritt zurück; ein Randklick dreht um 4 Schritte (eine Vierteldrehung), mit Schleichen 4 Schritte zurück; welche Kante getroffen wurde, spielt hier keine Rolle; nach 15 folgt wieder 0.",
+            "Bei jeder erfolgreichen Drehung wird der Block serverseitig mit vollem Block-Update gesetzt (Block.UPDATE_ALL, Nachbarn werden benachrichtigt), der Fernrohr-Klang (spyglass_use) abgespielt (Quelle BLOCKS, Lautstärke 1,0, Tonhöhe 1,0) und 14 Portal-Partikel erscheinen um den Block; 6 Ticks später (RotatorItem.ECHO_DELAY_TICKS, je Spieler vorgemerkt und aus dem Inventar-Tick des Transponierers gespielt) folgt am Block der Enderman-Teleport-Klang (Lautstärke 0,3, Tonhöhe 1,6) mit 5 umgekehrten Portal-Partikeln.",
+            "Ändert sich am Block nichts oder hat der Block keine passende Eigenschaft, passiert nichts: keine Haltbarkeit, kein Klang, der Klick wird an das Spiel weitergereicht (InteractionResult.PASS; ein Klick auf Stein bleibt folgenlos).",
+            "Die Blickrichtung des Spielers spielt keine Rolle; nur die angeklickte Fläche, die Stelle auf ihr und der Schleich-Status zählen.",
+            "Beide Verhalten sind durch Spieltests abgedeckt: Stamm-Achse per Flächenmitte und Rand, Ofen im Uhrzeigersinn und mit Schleichen rückwärts, und dass Stein unverändert bleibt und PASS liefert."
+          ],
+          "controls": [
+            "Rechtsklick auf die Mitte einer Blockfläche: dreht vorwärts (Achse auf die Flächenachse bzw. zur nächsten im Zyklus, im Uhrzeigersinn um die Achse der Fläche, bzw. +1 Schritt bei 16-stufiger Drehung).",
+            "Schleichen + Rechtsklick auf die Mitte: dreht rückwärts (gegen den Uhrzeigersinn bzw. -1 Schritt); bei Achsen-Blöcken ohne Unterschied.",
+            "Rechtsklick auf den Rand einer Fläche (äußere 2 Pixel): legt die Achse in Richtung der angeklickten Kante, dreht Blickrichtungs-Blöcke direkt zur Kante hin (oder in die Gegenrichtung), bzw. dreht 16-stufige Blöcke um eine Vierteldrehung (4 Schritte, mit Schleichen rückwärts)."
+          ],
+          "caveats": [
+            "Bei Achsen-Blöcken (Stämme, Säulen) hat Schleichen keine Wirkung: handleAxisRotation bekommt den Schleich-Status nicht übergeben, Mitte- und Randklick verhalten sich mit und ohne Schleichen gleich.",
+            "Die Tooltip-Texte \"Dreht Blöcke ohne Abbau.\" (de_de) bzw. \"Use to rotate blocks.\" (en_us) unter tooltip.simplebuilding.rotator stehen nur in den Sprachdateien; RotatorItem hat kein appendHoverText, der globale ItemMixin hängt nur Trim-/Leucht-Zeilen an, und kein anderer Code verweist auf den Schlüssel. Der Text erscheint im Spiel daher nicht.",
+            "Bei Achsen zählt nur die vollständige Eigenschaft BlockStateProperties.AXIS (X/Y/Z); eine nur waagerechte Achsen-Eigenschaft (horizontal_axis) wird nicht erkannt.",
+            "Bei Blickrichtungs-Blöcken wird nur eine Eigenschaft mit dem Namen facing, horizontal_facing oder hopper_facing und Richtungswerten erkannt; Blöcke, deren Ausrichtung unter einem anderen Namen gespeichert ist, lassen sich nicht drehen.",
+            "Zeigt ein Blickrichtungs-Block bereits zur angeklickten Kante, ändert ein Randklick nichts (gleicher Zustand), es wird weder Haltbarkeit abgezogen noch ein Klang gespielt.",
+            "Die Ladung wird vom Stapel in der benutzten Hand abgezogen (context.getItemInHand()), nie unter leer.",
+            "Es gibt keine Abklingzeit und keine Reichweitenänderung: Der Transponierer wirkt nur auf den Block, den man normal anklicken kann.",
+            "Ausgefahrene Kolben (jeder Block, dessen Eigenschaft extended wahr ist), Kolbenköpfe (PistonHeadBlock) und bewegte Blöcke (MovingPistonBlock) werden verweigert; es wird weder Haltbarkeit abgezogen noch ein Klang gespielt. Ein gedrehter ausgefahrener Kolben verlöre seinen Kopf, und sein Einfahren löscht den Block in der Kopfzelle ohne jede Härteprüfung - auch Grundgestein."
+          ],
+          "title": null
+        },
+        "sources": [
+          "modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java",
+          "modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorSwap.java",
+          "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator.json",
+          "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/rotator_without_simplebuilding.json"
+        ]
+      },
+      "texture": "assets/textures/simplegadgets/item/rotator.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "A tool for those who like things to face the right way."
+          ],
+          "use": [
+            "Right-click an orientable block (logs, furnaces, pistons, hoppers and the like) to turn it in place without breaking it. Built around an iron core."
+          ],
+          "secret": [
+            "It turns the thing you click, not the thing you wish you had clicked. Mind the face you aim at."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Werkzeug für alle, die Dinge gern richtig ausgerichtet haben."
+          ],
+          "use": [
+            "Rechtsklick auf einen ausrichtbaren Block (Stämme, Öfen, Kolben, Trichter und dergleichen) dreht ihn an Ort und Stelle, ohne ihn abzubauen. Gebaut um einen Eisenkern."
+          ],
+          "secret": [
+            "Er dreht das, was du anklickst, nicht das, was du gern angeklickt hättest. Achte auf die Seite, auf die du zielst."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplegadgets:rotator",
+        "simplegadgets:rotator_without_simplebuilding"
       ],
       "usedIn": []
     },
@@ -372,13 +874,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
-    "recipes": 3,
+    "features": 5,
+    "recipes": 7,
     "lootTables": 0,
-    "tags": 0,
+    "tags": 1,
     "advancements": 0,
     "enchantments": 0,
-    "items": 2,
+    "items": 4,
     "blocks": 0,
     "trades": 0,
     "config": 0,

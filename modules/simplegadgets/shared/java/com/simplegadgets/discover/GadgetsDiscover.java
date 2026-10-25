@@ -51,13 +51,16 @@ public final class GadgetsDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simplegadgets:amethyst_lens",
             "simplegadgets:creative_tab_switch",
             "simplegadgets:gadget_hud",
             "simplegadgets:gauge",
             "simplegadgets:guide_book",
             "simplegadgets:migration",
+            "simplegadgets:rotator",
             "simplegadgets:velocity_gauge");
-    static final List<Tip> TIPS = List.of();
+    static final List<Tip> TIPS = List.of(
+            new Tip("rotator", List.of("rotator")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

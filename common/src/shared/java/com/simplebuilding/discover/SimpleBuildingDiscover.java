@@ -467,7 +467,6 @@ public final class SimpleBuildingDiscover {
             new Tip("building_wand", List.of("*_building_wand")),
             new Tip("blueprint", List.of("blueprint")),
             new Tip("magnet", List.of("magnet")),
-            new Tip("rotator", List.of("rotator")),
             new Tip("autonomous_crafter", List.of("autonomous_crafter")),
             new Tip("auto_smither", List.of("auto_smither")),
             new Tip("detector", List.of("detector")),
