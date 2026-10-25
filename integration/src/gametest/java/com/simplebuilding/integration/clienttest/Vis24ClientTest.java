@@ -185,14 +185,14 @@ public final class Vis24ClientTest implements FabricClientGameTest {
                 "minecraft:fletching_table", "minecraft:ender_chest",
                 // mod blocks
                 "simplestorage:reinforced_chest", "simplestorage:netherite_chest", "simplestorage:enderite_chest",
-                "simplestorage:oak_crate", "simplestorage:storage_crafting_table",
+                // no crate (right-click takes/puts, no GUI) and no ownerless shop block: they open no screen by design (VIS24-11)
+                "simplestorage:storage_crafting_table",
                 "simplebuilding:reinforced_hopper", "simplebuilding:netherite_hopper", "simplebuilding:enderite_hopper",
                 "simpleovens:reinforced_furnace", "simpleovens:netherite_blast_furnace", "simpleovens:enderite_furnace",
                 "simplebuilding:auto_smither", "simplebuilding:autonomous_crafter", "simplebuilding:astral_enchanting_table",
                 "simplebuilding:astral_vault", "simplebuilding:nihil_vault",
                 "simplebeacons:strong_beacon", "simplecrucibles:iron_crucible", "simplecrucibles:netherite_crucible",
                 "simplemusic:disc_press", "simpleblocks:shapecutter", "simplequestionary:questionary_table",
-                "simpleshops:sales_block", "simpleshops:sales_storage", "simpleshops:display_case",
                 "simpletools:death_vault"};
         for (String id : blocks) {
             if (!known(id)) {
