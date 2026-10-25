@@ -132,7 +132,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         // Rotator: Unbreaking ja, Mending nein (Besitzer 2026-09-28) - EnchantmentMixin liest diesen Tag.
         builder(ModTags.Items.XP_REPAIR_INCOMPATIBLE)
-                .add(key(ModItems.ROTATOR));
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.ROTATOR));
 
         builder(ItemTags.DURABILITY_ENCHANTABLE)
                 // Echo-Kompass (Simple Tweaks): Unbreaking/Mending wirken, siehe EchoCompassItem.
@@ -140,7 +140,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(ModItems.ORE_DETECTOR))
-                .add(key(ModItems.ROTATOR))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.ROTATOR))
                 .add(key(ModItems.ENDERITE_SPEAR))
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
@@ -148,7 +148,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         // Rotator: Effizienz verkuerzt das Ausholen des Tauschens (RotatorSwap.windupTicks).
         builder(ItemTags.MINING_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
-                .add(key(ModItems.ROTATOR));
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.ROTATOR));
 
         builder(ModTags.Items.RADIUS_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)

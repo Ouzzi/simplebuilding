@@ -143,6 +143,7 @@ public final class RotatorTests {
      * answers for the same click depending on a key nobody thinks about while placing logs.
      */
     public static void logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
         player.setShiftKeyDown(false);
@@ -213,6 +214,7 @@ public final class RotatorTests {
      * {@code <=}, which moves the exact boundary onto the rim side.
      */
     public static void rimIsTheOuterEighthOfEveryFaceAndNowhereInside(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
         player.setShiftKeyDown(false);
@@ -367,6 +369,7 @@ public final class RotatorTests {
      * of the first two entries of a priority list in {@code getStandardRotationStart}.
      */
     public static void facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
         player.setShiftKeyDown(false);
@@ -491,6 +494,7 @@ public final class RotatorTests {
      * silently strip every directional block of its support.
      */
     public static void rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
         player.setShiftKeyDown(false);
@@ -578,6 +582,7 @@ public final class RotatorTests {
      * particular rim direction; and swapping the sign of the sneak step.
      */
     public static void sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
 
@@ -653,6 +658,7 @@ public final class RotatorTests {
      * still turn blocks; and dropping the {@code newState != state} guard.
      */
     public static void chargeRunsDownButTheRotatorNeverBreaks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ItemStack probe = new ItemStack(ModItems.ROTATOR);
         helper.assertValueEqual(probe.getMaxDamage(), RATED_DURABILITY, "the rotator's full charge");
         helper.assertValueEqual(probe.getMaxStackSize(), 1, "the rotator's stack size");
@@ -710,6 +716,7 @@ public final class RotatorTests {
      * charge per pearl, or consuming the whole stack for a top-up.
      */
     public static void anvilRechargesWithSixteenEnderPearlsForNoLevels(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, false);
         player.experienceLevel = 0;
         helper.assertValueEqual(RotatorItem.PEARLS_FOR_FULL * RotatorItem.CHARGE_PER_PEARL, RotatorItem.MAX_CHARGE,
@@ -774,6 +781,7 @@ public final class RotatorTests {
      * {@code #minecraft:enchantable/durability} (Unbreaking then goes too).
      */
     public static void anvilTakesUnbreakingButRefusesMending(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
         net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> mending =
                 enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.MENDING);
@@ -825,6 +833,7 @@ public final class RotatorTests {
      * queueing it for clicks that turned nothing.
      */
     public static void aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, true);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
         helper.assertTrue(RotatorItem.ECHO_DELAY_TICKS > 0 && RotatorItem.ECHO_DELAY_TICKS <= 10,
@@ -874,6 +883,7 @@ public final class RotatorTests {
      * recipe book.
      */
     public static void craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         MinecraftServer server = helper.getLevel().getServer();
         RecipeManager recipes = server.getRecipeManager();
         Identifier recipeId = Identifier.fromNamespaceAndPath(SimpleBuildingGameTests.MOD_ID, "rotator");
@@ -992,6 +1002,7 @@ public final class RotatorTests {
      * the cost dropping back to one point, the hint not asking the swap, or the turn taking the click first.
      */
     public static void swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, false);
         ItemStack rotator = rotatorWithEfficiency(helper, 5);
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 3));
@@ -1029,6 +1040,7 @@ public final class RotatorTests {
      * instant, harder blocks take longer, and a base of 0 means always instant.
      */
     public static void swapWindupGrowsWithHardnessAndShrinksWithEfficiency(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, false);
         ServerPlayer creative = mockPlayer(helper, true);
         BlockPos pos = helper.absolutePos(TARGET);
@@ -1065,6 +1077,7 @@ public final class RotatorTests {
      * with the block changed or the charge gone does nothing and costs nothing.
      */
     public static void swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, false);
         ItemStack rotator = rotatorWithEfficiency(helper, 0);
         helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
@@ -1118,6 +1131,7 @@ public final class RotatorTests {
      * blocks, halves of double blocks, the dragon egg) and the lists on top: blacklist over whitelist over rule.
      */
     public static void swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         ServerPlayer player = mockPlayer(helper, false);
         BlockPos pos = helper.absolutePos(TARGET);
         ItemStack planks = new ItemStack(Items.BIRCH_PLANKS);
@@ -1206,6 +1220,7 @@ public final class RotatorTests {
      * without drops, without using up the block and without charge.
      */
     public static void swapRefusalsChangeNothingAndCreativeSwapsForFree(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Transposer on 26.3
         // empty charge
         ServerPlayer player = mockPlayer(helper, false);
         ItemStack empty = rotatorWithEfficiency(helper, 5);

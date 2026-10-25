@@ -263,7 +263,7 @@ public final class ConsumptionAndDurabilityTests {
 
         // --- rotator: one point for a rotation it performed ---
         player.getAbilities().instabuild = false;
-        ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+        ItemStack rotator = new ItemStack(com.simplebuilding.util.GadgetRefs.rotator());
         BlockPos log = new BlockPos(5, 1, 3);
         helper.setBlock(log, Blocks.OAK_LOG.defaultBlockState()
                 .setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
@@ -286,7 +286,7 @@ public final class ConsumptionAndDurabilityTests {
 
         // --- creative: the log still turns, the rotator stays pristine ---
         player.getAbilities().instabuild = true;
-        ItemStack creativeRotator = new ItemStack(ModItems.ROTATOR);
+        ItemStack creativeRotator = new ItemStack(com.simplebuilding.util.GadgetRefs.rotator());
         useOn(helper, player, creativeRotator, log, Direction.UP, TOP_CENTRE);
         helper.assertTrue(helper.getBlockState(log).getValue(BlockStateProperties.AXIS) == Direction.Axis.Y,
                 "the creative click did not turn the log, so the pristine rotator proves nothing");

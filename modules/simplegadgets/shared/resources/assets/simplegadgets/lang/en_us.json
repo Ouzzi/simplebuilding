@@ -34,5 +34,9 @@
   "quests.simplegadgets.start.title": "Welcome to Simple Gadgets",
   "quests.simplegadgets.start.subtitle": "Your free guide",
   "quests.simplegadgets.start.welcome.title": "A free guide",
-  "quests.simplegadgets.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Gadgets Guide as a reward. You can also craft it from a book and a clock."
+  "quests.simplegadgets.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Gadgets Guide as a reward. You can also craft it from a book and a clock.",
+  "item.simplegadgets.rotator": "Transposer",
+  "tooltip.simplegadgets.rotator.empty": "Empty - recharge it in an anvil",
+  "tooltip.simplegadgets.rotator.recharge": "Anvil + ender pearls: %s for a full charge.",
+  "tooltip.simplegadgets.rotator.swap": "Off-hand block + click: swap blocks"
 }

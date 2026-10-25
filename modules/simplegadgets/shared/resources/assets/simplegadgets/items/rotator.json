@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplegadgets:item/rotator_empty"
+        },
+        "threshold": 1.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "simplegadgets:item/rotator"
+      },
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "simplegadgets:item/rotator_active"
+      },
+      "property": "simplegadgets:transform_hint"
+    },
+    "property": "minecraft:damage"
+  }
+}

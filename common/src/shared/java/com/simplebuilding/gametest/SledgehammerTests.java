@@ -1379,7 +1379,7 @@ public final class SledgehammerTests {
                     {Items.SHEARS, Blocks.PUMPKIN, true},
                     // Owner backlog Q4: the core's ore roll is a chance, not a transformation - no hint.
                     {ModItems.IRON_CORE, Blocks.STONE, false},
-                    {ModItems.ROTATOR, Blocks.OAK_STAIRS, true},
+                    {com.simplebuilding.util.GadgetRefs.rotator(), Blocks.OAK_STAIRS, true},
                     {Items.ECHO_SHARD, Blocks.STONE, false}, {Items.GLOW_INK_SAC, Blocks.STONE, false},
                     // Queue Nachtrag 24: the hammer only tilts while sneaking (SledgehammerOctetTests).
                     {com.simplebuilding.util.HammerRefs.item("diamond"), Blocks.STONE, false}, {ModItems.STONE_CHISEL, Blocks.STONE, true}}) {
@@ -1607,7 +1607,7 @@ public final class SledgehammerTests {
         InteractionHand off = InteractionHand.OFF_HAND;
 
         level.setBlockAndUpdate(pos, Blocks.CHEST.defaultBlockState());
-        holding(player, new ItemStack(ModItems.ROTATOR), ItemStack.EMPTY);
+        holding(player, new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()), ItemStack.EMPTY);
         helper.assertFalse(fullHint(helper, hit, player, main), "rotator hinted on a chest that opens instead");
         player.setShiftKeyDown(true);
         helper.assertTrue(fullHint(helper, hit, player, main), "sneaking rotator did not hint on a chest");
@@ -1623,11 +1623,11 @@ public final class SledgehammerTests {
         helper.assertTrue(fullHint(helper, hit, player, main), "rotator did not hint on an iron door");
 
         level.setBlockAndUpdate(pos, Blocks.OAK_LOG.defaultBlockState());
-        holding(player, ItemStack.EMPTY, new ItemStack(ModItems.ROTATOR));
+        holding(player, ItemStack.EMPTY, new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()));
         helper.assertTrue(fullHint(helper, hit, player, off), "off-hand rotator behind an empty main hand");
-        holding(player, new ItemStack(Items.DIRT), new ItemStack(ModItems.ROTATOR));
+        holding(player, new ItemStack(Items.DIRT), new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()));
         helper.assertFalse(fullHint(helper, hit, player, off), "off hand hinted although the main hand places a block");
-        holding(player, new ItemStack(ModItems.ROTATOR), new ItemStack(ModItems.ROTATOR));
+        holding(player, new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()), new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()));
         helper.assertTrue(fullHint(helper, hit, player, main), "main-hand rotator on a log");
         helper.assertFalse(fullHint(helper, hit, player, off), "off hand hinted although the main hand turns the log");
         BlockState log = level.getBlockState(pos);

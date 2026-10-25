@@ -17,6 +17,7 @@ common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java modules
 common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestScreen.java
 common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackTooltip.java
 common/src/shared/java/com/simplebuilding/client/property/GaugeNeedleModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeNeedleModelProperty.java
+common/src/shared/java/com/simplebuilding/client/property/TransformHintModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/TransformHintModelProperty.java
 common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackBlockTint.java
 common/src/shared/java/com/simplebuilding/client/render/BackpackLayer.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java
 common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java
@@ -34,12 +35,14 @@ common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java modul
 common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlockEntity.java
 common/src/shared/java/com/simplebuilding/entity/ModEntities.java modules/simplefun/shared/java/com/simplefun/registry/ModEntities.java allow: registerModEntities/0
 common/src/shared/java/com/simplebuilding/entity/vehicle/TieredFurnaceMinecart.java modules/simpleovens/shared/java/com/simpleovens/cart/TieredFurnaceMinecart.java allow: fuelFactor/1 topSpeedShare/1
+common/src/shared/java/com/simplebuilding/items/AnvilRechargeable.java modules/simplelib/shared/java/com/simplelib/api/AnvilRechargeable.java
 common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplefun/shared/java/com/simplefun/registry/ModItems.java allow: createEnchantedEnderiteFoodEffects/0 createEnchantedNetheriteFoodEffects/0 createEnderiteFoodEffects/1 createNetheriteFoodEffects/1 registerModItems/0 trappedCopperChests/0
 common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java allow: createEnchantedEnderiteFoodEffects/0 createEnchantedNetheriteFoodEffects/0 createEnderiteFoodEffects/1 createNetheriteFoodEffects/1 register/0 registerModItems/0 trappedCopperChests/0
 common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java allow: carriedEntries/1 refillHandFromWornBackpack/3 replaceSlot/3
 common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
 common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
+common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java allow: publishFacts/0
 common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
 common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java modules/simplegadgets/shared/java/com/simplegadgets/gauge/VelocityGaugeItem.java
 common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTooltipData.java
@@ -111,6 +114,7 @@ common/src/shared/java/com/simplebuilding/util/PlacedBundles.java modules/simple
 common/src/shared/java/com/simplebuilding/util/PlacedPlate.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedPlate.java allow: buildDisc/2 discPlace/3
 common/src/shared/java/com/simplebuilding/util/PlacedSolids.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedSolids.java allow: discBoxes/0 has/1 modelId/1 modelId/2
 common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java allow: consumeMaterials/1 extraMaterials/1 hasMaterials/1 isHammerStance/1 isHammerTarget/3 isPlaceGesture/3 isPlaceable/1 isPlaceableBlueprint/1 isPlaceableOctant/1 isPlaceableSmall/1 isPlaceableTemplate/1 isPlacedOctant/2 isToolStance/1 isToolTarget/3 isTrimTemplate/1 itemListed/2 leftToSimpleTrims/1 mayChange/3 migrateToSimpleTrims/4 opensPlacedBlueprint/2 toggleFlat/5 toggleOctantOutline/4 upgrades/0 usePlacedBlueprint/3
+common/src/shared/java/com/simplebuilding/util/RotatorSwap.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorSwap.java
 common/src/shared/java/com/simplebuilding/util/ShulkerShells.java modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java allow: canUpgrade/3 shellOf/1 targetIndex/2 upgrade/4
 common/src/shared/java/com/simplebuilding/util/StorageDyes.java modules/simplestorage/shared/java/com/simplestorage/bundle/StorageDyes.java
 common/src/shared/java/com/simplebuilding/util/TieredChests.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChests.java allow: maxStackSize/3

@@ -4,6 +4,8 @@ import com.simplegadgets.GadgetsRegistry;
 import com.simplegadgets.SimpleGadgets;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -14,7 +16,7 @@ import net.minecraft.world.item.Items;
 public final class GadgetsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        SimpleGadgets.init();
+        SimpleGadgets.init(FabricLoader.getInstance().getConfigDir());
         GadgetsRegistry.registerItems();
         GadgetsRegistry.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
@@ -33,6 +35,8 @@ public final class GadgetsFabric implements ModInitializer {
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.WRITABLE_BOOK))) out.insertBefore(Items.WRITABLE_BOOK, book, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             else book.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplegadgets.rotator.RotatorItem.onDisconnect(handler.player));
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplegadgets.rotator.RotatorItem.clearAll());
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplegadgets.guide.GadgetsGuide.installQuests(FabricLoader.getInstance().getConfigDir());
     }
 }

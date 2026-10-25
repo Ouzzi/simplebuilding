@@ -15,6 +15,8 @@ public final class GadgetsFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         RangeSelectItemModelProperties.ID_MAPPER.put(GaugeNeedleModelProperty.ID, GaugeNeedleModelProperty.CODEC);
+        net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties.ID_MAPPER.put(
+                com.simplegadgets.client.TransformHintModelProperty.ID, com.simplegadgets.client.TransformHintModelProperty.CODEC);
         GaugeHud.register();
         HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, com.simplegadgets.SimpleGadgets.id("gauge_hud"),
                 (context, tickCounter) -> GaugeHud.render(context));

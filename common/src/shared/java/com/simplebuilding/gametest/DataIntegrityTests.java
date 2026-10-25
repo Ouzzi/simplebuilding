@@ -2849,7 +2849,7 @@ public final class DataIntegrityTests {
         }
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, com.simplebuilding.util.HammerRefs.item("enderite"),
-                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ROTATOR, ModItems.BLUEPRINT,
+                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, com.simplebuilding.util.GadgetRefs.rotator(), ModItems.BLUEPRINT,
                 ModItems.OCTANT, ModItems.ENDERITE_BUILDING_WAND));
         // Waffen und Ruestung (Besitzer 2026-10-02: wie in Vanilla getrennt von den Werkzeugen).
         pinned.put(ModItemGroupsContent.Tab.COMBAT, List.of(
@@ -3829,7 +3829,7 @@ public final class DataIntegrityTests {
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(CreativeTabLayout.Row.of("gadgets",
                 Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
-                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
+                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), TweaksItems.LASER_POINTER,
                 ModItems.OCTANT));
         List<ItemStack> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
@@ -4128,7 +4128,7 @@ public final class DataIntegrityTests {
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
-                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, com.simplebuilding.util.GadgetRefs.gauge(),
+                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), com.simplebuilding.util.GadgetRefs.gauge(),
                 Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {

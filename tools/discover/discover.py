@@ -54,8 +54,7 @@ SB_TIPS = [
      "Mit einem Baustab in der anderen Hand bauen"),
     ("magnet", ["magnet"], "Hold it to pull in items; sneak to pause",
      "Halten zieht Items an; Schleichen pausiert"),
-    ("rotator", ["rotator"], "Use on a block to turn it in place",
-     "Auf Block benutzen: dreht ihn an Ort und Stelle"),
+    # OW24-2 G2: the Transposer tip is Simple Gadgets' (simplegadgets id below; 26.2 keeps the class but loses the tip)
     # split stage 8c-2: the backpack tip is Simple Storage's (simplestorage id below)
     ("autonomous_crafter", ["autonomous_crafter"], "Crafts by itself onto a hopper below; redstone stops it",
      "Craftet selbst in einen Trichter darunter; Redstone stoppt"),
@@ -153,7 +152,9 @@ MODS = [
     dict(id="simplelights", ns=["simplelights"], cls="LightsDiscover", package="com.simplelights.discover",
          own_packages=["com.simplelights."]),
     dict(id="simplegadgets", ns=["simplegadgets"], cls="GadgetsDiscover", package="com.simplegadgets.discover",
-         own_packages=["com.simplegadgets."]),
+         own_packages=["com.simplegadgets."],
+         tips=[("rotator", ["rotator"], "Use on a block to turn it in place",
+                "Auf Block benutzen: dreht ihn an Ort und Stelle")]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

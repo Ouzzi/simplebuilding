@@ -496,7 +496,7 @@ public final class SearchTabPlacement {
                 com.simplebuilding.util.StorageRefs.item("quiver"), com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), com.simplebuilding.util.StorageRefs.item("netherite_quiver"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"),
                 com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite")));
         List<ItemLike> gadgets = new ArrayList<>(List.of(TweaksItems.ECHO_COMPASS, com.simplebuilding.util.GadgetRefs.gauge(),
-                ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER, ModItems.OCTANT));
+                ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(), TweaksItems.LASER_POINTER, ModItems.OCTANT));
         for (DyeColor color : DyeColor.values()) {
             Item colored = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (colored != null) {

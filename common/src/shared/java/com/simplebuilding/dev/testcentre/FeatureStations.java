@@ -64,7 +64,7 @@ public final class FeatureStations {
 
     /** Geraete mit eigener Zustandszeile (Ladung, Risse); die Haltbarkeits-Tafeln lassen sie aus. */
     public static boolean hasOwnStateLine(Item item) {
-        return item == TweaksItems.LASER_POINTER || item == ModItems.ROTATOR || item == TweaksItems.ECHO_COMPASS;
+        return item == TweaksItems.LASER_POINTER || item == com.simplebuilding.util.GadgetRefs.rotator() || item == TweaksItems.ECHO_COMPASS;
     }
 
     public static TcCanvas states(TcContext ctx) {
@@ -141,8 +141,8 @@ public final class FeatureStations {
                 worn(new ItemStack(TweaksItems.LASER_POINTER), 1F), worn(new ItemStack(TweaksItems.LASER_POINTER), 0.5F),
                 new ItemStack(TweaksItems.LASER_POINTER), new ItemStack(Items.AMETHYST_SHARD))));
         gadgets.add(new TcCanvas.Line(TcText.t("states.rotator_charge", "Rotator"), List.of(
-                worn(new ItemStack(ModItems.ROTATOR), 1F), worn(new ItemStack(ModItems.ROTATOR), 0.5F),
-                new ItemStack(ModItems.ROTATOR), new ItemStack(Items.ENDER_PEARL))));
+                worn(new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()), 1F), worn(new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()), 0.5F),
+                new ItemStack(com.simplebuilding.util.GadgetRefs.rotator()), new ItemStack(Items.ENDER_PEARL))));
         List<ItemStack> echo = new ArrayList<>();
         for (float stage : ECHO_CRACK_STAGES) {
             echo.add(worn(new ItemStack(TweaksItems.ECHO_COMPASS), stage));

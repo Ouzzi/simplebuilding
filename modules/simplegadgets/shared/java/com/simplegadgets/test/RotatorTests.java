@@ -1,0 +1,1400 @@
+package com.simplegadgets.test;
+
+import com.simplegadgets.GadgetsRegistry;
+import com.simplegadgets.SimpleGadgets;
+import com.simplegadgets.config.GadgetsConfig;
+import com.simplegadgets.rotator.RotatorItem;
+import com.simplegadgets.rotator.RotatorSwap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.context.ContextMap;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
+import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * The rotator's geometry, in full: which block state a right click produces, for every branch
+ * {@code RotatorItem#calculateNewState} can take.
+ *
+ * <p>{@code ItemBehaviourTests} already pins two of them - the axis cycle seen from the top face
+ * and a clockwise/counter clockwise turn around Y - and
+ * {@code ConsumptionAndDurabilityTests#octantAndRotatorSpendOnePointOfWearPerAcceptedClick} pins
+ * the one point of wear per accepted click. Everything else in this item is pure arithmetic on
+ * directions with no test behind it: the two hand written rotation tables for the X and Z axes,
+ * three of the four rim branches on every face, the priority start directions, the two fallbacks
+ * when a block cannot hold the direction that was computed, and the 16 step rotation blocks.
+ * That is the kind of code that keeps compiling across a port while quietly turning blocks the
+ * wrong way, which is why it is written out case by case here.
+ *
+ * <p>Two conventions run through the whole file:
+ * <ul>
+ *   <li>Every click states the hit position <em>inside</em> the clicked block (0..1 per axis),
+ *       because that is exactly the number {@code getRimDirection} subtracts and reads.</li>
+ *   <li>Every rim assertion is paired with, or contrasted against, the centre click on the same
+ *       face from the same starting state. A rim case whose expected result happens to equal the
+ *       centre result would pass even with the rim detection deleted, so the starting axis is
+ *       chosen per case to make the two differ.</li>
+ * </ul>
+ *
+ * <h2>Known defect</h2>
+ *
+ * <p><b>On every block that answers a right click itself, the rotator only works while sneaking,
+ * so half of its behaviour is unreachable there.</b> {@code ServerPlayerGameMode#useItemOn}
+ * computes {@code suppressUsingBlock = player.isSecondaryUseActive() && haveSomethingInOurHands}
+ * and, unless that holds, offers the click to the block before the item: a furnace opens its menu
+ * in {@code AbstractFurnaceBlock#useWithoutItem}, a hopper in {@code HopperBlock#useWithoutItem},
+ * a sign opens its editor in {@code SignBlock#useWithoutItem} (a rotator is no
+ * {@code SignApplicator}, so {@code SignBlock#useItemOn} hands it straight on), and each of those
+ * consumes the action. {@code RotatorItem#useOn} is never entered, so the sneak flag it reads in
+ * {@code RotatorItem} line 34 is true in every call that reaches it from such a block.
+ *
+ * <p>In the game that means: a furnace or a hopper can only ever be turned counter clockwise, a
+ * sign only backwards, one step per click - the forward half of {@code rotateAroundAxis} and the
+ * {@code change = +1} of the 16 step branch are dead for exactly the blocks a player most often
+ * wants to turn. Logs and pistons are unaffected; they have no use action to swallow the click.
+ * The tests below call {@code Item#useOn} directly and therefore reach both senses, which is
+ * deliberate - pinning only the reachable half would leave the tables half unchecked - but where
+ * a case can only exist in the unreachable half, the javadoc says so on the spot.
+ *
+ * <h2>Not covered</h2>
+ * <ul>
+ *   <li><b>The click sound.</b> {@code world.playSound(null, ...)} on the server only queues a
+ *       packet for nearby players; a mock player's connection swallows it, so there is nothing to
+ *       observe.</li>
+ *   <li><b>The tooltip.</b> {@code RotatorItem#appendHoverText} (empty warning, recharge hint) is
+ *       assembled and translated client side; the lang file is a client asset the server test
+ *       environment never loads.</li>
+ *   <li><b>The inner {@code cycleDirectionList} call inside {@code handleFacingRotation}</b> (the
+ *       one guarded by {@code nextFacing == currentFacing} <em>after</em>
+ *       {@code getStandardRotationStart}). It is unreachable for every vanilla direction property:
+ *       to get there the block must already point along the clicked axis, and each of the three
+ *       priority lists starts with directions perpendicular to that same axis, so the start
+ *       direction can never come back equal to the current one. The <em>outer</em> fallback at the
+ *       end of the method is reachable and is covered by
+ *       {@link #rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue}.</li>
+ * </ul>
+ *
+ * <h2>Deliberately left out</h2>
+ *
+ * <p>The audit also asked for the rotator's position in the creative tab (directly behind the
+ * magnet). {@code ModItemGroupsContent#populate} is plain server side code and could be driven
+ * from here, but the assertion would pin a curation decision rather than a defect: reordering the
+ * tab on purpose would turn the test red without anything being broken. It is left to the eye.
+ */
+public final class RotatorTests {
+
+    private RotatorTests() {
+    }
+
+    /** Centre of a top face - outside the rim on both axes the rim check reads there. */
+    private static final Vec3 TOP_CENTRE = new Vec3(0.5, 1.0, 0.5);
+
+    /** The block every test turns; a fresh 8x8x8 room per test means one position is enough. */
+    private static final BlockPos TARGET = new BlockPos(2, 1, 2);
+
+    /** The rotator's full charge (= durability), as set in {@code GadgetsRegistry.ROTATOR}: 1024 turns. */
+    private static final int RATED_DURABILITY = 1024;
+
+    /** {@code ENCHANTABILITY_NETHERITE}, the enchantability the rotator is registered with. */
+    private static final int RATED_ENCHANTABILITY = 15;
+
+    // =====================================================================================
+    // AXIS BLOCKS (logs, pillars)
+    // =====================================================================================
+
+    /**
+     * A centre click on a block with an axis has exactly two outcomes, and this pins both plus the
+     * full cycle: if the block does not already lie along the clicked face's axis it snaps to that
+     * axis, and if it does, it advances one step through X -&gt; Y -&gt; Z -&gt; X. Sneaking changes
+     * nothing at all here - {@code calculateNewState} does not even hand {@code isSneaking} to
+     * {@code handleAxisRotation}.
+     *
+     * <p>What breaks this: reversing or reshuffling {@code nextAxis} (only one of the three steps
+     * was pinned before, so a reversed cycle went half unnoticed); swapping the two arms of the
+     * {@code currentAxis != clickedAxis} test, which would make every click a cycle step; and
+     * starting to pass sneaking into the axis branch, which would give the tool two different
+     * answers for the same click depending on a key nobody thinks about while placing logs.
+     */
+    public static void logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        player.setShiftKeyDown(false);
+
+        // --- the log already lies along the clicked face's axis: one step through the cycle ---
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.EAST, new Vec3(1.0, 0.5, 0.5),
+                Direction.Axis.Y, "east face of a log that already lies along X");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.UP, TOP_CENTRE,
+                Direction.Axis.Z, "top face of an upright log");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.NORTH, new Vec3(0.5, 0.5, 0.0),
+                Direction.Axis.X, "north face of a log that already lies along Z");
+
+        // --- a different axis: the log simply lies down along the face that was clicked ---
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.EAST, new Vec3(1.0, 0.5, 0.5),
+                Direction.Axis.X, "east face of an upright log");
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.NORTH, new Vec3(0.5, 0.5, 0.0),
+                Direction.Axis.Z, "north face of a log lying along X");
+
+        // --- sneaking: the same two clicks have to give the same two answers ---
+        player.setShiftKeyDown(true);
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.EAST, new Vec3(1.0, 0.5, 0.5),
+                Direction.Axis.Y, "sneaking on the east face of a log lying along X");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.EAST, new Vec3(1.0, 0.5, 0.5),
+                Direction.Axis.X, "sneaking on the east face of an upright log");
+        player.setShiftKeyDown(false);
+
+        helper.succeed();
+    }
+
+    /**
+     * Where the rim is, and which direction each of the twelve rim branches stands for.
+     * {@code getRimDirection} reads the hit position inside the block and calls the outer 0.125 of
+     * a face a rim, in the two directions that are left once the face's own axis is taken out - a
+     * different pair of directions for each of the three face axes, and in a fixed order (X before
+     * Z on a horizontal face, Y before the rest on a vertical one).
+     *
+     * <p>It takes two probes to see the whole answer, and both halves are needed:
+     * <ul>
+     *   <li>A <b>log</b> shows <em>where</em> the rim is. A rim click sets the axis <em>of the rim
+     *       direction</em> while a centre click follows the axis rule instead, so every case starts
+     *       from an axis for which those two answers differ; otherwise it would still pass with the
+     *       rim detection deleted. What a log cannot show is which of the two ends of that axis the
+     *       code picked - {@code handleAxisRotation} only ever reads
+     *       {@code rimDirection.getAxis()}, so on a log DOWN and UP, or NORTH and SOUTH, are the
+     *       same answer.</li>
+     *   <li>A <b>piston</b> shows exactly that, one case per branch. {@code FACING} takes all six
+     *       directions, so the rim direction is written into the block unchanged and swapping the
+     *       two ends of a rim pair turns the case red. Each piston case also starts from a
+     *       direction for which the ordinary rotation would land somewhere else than the rim does,
+     *       so none of them survives the rim branch being dropped either.</li>
+     * </ul>
+     *
+     * <p>Then the <b>corners</b>, six of them, two per face axis. A corner is the only place where
+     * two of the four conditions are true at the same time, so it is the only place where the
+     * <em>order</em> of the checks is observable at all. Each corner case starts the piston at the
+     * direction the wrong order would produce: a reordered {@code getRimDirection} then answers
+     * "no change", the click becomes a PASS and the case is red rather than merely different.
+     *
+     * <p>Finally the margin, from four sides. 0.124 is rim and 0.13 is not, which alone would only
+     * say the boundary lies somewhere in between; 0.124999 is rim and 0.125 exactly is not, which
+     * pins it to the constant and to the strict {@code <}.
+     *
+     * <p>What breaks this: dropping any one of the twelve branches; swapping the two ends of any
+     * one rim pair (DOWN against UP on a side face, NORTH against SOUTH on the top face, ...);
+     * mixing up the axes inside one of the three blocks, e.g. returning WEST/EAST instead of
+     * NORTH/SOUTH on a north face; reordering the checks inside a block, which the corner cases
+     * turn into a no-op; changing the margin in either direction; and relaxing {@code <} to
+     * {@code <=}, which moves the exact boundary onto the rim side.
+     */
+    public static void rimIsTheOuterEighthOfEveryFaceAndNowhereInside(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        player.setShiftKeyDown(false);
+
+        // --- top face (axis Y): x is read first, then z; the rim directions are W/E and N/S ---
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, TOP_CENTRE,
+                Direction.Axis.Y, "centre of the top face (the baseline the rim cases differ from)");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.UP, new Vec3(0.95, 1.0, 0.5),
+                Direction.Axis.X, "east rim of the top face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, new Vec3(0.5, 1.0, 0.95),
+                Direction.Axis.Z, "south rim of the top face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, new Vec3(0.5, 1.0, 0.05),
+                Direction.Axis.Z, "north rim of the top face");
+
+        // --- east face (axis X): y is read first, then z; the rim directions are D/U and N/S ---
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.EAST, new Vec3(1.0, 0.5, 0.5),
+                Direction.Axis.X, "centre of the east face (baseline)");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.EAST, new Vec3(1.0, 0.05, 0.5),
+                Direction.Axis.Y, "lower rim of the east face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.EAST, new Vec3(1.0, 0.95, 0.5),
+                Direction.Axis.Y, "upper rim of the east face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.EAST, new Vec3(1.0, 0.5, 0.05),
+                Direction.Axis.Z, "north rim of the east face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.EAST, new Vec3(1.0, 0.5, 0.95),
+                Direction.Axis.Z, "south rim of the east face");
+
+        // --- north face (axis Z): y is read first, then x; the rim directions are D/U and W/E ---
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.NORTH, new Vec3(0.5, 0.5, 0.0),
+                Direction.Axis.X, "centre of the north face (baseline)");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.NORTH, new Vec3(0.5, 0.05, 0.0),
+                Direction.Axis.Y, "lower rim of the north face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Z, Direction.NORTH, new Vec3(0.5, 0.95, 0.0),
+                Direction.Axis.Y, "upper rim of the north face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.NORTH, new Vec3(0.05, 0.5, 0.0),
+                Direction.Axis.X, "west rim of the north face");
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.NORTH, new Vec3(0.95, 0.5, 0.0),
+                Direction.Axis.X, "east rim of the north face");
+
+        // --- the same twelve rim spots with a piston, which stores the direction and not just its
+        //     axis. Every start below is picked so that the ordinary rotation for that face would
+        //     answer something other than the rim direction, so each case fails both ways: if the
+        //     rim branch stops firing, and if it fires with the two ends of the pair swapped. ---
+
+        // top face (axis Y): x is read first, then z; the rim directions are W/E and N/S
+        assertPistonTurnsFrom(helper, player, rotator, Direction.NORTH, Direction.UP, new Vec3(0.05, 1.0, 0.5),
+                Direction.WEST, "west rim of the top face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.SOUTH, Direction.UP, new Vec3(0.95, 1.0, 0.5),
+                Direction.EAST, "east rim of the top face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.EAST, Direction.UP, new Vec3(0.5, 1.0, 0.05),
+                Direction.NORTH, "north rim of the top face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.WEST, Direction.UP, new Vec3(0.5, 1.0, 0.95),
+                Direction.SOUTH, "south rim of the top face, aimed at a piston");
+
+        // east face (axis X): y is read first, then z; the rim directions are D/U and N/S
+        assertPistonTurnsFrom(helper, player, rotator, Direction.UP, Direction.EAST, new Vec3(1.0, 0.05, 0.5),
+                Direction.DOWN, "lower rim of the east face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.NORTH, Direction.EAST, new Vec3(1.0, 0.95, 0.5),
+                Direction.UP, "upper rim of the east face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.DOWN, Direction.EAST, new Vec3(1.0, 0.5, 0.05),
+                Direction.NORTH, "north rim of the east face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.UP, Direction.EAST, new Vec3(1.0, 0.5, 0.95),
+                Direction.SOUTH, "south rim of the east face, aimed at a piston");
+
+        // north face (axis Z): y is read first, then x; the rim directions are D/U and W/E
+        assertPistonTurnsFrom(helper, player, rotator, Direction.UP, Direction.NORTH, new Vec3(0.5, 0.05, 0.0),
+                Direction.DOWN, "lower rim of the north face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.EAST, Direction.NORTH, new Vec3(0.5, 0.95, 0.0),
+                Direction.UP, "upper rim of the north face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.UP, Direction.NORTH, new Vec3(0.05, 0.5, 0.0),
+                Direction.WEST, "west rim of the north face, aimed at a piston");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.DOWN, Direction.NORTH, new Vec3(0.95, 0.5, 0.0),
+                Direction.EAST, "east rim of the north face, aimed at a piston");
+
+
+        // --- the corners, where two conditions are true at once and only the ORDER decides ---
+        // Every case below starts from the direction the wrong order would produce, so a reordered
+        // getRimDirection does not merely answer differently: it answers "no change at all", the
+        // click turns into a PASS and the assertion has nothing to compare. The audit of
+        // 2026-09-08 showed why this is needed - moving the two z checks in front of the two x
+        // ones left all 269 tests green.
+        assertPistonTurnsFrom(helper, player, rotator, Direction.NORTH, Direction.UP, new Vec3(0.05, 1.0, 0.05),
+                Direction.WEST, "north-west corner of the top face: x is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.SOUTH, Direction.UP, new Vec3(0.95, 1.0, 0.95),
+                Direction.EAST, "south-east corner of the top face: x is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.NORTH, Direction.EAST, new Vec3(1.0, 0.05, 0.05),
+                Direction.DOWN, "lower north corner of the east face: y is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.SOUTH, Direction.EAST, new Vec3(1.0, 0.95, 0.95),
+                Direction.UP, "upper south corner of the east face: y is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.WEST, Direction.NORTH, new Vec3(0.05, 0.05, 0.0),
+                Direction.DOWN, "lower west corner of the north face: y is read before x");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.EAST, Direction.NORTH, new Vec3(0.95, 0.95, 0.0),
+                Direction.UP, "upper east corner of the north face: y is read before x");
+
+        // --- the margin itself: 0.124 is inside the rim, 0.13 is already past it ---
+        // Both start from an axis for which "rim" and "centre" disagree, so each case can only be
+        // satisfied by the side of the boundary it claims.
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.UP, new Vec3(0.124, 1.0, 0.5),
+                Direction.Axis.X, "0.124 from the west edge, still inside the rim");
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, new Vec3(0.13, 1.0, 0.5),
+                Direction.Axis.Y, "0.13 from the west edge, no longer a rim");
+
+        // The pair above only says the boundary sits somewhere in (0.124, 0.13]. These two pin it
+        // to the constant itself and to the strictness of the comparison: 0.124999 is still rim,
+        // 0.125 exactly is not. A margin of 0.13 makes the second case rim; a margin of 0.124
+        // makes the first case centre; turning "<" into "<=" makes 0.125 rim. Each is red.
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.UP, new Vec3(0.124999, 1.0, 0.5),
+                Direction.Axis.X, "0.124999 from the west edge, the last hair inside the rim");
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, new Vec3(0.125, 1.0, 0.5),
+                Direction.Axis.Y, "0.125 exactly, which the strict comparison puts outside the rim");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // FACING BLOCKS (pistons, furnaces, hoppers)
+    // =====================================================================================
+
+    /**
+     * A centre click on a block with a facing turns it a quarter turn clockwise around the axis of
+     * the face that was clicked, and counter clockwise while sneaking. Only the Y axis had a test;
+     * the X and Z tables in {@code rotateAroundAxis} are written out by hand and were completely
+     * unchecked.
+     *
+     * <p>Each axis is driven all the way round rather than one step: four clicks have to walk the
+     * four directions perpendicular to that axis in order and land back on the start. A single
+     * step could still pass with two entries of a table swapped; a full lap cannot.
+     *
+     * <p>Both laps are run in both senses. The clockwise and the counter clockwise answer of every
+     * line in {@code rotateAroundAxis} are two separate literals inside one ternary, so a forward
+     * lap says nothing at all about the backward one; four sneaking clicks per axis are what it
+     * takes to read the other eight literals.
+     *
+     * <p>The last part covers the case the tables deliberately do not answer: a block already
+     * pointing along the clicked axis. {@code rotateAroundAxis} hands such a direction back
+     * unchanged, and {@code getStandardRotationStart} then supplies the axis' priority start. Both
+     * ends of those lists are exercised: a piston can hold the first entry of every list (NORTH for
+     * Y, UP for X and Z), while a furnace and a hopper cannot point up and therefore land on the
+     * second one (EAST for Z, NORTH for X). Without this branch the click would be a no-op and the
+     * rotator would refuse the most natural gesture there is, clicking the face a block points at.
+     *
+     * <p>A piston is used for the laps because {@code BlockStateProperties.FACING} allows all six
+     * directions, so nothing is filtered out and the tables are read exactly as written. Note that
+     * the furnace and hopper clicks here are centre clicks without sneaking, which the game itself
+     * never delivers to the item - see
+     * {@link #rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue} for why; they are driven
+     * anyway because {@code getStandardRotationStart} is reached the same way from either sense,
+     * and it is the priority list and not the sneak flag that is under test here.
+     *
+     * <p>What breaks this: any swapped or dropped entry in either arm of the X or Z table in
+     * {@code rotateAroundAxis}; tying the sneak flag to the wrong sense (the reverse laps expect
+     * the opposite neighbour, not just "something else"); and changing, reordering or removing any
+     * of the first two entries of a priority list in {@code getStandardRotationStart}.
+     */
+    public static void facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        player.setShiftKeyDown(false);
+
+        Vec3 eastCentre = new Vec3(1.0, 0.5, 0.5);
+        Vec3 northCentre = new Vec3(0.5, 0.5, 0.0);
+
+        // --- one full lap around X: UP -> NORTH -> DOWN -> SOUTH -> UP ---
+        setPistonFacing(helper, Direction.UP);
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.NORTH, "X lap step 1");
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.DOWN, "X lap step 2");
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.SOUTH, "X lap step 3");
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.UP, "X lap step 4");
+
+        // --- one full lap around Z: UP -> EAST -> DOWN -> WEST -> UP ---
+        setPistonFacing(helper, Direction.UP);
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.EAST, "Z lap step 1");
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.DOWN, "Z lap step 2");
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.WEST, "Z lap step 3");
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.UP, "Z lap step 4");
+
+        // --- sneaking runs both laps backwards, and is driven all the way round as well: the
+        //     counter clockwise arm of every line in the two tables is a literal of its own, so a
+        //     single reverse step would leave three of the four untouched per axis ---
+        player.setShiftKeyDown(true);
+        setPistonFacing(helper, Direction.UP);
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.SOUTH, "reverse X lap step 1");
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.DOWN, "reverse X lap step 2");
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.NORTH, "reverse X lap step 3");
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.UP, "reverse X lap step 4");
+
+        setPistonFacing(helper, Direction.UP);
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.WEST, "reverse Z lap step 1");
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.DOWN, "reverse Z lap step 2");
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.EAST, "reverse Z lap step 3");
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.UP, "reverse Z lap step 4");
+        player.setShiftKeyDown(false);
+
+        // --- the block already points along the clicked axis: the axis' priority start wins ---
+        setPistonFacing(helper, Direction.UP);
+        assertPistonTurns(helper, player, rotator, Direction.UP, TOP_CENTRE, Direction.NORTH,
+                "top face of a piston pointing up");
+        setPistonFacing(helper, Direction.DOWN);
+        assertPistonTurns(helper, player, rotator, Direction.UP, TOP_CENTRE, Direction.NORTH,
+                "top face of a piston pointing down");
+        setPistonFacing(helper, Direction.EAST);
+        assertPistonTurns(helper, player, rotator, Direction.EAST, eastCentre, Direction.UP,
+                "east face of a piston pointing east");
+        setPistonFacing(helper, Direction.NORTH);
+        assertPistonTurns(helper, player, rotator, Direction.NORTH, northCentre, Direction.UP,
+                "north face of a piston pointing north");
+
+        // --- and the second entry of a list, which is what a block that cannot point up gets. A
+        //     piston always takes the first entry, so on its own it would leave NORTH (X list) and
+        //     EAST (Z list) as untested literals - and those two are the ones the game actually
+        //     reaches, since furnaces and hoppers are far more common than pistons. ---
+        setFurnaceFacing(helper, Direction.NORTH);
+        useOn(helper, player, rotator, TARGET, Direction.NORTH, northCentre);
+        helper.assertTrue(furnaceFacing(helper) == Direction.EAST,
+                "a furnace facing north, clicked in the middle of the very face it points at, has "
+                        + "to fall through UP to the Z list's second entry EAST, but it faces "
+                        + furnaceFacing(helper));
+
+        setHopperFacing(helper, Direction.EAST);
+        useOn(helper, player, rotator, TARGET, Direction.EAST, eastCentre);
+        helper.assertTrue(hopperFacing(helper) == Direction.NORTH,
+                "a hopper facing east, clicked in the middle of the very face it points at, has to "
+                        + "fall through UP to the X list's second entry NORTH, but it faces "
+                        + hopperFacing(helper));
+
+        helper.succeed();
+    }
+
+    /**
+     * What a rim click does to a block with a facing, through all three of the answers the code can
+     * give, in the order it tries them:
+     * <ol>
+     *   <li>the rim direction itself, when the block may hold it - a furnace aimed straight at the
+     *       edge that was touched;</li>
+     *   <li>its opposite, when it may not - a hopper has every direction but UP, so touching the
+     *       upper rim of a side face aims it DOWN;</li>
+     *   <li>neither, when the property allows neither the rim nor its opposite - a horizontal
+     *       furnace can hold no vertical direction at all, so the rim is dropped and the ordinary
+     *       rotation runs. That rotation then wants DOWN, which the furnace cannot hold either, and
+     *       the method's last fallback walks the property's own list of allowed values instead.
+     *       That fallback line is only reachable through exactly this combination.</li>
+     * </ol>
+     *
+     * <p>The last case reads the order vanilla stores the allowed values in, so that order is
+     * asserted first as a precondition: if a Minecraft update ever reorders
+     * {@code HORIZONTAL_FACING}, the failure says so instead of blaming the mod. It is driven
+     * twice, once sneaking and once not, because the sneak flag reaches that fallback and decides
+     * which way along the list it walks.
+     *
+     * <p>Which of those two the game can actually produce is worth writing down, because it is only
+     * one of them: {@code ServerPlayerGameMode#useItemOn} computes
+     * {@code suppressUsingBlock = player.isSecondaryUseActive() && haveSomethingInOurHands} and,
+     * unless that holds, offers the click to the block first. A furnace answers it in
+     * {@code AbstractFurnaceBlock#useWithoutItem} by opening its menu, a hopper in
+     * {@code HopperBlock#useWithoutItem}, and a sign in {@code SignBlock#useWithoutItem} by opening
+     * the editor (a rotator is no {@code SignApplicator}, so {@code SignBlock#useItemOn} passes it
+     * on) - each of them consuming the action, so {@code RotatorItem#useOn} is never called. On
+     * those three kinds of block the tool therefore only ever runs with {@code isSneaking} true;
+     * see the "Known defect" paragraph on the class. The tests here call {@code useOn} directly and
+     * so can drive both senses, which is the point: a case that existed only in the non-sneaking
+     * half would be pinning code the game cannot reach.
+     *
+     * <p>The closing scan pins something the code says but the game does not: besides
+     * {@code facing}, {@code getFacingProperty} also accepts properties named
+     * {@code horizontal_facing} and {@code hopper_facing}. No block in the registry - vanilla or
+     * this mod - carries either name, so those two branches never run; the rotator's entire
+     * support for directional blocks rests on the single name {@code facing}. Pinning it the way
+     * the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25) pins the
+     * inert enchantments means that the day such a block does appear, this test says so and the
+     * branch gets real coverage instead of staying decorative.
+     *
+     * <p>What breaks this: dropping the rim branch, or the opposite fallback inside it (a hopper
+     * would stop taking aim from its rim); letting an impossible rim direction through instead of
+     * ignoring it, which would throw on {@code setValue}; removing the closing
+     * {@code cycleDirectionList} fallback, which would leave a furnace unturnable from a vertical
+     * face; and renaming the {@code facing} literal in {@code getFacingProperty}, which would
+     * silently strip every directional block of its support.
+     */
+    public static void rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        player.setShiftKeyDown(false);
+
+        // --- 1. the rim direction is allowed: the furnace looks straight at it ---
+        setFurnaceFacing(helper, Direction.NORTH);
+        useOn(helper, player, rotator, TARGET, Direction.UP, new Vec3(0.05, 1.0, 0.5));
+        helper.assertTrue(furnaceFacing(helper) == Direction.WEST,
+                "the west rim of the top face did not aim the furnace west, it faces " + furnaceFacing(helper));
+
+        setFurnaceFacing(helper, Direction.NORTH);
+        useOn(helper, player, rotator, TARGET, Direction.UP, new Vec3(0.5, 1.0, 0.95));
+        helper.assertTrue(furnaceFacing(helper) == Direction.SOUTH,
+                "the south rim of the top face did not aim the furnace south, it faces " + furnaceFacing(helper));
+
+        // --- 2. the rim is not allowed but its opposite is: a hopper cannot point up ---
+        setHopperFacing(helper, Direction.NORTH);
+        useOn(helper, player, rotator, TARGET, Direction.NORTH, new Vec3(0.5, 0.95, 0.0));
+        helper.assertTrue(hopperFacing(helper) == Direction.DOWN,
+                "the upper rim of a hopper's side did not fall back to DOWN, it faces " + hopperFacing(helper));
+
+        // --- 3. neither the rim nor its opposite fits: the rim is dropped, and the rotation the
+        //        tables produce (DOWN) does not fit either, so the value list decides ---
+        helper.assertValueEqual(BlockStateProperties.HORIZONTAL_FACING.getPossibleValues(),
+                List.of(Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST),
+                "vanilla reordered HORIZONTAL_FACING; the expected value of the list fallback below "
+                        + "is derived from that order, so re-derive it before touching the mod");
+        setFurnaceFacing(helper, Direction.EAST);
+        useOn(helper, player, rotator, TARGET, Direction.NORTH, new Vec3(0.5, 0.95, 0.0));
+        helper.assertTrue(furnaceFacing(helper) == Direction.NORTH,
+                "the vertical rim of a furnace's side should have fallen through to the next allowed "
+                        + "value NORTH, but it faces " + furnaceFacing(helper));
+
+        // The same click while sneaking - the only version of it a player can actually perform, see
+        // above - has to walk the list the other way. This is what holds the isSneaking argument of
+        // that last cycleDirectionList call in place; with a hard coded false both clicks would
+        // answer NORTH and nothing here would notice.
+        player.setShiftKeyDown(true);
+        setFurnaceFacing(helper, Direction.EAST);
+        useOn(helper, player, rotator, TARGET, Direction.NORTH, new Vec3(0.5, 0.95, 0.0));
+        helper.assertTrue(furnaceFacing(helper) == Direction.WEST,
+                "sneaking, the same fallback has to walk the value list backwards to WEST, but the "
+                        + "furnace faces " + furnaceFacing(helper));
+        player.setShiftKeyDown(false);
+
+        // --- the two other property names the lookup accepts exist nowhere in the game ---
+        List<String> unexpected = new ArrayList<>();
+        for (Block block : BuiltInRegistries.BLOCK) {
+            for (Property<?> property : block.getStateDefinition().getProperties()) {
+                if (property.getValueClass() != Direction.class) {
+                    continue;
+                }
+                if (property.getName().equals("horizontal_facing") || property.getName().equals("hopper_facing")) {
+                    unexpected.add(BuiltInRegistries.BLOCK.getKey(block) + "#" + property.getName());
+                }
+            }
+        }
+        helper.assertTrue(unexpected.isEmpty(),
+                "getFacingProperty's horizontal_facing / hopper_facing branches were dead by "
+                        + "assumption, but these blocks now carry such a property and are therefore "
+                        + "turnable without any test behind them: " + unexpected);
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // 16 STEP BLOCKS (standing signs, banners, skulls)
+    // =====================================================================================
+
+    /**
+     * Blocks that store a rotation from 0 to 15 are the third and last branch. A centre click moves
+     * one step, sneaking moves one step back, and a rim click multiplies the step by four - a
+     * quarter turn - whichever rim was touched; the direction is thrown away here, only its
+     * presence counts.
+     *
+     * <p>Two of the cases below step BELOW zero (0 - 1 and 2 - 4). That is what makes the
+     * {@code + 16} in {@code (current + change + 16) % 16} load bearing: Java's {@code %} keeps
+     * the sign of the left operand, so without it those two clicks would ask the property for
+     * -1 and -2 and throw. Wrapping over 15 upwards - which the other cases do - never needs it,
+     * so a test that only walks upwards proves nothing about that term.
+     *
+     * <p>What breaks this: dropping the {@code + 16} (a sneaking click at 0 would produce -1 and
+     * throw, since the property does not accept it); losing the {@code *= 4} for rim clicks, which
+     * is the only way to place a sign at a right angle in one click; tying the factor to a
+     * particular rim direction; and swapping the sign of the sneak step.
+     */
+    public static void sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+
+        // A standing sign needs something underneath, or the neighbour update from setBlock pops it.
+        BlockPos sign = TARGET.above();
+        helper.setBlock(TARGET, Blocks.STONE);
+
+        Vec3 westRim = new Vec3(0.05, 1.0, 0.5);
+        Vec3 southRim = new Vec3(0.5, 1.0, 0.95);
+
+        // --- centre: one step forward, one step back while sneaking, both wrapping over 15 ---
+        player.setShiftKeyDown(false);
+        setSignRotation(helper, sign, 15);
+        useOn(helper, player, rotator, sign, Direction.UP, TOP_CENTRE);
+        helper.assertValueEqual(signRotation(helper, sign), 0, "a centre click on a sign at 15");
+
+        player.setShiftKeyDown(true);
+        setSignRotation(helper, sign, 15);
+        useOn(helper, player, rotator, sign, Direction.UP, TOP_CENTRE);
+        helper.assertValueEqual(signRotation(helper, sign), 14, "a sneaking centre click on a sign at 15");
+
+        // --- rim: four steps, in both senses ---
+        player.setShiftKeyDown(false);
+        setSignRotation(helper, sign, 15);
+        useOn(helper, player, rotator, sign, Direction.UP, westRim);
+        helper.assertValueEqual(signRotation(helper, sign), 3, "a rim click on a sign at 15");
+
+        player.setShiftKeyDown(true);
+        setSignRotation(helper, sign, 15);
+        useOn(helper, player, rotator, sign, Direction.UP, westRim);
+        helper.assertValueEqual(signRotation(helper, sign), 11, "a sneaking rim click on a sign at 15");
+
+        // --- a different rim, same four steps: the rim's direction plays no part here ---
+        player.setShiftKeyDown(false);
+        setSignRotation(helper, sign, 0);
+        useOn(helper, player, rotator, sign, Direction.UP, southRim);
+        helper.assertValueEqual(signRotation(helper, sign), 4, "a click on the south rim instead of the west one");
+
+        // --- below zero: the only two cases that need the + 16 ---
+        player.setShiftKeyDown(true);
+        setSignRotation(helper, sign, 0);
+        useOn(helper, player, rotator, sign, Direction.UP, TOP_CENTRE);
+        helper.assertValueEqual(signRotation(helper, sign), 15,
+                "a sneaking centre click on a sign at 0, which computes 0 - 1");
+
+        player.setShiftKeyDown(true);
+        setSignRotation(helper, sign, 2);
+        useOn(helper, player, rotator, sign, Direction.UP, westRim);
+        helper.assertValueEqual(signRotation(helper, sign), 14,
+                "a sneaking rim click on a sign at 2, which computes 2 - 4");
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // THE ITEM ITSELF
+    // =====================================================================================
+
+    /**
+     * The rotator is registered as a single, netherite grade tool whose durability is a charge (owner
+     * 2026-09-28, like the amethyst lens): it stacks to one, it may be enchanted with value 15, it sits
+     * in {@code #minecraft:enchantable/durability}, and it holds {@link RotatorItem#MAX_CHARGE} turns.
+     * It never breaks: the last point of charge leaves an empty rotator in the hand, and an empty
+     * rotator refuses to turn anything (FAIL, block unchanged, no further wear).
+     *
+     * <p>The click that changes nothing is checked here too - the other half of the
+     * {@code newState != state} guard in {@code RotatorItem#useOn}: aiming a log at the axis it
+     * already lies along answers PASS and costs nothing.
+     *
+     * <p>What breaks this: changing the charge, the stack size or the enchantability in
+     * {@code GadgetsRegistry.ROTATOR}; dropping it from the durability tag; going back to
+     * {@code hurtAndBreak} (the rotator would vanish at its last point); letting an empty rotator
+     * still turn blocks; and dropping the {@code newState != state} guard.
+     */
+    public static void chargeRunsDownButTheRotatorNeverBreaks(GameTestHelper helper) {
+        ItemStack probe = new ItemStack(GadgetsRegistry.ROTATOR);
+        helper.assertValueEqual(probe.getMaxDamage(), RATED_DURABILITY, "the rotator's full charge");
+        helper.assertValueEqual(probe.getMaxStackSize(), 1, "the rotator's stack size");
+
+        Enchantable enchantable = probe.get(DataComponents.ENCHANTABLE);
+        helper.assertTrue(enchantable != null,
+                "the rotator lost its ENCHANTABLE component, so it cannot be enchanted at all");
+        helper.assertValueEqual(enchantable.value(), RATED_ENCHANTABILITY, "the rotator's enchantability");
+        helper.assertTrue(probe.is(ItemTags.DURABILITY_ENCHANTABLE),
+                "the rotator left #minecraft:enchantable/durability, so no durability enchantment "
+                        + "is offered for it any more");
+
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+
+        // --- a click whose computed state is the one the block is already in: refused, and free ---
+        setLogAxis(helper, Direction.Axis.X);
+        InteractionResult noChange =
+                useOn(helper, player, rotator, TARGET, Direction.UP, new Vec3(0.05, 1.0, 0.5));
+        helper.assertTrue(noChange == InteractionResult.PASS,
+                "aiming a log at the axis it already lies along has to be refused, but the result was " + noChange);
+        helper.assertValueEqual(rotator.getDamageValue(), 0, "charge spent on a click that changed nothing");
+
+        // --- the last point of charge: the turn happens, the rotator stays, empty ---
+        int max = probe.getMaxDamage();
+        rotator.setDamageValue(max - 1);
+        setLogAxis(helper, Direction.Axis.Y);
+        InteractionResult last = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(last == InteractionResult.SUCCESS, "the turn with the last point of charge was refused: " + last);
+        helper.assertTrue(logAxis(helper) == Direction.Axis.Z, "the last point of charge did not turn the log");
+        helper.assertTrue(!rotator.isEmpty() && rotator.is(GadgetsRegistry.ROTATOR),
+                "the rotator broke at its last point of charge instead of staying in the hand empty");
+        helper.assertValueEqual(rotator.getDamageValue(), max, "charge left after the last turn (damage)");
+        helper.assertTrue(RotatorItem.isEmpty(rotator), "a fully spent rotator does not count as empty");
+
+        // --- empty: nothing turns, nothing is spent, nothing breaks ---
+        InteractionResult refused = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(refused == InteractionResult.FAIL, "an empty rotator answered " + refused + " instead of FAIL");
+        helper.assertTrue(logAxis(helper) == Direction.Axis.Z, "an empty rotator still turned the log");
+        helper.assertTrue(!rotator.isEmpty() && rotator.getDamageValue() == max,
+                "clicking with an empty rotator broke it or overshot: damage " + rotator.getDamageValue());
+        RotatorItem.drain(player, rotator, 50);
+        helper.assertTrue(!rotator.isEmpty() && rotator.getDamageValue() == max, "draining an empty rotator broke it");
+
+        helper.succeed();
+    }
+
+    /**
+     * Recharging at the anvil: ender pearls, no level cost, {@link RotatorItem#PEARLS_FOR_FULL} (16,
+     * one stack) fill an empty rotator, and only the pearls the rotator needs are taken. A survival
+     * player at level 0 may take the result, and a full rotator is not offered a recharge.
+     *
+     * <p>What breaks this: the anvil hook no longer covering the rotator (the generic
+     * {@code AnvilRechargeable} path in {@code AnvilScreenHandlerMixin}), a level cost, a different
+     * charge per pearl, or consuming the whole stack for a top-up.
+     */
+    public static void anvilRechargesWithSixteenEnderPearlsForNoLevels(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.experienceLevel = 0;
+        helper.assertValueEqual(RotatorItem.PEARLS_FOR_FULL * RotatorItem.CHARGE_PER_PEARL, RotatorItem.MAX_CHARGE,
+                "16 pearls times the charge per pearl");
+
+        ItemStack empty = new ItemStack(GadgetsRegistry.ROTATOR);
+        empty.setDamageValue(RotatorItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu full = recharge(player, empty, 16);
+        ItemStack out = full.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(out.is(GadgetsRegistry.ROTATOR) && out.getDamageValue() == 0,
+                "16 ender pearls did not fully charge an empty rotator: " + out + " damage " + out.getDamageValue());
+        helper.assertValueEqual(full.getCost(), 0, "levels a recharge costs");
+        takeResult(helper, player, full);
+        helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(),
+                "a full recharge from empty left pearls behind");
+        helper.assertValueEqual(player.experienceLevel, 0, "the player's level after a recharge");
+
+        ItemStack partial = new ItemStack(GadgetsRegistry.ROTATOR);
+        partial.setDamageValue(100);
+        net.minecraft.world.inventory.AnvilMenu topUp = recharge(player, partial, 16);
+        helper.assertValueEqual(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue(), 0,
+                "damage after topping up 100 missing charge");
+        takeResult(helper, player, topUp);
+        helper.assertValueEqual(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().getCount(), 14,
+                "pearls left after topping up 100 charge (two pearls needed)");
+
+        ItemStack drained = new ItemStack(GadgetsRegistry.ROTATOR);
+        drained.setDamageValue(RotatorItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu some = recharge(player, drained, 4);
+        helper.assertValueEqual(some.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue(),
+                RotatorItem.MAX_CHARGE - 4 * RotatorItem.CHARGE_PER_PEARL, "damage after four pearls into an empty rotator");
+
+        net.minecraft.world.inventory.AnvilMenu none = recharge(player, new ItemStack(GadgetsRegistry.ROTATOR), 5);
+        helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
+                "the anvil offers to recharge a full rotator");
+
+        ItemStack wrong = new ItemStack(GadgetsRegistry.ROTATOR);
+        wrong.setDamageValue(RotatorItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu redstone = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        redstone.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(wrong);
+        redstone.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.REDSTONE, 64));
+        helper.assertTrue(redstone.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
+                "redstone (the lens's material) recharges the rotator too");
+        helper.succeed();
+    }
+
+    /**
+     * Unbreaking yes, Mending no (owner 2026-09-28): the rotator's durability is a charge that ender
+     * pearls refill, so experience must not refill it. Both enchantments name
+     * {@code #minecraft:enchantable/durability}; {@code EnchantmentMixin} refuses every enchantment
+     * with a {@code repair_with_xp} effect on items in {@code simplebuilding:xp_repair_incompatible}.
+     *
+     * <p>Checked on both questions an enchantment answers ({@code canEnchant} for the anvil, loot
+     * and {@code /enchant}; {@code isSupportedItem} for the enchanting table and NeoForge's
+     * {@code supportsEnchantment}) and through a real anvil: a Mending book yields nothing, an
+     * Unbreaking book yields an Unbreaking rotator. A diamond pickaxe still takes Mending, so the
+     * refusal does not leak onto other tools.
+     *
+     * <p>What breaks this: the rotator leaving the tag, the mixin leaving the mixin config, the
+     * check keying on something other than the XP repair effect, or the rotator leaving
+     * {@code #minecraft:enchantable/durability} (Unbreaking then goes too).
+     */
+    public static void anvilTakesUnbreakingButRefusesMending(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> mending =
+                enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.MENDING);
+        net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> unbreaking =
+                enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.UNBREAKING);
+        ItemStack probe = new ItemStack(GadgetsRegistry.ROTATOR);
+
+        helper.assertTrue(probe.is(net.minecraft.tags.TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("simplelib", "xp_repair_incompatible"))),
+                "the rotator left simplelib:xp_repair_incompatible");
+        helper.assertFalse(mending.value().canEnchant(probe), "Mending.canEnchant accepts the rotator");
+        helper.assertFalse(mending.value().isSupportedItem(probe), "Mending.isSupportedItem accepts the rotator");
+        helper.assertTrue(unbreaking.value().canEnchant(probe), "Unbreaking.canEnchant refuses the rotator");
+        helper.assertTrue(unbreaking.value().isSupportedItem(probe), "Unbreaking.isSupportedItem refuses the rotator");
+        helper.assertTrue(mending.value().canEnchant(new ItemStack(Items.DIAMOND_PICKAXE)),
+                "Mending no longer fits a diamond pickaxe - the refusal leaked onto other tools");
+
+        ServerPlayer player = mockPlayer(helper, false);
+        player.experienceLevel = 100;
+
+        net.minecraft.world.inventory.AnvilMenu withMending = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        withMending.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(new ItemStack(GadgetsRegistry.ROTATOR));
+        withMending.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(
+                net.minecraft.world.item.enchantment.EnchantmentHelper.createBook(
+                        new net.minecraft.world.item.enchantment.EnchantmentInstance(mending, 1)));
+        helper.assertTrue(withMending.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
+                "the anvil puts Mending on the rotator");
+
+        net.minecraft.world.inventory.AnvilMenu withUnbreaking = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        withUnbreaking.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(new ItemStack(GadgetsRegistry.ROTATOR));
+        withUnbreaking.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(
+                net.minecraft.world.item.enchantment.EnchantmentHelper.createBook(
+                        new net.minecraft.world.item.enchantment.EnchantmentInstance(unbreaking, 3)));
+        ItemStack out = withUnbreaking.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(out.is(GadgetsRegistry.ROTATOR), "the anvil refuses Unbreaking on the rotator: " + out);
+        helper.assertValueEqual(net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(unbreaking, out), 3,
+                "Unbreaking level on the anvil result");
+        helper.succeed();
+    }
+
+    /**
+     * Two sounds per turn: the metal ratchet at once, and {@link RotatorItem#ECHO_DELAY_TICKS} later a
+     * quiet ender teleport at the turned block ("the second says something was teleported"). The
+     * second one is queued per player and played from the rotator's inventory tick; it is not played
+     * early, it is played exactly once, and a refused click queues nothing.
+     *
+     * <p>What breaks this: dropping the queue, playing the echo in the same tick as the ratchet, or
+     * queueing it for clicks that turned nothing.
+     */
+    public static void aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        helper.assertTrue(RotatorItem.ECHO_DELAY_TICKS > 0 && RotatorItem.ECHO_DELAY_TICKS <= 10,
+                "the echo has to follow the ratchet shortly (1..10 ticks), it is " + RotatorItem.ECHO_DELAY_TICKS);
+        helper.assertTrue(RotatorItem.ECHO_VOLUME < RotatorItem.RATCHET_VOLUME, "the ender echo is not quieter than the ratchet");
+
+        BlockPos stone = new BlockPos(4, 1, 4);
+        helper.setBlock(stone, Blocks.STONE);
+        useOn(helper, player, rotator, stone, Direction.UP, TOP_CENTRE);
+        helper.assertValueEqual(RotatorItem.pendingEchoTick(player), -1L, "echo queued by a click that turned nothing");
+
+        setLogAxis(helper, Direction.Axis.Y);
+        long now = helper.getLevel().getGameTime();
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        // Out of the inventory, so the rotator's own inventory tick cannot play the echo before we look.
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        helper.assertValueEqual(RotatorItem.pendingEchoTick(player), now + RotatorItem.ECHO_DELAY_TICKS,
+                "tick the ender echo is due at");
+        helper.assertFalse(RotatorItem.playDueEcho(helper.getLevel(), player), "the ender echo played together with the ratchet");
+
+        helper.runAfterDelay(RotatorItem.ECHO_DELAY_TICKS, () -> {
+            helper.assertTrue(RotatorItem.playDueEcho(helper.getLevel(), player), "the ender echo did not play when it was due");
+            helper.assertValueEqual(RotatorItem.pendingEchoTick(player), -1L, "echo still queued after it played");
+            helper.assertFalse(RotatorItem.playDueEcho(helper.getLevel(), player), "the ender echo played twice");
+            helper.succeed();
+        });
+    }
+
+    /**
+     * The rotator is obtainable: an iron building core bottom left, four iron ingots in a cross around
+     * an ender pearl (owner's recipe 2026-09-27: {@code " I " / "IPI" / "CI "}), resolve
+     * through the loaded recipe book to exactly one rotator, and the recipe advancement that puts
+     * it into the recipe book is loaded with it.
+     *
+     * <p>The shape is asserted by looking the grid up in the recipe book rather than by reading the
+     * pattern back out of the recipe file - the same statement, but made where it matters. Three near misses hold the
+     * ingredient list in place: the same shape with an iron ingot in the middle must not produce a
+     * rotator (the ender pearl is load bearing), the old recipe with an iron ingot where the core
+     * sits must not either (the core is load bearing), and the shape without the core must not
+     * either. Note that a mirrored layout would legitimately match, since vanilla shaped recipes
+     * match mirrored, which is why no near miss is a mirror.
+     *
+     * <p>What breaks this: changing the pattern or the ingredients in the recipe provider; the
+     * recipe not being loaded at all (a broken data generation run, a renamed file); the result
+     * item or its count changing; and losing the recipe advancement or its
+     * {@code has_iron_ingot} criterion, which would leave the recipe craftable but invisible in the
+     * recipe book.
+     */
+    public static void craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        RecipeManager recipes = server.getRecipeManager();
+        // With SimpleBuilding: its iron core and four Iron Rods; alone: iron ingots (the core's and the rods' place).
+        Item core0 = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleGadgets.OLD_NAMESPACE, "iron_core"));
+        Item pole0 = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(SimpleGadgets.OLD_NAMESPACE, "iron_pole"));
+        boolean withSimpleBuilding = core0 != Items.AIR && pole0 != Items.AIR;
+        String suffix = withSimpleBuilding ? "" : "_without_simplebuilding";
+        Identifier recipeId = Identifier.fromNamespaceAndPath(SimpleGadgets.MOD_ID, "rotator" + suffix);
+
+        ItemStack empty = ItemStack.EMPTY;
+        ItemStack iron = new ItemStack(withSimpleBuilding ? pole0 : Items.IRON_INGOT);
+        ItemStack pearl = new ItemStack(Items.ENDER_PEARL);
+        ItemStack core = new ItemStack(withSimpleBuilding ? core0 : Items.IRON_INGOT);
+
+        //  I
+        // IPI
+        // CI
+        CraftingInput exact = CraftingInput.of(3, 3, List.of(
+                empty, iron, empty,
+                iron, pearl, iron,
+                core, iron, empty));
+
+        Optional<RecipeHolder<CraftingRecipe>> found =
+                recipes.getRecipeFor(RecipeType.CRAFTING, exact, helper.getLevel());
+        helper.assertTrue(found.isPresent(),
+                "no crafting recipe at all matches the core and four iron around an ender pearl");
+        helper.assertTrue(found.get().id().identifier().equals(recipeId),
+                "that layout resolves to " + found.get().id().identifier() + ", not to " + recipeId);
+
+        List<ItemStack> results = resultsOf(helper, found.get());
+        helper.assertValueEqual(results.size(), 1,
+                "how many results the rotator recipe advertises: " + results);
+        helper.assertTrue(results.get(0).is(GadgetsRegistry.ROTATOR),
+                "the recipe produces " + results.get(0) + " instead of a rotator");
+        helper.assertValueEqual(results.get(0).getCount(), 1, "how many rotators one craft yields");
+
+        // --- the ender pearl carries the recipe ---
+        CraftingInput allIron = CraftingInput.of(3, 3, List.of(
+                empty, iron, empty,
+                iron, iron, iron,
+                core, iron, empty));
+        helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, allIron, recipeId),
+                "the same shape with iron in the middle also crafts a rotator, so the "
+                        + "ender pearl is not actually required");
+
+        // --- and so does the iron core (with SimpleBuilding): neither the old fifth rod nor an empty slot replaces it ---
+        if (withSimpleBuilding) {
+            CraftingInput oldRecipe = CraftingInput.of(3, 3, List.of(
+                    empty, iron, empty,
+                    iron, pearl, iron,
+                    iron, iron, empty));
+            helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, oldRecipe, recipeId),
+                    "a fifth iron rod instead of the iron core still crafts a rotator");
+        }
+        CraftingInput missingCore = CraftingInput.of(3, 3, List.of(
+                empty, iron, empty,
+                iron, pearl, iron,
+                empty, iron, empty));
+        helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, missingCore, recipeId),
+                "four iron around the pearl already craft a rotator, so the shape is not the one the recipe file writes");
+
+        // --- the recipe advancement that unlocks it in the recipe book ---
+        Identifier advancementId = Identifier.fromNamespaceAndPath(SimpleGadgets.MOD_ID, "recipes/tools/rotator" + suffix);
+        AdvancementHolder unlock = server.getAdvancements().get(advancementId);
+        helper.assertTrue(unlock != null,
+                "the recipe advancement " + advancementId + " is not loaded, so the recipe never "
+                        + "shows up in the recipe book");
+        helper.assertTrue(unlock.value().criteria().containsKey("has_iron_ingot"),
+                "the unlock no longer triggers on owning an iron ingot; its criteria are "
+                        + unlock.value().criteria().keySet());
+        ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, recipeId);
+        helper.assertTrue(unlock.value().rewards().recipes().contains(recipeKey),
+                "the advancement no longer hands out " + recipeId + "; it grants "
+                        + unlock.value().rewards().recipes());
+
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // HELPERS
+    // =====================================================================================
+
+    // =====================================================================================
+    // SECOND FUNCTION: SWAPPING (queue entry 63)
+    // =====================================================================================
+
+    private static ItemStack rotatorWithEfficiency(GameTestHelper helper, int level) {
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        if (level > 0) {
+            rotator.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                    .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.EFFICIENCY), level);
+        }
+        return rotator;
+    }
+
+    private static int count(ServerPlayer player, net.minecraft.world.item.Item item) {
+        int total = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(item)) {
+                total += stack.getCount();
+            }
+        }
+        return total;
+    }
+
+    /** Points the player's eyes at the middle of the block at {@code relative}. */
+    private static void aimAt(GameTestHelper helper, ServerPlayer player, BlockPos relative) {
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES,
+                Vec3.atCenterOf(helper.absolutePos(relative)));
+    }
+
+    /**
+     * The swap itself, at once (Efficiency V): stone becomes the off-hand planks, the cobblestone drop lands in
+     * the inventory, one plank is used up and the swap costs twice a turn's charge. The same click is what the
+     * hand hint asks about, and the block in the off hand wins over turning (a log with a block in the off hand
+     * is swapped, not turned).
+     *
+     * <p>What breaks this: the swap running before the permission check, the drops being lost or duplicated,
+     * the cost dropping back to one point, the hint not asking the swap, or the turn taking the click first.
+     */
+    public static void swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack rotator = rotatorWithEfficiency(helper, 5);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 3));
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(TARGET)).add(0, 0.5, 0), Direction.UP,
+                helper.absolutePos(TARGET), false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, rotator);
+        helper.assertTrue(((RotatorItem) rotator.getItem()).canTransformTarget(new UseOnContext(player, InteractionHand.MAIN_HAND, hit)),
+                "the hand hint does not ask the swap");
+        helper.assertTrue(com.simplelib.api.GadgetActions.itemHint(rotator.getItem(), new UseOnContext(player, InteractionHand.MAIN_HAND, hit)),
+                "the registered item hint does not ask the swap");
+
+        InteractionResult result = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(result == InteractionResult.SUCCESS, "an instant swap answered " + result);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.BIRCH_PLANKS),
+                "the stone was not swapped for the off-hand planks: " + helper.getBlockState(TARGET));
+        helper.assertValueEqual(player.getOffhandItem().getCount(), 2, "planks left in the off hand");
+        helper.assertValueEqual(count(player, Items.COBBLESTONE), 1, "cobblestone drops in the inventory");
+        helper.assertValueEqual(rotator.getDamageValue(), 2 * RotatorItem.useCost(), "charge of one swap (twice a turn)");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(rotator), "no cooldown after the swap");
+
+        // The block in the off hand wins over turning: a log is swapped, not turned.
+        ServerPlayer second = mockPlayer(helper, false);
+        ItemStack other = rotatorWithEfficiency(helper, 5);
+        second.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.STONE, 1));
+        setLogAxis(helper, Direction.Axis.Y);
+        useOn(helper, second, other, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a log with a block in the off hand was not swapped");
+        helper.assertTrue(second.getOffhandItem().isEmpty(), "the last off-hand block was not used up");
+        helper.assertValueEqual(count(second, Items.OAK_LOG), 1, "log drop");
+        helper.succeed();
+    }
+
+    /**
+     * Wind-up in ticks: (20 + 4 per hardness point) * (5 - Efficiency) / 5; Efficiency V and creative mode are
+     * instant, harder blocks take longer, and a base of 0 means always instant.
+     */
+    public static void swapWindupGrowsWithHardnessAndShrinksWithEfficiency(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        ServerPlayer creative = mockPlayer(helper, true);
+        BlockPos pos = helper.absolutePos(TARGET);
+        int baseBefore = GadgetsConfig.rotatorSwapWindupTicks;
+        try {
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState()); // hardness 1.5
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    26, "stone, no Efficiency");
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 3), pos),
+                    10, "stone, Efficiency III");
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 5), pos),
+                    0, "stone, Efficiency V");
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), creative, rotatorWithEfficiency(helper, 0), pos),
+                    0, "creative mode");
+            helper.setBlock(TARGET, Blocks.DIRT.defaultBlockState()); // hardness 0.5
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    22, "dirt, no Efficiency");
+            helper.setBlock(TARGET, Blocks.IRON_BLOCK.defaultBlockState()); // hardness 5
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    40, "iron block, no Efficiency");
+            GadgetsConfig.rotatorSwapWindupTicks = 0;
+            helper.assertValueEqual(RotatorSwap.windupTicks(helper.getLevel(), player, rotatorWithEfficiency(helper, 0), pos),
+                    0, "wind-up base 0");
+        } finally {
+            GadgetsConfig.rotatorSwapWindupTicks = baseBefore;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The wind-up: the click starts using the Rotator for the computed ticks and changes nothing yet; finishing
+     * swaps exactly the block it started on while the player still aims at it, and a finish while looking away,
+     * with the block changed or the charge gone does nothing and costs nothing.
+     */
+    public static void swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack rotator = rotatorWithEfficiency(helper, 0);
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 5));
+        aimAt(helper, player, TARGET);
+
+        InteractionResult result = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(result == InteractionResult.CONSUME, "the wind-up click answered " + result);
+        helper.assertTrue(player.isUsingItem(), "the click did not start the wind-up");
+        helper.assertValueEqual(rotator.getItem().getUseDuration(rotator, player), 26, "wind-up of stone");
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "the block was swapped before the wind-up ended");
+
+        // Looking away: nothing happens.
+        player.setYRot(180.0F);
+        player.setYHeadRot(180.0F);
+        player.setXRot(0.0F);
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a finished wind-up swapped a block the player no longer aims at");
+        helper.assertValueEqual(rotator.getDamageValue(), 0, "charge spent on an aborted swap");
+        player.stopUsingItem();
+
+        // Aimed, started, released early: nothing happens either.
+        aimAt(helper, player, TARGET);
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        rotator.getItem().releaseUsing(rotator, helper.getLevel(), player, 5);
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a released wind-up still swapped");
+        player.stopUsingItem();
+
+        // Aimed and finished: swapped.
+        aimAt(helper, player, TARGET);
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.BIRCH_PLANKS), "the finished wind-up did not swap: " + helper.getBlockState(TARGET));
+        helper.assertValueEqual(rotator.getDamageValue(), 2, "charge of the swap");
+        player.stopUsingItem();
+
+        // The block changed during the wind-up: nothing happens.
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+        aimAt(helper, player, TARGET);
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.setBlock(TARGET, Blocks.DEEPSLATE.defaultBlockState());
+        rotator.getItem().finishUsingItem(rotator, helper.getLevel(), player);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.DEEPSLATE), "a wind-up swapped a block it did not start on");
+        helper.succeed();
+    }
+
+    /**
+     * Which blocks may be swapped: the stone-tool rule (no obsidian, no diamond ore, nothing above the hardness
+     * limit), the safety rules no list lifts (containers with content, beacons, spawners, unbreakable and fluid
+     * blocks, halves of double blocks, the dragon egg) and the lists on top: blacklist over whitelist over rule.
+     */
+    public static void swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        BlockPos pos = helper.absolutePos(TARGET);
+        ItemStack planks = new ItemStack(Items.BIRCH_PLANKS);
+        String white = GadgetsConfig.rotatorSwapWhitelist;
+        String black = GadgetsConfig.rotatorSwapBlacklist;
+        try {
+            GadgetsConfig.rotatorSwapWhitelist = "";
+            GadgetsConfig.rotatorSwapBlacklist = "";
+            for (Block allowed : List.of(Blocks.STONE, Blocks.DIRT, Blocks.OAK_LOG, Blocks.COAL_ORE, Blocks.IRON_ORE,
+                    Blocks.DEEPSLATE, Blocks.GLASS, Blocks.OAK_LEAVES, Blocks.SHORT_GRASS, Blocks.IRON_BLOCK, Blocks.CHEST)) {
+                helper.setBlock(TARGET, allowed.defaultBlockState());
+                helper.assertTrue(RotatorSwap.canSwap(helper.getLevel(), pos, planks),
+                        allowed + " should be swappable (a stone tool mines it, or it is a plain empty block)");
+            }
+            for (Block refused : List.of(Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN, Blocks.DIAMOND_ORE, Blocks.ANCIENT_DEBRIS,
+                    Blocks.BEDROCK, Blocks.BEACON, Blocks.SPAWNER, Blocks.ENDER_CHEST, Blocks.WATER, Blocks.DRAGON_EGG,
+                    Blocks.OAK_DOOR, Blocks.BUDDING_AMETHYST, Blocks.INFESTED_STONE, Blocks.REINFORCED_DEEPSLATE, Blocks.AIR,
+                    Blocks.OAK_SIGN, Blocks.COMMAND_BLOCK, Blocks.NETHERITE_BLOCK)) {
+                helper.setBlock(TARGET, refused.defaultBlockState());
+                helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks),
+                        refused + " must never be swapped");
+            }
+            // The target block itself, and an off hand that is no block, are no swap.
+            helper.setBlock(TARGET, Blocks.BIRCH_PLANKS.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "swapping a block for itself");
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, new ItemStack(Items.STICK)), "an item that is no block");
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, ItemStack.EMPTY), "an empty off hand");
+
+            // A chest with content stays, an empty one goes.
+            helper.setBlock(TARGET, Blocks.CHEST.defaultBlockState());
+            net.minecraft.world.level.block.entity.ChestBlockEntity chest =
+                    (net.minecraft.world.level.block.entity.ChestBlockEntity) helper.getBlockEntity(TARGET, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+            chest.setItem(0, new ItemStack(Items.DIAMOND));
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "a chest with content was swappable");
+            chest.setItem(0, ItemStack.EMPTY);
+            helper.assertTrue(RotatorSwap.canSwap(helper.getLevel(), pos, planks), "an empty chest was not swappable");
+
+            // Whitelist: obsidian allowed by id, a tag works too; the safety rules stay.
+            GadgetsConfig.rotatorSwapWhitelist = "minecraft:obsidian, #minecraft:wither_immune, bad id";
+            helper.setBlock(TARGET, Blocks.OBSIDIAN.defaultBlockState());
+            helper.assertTrue(RotatorSwap.canSwap(helper.getLevel(), pos, planks), "whitelisted obsidian");
+            helper.setBlock(TARGET, Blocks.BEDROCK.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "whitelisted bedrock (unbreakable)");
+            helper.setBlock(TARGET, Blocks.BEACON.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "whitelisted beacon");
+            GadgetsConfig.rotatorSwapWhitelist = "#minecraft:diamond_ores";
+            helper.setBlock(TARGET, Blocks.DIAMOND_ORE.defaultBlockState());
+            helper.assertTrue(RotatorSwap.canSwap(helper.getLevel(), pos, planks), "diamond ore through a whitelisted tag");
+
+            // Blacklist: wins over the rule and over the whitelist.
+            GadgetsConfig.rotatorSwapWhitelist = "minecraft:stone";
+            GadgetsConfig.rotatorSwapBlacklist = "minecraft:stone, #minecraft:logs";
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "blacklisted stone (also whitelisted)");
+            helper.setBlock(TARGET, Blocks.OAK_LOG.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "a log through a blacklisted tag");
+            helper.setBlock(TARGET, Blocks.DIRT.defaultBlockState());
+            helper.assertTrue(RotatorSwap.canSwap(helper.getLevel(), pos, planks), "dirt next to the lists");
+
+            // Hardness limit: stone (1.5) above a limit of 1 is out, below 2 in.
+            GadgetsConfig.rotatorSwapWhitelist = "";
+            GadgetsConfig.rotatorSwapBlacklist = "";
+            GadgetsConfig.rotatorSwapMaxHardness = 1.0;
+            helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "stone above a hardness limit of 1");
+            GadgetsConfig.rotatorSwapMaxHardness = 2.0;
+            helper.assertTrue(RotatorSwap.canSwap(helper.getLevel(), pos, planks), "stone below a hardness limit of 2");
+
+            // Off switch.
+            GadgetsConfig.rotatorSwapEnabled = false;
+            helper.assertTrue(!RotatorSwap.canSwap(helper.getLevel(), pos, planks), "swap switched off");
+        } finally {
+            GadgetsConfig.rotatorSwapWhitelist = white;
+            GadgetsConfig.rotatorSwapBlacklist = black;
+            GadgetsConfig.rotatorSwapMaxHardness = RotatorSwap.DEFAULT_MAX_HARDNESS;
+            GadgetsConfig.rotatorSwapEnabled = true;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The click refusals: no charge, no rights (adventure mode) and a placement the block refuses (a cactus on
+     * stone with no sand under it) leave everything as it was and pay nothing; the creative player swaps at once
+     * without drops, without using up the block and without charge.
+     */
+    public static void swapRefusalsChangeNothingAndCreativeSwapsForFree(GameTestHelper helper) {
+        // empty charge
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack empty = rotatorWithEfficiency(helper, 5);
+        empty.setDamageValue(empty.getMaxDamage());
+        helper.setBlock(TARGET, Blocks.STONE.defaultBlockState());
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 2));
+        InteractionResult refused = useOn(helper, player, empty, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(refused == InteractionResult.FAIL, "an empty rotator answered " + refused);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE) && player.getOffhandItem().getCount() == 2, "an empty rotator swapped");
+
+        // no building rights
+        ItemStack rotator = rotatorWithEfficiency(helper, 5);
+        player.getAbilities().mayBuild = false;
+        InteractionResult noRights = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        player.getAbilities().mayBuild = true;
+        helper.assertTrue(noRights == InteractionResult.PASS, "a player without rights answered " + noRights);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE) && rotator.getDamageValue() == 0, "a player without rights swapped or paid");
+
+        // the placement is refused: atomic
+        helper.setBlock(TARGET.below(), Blocks.STONE.defaultBlockState());
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.CACTUS, 2));
+        InteractionResult noPlace = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(noPlace == InteractionResult.FAIL, "a refused placement answered " + noPlace);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "a refused placement changed the block");
+        helper.assertTrue(player.getOffhandItem().getCount() == 2 && rotator.getDamageValue() == 0
+                && count(player, Items.COBBLESTONE) == 0, "a refused placement paid or dropped something");
+
+        // creative: free, instant, no drops, block not used up
+        ServerPlayer creative = mockPlayer(helper, true);
+        ItemStack free = rotatorWithEfficiency(helper, 0);
+        creative.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BIRCH_PLANKS, 2));
+        InteractionResult instant = useOn(helper, creative, free, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(instant == InteractionResult.SUCCESS, "a creative swap answered " + instant);
+        helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.BIRCH_PLANKS), "the creative swap did not happen at once");
+        helper.assertTrue(creative.getOffhandItem().getCount() == 2 && free.getDamageValue() == 0
+                && count(creative, Items.COBBLESTONE) == 0, "the creative swap used up the block, charge or gave drops");
+        helper.succeed();
+    }
+
+    /**
+     * The ordinary in-level mock player, positioned inside the room and handed back at the end.
+     *
+     * <p>{@code instabuild} decides whether the rotator's {@code hurtAndBreak} does anything:
+     * every test but the durability one sets it, so a long run of clicks cannot wear the tool out
+     * mid test and turn a geometry failure into a durability failure.
+     */
+    @SuppressWarnings("removal")
+    private static ServerPlayer mockPlayer(GameTestHelper helper, boolean instabuild) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        Vec3 pos = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        player.getAbilities().instabuild = instabuild;
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+        return player;
+    }
+
+    private static net.minecraft.world.inventory.AnvilMenu recharge(ServerPlayer player, ItemStack rotator, int pearls) {
+        net.minecraft.world.inventory.AnvilMenu menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(rotator);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.ENDER_PEARL, pearls));
+        return menu;
+    }
+
+    private static void takeResult(GameTestHelper helper, ServerPlayer player, net.minecraft.world.inventory.AnvilMenu menu) {
+        net.minecraft.world.inventory.Slot result = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT);
+        helper.assertTrue(result.mayPickup(player), "a level-0 survival player may not take the free recharge");
+        result.onTake(player, result.getItem());
+    }
+
+    /**
+     * Right clicks a block face at a precise spot on that face. The offset is given inside the
+     * block (0..1 per axis), which is exactly what {@code getRimDirection} subtracts and reads.
+     */
+    private static InteractionResult useOn(GameTestHelper helper, ServerPlayer player, ItemStack stack,
+                                           BlockPos relativePos, Direction face, Vec3 offsetInBlock) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockPos pos = helper.absolutePos(relativePos);
+        Vec3 hit = new Vec3(pos.getX() + offsetInBlock.x, pos.getY() + offsetInBlock.y, pos.getZ() + offsetInBlock.z);
+        BlockHitResult hitResult = new BlockHitResult(hit, face, pos, false);
+        return stack.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hitResult));
+    }
+
+    /** Puts a log on {@link #TARGET} along {@code start}, clicks it once and states the axis it ends on. */
+    private static void assertLogTurns(GameTestHelper helper, ServerPlayer player, ItemStack rotator,
+                                       Direction.Axis start, Direction face, Vec3 hit,
+                                       Direction.Axis expected, String what) {
+        setLogAxis(helper, start);
+        useOn(helper, player, rotator, TARGET, face, hit);
+        Direction.Axis actual = logAxis(helper);
+        helper.assertTrue(actual == expected,
+                what + ": a log along " + start + " should have ended up along " + expected
+                        + ", but it lies along " + actual);
+    }
+
+    private static void setLogAxis(GameTestHelper helper, Direction.Axis axis) {
+        helper.setBlock(TARGET, Blocks.OAK_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, axis));
+    }
+
+    private static Direction.Axis logAxis(GameTestHelper helper) {
+        return helper.getBlockState(TARGET).getValue(BlockStateProperties.AXIS);
+    }
+
+    /** Clicks the piston on {@link #TARGET} once and states the direction it ends up facing. */
+    private static void assertPistonTurns(GameTestHelper helper, ServerPlayer player, ItemStack rotator,
+                                          Direction face, Vec3 hit, Direction expected, String what) {
+        Direction before = pistonFacing(helper);
+        useOn(helper, player, rotator, TARGET, face, hit);
+        Direction actual = pistonFacing(helper);
+        helper.assertTrue(actual == expected,
+                what + ": a piston facing " + before + " clicked on its " + face + " face should now "
+                        + "face " + expected + ", but it faces " + actual);
+    }
+
+    private static void setPistonFacing(GameTestHelper helper, Direction facing) {
+        helper.setBlock(TARGET, Blocks.PISTON.defaultBlockState()
+                .setValue(BlockStateProperties.FACING, facing));
+    }
+
+    private static Direction pistonFacing(GameTestHelper helper) {
+        return helper.getBlockState(TARGET).getValue(BlockStateProperties.FACING);
+    }
+
+    /**
+     * Puts a piston on {@link #TARGET} facing {@code start}, clicks the given spot on the given face
+     * once and states the direction it has to end up pointing at.
+     */
+    private static void assertPistonTurnsFrom(GameTestHelper helper, ServerPlayer player, ItemStack rotator,
+                                              Direction start, Direction face, Vec3 hit,
+                                              Direction expected, String what) {
+        setPistonFacing(helper, start);
+        assertPistonTurns(helper, player, rotator, face, hit, expected, what);
+    }
+
+    private static void setFurnaceFacing(GameTestHelper helper, Direction facing) {
+        helper.setBlock(TARGET, Blocks.FURNACE.defaultBlockState()
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, facing));
+    }
+
+    private static Direction furnaceFacing(GameTestHelper helper) {
+        return helper.getBlockState(TARGET).getValue(BlockStateProperties.HORIZONTAL_FACING);
+    }
+
+    private static void setHopperFacing(GameTestHelper helper, Direction facing) {
+        helper.setBlock(TARGET, Blocks.HOPPER.defaultBlockState()
+                .setValue(BlockStateProperties.FACING_HOPPER, facing));
+    }
+
+    private static Direction hopperFacing(GameTestHelper helper) {
+        return helper.getBlockState(TARGET).getValue(BlockStateProperties.FACING_HOPPER);
+    }
+
+    private static void setSignRotation(GameTestHelper helper, BlockPos pos, int rotation) {
+        helper.setBlock(pos, Blocks.OAK_SIGN.defaultBlockState()
+                .setValue(BlockStateProperties.ROTATION_16, rotation));
+    }
+
+    private static int signRotation(GameTestHelper helper, BlockPos pos) {
+        return helper.getBlockState(pos).getValue(BlockStateProperties.ROTATION_16);
+    }
+
+    /** Whether the loaded recipe book answers this grid with the rotator's own recipe. */
+    private static boolean resolvesToTheRotatorRecipe(GameTestHelper helper, RecipeManager recipes,
+                                                      CraftingInput input, Identifier recipeId) {
+        Optional<RecipeHolder<CraftingRecipe>> found =
+                recipes.getRecipeFor(RecipeType.CRAFTING, input, helper.getLevel());
+        return found.isPresent() && found.get().id().identifier().equals(recipeId);
+    }
+
+    /**
+     * The stacks a loaded recipe advertises as its result. Read through {@code RecipeDisplay}
+     * rather than through {@code Recipe#assemble}, because {@code assemble}'s parameter list
+     * differs between the Minecraft lines this shared source tree is compiled against, while the
+     * display path is the same on both - the same reason {@code DataIntegrityTests} uses it.
+     */
+    private static List<ItemStack> resultsOf(GameTestHelper helper, RecipeHolder<?> holder) {
+        ContextMap context = SlotDisplayContext.fromLevel(helper.getLevel());
+        List<ItemStack> stacks = new ArrayList<>();
+        for (RecipeDisplay display : holder.value().display()) {
+            stacks.addAll(display.result().resolveForStacks(context));
+        }
+        return stacks;
+    }
+}

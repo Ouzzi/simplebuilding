@@ -52,6 +52,21 @@ public final class GadgetsTests {
         ALL.put("gauge_autowalk_keeps_walking_under_non_pausing_screens", GadgetsTests::gaugeAutowalkKeepsWalkingUnderNonPausingScreens);
         ALL.put("gauge_autowalk_follows_paths_and_rails_around_corners", GadgetsTests::gaugeAutowalkFollowsPathsAndRailsAroundCorners);
         ALL.put("gauge_altimeter_reads_the_ground_and_range_reaches_deeper", GadgetsTests::gaugeAltimeterReadsTheGroundAndRangeReachesDeeper);
+        ALL.put("rotator_log_axis_cycles_through_all_three_axes_and_ignores_sneaking", RotatorTests::logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking);
+        ALL.put("rotator_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside", RotatorTests::rimIsTheOuterEighthOfEveryFaceAndNowhereInside);
+        ALL.put("rotator_facing_blocks_turn_one_quarter_around_the_clicked_axis_or_jump_to_its_start", RotatorTests::facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart);
+        ALL.put("rotator_rim_aims_facing_blocks_at_the_rim_its_opposite_or_the_next_valid_value", RotatorTests::rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue);
+        ALL.put("rotator_sixteen_step_blocks_step_once_in_the_middle_and_four_times_at_the_rim", RotatorTests::sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim);
+        ALL.put("rotator_charge_runs_down_but_the_rotator_never_breaks", RotatorTests::chargeRunsDownButTheRotatorNeverBreaks);
+        ALL.put("rotator_anvil_recharges_with_sixteen_ender_pearls_for_no_levels", RotatorTests::anvilRechargesWithSixteenEnderPearlsForNoLevels);
+        ALL.put("rotator_anvil_takes_unbreaking_but_refuses_mending", RotatorTests::anvilTakesUnbreakingButRefusesMending);
+        ALL.put("rotator_a_turn_queues_the_ender_echo_shortly_after_the_ratchet", RotatorTests::aTurnQueuesTheEnderEchoShortlyAfterTheRatchet);
+        ALL.put("rotator_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape);
+        ALL.put("rotator_swap_replaces_the_block_gives_the_drops_and_uses_the_offhand_block", RotatorTests::swapReplacesTheBlockGivesTheDropsAndUsesTheOffhandBlock);
+        ALL.put("rotator_swap_windup_grows_with_hardness_and_shrinks_with_efficiency", RotatorTests::swapWindupGrowsWithHardnessAndShrinksWithEfficiency);
+        ALL.put("rotator_swap_windup_starts_on_click_and_only_finishes_on_the_same_aimed_block", RotatorTests::swapWindupStartsOnClickAndOnlyFinishesOnTheSameAimedBlock);
+        ALL.put("rotator_swap_allows_stone_tool_blocks_and_keeps_valuables_and_lists_decide", RotatorTests::swapAllowsStoneToolBlocksAndKeepsValuablesAndListsDecide);
+        ALL.put("rotator_swap_refusals_change_nothing_and_creative_swaps_for_free", RotatorTests::swapRefusalsChangeNothingAndCreativeSwapsForFree);
         ALL.put("discover_recipe_unlocks", com.simplegadgets.discover.GadgetsDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplegadgets.discover.GadgetsDiscover::behaviourHints);
         ALL.put("guide_book", com.simplegadgets.guide.GadgetsGuide::gameTest);
@@ -75,6 +90,15 @@ public final class GadgetsTests {
             problems.add("gauge item " + GadgetsRegistry.VELOCITY_GAUGE);
         }
         if (new ItemStack(GadgetsRegistry.VELOCITY_GAUGE).getMaxStackSize() != 1) problems.add("gauge stacks");
+        if (!(GadgetsRegistry.ROTATOR instanceof com.simplegadgets.rotator.RotatorItem)
+                || !BuiltInRegistries.ITEM.getKey(GadgetsRegistry.ROTATOR).equals(SimpleGadgets.id("rotator"))) {
+            problems.add("rotator item " + GadgetsRegistry.ROTATOR);
+        }
+        ItemStack transposer = new ItemStack(GadgetsRegistry.ROTATOR);
+        if (transposer.getMaxStackSize() != 1 || transposer.getMaxDamage() != com.simplegadgets.config.GadgetsConfig.rotatorMaxCharge
+                || !(GadgetsRegistry.ROTATOR instanceof com.simplelib.api.AnvilRechargeable)) {
+            problems.add("transposer stack/charge/recharge");
+        }
         if (!BuiltInRegistries.ITEM.containsKey(SimpleGadgets.id("guide_book"))) problems.add("guide book");
         if (!BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleGadgets.id("gadgets"))) problems.add("tab");
         if (GadgetsRegistry.tabStacks().size() != SimpleGadgets.MOVED_ITEMS.size() + 1) problems.add("tab stacks " + GadgetsRegistry.tabStacks().size());
@@ -146,6 +170,36 @@ public final class GadgetsTests {
             }
         } else {
             problems.add("no chest block entity");
+        }
+        // The Transposer (G2): an old stack keeps its charge (damage component) and a saved chest slot loads it.
+        CompoundTag rotatorTag = new CompoundTag();
+        rotatorTag.putString("id", "simplebuilding:rotator");
+        rotatorTag.putInt("count", 1);
+        CompoundTag rotatorComponents = new CompoundTag();
+        rotatorComponents.putInt("minecraft:damage", 7);
+        rotatorTag.put("components", rotatorComponents);
+        ItemStack rotator = ItemStack.CODEC.parse(ops, rotatorTag).result().orElse(ItemStack.EMPTY);
+        if (!rotator.is(GadgetsRegistry.ROTATOR) || rotator.getDamageValue() != 7) {
+            problems.add("old Transposer loads as " + rotator + " damage " + rotator.getDamageValue());
+        } else if (!ItemStack.CODEC.encodeStart(ops, rotator).result().map(t -> ((CompoundTag) t).getStringOr("id", "")).orElse("").equals("simplegadgets:rotator")) {
+            problems.add("old Transposer saves with the old id");
+        }
+        BlockPos rotatorChest = new BlockPos(3, 1, 1);
+        helper.setBlock(rotatorChest, Blocks.CHEST);
+        if (helper.getBlockEntity(rotatorChest, ChestBlockEntity.class) instanceof ChestBlockEntity chest) {
+            CompoundTag chestTag = new CompoundTag();
+            ListTag items = new ListTag();
+            CompoundTag entry = new CompoundTag();
+            entry.putByte("Slot", (byte) 2);
+            entry.putString("id", "simplebuilding:rotator");
+            entry.putInt("count", 1);
+            items.add(entry);
+            chestTag.put("Items", items);
+            chest.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING,
+                    level.registryAccess(), chestTag));
+            if (!chest.getItem(2).is(GadgetsRegistry.ROTATOR)) problems.add("old chest slot loads the Transposer as " + chest.getItem(2));
+        } else {
+            problems.add("no chest block entity for the Transposer");
         }
         helper.assertTrue(problems.isEmpty(), "migration: " + problems);
         helper.succeed();

@@ -51,6 +51,8 @@ public final class LibClientServices {
             if (slot == HudPanel.Slot.GAUGE && !com.simplebuilding.version.McVersion.GADGETS_IN_SB) continue;
             GadgetHud.register(hudSlotId(slot), slot.ordinal(), client -> HudPanel.active(slot, client));
         }
+        // OW24-2 G2: the Transposer's model property (Simple Gadgets) asks SimpleBuilding's full hand-hint question.
+        com.simplelib.api.GadgetActions.registerHandHint(com.simplebuilding.util.TransformTargets::canTransformTarget);
         GadgetHud.useSettings(() -> {
             var config = com.simplebuilding.Simplebuilding.getConfig();
             return config == null ? GadgetHud.DEFAULTS

@@ -1631,12 +1631,12 @@ public final class ConfigOptionTests {
 
             // --- tools.rotatorChargePerTurn: one real turn of a log ---
             BlockPos log = new BlockPos(2, 1, 2);
-            int[] costs = {1, 3, 0};
+            int[] costs = com.simplebuilding.version.McVersion.GADGETS_IN_SB ? new int[] {1, 3, 0} : new int[0]; // 26.3: Simple Gadgets' own config and tests
             for (int cost : costs) {
                 config.tools.rotatorChargePerTurn = cost;
                 helper.setBlock(log, net.minecraft.world.level.block.Blocks.OAK_LOG.defaultBlockState()
                         .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AXIS, net.minecraft.core.Direction.Axis.Y));
-                ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+                ItemStack rotator = new ItemStack(com.simplebuilding.util.GadgetRefs.rotator());
                 player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, rotator);
                 BlockPos abs = helper.absolutePos(log);
                 Vec3 hit = new Vec3(abs.getX() + 0.5, abs.getY() + 1.0, abs.getZ() + 0.5);

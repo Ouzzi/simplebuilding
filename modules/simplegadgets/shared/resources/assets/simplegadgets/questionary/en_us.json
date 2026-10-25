@@ -9,5 +9,16 @@
     "secret": [
       "Right-click toggles auto-walk. With Constructor's Touch it adds peak and average speed; Range extends the fall depth it can read, up to 64 blocks."
     ]
+  },
+  "rotator": {
+    "lore": [
+      "A tool for those who like things to face the right way."
+    ],
+    "use": [
+      "Right-click an orientable block (logs, furnaces, pistons, hoppers and the like) to turn it in place without breaking it. Built around an iron core."
+    ],
+    "secret": [
+      "It turns the thing you click, not the thing you wish you had clicked. Mind the face you aim at."
+    ]
   }
 }

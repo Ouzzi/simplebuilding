@@ -9,5 +9,16 @@
     "secret": [
       "Rechtsklick schaltet das Selbstgehen um. Mit Berührung des Konstrukteurs zeigt sie zusätzlich Spitzen- und Durchschnittstempo; Reichweite verlängert die lesbare Falltiefe, bis 64 Blöcke."
     ]
+  },
+  "rotator": {
+    "lore": [
+      "Ein Werkzeug für alle, die Dinge gern richtig ausgerichtet haben."
+    ],
+    "use": [
+      "Rechtsklick auf einen ausrichtbaren Block (Stämme, Öfen, Kolben, Trichter und dergleichen) dreht ihn an Ort und Stelle, ohne ihn abzubauen. Gebaut um einen Eisenkern."
+    ],
+    "secret": [
+      "Er dreht das, was du anklickst, nicht das, was du gern angeklickt hättest. Achte auf die Seite, auf die du zielst."
+    ]
   }
 }

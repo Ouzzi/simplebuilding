@@ -34,5 +34,9 @@
   "quests.simplegadgets.start.title": "Willkommen bei Simple Gadgets",
   "quests.simplegadgets.start.subtitle": "Dein Handbuch gratis",
   "quests.simplegadgets.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplegadgets.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Gadgets-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Uhr herstellen."
+  "quests.simplegadgets.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Gadgets-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Uhr herstellen.",
+  "item.simplegadgets.rotator": "Transponierer",
+  "tooltip.simplegadgets.rotator.empty": "Leer - im Amboss aufladen",
+  "tooltip.simplegadgets.rotator.recharge": "Amboss + Enderperlen: %s laden voll auf.",
+  "tooltip.simplegadgets.rotator.swap": "Nebenhand-Block + Klick: Block tauschen"
 }

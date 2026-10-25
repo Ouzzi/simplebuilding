@@ -8,7 +8,7 @@ ROOT = MODULE.parents[1]
 NS = 'simplegadgets'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplegadgets'
-GADGETS = ['velocity_gauge']
+GADGETS = ['velocity_gauge', 'rotator']
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -35,8 +35,13 @@ for frame in range(17):  # the Gauge's needle frames
 for path in list((RES / f'data/{NS}').rglob('*.json')) + list((RES / f'assets/{NS}').rglob('*.json')):
     if path.name.endswith('.layers.json') or path.parent.name in ('lang', 'questionary'):
         continue  # prose (guide pages, wiki) may name the old ids
-    text = path.read_text(encoding='utf-8').replace('simplebuilding:copper_core', '')  # with SimpleBuilding: its core (conditional)
+    text = path.read_text(encoding='utf-8').replace('simplebuilding:copper_core', '').replace('simplebuilding:iron_core', '').replace('simplebuilding:iron_pole', '')  # with SimpleBuilding: its cores and rods (conditional)
     assert 'simplebuilding:' not in text, path
+for part in ('rotator', 'rotator_empty', 'rotator_active'):  # the Transposer's models and textures
+    assert (RES / f'assets/{NS}/models/item/{part}.json').is_file(), part
+    assert (RES / f'assets/{NS}/textures/item/{part}.png').is_file(), part
+for tag in ('minecraft/tags/item/enchantable/durability', 'minecraft/tags/item/enchantable/mining', 'simplelib/tags/item/xp_repair_incompatible'):
+    assert 'simplegadgets:rotator' in (RES / f'data/{tag}.json').read_text(encoding='utf-8'), tag
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for f in list(manual['features']) + list(manual['notes'].values()):

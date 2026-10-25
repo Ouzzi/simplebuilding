@@ -1994,17 +1994,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:rotator",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 6,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:spawn_elytra",
       "tier": 5,
       "hours": 38.1,

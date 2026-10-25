@@ -555,7 +555,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Rotator (Besitzer 2026-09-27): Eisen-Baukern unten links, vier Eisenbarren im Kreuz, Enderperle in der Mitte;
                 // seit 2026-10-02 vier Eisenstaebe statt der Barren.
-                shaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
+                // OW24-2 G2: on 26.3 the Transposer and its recipe are Simple Gadgets' (modules/simplegadgets).
+                if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) shaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
                         .pattern(" I ")
                         .pattern("IPI")
                         .pattern("CI ")

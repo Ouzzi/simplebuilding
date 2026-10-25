@@ -233,8 +233,8 @@ public final class GuideContent {
         STYLES.put(GuideBooks.Book.GADGETS, new BookStyle(0xD07AA8, List.of(
                 ch("simplebuilding:magnet", List.of("simplebuilding:magnet"), List.of()),
                 ch("minecraft:hopper", List.of(), List.of("simplebuilding:magnet", "minecraft:hopper", "minecraft:chest")),
-                ch("simplebuilding:rotator", List.of("simplebuilding:rotator"), List.of("minecraft:oak_log", "minecraft:furnace", "minecraft:piston", "minecraft:hopper")),
-                ch("minecraft:ender_pearl", List.of(), List.of("simplebuilding:rotator", "minecraft:ender_pearl", "minecraft:anvil")),
+                ch(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator", List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator"), List.of("minecraft:oak_log", "minecraft:furnace", "minecraft:piston", "minecraft:hopper")), // 26.3: Simple Gadgets' Transposer, by id
+                ch("minecraft:ender_pearl", List.of(), List.of(com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":rotator", "minecraft:ender_pearl", "minecraft:anvil")),
                 ch("simplebuilding:detector", List.of("simplebuilding:detector"), List.of("minecraft:iron_ore", "minecraft:gold_ore", "minecraft:diamond_ore", "minecraft:ancient_debris")),
                 ch("minecraft:deepslate", List.of(), List.of("minecraft:stone", "minecraft:deepslate", "minecraft:obsidian")),
                 ch("simplebuilding:echo_sounder", List.of("simplebuilding:echo_sounder"), List.of("minecraft:lodestone")),
