@@ -966,4 +966,53 @@ public final class RodTests {
         helper.getLevel().getServer().getPlayerList().remove(player);
     }
 
+    private static final net.minecraft.world.entity.EntityType<? extends Mob> PIG_TYPE = EntityTypes.PIG;
+
+    private static void lensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        player.setXRot(-90.0f);
+        ItemStack lens = new ItemStack(GadgetsRegistry.AMETHYST_LENS);
+        player.setItemInHand(InteractionHand.MAIN_HAND, lens);
+        helper.assertTrue(player.pick(SHORT_LASER_RANGE, 1.0f, false).getType() == HitResult.Type.MISS,
+                "something blocks the view straight up within " + SHORT_LASER_RANGE + " blocks, so the beam does not point into the air");
+        helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction() && player.isUsingItem(), "the lens could not be used");
+        tickUse(player, 1);
+        helper.assertValueEqual(lens.getDamageValue(), ResonanceRodItem.BEAM_COST, "charge after one tick of pointing into the air");
+        tickUse(player, 19);
+        helper.assertValueEqual(lens.getDamageValue(), ResonanceRodItem.BEAM_COST, "charge after the first second of pointing into the air");
+        tickUse(player, 1);
+        helper.assertValueEqual(lens.getDamageValue(), 2 * ResonanceRodItem.BEAM_COST, "charge at the start of the second second");
+        player.releaseUsingItem();
+
+        // Kurzes Antippen: jede neue Nutzung kostet sofort.
+        helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the lens could not be used again");
+        tickUse(player, 3);
+        player.releaseUsingItem();
+        helper.assertValueEqual(lens.getDamageValue(), 3 * ResonanceRodItem.BEAM_COST, "charge after a three tick tap");
+
+        // Auf einem Block ohne Wirkung (Stein) kostet es genauso.
+        BlockPos stone = new BlockPos(2, 3, 3);
+        helper.setBlock(stone, Blocks.STONE);
+        faceNorth(player);
+        helper.assertTrue(player.pick(SHORT_LASER_RANGE, 1.0f, false) instanceof BlockHitResult hit
+                        && hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(helper.absolutePos(stone)),
+                "the player does not look at the stone block");
+        helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the lens could not be used a third time");
+        tickUse(player, 1);
+        player.releaseUsingItem();
+        helper.assertValueEqual(lens.getDamageValue(), 4 * ResonanceRodItem.BEAM_COST, "charge after pointing at a stone block");
+        helper.setBlock(stone, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Ein Spieler, der wie im Ueberlebensmodus baut (instabuild aus). Der In-Level-Mock bleibt fuer
+     * isCreative() kreativ, darum fragt der Flypad-Code instabuild; eine Verbindung hat er, anders als
+     * ein losgeloester Mock, sodass onUpdateAbilities nicht ins Leere sendet.
+     */
+    private static ServerPlayer survivalLikePlayer(GameTestHelper helper, Vec3 relative) {
+        ServerPlayer player = mockPlayer(helper, relative);
+        player.getAbilities().instabuild = false;
+        return player;
+    }
 }

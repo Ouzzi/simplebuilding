@@ -30,7 +30,7 @@ public final class BuildPermissions {
     /** True while a break or place event fired by this class is being answered. */
     public static boolean isProbing() {
         // SimpleLib's counter: Simple Gadgets' Resonance Rod fires the same loader events for its own claim checks (OW24-2 G2).
-        return PROBING.get()[0] > 0 || com.simplelib.api.InteractionGuard.probing > 0;
+        return PROBING.get()[0] > 0 || LibServices.gadgetProbing();
     }
 
     /** A machine's loader event is a permission probe, not a fake player's tool action. */

@@ -125,8 +125,8 @@ public final class TransformTargets {
         }
         if (item instanceof RotatorItem rotator)
             return rotator.canTransformTarget(new net.minecraft.world.item.context.UseOnContext(player, hand, hit));
-        // Simple Gadgets' gadgets (26.3, OW24-2): the item says it through SimpleLib's GadgetActions, asked at the same place.
-        if (com.simplelib.api.GadgetActions.itemHint(item, new net.minecraft.world.item.context.UseOnContext(player, hand, hit))) return true;
+        // Simple Gadgets' gadgets (26.3, OW24-2): the item says it through LibServices (SimpleLib GadgetActions), asked at the same place.
+        if (LibServices.gadgetItemHint(item, new net.minecraft.world.item.context.UseOnContext(player, hand, hit))) return true;
         if (item instanceof ChiselItem chisel) return chisel.canChisel(level, pos, stack, player);
         if (stack.is(Items.SHEARS) && ShearsWoolInteraction.canShear(state)) return true;
         if (stack.is(Items.HONEYCOMB) && HoneycombItem.WAXABLES.get().containsKey(state.getBlock())) return true;

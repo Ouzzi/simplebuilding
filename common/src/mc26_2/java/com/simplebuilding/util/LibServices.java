@@ -32,6 +32,22 @@ public final class LibServices {
     public static void init() {
     }
 
+    /** Simple Gadgets' gadgets are 26.3 only: no item hint, no published numbers, no events, no probe on this line. */
+    public static boolean gadgetItemHint(Item item, net.minecraft.world.item.context.UseOnContext context) {
+        return false;
+    }
+
+    public static int gadgetFact(String key, int fallback) {
+        return fallback;
+    }
+
+    public static void fireGadgetEvent(String event, net.minecraft.world.entity.player.Player player) {
+    }
+
+    public static boolean gadgetProbing() {
+        return false;
+    }
+
     /** Null: {@code SledgehammerUpgradeData} reads the files itself. */
     public static @Nullable Map<Block, SledgehammerUpgrades.Upgrade> applyUpgrades(Map<Identifier, JsonElement> files) {
         return null;

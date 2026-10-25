@@ -458,9 +458,9 @@ public final class AdvancementTriggerTests {
             beam(helper, player, lens, relative, ticks);
             return;
         }
-        com.simplelib.api.GadgetActions.fire(com.simplelib.api.GadgetActions.LENS_BEAM, player);
+        com.simplebuilding.util.LibServices.fireGadgetEvent("lens_beam", player);
         if (primesTnt) {
-            com.simplelib.api.GadgetActions.fire(com.simplelib.api.GadgetActions.LASER_TNT, player);
+            com.simplebuilding.util.LibServices.fireGadgetEvent("laser_tnt", player);
             helper.setBlock(relative, Blocks.AIR);
         }
     }

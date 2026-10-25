@@ -51,6 +51,24 @@ public final class LibServices {
     }
 
     /** After the blocks and items are registered (ModItems.registerModItems). */
+    /** Simple Gadgets (OW24-2 G2) through SimpleLib's GadgetActions: the item's own hand hint, its published numbers, its events. */
+    public static boolean gadgetItemHint(Item item, net.minecraft.world.item.context.UseOnContext context) {
+        return com.simplelib.api.GadgetActions.itemHint(item, context);
+    }
+
+    public static int gadgetFact(String key, int fallback) {
+        return com.simplelib.api.GadgetActions.fact(key, fallback);
+    }
+
+    public static void fireGadgetEvent(String event, net.minecraft.world.entity.player.Player player) {
+        com.simplelib.api.GadgetActions.fire(event, player);
+    }
+
+    /** A gadget's claim probe fires the loader's break event right now (SimpleLib's counter). */
+    public static boolean gadgetProbing() {
+        return com.simplelib.api.InteractionGuard.probing > 0;
+    }
+
     public static void init() {
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();

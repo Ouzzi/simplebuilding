@@ -393,9 +393,9 @@ public final class InWorldTransformations {
         o.addProperty("tool", id(com.simplebuilding.util.GadgetRefs.rotator()));
         // 26.3: the Transposer is Simple Gadgets' - its numbers come through SimpleLib's GadgetActions facts (same defaults).
         boolean own = com.simplebuilding.version.McVersion.GADGETS_IN_SB;
-        o.addProperty("chargePerTurn", own ? com.simplebuilding.items.custom.RotatorItem.USE_COST : com.simplelib.api.GadgetActions.fact("rotator.useCost", 1));
-        o.addProperty("maxCharge", own ? com.simplebuilding.items.custom.RotatorItem.MAX_CHARGE : com.simplelib.api.GadgetActions.fact("rotator.maxCharge", 1024));
-        o.addProperty("pearlsForFull", own ? com.simplebuilding.items.custom.RotatorItem.PEARLS_FOR_FULL : com.simplelib.api.GadgetActions.fact("rotator.pearlsForFull", 16));
+        o.addProperty("chargePerTurn", own ? com.simplebuilding.items.custom.RotatorItem.USE_COST : LibServices.gadgetFact("rotator.useCost", 1));
+        o.addProperty("maxCharge", own ? com.simplebuilding.items.custom.RotatorItem.MAX_CHARGE : LibServices.gadgetFact("rotator.maxCharge", 1024));
+        o.addProperty("pearlsForFull", own ? com.simplebuilding.items.custom.RotatorItem.PEARLS_FOR_FULL : LibServices.gadgetFact("rotator.pearlsForFull", 16));
         o.add("examples", examples);
         return o;
     }
