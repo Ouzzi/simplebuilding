@@ -71,7 +71,13 @@ def _lid_c():
 
 LID_C = _lid_c()
 LIDS = {'A': LID_A, 'B': LID_B, 'C': LID_C}
-LID_DEFAULT = 'C'
+LID_DEFAULT = 'D'
+# WD25-19 (Besitzer: "zu strahlend und viel Kontrast"): D = Form C mit gedaempfter Palette - Eisen dunkler und enger
+# beieinander (wie Vanillas Eisenbeschlaege im Schatten), Bretter mit weicheren Fugen; die Oberseite wird im Spiel
+# heller beleuchtet als die Seiten, darum etwas dunkler als deren Palette.
+LID_SOFT = dict(LID_COLORS, W=(0xA4, 0xA8, 0xAE), I=(0x8C, 0x90, 0x96), M=(0x76, 0x7A, 0x80), S=(0x5E, 0x62, 0x68),
+                K=(0x44, 0x46, 0x4C), p=(0x6C, 0x4F, 0x2E), m=(0x5C, 0x42, 0x25), d=(0x4E, 0x37, 0x1F), l=(0x40, 0x2C, 0x18))
+LIDS['D'] = LID_C
 
 GREY = (85, 85, 85)
 TIP_A = [
@@ -87,12 +93,33 @@ TIP_C = [
     '.........######.', '........#######.', '.......####.###.', '......####...##.', '......##.......#', '................',
     '................', '................', '................', '................']
 TIPS = {'A': TIP_A, 'B': TIP_B, 'C': TIP_C}
-TIP_DEFAULT = 'A'
+# WD25-19 (Besitzer 25.10.): Spitze B, aber ausgeduennt - Mitte frei wie Vanillas Slot-Silhouetten (Umriss 1 px);
+# die Feder (bisher volle Silhouette) ebenso als Umriss.
+FEATHER = [
+    '................', '................', '............#...', '............##..', '...........###..', '..........#####.',
+    '..........####..', '........#####...', '......#.######..', '.....########...', '.....######.....', '...#########....',
+    '....######......', '..#######.......', '.....##.........', '................']
+
+
+def outline(rows):
+    """Nur die Randpixel einer Silhouette (ein Nachbar oben/unten/links/rechts ist leer): Mitte frei."""
+    def on(x, y):
+        return 0 <= y < len(rows) and 0 <= x < len(rows[y]) and rows[y][x] == '#'
+    return [''.join('#' if on(x, y) and not (on(x - 1, y) and on(x + 1, y) and on(x, y - 1) and on(x, y + 1)) else '.'
+                    for x in range(16)) for y in range(16)]
+
+
+TIPS['B2'] = outline(TIP_B)[:10] + ['...#........#...', '....###..###....', '...##..##..##...', '.......##.......'] + ['.' * 16] * 2  # Fuss von Hand
+TIPS['F'] = FEATHER
+TIPS['F2'] = outline(FEATHER)
+TIP_DEFAULT = 'B2'
+FEATHER_DEFAULT = 'F2'
 
 
 def lid(name):
     rows = LIDS[name]
-    colors = dict(LID_COLORS, N=LID_COLORS['W'])
+    base = LID_SOFT if name == 'D' else LID_COLORS
+    colors = dict(base, N=base['W'])
     img = Image.new('RGBA', (16, 16))
     img.putdata([tuple(colors[c]) + (255,) for row in rows for c in row])
     layers.snap_grid(img, rows, colors, LID_GROUPS, base='Rahmen')
@@ -108,7 +135,8 @@ def tip(name):
 
 
 def targets():
-    return [(lid(LID_DEFAULT), os.path.join(SHOPS, 'sales_block_top.png')), (tip(TIP_DEFAULT), os.path.join(SLOTS, 'arrow_tip.png'))]
+    return [(lid(LID_DEFAULT), os.path.join(SHOPS, 'sales_block_top.png')), (tip(TIP_DEFAULT), os.path.join(SLOTS, 'arrow_tip.png')),
+            (tip(FEATHER_DEFAULT), os.path.join(SLOTS, 'arrow_fletching.png'))]
 
 
 def main(argv):

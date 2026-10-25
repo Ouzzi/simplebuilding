@@ -13,8 +13,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.CartographyTableMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-/** Cartography table in the Simple style: the error arrow gives way to the red cross; the map sprites stay Vanilla. */
+/**
+ * Cartography table in the Simple style: the error arrow gives way to the red cross; the map sprites stay Vanilla but
+ * sit {@code StationStyles.CARTO_TOP} px lower (WD25-19, room under the title).
+ */
 @Mixin(CartographyTableScreen.class)
 public abstract class CartographyStationMixin extends AbstractContainerScreen<CartographyTableMenu> {
     private CartographyStationMixin(CartographyTableMenu menu, Inventory inventory, Component title) {
@@ -27,5 +31,10 @@ public abstract class CartographyStationMixin extends AbstractContainerScreen<Ca
         if (!sprite.getPath().equals("container/cartography_table/error") || !StationScreens.active(this)) return true;
         StationScreens.error(graphics, this.leftPos + 41, this.topPos + StationScreens.CARTO_SYMBOL_Y, UiSymbols.ARROW_SMALL.width(), UiSymbols.ARROW_SMALL.height());
         return false;
+    }
+
+    @ModifyVariable(method = "extractResultingMap", at = @At("STORE"), ordinal = 1)
+    private int simpleinterfaces$mapTop(int yo) {
+        return yo + StationScreens.cartographyMapShift(this);
     }
 }
