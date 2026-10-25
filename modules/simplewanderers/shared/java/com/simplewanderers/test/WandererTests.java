@@ -450,6 +450,8 @@ public final class WandererTests {
     static long village(GameTestHelper h, String type) {
         long id = nextVillage++;
         BlockPos bell = bell(h);
+        // findSpot skips unloaded chunks; the wanderer spawns up to 8 and his horse 3 blocks further out, past the arena's own chunks.
+        for (int dx = -11; dx <= 11; dx += 11) for (int dz = -11; dz <= 11; dz += 11) h.getLevel().getChunk(new BlockPos(bell.getX() + dx, bell.getY(), bell.getZ() + dz));
         WandererSpawner.locator = (level, near, radius) -> Optional.of(new WandererSpawner.Village(id, bell, type));
         h.runBeforeTestEnd(() -> {
             for (VillageWanderer w : wanderers(h, id)) w.discard();
