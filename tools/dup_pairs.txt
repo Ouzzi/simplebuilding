@@ -1,5 +1,5 @@
 # core path, module path, allow: drift accepted so far (tools/check_dup_impl.py --baseline rewrites this)
-common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java allow: CheckerShapes/4 EndAlternates/4 EndPalette/14 alternates/0 blocks/0 boards/0 hammockBlockEntityBlocks/0 lightPanes/0 register/0 registerModBlocks/0 slabs/0 squareChain/0 stairs/0 tieredChests/0 trappedCopperChests/0 walls/0
+common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java allow: CheckerShapes/4 EndAlternates/4 EndPalette/14 alternates/0 blocks/0 boards/0 hammockBlockEntityBlocks/0 register/0 registerModBlocks/0 slabs/0 squareChain/0 stairs/0 tieredChests/0 trappedCopperChests/0 walls/0
 common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java allow: canSurvive/3 codec/0 getStateForPlacement/1 onPlace/5 storedStack/1 tick/4 updateShape/8
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
@@ -12,9 +12,11 @@ common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockE
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java allow: create/0
+common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeAutowalk.java
 common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java allow: palette/2 slotColor/1
 common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestScreen.java
 common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackTooltip.java
+common/src/shared/java/com/simplebuilding/client/property/GaugeNeedleModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeNeedleModelProperty.java
 common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackBlockTint.java
 common/src/shared/java/com/simplebuilding/client/render/BackpackLayer.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackLayer.java
 common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java modules/simplestorage/shared/java/com/simplestorage/client/PlacedBundleRenderer.java
@@ -39,6 +41,7 @@ common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
 common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
 common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
+common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java modules/simplegadgets/shared/java/com/simplegadgets/gauge/VelocityGaugeItem.java
 common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTooltipData.java
 common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simplemoney/shared/java/com/simplemoney/WeightedEnchantFunction.java
 common/src/shared/java/com/simplebuilding/loot/WeightedEnchantFunction.java modules/simpleriding/shared/java/com/simpleriding/WeightedEnchantFunction.java

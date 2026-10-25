@@ -99,4 +99,18 @@ Discover); `./gradlew check`. Nicht: NeoForge/Forge, Client-Sicht.
 
 ## 6. Stand und Abweichungen
 
-(wird nach der Umsetzung ergänzt)
+G1 umgesetzt wie geplant: Modul `modules/simplegadgets` 0.9.0 (Fabric 26.3; `GadgetsRegistry`, `VelocityGaugeItem`, `GaugeHud`,
+`GaugeAutowalk`, `GaugeNeedleModelProperty`, Mixin `GaugeKeyboardInputMixin`, `GadgetEnchantments`, IdMoves Item/Rezept/
+Freischaltung), SimpleLib `com.simplelib.api.client.GadgetHud`, SB `McVersion.GADGETS_IN_SB`/`GADGETS_NAMESPACE`, `util/GadgetRefs`,
+`LibClientServices` meldet Oktant/Stab-Slots + HUD-Config an, Schalter „Simple Gadgets aktivieren“, Texturen per `git mv`, Modelle/
+Rezept/Freischaltung umgeschrieben, Lang/Fragentisch/Wiki/Money ins Modul. Tests: `GadgetsTests` (10, davon 4 Messuhr-Tests aus
+`TweaksTests` portiert, neu Registrierung, Schalter, Migration mit altem Stapel inkl. Komponente und alter Truhe aus NBT, Rezept
+mit/ohne SB, Discover, Handbuch); SB-Messuhr-Tests auf 26.3 per `GADGETS_IN_SB`-Wächter.
+
+Abweichungen: (a) Kein Block, daher kein Paletten-Test (`NbtUtils`/`BlockState.CODEC` entfällt für G1; Pflicht ab G3, wenn
+abgelegte Geräte/`PlacedTemplateBlock` umziehen). (b) JEI-Info `jei.simplebuilding.info.velocity_gauge` auf 26.3 entfernt (Modul hat
+kein JEI-Plugin, das Item hat ein Rezept). (c) `ClientSpeedometerMixin` (Altlast) unverändert, auf 26.3 wirkungslos.
+
+Belege (sb-test): Compile `:mc26_3:fabric` (+gametest), `:modules:simplegadgets:fabric`, `:modules:simplelib:fabric`;
+module-simplegadgets-fabric-263 10/10, standalone 10/10; fabric-263 `*gauge*` 4/4, `*test_centre*` 21/21, `*config_option*` 20/20,
+`*guide*` 16/16, `*core_tooltips*` 1/1, `*renamed_item_ids*` 1/1, `*data_integrity*` siehe Queue; integration-263 4/4.
