@@ -129,12 +129,12 @@ Echter Client (Integration, alle Module), jeder Screen wie ein Spieler geöffnet
 
 ## Besitzer-Antworten 25.10. (WD25)
 Besitzer-Text /root/sb-tools-b/wd25.md, Bilder /root/sb-tools-b/wd25-img/28–30.png.
-- [~] (B, b-wd25ui, 25.10.) WD25-6 Shop-Block (Verkaufsblock) ohne Deckel/Oberseite – Modell/Textur prüfen.
-- [~] (B, b-wd25ui, 25.10.) WD25-8 Astral-Tresor: Overlay der Astralreihen als dunkle Version der oberen Farbe statt Lila.
-- [~] (B, b-wd25ui, 25.10.) WD25-9 Reparieren & Entzaubern (Schleifstein): linke Slots + Motiv vertikal mittig, Pfeil als Referenz.
-- [~] (B, b-wd25ui, 25.10.) WD25-10 Kartentisch entzerren, linke 2 Slots vertikal zentriert.
-- [~] (B, b-wd25ui, 25.10.) WD25-11 Leuchtfeuer-UI mit Vanilla vergleichen, fehlende Elemente ergänzen.
-- [~] (B, b-wd25ui, 25.10.) WD25-12 Befiederungstisch: Pfeil-Logo + Pfeilspitzen-Hintergrund überarbeiten, Slot-Block zentrieren.
+- [x] (B, b-wd25ui, 25.10., Plan docs/ai/PLAN-B-WD25UI-2026-10-25.md, Vorschau /root/sb-tools-b/previews/wd25ui-preview.html) WD25-6 Shop-Block (Verkaufsblock) ohne Deckel/Oberseite. → Modell in Ordnung (voller Würfel mit eigener Oberseite), die Oberseiten-Textur war ein Gitter: jetzt geschlossener Plankendeckel im alten Eisenrahmen (Variante C; A/B in der Vorschau), Generator tools/textures/wd25_ui_2026_10_25.py (`--install`/`--check`, Ebenen). Offen: Client-Sicht (Shop-Blöcke nicht im Vis24-Lauf).
+- [x] (B, b-wd25ui, 25.10., Plan docs/ai/PLAN-B-WD25UI-2026-10-25.md, Vorschau /root/sb-tools-b/previews/wd25ui-preview.html) WD25-8 Astral-Tresor: Astralreihen dunkel statt Lila. → gestylt StorageStyles.astralSlots (Slot = Ender-Füllung × 0,5, Variante B; 0,62/0,4 in der Vorschau), Vanilla-Look dunkler Schleier statt Rucksack-Violett (AstralVaultScreenMixin); Client-Lauf vis24 geprüft.
+- [x] (B, b-wd25ui, 25.10., Plan docs/ai/PLAN-B-WD25UI-2026-10-25.md, Vorschau /root/sb-tools-b/previews/wd25ui-preview.html) WD25-9 Schleifstein: linke Slots + Rad + Klammer 4 px tiefer, Mitte auf Pfeilhöhe (nur im Stil, Client-Slots über SlotPositionAccessor, StationStyles.SLOT_MOVES; ohne Stil Vanilla-Lage); Test station_layouts erweitert (Vanilla-Lage + Kasten bleibt); Client-Lauf geprüft.
+- [x] (B, b-wd25ui, 25.10., Plan docs/ai/PLAN-B-WD25UI-2026-10-25.md, Vorschau /root/sb-tools-b/previews/wd25ui-preview.html) WD25-10 Kartentisch: linke Slots (19/56), Plus/Pfeil (y 41), Ergebnis (y 38) auf die Kartenmitte y 46, Fehlerkreuz mit; Client-Lauf geprüft.
+- [x] (B, b-wd25ui, 25.10., Plan docs/ai/PLAN-B-WD25UI-2026-10-25.md, Vorschau /root/sb-tools-b/previews/wd25ui-preview.html) WD25-11 Leuchtfeuer (Vanilla-Beacon im Stil): ergänzt Stufen-Pyramiden (benötigte Stufen weiß + Goldspitze sobald erreicht), Beschriftungen „Primary/Secondary Power“ (UiContrast ≥ 4,5:1), Trennstriche der Bezahl-Items, Felder auf Vanilla-Panelbreite (WorkScreens.beacon); Starkes Leuchtfeuer (T12) unverändert; Client-Lauf geprüft.
+- [x] (B, b-wd25ui, 25.10., Plan docs/ai/PLAN-B-WD25UI-2026-10-25.md, Vorschau /root/sb-tools-b/previews/wd25ui-preview.html) WD25-12 Befiederungstisch: Reihe waagerecht+senkrecht mittig (FletchingMenu PART_X/RESULT_X/ROW_Y, Buch 18/33, Vanilla-Rückfall setzt Werkbank-Teile an die Slots), Pfeil-Logo = Pfeil mit Federn (Variante A), Leer-Slot-Icon arrow_tip = aufrechte Spitze mit Widerhaken (Variante A); fabric-263 fletching 8/8, Client-Lauf geprüft.
 
 ## Besitzer 24.10. nachmittags – Antworten Sammelseite, Runde 2 (WC24)
 Abgenommen: WB24-2 Schwingen Stufe 1–4 (Name „Leeren-Schwingen“, x8/1152/MYTHIC), WB24-4 Notenblatt-Editor („noten blatt e3“ = E3-Ansicht so lassen, flaches Neuschreiben ok).
