@@ -1372,6 +1372,7 @@ public final class TweaksTests {
      * hoechstens {@link TweaksNetwork#LASER_PACKETS_PER_SECOND} Pakete je Sekunde.
      */
     public static void theLaserRelayChecksTheSenderAndOnlyReachesNearbyPlayers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer sender = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         ServerPlayer near = mockPlayer(helper, new Vec3(5.5, 1.0, 5.5));
         ServerPlayer far = mockPlayer(helper, new Vec3(5.5, 1.0, 5.5));
@@ -1387,7 +1388,7 @@ public final class TweaksTests {
         };
 
         helper.assertValueEqual(TweaksNetwork.relayLaser(payload, sender, capture), 0, "players reached without a laser pointer in use");
-        sender.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(TweaksItems.LASER_POINTER));
+        sender.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.GadgetRefs.rod()));
         sender.startUsingItem(InteractionHand.MAIN_HAND);
         helper.assertTrue(sender.isUsingItem(), "the probe player does not use the laser pointer");
 
@@ -1502,13 +1503,14 @@ public final class TweaksTests {
      * drei Eisen - kein Glas mehr. Die Haltbarkeit ist die Ladung.
      */
     public static void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         Item i = Items.IRON_INGOT;
         Item r = Items.REDSTONE;
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
             // Nachtrag 4: swap redstone/nuggets, remove the pair below/right of the core.
             Item nug = Items.IRON_NUGGET;
             CraftingInput grid = grid(null, nug, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, null, ModItems.IRON_POLE, null, null);
-            expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
+            expectCrafting(helper, grid, com.simplebuilding.util.GadgetRefs.rod(), "simplebuilding:amethyst_lens");
             helper.assertTrue(craftingResult(helper, grid(null, r, Items.AMETHYST_SHARD, nug, ModItems.IRON_CORE, r, ModItems.IRON_POLE, nug, null)).isEmpty(), "the previous rod recipe still works");
             helper.assertTrue(craftingResult(helper, grid(null, nug, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, nug, ModItems.IRON_POLE, r, null)).isEmpty(), "the rod accepts the removed redstone/nugget pair");
             helper.assertTrue(craftingResult(helper, grid(null, null, Items.AMETHYST_SHARD, r, ModItems.IRON_CORE, null, ModItems.IRON_POLE, null, null)).isEmpty(), "the rod crafts without its nugget");
@@ -1516,12 +1518,12 @@ public final class TweaksTests {
             helper.assertTrue(craftingResult(helper, grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r)).isEmpty(), "the 26.2 ingot recipe still works on 26.3");
         } else {
             CraftingInput grid = grid(i, i, r, i, ModItems.IRON_CORE, Items.AMETHYST_SHARD, i, i, r);
-            expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
+            expectCrafting(helper, grid, com.simplebuilding.util.GadgetRefs.rod(), "simplebuilding:amethyst_lens");
         }
         helper.assertTrue(craftingResult(helper, grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i)).isEmpty(), "the unrotated rod recipe still works");
         Optional<ItemStack> oldPattern = craftingResult(helper, grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, r, i));
-        helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(TweaksItems.LASER_POINTER), "the old glass pattern still makes the lens");
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(com.simplebuilding.util.GadgetRefs.rod()), "the old glass pattern still makes the lens");
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         helper.assertTrue(lens.isDamageableItem() && lens.getMaxDamage() == LaserPointerItem.MAX_CHARGE,
                 "the lens has no charge of " + LaserPointerItem.MAX_CHARGE + " (max damage " + lens.getMaxDamage() + ")");
         helper.assertTrue(LaserPointerItem.CHARGE_PER_SHARD * 16 == LaserPointerItem.MAX_CHARGE, "16 amethyst shards are not exactly one full charge");
@@ -1530,8 +1532,9 @@ public final class TweaksTests {
 
     /** Eis wird Wasser, Packeis Eis, Blaueis Packeis; Schneeschicht und Schneeblock schmelzen weg - erst nach der Verweildauer. */
     public static void theLensBeamMeltsIceAndSnow(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         BlockPos target = new BlockPos(2, 2, 2);
         helper.setBlock(target.below(), Blocks.STONE);
         Block[][] steps = {
@@ -1553,8 +1556,9 @@ public final class TweaksTests {
 
     /** Brennbares (Bretter oben, Stamm seitlich) faengt erst nach der Verweildauer Feuer, auf der angestrahlten Seite; Stein nie. */
     public static void theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         var rules = helper.getLevel().getGameRules();
         int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
         try {
@@ -1585,8 +1589,9 @@ public final class TweaksTests {
 
     /** Seelensand bekommt oben Seelenfeuer; Lagerfeuer, Seelenlagerfeuer und Kerzen gehen an. */
     public static void theLensBeamLightsSoulFireCampfiresAndCandles(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         BlockPos soul = new BlockPos(1, 2, 1);
         helper.setBlock(soul, Blocks.SOUL_SAND);
         beam(helper, player, lens, soul, Direction.UP, LaserBeam.SOUL_FIRE_TICKS - 1);
@@ -1615,8 +1620,9 @@ public final class TweaksTests {
      * Rahmen, Feuerplatz im Rahmen) - auch nicht, seit er TNT zuenden darf.
      */
     public static void theLensBeamNeverLightsNetherPortals(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(5.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         var rules = helper.getLevel().getGameRules();
         int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
         try {
@@ -1651,8 +1657,9 @@ public final class TweaksTests {
      * es auch nichts).
      */
     public static void theLensBeamPrimesTntAfterDwellingButRespectsTheRules(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(5.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         var rules = helper.getLevel().getGameRules();
         boolean tntExplodes = rules.get(GameRules.TNT_EXPLODES);
         try {
@@ -1701,6 +1708,7 @@ public final class TweaksTests {
      * "ins Leere" nicht von dem abhaengt, was ueber der Teststruktur steht.
      */
     public static void theLensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         int range = SimpleTweaks.config().laserPointer.range;
         try {
             SimpleTweaks.config().laserPointer.range = SHORT_LASER_RANGE;
@@ -1720,6 +1728,7 @@ public final class TweaksTests {
      * beim Loslassen auf das neue Ziel aktualisiert.
      */
     public static void theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         faceNorth(player);
         BlockPos stone = new BlockPos(2, 3, 3);
@@ -1731,7 +1740,7 @@ public final class TweaksTests {
         double stoneDistance = player.pick(8.0, 1.0f, false).getLocation().distanceTo(player.getEyePosition());
         var component = com.simplebuilding.component.ModDataComponentTypes.LENS_MEASUREMENT;
 
-        ItemStack plain = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack plain = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         player.setItemInHand(InteractionHand.MAIN_HAND, plain);
         helper.assertTrue(plain.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the plain lens could not be used");
         tickUse(player, 21);
@@ -1739,7 +1748,7 @@ public final class TweaksTests {
         helper.assertFalse(LaserPointerItem.measures(plain, helper.getLevel()), "a plain lens counts as measuring");
         helper.assertTrue(!plain.has(component), "a lens without Constructor's Touch stored a measurement: " + plain.get(component));
 
-        ItemStack touched = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack touched = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         touched.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .getOrThrow(com.simplebuilding.enchantment.ModEnchantments.CONSTRUCTORS_TOUCH), 1);
         player.setItemInHand(InteractionHand.MAIN_HAND, touched);
@@ -1771,7 +1780,7 @@ public final class TweaksTests {
     private static void lensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         player.setXRot(-90.0f);
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         player.setItemInHand(InteractionHand.MAIN_HAND, lens);
         helper.assertTrue(player.pick(SHORT_LASER_RANGE, 1.0f, false).getType() == HitResult.Type.MISS,
                 "something blocks the view straight up within " + SHORT_LASER_RANGE + " blocks, so the beam does not point into the air");
@@ -1812,6 +1821,7 @@ public final class TweaksTests {
      * jenseits der alten Grenze von 24 Bloecken.
      */
     public static void theLensDwellTimeGrowsModeratelyWithDistance(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         int base = LaserBeam.IGNITE_TICKS;
         helper.assertValueEqual(LaserBeam.dwellTicks(base, 1.0), base, "ignite dwell ticks right in front");
         helper.assertValueEqual(LaserBeam.dwellTicks(base, 5.0), base, "ignite dwell ticks at 5 blocks");
@@ -1831,7 +1841,7 @@ public final class TweaksTests {
         for (double away : new double[]{40.0, 200.0}) {
             helper.setBlock(ice, Blocks.ICE);
             ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5 + away));
-            ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+            ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
             int needed = LaserBeam.dwellTicks(LaserBeam.MELT_TICKS, player.getEyePosition().distanceTo(beamPoint(helper, ice, Direction.UP)));
             helper.assertTrue(needed > LaserBeam.MELT_TICKS, "no longer dwell at " + away + " blocks: " + needed);
             beam(helper, player, lens, ice, Direction.UP, needed - 1);
@@ -1848,8 +1858,9 @@ public final class TweaksTests {
      * brennbarer Block im selben Abstand; das kostet die Wirkungsladung. Im Wasser nicht.
      */
     public static void theLensSetsLivingEntitiesOnFireTakingTwiceAsLong(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
         Mob pig = helper.spawn(PIG_TYPE, new BlockPos(2, 2, 2));
         pig.setNoAi(true);
@@ -1886,11 +1897,12 @@ public final class TweaksTests {
      * (unverwundbar) nie.
      */
     public static void theLensOnlyIgnitesPlayersWhenPvpAllowsIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         ServerPlayer target = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
         target.getAbilities().invulnerable = false;
         target.getAbilities().instabuild = false;
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         var rules = helper.getLevel().getGameRules();
         boolean pvp = rules.get(GameRules.PVP);
         try {
@@ -1923,6 +1935,7 @@ public final class TweaksTests {
      * {@link LaserBeam#HEAT_SOUND_PERIOD} Ticks. Gezaehlt ueber den Test-Haken der Linse.
      */
     public static void theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         java.util.Map<LaserBeam.Sound, Integer> heard = new java.util.EnumMap<>(LaserBeam.Sound.class);
         int range = SimpleTweaks.config().laserPointer.range;
         var rules = helper.getLevel().getGameRules();
@@ -1931,7 +1944,7 @@ public final class TweaksTests {
         try {
             SimpleTweaks.config().laserPointer.range = SHORT_LASER_RANGE;
             ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
-            ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+            ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
             player.setItemInHand(InteractionHand.MAIN_HAND, lens);
             BlockPos stone = new BlockPos(2, 3, 3);
             helper.setBlock(stone, Blocks.STONE);
@@ -1985,8 +1998,9 @@ public final class TweaksTests {
 
     /** Die Zusatzwirkung: ein nasser Schwamm trocknet nach laengerem Strahlen. */
     public static void theLensBeamDriesWetSponges(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         BlockPos sponge = new BlockPos(2, 2, 2);
         helper.setBlock(sponge, Blocks.WET_SPONGE);
         beam(helper, player, lens, sponge, Direction.NORTH, LaserBeam.DRY_TICKS - 1);
@@ -1998,8 +2012,9 @@ public final class TweaksTests {
 
     /** Im Abenteuermodus wirkt der Strahl nicht; ohne Feuerausbreitung (Spielregel 0) zuendet er kein Brennbares. */
     public static void theLensBeamRespectsAdventureModeAndTheFireSpreadRule(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         BlockPos ice = new BlockPos(1, 2, 2);
         helper.setBlock(ice, Blocks.ICE);
         player.getAbilities().mayBuild = false;
@@ -2026,9 +2041,10 @@ public final class TweaksTests {
      * bleibt sie im Inventar, laesst sich nicht mehr benutzen und wirkt nicht mehr. Kreativ kostet nichts.
      */
     public static void theLensChargeRunsDownButTheLensNeverBreaks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
-        LaserPointerItem item = (LaserPointerItem) TweaksItems.LASER_POINTER;
-        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        LaserPointerItem item = (LaserPointerItem) com.simplebuilding.util.GadgetRefs.rod();
+        ItemStack lens = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         item.onUseTick(helper.getLevel(), player, lens, item.getUseDuration(lens, player) - 20);
         helper.assertTrue(lens.getDamageValue() == LaserPointerItem.BEAM_COST, "a second of beaming cost " + lens.getDamageValue() + " charge");
 
@@ -2037,7 +2053,7 @@ public final class TweaksTests {
         helper.setBlock(ice, Blocks.ICE);
         beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS);
         helper.assertTrue(helper.getBlockState(ice).is(Blocks.WATER), "the last bit of charge did not melt the ice");
-        helper.assertTrue(!lens.isEmpty() && lens.is(TweaksItems.LASER_POINTER) && lens.getDamageValue() == LaserPointerItem.MAX_CHARGE,
+        helper.assertTrue(!lens.isEmpty() && lens.is(com.simplebuilding.util.GadgetRefs.rod()) && lens.getDamageValue() == LaserPointerItem.MAX_CHARGE,
                 "the lens broke or overshot instead of ending empty: " + lens + " damage " + lens.getDamageValue());
         helper.assertTrue(LaserPointerItem.isEmpty(lens), "a fully used lens does not count as empty");
 
@@ -2051,7 +2067,7 @@ public final class TweaksTests {
         helper.assertTrue(lens.getDamageValue() == LaserPointerItem.MAX_CHARGE && !lens.isEmpty(), "draining an empty lens broke it");
 
         ServerPlayer creative = mockPlayer(helper, new Vec3(4.5, 2.0, 5.5));
-        ItemStack free = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack free = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         LaserPointerItem.drain(creative, free, 50);
         helper.assertTrue(free.getDamageValue() == 0, "beaming cost charge in creative");
         helper.setBlock(ice, Blocks.AIR);
@@ -2064,8 +2080,9 @@ public final class TweaksTests {
      * Stapels wird verbraucht. Redstone laedt nicht mehr.
      */
     public static void anvilRechargeWithAmethystShardsCostsNoLevels(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         if (com.simplebuilding.version.McVersion.GADGET_REWORK) {
-            ItemStack rod = new ItemStack(TweaksItems.LASER_POINTER);
+            ItemStack rod = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
             helper.assertTrue(new ItemStack(Items.AMETHYST_SHARD).is(com.simplebuilding.util.ModTags.Items.REPAIRS_RESONANCE_ROD),
                     "amethyst shards are missing from the resonance rod repair tag");
             helper.assertTrue(rod.isValidRepairItem(new ItemStack(Items.AMETHYST_SHARD)), "rod repair component rejects amethyst");
@@ -2076,17 +2093,17 @@ public final class TweaksTests {
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         player.experienceLevel = 0;
 
-        ItemStack empty = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack empty = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         empty.setDamageValue(LaserPointerItem.MAX_CHARGE);
         net.minecraft.world.inventory.AnvilMenu full = recharge(helper, player, empty, Items.AMETHYST_SHARD, 16);
         ItemStack out = full.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
-        helper.assertTrue(out.is(TweaksItems.LASER_POINTER) && out.getDamageValue() == 0, "16 amethyst shards did not fully charge an empty rod: " + out + " damage " + out.getDamageValue());
+        helper.assertTrue(out.is(com.simplebuilding.util.GadgetRefs.rod()) && out.getDamageValue() == 0, "16 amethyst shards did not fully charge an empty rod: " + out + " damage " + out.getDamageValue());
         helper.assertTrue(full.getCost() == 0, "recharging costs " + full.getCost() + " levels");
         takeResult(helper, player, full);
         helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(), "a full recharge left shards behind");
         helper.assertTrue(player.experienceLevel == 0, "recharging changed the player's level");
 
-        ItemStack partial = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack partial = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         partial.setDamageValue(25);
         net.minecraft.world.inventory.AnvilMenu topUp = recharge(helper, player, partial, Items.AMETHYST_SHARD, 64);
         helper.assertTrue(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue() == 0, "a top-up did not fill the rod");
@@ -2095,20 +2112,20 @@ public final class TweaksTests {
         int left = topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().getCount();
         helper.assertTrue(left == 63, "topping up 25 charge used " + (64 - left) + " shards instead of 1");
 
-        ItemStack drained = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack drained = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         drained.setDamageValue(LaserPointerItem.MAX_CHARGE);
         net.minecraft.world.inventory.AnvilMenu some = recharge(helper, player, drained, Items.AMETHYST_SHARD, 10);
         int damage = some.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue();
         helper.assertTrue(damage == LaserPointerItem.MAX_CHARGE - 10 * LaserPointerItem.CHARGE_PER_SHARD, "10 shards charged to damage " + damage);
 
-        ItemStack redstoneTry = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack redstoneTry = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         redstoneTry.setDamageValue(LaserPointerItem.MAX_CHARGE);
         net.minecraft.world.inventory.AnvilMenu withRedstone = recharge(helper, player, redstoneTry, Items.REDSTONE, 64);
         ItemStack redstoneOut = withRedstone.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
         helper.assertTrue(redstoneOut.isEmpty() || redstoneOut.getDamageValue() == LaserPointerItem.MAX_CHARGE,
                 "redstone still recharges the rod: " + redstoneOut + " damage " + redstoneOut.getDamageValue());
 
-        ItemStack alreadyFull = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack alreadyFull = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         net.minecraft.world.inventory.AnvilMenu none = recharge(helper, player, alreadyFull, Items.AMETHYST_SHARD, 5);
         helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(), "the anvil offers to recharge a full rod");
         helper.succeed();
@@ -2121,6 +2138,7 @@ public final class TweaksTests {
      * Ticks 8, und die letzte Sekunde Ladung leert den Stab.
      */
     public static void theRodDrainsFourChargePerSecondOfBeaming(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G2: Simple Gadgets tests the Resonance Rod on 26.3
         helper.assertTrue(LaserPointerItem.BEAM_COST == 4, "BEAM_COST is " + LaserPointerItem.BEAM_COST + ", not 4");
         helper.assertTrue(new com.simplebuilding.tweaks.TweaksConfig().laserPointer.chargePerSecond == 4,
                 "the default config charge per second is not 4");
@@ -2131,7 +2149,7 @@ public final class TweaksTests {
 
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         player.setXRot(-90.0f); // straight up into the air: no block effect, only the beam cost
-        ItemStack rod = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack rod = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         player.setItemInHand(InteractionHand.MAIN_HAND, rod);
         int duration = rod.getItem().getUseDuration(rod, player);
         int cost = LaserPointerItem.beamCost();
@@ -2144,7 +2162,7 @@ public final class TweaksTests {
         helper.assertValueEqual(rod.getDamageValue(), 2 * cost, "charge used after two seconds of beaming");
         LaserBeam.reset(player);
 
-        ItemStack almost = new ItemStack(TweaksItems.LASER_POINTER);
+        ItemStack almost = new ItemStack(com.simplebuilding.util.GadgetRefs.rod());
         almost.setDamageValue(LaserPointerItem.MAX_CHARGE - cost);
         player.setItemInHand(InteractionHand.MAIN_HAND, almost);
         almost.getItem().onUseTick(helper.getLevel(), player, almost, duration);

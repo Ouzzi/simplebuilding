@@ -40,7 +40,8 @@ public final class TweaksItems {
 
     public static final Item SPAWN_ELYTRA = register("spawn_elytra",
             p -> new SpawnElytraItem(p.stacksTo(1).fireResistant()));
-    public static final Item LASER_POINTER = register("amethyst_lens",
+    // OW24-2 stage G2: on 26.3 the Resonance Rod is Simple Gadgets' (McVersion.GADGETS_IN_SB false, field null, util/GadgetRefs).
+    public static final Item LASER_POINTER = !McVersion.GADGETS_IN_SB ? null : register("amethyst_lens",
             // Resonanzstab: Die Haltbarkeit ist die Ladung (nie zerbrechend, Amethyst im Amboss
             // laedt auf, siehe LaserPointerItem). Rezept in ModRecipeProvider.
             p -> new LaserPointerItem(p.durability(LaserPointerItem.MAX_CHARGE)));
@@ -202,7 +203,7 @@ public final class TweaksItems {
     public static List<Item> all() {
         List<Item> all = new ArrayList<>(BLOCK_ITEMS);
         all.add(SPAWN_ELYTRA);
-        all.add(LASER_POINTER);
+        if (LASER_POINTER != null) all.add(LASER_POINTER);
         all.add(ECHO_COMPASS);
         all.addAll(HEAD_ITEMS.values()); // 26.3 empty: the heads are Simple Mobheads' items
         return all;

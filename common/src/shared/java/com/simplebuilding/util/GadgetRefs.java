@@ -46,6 +46,15 @@ public final class GadgetRefs {
         return McVersion.GADGETS_IN_SB ? ModItems.ROTATOR : item(ROTATOR);
     }
 
+    /** The Resonance Rod: SimpleBuilding's own on 26.2, Simple Gadgets' on 26.3. */
+    public static Item rod() {
+        return McVersion.GADGETS_IN_SB ? com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER : item(AMETHYST_LENS);
+    }
+
+    public static boolean isRod(ItemStack stack) {
+        return !stack.isEmpty() && BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id(AMETHYST_LENS));
+    }
+
     public static boolean isRotator(ItemStack stack) {
         return !stack.isEmpty() && BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id(ROTATOR));
     }

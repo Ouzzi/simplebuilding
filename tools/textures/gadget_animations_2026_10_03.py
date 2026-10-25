@@ -33,7 +33,14 @@ sys.path.insert(0, HERE)
 import resonance_rod_2026_10_02 as rod  # noqa: E402
 
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
-OUT = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding', 'textures', 'item')
+# OW24-2 G2 (2026-10-25): on 26.3 the Transposer and the Resonance Rod are Simple Gadgets' - their animated textures live in the module.
+OUT = os.path.join(REPO, 'modules', 'simplegadgets', 'shared', 'resources', 'assets', 'simplegadgets', 'textures', 'item')
+# The Attractor (magnet) is still SimpleBuilding's (stage G3).
+OUT_SB = os.path.join(REPO, 'mc26_3', 'overlay', 'resources', 'assets', 'simplebuilding', 'textures', 'item')
+
+
+def out_for(name):
+    return OUT_SB if name == 'magnet' else OUT
 MAIN = os.path.join(REPO, 'src', 'main', 'resources', 'assets', 'simplebuilding', 'textures', 'item')
 PREVIEWS = r'C:\Users\o_o\code\minecraft-mods\previews'
 
@@ -223,7 +230,7 @@ FIELD_OUTER = [(8, 2), (9, 2), (10, 3), (11, 4), (12, 5), (12, 6)]
 
 
 def magnet_base():
-    return top_frame(os.path.join(OUT, 'magnet.png'))
+    return top_frame(os.path.join(OUT_SB, 'magnet.png'))
 
 
 def magnet_idle():
@@ -346,7 +353,7 @@ def main():
     stale = []
     for name, (frames, anim) in anims.items():
         img = strip(frames)
-        png = os.path.join(OUT, name + '.png')
+        png = os.path.join(out_for(name), name + '.png')
         meta = png + '.mcmeta'
         if check:
             try:

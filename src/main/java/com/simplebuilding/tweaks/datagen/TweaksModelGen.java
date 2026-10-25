@@ -256,7 +256,7 @@ public final class TweaksModelGen {
         Item stick = com.simplebuilding.tweaks.easter.EasterEggs.funnyStick();
         generator.itemModelOutput.accept(stick, ItemModelUtils.plainModel(ModelTemplates.FLAT_HANDHELD_ITEM.create(stick,
                 TextureMapping.layer0(net.minecraft.world.item.Items.STICK), generator.modelOutput)));
-        laserLens(generator);
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) laserLens(generator); // 26.3: Simple Gadgets ships the models
         // Voll repariert: 32 eigene Nadelbilder, zeigt zum verknuepften Leitstein. Nicht voll repariert
         // (Schaden > 0): drei Riss-Stufen nach Anteil des Schadens, die Nadel steht still.
         generator.itemModelOutput.accept(TweaksItems.ECHO_COMPASS, ItemModelUtils.conditional(new Damaged(),

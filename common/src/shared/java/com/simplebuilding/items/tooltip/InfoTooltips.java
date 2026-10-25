@@ -187,7 +187,7 @@ public final class InfoTooltips {
         Map<Item, List<Item>> uses = new LinkedHashMap<>();
         uses.put(ModItems.COPPER_CORE, List.of(ModItems.COPPER_BUILDING_WAND, com.simplebuilding.util.GadgetRefs.gauge(),
                 TweaksBlocks.CHUNK_LOADER.asItem()));
-        uses.put(ModItems.IRON_CORE, List.of(ModItems.IRON_BUILDING_WAND, TweaksItems.LASER_POINTER, ModItems.MAGNET,
+        uses.put(ModItems.IRON_CORE, List.of(ModItems.IRON_BUILDING_WAND, com.simplebuilding.util.GadgetRefs.rod(), ModItems.MAGNET,
                 com.simplebuilding.util.GadgetRefs.rotator(), TweaksBlocks.LAUNCHPAD.asItem()));
         uses.put(ModItems.GOLD_CORE, List.of(ModItems.GOLD_BUILDING_WAND, ModItems.ORE_DETECTOR, ModItems.OCTANT,
                 TweaksBlocks.SPAWN_TELEPORTER.asItem()));

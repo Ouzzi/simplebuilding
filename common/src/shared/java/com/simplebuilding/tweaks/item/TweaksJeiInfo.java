@@ -44,7 +44,7 @@ public final class TweaksJeiInfo {
                 TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
         map.put("spawn_elytra", List.of(TweaksItems.SPAWN_ELYTRA));
-        map.put("amethyst_lens", List.of(TweaksItems.LASER_POINTER));
+        if (TweaksItems.LASER_POINTER != null) map.put("amethyst_lens", List.of(TweaksItems.LASER_POINTER)); // 26.3: Simple Gadgets' rod
         map.put("echo_sounder", List.of(TweaksItems.ECHO_COMPASS));
         return map;
     }

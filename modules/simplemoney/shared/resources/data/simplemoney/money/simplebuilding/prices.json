@@ -25,17 +25,6 @@
   },
   "prices": [
     {
-      "item": "simplebuilding:amethyst_lens",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 2,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:astral_end_stone",
       "tier": 4,
       "hours": 25.0,

@@ -6807,52 +6807,6 @@
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
       ]
     },
-    "amethyst_lens": {
-      "en": {
-        "summary": "The Resonance Rod projects a light amethyst aiming dot while held in use. The rod tilts far forward (60 degrees) so the beam seems to leave its tip, and emits particles; the normal crosshair is hidden while aiming.",
-        "details": [
-          "Range, color and dot size come from the config section tweaks.laserPointer (default 512 blocks, light amethyst #B38EF3; a config file that still holds the former default red #FF0000 switches to amethyst on load, other picked colors stay). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
-          "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
-          "Distance: the dwell time grows moderately with the distance from your eyes to the dot: base x (1 + 0.096 x max(0, d - 5)^0.773). Up to 5 blocks the base applies (3 s to ignite), at 10 blocks it is about 1 s more (4 s), at 200 blocks about 20 s; it keeps growing smoothly up to the lens range. More than range + 8 blocks away nothing happens.",
-          "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
-          "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
-          "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-          "MC 26.3 recipe: \" NA\" / \"RC \" / \"I  \" (N = iron nugget, A = amethyst shard, R = redstone, C = Iron Core, I = Iron Pole). One nugget and one redstone; the fields right of and below the core are empty.",
-          "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge. On 26.3 the repair material tag simplebuilding:repairs_resonance_rod contains amethyst shards and controls both the repair component and anvil recharging.",
-          "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens.",
-          "Recipe on MC 26.2: IIR / ICA / IIR (I = iron ingot, R = redstone, C = Iron Core, A = amethyst shard), rotated clockwise from the earlier recipe."
-        ]
-      },
-      "de": {
-        "summary": "Der Resonanzstab zeigt beim Benutzen einen hell-amethystfarbenen Zielpunkt. Er neigt sich weit nach vorn (60 Grad), sodass der Strahl aus der Spitze zu kommen scheint, und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
-        "details": [
-          "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, helles Amethyst #B38EF3; eine Config-Datei mit dem früheren Standard Rot #FF0000 wechselt beim Laden auf Amethyst, andere gewählte Farben bleiben). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
-          "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
-          "Abstand: die Verweildauer wächst mäßig mit dem Abstand zwischen Auge und Punkt: Basis x (1 + 0,096 x max(0, d - 5)^0,773). Bis 5 Blöcke gilt die Basis (3 s zum Anzünden), bei 10 Blöcken etwa 1 s mehr (4 s), bei 200 Blöcken rund 20 s; darüber wächst sie stetig bis zur Reichweite. Mehr als Reichweite + 8 Blöcke entfernt passiert nichts.",
-          "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
-          "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
-          "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
-          "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung. Auf 26.3 enthält der Reparaturmaterial-Tag simplebuilding:repairs_resonance_rod Amethystscherben und steuert sowohl die Reparaturkomponente als auch das Aufladen am Amboss.",
-          "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens.",
-          "Rezept auf MC 26.3: „ NA“ / „RC “ / „I  “ (N = Eisennugget, A = Amethystscherbe, R = Redstone, C = Eisenkern, I = Eisenstange). Je ein Nugget und Redstone; rechts und unter dem Kern bleibt es frei. MC 26.2 bleibt IIR / ICA / IIR (I = Eisenbarren)."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/item/LaserBeam.java",
-        "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/client/LaserRenderer.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/client/TweaksClient.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/network/LaserPayload.java",
-        "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "docs/SIMPLETWEAKS-UEBERNAHME.md",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "common/src/shared/java/com/simplebuilding/component/LensMeasurement.java",
-        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
-      ]
-    },
     "echo_sounder": {
       "en": {
         "summary": "Link the Echo Sounder to a lodestone, then hold use for 3 seconds to jump; releasing early cancels. A jump empties its default 1500 charge; Mending or echo shards recharge it. A jump before full recharge takes 6 seconds and shatters it.",

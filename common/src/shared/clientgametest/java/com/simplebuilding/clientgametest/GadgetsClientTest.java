@@ -17,18 +17,20 @@ public final class GadgetsClientTest {
         TestScene.build(script, "minecraft:white_concrete", "creative");
         // The hidden HUD also hides the first person hand; the tilt is what this shot is for.
         TestScene.showHudAgain(script);
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:amethyst_lens");
+        script.command("item replace entity @a weapon.mainhand with " + com.simplebuilding.version.McVersion.GADGETS_NAMESPACE + ":amethyst_lens"); // 26.3: Simple Gadgets' rod
         script.awaitPackets();
         script.idle("let the rod reach the client", 10);
         TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
         script.verify("the dot is light amethyst by default", () -> {
-            int color = SimpleTweaks.config().laserPointer.color;
+            // 26.3: the rod's colour is Simple Gadgets' own (rodColor, same default)
+            int color = com.simplebuilding.version.McVersion.GADGETS_IN_SB ? SimpleTweaks.config().laserPointer.color : TweaksConfig.LASER_DEFAULT_COLOR;
             if (color != TweaksConfig.LASER_DEFAULT_COLOR) {
                 throw new AssertionError("laserPointer.color is #" + Integer.toHexString(color) + ", expected #b38ef3");
             }
         });
         script.harness("hold the right mouse button on the wall", harness -> harness.holdMouse(InputConstants.MOUSE_BUTTON_RIGHT));
-        script.await("the client aims the laser", 60, client -> TweaksClient.isAimingLaser(client.player),
+        script.await("the client aims the laser", 60, client -> com.simplebuilding.version.McVersion.GADGETS_IN_SB ? TweaksClient.isAimingLaser(client.player)
+                        : client.player.isUsingItem() && com.simplebuilding.util.GadgetRefs.isRod(client.player.getUseItem()), // 26.3: aiming = using the rod
                 client -> "the rod is not aiming while the right button is held. " + TestScene.describeAim(client));
         script.idle("let the tilt settle", 20);
         script.act("dismiss toasts and chat before the shot", client -> {

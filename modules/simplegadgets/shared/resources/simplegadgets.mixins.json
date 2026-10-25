@@ -3,9 +3,14 @@
   "minVersion": "0.8",
   "package": "com.simplegadgets.mixin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": [],
+  "mixins": [
+    "FireIgniteOddsInvoker"
+  ],
   "client": [
-    "client.GaugeKeyboardInputMixin"
+    "client.GaugeKeyboardInputMixin",
+    "client.RodCrosshairMixin",
+    "client.RodSteadyViewMixin",
+    "client.RodHandTiltMixin"
   ],
   "server": [],
   "injectors": {

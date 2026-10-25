@@ -197,7 +197,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.VELOCITY_GAUGE))
                 // Amethystlinse: misst mit Beruehrung des Konstrukteurs (LaserPointerItem#measures)
-                .add(key(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.AMETHYST_LENS))
                 .add(key(ModItems.ORE_DETECTOR))
                 .add(key(ModItems.MAGNET))
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)

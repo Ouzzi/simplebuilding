@@ -158,7 +158,7 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("gadgets",
                         Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS,
                         com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, com.simplebuilding.util.GadgetRefs.rotator(),
-                        com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER, ModItems.OCTANT)));
+                        com.simplebuilding.util.GadgetRefs.rod(), ModItems.OCTANT)));
 
         // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.
         List<ItemStack> coloredOctants = new java.util.ArrayList<>();

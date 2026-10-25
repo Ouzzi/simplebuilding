@@ -38,5 +38,13 @@
   "item.simplegadgets.rotator": "Transposer",
   "tooltip.simplegadgets.rotator.empty": "Empty - recharge it in an anvil",
   "tooltip.simplegadgets.rotator.recharge": "Anvil + ender pearls: %s for a full charge.",
-  "tooltip.simplegadgets.rotator.swap": "Off-hand block + click: swap blocks"
+  "tooltip.simplegadgets.rotator.swap": "Off-hand block + click: swap blocks",
+  "item.simplegadgets.amethyst_lens": "Resonance Rod",
+  "hud.simplegadgets.amethyst_lens.distance": "%s m",
+  "hud.simplegadgets.amethyst_lens.health": "%s / %s HP",
+  "hud.simplegadgets.amethyst_lens.height": "Y %s (%s)",
+  "tooltip.simplegadgets.amethyst_lens.last_measured": "Last measured: %s m",
+  "tooltip.simplegadgets.amethyst_lens.last_target": "%s, height %s",
+  "tooltip.simplegadgets.amethyst_lens.repair": "Repair at an anvil with amethyst shards",
+  "tooltip.simplegadgets.amethyst_lens.touch_hint": "Constructor's Touch: measures distances"
 }

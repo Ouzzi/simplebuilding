@@ -38,5 +38,13 @@
   "item.simplegadgets.rotator": "Transponierer",
   "tooltip.simplegadgets.rotator.empty": "Leer - im Amboss aufladen",
   "tooltip.simplegadgets.rotator.recharge": "Amboss + Enderperlen: %s laden voll auf.",
-  "tooltip.simplegadgets.rotator.swap": "Nebenhand-Block + Klick: Block tauschen"
+  "tooltip.simplegadgets.rotator.swap": "Nebenhand-Block + Klick: Block tauschen",
+  "item.simplegadgets.amethyst_lens": "Resonanzstab",
+  "hud.simplegadgets.amethyst_lens.distance": "%s m",
+  "hud.simplegadgets.amethyst_lens.health": "%s / %s Leben",
+  "hud.simplegadgets.amethyst_lens.height": "Y %s (%s)",
+  "tooltip.simplegadgets.amethyst_lens.last_measured": "Zuletzt gemessen: %s m",
+  "tooltip.simplegadgets.amethyst_lens.last_target": "%s, Höhe %s",
+  "tooltip.simplegadgets.amethyst_lens.repair": "Am Amboss mit Amethystscherben reparieren",
+  "tooltip.simplegadgets.amethyst_lens.touch_hint": "Berührung des Konstrukteurs: Distanzmessung"
 }

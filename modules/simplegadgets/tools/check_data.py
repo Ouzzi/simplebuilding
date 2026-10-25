@@ -8,7 +8,7 @@ ROOT = MODULE.parents[1]
 NS = 'simplegadgets'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplegadgets'
-GADGETS = ['velocity_gauge', 'rotator']
+GADGETS = ['velocity_gauge', 'rotator', 'amethyst_lens']
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -37,11 +37,12 @@ for path in list((RES / f'data/{NS}').rglob('*.json')) + list((RES / f'assets/{N
         continue  # prose (guide pages, wiki) may name the old ids
     text = path.read_text(encoding='utf-8').replace('simplebuilding:copper_core', '').replace('simplebuilding:iron_core', '').replace('simplebuilding:iron_pole', '')  # with SimpleBuilding: its cores and rods (conditional)
     assert 'simplebuilding:' not in text, path
-for part in ('rotator', 'rotator_empty', 'rotator_active'):  # the Transposer's models and textures
+for part in ('rotator', 'rotator_empty', 'rotator_active', 'amethyst_lens_empty', 'amethyst_lens_active'):  # the Transposer's and the rod's models and textures
     assert (RES / f'assets/{NS}/models/item/{part}.json').is_file(), part
     assert (RES / f'assets/{NS}/textures/item/{part}.png').is_file(), part
 for tag in ('minecraft/tags/item/enchantable/durability', 'minecraft/tags/item/enchantable/mining', 'simplelib/tags/item/xp_repair_incompatible'):
     assert 'simplegadgets:rotator' in (RES / f'data/{tag}.json').read_text(encoding='utf-8'), tag
+assert 'minecraft:amethyst_shard' in (RES / f'data/{NS}/tags/item/repairs_resonance_rod.json').read_text(encoding='utf-8')
 assert (RES / f'data/{NS}/structure/empty.nbt').is_file()
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 for f in list(manual['features']) + list(manual['notes'].values()):

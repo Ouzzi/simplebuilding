@@ -20,7 +20,7 @@ public final class SimpleGadgets {
     /** The mod the gadgets came from; old worlds hold its ids. */
     public static final String OLD_NAMESPACE = "simplebuilding";
     /** The moved items with their recipe unlock folder ({@code recipes/<folder>/<path>}), in tab order. */
-    public static final List<String> MOVED_ITEMS = List.of("velocity_gauge", "rotator");
+    public static final List<String> MOVED_ITEMS = List.of("velocity_gauge", "rotator", "amethyst_lens");
 
     private static boolean movesRegistered;
 
@@ -57,6 +57,8 @@ public final class SimpleGadgets {
             IdMoves.move(Registries.RECIPE, old(path), id(path));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/tools/" + path), id("recipes/tools/" + path));
         }
+        // The Resonance Rod's last measurement keeps its component on old stacks.
+        IdMoves.move(Registries.DATA_COMPONENT_TYPE, old("lens_measurement"), id("lens_measurement"));
     }
 
     private SimpleGadgets() {}

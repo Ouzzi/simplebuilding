@@ -202,10 +202,10 @@ MODULES = [
          author="Simple Gadgets", recipe="minecraft:clock",
          name=("Simple Gadgets Guide", "Simple-Gadgets-Handbuch"),
          intro=("Gadgets you hold and use: the Gauge - a speed dial, an altimeter that warns of fall damage and "
-                "auto-walk along paths and rails - and the Transposer, which turns and swaps blocks in place.",
+                "auto-walk along paths and rails - the Transposer, which turns and swaps blocks in place, and the Resonance Rod, a beam that points, melts, ignites and measures.",
                 "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor "
-                "Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - und der Transponierer, "
-                "der Blöcke an Ort und Stelle dreht und tauscht.")),
+                "Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, "
+                "der Blöcke an Ort und Stelle dreht und tauscht, und der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),

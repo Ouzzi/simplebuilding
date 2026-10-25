@@ -1418,7 +1418,7 @@ public final class TradeAndMigrationTests {
         Map<String, Item> renamed = new LinkedHashMap<>();
         renamed.put("velocity-gauge", com.simplebuilding.util.GadgetRefs.gauge()); // 26.3: chains on to simplegadgets:velocity_gauge
         renamed.put("echo_compass", com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS);
-        renamed.put("laser_pointer", com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
+        renamed.put("laser_pointer", com.simplebuilding.util.GadgetRefs.rod());
         renamed.put("ore_detector", ModItems.ORE_DETECTOR);
         {
             // Owner 2026-10-11: the vanilla guide shelf is gone; old vanilla books become the general guide.

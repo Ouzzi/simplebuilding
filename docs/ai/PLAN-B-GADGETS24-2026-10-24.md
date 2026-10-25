@@ -138,3 +138,26 @@ Nach dem Muster von G1 (§3, E1-E10): SB-Klassen bleiben für 26.2 (`McVersion.G
 - **E15 Hand-Hinweis des Transposers:** Modell-Eigenschaft `simplegadgets:transform_hint` (statt `simplebuilding:transform_hint`); mit SB gilt dessen volle Prüfung.
 - **E16 Tests:** `RotatorTests` -> `com.simplegadgets.test.RotatorTests` (1:1 portiert), Stab-Tests aus `TweaksTests`/`CombatTests`/`ModpackTests`/`ServerTuningTests`/
   `ConfigOptionTests`/`AdvancementTriggerTests` -> `GadgetsTests` bzw. Modul-Tests; SB-Tests per `GADGETS_IN_SB`-Wächter bzw. `GadgetRefs`. Jeder neue Test mit Fabric-Adapter (`ModuleGameTest`).
+
+### Stand G2 und Abweichungen (25.10.)
+
+Umgesetzt wie in §7 geplant: Modul `simplegadgets` trägt jetzt Messuhr, Transponierer (`com.simplegadgets.rotator.RotatorItem`/`RotatorSwap`,
+`TransformHintModelProperty`) und Resonanzstab (`rod.ResonanceRodItem`/`RodBeam`/`LensMeasurement`, `network.LaserPayload`/`RodNetwork`,
+`client.RodClient`/`RodRenderer`, Mixins `RodCrosshair`/`RodSteadyView`/`RodHandTilt`/`FireIgniteOddsInvoker`, Komponente
+`simplegadgets:lens_measurement`), dazu `GadgetsConfig` (`config/simplegadgets-server.json`, Übernahme der SB-Werte) und `GadgetProtection`
+(framework `Protection` + loader-Break-Ereignis über einen vom Fabric-Einstieg gesetzten `BuildGuard`). SimpleLib: `AnvilRechargeable` +
+`AnvilRechargeMixin`, `XpRepairRefusalMixin` (Tag `simplelib:xp_repair_incompatible`), `GadgetActions`. SB: `McVersion.GADGETS_IN_SB` setzt
+`ModItems.ROTATOR`, `TweaksItems.LASER_POINTER`, `ModDataComponentTypes.LENS_MEASUREMENT` auf 26.3 auf `null`; `GadgetRefs.rotator()/rod()`;
+`TransformTargets` fragt `GadgetActions.itemHint`, `LibServices` übersetzt die Ereignisse in `ModTriggers`, `LibClientServices` beantwortet den
+Hand-Hinweis und lässt den ROD-Slot weg; Datagen (Rezepte, Modelle, Tags, Freischaltungen per Id), Handbuch-Kapitel per Id, Tests per
+`GADGETS_IN_SB`-Wächter bzw. `GadgetRefs`. Tests im Modul: `RotatorTests` (15, aus SB portiert), `RodTests` (21, aus `TweaksTests`/`CombatTests`/
+`ServerTuningTests`/`ModpackTests` portiert), Migration von altem Transponierer-/Resonanzstab-Stapel (Schaden, Messungs-Komponente, Truhe),
+Registrierung, Rezepte mit/ohne SB.
+
+Abweichungen: (a) Kein Block/keine BlockEntity: kein Paletten-Test (Pflicht erst G3). (b) Werte sind server-lokal wie bei den Hämmern: der
+Strahl-Client rechnet mit seiner eigenen Datei (kein Sync-Paket mehr; der Server prüft Reichweite und Schalter weiter selbst). (c) SBs Config-
+Schlüssel (`tools.rotator*`, `server.charges.*`, `server.laser.*`, `tweaks.laserPointer.*`) bleiben stehen (Stufe 9: ausblenden); SBs
+`RecipeFilter`-Schalter `laserPointer.enable` blendet das Modul-Rezept nicht mehr aus (der Schalter `rodEnabled` sperrt nur den Strahl).
+(d) JEI-Infoseiten des Resonanzstabs (`TweaksJeiInfo`) entfallen auf 26.3 wie die der Messuhr. (e) Der Discover-Tipp „Transponierer“ ist jetzt der
+des Moduls; SBs 26.2-Linie verliert ihn. (f) Gemeinsamer Verzauberungs-Mixin: Modul-Transponierer nimmt Unbreaking, kein Mending auch allein
+(SimpleLib-Tag statt SB-Tag). (g) Client-Tests (`GadgetsClientTest`) nicht angepasst/gelaufen (keine Client-Läufe).
