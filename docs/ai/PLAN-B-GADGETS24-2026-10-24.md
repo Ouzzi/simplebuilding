@@ -116,3 +116,25 @@ module-simplegadgets-fabric-263 10/10, standalone 10/10; fabric-263 `*gauge*` 4/
 `*guide*` 16/16, `*core_tooltips*` 1/1, `*renamed_item_ids*` 1/1, `*data_integrity*` 51/51; integration-263 4/4; Datagen 26.3, Guides,
 Wiki, Discover, Money-Links, Ebenen erzeugt; `./gradlew check` grün (f50633c90). (d) Abweichung: die SB-Lang-Schlüssel der Messuhr bleiben im
 26.3-Overlay (`check_tooltip_text`: das Overlay muss jeden gemeinsamen Schlüssel halten); nur die JEI-Info entfällt dort nicht, ist aber ungenutzt.
+
+## 7. Stufe G2 (Branch `b-gadgets25`, Basis `b-gadgets24`): Transposer + Resonanzstab
+
+Nach dem Muster von G1 (§3, E1-E10): SB-Klassen bleiben für 26.2 (`McVersion.GADGETS_IN_SB`), auf 26.3 sind `ModItems.ROTATOR` und
+`TweaksItems.LASER_POINTER` `null`, SB erreicht beide per Id (`util/GadgetRefs`). Zwei Commits: **G2a Transposer**, **G2b Resonanzstab**
+(der Stab hängt an Netzwerk, Renderer, drei Client-Mixins und eigener Config, deshalb getrennt prüfbar).
+
+- **E11 Gemeinsame Verträge in SimpleLib (Regel 6a):** `api/AnvilRechargeable` + `mixin/AnvilRechargeMixin` (Aufladen im Amboss ohne Stufen,
+  dasselbe Verhalten wie SBs Mixin, andere Schnittstelle, damit SB (26.2) und Modul sich nie doppeln); `api/GadgetActions`: Ereignisse
+  (`ROTATE`, `LENS_BEAM`, `LASER_TNT`; SB hört in `LibServices` und feuert seine Freischaltungen), Werte-Tabelle (`fact`) für SBs In-World-Katalog,
+  Hand-Hinweis (`registerItemHint`/`itemHint` für SBs `TransformTargets`, `registerHandHint` Client: SB beantwortet für das Modell-Prädikat
+  mit seiner vollen Prüfung). Berechtigungen: Modul `GadgetProtection` (framework `Protection` + `HammerActions.mayChange`, Muster `HammerProtection`).
+- **E12 Config `config/simplegadgets-server.json`** (`GadgetsConfig`, Muster `HammerConfig`, Übernahme der SB-Werte beim ersten Start über
+  `ConfigFiles.adoptLegacy`: `tools.rotator*`, `server.charges.{rotator,lens}MaxCharge`, später `server.laser.*`, `tweaks.laserPointer.*`). SBs Schlüssel
+  bleiben (Stufe 9: ausblenden). Höchstladung wird beim Registrieren gelesen (Neustart nötig, wie vorher).
+- **E13 Ids:** ITEM `rotator`/`amethyst_lens`, RECIPE gleich, ADVANCEMENT `recipes/tools/<id>` `simplebuilding:` -> `simplegadgets:` (IdMoves). Kein Block,
+  keine BlockEntity -> kein Paletten-Test (Pflicht erst G3). `ModTriggers.ROTATE/LENS_BEAM/LASER_TNT` und die SB-Freischaltungen (`gadgets/spin_doctor`,
+  `burning_focus`, `remote_detonation`) bleiben SBs, Symbol per Id.
+- **E14 Rezepte:** mit SB `simplebuilding:iron_core` + `iron_pole`; ohne SB (`*_without_simplebuilding`): Eisenbarren statt Kern/Stab (Muster Messuhr).
+- **E15 Hand-Hinweis des Transposers:** Modell-Eigenschaft `simplegadgets:transform_hint` (statt `simplebuilding:transform_hint`); mit SB gilt dessen volle Prüfung.
+- **E16 Tests:** `RotatorTests` -> `com.simplegadgets.test.RotatorTests` (1:1 portiert), Stab-Tests aus `TweaksTests`/`CombatTests`/`ModpackTests`/`ServerTuningTests`/
+  `ConfigOptionTests`/`AdvancementTriggerTests` -> `GadgetsTests` bzw. Modul-Tests; SB-Tests per `GADGETS_IN_SB`-Wächter bzw. `GadgetRefs`. Jeder neue Test mit Fabric-Adapter (`ModuleGameTest`).
