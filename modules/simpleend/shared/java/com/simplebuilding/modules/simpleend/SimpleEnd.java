@@ -21,8 +21,6 @@ public final class SimpleEnd {
 
     public static void init(Path configDir) {
         SimpleEndConfig.load(configDir);
-        // CMD24: /simpleend config for every option.
-        com.simplelib.api.config.ConfigCommands.server(ID).json(SimpleEndConfig::toJson, SimpleEndConfig::apply).file(configDir, SimpleEndConfig.FILE).register();
         applySubSwitches();
     }
 

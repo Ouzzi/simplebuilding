@@ -17,6 +17,8 @@ public final class WanderersFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         SimpleWanderers.init(FabricLoader.getInstance().getConfigDir());
+        // CMD24: /simplewanderers config for every option.
+        com.simplelib.api.config.ConfigCommands.server(SimpleWanderers.MOD_ID).json(com.simplewanderers.config.WandererConfig::toJson, com.simplewanderers.config.WandererConfig::apply).file(FabricLoader.getInstance().getConfigDir(), com.simplewanderers.config.WandererConfig.FILE).register();
         WandererRegistry.registerAll();
         FabricDefaultAttributeRegistry.register(WandererRegistry.WANDERER, WandererRegistry.wandererAttributes());
         FabricDefaultAttributeRegistry.register(WandererRegistry.HORSE, WandererRegistry.horseAttributes());

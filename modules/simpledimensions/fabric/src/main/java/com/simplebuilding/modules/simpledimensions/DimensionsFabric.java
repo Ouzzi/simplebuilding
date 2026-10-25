@@ -5,7 +5,10 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 public final class DimensionsFabric implements ModInitializer {
  public void onInitialize() {
-  DimensionRuntime.announceConfig();
+  // CMD24: /simpledimension config for every server setting; the file is the truth, running servers take the values at once.
+  com.simplelib.api.config.ConfigCommands.server("simpledimension").gson(DimensionSettings.class,
+   ()->{try{return DimensionSettings.load(DimensionRuntime.CONFIG_ROOT);}catch(RuntimeException e){return new DimensionSettings();}},
+   DimensionRuntime::applySettings,DimensionSettings::new).save(()->{}).register();
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(s->DimensionRuntime.get(s).tick());
   net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(DimensionRuntime::stop);
   net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((p,l,h,hit)->p instanceof net.minecraft.server.level.ServerPlayer sp?PortalActivation.ignite(sp,h,hit):net.minecraft.world.InteractionResult.PASS);

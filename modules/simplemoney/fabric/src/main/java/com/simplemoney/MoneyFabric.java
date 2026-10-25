@@ -9,7 +9,11 @@ import net.minecraft.resources.Identifier;
 public final class MoneyFabric implements ModInitializer {
  public void onInitialize() {
   MoneyLinks.loaded=FabricLoader.getInstance()::isModLoaded;
-  SimpleMoney.loadConfig(FabricLoader.getInstance().getConfigDir()); SimpleMoney.announce(FabricLoader.getInstance().getConfigDir()); MoneyItems.register(); com.simplemoney.guide.MoneyGuide.register(); MoneyItems.registerTab(FabricCreativeModeTab.builder());
+  SimpleMoney.loadConfig(FabricLoader.getInstance().getConfigDir()); 
+  // CMD24: /simplemoney config for every option; the own file is written whole, the next flag check reads it back.
+  com.simplelib.api.config.ConfigCommands.server(SimpleMoney.MOD_ID).gson(SimpleMoney.Config.class, () -> SimpleMoney.config,
+    c -> { if(c.trades==null) c.trades=new SimpleMoney.Trades(); if(c.links==null) c.links=new SimpleMoney.Links(); c.links.normalize(); SimpleMoney.config=c; },
+    () -> { var d=new SimpleMoney.Config(); d.links.normalize(); return d; }).file(FabricLoader.getInstance().getConfigDir(),"simplemoney.json").register(); MoneyItems.register(); com.simplemoney.guide.MoneyGuide.register(); MoneyItems.registerTab(FabricCreativeModeTab.builder());
   Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE,Identifier.fromNamespaceAndPath("simplemoney","weighted_enchant"),WeightedEnchantFunction.MAP_CODEC);
   MoneyCondition.register();
   if(FabricLoader.getInstance().isModLoaded("ftbquests"))com.simplemoney.guide.MoneyGuide.installQuests(FabricLoader.getInstance().getConfigDir());

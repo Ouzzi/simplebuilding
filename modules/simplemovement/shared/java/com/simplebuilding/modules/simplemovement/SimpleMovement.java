@@ -97,9 +97,6 @@ public final class SimpleMovement {
 
     public static void load() {
         CONFIG = read(configDir);
-        // CMD24: /<modid> config for every option; save() normalises, writes and syncs the clients.
-        com.simplelib.api.config.ConfigCommands.server(MOD_ID).gson(MovementConfig.class, () -> CONFIG, c -> { c.normalize(); CONFIG = c; },
-                () -> { MovementConfig d = new MovementConfig(); d.normalize(); return d; }).save(() -> save()).register();
     }
 
     /** Own file if present, else the one-time takeover from {@code simplequalityoflife.json} (then written as own file). */

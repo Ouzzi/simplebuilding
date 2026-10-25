@@ -37,12 +37,6 @@ public final class SimpleMoney {
    configFile=file; lastRead=Files.getLastModifiedTime(file);
   } catch(Exception e) { throw new IllegalStateException("Cannot load "+file,e); }
  }
- /** CMD24: {@code /simplemoney config} for every option; the own file is written whole, the next flag check reads it back. */
- public static void announce(Path dir) {
-  com.simplelib.api.config.ConfigCommands.server(MOD_ID).gson(Config.class, () -> config,
-    c -> { if(c.trades==null) c.trades=new Trades(); if(c.links==null) c.links=new Links(); c.links.normalize(); config=c; },
-    () -> { Config d=new Config(); d.links.normalize(); return d; }).file(dir,"simplemoney.json").register();
- }
  public static synchronized boolean enabled(String flag) {
   // Resource conditions run at world load and /reload. Observe disk changes there,
   // keeping a remote server's settings independent of any client config screen.

@@ -74,12 +74,8 @@ public final class DimensionRuntime {
  private static final class Contact {String portal="";int warmup;long cooldown;boolean exit;}
  public static DimensionRuntime get(MinecraftServer s){return SERVERS.computeIfAbsent(s,DimensionRuntime::new);}
  public static void stop(MinecraftServer s){SERVERS.remove(s);}
- /** CMD24: {@code /simpledimension config} for every server setting; the file is the truth, running servers take the values at once. */
- public static void announceConfig(){
-  com.simplelib.api.config.ConfigCommands.server("simpledimension").gson(DimensionSettings.class,
-   ()->{try{return DimensionSettings.load(CONFIG_ROOT);}catch(RuntimeException e){return new DimensionSettings();}},
-   n->{n.normalize();n.save(CONFIG_ROOT);SERVERS.values().forEach(r->r.settings.copyFrom(n));},DimensionSettings::new).save(()->{}).register();
- }
+ /** CMD24: a new settings object (from {@code /simpledimension config}) is saved and taken over by every running server at once. */
+ public static void applySettings(DimensionSettings n){n.normalize();n.save(CONFIG_ROOT);SERVERS.values().forEach(r->r.settings.copyFrom(n));}
  private DimensionRuntime(MinecraftServer s){
   server=s;configs=DimensionConfigStore.loadAndGenerate(CONFIG_ROOT,net.minecraft.SharedConstants.getCurrentVersion().packVersion(net.minecraft.server.packs.PackType.SERVER_DATA).major());
   settings=DimensionSettings.load(CONFIG_ROOT);ledger=s.getWorldPath(LevelResource.ROOT).resolve("simpledimension-returns.json");
