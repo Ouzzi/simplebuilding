@@ -35,6 +35,7 @@ public final class EarthScreen extends Screen {
     private final List<Row> rows = new ArrayList<>();
     private final List<Button> versionButtons = new ArrayList<>();
     private Button resetButton, doneButton;
+    private boolean missLogged;
     private long lastSend;
     private boolean serverDirty;
 
@@ -278,6 +279,12 @@ public final class EarthScreen extends Screen {
                     return true;
                 }
             }
+        }
+        if (!missLogged && event.x() >= panelX && event.x() <= panelX + W && event.y() >= panelY && event.y() <= panelY + panelH) {
+            // WF25-2 diagnosis for players whose clicks miss (other mods moving input or drawing): one line in latest.log per menu
+            missLogged = true;
+            com.simplebuilding.modules.simpleearth.SimpleEarth.LOG.info("Simple Earth menu: click at {}/{} (GUI {}x{}, scale {}) hit no control; panel x {}..{}, list y {}..{}, scroll {}",
+                    (int) event.x(), (int) event.y(), width, height, minecraft.getWindow().getGuiScale(), panelX, panelX + W, listTop, listBottom, (int) scroll);
         }
         return super.mouseClicked(event, doubleClick);
     }
