@@ -471,7 +471,7 @@ public final class Vis24ClientTest implements FabricClientGameTest {
     }
 
     private void shot(ClientGameTestContext context, String name) {
-        context.runOnClient(c -> c.getToastManager().clear());
+        context.runOnClient(c -> c.gui.toastManager().clear());
         if (!name.startsWith("tooltip-") && !name.startsWith("interaction-")) context.getInput().setCursorPos(1, 1);
         context.waitTicks(1);
         String rawKeys = context.computeOnClient(Vis24ClientTest::rawKeys);
