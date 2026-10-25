@@ -24,6 +24,7 @@
   "tooltip.simplegadgets.amethyst_lens.last_target": "%s, Höhe %s",
   "tooltip.simplegadgets.amethyst_lens.repair": "Am Amboss mit Amethystscherben reparieren",
   "tooltip.simplegadgets.amethyst_lens.touch_hint": "Berührung des Konstrukteurs: Distanzmessung",
+  "tip.simplegadgets.rotator": "Auf Block benutzen: dreht ihn an Ort und Stelle",
   "item.simplegadgets.guide_book": "Simple-Gadgets-Handbuch",
   "simplegadgets.guide.page.1.title": "Simple Gadgets",
   "simplegadgets.guide.page.1": "Geräte, die man in der Hand hält und benutzt:",
@@ -56,6 +57,5 @@
   "quests.simplegadgets.start.title": "Willkommen bei Simple Gadgets",
   "quests.simplegadgets.start.subtitle": "Dein Handbuch gratis",
   "quests.simplegadgets.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplegadgets.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Gadgets-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Uhr herstellen.",
-  "tip.simplegadgets.rotator": "Auf Block benutzen: dreht ihn an Ort und Stelle"
+  "quests.simplegadgets.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Gadgets-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Uhr herstellen."
 }

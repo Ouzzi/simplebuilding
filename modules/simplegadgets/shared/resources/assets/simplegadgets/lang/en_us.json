@@ -24,6 +24,7 @@
   "tooltip.simplegadgets.amethyst_lens.last_target": "%s, height %s",
   "tooltip.simplegadgets.amethyst_lens.repair": "Repair at an anvil with amethyst shards",
   "tooltip.simplegadgets.amethyst_lens.touch_hint": "Constructor's Touch: measures distances",
+  "tip.simplegadgets.rotator": "Use on a block to turn it in place",
   "item.simplegadgets.guide_book": "Simple Gadgets Guide",
   "simplegadgets.guide.page.1.title": "Simple Gadgets",
   "simplegadgets.guide.page.1": "Gadgets you hold and use:",
@@ -56,6 +57,5 @@
   "quests.simplegadgets.start.title": "Welcome to Simple Gadgets",
   "quests.simplegadgets.start.subtitle": "Your free guide",
   "quests.simplegadgets.start.welcome.title": "A free guide",
-  "quests.simplegadgets.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Gadgets Guide as a reward. You can also craft it from a book and a clock.",
-  "tip.simplegadgets.rotator": "Use on a block to turn it in place"
+  "quests.simplegadgets.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Gadgets Guide as a reward. You can also craft it from a book and a clock."
 }
