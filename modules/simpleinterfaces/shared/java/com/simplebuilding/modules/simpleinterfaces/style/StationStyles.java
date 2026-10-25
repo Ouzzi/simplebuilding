@@ -57,12 +57,21 @@ public final class StationStyles {
      */
     public static final Map<String, List<BoxLayout.Rect>> ELEMENTS = Map.of(
             "anvil", List.of(new BoxLayout.Rect(59, 20, 108, 17), new BoxLayout.Rect(98, 38, 23, 25)),
-            "grindstone", List.of(new BoxLayout.Rect(67, 26, 54, 24)),
+            "grindstone", List.of(new BoxLayout.Rect(67, 30, 54, 24)),
             "stonecutter", List.of(new BoxLayout.Rect(51, 14, 66, 56), new BoxLayout.Rect(119, 15, 12, 55)), // as the preview counts them
             "loom", List.of(new BoxLayout.Rect(59, 12, 59, 59), new BoxLayout.Rect(119, 13, 13, 58)),
             "cartography_table", List.of(new BoxLayout.Rect(67, 13, 67, 67)),
             "smithing_table", List.of(new BoxLayout.Rect(121, 8, 49, 69)),
             "player_inventory", List.of(new BoxLayout.Rect(26, 8, 50, 71)));
+
+    /**
+     * Slots the style moves on the client (owner WD25-9/10, 2026-10-25: the left slots sat too high): per style id rows
+     * of (menu index, x, Vanilla y, styled y). The grindstone's two inputs centre on its arrow (y 42.5), the cartography
+     * table's column and result on the map field (y 46). Without the style the slots go back to Vanilla's y.
+     */
+    public static final Map<String, int[][]> SLOT_MOVES = Map.of(
+            "grindstone", new int[][] {{0, 49, 19, 23}, {1, 49, 40, 44}},
+            "cartography_table", new int[][] {{0, 15, 15, 19}, {1, 15, 52, 56}, {2, 145, 39, 38}});
 
     private StationStyles() {}
 }

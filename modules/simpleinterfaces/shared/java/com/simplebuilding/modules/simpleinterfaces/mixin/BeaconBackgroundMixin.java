@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simpleinterfaces.mixin;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import com.simplebuilding.modules.simpleinterfaces.client.WorkScreens;
+import com.simplelib.api.client.ui.UiPalette;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.BeaconScreen;
@@ -18,8 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Group "work" (W1 G2): the beacon in the Simple style ({@link WorkScreens#beacon}): the Vanilla PNG is skipped, the
- * "Primary/Secondary Power" labels give way to engraved pyramid and star symbols; the payment items row, the buttons
- * (styled by {@link BeaconButtonMixin}) and their tooltips stay.
+ * "Primary/Secondary Power" labels are drawn in the box's readable label colour (WD25-11); the payment items row, the
+ * buttons (styled by {@link BeaconButtonMixin}) and their tooltips stay.
  */
 @Mixin(BeaconScreen.class)
 public abstract class BeaconBackgroundMixin extends AbstractContainerScreen<BeaconMenu> {
@@ -46,6 +47,9 @@ public abstract class BeaconBackgroundMixin extends AbstractContainerScreen<Beac
 
     @Inject(method = "extractLabels", at = @At("HEAD"), cancellable = true)
     private void simpleinterfaces$labels(GuiGraphicsExtractor graphics, int xm, int ym, CallbackInfo ci) {
-        if (WorkScreens.palette(this, this.imageWidth, this.imageHeight, this.titleLabelY) != null) ci.cancel();
+        UiPalette p = WorkScreens.palette(this, this.imageWidth, this.imageHeight, this.titleLabelY);
+        if (p == null) return;
+        WorkScreens.beaconLabels(graphics, this.font, p);
+        ci.cancel();
     }
 }

@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpleinterfaces.client;
 
+import com.simplebuilding.modules.simpleinterfaces.mixin.SlotPositionAccessor;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout.Layout;
 import com.simplebuilding.modules.simpleinterfaces.style.BoxLayout.Rect;
@@ -20,6 +21,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.CartographyTableMenu;
+import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.inventory.MerchantMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -38,6 +41,8 @@ public final class StationScreens {
     static final int TITLE_Y = StyledScreens.TITLE_Y;
     /** Vanilla's XP text green and its "cannot" red; the red of an error cross. */
     public static final int XP_GREEN = 0xFF80FF20, XP_RED = 0xFFFF6060, ERROR = 0xFFE04040;
+    /** Row of the cartography table's plus and arrow (11 px high, centred on the map field at y 46; WD25-10). */
+    public static final int CARTO_SYMBOL_Y = 41;
     private static final Component TOO_EXPENSIVE = Component.translatable("container.repair.expensive");
 
     private StationScreens() {}
@@ -75,9 +80,29 @@ public final class StationScreens {
     public static boolean draw(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth, int imageHeight) {
         // reported like the screens of drawBackground: SimpleBuilding then leaves out its Vanilla frame of the extra head slot,
         // which the style draws as a slot like the armour slots (owner 2026-10-21, image 16)
+        moveSlots(screen);
         boolean styled = drawStyled(screen, g, left, top, imageWidth, imageHeight);
         StyledScreens.markStyled(screen, styled);
         return styled;
+    }
+
+    /**
+     * Puts the slots of {@link StationStyles#SLOT_MOVES} where the style wants them, or back to Vanilla's place when the
+     * screen is not styled; only slots at one of the two known places are touched (client menu only, the server knows
+     * slots by index).
+     */
+    static void moveSlots(AbstractContainerScreen<?> screen) {
+        AbstractContainerMenu menu = screen.getMenu();
+        String id = menu instanceof GrindstoneMenu ? "grindstone" : menu instanceof CartographyTableMenu ? "cartography_table" : null;
+        if (id == null) return;
+        ScreenStyle style = style(screen);
+        boolean styled = style != null && style.id().equals(id);
+        for (int[] move : StationStyles.SLOT_MOVES.get(id)) {
+            if (move[0] >= menu.slots.size()) continue;
+            Slot slot = menu.getSlot(move[0]);
+            int from = styled ? move[2] : move[3];
+            if (slot.x == move[1] && slot.y == from) ((SlotPositionAccessor) slot).qol$setY(styled ? move[3] : move[2]);
+        }
     }
 
     private static boolean drawStyled(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth,
@@ -136,10 +161,11 @@ public final class StationScreens {
                 UiSymbols.progress(g, UiSymbols.ARROW, l + 98, t + 48, p, 0, false);
             }
             case "grindstone" -> {
-                int[][] bracket = {{67, 26, 74, 28}, {67, 47, 74, 49}, {72, 26, 74, 49}, {74, 37, 78, 39}};
+                // WD25-9: inputs 4 px lower (SLOT_MOVES), bracket and wheel centred on the arrow (y 42.5)
+                int[][] bracket = {{67, 30, 74, 32}, {67, 51, 74, 53}, {72, 30, 74, 53}, {74, 41, 78, 43}};
                 for (int[] r : bracket) g.fill(l + r[0], t + r[1] + 1, l + r[2], t + r[3] + 1, p.light());
                 for (int[] r : bracket) g.fill(l + r[0], t + r[1], l + r[2], t + r[3], p.slot());
-                UiSymbols.engrave(g, UiSymbols.WHEEL, l + 79, t + 28, p);
+                UiSymbols.engrave(g, UiSymbols.WHEEL, l + 79, t + 33, p);
                 UiSymbols.progress(g, UiSymbols.ARROW, l + 101, t + 35, p, 0, false);
                 if (menu.getSlot(2).hasItem() && (enchanted(menu.getSlot(0).getItem()) || enchanted(menu.getSlot(1).getItem()))) {
                     UiSymbols.engrave(g, UiSymbols.XP, l + 116, t + 60, p, XP_GREEN, false);
@@ -154,8 +180,9 @@ public final class StationScreens {
                 UiBoxes.inset(g, l + 119, t + 13, 12, 56, p);
             }
             case "cartography_table" -> {
-                UiSymbols.engrave(g, UiSymbols.PLUS, l + 18, t + 36, p);
-                UiSymbols.progress(g, UiSymbols.ARROW_SMALL, l + 41, t + 37, p, 0, false);
+                // WD25-10: plus and arrow on the map field's middle (y 46), like the moved slots (SLOT_MOVES)
+                UiSymbols.engrave(g, UiSymbols.PLUS, l + 18, t + CARTO_SYMBOL_Y, p);
+                UiSymbols.progress(g, UiSymbols.ARROW_SMALL, l + 41, t + CARTO_SYMBOL_Y, p, 0, false);
                 UiBoxes.inset(g, l + 67, t + 13, 66, 66, p);
             }
             case "smithing_table" -> {

@@ -127,6 +127,15 @@ Echter Client (Integration, alle Module), jeder Screen wie ein Spieler geöffnet
 - [ ] VIS24-10 Modul-Smoke `simpletweaks` (Urkunden-Editor) scheitert im Sammellauf `vis24all-client-263` nach den anderen Smokes (Zweiter `waitForScreen(DeedScreen)` läuft ab); einzeln grün → Reihenfolge-/Zustandsabhängigkeit prüfen. Sammellauf bricht dort ab (Fabric stoppt beim ersten Fehler). (b-visfix25: nicht angefasst – braucht den schweren Sammellauf zur Diagnose.)
 - [x] (B, b-visfix25, 25.10.) VIS24-11 erwartet: Kisten (simplestorage) haben absichtlich keine GUI (Rechtsklick nimmt/legt, CrateBlock.useWithoutItem), Shops ohne Besitzer ebenso; Shop-Screens im Modul-Smoke; Vis24ClientTest probiert diese 4 Blöcke nicht mehr (Lauf danach ohne FAULT erwartet; Lauf vorher: 212 Bilder, nur diese 8 FAULTs).
 
+## Besitzer-Antworten 25.10. (WD25)
+Besitzer-Text /root/sb-tools-b/wd25.md, Bilder /root/sb-tools-b/wd25-img/28–30.png.
+- [~] (B, b-wd25ui, 25.10.) WD25-6 Shop-Block (Verkaufsblock) ohne Deckel/Oberseite – Modell/Textur prüfen.
+- [~] (B, b-wd25ui, 25.10.) WD25-8 Astral-Tresor: Overlay der Astralreihen als dunkle Version der oberen Farbe statt Lila.
+- [~] (B, b-wd25ui, 25.10.) WD25-9 Reparieren & Entzaubern (Schleifstein): linke Slots + Motiv vertikal mittig, Pfeil als Referenz.
+- [~] (B, b-wd25ui, 25.10.) WD25-10 Kartentisch entzerren, linke 2 Slots vertikal zentriert.
+- [~] (B, b-wd25ui, 25.10.) WD25-11 Leuchtfeuer-UI mit Vanilla vergleichen, fehlende Elemente ergänzen.
+- [~] (B, b-wd25ui, 25.10.) WD25-12 Befiederungstisch: Pfeil-Logo + Pfeilspitzen-Hintergrund überarbeiten, Slot-Block zentrieren.
+
 ## Besitzer 24.10. nachmittags – Antworten Sammelseite, Runde 2 (WC24)
 Abgenommen: WB24-2 Schwingen Stufe 1–4 (Name „Leeren-Schwingen“, x8/1152/MYTHIC), WB24-4 Notenblatt-Editor („noten blatt e3“ = E3-Ansicht so lassen, flaches Neuschreiben ok).
 - [x] (B, b-wc24gem, 24.10., Plan docs/ai/PLAN-B-WC24GEM-2026-10-24.md: Endfassungen in tools/textures/wb24_gems/wb24_gems.py (`--install`/`--check`, Unittest test_wb24_gems), eingebaut als simplemobs:item/nether_gem|ender_gem|ender_heart (PNG+.mcmeta+.layers.json), Item nether_gem aus wither21_textures.py genommen (Block nether_gem unverändert), Wiki/textures.js neu; Kaninchen-Lesart nur Vorschau (variants/ender_heart_alt_kaninchen); Vorschau /root/sb-tools-b/previews/wc24-1-gems-final.html; offen: Besitzer-/Client-Sicht) WC24-1 (WB24-3) Nether-Juwel = **A3 Seelenflamme mit höherer Seelenflamme**. Ender-Juwel = **E2 Leerenschliff, aber anpassen** (verfeinern). Ender-Herz = **H3 Chorusherz fusioniert mit H1** (Chorusfarbe mit dem Türkis), Form „ähnlich einem kanicken Herzen“ (Diktat; gelesen als **kantiges** Pixel-Herz). Danach als echte Texturen von nether_gem/ender_gem/ender_heart einbauen (ersetzt vorläufig H1/E1), Vorschau dazu.

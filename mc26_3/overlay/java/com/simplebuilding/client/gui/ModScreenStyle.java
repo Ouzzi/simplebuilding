@@ -258,11 +258,13 @@ public final class ModScreenStyle {
         box(g, left, top, container, p);
         box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
         Slot result = menu.getSlot(FletchingMenu.RESULT_SLOT);
+        // WD25-12: the row (book, feather, shaft, tip, arrow, result) centred in the box; positions from the menu
+        int px = FletchingMenu.PART_X, py = FletchingMenu.ROW_Y, ax = px + FLETCHING_ARROW_DX, ay = py + 1;
         List<int[]> avoid = slotRects(menu, left, top);
         avoid.add(titleRect(font, title, left, top));
         avoid.add(bigRect(result, left, top));
-        avoid.add(new int[] {left + 92, top + 44, left + 114, top + 69});
-        avoid.add(new int[] {left + 4, top + 44, left + 85, top + 69});
+        avoid.add(new int[] {left + ax, top + py - 4, left + ax + 22, top + py + 21});
+        avoid.add(new int[] {left + px - 26, top + py - 4, left + px + 55, top + py + 21});
         // The recipe book button sits left of the part row (crafting-table spot); keep the motif clear.
         avoid.add(new int[] {left + ModScreenLayout.FLETCHING_BOOK_X, top + ModScreenLayout.FLETCHING_BOOK_Y,
                 left + ModScreenLayout.FLETCHING_BOOK_X + ModScreenLayout.FLETCHING_BOOK_W,
@@ -270,14 +272,37 @@ public final class ModScreenStyle {
         motif(g, left, top, container, p, UiMotifs.Kind.WOOD, avoid, 6);
         // The three part slots (feather, shaft, tip) sit in one row after the recipe book button.
         for (int k = 0; k < 54; k++) {
-            int x = 30 + k;
-            g.fill(left + x, top + 56, left + x + 1, top + 57, p.light());
-            g.fill(left + x, top + 55, left + x + 2, top + 56, p.slot());
+            int x = px + k;
+            g.fill(left + x, top + py + 8, left + x + 1, top + py + 9, p.light());
+            g.fill(left + x, top + py + 7, left + x + 2, top + py + 8, p.slot());
         }
         slots(g, menu, left, top, p, result);
-        UiSymbols.engrave(g, UiSymbols.ARROW, left + 92, top + 49, p);
+        UiSymbols.engrave(g, FLETCHED_ARROW, left + ax, top + ay, p);
         return true;
     }
+
+    /** The fletching arrow's left edge relative to the feather slot (Vanilla crafting table: arrow 62 px right of the grid). */
+    static final int FLETCHING_ARROW_DX = 62;
+    /**
+     * WD25-12 "Pfeil-Logo": the fletching table's arrow is a real arrow - the chunky head of {@link UiSymbols#ARROW}, a
+     * 3 px shaft and two swept feathers at the tail (22x15 like the other station arrows; preview variant A).
+     */
+    static final UiSymbols.Bitmap FLETCHED_ARROW = UiSymbols.Bitmap.of(
+            "..............#.......",
+            "..............##......",
+            "##............###.....",
+            ".##...........####....",
+            "..##..........#####...",
+            "...##.........#####...",
+            "#...###############...",
+            "##...###############..",
+            "#...###############...",
+            "...##.........#####...",
+            "..##..........#####...",
+            ".##...........####....",
+            "##............###.....",
+            "..............##......",
+            "..............#.......");
 
     public static boolean fletchingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, FLETCHING.label(), false);

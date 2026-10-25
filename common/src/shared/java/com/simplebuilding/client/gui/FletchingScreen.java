@@ -24,7 +24,7 @@ import net.minecraft.world.item.Items;
  */
 public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     private static final Identifier CRAFTING_TABLE_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/crafting_table.png");
-    /** Hintergrundfarbe der Vanilla-Container; uebermalt die ungenutzten Gitterfelder. */
+    /** Hintergrundfarbe der Vanilla-Container; uebermalt das Werkbank-Gitter vor dem Neusetzen der Teile. */
     private static final int PANEL = 0xFFC6C6C6;
 
     public FletchingScreen(FletchingMenu menu, Inventory inventory, Component title) {
@@ -69,15 +69,12 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
             return;
         }
         graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo, yo, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
-        // Gitter 3x3 ab (29,16), Felder je 18 px: nur die mittlere Reihe bleibt.
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 3; column++) {
-                if (row != 1) {
-                    int x = xo + 29 + column * 18;
-                    int y = yo + 16 + row * 18;
-                    graphics.fill(x, y, x + 18, y + 18, PANEL);
-                }
-            }
-        }
+        // Werkbank-Teile an der mittigen Reihe (WD25-12): Feld oben leeren, dann mittlere Gitterreihe (29,34 54x18),
+        // Pfeil (90,35 22x15) und Ergebnisrahmen (119,30 26x26) aus dem Vanilla-Bild an die Slots setzen.
+        graphics.fill(xo + 7, yo + 15, xo + 169, yo + 72, PANEL);
+        int px = FletchingMenu.PART_X, py = FletchingMenu.ROW_Y, rx = FletchingMenu.RESULT_X;
+        graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + px - 1, yo + py - 1, 29.0F, 34.0F, 54, 18, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + px + 60, yo + py, 90.0F, 35.0F, 22, 15, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + rx - 5, yo + py - 5, 119.0F, 30.0F, 26, 26, 256, 256);
     }
 }
