@@ -11,7 +11,7 @@
     "#simplebuilding:chisel_tools",
     "#simplebuilding:sledgehammer_tools",
     "#simplebuilding:building_wand_enchantable",
-    "simplebuilding:velocity_gauge",
+    "simplegadgets:velocity_gauge",
     "simplebuilding:amethyst_lens",
     "simplebuilding:detector",
     "simplebuilding:magnet",
