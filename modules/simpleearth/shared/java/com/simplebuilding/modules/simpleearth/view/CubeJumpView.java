@@ -6,7 +6,7 @@ package com.simplebuilding.modules.simpleearth.view;
  * are relabelled; over a grid point the cube turns 180 degrees about the horizontal diagonal (V1/V2 0.35 s, V3 0.9 s with
  * tesseract lines, a scale pulse and the corner window before it).
  */
-final class CubeJumpView extends EarthView {
+public final class CubeJumpView extends EarthView {
     static final int TESS = 0xFFC08CFF, WINDOW_FRAME = 0xFFD7B3FF;
     private final int mode;
     private Quat lastQ = Quat.IDENTITY;
@@ -126,7 +126,7 @@ final class CubeJumpView extends EarthView {
     }
 
     /** A point pushed radially onto the rounded cube (edge length 2, rounding r), 0.4 % above it. */
-    static V3 onBody(V3 pt, double r) {
+    public static V3 onBody(V3 pt, double r) {
         double m = Math.max(Math.abs(pt.x()), Math.max(Math.abs(pt.y()), Math.abs(pt.z())));
         V3 onCube = pt.mul(1 / Math.max(1e-9, m));
         return Meshes.round(onCube, r).mul(1.004);

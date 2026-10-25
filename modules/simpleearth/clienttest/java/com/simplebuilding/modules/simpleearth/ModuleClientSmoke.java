@@ -43,6 +43,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             imageTime(context, world, true);
             context.takeScreenshot("simpleearth-v10-fast");
             glide(context);
+            // WE25-1: rain on the server, none on the client while the earth is shown
+            world.getServer().runCommand("weather rain");
+            context.waitTicks(60);
+            check(context.computeOnClient(mc -> com.simplebuilding.modules.simpleearth.orbit.OrbitView.active && mc.level.getRainLevel(1) == 0),
+                    "no weather on the client in orbit while it rains");
+            world.getServer().runCommand("weather clear");
             version(context, 6);
             context.waitTicks(300);
             context.takeScreenshot("simpleearth-orbit-v6");

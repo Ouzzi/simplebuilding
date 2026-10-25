@@ -6,7 +6,8 @@
   "mixins": [],
   "client": [
     "client.EarthKeyboardInputMixin",
-    "client.EarthWeatherMixin"
+    "client.EarthWeatherMixin",
+    "client.EarthAmbientMixin"
   ],
   "server": [],
   "injectors": {
