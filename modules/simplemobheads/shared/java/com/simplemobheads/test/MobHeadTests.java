@@ -1442,7 +1442,8 @@ public final class MobHeadTests {
             if (MobHeads.item(head.id()) != null && !ids.contains(head.id())) ids.add(head.id());
         }
         List<net.minecraft.world.damagesource.DamageSource> sources = new ArrayList<>(List.of(level.damageSources().generic(),
-                level.damageSources().inFire(), level.damageSources().onFire(), level.damageSources().lava()));
+                level.damageSources().inFire(), level.damageSources().onFire(), level.damageSources().lava(),
+                level.damageSources().genericKill()));
         // With Simple Mobs: killed by a soulfire blaze, in melee and by its soul fireball (what SoulFireball#onHitEntity does).
         Entity blaze = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse("simplemobs:soulfire_blaze"))
                 .map(type -> (Entity) type.create(level, EntitySpawnReason.MOB_SUMMONED)).orElse(null);
@@ -1464,20 +1465,28 @@ public final class MobHeadTests {
                 // A mock player is invulnerable until its "client" says it loaded (ServerPlayer#isInvulnerableTo).
                 player.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
                 wear(player, id);
+                // The soul sand valley case: dying in the Nether, respawning in the Overworld.
+                ServerLevel nether = level.getServer().getLevel(net.minecraft.world.level.Level.NETHER);
+                if (soul && source.is(net.minecraft.world.damagesource.DamageTypes.LAVA) && nether != null) {
+                    nether.getChunk(0, 0);
+                    player.teleportTo(nether, 0.5, 70.0, 0.5, java.util.Set.of(), 0.0F, 0.0F, false);
+                }
+                ServerLevel at = player.level();
                 if (soul) {
                     player.igniteForSeconds(5.0F);
                     soulBurn.ifPresent(burn -> player.addEffect(new MobEffectInstance(burn, 2400, 0)));
                 }
-                player.hurtServer(level, source, 100000.0F);
-                List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
+                player.hurtServer(at, source, 100000.0F);
+                List<ItemEntity> drops = at.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
                         e -> e.getItem().is(MobHeads.item(id)));
                 boolean kept = HeadAbilities.is(player.getItemBySlot(EquipmentSlot.HEAD), id);
-                String where = id + "/" + source.getMsgId();
+                String where = id + "/" + source.getMsgId() + (at != level ? "/nether" : "");
                 if (!player.isDeadOrDying() || (kept ? drops.size() != 0 : drops.size() != 1)) {
                     problems.add(where + ": dead=" + player.isDeadOrDying() + " kept=" + kept + " drops=" + drops.size());
                 }
                 drops.forEach(Entity::discard);
                 if (soul) {
+                    SimpleMobHeads.LOG.info("BS25-19 death test {}: kept={} drops={}", where, kept, drops.size());
                     // The dead player goes on ticking until the respawn (death screen): mod tick hooks see it dead.
                     for (int i = 0; i < 40; i++) player.doTick();
                     ServerPlayer fresh = level.getServer().getPlayerList().respawn(player, false, Entity.RemovalReason.KILLED);
