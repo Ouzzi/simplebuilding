@@ -48,7 +48,7 @@ Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fet
 Ältere Abschnitte sind aufgelöst: ihre offenen Zeilen stehen unter „Offene Einzelpunkte“ mit Herkunft, das Erledigte im Archiv (23.10.).
 
 ### (A) In Arbeit
-- B (Stand 25.10., b-queueclean25): Bündel 65 GRÜN → master 73c0d7be0 (24.10. 21:38 UTC); Bündel 66 (Merge-Stand 0536cc254: Simple Lights + Simple Earth) und 67 (Branch b-bundle67) in Vorbereitung, Gate-/master-Stand hier nicht belegt. Davor 64 → a36a841a6, 63 → 5879b18a9, 62 → b184ae933, 61 → b74998032, 60 → e11eed7ef, 59 → b7af3e8d7, 58 → 880f3ae6c, 57 → 3f7a6ec69, 56 → 292858d10, 55 → 9815ae661, 54 → 0c311307a. Laufen: b-cmd2-24 (Config-Befehle), b-gadgets24, b-clientvis24, b-earthcmd25; b-jei24 laut OFFENE-WUENSCHE 24.10.
+- B (Stand 25.10.): Bündel 67 GRÜN → master ab1a3a34a (25.10. 03:34 UTC: jei24, earth24 = Simple Earth, rev2a/b/c24, wiki24, openreq24; enthält 66). Bündel 68 (small25, tex24, queueclean25, earthcmd25) in Arbeit. Bündel 65 → 73c0d7be0. Davor 64 → a36a841a6, 63 → 5879b18a9, 62 → b184ae933, 61 → b74998032, 60 → e11eed7ef, 59 → b7af3e8d7, 58 → 880f3ae6c, 57 → 3f7a6ec69, 56 → 292858d10, 55 → 9815ae661, 54 → 0c311307a. Laufen: b-cmd2-24 (Config-Befehle), b-gadgets24, b-clientvis24, b-earthcmd25; b-jei24 laut OFFENE-WUENSCHE 24.10.
 - In master: Bündel 42/43/44. a-guidepages offen.
 
 ### (1) Wartet auf Besitzer-Wahl → Abnahme-Seite https://claude.ai/artifact/2LFUTJiqCu7mCULzPW3Ye9
