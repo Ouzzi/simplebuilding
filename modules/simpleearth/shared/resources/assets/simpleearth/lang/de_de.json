@@ -146,5 +146,7 @@
   "simpleearth.guide.page.21.title": "Menü",
   "simpleearth.guide.page.21": "die Liste zeigt die eigenen Werte dieser Version (Höhen, Kantenlänge, Flugtempo, Abtastraster, Orbit-Abstand, Schattierung, Atmosphäre, Mond, Sterne und eigene Stilwerte) als Regler - ziehen, Minus oder",
   "simpleearth.guide.page.22.title": "Menü",
-  "simpleearth.guide.page.22": "Plus klicken oder Umschalt und Mausrad. Änderungen wirken sofort und werden je Version gespeichert; der Server begrenzt Höhen, Kante und Tempo."
+  "simpleearth.guide.page.22": "Plus klicken oder Umschalt und Mausrad. Änderungen wirken sofort und werden je Version gespeichert; der Server begrenzt Höhen, Kante und Tempo.",
+  "simpleearth.guide.page.23.title": "Befehle",
+  "simpleearth.guide.page.23": "/simpleearth config zeigt und ändert jede Server-Option (list, get, set, reset, help); /simpleclient simpleearth tut das für die Client-Datei (Version, Dev-Knopf, Werte jeder Version). Werte werden auf ihren Bereich begrenzt."
 }

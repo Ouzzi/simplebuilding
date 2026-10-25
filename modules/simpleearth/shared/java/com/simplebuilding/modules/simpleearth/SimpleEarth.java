@@ -41,6 +41,8 @@ public final class SimpleEarth {
     public static void init(Path dir) {
         configDir = dir;
         EarthServerConfig.load(dir);
+        // CMD24: /simpleearth config (server options; every value is clamped by EarthServerConfig.apply).
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(EarthServerConfig::toJson, EarthServerConfig::apply).file(dir, EarthServerConfig.FILE).register();
     }
 
     private SimpleEarth() {}

@@ -50,6 +50,8 @@ public final class EarthClient {
     public static void init(Path configDir, boolean dev) {
         development = dev;
         EarthClientConfig.load(configDir);
+        // CMD24: /simpleclient simpleearth (version, dev button, the value sets per version).
+        com.simplelib.api.config.ConfigCommands.client(SimpleEarth.MOD_ID).json(EarthClientConfig::toJson, EarthClientConfig::apply).file(configDir, EarthClientConfig.FILE).register();
     }
 
     /** True while the player is parked in orbit: movement keys glide the orbit position instead of walking. */
