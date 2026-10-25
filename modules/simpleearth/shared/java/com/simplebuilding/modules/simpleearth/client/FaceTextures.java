@@ -29,7 +29,7 @@ public final class FaceTextures {
                       int foldQ, int reliefQ) {}
 
     /** Painting context of the current frame. */
-    public record Context(double ax, double az, double edge, int e, int seaLevel, double relief, double foldRadius, int res) {}
+    public record Context(double ax, double az, double edge, int e, int seaLevel, double relief, double foldRadius, int res, double px, double pz) {}
 
     private static final class Entry {
         Identifier id;
@@ -94,13 +94,22 @@ public final class FaceTextures {
         CACHE.clear();
     }
 
-    /** Requests the tiles a face needs at its grid (and the next coarser one, the quick preview). */
+    /** Requests the tiles a face needs at its grid (and the next coarser one, the quick preview), nearest the player first. */
     public static void request(int tx, int tz, Context ctx) {
         double minX = ctx.ax() + tx * ctx.edge() - ctx.edge() / 2, minZ = ctx.az() + tz * ctx.edge() - ctx.edge() / 2;
         for (int e : new int[]{Math.min(TileMath.MAX_E, ctx.e() + 2), ctx.e()}) {
             int t0x = TileMath.tileOf(TileMath.sampleOf(minX, e)), t1x = TileMath.tileOf(TileMath.sampleOf(minX + ctx.edge(), e));
             int t0z = TileMath.tileOf(TileMath.sampleOf(minZ, e)), t1z = TileMath.tileOf(TileMath.sampleOf(minZ + ctx.edge(), e));
-            for (int z = t0z; z <= t1z; z++) for (int x = t0x; x <= t1x; x++) ClientTiles.want(e, x, z);
+            double size = (double) TileMath.TILE * (1L << e);
+            java.util.List<long[]> tiles = new java.util.ArrayList<>();
+            for (int z = t0z; z <= t1z; z++) {
+                for (int x = t0x; x <= t1x; x++) {
+                    double dx = (x + 0.5) * size - ctx.px(), dz = (z + 0.5) * size - ctx.pz();
+                    tiles.add(new long[]{x, z, (long) (dx * dx / 1e6 + dz * dz / 1e6)});
+                }
+            }
+            tiles.sort(java.util.Comparator.comparingLong(t -> t[2]));
+            for (long[] t : tiles) ClientTiles.want(e, (int) t[0], (int) t[1]);
         }
     }
 

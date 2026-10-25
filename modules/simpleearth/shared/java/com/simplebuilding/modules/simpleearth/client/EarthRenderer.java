@@ -69,7 +69,8 @@ public final class EarthRenderer {
         long clock = mc.level.getOverworldClockTime();
         double dayAngle = ((clock % 24000L) / 24000.0) * Math.PI * 2;
         V3 sun = new V3(Math.cos(dayAngle), Math.sin(dayAngle), 0.25).normalize();
-        FaceTextures.Context[] ctx = contexts(edge, h, EarthClientConfig.get("relief"), EarthClientConfig.get("foldRadius"));
+        FaceTextures.Context[] ctx = contexts(edge, h, EarthClientConfig.get("relief"), EarthClientConfig.get("foldRadius"),
+                EarthClient.ax() + EarthClient.relX(partial), EarthClient.az() + EarthClient.relZ(partial));
 
         sky(collector, poseStack, maxDist, sun, fade, clock);
         int reach = (int) EarthClientConfig.render("renderDistance");
@@ -105,14 +106,14 @@ public final class EarthRenderer {
         return Math.min(2, Math.max(Math.abs(p.tx), Math.abs(p.tz)));
     }
 
-    private static FaceTextures.Context[] contexts(double edge, double h, double relief, double foldRadius) {
+    private static FaceTextures.Context[] contexts(double edge, double h, double relief, double foldRadius, double px, double pz) {
         int[] res = TileMath.ringResolutions(edge, h, (int) EarthClientConfig.get("faceResolution"), (int) EarthClientConfig.render("detail"),
                 (int) EarthClientConfig.render("detailRange"), EarthClient.minGrid());
         FaceTextures.Context[] out = new FaceTextures.Context[3];
         for (int r = 0; r < 3; r++) {
             int e = Math.max(EarthClient.minGrid(), TileMath.exponentFor(edge, res[r]));
             out[r] = new FaceTextures.Context(EarthClient.ax(), EarthClient.az(), edge, Math.min(TileMath.MAX_E, e), EarthClient.seaLevel(),
-                    relief, foldRadius, res[r]);
+                    relief, foldRadius, res[r], px, pz);
         }
         return out;
     }
