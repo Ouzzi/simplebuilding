@@ -1448,6 +1448,9 @@ public final class MobHeadTests {
             for (var source : soul ? sources : List.of(level.damageSources().generic())) {
                 ServerPlayer player = player(helper);
                 player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+                player.getAbilities().invulnerable = false;
+                // A mock player is invulnerable until its "client" says it loaded (ServerPlayer#isInvulnerableTo).
+                player.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
                 wear(player, id);
                 player.hurtServer(level, source, 100000.0F);
                 List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
