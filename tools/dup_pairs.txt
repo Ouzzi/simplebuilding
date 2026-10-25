@@ -28,6 +28,7 @@ common/src/shared/java/com/simplebuilding/client/render/TrappedCopperChestRender
 common/src/shared/java/com/simplebuilding/client/render/TrimPulseTextures.java modules/simpletrims/shared/java/com/simpletrims/client/TrimPulseTextures.java
 common/src/shared/java/com/simplebuilding/component/BackpackContents.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackContents.java
 common/src/shared/java/com/simplebuilding/component/ContainerCounts.java modules/simplestorage/shared/java/com/simplestorage/chest/ContainerCounts.java
+common/src/shared/java/com/simplebuilding/component/LensMeasurement.java modules/simplegadgets/shared/java/com/simplegadgets/rod/LensMeasurement.java
 common/src/shared/java/com/simplebuilding/config/ConfigOptions.java modules/simplevisuals/shared/java/com/simplevisuals/ConfigOptions.java allow: Option/3 Option/7 all/0 all/1 appliesOnReload/0 clientSide/0 defaultValue/0 get/0 hidden/0 hidden/1 hiddenFields/0 isValueType/1 normalize/1 recipesOnReload/0 restartRequired/0 set/1 set/2 type/0 typeName/0 visible/0
 common/src/shared/java/com/simplebuilding/effect/ModEffects.java modules/simplefun/shared/java/com/simplefun/registry/ModEffects.java allow: holder/0 registerEffects/0 registerPotions/0
 common/src/shared/java/com/simplebuilding/effect/ModEffects.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModEffects.java allow: friction/2 register/0 registerEffects/0 registerPotions/0 slip/2
@@ -58,6 +59,7 @@ common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java modules/s
 common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplebeacons/shared/java/com/simplebeacons/mixin/DiscoverTipMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleblocks/shared/java/com/simpleblocks/mixin/DiscoverTipMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplecrucibles/shared/java/com/simplecrucibles/mixin/DiscoverTipMixin.java
+common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplegadgets/shared/java/com/simplegadgets/mixin/DiscoverTipMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/DiscoverTipMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplelib/shared/java/com/simplelib/mixin/DiscoverTipMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DiscoverTipMixin.java
@@ -102,6 +104,7 @@ common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityPlayerMixin.ja
 common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityShulkerBoxMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityShulkerBoxMixin.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/SkullBlockEntityTypeMixin.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/client/WornModHeadMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/WornModHeadMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/network/LaserPayload.java modules/simplegadgets/shared/java/com/simplegadgets/network/LaserPayload.java
 common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 limit/2 limit/3 max/2 mirror/2 tryRemove/3
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
 common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java modules/simpleovens/shared/java/com/simpleovens/LongCookContainerData.java
