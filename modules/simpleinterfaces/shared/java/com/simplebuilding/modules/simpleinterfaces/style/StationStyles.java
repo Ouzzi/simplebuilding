@@ -29,6 +29,13 @@ public final class StationStyles {
     public static final Map<String, String> SUBCLASSES = Map.of(
             "com.simplebuilding.client.gui.RecipeBookSmithingScreen", ScreenStyle.VANILLA + "SmithingScreen");
 
+    /**
+     * Screens of other mods with their own menu type but exactly a Vanilla screen's layout, by class name -> style id
+     * (no import; without the mod nothing happens): the Shapecutter of Simple Blocks is the stonecutter with a longer
+     * list (VIS24-6), drawn by {@code ShapecutterStationMixin} and switched with the stonecutter.
+     */
+    public static final Map<String, String> LOOKALIKES = Map.of("com.simpleblocks.saw.client.ShapecutterScreen", "stonecutter");
+
     public static final List<ScreenStyle> STYLES = List.of(
             new ScreenStyle("anvil", ScreenStyle.VANILLA + "AnvilScreen", List.of(MenuType.ANVIL), context -> ANVIL),
             new ScreenStyle("grindstone", ScreenStyle.VANILLA + "GrindstoneScreen", List.of(MenuType.GRINDSTONE), context -> GRINDSTONE),

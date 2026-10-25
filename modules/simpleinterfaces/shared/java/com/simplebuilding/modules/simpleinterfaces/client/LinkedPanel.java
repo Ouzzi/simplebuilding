@@ -111,7 +111,9 @@ public final class LinkedPanel {
         } else {
             this.visible = Math.max(1, above);
             this.relX = (imageWidth - WIDTH) / 2;
-            this.relY = -(this.height() + GAP);
+            // VIS24-7: at 854x480 (GUI scale 2) not even one row fits above the inventory (37 px for 42) - the panel stays
+            // inside the window and covers the inventory's top frame instead (its title and slots start lower)
+            this.relY = Math.max(-(this.height() + GAP), 1 - topPos);
         }
         this.scroll = Math.max(0, Math.min(this.scroll, this.rows - this.visible));
         this.place(menu);

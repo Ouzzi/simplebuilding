@@ -161,6 +161,8 @@
   "simplevisuals.death_location": "Location: [%s, %s, %s]",
   "simplevisuals.map_center": "Center: %s, %s",
   "simplevisuals.models": "Models",
+  "simplevisuals.models.empty": "No models for this item yet.",
+  "simplevisuals.models.no_match": "No model matches the search.",
   "simplevisuals.search": "Search",
   "simplevisuals.rename_to": "Rename at an anvil: %s",
   "simplevisuals.server_formatting": "Server anvil formatting: %s",

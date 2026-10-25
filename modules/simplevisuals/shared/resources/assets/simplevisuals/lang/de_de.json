@@ -161,6 +161,8 @@
   "simplevisuals.death_location": "Position: [%s, %s, %s]",
   "simplevisuals.map_center": "Mittelpunkt: %s, %s",
   "simplevisuals.models": "Modelle",
+  "simplevisuals.models.empty": "Für dieses Item gibt es noch keine Modelle.",
+  "simplevisuals.models.no_match": "Kein Modell passt zur Suche.",
   "simplevisuals.search": "Suchen",
   "simplevisuals.rename_to": "Am Amboss umbenennen: %s",
   "simplevisuals.server_formatting": "Server-Ambossformatierung: %s",
