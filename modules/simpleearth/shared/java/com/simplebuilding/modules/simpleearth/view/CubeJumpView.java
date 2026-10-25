@@ -91,28 +91,44 @@ final class CubeJumpView extends EarthView {
         return new V3(c[0] * s, c[1] * s, c[2] * s);
     }
 
-    /** V3 corner window: a small triangular fourth face grows out of the rounded corner, showing the diagonal tile. */
+    /**
+     * V3 corner window: the diagonal tile grows out of the corner as a small fourth face. WE25-2: it used to be a flat triangle
+     * across the sharp corner, which stood off the rounded body like a loose plate; now the triangle is projected onto the
+     * rounded corner (a hair above it), so the window lies on the body and only its frame marks it.
+     */
     private static void window(Scene s, Quat q, double u, double v, ViewParams p) {
         int su = Meshes.sg(u), sv = Meshes.sg(v);
         double near = Math.min(Math.abs(u), Math.abs(v)), start = p.get("windowStart", 0.5);
         double ws = Meshes.clamp((near - start) / Math.max(0.01, 1 - start), 0, 1);
         if (ws <= 0.01) return;
-        double size = 0.08 + p.get("windowSize", 0.62) * ws;
-        V3 corner = new V3(su, 1, sv), out = corner.normalize().mul(0.01);
-        V3 a = corner.add(new V3(-su * size, 0, 0)).add(out), b = corner.add(new V3(0, -size, 0)).add(out),
-                c = corner.add(new V3(0, 0, -sv * size)).add(out);
-        Patch w = new Patch(2, 2).tile(su, sv, false);
-        w.set(0, 0, a, 0, 0);
-        w.set(1, 0, c, 1, 0);
-        w.set(0, 1, b, 0.5, 1);
-        w.set(1, 1, b, 0.5, 1);
+        double size = 0.08 + p.get("windowSize", 0.62) * ws, r = p.get("rounding", 0.07);
+        V3 corner = new V3(su, 1, sv);
+        V3 a = corner.add(new V3(-su * size, 0, 0)), b = corner.add(new V3(0, -size, 0)), c = corner.add(new V3(0, 0, -sv * size));
+        int n = 8;
+        Patch w = new Patch(n + 1, n + 1).tile(su, sv, false);
+        for (int j = 0; j <= n; j++) {
+            for (int i = 0; i <= n; i++) {
+                double fu = i / (double) n, fv = j / (double) n;
+                V3 flat = V3.lerp(V3.lerp(a, c, fu), b, fv);
+                w.set(i, j, onBody(flat, r), fu * (1 - fv) + 0.5 * fv, fv);
+            }
+        }
         w.transform(q, V3.ZERO);
         w.overlay = true;
         w.alpha = Math.min(1, ws * 2);
         s.patches.add(w);
-        V3 ra = q.rotate(a), rb = q.rotate(b), rc = q.rotate(c);
-        s.line(ra, rb, w.alpha, WINDOW_FRAME);
-        s.line(rb, rc, w.alpha, WINDOW_FRAME);
-        s.line(rc, ra, w.alpha, WINDOW_FRAME);
+        for (int k = 0; k < n; k++) {
+            double f0 = k / (double) n, f1 = (k + 1) / (double) n;
+            s.line(q.rotate(onBody(V3.lerp(a, c, f0), r)), q.rotate(onBody(V3.lerp(a, c, f1), r)), w.alpha, WINDOW_FRAME);
+            s.line(q.rotate(onBody(V3.lerp(c, b, f0), r)), q.rotate(onBody(V3.lerp(c, b, f1), r)), w.alpha, WINDOW_FRAME);
+            s.line(q.rotate(onBody(V3.lerp(b, a, f0), r)), q.rotate(onBody(V3.lerp(b, a, f1), r)), w.alpha, WINDOW_FRAME);
+        }
+    }
+
+    /** A point pushed radially onto the rounded cube (edge length 2, rounding r), 0.4 % above it. */
+    static V3 onBody(V3 pt, double r) {
+        double m = Math.max(Math.abs(pt.x()), Math.max(Math.abs(pt.y()), Math.abs(pt.z())));
+        V3 onCube = pt.mul(1 / Math.max(1e-9, m));
+        return Meshes.round(onCube, r).mul(1.004);
     }
 }

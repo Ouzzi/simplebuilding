@@ -101,6 +101,7 @@ public final class EarthClient {
 
     public static void left() {
         enabled = active = parked = holding = false;
+        com.simplebuilding.modules.simpleearth.orbit.OrbitView.active = false;
         ClientTiles.clear();
         FaceTextures.clear();
         view = null;
@@ -125,6 +126,7 @@ public final class EarthClient {
             if (mc.gui.screen() == null && mc.player != null) mc.gui.setScreen(new EarthScreen());
         }
         LocalPlayer player = mc.player;
+        com.simplebuilding.modules.simpleearth.orbit.OrbitView.active = player != null && fade(player.getEyeY()) > 0;
         prevX = predX;
         prevZ = predZ;
         if (player == null) return;
