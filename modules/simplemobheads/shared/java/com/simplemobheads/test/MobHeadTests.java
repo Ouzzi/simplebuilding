@@ -1489,7 +1489,6 @@ public final class MobHeadTests {
                 }
                 drops.forEach(Entity::discard);
                 if (soul) {
-                    SimpleMobHeads.LOG.info("BS25-19 death test {}: kept={} drops={}", where, kept, drops.size());
                     // The dead player goes on ticking until the respawn (death screen): mod tick hooks see it dead.
                     for (int i = 0; i < 40; i++) player.doTick();
                     ServerPlayer fresh = level.getServer().getPlayerList().respawn(player, false, Entity.RemovalReason.KILLED);
