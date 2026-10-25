@@ -43,6 +43,10 @@ public final class EarthFabric implements ModInitializer {
             OrbitTracker.disconnect(handler.player);
             TileService.forget(handler.player.getUUID());
         });
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> SimpleEarth.dataLoaded(server.getResourceManager()));
+        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resources, success) -> {
+            if (success) SimpleEarth.dataLoaded(resources);
+        });
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
             TileService.stop();
             OrbitTracker.clear();

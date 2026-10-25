@@ -9,7 +9,8 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContex
 
 /**
  * Client smoke with screenshots (WC24-4 stage 6): fly up through the activation height and the render switch, let the
- * terrain tiles arrive, then the earth in several versions, gliding with the forward key, a far view and the menu.
+ * terrain tiles arrive, then the earth in all twelve versions, three detail levels (WD25-16), gliding with the forward key,
+ * far views (V6, V10-V12) and the menu.
  */
 public final class ModuleClientSmoke implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
@@ -49,8 +50,16 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             shot(context, 7, "simpleearth-orbit-v7");
             shot(context, 8, "simpleearth-orbit-v8");
             shot(context, 9, "simpleearth-orbit-v9");
+            shot(context, 10, "simpleearth-orbit-v10");
+            shot(context, 11, "simpleearth-orbit-v11");
+            shot(context, 12, "simpleearth-orbit-v12");
+            // WD25-16 detail levels on the same spot (V6 looking down): 1 coarse, 3 standard, 5 finest
             context.runOnClient(mc -> mc.player.setXRot(55));
             version(context, 6);
+            detail(context, 1, 120, "simpleearth-detail-1");
+            detail(context, 3, 300, "simpleearth-detail-3");
+            detail(context, 5, 500, "simpleearth-detail-5");
+            context.runOnClient(mc -> EarthClientConfig.setRender("detail", 3));
             context.getInput().holdKeyFor(o -> o.keyUp, 100);
             context.waitTicks(60);
             context.takeScreenshot("simpleearth-glide-v6");
@@ -58,6 +67,16 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(mc -> mc.player.setXRot(70));
             context.waitTicks(30);
             context.takeScreenshot("simpleearth-far-v6");
+            version(context, 10);
+            context.waitTicks(40);
+            context.takeScreenshot("simpleearth-far-v10");
+            version(context, 11);
+            context.waitTicks(40);
+            context.takeScreenshot("simpleearth-far-v11");
+            version(context, 12);
+            context.waitTicks(40);
+            context.takeScreenshot("simpleearth-far-v12");
+            version(context, 6);
             teleport(context, world, 2600, 60);
             context.runOnClient(mc -> mc.player.setXRot(35));
             context.waitTicks(40);
@@ -73,6 +92,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     private static void shot(ClientGameTestContext context, int v, String name) {
         version(context, v);
         context.waitTicks(30);
+        context.takeScreenshot(name);
+    }
+
+    /** Sets the detail level, waits for the tiles and takes a screenshot (literal names for the runner). */
+    private static void detail(ClientGameTestContext context, int level, int ticks, String name) {
+        context.runOnClient(mc -> EarthClientConfig.setRender("detail", level));
+        context.waitTicks(ticks);
         context.takeScreenshot(name);
     }
 

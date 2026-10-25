@@ -14,7 +14,9 @@ import com.simplebuilding.modules.simpleearth.view.Scene;
 import com.simplebuilding.modules.simpleearth.view.V3;
 import com.simplebuilding.modules.simpleearth.view.ViewParams;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -56,9 +58,10 @@ public final class EarthRenderer {
         float partial = mc.getDeltaTracker().getGameTimeDeltaPartialTick(false);
         EarthView view = EarthClient.view();
         double edge = EarthClient.edge();
-        ViewParams params = EarthClientConfig.params(edge);
-        Scene scene = view.step(EarthClient.relX(partial), EarthClient.relZ(partial), dt, params);
         double h = EarthClient.eyeHeight(camera.y);
+        ViewParams params = EarthClientConfig.params(edge);
+        params.set("eyeHeight", h).set("heightFraction", EarthClient.heightFraction(camera.y));
+        Scene scene = view.step(EarthClient.relX(partial), EarthClient.relZ(partial), dt, params);
         V3 eye = scene.contact.add(new V3(0, h, 0));
         int renderBlocks = mc.options.getEffectiveRenderDistance() * 16;
         double maxDist = Math.max(24, Math.min(160, renderBlocks * 0.5));
@@ -66,23 +69,27 @@ public final class EarthRenderer {
         long clock = mc.level.getOverworldClockTime();
         double dayAngle = ((clock % 24000L) / 24000.0) * Math.PI * 2;
         V3 sun = new V3(Math.cos(dayAngle), Math.sin(dayAngle), 0.25).normalize();
-        int resolution = (int) EarthClientConfig.get("faceResolution");
-        int res = h < 0.6 ? resolution : h < 1.6 ? Math.max(64, resolution / 2) : Math.max(64, resolution / 4);
-        int e = TileMath.exponentFor(edge, res);
-        res = Math.max(16, Math.min(512, (int) Math.round(edge / (1 << e))));
-        FaceTextures.Context ctx = new FaceTextures.Context(EarthClient.ax(), EarthClient.az(), edge, e, EarthClient.seaLevel(),
-                EarthClientConfig.get("relief"), EarthClientConfig.get("foldRadius"));
+        FaceTextures.Context[] ctx = contexts(edge, h, EarthClientConfig.get("relief"), EarthClientConfig.get("foldRadius"));
 
         sky(collector, poseStack, maxDist, sun, fade, clock);
-        List<Patch> drawn = new ArrayList<>(scene.patches);
-        for (Patch p : drawn) request(scene, p, ctx);
-        for (Patch p : drawn) patch(collector, poseStack, scene, p, eye, scale, sun, fade, ctx, res, params);
+        int reach = (int) EarthClientConfig.render("renderDistance");
+        List<Patch> drawn = new ArrayList<>();
+        for (Patch p : scene.patches) if (ring(p) <= reach) drawn.add(p);
+        // the face under the player first: its tiles are asked for first and its image gets the paint budget first
+        List<Patch> byRing = new ArrayList<>(drawn);
+        byRing.sort(java.util.Comparator.comparingInt(EarthRenderer::ring));
+        for (Patch p : byRing) request(scene, p, ctx[ring(p)]);
+        Map<Patch, Identifier> textures = new IdentityHashMap<>();
+        for (Patch p : byRing) textures.put(p, texture(scene, p, ctx[ring(p)], params));
+        for (Patch p : drawn) patch(collector, poseStack, scene, p, eye, scale, sun, fade, textures.get(p));
         if (scene.closedBody && EarthClientConfig.get("atmosphere") > 0.01) atmosphere(collector, poseStack, scene, eye, scale, sun, fade);
         lines(collector, poseStack, scene, eye, scale, fade);
         others(collector, poseStack, view, scene, eye, scale, fade);
         // cross-fade (the previews' "Bild-Überblendung"): the frame before the change fades out over 0.35 s
         if (ghost != null) {
-            for (Patch p : ghost.patches) patch(collector, poseStack, ghost, p, eye, scale, sun, fade * ghostAlpha, ctx, res, params);
+            for (Patch p : ghost.patches) {
+                if (ring(p) <= reach) patch(collector, poseStack, ghost, p, eye, scale, sun, fade * ghostAlpha, texture(ghost, p, ctx[ring(p)], params));
+            }
             ghostAlpha -= dt / 0.35;
             if (ghostAlpha <= 0.01) ghost = null;
         }
@@ -93,24 +100,42 @@ public final class EarthRenderer {
         last = scene;
     }
 
+    /** Tile ring of a piece: 0 = the tile under the player, 1 = its neighbours, 2 = the far ring and the cube bottom. */
+    static int ring(Patch p) {
+        return Math.min(2, Math.max(Math.abs(p.tx), Math.abs(p.tz)));
+    }
+
+    private static FaceTextures.Context[] contexts(double edge, double h, double relief, double foldRadius) {
+        int[] res = TileMath.ringResolutions(edge, h, (int) EarthClientConfig.get("faceResolution"), (int) EarthClientConfig.render("detail"),
+                (int) EarthClientConfig.render("detailRange"), EarthClient.minGrid());
+        FaceTextures.Context[] out = new FaceTextures.Context[3];
+        for (int r = 0; r < 3; r++) {
+            int e = Math.max(EarthClient.minGrid(), TileMath.exponentFor(edge, res[r]));
+            out[r] = new FaceTextures.Context(EarthClient.ax(), EarthClient.az(), edge, Math.min(TileMath.MAX_E, e), EarthClient.seaLevel(),
+                    relief, foldRadius, res[r]);
+        }
+        return out;
+    }
+
     private static void request(Scene scene, Patch p, FaceTextures.Context ctx) {
         if (p.kind != Patch.TERRAIN) return;
         FaceTextures.request(scene.curTx + p.tx, scene.curTz + p.tz, ctx);
         if (p.mix > 0) FaceTextures.request(scene.curTx + p.mixTx, scene.curTz + p.mixTz, ctx);
     }
 
+    private static Identifier texture(Scene scene, Patch p, FaceTextures.Context ctx, ViewParams params) {
+        if (p.kind != Patch.TERRAIN || p.alpha <= 0.01) return WHITE;
+        int mixQ = (int) Math.round(Meshes.clamp(p.mix, 0, 1) * 16);
+        int foldQ = p.folded ? (int) Math.round(params.get("foldRadius", 0.6) * 100) : 0;
+        return FaceTextures.get(new FaceTextures.Key(scene.curTx + p.tx, scene.curTz + p.tz, p.mirror, scene.curTx + p.mixTx,
+                scene.curTz + p.mixTz, p.mixMirror, mixQ, ctx.res(), foldQ > 0 ? scene.curTx : 0, foldQ > 0 ? scene.curTz : 0, foldQ,
+                (int) Math.round(ctx.relief() * 4)), ctx);
+    }
+
     private static void patch(SubmitNodeCollector collector, PoseStack poseStack, Scene scene, Patch p, V3 eye, double scale, V3 sun,
-                              double fade, FaceTextures.Context ctx, int res, ViewParams params) {
+                              double fade, Identifier texture) {
         double alpha = p.alpha * fade;
         if (alpha <= 0.01) return;
-        Identifier texture = WHITE;
-        if (p.kind == Patch.TERRAIN) {
-            int mixQ = (int) Math.round(Meshes.clamp(p.mix, 0, 1) * 16);
-            int foldQ = p.folded ? (int) Math.round(params.get("foldRadius", 0.6) * 100) : 0;
-            texture = FaceTextures.get(new FaceTextures.Key(scene.curTx + p.tx, scene.curTz + p.tz, p.mirror, scene.curTx + p.mixTx,
-                    scene.curTz + p.mixTz, p.mixMirror, mixQ, res, foldQ > 0 ? scene.curTx : 0, foldQ > 0 ? scene.curTz : 0, foldQ,
-                    (int) Math.round(ctx.relief() * 4)), ctx);
-        }
         int base = p.kind == Patch.TERRAIN ? 0xFFFFFFFF : p.color;
         V3 center = scene.bodyOffset;
         int cols = p.cols, rows = p.rows;
@@ -287,7 +312,8 @@ public final class EarthRenderer {
     private static void moon(SubmitNodeCollector collector, PoseStack poseStack, double r, V3 sun, double fade, long clock) {
         double size = EarthClientConfig.get("moonSize");
         if (size <= 0.01) return;
-        int phase = (int) ((clock / 24000L % 8L + 8L) % 8L);
+        // E10: the phase follows Vanilla's moon (client option moonPhases); off = always full
+        int phase = EarthClientConfig.renderOn("moonPhases") ? (int) ((clock / 24000L % 8L + 8L) % 8L) : 0;
         double angle = Math.PI - phase * Math.PI / 4;
         V3 dir = Quat.axisAngle(new V3(0, 0, 1), angle).rotate(sun).normalize();
         V3 centre = dir.mul(r * 0.55);

@@ -19,8 +19,9 @@ import net.minecraft.network.chat.Component;
 
 /**
  * The Simple Earth menu (key O or the dev button): a box at the right edge that leaves the world visible and does not pause -
- * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). Pick a version V1-V9;
- * the scroll list shows that version's values as sliders (drag, click, Shift + wheel steps), every change applies live.
+ * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). Pick a version V1-V12
+ * (two rows); the scroll list shows the display settings of all versions first, then that version's values as sliders (drag,
+ * click, Shift + wheel steps; on/off values toggle on a click), every change applies live.
  * Vanilla inventory palette: #404040 on #C6C6C6 = 5.7:1, on the list well #D6D6D6 = 7.1:1; secondary #4A4A4A = 5.2:1 / 6.1:1.
  */
 public final class EarthScreen extends Screen {
@@ -36,8 +37,8 @@ public final class EarthScreen extends Screen {
     private long lastSend;
     private boolean serverDirty;
 
-    /** A list row: a setting, or a heading (setting == null). */
-    private record Row(EarthSettings.Setting setting, Component heading) {}
+    /** A list row: a setting (of all versions when {@code global}), or a heading (setting == null). */
+    private record Row(EarthSettings.Setting setting, Component heading, boolean global) {}
 
     public EarthScreen() {
         super(Component.translatable("simpleearth.screen.title"));
@@ -49,10 +50,10 @@ public final class EarthScreen extends Screen {
         panelX = width - W - 6;
         panelY = Math.max(6, (height - panelH) / 2);
         versionButtons.clear();
-        int bx = panelX + PAD + 1;
+        int bx = panelX + PAD + 1, perRow = (EarthSettings.VERSIONS + 1) / 2, bw = (W - 2 * PAD) / perRow;
         for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
-            int ver = v;
-            Button b = Button.builder(Component.literal("V" + v), btn -> select(ver)).bounds(bx + (v - 1) * 22, panelY + 20, 21, 20)
+            int ver = v, col = (v - 1) % perRow, line = (v - 1) / perRow;
+            Button b = Button.builder(Component.literal("V" + v), btn -> select(ver)).bounds(bx + col * bw, panelY + 20 + line * 21, bw - 1, 20)
                     .tooltip(Tooltip.create(Component.translatable("simpleearth.version." + v + ".name")
                             .append("\n").append(Component.translatable("simpleearth.version." + v + ".desc")))).build();
             versionButtons.add(addRenderableWidget(b));
@@ -60,10 +61,11 @@ public final class EarthScreen extends Screen {
         int by = panelY + panelH - 26;
         addRenderableWidget(Button.builder(Component.translatable("simpleearth.screen.reset"), b -> {
             EarthClientConfig.resetVersion(EarthClientConfig.version);
+            EarthClientConfig.resetRender();
             changed(null);
         }).bounds(panelX + PAD, by, 96, 20).tooltip(Tooltip.create(Component.translatable("simpleearth.screen.reset.tip"))).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(panelX + W - PAD - 96, by, 96, 20).build());
-        listTop = panelY + 82;
+        listTop = panelY + 104;
         listBottom = by - 6;
         rebuild();
     }
@@ -79,12 +81,14 @@ public final class EarthScreen extends Screen {
     private void rebuild() {
         rows.clear();
         int v = EarthClientConfig.version;
-        rows.add(new Row(null, Component.translatable("simpleearth.screen.shared")));
+        rows.add(new Row(null, Component.translatable("simpleearth.screen.render"), true));
+        for (EarthSettings.Setting s : EarthSettings.RENDER) rows.add(new Row(s, null, true));
+        rows.add(new Row(null, Component.translatable("simpleearth.screen.shared"), false));
         int shared = EarthSettings.SHARED.size();
         List<EarthSettings.Setting> all = EarthSettings.forVersion(v);
         for (int i = 0; i < all.size(); i++) {
-            if (i == shared) rows.add(new Row(null, Component.translatable("simpleearth.screen.own", "V" + v)));
-            rows.add(new Row(all.get(i), null));
+            if (i == shared) rows.add(new Row(null, Component.translatable("simpleearth.screen.own", "V" + v), false));
+            rows.add(new Row(all.get(i), null, false));
         }
         for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = i + 1 != v;
     }
@@ -94,6 +98,16 @@ public final class EarthScreen extends Screen {
             serverDirty = true;
         }
         if (s == null || s.key().equals("edge")) EarthClient.resetView();
+    }
+
+    private double value(Row row) {
+        return row.global() ? EarthClientConfig.render(row.setting().key()) : EarthClientConfig.get(EarthClientConfig.version, row.setting().key());
+    }
+
+    private void store(Row row, double value) {
+        if (row.global()) EarthClientConfig.setRender(row.setting().key(), value);
+        else EarthClientConfig.set(EarthClientConfig.version, row.setting().key(), value);
+        changed(row.setting());
     }
 
     @Override
@@ -174,20 +188,24 @@ public final class EarthScreen extends Screen {
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         int i = rowAt(event.x(), event.y());
         if (i >= 0 && event.button() == 0) {
-            EarthSettings.Setting s = rows.get(i).setting();
+            Row row = rows.get(i);
+            if (row.setting().kind() == EarthSettings.Kind.TOGGLE) {
+                store(row, value(row) >= 0.5 ? 0 : 1);
+                return true;
+            }
             int y = rowY(i) + 12, tx = trackX(), tw = trackW();
             if (event.y() >= y - 2 && event.y() <= y + 9) {
                 if (event.x() >= panelX + PAD && event.x() < tx - 2) {
-                    step(s, -1);
+                    step(row, -1);
                     return true;
                 }
                 if (event.x() > tx + tw + 2) {
-                    step(s, 1);
+                    step(row, 1);
                     return true;
                 }
                 if (event.x() >= tx && event.x() <= tx + tw) {
                     dragging = i;
-                    dragTo(s, event.x());
+                    dragTo(row, event.x());
                     return true;
                 }
             }
@@ -198,7 +216,7 @@ public final class EarthScreen extends Screen {
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
         if (dragging >= 0 && dragging < rows.size()) {
-            dragTo(rows.get(dragging).setting(), event.x());
+            dragTo(rows.get(dragging), event.x());
             return true;
         }
         return super.mouseDragged(event, dx, dy);
@@ -214,7 +232,7 @@ public final class EarthScreen extends Screen {
     public boolean mouseScrolled(double mx, double my, double sx, double sy) {
         int i = rowAt(mx, my);
         if (i >= 0 && (InputConstants.isKeyDown(InputConstants.KEY_LSHIFT) || InputConstants.isKeyDown(InputConstants.KEY_RSHIFT))) {
-            step(rows.get(i).setting(), sy > 0 ? 1 : -1);
+            step(rows.get(i), sy > 0 ? 1 : -1);
             return true;
         }
         if (mx >= panelX && mx <= panelX + W && my >= listTop && my < listBottom) {
@@ -224,18 +242,15 @@ public final class EarthScreen extends Screen {
         return super.mouseScrolled(mx, my, sx, sy);
     }
 
-    private void step(EarthSettings.Setting s, int dir) {
-        int ver = EarthClientConfig.version;
-        EarthClientConfig.set(ver, s.key(), EarthClientConfig.get(ver, s.key()) + dir * s.step());
-        changed(s);
+    private void step(Row row, int dir) {
+        store(row, value(row) + dir * row.setting().step());
     }
 
-    private void dragTo(EarthSettings.Setting s, double mx) {
+    private void dragTo(Row row, double mx) {
+        EarthSettings.Setting s = row.setting();
         double f = Math.max(0, Math.min(1, (mx - trackX()) / trackW()));
         double raw = s.min() + f * (s.max() - s.min());
-        double stepped = s.min() + Math.round((raw - s.min()) / s.step()) * s.step();
-        EarthClientConfig.set(EarthClientConfig.version, s.key(), stepped);
-        changed(s);
+        store(row, s.min() + Math.round((raw - s.min()) / s.step()) * s.step());
     }
 
     // --- drawing ---
@@ -252,7 +267,7 @@ public final class EarthScreen extends Screen {
         int v = EarthClientConfig.version;
         Component name = Component.translatable("simpleearth.version." + v + ".name");
         g.text(font, name, panelX + W - PAD - font.width(name), panelY + 8, SECONDARY_TEXT, false);
-        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, panelY + 44, W - 2 * PAD, SECONDARY_TEXT, false);
+        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, panelY + 64, W - 2 * PAD, SECONDARY_TEXT, false);
         UiBoxes.insetColored(g, panelX + PAD - 1, listTop - 2, W - 2 * PAD + 2, listBottom - listTop + 4, UiPalette.INVENTORY, LIST_BG);
         g.enableScissor(panelX + PAD, listTop, panelX + W - PAD, listBottom);
         Row hovered = null;
@@ -266,11 +281,19 @@ public final class EarthScreen extends Screen {
                 continue;
             }
             EarthSettings.Setting s = row.setting();
-            double value = EarthClientConfig.get(v, s.key());
+            double value = value(row);
             Component label = Component.translatable("text.autoconfig.simpleearth.option." + s.key());
             g.text(font, label, panelX + PAD + 3, y + 2, LABEL, false);
             String shown = format(s, value);
             g.text(font, shown, panelX + W - PAD - 3 - font.width(shown), y + 2, LABEL, false);
+            if (mouseX >= panelX + PAD && mouseX <= panelX + W - PAD && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW, listBottom)) hovered = row;
+            if (s.kind() == EarthSettings.Kind.TOGGLE) {
+                // on/off: a Vanilla-style check box under the label, a click anywhere on the row toggles
+                int bx = trackX(), by = y + 11;
+                UiBoxes.inset(g, bx, by, 10, 10, UiPalette.INVENTORY);
+                if (value >= 0.5) g.fill(bx + 2, by + 2, bx + 8, by + 8, BAR);
+                continue;
+            }
             int ty = y + 13, tx = trackX(), tw = trackW();
             g.text(font, "-", panelX + PAD + 4, ty - 1, LABEL, false);
             g.text(font, "+", tx + tw + 5, ty - 1, LABEL, false);
@@ -282,7 +305,6 @@ public final class EarthScreen extends Screen {
             int fx = tx + 1 + (int) Math.round(f * (tw - 2));
             g.fill(tx + 1, ty + 1, fx, ty + 5, BAR);
             UiBoxes.raised(g, Math.max(tx, fx - 2), ty - 2, 5, 10, 0xFFC6C6C6);
-            if (mouseX >= panelX + PAD && mouseX <= panelX + W - PAD && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW, listBottom)) hovered = row;
         }
         g.disableScissor();
         if (maxScroll() > 0) {
@@ -297,6 +319,7 @@ public final class EarthScreen extends Screen {
     }
 
     static String format(EarthSettings.Setting s, double value) {
+        if (s.kind() == EarthSettings.Kind.TOGGLE) return Component.translatable(value >= 0.5 ? "options.on" : "options.off").getString();
         if (s.kind() == EarthSettings.Kind.INT) return String.format(Locale.ROOT, "%,d", Math.round(value)).replace(',', ' ');
         return String.format(Locale.ROOT, "%.2f", value);
     }

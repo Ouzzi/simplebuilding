@@ -57,6 +57,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void renderConfig(GameTestHelper h) {
+        EarthTests.ALL.get("render_config").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void orbitOptions(GameTestHelper h) {
+        EarthTests.ALL.get("orbit_options").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void biomeTable(GameTestHelper h) {
+        EarthTests.ALL.get("biome_table").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void surfaceRules(GameTestHelper h) {
+        EarthTests.ALL.get("surface_rules").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
     public void guidePages(GameTestHelper h) {
         com.simplebuilding.modules.simpleearth.guide.EarthGuide.gameTest(h);
     }

@@ -32,7 +32,7 @@ public final class EarthClient {
     static boolean development;
     static boolean enabled, active, parked;
     static double ax, az, ox, oz;
-    static int activationY = 1024, switchY = 1536, edge = 65536, seaLevel = 63;
+    static int activationY = 1024, switchY = 1536, edge = 65536, seaLevel = 63, minGrid = 5;
     static float speed = 256;
     static boolean exploredOnly;
     static List<float[]> others = List.of();
@@ -72,6 +72,7 @@ public final class EarthClient {
         speed = p.speed();
         seaLevel = p.seaLevel();
         exploredOnly = p.exploredOnly();
+        minGrid = p.minGrid();
         others = p.others();
         ox = p.ox();
         oz = p.oz();
@@ -174,6 +175,12 @@ public final class EarthClient {
         return Math.max(0, Math.min(1, (cameraY - switchY) / band));
     }
 
+    /** 0 at the render switch, 1 at the ceiling height (V12 turns its corner up with it). */
+    public static double heightFraction(double cameraY) {
+        double ceiling = Math.max(switchY + 1, EarthClientConfig.get("ceilingY"));
+        return Math.max(0, Math.min(1, (cameraY - switchY) / (ceiling - switchY)));
+    }
+
     /** Eye height above the contact point in cube units: real height at the switch, exponential to the orbit distance at the ceiling. */
     public static double eyeHeight(double cameraY) {
         double half = edge / 2.0, ceiling = Math.max(switchY + 1, EarthClientConfig.get("ceilingY"));
@@ -198,8 +205,14 @@ public final class EarthClient {
         return seaLevel;
     }
 
+    /** E9: other players in orbit (empty when the client option showOthers is off). */
     public static List<float[]> others() {
-        return others;
+        return EarthClientConfig.renderOn("showOthers") ? others : List.of();
+    }
+
+    /** Finest sample grid the server serves. */
+    public static int minGrid() {
+        return minGrid;
     }
 
     /** Dev button: AUTO = only in a development environment. */
