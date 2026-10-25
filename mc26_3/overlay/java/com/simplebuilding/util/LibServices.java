@@ -139,6 +139,10 @@ public final class LibServices {
         // OW24-2 G2: Simple Gadgets tells what its gadgets did; the advancements stay SimpleBuilding's.
         com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.ROTATE, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
                 com.simplebuilding.advancement.ModTriggers.ROTATE));
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.LENS_BEAM, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.LENS_BEAM));
+        com.simplelib.api.GadgetActions.listen(com.simplelib.api.GadgetActions.LASER_TNT, player -> com.simplebuilding.advancement.ModTriggers.feature(player,
+                com.simplebuilding.advancement.ModTriggers.LASER_TNT));
         HammerActions.listen(HammerActions.AREA_BLOCK, player -> com.simplebuilding.advancement.ModCounters.add(player,
                 com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1));
         // Queue 738: Simple Hammers draws the area outline, its cracks and the upgrade swing itself; SimpleBuilding's
