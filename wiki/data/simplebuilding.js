@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 552,
+      "count": 551,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -8065,8 +8065,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:chunk_loader_smithing",
-        "simplebuilding:copper_building_wand",
-        "simplebuilding:velocity_gauge"
+        "simplebuilding:copper_building_wand"
       ],
       "trades": [
         "simplebuilding:wandering_trader/emerald_copper_cores"
@@ -30035,79 +30034,6 @@ window.WIKI_DATA = {
       "trades": [],
       "icon": "assets/textures/render/veined_nihilith.png",
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:velocity_gauge",
-      "name": {
-        "en_us": "Gauge",
-        "de_de": "Messuhr"
-      },
-      "texture": "assets/textures/item/velocity_gauge_dial.png",
-      "craftedBy": [
-        "simplebuilding:velocity_gauge"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "A clock for how fast the world goes by."
-          ],
-          "use": [
-            "Shows speed while held in either hand, with a moving needle and a HUD dial. In the air it also shows the distance to the ground and an estimated fall damage before armor."
-          ],
-          "secret": [
-            "Right-click toggles auto-walk. With Constructor's Touch it adds peak and average speed; Range extends the fall depth it can read, up to 64 blocks."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Eine Uhr dafür, wie schnell die Welt vorbeizieht."
-          ],
-          "use": [
-            "Zeigt das Tempo, solange sie in einer Hand liegt, mit beweglicher Nadel und einer Anzeige im HUD. In der Luft zeigt sie auch den Abstand zum Boden und einen geschätzten Fallschaden vor der Rüstung."
-          ],
-          "secret": [
-            "Rechtsklick schaltet das Selbstgehen um. Mit Berührung des Konstrukteurs zeigt sie zusätzlich Spitzen- und Durchschnittstempo; Reichweite verlängert die lesbare Falltiefe, bis 64 Blöcke."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Gauge shows speed while held in either hand, with an animated item needle and a HUD dial.",
-          "details": [
-            "Constructor's Touch adds peak and average speed.",
-            "In the air it shows distance to ground and an estimated fall-damage value before armor. The base depth is 24 blocks; Range adds 16 per level, capped at 64.",
-            "The item id stays simplebuilding:velocity_gauge.",
-            "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
-            "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way.",
-            "MC 26.3 recipe: \"NAN\" / \"NCN\" / \"NKN\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core), with six copper nuggets after filling the empty slots and shifting the outer ring one slot clockwise. MC 26.2 keeps \" NA\" / \"NCN\" / \"KN \" with a compass. Vanilla also accepts horizontally mirrored recipes."
-          ]
-        },
-        "de": {
-          "summary": "Die Messuhr zeigt gehalten das Tempo, mit animierter Itemnadel und Anzeige.",
-          "details": [
-            "Berührung des Konstrukteurs ergänzt Spitzen- und Durchschnittstempo.",
-            "In der Luft zeigt sie Bodenabstand und geschätzten Fallschaden vor Rüstung. Messtiefe 24 Blöcke, Reichweite ergänzt 16 je Stufe bis höchstens 64.",
-            "Die Item-ID bleibt simplebuilding:velocity_gauge.",
-            "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
-            "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin.",
-            "Rezept auf MC 26.3: „NAN“ / „NCN“ / „NKN“ (A = Amethystscherbe, N = Kupfernugget, C = Uhr, K = Kupferkern), mit sechs Kupfernuggets nach Auffüllen der Leerstellen und Verschieben des Randes um einen Slot im Uhrzeigersinn. MC 26.2 behält „ NA“ / „NCN“ / „KN “ mit Kompass. Vanilla erlaubt auch horizontal gespiegelte Rezepte."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/SpeedometerHudOverlay.java",
-          "common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java",
-          "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:warden_tendril",
@@ -81581,210 +81507,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:velocity_gauge",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:velocity_gauge",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/velocity_gauge.json",
-      "ingredients": [
-        "minecraft:amethyst_shard",
-        "minecraft:clock",
-        "minecraft:copper_nugget",
-        "simplebuilding:copper_core"
-      ],
-      "pattern": [
-        "NAN",
-        "NCN",
-        "NKN"
-      ],
-      "key": {
-        "A": [
-          "minecraft:amethyst_shard"
-        ],
-        "C": [
-          "minecraft:clock"
-        ],
-        "K": [
-          "simplebuilding:copper_core"
-        ],
-        "N": [
-          "minecraft:copper_nugget"
-        ]
-      },
-      "variants": [
-        {
-          "lines": [
-            "1.21.11"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:amethyst_shard",
-                "minecraft:clock",
-                "minecraft:copper_nugget",
-                "simplebuilding:copper_core"
-              ],
-              "other": [
-                "minecraft:amethyst_shard",
-                "minecraft:compass",
-                "minecraft:copper_nugget",
-                "minecraft:quartz",
-                "simplebuilding:copper_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "A": [
-                  "minecraft:amethyst_shard"
-                ],
-                "C": [
-                  "minecraft:clock"
-                ],
-                "K": [
-                  "simplebuilding:copper_core"
-                ],
-                "N": [
-                  "minecraft:copper_nugget"
-                ]
-              },
-              "other": {
-                "A": [
-                  "minecraft:amethyst_shard"
-                ],
-                "C": [
-                  "minecraft:compass"
-                ],
-                "K": [
-                  "simplebuilding:copper_core"
-                ],
-                "N": [
-                  "minecraft:copper_nugget"
-                ],
-                "Q": [
-                  "minecraft:quartz"
-                ]
-              }
-            },
-            {
-              "field": "pattern",
-              "this": [
-                "NAN",
-                "NCN",
-                "NKN"
-              ],
-              "other": [
-                "QAQ",
-                "NCN",
-                "NKN"
-              ]
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/velocity_gauge.json"
-        },
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:amethyst_shard",
-                "minecraft:clock",
-                "minecraft:copper_nugget",
-                "simplebuilding:copper_core"
-              ],
-              "other": [
-                "minecraft:amethyst_shard",
-                "minecraft:compass",
-                "minecraft:copper_nugget",
-                "simplebuilding:copper_core"
-              ]
-            },
-            {
-              "field": "key",
-              "this": {
-                "A": [
-                  "minecraft:amethyst_shard"
-                ],
-                "C": [
-                  "minecraft:clock"
-                ],
-                "K": [
-                  "simplebuilding:copper_core"
-                ],
-                "N": [
-                  "minecraft:copper_nugget"
-                ]
-              },
-              "other": {
-                "A": [
-                  "minecraft:amethyst_shard"
-                ],
-                "C": [
-                  "minecraft:compass"
-                ],
-                "K": [
-                  "simplebuilding:copper_core"
-                ],
-                "N": [
-                  "minecraft:copper_nugget"
-                ]
-              }
-            },
-            {
-              "field": "pattern",
-              "this": [
-                "NAN",
-                "NCN",
-                "NKN"
-              ],
-              "other": [
-                " NA",
-                "NCN",
-                "KN "
-              ]
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/velocity_gauge.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 4.667
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:amethyst_shard",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:warped_blazewood_bookshelf",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -98276,7 +97998,7 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:velocity_gauge",
+          "id": "simplegadgets:velocity_gauge",
           "required": true
         },
         {
@@ -99830,7 +99552,7 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:velocity_gauge",
+          "id": "simplegadgets:velocity_gauge",
           "required": true
         },
         {
@@ -101210,11 +100932,11 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:velocity_gauge",
+          "id": "simplegadgets:velocity_gauge",
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/range_enchantable.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/range_enchantable.json"
     },
     {
       "id": "simplebuilding:item/repairs_resonance_rod",
@@ -102179,6 +101901,26 @@ window.WIKI_DATA = {
       "labelDe": "Simple Lights aktivieren",
       "tooltip": "Turns the bundled Simple Lights module on or off: the Light Panes. Off hides the module's creative tab, its Vanilla tab entries and its guide; the panes and their recipes stay and keep working. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das mitgelieferte Modul Simple Lights an oder aus: die Lichtscheiben. Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Scheiben und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleGadgets",
+      "shortName": "enableSimpleGadgets",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Gadgets",
+      "labelDe": "Simple Gadgets aktivieren",
+      "tooltip": "Turns the bundled Simple Gadgets module on or off: the gadgets you hold and use (for now the Gauge). Off hides the module's creative tab, its Vanilla tab entries and its guide; the gadgets and their recipes stay and keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das mitgelieferte Modul Simple Gadgets an oder aus: die Geräte, die man in der Hand hält und benutzt (vorerst die Messuhr). Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Geräte und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -126907,7 +126649,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:gadgets/speed_reader",
       "parent": "simplebuilding:tweaks/root",
-      "icon": "simplebuilding:velocity_gauge",
+      "icon": "simplegadgets:velocity_gauge",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -126923,12 +126665,12 @@ window.WIKI_DATA = {
           "name": "velocity_gauge",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:velocity_gauge"
+            "simplegadgets:velocity_gauge"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/speed_reader.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/gadgets/speed_reader.json"
     },
     {
       "id": "simplebuilding:gadgets/spin_doctor",
@@ -128868,7 +128610,7 @@ window.WIKI_DATA = {
             "simplebuilding:diamond_pressure_plate",
             "simplebuilding:magnet",
             "simplebuilding:detector",
-            "simplebuilding:velocity_gauge",
+            "simplegadgets:velocity_gauge",
             "simplebuilding:amethyst_lens",
             "simplebuilding:netherite_apple",
             "simplebuilding:netherite_carrot",
@@ -131333,14 +131075,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 510,
+    "items": 509,
     "blocks": 288,
-    "recipes": 824,
+    "recipes": 823,
     "lootTables": 306,
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
-    "config": 229,
+    "config": 230,
     "inWorld": 481,
     "advancements": 116,
     "features": 48,

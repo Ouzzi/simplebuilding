@@ -14,11 +14,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/velocity_gauge",
+      "id": "simplemoney:links/simplecrucibles/copper_bucket",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplecrucibles/copper_bucket",
+      "id": "simplemoney:links/simplegadgets/velocity_gauge",
       "required": false
     },
     {
