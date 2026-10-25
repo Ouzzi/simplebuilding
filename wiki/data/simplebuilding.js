@@ -34948,7 +34948,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:276",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:279",
         "cooldownTicks": 1,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -38774,7 +38774,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:271",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:274",
         "cooldownTicks": 2,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -42286,7 +42286,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:273",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:276",
         "cooldownTicks": 4,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
