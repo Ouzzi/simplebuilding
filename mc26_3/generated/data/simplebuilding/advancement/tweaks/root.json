@@ -9,7 +9,7 @@
               "simplebuilding:diamond_pressure_plate",
               "simplebuilding:magnet",
               "simplebuilding:detector",
-              "simplebuilding:velocity_gauge",
+              "simplegadgets:velocity_gauge",
               "simplebuilding:amethyst_lens",
               "simplebuilding:netherite_apple",
               "simplebuilding:netherite_carrot",

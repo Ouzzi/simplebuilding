@@ -1,0 +1,18 @@
+{
+  "module": "simplegadgets",
+  "derivation": "The Gauge moved here from SimpleBuilding with its row unchanged (OW24-2 stage G1): copper, a clock and an amethyst shard with SimpleBuilding's Copper Core, sold by the toolsmith.",
+  "excluded": {},
+  "prices": [
+    {
+      "item": "simplegadgets:velocity_gauge",
+      "tier": 0,
+      "hours": 4.0,
+      "craft": 7,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    }
+  ]
+}

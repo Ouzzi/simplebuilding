@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "simplegadgets",
+  "version": "${version}",
+  "name": "Simple Gadgets",
+  "icon": "assets/simplegadgets/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Gadgets you hold and use: for now the Gauge - speed dial, altimeter with fall-damage warning and auto-walk. Moved from SimpleBuilding (ids migrate); more gadgets follow.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplegadgets.GadgetsFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplegadgets.GadgetsFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplegadgets.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simplegadgets.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "velocity_gauge": {
+    "lore": [
+      "Eine Uhr dafür, wie schnell die Welt vorbeizieht."
+    ],
+    "use": [
+      "Zeigt das Tempo, solange sie in einer Hand liegt, mit beweglicher Nadel und einer Anzeige im HUD. In der Luft zeigt sie auch den Abstand zum Boden und einen geschätzten Fallschaden vor der Rüstung."
+    ],
+    "secret": [
+      "Rechtsklick schaltet das Selbstgehen um. Mit Berührung des Konstrukteurs zeigt sie zusätzlich Spitzen- und Durchschnittstempo; Reichweite verlängert die lesbare Falltiefe, bis 64 Blöcke."
+    ]
+  }
+}

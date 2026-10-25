@@ -129,7 +129,7 @@ public final class HudPanel {
         return switch (slot) {
             case OCTANT -> !(client.gui.screen() instanceof OctantScreen)
                     && (main.getItem() instanceof OctantItem || off.getItem() instanceof OctantItem);
-            case GAUGE -> main.is(ModItems.VELOCITY_GAUGE) || off.is(ModItems.VELOCITY_GAUGE);
+            case GAUGE -> com.simplebuilding.util.GadgetRefs.isGauge(main) || com.simplebuilding.util.GadgetRefs.isGauge(off);
             case ROD -> com.simplebuilding.tweaks.client.TweaksClient.isAimingLaser(player)
                     && LaserPointerItem.measures(player.getUseItem(), player.level());
         };
@@ -140,6 +140,10 @@ public final class HudPanel {
      * spread evenly, {@link #STACK_PITCH} apart, centred on the anchor.
      */
     public static int stackOffset(Slot slot, Minecraft client) {
+        Integer shared = com.simplebuilding.client.LibClientServices.gadgetHudOffset(slot, client); // 26.3: with Simple Gadgets' boxes
+        if (shared != null) {
+            return shared;
+        }
         int shown = 0;
         int index = -1;
         for (Slot other : Slot.values()) {

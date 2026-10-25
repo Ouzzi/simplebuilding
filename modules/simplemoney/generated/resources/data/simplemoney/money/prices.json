@@ -2113,17 +2113,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:velocity_gauge",
-      "tier": 0,
-      "hours": 4.0,
-      "craft": 7,
-      "safetyFloor": 8,
-      "merchant": "toolsmith",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:waxed_copper_pressure_plate",
       "tier": 0,
       "hours": 4.0,
@@ -2295,6 +2284,17 @@
       "craft": 0,
       "safetyFloor": 8,
       "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
+      "item": "simplegadgets:velocity_gauge",
+      "tier": 0,
+      "hours": 4.0,
+      "craft": 7,
+      "safetyFloor": 8,
+      "merchant": "toolsmith",
       "level": 1,
       "stock": 2,
       "chance": 1

@@ -95,7 +95,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ModTags.Items.RANGE_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_AND_MINING_TOOLS)
                 .add(key(ModItems.MAGNET))
-                .add(key(ModItems.VELOCITY_GAUGE));
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.VELOCITY_GAUGE));
 
         if (com.simplebuilding.version.McVersion.HEADS_IN_MOBHEADS) {
             // 26.3: the heads are Simple Mobheads' (it fills #minecraft:skulls and #minecraft:freeze_immune_wearables);
@@ -195,7 +195,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
-                .add(key(ModItems.VELOCITY_GAUGE))
+                .add(com.simplebuilding.util.GadgetRefs.itemKey(com.simplebuilding.util.GadgetRefs.VELOCITY_GAUGE))
                 // Amethystlinse: misst mit Beruehrung des Konstrukteurs (LaserPointerItem#measures)
                 .add(key(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER))
                 .add(key(ModItems.ORE_DETECTOR))

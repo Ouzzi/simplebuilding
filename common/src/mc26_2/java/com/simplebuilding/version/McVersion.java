@@ -161,6 +161,14 @@ public final class McVersion {
     public static final boolean LIGHT_PANES = false;
     /** Namespace of the Light Panes: since WB24-6 (24.10.) the required sub-mod Simple Lights on 26.3 ({@code util/LightRefs}); 26.2 has none. */
     public static final String LIGHTS_NAMESPACE = "simplebuilding";
+    /**
+     * Whether SimpleBuilding registers the Gauge itself - OW24-2 stage G1, docs/ai/PLAN-B-GADGETS24-2026-10-24.md. 26.3: the
+     * required, bundled sub-mod Simple Gadgets owns it (Fabric for now); SimpleBuilding's classes stay for 26.2 and reach it by id
+     * ({@code util/GadgetRefs}).
+     */
+    public static final boolean GADGETS_IN_SB = true;
+    /** Namespace of the moved gadgets ({@link #GADGETS_IN_SB}). */
+    public static final String GADGETS_NAMESPACE = "simplebuilding";
 
     public static boolean canVanillaTransform(net.minecraft.world.level.Level level,
             net.minecraft.world.phys.BlockHitResult hit, Player player, InteractionHand hand) {

@@ -1,0 +1,286 @@
+package com.simplegadgets.client;
+
+import com.simplegadgets.GadgetEnchantments;
+import com.simplegadgets.GadgetsRegistry;
+import com.simplegadgets.gauge.VelocityGaugeItem;
+import com.simplelib.api.client.GadgetHud;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * HUD der Messuhr (OW24-2 G1: aus SimpleBuildings {@code SpeedometerHudOverlay}) (Gauge, bis 2026-09-29 Geschwindigkeitsmesser), solange sie in einer Hand liegt: ein
+ * kleiner Zeigertacho im gemeinsamen Anzeigekasten der Simple-Geraete (SimpleLib {@link GadgetHud}, Titel = Name des Items
+ * wie beim Oktanten). Der Zeiger faehrt wie beim Auto
+ * von unten links (Stillstand) ueber oben nach unten rechts (Vollausschlag bei
+ * {@link #FULL_SCALE_BPS}); daneben die Zahl in Bloecken je Sekunde. Die Skala ist eine
+ * Wurzelskala, damit Gehen (4,3 b/s) und Sprinten (5,6 b/s) noch sichtbar auseinanderliegen und
+ * trotzdem ein Elytra-Flug auf die Skala passt. Der Zeiger glaettet sanft (Zeitkonstante
+ * {@link #NEEDLE_TIME_CONSTANT} s, bildratenunabhaengig), die Zahl nicht.
+ *
+ * <p>Mit Beruehrung des Konstrukteurs kommen darunter grau Hoechst- und Durchschnittstempo seit
+ * dem Anlegen dazu, am Boden die X/Z-Anteile, im Gleitflug ein Warnzeichen ab 15 b/s.
+ *
+ * <p>Hoehenmesser (2026-09-29): in der Luft eine Zeile mit dem Abstand zum Boden
+ * ({@link VelocityGaugeItem#heightAboveGround}, Messweite mit Reichweite verlaengerbar) und beim Fallen
+ * dem Schaden einer Landung jetzt in Herzen - rot, wenn er toedlich waere.
+ */
+public final class GaugeHud {
+    /** The Gauge's box in SimpleLib's gadget HUD stack: between SimpleBuilding's Octant (0) and Resonance Rod (2). */
+    public static final String SLOT = "simplegadgets:gauge";
+    public static final int ORDER = 1;
+
+    private GaugeHud() {
+    }
+
+    /** From the client entry: joins the stack. */
+    public static void register() {
+        GadgetHud.register(SLOT, ORDER, client -> holds(client.player.getMainHandItem()) || holds(client.player.getOffhandItem()));
+    }
+
+    private static boolean holds(ItemStack stack) {
+        return stack.is(GadgetsRegistry.VELOCITY_GAUGE);
+    }
+
+
+    private static final int COLOR_SPEED = GadgetHud.COLOR_VALUE & 0xFFFFFF;
+    private static final int COLOR_STATS = GadgetHud.COLOR_SECONDARY;
+    private static final int COLOR_DANGER = GadgetHud.COLOR_DANGER;
+    private static final int COLOR_SAFE = 0xFF55FF55;
+
+    /** Geschwindigkeit bei Vollausschlag (Bloecke/s). */
+    public static final double FULL_SCALE_BPS = VelocityGaugeItem.FULL_SCALE_BPS;
+    /** Ab diesem Skalenanteil ist der Bogen rot (entspricht 32 b/s). */
+    private static final double RED_ZONE = 0.8;
+    /** Radius des Zifferblatts in GUI-Pixeln. */
+    private static final int RADIUS = 13;
+    private static final double NEEDLE_TIME_CONSTANT = 0.12;
+
+    private static final int COLOR_ARC = 0xFF6F6F6F;
+    private static final int COLOR_ARC_RED = 0xFFA83232;
+    private static final int COLOR_TICK = 0xFFC6C6C6;
+    private static final int COLOR_NEEDLE = 0xFFFF6A3D;
+    private static final int COLOR_HUB = 0xFFE0E0E0;
+    private static final int COLOR_UNIT = 0xFF8B8B8B;
+
+    private static double topSpeed = 0.0;
+    private static double speedSum = 0.0;
+    private static long tickCount = 0;
+    private static boolean wasHoldingSpeedometer = false;
+    private static double needle = 0.0;
+    private static long lastFrameNanos = 0L;
+
+    /** Skalenanteil 0..1 fuer eine Geschwindigkeit (Wurzelskala, oben abgeschnitten). */
+    public static double scaleFraction(double bps) {
+        return VelocityGaugeItem.needleFraction(bps);
+    }
+
+    /**
+     * Zeigerwinkel in Grad (mathematisch, 0 = rechts, gegen den Uhrzeigersinn): 225 unten links bei
+     * 0, 90 oben bei der Haelfte, -45 unten rechts bei Vollausschlag.
+     */
+    public static double needleAngle(double fraction) {
+        return 225.0 - 270.0 * fraction;
+    }
+
+    public static void render(GuiGraphicsExtractor context) {
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null) return;
+        if (!GadgetHud.visible(client)) {
+            return; // switched off (with SimpleBuilding its HUD key) or F1
+        }
+
+        // 1. Liegt der Geschwindigkeitsmesser in einer Hand?
+        ItemStack main = client.player.getMainHandItem();
+        ItemStack off = client.player.getOffhandItem();
+        boolean hasSpeedometer = holds(main) || holds(off);
+
+        if (!hasSpeedometer) {
+            if (wasHoldingSpeedometer) {
+                // Statistik und Zeiger zuruecksetzen, wenn er weggelegt wird
+                topSpeed = 0.0;
+                speedSum = 0.0;
+                tickCount = 0;
+                needle = 0.0;
+                lastFrameNanos = 0L;
+                wasHoldingSpeedometer = false;
+            }
+            return;
+        }
+        wasHoldingSpeedometer = true;
+
+        // --- BERECHNUNG --- (im Sattel/Boot zaehlt das Fahrzeug)
+        Entity moving = client.player.getVehicle() != null ? client.player.getVehicle() : client.player;
+        Vec3 velocity = moving.getDeltaMovement();
+        double velX = velocity.x;
+        double velY = velocity.y;
+        double velZ = velocity.z;
+
+        // Am Boden zaehlt die Schwerkraft nicht mit, sonst stuenden im Stand dauernd ~1,6 b/s da.
+        if (moving.onGround()) {
+            velY = 0;
+        }
+
+        double speedBps = Math.sqrt(velX * velX + velY * velY + velZ * velZ) * 20.0;
+        if (speedBps < 0.05) speedBps = 0.0;
+
+        if (speedBps > topSpeed) topSpeed = speedBps;
+        if (speedBps > 0.1) {
+            speedSum += speedBps;
+            tickCount++;
+        }
+        double avgSpeed = tickCount > 0 ? (speedSum / tickCount) : 0.0;
+
+        // Zeiger sanft nachfuehren (nach echter Zeit, nicht je Bild).
+        long now = System.nanoTime();
+        double target = scaleFraction(speedBps);
+        if (lastFrameNanos == 0L) {
+            needle = target;
+        } else {
+            double dt = Math.min(0.25, (now - lastFrameNanos) / 1.0e9);
+            needle += (target - needle) * (1.0 - Math.exp(-dt / NEEDLE_TIME_CONSTANT));
+        }
+        lastFrameNanos = now;
+
+        ItemStack activeStack = holds(main) ? main : off;
+        boolean touched = GadgetEnchantments.hasConstructorsTouch(activeStack, client.level);
+
+        // --- TEXT ---
+        Component title = GadgetHud.title(activeStack);
+        Component number = Component.literal(String.format("%.1f", speedBps))
+                .setStyle(Style.EMPTY.withColor(COLOR_SPEED));
+        Component unit = Component.translatable("hud.simplegadgets.velocity_gauge.unit");
+
+        List<Component> extras = new ArrayList<>();
+        if (touched) {
+            Component stats = Component.translatable("hud.simplegadgets.velocity_gauge.stats",
+                    String.format("%.1f", topSpeed), String.format("%.1f", avgSpeed)).setStyle(Style.EMPTY.withColor(COLOR_STATS));
+            if (client.player.isFallFlying()) {
+                boolean danger = speedBps > 15.0;
+                Component symbol = Component.literal(danger ? "⚠ " : "✔ ")
+                        .setStyle(Style.EMPTY.withColor(danger ? COLOR_DANGER : COLOR_SAFE).withBold(true));
+                extras.add(Component.empty().append(symbol).append(stats));
+            } else {
+                extras.add(stats);
+                extras.add(Component.literal(String.format("X: %.1f  Z: %.1f", Math.abs(velX * 20), Math.abs(velZ * 20)))
+                        .setStyle(Style.EMPTY.withColor(GadgetHud.COLOR_SECONDARY)));
+            }
+        }
+        Component altitude = altimeterLine(client, moving, activeStack);
+        if (altitude != null) {
+            extras.add(altitude);
+        }
+
+        // --- LAYOUT ---
+        Font font = client.font;
+        int dial = RADIUS * 2 + 1;                                     // Breite des Zifferblatts
+        int dialHeight = RADIUS + 1 + (int) Math.ceil(RADIUS * Math.sqrt(0.5)); // unten offen
+        int readoutWidth = Math.max(font.width(number), font.width(unit));
+        int gaugeRowWidth = dial + 5 + Math.max(readoutWidth, font.width("88.8"));
+        int contentWidth = Math.max(gaugeRowWidth, font.width(title));
+        for (Component line : extras) contentWidth = Math.max(contentWidth, font.width(line));
+
+        int titleGap = GadgetHud.TITLE_GAP;
+        int lineStep = font.lineHeight + GadgetHud.LINE_GAP;
+        int contentHeight = font.lineHeight + titleGap + dialHeight + (extras.isEmpty() ? 0 : 3 + extras.size() * lineStep - 2);
+
+        int padding = GadgetHud.PADDING;
+        // Ort und Groesse aus GadgetHud (mit SimpleBuilding dessen Client-Config); mit Oktant/Stab-Anzeige stapeln sich die Kaesten.
+        GadgetHud.begin(context, contentWidth + padding * 2, contentHeight + padding * 2, GadgetHud.stackOffset(SLOT, client));
+        int x = padding;
+        int y = padding;
+
+        // Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame); bekommt den
+        // INHALT und legt selbst 3 px Rand darum.
+        GadgetHud.background(context, x, y, contentWidth, contentHeight);
+
+        context.text(font, title, x, y, 0xFFFFFFFF, true);
+        int dialTop = y + font.lineHeight + titleGap;
+        drawDial(context, x, dialTop, needle);
+
+        int readoutX = x + dial + 5;
+        int readoutY = dialTop + (dialHeight - (font.lineHeight * 2 + 1)) / 2;
+        context.text(font, number, readoutX, readoutY, 0xFFFFFFFF, true);
+        context.text(font, unit, readoutX, readoutY + font.lineHeight + 1, COLOR_UNIT, true);
+
+        int lineY = dialTop + dialHeight + 3;
+        for (Component line : extras) {
+            context.text(font, line, x, lineY, 0xFFFFFFFF, true);
+            lineY += lineStep;
+        }
+        GadgetHud.end(context);
+    }
+
+    /**
+     * Hoehenmesser-Zeile, nur in der Luft (nicht am Boden, nicht schwimmend, nicht im Sattel am
+     * Boden): "⬇ 12.5 m", jenseits der Messweite "⬇ > 24 m"; beim Fallen dahinter der Schaden einer
+     * Landung jetzt in Herzen (rot, wenn toedlich). Null, wenn nichts zu zeigen ist.
+     */
+    static Component altimeterLine(Minecraft client, Entity moving, ItemStack gauge) {
+        if (moving.onGround() || moving.isInWater() || client.player.getAbilities().flying || client.level == null) {
+            return null;
+        }
+        int range = VelocityGaugeItem.altimeterRange(gauge, client.level);
+        double height = VelocityGaugeItem.heightAboveGround(client.level, moving.getX(), moving.getY(), moving.getZ(), range);
+        Component distance = height < 0.0
+                ? Component.translatable("hud.simplegadgets.velocity_gauge.ground_far", range)
+                : Component.translatable("hud.simplegadgets.velocity_gauge.ground", String.format("%.1f", height));
+        net.minecraft.network.chat.MutableComponent line = Component.empty().append(distance.copy().setStyle(Style.EMPTY.withColor(GadgetHud.COLOR_SECONDARY)));
+        if (moving == client.player && moving.getDeltaMovement().y < 0.0 && height >= 0.0 && !client.player.isFallFlying()) {
+            var player = client.player;
+            int damage = VelocityGaugeItem.impactDamage(player.fallDistance, height,
+                    player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.SAFE_FALL_DISTANCE),
+                    player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.FALL_DAMAGE_MULTIPLIER));
+            if (damage > 0) {
+                boolean lethal = damage >= player.getHealth() + player.getAbsorptionAmount();
+                line.append(Component.literal("  "));
+                line.append(Component.translatable("hud.simplegadgets.velocity_gauge.impact", String.format("%.1f", damage / 2.0))
+                        .setStyle(Style.EMPTY.withColor(lethal ? COLOR_DANGER : COLOR_SPEED)));
+            }
+        }
+        return line;
+    }
+
+    /** Bogen (270 Grad, unten offen), fuenf Skalenstriche, Zeiger und Nabe; links oben bei (left, top). */
+    private static void drawDial(GuiGraphicsExtractor context, int left, int top, double fraction) {
+        double cx = left + RADIUS + 0.5;
+        double cy = top + RADIUS + 0.5;
+        int lastX = Integer.MIN_VALUE;
+        int lastY = Integer.MIN_VALUE;
+        for (int step = 0; step <= 270; step++) {
+            double f = step / 270.0;
+            double a = Math.toRadians(needleAngle(f));
+            int px = (int) Math.floor(cx + RADIUS * Math.cos(a));
+            int py = (int) Math.floor(cy - RADIUS * Math.sin(a));
+            if (px == lastX && py == lastY) continue;
+            lastX = px;
+            lastY = py;
+            context.fill(px, py, px + 1, py + 1, f >= RED_ZONE ? COLOR_ARC_RED : COLOR_ARC);
+        }
+        for (int tick = 0; tick <= 4; tick++) {
+            double a = Math.toRadians(needleAngle(tick / 4.0));
+            for (double r = RADIUS - 2.5; r <= RADIUS - 1.0; r += 0.5) {
+                int px = (int) Math.floor(cx + r * Math.cos(a));
+                int py = (int) Math.floor(cy - r * Math.sin(a));
+                context.fill(px, py, px + 1, py + 1, tick == 4 ? COLOR_ARC_RED : COLOR_TICK);
+            }
+        }
+        double a = Math.toRadians(needleAngle(Math.max(0.0, Math.min(1.0, fraction))));
+        double length = RADIUS - 3.0;
+        for (double r = 0.0; r <= length; r += 0.5) {
+            int px = (int) Math.floor(cx + r * Math.cos(a));
+            int py = (int) Math.floor(cy - r * Math.sin(a));
+            context.fill(px, py, px + 1, py + 1, COLOR_NEEDLE);
+        }
+        int hx = (int) Math.floor(cx);
+        int hy = (int) Math.floor(cy);
+        context.fill(hx - 1, hy - 1, hx + 2, hy + 2, COLOR_HUB);
+    }
+}

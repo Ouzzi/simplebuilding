@@ -20,7 +20,8 @@ window.WIKI_MODULES = [
       "simpleblocks",
       "simplehammers",
       "simplestorage",
-      "simplelights"
+      "simplelights",
+      "simplegadgets"
     ],
     "optional": [
       "jei",
@@ -56,10 +57,10 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 510,
+      "items": 509,
       "blocks": 288,
-      "recipes": 824,
-      "config": 229,
+      "recipes": 823,
+      "config": 230,
       "features": 48
     }
   },
@@ -1401,5 +1402,34 @@ window.WIKI_MODULES = [
       "features": 3
     },
     "dataHash": "f3d55e9ca44c"
+  },
+  {
+    "id": "simplegadgets",
+    "displayName": "Simple Gadgets",
+    "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
+    "version": "0.9.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Gadgets you hold and use: for now the Gauge - a speed dial, an altimeter that warns of fall damage and auto-walk along paths and rails.",
+      "de": "Geräte, die man in der Hand hält und benutzt: vorerst die Messuhr - ein Tacho, ein Höhenmesser, der vor Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA90lEQVR42mMIMJD9jw1vShFEwbjUMYCIu6v74Bim4e/XeDD+dc0LjGHiMHUnKjxQDbjQnQTX+Pv79v+/vj1BwS83isINAmmeEGaCagBMM7pGDAw1BK8BIDa6RrgY0IBSDSZUA4i2Hck7IEMwDMBmMzaXYDXghJzcfw0lCCbLBSBBGIYZBFKELI6MUQwAcUBeuDNNGB7vIPzv9LP/m/s+o4iB1IAsxDAAJIGccGCae7PO/A+x7MJvACgasRmCTTPM+RjpACQIMhmkCBeGJWesBjw7tBZuCLJB6JkKpAYjKcMEQBikANkgZI0wm2EYbgA2DNMAw7jUAQAPg4NVZ9x2CgAAAABJRU5ErkJggg==",
+    "counts": {
+      "items": 2,
+      "recipes": 3,
+      "features": 4
+    },
+    "dataHash": "0dba192f165e"
   }
 ];

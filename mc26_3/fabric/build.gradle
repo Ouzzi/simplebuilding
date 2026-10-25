@@ -154,7 +154,7 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.3.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.3.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0", "simplegadgets": ">=0.9.0"')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -274,6 +274,12 @@ dependencies {
 dependencies {
     include project(':modules:simplelights:fabric')
     implementation project(':modules:simplelights:fabric')
+}
+// Simple Gadgets: required Sub-Mod (OW24-2 G1, Fabric only for now) - the Gauge moved there (simplegadgets:*, ids migrate).
+// Nested for production and loaded in dev/test runs; SB code never imports it (util/GadgetRefs: by id).
+dependencies {
+    include project(':modules:simplegadgets:fabric')
+    implementation project(':modules:simplegadgets:fabric')
 }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {

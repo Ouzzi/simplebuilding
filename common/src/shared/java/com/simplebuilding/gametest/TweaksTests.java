@@ -209,6 +209,7 @@ public final class TweaksTests {
      * ("NAN" / "NCN" / "NKN"); 26.2 keeps four nuggets, the compass and old layout.
      */
     public static void theVelocityGaugeIsCraftedFromAmethystCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G1: Simple Gadgets tests the Gauge on 26.3
         Item q = Items.QUARTZ;
         Item n = Items.COPPER_NUGGET;
         Item o = Items.COPPER_INGOT;
@@ -2159,6 +2160,7 @@ public final class TweaksTests {
      * Truhe) beendet ihn nicht mehr. Bricht, wenn die Bildschirm-Regel oder der Messuhr-Vergleich zurueckfaellt.
      */
     public static void theGaugeAutowalkKeepsWalkingUnderNonPausingScreens(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G1: Simple Gadgets tests the Gauge on 26.3
         helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkContinuesUnder(false, false), "no screen stops the autowalk");
         helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.autowalkContinuesUnder(true, false),
                 "an inventory or chat screen stops the autowalk");
@@ -2180,6 +2182,7 @@ public final class TweaksTests {
      * beide Seiten oder kein Weg unter den Fuessen drehen nicht.
      */
     public static void theGaugeAutowalkFollowsPathsAndRailsAroundCorners(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G1: Simple Gadgets tests the Gauge on 26.3
         // Absolute world directions: the test structure may be rotated.
         net.minecraft.core.Direction north = net.minecraft.core.Direction.NORTH;
         net.minecraft.server.level.ServerLevel level = helper.getLevel();
@@ -2216,6 +2219,7 @@ public final class TweaksTests {
      * Formel. Reichweite passt am Amboss auf die Messuhr, verlaengert dort aber die Blockreichweite nicht.
      */
     public static void theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.GADGETS_IN_SB) { helper.succeed(); return; } // OW24-2 G1: Simple Gadgets tests the Gauge on 26.3
         helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(0), 24, "altimeter range without Range");
         helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(1), 40, "altimeter range with Range I");
         helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(3), 64, "altimeter range with Range III");

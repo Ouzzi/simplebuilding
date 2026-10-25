@@ -12,6 +12,11 @@ public final class LibClientServices {
     public static void init() {
     }
 
+    /** 26.3 stacks the gadget readouts through SimpleLib; 26.2 keeps SimpleBuilding's own stack ({@code HudPanel}). */
+    public static Integer gadgetHudOffset(com.simplebuilding.client.gui.HudPanel.Slot slot, net.minecraft.client.Minecraft client) {
+        return null;
+    }
+
     /** Shift held (26.3: SimpleLib {@code UiShiftTooltip.held}). */
     public static boolean shiftHeld() {
         return net.minecraft.client.Minecraft.getInstance().hasShiftDown();

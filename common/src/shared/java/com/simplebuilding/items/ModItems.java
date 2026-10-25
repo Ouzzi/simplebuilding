@@ -667,7 +667,9 @@ public class ModItems {
 
     // Gadgets
 
-    public static final Item VELOCITY_GAUGE = registerItem("velocity_gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
+    // OW24-2 stage G1 (docs/ai/PLAN-B-GADGETS24-2026-10-24.md): on 26.3 the Gauge is Simple Gadgets' (McVersion.GADGETS_IN_SB
+    // false, field null, SimpleBuilding reaches it through util/GadgetRefs).
+    public static final Item VELOCITY_GAUGE = !com.simplebuilding.version.McVersion.GADGETS_IN_SB ? null : registerItem("velocity_gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
 
     public static final Item ORE_DETECTOR = registerItem("detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(UNCOMMON)));
 

@@ -161,7 +161,7 @@ public record TcContext(HolderLookup.Provider lookup,
             "simpleaesthetics", "simpleenddragonfight", "simpleend", "simplerespawn", "simplebeacons", "simpleovens",
             "simplemobheads", "simpleshops", "simplewanderers", "simplestats", "simpleblocks", "simplecrucibles", "simpleoctets",
             "simplehammers", "simpleoptimization", "simpleoptrender", "simpleoptmemory", "simpleoptserver", "simplestorage",
-            "simplemusic", "simplelights", "simpleearth");
+            "simplemusic", "simplelights", "simpleearth", "simplegadgets");
 
     /** Ob die Id zur Familie gehoert (SimpleBuilding oder eines seiner Module). */
     public static boolean isFamily(Identifier id) {

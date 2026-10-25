@@ -23,7 +23,7 @@ public final class RangeReach {
 
     /** Whether Range on this stack keeps the reach modifier (false for the Attractor and the Gauge). */
     public static boolean keepsReach(ItemStack stack) {
-        return !(stack.is(ModItems.MAGNET) || stack.is(ModItems.VELOCITY_GAUGE));
+        return !(stack.is(ModItems.MAGNET) || GadgetRefs.isGauge(stack));
     }
 
     /** {@code consumer} as is, or - for the Attractor and the Gauge - without Range's reach modifier. */

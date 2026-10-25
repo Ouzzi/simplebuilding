@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplegadgets:item/velocity_gauge_dial",
+    "layer1": "simplegadgets:item/velocity_gauge_needle_04"
+  }
+}

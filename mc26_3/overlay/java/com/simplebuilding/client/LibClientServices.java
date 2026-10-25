@@ -1,8 +1,10 @@
 package com.simplebuilding.client;
 
+import com.simplebuilding.client.gui.HudPanel;
 import com.simplebuilding.client.gui.TrimStatsPanel;
 import com.simplebuilding.util.ExtraHead;
 import com.simplebuilding.util.TrimStatsLayout;
+import com.simplelib.api.client.GadgetHud;
 import com.simplelib.api.client.InventoryExtrasClient;
 import com.simplelib.api.client.ui.UiShiftTooltip;
 import java.util.List;
@@ -43,6 +45,26 @@ public final class LibClientServices {
                 }
             }
         });
+        // OW24-2 G1: the gadget readouts stack through SimpleLib's GadgetHud, so Simple Gadgets' Gauge (order 1) sits between
+        // the Octant (0) and the Resonance Rod (2) as before; where the boxes go stays SimpleBuilding's client config.
+        for (HudPanel.Slot slot : HudPanel.Slot.values()) {
+            if (slot == HudPanel.Slot.GAUGE && !com.simplebuilding.version.McVersion.GADGETS_IN_SB) continue;
+            GadgetHud.register(hudSlotId(slot), slot.ordinal(), client -> HudPanel.active(slot, client));
+        }
+        GadgetHud.useSettings(() -> {
+            var config = com.simplebuilding.Simplebuilding.getConfig();
+            return config == null ? GadgetHud.DEFAULTS
+                    : new GadgetHud.Settings(config.showModHud, config.hudPositionX, config.hudPositionY, config.hudScale);
+        });
+    }
+
+    private static String hudSlotId(HudPanel.Slot slot) {
+        return "simplebuilding:" + slot.name().toLowerCase(java.util.Locale.ROOT);
+    }
+
+    /** Offset of SimpleBuilding's HUD box {@code slot} among every shown gadget box (SimpleLib {@link GadgetHud}); 26.2: null = own stack. */
+    public static Integer gadgetHudOffset(HudPanel.Slot slot, Minecraft client) {
+        return GadgetHud.stackOffset(hudSlotId(slot), client);
     }
 
     /** Shift held, as every Simple mod reads it ({@link UiShiftTooltip#held}). */

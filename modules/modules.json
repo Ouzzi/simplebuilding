@@ -29,7 +29,8 @@
         "simpleblocks",
         "simplehammers",
         "simplestorage",
-        "simplelights"
+        "simplelights",
+        "simplegadgets"
       ],
       "optional": [
         "jei",
@@ -4115,6 +4116,69 @@
       },
       "projects": {
         "fabric": ":modules:simplelights:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
+    },
+    {
+      "id": "simplegadgets",
+      "name": "Simple Gadgets",
+      "version": "0.9.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Gadgets",
+      "description": "Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplegadgets/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplegadgets",
+        "catalogues": [
+          "modules/simplegadgets/fabric/src/main/java/com/simplebuilding/modules/simplegadgets/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplegadgets"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplegadgetsGameTest",
+            "report": "integration/build/simplegadgets-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplegadgetsStandaloneGameTest",
+              "report": "integration/build/standalone/simplegadgets-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplegadgets",
+        "shared": "modules/simplegadgets/shared",
+        "fabric": "modules/simplegadgets/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplegadgets/generated/resources",
+        "lang": "modules/simplegadgets/shared/resources/assets/simplegadgets/lang",
+        "wikiManual": "modules/simplegadgets/wiki/manual.json",
+        "balanceDir": "balance/simplegadgets"
+      },
+      "projects": {
+        "fabric": ":modules:simplegadgets:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "required"

@@ -293,7 +293,8 @@ public final class GuideBooks {
                     "simplebuilding:astralit_block_from_end_stone", "simplebuilding:nihilith_block_from_end_stone");
             case PADS -> List.of("minecraft:stone_pressure_plate", "simplebuilding:copper_pressure_plate", "minecraft:oak_pressure_plate",
                     "minecraft:light_weighted_pressure_plate", "minecraft:heavy_weighted_pressure_plate");
-            case GADGETS -> List.of("simplebuilding:copper_core_plus", "simplebuilding:velocity_gauge", "simplebuilding:detector", "simplebuilding:magnet");
+            case GADGETS -> List.of("simplebuilding:copper_core_plus", McVersion.GADGETS_NAMESPACE + ":velocity_gauge", // 26.3: Simple Gadgets' recipe
+                    "simplebuilding:detector", "simplebuilding:magnet");
             case TRIMS -> McVersion.TRIMS_IN_SB ? List.of("simplebuilding:pulsating_trim_template", "simplebuilding:glowing_armor_upgrade_dummy",
                     "simplebuilding:emitting_armor_upgrade_dummy")
                     // 26.3: the mod's templates live in Simple Trims (N18); Vanilla's trim copies open the tab.

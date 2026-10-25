@@ -193,7 +193,8 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "rangefinder_hud"),
                 (context, tickCounter) -> RangefinderHudOverlay.render(context)
         );
-        HudElementRegistry.attachElementBefore(
+        // OW24-2 G1: on 26.3 the Gauge and its HUD are Simple Gadgets' (McVersion.GADGETS_IN_SB).
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) HudElementRegistry.attachElementBefore(
                 VanillaHudElements.CHAT,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (context, tickCounter) -> SpeedometerHudOverlay.render(context)
@@ -293,7 +294,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         SelectItemModelProperties.ID_MAPPER.put(com.simplebuilding.client.property.BrushInkModelProperty.ID,
                 com.simplebuilding.client.property.BrushInkModelProperty.PROPERTY_TYPE);
         // Messuhr: Nadel auf dem Item (assets/simplebuilding/items/velocity_gauge.json).
-        net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties.ID_MAPPER.put(
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties.ID_MAPPER.put(
                 com.simplebuilding.client.property.GaugeNeedleModelProperty.ID,
                 com.simplebuilding.client.property.GaugeNeedleModelProperty.CODEC);
         // 26.3-Rotator: Drehanimation, solange ein Klick den anvisierten Block drehen wuerde (assets/simplebuilding/items/rotator.json).
@@ -363,7 +364,9 @@ public class SimplebuildingClient implements ClientModInitializer {
     private void registerDoubleJumpClient() {
         // Shared air-jump + level-dependent cooldown logic (see DoubleJumpController).
         ClientTickEvents.END_CLIENT_TICK.register(DoubleJumpController::tick);
-        com.simplebuilding.items.custom.VelocityGaugeItem.clientAutowalkToggle = com.simplebuilding.client.GaugeAutowalk::toggle;
-        ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.client.GaugeAutowalk::tick);
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) { // 26.3: Simple Gadgets' Gauge walks on its own
+            com.simplebuilding.items.custom.VelocityGaugeItem.clientAutowalkToggle = com.simplebuilding.client.GaugeAutowalk::toggle;
+            ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.client.GaugeAutowalk::tick);
+        }
     }
 }

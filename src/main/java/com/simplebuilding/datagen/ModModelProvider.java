@@ -862,7 +862,7 @@ public class ModModelProvider extends FabricModelProvider {
 
 
         // --- CORES & MISC ---
-        generateGauge(itemModelGenerator);
+        if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) generateGauge(itemModelGenerator); // 26.3: Simple Gadgets ships the models
         generateOreDetector(itemModelGenerator);
         itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
         generateRotator(itemModelGenerator);

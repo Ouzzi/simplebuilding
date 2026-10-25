@@ -122,6 +122,7 @@ public final class ConfigOptions {
             "enableSimpleMusic",
             "enableSimpleLights",
             "enableSimpleEarth",
+            "enableSimpleGadgets",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

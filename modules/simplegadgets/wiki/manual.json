@@ -1,0 +1,127 @@
+{
+  "features": [
+    {
+      "id": "gauge",
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/gauge/VelocityGaugeItem.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeHud.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeAutowalk.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/mixin/client/GaugeKeyboardInputMixin.java",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/velocity_gauge.json",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/velocity_gauge_without_simplebuilding.json"
+      ],
+      "en": {
+        "title": "Gauge",
+        "summary": "The Gauge shows speed while held in either hand, with an animated item needle and a HUD dial.",
+        "details": [
+          "Constructor's Touch adds peak and average speed.",
+          "In the air it shows distance to ground and an estimated fall-damage value before armor. The base depth is 24 blocks; Range adds 16 per level, capped at 64.",
+          "The item id is simplegadgets:velocity_gauge (until 24.10.2026 simplebuilding:velocity_gauge; old worlds migrate).",
+          "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
+          "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way.",
+          "MC 26.3 recipe: \"NAN\" / \"NCN\" / \"NKN\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core), with six copper nuggets after filling the empty slots and shifting the outer ring one slot clockwise. Without SimpleBuilding a copper ingot takes the place of the Copper Core. Vanilla also accepts horizontally mirrored recipes."
+        ]
+      },
+      "de": {
+        "title": "Messuhr",
+        "summary": "Die Messuhr zeigt gehalten das Tempo, mit animierter Itemnadel und Anzeige.",
+        "details": [
+          "Berührung des Konstrukteurs ergänzt Spitzen- und Durchschnittstempo.",
+          "In der Luft zeigt sie Bodenabstand und geschätzten Fallschaden vor Rüstung. Messtiefe 24 Blöcke, Reichweite ergänzt 16 je Stufe bis höchstens 64.",
+          "Die Item-ID ist simplegadgets:velocity_gauge (bis 24.10.2026 simplebuilding:velocity_gauge; alte Welten wandern mit).",
+          "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
+          "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin.",
+          "Rezept auf MC 26.3: „NAN“ / „NCN“ / „NKN“ (A = Amethystscherbe, N = Kupfernugget, C = Uhr, K = Kupferkern), mit sechs Kupfernuggets nach Auffüllen der Leerstellen und Verschieben des Randes um einen Slot im Uhrzeigersinn. Ohne SimpleBuilding nimmt ein Kupferbarren den Platz des Kupferkerns ein. Vanilla erlaubt auch horizontal gespiegelte Rezepte."
+        ]
+      }
+    },
+    {
+      "id": "gadget_hud",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/client/GadgetHud.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeHud.java"
+      ],
+      "en": {
+        "title": "Readout box",
+        "summary": "A held Gauge shows its readout in a small dark box next to the crosshair: the item's name as the title, a speed dial with the number in blocks per second, and further lines. With SimpleBuilding the box stacks with the Octant's and the Resonance Rod's boxes (Octant on top, then Gauge, then Rod) and follows SimpleBuilding's HUD position, size and HUD key; alone it sits at the left edge in the middle of the screen.",
+        "details": []
+      },
+      "de": {
+        "title": "Anzeigekasten",
+        "summary": "Eine gehaltene Messuhr zeigt ihre Werte in einem kleinen dunklen Kasten neben dem Fadenkreuz: der Name des Items als Titel, ein Tacho mit der Zahl in Blöcken je Sekunde und weitere Zeilen. Mit SimpleBuilding stapelt sich der Kasten mit denen von Oktant und Resonanzstab (Oktant oben, dann Messuhr, dann Stab) und folgt SimpleBuildings HUD-Position, -Größe und HUD-Taste; allein sitzt er am linken Rand in der Bildschirmmitte.",
+        "details": []
+      }
+    },
+    {
+      "id": "migration",
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/SimpleGadgets.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/test/GadgetsTests.java"
+      ],
+      "en": {
+        "title": "Moved from SimpleBuilding",
+        "summary": "The Gauge, its recipe and recipe unlock were SimpleBuilding's (simplebuilding:*). Old worlds load them under simplegadgets:* through SimpleLib's id moves and save the new ids - in inventories, chests and on the ground alike.",
+        "details": [
+          "SimpleBuilding needs Simple Gadgets and bundles it on Fabric; Simple Gadgets runs on its own with SimpleLib, which it bundles. SimpleBuilding's enchantments Range and Constructor's Touch still work on the Gauge when SimpleBuilding is there; alone they do not exist.",
+          "More gadgets follow stage by stage (Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush, Octant).",
+          "For now Simple Gadgets exists for Fabric only (NeoForge and Forge follow with the port)."
+        ]
+      },
+      "de": {
+        "title": "Aus SimpleBuilding umgezogen",
+        "summary": "Die Messuhr, ihr Rezept und ihre Rezeptfreischaltung gehörten SimpleBuilding (simplebuilding:*). Alte Welten laden sie über SimpleLibs Id-Umzüge als simplegadgets:* und speichern die neuen Ids - im Inventar, in Truhen und auf dem Boden.",
+        "details": [
+          "SimpleBuilding braucht Simple Gadgets und bündelt es auf Fabric; Simple Gadgets läuft allein mit SimpleLib, das es mitbringt. SimpleBuildings Verzauberungen Reichweite und Berührung des Konstrukteurs wirken auf der Messuhr weiter, wenn SimpleBuilding da ist; allein gibt es sie nicht.",
+          "Weitere Geräte folgen Stufe für Stufe (Transposer, Resonanzstab, Detektor, Attractor, Echolot, Farbpinsel, Oktant).",
+          "Simple Gadgets gibt es vorerst nur für Fabric (NeoForge und Forge folgen mit dem Port)."
+        ]
+      }
+    },
+    {
+      "id": "creative_tab_switch",
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/GadgetsRegistry.java",
+        "modules/simplegadgets/fabric/src/main/java/com/simplebuilding/modules/simplegadgets/GadgetsFabric.java"
+      ],
+      "en": {
+        "title": "Creative tabs",
+        "summary": "Own tab with the gadgets and the guide. Without SimpleBuilding the gadgets also sit behind the recovery compass in the Vanilla tools tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places. Switched off (SimpleBuilding's Enable Simple Gadgets), the tab and the Vanilla tab entries are empty; the gadgets keep working.",
+        "details": []
+      },
+      "de": {
+        "title": "Kreativ-Tabs",
+        "summary": "Eigener Tab mit den Geräten und dem Handbuch. Ohne SimpleBuilding stehen die Geräte zusätzlich hinter dem Bergungskompass im Vanilla-Tab Werkzeuge (Schalter addItemsToVanillaTabs); mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Gadgets aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Geräte funktionieren weiter.",
+        "details": []
+      }
+    }
+  ],
+  "notes": {
+    "simplegadgets:guide_book": {
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/guide/GadgetsGuide.java",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + clock. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Gadgets\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Uhr. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Gadgets\" eins."
+      }
+    },
+    "simplegadgets:velocity_gauge": {
+      "en": {
+        "summary": "The Gauge shows speed while held in either hand, with an animated item needle and a HUD dial.",
+        "details": []
+      },
+      "de": {
+        "summary": "Die Messuhr zeigt gehalten das Tempo, mit animierter Itemnadel und Anzeige.",
+        "details": []
+      },
+      "sources": [
+        "modules/simplegadgets/shared/java/com/simplegadgets/gauge/VelocityGaugeItem.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeHud.java",
+        "modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeAutowalk.java"
+      ]
+    }
+  }
+}

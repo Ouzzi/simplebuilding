@@ -106,7 +106,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                             ModItems.OCTANT, ModItems.ROTATOR, ModItems.CONSTRUCTION_LIGHT));
             AdvancementHolder tweaks = tab("tweaks/root", TweaksBlocks.NETHERITE_LAUNCHPAD, "block/copper_block", "gadget",
                     any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE, ModItems.MAGNET,
-                            ModItems.ORE_DETECTOR, ModItems.VELOCITY_GAUGE, TweaksItems.LASER_POINTER, ModItems.NETHERITE_APPLE,
+                            ModItems.ORE_DETECTOR, com.simplebuilding.util.GadgetRefs.gauge(), TweaksItems.LASER_POINTER, ModItems.NETHERITE_APPLE,
                             ModItems.NETHERITE_CARROT, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
             AdvancementHolder end = tab("end/root", ModItems.ASTRAL_END_STONE, "gui/advancements/backgrounds/end", "end_stone",
                     any(Items.END_STONE));
@@ -286,7 +286,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             feature("tweaks/leap_of_faith", tweaks, Items.FEATHER, AdvancementType.TASK, ModTriggers.AIR_JUMP);
             feature("tweaks/crumple_zone", tweaks, Items.ELYTRA, AdvancementType.TASK, ModTriggers.KINETIC_PROTECTION);
             feature("gadgets/ping", tweaks, ModItems.ORE_DETECTOR, AdvancementType.TASK, ModTriggers.ORE_DETECTED);
-            node("gadgets/speed_reader", tweaks, ModItems.VELOCITY_GAUGE, AdvancementType.TASK, "velocity_gauge", any(ModItems.VELOCITY_GAUGE));
+            node("gadgets/speed_reader", tweaks, com.simplebuilding.util.GadgetRefs.gauge(), AdvancementType.TASK, "velocity_gauge", any(com.simplebuilding.util.GadgetRefs.gauge()));
         }
 
         private void pads(AdvancementHolder tweaks) {

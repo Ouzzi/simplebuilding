@@ -2827,7 +2827,9 @@ public final class DataIntegrityTests {
                     // Split stage 8a: Simple Storage's crates and table keep their rows in SimpleBuilding's tabs (by id).
                     && !McVersion.STORAGE_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // WB24-6: Simple Lights' panes keep their rows in SimpleBuilding's building tab (by id).
-                    && !com.simplebuilding.util.LightRefs.items().contains(item)) {
+                    && !com.simplebuilding.util.LightRefs.items().contains(item)
+                    // OW24-2 G1: Simple Gadgets' Gauge keeps its place in SimpleBuilding's tools tab (by id).
+                    && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -3827,7 +3829,7 @@ public final class DataIntegrityTests {
         // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
         expected.add(CreativeTabLayout.Row.of("gadgets",
                 Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
-                ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
+                com.simplebuilding.util.GadgetRefs.gauge(), ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
                 ModItems.OCTANT));
         List<ItemStack> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
@@ -4126,7 +4128,7 @@ public final class DataIntegrityTests {
         List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, com.simplebuilding.util.HammerRefs.item("enderite"),
                 com.simplebuilding.util.StorageRefs.item("enderite_bundle"), com.simplebuilding.util.StorageRefs.item("enderite_quiver"), com.simplebuilding.util.StorageRefs.backpack("enderite"), ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
-                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
+                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, com.simplebuilding.util.GadgetRefs.gauge(),
                 Items.STICK);
         for (Item item : present) {
             if (!byItem.containsKey(item)) {

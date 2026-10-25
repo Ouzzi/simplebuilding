@@ -185,7 +185,7 @@ public final class InfoTooltips {
      */
     public static Map<Item, List<Item>> coreUses() {
         Map<Item, List<Item>> uses = new LinkedHashMap<>();
-        uses.put(ModItems.COPPER_CORE, List.of(ModItems.COPPER_BUILDING_WAND, ModItems.VELOCITY_GAUGE,
+        uses.put(ModItems.COPPER_CORE, List.of(ModItems.COPPER_BUILDING_WAND, com.simplebuilding.util.GadgetRefs.gauge(),
                 TweaksBlocks.CHUNK_LOADER.asItem()));
         uses.put(ModItems.IRON_CORE, List.of(ModItems.IRON_BUILDING_WAND, TweaksItems.LASER_POINTER, ModItems.MAGNET,
                 ModItems.ROTATOR, TweaksBlocks.LAUNCHPAD.asItem()));

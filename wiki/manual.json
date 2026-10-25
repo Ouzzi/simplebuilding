@@ -7402,38 +7402,6 @@
         }
       }
     },
-    "velocity_gauge": {
-      "en": {
-        "summary": "The Gauge shows speed while held in either hand, with an animated item needle and a HUD dial.",
-        "details": [
-          "Constructor's Touch adds peak and average speed.",
-          "In the air it shows distance to ground and an estimated fall-damage value before armor. The base depth is 24 blocks; Range adds 16 per level, capped at 64.",
-          "The item id stays simplebuilding:velocity_gauge.",
-          "Right-click with the Gauge in the main hand toggles auto-walk (a click sound confirms). Switching the main-hand slot or item stops it; changing the off hand does not. An open screen releases the key.",
-          "With Constructor's Touch, auto-walk follows dirt paths and rails: where the way ends straight ahead and continues on exactly one side, the view turns that way.",
-          "MC 26.3 recipe: \"NAN\" / \"NCN\" / \"NKN\" (A = amethyst shard, N = copper nugget, C = clock, K = Copper Core), with six copper nuggets after filling the empty slots and shifting the outer ring one slot clockwise. MC 26.2 keeps \" NA\" / \"NCN\" / \"KN \" with a compass. Vanilla also accepts horizontally mirrored recipes."
-        ]
-      },
-      "de": {
-        "summary": "Die Messuhr zeigt gehalten das Tempo, mit animierter Itemnadel und Anzeige.",
-        "details": [
-          "Berührung des Konstrukteurs ergänzt Spitzen- und Durchschnittstempo.",
-          "In der Luft zeigt sie Bodenabstand und geschätzten Fallschaden vor Rüstung. Messtiefe 24 Blöcke, Reichweite ergänzt 16 je Stufe bis höchstens 64.",
-          "Die Item-ID bleibt simplebuilding:velocity_gauge.",
-          "Rechtsklick mit der Messuhr in der Haupthand schaltet das automatische Laufen um (ein Klickton bestätigt). Ein Wechsel von Haupthand-Slot oder -Item beendet es, ein Wechsel der Nebenhand nicht. Ein offener Bildschirm lässt die Taste los.",
-          "Mit Berührung des Konstrukteurs folgt das Laufen Trampelpfaden und Schienen: Endet der Weg geradeaus und geht genau auf einer Seite weiter, dreht sich der Blick dorthin.",
-          "Rezept auf MC 26.3: „NAN“ / „NCN“ / „NKN“ (A = Amethystscherbe, N = Kupfernugget, C = Uhr, K = Kupferkern), mit sechs Kupfernuggets nach Auffüllen der Leerstellen und Verschieben des Randes um einen Slot im Uhrzeigersinn. MC 26.2 behält „ NA“ / „NCN“ / „KN “ mit Kompass. Vanilla erlaubt auch horizontal gespiegelte Rezepte."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/SpeedometerHudOverlay.java",
-        "common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java",
-        "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
-      ]
-    },
     "detector": {
       "en": {
         "summary": "The Detector is sonar for mining: hold it in your hand and once every 20 ticks it looks for the nearest ore in a sphere around you, turns its amethyst needle toward the find like a compass toward a lodestone, and plays a sound with a faint particle trail from your eyes to the ore; which of the twenty ticks that falls on depends on the player, so that the detectors of several players do not all scan in the same tick. Six modes decide what it looks for, from iron to ancient debris or any block you calibrate it to yourself. Every block between you and the ore damps the ore's signal - soft rock such as netherrack a little, stone more, deepslate and obsidian a lot - and the rarer the ore, the weaker its signal: common ores are read through 4 blocks of stone, diamonds through 2, ancient debris only through 2 netherrack. Through open cave air it finds ores 16 to 24 blocks away. Every ping that finds something costs 1 durability; empty pings are free. The Radius enchantment roughly doubles how much rock the rare ores get through, Constructor's Touch halves every block's loss.",

@@ -1,0 +1,24 @@
+package com.simplebuilding.modules.simplegadgets;
+
+import com.simplegadgets.client.GaugeAutowalk;
+import com.simplegadgets.client.GaugeHud;
+import com.simplegadgets.client.GaugeNeedleModelProperty;
+import com.simplegadgets.gauge.VelocityGaugeItem;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
+import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties;
+
+/** Fabric client entry: the Gauge's needle property, its HUD box (SimpleLib gadget stack) and auto-walk. */
+public final class GadgetsFabricClient implements ClientModInitializer {
+    @Override
+    public void onInitializeClient() {
+        RangeSelectItemModelProperties.ID_MAPPER.put(GaugeNeedleModelProperty.ID, GaugeNeedleModelProperty.CODEC);
+        GaugeHud.register();
+        HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, com.simplegadgets.SimpleGadgets.id("gauge_hud"),
+                (context, tickCounter) -> GaugeHud.render(context));
+        VelocityGaugeItem.clientAutowalkToggle = GaugeAutowalk::toggle;
+        ClientTickEvents.END_CLIENT_TICK.register(GaugeAutowalk::tick);
+    }
+}
