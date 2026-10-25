@@ -32,6 +32,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void endBoardsOnlyWithSimpleEnd(GameTestHelper h) {
+        SandwichTests.ALL.get("end_boards_only_with_simple_end").accept(h);
+    }
+
+    @GameTest
+    public void staleStackRecompute(GameTestHelper h) {
+        SandwichTests.ALL.get("stale_stack_recompute").accept(h);
+    }
+
+    @GameTest
     public void effectMerge(GameTestHelper h) {
         SandwichTests.ALL.get("effect_merge").accept(h);
     }

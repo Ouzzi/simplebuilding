@@ -397,6 +397,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fire_game_test_sulfur_lights_glow_and_craft", FireTests::sulfurLightsGlowAndCraft)
                     .maxTicks(FireTests.FIRE_MAX_TICKS).build(),
+            GameTestSpec.named("woodwork_game_test_end_woods_only_with_simple_end", WoodworkTests::endWoodsOnlyWithSimpleEnd)
+                    .build(),
             GameTestSpec.named("woodwork_game_test_hollow_logs_let_small_mobs_and_crawlers_through", WoodworkTests::hollowLogsLetSmallMobsAndCrawlersThrough)
                     .build(),
             GameTestSpec.named("woodwork_game_test_carved_log_item_shows_all_four_sides", WoodworkTests::carvedLogItemShowsAllFourSides)
