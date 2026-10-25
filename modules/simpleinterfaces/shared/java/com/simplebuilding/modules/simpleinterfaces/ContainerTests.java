@@ -329,6 +329,10 @@ public final class ContainerTests {
                 "SimpleBuilding's recipe-book smithing screen styled like the Vanilla one");
         h.assertTrue(ContainerStyles.find(MenuType.ANVIL, "com.simplebuilding.client.gui.RecipeBookSmithingScreen") == null,
                 "the alias keeps its menu");
+        // VIS24-6: Simple Blocks' Shapecutter (own menu type, the stonecutter's layout) is styled as the stonecutter
+        h.assertTrue(ContainerStyles.find(MenuType.GENERIC_9x1, "com.simpleblocks.saw.client.ShapecutterScreen") == ContainerStyles.byId("stonecutter"),
+                "the Shapecutter looks like the stonecutter");
+        for (String id : StationStyles.LOOKALIKES.values()) h.assertTrue(ContainerStyles.byId(id) != null, "look-alike of a style: " + id);
         for (String id : StationStyles.RESULT_SLOT.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "result slot entry for a style: " + id);
         for (String id : StationStyles.ELEMENTS.keySet()) h.assertTrue(ContainerStyles.byId(id) != null, "element entry for a style: " + id);
         h.succeed();
