@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#e0e4eaff", "#b8bcc4ff", "#888c94ff", "#60646cff", "#3a3c42ff", "#7c5a34ff", "#382615ff", "#644828ff", "#4e361eff"],
+  "palette": ["#a4a8aeff", "#8c9096ff", "#767a80ff", "#5e6268ff", "#44464cff", "#6c4f2eff", "#402c18ff", "#5c4225ff", "#4e371fff"],
   "layers": [
     {"name": "Rahmen", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00010101010101010001010101010101",
