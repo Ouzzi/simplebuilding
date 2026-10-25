@@ -39,6 +39,9 @@ public final class SimpleGadgets {
 
     public static void init(java.nio.file.Path configDir) {
         com.simplegadgets.config.GadgetsConfig.load(configDir);
+        // CMD24: /simplegadgets config for every option.
+        com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplegadgets.config.GadgetsConfig::toJson, com.simplegadgets.config.GadgetsConfig::apply)
+                .file(configDir, com.simplegadgets.config.GadgetsConfig.FILE).register();
         registerIdMoves();
         com.simplegadgets.rotator.RotatorItem.publishFacts();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
