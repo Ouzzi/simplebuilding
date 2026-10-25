@@ -43,6 +43,17 @@ public final class EarthTests {
     private EarthTests() {}
 
     static {
+        ALL.put("config_command", h -> {
+            var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleEarth.MOD_ID, false);
+            h.assertTrue(spec != null && spec.options().size() >= EarthServerConfig.KEYS.size() - 1, "/simpleearth config not announced");
+            com.simplelib.test.ConfigCommandTests.roundTrip(h, SimpleEarth.MOD_ID, "tilesPerSecond", "40", "40", "x");
+            h.assertTrue(spec.set("tilesPerSecond", "9999").status() == com.simplelib.api.config.ConfigCommands.Status.CLAMPED
+                    && EarthServerConfig.tilesPerSecond == 512, "clamped to 512");
+            spec.reset("tilesPerSecond");
+            h.assertTrue(EarthServerConfig.tilesPerSecond == 24, "reset");
+            h.succeed();
+        });
+
         ALL.put("config_defaults", h -> {
             EarthServerConfig.reset();
             h.assertTrue(EarthServerConfig.enabled && !EarthServerConfig.exploredOnly && EarthServerConfig.showOthers, "E8/E9 defaults");

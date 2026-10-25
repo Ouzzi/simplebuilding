@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleearth:empty", maxTicks = 100)
+    public void configCommand(GameTestHelper h) {
+        EarthTests.ALL.get("config_command").accept(h);
+    }
+
+    @GameTest(structure = "simpleearth:empty", maxTicks = 100)
     public void colorTable(GameTestHelper h) {
         EarthTests.ALL.get("color_table").accept(h);
     }
