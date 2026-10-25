@@ -53,6 +53,7 @@ assets/simplebuilding/blockstates/stray_skull.json
 assets/simplebuilding/blockstates/stray_wall_skull.json
 assets/simplebuilding/blockstates/suspended_gravel.json
 assets/simplebuilding/blockstates/suspended_sand.json
+assets/simplebuilding/items/amethyst_lens.json
 assets/simplebuilding/items/backpack.json
 assets/simplebuilding/items/basic_upgrade_template.json
 assets/simplebuilding/items/blaze_head.json
@@ -120,6 +121,7 @@ assets/simplebuilding/items/reinforced_furnace.json
 assets/simplebuilding/items/reinforced_quiver.json
 assets/simplebuilding/items/reinforced_shulker_box.json
 assets/simplebuilding/items/reinforced_smoker.json
+assets/simplebuilding/items/rotator.json
 assets/simplebuilding/items/shulker_head.json
 assets/simplebuilding/items/silverfish_head.json
 assets/simplebuilding/items/slime_head.json
@@ -181,6 +183,8 @@ assets/simplebuilding/models/block/reinforced_smoker_on.json
 assets/simplebuilding/models/block/reinforced_trapped_chest.json
 assets/simplebuilding/models/block/suspended_gravel.json
 assets/simplebuilding/models/block/suspended_sand.json
+assets/simplebuilding/models/item/amethyst_lens.json
+assets/simplebuilding/models/item/amethyst_lens_empty.json
 assets/simplebuilding/models/item/backpack.json
 assets/simplebuilding/models/item/backpack_dyed.json
 assets/simplebuilding/models/item/basic_upgrade_template.json
@@ -247,6 +251,8 @@ assets/simplebuilding/models/item/reinforced_bundle_open_front_dyed.json
 assets/simplebuilding/models/item/reinforced_quiver.json
 assets/simplebuilding/models/item/reinforced_quiver_dyed.json
 assets/simplebuilding/models/item/reinforced_shulker_box.json
+assets/simplebuilding/models/item/rotator.json
+assets/simplebuilding/models/item/rotator_empty.json
 assets/simplebuilding/models/item/stone_sledgehammer.json
 assets/simplebuilding/models/item/velocity_gauge.json
 assets/simplebuilding/models/item/velocity_gauge_00.json
@@ -393,6 +399,7 @@ data/simplebuilding/advancement/recipes/misc/upgrade_iron_sledgehammer_to_gold_s
 data/simplebuilding/advancement/recipes/redstone/reinforced_blast_furnace.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_furnace.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_smoker.json
+data/simplebuilding/advancement/recipes/tools/amethyst_lens.json
 data/simplebuilding/advancement/recipes/tools/backpack.json
 data/simplebuilding/advancement/recipes/tools/copper_sledgehammer.json
 data/simplebuilding/advancement/recipes/tools/diamond_sledgehammer.json
@@ -411,6 +418,7 @@ data/simplebuilding/advancement/recipes/tools/reinforced_backpack.json
 data/simplebuilding/advancement/recipes/tools/reinforced_bundle.json
 data/simplebuilding/advancement/recipes/tools/reinforced_elytra_pad_smithing.json
 data/simplebuilding/advancement/recipes/tools/reinforced_quiver.json
+data/simplebuilding/advancement/recipes/tools/rotator.json
 data/simplebuilding/advancement/recipes/tools/stone_sledgehammer.json
 data/simplebuilding/advancement/recipes/tools/velocity_gauge.json
 data/simplebuilding/enchantment/break_through.json
@@ -460,6 +468,7 @@ data/simplebuilding/loot_table/blocks/stray_skull.json
 data/simplebuilding/loot_table/blocks/suspended_gravel.json
 data/simplebuilding/loot_table/blocks/suspended_sand.json
 data/simplebuilding/loot_table/inject/charged_creeper/root.json
+data/simplebuilding/recipe/amethyst_lens.json
 data/simplebuilding/recipe/backpack.json
 data/simplebuilding/recipe/backpack_dyed.json
 data/simplebuilding/recipe/basic_upgrade_template.json
@@ -589,6 +598,7 @@ data/simplebuilding/recipe/reinforced_shulker_box_from_shulker_box.json
 data/simplebuilding/recipe/reinforced_shulker_box_from_white_shulker_box.json
 data/simplebuilding/recipe/reinforced_shulker_box_from_yellow_shulker_box.json
 data/simplebuilding/recipe/reinforced_smoker.json
+data/simplebuilding/recipe/rotator.json
 data/simplebuilding/recipe/stone_sledgehammer.json
 data/simplebuilding/recipe/suspended_gravel.json
 data/simplebuilding/recipe/suspended_sand.json

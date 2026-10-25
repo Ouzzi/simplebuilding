@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:building/root",
+  "criteria": {
+    "rotate": {
+      "conditions": {
+        "feature": "rotate"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.spin_doctor.description"
+    },
+    "icon": {
+      "id": "simplegadgets:rotator"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.spin_doctor.title"
+    }
+  },
+  "requirements": [
+    [
+      "rotate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
