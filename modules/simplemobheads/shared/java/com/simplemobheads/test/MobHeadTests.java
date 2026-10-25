@@ -1462,6 +1462,8 @@ public final class MobHeadTests {
                 }
                 drops.forEach(Entity::discard);
                 if (soul) {
+                    // The dead player goes on ticking until the respawn (death screen): mod tick hooks see it dead.
+                    for (int i = 0; i < 40; i++) player.doTick();
                     ServerPlayer fresh = level.getServer().getPlayerList().respawn(player, false, Entity.RemovalReason.KILLED);
                     for (int i = 0; i < 3; i++) fresh.doTick();
                     if (!fresh.isAlive() || kept != HeadAbilities.is(fresh.getItemBySlot(EquipmentSlot.HEAD), id)) {
