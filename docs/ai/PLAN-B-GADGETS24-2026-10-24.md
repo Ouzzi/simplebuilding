@@ -161,3 +161,6 @@ Schlüssel (`tools.rotator*`, `server.charges.*`, `server.laser.*`, `tweaks.lase
 (d) JEI-Infoseiten des Resonanzstabs (`TweaksJeiInfo`) entfallen auf 26.3 wie die der Messuhr. (e) Der Discover-Tipp „Transponierer“ ist jetzt der
 des Moduls; SBs 26.2-Linie verliert ihn. (f) Gemeinsamer Verzauberungs-Mixin: Modul-Transponierer nimmt Unbreaking, kein Mending auch allein
 (SimpleLib-Tag statt SB-Tag). (g) Client-Tests (`GadgetsClientTest`) nicht angepasst/gelaufen (keine Client-Läufe).
+
+Belege G2 (sb-test): module-simplegadgets integriert 46/46, standalone 46/46, integration-263 4/4, module-simpletweaks 164/164, module-simplehammers 17/17; fabric-263 gefiltert: renamed_item_ids 1/1, data_integrity 51/51, guide 16/16, config_option 20/20, test_centre 21/21, advancement_trigger 11/11, item_behaviour 7/7, consumption 6/6, hint 8/8, tweaks 112/112, combat 11/11, server_tuning 8/8, modpack 11/11; Datagen 26.3, Money-Links, Guides, Wiki, Discover erzeugt; `./gradlew check` grün (77a14b664).
+Weitere Abweichungen: (h) `LegacyAliases` (simpletweaks) führt `simpletweaks:laser_pointer` jetzt direkt auf `simplegadgets:amethyst_lens`. (i) `DevEnchantedTab` zählt `simplegadgets:*` als Träger der Mod. (j) SB-Shared-Code erreicht SimpleLib nur über `LibServices` (26.2-Stubs), da die 26.2-Linie SimpleLib nicht hat. G3 nicht begonnen (Besitzer: halbes Tempo).
