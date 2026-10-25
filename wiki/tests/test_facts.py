@@ -88,7 +88,8 @@ class RecipeProseTests(unittest.TestCase):
         self.assertEqual(rod['pattern'], [' NA', 'RC ', 'I  '])
         self.assertEqual(rod['key']['N'], 'minecraft:iron_nugget')
         self.assertEqual(rod['key']['R'], 'minecraft:redstone')
-        gauge = json.loads((directory / 'velocity_gauge.json').read_text(encoding='utf-8'))
+        # OW24-2 G1: on 26.3 the Gauge and its recipe are Simple Gadgets'.
+        gauge = json.loads((ROOT / 'modules/simplegadgets/shared/resources/data/simplegadgets/recipe/velocity_gauge.json').read_text(encoding='utf-8'))
         before = list('AN ' + 'NCN' + ' NK')
         filled = ['N' if cell == ' ' else cell for cell in before]
         rotated = filled.copy()
@@ -123,6 +124,8 @@ class RecipeProseTests(unittest.TestCase):
                      'mc26_3/overlay/resources': ('mc26_3/overlay/resources', 'mc26_3/generated', 'src/main/generated')}
             for directory, recipe_dirs in lines.items():
                 candidates = [ROOT / d / 'data/simplebuilding/recipe' / (item + '.json') for d in recipe_dirs]
+                if directory.startswith('mc26_3'):  # OW24-2 G1: on 26.3 the Gauge's recipe is Simple Gadgets'
+                    candidates.insert(0, ROOT / 'modules/simplegadgets/shared/resources/data/simplegadgets/recipe' / (item + '.json'))
                 source = next(path for path in candidates if path.exists())
                 recipe = json.loads(source.read_text(encoding='utf-8'))
                 pattern = ' / '.join(recipe['pattern'])
