@@ -108,9 +108,11 @@ Rezept/Freischaltung umgeschrieben, Lang/Fragentisch/Wiki/Money ins Modul. Tests
 mit/ohne SB, Discover, Handbuch); SB-Messuhr-Tests auf 26.3 per `GADGETS_IN_SB`-Wächter.
 
 Abweichungen: (a) Kein Block, daher kein Paletten-Test (`NbtUtils`/`BlockState.CODEC` entfällt für G1; Pflicht ab G3, wenn
-abgelegte Geräte/`PlacedTemplateBlock` umziehen). (b) JEI-Info `jei.simplebuilding.info.velocity_gauge` auf 26.3 entfernt (Modul hat
-kein JEI-Plugin, das Item hat ein Rezept). (c) `ClientSpeedometerMixin` (Altlast) unverändert, auf 26.3 wirkungslos.
+abgelegte Geräte/`PlacedTemplateBlock` umziehen). (b) `RecipelessJeiInfo` nennt die Messuhr auf 26.3 nicht mehr (Modul hat kein JEI-Plugin, das Item hat
+ein Rezept). (c) `ClientSpeedometerMixin` (Altlast) unverändert, auf 26.3 wirkungslos.
 
 Belege (sb-test): Compile `:mc26_3:fabric` (+gametest), `:modules:simplegadgets:fabric`, `:modules:simplelib:fabric`;
 module-simplegadgets-fabric-263 10/10, standalone 10/10; fabric-263 `*gauge*` 4/4, `*test_centre*` 21/21, `*config_option*` 20/20,
-`*guide*` 16/16, `*core_tooltips*` 1/1, `*renamed_item_ids*` 1/1, `*data_integrity*` siehe Queue; integration-263 4/4.
+`*guide*` 16/16, `*core_tooltips*` 1/1, `*renamed_item_ids*` 1/1, `*data_integrity*` 51/51; integration-263 4/4; Datagen 26.3, Guides,
+Wiki, Discover, Money-Links, Ebenen erzeugt; `./gradlew check` grün (f50633c90). (d) Abweichung: die SB-Lang-Schlüssel der Messuhr bleiben im
+26.3-Overlay (`check_tooltip_text`: das Overlay muss jeden gemeinsamen Schlüssel halten); nur die JEI-Info entfällt dort nicht, ist aber ungenutzt.
