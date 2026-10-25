@@ -161,6 +161,46 @@ public final class EarthScreen extends Screen {
         return false;
     }
 
+    // --- test hooks (client game test WD25-23: real mouse events at these GUI points) ---
+
+    /** Centre of the version button {@code v}. */
+    public int[] testVersionButton(int v) {
+        Button b = versionButtons.get(v - 1);
+        return new int[]{b.getX() + b.getWidth() / 2, b.getY() + b.getHeight() / 2};
+    }
+
+    /** A point on the slider track of {@code key} at {@code fraction} (0..1); scrolls the row into view first. */
+    public int[] testSlider(String key, double fraction) {
+        int i = testRow(key);
+        int y = rowY(i) + 13 + 3, tx = trackX(), tw = trackW();
+        return new int[]{tx + (int) Math.round(fraction * tw), y};
+    }
+
+    /** The label point of the row {@code key} (toggles flip on a click anywhere on the row); scrolls it into view. */
+    public int[] testRowPoint(String key) {
+        int i = testRow(key);
+        return new int[]{panelX + W / 2, rowY(i) + 6};
+    }
+
+    /** Middle of the scroll list. */
+    public int[] testListCentre() {
+        return new int[]{panelX + W / 2, (listTop + listBottom) / 2};
+    }
+
+    public double testScroll() {
+        return scroll;
+    }
+
+    private int testRow(String key) {
+        for (int i = 0; i < rows.size(); i++) {
+            if (rows.get(i).setting() != null && rows.get(i).setting().key().equals(key)) {
+                scroll = Math.max(0, Math.min(maxScroll(), i * ROW - ROW));
+                return i;
+            }
+        }
+        throw new IllegalArgumentException(key);
+    }
+
     private int rowY(int index) {
         return listTop + index * ROW - (int) scroll;
     }

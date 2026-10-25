@@ -150,6 +150,8 @@
   "text.autoconfig.simpleearth.option.requireFlight.@Tooltip": "Server, E5: aus = jeder Weg nach oben zählt; an = der Orbit beginnt nur im Flug (Kreativflug oder Elytren). Standard: aus.",
   "text.autoconfig.simpleearth.option.reentryAtOrbit": "Wiedereintritt an der Orbit-Position",
   "text.autoconfig.simpleearth.option.reentryAtOrbit.@Tooltip": "Server, E6/N3: an = beim Absinken oder Abmelden landest du an der Orbit-Position; aus = zurück zum Parkpunkt. Standard: an.",
+  "text.autoconfig.simpleearth.option.fastHeights": "Schnelle Höhen",
+  "text.autoconfig.simpleearth.option.fastHeights.@Tooltip": "Server: Bodenhöhe aus der vorläufigen Oberfläche des Generators, wie Chunkbase (vielfach schneller); aus = die genaue Rauschsäule je Probe (langsam). Standard: an.",
   "simpleearth.guide.page.1.title": "Simple Earth",
   "simpleearth.guide.page.1": "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.",
   "simpleearth.guide.page.2.title": "Orbit",

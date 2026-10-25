@@ -75,7 +75,8 @@ public final class TileService {
 
     /** What the cached colours depend on (colour table, biome votes, surface detail): a change starts a fresh disk cache. */
     public static String signature() {
-        return "c" + EarthColors.table().signature() + "-v" + EarthServerConfig.biomeVotes + (EarthServerConfig.surfaceDetail ? "s" : "p");
+        return "c" + EarthColors.table().signature() + "-v" + EarthServerConfig.biomeVotes + (EarthServerConfig.surfaceDetail ? "s" : "p")
+                + (EarthServerConfig.fastHeights ? "" : "x");
     }
 
     /** After a /reload or config change: tiles are sampled again with the new table/rules (in-flight work finishes). */

@@ -76,6 +76,11 @@ public final class ModuleGameTest {
         EarthTests.ALL.get("surface_rules").accept(h);
     }
 
+    @GameTest(structure = "simpleearth:empty", maxTicks = 400)
+    public void samplingSpeed(GameTestHelper h) {
+        EarthTests.ALL.get("sampling_speed").accept(h);
+    }
+
     @GameTest(structure = "simpleearth:empty", maxTicks = 100)
     public void guidePages(GameTestHelper h) {
         com.simplebuilding.modules.simpleearth.guide.EarthGuide.gameTest(h);

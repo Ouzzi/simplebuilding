@@ -22,7 +22,7 @@ public final class EarthServerConfig {
     public static final String FILE = "simpleearth-server.json";
     public static final List<String> KEYS = List.of("enabled", "dimensions", "minActivationY", "minSwitchGap", "maxOrbitSpeed",
             "minEdge", "maxEdge", "exploredOnly", "showOthers", "workerThreads", "tilesPerSecond", "memoryTiles", "diskCacheMiB",
-            "slowFallSeconds", "minGrid", "biomeVotes", "surfaceDetail", "globalGrid", "requireFlight", "reentryAtOrbit");
+            "slowFallSeconds", "minGrid", "biomeVotes", "surfaceDetail", "globalGrid", "requireFlight", "reentryAtOrbit", "fastHeights");
 
     public static boolean enabled;
     public static final List<String> dimensions = new ArrayList<>();
@@ -54,6 +54,11 @@ public final class EarthServerConfig {
     public static boolean requireFlight;
     /** E6/N3: true = re-entry and logout at the orbit position; false = back to the park point. */
     public static boolean reentryAtOrbit;
+    /**
+     * WD25-22, like Chunkbase: true = ground height from the generator's preliminary surface level (one density function per
+     * column, about 10-100x faster); false = the exact noise column ({@code getBaseHeight}, the whole column per sample).
+     */
+    public static boolean fastHeights;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -105,6 +110,7 @@ public final class EarthServerConfig {
         globalGrid = bool(json, "globalGrid", false);
         requireFlight = bool(json, "requireFlight", false);
         reentryAtOrbit = bool(json, "reentryAtOrbit", true);
+        fastHeights = bool(json, "fastHeights", true);
     }
 
     public static JsonObject toJson() {
@@ -131,6 +137,7 @@ public final class EarthServerConfig {
         o.addProperty("globalGrid", globalGrid);
         o.addProperty("requireFlight", requireFlight);
         o.addProperty("reentryAtOrbit", reentryAtOrbit);
+        o.addProperty("fastHeights", fastHeights);
         return o;
     }
 

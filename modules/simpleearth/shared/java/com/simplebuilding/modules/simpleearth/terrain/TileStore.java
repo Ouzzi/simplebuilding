@@ -76,14 +76,14 @@ public final class TileStore {
 
     /**
      * Deletes the cache folders of other signatures under {@code base} (old colour table or rules) - only folders this cache
-     * wrote ({@code c<hex>-v<n><s|p>}) and the tile folders of the layout before 25.10. (named by the grid exponent).
+     * wrote ({@code c<hex>-v<n><s|p>[x]}) and the tile folders of the layout before 25.10. (named by the grid exponent).
      */
     public static void dropOthers(Path base, String keep) {
         if (!Files.isDirectory(base)) return;
         try (Stream<Path> list = Files.list(base)) {
             for (Path p : list.toList()) {
                 String name = p.getFileName().toString();
-                if (name.equals(keep) || !Files.isDirectory(p) || !(name.matches("c[0-9a-f]+-v[0-9][sp]") || name.matches("[0-9]{1,2}"))) continue;
+                if (name.equals(keep) || !Files.isDirectory(p) || !(name.matches("c[0-9a-f]+-v[0-9][sp]x?") || name.matches("[0-9]{1,2}"))) continue;
                 try (Stream<Path> walk = Files.walk(p)) {
                     walk.sorted(Comparator.reverseOrder()).forEach(f -> {
                         try {

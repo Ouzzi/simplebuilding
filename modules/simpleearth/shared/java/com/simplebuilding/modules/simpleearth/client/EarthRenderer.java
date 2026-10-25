@@ -126,7 +126,9 @@ public final class EarthRenderer {
 
     private static Identifier texture(Scene scene, Patch p, FaceTextures.Context ctx, ViewParams params) {
         if (p.kind != Patch.TERRAIN || p.alpha <= 0.01) return WHITE;
-        int mixQ = (int) Math.round(Meshes.clamp(p.mix, 0, 1) * 16);
+        // blend weight in 1/8 steps (stored as 1/16): a gliding V4/V5/V10-V12 side face reuses a few cached images instead of
+        // painting a new one for every 1/16 of change (WD25-22)
+        int mixQ = 2 * (int) Math.round(Meshes.clamp(p.mix, 0, 1) * 8);
         int foldQ = p.folded ? (int) Math.round(params.get("foldRadius", 0.6) * 100) : 0;
         return FaceTextures.get(new FaceTextures.Key(scene.curTx + p.tx, scene.curTz + p.tz, p.mirror, scene.curTx + p.mixTx,
                 scene.curTz + p.mixTz, p.mixMirror, mixQ, ctx.res(), foldQ > 0 ? scene.curTx : 0, foldQ > 0 ? scene.curTz : 0, foldQ,

@@ -50,8 +50,18 @@ public final class FaceTextures {
 
     private FaceTextures() {}
 
+    private static int drawn, incomplete, lastDrawn, lastIncomplete;
+
     public static void newFrame() {
         budget = (long) EarthClientConfig.render("paintBudget") * 1024;
+        lastDrawn = drawn;
+        lastIncomplete = incomplete;
+        drawn = incomplete = 0;
+    }
+
+    /** Face images asked for in the last frame and how many of them still wait for tiles (measurements, client test). */
+    public static int[] lastFrame() {
+        return new int[]{lastDrawn, lastIncomplete};
     }
 
     /** The image for a key, painted (or repainted when new tiles arrived) within the frame budget. Render thread only. */
@@ -76,6 +86,8 @@ public final class FaceTextures {
             e.passComplete = true;
         }
         if (e.row < key.res() && budget > 0) paint(e, key, ctx);
+        drawn++;
+        if (!e.complete || e.row < key.res()) incomplete++;
         return e.id;
     }
 

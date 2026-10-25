@@ -9,14 +9,19 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeResolver;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
+import net.minecraft.world.level.levelgen.densityfunction.DensitySampler;
+import net.minecraft.world.level.levelgen.densityfunction.SamplerContext;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.LevelResource;
 
 /**
  * Samples one terrain tile straight from the world generator, like Chunkbase (concept §4.1): per sample the generator's
- * estimated ground height ({@link ChunkGenerator#getBaseHeight}, ocean floor), the noise biome at that height and, with
+ * ground height (standard: the preliminary surface level like Chunkbase, {@code fastHeights}; else the exact
+ * {@link ChunkGenerator#getBaseHeight}, ocean floor), the noise biome at that height and, with
  * {@code surfaceDetail}, the surface the generator would put there (snow line, steep stone, badlands bands - from the height
  * field and the biome temperature)
  * ({@link net.minecraft.world.level.biome.BiomeSource#createUncachedResolver}). Neither touches chunks: nothing is loaded,
@@ -34,13 +39,55 @@ public final class TerrainSampler {
                 com.simplebuilding.modules.simpleearth.config.EarthServerConfig.surfaceDetail);
     }
 
-    /** Heights first (one generator call per sample), then the colours (biome votes, surface detail from the height field). */
     public static Tile sample(ServerLevel level, int e, int tx, int tz, boolean exploredOnly, int votes, boolean surface) {
-        ChunkGenerator generator = level.getChunkSource().getGenerator();
-        RandomState random = level.getChunkSource().randomState();
+        return sample(level.getChunkSource().getGenerator(), level.getChunkSource().randomState(), level, exploredOnly ? regionFolder(level) : null,
+                e, tx, tz, votes, surface, com.simplebuilding.modules.simpleearth.config.EarthServerConfig.fastHeights);
+    }
+
+    /** Nanoseconds spent sampling tiles and their count (WD25-22 measurements: ms per tile). */
+    public static final java.util.concurrent.atomic.AtomicLong NANOS = new java.util.concurrent.atomic.AtomicLong(), TILES = new java.util.concurrent.atomic.AtomicLong();
+    private static final java.util.Map<RandomState, DensitySampler> SURFACE = new java.util.WeakHashMap<>();
+    private static volatile boolean fastBroken;
+
+    /**
+     * WD25-22, the Chunkbase way: the generator's preliminary surface level ({@code noise_router.chunk_surface_level}) - one
+     * density function per column instead of the whole noise column of {@link ChunkGenerator#getBaseHeight}. Null for
+     * generators without a noise router (flat, void, mods): they use the exact height.
+     */
+    static DensitySampler surfaceSampler(ChunkGenerator generator, RandomState random) {
+        if (!(generator instanceof NoiseBasedChunkGenerator noise)) return null;
+        synchronized (SURFACE) {
+            return SURFACE.computeIfAbsent(random, r -> r.getSampler(noise.generatorSettings().value().noiseRouter().chunkSurfaceLevel()));
+        }
+    }
+
+    public static DensitySampler surfaceSamplerForTests(ChunkGenerator generator, RandomState random) {
+        return fastBroken ? null : surfaceSampler(generator, random);
+    }
+
+    /** Ground height of one column: fast (preliminary surface, Chunkbase-like) or exact (ocean floor of the noise column). */
+    public static int height(ChunkGenerator generator, RandomState random, LevelHeightAccessor heights, DensitySampler fast, int x, int z) {
+        if (fast != null) return (int) Math.floor(fast.sampleValue(SamplerContext.EMPTY_UNCACHED, x, 0, z));
+        return generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, heights, random);
+    }
+
+    /** Heights first (one generator call per sample), then the colours (biome votes, surface detail from the height field). */
+    public static Tile sample(ChunkGenerator generator, RandomState random, LevelHeightAccessor level, Path regions, int e, int tx, int tz,
+                              int votes, boolean surface, boolean fastHeights) {
+        long started = System.nanoTime();
+        DensitySampler fast = fastHeights && !fastBroken ? surfaceSampler(generator, random) : null;
+        if (fast != null) {
+            try {
+                fast.sampleValue(SamplerContext.EMPTY_UNCACHED, 0, 0, 0);
+            } catch (RuntimeException ex) {
+                // a router whose surface function needs a chunk context: exact heights from now on
+                fastBroken = true;
+                fast = null;
+                com.simplebuilding.modules.simpleearth.SimpleEarth.LOG.warn("Simple Earth: fast heights unavailable ({}), using exact heights", ex.toString());
+            }
+        }
         BiomeResolver biomes = generator.getBiomeSource().createUncachedResolver(random);
         int sea = generator.getSeaLevel();
-        Path regions = exploredOnly ? regionFolder(level) : null;
         byte[] colors = new byte[TileMath.AREA];
         short[] heights = new short[TileMath.AREA];
         boolean[] known = new boolean[TileMath.AREA];
@@ -61,7 +108,7 @@ public final class TerrainSampler {
                     }
                     if (!lastExplored) continue;
                 }
-                int h = generator.getBaseHeight((int) x, (int) z, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
+                int h = height(generator, random, level, fast, (int) x, (int) z);
                 heights[k] = (short) Math.max(Short.MIN_VALUE, Math.min(Short.MAX_VALUE, h));
                 known[k] = true;
             }
@@ -74,6 +121,8 @@ public final class TerrainSampler {
                 colors[k] = (byte) colorAt(biomes, x, heights[k], z, sea, 1 << e, votes, surface ? slope(heights, i, j, 1 << e) : -1).id;
             }
         }
+        NANOS.addAndGet(System.nanoTime() - started);
+        TILES.incrementAndGet();
         return new Tile(colors, heights);
     }
 

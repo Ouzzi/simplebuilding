@@ -68,7 +68,7 @@ public final class EarthTests {
             h.assertTrue(EarthSettings.VERSIONS == 12, "V1-V12 (WD25-17)");
             h.assertTrue(EarthServerConfig.minGrid == 5 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
                     && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight && EarthServerConfig.reentryAtOrbit
-                    && EarthServerConfig.slowFallSeconds == 30, "WD25-16 server defaults (E4 per player, E5 any flight, E6 orbit position)");
+                    && EarthServerConfig.slowFallSeconds == 30 && EarthServerConfig.fastHeights, "WD25-16 server defaults (E4 per player, E5 any flight, E6 orbit position)");
             for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
                 h.assertTrue(EarthSettings.find(v, "activationY").def() == 1024 && EarthSettings.find(v, "switchY").def() == 1536
                         && EarthSettings.find(v, "ceilingY").def() == 6144 && EarthSettings.find(v, "edge").def() == 65536
@@ -223,6 +223,42 @@ public final class EarthTests {
             h.succeed();
         });
 
+        ALL.put("sampling_speed", h -> {
+            // WD25-22: the overworld generator of a fixed seed (the test level itself may be flat), exact vs fast heights
+            var reg = h.getLevel().registryAccess();
+            var settings = reg.lookupOrThrow(Registries.NOISE_SETTINGS).getOrThrow(net.minecraft.world.level.levelgen.NoiseGeneratorSettings.OVERWORLD);
+            var preset = reg.lookupOrThrow(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST)
+                    .getOrThrow(net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterLists.OVERWORLD);
+            var generator = new net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator(
+                    net.minecraft.world.level.biome.MultiNoiseBiomeSource.createFromPreset(preset), settings);
+            var random = net.minecraft.world.level.levelgen.RandomState.create(reg.lookupOrThrow(Registries.NOISE), 4242L, settings.value());
+            var fast = TerrainSampler.surfaceSamplerForTests(generator, random);
+            h.assertTrue(fast != null, "noise generator has a surface level");
+            int n = 256;
+            int[] exact = new int[n], quick = new int[n];
+            long t0 = System.nanoTime();
+            for (int k = 0; k < n; k++) exact[k] = TerrainSampler.height(generator, random, h.getLevel(), null, 100_000 + (k % 16) * 512, -60_000 + (k / 16) * 512);
+            long t1 = System.nanoTime();
+            for (int k = 0; k < n; k++) quick[k] = TerrainSampler.height(generator, random, h.getLevel(), fast, 100_000 + (k % 16) * 512, -60_000 + (k / 16) * 512);
+            long t2 = System.nanoTime();
+            int[] diff = new int[n];
+            for (int k = 0; k < n; k++) diff[k] = Math.abs(exact[k] - quick[k]);
+            Arrays.sort(diff);
+            double exactUs = (t1 - t0) / 1000.0 / n, fastUs = (t2 - t1) / 1000.0 / n;
+            long s0 = System.nanoTime();
+            TerrainSampler.sample(generator, random, h.getLevel(), null, 8, 40, -20, 2, true, true);
+            long s1 = System.nanoTime();
+            TerrainSampler.sample(generator, random, h.getLevel(), null, 8, 41, -20, 2, true, false);
+            long s2 = System.nanoTime();
+            String m = String.format(java.util.Locale.ROOT, "[earth-measure] column exact %.1f us, fast %.1f us (x%.0f); height diff median %d, p90 %d, max %d;"
+                    + " tile 64x64 fast %.0f ms, exact %.0f ms", exactUs, fastUs, exactUs / Math.max(0.001, fastUs), diff[n / 2], diff[n * 9 / 10], diff[n - 1],
+                    (s1 - s0) / 1e6, (s2 - s1) / 1e6);
+            SimpleEarth.LOG.info(m);
+            h.assertTrue(fastUs * 5 < exactUs, "fast heights at least 5x faster: " + m);
+            h.assertTrue(diff[n / 2] <= 16 && diff[n * 9 / 10] <= 48, "fast heights close to the exact ground: " + m);
+            h.succeed();
+        });
+
         ALL.put("color_table", h -> {
             ServerLevel level = h.getLevel();
             var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
@@ -254,7 +290,8 @@ public final class EarthTests {
             for (int k = 0; k < TileMath.AREA; k += 7) {
                 int i = k % TileMath.TILE, j = k / TileMath.TILE;
                 int x = (int) TileMath.sampleBlock((long) tx * TileMath.TILE + i, e), z = (int) TileMath.sampleBlock((long) tz * TileMath.TILE + j, e);
-                int height = generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
+                int height = TerrainSampler.height(generator, random, level,
+                        EarthServerConfig.fastHeights ? TerrainSampler.surfaceSamplerForTests(generator, random) : null, x, z);
                 double slope = EarthServerConfig.surfaceDetail ? TerrainSampler.slope(tile.heights(), i, j, 1 << e) : -1;
                 MapColor expected = TerrainSampler.colorAt(independent, x, height, z, sea, 1 << e, EarthServerConfig.biomeVotes, slope);
                 h.assertTrue(tile.colors()[k] == (byte) expected.id, "sample " + i + "/" + j + " at " + x + "/" + z + ": " + tile.colors()[k] + " vs " + expected.id);

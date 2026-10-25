@@ -150,6 +150,8 @@
   "text.autoconfig.simpleearth.option.requireFlight.@Tooltip": "Server, E5: off = any way up counts; on = the orbit only starts while flying (creative flight or elytra). Default: off.",
   "text.autoconfig.simpleearth.option.reentryAtOrbit": "Re-entry at the orbit position",
   "text.autoconfig.simpleearth.option.reentryAtOrbit.@Tooltip": "Server, E6/N3: on = dropping back or logging out puts you at the orbit position; off = back to the park point. Default: on.",
+  "text.autoconfig.simpleearth.option.fastHeights": "Fast heights",
+  "text.autoconfig.simpleearth.option.fastHeights.@Tooltip": "Server: ground height from the generator's preliminary surface level, like Chunkbase (many times faster); off = the exact noise column per sample (slow). Default: on.",
   "simpleearth.guide.page.1.title": "Simple Earth",
   "simpleearth.guide.page.1": "Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
   "simpleearth.guide.page.2.title": "Orbit",
