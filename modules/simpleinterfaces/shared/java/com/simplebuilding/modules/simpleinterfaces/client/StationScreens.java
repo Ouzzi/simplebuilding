@@ -42,7 +42,7 @@ public final class StationScreens {
     /** Vanilla's XP text green and its "cannot" red; the red of an error cross. */
     public static final int XP_GREEN = 0xFF80FF20, XP_RED = 0xFFFF6060, ERROR = 0xFFE04040;
     /** Row of the cartography table's plus and arrow (11 px high, centred on the map field at y 46; WD25-10). */
-    public static final int CARTO_SYMBOL_Y = 41;
+    public static final int CARTO_SYMBOL_Y = 41 + StationStyles.CARTO_TOP;
     private static final Component TOO_EXPENSIVE = Component.translatable("container.repair.expensive");
 
     private StationScreens() {}
@@ -103,6 +103,27 @@ public final class StationScreens {
             int from = styled ? move[2] : move[3];
             if (slot.x == move[1] && slot.y == from) ((SlotPositionAccessor) slot).qol$setY(styled ? move[3] : move[2]);
         }
+        if (!id.equals("cartography_table")) return;
+        // WD25-19: the player's slots follow the taller screen (Vanilla rows 84/102/120/142, styled 16 px lower)
+        int dy = StationStyles.CARTO_EXTRA;
+        for (Slot slot : menu.slots) {
+            if (!StyledScreens.playerSlot(slot)) continue;
+            boolean vanilla = slot.y == 84 || slot.y == 102 || slot.y == 120 || slot.y == 142;
+            boolean moved = slot.y == 84 + dy || slot.y == 102 + dy || slot.y == 120 + dy || slot.y == 142 + dy;
+            if (styled && vanilla) ((SlotPositionAccessor) slot).qol$setY(slot.y + dy);
+            else if (!styled && moved) ((SlotPositionAccessor) slot).qol$setY(slot.y - dy);
+        }
+    }
+
+    /** Image height of the cartography table screen: Vanilla's 166, in the style {@link StationStyles#CARTO_EXTRA} more. */
+    public static int cartographyHeight(AbstractContainerScreen<?> screen) {
+        ScreenStyle style = style(screen);
+        return style != null && style.id().equals("cartography_table") ? 166 + StationStyles.CARTO_EXTRA : 166;
+    }
+
+    /** Map field offset of the cartography table (Vanilla draws it at y 13): {@link StationStyles#CARTO_TOP} in the style. */
+    public static int cartographyMapShift(AbstractContainerScreen<?> screen) {
+        return active(screen) ? StationStyles.CARTO_TOP : 0;
     }
 
     private static boolean drawStyled(AbstractContainerScreen<?> screen, GuiGraphicsExtractor g, int left, int top, int imageWidth,
@@ -183,7 +204,7 @@ public final class StationScreens {
                 // WD25-10: plus and arrow on the map field's middle (y 46), like the moved slots (SLOT_MOVES)
                 UiSymbols.engrave(g, UiSymbols.PLUS, l + 18, t + CARTO_SYMBOL_Y, p);
                 UiSymbols.progress(g, UiSymbols.ARROW_SMALL, l + 41, t + CARTO_SYMBOL_Y, p, 0, false);
-                UiBoxes.inset(g, l + 67, t + 13, 66, 66, p);
+                UiBoxes.inset(g, l + 67, t + 13 + StationStyles.CARTO_TOP, 66, 66, p);
             }
             case "smithing_table" -> {
                 UiSymbols.progress(g, UiSymbols.ARROW_DOTTED, l + 68, t + 49, p, 0, false);

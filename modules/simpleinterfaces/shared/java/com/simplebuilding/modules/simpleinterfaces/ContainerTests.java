@@ -363,23 +363,34 @@ public final class ContainerTests {
     }
 
     private static List<BoxLayout.Slot> station(int[][] container, int[][] playerSide) {
+        return station(container, playerSide, 0);
+    }
+
+    /** Container slots plus the player inventory at 8/84 + {@code playerDy}. */
+    private static List<BoxLayout.Slot> station(int[][] container, int[][] playerSide, int playerDy) {
         List<BoxLayout.Slot> slots = new ArrayList<>();
         for (int[] c : container) slots.add(new BoxLayout.Slot(c[0], c[1], false));
         for (int[] c : playerSide) slots.add(new BoxLayout.Slot(c[0], c[1], false));
-        for (int r = 0; r < 3; r++) for (int c = 0; c < 9; c++) slots.add(new BoxLayout.Slot(8 + c * 18, 84 + r * 18, true));
-        for (int c = 0; c < 9; c++) slots.add(new BoxLayout.Slot(8 + c * 18, 142, true));
+        for (int r = 0; r < 3; r++) for (int c = 0; c < 9; c++) slots.add(new BoxLayout.Slot(8 + c * 18, 84 + playerDy + r * 18, true));
+        for (int c = 0; c < 9; c++) slots.add(new BoxLayout.Slot(8 + c * 18, 142 + playerDy, true));
         return slots;
     }
 
     private static BoxLayout.Layout station(String id, int[][] container, int resultIndex) {
+        return station(id, container, resultIndex, 0);
+    }
+
+    /** A G3 layout with the screen {@code extra} px taller and the player inventory moved down by as much. */
+    private static BoxLayout.Layout station(String id, int[][] container, int resultIndex, int extra) {
         List<BoxLayout.Rect> elements = new ArrayList<>(StationStyles.ELEMENTS.getOrDefault(id, List.of()));
         if (resultIndex >= 0) elements.add(new BoxLayout.Rect(container[resultIndex][0] - 4, container[resultIndex][1] - 4, 25, 25));
-        return BoxLayout.compute(station(container, new int[0][]), elements, 176, 166, 6);
+        return BoxLayout.compute(station(container, new int[0][], extra), elements, 176, 166 + extra, 6);
     }
 
     /**
      * G3 boxes with the Vanilla 26.3 slot positions: anvil, grindstone and stonecutter two boxes (container box 0..77),
-     * loom, cartography and smithing table and the player inventory one box with the seam 3 px above the inventory.
+     * loom, smithing table and the player inventory one box with the seam 3 px above the inventory; the styled cartography
+     * table (WD25-19: map field 6 px lower, screen 16 px taller) two boxes like the others, container box 0..93.
      */
     public static void stationLayouts(GameTestHelper h) {
         int[][] anvil = {{27, 47}, {76, 47}, {134, 47}}, grindstone = {{49, 19}, {49, 40}, {129, 34}}, stonecutter = {{20, 33}, {143, 33}};
@@ -393,22 +404,20 @@ public final class ContainerTests {
             rect(h, l.container(), 0, 0, 176, 77, id + " container box");
             rect(h, l.inventory(), 0, 79, 176, 87, id + " inventory box");
         });
-        Map<String, BoxLayout.Layout> one = Map.of("loom", station("loom", loom, 3), "cartography_table", station("cartography_table", carto, 2),
+        Map<String, BoxLayout.Layout> one = Map.of("loom", station("loom", loom, 3),
                 "smithing_table", station("smithing_table", smithing, 3), "player_inventory", station("player_inventory", player, -1));
         one.forEach((id, l) -> {
             h.assertTrue(l != null && l.variant() == BoxLayout.Variant.SEAM, id + ": one box with a seam");
             rect(h, l.container(), 0, 0, 176, 166, id + " one box over the whole image");
             rect(h, l.inventory(), 5, 81, 166, 78, id + " inventory panel from the seam");
         });
-        h.assertTrue(BoxLayout.compute(station(carto, new int[0][]), 176, 166, 6).variant() == BoxLayout.Variant.TWO_BOXES,
-                "without its map field the cartography table would get two boxes (the field counts)");
-        // WD25-9/10: the styled screens move some slots on the client; the table's Vanilla places must be Vanilla's and
-        // the moved places keep the boxes
+        // WD25-9/10/19: the styled screens move some slots on the client; the tables' Vanilla places must be Vanilla's
         var inventory = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL).getInventory();
         Map<String, net.minecraft.world.inventory.AbstractContainerMenu> menus = Map.of(
                 "grindstone", new net.minecraft.world.inventory.GrindstoneMenu(0, inventory),
                 "cartography_table", new net.minecraft.world.inventory.CartographyTableMenu(0, inventory));
         Map<String, int[][]> positions = Map.of("grindstone", grindstone, "cartography_table", carto);
+        Map<String, int[][]> styled = new java.util.HashMap<>();
         StationStyles.SLOT_MOVES.forEach((id, moves) -> {
             int[][] moved = java.util.Arrays.stream(positions.get(id)).map(int[]::clone).toArray(int[][]::new);
             for (int[] m : moves) {
@@ -417,11 +426,15 @@ public final class ContainerTests {
                         + ", is " + slot.x + "/" + slot.y);
                 moved[m[0]][1] = m[3];
             }
-            BoxLayout.Layout l = station(id, moved, 2);
-            BoxLayout.Layout vanilla = id.equals("grindstone") ? two.get(id) : one.get(id);
-            h.assertTrue(l != null && l.variant() == vanilla.variant() && l.container().equals(vanilla.container()),
-                    id + ": moved slots keep the boxes");
+            styled.put(id, moved);
         });
+        BoxLayout.Layout grind = station("grindstone", styled.get("grindstone"), 2);
+        h.assertTrue(grind != null && grind.variant() == BoxLayout.Variant.TWO_BOXES && grind.container().equals(two.get("grindstone").container()),
+                "grindstone: moved slots keep the boxes");
+        BoxLayout.Layout map = station("cartography_table", styled.get("cartography_table"), 2, StationStyles.CARTO_EXTRA);
+        h.assertTrue(map != null && map.variant() == BoxLayout.Variant.TWO_BOXES, "styled cartography table: two boxes like the other tables");
+        rect(h, map.container(), 0, 0, 176, 93, "cartography container box below the map field");
+        rect(h, map.inventory(), 0, 95, 176, 87, "cartography inventory box");
         h.succeed();
     }
 
