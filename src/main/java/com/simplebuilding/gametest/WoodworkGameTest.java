@@ -15,6 +15,11 @@ public final class WoodworkGameTest {
     }
 
     @GameTest
+    public void endWoodsOnlyWithSimpleEnd(GameTestHelper helper) {
+        WoodworkTests.endWoodsOnlyWithSimpleEnd(helper);
+    }
+
+    @GameTest
     public void hollowLogsLetSmallMobsAndCrawlersThrough(GameTestHelper helper) {
         WoodworkTests.hollowLogsLetSmallMobsAndCrawlersThrough(helper);
     }
