@@ -2160,6 +2160,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("mob_head_game_test_extra_head_is_saved_kept_and_dropped_on_death", MobHeadTests::extraHeadIsSavedKeptAndDroppedOnDeath)
                     .build(),
+            GameTestSpec.named("mob_head_game_test_extra_head_death_and_respawn_keep_the_server_running", MobHeadTests::extraHeadDeathAndRespawnKeepTheServerRunning)
+                    .build(),
             GameTestSpec.named("mob_head_game_test_extra_head_effects_work_like_the_helmet_slot", MobHeadTests::extraHeadEffectsWorkLikeTheHelmetSlot)
                     .build(),
             GameTestSpec.named("mob_head_game_test_extra_head_attributes_and_freeze_work_like_the_helmet_slot", MobHeadTests::extraHeadAttributesAndFreezeWorkLikeTheHelmetSlot)

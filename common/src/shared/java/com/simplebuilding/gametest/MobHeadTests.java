@@ -567,6 +567,33 @@ public final class MobHeadTests {
         helper.succeed();
     }
 
+    /**
+     * BS25-19: a real death (not the drop step alone) with the soulfire blaze head in the extra head slot and on the helmet
+     * slot: the player dies, the extra head drops, the dead player ticks on until the respawn, and the respawned player lives.
+     */
+    public static void extraHeadDeathAndRespawnKeepTheServerRunning(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        Item head = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                net.minecraft.resources.Identifier.parse("simplemobheads:soulfire_blaze_head")).orElse(Items.CREEPER_HEAD);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.snapTo(helper.absoluteVec(new Vec3(2.5, 2.0, 2.5)));
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.getAbilities().invulnerable = false;
+        player.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
+        com.simplebuilding.util.ExtraHead.set(player, new ItemStack(head));
+        player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(head));
+        player.hurtServer(level, level.damageSources().lava(), 100000.0F);
+        helper.assertTrue(player.isDeadOrDying(), "the wearer did not die");
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "the dead player still has the extra head");
+        for (int i = 0; i < 40; i++) player.doTick();
+        ServerPlayer fresh = level.getServer().getPlayerList().respawn(player, false, net.minecraft.world.entity.Entity.RemovalReason.KILLED);
+        for (int i = 0; i < 3; i++) fresh.doTick();
+        helper.assertTrue(fresh.isAlive(), "the respawned player is not alive");
+        level.getServer().getPlayerList().remove(fresh);
+        long start = level.getGameTime();
+        helper.succeedWhen(() -> helper.assertTrue(level.getGameTime() >= start + 5, "the server stopped ticking"));
+    }
+
     /** Effects: a carved pumpkin calms endermen, mod heads keep their ability, a zombie head hides from zombies. */
     public static void extraHeadEffectsWorkLikeTheHelmetSlot(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 1.5));

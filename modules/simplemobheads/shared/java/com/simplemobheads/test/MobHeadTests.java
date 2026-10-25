@@ -1441,8 +1441,20 @@ public final class MobHeadTests {
         for (HeadDef head : MobHeads.heads()) {
             if (MobHeads.item(head.id()) != null && !ids.contains(head.id())) ids.add(head.id());
         }
-        var sources = List.of(level.damageSources().generic(), level.damageSources().inFire(), level.damageSources().onFire(),
-                level.damageSources().lava());
+        List<net.minecraft.world.damagesource.DamageSource> sources = new ArrayList<>(List.of(level.damageSources().generic(),
+                level.damageSources().inFire(), level.damageSources().onFire(), level.damageSources().lava()));
+        // With Simple Mobs: killed by a soulfire blaze, in melee and by its soul fireball (what SoulFireball#onHitEntity does).
+        Entity blaze = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse("simplemobs:soulfire_blaze"))
+                .map(type -> (Entity) type.create(level, EntitySpawnReason.MOB_SUMMONED)).orElse(null);
+        Entity ball = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.parse("simplemobs:soul_fireball"))
+                .map(type -> (Entity) type.create(level, EntitySpawnReason.MOB_SUMMONED)).orElse(null);
+        if (blaze instanceof LivingEntity living) {
+            blaze.snapTo(helper.absoluteVec(new Vec3(4.5, 2.0, 4.5)));
+            level.addFreshEntity(blaze);
+            sources.add(level.damageSources().mobAttack(living));
+            if (ball != null) sources.add(level.damageSources().fireball((net.minecraft.world.entity.projectile.hurtingprojectile.Fireball) ball, blaze));
+        }
+        var soulBurn = BuiltInRegistries.MOB_EFFECT.get(Identifier.parse("simplecrucibles:soul_burn"));
         for (String id : ids) {
             boolean soul = id.equals("soulfire_blaze");
             for (var source : soul ? sources : List.of(level.damageSources().generic())) {
@@ -1452,6 +1464,10 @@ public final class MobHeadTests {
                 // A mock player is invulnerable until its "client" says it loaded (ServerPlayer#isInvulnerableTo).
                 player.connection.handleAcceptPlayerLoad(new net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket());
                 wear(player, id);
+                if (soul) {
+                    player.igniteForSeconds(5.0F);
+                    soulBurn.ifPresent(burn -> player.addEffect(new MobEffectInstance(burn, 2400, 0)));
+                }
                 player.hurtServer(level, source, 100000.0F);
                 List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(16.0),
                         e -> e.getItem().is(MobHeads.item(id)));
@@ -1475,6 +1491,7 @@ public final class MobHeadTests {
                 }
             }
         }
+        if (blaze != null) blaze.discard();
         helper.assertTrue(problems.isEmpty(), "death with a worn head: " + problems);
         long start = level.getGameTime();
         helper.succeedWhen(() -> helper.assertTrue(level.getGameTime() >= start + 5, "the server stopped ticking"));
