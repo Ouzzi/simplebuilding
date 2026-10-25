@@ -84,6 +84,34 @@
       "requiredBy": []
     },
     {
+      "id": "distanthorizons",
+      "name": "Distant Horizons",
+      "purpose": "Far-away terrain (LOD) for Simple Earth",
+      "version": "${mc263_dev_dh_fabric}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "maven.modrinth:distanthorizons:${mc263_dev_dh_fabric}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
+      "id": "voxy",
+      "name": "Voxy",
+      "purpose": "Far-away terrain (LOD), needs Sodium",
+      "version": "${mc263_dev_voxy_fabric}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "maven.modrinth:voxy:${mc263_dev_voxy_fabric}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
       "id": "cloth_config",
       "name": "Cloth Config",
       "purpose": "Required SimpleBuilding configuration API",
@@ -1441,6 +1469,20 @@
       "environment": "client"
     },
     {
+      "id": "sodium",
+      "name": "Sodium",
+      "purpose": "Renderer that Voxy requires",
+      "version": "${mc263_dev_sodium_fabric}",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "sources": {
+        "fabric": {
+          "maven": "maven.modrinth:sodium:${mc263_dev_sodium_fabric}"
+        }
+      },
+      "requiredBy": []
+    },
+    {
       "id": "sodium-extra",
       "name": "Sodium Extra",
       "version": "0.9.4+mc26.3",
@@ -1456,27 +1498,6 @@
         "fabricloader": ">=0.19.5",
         "sodium": ">=0.9.2+mc26.3",
         "minecraft": "26.3"
-      },
-      "environment": "client"
-    },
-    {
-      "id": "sodium",
-      "name": "Sodium",
-      "version": "0.9.2+mc26.3",
-      "minecraft": "26.3",
-      "defaultEnabled": false,
-      "purpose": "Sodium is a powerful rendering engine for Minecraft which greatly improves frame rates and micro-stutter, while fixing many graphical issues",
-      "sources": {
-        "fabric": {
-          "local": "mc26_3/fabric/run/mods/sodium-fabric-0.9.2+mc26.3.jar"
-        }
-      },
-      "runtimeDependencies": {
-        "minecraft": "26.3.x",
-        "fabricloader": ">=0.16.0",
-        "fabric-block-getter-api-v2": "*",
-        "fabric-rendering-fluids-v1": ">=2.0.0",
-        "fabric-resource-loader-v0": "*"
       },
       "environment": "client"
     },

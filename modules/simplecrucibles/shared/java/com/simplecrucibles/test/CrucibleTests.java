@@ -757,7 +757,7 @@ public final class CrucibleTests {
         for (int n = 0; n < total; n++) {
             BlockPos at = new BlockPos(n % 80, 64, n / 80);
             var moved = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo(at, info.state(), null);
-            var out = list.get().value().list().get(0).processBlock(h.getLevel(), BlockPos.ZERO, at, moved, moved,
+            var out = list.get().value().list().get(0).processBlock(h.getLevel(), BlockPos.ZERO, at, at, moved,
                     new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings());
             if (out != null && out.state().is(Blocks.MAGMA_BLOCK)) magma++;
         }
