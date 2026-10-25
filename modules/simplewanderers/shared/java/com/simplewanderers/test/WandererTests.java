@@ -248,6 +248,8 @@ public final class WandererTests {
                 w.horseUpkeep(level);
                 h.assertTrue(w.horseId() == null, "not replaced at once");
                 w.horseLostAt(level.getGameTime() - WandererConfig.respawnTicks());
+                // The wanderer spawns up to 8 blocks from the bell, i.e. possibly on the arena rim; findSpot (3 blocks, 12 tries) then finds no floor. Stand him in the middle.
+                w.setPos(bell(h).getX() + 0.5, bell(h).getY(), bell(h).getZ() + 0.5);
                 h.assertTrue(w.spawnHorse(level) && level.getEntity(w.horseId()) instanceof WandererHorse fresh && fresh != horse && fresh.getLeashHolder() == w, "a new horse after the wait");
                 // Setting horse = false: no horse at all.
                 WandererConfig.horse = false;
