@@ -52,6 +52,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             toTheEdge(context, world);
             newVersions(context, world);
             phases(context, world);
+            round31(context, world);
             freeLook(context);
             topViewF5(context, world);
             // WE25-1: rain on the server, none on the client while the earth is shown
@@ -200,6 +201,28 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(30);
         float back = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.yawOffset());
         check(Math.abs(back) < 1, "free look released: camera back (" + back + ")");
+    }
+
+    /** E31-3/E31-4: V25/V26 after the fold seen from the side, and the atmosphere of rounded earths (V5, V27). */
+    private static void round31(ClientGameTestContext context, TestSingleplayerContext world) {
+        shotAt(context, world, 25, 300, 3400, 200, 35, "simpleearth-e31-v25-side");
+        shotAt(context, world, 25, 900, 3400, 950, 50, "simpleearth-e31-v25-corner");
+        shotAt(context, world, 26, 300, 3400, 200, 35, "simpleearth-e31-v26-side");
+        shotAt(context, world, 26, 900, 3400, 950, 50, "simpleearth-e31-v26-corner");
+        shotAt(context, world, 27, 300, 5000, 200, 40, "simpleearth-e31-atmo-v27");
+        shotAt(context, world, 5, 300, 5000, 200, 40, "simpleearth-e31-atmo-v5");
+        shotAt(context, world, 13, 300, 5000, 200, 40, "simpleearth-e31-atmo-v13");
+        version(context, 6);
+    }
+
+    private static void shotAt(ClientGameTestContext context, TestSingleplayerContext world, int v, double x, int y, double z, float pitch, String name) {
+        version(context, v);
+        world.getServer().runOnServer(server -> {
+            var p = server.getPlayerList().getPlayers().getFirst();
+            p.teleportTo(p.level(), x, y, z, java.util.Set.of(), 30, pitch, false);
+        });
+        context.waitTicks(60);
+        context.takeScreenshot(name);
     }
 
     /**

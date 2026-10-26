@@ -82,7 +82,7 @@ public final class EarthRenderer {
         double edge = EarthClient.edge();
         double h = EarthClient.eyeHeight(camera.y);
         ViewParams params = EarthClientConfig.params(edge);
-        params.set("eyeHeight", h).set("heightFraction", EarthClient.heightFraction(camera.y)).set("aboveSwitch", camera.y - EarthClient.switchY);
+        params.set("renderDistance", EarthClientConfig.render("renderDistance")).set("eyeHeight", h).set("heightFraction", EarthClient.heightFraction(camera.y)).set("aboveSwitch", camera.y - EarthClient.switchY);
         Scene scene = view.step(EarthClient.relX(partial), EarthClient.relZ(partial), dt, params);
         V3 eye = scene.contact.add(new V3(0, Math.max(0.02, h - scene.eyeDrop), 0));
         int renderBlocks = mc.options.getEffectiveRenderDistance() * 16;
@@ -128,14 +128,17 @@ public final class EarthRenderer {
     }
 
     /** Tile ring of a piece: 0 = the tile under the player, 1 = its neighbours, 2 = the far ring and the cube bottom. */
+    /** Tile rings the renderer knows (E31-1: render distance up to 5). */
+    static final int MAX_RING = 5;
+
     static int ring(Patch p) {
-        return Math.min(2, Math.max(Math.abs(p.tx), Math.abs(p.tz)));
+        return Math.min(MAX_RING, Math.max(Math.abs(p.tx), Math.abs(p.tz)));
     }
 
     private static FaceTextures.Context[] contexts(double edge, double h, double relief, double foldRadius, double px, double pz) {
-        int[] res = TileMath.ringPixels((int) EarthClientConfig.get("detail"), (int) EarthClientConfig.render("detailRange"));
-        FaceTextures.Context[] out = new FaceTextures.Context[3];
-        for (int r = 0; r < 3; r++) {
+        int[] res = TileMath.ringPixels((int) EarthClientConfig.get("detail"), EarthClientConfig.render("detailRange"), MAX_RING + 1);
+        FaceTextures.Context[] out = new FaceTextures.Context[MAX_RING + 1];
+        for (int r = 0; r <= MAX_RING; r++) {
             int e = Math.max(EarthClient.minGrid(), TileMath.exponentFor(edge, res[r]));
             out[r] = new FaceTextures.Context(EarthClient.ax(), EarthClient.az(), edge, Math.min(TileMath.MAX_E, e), EarthClient.seaLevel(),
                     relief, foldRadius, res[r], px, pz);

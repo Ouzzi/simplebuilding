@@ -62,9 +62,14 @@ public final class TileMath {
      * under the player and its {@code range} rings; each ring further half as many (at least 1), at most {@link #MAX_RES}.
      * The samples come from the power-of-two grid nearest to edge / n (the server's minGrid permitting).
      */
-    public static int[] ringPixels(int n, int range) {
-        int[] out = new int[3];
-        for (int r = 0; r < 3; r++) out[r] = Math.max(1, Math.min(MAX_RES, n >> Math.max(0, r - range)));
+    public static int[] ringPixels(int n, double range) {
+        return ringPixels(n, range, 3);
+    }
+
+    /** {@link #ringPixels(int, double)} for {@code rings} rings; a fractional range halves gradually (E31-2: 1.5 = ring 2 at 1/sqrt 2). */
+    public static int[] ringPixels(int n, double range, int rings) {
+        int[] out = new int[rings];
+        for (int r = 0; r < rings; r++) out[r] = (int) Math.max(1, Math.min(MAX_RES, Math.round(n / Math.pow(2, Math.max(0, r - range)))));
         return out;
     }
 

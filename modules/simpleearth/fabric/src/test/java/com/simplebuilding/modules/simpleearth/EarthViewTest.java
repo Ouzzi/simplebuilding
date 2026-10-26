@@ -314,4 +314,24 @@ class EarthViewTest {
             assertTrue(s.orientation.rotate(dirs[k]).distance(V3.UP) < 0.01, "lands over " + new String[]{"a face middle", "an edge", "a corner"}[k]);
         }
     }
+
+    @Test
+    void foldedWorldStaysACube() {
+        // E31-3: after the fold every visible piece lies on the cube (the diagonal tiles and the extra outer tiles used to fold
+        // into sticks and sheets beyond it)
+        ViewParams up = params().set("aboveSwitch", 99999).set("fadeBand", 128);
+        for (int ver : new int[]{25, 26}) {
+            for (double[] at : new double[][]{{0.3, 0.2}, {0.9, -0.7}, {-0.95, 0.95}}) {
+                Scene s = EarthView.create(ver).step(at[0] * H, at[1] * H, DT, up);
+                for (Patch p : s.patches) {
+                    if (p.alpha <= 0.01) continue;
+                    for (V3 v : p.pos) {
+                        V3 b = s.orientation.conjugate().rotate(v.sub(s.bodyOffset));
+                        double m = Math.max(Math.abs(b.x()), Math.max(Math.abs(b.y()), Math.abs(b.z())));
+                        assertTrue(m < 1.0 + 1e-6, "V" + ver + " at " + at[0] + "/" + at[1] + ": piece " + p.tx + "/" + p.tz + " outside the cube " + b);
+                    }
+                }
+            }
+        }
+    }
 }

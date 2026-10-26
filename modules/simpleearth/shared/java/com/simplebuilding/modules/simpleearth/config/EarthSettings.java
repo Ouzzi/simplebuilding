@@ -47,8 +47,9 @@ public final class EarthSettings {
      * {@code detail} 2 = the resolution before 25.10. ({@code faceResolution}), 3 (standard) twice as fine near the player.
      */
     public static final List<Setting> RENDER = List.of(
-            i("detailRange", 0, 2, 0, 1),
-            i("renderDistance", 1, 2, 2, 1),
+            // E31-1/E31-2: up to 5 tile rings; the detail range in steps of 0.1 (1.1, 1.2 ...)
+            d("detailRange", 0, 5, 0, 0.1),
+            i("renderDistance", 1, 5, 2, 1),
             i("paintBudget", 16, 2048, 192, 16),
             i("textureCache", 16, 256, 64, 8),
             i("tileCache", 256, 16384, 2048, 256),
