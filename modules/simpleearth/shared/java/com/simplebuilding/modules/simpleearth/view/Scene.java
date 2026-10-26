@@ -30,6 +30,8 @@ public final class Scene {
      * lowers the eye by it so the eye keeps the same distance from the earth's centre - an orbit.
      */
     public double eyeDrop;
+    /** E31-4: the body is a rounded cube |x|^e + |y|^e + |z|^e = 1 with this exponent (0 = a plain cube): the atmosphere follows it. */
+    public double bodyExponent;
     public String event = "";
 
     public void line(V3 a, V3 b, double alpha, int argb) {

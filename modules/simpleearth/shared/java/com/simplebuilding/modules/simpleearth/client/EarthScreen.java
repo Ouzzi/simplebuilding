@@ -41,7 +41,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     static final int ROW = 24, PAD = 8;
     /** Panel width: 300 (E29-6, room for the favourites row), less in very narrow windows. */
     private int W = 300;
-    private int panelX, panelY, panelH, listTop, listBottom;
+    private int panelX, panelY, panelH, listTop, listBottom, descY;
     private SettingsList list;
     private final List<Button> versionButtons = new ArrayList<>();
     private Button resetButton, doneButton;
@@ -59,13 +59,17 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         panelH = Math.min(height - 12, 320);
         panelX = width - W - 6;
         panelY = Math.max(6, (height - panelH) / 2);
+        // E31-5: every setting in ONE list right under the title; the version choice and its description below it
+        int by = panelY + panelH - 26;
+        descY = by - 34;
+        int dropY = descY - 23, favY = dropY - 21;
         versionButtons.clear();
         // E29-6: the favourites (V5 and the new V13-V24) as direct buttons in one row, V1-V12 in a drop-down below
         int[] fav = EarthSettings.FAVOURITES;
         int bx = panelX + PAD, bw = (W - 2 * PAD) / fav.length;
         for (int k = 0; k < fav.length; k++) {
             int ver = fav[k];
-            Button b = Button.builder(Component.literal("V" + ver), btn -> select(ver)).bounds(bx + k * bw, panelY + 20, bw - 1, 20)
+            Button b = Button.builder(Component.literal("V" + ver), btn -> select(ver)).bounds(bx + k * bw, favY, bw - 1, 20)
                     .tooltip(Tooltip.create(Component.translatable("simpleearth.version." + ver + ".name")
                             .append("\n").append(Component.translatable("simpleearth.version." + ver + ".desc")))).build();
             versionButtons.add(addRenderableWidget(b));
@@ -77,11 +81,10 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         int now = favourite(EarthClientConfig.version) ? 0 : EarthClientConfig.version;
         olderVersions = addRenderableWidget(CycleButton.builder((Integer v) -> Component.literal(v == 0 ? "-" : "V" + v), now)
                 .withValues(older)
-                .create(panelX + PAD, panelY + 42, W - 2 * PAD, 20, Component.translatable("simpleearth.screen.older"), (button, v) -> {
+                .create(panelX + PAD, dropY, W - 2 * PAD, 20, Component.translatable("simpleearth.screen.older"), (button, v) -> {
                     if (v != 0) select(v);
                 }));
         olderVersions.setTooltip(Tooltip.create(Component.translatable("simpleearth.screen.older.tip")));
-        int by = panelY + panelH - 26;
         resetButton = addRenderableWidget(Button.builder(Component.translatable("simpleearth.screen.reset"), b -> {
             EarthClientConfig.resetVersion(EarthClientConfig.version);
             EarthClientConfig.resetRender();
@@ -89,8 +92,8 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
             rebuild();
         }).bounds(panelX + PAD, by, 96, 20).tooltip(Tooltip.create(Component.translatable("simpleearth.screen.reset.tip"))).build());
         doneButton = addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(panelX + W - PAD - 96, by, 96, 20).build());
-        listTop = panelY + 104;
-        listBottom = by - 6;
+        listTop = panelY + 22;
+        listBottom = favY - 6;
         list = addRenderableWidget(new SettingsList(minecraft, W - 2 * PAD, Math.max(ROW, listBottom - listTop), listTop));
         list.setX(panelX + PAD);
         rebuild();
@@ -114,15 +117,10 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         double keep = list.scrollAmount();
         List<Row> entries = new ArrayList<>();
         int v = EarthClientConfig.version;
-        entries.add(new Row(Component.translatable("simpleearth.screen.render"), null, null));
+        // one block: the important shared values first (edge, render height, blend band, detail ...), the version's own values,
+        // then the display values
+        for (EarthSettings.Setting s : EarthSettings.forVersion(v)) entries.add(control(s, false));
         for (EarthSettings.Setting s : EarthSettings.RENDER) entries.add(control(s, true));
-        entries.add(new Row(Component.translatable("simpleearth.screen.shared"), null, null));
-        int shared = EarthSettings.SHARED.size();
-        List<EarthSettings.Setting> all = EarthSettings.forVersion(v);
-        for (int i = 0; i < all.size(); i++) {
-            if (i == shared) entries.add(new Row(Component.translatable("simpleearth.screen.own", "V" + v), null, null));
-            entries.add(control(all.get(i), false));
-        }
         list.replaceEntries(entries);
         list.setScrollAmount(keep);
         for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = EarthSettings.FAVOURITES[i] != v;
@@ -261,7 +259,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         int v = EarthClientConfig.version;
         Component name = Component.translatable("simpleearth.version." + v + ".name");
         g.text(font, name, panelX + W - PAD - font.width(name), panelY + 8, SECONDARY_TEXT, false);
-        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, panelY + 64, W - 2 * PAD, SECONDARY_TEXT, false);
+        g.textWithWordWrap(font, Component.translatable("simpleearth.version." + v + ".desc"), panelX + PAD, descY, W - 2 * PAD, SECONDARY_TEXT, false);
         UiBoxes.insetColored(g, panelX + PAD - 1, listTop - 2, W - 2 * PAD + 2, listBottom - listTop + 4, UiPalette.INVENTORY, LIST_BG);
         super.extractRenderState(g, mouseX, mouseY, delta);
     }

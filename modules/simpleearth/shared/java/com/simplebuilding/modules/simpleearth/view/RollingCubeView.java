@@ -90,6 +90,7 @@ final class RollingCubeView extends EarthView {
         if (crossed && (diagonal || Math.min(au, av) > 0.85)) s.fadeStart = true;
         lastBottom = bottomKey;
         s.orientation = shown;
+        if (smooth) s.bodyExponent = exponent(p);
         s.bodyOffset = offset;
         s.contact = smooth ? V3.UP : pc;
         return s;

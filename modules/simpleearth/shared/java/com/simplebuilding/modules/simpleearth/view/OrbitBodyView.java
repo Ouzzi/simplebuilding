@@ -126,6 +126,7 @@ final class OrbitBodyView extends EarthView {
         if (crossed && (diagonal || Math.min(au, av) > 0.85)) s.fadeStart = true;
         lastBottom = bottomKey;
         s.orientation = q;
+        if (shape == Shape.SUPER) s.bodyExponent = exponent(p);
         s.bodyOffset = V3.ZERO;
         // the ground straight below the eye; the eye stays 1 + h from the centre (constant distance - an orbit)
         V3 ground = q.rotate(project(new V3(cu, 1, cv).normalize(), p).mul(1 / 1.004));

@@ -229,13 +229,17 @@ public final class EarthRenderer {
         V3 center = scene.bodyOffset;
         collector.submitCustomGeometry(poseStack, RenderTypes.text(WHITE), (pose, buffer) -> {
             for (int f = 0; f < 6; f++) {
-                Patch shell = Meshes.cubeFace(f, 0.12, 6).transform(q, V3.ZERO).scale(1.075 * scene.bodyScale);
+                // E31-4: a rounded earth gets a rounded atmosphere (the shell follows the body's curvature)
+                Patch shell = (scene.bodyExponent > 0 ? Meshes.superFace(f, scene.bodyExponent, 16) : Meshes.cubeFace(f, 0.12, 6))
+                        .transform(q, V3.ZERO).scale(1.075 * scene.bodyScale);
                 int cols = shell.cols;
                 float[] xyz = new float[shell.pos.length * 3];
                 int[] argb = new int[shell.pos.length];
                 for (int k = 0; k < shell.pos.length; k++) {
                     V3 at = shell.pos[k].add(center);
-                    V3 n = shell.pos[k].normalize();
+                    V3 n = scene.bodyExponent > 0
+                            ? q.rotate(Meshes.seNormal(q.conjugate().rotate(shell.pos[k]).mul(1 / (1.075 * scene.bodyScale)), scene.bodyExponent))
+                            : shell.pos[k].normalize();
                     V3 toEye = eye.sub(at).normalize();
                     double rim = Math.pow(1 - Math.abs(n.dot(toEye)), 2.6);
                     rim = Math.floor(rim * 5) / 5;
