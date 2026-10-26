@@ -38,6 +38,8 @@ public final class EarthScreen extends Screen {
     private boolean missLogged, polledDown, pollHandled, polledLogged, scrollDragging;
     private long lastEventPress, pollPressAt;
     private int polled;
+    /** GLFW through reflection: LWJGL is on the game's class path, not on this module's compile path. */
+    private static java.lang.reflect.Method glfwButton, glfwCursor;
     private long lastSend;
     private boolean serverDirty;
 
@@ -321,9 +323,19 @@ public final class EarthScreen extends Screen {
     private void pollMouse() {
         if (minecraft == null) return;
         long handle = minecraft.getWindow().handle();
-        boolean down = org.lwjgl.glfw.GLFW.glfwGetMouseButton(handle, org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT) == org.lwjgl.glfw.GLFW.GLFW_PRESS;
         double[] cx = new double[1], cy = new double[1];
-        org.lwjgl.glfw.GLFW.glfwGetCursorPos(handle, cx, cy);
+        boolean down;
+        try {
+            if (glfwButton == null) {
+                Class<?> glfw = Class.forName("org.lwjgl.glfw.GLFW");
+                glfwButton = glfw.getMethod("glfwGetMouseButton", long.class, int.class);
+                glfwCursor = glfw.getMethod("glfwGetCursorPos", long.class, double[].class, double[].class);
+            }
+            down = (int) glfwButton.invoke(null, handle, 0) == 1; // GLFW_MOUSE_BUTTON_LEFT, GLFW_PRESS
+            glfwCursor.invoke(null, handle, cx, cy);
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            return;
+        }
         var w = minecraft.getWindow();
         double x = cx[0] * w.getGuiScaledWidth() / Math.max(1, w.getScreenWidth()), y = cy[0] * w.getGuiScaledHeight() / Math.max(1, w.getScreenHeight());
         long now = System.currentTimeMillis();

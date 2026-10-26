@@ -24,7 +24,6 @@ public final class EarthFabricClient implements ClientModInitializer {
         };
         ClientPlayNetworking.registerGlobalReceiver(OrbitStatePayload.TYPE, (p, c) -> c.client().execute(() -> EarthClient.receive(p)));
         ClientPlayNetworking.registerGlobalReceiver(EarthTilePayload.TYPE, (p, c) -> c.client().execute(() -> EarthClient.receive(p)));
-        ClientTickEvents.START_CLIENT_TICK.register(EarthClient::startTick);
         ClientTickEvents.END_CLIENT_TICK.register(EarthClient::endTick);
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> client.execute(EarthClient::joined));
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> client.execute(EarthClient::left));
