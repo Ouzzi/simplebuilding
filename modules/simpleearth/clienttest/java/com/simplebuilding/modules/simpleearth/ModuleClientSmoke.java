@@ -216,7 +216,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         StringBuilder curve = new StringBuilder("[earth-measure] E30 curve over the face middle (y: blend/fold):");
         double lastFold = -1;
         boolean monotone = true;
-        for (int y = 1500; y <= 3000; y += 75) {
+        for (int y = 1545; y <= 3000; y += 75) {
             int yy = y;
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();

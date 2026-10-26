@@ -166,7 +166,7 @@ def main():
             command('scrollTo', key='detail')
             st = status()
             if 'detail' in st['rects']:
-                ptr.click(*at(st, 'detail', 0.08))
+                ptr.click(*at(st, 'detail', 0.02))
                 st = status()
                 check(f'{tag}: click detail slider near the left end', st['values']['detail'] == 1, f'detail {st["values"]["detail"]}')
             else:
