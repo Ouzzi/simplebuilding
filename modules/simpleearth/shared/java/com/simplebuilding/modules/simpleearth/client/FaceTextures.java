@@ -138,7 +138,7 @@ public final class FaceTextures {
             for (int i = 0; i < n; i++) {
                 int c = a.pixel(key.tx(), key.tz(), key.mirror(), i, j, n, key);
                 if (b != null) c = blend(c, b.pixel(key.mtx(), key.mtz(), key.mmirror(), i, j, n, key), w);
-                if (i == 0 || j == 0 || i == n - 1 || j == n - 1) c = scale(c, edgeShade); // 1 px edge in map shadow colour
+                if (n >= 8 && (i == 0 || j == 0 || i == n - 1 || j == n - 1)) c = scale(c, edgeShade); // 1 px edge in map shadow colour
                 img.setPixel(i, j, c);
             }
             budget -= n;

@@ -82,7 +82,7 @@ public final class EarthRenderer {
         double edge = EarthClient.edge();
         double h = EarthClient.eyeHeight(camera.y);
         ViewParams params = EarthClientConfig.params(edge);
-        params.set("eyeHeight", h).set("heightFraction", EarthClient.heightFraction(camera.y));
+        params.set("eyeHeight", h).set("heightFraction", EarthClient.heightFraction(camera.y)).set("aboveSwitch", camera.y - EarthClient.switchY);
         Scene scene = view.step(EarthClient.relX(partial), EarthClient.relZ(partial), dt, params);
         V3 eye = scene.contact.add(new V3(0, Math.max(0.02, h - scene.eyeDrop), 0));
         int renderBlocks = mc.options.getEffectiveRenderDistance() * 16;
@@ -133,8 +133,7 @@ public final class EarthRenderer {
     }
 
     private static FaceTextures.Context[] contexts(double edge, double h, double relief, double foldRadius, double px, double pz) {
-        int[] res = TileMath.ringResolutions(edge, h, (int) EarthClientConfig.get("faceResolution"), (int) EarthClientConfig.render("detail"),
-                (int) EarthClientConfig.render("detailRange"), EarthClient.minGrid());
+        int[] res = TileMath.ringPixels((int) EarthClientConfig.get("detail"), (int) EarthClientConfig.render("detailRange"));
         FaceTextures.Context[] out = new FaceTextures.Context[3];
         for (int r = 0; r < 3; r++) {
             int e = Math.max(EarthClient.minGrid(), TileMath.exponentFor(edge, res[r]));

@@ -72,7 +72,12 @@ public final class MenuProbe {
                     case "scrollTo" -> {
                         if (mc.gui.screen() instanceof Target t) t.probeScrollTo(c.get("key").getAsString());
                     }
-                    case "set" -> EarthClientConfig.setRender(c.get("key").getAsString(), c.get("value").getAsDouble());
+                    case "set" -> {
+                        String key = c.get("key").getAsString();
+                        if (com.simplebuilding.modules.simpleearth.config.EarthSettings.findRender(key) != null) EarthClientConfig.setRender(key, c.get("value").getAsDouble());
+                        else EarthClientConfig.set(EarthClientConfig.version, key, c.get("value").getAsDouble());
+                        if (mc.gui.screen() instanceof EarthScreen) mc.gui.setScreen(new EarthScreen());
+                    }
                     case "version" -> {
                         EarthClientConfig.version = c.get("value").getAsInt();
                         if (mc.gui.screen() instanceof EarthScreen) mc.gui.setScreen(new EarthScreen());
@@ -103,13 +108,14 @@ public final class MenuProbe {
         o.addProperty("mouseX", mc.mouseHandler.xpos());
         o.addProperty("mouseY", mc.mouseHandler.ypos());
         JsonObject values = new JsonObject();
-        for (String k : new String[]{"detail", "faceEdge", "moonPhases", "paintBudget"}) values.addProperty(k, EarthClientConfig.render(k));
+        for (String k : new String[]{"faceEdge", "moonPhases", "paintBudget"}) values.addProperty(k, EarthClientConfig.render(k));
+        values.addProperty("detail", EarthClientConfig.get("detail"));
         values.addProperty("tipTime", EarthClientConfig.get(10, "tipTime"));
         o.add("values", values);
         if (mc.gui.screen() instanceof Target t) {
             JsonObject r = new JsonObject();
-            r.add("v13", rect(t.probeVersionButton(13), scale));
-            r.add("v17", rect(t.probeVersionButton(17), scale));
+            r.add("v25", rect(t.probeVersionButton(25), scale));
+            r.add("v26", rect(t.probeVersionButton(26), scale));
             r.add("older", rect(t.probeVersionButton(1), scale));
             r.add("reset", rect(t.probeButton(true), scale));
             r.add("done", rect(t.probeButton(false), scale));

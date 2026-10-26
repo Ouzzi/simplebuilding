@@ -13,14 +13,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * Server side of the orbit (concept §6.2, E4; WG26-1 owner 26.10.: no parking). Above the activation height the point
- * (x, z) becomes the fixed centre A of the player's earth; from then on the player moves freely - creative flight, elytra,
- * anything - and where he is relative to A is where he is over the earth, like a map: with an edge of 2048 blocks, 1024
- * blocks north/east/south/west the face edge lies under him. Nothing holds, pulls back or teleports the player; below the
- * activation height everything is Vanilla again. Only players whose client has Simple Earth take part.
+ * Server side of the orbit (concept §6.2; WG26-1 owner 26.10.: no parking; E30-1: no activation height). World 0 ~ 0 is the
+ * centre of the earth's top face; from the render height on the player's place over the earth is simply his x/z relative to
+ * 0 ~ 0, like a map: with an edge of 2048 blocks, 1024 blocks north/east/south/west the face edge lies under him. Nothing
+ * holds, pulls back or teleports the player; below the render height everything is Vanilla again. Only players whose
+ * client has Simple Earth take part.
  */
 public final class OrbitTracker {
-    /** Below the activation height by this many blocks before switching off (no flicker). */
+    /** Below the render height by this many blocks before switching off (no flicker). */
     public static final int HYSTERESIS = 16;
     private static final Map<UUID, State> STATES = new HashMap<>();
 
@@ -32,10 +32,10 @@ public final class OrbitTracker {
         int sendIn;
         boolean dirty = true;
 
-        /** Applies (and clamps) a client wish. */
+        /** Applies (and clamps) a client wish; E30-1: no activation height of its own - the orbit starts at the render height. */
         public void configure(int activation, int sw, int e, int maxBuildY) {
-            activationY = EarthServerConfig.activationY(activation, maxBuildY);
-            switchY = EarthServerConfig.switchY(sw, activationY);
+            switchY = EarthServerConfig.renderHeight(sw, maxBuildY);
+            activationY = switchY;
             edge = EarthServerConfig.edge(e);
             dirty = true;
         }
@@ -90,8 +90,9 @@ public final class OrbitTracker {
         if (!s.active) {
             if (y >= s.activationY && (!EarthServerConfig.requireFlight || flying(player))) {
                 s.active = true;
-                s.ax = centre(player.getX(), s.edge);
-                s.az = centre(player.getZ(), s.edge);
+                // E30-1: world 0 ~ 0 is the centre of the top face, nothing is remembered
+                s.ax = 0;
+                s.az = 0;
                 s.dirty = true;
             }
         } else if (y < s.activationY - HYSTERESIS) {
@@ -109,10 +110,6 @@ public final class OrbitTracker {
         if (s.dirty || --s.sendIn <= 0) send(player, s);
     }
 
-    /** E4: the cube centre for a crossing at {@code c} - there (standard) or the nearest point of the global edge grid. */
-    public static double centre(double c, int edge) {
-        return EarthServerConfig.globalGrid ? Math.round(c / edge) * (double) edge : c;
-    }
 
     /** E5 with {@code requireFlight}: creative flight or elytra. */
     static boolean flying(ServerPlayer player) {

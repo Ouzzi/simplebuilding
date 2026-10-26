@@ -68,3 +68,17 @@ alles von E1–E12 konfigurierbar, N7/N8 Farbtabelle jetzt bauen; N4: V7–V9 bl
 - **N12 Detail-Standard:** Stufe 3 (128 Blöcke/Pixel unter dir) → a) passt · b) Stufe 4 (64, lädt ~4× mehr Kacheln) · c) Stufe 2 (bisher)
 - **N13 V10–V12:** welche behalten? (Bilder in der Vorschau `wd25earth-preview.html`)
 - **N14 Badlands-Bänder:** feste Bandfolge (Vanilla würfelt sie je Seed) → a) passt · b) Seed-abhängig nachbauen
+
+## Stand 26.10. nachmittags (E30, Branch `b-earth30`)
+- **Aktivierungshöhe entfällt (E30-1):** Weltkoordinate 0 ~ 0 ist die Mitte der oberen Würfelfläche; ab der Render-Höhe zählt nur
+  x/z relativ zu 0 ~ 0 und die Kantenlänge. (E4 „Würfelmitte je Spieler“ und die Option `globalGrid` sind damit erledigt.)
+- **Wichtigste Regler oben (E30-2):** Kantenlänge, Render-Höhe, Blend-Band, Detailstufe (n = Kante in n Pixeln, 1 … 1024, frei).
+- **Ablauf beim Hochfliegen (E30-3):** unter der Render-Höhe Vanilla; Phase A Blend (Blend-Band, weich); Phase B Falten
+  (`foldBand`, Kurve `easing`); über einer Ecke eigenes Band/Kurve (`cornerFoldBand`, `cornerEasing`).
+- **V25–V27 (E30-4)** direkt wählbar, alle übrigen im Aufklapp-Knopf; Standard jetzt **V25** (vorher V6).
+
+### Neue Fragen
+- **N15 Kante im Beispiel:** „Kante 512, Start 512~0 → Kantenmitte“ passt, wenn die Kantenlänge die ganze Flächenbreite ist und
+  0 ~ 0 die Flächenmitte: dann liegt die Kantenmitte bei 256~0 (bei Kante 512) bzw. 512~0 bei Kante 1024. Gebaut ist: Kante =
+  ganze Flächenbreite. → a) passt · b) Kantenlänge soll Mitte→Kante bedeuten (Würfel doppelt so breit)
+- **N16 Standard V25** statt V6 → a) passt · b) V6 bleibt Standard

@@ -51,6 +51,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             elytraGlide(context, world);
             toTheEdge(context, world);
             newVersions(context, world);
+            phases(context, world);
             freeLook(context);
             topViewF5(context, world);
             // WE25-1: rain on the server, none on the client while the earth is shown
@@ -82,7 +83,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             detail(context, 1, 120, "simpleearth-detail-1");
             detail(context, 3, 300, "simpleearth-detail-3");
             detail(context, 5, 500, "simpleearth-detail-5");
-            context.runOnClient(mc -> EarthClientConfig.setRender("detail", 3));
+            context.runOnClient(mc -> EarthClientConfig.set(EarthClientConfig.version, "detail", 256));
             context.getInput().holdKeyFor(o -> o.keyUp, 100);
             context.waitTicks(60);
             context.takeScreenshot("simpleearth-glide-v6");
@@ -199,6 +200,54 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(30);
         float back = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.yawOffset());
         check(Math.abs(back) < 1, "free look released: camera back (" + back + ")");
+    }
+
+    /**
+     * E30-3: V25's flight phases over a face middle (0 ~ 0), an edge middle (x = edge / 2) and a corner: below the render
+     * height, in the blend band, half folded, final; and the measured curve (blend and fold by height) over the face middle.
+     */
+    private static void phases(ClientGameTestContext context, TestSingleplayerContext world) {
+        version(context, 25);
+        int half = context.computeOnClient(mc -> EarthClient.edge()) / 2;
+        phaseShots(context, world, 0, 0, 0, "simpleearth-e30-centre-below", "simpleearth-e30-centre-blend", "simpleearth-e30-centre-fold", "simpleearth-e30-centre-final");
+        phaseShots(context, world, half, 0, 0, "simpleearth-e30-edge-below", "simpleearth-e30-edge-blend", "simpleearth-e30-edge-fold", "simpleearth-e30-edge-final");
+        phaseShots(context, world, half, half, 1, "simpleearth-e30-corner-below", "simpleearth-e30-corner-blend", "simpleearth-e30-corner-fold", "simpleearth-e30-corner-final");
+        // the curve over the face middle
+        StringBuilder curve = new StringBuilder("[earth-measure] E30 curve over the face middle (y: blend/fold):");
+        double lastFold = -1;
+        boolean monotone = true;
+        for (int y = 1500; y <= 3000; y += 75) {
+            int yy = y;
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.teleportTo(p.level(), 0.5, yy, 0.5, java.util.Set.of(), 0, 90, false);
+            });
+            context.waitTicks(6);
+            double[] ph = context.computeOnClient(mc -> EarthClient.view() instanceof com.simplebuilding.modules.simpleearth.view.EarthView v
+                    ? com.simplebuilding.modules.simpleearth.view.FoldWorldViews.phases(v) : new double[]{-1, -1});
+            curve.append(String.format(java.util.Locale.ROOT, " %d:%.2f/%.2f", y, ph[0], ph[1]));
+            if (ph[1] < lastFold - 1e-6) monotone = false;
+            lastFold = ph[1];
+        }
+        System.out.println(curve);
+        check(monotone && lastFold > 0.99, "E30 fold rises steadily to the cube over the face middle");
+        version(context, 6);
+    }
+
+    private static void phaseShots(ClientGameTestContext context, TestSingleplayerContext world, double x, double z, int corner,
+                                   String below, String blend, String fold, String fin) {
+        int sw = 1536, band = 128, foldBand = corner == 1 ? 2048 : 1024;
+        int[] heights = {sw - 100, sw + band / 2, sw + band + foldBand / 2, sw + band + foldBand + 300};
+        String[] names = {below, blend, fold, fin};
+        for (int k = 0; k < 4; k++) {
+            int y = heights[k];
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.teleportTo(p.level(), x + 0.5, y, z + 0.5, java.util.Set.of(), 0, 90, false);
+            });
+            context.waitTicks(k == 0 ? 30 : 50);
+            context.takeScreenshot(names[k]);
+        }
     }
 
     /** E29-5: each new version at the tile centre, near an edge and near a corner (y 3000, looking straight down). */
@@ -350,7 +399,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
 
     /** Sets the detail level, waits for the tiles and takes a screenshot (literal names for the runner). */
     private static void detail(ClientGameTestContext context, int level, int ticks, String name) {
-        context.runOnClient(mc -> EarthClientConfig.setRender("detail", level));
+        context.runOnClient(mc -> EarthClientConfig.set(EarthClientConfig.version, "detail", level == 1 ? 16 : level == 3 ? 256 : 1024));
         context.waitTicks(ticks);
         context.takeScreenshot(name);
     }

@@ -57,6 +57,17 @@ public final class TileMath {
         return out;
     }
 
+    /**
+     * E30-2 detail level: n = the edge in n pixels (n x n per face, 1 = one colour per face), exactly as set for the tile
+     * under the player and its {@code range} rings; each ring further half as many (at least 1), at most {@link #MAX_RES}.
+     * The samples come from the power-of-two grid nearest to edge / n (the server's minGrid permitting).
+     */
+    public static int[] ringPixels(int n, int range) {
+        int[] out = new int[3];
+        for (int r = 0; r < 3; r++) out[r] = Math.max(1, Math.min(MAX_RES, n >> Math.max(0, r - range)));
+        return out;
+    }
+
     public static long key(int e, int tx, int tz) {
         return ((long) e << 58) ^ (((long) tx & 0x1FFFFFFFL) << 29) ^ ((long) tz & 0x1FFFFFFFL);
     }

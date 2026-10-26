@@ -56,18 +56,18 @@ public final class EarthTests {
             EarthServerConfig.reset();
             h.assertTrue(EarthServerConfig.enabled && !EarthServerConfig.exploredOnly && EarthServerConfig.showOthers, "E8/E9 defaults");
             h.assertTrue(EarthServerConfig.dimensions.equals(List.of("minecraft:overworld")), "E7: Overworld only");
-            h.assertTrue(EarthServerConfig.activationY(100, 320) == 384 && EarthServerConfig.activationY(2000, 320) == 2000,
-                    "server floor 384 = build height + 64 (E29-7), wishes above it kept");
-            h.assertTrue(EarthServerConfig.activationY(500, 1200) == 1264, "never below build height + 64");
-            h.assertTrue(EarthServerConfig.switchY(1000, 1024) == 1056, "switch at least 32 above activation (E29-7)");
+            h.assertTrue(EarthServerConfig.renderHeight(100, 320) == 384 && EarthServerConfig.renderHeight(2000, 320) == 2000,
+                    "render height floor 384 = build height + 64, wishes above it kept (E30-1: no activation height)");
+            h.assertTrue(EarthServerConfig.renderHeight(500, 1200) == 1264, "never below build height + 64");
             h.assertTrue(EarthServerConfig.edge(1) == 64 && EarthServerConfig.edge(99_999_999) == 1048576, "edge 64..1048576 (E1, E29-7)");
-            h.assertTrue(EarthClientConfig.version == EarthSettings.DEFAULT_VERSION && EarthSettings.DEFAULT_VERSION == 6, "standard V6");
-            h.assertTrue(EarthSettings.VERSIONS == 24 && EarthSettings.FAVOURITES.length == 13, "V1-V24 (WD25-17, E29-5), favourites row (E29-6)");
+            h.assertTrue(EarthSettings.DEFAULT_VERSION == 25, "standard V25 (E30)");
+            h.assertTrue(EarthSettings.VERSIONS == 27 && EarthSettings.FAVOURITES.length == 3, "V1-V27, favourites V25-V27 (E30-4)");
             h.assertTrue(EarthServerConfig.minGrid == 3 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
-                    && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight
-                    && EarthServerConfig.fastHeights, "WD25-16 server defaults (E4 per player, E5 any flight)");
+                    && !EarthServerConfig.requireFlight
+                    && EarthServerConfig.fastHeights, "WD25-16 server defaults (E5 any flight)");
             for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
-                h.assertTrue(EarthSettings.find(v, "activationY").def() == 1024 && EarthSettings.find(v, "switchY").def() == 1536
+                h.assertTrue(EarthSettings.find(v, "activationY") == null && EarthSettings.find(v, "switchY").def() == 1536
+                        && EarthSettings.find(v, "detail").def() == 256
                         && EarthSettings.find(v, "ceilingY").def() == 6144 && EarthSettings.find(v, "edge").def() == 2048
                         && EarthSettings.find(v, "orbitSpeed") == null, "E1/E11 defaults in V" + v + " (WG26-1: edge 2048, no glide speed)");
             }
@@ -79,15 +79,15 @@ public final class EarthTests {
             com.google.gson.JsonObject saved = EarthClientConfig.toJson();
             try {
                 EarthClientConfig.apply(new com.google.gson.JsonObject());
-                h.assertTrue(EarthClientConfig.render("detail") == 3 && EarthClientConfig.render("detailRange") == 0
+                h.assertTrue(EarthClientConfig.get("detail") == 256 && EarthClientConfig.render("detailRange") == 0
                         && EarthClientConfig.render("renderDistance") == 2 && EarthClientConfig.render("paintBudget") == 192
                         && EarthClientConfig.render("textureCache") == 64 && EarthClientConfig.render("tileCache") == 2048
                         && Math.abs(EarthClientConfig.render("faceEdge") - 0.28) < 1e-9, "display defaults");
                 h.assertTrue(EarthClientConfig.renderOn("moonPhases") && EarthClientConfig.renderOn("showOthers"), "E9/E10 on by default");
-                var json = com.google.gson.JsonParser.parseString("{\"version\": 12, \"render\": {\"detail\": 99, \"moonPhases\": false,"
+                var json = com.google.gson.JsonParser.parseString("{\"version\": 12, \"shared\": {\"detail\": 99999}, \"render\": {\"moonPhases\": false,"
                         + " \"faceEdge\": \"x\", \"renderDistance\": 1}, \"versions\": {\"V11\": {\"cells\": 40}}}").getAsJsonObject();
                 EarthClientConfig.apply(json);
-                h.assertTrue(EarthClientConfig.version == 12 && EarthClientConfig.render("detail") == 5 && !EarthClientConfig.renderOn("moonPhases")
+                h.assertTrue(EarthClientConfig.version == 12 && EarthClientConfig.get("detail") == 1024 && !EarthClientConfig.renderOn("moonPhases")
                         && Math.abs(EarthClientConfig.render("faceEdge") - 0.28) < 1e-9 && EarthClientConfig.render("renderDistance") == 1,
                         "clamped, toggles as booleans, broken value = default");
                 h.assertTrue(EarthClientConfig.get(11, "cells") == 8, "V11 cells clamped to 8");
@@ -102,19 +102,15 @@ public final class EarthTests {
                         && EarthClientConfig.toJson().has("shared"), "shared values survive the version switch");
                 h.assertTrue(EarthSettings.find(1, "edge").kind() == EarthSettings.Kind.LOG && EarthSettings.find(1, "edge").clamp(10) == 64,
                         "edge 64.. on a log slider (E29-7)");
-                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 25}").getAsJsonObject());
-                h.assertTrue(EarthClientConfig.version == 6, "unknown version -> V6");
+                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 28}").getAsJsonObject());
+                h.assertTrue(EarthClientConfig.version == 25, "unknown version -> V25");
                 h.assertTrue(EarthSettings.find(10, "tipTime").def() == 0.6 && EarthSettings.find(10, "rounding").def() == 0.02
                         && EarthSettings.find(1, "rounding").def() == 0.07 && EarthSettings.find(11, "cells").def() == 3
                         && EarthSettings.find(12, "cornerTilt").def() == 1 && EarthSettings.find(12, "tiltStart") != null, "V10-V12 own values");
-                // detail level: 2 = the old 256 px on the own tile, standard 3 = 512 near, halved per ring outside detailRange
-                int[] old = TileMath.ringResolutions(65536, 0.3, 256, 2, 0, 5), std = TileMath.ringResolutions(65536, 0.3, 256, 3, 0, 5);
-                h.assertTrue(old[0] == 256 && std[0] == 512 && std[1] == 256 && std[2] == 128, "rings " + Arrays.toString(std));
-                int[] ranged = TileMath.ringResolutions(65536, 0.3, 256, 3, 1, 5), top = TileMath.ringResolutions(65536, 0.3, 256, 5, 2, 5);
-                h.assertTrue(ranged[1] == 512 && top[0] == TileMath.MAX_RES && top[2] == TileMath.MAX_RES, "range and cap");
-                int[] small = TileMath.ringResolutions(8192, 0.3, 256, 5, 0, 5);
-                h.assertTrue(small[0] == 8192 >> 5, "never finer than the server grid: " + small[0]);
-                h.assertTrue(TileMath.ringResolutions(65536, 3, 256, 3, 0, 5)[0] == 128, "high above: coarser");
+                // E30-2 detail level n = the edge in n pixels (n x n per face), halved per ring outside detailRange
+                int[] n16 = TileMath.ringPixels(16, 0), n1 = TileMath.ringPixels(1, 2), big = TileMath.ringPixels(5000, 1);
+                h.assertTrue(n16[0] == 16 && n16[1] == 8 && n16[2] == 4 && n1[0] == 1 && n1[2] == 1 && big[0] == TileMath.MAX_RES && big[1] == TileMath.MAX_RES,
+                        "pixels per ring " + Arrays.toString(n16));
             } finally {
                 EarthClientConfig.apply(saved);
             }
@@ -125,22 +121,21 @@ public final class EarthTests {
             ServerPlayer player = h.makeMockServerPlayerInLevel();
             try {
                 EarthServerConfig.reset();
-                EarthServerConfig.globalGrid = true;
                 OrbitTracker.forget(player.getUUID());
                 OrbitTracker.State s = OrbitTracker.state(player);
-                s.configure(1024, 1536, 65536, h.getLevel().getMaxY());
-                player.setPos(40000, 1100, -20000);
+                s.configure(1536, 1536, 2048, h.getLevel().getMaxY());
+                player.setPos(40000, 1600, -20000);
                 OrbitTracker.tick(player, true);
-                h.assertTrue(s.active && s.ax == 65536 && s.az == 0 && s.ox == 40000, "E4 global grid: centre " + s.ax + "/" + s.az);
-                h.assertTrue(OrbitTracker.centre(40000, 65536) == 65536, "grid point");
-                EarthServerConfig.globalGrid = false;
-                h.assertTrue(OrbitTracker.centre(40000, 65536) == 40000, "per player");
+                h.assertTrue(s.active && s.ax == 0 && s.az == 0 && s.ox == 40000, "E30-1: centre is world 0 ~ 0, wherever one starts");
+                player.setPos(40000, 1500, -20000);
+                OrbitTracker.tick(player, true);
+                h.assertTrue(!s.active, "below the render height (minus 16) Vanilla again");
                 // E5: only while flying
                 EarthServerConfig.requireFlight = true;
                 OrbitTracker.forget(player.getUUID());
                 s = OrbitTracker.state(player);
                 player.getAbilities().flying = false;
-                player.setPos(10, 1100, 10);
+                player.setPos(10, 1600, 10);
                 OrbitTracker.tick(player, true);
                 h.assertTrue(!s.active, "E5: not flying = no orbit");
                 player.getAbilities().flying = true;
@@ -367,23 +362,23 @@ public final class EarthTests {
             ServerPlayer player = h.makeMockServerPlayerInLevel();
             OrbitTracker.forget(player.getUUID());
             OrbitTracker.State s = OrbitTracker.state(player);
-            s.configure(1024, 1536, 2048, h.getLevel().getMaxY());
+            s.configure(1536, 1536, 2048, h.getLevel().getMaxY());
             double x0 = player.getX(), z0 = player.getZ();
             player.setPos(x0, 1100, z0);
             OrbitTracker.tick(player, true);
-            h.assertTrue(s.active && !s.parked && s.ax == x0 && s.az == z0, "activation height: centre A = here");
-            // WG26-1: above the switch nothing is held - the player moves freely and the orbit position is his position
+            h.assertTrue(!s.active, "below the render height everything is Vanilla (E30-1: no activation height)");
+            // WG26-1/E30-1: from the render height on the player flies freely, the centre is 0 ~ 0
             player.setPos(x0 + 1100, 1600, z0 - 30);
             OrbitTracker.tick(player, true);
-            h.assertTrue(s.parked && s.ox == x0 + 1100 && s.oz == z0 - 30 && s.ax == x0, "above the switch: free, A fixed, position = player");
+            h.assertTrue(s.active && s.parked && s.ox == x0 + 1100 && s.oz == z0 - 30 && s.ax == 0 && s.az == 0, "above the render height: free, centre 0 ~ 0");
             h.assertTrue(player.getX() == x0 + 1100 && !player.isNoGravity(), "no teleport, no hover");
-            player.setPos(x0 + 1200, 1500, z0);
+            player.setPos(x0 + 1200, 1530, z0);
             OrbitTracker.tick(player, true);
-            h.assertTrue(!s.parked && s.active && player.getX() == x0 + 1200, "below the switch: no re-entry teleport");
+            h.assertTrue(!s.parked && s.active && player.getX() == x0 + 1200, "a little below: still on (16 blocks hysteresis), no teleport");
             player.setPos(player.getX(), 900, z0);
             OrbitTracker.tick(player, true);
-            h.assertTrue(!s.active, "below the activation height everything is Vanilla");
-            player.setPos(player.getX(), 1200, z0);
+            h.assertTrue(!s.active, "far below: Vanilla");
+            player.setPos(player.getX(), 1600, z0);
             OrbitTracker.tick(player, false);
             h.assertTrue(!s.active, "players without the mod never enter the orbit");
             OrbitTracker.forget(player.getUUID());

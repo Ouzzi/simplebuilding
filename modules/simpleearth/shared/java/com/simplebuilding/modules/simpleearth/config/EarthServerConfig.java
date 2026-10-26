@@ -15,21 +15,20 @@ import java.util.List;
 /**
  * Server config {@code config/simpleearth-server.json} (server authority, A9): the floors and caps every client value is
  * clamped to, sampling budget, grid and cache, surface detail, seed protection (E8), which dimensions get an orbit (E7), the
- * cube centre (E4) and the way up (E5); E6 (landing) is gone with free flight (WG26-1). Missing or broken keys
+ * way up (E5); the cube centre is world 0 ~ 0 (E30-1), E6 (landing) is gone with free flight (WG26-1). Missing or broken keys
  * use the defaults and the file is rewritten complete.
  */
 public final class EarthServerConfig {
     public static final String FILE = "simpleearth-server.json";
-    public static final List<String> KEYS = List.of("enabled", "dimensions", "minActivationY", "minSwitchGap",
+    public static final List<String> KEYS = List.of("enabled", "dimensions", "minActivationY",
             "minEdge", "maxEdge", "exploredOnly", "showOthers", "workerThreads", "tilesPerSecond", "memoryTiles", "diskCacheMiB",
-            "minGrid", "biomeVotes", "surfaceDetail", "globalGrid", "requireFlight", "fastHeights");
+            "minGrid", "biomeVotes", "surfaceDetail", "requireFlight", "fastHeights");
 
     public static boolean enabled;
     public static final List<String> dimensions = new ArrayList<>();
     /** Lowest activation height a client may pick (also never below build height + 64). */
     public static int minActivationY;
     /** Render switch at least this far above the activation height. */
-    public static int minSwitchGap;
     public static int minEdge;
     public static int maxEdge;
     /** E8: only show terrain where the world already has a region file (no free seed map). */
@@ -46,8 +45,6 @@ public final class EarthServerConfig {
     public static int biomeVotes;
     /** WD25-16 "Block-Nutzung": snow by Vanilla's height temperature, stone on steep slopes, badlands bands, frozen water. */
     public static boolean surfaceDetail;
-    /** E4: false = the cube centre A is where each player crosses the activation height; true = the nearest point of a global grid. */
-    public static boolean globalGrid;
     /** E5: false = any way up counts; true = only while flying (creative flight or elytra). */
     public static boolean requireFlight;
     /**
@@ -89,7 +86,6 @@ public final class EarthServerConfig {
             dimensions.add("minecraft:overworld");
         }
         minActivationY = integer(json, "minActivationY", 384, 64, 30000);
-        minSwitchGap = integer(json, "minSwitchGap", 32, 1, 8192);
         minEdge = integer(json, "minEdge", 64, 16, 1048576);
         maxEdge = integer(json, "maxEdge", 1048576, minEdge, 16777216);
         exploredOnly = bool(json, "exploredOnly", false);
@@ -101,7 +97,6 @@ public final class EarthServerConfig {
         minGrid = integer(json, "minGrid", 3, com.simplebuilding.modules.simpleearth.terrain.TileMath.MIN_E, 10);
         biomeVotes = integer(json, "biomeVotes", 2, 1, 3);
         surfaceDetail = bool(json, "surfaceDetail", true);
-        globalGrid = bool(json, "globalGrid", false);
         requireFlight = bool(json, "requireFlight", false);
         fastHeights = bool(json, "fastHeights", true);
     }
@@ -113,7 +108,6 @@ public final class EarthServerConfig {
         dimensions.forEach(dims::add);
         o.add("dimensions", dims);
         o.addProperty("minActivationY", minActivationY);
-        o.addProperty("minSwitchGap", minSwitchGap);
         o.addProperty("minEdge", minEdge);
         o.addProperty("maxEdge", maxEdge);
         o.addProperty("exploredOnly", exploredOnly);
@@ -125,19 +119,14 @@ public final class EarthServerConfig {
         o.addProperty("minGrid", minGrid);
         o.addProperty("biomeVotes", biomeVotes);
         o.addProperty("surfaceDetail", surfaceDetail);
-        o.addProperty("globalGrid", globalGrid);
         o.addProperty("requireFlight", requireFlight);
         o.addProperty("fastHeights", fastHeights);
         return o;
     }
 
-    /** Effective activation height for a client wish: never below the server floor nor below build height + 64. */
-    public static int activationY(int wish, int maxBuildY) {
-        return Math.max(Math.max(minActivationY, maxBuildY + 64), Math.min(wish, 16384));
-    }
-
-    public static int switchY(int wish, int activation) {
-        return Math.max(activation + minSwitchGap, Math.min(wish, 30000));
+    /** Effective render height for a client wish: never below the server floor ({@code minActivationY}) nor below build height + 64. */
+    public static int renderHeight(int wish, int maxBuildY) {
+        return Math.max(Math.max(minActivationY, maxBuildY + 64), Math.min(wish, 30000));
     }
 
     public static int edge(int wish) {

@@ -285,4 +285,33 @@ class EarthViewTest {
         assertEquals(1.0, com.simplebuilding.modules.simpleearth.view.OrbitMath.angular(1.0), 1e-12);
         assertEquals(Math.tan(Math.PI / 8), com.simplebuilding.modules.simpleearth.view.OrbitMath.angular(0.5), 1e-12);
     }
+
+    @Test
+    void foldingWorldEasesAndLandsOverFaceEdgeOrCorner() {
+        // the curve: 0 and 1 at the ends, symmetric, steady
+        for (double pw : new double[]{1, 2, 3}) {
+            assertEquals(0, com.simplebuilding.modules.simpleearth.view.FoldWorldViews.ease(0, pw), 1e-12);
+            assertEquals(1, com.simplebuilding.modules.simpleearth.view.FoldWorldViews.ease(1, pw), 1e-12);
+            assertEquals(0.5, com.simplebuilding.modules.simpleearth.view.FoldWorldViews.ease(0.5, pw), 1e-12);
+            double last = -1;
+            for (double t = 0; t <= 1; t += 0.01) {
+                double e = com.simplebuilding.modules.simpleearth.view.FoldWorldViews.ease(t, pw);
+                assertTrue(e >= last);
+                last = e;
+            }
+        }
+        // phase A: flat; phase B end: folded, the point under the player turned up - face, edge, corner
+        ViewParams flat = params().set("aboveSwitch", 64).set("fadeBand", 128);
+        Scene f = EarthView.create(25).step(0.2 * H, 0.1 * H, DT, flat);
+        double y0 = f.patches.get(0).at(0, 0).y();
+        for (Patch p : f.patches) for (V3 v : p.pos) assertEquals(y0, v.y(), 1e-9, "flat during the blend");
+        ViewParams up = params().set("aboveSwitch", 99999).set("fadeBand", 128);
+        double[][] spots = {{0, 0}, {0.999, 0}, {0.999, 0.999}};
+        V3[] dirs = {new V3(0, 1, 0), new V3(1, 1, 0).normalize(), new V3(1, 1, 1).normalize()};
+        for (int k = 0; k < 3; k++) {
+            Scene s = EarthView.create(25).step(spots[k][0] * H, spots[k][1] * H, DT, up);
+            assertTrue(s.closedBody, "folded");
+            assertTrue(s.orientation.rotate(dirs[k]).distance(V3.UP) < 0.01, "lands over " + new String[]{"a face middle", "an edge", "a corner"}[k]);
+        }
+    }
 }

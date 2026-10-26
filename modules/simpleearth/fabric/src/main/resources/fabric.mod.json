@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Simple Earth",
   "icon": "assets/simpleearth/icon.png",
-  "description": "The Overworld seen from orbit: far above the world it becomes a slightly rounded cube (24 display versions) whose faces show Vanilla map colours read from the world generator - no chunks generated. Flat sun, cube moon, stars; below everything stays Vanilla.",
+  "description": "The Overworld seen from orbit: far above the world it becomes a slightly rounded cube (27 display versions) whose faces show Vanilla map colours read from the world generator - no chunks generated. Flat sun, cube moon, stars; below everything stays Vanilla.",
   "authors": [
     "Ouzzi"
   ],

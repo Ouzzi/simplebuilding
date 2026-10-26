@@ -72,8 +72,9 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         }
         List<Integer> older = new ArrayList<>();
         older.add(0);
-        for (int v = 1; v <= 12; v++) older.add(v);
-        int now = EarthClientConfig.version <= 12 ? EarthClientConfig.version : 0;
+        // E30-4: every version that is not a favourite (V1-V24) sits in the drop-down
+        for (int v = 1; v <= EarthSettings.VERSIONS; v++) if (!favourite(v)) older.add(v);
+        int now = favourite(EarthClientConfig.version) ? 0 : EarthClientConfig.version;
         olderVersions = addRenderableWidget(CycleButton.builder((Integer v) -> Component.literal(v == 0 ? "-" : "V" + v), now)
                 .withValues(older)
                 .create(panelX + PAD, panelY + 42, W - 2 * PAD, 20, Component.translatable("simpleearth.screen.older"), (button, v) -> {
@@ -93,6 +94,11 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         list = addRenderableWidget(new SettingsList(minecraft, W - 2 * PAD, Math.max(ROW, listBottom - listTop), listTop));
         list.setX(panelX + PAD);
         rebuild();
+    }
+
+    private static boolean favourite(int v) {
+        for (int f : EarthSettings.FAVOURITES) if (f == v) return true;
+        return false;
     }
 
     private void select(int version) {
@@ -120,7 +126,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         list.replaceEntries(entries);
         list.setScrollAmount(keep);
         for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = EarthSettings.FAVOURITES[i] != v;
-        if (olderVersions != null && olderVersions.getValue() != (v <= 12 ? v : 0)) olderVersions.setValue(v <= 12 ? v : 0);
+        if (olderVersions != null && olderVersions.getValue() != (favourite(v) ? 0 : v)) olderVersions.setValue(favourite(v) ? 0 : v);
     }
 
     /** A Vanilla widget for one setting: on/off button for toggles, slider for numbers; changes apply at once. */
@@ -176,7 +182,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     }
 
     private void changed(EarthSettings.Setting s) {
-        if (s == null || s.key().equals("activationY") || s.key().equals("switchY") || s.key().equals("edge")) serverDirty = true;
+        if (s == null || s.key().equals("switchY") || s.key().equals("edge")) serverDirty = true;
         if (s == null || s.key().equals("edge")) EarthClient.resetView();
     }
 

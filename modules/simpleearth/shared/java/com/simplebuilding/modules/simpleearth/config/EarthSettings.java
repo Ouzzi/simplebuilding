@@ -22,11 +22,11 @@ public final class EarthSettings {
     }
 
     /** V1-V9 (24.10.) and V10-V12 (owner 25.10., WD25-17: the cube shape stronger). */
-    public static final int VERSIONS = 24;
+    public static final int VERSIONS = 27;
     /** Owner 26.10. (E29-6): the versions with a direct button - his favourite V5 and the new V13-V24; V1-V12 sit in a drop-down. */
-    public static final int[] FAVOURITES = {5, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
-    /** Owner 24.10.: V6 is the favourite and the standard. */
-    public static final int DEFAULT_VERSION = 6;
+    public static final int[] FAVOURITES = {25, 26, 27};
+    /** Owner 24.10.: V6 was the standard; since E30 (26.10.) the folding world V25 with the new flight phases. */
+    public static final int DEFAULT_VERSION = 25;
 
     private static Setting i(String key, double min, double max, double def, double step) {
         return new Setting(key, min, max, def, step, Kind.INT);
@@ -47,7 +47,6 @@ public final class EarthSettings {
      * {@code detail} 2 = the resolution before 25.10. ({@code faceResolution}), 3 (standard) twice as fine near the player.
      */
     public static final List<Setting> RENDER = List.of(
-            i("detail", 1, 5, 3, 1),
             i("detailRange", 0, 2, 0, 1),
             i("renderDistance", 1, 2, 2, 1),
             i("paintBudget", 16, 2048, 192, 16),
@@ -57,15 +56,17 @@ public final class EarthSettings {
             t("moonPhases", true),
             t("showOthers", true),
             t("realDistance", true));
-    /** Heights, edge, speed, sampling - every version has its own copy (E1, E2, E11). */
+    /**
+     * Heights, size and look - one set for all versions (E29-1). E30-2 (owner 26.10.): the important ones first - edge length,
+     * render height (where the earth starts), blend-in band, detail level (n = the edge in n pixels, n x n per face); there is
+     * no activation height any more (E30-1: world 0 ~ 0 is the centre of the top face).
+     */
     public static final List<Setting> SHARED = List.of(
-            // E29-7: wider ranges for developers (values unchanged)
-            i("activationY", 128, 30000, 1024, 16),
-            i("switchY", 256, 30000, 1536, 16),
-            i("ceilingY", 512, 60000, 6144, 64),
-            i("fadeBand", 1, 4096, 128, 1),
             new Setting("edge", 64, 1048576, 2048, 64, Kind.LOG),
-            i("faceResolution", 16, 1024, 256, 16),
+            i("switchY", 256, 30000, 1536, 16),
+            i("fadeBand", 1, 4096, 128, 1),
+            new Setting("detail", 1, 1024, 256, 1, Kind.LOG),
+            i("ceilingY", 512, 60000, 6144, 64),
             d("orbitDistance", 0.1, 20, 3, 0.05),
             d("relief", 0, 8, 1, 0.05),
             d("atmosphere", 0, 2, 0.6, 0.05),
@@ -80,6 +81,9 @@ public final class EarthSettings {
     private static final Setting TIP_TIME = d("tipTime", 0.1, 2, 0.6, 0.05);
     private static final Setting EDGE_LINES = d("edgeLines", 0, 1, 0.8, 0.05);
     private static final Setting FOLLOW = d("follow", 1, 60, 30, 1);
+    /** E30-3: phase B band and curve, a corner's own band and curve, the orbit turn, the hinge lines. */
+    private static final List<Setting> FOLD_WORLD = List.of(i("foldBand", 16, 20000, 1024, 16), i("cornerFoldBand", 16, 20000, 2048, 16),
+            d("easing", 1, 8, 2, 0.25), d("cornerEasing", 1, 8, 3, 0.25), d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.3, 0.05));
     private static final Setting NORTH = d("northRate", 0, 10, 2.5, 0.25);
     private static final Setting CORNER_START = d("cornerStart", 0, 0.95, 0.4, 0.05);
 
@@ -114,6 +118,16 @@ public final class EarthSettings {
             case 22 -> out.addAll(List.of(d("foldAngle", 0, 90, 45, 1), d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.2, 0.05)));
             case 23 -> out.addAll(List.of(d("foldAngle", 0, 90, 15, 1), d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.2, 0.05)));
             case 24 -> out.addAll(List.of(d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.5, 0.05)));
+            // E30: the folding world (V23/V24 shell + V5 body), phases by height
+            case 25 -> out.addAll(FOLD_WORLD);
+            case 26 -> {
+                out.addAll(FOLD_WORLD);
+                out.addAll(List.of(d("roundness", 0, 1, 0.6, 0.05), d("exponent", 2, 20, 6, 0.1)));
+            }
+            case 27 -> {
+                out.addAll(FOLD_WORLD);
+                out.addAll(List.of(d("roundness", 0, 1, 1, 0.05), d("exponent", 2, 20, 2.4, 0.1)));
+            }
             case 12 -> out.addAll(List.of(d("tipTime", 0.1, 4, 1.2, 0.05), EDGE_LINES, d("cornerTilt", 0, 1, 1, 0.05), d("tiltStart", 0, 0.95, 0.35, 0.05)));
         }
         return out;

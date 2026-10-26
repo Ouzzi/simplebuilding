@@ -87,7 +87,7 @@ public final class EarthClient {
 
     /** Tells the server the orbit values of the chosen version (it clamps them). */
     public static void sendConfig() {
-        SimpleEarth.toServer.accept(new OrbitConfigPayload((int) EarthClientConfig.get("activationY"), (int) EarthClientConfig.get("switchY"),
+        SimpleEarth.toServer.accept(new OrbitConfigPayload((int) EarthClientConfig.get("switchY"), (int) EarthClientConfig.get("switchY"),
                 (int) EarthClientConfig.get("edge")));
     }
 
@@ -131,7 +131,8 @@ public final class EarthClient {
     public static double fade(double cameraY) {
         if (!enabled || !active) return 0;
         double band = Math.max(1, EarthClientConfig.get("fadeBand"));
-        return Math.max(0, Math.min(1, (cameraY - switchY) / band));
+        // E30-3 phase A: ease in and out over the blend band
+        return com.simplebuilding.modules.simpleearth.view.Meshes.smooth(0, 1, (cameraY - switchY) / band);
     }
 
     /** 0 at the render switch, 1 at the ceiling height (V12 turns its corner up with it). */

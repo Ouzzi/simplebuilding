@@ -82,6 +82,10 @@ public abstract class EarthView {
             case 22 -> new OrbitShellView(OrbitShellView.Fold.FIXED);
             case 23 -> new OrbitShellView(OrbitShellView.Fold.HEIGHT);
             case 24 -> new OrbitShellView(OrbitShellView.Fold.CUBE);
+            // E30-3/E30-4: blend, then fold into the cube by height; V26/V27 round towards V5
+            case 25 -> new FoldWorldView(0, 6);
+            case 26 -> new FoldWorldView(0.6, 6);
+            case 27 -> new FoldWorldView(1, 2.4);
             default -> new FoldingNetView(FoldingNetView.Style.PLAIN);
         };
     }

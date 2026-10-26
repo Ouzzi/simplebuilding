@@ -145,7 +145,7 @@ def main():
         for scale in scales:
             command('guiScale', value=scale)
             command('version', value=6)
-            command('set', key='detail', value=3)
+            command('set', key='detail', value=256)
             command('set', key='faceEdge', value=0.28)
             command('set', key='moonPhases', value=1)
             time.sleep(1)
@@ -153,15 +153,15 @@ def main():
             tag = f'GUI {st["scale"]} ({st["width"]}x{st["height"]})'
             command('shot', name='before')
             # 1 favourite version button (E29-6) and the drop-down of the older versions
-            ptr.click(*centre(st, 'v13'))
+            ptr.click(*centre(st, 'v25'))
             st = status()
-            check(f'{tag}: click V13 in the favourites row', st['version'] == 13, f'version {st["version"]}')
+            check(f'{tag}: click V25 in the favourites row', st['version'] == 25, f'version {st["version"]}')
             ptr.click(*centre(st, 'older'))
             st = status()
             check(f'{tag}: click the older-versions drop-down', st['version'] == 1, f'version {st["version"]}')
-            ptr.click(*centre(st, 'v17'))
+            ptr.click(*centre(st, 'v26'))
             st = status()
-            check(f'{tag}: click V17', st['version'] == 17, f'version {st["version"]}')
+            check(f'{tag}: click V26', st['version'] == 26, f'version {st["version"]}')
             # 2 slider click at 10 % of the detail slider -> the lowest level
             command('scrollTo', key='detail')
             st = status()
