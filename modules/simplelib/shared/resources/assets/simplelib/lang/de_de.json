@@ -72,5 +72,7 @@
   "jei.simplelib.note.mob_drop.loot": "Wenn %s stirbt (Beutetabelle)",
   "jei.simplelib.grade.diamond": "Diamantstufe",
   "jei.simplelib.grade.netherite": "Netheritstufe",
-  "jei.simplelib.grade.enderite": "Enderitstufe"
+  "jei.simplelib.grade.enderite": "Enderitstufe",
+  "key.simplelib.freelook": "Freie Sicht (halten)",
+  "key.category.simplelib.general": "Simple Lib"
 }

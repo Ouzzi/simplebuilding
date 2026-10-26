@@ -26,7 +26,7 @@ public final class FaceTextures {
 
     /** What an image shows; tile indices are absolute (relative to A), {@code mixQ} = blend weight in 1/16. */
     public record Key(int tx, int tz, boolean mirror, int mtx, int mtz, boolean mmirror, int mixQ, int res, int foldCx, int foldCz,
-                      int foldQ, int reliefQ) {}
+                      int foldQ, int reliefQ, boolean angular) {}
 
     /** Painting context of the current frame. */
     public record Context(double ax, double az, double edge, int e, int seaLevel, double relief, double foldRadius, int res, double px, double pz) {}
@@ -170,6 +170,11 @@ public final class FaceTextures {
 
         int pixel(int tx, int tz, boolean mirror, int i, int j, int n, Key key) {
             double a = -1 + (i + 0.5) * 2 / n, b = -1 + (j + 0.5) * 2 / n;
+            if (key.angular()) {
+                // E29-2 equiangular cube (as in climate models): face coordinate a = tan(angle), the world runs with the angle
+                a = Math.atan(a) * 4 / Math.PI;
+                b = Math.atan(b) * 4 / Math.PI;
+            }
             if (mirror) {
                 a = -a;
                 b = -b;

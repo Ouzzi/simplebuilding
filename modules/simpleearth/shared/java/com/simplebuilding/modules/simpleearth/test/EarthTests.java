@@ -56,14 +56,14 @@ public final class EarthTests {
             EarthServerConfig.reset();
             h.assertTrue(EarthServerConfig.enabled && !EarthServerConfig.exploredOnly && EarthServerConfig.showOthers, "E8/E9 defaults");
             h.assertTrue(EarthServerConfig.dimensions.equals(List.of("minecraft:overworld")), "E7: Overworld only");
-            h.assertTrue(EarthServerConfig.activationY(100, 320) == 1024 && EarthServerConfig.activationY(2000, 320) == 2000,
-                    "activation floor 1024 (E11), wishes above it kept");
+            h.assertTrue(EarthServerConfig.activationY(100, 320) == 384 && EarthServerConfig.activationY(2000, 320) == 2000,
+                    "server floor 384 = build height + 64 (E29-7), wishes above it kept");
             h.assertTrue(EarthServerConfig.activationY(500, 1200) == 1264, "never below build height + 64");
-            h.assertTrue(EarthServerConfig.switchY(1000, 1024) == 1152, "switch at least 128 above activation");
-            h.assertTrue(EarthServerConfig.edge(1) == 512 && EarthServerConfig.edge(9_999_999) == 262144, "edge 512..262144 (E1)");
+            h.assertTrue(EarthServerConfig.switchY(1000, 1024) == 1056, "switch at least 32 above activation (E29-7)");
+            h.assertTrue(EarthServerConfig.edge(1) == 64 && EarthServerConfig.edge(99_999_999) == 1048576, "edge 64..1048576 (E1, E29-7)");
             h.assertTrue(EarthClientConfig.version == EarthSettings.DEFAULT_VERSION && EarthSettings.DEFAULT_VERSION == 6, "standard V6");
             h.assertTrue(EarthSettings.VERSIONS == 12, "V1-V12 (WD25-17)");
-            h.assertTrue(EarthServerConfig.minGrid == 5 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
+            h.assertTrue(EarthServerConfig.minGrid == 3 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
                     && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight
                     && EarthServerConfig.fastHeights, "WD25-16 server defaults (E4 per player, E5 any flight)");
             for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
@@ -71,7 +71,7 @@ public final class EarthTests {
                         && EarthSettings.find(v, "ceilingY").def() == 6144 && EarthSettings.find(v, "edge").def() == 2048
                         && EarthSettings.find(v, "orbitSpeed") == null, "E1/E11 defaults in V" + v + " (WG26-1: edge 2048, no glide speed)");
             }
-            h.assertTrue(EarthSettings.find(1, "edge").clamp(1e9) == 262144 && EarthSettings.find(6, "foldStart").clamp(-3) == 0, "client clamps");
+            h.assertTrue(EarthSettings.find(1, "edge").clamp(1e9) == 1048576 && EarthSettings.find(6, "foldStart").clamp(-3) == 0, "client clamps");
             h.succeed();
         });
 
@@ -95,6 +95,13 @@ public final class EarthTests {
                 h.assertTrue(out.getAsJsonObject("render").get("moonPhases").getAsJsonPrimitive().isBoolean(), "toggle written as true/false");
                 EarthClientConfig.apply(out);
                 h.assertTrue(EarthClientConfig.toJson().equals(out), "JSON round trip");
+                // E29-1: heights/size/look are one set for all versions - a version switch keeps them
+                EarthClientConfig.set(3, "edge", 4096);
+                EarthClientConfig.set(3, "relief", 2);
+                h.assertTrue(EarthClientConfig.get(7, "edge") == 4096 && EarthClientConfig.get(12, "relief") == 2
+                        && EarthClientConfig.toJson().has("shared"), "shared values survive the version switch");
+                h.assertTrue(EarthSettings.find(1, "edge").kind() == EarthSettings.Kind.LOG && EarthSettings.find(1, "edge").clamp(10) == 64,
+                        "edge 64.. on a log slider (E29-7)");
                 EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 13}").getAsJsonObject());
                 h.assertTrue(EarthClientConfig.version == 6, "unknown version -> V6");
                 h.assertTrue(EarthSettings.find(10, "tipTime").def() == 0.6 && EarthSettings.find(10, "rounding").def() == 0.02

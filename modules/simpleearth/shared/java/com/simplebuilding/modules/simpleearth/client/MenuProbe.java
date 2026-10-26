@@ -108,8 +108,9 @@ public final class MenuProbe {
         o.add("values", values);
         if (mc.gui.screen() instanceof Target t) {
             JsonObject r = new JsonObject();
-            r.add("v10", rect(t.probeVersionButton(10), scale));
-            r.add("v11", rect(t.probeVersionButton(11), scale));
+            r.add("v13", rect(t.probeVersionButton(13), scale));
+            r.add("v17", rect(t.probeVersionButton(17), scale));
+            r.add("older", rect(t.probeVersionButton(1), scale));
             r.add("reset", rect(t.probeButton(true), scale));
             r.add("done", rect(t.probeButton(false), scale));
             r.add("list", rect(t.probeList(), scale));

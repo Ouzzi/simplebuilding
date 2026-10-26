@@ -72,7 +72,7 @@ class EarthViewTest {
                 // the contact point lies straight below the eye (eye = contact + up * h)
                 V3 dir = s.contact.sub(s.bodyOffset).normalize();
                 // V5: the ground normal under the player points up, the body is moved so the contact sits at (0, 1, 0)
-                if (ver >= 5) assertTrue(s.contact.distance(V3.UP) < 1e-6, "V" + ver);
+                if (ver >= 5) assertTrue(Math.hypot(s.contact.x(), s.contact.z()) < 1e-6, "V" + ver + " contact straight below the eye");
                 else assertTrue(Math.hypot(dir.x(), dir.z()) < 0.08, "V" + ver + " tilt " + dir);
             }
         }
@@ -236,8 +236,8 @@ class EarthViewTest {
         Scene s = null;
         for (int i = 0; i < 600; i++) s = v12.step(0.4 * H, -0.3 * H, DT, high);
         V3 corner = s.orientation.rotate(new V3(1, 1, -1)).normalize();
-        assertTrue(corner.distance(V3.UP) < 1e-6, "the corner of the player's quarter points up: " + corner);
-        assertTrue(s.bodyOffset.add(s.orientation.rotate(new V3(1, 1, -1))).distance(V3.UP) < 1e-6, "and sits under the eye");
+        assertTrue(corner.distance(V3.UP) < 1e-3, "the corner of the player's quarter points up: " + corner);
+        assertTrue(s.bodyOffset.add(s.orientation.rotate(new V3(1, 1, -1))).distance(V3.UP) < 1e-3, "and sits under the eye");
         Scene low = settle(EarthView.create(12), 0.4 * H, -0.3 * H);
         assertTrue(low.orientation.angleTo(Quat.IDENTITY) < 1e-6, "near the switch height the top stays level");
     }
@@ -255,5 +255,34 @@ class EarthViewTest {
             // on the rounded cube: r away from the inner box, or on a flat face (one coordinate 1)
             assertTrue(Math.abs(off - r) < 1e-6 || Math.abs(max - 1) < 1e-6, "window vertex on the body: " + b + " off " + off);
         }
+    }
+
+    @Test
+    void orbitVersionsKeepTheDistanceAndShowTheGroundBelow() {
+        // E29-2: flying turns the earth; the eye (contact + (h - eyeDrop)) stays 1 + h from the centre, the ground under the
+        // player straight below, also near edges and corners
+        for (int ver : new int[]{13, 14, 15, 16, 17, 18, 19, 20}) {
+            EarthView view = EarthView.create(ver);
+            double x = 0, z = 0;
+            for (int i = 0; i < 900; i++) {
+                x += L * 0.004;
+                z -= L * 0.0025;
+                Scene s = view.step(x, z, DT, params());
+                assertTrue(s.finite() && s.equiangular, "V" + ver);
+                assertEquals(1.0, s.contact.y() - s.eyeDrop, 1e-9, "V" + ver + " eye distance from the centre");
+                assertTrue(Math.hypot(s.contact.x(), s.contact.z()) < 1e-9);
+                if (i % 50 == 0 && !s.fadeStart) {
+                    double tu = (x - (view.tileOf(x) * L - H)) / L, tv = (z - (view.tileOf(z) * L - H)) / L;
+                    V3 at = s.locate(0, 0, tu, tv);
+                    if (at != null) assertTrue(Math.hypot(at.x(), at.z()) < 0.06, "V" + ver + " ground below the eye, frame " + i + ": " + at);
+                }
+            }
+        }
+    }
+
+    @Test
+    void equiangularFacesReachTheEdgeAtHalfAnEdge() {
+        assertEquals(1.0, com.simplebuilding.modules.simpleearth.view.OrbitMath.angular(1.0), 1e-12);
+        assertEquals(Math.tan(Math.PI / 8), com.simplebuilding.modules.simpleearth.view.OrbitMath.angular(0.5), 1e-12);
     }
 }

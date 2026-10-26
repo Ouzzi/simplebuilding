@@ -152,12 +152,16 @@ def main():
             st = status()
             tag = f'GUI {st["scale"]} ({st["width"]}x{st["height"]})'
             command('shot', name='before')
-            # 1 version button (a Vanilla Button)
-            ptr.click(*centre(st, 'v10'))
+            # 1 favourite version button (E29-6) and the drop-down of the older versions
+            ptr.click(*centre(st, 'v13'))
             st = status()
-            check(f'{tag}: click V10', st['version'] == 10, f'version {st["version"]}')
-            if st['version'] != 10:
-                command('version', value=10)
+            check(f'{tag}: click V13 in the favourites row', st['version'] == 13, f'version {st["version"]}')
+            ptr.click(*centre(st, 'older'))
+            st = status()
+            check(f'{tag}: click the older-versions drop-down', st['version'] == 1, f'version {st["version"]}')
+            ptr.click(*centre(st, 'v17'))
+            st = status()
+            check(f'{tag}: click V17', st['version'] == 17, f'version {st["version"]}')
             # 2 slider click at 10 % of the detail slider -> the lowest level
             command('scrollTo', key='detail')
             st = status()

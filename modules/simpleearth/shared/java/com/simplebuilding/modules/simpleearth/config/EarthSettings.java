@@ -10,7 +10,8 @@ import java.util.List;
  * Labels: {@code text.autoconfig.simpleearth.option.<key>} (+ {@code .@Tooltip}).
  */
 public final class EarthSettings {
-    public enum Kind { INT, DECIMAL, TOGGLE }
+    /** LOG: a whole number whose slider runs on a logarithmic scale (edge length 64 ... 1 048 576, E29-7). */
+    public enum Kind { INT, DECIMAL, TOGGLE, LOG }
 
     public record Setting(String key, double min, double max, double def, double step, Kind kind) {
         public double clamp(double v) {
@@ -21,7 +22,9 @@ public final class EarthSettings {
     }
 
     /** V1-V9 (24.10.) and V10-V12 (owner 25.10., WD25-17: the cube shape stronger). */
-    public static final int VERSIONS = 12;
+    public static final int VERSIONS = 24;
+    /** Owner 26.10. (E29-6): the versions with a direct button - his favourite V5 and the new V13-V24; V1-V12 sit in a drop-down. */
+    public static final int[] FAVOURITES = {5, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
     /** Owner 24.10.: V6 is the favourite and the standard. */
     public static final int DEFAULT_VERSION = 6;
 
@@ -56,16 +59,17 @@ public final class EarthSettings {
             t("realDistance", true));
     /** Heights, edge, speed, sampling - every version has its own copy (E1, E2, E11). */
     public static final List<Setting> SHARED = List.of(
-            i("activationY", 512, 16384, 1024, 64),
-            i("switchY", 640, 20000, 1536, 64),
-            i("ceilingY", 1024, 30000, 6144, 256),
-            i("fadeBand", 16, 1024, 128, 16),
-            i("edge", 512, 262144, 2048, 512),
-            i("faceResolution", 64, 512, 256, 64),
-            d("orbitDistance", 0.5, 8, 3, 0.25),
-            d("relief", 0, 4, 1, 0.25),
-            d("atmosphere", 0, 1, 0.6, 0.05),
-            d("moonSize", 0, 3, 1, 0.1),
+            // E29-7: wider ranges for developers (values unchanged)
+            i("activationY", 128, 30000, 1024, 16),
+            i("switchY", 256, 30000, 1536, 16),
+            i("ceilingY", 512, 60000, 6144, 64),
+            i("fadeBand", 1, 4096, 128, 1),
+            new Setting("edge", 64, 1048576, 2048, 64, Kind.LOG),
+            i("faceResolution", 16, 1024, 256, 16),
+            d("orbitDistance", 0.1, 20, 3, 0.05),
+            d("relief", 0, 8, 1, 0.05),
+            d("atmosphere", 0, 2, 0.6, 0.05),
+            d("moonSize", 0, 10, 1, 0.05),
             d("stars", 0, 1, 1, 0.05));
 
     private static final Setting ROUNDING = d("rounding", 0, 0.3, 0.07, 0.01);
@@ -75,6 +79,9 @@ public final class EarthSettings {
     private static final Setting FOLD_START = d("foldStart", 0, 0.9, 0.1, 0.05);
     private static final Setting TIP_TIME = d("tipTime", 0.1, 2, 0.6, 0.05);
     private static final Setting EDGE_LINES = d("edgeLines", 0, 1, 0.8, 0.05);
+    private static final Setting FOLLOW = d("follow", 1, 60, 30, 1);
+    private static final Setting NORTH = d("northRate", 0, 10, 2.5, 0.25);
+    private static final Setting CORNER_START = d("cornerStart", 0, 0.95, 0.4, 0.05);
 
     /** The full list of one version (1..12). */
     public static List<Setting> forVersion(int version) {
@@ -91,7 +98,23 @@ public final class EarthSettings {
             case 9 -> out.addAll(List.of(FOLD_START, d("lineAlpha", 0, 1, 0.35, 0.05)));
             case 10 -> out.addAll(List.of(TIP_TIME, EDGE_LINES, d("rounding", 0, 0.3, 0.02, 0.01)));
             case 11 -> out.addAll(List.of(TIP_TIME, i("cells", 2, 8, 3, 1), d("seam", 0, 0.2, 0.05, 0.01)));
-            default -> out.addAll(List.of(TIP_TIME, EDGE_LINES, d("cornerTilt", 0, 1, 1, 0.05), d("tiltStart", 0, 0.95, 0.35, 0.05)));
+            // E29-5 a) V13-V16 like V5, orbiting: rounder (2.4, near a sphere) to cubic; V15 corner window, V16 fourth face
+            case 13 -> out.addAll(List.of(d("exponent", 2, 20, 2.4, 0.1), FOLLOW, NORTH));
+            case 14 -> out.addAll(List.of(d("exponent", 2, 20, 4, 0.1), FOLLOW, NORTH));
+            case 15 -> out.addAll(List.of(d("exponent", 2, 20, 8, 0.1), FOLLOW, NORTH, CORNER_START));
+            case 16 -> out.addAll(List.of(d("exponent", 2, 20, 6, 0.1), FOLLOW, NORTH, CORNER_START));
+            // b) V17-V20 like V12, orbiting: sharp cube, V18 corner up with height, V19 window, V20 fourth face
+            case 17 -> out.addAll(List.of(d("rounding", 0, 0.3, 0.03, 0.01), EDGE_LINES, FOLLOW, NORTH));
+            case 18 -> out.addAll(List.of(d("rounding", 0, 0.3, 0.03, 0.01), EDGE_LINES, FOLLOW, NORTH, d("tipTime", 0.1, 4, 1.2, 0.05),
+                    d("cornerTilt", 0, 1, 1, 0.05), d("tiltStart", 0, 0.95, 0.35, 0.05)));
+            case 19 -> out.addAll(List.of(d("rounding", 0, 0.3, 0.08, 0.01), EDGE_LINES, FOLLOW, NORTH, CORNER_START));
+            case 20 -> out.addAll(List.of(d("rounding", 0, 0.3, 0.15, 0.01), EDGE_LINES, FOLLOW, NORTH, CORNER_START));
+            // c) V21-V24 like V9, rolling
+            case 21 -> out.addAll(List.of(FOLD_START, d("rotation", 0, 1, 0.6, 0.05), d("lineAlpha", 0, 1, 0.2, 0.05)));
+            case 22 -> out.addAll(List.of(d("foldAngle", 0, 90, 45, 1), d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.2, 0.05)));
+            case 23 -> out.addAll(List.of(d("foldAngle", 0, 90, 15, 1), d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.2, 0.05)));
+            case 24 -> out.addAll(List.of(d("rotation", 0, 1, 1, 0.05), d("lineAlpha", 0, 1, 0.5, 0.05)));
+            case 12 -> out.addAll(List.of(d("tipTime", 0.1, 4, 1.2, 0.05), EDGE_LINES, d("cornerTilt", 0, 1, 1, 0.05), d("tiltStart", 0, 0.95, 0.35, 0.05)));
         }
         return out;
     }

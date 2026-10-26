@@ -25,8 +25,8 @@ import net.minecraft.network.chat.Component;
 
 /**
  * The Simple Earth menu (key O or the dev button): a box at the right edge that leaves the world visible and does not pause -
- * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). Pick a version V1-V12
- * (two rows); the scroll list shows the display settings of all versions first, then that version's values.
+ * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). The favourite versions
+ * (V5, V13-V24) are direct buttons in one row, V1-V12 sit in a drop-down (E29-6); the scroll list shows the display settings of all versions first, then that version's values.
  *
  * <p>WF25-2/WG26-3 (owner 26.10.: only the real Vanilla buttons reacted, never the self-drawn list): every control is a real
  * Vanilla widget - {@link AbstractSliderButton} for numbers, {@link CycleButton} for on/off - in a real Vanilla scroll list
@@ -38,11 +38,14 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
     static final int LABEL = 0xFF404040, SECONDARY_TEXT = 0xFF4A4A4A, TRACK = 0xFF8B8B8B;
     /** Panel (UiPalette.INVENTORY fill) and the lighter list well the rows sit on. */
     static final int PANEL_BG = 0xFFC6C6C6, LIST_BG = 0xFFD6D6D6;
-    static final int W = 214, ROW = 24, PAD = 8;
+    static final int ROW = 24, PAD = 8;
+    /** Panel width: 300 (E29-6, room for the favourites row), less in very narrow windows. */
+    private int W = 300;
     private int panelX, panelY, panelH, listTop, listBottom;
     private SettingsList list;
     private final List<Button> versionButtons = new ArrayList<>();
     private Button resetButton, doneButton;
+    private CycleButton<Integer> olderVersions;
     private long lastSend;
     private boolean serverDirty;
 
@@ -52,18 +55,31 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
 
     @Override
     protected void init() {
+        W = Math.min(300, width - 12);
         panelH = Math.min(height - 12, 320);
         panelX = width - W - 6;
         panelY = Math.max(6, (height - panelH) / 2);
         versionButtons.clear();
-        int bx = panelX + PAD + 1, perRow = (EarthSettings.VERSIONS + 1) / 2, bw = (W - 2 * PAD) / perRow;
-        for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
-            int ver = v, col = (v - 1) % perRow, line = (v - 1) / perRow;
-            Button b = Button.builder(Component.literal("V" + v), btn -> select(ver)).bounds(bx + col * bw, panelY + 20 + line * 21, bw - 1, 20)
-                    .tooltip(Tooltip.create(Component.translatable("simpleearth.version." + v + ".name")
-                            .append("\n").append(Component.translatable("simpleearth.version." + v + ".desc")))).build();
+        // E29-6: the favourites (V5 and the new V13-V24) as direct buttons in one row, V1-V12 in a drop-down below
+        int[] fav = EarthSettings.FAVOURITES;
+        int bx = panelX + PAD, bw = (W - 2 * PAD) / fav.length;
+        for (int k = 0; k < fav.length; k++) {
+            int ver = fav[k];
+            Button b = Button.builder(Component.literal("V" + ver), btn -> select(ver)).bounds(bx + k * bw, panelY + 20, bw - 1, 20)
+                    .tooltip(Tooltip.create(Component.translatable("simpleearth.version." + ver + ".name")
+                            .append("\n").append(Component.translatable("simpleearth.version." + ver + ".desc")))).build();
             versionButtons.add(addRenderableWidget(b));
         }
+        List<Integer> older = new ArrayList<>();
+        older.add(0);
+        for (int v = 1; v <= 12; v++) older.add(v);
+        int now = EarthClientConfig.version <= 12 ? EarthClientConfig.version : 0;
+        olderVersions = addRenderableWidget(CycleButton.builder((Integer v) -> Component.literal(v == 0 ? "-" : "V" + v), now)
+                .withValues(older)
+                .create(panelX + PAD, panelY + 42, W - 2 * PAD, 20, Component.translatable("simpleearth.screen.older"), (button, v) -> {
+                    if (v != 0) select(v);
+                }));
+        olderVersions.setTooltip(Tooltip.create(Component.translatable("simpleearth.screen.older.tip")));
         int by = panelY + panelH - 26;
         resetButton = addRenderableWidget(Button.builder(Component.translatable("simpleearth.screen.reset"), b -> {
             EarthClientConfig.resetVersion(EarthClientConfig.version);
@@ -103,7 +119,8 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         }
         list.replaceEntries(entries);
         list.setScrollAmount(keep);
-        for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = i + 1 != v;
+        for (int i = 0; i < versionButtons.size(); i++) versionButtons.get(i).active = EarthSettings.FAVOURITES[i] != v;
+        if (olderVersions != null && olderVersions.getValue() != (v <= 12 ? v : 0)) olderVersions.setValue(v <= 12 ? v : 0);
     }
 
     /** A Vanilla widget for one setting: on/off button for toggles, slider for numbers; changes apply at once. */
@@ -112,7 +129,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         Tooltip tip = Tooltip.create(Component.translatable("text.autoconfig.simpleearth.option." + s.key() + ".@Tooltip"));
         AbstractWidget widget;
         if (s.kind() == EarthSettings.Kind.TOGGLE) {
-            widget = CycleButton.onOffBuilder(value(s, global) >= 0.5).create(0, 0, W - 2 * PAD - 12, 20, label,
+            widget = CycleButton.onOffBuilder(value(s, global) >= 0.5).create(0, 0, 100, 20, label,
                     (button, on) -> store(s, global, on ? 1 : 0));
         } else {
             widget = new SettingSlider(s, global, label);
@@ -128,7 +145,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
         private final Component label;
 
         SettingSlider(EarthSettings.Setting setting, boolean global, Component label) {
-            super(0, 0, W - 2 * PAD - 12, 20, Component.empty(), fraction(setting, value(setting, global)));
+            super(0, 0, 100, 20, Component.empty(), fraction(setting, value(setting, global)));
             this.setting = setting;
             this.global = global;
             this.label = label;
@@ -143,13 +160,19 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
 
         @Override
         protected void applyValue() {
-            double raw = setting.min() + value * (setting.max() - setting.min());
-            store(setting, global, setting.min() + Math.round((raw - setting.min()) / setting.step()) * setting.step());
+            store(setting, global, fromFraction(setting, value));
         }
     }
 
     private static double fraction(EarthSettings.Setting s, double v) {
+        if (s.kind() == EarthSettings.Kind.LOG) return Math.max(0, Math.min(1, Math.log(v / s.min()) / Math.log(s.max() / s.min())));
         return Math.max(0, Math.min(1, (v - s.min()) / Math.max(1e-9, s.max() - s.min())));
+    }
+
+    /** Slider position (0..1) to a value of the setting, snapped to its step (LOG: logarithmic scale). */
+    static double fromFraction(EarthSettings.Setting s, double f) {
+        double raw = s.kind() == EarthSettings.Kind.LOG ? s.min() * Math.pow(s.max() / s.min(), f) : s.min() + f * (s.max() - s.min());
+        return s.min() + Math.round((raw - s.min()) / s.step()) * s.step();
     }
 
     private void changed(EarthSettings.Setting s) {
@@ -239,7 +262,7 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
 
     static String format(EarthSettings.Setting s, double value) {
         if (s.kind() == EarthSettings.Kind.TOGGLE) return Component.translatable(value >= 0.5 ? "options.on" : "options.off").getString();
-        if (s.kind() == EarthSettings.Kind.INT) return String.format(Locale.ROOT, "%,d", Math.round(value)).replace(',', ' ');
+        if (s.kind() == EarthSettings.Kind.INT || s.kind() == EarthSettings.Kind.LOG) return String.format(Locale.ROOT, "%,d", Math.round(value)).replace(',', ' ');
         return String.format(Locale.ROOT, "%.2f", value);
     }
 
@@ -320,7 +343,12 @@ public final class EarthScreen extends Screen implements MenuProbe.Target {
 
     @Override
     public int[] probeVersionButton(int v) {
-        Button b = versionButtons.get(v - 1);
+        Button b = null;
+        for (int i = 0; i < EarthSettings.FAVOURITES.length; i++) if (EarthSettings.FAVOURITES[i] == v) b = versionButtons.get(i);
+        if (b == null) {
+            // older versions: the drop-down
+            return new int[]{olderVersions.getX(), olderVersions.getY(), olderVersions.getWidth(), olderVersions.getHeight()};
+        }
         return new int[]{b.getX(), b.getY(), b.getWidth(), b.getHeight()};
     }
 

@@ -72,5 +72,7 @@
   "jei.simplelib.note.mob_drop.loot": "When %s dies (loot table)",
   "jei.simplelib.grade.diamond": "diamond tier",
   "jei.simplelib.grade.netherite": "Netherite tier",
-  "jei.simplelib.grade.enderite": "Enderite tier"
+  "jei.simplelib.grade.enderite": "Enderite tier",
+  "key.simplelib.freelook": "Free look (hold)",
+  "key.category.simplelib.general": "Simple Lib"
 }

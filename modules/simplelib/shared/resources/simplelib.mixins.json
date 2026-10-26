@@ -33,7 +33,9 @@
     "client.CodeAreaSelectAccessor",
     "client.RarityClientThreadMixin",
     "client.RarityTooltipTextMixin",
-    "client.LegendaryToastMixin"
+    "client.LegendaryToastMixin",
+    "client.FreeLookTurnMixin",
+    "client.FreeLookCameraMixin"
   ],
   "server": [],
   "injectors": {

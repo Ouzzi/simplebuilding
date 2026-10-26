@@ -84,7 +84,7 @@ public final class EarthRenderer {
         ViewParams params = EarthClientConfig.params(edge);
         params.set("eyeHeight", h).set("heightFraction", EarthClient.heightFraction(camera.y));
         Scene scene = view.step(EarthClient.relX(partial), EarthClient.relZ(partial), dt, params);
-        V3 eye = scene.contact.add(new V3(0, h, 0));
+        V3 eye = scene.contact.add(new V3(0, Math.max(0.02, h - scene.eyeDrop), 0));
         int renderBlocks = mc.options.getEffectiveRenderDistance() * 16;
         double maxDist = Math.max(24, Math.min(160, renderBlocks * 0.5));
         // everything stays inside the sky box (corners at 0.95 maxDist, i.e. before the Vanilla fog that would swallow it):
@@ -158,7 +158,7 @@ public final class EarthRenderer {
         int foldQ = p.folded ? (int) Math.round(params.get("foldRadius", 0.6) * 100) : 0;
         return FaceTextures.get(new FaceTextures.Key(scene.curTx + p.tx, scene.curTz + p.tz, p.mirror, scene.curTx + p.mixTx,
                 scene.curTz + p.mixTz, p.mixMirror, mixQ, ctx.res(), foldQ > 0 ? scene.curTx : 0, foldQ > 0 ? scene.curTz : 0, foldQ,
-                (int) Math.round(ctx.relief() * 4)), ctx);
+                (int) Math.round(ctx.relief() * 4), scene.equiangular), ctx);
     }
 
     private static void patch(SubmitNodeCollector collector, PoseStack poseStack, Scene scene, Patch p, V3 eye, double scale, V3 sun,

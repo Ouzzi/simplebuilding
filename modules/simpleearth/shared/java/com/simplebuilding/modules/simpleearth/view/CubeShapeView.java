@@ -19,7 +19,7 @@ final class CubeShapeView extends EarthView {
 
     static final int EDGE = 0xFFEAF2FF, CORE = 0xFF15131F;
     private final Style style;
-    private Quat shown = Quat.IDENTITY, from;
+    private Quat shown = Quat.IDENTITY, from, tiltNow = Quat.IDENTITY;
     private double animT;
     private String lastBottom = "";
 
@@ -31,6 +31,7 @@ final class CubeShapeView extends EarthView {
     protected void reset(double u, double v, ViewParams p) {
         shown = Quat.IDENTITY;
         from = null;
+        tiltNow = Quat.IDENTITY;
         lastBottom = "";
     }
 
@@ -75,10 +76,12 @@ final class CubeShapeView extends EarthView {
         double tilt = 0;
         if (style == Style.CORNER) {
             tilt = Meshes.clamp(p.get("cornerTilt", 1), 0, 1) * Meshes.smooth(p.get("tiltStart", 0.35), 1, p.get("heightFraction", 0));
-            if (tilt > 1e-4) {
-                V3 corner = shown.rotate(new V3(su, 1, sv)).normalize();
-                q = Quat.IDENTITY.slerp(Quat.fromUnitVectors(corner, V3.UP), tilt).mul(shown);
-            }
+            V3 corner = shown.rotate(new V3(su, 1, sv)).normalize();
+            Quat target = tilt > 1e-4 ? Quat.IDENTITY.slerp(Quat.fromUnitVectors(corner, V3.UP), tilt) : Quat.IDENTITY;
+            // E29-3: the corner turn follows smoothly (it used to jump when the player crossed the middle or an edge of a tile)
+            double tau = Math.max(0.05, p.get("tipTime", 1.0)) * 0.6;
+            tiltNow = tiltNow.slerp(target, dt <= 0 ? 1 : 1 - Math.exp(-dt / tau));
+            q = tiltNow.mul(shown);
         }
         double r = style == Style.TIP ? Meshes.clamp(p.get("rounding", 0.02), 0.005, 0.3) : 0.005;
         V3 contactBody = Meshes.round(new V3(u, 1, v), r);

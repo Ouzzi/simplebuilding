@@ -16,7 +16,7 @@ assert len(setting_keys) >= 20 and len(server_keys) >= 10, (setting_keys, server
 for key in sorted(setting_keys | server_keys):
     for suffix in ('', '.@Tooltip'):
         assert f'text.autoconfig.{ID}.option.{key}{suffix}' in en, f'missing label {key}{suffix}'
-for v in range(1, 13):
+for v in range(1, 25):
     assert f'{ID}.version.{v}.name' in en and f'{ID}.version.{v}.desc' in en, v
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 assert manual['features'], 'wiki features'

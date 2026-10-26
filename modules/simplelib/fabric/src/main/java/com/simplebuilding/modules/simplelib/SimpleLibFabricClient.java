@@ -17,6 +17,9 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
                     @Override public void changed(net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource s, net.minecraft.network.chat.Component t) { s.sendFeedback(t); }
                     @Override public void fail(net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource s, net.minecraft.network.chat.Component t) { s.sendError(t); }
                 }));
+        // E29-4: free look (hold, standard left Alt) - Simple Earth and the zoom module use it.
+        net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper.registerKeyMapping(com.simplelib.api.client.FreeLook.KEY);
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplelib.api.client.FreeLook::tick);
         // SimpleLib's own client file (inventory brightness).
         com.simplelib.api.client.ui.UiBrightness.registerConfigCommand();
     }

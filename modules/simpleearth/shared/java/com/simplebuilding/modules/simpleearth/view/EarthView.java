@@ -54,7 +54,7 @@ public abstract class EarthView {
         return curTz;
     }
 
-    /** All twelve versions, index 0 = V1. */
+    /** All 24 versions, index 0 = V1. */
     public static EarthView create(int version) {
         return switch (version) {
             case 1 -> new CubeJumpView(1);
@@ -69,6 +69,19 @@ public abstract class EarthView {
             case 10 -> new CubeShapeView(CubeShapeView.Style.TIP);
             case 11 -> new CubeShapeView(CubeShapeView.Style.CELLS);
             case 12 -> new CubeShapeView(CubeShapeView.Style.CORNER);
+            // E29-5: a) like V5, orbiting; b) like V12, orbiting and smooth; c) like V9, rolling
+            case 13 -> new OrbitBodyView(OrbitBodyView.Shape.SUPER, OrbitBodyView.Corner.NONE, false);
+            case 14 -> new OrbitBodyView(OrbitBodyView.Shape.SUPER, OrbitBodyView.Corner.NONE, false);
+            case 15 -> new OrbitBodyView(OrbitBodyView.Shape.SUPER, OrbitBodyView.Corner.WINDOW, false);
+            case 16 -> new OrbitBodyView(OrbitBodyView.Shape.SUPER, OrbitBodyView.Corner.FOUR, false);
+            case 17 -> new OrbitBodyView(OrbitBodyView.Shape.CUBE, OrbitBodyView.Corner.NONE, false);
+            case 18 -> new OrbitBodyView(OrbitBodyView.Shape.CUBE, OrbitBodyView.Corner.NONE, true);
+            case 19 -> new OrbitBodyView(OrbitBodyView.Shape.CUBE, OrbitBodyView.Corner.WINDOW, false);
+            case 20 -> new OrbitBodyView(OrbitBodyView.Shape.CUBE, OrbitBodyView.Corner.FOUR, false);
+            case 21 -> new OrbitShellView(OrbitShellView.Fold.POSITION);
+            case 22 -> new OrbitShellView(OrbitShellView.Fold.FIXED);
+            case 23 -> new OrbitShellView(OrbitShellView.Fold.HEIGHT);
+            case 24 -> new OrbitShellView(OrbitShellView.Fold.CUBE);
             default -> new FoldingNetView(FoldingNetView.Style.PLAIN);
         };
     }

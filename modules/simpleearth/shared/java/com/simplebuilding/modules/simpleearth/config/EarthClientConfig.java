@@ -26,6 +26,16 @@ public final class EarthClientConfig {
     public static DevButton devButton = DevButton.AUTO;
     private static final Map<Integer, Map<String, Double>> VALUES = new LinkedHashMap<>();
     private static final Map<String, Double> RENDER = new LinkedHashMap<>();
+    /**
+     * E29-1 (owner 26.10.): heights, size and look ({@link EarthSettings#SHARED}) are ONE set for all versions - a version
+     * switch keeps them (they used to be a copy per version and seemed to reset). Only the versions' own style values stay per version.
+     */
+    private static final Map<String, Double> SHARED = new LinkedHashMap<>();
+
+    static boolean shared(String key) {
+        for (EarthSettings.Setting s : EarthSettings.SHARED) if (s.key().equals(key)) return true;
+        return false;
+    }
     private static Path file;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -66,11 +76,16 @@ public final class EarthClientConfig {
         RENDER.clear();
         for (EarthSettings.Setting s : EarthSettings.RENDER) RENDER.put(s.key(), read(s, render.get(s.key())));
         JsonObject versions = json.has("versions") && json.get("versions").isJsonObject() ? json.getAsJsonObject("versions") : new JsonObject();
+        // the shared set; older files kept it per version - take the chosen version's copy then
+        JsonObject sharedJson = json.has("shared") && json.get("shared").isJsonObject() ? json.getAsJsonObject("shared")
+                : versions.has("V" + version) && versions.get("V" + version).isJsonObject() ? versions.getAsJsonObject("V" + version) : new JsonObject();
+        SHARED.clear();
+        for (EarthSettings.Setting s : EarthSettings.SHARED) SHARED.put(s.key(), read(s, sharedJson.get(s.key())));
         VALUES.clear();
         for (int ver = 1; ver <= EarthSettings.VERSIONS; ver++) {
             JsonObject own = versions.has("V" + ver) && versions.get("V" + ver).isJsonObject() ? versions.getAsJsonObject("V" + ver) : new JsonObject();
             Map<String, Double> map = new LinkedHashMap<>();
-            for (EarthSettings.Setting s : EarthSettings.forVersion(ver)) map.put(s.key(), read(s, own.get(s.key())));
+            for (EarthSettings.Setting s : EarthSettings.forVersion(ver)) if (!shared(s.key())) map.put(s.key(), read(s, own.get(s.key())));
             VALUES.put(ver, map);
         }
     }
@@ -88,7 +103,7 @@ public final class EarthClientConfig {
 
     private static void write(JsonObject out, EarthSettings.Setting s, String k, double val) {
         if (s != null && s.kind() == EarthSettings.Kind.TOGGLE) out.addProperty(k, val >= 0.5);
-        else if (s != null && s.kind() == EarthSettings.Kind.INT) out.addProperty(k, (long) Math.round(val));
+        else if (s != null && (s.kind() == EarthSettings.Kind.INT || s.kind() == EarthSettings.Kind.LOG)) out.addProperty(k, (long) Math.round(val));
         else out.addProperty(k, val);
     }
 
@@ -99,6 +114,9 @@ public final class EarthClientConfig {
         JsonObject render = new JsonObject();
         RENDER.forEach((k, val) -> write(render, EarthSettings.findRender(k), k, val));
         o.add("render", render);
+        JsonObject sharedJson = new JsonObject();
+        SHARED.forEach((k, val) -> write(sharedJson, EarthSettings.find(1, k), k, val));
+        o.add("shared", sharedJson);
         JsonObject versions = new JsonObject();
         VALUES.forEach((ver, map) -> {
             JsonObject own = new JsonObject();
@@ -110,6 +128,10 @@ public final class EarthClientConfig {
     }
 
     public static double get(int ver, String key) {
+        if (shared(key)) {
+            Double v = SHARED.get(key);
+            if (v != null) return v;
+        }
         Map<String, Double> map = VALUES.get(ver);
         Double v = map == null ? null : map.get(key);
         if (v != null) return v;
@@ -126,7 +148,8 @@ public final class EarthClientConfig {
         EarthSettings.Setting s = EarthSettings.find(ver, key);
         if (s == null) return 0;
         double c = s.clamp(value);
-        VALUES.computeIfAbsent(ver, k -> new LinkedHashMap<>()).put(key, c);
+        if (shared(key)) SHARED.put(key, c);
+        else VALUES.computeIfAbsent(ver, k -> new LinkedHashMap<>()).put(key, c);
         return c;
     }
 
@@ -162,6 +185,7 @@ public final class EarthClientConfig {
     public static ViewParams params(double edge) {
         ViewParams p = new ViewParams();
         p.edge = edge;
+        SHARED.forEach(p::set);
         VALUES.getOrDefault(version, Map.of()).forEach(p::set);
         return p;
     }

@@ -50,6 +50,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             glide(context);
             elytraGlide(context, world);
             toTheEdge(context, world);
+            newVersions(context, world);
             topViewF5(context, world);
             // WE25-1: rain on the server, none on the client while the earth is shown
             world.getServer().runCommand("weather rain");
@@ -177,6 +178,40 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         System.out.println(String.format(java.util.Locale.ROOT, "[earth-measure] V10 %s heights: image %s after %d ticks (%.1f s), %d tiles sampled, %.1f ms per tile",
                 fast ? "fast" : "exact", done ? "complete" : "NOT complete", ticks, ticks / 20.0, tiles, ms));
         if (fast) check(done, "V10 image complete with fast heights within 90 s");
+    }
+
+    /** E29-5: each new version at the tile centre, near an edge and near a corner (y 3000, looking down). */
+    private static void newVersions(ClientGameTestContext context, TestSingleplayerContext world) {
+        versionShots(context, world, 13, "simpleearth-v13-centre", "simpleearth-v13-edge", "simpleearth-v13-corner");
+        versionShots(context, world, 14, "simpleearth-v14-centre", "simpleearth-v14-edge", "simpleearth-v14-corner");
+        versionShots(context, world, 15, "simpleearth-v15-centre", "simpleearth-v15-edge", "simpleearth-v15-corner");
+        versionShots(context, world, 16, "simpleearth-v16-centre", "simpleearth-v16-edge", "simpleearth-v16-corner");
+        versionShots(context, world, 17, "simpleearth-v17-centre", "simpleearth-v17-edge", "simpleearth-v17-corner");
+        versionShots(context, world, 18, "simpleearth-v18-centre", "simpleearth-v18-edge", "simpleearth-v18-corner");
+        versionShots(context, world, 19, "simpleearth-v19-centre", "simpleearth-v19-edge", "simpleearth-v19-corner");
+        versionShots(context, world, 20, "simpleearth-v20-centre", "simpleearth-v20-edge", "simpleearth-v20-corner");
+        versionShots(context, world, 21, "simpleearth-v21-centre", "simpleearth-v21-edge", "simpleearth-v21-corner");
+        versionShots(context, world, 22, "simpleearth-v22-centre", "simpleearth-v22-edge", "simpleearth-v22-corner");
+        versionShots(context, world, 23, "simpleearth-v23-centre", "simpleearth-v23-edge", "simpleearth-v23-corner");
+        versionShots(context, world, 24, "simpleearth-v24-centre", "simpleearth-v24-edge", "simpleearth-v24-corner");
+        version(context, 6);
+    }
+
+    private static void versionShots(ClientGameTestContext context, TestSingleplayerContext world, int v, String centre, String edge, String corner) {
+        double ax = context.computeOnClient(mc -> EarthClient.ax()), az = context.computeOnClient(mc -> EarthClient.az());
+        int half = context.computeOnClient(mc -> EarthClient.edge()) / 2;
+        version(context, v);
+        double[][] spots = {{0, 0}, {0.9, 0.1}, {0.9, -0.9}};
+        String[] names = {centre, edge, corner};
+        for (int k = 0; k < 3; k++) {
+            double x = ax + spots[k][0] * half, z = az + spots[k][1] * half;
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.teleportTo(p.level(), x, 3000, z, java.util.Set.of(), 0, 70, false);
+            });
+            context.waitTicks(k == 0 ? 60 : 30);
+            context.takeScreenshot(names[k]);
+        }
     }
 
     /** WG26-1: forward flight above the switch moves the player himself (creative flight); A stays, nothing pulls back. */

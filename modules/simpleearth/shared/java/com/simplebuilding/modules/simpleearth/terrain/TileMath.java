@@ -6,7 +6,8 @@ package com.simplebuilding.modules.simpleearth.terrain;
  */
 public final class TileMath {
     public static final int TILE = 64, AREA = TILE * TILE;
-    public static final int MIN_E = 4, MAX_E = 14;
+    /** Grid exponents: 2^0 = 1 block (tiny developer earths, E29-7) to 2^14 = 16384 blocks per sample. */
+    public static final int MIN_E = 0, MAX_E = 14;
     /** Largest face image (pixels per side). */
     public static final int MAX_RES = 1024;
     /** Vanilla world border (blocks); samples beyond it stay unknown. */

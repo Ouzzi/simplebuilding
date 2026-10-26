@@ -88,17 +88,17 @@ public final class EarthServerConfig {
         } else {
             dimensions.add("minecraft:overworld");
         }
-        minActivationY = integer(json, "minActivationY", 1024, 384, 16384);
-        minSwitchGap = integer(json, "minSwitchGap", 128, 32, 8192);
-        minEdge = integer(json, "minEdge", 512, 256, 262144);
-        maxEdge = integer(json, "maxEdge", 262144, minEdge, 1048576);
+        minActivationY = integer(json, "minActivationY", 384, 64, 30000);
+        minSwitchGap = integer(json, "minSwitchGap", 32, 1, 8192);
+        minEdge = integer(json, "minEdge", 64, 16, 1048576);
+        maxEdge = integer(json, "maxEdge", 1048576, minEdge, 16777216);
         exploredOnly = bool(json, "exploredOnly", false);
         showOthers = bool(json, "showOthers", true);
         workerThreads = integer(json, "workerThreads", Math.max(2, Math.min(4, Runtime.getRuntime().availableProcessors() / 2)), 1, Math.max(1, Runtime.getRuntime().availableProcessors() - 1));
         tilesPerSecond = integer(json, "tilesPerSecond", 24, 1, 512);
         memoryTiles = integer(json, "memoryTiles", 1024, 16, 65536);
         diskCacheMiB = integer(json, "diskCacheMiB", 256, 0, 65536);
-        minGrid = integer(json, "minGrid", 5, com.simplebuilding.modules.simpleearth.terrain.TileMath.MIN_E, 10);
+        minGrid = integer(json, "minGrid", 3, com.simplebuilding.modules.simpleearth.terrain.TileMath.MIN_E, 10);
         biomeVotes = integer(json, "biomeVotes", 2, 1, 3);
         surfaceDetail = bool(json, "surfaceDetail", true);
         globalGrid = bool(json, "globalGrid", false);
