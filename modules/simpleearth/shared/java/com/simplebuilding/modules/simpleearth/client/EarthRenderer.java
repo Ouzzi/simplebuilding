@@ -41,25 +41,25 @@ public final class EarthRenderer {
     private static float[] stars;
 
     /**
-     * WF25-3: every earth point is pushed this many blocks further from the camera along its line of sight, so the picture
+     * WF25-3: every earth point is pushed this many blocks (up to 32, less with a small render distance) further from the camera along its line of sight, so the picture
      * from the eye stays exactly the same but nothing of the earth is ever nearer than this - in third person (F5 looking
      * down at yourself) the earth used to slide between camera and player once its scaled surface came closer than the
      * camera distance (with 20+ chunks render distance just below y 2778).
      */
-    static final double PUSH = 32;
+    static double push = 32;
     /** Nearest earth distance of the last frame (client test). */
     public static volatile double lastNearest = Double.NaN;
     private static double nearest;
 
     private EarthRenderer() {}
 
-    /** Scaled into the near range, then pushed {@link #PUSH} blocks back along the line of sight (same direction, same picture). */
+    /** Scaled into the near range, then pushed {@link #push} blocks back along the line of sight (same direction, same picture). */
     static V3 place(V3 rel, double scale) {
         V3 v = rel.mul(scale);
         double len = v.length();
-        if (len < 1e-9) return new V3(0, -PUSH, 0);
-        if (len + PUSH < nearest) nearest = len + PUSH;
-        return v.mul((PUSH + len) / len);
+        if (len < 1e-9) return new V3(0, -push, 0);
+        if (len + push < nearest) nearest = len + push;
+        return v.mul((push + len) / len);
     }
 
     public static void render(SubmitNodeCollector collector, PoseStack poseStack, Vec3 camera) {
@@ -87,7 +87,11 @@ public final class EarthRenderer {
         V3 eye = scene.contact.add(new V3(0, h, 0));
         int renderBlocks = mc.options.getEffectiveRenderDistance() * 16;
         double maxDist = Math.max(24, Math.min(160, renderBlocks * 0.5));
-        double scale = maxDist / (h + 5.5);
+        // everything stays inside the sky box (corners at 0.95 maxDist, i.e. before the Vanilla fog that would swallow it):
+        // the earth reaches at most push + (h + 3) * scale = 0.97 of the box's face distance (WG26-2)
+        double skyR = maxDist * 0.95 / Math.sqrt(3);
+        push = Math.min(32, skyR * 0.3);
+        double scale = (0.97 * skyR - push) / (h + 3);
         long clock = mc.level.getOverworldClockTime();
         double dayAngle = ((clock % 24000L) / 24000.0) * Math.PI * 2;
         V3 sun = new V3(Math.cos(dayAngle), Math.sin(dayAngle), 0.25).normalize();
@@ -301,8 +305,8 @@ public final class EarthRenderer {
 
     /** Black sky (a cube inside the view range that hides the Vanilla sky), stars, the flat sun and the cube moon. */
     private static void sky(SubmitNodeCollector collector, PoseStack poseStack, double maxDist, V3 sun, double fade, long clock) {
-        // the sky box lies behind the whole earth (which ends at PUSH + maxDist, see place)
-        double r = (maxDist + PUSH) * 1.08;
+        // the sky box: corners before the fog, the earth inside it (see render)
+        double r = maxDist * 0.95 / Math.sqrt(3);
         double starLevel = EarthClientConfig.get("stars");
         int black = shade(0xFF020308, 1, fade);
         collector.submitCustomGeometry(poseStack, RenderTypes.text(WHITE), (pose, buffer) -> {

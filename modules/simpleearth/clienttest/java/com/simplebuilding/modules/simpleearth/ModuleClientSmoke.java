@@ -260,7 +260,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(20);
         context.takeScreenshot("simpleearth-f5-top-2700");
         double nearest = context.computeOnClient(mc -> com.simplebuilding.modules.simpleearth.client.EarthRenderer.lastNearest);
-        check(nearest >= 16, String.format(java.util.Locale.ROOT, "F5 from above at y 2700: nearest earth %.1f blocks (camera 4 blocks behind)", nearest));
+        check(nearest >= 8, String.format(java.util.Locale.ROOT, "F5 from above at y 2700: nearest earth %.1f blocks (camera 4 blocks behind)", nearest));
         context.runOnClient(mc -> {
             mc.options.setCameraType(net.minecraft.client.CameraType.FIRST_PERSON);
             mc.player.setXRot(55);
