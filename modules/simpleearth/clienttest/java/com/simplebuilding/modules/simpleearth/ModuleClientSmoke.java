@@ -199,12 +199,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             p.getAbilities().flying = false;
             p.getAbilities().mayfly = false;
             p.onUpdateAbilities();
-            p.setDeltaMovement(1.5, 0, 0);
-            p.hurtMarked = true;
             p.startFallFlying();
         });
-        context.runOnClient(mc -> mc.player.setXRot(0));
         context.waitTicks(3);
+        context.runOnClient(mc -> {
+            mc.player.setXRot(0);
+            mc.player.setDeltaMovement(1.5, 0, 0);
+        });
         double[] a = context.computeOnClient(mc -> new double[]{mc.player.getX(), mc.player.getZ(), EarthClient.relX(1), EarthClient.relZ(1)});
         context.waitTicks(30);
         double[] b = context.computeOnClient(mc -> new double[]{mc.player.getX(), mc.player.getZ(), EarthClient.relX(1), EarthClient.relZ(1)});
