@@ -51,6 +51,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             elytraGlide(context, world);
             toTheEdge(context, world);
             newVersions(context, world);
+            freeLook(context);
             topViewF5(context, world);
             // WE25-1: rain on the server, none on the client while the earth is shown
             world.getServer().runCommand("weather rain");
@@ -180,7 +181,20 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         if (fast) check(done, "V10 image complete with fast heights within 90 s");
     }
 
-    /** E29-5: each new version at the tile centre, near an edge and near a corner (y 3000, looking down). */
+    /** E29-4: with free look the camera turns by the offset, the player keeps his view; released, the offset eases back. */
+    private static void freeLook(ClientGameTestContext context) {
+        context.runOnClient(mc -> com.simplelib.api.client.FreeLook.set(40, 0, true));
+        context.waitTicks(1);
+        float[] r = context.computeOnClient(mc -> new float[]{mc.gameRenderer.mainCamera().yRot(), mc.player.getYRot()});
+        float diff = ((r[0] - r[1]) % 360 + 540) % 360 - 180;
+        check(Math.abs(diff - 40) < 1, "free look: camera 40 degrees off the player's view (" + diff + ")");
+        context.runOnClient(mc -> com.simplelib.api.client.FreeLook.set(40, 0, false));
+        context.waitTicks(30);
+        float back = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.yawOffset());
+        check(Math.abs(back) < 1, "free look released: camera back (" + back + ")");
+    }
+
+    /** E29-5: each new version at the tile centre, near an edge and near a corner (y 3000, looking straight down). */
     private static void newVersions(ClientGameTestContext context, TestSingleplayerContext world) {
         versionShots(context, world, 13, "simpleearth-v13-centre", "simpleearth-v13-edge", "simpleearth-v13-corner");
         versionShots(context, world, 14, "simpleearth-v14-centre", "simpleearth-v14-edge", "simpleearth-v14-corner");
@@ -207,7 +221,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             double x = ax + spots[k][0] * half, z = az + spots[k][1] * half;
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
-                p.teleportTo(p.level(), x, 3000, z, java.util.Set.of(), 0, 70, false);
+                p.teleportTo(p.level(), x, 3000, z, java.util.Set.of(), 0, 90, false);
             });
             context.waitTicks(k == 0 ? 60 : 30);
             context.takeScreenshot(names[k]);

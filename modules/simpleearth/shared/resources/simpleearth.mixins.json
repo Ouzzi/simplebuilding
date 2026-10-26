@@ -7,7 +7,8 @@
   "client": [
     "client.EarthWeatherMixin",
     "client.EarthAmbientMixin",
-    "client.EarthCloudMixin"
+    "client.EarthCloudMixin",
+    "client.EarthCloudStatusMixin"
   ],
   "server": [],
   "injectors": {
