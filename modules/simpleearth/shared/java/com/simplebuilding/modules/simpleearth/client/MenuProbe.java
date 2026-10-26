@@ -100,6 +100,8 @@ public final class MenuProbe {
         o.addProperty("height", w.getScreenHeight());
         o.addProperty("scale", scale);
         o.addProperty("version", EarthClientConfig.version);
+        o.addProperty("mouseX", mc.mouseHandler.xpos());
+        o.addProperty("mouseY", mc.mouseHandler.ypos());
         JsonObject values = new JsonObject();
         for (String k : new String[]{"detail", "faceEdge", "moonPhases", "paintBudget"}) values.addProperty(k, EarthClientConfig.render(k));
         values.addProperty("tipTime", EarthClientConfig.get(10, "tipTime"));

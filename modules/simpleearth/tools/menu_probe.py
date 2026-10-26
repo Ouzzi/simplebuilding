@@ -167,6 +167,13 @@ def main():
                 check(f'{tag}: click detail slider near the left end', st['values']['detail'] == 1, f'detail {st["values"]["detail"]}')
             else:
                 check(f'{tag}: detail slider visible', False, 'not in view')
+            # calibration: where the game sees the pointer (window pixels) after a real move
+            cx, cy = centre(st, 'list')
+            ptr.move(cx, cy)
+            time.sleep(0.8)
+            st = status()
+            print(f'{tag}: pointer at root {cx:.0f}/{cy:.0f}, game sees {st["mouseX"]:.0f}/{st["mouseY"]:.0f} '
+                  f'(window at {st["windowX"]}/{st["windowY"]})', flush=True)
             # 3 drag the tile border slider from left to right
             command('scrollTo', key='faceEdge')
             st = status()
@@ -175,6 +182,7 @@ def main():
                 x1, _ = at(st, 'faceEdge', 0.98)
                 ptr.drag(x0, y, x1)
                 st = status()
+                print(f'{tag}: after drag the game sees the pointer at {st["mouseX"]:.0f}, slider {st["rects"].get("faceEdge")}', flush=True)
                 check(f'{tag}: drag tile border slider to the right', st['values']['faceEdge'] >= 0.9, f'faceEdge {st["values"]["faceEdge"]}')
             else:
                 check(f'{tag}: tile border slider visible', False, 'not in view')
