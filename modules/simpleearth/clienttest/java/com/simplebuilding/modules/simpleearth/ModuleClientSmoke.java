@@ -181,13 +181,18 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         if (fast) check(done, "V10 image complete with fast heights within 90 s");
     }
 
-    /** E29-4: holding the free-look key, a mouse move turns the camera, not the player; released, the camera eases back. */
+    /**
+     * E29-4: holding the free-look key (real key mapping), a mouse turn ({@code Entity.turn}, as the mouse handler calls it)
+     * turns the camera, not the player; released, the camera eases back. The real mouse is not checked here.
+     */
     private static void freeLook(ClientGameTestContext context) {
         float yaw0 = context.computeOnClient(mc -> mc.player.getYRot());
         context.getInput().holdKey(com.simplelib.api.client.FreeLook.KEY);
         context.waitTicks(2);
-        context.getInput().moveCursor(300, 0);
-        context.waitTicks(3);
+        // the mouse handler turns the player through Entity.turn (only with a grabbed mouse, which the test window has not):
+        // call it the same way
+        context.runOnClient(mc -> mc.player.turn(300, 0));
+        context.waitTicks(1);
         float[] r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset(), mc.gameRenderer.mainCamera().yRot()});
         check(Math.abs(r[0] - yaw0) < 0.01 && Math.abs(r[1]) > 5, "free look: mouse turned the camera by " + r[1] + " degrees, player yaw " + yaw0 + " -> " + r[0]);
         context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
