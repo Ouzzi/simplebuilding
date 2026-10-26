@@ -24,7 +24,7 @@ import net.minecraft.network.chat.Component;
  * click, Shift + wheel steps; on/off values toggle on a click), every change applies live.
  * Vanilla inventory palette: #404040 on #C6C6C6 = 5.7:1, on the list well #D6D6D6 = 7.1:1; secondary #4A4A4A = 5.2:1 / 6.1:1.
  */
-public final class EarthScreen extends Screen {
+public final class EarthScreen extends Screen implements MenuProbe.Target {
     static final int LABEL = 0xFF404040, SECONDARY_TEXT = 0xFF4A4A4A, TRACK = 0xFF8B8B8B, TRACK_DARK = 0xFF373737, BAR = 0xFF4E7A3A;
     /** Panel (UiPalette.INVENTORY fill) and the lighter list well the rows sit on. */
     static final int PANEL_BG = 0xFFC6C6C6, LIST_BG = 0xFFD6D6D6;
@@ -224,6 +224,51 @@ public final class EarthScreen extends Screen {
             }
         }
         throw new IllegalArgumentException(key);
+    }
+
+    // --- menu probe (real-mouse test) ---
+
+    @Override
+    public int[] probeVersionButton(int v) {
+        Button b = versionButtons.get(v - 1);
+        return new int[]{b.getX(), b.getY(), b.getWidth(), b.getHeight()};
+    }
+
+    @Override
+    public int[] probeButton(boolean reset) {
+        Button b = reset ? resetButton : doneButton;
+        return new int[]{b.getX(), b.getY(), b.getWidth(), b.getHeight()};
+    }
+
+    @Override
+    public int[] probeControl(String key) {
+        for (int i = 0; i < rows.size(); i++) {
+            Row row = rows.get(i);
+            if (row.setting() == null || !row.setting().key().equals(key)) continue;
+            int y = rowY(i);
+            if (y < listTop || y + ROW > listBottom) return null;
+            if (row.setting().kind() == EarthSettings.Kind.TOGGLE) return new int[]{panelX + PAD, y, W - 2 * PAD, ROW};
+            return new int[]{trackX(), y + 13, trackW(), 6};
+        }
+        return null;
+    }
+
+    @Override
+    public void probeScrollTo(String key) {
+        try {
+            testRow(key);
+        } catch (IllegalArgumentException ignored) {
+        }
+    }
+
+    @Override
+    public int[] probeList() {
+        return new int[]{panelX + PAD, listTop, W - 2 * PAD, listBottom - listTop};
+    }
+
+    @Override
+    public double probeScroll() {
+        return scroll;
     }
 
     private int rowY(int index) {
