@@ -62,7 +62,7 @@ public final class EarthTests {
             h.assertTrue(EarthServerConfig.switchY(1000, 1024) == 1056, "switch at least 32 above activation (E29-7)");
             h.assertTrue(EarthServerConfig.edge(1) == 64 && EarthServerConfig.edge(99_999_999) == 1048576, "edge 64..1048576 (E1, E29-7)");
             h.assertTrue(EarthClientConfig.version == EarthSettings.DEFAULT_VERSION && EarthSettings.DEFAULT_VERSION == 6, "standard V6");
-            h.assertTrue(EarthSettings.VERSIONS == 12, "V1-V12 (WD25-17)");
+            h.assertTrue(EarthSettings.VERSIONS == 24 && EarthSettings.FAVOURITES.length == 13, "V1-V24 (WD25-17, E29-5), favourites row (E29-6)");
             h.assertTrue(EarthServerConfig.minGrid == 3 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
                     && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight
                     && EarthServerConfig.fastHeights, "WD25-16 server defaults (E4 per player, E5 any flight)");
@@ -102,7 +102,7 @@ public final class EarthTests {
                         && EarthClientConfig.toJson().has("shared"), "shared values survive the version switch");
                 h.assertTrue(EarthSettings.find(1, "edge").kind() == EarthSettings.Kind.LOG && EarthSettings.find(1, "edge").clamp(10) == 64,
                         "edge 64.. on a log slider (E29-7)");
-                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 13}").getAsJsonObject());
+                EarthClientConfig.apply(com.google.gson.JsonParser.parseString("{\"version\": 25}").getAsJsonObject());
                 h.assertTrue(EarthClientConfig.version == 6, "unknown version -> V6");
                 h.assertTrue(EarthSettings.find(10, "tipTime").def() == 0.6 && EarthSettings.find(10, "rounding").def() == 0.02
                         && EarthSettings.find(1, "rounding").def() == 0.07 && EarthSettings.find(11, "cells").def() == 3
