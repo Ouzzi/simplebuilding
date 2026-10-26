@@ -150,6 +150,14 @@ Besitzer-Text /root/sb-tools-b/wd25.md, Bilder /root/sb-tools-b/wd25-img/28–30
 - [x] (B, b-earthfix27, 26.10.) **WG26-2** Erde in echter Entfernung (`realDistance`, Standard): Augenhöhe = echte Höhe über dem Meer, Würfel in echter Größe; gezeichnet maßstabsgleich und nach hinten geschoben, Himmel/Erde vor dem Nebel (Fehler gefunden: Erde und Himmel lagen im Vanilla-Nebel → blauer Himmel, Erde unsichtbar); keine Wolken im Orbit. Beleg: F5 von oben y 2700, Fern-/Kantenbilder. Offen: „Blöcke“ = Kartenpixel (Mehrheitsfarbe), kein eigener Mittelwert; Besitzer-Sicht.
 - [x] (B, b-earthmenu28, 26.10.) **WF25-2 / WG26-3** Menü mit echter Maus: Einstellungsliste neu aus echten Vanilla-Widgets (AbstractSliderButton, CycleButton) in einer Vanilla-Liste (ContainerObjectSelectionList); eigene Treffer-Logik und GLFW-Polling entfernt. Nachweis mit echter Betriebssystem-Maus (X11-XTest, xdotool fehlt auf sb-test) im normalen Integrations-Client, 1920×1080, GUI 2 und 4 (`modules/simpleearth/tools/menu_probe.py`): vorher (7a674b901) Versionsknopf + Rad ok, Regler-Klick/-Ziehen/Schalter FEHLER = Besitzer-Fehler nachgestellt; nachher alle 10 Prüfungen ok. Grund der grünen alten Tests: Fabrics Test-Eingabe ruft den Maus-Handler direkt auf (anderer Weg). Vorschau /root/sb-tools-b/previews/earthmenu28-preview.html.
 
+## Besitzer 26.10. – Simple Earth Runde 31 (E31)
+Quelle: `/root/sb-tools-b/earth30.md` Abschnitt „Runde 31“. Branch b-earth31, Vorschau /root/sb-tools-b/previews/earth31-preview.html.
+- [x] (B, b-earth31, 26.10.) **E31-1** Renderentfernung bis 5 Ringe (Renderer bis Ring 5; die flache Karte der Faltwelt zeigt so viele, gefaltet bleiben die Würfelflächen).
+- [x] (B, b-earth31, 26.10.) **E31-2** Detail-Reichweite 0–5 in Schritten von 0,1 (Ringe dazwischen halbieren stufenlos).
+- [x] (B, b-earth31, 26.10.) **E31-3** V25/V26 nach dem Falten verbuggt: Ursache = Diagonal-/Außenkacheln falteten zu Stäben/Platten außerhalb des Würfels; jetzt nur sechs Würfelflächen, Rest blendet aus. Belege: JUnit foldedWorldStaysACube (vorher rot, nachher grün), Client-Bilder vorher/nachher.
+- [x] (B, b-earth31, 26.10.) **E31-4** Runde Atmosphäre für gewölbte Erden (V5, V13–V16, V26/V27; folgt dem Superellipsoid). Beleg: Client-Bilder vorher/nachher.
+- [x] (B, b-earth31, 26.10.) **E31-5** Alle Regler in einem Block oben (ohne Zwischenüberschriften), Versionswahl darunter. Beleg: echte Maus (menu_probe.py) 14/14.
+
 ## Besitzer 26.10. nachmittags – Simple Earth Runde 30 (E30)
 Quelle: `/root/sb-tools-b/earth30.md`. Branch b-earth30, Vorschau /root/sb-tools-b/previews/earth30-preview.html.
 - [x] (B, b-earth30, 26.10.) **E30-1** Keine Aktivierungshöhe: Weltkoordinate 0 ~ 0 = Mitte der oberen Fläche, Orbit ab der Render-Höhe (Server: minActivationY = niedrigste Render-Höhe; minSwitchGap/globalGrid entfernt). Beleg: Gametests orbit_lifecycle/orbit_options.
