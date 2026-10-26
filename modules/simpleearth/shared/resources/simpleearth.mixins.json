@@ -6,7 +6,8 @@
   "mixins": [],
   "client": [
     "client.EarthWeatherMixin",
-    "client.EarthAmbientMixin"
+    "client.EarthAmbientMixin",
+    "client.EarthCloudMixin"
   ],
   "server": [],
   "injectors": {
