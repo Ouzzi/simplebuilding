@@ -205,13 +205,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
 
     /** E31-3/E31-4: V25/V26 after the fold seen from the side, and the atmosphere of rounded earths (V5, V27). */
     private static void round31(ClientGameTestContext context, TestSingleplayerContext world) {
-        shotAt(context, world, 25, 300, 3400, 200, 35, "simpleearth-e31-v25-side");
-        shotAt(context, world, 25, 900, 3400, 950, 50, "simpleearth-e31-v25-corner");
-        shotAt(context, world, 26, 300, 3400, 200, 35, "simpleearth-e31-v26-side");
-        shotAt(context, world, 26, 900, 3400, 950, 50, "simpleearth-e31-v26-corner");
-        shotAt(context, world, 27, 300, 5000, 200, 40, "simpleearth-e31-atmo-v27");
-        shotAt(context, world, 5, 300, 5000, 200, 40, "simpleearth-e31-atmo-v5");
-        shotAt(context, world, 13, 300, 5000, 200, 40, "simpleearth-e31-atmo-v13");
+        shotAt(context, world, 25, 300, 3400, 200, 72, "simpleearth-e31-v25-side");
+        shotAt(context, world, 25, 900, 3400, 950, 75, "simpleearth-e31-v25-corner");
+        shotAt(context, world, 26, 300, 3400, 200, 72, "simpleearth-e31-v26-side");
+        shotAt(context, world, 26, 900, 3400, 950, 75, "simpleearth-e31-v26-corner");
+        shotAt(context, world, 27, 300, 5000, 200, 86, "simpleearth-e31-atmo-v27");
+        shotAt(context, world, 5, 300, 5000, 200, 86, "simpleearth-e31-atmo-v5");
+        shotAt(context, world, 13, 300, 5000, 200, 86, "simpleearth-e31-atmo-v13");
         version(context, 6);
     }
 
