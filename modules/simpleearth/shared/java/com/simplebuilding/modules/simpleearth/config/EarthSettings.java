@@ -53,15 +53,14 @@ public final class EarthSettings {
             d("faceEdge", 0, 1, 0.28, 0.04),
             t("moonPhases", true),
             t("showOthers", true),
-            t("speedWithHeight", true));
+            t("realDistance", true));
     /** Heights, edge, speed, sampling - every version has its own copy (E1, E2, E11). */
     public static final List<Setting> SHARED = List.of(
             i("activationY", 512, 16384, 1024, 64),
             i("switchY", 640, 20000, 1536, 64),
             i("ceilingY", 1024, 30000, 6144, 256),
             i("fadeBand", 16, 1024, 128, 16),
-            i("edge", 8192, 262144, 65536, 4096),
-            i("orbitSpeed", 16, 2048, 256, 16),
+            i("edge", 512, 262144, 2048, 512),
             i("faceResolution", 64, 512, 256, 64),
             d("orbitDistance", 0.5, 8, 3, 0.25),
             d("relief", 0, 4, 1, 0.25),

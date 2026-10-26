@@ -34,7 +34,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             teleport(context, world, 1100, 30);
             teleport(context, world, 1700, 40);
             context.runOnClient(mc -> {
-                if (!EarthClient.parked()) throw new AssertionError("not parked in orbit above the render switch");
+                if (!EarthClient.parked()) throw new AssertionError("earth not shown above the render switch");
+                int mods = net.fabricmc.loader.api.FabricLoader.getInstance().getAllMods().size();
+                boolean sb = net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding");
+                System.out.println("[earth-measure] client runs with " + mods + " mods, simplebuilding " + sb + ", simpleinterfaces "
+                        + net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simpleinterfaces") + ", mousetweaks "
+                        + net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("mousetweaks"));
                 mc.player.setXRot(55);
             });
             // WD25-22: time until the V10 image is complete from cold caches, exact vs fast (Chunkbase-like) heights
@@ -44,6 +49,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot("simpleearth-v10-fast");
             glide(context);
             elytraGlide(context, world);
+            toTheEdge(context, world);
             topViewF5(context, world);
             // WE25-1: rain on the server, none on the client while the earth is shown
             world.getServer().runCommand("weather rain");
@@ -173,18 +179,19 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         if (fast) check(done, "V10 image complete with fast heights within 90 s");
     }
 
-    /** WD25-22: forward glide while parked moves the orbit position (client prediction and server). */
+    /** WG26-1: forward flight above the switch moves the player himself (creative flight); A stays, nothing pulls back. */
     private static void glide(ClientGameTestContext context) {
-        context.runOnClient(mc -> mc.player.setXRot(55));
-        double[] a = context.computeOnClient(mc -> new double[]{EarthClient.relX(1), EarthClient.relZ(1)});
+        context.runOnClient(mc -> mc.player.setXRot(10));
+        double[] a = context.computeOnClient(mc -> new double[]{mc.player.getX(), mc.player.getZ(), EarthClient.relX(1), EarthClient.relZ(1)});
         context.getInput().holdKeyFor(o -> o.keyUp, 40);
-        context.waitTicks(2);
-        double[] b = context.computeOnClient(mc -> new double[]{EarthClient.relX(1), EarthClient.relZ(1)});
-        double moved = Math.hypot(b[0] - a[0], b[1] - a[1]);
-        check(moved > 256, String.format(java.util.Locale.ROOT, "forward glide 40 ticks moved %.0f blocks", moved));
+        context.waitTicks(5);
+        double[] b = context.computeOnClient(mc -> new double[]{mc.player.getX(), mc.player.getZ(), EarthClient.relX(1), EarthClient.relZ(1)});
+        double moved = Math.hypot(b[0] - a[0], b[1] - a[1]), viewMoved = Math.hypot(b[2] - a[2], b[3] - a[3]);
+        check(moved > 10 && Math.abs(moved - viewMoved) < 1, String.format(java.util.Locale.ROOT,
+                "creative flight above the switch: player moved %.1f blocks, earth position %.1f", moved, viewMoved));
     }
 
-    /** WF25-1: with an elytra (no creative flight) the parked player hovers and glides forward. */
+    /** WG26-1: elytra flight above the switch: the player glides on (no hover, no teleport) and the earth follows. */
     private static void elytraGlide(ClientGameTestContext context, TestSingleplayerContext world) {
         world.getServer().runOnServer(server -> {
             var p = server.getPlayerList().getPlayers().getFirst();
@@ -192,26 +199,54 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             p.getAbilities().flying = false;
             p.getAbilities().mayfly = false;
             p.onUpdateAbilities();
+            p.setDeltaMovement(1.5, 0, 0);
+            p.hurtMarked = true;
             p.startFallFlying();
         });
-        context.waitTicks(20);
-        double y0 = context.computeOnClient(mc -> mc.player.getY());
-        double[] a = context.computeOnClient(mc -> new double[]{EarthClient.relX(1), EarthClient.relZ(1)});
-        context.getInput().holdKeyFor(o -> o.keyUp, 40);
-        context.waitTicks(2);
-        double[] b = context.computeOnClient(mc -> new double[]{EarthClient.relX(1), EarthClient.relZ(1)});
-        double y1 = context.computeOnClient(mc -> mc.player.getY());
-        boolean parked = context.computeOnClient(mc -> EarthClient.parked());
-        double moved = Math.hypot(b[0] - a[0], b[1] - a[1]);
-        check(parked && moved > 256 && Math.abs(y1 - y0) < 8, String.format(java.util.Locale.ROOT,
-                "elytra: still parked %s, glide 40 ticks %.0f blocks, height change %.1f", parked, moved, y1 - y0));
+        context.runOnClient(mc -> mc.player.setXRot(0));
+        context.waitTicks(3);
+        double[] a = context.computeOnClient(mc -> new double[]{mc.player.getX(), mc.player.getZ(), EarthClient.relX(1), EarthClient.relZ(1)});
+        context.waitTicks(30);
+        double[] b = context.computeOnClient(mc -> new double[]{mc.player.getX(), mc.player.getZ(), EarthClient.relX(1), EarthClient.relZ(1)});
+        boolean flying = context.computeOnClient(mc -> mc.player.isFallFlying());
+        double moved = Math.hypot(b[0] - a[0], b[1] - a[1]), viewMoved = Math.hypot(b[2] - a[2], b[3] - a[3]);
+        check(flying && moved > 10 && Math.abs(moved - viewMoved) < 1, String.format(java.util.Locale.ROOT,
+                "elytra above the switch: still gliding %s, moved %.1f blocks, earth position %.1f", flying, moved, viewMoved));
         world.getServer().runOnServer(server -> {
             var p = server.getPlayerList().getPlayers().getFirst();
+            p.stopFallFlying();
             p.getAbilities().mayfly = true;
             p.getAbilities().flying = true;
             p.onUpdateAbilities();
         });
         context.waitTicks(5);
+    }
+
+    /** WG26-1: like a map - half an edge (1024 with the standard 2048) from the centre the next face lies under the player. */
+    private static void toTheEdge(ClientGameTestContext context, TestSingleplayerContext world) {
+        double ax = context.computeOnClient(mc -> com.simplebuilding.modules.simpleearth.client.EarthClient.ax());
+        int edge = context.computeOnClient(mc -> com.simplebuilding.modules.simpleearth.client.EarthClient.edge());
+        version(context, 6);
+        world.getServer().runOnServer(server -> {
+            var p = server.getPlayerList().getPlayers().getFirst();
+            p.teleportTo(p.level(), ax + edge / 2.0 - 40, 1800, p.getZ(), java.util.Set.of(), p.getYRot(), 60, false);
+        });
+        context.waitTicks(40);
+        int before = context.computeOnClient(mc -> EarthClient.view().currentTileX());
+        context.takeScreenshot("simpleearth-edge-before");
+        world.getServer().runOnServer(server -> {
+            var p = server.getPlayerList().getPlayers().getFirst();
+            p.teleportTo(p.level(), ax + edge / 2.0 + 40, 1800, p.getZ(), java.util.Set.of(), p.getYRot(), 60, false);
+        });
+        context.waitTicks(40);
+        int after = context.computeOnClient(mc -> EarthClient.view().currentTileX());
+        context.takeScreenshot("simpleearth-edge-after");
+        check(edge == 2048 && before == 0 && after == 1, "edge " + edge + ": tile under the player " + before + " -> " + after + " across x = A + edge/2");
+        world.getServer().runOnServer(server -> {
+            var p = server.getPlayerList().getPlayers().getFirst();
+            p.teleportTo(p.level(), ax, 1700, p.getZ(), java.util.Set.of(), p.getYRot(), 55, false);
+        });
+        context.waitTicks(40);
     }
 
     /** WF25-3: third person looking straight down at oneself below the old threshold (y 2778): the earth stays behind the player. */
@@ -275,6 +310,15 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         double s1 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testScroll());
         check(s1 > s0, "mouse wheel scrolls the list: " + s0 + " -> " + s1);
         check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "menu still open");
+        // WG26-3: the poll path (real mouse button read by the menu itself) presses the same controls
+        int[] v11 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testVersionButton(11));
+        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).testPressByPoll(v11[0], v11[1]));
+        check(context.computeOnClient(mc -> EarthClientConfig.version) == 11, "poll path: V11 selected");
+        int[] tog = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testRowPoint("moonPhases"));
+        boolean mp = context.computeOnClient(mc -> EarthClientConfig.renderOn("moonPhases"));
+        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).testPressByPoll(tog[0], tog[1]));
+        check(context.computeOnClient(mc -> EarthClientConfig.renderOn("moonPhases")) != mp, "poll path: toggle");
+        context.runOnClient(mc -> EarthClientConfig.version = 10);
         context.runOnClient(mc -> EarthClientConfig.setRender("detail", 5));
         int[] reset = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testButton(true));
         context.getInput().setCursorPos(reset[0] * k, reset[1] * k);

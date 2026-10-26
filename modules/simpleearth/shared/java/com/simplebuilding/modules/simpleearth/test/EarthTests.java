@@ -4,7 +4,6 @@ import com.simplebuilding.modules.simpleearth.SimpleEarth;
 import com.simplebuilding.modules.simpleearth.config.EarthClientConfig;
 import com.simplebuilding.modules.simpleearth.config.EarthServerConfig;
 import com.simplebuilding.modules.simpleearth.config.EarthSettings;
-import com.simplebuilding.modules.simpleearth.net.OrbitMovePayload;
 import com.simplebuilding.modules.simpleearth.net.TileRequestPayload;
 import com.simplebuilding.modules.simpleearth.orbit.OrbitTracker;
 import com.simplebuilding.modules.simpleearth.terrain.EarthColors;
@@ -29,7 +28,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeResolver;
 import net.minecraft.world.level.biome.Biomes;
@@ -62,17 +60,16 @@ public final class EarthTests {
                     "activation floor 1024 (E11), wishes above it kept");
             h.assertTrue(EarthServerConfig.activationY(500, 1200) == 1264, "never below build height + 64");
             h.assertTrue(EarthServerConfig.switchY(1000, 1024) == 1152, "switch at least 128 above activation");
-            h.assertTrue(EarthServerConfig.edge(1) == 8192 && EarthServerConfig.edge(9_999_999) == 262144, "edge 8192..262144 (E1)");
-            h.assertTrue(EarthServerConfig.speed(9_999_999) == 32768 && EarthServerConfig.maxOrbitSpeed == 32768, "orbit speed cap");
+            h.assertTrue(EarthServerConfig.edge(1) == 512 && EarthServerConfig.edge(9_999_999) == 262144, "edge 512..262144 (E1)");
             h.assertTrue(EarthClientConfig.version == EarthSettings.DEFAULT_VERSION && EarthSettings.DEFAULT_VERSION == 6, "standard V6");
             h.assertTrue(EarthSettings.VERSIONS == 12, "V1-V12 (WD25-17)");
             h.assertTrue(EarthServerConfig.minGrid == 5 && EarthServerConfig.biomeVotes == 2 && EarthServerConfig.surfaceDetail
-                    && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight && EarthServerConfig.reentryAtOrbit
-                    && EarthServerConfig.slowFallSeconds == 30 && EarthServerConfig.fastHeights, "WD25-16 server defaults (E4 per player, E5 any flight, E6 orbit position)");
+                    && !EarthServerConfig.globalGrid && !EarthServerConfig.requireFlight
+                    && EarthServerConfig.fastHeights, "WD25-16 server defaults (E4 per player, E5 any flight)");
             for (int v = 1; v <= EarthSettings.VERSIONS; v++) {
                 h.assertTrue(EarthSettings.find(v, "activationY").def() == 1024 && EarthSettings.find(v, "switchY").def() == 1536
-                        && EarthSettings.find(v, "ceilingY").def() == 6144 && EarthSettings.find(v, "edge").def() == 65536
-                        && EarthSettings.find(v, "orbitSpeed").def() == 256, "E1/E2/E11 defaults in V" + v);
+                        && EarthSettings.find(v, "ceilingY").def() == 6144 && EarthSettings.find(v, "edge").def() == 2048
+                        && EarthSettings.find(v, "orbitSpeed") == null, "E1/E11 defaults in V" + v + " (WG26-1: edge 2048, no glide speed)");
             }
             h.assertTrue(EarthSettings.find(1, "edge").clamp(1e9) == 262144 && EarthSettings.find(6, "foldStart").clamp(-3) == 0, "client clamps");
             h.succeed();
@@ -124,7 +121,7 @@ public final class EarthTests {
                 EarthServerConfig.globalGrid = true;
                 OrbitTracker.forget(player.getUUID());
                 OrbitTracker.State s = OrbitTracker.state(player);
-                s.configure(1024, 1536, 65536, 256, h.getLevel().getMaxY());
+                s.configure(1024, 1536, 65536, h.getLevel().getMaxY());
                 player.setPos(40000, 1100, -20000);
                 OrbitTracker.tick(player, true);
                 h.assertTrue(s.active && s.ax == 65536 && s.az == 0 && s.ox == 40000, "E4 global grid: centre " + s.ax + "/" + s.az);
@@ -143,16 +140,6 @@ public final class EarthTests {
                 OrbitTracker.tick(player, true);
                 h.assertTrue(s.active, "E5: flying starts the orbit");
                 EarthServerConfig.requireFlight = false;
-                // E6 off: back to the park point
-                EarthServerConfig.reentryAtOrbit = false;
-                player.setPos(12, 1600, 14);
-                OrbitTracker.tick(player, true);
-                h.assertTrue(s.parked, "parked");
-                OrbitTracker.handleMove(player, new OrbitMovePayload(10, 0));
-                player.setPos(12, 1500, 14);
-                OrbitTracker.tick(player, true);
-                h.assertTrue(!s.parked && Math.abs(player.getX() - 12) < 1e-6 && Math.abs(player.getZ() - 14) < 1e-6,
-                        "E6 off: re-entry at the park point " + player.getX());
             } finally {
                 EarthServerConfig.reset();
                 OrbitTracker.forget(player.getUUID());
@@ -373,26 +360,19 @@ public final class EarthTests {
             ServerPlayer player = h.makeMockServerPlayerInLevel();
             OrbitTracker.forget(player.getUUID());
             OrbitTracker.State s = OrbitTracker.state(player);
-            s.configure(1024, 1536, 65536, 256, h.getLevel().getMaxY());
+            s.configure(1024, 1536, 2048, h.getLevel().getMaxY());
             double x0 = player.getX(), z0 = player.getZ();
             player.setPos(x0, 1100, z0);
             OrbitTracker.tick(player, true);
             h.assertTrue(s.active && !s.parked && s.ax == x0 && s.az == z0, "activation height: centre A = here");
-            player.setPos(x0 + 2, 1600, z0);
+            // WG26-1: above the switch nothing is held - the player moves freely and the orbit position is his position
+            player.setPos(x0 + 1100, 1600, z0 - 30);
             OrbitTracker.tick(player, true);
-            h.assertTrue(s.parked && s.ox == x0 + 2, "render switch: parked");
-            h.assertTrue(player.isNoGravity(), "WF25-1: parked players hover (no gravity, no flying kick, elytra folded)");
-            OrbitTracker.handleMove(player, new OrbitMovePayload(1_000_000, 0));
-            h.assertTrue(Math.abs(s.ox - (x0 + 2 + EarthServerConfig.maxOrbitSpeed / 20.0 * 1.25)) < 1e-6, "glide step capped by the server speed limit: " + s.ox);
-            OrbitTracker.handleMove(player, new OrbitMovePayload(Float.NaN, 0));
-            h.assertTrue(Double.isFinite(s.ox), "NaN ignored");
-            double target = s.ox;
-            player.setPos(x0 + 2, 1500, z0);
+            h.assertTrue(s.parked && s.ox == x0 + 1100 && s.oz == z0 - 30 && s.ax == x0, "above the switch: free, A fixed, position = player");
+            h.assertTrue(player.getX() == x0 + 1100 && !player.isNoGravity(), "no teleport, no hover");
+            player.setPos(x0 + 1200, 1500, z0);
             OrbitTracker.tick(player, true);
-            h.assertTrue(!s.parked && s.active, "below the switch: re-entry");
-            h.assertTrue(!player.isNoGravity(), "gravity back after re-entry");
-            h.assertTrue(Math.abs(player.getX() - target) < 1e-6, "re-entry at the orbit position (E6): " + player.getX());
-            h.assertTrue(player.getAbilities().flying || player.hasEffect(MobEffects.SLOW_FALLING), "slow falling after re-entry");
+            h.assertTrue(!s.parked && s.active && player.getX() == x0 + 1200, "below the switch: no re-entry teleport");
             player.setPos(player.getX(), 900, z0);
             OrbitTracker.tick(player, true);
             h.assertTrue(!s.active, "below the activation height everything is Vanilla");

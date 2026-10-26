@@ -2,7 +2,6 @@ package com.simplebuilding.modules.simpleearth;
 
 import com.simplebuilding.modules.simpleearth.net.EarthTilePayload;
 import com.simplebuilding.modules.simpleearth.net.OrbitConfigPayload;
-import com.simplebuilding.modules.simpleearth.net.OrbitMovePayload;
 import com.simplebuilding.modules.simpleearth.net.OrbitStatePayload;
 import com.simplebuilding.modules.simpleearth.net.TileRequestPayload;
 import com.simplebuilding.modules.simpleearth.orbit.OrbitTracker;
@@ -21,12 +20,10 @@ public final class EarthFabric implements ModInitializer {
     public void onInitialize() {
         SimpleEarth.init(FabricLoader.getInstance().getConfigDir());
         PayloadTypeRegistry.serverboundPlay().register(OrbitConfigPayload.TYPE, OrbitConfigPayload.CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(OrbitMovePayload.TYPE, OrbitMovePayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(TileRequestPayload.TYPE, TileRequestPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(OrbitStatePayload.TYPE, OrbitStatePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(EarthTilePayload.TYPE, EarthTilePayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(OrbitConfigPayload.TYPE, (p, c) -> c.server().execute(() -> OrbitTracker.handleConfig(c.player(), p)));
-        ServerPlayNetworking.registerGlobalReceiver(OrbitMovePayload.TYPE, (p, c) -> c.server().execute(() -> OrbitTracker.handleMove(c.player(), p)));
         ServerPlayNetworking.registerGlobalReceiver(TileRequestPayload.TYPE, (p, c) -> c.server().execute(() -> {
             if (OrbitTracker.allowed(c.player())) TileService.request(c.player(), p);
         }));

@@ -5,7 +5,6 @@ import com.simplebuilding.modules.simpleearth.SimpleEarth;
 import com.simplebuilding.modules.simpleearth.config.EarthClientConfig;
 import com.simplebuilding.modules.simpleearth.net.EarthTilePayload;
 import com.simplebuilding.modules.simpleearth.net.OrbitConfigPayload;
-import com.simplebuilding.modules.simpleearth.net.OrbitMovePayload;
 import com.simplebuilding.modules.simpleearth.net.OrbitStatePayload;
 import com.simplebuilding.modules.simpleearth.view.EarthView;
 import java.nio.file.Path;
@@ -20,8 +19,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 
 /**
- * Client side of Simple Earth: the orbit state from the server, the predicted orbit position while parked (glide input from
- * the movement keys, figure held over the park point), the chosen version's view, the menu key and the dev button.
+ * Client side of Simple Earth: the orbit state from the server (centre A fixed, the player flies freely - WG26-1), the
+ * chosen version's view, the menu key and the dev button.
  * Key O ("orbit"): free in Vanilla (L/P are the neighbouring menu keys) and in the mod family (H, K, B, I, R taken); none of
  * the big map mods binds it by default (JourneyMap J, Xaero Y/U/B).
  */
@@ -32,16 +31,10 @@ public final class EarthClient {
     static boolean development;
     static boolean enabled, active, parked;
     static double ax, az, ox, oz;
-    static int activationY = 1024, switchY = 1536, edge = 65536, seaLevel = 63, minGrid = 5, maxSpeed = 32768;
-    static float speed = 256;
+    static int activationY = 1024, switchY = 1536, edge = 2048, seaLevel = 63, minGrid = 5;
     static boolean exploredOnly;
     static List<float[]> others = List.of();
     /** Predicted orbit position (absolute) and the one of the previous tick, for smooth frames. */
-    static double predX, predZ, prevX, prevZ;
-    static double parkX, parkZ;
-    static boolean holding;
-    /** Movement input captured by {@code EarthKeyboardInputMixin} while parked (strafe, forward). */
-    public static float glideStrafe, glideForward;
     private static EarthView view;
     private static int viewVersion;
 
@@ -54,13 +47,12 @@ public final class EarthClient {
         com.simplelib.api.config.ConfigCommands.client(SimpleEarth.MOD_ID).json(EarthClientConfig::toJson, EarthClientConfig::apply).file(configDir, EarthClientConfig.FILE).register();
     }
 
-    /** True while the player is parked in orbit: movement keys glide the orbit position instead of walking. */
+    /** True above the render switch while the earth is shown (nothing is held any more, WG26-1). */
     public static boolean parked() {
         return enabled && parked;
     }
 
     public static void receive(OrbitStatePayload p) {
-        boolean wasParked = parked;
         enabled = p.enabled();
         active = p.active();
         parked = p.parked();
@@ -69,26 +61,12 @@ public final class EarthClient {
         activationY = p.activationY();
         switchY = p.switchY();
         edge = p.edge();
-        speed = p.speed();
         seaLevel = p.seaLevel();
         exploredOnly = p.exploredOnly();
         minGrid = p.minGrid();
-        maxSpeed = p.maxSpeed();
         others = p.others();
         ox = p.ox();
         oz = p.oz();
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (parked && !wasParked && player != null) {
-            parkX = player.getX();
-            parkZ = player.getZ();
-            holding = true;
-        }
-        if (!parked) holding = false;
-        // the server is authoritative; small differences are prediction lag, large ones a correction (border, teleport)
-        if (!parked || Math.hypot(predX - ox, predZ - oz) > Math.max(speed * 2, maxSpeed)) {
-            predX = prevX = ox;
-            predZ = prevZ = oz;
-        }
     }
 
     public static void receive(EarthTilePayload p) {
@@ -100,7 +78,7 @@ public final class EarthClient {
     }
 
     public static void left() {
-        enabled = active = parked = holding = false;
+        enabled = active = parked = false;
         com.simplebuilding.modules.simpleearth.orbit.OrbitView.active = false;
         ClientTiles.clear();
         FaceTextures.clear();
@@ -110,21 +88,7 @@ public final class EarthClient {
     /** Tells the server the orbit values of the chosen version (it clamps them). */
     public static void sendConfig() {
         SimpleEarth.toServer.accept(new OrbitConfigPayload((int) EarthClientConfig.get("activationY"), (int) EarthClientConfig.get("switchY"),
-                (int) EarthClientConfig.get("edge"), (float) EarthClientConfig.get("orbitSpeed")));
-    }
-
-    public static void startTick(Minecraft mc) {
-        LocalPlayer player = mc.player;
-        if (player == null || !holding) return;
-        // parked: the figure stays over the park point, only the height changes - Vanilla flight up/down, and without creative
-        // flight (elytra, WF25-1: the server switched gravity off) jump/sneak move up/down, sprint four times faster
-        var motion = player.getDeltaMovement();
-        double vy = motion.y;
-        if (!player.getAbilities().flying) {
-            var o = mc.options;
-            vy = ((o.keyJump.isDown() ? 1 : 0) - (o.keyShift.isDown() ? 1 : 0)) * (o.keySprint.isDown() ? 4.0 : 1.0);
-        }
-        player.setDeltaMovement(0, vy, 0);
+                (int) EarthClientConfig.get("edge")));
     }
 
     public static void endTick(Minecraft mc) {
@@ -133,35 +97,21 @@ public final class EarthClient {
         }
         LocalPlayer player = mc.player;
         com.simplebuilding.modules.simpleearth.orbit.OrbitView.active = player != null && fade(player.getEyeY()) > 0;
-        prevX = predX;
-        prevZ = predZ;
-        if (player == null) return;
-        if (holding) {
-            if (Math.hypot(player.getX() - parkX, player.getZ() - parkZ) > 0.25) player.setPos(parkX, player.getY(), parkZ);
-            double len = Math.hypot(glideStrafe, glideForward);
-            if (len > 1e-3) {
-                double yaw = Math.toRadians(player.getYRot()), step = glideSpeed(player.getEyeY()) / 20.0;
-                double fx = -Math.sin(yaw), fz = Math.cos(yaw), sx = Math.cos(yaw), sz = Math.sin(yaw);
-                double k = Math.min(1, len) / len;
-                double dx = (fx * glideForward + sx * glideStrafe) * k * step, dz = (fz * glideForward + sz * glideStrafe) * k * step;
-                predX += dx;
-                predZ += dz;
-                SimpleEarth.toServer.accept(new OrbitMovePayload((float) dx, (float) dz));
-            }
-        } else {
-            predX = prevX = player.getX();
-            predZ = prevZ = player.getZ();
-        }
         ClientTiles.flush();
     }
 
-    /** Orbit position relative to the centre A, interpolated between ticks. */
+    /**
+     * The player's position relative to the centre A, interpolated between ticks (WG26-1: the real position - the player
+     * flies freely and his place over the earth is his place relative to A, like on a map).
+     */
     public static double relX(float partial) {
-        return prevX + (predX - prevX) * partial - ax;
+        LocalPlayer p = Minecraft.getInstance().player;
+        return p == null ? ox - ax : p.xo + (p.getX() - p.xo) * partial - ax;
     }
 
     public static double relZ(float partial) {
-        return prevZ + (predZ - prevZ) * partial - az;
+        LocalPlayer p = Minecraft.getInstance().player;
+        return p == null ? oz - az : p.zo + (p.getZ() - p.zo) * partial - az;
     }
 
     /** The chosen version's view (fresh after a version switch). */
@@ -184,24 +134,19 @@ public final class EarthClient {
         return Math.max(0, Math.min(1, (cameraY - switchY) / band));
     }
 
-    /**
-     * Glide speed in blocks per second: the orbit speed at the render switch; with {@code speedWithHeight} (standard) times the
-     * eye height over the earth, so the surface passes the screen equally fast at every height (WD25-22: high up 256 b/s looked
-     * like standing still); never above the server limit.
-     */
-    public static double glideSpeed(double eyeY) {
-        double factor = EarthClientConfig.renderOn("speedWithHeight") ? Math.max(1, eyeHeight(eyeY) / eyeHeight(switchY)) : 1;
-        return Math.min(maxSpeed, speed * factor);
-    }
-
     /** 0 at the render switch, 1 at the ceiling height (V12 turns its corner up with it). */
     public static double heightFraction(double cameraY) {
         double ceiling = Math.max(switchY + 1, EarthClientConfig.get("ceilingY"));
         return Math.max(0, Math.min(1, (cameraY - switchY) / (ceiling - switchY)));
     }
 
-    /** Eye height above the contact point in cube units: real height at the switch, exponential to the orbit distance at the ceiling. */
+    /**
+     * Eye height above the contact point in cube units. WG26-2 ({@code realDistance}, standard): the real height above sea
+     * level, so the earth lies exactly as far below as the world would (with an edge of 2048 the whole cube shows from about
+     * y 1500 on); off: the earlier zoom - real height at the switch, exponential to the orbit distance at the ceiling.
+     */
     public static double eyeHeight(double cameraY) {
+        if (EarthClientConfig.renderOn("realDistance")) return Math.max(0.002, (cameraY - seaLevel) / (edge / 2.0));
         double half = edge / 2.0, ceiling = Math.max(switchY + 1, EarthClientConfig.get("ceilingY"));
         double near = Math.max(0.02, (switchY - seaLevel) / half), far = Math.max(near, EarthClientConfig.get("orbitDistance"));
         double t = Math.max(0, Math.min(1, (cameraY - switchY) / (ceiling - switchY)));

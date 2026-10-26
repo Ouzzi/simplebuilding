@@ -3,57 +3,53 @@ package com.simplebuilding.modules.simpleearth.orbit;
 import com.simplebuilding.modules.simpleearth.SimpleEarth;
 import com.simplebuilding.modules.simpleearth.config.EarthServerConfig;
 import com.simplebuilding.modules.simpleearth.net.OrbitConfigPayload;
-import com.simplebuilding.modules.simpleearth.net.OrbitMovePayload;
 import com.simplebuilding.modules.simpleearth.net.OrbitStatePayload;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.border.WorldBorder;
 
 /**
- * Server side of the orbit (concept §6.2, E4/E6): above the activation height the point (x, z) becomes the centre A of the
- * player's earth; above the render switch the figure is parked (stays over A's neighbourhood, only the orbit position glides,
- * capped by the orbit speed) - so the server never loads chunks for a 256 b/s flight. Below the switch the player re-enters
- * at the orbit position with slow falling; below the activation height everything is Vanilla again. Only players whose
- * client has Simple Earth take part.
+ * Server side of the orbit (concept §6.2, E4; WG26-1 owner 26.10.: no parking). Above the activation height the point
+ * (x, z) becomes the fixed centre A of the player's earth; from then on the player moves freely - creative flight, elytra,
+ * anything - and where he is relative to A is where he is over the earth, like a map: with an edge of 2048 blocks, 1024
+ * blocks north/east/south/west the face edge lies under him. Nothing holds, pulls back or teleports the player; below the
+ * activation height everything is Vanilla again. Only players whose client has Simple Earth take part.
  */
 public final class OrbitTracker {
-    /** Below the switch by this many blocks before re-entry, below the activation height before switching off (no flicker). */
+    /** Below the activation height by this many blocks before switching off (no flicker). */
     public static final int HYSTERESIS = 16;
     private static final Map<UUID, State> STATES = new HashMap<>();
 
     public static final class State {
+        /** active: above the activation height (A fixed); parked: above the render switch (the earth is shown, nothing held). */
         public boolean active, parked;
-        public double ax, az, ox, oz, parkX, parkZ;
-        public int activationY = 1024, switchY = 1536, edge = 65536;
-        public double speed = 256;
+        public double ax, az, ox, oz;
+        public int activationY = 1024, switchY = 1536, edge = EDGE_DEFAULT;
         int sendIn;
         boolean dirty = true;
 
         /** Applies (and clamps) a client wish. */
-        public void configure(int activation, int sw, int e, double spd, int maxBuildY) {
+        public void configure(int activation, int sw, int e, int maxBuildY) {
             activationY = EarthServerConfig.activationY(activation, maxBuildY);
             switchY = EarthServerConfig.switchY(sw, activationY);
             edge = EarthServerConfig.edge(e);
-            speed = EarthServerConfig.speed(spd);
             dirty = true;
         }
     }
+
+    /** E1 standard since WG26-1 (owner's example: an earth 2048 blocks wide). */
+    public static final int EDGE_DEFAULT = 2048;
 
     private OrbitTracker() {}
 
     public static synchronized State state(ServerPlayer player) {
         return STATES.computeIfAbsent(player.getUUID(), id -> {
             State s = new State();
-            s.configure(1024, 1536, 65536, 256, player.level().getMaxY());
+            s.configure(1024, 1536, EDGE_DEFAULT, player.level().getMaxY());
             return s;
         });
     }
@@ -76,24 +72,7 @@ public final class OrbitTracker {
 
     public static void handleConfig(ServerPlayer player, OrbitConfigPayload p) {
         State s = state(player);
-        s.configure(p.activationY(), p.switchY(), p.edge(), p.speed(), player.level().getMaxY());
-    }
-
-    /**
-     * A glide step from the client: only while parked, capped to the server limit {@code maxOrbitSpeed} (plus 25 % for tick
-     * jitter; the client scales the orbit speed with its height), stopped at the border. Parked players load no chunks.
-     */
-    public static void handleMove(ServerPlayer player, OrbitMovePayload p) {
-        State s = state(player);
-        if (!s.parked || !Float.isFinite(p.dx()) || !Float.isFinite(p.dz())) return;
-        double dx = p.dx(), dz = p.dz(), len = Math.hypot(dx, dz), cap = EarthServerConfig.maxOrbitSpeed / 20.0 * 1.25;
-        if (len > cap) {
-            dx *= cap / len;
-            dz *= cap / len;
-        }
-        WorldBorder border = player.level().getWorldBorder();
-        s.ox = Math.max(border.getMinX() + 1, Math.min(border.getMaxX() - 1, s.ox + dx));
-        s.oz = Math.max(border.getMinZ() + 1, Math.min(border.getMaxZ() - 1, s.oz + dz));
+        s.configure(p.activationY(), p.switchY(), p.edge(), player.level().getMaxY());
     }
 
     /** Once per server tick for every player. */
@@ -113,32 +92,21 @@ public final class OrbitTracker {
                 s.active = true;
                 s.ax = centre(player.getX(), s.edge);
                 s.az = centre(player.getZ(), s.edge);
-                s.ox = player.getX();
-                s.oz = player.getZ();
                 s.dirty = true;
             }
         } else if (y < s.activationY - HYSTERESIS) {
             leave(player, s);
-        } else if (!s.parked && y >= s.switchY) {
-            s.parked = true;
-            s.parkX = player.getX();
-            s.parkZ = player.getZ();
-            s.ox = s.parkX;
-            s.oz = s.parkZ;
-            hover(player, true);
-            s.dirty = true;
-        } else if (s.parked && y < s.switchY - HYSTERESIS) {
-            reenter(player, s);
-        } else if (s.parked) {
-            // keep the figure over the park point (the client holds it; a client that does not is pulled back)
-            if (Math.hypot(player.getX() - s.parkX, player.getZ() - s.parkZ) > 3) {
-                player.teleportTo(player.level(), s.parkX, y, s.parkZ, Set.of(), player.getYRot(), player.getXRot(), false);
-            }
-        } else {
-            s.ox = player.getX();
-            s.oz = player.getZ();
+            return;
         }
-        if (s.dirty || (s.active && --s.sendIn <= 0)) send(player, s);
+        if (!s.active) return;
+        s.ox = player.getX();
+        s.oz = player.getZ();
+        boolean above = y >= s.switchY;
+        if (above != s.parked) {
+            s.parked = above;
+            s.dirty = true;
+        }
+        if (s.dirty || --s.sendIn <= 0) send(player, s);
     }
 
     /** E4: the cube centre for a crossing at {@code c} - there (standard) or the nearest point of the global edge grid. */
@@ -151,47 +119,14 @@ public final class OrbitTracker {
         return player.getAbilities().flying || player.isFallFlying();
     }
 
-    /** Re-entry (E6): to the orbit position (or with reentryAtOrbit off the park point) at the current height, slow falling unless flying. */
-    /**
-     * WF25-1: parked players hover - no gravity (also exempts them from the flying kick), elytra folded (no wear while
-     * parked); the client moves them up/down with jump/sneak. Re-entry restores gravity.
-     */
-    static void hover(ServerPlayer player, boolean on) {
-        player.setNoGravity(on);
-        if (on && player.isFallFlying()) player.stopFallFlying();
-    }
-
-    static void reenter(ServerPlayer player, State s) {
-        s.parked = false;
-        hover(player, false);
-        ServerLevel level = player.level();
-        if (!EarthServerConfig.reentryAtOrbit) {
-            s.ox = s.parkX;
-            s.oz = s.parkZ;
-        }
-        player.teleportTo(level, s.ox, player.getY(), s.oz, Set.of(), player.getYRot(), player.getXRot(), false);
-        if (!player.getAbilities().flying && EarthServerConfig.slowFallSeconds > 0) {
-            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, EarthServerConfig.slowFallSeconds * 20, 0, false, false));
-        }
-        s.dirty = true;
-    }
-
     static void leave(ServerPlayer player, State s) {
-        if (s.parked) reenter(player, s);
         s.active = false;
         s.parked = false;
         s.dirty = true;
         send(player, s);
     }
 
-    /** On logout while parked: drop the figure at the orbit position so the next login starts there (same height). */
     public static void disconnect(ServerPlayer player) {
-        State s = peek(player.getUUID());
-        if (s != null && s.parked) {
-            hover(player, false);
-            if (EarthServerConfig.reentryAtOrbit) player.setPos(s.ox, player.getY(), s.oz);
-            else player.setPos(s.parkX, player.getY(), s.parkZ);
-        }
         forget(player.getUUID());
     }
 
@@ -206,7 +141,7 @@ public final class OrbitTracker {
             }
         }
         SimpleEarth.toClient.accept(player, new OrbitStatePayload(allowed(player), s.active, s.parked, s.ax, s.az, s.ox, s.oz,
-                s.activationY, s.switchY, s.edge, (float) s.speed, player.level().getChunkSource().getGenerator().getSeaLevel(),
-                EarthServerConfig.exploredOnly, EarthServerConfig.minGrid, EarthServerConfig.maxOrbitSpeed, others));
+                s.activationY, s.switchY, s.edge, player.level().getChunkSource().getGenerator().getSeaLevel(),
+                EarthServerConfig.exploredOnly, EarthServerConfig.minGrid, others));
     }
 }

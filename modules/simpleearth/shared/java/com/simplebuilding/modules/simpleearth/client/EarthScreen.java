@@ -35,7 +35,9 @@ public final class EarthScreen extends Screen {
     private final List<Row> rows = new ArrayList<>();
     private final List<Button> versionButtons = new ArrayList<>();
     private Button resetButton, doneButton;
-    private boolean missLogged;
+    private boolean missLogged, polledDown, pollHandled, polledLogged, scrollDragging;
+    private long lastEventPress, pollPressAt;
+    private int polled;
     private long lastSend;
     private boolean serverDirty;
 
@@ -96,7 +98,7 @@ public final class EarthScreen extends Screen {
     }
 
     private void changed(EarthSettings.Setting s) {
-        if (s == null || s.key().equals("activationY") || s.key().equals("switchY") || s.key().equals("edge") || s.key().equals("orbitSpeed")) {
+        if (s == null || s.key().equals("activationY") || s.key().equals("switchY") || s.key().equals("edge")) {
             serverDirty = true;
         }
         if (s == null || s.key().equals("edge")) EarthClient.resetView();
@@ -138,6 +140,13 @@ public final class EarthScreen extends Screen {
     @Override
     public boolean keyPressed(KeyEvent input) {
         if (movement(input, true)) return false;
+        // the list also scrolls with the arrow and page keys (WG26-3: works whatever happens to the mouse wheel)
+        int k = input.key();
+        if (k == InputConstants.KEY_UP || k == InputConstants.KEY_DOWN || k == InputConstants.KEY_PAGEUP || k == InputConstants.KEY_PAGEDOWN) {
+            double d = (k == InputConstants.KEY_UP ? -1 : k == InputConstants.KEY_DOWN ? 1 : k == InputConstants.KEY_PAGEUP ? -6 : 6) * ROW;
+            scroll = Math.max(0, Math.min(maxScroll(), scroll + d));
+            return true;
+        }
         if (EarthClient.KEY.matches(input) || minecraft.options.keyInventory.matches(input) || input.key() == InputConstants.KEY_ESCAPE) {
             onClose();
             return true;
@@ -240,45 +249,9 @@ public final class EarthScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        // WD25-23: the panel's own buttons are hit-tested here, like the sliders (in the owner's game the Vanilla widget
-        // dispatch never reached them, the client test confirmed it); they press with the usual click sound
-        if (event.button() == 0) {
-            List<Button> own = new ArrayList<>(versionButtons);
-            own.add(resetButton);
-            own.add(doneButton);
-            for (Button b : own) {
-                if (b != null && b.active && b.visible && event.x() >= b.getX() && event.x() < b.getX() + b.getWidth()
-                        && event.y() >= b.getY() && event.y() < b.getY() + b.getHeight()) {
-                    b.playDownSound(minecraft.getSoundManager());
-                    b.onPress(event);
-                    return true;
-                }
-            }
-        }
-        int i = rowAt(event.x(), event.y());
-        if (i >= 0 && event.button() == 0) {
-            Row row = rows.get(i);
-            if (row.setting().kind() == EarthSettings.Kind.TOGGLE) {
-                store(row, value(row) >= 0.5 ? 0 : 1);
-                return true;
-            }
-            int tx = trackX(), tw = trackW();
-            // WF25-2: the whole row height counts (it was only the 12 px band round the track)
-            {
-                if (event.x() >= panelX + PAD && event.x() < tx - 2) {
-                    step(row, -1);
-                    return true;
-                }
-                if (event.x() > tx + tw + 2) {
-                    step(row, 1);
-                    return true;
-                }
-                if (event.x() >= tx && event.x() <= tx + tw) {
-                    dragging = i;
-                    dragTo(row, event.x());
-                    return true;
-                }
-            }
+        if (event.button() == 0 && pressAt(event.x(), event.y(), event)) {
+            lastEventPress = System.currentTimeMillis();
+            return true;
         }
         if (!missLogged && event.x() >= panelX && event.x() <= panelX + W && event.y() >= panelY && event.y() <= panelY + panelH) {
             // WF25-2 diagnosis for players whose clicks miss (other mods moving input or drawing): one line in latest.log per menu
@@ -289,8 +262,112 @@ public final class EarthScreen extends Screen {
         return super.mouseClicked(event, doubleClick);
     }
 
+    /**
+     * A left press at a GUI point: the panel's buttons, toggles, slider steps and tracks, the scroll bar. Called by
+     * {@link #mouseClicked} and by {@link #pollMouse} (WG26-3: in the owner's full pack the screen never got the press for
+     * anything but the version buttons - the menu now also reads the real mouse button itself each frame).
+     */
+    private boolean pressAt(double x, double y, net.minecraft.client.input.InputWithModifiers input) {
+        List<Button> own = new ArrayList<>(versionButtons);
+        own.add(resetButton);
+        own.add(doneButton);
+        for (Button b : own) {
+            if (b != null && b.active && b.visible && x >= b.getX() && x < b.getX() + b.getWidth() && y >= b.getY() && y < b.getY() + b.getHeight()) {
+                b.playDownSound(minecraft.getSoundManager());
+                if (input != null) b.onPress(input);
+                else b.onPress(new MouseButtonEvent(x, y, new net.minecraft.client.input.MouseButtonInfo(0, 0)));
+                return true;
+            }
+        }
+        if (maxScroll() > 0 && x >= panelX + W - PAD - 6 && x <= panelX + W - PAD + 2 && y >= listTop && y < listBottom) {
+            scrollDragging = true;
+            scrollTo(y);
+            return true;
+        }
+        int i = rowAt(x, y);
+        if (i < 0) return false;
+        Row row = rows.get(i);
+        if (row.setting().kind() == EarthSettings.Kind.TOGGLE) {
+            store(row, value(row) >= 0.5 ? 0 : 1);
+            return true;
+        }
+        int tx = trackX(), tw = trackW();
+        // WF25-2: the whole row height counts (it was only the 12 px band round the track)
+        if (x >= panelX + PAD && x < tx - 2) {
+            step(row, -1);
+            return true;
+        }
+        if (x > tx + tw + 2) {
+            step(row, 1);
+            return true;
+        }
+        if (x >= tx && x <= tx + tw) {
+            dragging = i;
+            dragTo(row, x);
+            return true;
+        }
+        return false;
+    }
+
+    private void scrollTo(double y) {
+        double f = Math.max(0, Math.min(1, (y - listTop) / Math.max(1, listBottom - listTop)));
+        scroll = f * maxScroll();
+    }
+
+    /**
+     * WG26-3: the real mouse (GLFW, independent of every mod between the window and this screen), once a frame. A press the
+     * screen did not get as an event within 150 ms is handled here; drag and release likewise.
+     */
+    private void pollMouse() {
+        if (minecraft == null) return;
+        long handle = minecraft.getWindow().handle();
+        boolean down = org.lwjgl.glfw.GLFW.glfwGetMouseButton(handle, org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT) == org.lwjgl.glfw.GLFW.GLFW_PRESS;
+        double[] cx = new double[1], cy = new double[1];
+        org.lwjgl.glfw.GLFW.glfwGetCursorPos(handle, cx, cy);
+        var w = minecraft.getWindow();
+        double x = cx[0] * w.getGuiScaledWidth() / Math.max(1, w.getScreenWidth()), y = cy[0] * w.getGuiScaledHeight() / Math.max(1, w.getScreenHeight());
+        long now = System.currentTimeMillis();
+        if (down && !polledDown) {
+            pollPressAt = now;
+            pollHandled = false;
+        }
+        if (down && !pollHandled && now - pollPressAt >= 50 && now - lastEventPress > 150) {
+            pollHandled = true;
+            if (pressAt(x, y, null)) {
+                polled++;
+                if (!polledLogged) {
+                    polledLogged = true;
+                    com.simplebuilding.modules.simpleearth.SimpleEarth.LOG.info("Simple Earth menu: a click reached the menu only through the mouse poll (another mod took the event)");
+                }
+            }
+        }
+        if (down && pollHandled && now - lastEventPress > 150) {
+            if (dragging >= 0 && dragging < rows.size()) dragTo(rows.get(dragging), x);
+            if (scrollDragging) scrollTo(y);
+        }
+        if (!down && polledDown && now - lastEventPress > 150) {
+            dragging = -1;
+            scrollDragging = false;
+        }
+        polledDown = down;
+    }
+
+    /** Clicks handled by the poll (client test). */
+    public int testPolled() {
+        return polled;
+    }
+
+    /** Test: the poll path for a press at a GUI point (the event path skipped). */
+    public boolean testPressByPoll(double x, double y) {
+        return pressAt(x, y, null);
+    }
+
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
+        if (scrollDragging) {
+            scrollTo(event.y());
+            return true;
+        }
         if (dragging >= 0 && dragging < rows.size()) {
             dragTo(rows.get(dragging), event.x());
             return true;
@@ -301,6 +378,7 @@ public final class EarthScreen extends Screen {
     @Override
     public boolean mouseReleased(MouseButtonEvent event) {
         dragging = -1;
+        scrollDragging = false;
         return super.mouseReleased(event);
     }
 
@@ -338,6 +416,7 @@ public final class EarthScreen extends Screen {
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
+        pollMouse();
         UiBoxes.box(g, panelX, panelY, W, panelH, UiPalette.INVENTORY);
         g.text(font, title, panelX + PAD, panelY + 8, LABEL, false);
         int v = EarthClientConfig.version;
