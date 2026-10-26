@@ -48,7 +48,8 @@ public final class MenuProbe {
         ticks++;
         try {
             if (!opened) {
-                if (mc.level != null || mc.gui.screen() == null || !mc.gui.screen().getClass().getSimpleName().contains("TitleScreen") || ticks < 40) return;
+                // the title screen, or whatever the first start shows instead (accessibility onboarding ...), once loading is over
+                if (mc.level != null || mc.gui.overlay() != null || mc.gui.screen() == null || ticks < 60) return;
                 JsonObject req = GSON.fromJson(Files.readString(dir.resolve("simpleearth-menu-probe.json")), JsonObject.class);
                 mc.getWindow().setWindowed(req.get("width").getAsInt(), req.get("height").getAsInt());
                 mc.options.guiScale().set(req.get("guiScale").getAsInt());

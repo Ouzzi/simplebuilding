@@ -197,6 +197,9 @@ def main():
             command('shot', name='after')
         command('quit')
     finally:
+        if game.poll() is None and not results:
+            command_quiet = RUN / COMMAND
+            command_quiet.write_text(json.dumps({'op': 'quit'}))
         try:
             game.wait(timeout=120)
         except subprocess.TimeoutExpired:
@@ -208,6 +211,7 @@ def main():
         shots = sorted(p for p in (RUN / 'screenshots').glob('*.png') if p.stat().st_mtime >= started)
         for i, p in enumerate(shots):
             shutil.copy(p, out / f'{args.label}{i:02d}-{p.name}')
+        ok = ok and bool(results)
         (out / 'results.json').write_text(json.dumps({'ok': ok, 'results': results}, indent=1))
     sys.exit(0 if ok else 1)
 
