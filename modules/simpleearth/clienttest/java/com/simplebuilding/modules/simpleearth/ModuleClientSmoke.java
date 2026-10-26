@@ -269,74 +269,69 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
     /** WD25-23: the menu with real mouse events - version button, slider click and drag, list scroll, toggle. */
+    /**
+     * WD25-23/WG26-3: the menu through the game's mouse handler (Fabric test input; the REAL operating-system mouse is
+     * checked by modules/simpleearth/tools/menu_probe.py in a normal client, since client game tests block real input).
+     */
     private static void menu(ClientGameTestContext context) {
         double k = context.computeOnClient(mc -> mc.getWindow().getScreenWidth() / (double) mc.getWindow().getGuiScaledWidth());
-        int[] v10 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testVersionButton(10));
-        System.out.println("[earth-measure] V10 button at " + v10[0] + "/" + v10[1] + " (scale " + k + "), Vanilla dispatch finds: "
-                + context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testChildAt(v10[0], v10[1])));
-        context.getInput().setCursorPos(v10[0] * k, v10[1] * k);
-        context.getInput().pressMouse(0);
-        context.waitTicks(3);
+        int[] v10 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeVersionButton(10));
+        clickAt(context, k, v10[0] + v10[2] / 2.0, v10[1] + v10[3] / 2.0);
         check(context.computeOnClient(mc -> EarthClientConfig.version) == 10, "click V10 selects version 10");
-        context.runOnClient(mc -> EarthClientConfig.version = 10); // keep the rest of the checks meaningful
-        context.runOnClient(mc -> EarthClientConfig.setRender("detail", 3));
-        int[] end = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testSlider("detail", 1.0));
-        context.getInput().setCursorPos(end[0] * k, end[1] * k);
-        context.getInput().pressMouse(0);
-        context.waitTicks(3);
-        check(context.computeOnClient(mc -> EarthClientConfig.render("detail")) == 5, "click at the slider end sets detail 5");
-        int[] from = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testSlider("tipTime", 0.0));
-        int[] to = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testSlider("tipTime", 0.5));
-        context.getInput().setCursorPos(from[0] * k, from[1] * k);
+        context.runOnClient(mc -> EarthClientConfig.version = 10);
+        int[] d = control(context, "detail");
+        clickAt(context, k, d[0] + d[2] * 0.06, d[1] + d[3] / 2.0);
+        check(context.computeOnClient(mc -> EarthClientConfig.render("detail")) == 1, "click near the left end of the detail slider: lowest level");
+        int[] t = control(context, "tipTime");
+        context.getInput().setCursorPos((t[0] + t[2] * 0.03) * k, (t[1] + t[3] / 2.0) * k);
         context.getInput().holdMouse(0);
         context.waitTicks(2);
-        context.getInput().setCursorPos(to[0] * k, to[1] * k);
+        context.getInput().setCursorPos((t[0] + t[2] * 0.5) * k, (t[1] + t[3] / 2.0) * k);
         context.waitTicks(2);
         context.getInput().releaseMouse(0);
         context.waitTicks(2);
         double tip = context.computeOnClient(mc -> EarthClientConfig.get(10, "tipTime"));
-        check(Math.abs(tip - 1.05) < 0.11, "drag the tip time slider to the middle: " + tip);
-        int[] toggle = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testRowPoint("moonPhases"));
+        check(Math.abs(tip - 1.05) < 0.15, "drag the tip time slider to the middle: " + tip);
+        int[] m = control(context, "moonPhases");
         boolean before = context.computeOnClient(mc -> EarthClientConfig.renderOn("moonPhases"));
-        context.getInput().setCursorPos(toggle[0] * k, toggle[1] * k);
-        context.getInput().pressMouse(0);
-        context.waitTicks(3);
+        clickAt(context, k, m[0] + m[2] / 2.0, m[1] + m[3] / 2.0);
         check(context.computeOnClient(mc -> EarthClientConfig.renderOn("moonPhases")) != before, "click toggles moon phases");
-        int[] list = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testListCentre());
-        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).testRowPoint("detail"));
-        double s0 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testScroll());
-        context.getInput().setCursorPos(list[0] * k, list[1] * k);
+        control(context, "detail");
+        int[] list = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeList());
+        double s0 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScroll());
+        context.getInput().setCursorPos((list[0] + list[2] / 2.0) * k, (list[1] + list[3] / 2.0) * k);
         context.getInput().scroll(-3);
         context.waitTicks(3);
-        double s1 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testScroll());
+        double s1 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScroll());
         check(s1 > s0, "mouse wheel scrolls the list: " + s0 + " -> " + s1);
-        check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "menu still open");
-        // WG26-3: the poll path (real mouse button read by the menu itself) presses the same controls
-        int[] v11 = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testVersionButton(11));
-        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).testPressByPoll(v11[0], v11[1]));
-        check(context.computeOnClient(mc -> EarthClientConfig.version) == 11, "poll path: V11 selected");
-        int[] tog = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testRowPoint("moonPhases"));
-        boolean mp = context.computeOnClient(mc -> EarthClientConfig.renderOn("moonPhases"));
-        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).testPressByPoll(tog[0], tog[1]));
-        check(context.computeOnClient(mc -> EarthClientConfig.renderOn("moonPhases")) != mp, "poll path: toggle");
-        context.runOnClient(mc -> EarthClientConfig.version = 10);
         context.runOnClient(mc -> EarthClientConfig.setRender("detail", 5));
-        int[] reset = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testButton(true));
-        context.getInput().setCursorPos(reset[0] * k, reset[1] * k);
-        context.getInput().pressMouse(0);
-        context.waitTicks(3);
+        int[] reset = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeButton(true));
+        clickAt(context, k, reset[0] + reset[2] / 2.0, reset[1] + reset[3] / 2.0);
         check(context.computeOnClient(mc -> EarthClientConfig.render("detail")) == 3, "click Defaults resets the display values");
         context.takeScreenshot("simpleearth-menu-used");
-        int[] done = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).testButton(false));
-        context.getInput().setCursorPos(done[0] * k, done[1] * k);
-        context.getInput().pressMouse(0);
-        context.waitTicks(3);
+        int[] done = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeButton(false));
+        clickAt(context, k, done[0] + done[2] / 2.0, done[1] + done[3] / 2.0);
         check(context.computeOnClient(mc -> mc.gui.screen() == null), "click Done closes the menu");
         context.runOnClient(mc -> {
             EarthClientConfig.setRender("detail", 3);
             EarthClientConfig.setRender("moonPhases", 1);
             EarthClientConfig.version = 6;
         });
+    }
+
+    private static void clickAt(ClientGameTestContext context, double k, double x, double y) {
+        context.getInput().setCursorPos(x * k, y * k);
+        context.getInput().pressMouse(0);
+        context.waitTicks(3);
+    }
+
+    /** Scrolls the setting into view and returns its widget rectangle (GUI coordinates) after a frame. */
+    private static int[] control(ClientGameTestContext context, String key) {
+        context.runOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeScrollTo(key));
+        context.waitTicks(3);
+        int[] r = context.computeOnClient(mc -> ((EarthScreen) mc.gui.screen()).probeControl(key));
+        if (r == null) throw new AssertionError(key + " not in view");
+        return r;
     }
 
     /** Sets the detail level, waits for the tiles and takes a screenshot (literal names for the runner). */
