@@ -181,14 +181,16 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         if (fast) check(done, "V10 image complete with fast heights within 90 s");
     }
 
-    /** E29-4: with free look the camera turns by the offset, the player keeps his view; released, the offset eases back. */
+    /** E29-4: holding the free-look key, a mouse move turns the camera, not the player; released, the camera eases back. */
     private static void freeLook(ClientGameTestContext context) {
-        context.runOnClient(mc -> com.simplelib.api.client.FreeLook.set(40, 0, true));
-        context.waitTicks(1);
-        float[] r = context.computeOnClient(mc -> new float[]{mc.gameRenderer.mainCamera().yRot(), mc.player.getYRot()});
-        float diff = ((r[0] - r[1]) % 360 + 540) % 360 - 180;
-        check(Math.abs(diff - 40) < 1, "free look: camera 40 degrees off the player's view (" + diff + ")");
-        context.runOnClient(mc -> com.simplelib.api.client.FreeLook.set(40, 0, false));
+        float yaw0 = context.computeOnClient(mc -> mc.player.getYRot());
+        context.getInput().holdKey(com.simplelib.api.client.FreeLook.KEY);
+        context.waitTicks(2);
+        context.getInput().moveCursor(300, 0);
+        context.waitTicks(3);
+        float[] r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset(), mc.gameRenderer.mainCamera().yRot()});
+        check(Math.abs(r[0] - yaw0) < 0.01 && Math.abs(r[1]) > 5, "free look: mouse turned the camera by " + r[1] + " degrees, player yaw " + yaw0 + " -> " + r[0]);
+        context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
         context.waitTicks(30);
         float back = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.yawOffset());
         check(Math.abs(back) < 1, "free look released: camera back (" + back + ")");
