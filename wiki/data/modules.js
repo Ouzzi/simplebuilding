@@ -1666,7 +1666,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleearth",
     "displayName": "Simple Earth",
-    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (twelve display versions, standard V6 folding net) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
+    "description": "The Overworld seen from orbit: above a very high activation height the world becomes a slightly rounded cube (24 display versions, standard V6 folding net) whose faces show Vanilla map colours sampled from the world generator (biomes and heights from the seed, no chunks generated); flat sun, cube moon, stars. Below everything stays Vanilla. Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1688,6 +1688,6 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "7e212c35d09e"
+    "dataHash": "4bde2dbca227"
   }
 ];
