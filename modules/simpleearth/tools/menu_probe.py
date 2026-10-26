@@ -58,10 +58,11 @@ class Pointer:
         time.sleep(0.25)
         self.button(1, True)
         time.sleep(0.15)
+        # a hand's pace: under Xvfb the full pack draws few frames a second, and the game applies the cursor once a frame
         for k in range(1, steps + 1):
             self.move(x0 + (x1 - x0) * k / steps, y)
-            time.sleep(0.06)
-        time.sleep(0.15)
+            time.sleep(0.25)
+        time.sleep(1.0)
         self.button(1, False)
         time.sleep(0.4)
 
