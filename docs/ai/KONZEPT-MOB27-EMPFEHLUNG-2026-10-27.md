@@ -23,3 +23,8 @@
 1. Spiegel-Effekt: feste 50/50-Chance und die Stufe erhöht nur die Weiterleitungs-Chance (z. B. 50/60/70/80/90 %) – ok?
 2. Volatile: keine Blockschäden – ok?
 3. Bekommen auch Spieler diese Effekte (Tränke/Leuchtfeuer) oder nur Mobs?
+
+## Antworten Besitzer 27.10. spät
+1. Spiegel: Stufe I 20 % Chance / 100 % Schaden an Angreifer … Stufe V 50 % / 200 %.
+2. Volatile: keine Blöcke zerstören.
+3. Spieler-Effekte über Tränke usw.: ja, aber erst Plan zur Freigabe.
