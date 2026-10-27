@@ -28,3 +28,4 @@
 1. Spiegel: Stufe I 20 % Chance / 100 % Schaden an Angreifer … Stufe V 50 % / 200 %.
 2. Volatile: keine Blöcke zerstören.
 3. Spieler-Effekte über Tränke usw.: ja, aber erst Plan zur Freigabe.
+4. Spiegel (ersetzt Punkt 1): Träger 120 % oder Schläger 20 % (Stufe I) bis Träger 200 % oder Schläger 100 % (Stufe V); tödlicher Rückschaden setzt den Schläger auf ½ Herz. Chance des Münzwurfs noch offen.
