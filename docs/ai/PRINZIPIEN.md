@@ -70,6 +70,9 @@ Neue und angefasste Module folgen einem Schema; `tools/check_module_style.py` (G
 
 ---
 
+### A12 Vanilla-Nutzen und Eingriff klären (Besitzer 28.10.)
+Jedes neue Feature (Mob, Block, Mechanik, Item) braucht vor dem Bau eine kurze Klärung: (1) welchen Nutzen es im Vanilla-Spielgeschehen hat, (2) was es am Spielgeschehen ändert, (3) ob es das Vanilla-Geschehen stark verändert. Starke Eingriffe in Vanilla eher nicht – oder nur abschaltbar und mit Besitzer-Freigabe. Gehört in jedes Konzept und jeden Plan.
+
 ## Teil 2 – Je Mod
 
 Reihenfolge wie `modules/modules.json`; Mods ohne Sonderregeln stehen mit „keine eigenen Regeln bisher“ da, damit jede Mod einen Platz für ihre Regeln hat. Neue Module bekommen hier
