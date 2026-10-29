@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_strong_gunpowder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:strong_gunpowder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemobs:strong_firework_rocket"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_strong_gunpowder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemobs:strong_firework_rocket"
+    ]
+  }
+}

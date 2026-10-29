@@ -949,6 +949,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("astral_enchanting_game_test_budget_and_cost_rules", AstralEnchantingTests::budgetAndCostRules).build(),
             GameTestSpec.named("astral_enchanting_game_test_shelves_and_floor_set_the_tier", AstralEnchantingTests::shelvesAndFloorSetTheTier).build(),
             GameTestSpec.named("astral_enchanting_game_test_hammer_turns_the_enchanting_table_astral", AstralEnchantingTests::hammerTurnsTheEnchantingTableAstral).maxTicks(AstralEnchantingTests.MAX_TICKS).build(),
+            GameTestSpec.named("astral_enchanting_game_test_golden_apple_becomes_enchanted", AstralEnchantingTests::goldenAppleBecomesEnchanted).build(),
             GameTestSpec.named("astral_enchanting_game_test_breaking_drops_table_nugget_and_stock", AstralEnchantingTests::breakingDropsTableNuggetAndStock).build(),
             GameTestSpec.named("astral_enchanting_game_test_stock_stays_in_the_table", AstralEnchantingTests::stockStaysInTheTable).build(),
             GameTestSpec.named("astral_enchanting_game_test_enchanting_uses_up_what_the_rules_say", AstralEnchantingTests::enchantingUsesUpWhatTheRulesSay).build(),
@@ -1365,10 +1366,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_only_iron_or_better_sledgehammers_crush_diamond_blocks", SledgehammerTests::onlyIronOrBetterSledgehammersCrushDiamondBlocks)
-                    .maxTicks(140)
+                    .maxTicks(260)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_hammer_crushings_yield_one_part_per_strike_through_the_real_use_path", SledgehammerTests::hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath)
-                    .maxTicks(320)
+                    .maxTicks(440)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_breaks_the_octant_selection_at_twice_the_area_time_per_block", SledgehammerTests::sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock)
                     .build(),

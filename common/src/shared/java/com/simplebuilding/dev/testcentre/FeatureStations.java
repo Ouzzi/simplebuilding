@@ -829,12 +829,12 @@ public final class FeatureStations {
         c.contents(tx, 1, tz, List.of(new ItemStack(Items.LAPIS_LAZULI, 64), new ItemStack(Items.BLAZE_POWDER, 64)));
         c.place(8, 0, 3, Blocks.ENCHANTING_TABLE);
         c.place(9, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
-        c.contents(9, 0, 1, List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), new ItemStack(ModItems.ENDERITE_NUGGET, 4),
+        c.contents(9, 0, 1, List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), new ItemStack(ModItems.ENDERITE_NUGGET, 8),
                 new ItemStack(Items.BLAZE_POWDER, 64), new ItemStack(Items.CRIMSON_PLANKS, 16), new ItemStack(Items.WARPED_PLANKS, 16),
                 new ItemStack(Items.PAPER, 16), new ItemStack(Items.CRYING_OBSIDIAN, 8), new ItemStack(ModItems.CRIMSON_BLAZEWOOD_PLANKS, 8),
                 new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),
                 new ItemStack(ModItems.ASTRAL_ENCHANTING_TABLE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
-                new ItemStack(Items.EXPERIENCE_BOTTLE, 64)));
+                new ItemStack(Items.EXPERIENCE_BOTTLE, 64), new ItemStack(Items.GOLDEN_APPLE, 2)));
         c.title(0, 3, wallZ, TcText.t("section.astral", "Enchanter"),
                 TcText.t("machines.astral_enchanting", "sliders; 15 blazewood shelves = 50"));
         TcWays.Way table = TcWays.upgrade(Blocks.ENCHANTING_TABLE, ctx.rowItems("sledgehammers"));

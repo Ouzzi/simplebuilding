@@ -260,4 +260,10 @@ Zurücksetzen nur per `/simplestats reset`. Konzept `docs/ai/KONZEPT-ITEM-STATIS
 | QoL-Aufteilung | Besitzer entscheidet | Sub-Mods für Container (fertig), Bewegung, Landwirtschaft, Werkzeuge/Haltbarkeit, Kreaturen, Wetter, Tresor (→ Simple Loot); Schärfe/Gras → Simple Combat; Kreaturen-Logik nach simplelib | QUEUE N14 |
 | Mobs/Effekte | Konzepte | End-Mob, Shellker (Schwerkraft), Deceiver, Furcht-Mob, Seelenfeuer-Lohe; Effekte Zittern/Trugbild/Verblasst | `docs/ai/KONZEPT-MOBS-2026-10-07.md`, `KONZEPT-DECEIVER-EFFEKTE-2026-10-07.md` |
 
+Welle A29 `a-mech29` (29.10.2026, Plan `docs/ai/PLAN-A-MECH29-2026-10-29.md`):
+- **Simple Mobs – Starkes Schwarzpulver / Starke Rakete / Starkes TNT** (BS25-21, BS25-4): 3 Schwarzpulver + Lohenstaub → 2 Starkes Pulver; Papier + 1 Pulver → 3 Vanilla-Raketen mit Flugdauer 4; Starkes TNT wie TNT, Sprengkraft 6 (Config `strongTntPower`). Wither-/Nether-/End-/Leeren-Schwingen heben das Höchsttempo nur noch mit starker Rakete an; normale Raketen geben den Vanilla-Schub und kappen beim Vanilla-Elytra-Höchsttempo. Platzhalter-Optik (Vanilla-Textur getönt), Vorschau `a-mech29-preview`.
+- **Simple Hammers – Schlagtempo je Stufe** (HS29-2): Abstand zwischen zwei Schlägen Netherit 20 Ticks (altes Tempo), Enderit 19, Diamant 21, Gold 22, Eisen 23, Kupfer 24, Stein 25 – für Halte-Aufwertungen und Rechtsklick-Schläge (Quarz, Diamantblock, Späne, Vorlagen, Starke Aufwertung, Zerkleinern); SimpleLib `InWorldStrikes.interval`.
+- **Simple Hammers – Zerkleinern** (HS29-3): Stein → Bruchstein → Kies → Sand, je 5 Rechtsklick-Schläge mit jedem Vorschlaghammer (ohne Schleichen).
+- **SimpleBuilding – Verzauberer** (BS25-16, BS25-22): Umbau Vanilla-Tisch → Astral-Tisch braucht 8 Enderit-Nuggets (16 Schläge, 35 Haltbarkeit je Schlag, ab Netherit-Hammer; neues Feld `strikes_per_material` in `in_world_upgrades`); goldener Apfel im Item-Platz → verzauberter goldener Apfel für 40 Level + 3 Lapis + 3 Lohenstaub (50/60 für spätere Stufen vorgemerkt).
+
 Offene Punkte und Reihenfolge: `docs/ai/ROADMAP-2026-10-09.md`.

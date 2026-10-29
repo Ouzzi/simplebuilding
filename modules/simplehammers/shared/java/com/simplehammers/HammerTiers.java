@@ -5,13 +5,13 @@ import net.minecraft.world.item.ToolMaterial;
 
 /** The seven hammer tiers: numbers as in SimpleBuilding before the move (owner: durability unchanged until tested). */
 public enum HammerTiers {
-    STONE("stone", ToolMaterial.STONE, 4, -3.0F, 190, 15),
-    COPPER("copper", ToolMaterial.COPPER, 4, -2.8F, 190, 18),
-    IRON("iron", ToolMaterial.IRON, 6, -3.0F, 250, 14),
-    GOLD("gold", ToolMaterial.GOLD, 5, -2.8F, 32, 22),
-    DIAMOND("diamond", ToolMaterial.DIAMOND, 7, -2.8F, 1561, 10),
-    NETHERITE("netherite", ToolMaterial.NETHERITE, 8, -2.6F, 2031, 15),
-    ENDERITE("enderite", Holder.MATERIAL, 9, -2.4F, 2500, 18);
+    STONE("stone", ToolMaterial.STONE, 4, -3.0F, 190, 15, 25),
+    COPPER("copper", ToolMaterial.COPPER, 4, -2.8F, 190, 18, 24),
+    IRON("iron", ToolMaterial.IRON, 6, -3.0F, 250, 14, 23),
+    GOLD("gold", ToolMaterial.GOLD, 5, -2.8F, 32, 22, 22),
+    DIAMOND("diamond", ToolMaterial.DIAMOND, 7, -2.8F, 1561, 10, 21),
+    NETHERITE("netherite", ToolMaterial.NETHERITE, 8, -2.6F, 2031, 15, 20),
+    ENDERITE("enderite", Holder.MATERIAL, 9, -2.4F, 2500, 18, 19);
 
     public final String name;
     public final ToolMaterial material;
@@ -21,8 +21,14 @@ public enum HammerTiers {
     /** Pickaxe durability of the tier; the hammer has {@code BASE_DURABILITY_MULTIPLIER} times it. */
     public final int baseDurability;
     public final int enchantability;
+    /**
+     * Ticks between two strikes of any in-world conversion (HS29-2, owner 29.10.): Netherite 20 (the tempo of the Cauldron to
+     * Crucible upgrade before the change), Enderite one tick faster, every tier below one tick slower - small steps.
+     */
+    public final int strikeInterval;
 
-    HammerTiers(String name, ToolMaterial material, int attackDamage, float attackSpeed, int baseDurability, int enchantability) {
+    HammerTiers(String name, ToolMaterial material, int attackDamage, float attackSpeed, int baseDurability, int enchantability, int strikeInterval) {
+        this.strikeInterval = strikeInterval;
         this.name = name;
         this.material = material;
         this.attackDamage = attackDamage;

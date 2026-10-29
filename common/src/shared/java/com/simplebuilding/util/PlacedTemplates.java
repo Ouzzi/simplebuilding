@@ -331,11 +331,11 @@ public final class PlacedTemplates {
 
     /**
      * Der Rechtsklick-Weg ({@code SledgehammerItem#useOn}, Besitzer 2026-10-06): ein gehaltener Rechtsklick
-     * wiederholt alle 4 Ticks, ein Schlag zaehlt erst {@link InWorldStrikes#MIN_INTERVAL} Ticks nach dem vorigen.
+     * wiederholt alle 4 Ticks, ein Schlag zaehlt erst {@link InWorldStrikes#interval} Ticks (Stufe des Hammers, HS29-2) nach dem vorigen.
      */
     public static boolean strike(ServerLevel level, BlockPos pos, Player player) {
         if (level.getBlockEntity(pos) instanceof PlacedTemplateBlockEntity be && be.hits() > 0
-                && level.getGameTime() - be.lastHitTime() < InWorldStrikes.MIN_INTERVAL
+                && level.getGameTime() - be.lastHitTime() < InWorldStrikes.interval(player.getMainHandItem())
                 && level.getGameTime() >= be.lastHitTime()) {
             return false;
         }

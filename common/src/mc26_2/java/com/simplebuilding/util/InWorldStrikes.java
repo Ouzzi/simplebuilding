@@ -89,12 +89,23 @@ public final class InWorldStrikes {
      * Beim {@code total}-ten Schlag ist die Zaehlung wieder frei.
      */
     public static int count(ServerLevel level, BlockPos pos, String kind, BlockState state, int total, long now) {
+        return count(level, pos, kind, state, total, now, MIN_INTERVAL);
+    }
+
+    /** 26.2 has no hammer tempo (HS29-2 is 26.3): every tool strikes at {@link #MIN_INTERVAL}. */
+    public static final int MAX_INTERVAL = MIN_INTERVAL;
+
+    public static int interval(ItemStack tool) {
+        return MIN_INTERVAL;
+    }
+
+    public static int count(ServerLevel level, BlockPos pos, String kind, BlockState state, int total, long now, int minInterval) {
         Key key = new Key(level.dimension(), pos.immutable());
         synchronized (COUNTS) {
             Count last = COUNTS.get(key);
             boolean same = last != null && last.kind().equals(kind) && last.state().equals(state)
                     && now >= last.last() && now - last.last() <= RESET_TICKS;
-            if (same && now - last.last() < MIN_INTERVAL) {
+            if (same && now - last.last() < minInterval) {
                 return 0;
             }
             int done = same ? last.done() + 1 : 1;
@@ -114,7 +125,12 @@ public final class InWorldStrikes {
      */
     public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,
                                                int total, long now) {
-        int done = count(level, pos, kind, state, total, now);
+        return strikeYield(level, pos, kind, state, result, total, now, MIN_INTERVAL);
+    }
+
+    public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,
+                                               int total, long now, int minInterval) {
+        int done = count(level, pos, kind, state, total, now, minInterval);
         if (done == 0) {
             return null;
         }

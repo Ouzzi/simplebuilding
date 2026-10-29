@@ -50,6 +50,8 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
     static final int LAPIS_DOT = 0xFF3D63DD, BLAZE_DOT = 0xFFF0602A;
 
     private static final ItemStack ENCHANTED_BOOK = new ItemStack(Items.ENCHANTED_BOOK);
+    /** BS25-22: the button shows the apple instead of the book while a golden apple lies in the item slot. */
+    private static final ItemStack ENCHANTED_APPLE = new ItemStack(Items.ENCHANTED_GOLDEN_APPLE);
 
     private int dragRow = -1;
 
@@ -270,16 +272,16 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         g.fill(x + 1, y + 1, x + BUTTON_W - 1, y + BUTTON_H - 1, ready ? (hover ? 0xFF8F64C4 : 0xFF6D4A99) : 0xFF3A3242);
         g.fill(x + 1, y + 1, x + BUTTON_W - 1, y + 2, ready ? 0xFFB592DD : 0xFF4D4458);
         // An enchanted book and the levels the enchanting uses up (N31: the old star read as a "+" button).
-        g.item(ENCHANTED_BOOK, x + 2, y + 2);
+        g.item(this.menu.isApple() ? ENCHANTED_APPLE : ENCHANTED_BOOK, x + 2, y + 2);
         var player = this.minecraft.player;
         boolean infinite = player.hasInfiniteMaterials();
         int cost = this.menu.price();
         // N55: the levels that are taken off, not the level needed (that one is shown above already).
-        int taken = AstralEnchanting.levelCost(cost);
+        int taken = this.menu.levelsTaken();
         String text = cost > 0 ? String.valueOf(taken) : "-";
         g.text(this.font, text, x + 27 - this.font.width(text) / 2, y + 6, ready ? GREEN : cost > 0 ? RED : TEXT_OFF, true);
         // N35: one line under the book - a blue dot with the lapis, an orange-red dot with the blaze powder it needs.
-        int lapis = AstralEnchanting.lapisCost(cost), blaze = AstralEnchanting.blazePowderCost(cost);
+        int lapis = this.menu.lapisNeeded(), blaze = this.menu.blazeNeeded();
         String l = String.valueOf(lapis), b = String.valueOf(blaze);
         int width = 4 + 1 + this.font.width(l) + 4 + 4 + 1 + this.font.width(b);
         int dx = x + (BUTTON_W - width) / 2, dy = y + 20;
@@ -414,9 +416,9 @@ public class AstralEnchantingScreen extends AbstractContainerScreen<AstralEnchan
         var player = this.minecraft.player;
         boolean infinite = player.hasInfiniteMaterials();
         // N37 (owner): the price is the level needed; only a few levels are used up, like Vanilla.
-        lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.levels", cost, AstralEnchanting.levelCost(cost))
+        lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.levels", cost, this.menu.levelsTaken())
                 .withStyle(infinite || player.experienceLevel >= cost ? ChatFormatting.GREEN : ChatFormatting.RED));
-        int lapis = AstralEnchanting.lapisCost(cost), blaze = AstralEnchanting.blazePowderCost(cost);
+        int lapis = this.menu.lapisNeeded(), blaze = this.menu.blazeNeeded();
         lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.lapis", lapis)
                 .withStyle(infinite || this.menu.lapis() >= lapis ? ChatFormatting.GRAY : ChatFormatting.RED));
         lines.add(Component.translatable("container.simplebuilding.astral_enchanting_table.blaze_powder", blaze)

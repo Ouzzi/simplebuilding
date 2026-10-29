@@ -73,7 +73,9 @@ public final class HammersDiscover {
             "simplehammers:radius",
             "simplehammers:reshaping",
             "simplehammers:sledgehammers",
-            "simplehammers:stone_sledgehammer");
+            "simplehammers:stone_crush",
+            "simplehammers:stone_sledgehammer",
+            "simplehammers:strike_tempo");
     static final List<Tip> TIPS = List.of(
             new Tip("sledgehammer", List.of("*_sledgehammer")));
 

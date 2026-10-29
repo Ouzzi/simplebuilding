@@ -203,6 +203,7 @@ public class SledgehammerProgress extends SavedData {
     private void broadcast(ServerLevel level, BlockPos pos, int hits, Block from) {
         int id = crackIds.computeIfAbsent(pos, p -> NEXT_CRACK_ID.getAndDecrement());
         SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(from);
-        level.destroyBlockProgress(id, pos, crackStage(hits, upgrade == null ? 1 : upgrade.durationFactor()));
+        level.destroyBlockProgress(id, pos, crackStage(hits, upgrade == null ? 1 : upgrade.strikesPerMaterial() > 0
+                ? Math.ceilDiv(SledgehammerUpgrades.blows(upgrade), SledgehammerUpgrades.BLOWS) : upgrade.durationFactor()));
     }
 }

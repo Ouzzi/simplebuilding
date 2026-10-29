@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "unstable=false": {
+      "model": "simplemobs:block/strong_tnt"
+    },
+    "unstable=true": {
+      "model": "simplemobs:block/strong_tnt"
+    }
+  }
+}

@@ -236,16 +236,18 @@ public final class AstralEnchantingTests {
     }
 
     /**
-     * Made in the world: a Vanilla enchanting table, a Netherite sledgehammer and an Enderite nugget in the off hand -
-     * four times the blows of a machine upgrade, the nugget is used up at the last one. A diamond hammer cannot.
+     * Made in the world (BS25-16): a Vanilla enchanting table, a Netherite sledgehammer and 8 Enderite nuggets in the off
+     * hand - 16 strikes (one nugget per 2) at 35 durability each, the nuggets are used up at the last one. A diamond
+     * hammer cannot, and fewer than 8 nuggets do not start it.
      */
     public static void hammerTurnsTheEnchantingTableAstral(GameTestHelper helper) {
         if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
         var upgrade = SledgehammerUpgrades.upgradeOf(Blocks.ENCHANTING_TABLE);
         helper.assertTrue(upgrade != null && upgrade.to() == ModBlocks.ASTRAL_ENCHANTING_TABLE && upgrade.nugget() == ModItems.ENDERITE_NUGGET
-                && upgrade.minHammerRank() == SledgehammerUpgrades.RANK_NETHERITE && upgrade.materialCost() == 1
-                && upgrade.durationFactor() == SledgehammerUpgrades.ASTRAL_TABLE_DURATION_FACTOR, "enchanting table upgrade: " + upgrade);
-        eq(helper, SledgehammerUpgrades.blows(upgrade), SledgehammerUpgrades.blows() * 4, "blows for the astral table");
+                && upgrade.minHammerRank() == SledgehammerUpgrades.RANK_NETHERITE && upgrade.materialCost() == 8
+                && upgrade.strikesPerMaterial() == 2 && upgrade.damagePerHit() == 35, "enchanting table upgrade: " + upgrade);
+        eq(helper, SledgehammerUpgrades.blows(upgrade), 16, "blows for the astral table: one nugget per 2 strikes");
+        eq(helper, SledgehammerUpgrades.damagePerHit(upgrade), 35, "durability per strike of the astral table (30-40)");
 
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);
@@ -261,7 +263,7 @@ public final class AstralEnchantingTests {
 
         // A diamond hammer is too weak: the click opens nothing and starts nothing.
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond")));
-        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.ENDERITE_NUGGET, 2));
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.ENDERITE_NUGGET, 9));
         click(helper, player, abs);
         helper.assertFalse(SledgehammerUpgrades.hasJob(player), "a diamond hammer started the astral upgrade");
         player.stopUsingItem();
@@ -269,10 +271,18 @@ public final class AstralEnchantingTests {
 
         ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite"));
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        // Seven nuggets are not enough: nothing starts.
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.ENDERITE_NUGGET, 7));
+        click(helper, player, abs);
+        helper.assertFalse(SledgehammerUpgrades.hasJob(player), "seven nuggets started the astral upgrade");
+        player.stopUsingItem();
+        player.containerMenu = player.inventoryMenu;
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.ENDERITE_NUGGET, 9));
         click(helper, player, abs);
         helper.assertTrue(player.containerMenu == player.inventoryMenu, "the click opened the enchanting menu instead of hammering");
         helper.assertTrue(SledgehammerUpgrades.hasJob(player), "the netherite hammer did not start the astral upgrade");
-        int ticks = SledgehammerUpgrades.upgradeTicks(upgrade);
+        int ticks = SledgehammerUpgrades.upgradeTicks(upgrade, hammer);
+        eq(helper, ticks, 16 * 20, "the netherite hammer strikes every 20 ticks (HS29-2)");
         for (int tick = 1; tick < ticks; tick++) {
             player.connection.tick();
             if (!player.isUsingItem()) helper.fail("the hammering stopped after " + tick + " of " + ticks + " ticks");
@@ -280,7 +290,8 @@ public final class AstralEnchantingTests {
         helper.assertBlockPresent(Blocks.ENCHANTING_TABLE, TABLE);
         player.connection.tick();
         helper.assertBlockPresent(ModBlocks.ASTRAL_ENCHANTING_TABLE, TABLE);
-        eq(helper, player.getOffhandItem().getCount(), 1, "nuggets left after the upgrade");
+        eq(helper, player.getOffhandItem().getCount(), 1, "nuggets left after the upgrade (9 - 8)");
+        eq(helper, hammer.getDamageValue(), 16 * 35, "durability the sixteen strikes cost");
         helper.assertTrue(helper.getLevel().getBlockEntity(abs) instanceof AstralEnchantingTableBlockEntity, "no astral block entity");
         helper.succeed();
     }
@@ -438,6 +449,42 @@ public final class AstralEnchantingTests {
         eq(helper, table.getItem(AstralEnchantingTableBlockEntity.BLAZE).getCount(), 10 - AstralEnchanting.blazePowderCost(levels), "blaze powder left");
         helper.assertTrue(player.getEnchantmentSeed() != seed, "the enchantment seed did not change");
         eq(helper, menu.enchantId(0), -1, "offers for the already enchanted pickaxe");
+        menu.removed(player);
+        helper.succeed();
+    }
+
+    /**
+     * BS25-22: a golden apple in the item slot becomes an Enchanted Golden Apple for 40 levels (really taken off), 3 lapis
+     * and 3 blaze powder; without the levels or the stock nothing happens.
+     */
+    public static void goldenAppleBecomesEnchanted(GameTestHelper helper) {
+        if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
+        floor(helper, Blocks.STONE);
+        helper.setBlock(TABLE, ModBlocks.ASTRAL_ENCHANTING_TABLE);
+        var table = helper.getBlockEntity(TABLE, AstralEnchantingTableBlockEntity.class);
+        table.setItem(AstralEnchantingTableBlockEntity.LAPIS, new ItemStack(Items.LAPIS_LAZULI, 5));
+        table.setItem(AstralEnchantingTableBlockEntity.BLAZE, new ItemStack(Items.BLAZE_POWDER, 2));
+        ServerPlayer player = survivor(helper);
+        player.giveExperienceLevels(45);
+        AstralEnchantingMenu menu = open(helper, player);
+        menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).set(new ItemStack(Items.GOLDEN_APPLE));
+        helper.assertTrue(menu.isApple() && menu.price() == 40 && menu.levelsTaken() == 40 && menu.lapisNeeded() == 3 && menu.blazeNeeded() == 3,
+                "the apple offer: " + menu.price() + " levels, " + menu.lapisNeeded() + " lapis, " + menu.blazeNeeded() + " blaze powder");
+        // Only 2 blaze powder: refused, nothing taken.
+        helper.assertFalse(menu.clickMenuButton(player, AstralEnchantingMenu.BUTTON_ENCHANT), "the apple was enchanted with 2 blaze powder");
+        eq(helper, player.experienceLevel, 45, "levels after the refused click");
+        helper.assertTrue(menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).getItem().is(Items.GOLDEN_APPLE), "the apple changed");
+        table.setItem(AstralEnchantingTableBlockEntity.BLAZE, new ItemStack(Items.BLAZE_POWDER, 4));
+        helper.assertTrue(menu.clickMenuButton(player, AstralEnchantingMenu.BUTTON_ENCHANT), "enchanting the apple was refused");
+        helper.assertTrue(menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).getItem().is(Items.ENCHANTED_GOLDEN_APPLE), "no Enchanted Golden Apple");
+        eq(helper, player.experienceLevel, 5, "levels left (45 - 40)");
+        eq(helper, table.getItem(AstralEnchantingTableBlockEntity.LAPIS).getCount(), 2, "lapis left");
+        eq(helper, table.getItem(AstralEnchantingTableBlockEntity.BLAZE).getCount(), 1, "blaze powder left");
+        // Not enough levels: 5 < 40.
+        menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).set(new ItemStack(Items.GOLDEN_APPLE));
+        helper.assertFalse(menu.clickMenuButton(player, AstralEnchantingMenu.BUTTON_ENCHANT), "the apple was enchanted without the levels");
+        eq(helper, AstralEnchanting.APPLE_LEVELS_NETHER, 50, "reserved Nether stage price");
+        eq(helper, AstralEnchanting.APPLE_LEVELS_ENDERITE, 60, "reserved Enderite stage price");
         menu.removed(player);
         helper.succeed();
     }

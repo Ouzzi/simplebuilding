@@ -85,12 +85,14 @@ public final class WitherMobs {
     public static void blocks(BiConsumer<ResourceKey<Block>, Block> sink) {
         sink.accept(HEART_BLOCK_KEY, HEART_BLOCK);
         sink.accept(GEM_BLOCK_KEY, GEM_BLOCK);
+        StrongExplosives.blocks(sink);
     }
 
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {
         sink.accept(HEART_KEY, HEART);
         sink.accept(GEM_KEY, GEM);
         WitherWings.items(sink);
+        StrongExplosives.items(sink);
     }
 
     /** Fabric: direct registration. */

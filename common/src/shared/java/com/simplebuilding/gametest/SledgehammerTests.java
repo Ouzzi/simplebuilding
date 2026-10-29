@@ -846,10 +846,17 @@ public final class SledgehammerTests {
         // 26.3 (Queue Nachtrag 24): only while sneaking; a plain right click passes through.
         boolean carve = com.simplebuilding.version.McVersion.TRANSFORM_HINTS_AND_CORNERS;
         if (carve) {
-            helper.setBlock(CENTRE, Blocks.STONE);
+            helper.setBlock(CENTRE, Blocks.OAK_PLANKS);
             helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.PASS,
                     "a plain right click still starts a reshape");
             helper.assertFalse(player.isUsingItem(), "the hammer wound up without sneaking");
+            // HS29-3: a plain right click on stone is a crushing strike, never a charge.
+            helper.setBlock(CENTRE, Blocks.STONE);
+            helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.SUCCESS,
+                    "a plain right click on stone did not strike it");
+            helper.assertFalse(player.isUsingItem(), "the hammer wound up on stone without sneaking");
+            helper.assertBlockPresent(Blocks.STONE, CENTRE);
+            InWorldStrikes.clear(helper.getLevel(), helper.absolutePos(CENTRE));
         }
         player.setShiftKeyDown(carve);
         helper.setBlock(CENTRE, Blocks.STONE);
@@ -1809,7 +1816,7 @@ public final class SledgehammerTests {
             rightClickTop(helper, player, new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), abandoned);
         }
         if (strike < longest) {
-            helper.runAfterDelay(InWorldStrikes.MIN_INTERVAL + 1, () -> stepStrike(helper, player, cases, abandoned, strike + 1));
+            helper.runAfterDelay(InWorldStrikes.MAX_INTERVAL + 1, () -> stepStrike(helper, player, cases, abandoned, strike + 1));
             return;
         }
         // The abandoned ice: after the reset its two shown chips vanish, the block stays, nothing dropped.
@@ -2099,7 +2106,7 @@ public final class SledgehammerTests {
 
     /** Strike {@code strike} of {@link SledgehammerItem#DIAMOND_BLOCK_STRIKES}, spaced past the repeat guard. */
     private static void strikeLater(GameTestHelper helper, ServerPlayer player, ItemStack iron, net.minecraft.world.phys.AABB around, int strike) {
-        helper.runAfterDelay(SledgehammerItem.DIAMOND_STRIKE_MIN_INTERVAL + 1, () -> {
+        helper.runAfterDelay(InWorldStrikes.interval(iron) + 1, () -> {
             useOnTop(helper, player, iron, CENTRE);
             if (strike < SledgehammerItem.DIAMOND_BLOCK_STRIKES) {
                 helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, CENTRE);

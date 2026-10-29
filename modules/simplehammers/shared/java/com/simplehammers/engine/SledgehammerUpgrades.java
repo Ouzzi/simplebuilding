@@ -1,5 +1,6 @@
 package com.simplehammers.engine;
 
+import com.simplehammers.HammerTiers;
 import com.simplehammers.SimpleHammers;
 import com.simplehammers.config.HammerConfig;
 import com.simplehammers.item.SledgehammerItem;
@@ -100,7 +101,7 @@ public class SledgehammerUpgrades {
 
     /** Dauer einer Aufwertung: fuenf Sekunden. */
     public static final int UPGRADE_TICKS = 100;
-    /** Ein Hammerschlag pro Sekunde. */
+    /** Bezugs-Schlagabstand (Netherit-Hammer, HS29-2): ein Hammerschlag pro Sekunde; jede Hammerstufe hat ihren eigenen ({@link #hitInterval}). */
     public static final int HIT_INTERVAL = 20;
     /** Kupfertruhe -> Verstaerkte Truhe mit einem Rissigen Diamanten: jeder Vorschlaghammer genuegt. */
     public static final int REINFORCED_DAMAGE_PER_HIT = 2;
@@ -132,15 +133,21 @@ public class SledgehammerUpgrades {
      * das Material je Block (Shulkerkisten: 2; eine Doppeltruhe braucht es zweimal).
      */
     public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
-                          boolean toReinforced, int durationFactor, int materialCost) {
+                          boolean toReinforced, int durationFactor, int materialCost, int strikesPerMaterial) {
         public Upgrade {
             durationFactor = Math.max(1, durationFactor);
             materialCost = Math.max(1, materialCost);
+            strikesPerMaterial = Math.max(0, strikesPerMaterial);
+        }
+
+        public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
+                       boolean toReinforced, int durationFactor, int materialCost) {
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, durationFactor, materialCost, 0);
         }
 
         public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
                        boolean toReinforced) {
-            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1);
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1, 0);
         }
 
         /** Ob diese Stufe eine Truhe umbaut (Doppeltruhen: beide Haelften, ein Material je Haelfte; SimpleBuilding meldet die Haelften). */
@@ -172,6 +179,8 @@ public class SledgehammerUpgrades {
     public static int blows(Upgrade upgrade) {
         HammerActions.Staged staged = HammerActions.staged(upgrade.from());
         if (staged != null) return staged.strikes();
+        // BS25-16: "alle N Schlaege ein Material" - die Schlagzahl folgt der Materialmenge (Astral-Tisch: 8 Nuggets, 16 Schlaege).
+        if (upgrade.strikesPerMaterial() > 0) return upgrade.strikesPerMaterial() * upgrade.materialCost();
         return blows() * upgrade.durationFactor();
     }
 
@@ -180,13 +189,29 @@ public class SledgehammerUpgrades {
         return HammerActions.staged(upgrade.from()) != null;
     }
 
-    /** Dauer dieser Stufe in Ticks. */
+    /** Dauer dieser Stufe in Ticks mit dem Bezugs-Schlagabstand (Netherit-Hammer); mit einem bestimmten Hammer {@link #upgradeTicks(Upgrade, ItemStack)}. */
     public static int upgradeTicks(Upgrade upgrade) {
         return blows(upgrade) * HIT_INTERVAL;
     }
 
-    /** Schaden je Schlag fuer diese Stufe aus {@code server.tools} (Standard wie in der Tabelle). */
+    /** Dauer dieser Stufe in Ticks mit dem Schlagabstand dieses Hammers (HS29-2). */
+    public static int upgradeTicks(Upgrade upgrade, ItemStack hammer) {
+        return blows(upgrade) * hitInterval(hammer);
+    }
+
+    /**
+     * Schlagabstand in Ticks je Hammerstufe (HS29-2, Besitzer 29.10.): Netherit {@link #HIT_INTERVAL} (= das Tempo vor der
+     * Aenderung), Enderit einen Tick schneller, jede Stufe darunter einen Tick langsamer ({@link HammerTiers#strikeInterval}).
+     * Jedes andere Item: der Bezugswert.
+     */
+    public static int hitInterval(ItemStack hammer) {
+        return hammer.getItem() instanceof SledgehammerItem item ? item.tier().strikeInterval : HIT_INTERVAL;
+    }
+
+    /** Schaden je Schlag fuer diese Stufe aus {@code server.tools}; ein vom Stufen-Standard abweichender Tabellenwert gilt (BS25-16: Astral-Tisch 35). */
     public static int damagePerHit(Upgrade upgrade) {
+        int tierDefault = upgrade.toReinforced() ? REINFORCED_DAMAGE_PER_HIT : upgrade.toEnderite() ? ENDERITE_DAMAGE_PER_HIT : NETHERITE_DAMAGE_PER_HIT;
+        if (upgrade.damagePerHit() != tierDefault) return upgrade.damagePerHit();
         return HammerConfig.upgradeDamagePerHit(upgrade.toReinforced(), upgrade.toEnderite());
     }
     /**
@@ -206,8 +231,11 @@ public class SledgehammerUpgrades {
         /** Schon gespeicherte Schlaege, bei denen dieser Auftrag fortsetzt (Client: immer 0). */
         final int startHits;
         int missedAimTicks;
+        /** Schlagabstand des Hammers, mit dem der Auftrag begann (beide Seiten rechnen aus derselben Haupthand). */
+        final int interval;
 
-        Job(BlockPos pos, Upgrade upgrade, Vec3 hitPoint, Direction face, int startHits) {
+        Job(BlockPos pos, Upgrade upgrade, Vec3 hitPoint, Direction face, int startHits, int interval) {
+            this.interval = interval;
             this.pos = pos;
             this.upgrade = upgrade;
             this.hitPoint = hitPoint;
@@ -216,7 +244,7 @@ public class SledgehammerUpgrades {
         }
 
         int duration() {
-            return upgradeTicks(upgrade) - startHits * HIT_INTERVAL;
+            return blows(upgrade) * interval - startHits * interval;
         }
     }
 
@@ -267,7 +295,7 @@ public class SledgehammerUpgrades {
             return null;
         }
         return new Upgrade(entry.from(), entry.to(), entry.material(), rank, entry.damagePerHit(), "enderite".equals(entry.tier()),
-                "reinforced".equals(entry.tier()), entry.durationFactor(), entry.materialCount());
+                "reinforced".equals(entry.tier()), entry.durationFactor(), entry.materialCount(), entry.strikesPerMaterial());
     }
 
     /** The table before the first datapack load (SimpleBuilding: its built-in table). */
@@ -433,7 +461,8 @@ public class SledgehammerUpgrades {
             return -1.0F;
         }
         int ticks = Math.max(0, entity.getTicksUsingItem());
-        return Math.min(0.999F, ((ticks % HIT_INTERVAL) + partialTick) / HIT_INTERVAL);
+        int interval = hitInterval(entity.getMainHandItem());
+        return Math.min(0.999F, ((ticks % interval) + partialTick) / interval);
     }
 
     /**
@@ -554,7 +583,8 @@ public class SledgehammerUpgrades {
             saved = Math.max(saved, staged.units(state) * staged.strikesPerUnit());
         }
         int startHits = level instanceof ServerLevel ? Math.clamp(saved, 0, blows(upgrade) - 1) : 0;
-        jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
+        jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits,
+                hitInterval(player.getMainHandItem())));
         player.startUsingItem(InteractionHand.MAIN_HAND);
         return InteractionResult.CONSUME;
     }
@@ -569,10 +599,10 @@ public class SledgehammerUpgrades {
             player.releaseUsingItem();
             return;
         }
-        int total = upgradeTicks(job.upgrade);
+        int total = blows(job.upgrade) * job.interval;
         int elapsed = total - remainingTicks + 1;
-        if (elapsed % HIT_INTERVAL == 0 && elapsed < total && level instanceof ServerLevel serverLevel) {
-            strike(serverLevel, player, hammer, job, elapsed / HIT_INTERVAL);
+        if (elapsed % job.interval == 0 && elapsed < total && level instanceof ServerLevel serverLevel) {
+            strike(serverLevel, player, hammer, job, elapsed / job.interval);
         }
     }
 

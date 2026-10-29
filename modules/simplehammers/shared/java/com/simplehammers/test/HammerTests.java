@@ -35,6 +35,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -206,7 +207,7 @@ public final class HammerTests {
             long now = h.getLevel().getGameTime();
             int done = 0;
             for (int i = 0; i < SledgehammerItem.DIAMOND_BLOCK_STRIKES; i++) {
-                done = SledgehammerItem.strikeDiamondBlock(h.getLevel(), pos, player, hammer, now + i * 20L);
+                done = SledgehammerItem.strikeDiamondBlock(h.getLevel(), pos, player, hammer, now + i * 30L);
             }
             h.assertTrue(done == SledgehammerItem.DIAMOND_BLOCK_STRIKES && h.getLevel().getBlockState(pos).isAir(), "nine strikes crush the block");
             int pebbles = 0;
@@ -334,6 +335,77 @@ public final class HammerTests {
                 if (rest.getCount() != 7) problems.add("ingots left " + rest.getCount() + " != 7");
             }
             h.assertTrue(problems.isEmpty(), "hammer + material: " + problems);
+            h.succeed();
+        });
+        ALL.put("hammer_tempo", h -> {
+            // HS29-2: Netherite keeps the old tempo (20), Enderite one tick faster, every tier below one tick slower.
+            int[] want = {25, 24, 23, 22, 21, 20, 19};
+            List<String> problems = new ArrayList<>();
+            var probe = new SledgehammerUpgrades.Upgrade(Blocks.CAULDRON, Blocks.ANVIL, Items.IRON_NUGGET, 0, 1, false, true);
+            for (HammerTiers tier : HammerTiers.values()) {
+                ItemStack stack = new ItemStack(HammerRegistry.hammer(tier));
+                if (tier.strikeInterval != want[tier.ordinal()]) problems.add("gap of " + tier.id() + " is " + tier.strikeInterval);
+                if (SledgehammerUpgrades.hitInterval(stack) != tier.strikeInterval) problems.add("engine gap of " + tier.id());
+                if (com.simplelib.api.InWorldStrikes.interval(stack) != tier.strikeInterval) problems.add("click gap of " + tier.id());
+                if (SledgehammerUpgrades.upgradeTicks(probe, stack) != SledgehammerUpgrades.blows(probe) * tier.strikeInterval) {
+                    problems.add("upgrade length of " + tier.id());
+                }
+            }
+            if (HammerTiers.NETHERITE.strikeInterval != SledgehammerUpgrades.HIT_INTERVAL) problems.add("netherite is not the reference tempo");
+            if (com.simplelib.api.InWorldStrikes.interval(new ItemStack(Items.IRON_AXE)) != com.simplelib.api.InWorldStrikes.MIN_INTERVAL) problems.add("an axe changed");
+            if (com.simplelib.api.InWorldStrikes.MAX_INTERVAL < HammerTiers.STONE.strikeInterval) problems.add("MAX_INTERVAL too small");
+            // The click strikes follow it: a stone hammer needs 25 ticks between two counted strikes, an Enderite hammer 19.
+            BlockPos pos = h.absolutePos(SPOT);
+            h.getLevel().setBlockAndUpdate(pos, Blocks.STONE.defaultBlockState());
+            long t = h.getLevel().getGameTime();
+            var stone = new ItemStack(HammerRegistry.hammer(HammerTiers.STONE));
+            var ender = new ItemStack(HammerRegistry.hammer(HammerTiers.ENDERITE));
+            var state = Blocks.STONE.defaultBlockState();
+            int a = com.simplelib.api.InWorldStrikes.count(h.getLevel(), pos, "tempo_test", state, 9, t, com.simplelib.api.InWorldStrikes.interval(stone));
+            int b = com.simplelib.api.InWorldStrikes.count(h.getLevel(), pos, "tempo_test", state, 9, t + 24, com.simplelib.api.InWorldStrikes.interval(stone));
+            int c = com.simplelib.api.InWorldStrikes.count(h.getLevel(), pos, "tempo_test", state, 9, t + 25, com.simplelib.api.InWorldStrikes.interval(stone));
+            int d = com.simplelib.api.InWorldStrikes.count(h.getLevel(), pos, "tempo_test", state, 9, t + 25 + 18, com.simplelib.api.InWorldStrikes.interval(ender));
+            int e = com.simplelib.api.InWorldStrikes.count(h.getLevel(), pos, "tempo_test", state, 9, t + 25 + 19, com.simplelib.api.InWorldStrikes.interval(ender));
+            if (a != 1 || b != 0 || c != 2 || d != 0 || e != 3) problems.add("click strikes counted " + a + "/" + b + "/" + c + "/" + d + "/" + e + " instead of 1/0/2/0/3");
+            com.simplelib.api.InWorldStrikes.clear(h.getLevel(), pos);
+            h.assertTrue(problems.isEmpty(), "hammer tempo: " + problems);
+            h.succeed();
+        });
+        ALL.put("stone_crush", h -> {
+            // HS29-3: five strikes each, Stone -> Cobblestone -> Gravel -> Sand, the same for every hammer; sneaking leaves it to reshaping.
+            BlockPos pos = h.absolutePos(SPOT);
+            h.getLevel().setBlockAndUpdate(pos.below(), Blocks.BEDROCK.defaultBlockState());
+            h.getLevel().setBlockAndUpdate(pos, Blocks.STONE.defaultBlockState());
+            ServerPlayer player = lookingDown(h, new ItemStack(HammerRegistry.hammer(HammerTiers.STONE)));
+            ItemStack hammer = player.getMainHandItem();
+            h.assertTrue(com.simplehammers.engine.HammerCrush.crushes(Blocks.STONE.defaultBlockState(), player)
+                    && com.simplehammers.engine.HammerCrush.crushes(Blocks.COBBLESTONE.defaultBlockState(), player)
+                    && com.simplehammers.engine.HammerCrush.crushes(Blocks.GRAVEL.defaultBlockState(), player)
+                    && !com.simplehammers.engine.HammerCrush.crushes(Blocks.SAND.defaultBlockState(), player)
+                    && !com.simplehammers.engine.HammerCrush.crushes(Blocks.ANDESITE.defaultBlockState(), player), "what is crushed");
+            player.setShiftKeyDown(true);
+            h.assertFalse(com.simplehammers.engine.HammerCrush.crushes(Blocks.STONE.defaultBlockState(), player), "sneaking is the reshape stance");
+            player.setShiftKeyDown(false);
+            // A real right click is the first strike.
+            net.minecraft.world.phys.BlockHitResult hit = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(pos).add(0.0, 0.5, 0.0), Direction.UP, pos, false);
+            player.gameMode.useItemOn(player, h.getLevel(), hammer, InteractionHand.MAIN_HAND, hit);
+            h.assertTrue(com.simplelib.api.InWorldStrikes.done(h.getLevel(), pos) == 1, "the right click counted the first strike: " + com.simplelib.api.InWorldStrikes.done(h.getLevel(), pos));
+            long now = h.getLevel().getGameTime();
+            h.assertTrue(com.simplehammers.engine.HammerCrush.strike(h.getLevel(), pos, player, hammer, now + 5) == 0, "a strike too soon does not count");
+            Block[] chain = {Blocks.COBBLESTONE, Blocks.GRAVEL, Blocks.SAND};
+            Block[] from = {Blocks.STONE, Blocks.COBBLESTONE, Blocks.GRAVEL};
+            long clock = now;
+            for (int step = 0; step < 3; step++) {
+                for (int strike = (step == 0 ? 2 : 1); strike <= 5; strike++) {
+                    h.assertTrue(h.getLevel().getBlockState(pos).is(from[step]), "step " + step + " strike " + strike + ": block is " + h.getLevel().getBlockState(pos));
+                    clock += 30L;
+                    int done = com.simplehammers.engine.HammerCrush.strike(h.getLevel(), pos, player, hammer, clock);
+                    h.assertTrue(done == strike, "step " + step + ": strike " + strike + " counted as " + done);
+                }
+                h.assertTrue(h.getLevel().getBlockState(pos).is(chain[step]), "after five strikes the " + from[step].getName().getString() + " is " + h.getLevel().getBlockState(pos));
+            }
+            h.assertTrue(hammer.getDamageValue() == 3 * com.simplehammers.engine.HammerCrush.DAMAGE, "one durability per crushed stage: " + hammer.getDamageValue());
+            h.assertTrue(com.simplehammers.engine.HammerCrush.strike(h.getLevel(), pos, player, hammer, now + 1000) == 0, "sand is not crushed further");
             h.succeed();
         });
         ALL.put("guide_book", com.simplehammers.guide.HammersGuide::gameTest);

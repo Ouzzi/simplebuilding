@@ -83,6 +83,9 @@ public final class SimpleHammers {
         // Principle 5a / split plan §2.6: with a hammer mod the in-world ways run with the hammer only, the Vanilla axe ways go off.
         SimpleLibApi.disableAxeWays();
         HammerActions.setUpgradeTakesClick(com.simplehammers.engine.SledgehammerUpgrades::shouldSkipBlockUse);
+        // HS29-2: one strike tempo per hammer tier for every click conversion of every mod (SimpleLib InWorldStrikes.interval).
+        com.simplelib.api.InWorldStrikes.setTempo(stack -> stack.getItem() instanceof com.simplehammers.item.SledgehammerItem hammer
+                ? hammer.tier().strikeInterval : com.simplelib.api.InWorldStrikes.MIN_INTERVAL);
         // JEI24: hammer ranks for SimpleLib's upgrade tab, standalone also carving and crushing (no JEI class).
         com.simplehammers.compat.HammersViewer.register();
         // Test centre station (framework contract, no import of the test centre): the hammers and the guide by id.

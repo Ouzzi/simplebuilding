@@ -419,7 +419,7 @@ public final class PlacedTemplateTests {
         if (hit < PlacedTemplates.PLACED_HITS) {
             helper.assertTrue(be.hits() == hit && be.getTemplate().is(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE),
                     "after right click " + hit + ": " + be.hits() + " hits, " + be.getTemplate());
-            helper.runAfterDelay(com.simplebuilding.util.InWorldStrikes.MIN_INTERVAL + 1,
+            helper.runAfterDelay(com.simplebuilding.util.InWorldStrikes.interval(hammer) + 1,
                     () -> rightClickTemplate(helper, player, hammer, rel, be, hit + 1));
             return;
         }

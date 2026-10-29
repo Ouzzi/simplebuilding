@@ -196,7 +196,7 @@ public final class PlacedTemplates {
     /** A right click with the tool: a held click repeats every 4 ticks, a strike counts only {@code MIN_INTERVAL} after the last. */
     public static boolean strike(ServerLevel level, BlockPos pos, Player player) {
         if (level.getBlockEntity(pos) instanceof PlacedTrimTemplateBlockEntity be && be.hits() > 0
-                && level.getGameTime() - be.lastHitTime() < com.simplelib.api.InWorldStrikes.MIN_INTERVAL
+                && level.getGameTime() - be.lastHitTime() < com.simplelib.api.InWorldStrikes.interval(player.getMainHandItem())
                 && level.getGameTime() >= be.lastHitTime()) {
             return false;
         }

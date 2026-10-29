@@ -73,7 +73,7 @@ public final class StrongUpgrades {
             return InteractionResult.FAIL;
         }
         int total = BeaconsConfig.upgradeStrikes;
-        int done = InWorldStrikes.count(level, pos, KIND, state, total, level.getGameTime());
+        int done = InWorldStrikes.count(level, pos, KIND, state, total, level.getGameTime(), InWorldStrikes.interval(player.getMainHandItem()));
         if (done == 0) return InteractionResult.SUCCESS;
         InWorldStrikes.feedback(level, pos, state, SoundEvents.ANVIL_USE, 0.6F, done, total);
         InWorldStrikes.preview(level, pos, target.defaultBlockState(), done, total);

@@ -393,13 +393,15 @@
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherWings.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/FireworkRocketWingsMixin.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/StrongExplosives.java"
       ],
       "en": {
         "title": "Wither Wings",
-        "summary": "Four Elytra stages that raise only the top speed a firework rocket reaches: x2 Wither, x4 Nether, x6 End and x8 Void Wings. Gliding without a rocket stays Vanilla.",
+        "summary": "Four Elytra stages that raise only the top speed a strong firework rocket reaches: x2 Wither, x4 Nether, x6 End and x8 Void Wings. Normal rockets and gliding without a rocket stay Vanilla.",
         "details": [
           "Smithing table: Strong Upgrade template (Simple Beacons) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings; + Nether Wings + Ender Heart = End Wings; + End Wings + Ender Gem = Void Wings. Without Simple Beacons the Netherite Upgrade template takes its place. Enchantments and wear carry over.",
+          "Only a strong rocket (flight duration 4 or more, see Strong Gunpowder) uses the higher cap of the wings. A normal rocket (flight duration 1-3) gives exactly the Vanilla push with every pair of wings - and pulls a wearer who is faster than Vanilla back to the Vanilla Elytra top speed.",
           "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67, 133, 200 and 267 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
           "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) and voidWingsSpeedFactor (8), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
           "Ender Heart (stage 3) and Ender Gem (stage 4) have no loot yet: they will drop from a later End boss. Until then they are only given by commands, the creative tab and the test centre. Their look is provisional.",
@@ -408,13 +410,46 @@
       },
       "de": {
         "title": "Wither-Schwingen",
-        "summary": "Vier Elytra-Stufen, die nur die Höchstgeschwindigkeit mit Feuerwerksraketen anheben: x2 Wither-, x4 Nether-, x6 End- und x8 Leeren-Schwingen. Gleiten ohne Rakete bleibt Vanilla.",
+        "summary": "Vier Elytra-Stufen, die nur die Höchstgeschwindigkeit mit starken Feuerwerksraketen anheben: x2 Wither-, x4 Nether-, x6 End- und x8 Leeren-Schwingen. Normale Raketen und Gleiten ohne Rakete bleiben Vanilla.",
         "details": [
           "Schmiedetisch: Vorlage Starke Aufwertung (Simple Beacons) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen; + Nether-Schwingen + Ender-Herz = End-Schwingen; + End-Schwingen + Ender-Juwel = Leeren-Schwingen. Ohne Simple Beacons tritt die Netherit-Aufwertung an ihre Stelle. Verzauberungen und Abnutzung bleiben.",
+          "Nur eine starke Rakete (Flugdauer 4 oder mehr, siehe Starkes Schwarzpulver) nutzt die höhere Kappe der Schwingen. Eine normale Rakete (Flugdauer 1-3) gibt mit jeder Schwinge genau den Vanilla-Schub - und zieht einen schnelleren Träger auf das Vanilla-Elytra-Höchsttempo zurück.",
           "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67, 133, 200 und 267 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
           "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) und voidWingsSpeedFactor (8), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
           "Ender-Herz (Stufe 3) und Ender-Juwel (Stufe 4) haben noch keine Beute-Quelle: sie fallen später von einem neuen End-Boss. Bis dahin nur per Befehl, Kreativ-Reiter und Testzentrale. Ihre Optik ist vorläufig.",
           "576, 768, 960 bzw. 1152 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, Elytren-nahe Form mit eigenem Muster je Stufe auf dem Rücken. Die Leeren-Schwingen sind mythisch."
+        ]
+      }
+    },
+    {
+      "id": "strong_explosives",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/StrongExplosives.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/StrongTntBlock.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/PrimedTntStrongMixin.java",
+        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_gunpowder.json",
+        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_firework_rocket.json",
+        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_tnt.json",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Strong Gunpowder, Strong Rocket, Strong TNT",
+        "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 2) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
+        "details": [
+          "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behaviour changes.",
+          "The strong rocket is a Vanilla firework rocket with flight duration 4, so it also works with the Elytra (longer burn, Vanilla speed) and in dispensers. Its tooltip shows the flight duration.",
+          "Strong TNT is lit by flint and steel, fire charge, redstone, burning arrows and other explosions like TNT, is not flammable and drops itself; the game rule tntExplodes applies. Server option strongTntPower in simplemobs-server.json (default 6, 4 to 16).",
+          "Looks are placeholders (Vanilla textures with a tint) until the owner picks a texture."
+        ]
+      },
+      "de": {
+        "title": "Starkes Schwarzpulver, Starke Rakete, Starkes TNT",
+        "summary": "Starkes Schwarzpulver (3 Schwarzpulver + 1 Lohenstaub -> 2) macht starke Raketen (Papier + 1 Starkes Schwarzpulver -> 3, Flugdauer 4) und Starkes TNT (wie TNT mit Starkem Schwarzpulver, Sprengkraft 6 statt 4). Vanilla-Schwarzpulver, -TNT und -Raketen bleiben unberührt.",
+        "details": [
+          "Wozu: eine starke Rakete brauchen Wither-/Nether-/End-/Leeren-Schwingen, um über dem Vanilla-Höchsttempo zu fliegen; Starkes TNT ist die größere Sprengung für Bergbau und Tunnel. Beides sind eigene Items, die man gezielt herstellt - kein Vanilla-Rezept und kein Vanilla-Verhalten ändert sich.",
+          "Die starke Rakete ist eine Vanilla-Feuerwerksrakete mit Flugdauer 4, sie geht also auch mit den Elytren (längere Brenndauer, Vanilla-Tempo) und im Werfer. Ihr Tooltip zeigt die Flugdauer.",
+          "Starkes TNT zündet wie TNT mit Feuerzeug, Feuerkugel, Redstone, brennenden Pfeilen und anderen Explosionen, ist nicht brennbar und lässt sich selbst fallen; die Spielregel tntExplodes gilt. Server-Option strongTntPower in simplemobs-server.json (Standard 6, 4 bis 16).",
+          "Die Optik ist ein Platzhalter (Vanilla-Texturen mit Tönung), bis der Besitzer eine Textur wählt."
         ]
       }
     },
@@ -666,6 +701,22 @@
       },
       "de": {
         "summary": "Mythisches Material der Leeren-Schwingen (Stufe 4, mit den End-Schwingen am Schmiedetisch). Noch keine Beute: es fällt später von einem neuen End-Boss; bis dahin nur Befehl, Kreativ-Reiter und Testzentrale. Vorläufige Optik."
+      }
+    },
+    "simplemobs:strong_gunpowder": {
+      "en": {
+        "summary": "3 gunpowder + 1 blaze powder -> 2 (shapeless). Makes strong rockets and Strong TNT. Placeholder look: Vanilla gunpowder, tinted."
+      },
+      "de": {
+        "summary": "3 Schwarzpulver + 1 Lohenstaub -> 2 (formlos). Macht starke Raketen und Starkes TNT. Platzhalter-Optik: Vanilla-Schwarzpulver, getönt."
+      }
+    },
+    "simplemobs:strong_tnt": {
+      "en": {
+        "summary": "5 Strong Gunpowder + 4 sand like TNT. Explosion power 6 (TNT 4, option strongTntPower); lit like TNT, not flammable. Placeholder look: Vanilla TNT, tinted."
+      },
+      "de": {
+        "summary": "5 Starkes Schwarzpulver + 4 Sand wie TNT. Sprengkraft 6 (TNT 4, Option strongTntPower); zündet wie TNT, nicht brennbar. Platzhalter-Optik: Vanilla-TNT, getönt."
       }
     }
   }

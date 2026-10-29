@@ -95,7 +95,7 @@ public final class InWorldTransformations {
             step.addProperty("nugget", id(upgrade.nugget()));
             // SledgehammerUpgrades.finish verbraucht materialCost je Block (eine Doppeltruhe: doppelt so viel),
             // Shulkerkisten brauchen doppelt so viele Schlaege (TieredShulkerBoxes).
-            int stepHits = hits * upgrade.durationFactor();
+            int stepHits = upgrade.strikesPerMaterial() > 0 ? SledgehammerUpgrades.blows(upgrade) : hits * upgrade.durationFactor();
             step.addProperty("nuggetCount", upgrade.materialCost());
             step.addProperty("minimumHammer", weakestHammer(hammers, upgrade.minHammerRank()));
             step.addProperty("damagePerHit", upgrade.damagePerHit());

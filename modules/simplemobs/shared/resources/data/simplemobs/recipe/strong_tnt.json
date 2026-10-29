@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "GSG",
+    "SGS",
+    "GSG"
+  ],
+  "key": {
+    "G": "simplemobs:strong_gunpowder",
+    "S": "#minecraft:sand"
+  },
+  "result": {
+    "id": "simplemobs:strong_tnt",
+    "count": 1
+  }
+}

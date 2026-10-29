@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:paper",
+    "simplemobs:strong_gunpowder"
+  ],
+  "result": {
+    "id": "minecraft:firework_rocket",
+    "count": 3,
+    "components": {
+      "minecraft:fireworks": {
+        "flight_duration": 4
+      },
+      "minecraft:item_name": {
+        "translate": "simplemobs.item.strong_firework_rocket"
+      }
+    }
+  }
+}

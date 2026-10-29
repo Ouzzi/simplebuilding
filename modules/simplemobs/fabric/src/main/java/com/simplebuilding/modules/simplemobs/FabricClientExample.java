@@ -29,6 +29,9 @@ public final class FabricClientExample implements ClientModInitializer {
         EntityRendererRegistry.register(WitherMobs.ABYSSAL_WITHER, com.simplebuilding.modules.simplemobs.client.BlightedWitherRenderer::abyssal);
         EntityRendererRegistry.register(FearMobs.WATCHER, com.simplebuilding.modules.simplemobs.client.WatcherRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SOUL_FIREBALL, ctx -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(ctx, 0.75F, true));
+        // BS25-21: placeholder tint of the Strong TNT block until the owner picks a texture (Fabric only for now).
+        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
+                java.util.List.of(com.simplebuilding.modules.simplemobs.client.StrongTntTint.INSTANCE), StrongExplosives.TNT_BLOCK);
         // REV2-B: the disguise caches hold entities of the client level; leaving must not keep that world in memory.
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> client.execute(() -> {
             com.simplebuilding.modules.simplemobs.client.DisguiseLooks.clear();

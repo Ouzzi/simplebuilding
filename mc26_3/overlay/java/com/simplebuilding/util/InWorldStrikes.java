@@ -14,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class InWorldStrikes {
     public static final int MIN_INTERVAL = com.simplelib.api.InWorldStrikes.MIN_INTERVAL;
+    /** Slowest strike gap of any hammer tier (HS29-2), for tests that wait until every tool may strike again. */
+    public static final int MAX_INTERVAL = com.simplelib.api.InWorldStrikes.MAX_INTERVAL;
     public static final int RESET_TICKS = com.simplelib.api.InWorldStrikes.RESET_TICKS;
     public static final String PENDING_TAG = com.simplelib.api.InWorldStrikes.PENDING_TAG;
 
@@ -26,6 +28,17 @@ public final class InWorldStrikes {
 
     public static int count(ServerLevel level, BlockPos pos, String kind, BlockState state, int total, long now) {
         return com.simplelib.api.InWorldStrikes.count(level, pos, kind, state, total, now);
+    }
+
+    /** Ticks between two counted strikes with {@code tool} in the hand (a hammer: its tier). */
+    public static int interval(ItemStack tool) {
+        return com.simplelib.api.InWorldStrikes.interval(tool);
+    }
+
+    public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,
+                                               int total, long now, int minInterval) {
+        var strike = com.simplelib.api.InWorldStrikes.strikeYield(level, pos, kind, state, result, total, now, minInterval);
+        return strike == null ? null : new Strike(strike.done(), strike.total(), strike.finished());
     }
 
     public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,

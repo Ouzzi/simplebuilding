@@ -126,8 +126,9 @@ public final class SledgehammerUpgradeData {
         String tier = json.has("tier") ? json.get("tier").getAsString() : "netherite";
         int durationFactor = json.has("duration_factor") ? Math.max(1, json.get("duration_factor").getAsInt()) : 1;
         int materialCount = json.has("material_count") ? Math.max(1, json.get("material_count").getAsInt()) : 1;
+        int strikesPerMaterial = json.has("strikes_per_material") ? Math.max(0, json.get("strikes_per_material").getAsInt()) : 0;
         return new SledgehammerUpgrades.Upgrade(from, to, material, rank, damage, "enderite".equals(tier), "reinforced".equals(tier),
-                durationFactor, materialCount);
+                durationFactor, materialCount, strikesPerMaterial);
     }
 
     /**
@@ -135,14 +136,14 @@ public final class SledgehammerUpgradeData {
      * (entry skipped, logged) for an unknown hammer grade.
      */
     public static SledgehammerUpgrades.@Nullable Upgrade upgrade(Block from, Block to, Item material, String minHammer, int damagePerHit,
-                                            String tier, int durationFactor, int materialCount) {
+                                            String tier, int durationFactor, int materialCount, int strikesPerMaterial) {
         int rank = HAMMERS.indexOf(minHammer);
         if (rank < 0) {
             LOGGER.warn("Skipping sledgehammer upgrade from {}: unknown min_tool {}", BuiltInRegistries.BLOCK.getKey(from), minHammer);
             return null;
         }
         return new SledgehammerUpgrades.Upgrade(from, to, material, rank, Math.max(0, damagePerHit), "enderite".equals(tier), "reinforced".equals(tier),
-                durationFactor, materialCount);
+                durationFactor, materialCount, strikesPerMaterial);
     }
 
     private static @Nullable Block block(Identifier file, String id) {
@@ -182,6 +183,9 @@ public final class SledgehammerUpgradeData {
             }
             if (upgrade.materialCost() != 1) {
                 entry.addProperty("material_count", upgrade.materialCost());
+            }
+            if (upgrade.strikesPerMaterial() > 0) {
+                entry.addProperty("strikes_per_material", upgrade.strikesPerMaterial());
             }
             array.add(entry);
         }

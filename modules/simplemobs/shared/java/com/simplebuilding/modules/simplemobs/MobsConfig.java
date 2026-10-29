@@ -57,6 +57,8 @@ public final class MobsConfig {
     public static boolean trickMirrorEnabled = false;
     /** Wither/Nether/End/Void Wings (EL24-1, WA24-2, WB24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8). */
     public static float witherWingsSpeedFactor = 2.0f, netherWingsSpeedFactor = 4.0f, endWingsSpeedFactor = 6.0f, voidWingsSpeedFactor = 8.0f;
+    /** Strong TNT (BS25-21): explosion power (Vanilla TNT 4, charged Creeper 6); 4 to 16. */
+    public static float strongTntPower = StrongExplosives.DEFAULT_POWER;
 
     /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
     public static boolean howlerRagePulse = true;
@@ -187,6 +189,7 @@ public final class MobsConfig {
         netherWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "netherWingsSpeedFactor", 4.0f)));
         endWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "endWingsSpeedFactor", 6.0f)));
         voidWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "voidWingsSpeedFactor", 8.0f)));
+        strongTntPower = Math.max(4.0f, Math.min(16.0f, num(json, "strongTntPower", StrongExplosives.DEFAULT_POWER)));
     }
 
     public static JsonObject toJson() {
@@ -233,6 +236,7 @@ public final class MobsConfig {
         o.addProperty("netherWingsSpeedFactor", netherWingsSpeedFactor);
         o.addProperty("endWingsSpeedFactor", endWingsSpeedFactor);
         o.addProperty("voidWingsSpeedFactor", voidWingsSpeedFactor);
+        o.addProperty("strongTntPower", strongTntPower);
         return o;
     }
 
