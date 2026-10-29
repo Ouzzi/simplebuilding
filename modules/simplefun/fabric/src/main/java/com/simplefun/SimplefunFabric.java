@@ -14,6 +14,11 @@ public class SimplefunFabric implements ModInitializer {
   public void onInitialize() {
     SimplefunCommon.init();
     SimplefunCommon.registerConfig();
+    // CMD24: /simplefun config for every option (the existing /simplefun tweaks switches stay).
+    com.simplelib.api.config.ConfigCommands.server(Constants.MOD_ID)
+        .gson(com.simplefun.config.SimplefunConfig.class, SimplefunCommon::getConfig, SimplefunCommon::replaceConfig,
+            () -> { var d = new com.simplefun.config.SimplefunConfig(); d.normalize(); return d; })
+        .save(SimplefunCommon::saveConfig).register();
 
     // Fabric registries are open during init.
     SimplefunRegistry.registerItems();

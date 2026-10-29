@@ -3,3 +3,5 @@ ext.moduleVersion = '0.1.0'
 apply from: rootProject.file('gradle/module-fabric.gradle')
 // framework (OptCompat/OptSettings compat engine, SubMods switch) nested per principle 3: the sub-mod plays alone.
 dependencies { include project(':framework') }
+// SimpleLib nested per principle 6a and compiled against: /<modid> config (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

@@ -8,6 +8,7 @@ public final class TweaksFabric implements ModInitializer {
         LegacyDeed.registerTab();
         LegacyDeed.registerRecipes();
         registerDeedNetwork();
+        TweaksConfigCommand.announce(); // CMD24-3: /simpletweaks config
         AdminFabric.init(); // admin and protection features (T10 T11 T13-T18 T34)
         PlayFabric.init(); // player, world and event features (T4-T9 T19-T28 T30-T33)
         ProtectFabric.init(); // protection: anti-x-ray, Freecam rule, seed hash, hidden health, action checks

@@ -80,6 +80,10 @@
   "simplesounds.guide.page.14": "No packets, server gameplay, entities, inventory changes or remote player scans. At most four sounds per tick, two per player and eight budgeted players; excess requests are dropped.",
   "simplesounds.guide.page.15.title": "Local cosmetic safety",
   "simplesounds.guide.page.15": "World changes clear all history. An effective Off level or zero limits disable playback; effect overrides take priority over global levels. Vanilla sound assets and subtitles are reused; no bundled audio.",
-  "simplesounds.guide.page.16.title": "Settings",
-  "simplesounds.guide.page.16": "More settings are in the mod's config screen."
+  "simplesounds.guide.page.16.title": "Commands",
+  "simplesounds.guide.page.16": "/simpleclient simplesounds shows and changes every option of config/simplesounds.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file and saved at once.",
+  "simplesounds.guide.page.17.title": "Commands",
+  "simplesounds.guide.page.17": "A client command, no permission needed.",
+  "simplesounds.guide.page.18.title": "Settings",
+  "simplesounds.guide.page.18": "More settings are in the mod's config screen."
 }

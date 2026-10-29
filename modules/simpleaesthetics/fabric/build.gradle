@@ -9,3 +9,5 @@ dependencies {
     include project(':modules:simplesounds:fabric')
     include project(':modules:simplemodels:fabric')
 }
+// SimpleLib nested per principle 6a and compiled against: /<modid> config (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

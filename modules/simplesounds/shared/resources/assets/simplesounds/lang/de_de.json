@@ -80,6 +80,10 @@
   "simplesounds.guide.page.14": "Keine Pakete, Gameplayänderungen, Entities, Inventaränderungen oder Suche nach fremden Spielern. Höchstens vier Sounds je Tick, zwei je Spieler und acht budgetierte Spieler; überzählige Anfragen entfallen.",
   "simplesounds.guide.page.15.title": "Lokale Sicherheit",
   "simplesounds.guide.page.15": "Weltwechsel löscht Verläufe. Die wirksame Stufe Aus oder Nullgrenzen deaktivieren Sounds; Effekt-Overrides haben Vorrang vor globalen Stufen. Vanilla-Sounds und Untertitel werden verwendet; keine eigenen Audiodateien.",
-  "simplesounds.guide.page.16.title": "Einstellungen",
-  "simplesounds.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
+  "simplesounds.guide.page.16.title": "Befehle",
+  "simplesounds.guide.page.16": "/simpleclient simplesounds zeigt und ändert jede Option von config/simplesounds.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte sind wie in der Datei begrenzt und werden sofort gespeichert.",
+  "simplesounds.guide.page.17.title": "Befehle",
+  "simplesounds.guide.page.17": "Ein Client-Befehl, keine Berechtigung nötig.",
+  "simplesounds.guide.page.18.title": "Einstellungen",
+  "simplesounds.guide.page.18": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

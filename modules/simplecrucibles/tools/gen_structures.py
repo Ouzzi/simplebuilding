@@ -1,6 +1,6 @@
 """Generate the village field kitchen structures (plan section 11, owner answers 44-46).
 
-One 3x3x5 piece per village type: the jigsaw on the street side (copied from Vanilla's
+One 3x2x5 piece per village type: the jigsaw on the street side (copied from Vanilla's
 plains_accessory_1: building_entrance, aligned, structure_void), an unlit campfire with an iron
 crucible on top holding cooked food, a barrel with raw meat (loot table) and a seat. --check compares
 without writing. Uses tools/nbt_min.py from the repository root.
@@ -67,7 +67,7 @@ def build(kind):
     # ground layer (jigsaw at 0,0,0 faces the street to the west, like Vanilla accessories)
     for x in range(3):
         for z in range(5):
-            if (x, z) == (0, 0):
+            if (x, z) in ((0, 0), (1, 2)):
                 continue
             put((x, 0, z), ground, ground_props)
     put((0, 0, 0), "minecraft:jigsaw", {"orientation": "west_up"}, {
@@ -77,20 +77,25 @@ def build(kind):
     contents = [compound({"Slot": i(n), "Item": compound({"id": s(item), "count": i(count)}), "Count": i(count)})[1]
                 for n, (item, count) in enumerate(food)]
     objects = {
-        (1, 1, 2): ("minecraft:campfire", {"lit": "false", "signal_fire": "false", "waterlogged": "false", "facing": "west"}, None),
-        (1, 2, 2): ("simplecrucibles:iron_crucible", {"facing": "west", "lit": "false"},
+        (1, 0, 2): ("minecraft:campfire", {"lit": "false", "signal_fire": "false", "waterlogged": "false", "facing": "west"}, None),
+        (1, 1, 2): ("simplecrucibles:iron_crucible", {"facing": "west", "lit": "false"},
                     {"id": s("simplecrucibles:crucible"), "Contents": (N.LIST, (N.COMPOUND, contents))}),
         (1, 1, 1): ("minecraft:barrel", {"facing": "up", "open": "false"},
                     {"id": s("minecraft:barrel"), "LootTable": s("simplecrucibles:chests/village_field_kitchen")}),
         (1, 1, 3): (seat, {"facing": "north", "half": "bottom", "shape": "straight", "waterlogged": "false"}, None),
     }
+    # campfire and crucible sit one block lower (WD25-20): the campfire replaces a ground block, the crucible stands in the
+    # first layer beside the barrel and seat. A processor list turns 10 % of the campfires into magma blocks (active crucible).
     for x in range(3):
-        for y in (1, 2):
+        for y in (0, 1):
             for z in range(5):
-                name, props, nbt = objects.get((x, y, z), ("minecraft:air", None, None))
-                put((x, y, z), name, props, nbt)
+                if (x, y, z) in objects:
+                    name, props, nbt = objects[(x, y, z)]
+                    put((x, y, z), name, props, nbt)
+                elif y == 1:
+                    put((x, y, z), "minecraft:air")
     return {
-        "size": (N.LIST, (N.INT, [3, 3, 5])),
+        "size": (N.LIST, (N.INT, [3, 2, 5])),
         "entities": (N.LIST, (N.COMPOUND, [])),
         "blocks": (N.LIST, (N.COMPOUND, blocks)),
         "palette": (N.LIST, (N.COMPOUND, palette)),

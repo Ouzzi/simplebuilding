@@ -13,6 +13,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class SimpleEndFabric implements ModInitializer {
     @Override public void onInitialize() {
         SimpleEnd.init(FabricLoader.getInstance().getConfigDir());
+        // CMD24: /simpleend config for every option.
+        com.simplelib.api.config.ConfigCommands.server(SimpleEnd.ID).json(SimpleEndConfig::toJson, SimpleEndConfig::apply).file(FabricLoader.getInstance().getConfigDir(), SimpleEndConfig.FILE).register();
         EndRegistry.blocks();
         EndRegistry.effects();
         EndRegistry.items();

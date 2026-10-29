@@ -13,6 +13,8 @@ import net.minecraft.world.item.Items;
 public final class DragonFightFabric implements ModInitializer {
     @Override public void onInitialize() {
         DragonFightConfig.load(FabricLoader.getInstance().getConfigDir());
+        // CMD24: /simpleenddragonfight config for every option.
+        com.simplelib.api.config.ConfigCommands.server("simpleenddragonfight").json(DragonFightConfig::toJson, DragonFightConfig::apply).file(FabricLoader.getInstance().getConfigDir(), DragonFightConfig.FILE).register();
         com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             var book = java.util.List.of(com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.stack());

@@ -24,6 +24,7 @@
     ]
   },
   "depends": {
+    "simplelib": ">=0.3.0",
     "simplevisuals": "*",
     "simplesounds": "*",
     "simplemodels": "*",

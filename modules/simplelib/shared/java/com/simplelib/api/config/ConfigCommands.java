@@ -106,6 +106,38 @@ public final class ConfigCommands {
         return (client ? CLIENT : SERVER).get(modId);
     }
 
+    /**
+     * A Simple Optimization sub-mod file ({@code config/<id>.json}, {@code OptSettings}): read from disk on every call, written
+     * back complete on set/reset. The sub-mods read it once while the game starts, so every option needs a restart; numbers
+     * are bounded when the area reads them, not here.
+     */
+    public static Builder optSettings(Builder b, Path dir, String file, Map<String, Map<String, Object>> defaults) {
+        Path path = dir.resolve(file);
+        Supplier<JsonObject> read = () -> {
+            JsonObject root = null;
+            try {
+                if (Files.isRegularFile(path)) root = JsonParser.parseString(Files.readString(path)).getAsJsonObject();
+            } catch (Exception ignored) {
+                // unreadable: the defaults show, the next write replaces the file
+            }
+            return JsonParser.parseString(com.simplebuilding.framework.api.OptSettings.of(root, defaults).json()).getAsJsonObject();
+        };
+        b.json(read, json -> {
+            try {
+                Files.createDirectories(dir);
+                com.simplebuilding.framework.api.ConfigFiles.writeAtomic(path,
+                        com.simplebuilding.framework.api.OptSettings.of(json, defaults).json());
+            } catch (Exception e) {
+                com.simplelib.SimpleLib.LOG.warn("Could not write {}: {}", file, e.toString());
+            }
+        });
+        b.defaults(() -> JsonParser.parseString(com.simplebuilding.framework.api.OptSettings.of(null, defaults).json()).getAsJsonObject());
+        b.save(() -> {});
+        b.restart("areas", "conflictScan");
+        for (String area : defaults.keySet()) b.choices("areas." + area + ".mode", "auto", "ours", "theirs", "off");
+        return b;
+    }
+
     /** Root of the client configs. */
     public static final String CLIENT_ROOT = "simpleclient";
 

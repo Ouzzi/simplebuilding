@@ -151,10 +151,18 @@ Server-Unterbefehle verdecken.
   (geprüft); POJO-Configs nutzen `frisch`.
 - NeoForge/Forge: Anmeldung liegt in shared-Code, nur der Fabric-Hook fehlt dort → Port-Run.
 
-## 6. Teilstand (bewusst offen)
-- Module ohne simplelib (farming, loot, mobmanners, movement, weather, fun, money, dimensions, end,
-  enddragonfight, wanderers, aesthetics, opt*): brauchen simplelib als gebündelte Abhängigkeit (wie simpletools/
-  simplerespawn) – eigener Schritt, weil simplelib dann standalone mitgeladen wird (eigene Inhalte).
-- simpletweaks: Record-Configs in mehreren Dateien (`play`, `admin`, `protect`, `claims`) → je Datei eine Anmeldung
-  mit `.gson(...)`; offen.
-- NeoForge/Forge-Hook im Port-Run.
+## 6. Teilstand (CMD24-2/3, Branch b-cmd2-24, 24.10.)
+- Module ohne simplelib (farming, loot, mobmanners, movement, weather, fun, money, dimensions, end, enddragonfight,
+  wanderers, aesthetics, optimization, optmemory, optrender, optserver): **simplelib wird gebündelt** (Entscheidung
+  Hauptsitzung, Konsistenzregel): `include`+`implementation project(':modules:simplelib:fabric')`, `fabric.mod.json`
+  depends `simplelib`. `modules.json` `requires` bleibt unverändert (wie simpletools/simplerespawn): die Bibliothek steckt
+  im Jar, kein Zusatz-Download für Spieler. Anmeldung je Modul wie im Muster (gson/json/file); simpledimension (Mod-ID
+  ohne s) wirkt auf die laufenden Server-Einstellungen (`copyFrom`).
+- Opt-Sub-Mods: Dateien im `OptSettings`-Format über `ConfigCommands.optSettings` (alle Optionen „Neustart“, Modus als
+  Auswahl auto/ours/theirs/off); simpleoptrender nur Client (`/simpleclient simpleoptrender`), simpleoptmemory Server+Client.
+  aesthetics/optimization: Schalter der Sub-Mods (Neustart).
+- simpletweaks: ein Baum `/simpletweaks config` über die vier Dateien (`play.*`, `admin.*`, `protect.*`, `claims.*`),
+  Abschnitt wird nur bei Änderung geschrieben; claims.* Neustart.
+- simpleearth: existiert in dieser Basis nicht, ausgelassen.
+- NeoForge/Forge-Hook im Port-Run (CMD24-4). Neue Modul-Anmeldungen in den Loader-Einstiegen der Opt-Mods und von
+  simpledimension/simpleenddragonfight/aesthetics/optimization/money/tweaks stehen nur im Fabric-Einstieg.
