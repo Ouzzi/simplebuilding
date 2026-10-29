@@ -682,12 +682,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 26,
-      "blocks": 2,
-      "recipes": 70,
-      "features": 14
+      "items": 27,
+      "blocks": 3,
+      "recipes": 73,
+      "features": 15
     },
-    "dataHash": "ed23c346918f"
+    "dataHash": "bb7f5c4ffd9e"
   },
   {
     "id": "simpleweather",
@@ -1418,9 +1418,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 11,
-      "features": 11
+      "features": 13
     },
-    "dataHash": "bcb93301041a"
+    "dataHash": "250bc5a36d22"
   },
   {
     "id": "simpleoptimization",
