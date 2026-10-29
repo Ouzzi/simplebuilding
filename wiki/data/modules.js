@@ -685,9 +685,9 @@ window.WIKI_MODULES = [
       "items": 26,
       "blocks": 2,
       "recipes": 70,
-      "features": 14
+      "features": 15
     },
-    "dataHash": "ed23c346918f"
+    "dataHash": "a46159bc6338"
   },
   {
     "id": "simpleweather",
