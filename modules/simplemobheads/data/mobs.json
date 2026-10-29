@@ -820,7 +820,23 @@
    "model": {
     "layer": "minecraft:elder_guardian#main",
     "part": "head",
-    "tex": "guardian/guardian_elder"
+    "tex": "guardian/guardian_elder",
+    "hide": [
+     "tail0",
+     "free:spike0",
+     "free:spike1",
+     "free:spike2",
+     "free:spike3",
+     "free:spike4",
+     "free:spike5",
+     "free:spike6",
+     "free:spike7",
+     "free:spike8",
+     "free:spike9",
+     "free:spike10",
+     "free:spike11"
+    ],
+    "scale": 0.5
    }
   },
   {
@@ -834,7 +850,12 @@
    "model": {
     "layer": "minecraft:endermite#main",
     "part": "",
-    "tex": "endermite/endermite"
+    "tex": "endermite/endermite",
+    "hide": [
+     "segment1",
+     "segment2",
+     "segment3"
+    ]
    }
   },
   {
@@ -856,8 +877,8 @@
      }
     ],
     "hide": [
-     "right_tendril",
-     "left_tendril"
+     "free:right_tendril",
+     "free:left_tendril"
     ],
     "scale": 1
    },
@@ -881,7 +902,8 @@
       "tex": "creaking/creaking_eyes",
       "render": "eyes"
      }
-    ]
+    ],
+    "scale": 1
    }
   },
   {
@@ -908,9 +930,8 @@
     "minecraft:entity.camel_husk.ambient"
    ],
    "model": {
-    "layer": "minecraft:camel#main",
-    "part": "head",
-    "tex": "camel/camel_husk"
+    "tex": "camel/camel_husk",
+    "custom": "camel"
    }
   },
   {
@@ -982,7 +1003,14 @@
    "model": {
     "layer": "minecraft:ghast#main",
     "part": "",
-    "tex": "ghast/ghast"
+    "tex": "ghast/ghast",
+    "hide": [
+     "tentacle1",
+     "tentacle3",
+     "tentacle4",
+     "tentacle5",
+     "tentacle7"
+    ]
    }
   },
   {
@@ -1221,9 +1249,8 @@
     "minecraft:entity.camel.ambient"
    ],
    "model": {
-    "layer": "minecraft:camel#main",
-    "part": "head",
-    "tex": "camel/camel"
+    "tex": "camel/camel",
+    "custom": "camel"
    }
   },
   {
@@ -1405,7 +1432,16 @@
    "model": {
     "layer": "minecraft:donkey#main",
     "part": "head_parts",
-    "tex": "horse/donkey"
+    "tex": "horse/donkey",
+    "hide": [
+     "head_parts!",
+     "mane"
+    ],
+    "rot": [
+     0,
+     0,
+     0
+    ]
    }
   },
   {
@@ -1419,7 +1455,16 @@
    "model": {
     "layer": "minecraft:mule#main",
     "part": "head_parts",
-    "tex": "horse/mule"
+    "tex": "horse/mule",
+    "hide": [
+     "head_parts!",
+     "mane"
+    ],
+    "rot": [
+     0,
+     0,
+     0
+    ]
    }
   },
   {
@@ -1437,6 +1482,11 @@
     "hide": [
      "head_parts!",
      "mane"
+    ],
+    "rot": [
+     0,
+     0,
+     0
     ]
    },
    "variants": {
@@ -1498,7 +1548,16 @@
    "model": {
     "layer": "minecraft:skeleton_horse#main",
     "part": "head_parts",
-    "tex": "horse/horse_skeleton"
+    "tex": "horse/horse_skeleton",
+    "hide": [
+     "head_parts!",
+     "mane"
+    ],
+    "rot": [
+     0,
+     0,
+     0
+    ]
    },
    "item": "skeleton_horse_skull"
   },
@@ -1513,7 +1572,16 @@
    "model": {
     "layer": "minecraft:zombie_horse#main",
     "part": "head_parts",
-    "tex": "horse/horse_zombie"
+    "tex": "horse/horse_zombie",
+    "hide": [
+     "head_parts!",
+     "mane"
+    ],
+    "rot": [
+     0,
+     0,
+     0
+    ]
    }
   },
   {
@@ -1638,9 +1706,8 @@
     "minecraft:entity.llama.ambient"
    ],
    "model": {
-    "layer": "minecraft:llama#main",
-    "part": "head",
-    "tex": "llama/llama_creamy"
+    "tex": "llama/llama_creamy",
+    "custom": "llama"
    },
    "variants": {
     "component": "minecraft:llama/variant",
@@ -1681,9 +1748,8 @@
     "minecraft:entity.llama.ambient"
    ],
    "model": {
-    "layer": "minecraft:trader_llama#main",
-    "part": "head",
-    "tex": "llama/llama_creamy"
+    "tex": "llama/llama_creamy",
+    "custom": "llama"
    },
    "variants": {
     "component": "minecraft:llama/variant",
@@ -2161,7 +2227,14 @@
    "model": {
     "layer": "minecraft:cod#main",
     "part": "",
-    "tex": "fish/cod"
+    "tex": "fish/cod",
+    "hide": [
+     "body",
+     "right_fin",
+     "left_fin",
+     "tail_fin",
+     "top_fin"
+    ]
    }
   },
   {
@@ -2445,7 +2518,18 @@
     "layer": "minecraft:glow_squid#main",
     "part": "",
     "tex": "squid/glow_squid",
-    "render": "emissive"
+    "render": "emissive",
+    "hide": [
+     "tentacle0",
+     "tentacle1",
+     "tentacle2",
+     "tentacle3",
+     "tentacle4",
+     "tentacle5",
+     "tentacle6",
+     "tentacle7"
+    ],
+    "scale": 1
    }
   },
   {
@@ -2618,7 +2702,12 @@
    "model": {
     "layer": "simpleend:nibblemite#main",
     "part": "",
-    "tex": "simpleend:nibblemite/ash"
+    "tex": "simpleend:nibblemite/ash",
+    "hide": [
+     "segment1",
+     "segment2",
+     "segment3"
+    ]
    },
    "mob": "simpleend:nibblemite"
   },
@@ -2633,7 +2722,12 @@
    "model": {
     "layer": "simpleenddragonfight:dragonmite#main",
     "part": "",
-    "tex": "simpleenddragonfight:dragonmite/dragonmite"
+    "tex": "simpleenddragonfight:dragonmite/dragonmite",
+    "hide": [
+     "segment1",
+     "segment2",
+     "segment3"
+    ]
    },
    "mob": "simpleenddragonfight:dragonmite"
   },

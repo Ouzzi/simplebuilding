@@ -40,6 +40,9 @@ public final class MobHeadModels {
     public static final float WORN_SCALE = 1.1875F;
     /** {@code hide} entry for the own cubes of the look's root part. */
     private static final String ROOT_OWN = ".!";
+    /** {@code hide} prefix of a part that is drawn at {@value #FREE_SCALE} size and does not count for the head's size (ABN29-6: the Warden's feelers). */
+    private static final String FREE = "free:";
+    private static final float FREE_SCALE = 0.5F;
     private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
     /** Per look kind: {native edge of the mob's head, edge inside the skull model} in model pixels. */
     private static final Map<String, float[]> EDGES = new ConcurrentHashMap<>();
@@ -186,7 +189,8 @@ public final class MobHeadModels {
     /**
      * The look's {@code hide} list as the model code reads it: {@code name} hides a part with its children, {@code name!} only the
      * part's own cubes (BS25-18: the horse's neck is the cube of {@code head_parts} itself, its head and mouth are children that
-     * stay); {@code <part>!} for the look's own root part becomes {@value #ROOT_OWN}.
+     * stay); {@code <part>!} for the look's own root part becomes {@value #ROOT_OWN}. {@code free:name} keeps the part, shrunk to
+     * half, outside the size measurement, so the head keeps its Vanilla size and the feelers stand out beside it.
      */
     static Set<String> hideSet(HeadDef.Look look) {
         Set<String> out = new HashSet<>();
@@ -207,6 +211,13 @@ public final class MobHeadModels {
             throw new IllegalArgumentException("no part '" + name + "' in " + location);
         }
         for (String hidden : hide) {
+            if (hidden.startsWith(FREE)) {
+                ModelPart free = find(part, hidden.substring(FREE.length()));
+                if (free != null) {
+                    apply(free, free.getInitialPose().withScale(FREE_SCALE));
+                }
+                continue;
+            }
             boolean own = hidden.endsWith("!");
             ModelPart h = hidden.equals(ROOT_OWN) ? part : find(part, own ? hidden.substring(0, hidden.length() - 1) : hidden);
             if (h != null) {
@@ -273,7 +284,7 @@ public final class MobHeadModels {
                 return; // own cubes of a part that is not drawn (a skipped part's children still count)
             }
             for (String segment : path.split("/")) {
-                if (hide.contains(segment)) {
+                if (hide.contains(segment) || hide.contains(FREE + segment)) {
                     return;
                 }
             }

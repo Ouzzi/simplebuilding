@@ -4,7 +4,6 @@ import com.simplebuilding.modules.simpleinterfaces.ContainersConfig;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.resources.Identifier;
 
 /**
  * Spyglass and zoom key (BS29-3): one field-of-view factor for both, changed steplessly by the mouse wheel.
@@ -77,6 +76,4 @@ public final class ZoomState {
     public static boolean edgeOverlay() {
         return ContainersConfig.on() && cfg().scopeEdgeOverlay;
     }
-
-    public static final Identifier EDGE = Identifier.fromNamespaceAndPath("simpleinterfaces", "textures/gui/scope_edge.png");
 }

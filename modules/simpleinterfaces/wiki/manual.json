@@ -1057,15 +1057,15 @@
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
       ],
       "en": {
-        "title": "Spyglass overlay at the edge",
-        "summary": "The spyglass (and zoom) darkens only the screen edge instead of a black frame with a round window. Default: on.",
+        "title": "Spyglass overlay as window frame",
+        "summary": "The spyglass (and zoom) shows a thin UI window frame at the screen edge instead of a black frame with a round window. Default: on.",
         "details": [
           "Local value in config/simpleinterfaces.json (client only)."
         ]
       },
       "de": {
-        "title": "Fernrohr-Overlay nur am Rand",
-        "summary": "Fernrohr (und Zoom) dunkeln nur den Bildschirmrand ab statt eines schwarzen Rahmens mit rundem Fenster. Standard: an.",
+        "title": "Fernrohr-Overlay als Fensterrahmen",
+        "summary": "Fernrohr (und Zoom) zeigen einen schmalen UI-Fensterrahmen am Bildschirmrand statt eines schwarzen Rahmens mit rundem Fenster. Standard: an.",
         "details": [
           "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
         ]

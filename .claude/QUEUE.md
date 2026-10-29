@@ -614,3 +614,6 @@ Jede Stufe eigener Branch von claude-wave1, einzeln gate-grün; ab Stufe 3 strik
 
 ## Flaky-Test Horse 25 (FH25)
 - [x] (B, b-flakyhorse25, 24.10.) FH25 `simplewanderers:module_game_test_horse_leashed_and_capturable` flaky ("a new horse after the wait"): findSpot (Radius 3, 12 Versuche) scheitert, wenn der Wanderer (bis 8 von der Glocke) am Arena-Rand in ungeladenen Chunks steht. Test lädt die Chunks um die Glocke (alle village()-Tests) und stellt den Wanderer vor dem Respawn auf die Glocke; Assertions unverändert, Produktionscode unberührt. Plan docs/ai/PLAN-B-FLAKYHORSE-2026-10-24.md. Ursache aus Code abgeleitet, nicht am roten Lauf belegt.
+- [~] (A, a-abn29f, 29.10.) ABN29-1 Fernrohr-Overlay als invertierter UI-Fensterrahmen (2 px schwarz + 2 px Rahmen, GUI-skaliert), Standard = neu; Vorschau `/root/sb-tools-a/previews/a-abn29f-preview.html`; offen Client-Sicht/Besitzer-Wahl A oder B
+- [~] (A, a-abn29f, 29.10.) ABN29-6 Mob-Köpfe flach (Pferd-Familie rot 0), Warden-Fühler (`free:`), Kamel/Lama gekürzter Hals, Ghast/Endermite/Nibblemite/Dragonmite/Kabeljau/Creaking/Elder/Leuchttintenfisch nach derselben Technik; offen Besitzer-Sicht (Vorschau), Client-Pose
+- [x] (A, a-abn29f, 29.10.) ABN29-7 Schwingen: Live-Render-Vorschau Knochen (B) und Feder (A) am Spieler in der Vorschauseite, nichts umgestellt
