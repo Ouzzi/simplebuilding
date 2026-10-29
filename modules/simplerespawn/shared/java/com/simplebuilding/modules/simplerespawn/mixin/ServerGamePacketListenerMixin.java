@@ -23,33 +23,40 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(ServerGamePacketListenerImpl.class)
 public abstract class ServerGamePacketListenerMixin {
+    /** After the packet moved to the main thread (REV2-C-4): the check reads player state, which belongs to that thread. */
+    private static final String SAME_THREAD = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V";
+
     @Shadow public ServerPlayer player;
 
     private boolean simplerespawn$blocked() {
         return RespawnServer.blocksActions(player);
     }
 
-    @Inject(method = "handleInteract", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleInteract", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$interact(ServerboundInteractPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 
-    @Inject(method = "handleAttack", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleAttack", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$attack(ServerboundAttackPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 
-    @Inject(method = "handleUseItem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleUseItem", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$useItem(ServerboundUseItemPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 
-    @Inject(method = "handleUseItemOn", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleUseItemOn", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$useItemOn(ServerboundUseItemOnPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 
-    @Inject(method = "handlePlayerAction", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handlePlayerAction", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$action(ServerboundPlayerActionPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 
-    @Inject(method = "handleContainerClick", at = @At("HEAD"), cancellable = true)
-    private void simplerespawn$click(ServerboundContainerClickPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
+    @Inject(method = "handleContainerClick", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
+    private void simplerespawn$click(ServerboundContainerClickPacket packet, CallbackInfo ci) {
+        if (!simplerespawn$blocked()) return;
+        ci.cancel();
+        player.containerMenu.sendAllDataToRemote(); // the client moved items on its own screen: show the real state again
+    }
 
-    @Inject(method = "handlePickItemFromBlock", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handlePickItemFromBlock", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$pickBlock(ServerboundPickItemFromBlockPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 
-    @Inject(method = "handlePickItemFromEntity", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handlePickItemFromEntity", at = @At(value = "INVOKE", target = SAME_THREAD, shift = At.Shift.AFTER), cancellable = true)
     private void simplerespawn$pickEntity(ServerboundPickItemFromEntityPacket packet, CallbackInfo ci) { if (simplerespawn$blocked()) ci.cancel(); }
 }

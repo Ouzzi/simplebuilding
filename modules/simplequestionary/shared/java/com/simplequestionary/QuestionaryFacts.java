@@ -38,9 +38,24 @@ public final class QuestionaryFacts {
         public static final Facts NONE = new Facts(AIR, List.of(), AIR, 0, 0);
     }
 
-    public static Facts compute(Level level, ItemStack stack) {
+    private record Key(net.minecraft.world.item.Item item, net.minecraft.core.component.DataComponentPatch patch) {}
+
+    private static net.minecraft.world.item.crafting.RecipeManager cachedFor;
+    private static final java.util.Map<Key, Facts> CACHE = new java.util.HashMap<>();
+
+    /** REV2-C-3: one pass over all recipes per item until the recipes are reloaded (a new RecipeManager), not per slot change. */
+    public static synchronized Facts compute(Level level, ItemStack stack) {
         MinecraftServer server = level.getServer();
         if (stack.isEmpty() || server == null) return Facts.NONE;
+        var manager = server.getRecipeManager();
+        if (manager != cachedFor || CACHE.size() > 512) {
+            CACHE.clear();
+            cachedFor = manager;
+        }
+        return CACHE.computeIfAbsent(new Key(stack.getItem(), stack.getComponentsPatch()), k -> scan(level, stack, server));
+    }
+
+    private static Facts scan(Level level, ItemStack stack, MinecraftServer server) {
         ContextMap context = SlotDisplayContext.fromLevel(level);
         List<Identifier> madeFrom = List.of();
         Identifier station = AIR;

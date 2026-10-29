@@ -21,6 +21,9 @@ import net.minecraft.world.level.Level;
  * Vanilla behavior. Config {@code bundleEating}.
  */
 public final class BundleEating {
+    /** What each eater started on (REV2-C-6): when the bundle's top changes meanwhile, the meal is dropped, not switched. */
+    private static final java.util.Map<LivingEntity, net.minecraft.world.item.Item> STARTED = new java.util.WeakHashMap<>();
+
     public static ItemStack top(ItemStack bundle) {
         BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return ItemStack.EMPTY;
@@ -50,11 +53,18 @@ public final class BundleEating {
             finish(level, player, bundle);
             return InteractionResult.SUCCESS;
         }
+        synchronized (STARTED) { STARTED.put(player, top.getItem()); }
         player.startUsingItem(hand);
         return InteractionResult.CONSUME;
     }
 
     public static void tick(LivingEntity entity, ItemStack bundle, Consumable consumable, int ticksRemaining) {
+        net.minecraft.world.item.Item started;
+        synchronized (STARTED) { started = STARTED.get(entity); }
+        if (started != null && top(bundle).getItem() != started) {
+            if (!entity.level().isClientSide()) entity.stopUsingItem();
+            return;
+        }
         if (consumable.shouldEmitParticlesAndSounds(ticksRemaining)) {
             consumable.emitParticlesAndSounds(entity.getRandom(), entity, top(bundle), 5);
         }
@@ -63,7 +73,9 @@ public final class BundleEating {
     /** Eats one piece of the top item and removes it from the bundle (not in creative, like Vanilla food). */
     public static ItemStack finish(Level level, LivingEntity entity, ItemStack bundle) {
         ItemStack top = top(bundle);
-        if (!edible(top)) return bundle;
+        net.minecraft.world.item.Item started;
+        synchronized (STARTED) { started = STARTED.remove(entity); }
+        if (!edible(top) || started != null && started != top.getItem()) return bundle;
         Consumable consumable = top.get(DataComponents.CONSUMABLE);
         ItemStack piece = top.copyWithCount(1);
         consumable.onConsume(level, entity, piece);

@@ -381,10 +381,27 @@ public final class HeadAbilities {
         }
         java.util.List<BlockPos> torches = new java.util.ArrayList<>();
         BlockPos center = player.blockPosition();
-        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-FLICKER_RANGE, -FLICKER_RANGE, -FLICKER_RANGE),
-                center.offset(FLICKER_RANGE, FLICKER_RANGE, FLICKER_RANGE))) {
-            if (level.isLoaded(pos) && level.getBlockState(pos).getBlock() instanceof TorchBlock) {
-                torches.add(pos.immutable());
+        int minX = center.getX() - FLICKER_RANGE, maxX = center.getX() + FLICKER_RANGE;
+        int minY = Math.max(level.getMinY(), center.getY() - FLICKER_RANGE), maxY = Math.min(level.getMaxY(), center.getY() + FLICKER_RANGE);
+        int minZ = center.getZ() - FLICKER_RANGE, maxZ = center.getZ() + FLICKER_RANGE;
+        // REV2-B-7: only sections that can hold a torch are walked (maybeHas looks at the palette), not all 17^3 blocks.
+        for (int cx = minX >> 4; cx <= maxX >> 4; cx++) {
+            for (int cz = minZ >> 4; cz <= maxZ >> 4; cz++) {
+                net.minecraft.world.level.chunk.LevelChunk chunk = level.getChunkSource().getChunkNow(cx, cz);
+                if (chunk == null) {
+                    continue;
+                }
+                for (int sy = minY >> 4; sy <= maxY >> 4; sy++) {
+                    if (!chunk.getSection(chunk.getSectionIndexFromSectionY(sy)).maybeHas(st -> st.getBlock() instanceof TorchBlock)) {
+                        continue;
+                    }
+                    for (BlockPos pos : BlockPos.betweenClosed(Math.max(minX, cx << 4), Math.max(minY, sy << 4), Math.max(minZ, cz << 4),
+                            Math.min(maxX, (cx << 4) + 15), Math.min(maxY, (sy << 4) + 15), Math.min(maxZ, (cz << 4) + 15))) {
+                        if (chunk.getBlockState(pos).getBlock() instanceof TorchBlock) {
+                            torches.add(pos.immutable());
+                        }
+                    }
+                }
             }
         }
         net.minecraft.util.Util.shuffle(torches, level.getRandom());
