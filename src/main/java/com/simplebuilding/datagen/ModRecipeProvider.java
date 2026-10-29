@@ -226,8 +226,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Buecherregal, Lohen-Obsidian = 8 Lohenstaub um weinenden Obsidian. Der Tisch selbst entsteht mit dem Hammer.
                 if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
                     net.minecraft.world.level.ItemLike[][] woods = {
-                            {Items.CRIMSON_PLANKS, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF},
-                            {Items.WARPED_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_BOOKSHELF}};
+                            {Items.CRIMSON_PLANKS, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF,
+                                    ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, Items.CRIMSON_SLAB},
+                            {Items.WARPED_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
+                                    ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, Items.WARPED_SLAB}};
                     for (net.minecraft.world.level.ItemLike[] wood : woods) {
                         shaped(RecipeCategory.BUILDING_BLOCKS, wood[1])
                                 .pattern("BBB").pattern("BPB").pattern("BBB")
@@ -238,6 +240,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                                 .pattern("WWW").pattern("KKK").pattern("WWW")
                                 .define('W', wood[1]).define('K', ModItems.BLAZE_BOOK)
                                 .unlockedBy(getHasName(ModItems.BLAZE_BOOK), has(ModItems.BLAZE_BOOK))
+                                .save(output);
+                        // BS25-1: like Vanilla's chiseled bookshelf (6 planks around 3 slabs), with the blazewood planks and the Nether slab.
+                        shaped(RecipeCategory.BUILDING_BLOCKS, wood[3])
+                                .pattern("WWW").pattern("SSS").pattern("WWW")
+                                .define('W', wood[1]).define('S', wood[4])
+                                .unlockedBy(getHasName(wood[1]), has(wood[1]))
                                 .save(output);
                     }
                     // Nachtrag 60 (Besitzer 15.10.): 8 Lohenstaub um 1 normales Buch (ersetzt 3 Papier + 1 Lohenstaub).

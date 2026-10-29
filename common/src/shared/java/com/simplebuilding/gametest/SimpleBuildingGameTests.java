@@ -954,6 +954,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("astral_enchanting_game_test_enchanting_uses_up_what_the_rules_say", AstralEnchantingTests::enchantingUsesUpWhatTheRulesSay).build(),
             GameTestSpec.named("astral_enchanting_game_test_recipes_are_loaded", AstralEnchantingTests::recipesAreLoaded).build(),
             GameTestSpec.named("astral_enchanting_game_test_blazing_obsidian_keeps_fire_burning", AstralEnchantingTests::blazingObsidianKeepsFireBurning).build(),
+            GameTestSpec.named("astral_enchanting_game_test_chiseled_bookshelves_store_books", AstralEnchantingTests::chiseledBookshelvesStoreBooks).build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)

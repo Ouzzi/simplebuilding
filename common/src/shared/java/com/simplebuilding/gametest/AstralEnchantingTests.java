@@ -459,7 +459,7 @@ public final class AstralEnchantingTests {
         if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
         var recipes = helper.getLevel().getServer().getRecipeManager();
         for (String id : List.of("crimson_blazewood_planks", "warped_blazewood_planks", "crimson_blazewood_bookshelf",
-                "warped_blazewood_bookshelf", "blaze_book", "blazing_obsidian")) {
+                "warped_blazewood_bookshelf", "chiseled_crimson_blazewood_bookshelf", "chiseled_warped_blazewood_bookshelf", "blaze_book", "blazing_obsidian")) {
             helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplebuilding", id))).isPresent(),
                     "recipe " + id + " is not loaded");
         }
@@ -476,6 +476,28 @@ public final class AstralEnchantingTests {
         helper.assertTrue(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER),
                 "blazewood shelves do not count at the Vanilla table");
         helper.assertTrue(ModBlocks.BLAZING_OBSIDIAN.defaultBlockState().getLightEmission() > 0, "blazing obsidian does not glow");
+        helper.succeed();
+    }
+
+    /**
+     * BS25-1: the chiseled blazewood bookshelves work like Vanilla's: the block entity (Vanilla's type, accepted by the
+     * mixin) takes a book into slot 0 and the slot_0_occupied state follows; a non-book is refused.
+     */
+    public static void chiseledBookshelvesStoreBooks(GameTestHelper helper) {
+        if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
+        int i = 0;
+        for (Block shelf : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) {
+            BlockPos pos = new BlockPos(1 + 2 * i++, 1, 1);
+            helper.setBlock(pos, shelf);
+            var be = helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.class);
+            helper.assertTrue(be.acceptsItemType(new ItemStack(Items.BOOK)) && !be.acceptsItemType(new ItemStack(Items.STICK)),
+                    "only books fit the chiseled blazewood bookshelf");
+            be.setItem(0, new ItemStack(Items.BOOK));
+            helper.assertTrue(helper.getBlockState(pos).getValue(net.minecraft.world.level.block.ChiseledBookShelfBlock.SLOT_0_OCCUPIED),
+                    "slot 0 is not occupied after setting a book");
+            helper.assertFalse(helper.getBlockState(pos).getValue(net.minecraft.world.level.block.ChiseledBookShelfBlock.SLOT_1_OCCUPIED),
+                    "slot 1 occupied by itself");
+        }
         helper.succeed();
     }
 

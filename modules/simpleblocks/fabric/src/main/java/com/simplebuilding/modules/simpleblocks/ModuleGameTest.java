@@ -132,6 +132,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void sawMetalFinish(GameTestHelper h) {
+        BlocksTests.ALL.get("saw_metal_finish").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void natureRecipes(GameTestHelper h) {
         BlocksTests.ALL.get("nature_recipes").accept(h);
     }

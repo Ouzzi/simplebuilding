@@ -351,6 +351,7 @@ public final class SearchTabPlacement {
             // Astral-Verzauberung (Queue N27) neben ihre Vanilla-Vorbilder.
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.ENCHANTING_TABLE, ModItems.ASTRAL_ENCHANTING_TABLE));
             out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.BOOKSHELF, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF));
+            out.add(Placement.after(FUNCTIONAL_BLOCKS, Items.CHISELED_BOOKSHELF, ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF));
             out.add(Placement.after(BUILDING_BLOCKS, Items.WARPED_BUTTON, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS));
             out.add(Placement.after(NATURAL_BLOCKS, Items.CRYING_OBSIDIAN, ModItems.BLAZING_OBSIDIAN));
             out.add(Placement.after(INGREDIENTS, Items.BOOK, ModItems.BLAZE_BOOK));

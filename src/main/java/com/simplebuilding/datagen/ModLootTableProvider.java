@@ -94,6 +94,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             for (Block shelf : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
                 add(shelf, createSingleItemTableWithSilkTouch(shelf, ModItems.BLAZE_BOOK, LootNumbers.exactly(3)));
             }
+            for (Block shelf : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) dropSelf(shelf); // the books drop via the block entity
             dropSelf(ModBlocks.BLAZING_OBSIDIAN);
         }
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);

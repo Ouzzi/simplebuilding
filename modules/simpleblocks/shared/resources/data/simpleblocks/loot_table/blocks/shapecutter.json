@@ -12,6 +12,31 @@
         }
       ],
       "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:heavy_weighted_pressure_plate",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "simpleblocks:shapecutter",
+            "state": {
+              "metal": "true"
+            }
+          },
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        }
+      ],
+      "rolls": 1
     }
   ]
 }

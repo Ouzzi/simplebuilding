@@ -115,6 +115,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
                 builder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(key(block));
             }
+            for (net.minecraft.world.level.block.Block block : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
         }
         if (com.simplebuilding.version.McVersion.MUSIC_DISCS) {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
