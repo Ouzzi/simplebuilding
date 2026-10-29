@@ -7,7 +7,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
 
 /**
- * Who the Evil beacons reach (BS28b-5, balanced against griefing): only survival players, not protected by Simple
+ * Who the Evil beacons reach (BS28b-5, balanced against griefing): no spectators, not protected by Simple
  * Tweaks' personal PvP switch or newcomer protection ({@link HarmShields}), and only once
  * {@link BeaconsConfig#evilBeaconGraceMinutes} (default 5 min) have passed since the player's last death - so nobody
  * can be kept down by an Evil Beacon at a spawn point. A player that never died counts from the world's first tick, which the
@@ -21,7 +21,7 @@ public final class EvilGate {
 
     /** Whether an Evil beacon may give {@code player} its effects now. */
     public static boolean affects(Player player) {
-        if (!(player instanceof ServerPlayer server) || player.isSpectator() || player.isCreative()) return false;
+        if (!(player instanceof ServerPlayer server) || player.isSpectator()) return false;
         if (HarmShields.shielded(player)) return false;
         return sinceRespawn(server) >= BeaconsConfig.evilBeaconGraceMinutes * 1200;
     }

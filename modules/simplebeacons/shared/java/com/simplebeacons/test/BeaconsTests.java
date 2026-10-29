@@ -296,7 +296,6 @@ public final class BeaconsTests {
                 h.getLevel().getServer().getPlayerList().remove(player);
                 com.simplelib.api.HarmShields.unregister("beacons-test");
             });
-            player.setGameMode(GameType.SURVIVAL);
             BlockPos beacon = h.absolutePos(CENTER);
             player.snapTo(beacon.getX() + 3.5, beacon.getY(), beacon.getZ() + 0.5);
             var stat = net.minecraft.stats.Stats.CUSTOM.get(net.minecraft.stats.Stats.TIME_SINCE_DEATH);
@@ -321,10 +320,7 @@ public final class BeaconsTests {
             BeaconsConfig.apply(none);
             player.getStats().setValue(player, stat, 0);
             h.assertTrue(EvilGate.affects(player), "grace 0: at once");
-            player.setGameMode(GameType.CREATIVE);
-            h.assertTrue(!EvilGate.affects(player), "creative players are skipped");
             // a Strong Beacon never asks the gate: it helps everybody
-            player.setGameMode(GameType.SURVIVAL);
             player.getStats().setValue(player, stat, 0);
             BeaconsConfig.reset();
             BeaconsConfig.apply(small);
