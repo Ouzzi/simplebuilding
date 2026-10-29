@@ -98,7 +98,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wide_door_game_test_open_leaf_shape", WideDoorTests::openLeafShape).build(),
             GameTestSpec.named("wide_door_game_test_follow_redstone", WideDoorTests::followRedstone).maxTicks(100).build(),
             GameTestSpec.named("wide_door_game_test_redstone_at_the_opening_still_works", WideDoorTests::redstoneAtTheOpeningStillWorks).maxTicks(100).build(),
-            GameTestSpec.named("wide_door_game_test_break_as_a_unit", WideDoorTests::breakAsAUnit).maxTicks(100).build(),
+            GameTestSpec.named("wide_door_game_test_break_as_unit", WideDoorTests::breakAsUnit).maxTicks(100).build(),
             GameTestSpec.named("wide_door_game_test_pistons_leave_doors_alone", WideDoorTests::pistonsLeaveDoorsAlone).maxTicks(60).build(),
             GameTestSpec.named("wide_door_game_test_switch_off_keeps_doors_shut", WideDoorTests::switchOffKeepsDoorsShut).build(),
             GameTestSpec.named("end_systems_game_test_channels_stay_isolated_and_stop_at_fifteen", EndSystemsTests::channelsStayIsolatedAndStopAtFifteen).maxTicks(220).build(),

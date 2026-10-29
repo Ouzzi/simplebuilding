@@ -10,7 +10,7 @@ public final class WideDoorGameTest {
     @GameTest public void openLeafShape(GameTestHelper helper) { WideDoorTests.openLeafShape(helper); }
     @GameTest(maxTicks = 100) public void followRedstone(GameTestHelper helper) { WideDoorTests.followRedstone(helper); }
     @GameTest(maxTicks = 100) public void redstoneAtTheOpeningStillWorks(GameTestHelper helper) { WideDoorTests.redstoneAtTheOpeningStillWorks(helper); }
-    @GameTest(maxTicks = 100) public void breakAsAUnit(GameTestHelper helper) { WideDoorTests.breakAsAUnit(helper); }
+    @GameTest(maxTicks = 100) public void breakAsUnit(GameTestHelper helper) { WideDoorTests.breakAsUnit(helper); }
     @GameTest(maxTicks = 60) public void pistonsLeaveDoorsAlone(GameTestHelper helper) { WideDoorTests.pistonsLeaveDoorsAlone(helper); }
     @GameTest public void switchOffKeepsDoorsShut(GameTestHelper helper) { WideDoorTests.switchOffKeepsDoorsShut(helper); }
 }

@@ -50,11 +50,11 @@ public final class RedstoneTests {
         ALL.put("dampener_stage_cycles_on_right_click", RedstoneTests::dampenerStageCyclesOnRightClick);
         ALL.put("dampener_ignores_side_inputs", RedstoneTests::dampenerIgnoresSideInputs);
         ALL.put("double_piston_places_two_cells", RedstoneTests::doublePistonPlacesTwoCells);
-        ALL.put("double_piston_one_block_for_a_weak_signal", RedstoneTests::doublePistonOneBlockForAWeakSignal);
-        ALL.put("double_piston_two_blocks_for_a_strong_signal", RedstoneTests::doublePistonTwoBlocksForAStrongSignal);
+        ALL.put("double_piston_one_block_for_weak_signal", RedstoneTests::doublePistonOneBlockForWeakSignal);
+        ALL.put("double_piston_two_blocks_for_strong_signal", RedstoneTests::doublePistonTwoBlocksForStrongSignal);
         ALL.put("double_piston_pushes_and_retracts", RedstoneTests::doublePistonPushesAndRetracts);
         ALL.put("double_piston_cannot_be_pushed", RedstoneTests::doublePistonCannotBePushed);
-        ALL.put("double_piston_falls_as_a_unit", RedstoneTests::doublePistonFallsAsAUnit);
+        ALL.put("double_piston_falls_as_unit", RedstoneTests::doublePistonFallsAsUnit);
         ALL.put("double_piston_switch_off_keeps_it_still", RedstoneTests::doublePistonSwitchOffKeepsItStill);
         ALL.put("discover_recipe_unlocks", com.simpleredstone.discover.RedstoneDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleredstone.discover.RedstoneDiscover::behaviourHints);
@@ -271,6 +271,7 @@ public final class RedstoneTests {
         h.setBlock(new BlockPos(1, 1, 3), Blocks.STONE);
         ServerPlayer player = player(h);
         player.setYRot(90.0F); // looks west: the piston faces east like Vanilla's (towards the player's opposite)
+        player.setYHeadRot(90.0F); // the view direction of a living entity follows its head
         player.setXRot(0.0F);
         ItemStack stack = new ItemStack(RedstoneRegistry.DOUBLE_PISTON_ITEM, 4);
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
@@ -292,7 +293,7 @@ public final class RedstoneTests {
     }
 
     /** Signal 6 (redstone block, three Dampeners of stage 3: 15, 12, 9, 6) asks for one block: head at the cell after the barrel. */
-    public static void doublePistonOneBlockForAWeakSignal(GameTestHelper h) {
+    public static void doublePistonOneBlockForWeakSignal(GameTestHelper h) {
         clear(h);
         BlockPos base = new BlockPos(1, 2, 4);
         doublePiston(h, base);
@@ -309,7 +310,7 @@ public final class RedstoneTests {
     }
 
     /** Signal 15 (redstone block at the side) asks for two blocks: arm after the barrel, head behind it. */
-    public static void doublePistonTwoBlocksForAStrongSignal(GameTestHelper h) {
+    public static void doublePistonTwoBlocksForStrongSignal(GameTestHelper h) {
         clear(h);
         BlockPos base = new BlockPos(1, 2, 4);
         doublePiston(h, base);
@@ -361,7 +362,7 @@ public final class RedstoneTests {
     }
 
     /** Breaking any part removes the whole piston and drops one item (head and barrel included, even fully extended). */
-    public static void doublePistonFallsAsAUnit(GameTestHelper h) {
+    public static void doublePistonFallsAsUnit(GameTestHelper h) {
         clear(h);
         BlockPos base = new BlockPos(1, 2, 4);
         doublePiston(h, base);
@@ -379,20 +380,23 @@ public final class RedstoneTests {
                 })));
     }
 
-    /** features.doublePiston off: the placed piston keeps still under any signal. */
+    /**
+     * features.doublePiston off: a step does nothing and the placed piston keeps still. Synchronous on purpose: the switch is global and
+     * the tests of a batch run side by side, so it is set and restored within one tick.
+     */
     public static void doublePistonSwitchOffKeepsItStill(GameTestHelper h) {
         clear(h);
         BlockPos base = new BlockPos(1, 2, 4);
         doublePiston(h, base);
-        RedstoneConfig.doublePiston = false;
         h.setBlock(base.north(), Blocks.REDSTONE_BLOCK);
-        h.runAfterDelay(12, () -> {
-            try {
-                h.assertTrue(ext(h, base) == 0 && parts(h, base, 0), "moved with the switch off: " + at(h, base));
-            } finally {
-                RedstoneConfig.doublePiston = true;
-            }
-            h.succeed();
-        });
+        BlockPos abs = h.absolutePos(base);
+        RedstoneConfig.doublePiston = false;
+        try {
+            DoublePistons.step(h.getLevel(), abs, h.getLevel().getBlockState(abs));
+            h.assertTrue(ext(h, base) == 0 && parts(h, base, 0), "moved with the switch off: " + at(h, base));
+        } finally {
+            RedstoneConfig.doublePiston = true;
+        }
+        h.succeed();
     }
 }

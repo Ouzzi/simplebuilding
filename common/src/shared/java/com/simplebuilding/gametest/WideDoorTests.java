@@ -71,6 +71,7 @@ public final class WideDoorTests {
         Vec3 spot = h.absoluteVec(new Vec3(6.5, 2.0, 7.0));
         player.setPos(spot.x, spot.y, spot.z);
         player.setYRot(180.0F); // looks north
+        player.setYHeadRot(180.0F);
         player.setXRot(0.0F);
         return player;
     }
@@ -349,7 +350,7 @@ public final class WideDoorTests {
     }
 
     /** Breaking any cell (closed or open, a swing cell too) removes the whole door and drops exactly one. */
-    public static void breakAsAUnit(GameTestHelper h) {
+    public static void breakAsUnit(GameTestHelper h) {
         if (!McVersion.DOORS) {
             h.succeed();
             return;

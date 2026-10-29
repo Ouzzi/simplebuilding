@@ -47,13 +47,13 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleredstone:empty", maxTicks = 200)
-    public void doublePistonOneBlockForAWeakSignal(GameTestHelper h) {
-        RedstoneTests.ALL.get("double_piston_one_block_for_a_weak_signal").accept(h);
+    public void doublePistonOneBlockForWeakSignal(GameTestHelper h) {
+        RedstoneTests.ALL.get("double_piston_one_block_for_weak_signal").accept(h);
     }
 
     @GameTest(structure = "simpleredstone:empty", maxTicks = 200)
-    public void doublePistonTwoBlocksForAStrongSignal(GameTestHelper h) {
-        RedstoneTests.ALL.get("double_piston_two_blocks_for_a_strong_signal").accept(h);
+    public void doublePistonTwoBlocksForStrongSignal(GameTestHelper h) {
+        RedstoneTests.ALL.get("double_piston_two_blocks_for_strong_signal").accept(h);
     }
 
     @GameTest(structure = "simpleredstone:empty", maxTicks = 300)
@@ -67,11 +67,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleredstone:empty", maxTicks = 200)
-    public void doublePistonFallsAsAUnit(GameTestHelper h) {
-        RedstoneTests.ALL.get("double_piston_falls_as_a_unit").accept(h);
+    public void doublePistonFallsAsUnit(GameTestHelper h) {
+        RedstoneTests.ALL.get("double_piston_falls_as_unit").accept(h);
     }
 
-    @GameTest(structure = "simpleredstone:empty", maxTicks = 60)
+    @GameTest(structure = "simpleredstone:empty")
     public void doublePistonSwitchOffKeepsItStill(GameTestHelper h) {
         RedstoneTests.ALL.get("double_piston_switch_off_keeps_it_still").accept(h);
     }
