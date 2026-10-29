@@ -129,7 +129,7 @@ public final class VisualsTests {
    frame.hurtServer(lvl,p.damageSources().playerAttack(p),1f);
    h.assertTrue(frame.getItem().isEmpty()&&c.simplevisuals$tiltStep()==0,"Taking the item out lays the frame flat again");
    frame.setItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND),false);frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);
-   h.assertTrue(c.simplevisuals$tiltStep()==0,"A sprite item (diamond) is not chiselled");
+   h.assertTrue(c.simplevisuals$tiltStep()==1,"BS25-7: a sprite item (diamond) is chiselled too");
   }finally{
    Visuals.CONFIG=saved;com.simplebuilding.framework.api.SubMods.set("simplevisuals",sw);
    lvl.getEntitiesOfClass(net.minecraft.world.entity.decoration.ItemFrame.class,new net.minecraft.world.phys.AABB(pos).inflate(2)).forEach(net.minecraft.world.entity.Entity::discard);
