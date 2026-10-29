@@ -156,12 +156,12 @@ public final class SledgehammerGameTest {
         SledgehammerTests.chargedHammerOnlyFinishesOnTheBlockItStartedOn(helper);
     }
 
-    @GameTest(maxTicks = 140)
+    @GameTest(maxTicks = 260)
     public void onlyIronOrBetterSledgehammersCrushDiamondBlocks(GameTestHelper helper) {
         SledgehammerTests.onlyIronOrBetterSledgehammersCrushDiamondBlocks(helper);
     }
 
-    @GameTest(maxTicks = 320)
+    @GameTest(maxTicks = 440)
     public void hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath(GameTestHelper helper) {
         SledgehammerTests.hammerCrushingsYieldOnePartPerStrikeThroughTheRealUsePath(helper);
     }

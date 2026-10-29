@@ -1,0 +1,244 @@
+{
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "children": [
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "1"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 1,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "2"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 2,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "3"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 3,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "4"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 4,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "5"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 5,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "6"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 6,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "7"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 7,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "8"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 8,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "9"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 9,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "10"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 10,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "11"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 11,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "12"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 12,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "13"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 13,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "14"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 14,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            },
+            {
+              "condition": {
+                "blocks": "simplesandwiches:cheese_carpet",
+                "state": {
+                  "layers": "15"
+                },
+                "type": "minecraft:match_block"
+              },
+              "modifier": {
+                "count": 15,
+                "type": "minecraft:set_count"
+              },
+              "name": "simplesandwiches:cheese_slice",
+              "type": "minecraft:item"
+            }
+          ],
+          "type": "minecraft:alternatives"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplesandwiches:blocks/cheese_carpet",
+  "type": "minecraft:block"
+}

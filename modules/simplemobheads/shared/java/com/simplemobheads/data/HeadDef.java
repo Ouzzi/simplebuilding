@@ -24,10 +24,12 @@ import org.jspecify.annotations.Nullable;
  * @param countsAs         worn, the head also counts as this head ({@code cow}: its ability works) or, with {@code variant}, as
  *                         the head named like its variant ({@code giant/husk} counts as the husk head); empty = only itself
  * @param camouflage       further mobs (besides {@link #mob}) that see the wearer only half as far
+ * @param helmet           BS28b-1: size of a helmet the placed head can wear against Vanilla's 8 px head (1.0 = as a skeleton skull,
+ *                         0 = the head wears none; mobs.json {@code helmet})
  */
 public record HeadDef(String id, String item, String wall, String mob, String group, List<String> sounds, String from, String ability,
                       boolean trial, boolean freezeImmune, String drop, String variantComponent, String variantSource, String firstVariant, List<Look> looks,
-                      String countsAs, List<String> camouflage) {
+                      String countsAs, List<String> camouflage, float helmet) {
 
     /** The variant ids in order: the first variant (the base look) and every further one; empty when the head has none. */
     public List<String> variantIds() {

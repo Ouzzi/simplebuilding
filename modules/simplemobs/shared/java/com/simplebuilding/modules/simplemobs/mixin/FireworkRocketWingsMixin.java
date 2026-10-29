@@ -12,12 +12,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 /**
- * Wither/Nether Wings (EL24-1): a rocket attached to a gliding wearer pushes towards a higher top speed (see
- * {@link WitherWings#boost}). Runs on both sides like the Vanilla push; the server stamps its config factor into the wings first.
+ * Wither/Nether Wings (EL24-1, BS25-4): a strong rocket (flight duration 4+) attached to a gliding wearer pushes towards a
+ * higher top speed (see {@link WitherWings#boost}); a normal rocket keeps the Vanilla push, which also pulls a faster wearer
+ * back to the Vanilla Elytra top speed. Runs on both sides like the Vanilla push; the server stamps its config factor into the wings first.
  */
 @Mixin(FireworkRocketEntity.class)
 abstract class FireworkRocketWingsMixin {
     @Shadow private @Nullable LivingEntity attachedToEntity;
+
+    @Shadow public abstract ItemStack getItem();
 
     @ModifyArg(method = "tick", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
@@ -27,6 +30,7 @@ abstract class FireworkRocketWingsMixin {
         ItemStack wings = WitherWings.worn(wearer);
         if (wings.isEmpty()) return movement;
         if (!wearer.level().isClientSide()) WitherWings.stamp(wings);
-        return WitherWings.boost(movement, wearer.getLookAngle(), WitherWings.factor(wings));
+        double factor = WitherWings.strongRocket(getItem()) ? WitherWings.factor(wings) : 1.0;
+        return WitherWings.boost(movement, wearer.getLookAngle(), factor);
     }
 }

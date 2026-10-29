@@ -110,6 +110,7 @@ public final class MobsRegistry {
         silenceHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, SILENCE_KEY, SILENCE);
         Registry.register(BuiltInRegistries.POTION, SILENCE_POTION_KEY, silencePotion());
         Registry.register(BuiltInRegistries.POTION, LONG_SILENCE_POTION_KEY, longSilencePotion());
+        CombatEffects.registerAll();
         MobsViewer.register(); // JEI24: loot, Wither drops and the Shellker in the recipe viewer (no JEI class)
     }
 
@@ -126,6 +127,7 @@ public final class MobsRegistry {
                         .displayItems((params, out) -> {
                             if (!on()) return;
                             out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
+                            out.accept(StrongExplosives.rocket(1));
                             for (String path : TAB_ITEMS) {
                                 var item = net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
                                         net.minecraft.resources.Identifier.fromNamespaceAndPath(ID, path));
@@ -140,6 +142,7 @@ public final class MobsRegistry {
             "soul_fire_charge",
             "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
             "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem",
+            "strong_gunpowder", "strong_tnt",
             "deceiver_spawn_egg", "dread_spawn_egg", "hollow_howler_spawn_egg", "hollow_watcher_spawn_egg",
             "shellker_spawn_egg", "soulfire_blaze_spawn_egg");
 }

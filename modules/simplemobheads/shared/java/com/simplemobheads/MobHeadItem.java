@@ -1,11 +1,14 @@
 package com.simplemobheads;
 
 import com.simplemobheads.data.HeadDef;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * A mob head item: standing on the floor, hanging on a wall, worn on the head. A variant head names its variant after the
@@ -21,6 +24,12 @@ public final class MobHeadItem extends StandingAndWallBlockItem {
 
     public HeadDef head() {
         return head;
+    }
+
+    /** BS25-17: no giant head next to another giant head (they would overlap and flicker). */
+    @Override
+    protected boolean canPlace(LevelReader level, BlockState possibleState, BlockPos pos) {
+        return super.canPlace(level, possibleState, pos) && !(head.big() && MobHeads.crowded(level, pos));
     }
 
     @Override

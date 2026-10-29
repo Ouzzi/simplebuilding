@@ -102,12 +102,32 @@ public final class InWorldStrikes {
      * Beim {@code total}-ten Schlag ist die Zaehlung wieder frei.
      */
     public static int count(ServerLevel level, BlockPos pos, String kind, BlockState state, int total, long now) {
+        return count(level, pos, kind, state, total, now, MIN_INTERVAL);
+    }
+
+    /** Hammer tempo (HS29-2): set by the hammer mod, the strike gap in ticks of the tool in the hand; {@link #MIN_INTERVAL} without one. */
+    private static volatile java.util.function.ToIntFunction<ItemStack> tempo = stack -> MIN_INTERVAL;
+
+    public static void setTempo(java.util.function.ToIntFunction<ItemStack> function) {
+        tempo = function == null ? stack -> MIN_INTERVAL : function;
+    }
+
+    /** Ticks between two counted strikes with {@code tool} in the hand (a hammer: its tier, HS29-2; anything else {@link #MIN_INTERVAL}). */
+    public static int interval(ItemStack tool) {
+        return tempo.applyAsInt(tool);
+    }
+
+    /** Slowest gap of any tool, for tests that wait until every tool may strike again. */
+    public static final int MAX_INTERVAL = 25;
+
+    /** Like {@link #count(ServerLevel, BlockPos, String, BlockState, int, long)} with the gap {@code minInterval} (see {@link #interval}). */
+    public static int count(ServerLevel level, BlockPos pos, String kind, BlockState state, int total, long now, int minInterval) {
         Key key = new Key(level.dimension(), pos.immutable());
         synchronized (COUNTS) {
             Count last = COUNTS.get(key);
             boolean same = last != null && last.kind().equals(kind) && last.state().equals(state)
                     && now >= last.last() && now - last.last() <= RESET_TICKS;
-            if (same && now - last.last() < MIN_INTERVAL) {
+            if (same && now - last.last() < minInterval) {
                 return 0;
             }
             int done = same ? last.done() + 1 : 1;
@@ -127,7 +147,13 @@ public final class InWorldStrikes {
      */
     public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,
                                                int total, long now) {
-        int done = count(level, pos, kind, state, total, now);
+        return strikeYield(level, pos, kind, state, result, total, now, MIN_INTERVAL);
+    }
+
+    /** Like {@link #strikeYield(ServerLevel, BlockPos, String, BlockState, ItemStack, int, long)} with the gap {@code minInterval}. */
+    public static @Nullable Strike strikeYield(ServerLevel level, BlockPos pos, String kind, BlockState state, ItemStack result,
+                                               int total, long now, int minInterval) {
+        int done = count(level, pos, kind, state, total, now, minInterval);
         if (done == 0) {
             return null;
         }
@@ -247,13 +273,13 @@ public final class InWorldStrikes {
         }
     }
 
-    /** Tests: der naechste Schlag an {@code pos} zaehlt sofort (als laege der vorige {@link #MIN_INTERVAL} Ticks zurueck). */
+    /** Tests: der naechste Schlag an {@code pos} zaehlt sofort (als laege der vorige {@link #MAX_INTERVAL} Ticks zurueck). */
     public static void allowNextStrike(ServerLevel level, BlockPos pos) {
         Key key = new Key(level.dimension(), pos.immutable());
         synchronized (COUNTS) {
             Count count = COUNTS.get(key);
             if (count != null) {
-                COUNTS.put(key, new Count(count.kind(), count.state(), count.done(), count.last() - MIN_INTERVAL));
+                COUNTS.put(key, new Count(count.kind(), count.state(), count.done(), count.last() - MAX_INTERVAL));
             }
         }
     }

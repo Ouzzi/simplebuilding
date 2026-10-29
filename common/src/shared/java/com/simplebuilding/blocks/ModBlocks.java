@@ -268,6 +268,13 @@ public class ModBlocks {
             ? registerBlock("crimson_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
     public static final Block WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
             ? registerBlock("warped_blazewood_bookshelf", Blocks.BOOKSHELF, s -> new Block(s.sound(SoundType.NETHER_WOOD))) : null;
+    /** Gemeisselte Lohen-Buecherregale (BS25-1): Vanillas gemeisseltes Buecherregal (sechs Buecher-Plaetze, gleiche Bedienung), vorerst ohne Zusatznutzen. */
+    public static final Block CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("chiseled_crimson_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
+    public static final Block CHISELED_WARPED_BLAZEWOOD_BOOKSHELF = McVersion.ASTRAL_ENCHANTING
+            ? registerBlock("chiseled_warped_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF, s -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(s.sound(SoundType.NETHER_WOOD))) : null;
+    public static final List<Block> CHISELED_BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
+            ? List.of(CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, CHISELED_WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
     public static final List<Block> BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
             ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING

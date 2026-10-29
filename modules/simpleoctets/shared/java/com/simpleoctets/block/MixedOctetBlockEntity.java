@@ -68,6 +68,30 @@ public class MixedOctetBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void setLevel(net.minecraft.world.level.Level level) {
+        super.setLevel(level);
+        if (!level.isClientSide() && level.getServer() != null) {
+            level.getServer().execute(this::dropGhostBits);
+        }
+    }
+
+    /**
+     * REV2-B-5: bits the state sets but no readable material backs (a removed mod's material, a damaged file) made an
+     * invisible ghost cell with collision; after the load they are cleared (nothing left = air or water).
+     */
+    private void dropGhostBits() {
+        net.minecraft.world.level.Level level = this.level;
+        if (level == null || this.isRemoved() || !level.hasChunkAt(this.worldPosition) || level.getBlockEntity(this.worldPosition) != this) {
+            return;
+        }
+        BlockState state = getBlockState();
+        BlockState[] parts = OctetCells.parts(level, this.worldPosition, state);
+        if (OctetCells.mask(parts) != OctetCellBlock.mask(state)) {
+            OctetCells.set(level, this.worldPosition, parts, OctetCells.wet(state), Block.UPDATE_ALL);
+        }
+    }
+
+    @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         List<BlockState> palette = new ArrayList<>();

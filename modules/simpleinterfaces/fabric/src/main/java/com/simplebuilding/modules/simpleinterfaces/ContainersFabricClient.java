@@ -12,6 +12,8 @@ public final class ContainersFabricClient implements ClientModInitializer {
         StyleToggleClient.development = net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment();
         KeyMappingHelper.registerKeyMapping(StyleToggleClient.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(StyleToggleClient::tick);
+        KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
+        ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.ZoomState::tick);
         // Server values (linked containers, Easy Shulkers) and the linked panel (formerly Simple QoL).
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpleinterfaces.network.ConfigSyncPayload.TYPE,
                 (p, c) -> c.client().execute(() -> SimpleInterfaces.receiveSync(p.json())));

@@ -8,6 +8,7 @@ import com.simplemusic.net.SheetEditPayload;
 import com.simplemusic.sheet.NoteCode;
 import com.simplemusic.sheet.NoteGrid;
 import com.simplemusic.sheet.SheetContent;
+import com.simplemusic.sheet.SheetExamples;
 import com.simplemusic.sheet.SheetMusicItem;
 import com.simplemusic.sheet.SheetSounds;
 import java.nio.file.Path;
@@ -76,6 +77,8 @@ public class SheetMusicScreen extends Screen {
     private Button listen;
     private NoteCode.Result parsed;
     private boolean importing;
+    /** BS25-13: the import list shows the shipped examples instead of the files. */
+    private boolean examples;
     private boolean saved;
     private NoteGrid grid = NoteGrid.empty();
     private NoteCode.Instrument instrument = CHOICES.get(0);
@@ -113,6 +116,10 @@ public class SheetMusicScreen extends Screen {
         int bottom = height - 54;
         float scale = minecraft.getWindow().getGuiScale() >= 4 ? 0.75F : minecraft.getWindow().getGuiScale() >= 3 ? 2F / 3F : 1F;
         gridW = 0;
+        if (importing && examples) {
+            initExamples(top);
+            return;
+        }
         if (importing) {
             initImport(margin, top);
             return;
@@ -152,6 +159,11 @@ public class SheetMusicScreen extends Screen {
             importing = true;
             rebuildWidgets();
         }).width(80).build());
+        if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.example"), b -> {
+            importing = true;
+            examples = true;
+            rebuildWidgets();
+        }).width(80).tooltip(Tooltip.create(Component.translatable("simplemusic.editor.example.hint"))).build());
         if (track == null) buttons.add(Button.builder(Component.translatable("simplemusic.editor.copy"),
                 b -> minecraft.keyboardHandler.setClipboard(code)).width(80).build());
         if (!readOnly) buttons.add(Button.builder(Component.translatable("simplemusic.editor.sign"), b -> sign()).width(80).build());
@@ -168,6 +180,29 @@ public class SheetMusicScreen extends Screen {
         }
         onCode(code);
         setInitialFocus(area);
+    }
+
+    /** BS25-13: one button per shipped example (simple to complex); picking one writes its notes into the sheet and shows them in the grid. */
+    private void initExamples(int top) {
+        int y = top;
+        for (SheetExamples.Example e : SheetExamples.ALL) {
+            addRenderableWidget(Button.builder(Component.literal(e.title() + " - " + e.author()), b -> {
+                String example = SheetExamples.code(e);
+                if (!example.isBlank()) {
+                    code = example;
+                    if (title.isBlank()) title = e.title();
+                }
+                importing = false;
+                examples = false;
+                rebuildWidgets();
+            }).bounds(width / 2 - 120, y, 240, 18).build());
+            y += 20;
+        }
+        addRenderableWidget(Button.builder(Component.translatable("gui.back"), b -> {
+            importing = false;
+            examples = false;
+            rebuildWidgets();
+        }).bounds(width / 2 - 40, Math.max(y + 4, height - 30), 80, 20).build());
     }
 
     private void initImport(int margin, int top) {
@@ -324,7 +359,8 @@ public class SheetMusicScreen extends Screen {
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractRenderState(g, mouseX, mouseY, a);
         int info = BurnScreen.ink(BurnScreen.INK), problem = BurnScreen.ink(BurnScreen.PROBLEM_INK);
-        g.text(font, importing ? Component.translatable("simplemusic.editor.import.title", SheetFiles.sheets().toString()) : getTitle(),
+        g.text(font, importing ? examples ? Component.translatable("simplemusic.editor.example.title")
+                : Component.translatable("simplemusic.editor.import.title", SheetFiles.sheets().toString()) : getTitle(),
                 12, 12, info, false);
         if (importing) return;
         if (gridW > 0) drawGrid(g);
@@ -366,6 +402,7 @@ public class SheetMusicScreen extends Screen {
     public void onClose() {
         if (importing) {
             importing = false;
+            examples = false;
             rebuildWidgets();
             return;
         }

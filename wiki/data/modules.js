@@ -69,8 +69,8 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
       "items": 507,
-      "blocks": 288,
-      "recipes": 821,
+      "blocks": 290,
+      "recipes": 823,
       "config": 231,
       "features": 47
     }
@@ -253,7 +253,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "47b312d32354"
+    "dataHash": "6ee78ecaa18a"
   },
   {
     "id": "simplevisuals",
@@ -291,7 +291,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "314f96b911d5"
+    "dataHash": "7f6f6e2748f7"
   },
   {
     "id": "simplesounds",
@@ -376,7 +376,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "ee9f1be08521"
+    "dataHash": "af7a8b8c1286"
   },
   {
     "id": "simpletweaks",
@@ -509,11 +509,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 19,
+      "blocks": 20,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "513e78aa0d4e"
+    "dataHash": "602f46a6cd88"
   },
   {
     "id": "simplelib",
@@ -576,9 +576,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 44
+      "features": 54
     },
-    "dataHash": "e10cc3060dd6"
+    "dataHash": "ba87fdc02399"
   },
   {
     "id": "simplemaps",
@@ -682,12 +682,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 26,
-      "blocks": 2,
-      "recipes": 70,
-      "features": 14
+      "items": 28,
+      "blocks": 3,
+      "recipes": 73,
+      "features": 16
     },
-    "dataHash": "ed23c346918f"
+    "dataHash": "747cb77dc5bf"
   },
   {
     "id": "simpleweather",
@@ -817,9 +817,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVR42mMw8Ir6TwlmABGrL78hGVfseIBqQPehJ/8P3f/4/8WBADAbhHGxQZrDWhZiGgBStKNNB0zjYoM0gyzCagBMEYjGxQYZQLELcBpAsQtAuGuWAQobpgGZjdcAZENgmtA14zXASkPgf5aXAgYGidPHAGQnk+wFdMUkBSIodaErwsdHMQAmQCqGG0AJBgArfJi0eSLOewAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 8
+      "features": 12
     },
-    "dataHash": "981ccb81f68d"
+    "dataHash": "e0104a495005"
   },
   {
     "id": "simplemobmanners",
@@ -1066,8 +1066,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and ten more powers, and a conduit into a Strong Conduit with a 7x7x7 frame.",
-      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen und zehn weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen."
+      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a Strong Conduit with a 7x7x7 frame. The Mighty Beacon adds a sixth level; the Evil beacons weaken players instead.",
+      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit fünf Pyramidenebenen und neuen Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen. Das Mächtige Leuchtfeuer bringt eine sechste Ebene; die Bösen Leuchtfeuer schwächen Spieler stattdessen."
     },
     "purpose": {
       "en": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
@@ -1075,12 +1075,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 3,
-      "blocks": 2,
-      "recipes": 6,
-      "features": 9
+      "items": 4,
+      "blocks": 5,
+      "recipes": 12,
+      "features": 13
     },
-    "dataHash": "701ad7619008"
+    "dataHash": "4bc6987750c8"
   },
   {
     "id": "simpleovens",
@@ -1160,9 +1160,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 194,
       "recipes": 1,
-      "features": 15
+      "features": 16
     },
-    "dataHash": "3035c34060e2"
+    "dataHash": "c3c4259fcfc1"
   },
   {
     "id": "simpleshops",
@@ -1303,10 +1303,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 54,
-      "recipes": 283,
+      "recipes": 284,
       "features": 9
     },
-    "dataHash": "36be559be2bf"
+    "dataHash": "3042d3c350e4"
   },
   {
     "id": "simplecrucibles",
@@ -1418,9 +1418,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 11,
-      "features": 11
+      "features": 13
     },
-    "dataHash": "bcb93301041a"
+    "dataHash": "10d06da62ef9"
   },
   {
     "id": "simpleoptimization",
@@ -1602,7 +1602,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "db7d548043b8"
+    "dataHash": "90a1b9ebe7da"
   },
   {
     "id": "simplelights",

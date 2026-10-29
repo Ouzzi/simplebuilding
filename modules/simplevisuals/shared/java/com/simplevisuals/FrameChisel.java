@@ -13,8 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
- * W23-5 (docs/ai/PLAN-A-UI23B-2026-10-23.md): sneaking with a chisel on an item frame that holds a flat block or pane
- * ({@link FrameTilt}) "chisels" the frame: the item tilts one step further ({@link FrameTilt#nextStep}, 0 to 90 degrees
+ * W23-5 (docs/ai/PLAN-A-UI23B-2026-10-23.md), BS25-7 (owner 29.10.: universal): sneaking with a chisel on an item frame that
+ * holds ANY item except a map (flat blocks and panes as {@link FrameTilt} models, all others as the Vanilla item view)
+ * "chisels" the frame: the item tilts one step further ({@link FrameTilt#nextStep}, 0 to 90 degrees
  * in 15-degree steps, then flat again). The step is a synced entity datum of the frame (saved with it), so every player
  * sees the same angle. Chisels are the item tag {@code simplevisuals:frame_chisels} (SimpleBuilding's chisels when it is
  * loaded, empty otherwise). Option visuals.enableTiltedFrameItems, like the flat view itself.
@@ -28,7 +29,7 @@ public final class FrameChisel {
     public static InteractionResult interact(ItemFrame frame, Player player, InteractionHand hand) {
         if (!player.isSecondaryUseActive() || frame.isRemoved()) return null;
         ItemStack held = player.getItemInHand(hand);
-        if (!held.is(CHISELS) || FrameTilt.kind(frame.getItem()) == FrameTilt.Kind.VANILLA) return null;
+        if (!held.is(CHISELS) || frame.getItem().isEmpty() || frame.getFramedMapId(frame.getItem()) != null) return null; // every item but maps
         if (!Visuals.active(Visuals.CONFIG.visuals.enableTiltedFrameItems)) return null;
         ChiseledFrame chiseled = (ChiseledFrame) frame;
         if (chiseled.simplevisuals$fixed() || !player.mayBuild()) return null;

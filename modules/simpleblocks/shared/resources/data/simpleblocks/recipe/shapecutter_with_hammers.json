@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplehammers"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplehammers"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplehammers"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": "#simplelib:hammers",
+    "S": "minecraft:stonecutter",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    " T ",
+    "PSP",
+    "PPP"
+  ],
+  "result": {
+    "id": "simpleblocks:shapecutter"
+  }
+}

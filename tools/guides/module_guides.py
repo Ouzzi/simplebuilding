@@ -81,6 +81,7 @@ MODULES = [
     dict(module="simplequalityoflife", ns="simplequalityoflife", package="com.simplequalityoflife.guide",
          cls="QolGuide", kind="item", author="Simple Quality of Life", recipe="minecraft:chest",
          submods=("simpleweather","simpleloot","simplemobmanners","simplefarming","simpletools","simplemovement","simpleinterfaces"),
+         merge_commands=True, pack=True,
          name=("Simple Quality of Life Guide", "Simple-Quality-of-Life-Handbuch"),
          intro=("Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement.",
                 "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung.")),
@@ -107,10 +108,11 @@ MODULES = [
     dict(module="simplebeacons", ns="simplebeacons", package="com.simplebeacons.guide", cls="BeaconsGuide", kind="item",
          author="Simple Beacons", recipe="minecraft:prismarine_shard",
          name=("Simple Beacons Guide", "Simple-Beacons-Handbuch"),
-         intro=("The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and ten more powers, and a "
-                "conduit into a Strong Conduit with a 7x7x7 frame.",
-                "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen "
-                "und zehn weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.")),
+         intro=("The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a "
+                "Strong Conduit with a 7x7x7 frame. The Mighty Beacon adds a sixth level; the Evil beacons weaken players instead.",
+                "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit fünf Pyramidenebenen und neuen "
+                "Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen. Das Mächtige Leuchtfeuer bringt eine sechste "
+                "Ebene; die Bösen Leuchtfeuer schwächen Spieler stattdessen.")),
     dict(module="simpleshops", ns="simpleshops", package="com.simpleshops.guide", cls="ShopsGuide", kind="item",
          author="Simple Shops", recipe="minecraft:emerald",
          name=("Simple Shops Guide", "Simple-Shops-Handbuch"),
@@ -402,6 +404,12 @@ def build_pages(cfg: dict) -> list[tuple[tuple[str, str], tuple[str, str]]]:
     for sub in cfg.get("submods", ()):
         sub_manual = json.loads((REPO / "modules" / sub / "wiki/manual.json").read_text(encoding="utf-8"))
         features += [f for f in sub_manual["features"] if f["id"] != "submod"]
+    if cfg.get("merge_commands"):  # one "Commands" page group for the whole bundle (keeps the book under the page limit)
+        cmds = [f for f in features if f["id"] == "commands"]
+        if len(cmds) > 1:
+            first = cmds[0]
+            merged = {"id": "commands", **{k: {"title": first[k]["title"], "summary": " ".join(c[k]["summary"] for c in cmds)} for k in ("en", "de")}}
+            features = [merged if f is first else f for f in features if f is first or f["id"] != "commands"]
     entries = [((cfg["author"], cfg["intro"][0]), (cfg["author"], cfg["intro"][1]))]
     has_config = False
     for feature in features:
@@ -416,6 +424,18 @@ def build_pages(cfg: dict) -> list[tuple[tuple[str, str], tuple[str, str]]]:
         entries.append(((titles["en"], en["summary"]), (titles["de"], de["summary"])))
     if has_config:
         entries.append(((SETTINGS[0], SETTINGS[2]), (SETTINGS[1], SETTINGS[3])))
+    if cfg.get("pack"):  # an entry joins its predecessor when that saves a page in either language and none in neither costs more
+        packed = []
+        for (te, be), (td, bd) in entries:
+            if packed:
+                (pte, pbe), (ptd, pbd) = packed[-1]
+                je, jd = f"{pbe} {te}: {be}", f"{pbd} {td}: {bd}"
+                n = lambda t, b: len(chunks(t, b))  # noqa: E731
+                if n(pte, je) < n(pte, pbe) + n(te, be) and n(ptd, jd) < n(ptd, pbd) + n(td, bd):
+                    packed[-1] = ((pte, je), (ptd, jd))
+                    continue
+            packed.append(((te, be), (td, bd)))
+        entries = packed
     pages = []
     for (te, be), (td, bd) in entries:
         count = max(len(chunks(te, be)), len(chunks(td, bd)))

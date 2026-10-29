@@ -524,6 +524,10 @@ public class ModItems {
             ? registerItem("crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
     public static final Item WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
+    public static final Item CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("chiseled_crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
+    public static final Item CHISELED_WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("chiseled_warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
     public static final Item BLAZING_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blazing_obsidian", s -> new BlockItem(ModBlocks.BLAZING_OBSIDIAN, s)) : null;
     /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */

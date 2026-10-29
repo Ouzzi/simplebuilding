@@ -124,6 +124,9 @@ public final class MobHeadTests {
         put("giant_cow_hay", MobHeadTests::giantCowHay);
         put("giant_cow_head", MobHeadTests::giantCowHead);
         put("worn_head_death", MobHeadTests::wornHeadDeath);
+        put("giant_heads_keep_apart", HeadHelmetTests::giantHeadsKeepApart);
+        put("helmet_on_head", HeadHelmetTests::helmetOnHead);
+        put("helmet_on_wither_skull", HeadHelmetTests::helmetOnWitherSkull);
     }
 
     private MobHeadTests() {

@@ -4,6 +4,7 @@ import com.simplehammers.HammerTiers;
 import com.simplehammers.SimpleHammers;
 import com.simplehammers.config.HammerConfig;
 import com.simplehammers.engine.HammerCorners;
+import com.simplehammers.engine.HammerCrush;
 import com.simplehammers.engine.HammerEnchantments;
 import com.simplehammers.engine.HammerProtection;
 import com.simplehammers.engine.Orientation;
@@ -334,6 +335,13 @@ public class SledgehammerItem extends Item {
         if (state.is(net.minecraft.world.level.block.Blocks.QUARTZ_BLOCK)) {
             if (!world.isClientSide() && !player.getCooldowns().isOnCooldown(stack)) {
                 strikeQuartzBlock((ServerLevel) world, pos, player, stack);
+            }
+            return InteractionResult.SUCCESS;
+        }
+
+        if (HammerCrush.crushes(state, player)) {
+            if (!world.isClientSide() && !player.getCooldowns().isOnCooldown(stack)) {
+                HammerCrush.strike((ServerLevel) world, pos, player, stack);
             }
             return InteractionResult.SUCCESS;
         }
@@ -712,7 +720,8 @@ public class SledgehammerItem extends Item {
      */
     public static int strikeQuartzBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
         var strike = InWorldStrikes.strikeYield(world, pos, "quartz_crush", world.getBlockState(pos),
-                new ItemStack(net.minecraft.world.item.Items.QUARTZ, QUARTZ_BLOCK_QUARTZ), QUARTZ_BLOCK_QUARTZ, world.getGameTime());
+                new ItemStack(net.minecraft.world.item.Items.QUARTZ, QUARTZ_BLOCK_QUARTZ), QUARTZ_BLOCK_QUARTZ, world.getGameTime(),
+                SledgehammerUpgrades.hitInterval(stack));
         if (strike == null) {
             return 0;
         }
@@ -740,7 +749,7 @@ public class SledgehammerItem extends Item {
     /** Ohne weiteren Schlag verfaellt die Zaehlung nach so vielen Ticks ({@link InWorldStrikes}). */
     public static final int DIAMOND_STRIKE_RESET_TICKS = InWorldStrikes.RESET_TICKS;
     /** Gehaltener Rechtsklick wiederholt alle 4 Ticks; ein Schlag zaehlt erst nach dieser Pause. */
-    public static final int DIAMOND_STRIKE_MIN_INTERVAL = InWorldStrikes.MIN_INTERVAL;
+    public static final int DIAMOND_STRIKE_MIN_INTERVAL = InWorldStrikes.MAX_INTERVAL;
 
     /** Ein Schlag auf den Diamantblock; liefert die neue Zahl gezaehlter Schlaege (0 = nicht gezaehlt). */
     static int strikeDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
@@ -755,7 +764,7 @@ public class SledgehammerItem extends Item {
         BlockState state = world.getBlockState(pos);
         // Schrittweise (Besitzer 2026-10-06): jeder Schlag zeigt seinen Teil der Kiesel, der letzte gibt alle frei.
         var strike = InWorldStrikes.strikeYield(world, pos, "diamond_crush", state, diamondPebbles(),
-                DIAMOND_BLOCK_STRIKES, now);
+                DIAMOND_BLOCK_STRIKES, now, SledgehammerUpgrades.hitInterval(stack));
         if (strike == null) {
             return 0;
         }

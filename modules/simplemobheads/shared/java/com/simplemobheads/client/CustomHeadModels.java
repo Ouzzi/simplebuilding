@@ -56,6 +56,7 @@ public final class CustomHeadModels {
             case "breeze" -> layered(breezeHeadLayer(0.0F), pass(breezeHeadLayer(EYES_INFLATE), RenderTypes::breezeEyes, BREEZE_EYES));
             case "shulker" -> plain(shulkerHeadLayer());
             case "pig", "cow", "chicken" -> plain(animalHeadLayer(name));
+            case "camel", "llama" -> plain(longNeckHeadLayer(name));
             // Secret head (KONZ20 H3 t1): a player-sized head with its hat layer, the white eyes glow in the dark.
             case "herobrine" -> layered(SkullModel.createHumanoidHeadLayer(),
                     pass(humanoidHeadLayer(new CubeDeformation(0.0F, 0.0F, EYES_INFLATE), 64, 64), RenderTypes::eyes, HEROBRINE_EYES));
@@ -102,6 +103,25 @@ public final class CustomHeadModels {
         }
         mesh.getRoot().addOrReplaceChild("head", cube, PartPose.ZERO);
         return LayerDefinition.create(mesh, 64, name.equals("chicken") ? 32 : 64);
+    }
+
+    /**
+     * ABN29-6: the head of a camel (128x128 sheet) or llama (128x64) without most of its neck, in Vanilla's own size. The tall
+     * head-and-neck box is cut to its top 8 px (a shorter box with the same UV origin keeps the top rows of every side, so the
+     * face lines up), snout and ears as on the mob; the camel's long back box is left out.
+     */
+    private static LayerDefinition longNeckHeadLayer(String name) {
+        MeshDefinition mesh = new MeshDefinition();
+        CubeListBuilder cube = CubeListBuilder.create();
+        if (name.equals("camel")) {
+            cube.texOffs(21, 0).addBox(-3.5F, -8.0F, -0.5F, 7, 8, 7).texOffs(50, 0).addBox(-2.5F, -8.0F, -6.5F, 5, 5, 6)
+                    .texOffs(45, 0).addBox(2.0F, -7.5F, 4.0F, 3, 1, 2).texOffs(67, 0).addBox(-5.0F, -7.5F, 4.0F, 3, 1, 2);
+        } else {
+            cube.texOffs(0, 0).addBox(-2.0F, -6.0F, -5.0F, 4, 4, 9).texOffs(0, 14).addBox(-4.0F, -8.0F, -1.0F, 8, 8, 6)
+                    .texOffs(17, 0).addBox(-4.0F, -11.0F, 1.0F, 3, 3, 2).addBox(1.0F, -11.0F, 1.0F, 3, 3, 2);
+        }
+        mesh.getRoot().addOrReplaceChild("head", cube, PartPose.ZERO);
+        return LayerDefinition.create(mesh, 128, name.equals("camel") ? 128 : 64);
     }
 
     /** {@code EndermanModel} head: cube plus the drawn-in jaw, texture 64x32. */

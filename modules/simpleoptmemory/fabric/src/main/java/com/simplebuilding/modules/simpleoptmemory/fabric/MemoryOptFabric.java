@@ -13,6 +13,7 @@ public final class MemoryOptFabric implements ModInitializer {
         // CMD24: /simpleoptmemory config (server) and /simpleclient simpleoptmemory, both on the one file.
         com.simplelib.api.config.ConfigCommands.optSettings(com.simplelib.api.config.ConfigCommands.server(MemoryOpt.MOD_ID), loader.getConfigDir(), MemoryOpt.FILE, MemoryOpt.defaults()).register();
         com.simplelib.api.config.ConfigCommands.optSettings(com.simplelib.api.config.ConfigCommands.client(MemoryOpt.MOD_ID), loader.getConfigDir(), MemoryOpt.FILE, MemoryOpt.defaults()).register();
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(s -> StateTables.release());
         if (MemoryOpt.live(MemoryOpt.STATE_TABLES)) MemoryOpt.LOG.info(StateTables.summary());
     }
 }

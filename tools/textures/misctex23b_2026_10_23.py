@@ -300,6 +300,18 @@ def sales_storage_soft(v):
         put(det, 8 + half + 1, y, met[1] if v == 'B1' else SPRUCE[2])
     for x, y in ((6, 4), (8, 6), (7, 9), (7, 12)) if v == 'B1' else ((7, 5), (7, 10)):
         soft_coin(det, x, y)
+    if v == 'B2':
+        # a29 (WP-14, owner 27.10.: the ceiling looked like a missing texture): two cross braces over the chute, wooden beams
+        # with iron nails, so the top/bottom/sides read as built, not as an empty pit (rows after the intake rotation).
+        st = t.layer('Streben')
+        for y0 in (7, 12):
+            for x in range(16):
+                put(st, x, y0, beam[3] if 0 < x < 15 else beam[2])
+                put(st, x, y0 + 1, beam[1] if 0 < x < 15 else beam[0])
+            put(st, 2, y0, met[3])
+            put(st, 13, y0, met[3])
+            put(st, 2, y0 + 1, met[1])
+            put(st, 13, y0 + 1, met[1])
     res['sales_storage_side'] = t
     # intake
     t = Tex()

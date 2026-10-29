@@ -1,11 +1,12 @@
 {
   "upgrades": [
     {
-      "damage_per_hit": 10,
-      "duration_factor": 4,
+      "damage_per_hit": 35,
       "from": "minecraft:enchanting_table",
       "material": "simplelib:enderite_nugget",
+      "material_count": 8,
       "min_tool": "netherite",
+      "strikes_per_material": 2,
       "tier": "enderite",
       "to": "simplebuilding:astral_enchanting_table"
     },

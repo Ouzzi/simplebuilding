@@ -32,8 +32,15 @@ public final class ServerOptRuntime {
 
     public static void tick(MinecraftServer server) {
         DynamicDistance.Controller c = controller;
-        if (c == null || !ServerOpt.active(ServerOpt.DYNAMIC_DISTANCE)) return;
+        if (c == null) return;
         PlayerList list = server.getPlayerList();
+        if (!ServerOpt.active(ServerOpt.DYNAMIC_DISTANCE)) {
+            // Switched off while running: give back the server.properties distances and stop controlling.
+            if (list.getViewDistance() != c.maxView()) list.setViewDistance(c.maxView());
+            if (list.getSimulationDistance() != c.maxSimulation()) list.setSimulationDistance(c.maxSimulation());
+            controller = null;
+            return;
+        }
         var now = new DynamicDistance.Distances(list.getViewDistance(), list.getSimulationDistance());
         double mspt = server.getAverageTickTimeNanos() / 1_000_000.0;
         var next = c.onTick(list.getPlayerCount(), mspt, now, ServerOpt.params());

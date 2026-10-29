@@ -58,7 +58,8 @@ public class GrassOutlineMixin {
             if (sharpnessEntry.isPresent()) {
                 int level = EnchantmentHelper.getItemEnchantmentLevel(sharpnessEntry.get(), mainHand);
 
-                if (level >= 3) {
+                if (VegetationUtil.passes(VegetationUtil.chancePercent(level, SimpleFarming.configFor(player.level())),
+                        pos.asLong(), player.getId(), player.level().getGameTime())) {
                     cir.setReturnValue(Shapes.empty());
                 }
             }

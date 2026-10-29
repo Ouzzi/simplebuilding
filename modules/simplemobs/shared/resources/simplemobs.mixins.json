@@ -12,6 +12,7 @@
     "ServerPlayerGameModeDisguiseMixin",
     "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
+    "CombatEffectsMixin",
     "EndGatewayFeatureMixin",
     "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin",
@@ -20,7 +21,8 @@
     "ItemHelmetWitherMixin",
     "DisplayWitherCrownMixin",
     "WitherBossAccessor",
-    "FireworkRocketWingsMixin"
+    "FireworkRocketWingsMixin",
+    "PrimedTntStrongMixin"
   ],
   "client": [
     "DeceiverLookMixin",

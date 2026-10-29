@@ -15,5 +15,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void hoeHarvest(GameTestHelper h){FarmingTests.hoeHarvest(h);}
  @GameTest(maxTicks=100) public void vegetation(GameTestHelper h){FarmingTests.vegetation(h);}
  @GameTest(maxTicks=100) public void sharpnessAction(GameTestHelper h){FarmingTests.sharpnessAction(h);}
+ @GameTest(maxTicks=100) public void grassThrough(GameTestHelper h){FarmingTests.grassThrough(h);}
  // CAT-END
 }

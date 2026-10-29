@@ -1,6 +1,7 @@
 """Module-owned data hook: every model/texture reference resolves, lang EN/DE match, config keys documented, wiki notes."""
 import json
 import re
+import sys
 from pathlib import Path
 
 MODULE = Path(__file__).resolve().parents[1]
@@ -8,8 +9,14 @@ NS = 'simpleend'
 RES = [MODULE / 'shared/resources', MODULE / 'generated/resources']
 
 
+# The boats (a-abn29t) are Vanilla-derived: built, never committed (tools/textures/vanilla_derived.MODULE_OUTPUTS).
+sys.path.insert(0, str(MODULE.parents[1] / 'tools/textures'))
+import vanilla_derived  # noqa: E402
+DERIVED = {f'assets/{NS}/textures/{rel}' for rel in vanilla_derived.MODULE_OUTPUTS[NS]}
+
+
 def find(rel):
-    return any((r / rel).is_file() for r in RES)
+    return rel in DERIVED or any((r / rel).is_file() for r in RES)
 
 
 def ref(value, kind):

@@ -98,6 +98,16 @@ public final class SledgehammerUpgrades {
     public static final int UPGRADE_TICKS = 100;
     /** Ein Hammerschlag pro Sekunde. */
     public static final int HIT_INTERVAL = 20;
+
+    /** Strike gap for {@code hammer}; this version has one gap for every tier (HS29-2 tiers live in 26.3). */
+    public static int hitInterval(ItemStack hammer) {
+        return HIT_INTERVAL;
+    }
+
+    /** Upgrade length with this hammer's strike gap (one gap in this version). */
+    public static int upgradeTicks(Upgrade upgrade, ItemStack hammer) {
+        return upgradeTicks(upgrade);
+    }
     /** Kupfertruhe -> Verstaerkte Truhe mit einem Rissigen Diamanten: jeder Vorschlaghammer genuegt. */
     public static final int REINFORCED_DAMAGE_PER_HIT = 2;
     public static final int NETHERITE_DAMAGE_PER_HIT = 4;
@@ -128,15 +138,21 @@ public final class SledgehammerUpgrades {
      * das Material je Block (Shulkerkisten: 2; eine Doppeltruhe braucht es zweimal).
      */
     public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
-                          boolean toReinforced, int durationFactor, int materialCost) {
+                          boolean toReinforced, int durationFactor, int materialCost, int strikesPerMaterial) {
         public Upgrade {
             durationFactor = Math.max(1, durationFactor);
             materialCost = Math.max(1, materialCost);
+            strikesPerMaterial = Math.max(0, strikesPerMaterial);
+        }
+
+        public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
+                       boolean toReinforced, int durationFactor, int materialCost) {
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, durationFactor, materialCost, 0);
         }
 
         public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
                        boolean toReinforced) {
-            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1);
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1, 0);
         }
 
         /** Ob diese Stufe eine Truhe umbaut (Doppeltruhen: beide Haelften, ein Material je Haelfte). */
@@ -172,6 +188,7 @@ public final class SledgehammerUpgrades {
      */
     public static int blows(Upgrade upgrade) {
         if (staged(upgrade)) return com.simplebuilding.crucible.CrucibleCompat.crucibleUpgradeStrikes();
+        if (upgrade.strikesPerMaterial() > 0) return upgrade.strikesPerMaterial() * upgrade.materialCost();
         return blows() * upgrade.durationFactor();
     }
 

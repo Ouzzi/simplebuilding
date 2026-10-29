@@ -67,6 +67,14 @@ public final class AstralEnchanting {
     public static final int LEVELS_PER_LAPIS = 10;
     public static final int BLAZE_PER_LAPIS = 2;
     public static final int CHOICES = 3;
+    /**
+     * Golden apple -> Enchanted Golden Apple (BS25-22, owner 25.10./29.10.): a purchase, the levels are really taken off.
+     * 40 at the Astral Enchanter of today; 50 (Nether stage) and 60 (Enderite stage) are reserved for the stages of the
+     * enchanter rework (queue BS25-20) - until then there is one stage (docs/ai/PLAN-A-MECH29-2026-10-29.md).
+     */
+    public static final int APPLE_LEVELS = 40, APPLE_LEVELS_NETHER = 50, APPLE_LEVELS_ENDERITE = 60;
+    /** Lapis lazuli and blaze powder the apple conversion takes. */
+    public static final int APPLE_LAPIS = 3, APPLE_BLAZE = 3;
 
     private AstralEnchanting() {
     }

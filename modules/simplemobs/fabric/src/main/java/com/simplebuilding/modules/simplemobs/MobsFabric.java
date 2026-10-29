@@ -43,6 +43,14 @@ public final class MobsFabric implements ModInitializer {
             if (!MobsConfig.vanillaTabs()) return;
             out.insertAfter(Items.NETHER_STAR, java.util.List.of(new ItemStack(WitherMobs.HEART), new ItemStack(WitherMobs.GEM)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
+            if (!MobsConfig.vanillaTabs() || !MobsRegistry.on()) return;
+            out.insertAfter(Items.GUNPOWDER, java.util.List.of(new ItemStack(StrongExplosives.GUNPOWDER)), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out -> {
+            if (!MobsConfig.vanillaTabs() || !MobsRegistry.on()) return;
+            out.accept(StrongExplosives.TNT);
+        });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack()));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.SPAWN_EGGS).register(out -> {
             if (!MobsConfig.vanillaTabs()) return;

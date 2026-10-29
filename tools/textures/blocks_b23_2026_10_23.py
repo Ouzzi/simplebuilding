@@ -414,8 +414,9 @@ def chiseled_ice(jar, kind):
 
 def derived(jar):
     """The Vanilla-derived textures of this file (cracked bricks come via missing_blocks_2026_10_16.derived)."""
-    return {'block/sculk_deepslate.png': sculk_deepslate(jar),
-            'block/hushed_deepslate_tiles.png': hushed_tiles(jar),
+    import abn29_2026_10_29 as abn   # a-abn29t (owner 29.10.): both sculk textures are 8-frame strips since then
+    return {'block/sculk_deepslate.png': abn.derived_deepslate_strip(jar, 'deepslate'),
+            'block/hushed_deepslate_tiles.png': abn.derived_deepslate_strip(jar, 'tiles'),
             'block/chiseled_packed_ice.png': chiseled_ice(jar, 'packed'),
             'block/chiseled_blue_ice.png': chiseled_ice(jar, 'blue')}
 
@@ -463,7 +464,13 @@ def sculk_tiles_frame(seed=61):
 
 
 def sculk_tiles():
-    """16 x 128 strip, 8 frames: the sparks breathe (dim -> bright -> dim), the tiles stay."""
+    """16 x 128 strip, 8 frames (a-abn29t: softer and darker variant A, abn29_2026_10_29.sculk_tiles_strip)."""
+    import abn29_2026_10_29 as abn
+    return abn.sculk_tiles_strip()
+
+
+def sculk_tiles_old():
+    """The B23-T3 C strip (kept for the history of the file; no longer written): the sparks breathe, the tiles stay."""
     steps, glows = sculk_tiles_frame()
     base = steps[-1][1]
     strip = Image.new('RGBA', (16, 16 * len(PULSE)))
@@ -480,7 +487,7 @@ def sculk_tiles():
     return strip
 
 
-MCMETA = {'animation': {'frametime': 6, 'interpolate': True}}
+MCMETA = {'animation': {'frametime': 10, 'interpolate': True}}
 
 
 def main():

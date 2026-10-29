@@ -46,12 +46,13 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Strong Beacon block entity: Vanilla's {@code BeaconBlockEntity} rebuilt with up to six pyramid levels and the
- * effect list of {@link StrongBeaconLogic}. Saved under Vanilla's keys ({@code primary_effect}, {@code secondary_effect},
- * {@code Levels}, {@code CustomName}, {@code lock}) so the in-world upgrade only swaps the type.
+ * Block entity of all four beacon blocks (Strong, Mighty, Evil, Mighty Evil, see {@link BeaconKind}): Vanilla's
+ * {@code BeaconBlockEntity} rebuilt with up to six pyramid levels and the effect lists of {@link StrongBeaconLogic}.
+ * Saved under Vanilla's keys ({@code primary_effect}, {@code secondary_effect}, {@code Levels}, {@code CustomName},
+ * {@code lock}) so the in-world upgrade only swaps the type; {@code primary_amp} is new (0 when missing, so every
+ * Strong Beacon of an older world loads unchanged).
  */
 public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider, Nameable, BeaconBeamOwner {
-    private static final Component DEFAULT_NAME = Component.translatable("container.simplebeacons.strong_beacon");
     private List<BeaconBeamOwner.Section> beamSections = new ArrayList<>();
     private List<BeaconBeamOwner.Section> checkingBeamSections = new ArrayList<>();
     int levels;
@@ -60,6 +61,8 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
     private int lastCheckY;
     @Nullable Holder<MobEffect> primaryPower;
     @Nullable Holder<MobEffect> secondaryPower;
+    /** Base amplifier of the chosen primary power: 0, or 1 for a "II" placeholder of the Mighty kinds. */
+    int primaryAmp;
     private @Nullable Component name;
     private LockCode lockKey = LockCode.NO_LOCK;
     private final ContainerData dataAccess = new ContainerData() {
@@ -70,10 +73,12 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
                 case 1 -> BeaconMenu.encodeEffect(StrongBeaconBlockEntity.this.primaryPower);
                 case 2 -> BeaconMenu.encodeEffect(StrongBeaconBlockEntity.this.secondaryPower);
                 // The server's settings travel with the menu data, so the client screen never reads its own config.
-                case StrongBeaconMenu.DATA_MAX_LEVELS -> StrongBeaconLogic.maxLevels();
+                case StrongBeaconMenu.DATA_MAX_LEVELS -> StrongBeaconLogic.maxLevels(StrongBeaconBlockEntity.this.kind());
                 case StrongBeaconMenu.DATA_RANGE_BASE -> com.simplebeacons.config.BeaconsConfig.strongBeaconRangeBase;
                 case StrongBeaconMenu.DATA_RANGE_PER_LEVEL -> com.simplebeacons.config.BeaconsConfig.strongBeaconRangePerLevel;
                 case StrongBeaconMenu.DATA_EFFECTS_ON -> StrongBeaconMenu.effectsMask();
+                case StrongBeaconMenu.DATA_KIND -> StrongBeaconBlockEntity.this.kind().ordinal();
+                case StrongBeaconMenu.DATA_PRIMARY_AMP -> StrongBeaconBlockEntity.this.primaryAmp;
                 default -> 0;
             };
         }
@@ -90,6 +95,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
                     StrongBeaconBlockEntity.this.primaryPower = filter(BeaconMenu.decodeEffect(value));
                 }
                 case 2 -> StrongBeaconBlockEntity.this.secondaryPower = filter(BeaconMenu.decodeEffect(value));
+                case StrongBeaconMenu.DATA_PRIMARY_AMP -> StrongBeaconBlockEntity.this.primaryAmp = Math.max(0, Math.min(1, value));
                 default -> {
                 }
             }
@@ -105,8 +111,13 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         super(BeaconsRegistry.STRONG_BEACON_BE, pos, state);
     }
 
-    private static @Nullable Holder<MobEffect> filter(@Nullable Holder<MobEffect> effect) {
-        return StrongBeaconLogic.isKnown(effect) ? effect : null;
+    /** Which of the four beacons this is, from the block (Strong while the block is unknown). */
+    public BeaconKind kind() {
+        return BeaconKind.of(getBlockState().getBlock());
+    }
+
+    private @Nullable Holder<MobEffect> filter(@Nullable Holder<MobEffect> effect) {
+        return kind().knows(effect) ? effect : null;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, StrongBeaconBlockEntity entity) {
@@ -153,11 +164,11 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         int previousLevels = entity.levels;
         if (level.getGameTime() % 80L == 0L) {
             if (!entity.beamSections.isEmpty()) {
-                entity.levels = SimpleBeacons.on() ? StrongBeaconLogic.scanPyramid(level, pos, StrongBeaconLogic.maxLevels()) : 0;
+                entity.levels = SimpleBeacons.on() ? StrongBeaconLogic.scanPyramid(level, pos, StrongBeaconLogic.maxLevels(entity.kind())) : 0;
                 entity.rangePercent = RangeFactor.strongPercent(level, pos, entity.levels);
             }
             if (entity.levels > 0 && !entity.beamSections.isEmpty()) {
-                StrongBeaconLogic.applyEffects(level, pos, entity.levels, entity.primaryPower, entity.secondaryPower, entity.rangePercent);
+                StrongBeaconLogic.applyEffects(level, pos, entity.kind(), entity.levels, entity.primaryPower, entity.primaryAmp, entity.secondaryPower, entity.rangePercent);
                 playSound(level, pos, SoundEvents.BEACON_AMBIENT);
             }
         }
@@ -190,6 +201,11 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
 
     public @Nullable Holder<MobEffect> primary() {
         return this.primaryPower;
+    }
+
+    /** Base amplifier of the primary power (1 = a "II" placeholder). */
+    public int primaryAmp() {
+        return this.primaryAmp;
     }
 
     public @Nullable Holder<MobEffect> secondary() {
@@ -237,8 +253,8 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         if (effect != null) effect.unwrapKey().ifPresent(key -> output.putString(field, key.identifier().toString()));
     }
 
-    private static @Nullable Holder<MobEffect> loadEffect(ValueInput input, String field) {
-        return input.read(field, BuiltInRegistries.MOB_EFFECT.holderByNameCodec()).filter(StrongBeaconLogic::isKnown).orElse(null);
+    private @Nullable Holder<MobEffect> loadEffect(ValueInput input, String field) {
+        return input.read(field, BuiltInRegistries.MOB_EFFECT.holderByNameCodec()).filter(kind()::knows).orElse(null);
     }
 
     @Override
@@ -246,7 +262,11 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         super.loadAdditional(input);
         this.primaryPower = loadEffect(input, "primary_effect");
         this.secondaryPower = loadEffect(input, "secondary_effect");
-        this.levels = input.getIntOr("Levels", 0);
+        int base = Math.max(0, kind().baseAmplifier(this.primaryPower));
+        int amp = input.getIntOr("primary_amp", base);
+        this.primaryAmp = this.primaryPower != null && kind().primaryLevelOf(this.primaryPower, amp) > 0 ? amp : base;
+        // A Strong Beacon of an older world may have saved a 6 level pyramid: the new top is 5 (the next scan agrees)
+        this.levels = Math.min(input.getIntOr("Levels", 0), StrongBeaconLogic.maxLevels(kind()));
         this.name = parseCustomNameSafe(input, "CustomName");
         this.lockKey = LockCode.fromTag(input);
     }
@@ -256,6 +276,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
         super.saveAdditional(output);
         storeEffect(output, "primary_effect", this.primaryPower);
         storeEffect(output, "secondary_effect", this.secondaryPower);
+        if (this.primaryAmp != 0) output.putInt("primary_amp", this.primaryAmp);
         output.putInt("Levels", this.levels);
         output.storeNullable("CustomName", ComponentSerialization.CODEC, this.name);
         this.lockKey.addToTag(output);
@@ -286,7 +307,7 @@ public class StrongBeaconBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     public Component getName() {
-        return this.name != null ? this.name : DEFAULT_NAME;
+        return this.name != null ? this.name : Component.translatable("container.simplebeacons." + kind().id);
     }
 
     @Override

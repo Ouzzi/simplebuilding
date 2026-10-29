@@ -97,9 +97,14 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void wingsRecipes(GameTestHelper helper) { MobsTests.ALL.get("wings_recipes").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void wingsSpeedCap(GameTestHelper helper) { MobsTests.ALL.get("wings_speed_cap").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void wingsRocketTick(GameTestHelper helper) { MobsTests.ALL.get("wings_rocket_tick").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void strongItems(GameTestHelper helper) { MobsTests.ALL.get("strong_items").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void strongRecipes(GameTestHelper helper) { MobsTests.ALL.get("strong_recipes").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void strongTntPower(GameTestHelper helper) { MobsTests.ALL.get("strong_tnt_power").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void strongTntLighting(GameTestHelper helper) { MobsTests.ALL.get("strong_tnt_lighting").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherAttacks(GameTestHelper helper) { MobsTests.ALL.get("wither_attacks").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void witherArmored(GameTestHelper helper) { MobsTests.ALL.get("wither_armored").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherMinionArmor(GameTestHelper helper) { MobsTests.ALL.get("wither_minion_armor").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherNovaPush(GameTestHelper helper) { MobsTests.ALL.get("wither_nova_push").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void guideBook(GameTestHelper helper) { MobsTests.ALL.get("guide_book").accept(helper); }
@@ -116,4 +121,11 @@ public final class ModuleGameTest {
     public void jeiMobDrops(GameTestHelper h) {
         MobsTests.ALL.get("jei_mob_drops").accept(h);
     }
+    @GameTest(structure = "simplemobs:empty") public void combatRegistered(GameTestHelper helper) { MobsTests.ALL.get("combat_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void combatRules(GameTestHelper helper) { MobsTests.ALL.get("combat_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void deflectionRoll(GameTestHelper helper) { MobsTests.ALL.get("deflection_roll").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void mirrorReflect(GameTestHelper helper) { MobsTests.ALL.get("mirror_reflect").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void mirrorBearer(GameTestHelper helper) { MobsTests.ALL.get("mirror_bearer").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void mirrorLethal(GameTestHelper helper) { MobsTests.ALL.get("mirror_lethal").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void volatileExplosion(GameTestHelper helper) { MobsTests.ALL.get("volatile_explosion").accept(helper); }
 }

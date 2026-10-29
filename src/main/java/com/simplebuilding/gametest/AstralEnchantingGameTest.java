@@ -25,6 +25,11 @@ public final class AstralEnchantingGameTest {
     }
 
     @GameTest
+    public void goldenAppleBecomesEnchanted(GameTestHelper helper) {
+        AstralEnchantingTests.goldenAppleBecomesEnchanted(helper);
+    }
+
+    @GameTest
     public void breakingDropsTableNuggetAndStock(GameTestHelper helper) {
         AstralEnchantingTests.breakingDropsTableNuggetAndStock(helper);
     }
@@ -47,5 +52,10 @@ public final class AstralEnchantingGameTest {
     @GameTest
     public void blazingObsidianKeepsFireBurning(GameTestHelper helper) {
         AstralEnchantingTests.blazingObsidianKeepsFireBurning(helper);
+    }
+
+    @GameTest
+    public void chiseledBookshelvesStoreBooks(GameTestHelper helper) {
+        AstralEnchantingTests.chiseledBookshelvesStoreBooks(helper);
     }
 }

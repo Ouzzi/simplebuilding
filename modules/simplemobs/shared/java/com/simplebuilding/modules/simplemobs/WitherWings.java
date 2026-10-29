@@ -22,8 +22,10 @@ import net.minecraft.world.phys.Vec3;
  * Wither Wings and Nether Wings (owner 23.10., queue EL24-1, docs/ai/PLAN-A-ELYTRA24-2026-10-23.md): Elytra upgraded at the
  * smithing table with the Strong Upgrade (Simple Beacons; without it the Netherite Upgrade) and the Nether Heart, then once more
  * with the Red Nether Gem. They glide like the Elytra; only the top speed a firework rocket pushes towards is raised
- * ({@link MobsConfig#witherWingsSpeedFactor} x2, {@link MobsConfig#netherWingsSpeedFactor} x4). Hitting a wall hurts by the
- * Vanilla formula, so more speed means more risk. Stage 3, the End Wings (WA24-2, x6), and stage 4, the Void Wings (WB24-2, x8), are
+ * ({@link MobsConfig#witherWingsSpeedFactor} x2, {@link MobsConfig#netherWingsSpeedFactor} x4) - and only for a strong rocket
+ * (BS25-4, owner 25.10./29.10.): a normal rocket (flight duration 1-3) pushes like Vanilla and so pulls the speed back to the
+ * Vanilla Elytra top speed, a rocket of flight duration {@value #STRONG_FLIGHT} or more (Strong Gunpowder, {@link StrongExplosives}) uses the
+ * higher cap of the wings. Hitting a wall hurts by the Vanilla formula, so more speed means more risk. Stage 3, the End Wings (WA24-2, x6), and stage 4, the Void Wings (WB24-2, x8), are
  * smithed the same way from the stage below with the Ender Heart and the Ender Gem. Both materials have no loot yet: they will drop
  * from a later End boss (queue WA24-7), until then they are only given by commands, the creative tab and the test centre.
  */
@@ -32,6 +34,8 @@ public final class WitherWings {
     /** Vanilla rocket push per tick: {@code look * 0.1 + (look * 1.5 - v) * 0.5} = {@code look * 0.85 - v * 0.5}. */
     public static final double VANILLA_PUSH = 0.1 + 1.5 * 0.5;
     public static final float MAX_FACTOR = 8.0f;
+    /** A rocket is strong from this flight duration on (Vanilla crafts 1-3): only it lifts the wings above the Vanilla top speed. */
+    public static final int STRONG_FLIGHT = 4;
     /** Custom data key the server stamps its current factor under, so the client (which moves the player) uses the server value. */
     public static final String STAMP = "simplemobs:speed_factor";
 
@@ -74,6 +78,12 @@ public final class WitherWings {
         sink.accept(VOID_KEY, VOID);
         sink.accept(ENDER_HEART_KEY, ENDER_HEART);
         sink.accept(ENDER_GEM_KEY, ENDER_GEM);
+    }
+
+    /** Whether a firework rocket stack is a strong rocket: flight duration {@value #STRONG_FLIGHT} or more. */
+    public static boolean strongRocket(ItemStack rocket) {
+        var fireworks = rocket.get(DataComponents.FIREWORKS);
+        return fireworks != null && fireworks.flightDuration() >= STRONG_FLIGHT;
     }
 
     public static boolean isWings(ItemStack stack) {

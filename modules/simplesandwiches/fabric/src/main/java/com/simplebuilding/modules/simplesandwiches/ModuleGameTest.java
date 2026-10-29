@@ -92,6 +92,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void sliceLayers(GameTestHelper h) {
+        SandwichTests.ALL.get("slice_layers").accept(h);
+    }
+
+    @GameTest
     public void knifeRecipeShape(GameTestHelper h) {
         SandwichTests.ALL.get("knife_recipe_shape").accept(h);
     }

@@ -166,6 +166,13 @@ public final class FightSession {
         step = pause = played = 0;
     }
 
+    /** Server stop: forget everything (participants hold Player objects of the stopped world). */
+    void reset() {
+        endFight();
+        lastSeen.clear();
+        summons = 0;
+    }
+
     private static boolean dying(EnderDragon dragon) {
         return dragon.getPhaseManager().getCurrentPhase().getPhase() == EnderDragonPhase.DYING;
     }

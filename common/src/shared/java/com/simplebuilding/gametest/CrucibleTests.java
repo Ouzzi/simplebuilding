@@ -348,10 +348,11 @@ public final class CrucibleTests {
         ServerPlayer player = smith(helper, hammer, new ItemStack(ModItems.CRACKED_DIAMOND, 5), pos);
         helper.assertTrue(SledgehammerUpgrades.hasJob(player) && player.isUsingItem(), "the click started the hammer");
         var units = (net.minecraft.world.level.block.state.properties.IntegerProperty) lib("iron_crucible").getStateDefinition().getProperty("upgrade");
-        int ticks = blows * SledgehammerUpgrades.HIT_INTERVAL;
+        int gap = SledgehammerUpgrades.hitInterval(hammer);
+        int ticks = blows * gap;
         for (int tick = 1; tick < ticks; tick++) {
             player.connection.tick();
-            int done = tick / SledgehammerUpgrades.HIT_INTERVAL;
+            int done = tick / gap;
             BlockState now = helper.getBlockState(pos);
             helper.assertTrue(now.is(lib("iron_crucible")) && now.getValue(units) == done / 3, "after " + done + " blows: " + now);
             helper.assertTrue(player.getOffhandItem().getCount() == 5 - done / 3, "units used after " + done + " blows: " + player.getOffhandItem().getCount());
@@ -375,7 +376,7 @@ public final class CrucibleTests {
         helper.setBlock(pos, lib("reinforced_crucible"));
         ItemStack hammer = new ItemStack(com.simplebuilding.util.HammerRefs.item("diamond"));
         ServerPlayer player = smith(helper, hammer, new ItemStack(ModItems.NETHERITE_NUGGET, 4), pos);
-        for (int tick = 1; tick <= 7 * SledgehammerUpgrades.HIT_INTERVAL; tick++) player.connection.tick();
+        for (int tick = 1; tick <= 7 * SledgehammerUpgrades.hitInterval(hammer); tick++) player.connection.tick();
         player.releaseUsingItem();
         var units = (net.minecraft.world.level.block.state.properties.IntegerProperty) lib("reinforced_crucible").getStateDefinition().getProperty("upgrade");
         helper.assertTrue(helper.getBlockState(pos).getValue(units) == 2 && player.getOffhandItem().getCount() == 2,

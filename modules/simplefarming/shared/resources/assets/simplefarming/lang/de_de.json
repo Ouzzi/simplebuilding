@@ -7,5 +7,13 @@
   "simplefarming.option.sharpnessCutsGrass.tooltip": "Waffen mit Schärfe III+ schneiden beim\nAngriff durch Gras/Blumen. Standard: true.",
   "simplefarming.option.enableHoeHarvest": "Hacke erntet & pflanzt",
   "simplefarming.option.enableHoeHarvest.tooltip": "Rechtsklick auf ausgewachsene Pflanzen mit\neiner Hacke erntet und pflanzt sie neu.\nVerbraucht Haltbarkeit. Standard: true.",
-  "command.simplefarming.changed": "Konfiguration gespeichert: %s = %s"
+  "command.simplefarming.changed": "Konfiguration gespeichert: %s = %s",
+  "simplefarming.option.grassCutMinSharpness": "Mindest-Schärfe für Gras",
+  "simplefarming.option.grassCutMinSharpness.tooltip": "Schärfe-Stufe, die ein Schwert oder eine Axt braucht,\num Gras um das Ziel zu schneiden und durch Gras\nzu schlagen. Standard: 1. Bereich: 1-5.",
+  "simplefarming.option.grassThroughMinPercent": "Durchschlag-Chance, Schärfe I",
+  "simplefarming.option.grassThroughMinPercent.tooltip": "Chance in Prozent, einen Mob durch Gras hindurch\nzu treffen (Schärfe I); steigt linear bis zum\nWert für Schärfe V. Standard: 10.",
+  "simplefarming.option.grassThroughMaxPercent": "Durchschlag-Chance, Schärfe V",
+  "simplefarming.option.grassThroughMaxPercent.tooltip": "Chance in Prozent, einen Mob durch Gras hindurch\nzu treffen (Schärfe V). Standard: 90.",
+  "simplefarming.option.grassSweepRadiusPerLevel": "Schnittfläche je Schwungkraft",
+  "simplefarming.option.grassSweepRadiusPerLevel.tooltip": "Zusätzliche Blockringe um das Ziel je Stufe\nSchwungkraft (Grundfläche 3x3).\nStandard: 1. Bereich: 0-3."
 }

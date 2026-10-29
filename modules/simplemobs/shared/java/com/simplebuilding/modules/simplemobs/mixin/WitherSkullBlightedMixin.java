@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** The last wither skeleton skull on a Wither figure whose middle skull wears a Netherite or Enderite Helmet summons the Blighted or Abyssal Wither. */
+/** The last wither skeleton skull on a Wither figure whose middle skull wears a Netherite or Enderite Helmet summons the Blighted or Abyssal Wither; a helmet on a side skull stops the Vanilla Wither (BS28b-2). */
 @Mixin(WitherSkullBlock.class)
 public abstract class WitherSkullBlightedMixin {
     @Inject(method = "checkSpawn(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/SkullBlockEntity;)V",
             at = @At("HEAD"), cancellable = true)
     private static void simplemobs$blighted(Level level, BlockPos pos, SkullBlockEntity skull, CallbackInfo ci) {
-        if (!level.isClientSide() && BlightedPattern.trySummon(level, pos)) ci.cancel();
+        if (!level.isClientSide() && (BlightedPattern.trySummon(level, pos) || BlightedPattern.armoredWaits(level, pos))) ci.cancel();
     }
 }

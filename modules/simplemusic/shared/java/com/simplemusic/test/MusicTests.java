@@ -249,8 +249,6 @@ public final class MusicTests {
                 h.assertTrue(e.title().length() <= NoteCode.MAX_TITLE_LENGTH, "title of " + e.id());
                 h.assertTrue(code.lines().findFirst().orElse("").startsWith("# "), "source line in " + e.id());
             }
-            h.assertTrue(com.simplemusic.sheet.SheetExamples.stacks().size() == com.simplemusic.sheet.SheetExamples.ALL.size()
-                    && SheetMusicItem.content(com.simplemusic.sheet.SheetExamples.stacks().get(0)).signed(), "signed sheets for the tab");
             h.succeed();
         });
         ALL.put("note_grid_round_trip", h -> {

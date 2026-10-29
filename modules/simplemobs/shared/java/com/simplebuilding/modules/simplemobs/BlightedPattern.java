@@ -1,5 +1,7 @@
 package com.simplebuilding.modules.simplemobs;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -103,7 +106,33 @@ public final class BlightedPattern {
         if (!skull().test(level.getBlockState(skull)) || crownAt(level, skull) != null) return false;
         BlockPattern.BlockPatternMatch match = open().find(level, skull);
         if (match == null || !middle(match).equals(skull)) return false;
-        return level.getBlockState(match.getBlock(0, 0, 0).getPos()).isAir() || level.getBlockState(match.getBlock(2, 0, 0).getPos()).isAir();
+        return level.getBlockState(match.getBlock(0, 0, 0).getPos()).isAir() || level.getBlockState(match.getBlock(2, 0, 0).getPos()).isAir()
+                // BS28b-2: a complete figure waits for its crown when a side skull wears a helmet (no Vanilla Wither came)
+                || !outerHelmets(level, match).isEmpty();
+    }
+
+    /** The helmets of the two outer skulls of a figure (Simple Mobheads), empty stacks left out. */
+    public static List<ItemStack> outerHelmets(Level level, BlockPattern.BlockPatternMatch match) {
+        List<ItemStack> out = new ArrayList<>();
+        for (int x : new int[] {0, 2}) {
+            ItemStack helmet = ArmoredWither.helmetAt(level, match.getBlock(x, 0, 0).getPos());
+            if (!helmet.isEmpty()) out.add(helmet);
+        }
+        return out;
+    }
+
+    /**
+     * {@code WitherSkullBlock#checkSpawn} (BS28b-2): a complete figure with a helmet on a side skull does not call the Vanilla
+     * Wither; it waits for the crown of the middle skull. True = Vanilla must not spawn (smoke at the middle skull).
+     */
+    public static boolean armoredWaits(Level level, BlockPos skull) {
+        if (!(level instanceof ServerLevel server) || !MobsRegistry.on() || !MobsConfig.witherSummonEnabled) return false;
+        if (level.getDifficulty() == Difficulty.PEACEFUL || skull.getY() < level.getMinY() || !skull().test(level.getBlockState(skull))) return false;
+        BlockPattern.BlockPatternMatch match = pattern().find(level, skull);
+        if (match == null || outerHelmets(level, match).isEmpty()) return false;
+        BlockPos middle = middle(match);
+        server.sendParticles(ParticleTypes.SOUL, middle.getX() + 0.5, middle.getY() + 0.7, middle.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0.01);
+        return true;
     }
 
     /** The helmet display on this skull, if any. */
@@ -145,6 +174,7 @@ public final class BlightedPattern {
         server.addFreshEntity(display);
         server.playSound(null, skull, SoundEvents.ARMOR_EQUIP_NETHERITE.value(), SoundSource.BLOCKS, 1.2F, 0.6F);
         server.sendParticles(ParticleTypes.SOUL, skull.getX() + 0.5, skull.getY() + 0.7, skull.getZ() + 0.5, 8, 0.2, 0.2, 0.2, 0.01);
+        trySummon(level, skull); // BS28b-2: on a complete armored figure the crown is the last piece
         return true;
     }
 
@@ -180,6 +210,17 @@ public final class BlightedPattern {
         BlightedWither wither = (stage == WitherLogic.ENDERITE ? WitherMobs.ABYSSAL_WITHER : WitherMobs.BLIGHTED_WITHER).create(server, EntitySpawnReason.TRIGGERED);
         if (wither == null) return false;
         crown.discard();
+        // BS28b-2: the side helmets are used up and make the Wither a little stronger (and pay back when it dies)
+        List<Item> sides = new ArrayList<>();
+        for (int x : new int[] {0, 2}) {
+            BlockPos side = match.getBlock(x, 0, 0).getPos();
+            ItemStack helmet = ArmoredWither.helmetAt(level, side);
+            if (!helmet.isEmpty()) {
+                sides.add(helmet.getItem());
+                ArmoredWither.consume(level, side);
+            }
+        }
+        ArmoredWither.apply(wither, sides);
         CarvedPumpkinBlock.clearPatternBlocks(level, match);
         BlockPos spawn = match.getBlock(1, 2, 0).getPos();
         float yaw = match.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;

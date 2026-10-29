@@ -38,6 +38,8 @@ public final class CarriedStacks {
         List<Entry> drawable(Player player);
     }
 
+    private static final java.util.Set<Class<?>> BROKEN = java.util.concurrent.ConcurrentHashMap.newKeySet();
+
     public static void register(Source source) {
         SOURCES.add(source);
     }
@@ -54,8 +56,9 @@ public final class CarriedStacks {
             try {
                 List<Entry> entries = source.drawable(player);
                 if (entries != null) out.addAll(entries);
-            } catch (RuntimeException ignored) {
-                // a broken source must not break the bow
+            } catch (RuntimeException e) {
+                // a broken source must not break the bow; say so once per source
+                if (BROKEN.add(source.getClass())) org.slf4j.LoggerFactory.getLogger("simplelib-carried").warn("carried-stack source {} failed", source.getClass().getName(), e);
             }
         }
         return out;

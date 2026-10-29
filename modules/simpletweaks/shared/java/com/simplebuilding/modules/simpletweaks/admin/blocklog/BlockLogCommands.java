@@ -71,6 +71,8 @@ public final class BlockLogCommands {
     }
     private static String key(CommandSourceStack s) { return s.getEntity() == null ? "console" : s.getEntity().getStringUUID(); }
 
+    public static void forget(net.minecraft.server.level.ServerPlayer p) { PAGES.remove(p.getStringUUID()); }
+
     static int lookup(CommandSourceStack s, String text) {
         var p = parse(s, text);
         if (p == null) return 0;

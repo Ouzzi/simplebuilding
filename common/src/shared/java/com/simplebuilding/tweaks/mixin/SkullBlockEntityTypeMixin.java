@@ -27,6 +27,9 @@ public abstract class SkullBlockEntityTypeMixin {
             cir.setReturnValue(true);
         } else if ((Object) this == BlockEntityTypes.CAMPFIRE && state.getBlock() == com.simplebuilding.blocks.custom.SulfurLights.CAMPFIRE) {
             cir.setReturnValue(true); // the sulfur campfire (N58) uses Vanilla's campfire block entity
+        } else if ((Object) this == BlockEntityTypes.CHISELED_BOOKSHELF && com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+                && com.simplebuilding.blocks.ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES.contains(state.getBlock())) {
+            cir.setReturnValue(true); // the chiseled blazewood bookshelves (BS25-1) use Vanilla's chiseled bookshelf block entity
         }
     }
 }

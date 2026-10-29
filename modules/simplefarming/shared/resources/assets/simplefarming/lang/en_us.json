@@ -7,5 +7,13 @@
   "simplefarming.option.sharpnessCutsGrass.tooltip": "If enabled, Sharpness III+ weapons cut\nthrough grass/flowers when attacking\nentities. Default: true.",
   "simplefarming.option.enableHoeHarvest": "Hoe Replanting",
   "simplefarming.option.enableHoeHarvest.tooltip": "Right-click fully grown crops with a hoe to\nharvest and replant them. Consumes\ndurability. Default: true.",
-  "command.simplefarming.changed": "Configuration saved: %s = %s"
+  "command.simplefarming.changed": "Configuration saved: %s = %s",
+  "simplefarming.option.grassCutMinSharpness": "Lowest Sharpness for grass",
+  "simplefarming.option.grassCutMinSharpness.tooltip": "Sharpness level a sword or axe needs to cut the\ngrass around its target and swing through grass.\nDefault: 1. Range: 1-5.",
+  "simplefarming.option.grassThroughMinPercent": "Swing-through chance, Sharpness I",
+  "simplefarming.option.grassThroughMinPercent.tooltip": "Chance in percent to hit a mob through grass\nwith Sharpness I; rises linearly up to the\nSharpness V value. Default: 10.",
+  "simplefarming.option.grassThroughMaxPercent": "Swing-through chance, Sharpness V",
+  "simplefarming.option.grassThroughMaxPercent.tooltip": "Chance in percent to hit a mob through grass\nwith Sharpness V. Default: 90.",
+  "simplefarming.option.grassSweepRadiusPerLevel": "Cut area per Sweeping Edge",
+  "simplefarming.option.grassSweepRadiusPerLevel.tooltip": "Extra rings of blocks cut around the target per\nSweeping Edge level (basic area is 3x3).\nDefault: 1. Range: 0-3."
 }

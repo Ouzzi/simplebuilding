@@ -58,6 +58,7 @@ public final class SandwichDiscover {
             "simplesandwiches:cake_slice",
             "simplesandwiches:cheese_and_butter",
             "simplesandwiches:cheese_block",
+            "simplesandwiches:cheese_carpet",
             "simplesandwiches:cheese_slice",
             "simplesandwiches:commands",
             "simplesandwiches:cutting_board",

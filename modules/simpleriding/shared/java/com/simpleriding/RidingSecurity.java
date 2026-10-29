@@ -86,7 +86,9 @@ public final class RidingSecurity {
             boolean authorizedJump = mount instanceof AbstractHorse && mount.getId() == jumpMountId && now >= horseJumpTick && now - horseJumpTick < 60 && target.y <= jumpCeiling;
             boolean groundedStep = movement.y <= 1 && !player.level().noCollision(mount,
                 mount.getBoundingBox().move(movement).move(0,-.05,0));
-            if (!authorizedJump && !groundedStep) return false;
+            // Levitation, slime blocks, explosions: the server itself lifts the mount (effect or upward server velocity), REV2-C-5.
+            boolean liftedByServer = living.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION) || mount.getDeltaMovement().y > 1e-4;
+            if (!authorizedJump && !groundedStep && !liftedByServer) return false;
         }
         // Retain Vanilla's collision, teleport, floating and movement checks after this guard.
         distance += step;

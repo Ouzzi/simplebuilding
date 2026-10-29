@@ -161,14 +161,21 @@ def resources():
              "modifier": {"type": "minecraft:copy_state", "block": f"{NS}:{name}", "properties": ["slices", "cut"]}},
         ]})
 
-    # Butter carpet (owner 24.10., NA24-5): the butter slice laid flat, 1 px like a Vanilla carpet (variant A of butter24-preview).
-    asset("blockstates/butter_carpet", {"variants": {"": {"model": f"{NS}:block/butter_carpet"}}})
-    asset("models/block/butter_carpet", {
-        "parent": "minecraft:block/block",
-        "textures": {"top": f"{NS}:block/butter_block_top", "side": f"{NS}:block/butter_block_side", "particle": "#top"},
-        "elements": [cuboid([0, 0, 0, 16, 1, 16])],
-    })
-    loot("butter_carpet", {"type": "minecraft:item", "name": f"{NS}:butter_slice"})
+    # Butter/cheese layers (owner 24.10., NA24-5; BS25-14 29.10.): the slice laid flat, 1 px per layer like a Vanilla carpet,
+    # stacking like snow up to 15 layers (the 16th makes the full block); textures are the block's own top/side.
+    for food in ("butter", "cheese"):
+        name = f"{food}_carpet"
+        asset(f"blockstates/{name}", {"variants": {f"layers={n}": {"model": f"{NS}:block/{name}/{n}"} for n in range(1, 16)}})
+        for n in range(1, 16):
+            asset(f"models/block/{name}/{n}", {
+                "parent": "minecraft:block/block",
+                "textures": {"top": f"{NS}:block/{food}_block_top", "side": f"{NS}:block/{food}_block_side", "particle": "#top"},
+                "elements": [cuboid([0, 0, 0, 16, n, 16])],
+            })
+        loot(name, {"type": "minecraft:alternatives", "children": [
+            {"type": "minecraft:item", "name": f"{NS}:{food}_slice",
+             "condition": {"type": "minecraft:match_block", "blocks": f"{NS}:{name}", "state": {"layers": str(n)}},
+             "modifier": {"type": "minecraft:set_count", "count": n}} for n in range(1, 16)]})
 
     # Milk cauldron; reinforced=true when it was made from SimpleLib's reinforced cauldron (owner addition 11): same
     # contents with the reinforced cauldron's textures (only reachable with SimpleLib), emptying returns that cauldron.

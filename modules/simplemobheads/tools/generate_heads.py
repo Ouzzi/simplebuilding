@@ -189,7 +189,7 @@ def java():
             f"List.of({', '.join(jstr(s) for s in h['sound'])}), {jstr(h.get('from', ''))}, {jstr(h.get('ability', ''))}, "
             f"{str(h.get('trial', False)).lower()}, {str(h.get('freeze_immune', False)).lower()}, {jstr(h.get('drop', 'default'))}, "
             f"{jstr(vs.get('component') or '')}, {jstr(h.get('variant_source', ''))}, {jstr(vs['list'][0]['id'] if vs else '')}, List.of(\n" + ",\n".join(look_lines) + "), "
-            f"{jstr(h.get('counts_as', ''))}, List.of({', '.join(jstr(m) for m in h.get('camouflage', []))}))")
+            f"{jstr(h.get('counts_as', ''))}, List.of({', '.join(jstr(m) for m in h.get('camouflage', []))}), {float(h.get('helmet', 0))}F)")
     lines.append(",\n".join(entries) + ");")
     lines.append("")
     excl = ", ".join(f"java.util.Map.entry({jstr(k)}, {jstr(v)})" for k, v in DATA["exclude"].items())

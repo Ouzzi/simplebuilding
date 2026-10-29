@@ -54,6 +54,7 @@ public final class SawTests {
         all.put("saw_upgrade_axe", SawTests::upgradeAxe);
         all.put("saw_upgrade_hammer", SawTests::upgradeHammer);
         all.put("saw_upgrade_mode", SawTests::upgradeMode);
+        all.put("saw_metal_finish", SawTests::metalFinish);
     }
 
     private static Item item(String id) {
@@ -87,13 +88,17 @@ public final class SawTests {
         h.assertTrue(h.getBlockState(pos).getBlock() instanceof ShapecutterBlock, "saw placed");
         h.assertTrue(h.getBlockState(pos).getMenuProvider(h.getLevel(), h.absolutePos(pos)) != null, "saw opens a menu");
         var level = h.getLevel();
-        for (String id : List.of("shapecutter")) {
-            var holder = level.getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, SimpleBlocks.id(id)));
-            h.assertTrue(holder.isPresent(), "crafting recipe " + id);
-            var ctx = SlotDisplayContext.fromLevel(level);
-            h.assertTrue(holder.get().value().display().stream().anyMatch(d -> d.result().resolveForFirstStack(ctx).is(Sawing.SAW_ITEM)), id + " makes the saw");
-            h.assertTrue(holder.get().value().placementInfo().ingredients().stream().anyMatch(i -> i.test(new ItemStack(Items.COPPER_INGOT))), id + " needs copper");
-        }
+        // BS25-3: stonecutter in the middle, the tool above, a U of planks; with Simple Hammers a hammer, else an axe.
+        String id = SawUpgrade.hammerMode ? "shapecutter_with_hammers" : "shapecutter";
+        var holder = level.getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, SimpleBlocks.id(id)));
+        h.assertTrue(holder.isPresent(), "crafting recipe " + id);
+        var ctx = SlotDisplayContext.fromLevel(level);
+        h.assertTrue(holder.get().value().display().stream().anyMatch(d -> d.result().resolveForFirstStack(ctx).is(Sawing.SAW_ITEM)), id + " makes the saw");
+        var ingredients = holder.get().value().placementInfo().ingredients();
+        h.assertTrue(ingredients.stream().anyMatch(i -> i.test(new ItemStack(Items.STONECUTTER))), id + " needs the stonecutter");
+        h.assertTrue(ingredients.stream().anyMatch(i -> i.test(new ItemStack(Items.OAK_PLANKS))), id + " needs planks");
+        h.assertTrue(ingredients.stream().noneMatch(i -> i.test(new ItemStack(Items.COPPER_INGOT))), id + " has no copper any more");
+        h.assertTrue(ingredients.stream().anyMatch(i -> i.test(new ItemStack(Items.IRON_AXE))) != SawUpgrade.hammerMode, id + " takes the axe exactly without a hammer mod");
         h.succeed();
     }
 
@@ -241,9 +246,14 @@ public final class SawTests {
         h.assertTrue(now.equals(com.simplelib.api.IdMoves.target(net.minecraft.core.registries.Registries.RECIPE, old)), "old recipe id");
         h.assertTrue(SimpleBlocks.id(Sawing.ADVANCEMENT).equals(com.simplelib.api.IdMoves.advancement(SimpleBlocks.id(Sawing.OLD_ADVANCEMENT))), "old recipe advancement");
         var advancements = h.getLevel().getServer().getAdvancements();
-        h.assertTrue(advancements.get(SimpleBlocks.id(Sawing.ADVANCEMENT)) != null, "new recipe advancement exists");
-        var viaOld = advancements.get(SimpleBlocks.id(Sawing.OLD_ADVANCEMENT));
-        h.assertTrue(viaOld != null && viaOld.id().equals(SimpleBlocks.id(Sawing.ADVANCEMENT)), "old advancement progress finds the new one: " + viaOld);
+        // BS25-3: the axe recipe keeps the id shapecutter; with Simple Hammers the hammer recipe replaces it (own id).
+        if (SawUpgrade.hammerMode) {
+            h.assertTrue(advancements.get(SimpleBlocks.id(Sawing.ADVANCEMENT + "_with_hammers")) != null, "new recipe advancement exists (hammer recipe)");
+        } else {
+            h.assertTrue(advancements.get(SimpleBlocks.id(Sawing.ADVANCEMENT)) != null, "new recipe advancement exists");
+            var viaOld = advancements.get(SimpleBlocks.id(Sawing.OLD_ADVANCEMENT));
+            h.assertTrue(viaOld != null && viaOld.id().equals(SimpleBlocks.id(Sawing.ADVANCEMENT)), "old advancement progress finds the new one: " + viaOld);
+        }
         h.succeed();
     }
 
@@ -318,6 +328,42 @@ public final class SawTests {
     private static void upgradeMode(GameTestHelper h) {
         boolean hammers = BuiltInRegistries.ITEM.keySet().stream().anyMatch(id -> id.getNamespace().equals("simplehammers"));
         h.assertTrue(SawUpgrade.hammerMode == hammers, "hammer mode " + SawUpgrade.hammerMode + " but Simple Hammers loaded " + hammers);
+        h.succeed();
+    }
+
+    /**
+     * BS25-3: the metal finish. The default state is wood; the tool in the main hand plus 2 heavy weighted pressure plates in the
+     * off hand turn it to metal (plates used up, facing kept); 1 plate, other plates or no tool change nothing; a metal one is
+     * not converted again; breaking it gives the item and 2 plates (loot table), a wood one only the item.
+     */
+    private static void metalFinish(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        var hand = net.minecraft.world.InteractionHand.MAIN_HAND;
+        BlockPos rel = new BlockPos(3, 1, 3), pos = h.absolutePos(rel);
+        java.util.function.Predicate<ItemStack> axe = t -> SawUpgrade.toolFits(t, false);
+        h.setBlock(rel, Sawing.SAW.defaultBlockState().setValue(net.minecraft.world.level.block.StonecutterBlock.FACING, net.minecraft.core.Direction.EAST));
+        h.assertTrue(!h.getBlockState(rel).getValue(ShapecutterBlock.METAL), "default finish is wood");
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
+        player.getInventory().clearContent();
+        player.setItemInHand(hand, new ItemStack(Items.IRON_AXE));
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 1));
+        h.assertTrue(!SawUpgrade.tryMetal(level, pos, player, hand, false, axe), "1 plate is not enough");
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.LIGHT_WEIGHTED_PRESSURE_PLATE, 2));
+        h.assertTrue(!SawUpgrade.tryMetal(level, pos, player, hand, false, axe), "gold plates do not count");
+        player.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, 3));
+        h.assertTrue(!h.getBlockState(rel).getValue(ShapecutterBlock.METAL), "still wood");
+        h.assertTrue(SawUpgrade.tryMetal(level, pos, player, hand, false, axe), "2 plates + axe convert");
+        var state = h.getBlockState(rel);
+        h.assertTrue(state.getValue(ShapecutterBlock.METAL) && state.getValue(net.minecraft.world.level.block.StonecutterBlock.FACING) == net.minecraft.core.Direction.EAST, "metal, same facing: " + state);
+        h.assertTrue(player.getOffhandItem().getCount() == 1, "2 of 3 plates used, left " + player.getOffhandItem().getCount());
+        h.assertTrue(!SawUpgrade.tryMetal(level, pos, player, hand, false, axe), "no second conversion");
+        // Loot: metal gives the saw and 2 plates.
+        var drops = net.minecraft.world.level.block.Block.getDrops(state, level, pos, null);
+        h.assertTrue(drops.stream().anyMatch(s -> s.is(Sawing.SAW_ITEM)) && drops.stream().filter(s -> s.is(Items.HEAVY_WEIGHTED_PRESSURE_PLATE)).mapToInt(ItemStack::getCount).sum() == 2,
+                "metal drops the saw and 2 plates: " + drops);
+        var woodDrops = net.minecraft.world.level.block.Block.getDrops(state.setValue(ShapecutterBlock.METAL, false), level, pos, null);
+        h.assertTrue(woodDrops.size() == 1 && woodDrops.getFirst().is(Sawing.SAW_ITEM), "wood drops only the saw: " + woodDrops);
         h.succeed();
     }
 }

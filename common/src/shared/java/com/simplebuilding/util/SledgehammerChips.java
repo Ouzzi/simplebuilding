@@ -117,7 +117,8 @@ public final class SledgehammerChips {
             return InteractionResult.SUCCESS;
         }
         ServerLevel server = (ServerLevel) level;
-        var strike = InWorldStrikes.strikeYield(server, pos, "chips", state, result, result.getCount(), server.getGameTime());
+        var strike = InWorldStrikes.strikeYield(server, pos, "chips", state, result, result.getCount(), server.getGameTime(),
+                InWorldStrikes.interval(context.getItemInHand()));
         if (strike == null) {
             return InteractionResult.SUCCESS;
         }

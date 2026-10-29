@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.phys.Vec3;
 
-/** Wither/Nether/End/Void Wings GameTests (EL24-1, WA24-2, WB24-2, Fabric wrappers in ModuleGameTest). Standalone-safe: the recipe test follows Simple Beacons. */
+/** Wither/Nether/End/Void Wings GameTests (EL24-1, WA24-2, WB24-2, BS25-4 strong rocket, Fabric wrappers in ModuleGameTest). Standalone-safe: the recipe test follows Simple Beacons. */
 final class WingsTests {
     private WingsTests() {}
 
@@ -128,13 +128,53 @@ final class WingsTests {
                     player.startFallFlying();
                     player.setDeltaMovement(Vec3.ZERO);
                     h.assertTrue(player.isFallFlying(), "gliding");
-                    var rocket = new FireworkRocketEntity(h.getLevel(), new ItemStack(Items.FIREWORK_ROCKET), player);
+                    var rocket = new FireworkRocketEntity(h.getLevel(), StrongExplosives.rocket(1), player);
                     rocket.tick();
                     got[i] = player.getDeltaMovement().length();
                     rocket.discard();
                     player.discard();
                 }
                 h.assertTrue(Math.abs(got[0] - WitherWings.VANILLA_PUSH) < 1.0E-6, "Vanilla first push 0.85: " + got[0]);
+                // BS25-4: a normal rocket (flight duration 1-3) gives every pair of wings exactly the Vanilla push ...
+                for (int i = 0; i < chest.length; i++) {
+                    for (int flight = 1; flight <= 3; flight++) {
+                        var player = h.makeMockServerPlayerInLevel();
+                        player.setItemSlot(EquipmentSlot.CHEST, chest[i].copy());
+                        player.setXRot(0f);
+                        player.setYRot(0f);
+                        player.startFallFlying();
+                        player.setDeltaMovement(Vec3.ZERO);
+                        ItemStack normal = new ItemStack(Items.FIREWORK_ROCKET);
+                        normal.set(DataComponents.FIREWORKS, new net.minecraft.world.item.component.Fireworks(flight, java.util.List.of()));
+                        var rocket = new FireworkRocketEntity(h.getLevel(), normal, player);
+                        rocket.tick();
+                        double push = player.getDeltaMovement().length();
+                        rocket.discard();
+                        player.discard();
+                        h.assertTrue(Math.abs(push - got[0]) < 1.0E-6, "a normal rocket (flight " + flight + ") pushes wings " + i + " like Vanilla: " + push);
+                    }
+                }
+                // ... and pulls a faster wearer back towards the Vanilla top speed instead of pushing on.
+                var fast = h.makeMockServerPlayerInLevel();
+                fast.setItemSlot(EquipmentSlot.CHEST, new ItemStack(WitherWings.VOID));
+                fast.setXRot(0f);
+                fast.setYRot(0f);
+                fast.startFallFlying();
+                fast.setDeltaMovement(new Vec3(0, 0, 5.0));
+                var normalRocket = new FireworkRocketEntity(h.getLevel(), new ItemStack(Items.FIREWORK_ROCKET), fast);
+                normalRocket.tick();
+                double capped = fast.getDeltaMovement().length();
+                normalRocket.discard();
+                fast.setDeltaMovement(new Vec3(0, 0, 5.0));
+                var strongRocket = new FireworkRocketEntity(h.getLevel(), StrongExplosives.rocket(1), fast);
+                strongRocket.tick();
+                double lifted = fast.getDeltaMovement().length();
+                strongRocket.discard();
+                fast.discard();
+                h.assertTrue(capped < 5.0 && Math.abs(capped - 3.35) < 1.0E-3, "a normal rocket pulls the Void Wings back to the Vanilla push: " + capped);
+                h.assertTrue(lifted > 5.0 && Math.abs(lifted - (3.35 + 7 * WitherWings.VANILLA_PUSH)) < 1.0E-3, "a strong rocket keeps the x8 cap: " + lifted);
+                h.assertTrue(!WitherWings.strongRocket(new ItemStack(Items.FIREWORK_ROCKET)) && WitherWings.strongRocket(StrongExplosives.rocket(1)),
+                        "only flight duration 4+ is a strong rocket");
                 h.assertTrue(Math.abs(got[1] - 2 * got[0]) < 1.0E-6 && Math.abs(got[2] - 4 * got[0]) < 1.0E-6,
                         "pushed towards x2 / x4: " + got[1] + " / " + got[2]);
                 h.assertTrue(Math.abs(got[3] - 8 * got[0]) < 1.0E-6 && WitherWings.factor(chest[3]) == 8.0f,

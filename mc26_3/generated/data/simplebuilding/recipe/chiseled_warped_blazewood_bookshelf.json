@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": "minecraft:warped_slab",
+    "W": "simplebuilding:warped_blazewood_planks"
+  },
+  "pattern": [
+    "WWW",
+    "SSS",
+    "WWW"
+  ],
+  "result": {
+    "id": "simplebuilding:chiseled_warped_blazewood_bookshelf"
+  }
+}

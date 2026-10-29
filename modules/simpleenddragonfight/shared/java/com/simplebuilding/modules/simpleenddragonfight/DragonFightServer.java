@@ -25,6 +25,12 @@ public final class DragonFightServer {
 
     public static FightSession endSession() { return END; }
 
+    /** Server stopped (single player: the next world must not inherit the fight). */
+    public static void forgetAll() {
+        END.reset();
+        FACTORS.clear();
+    }
+
     public static void tick(MinecraftServer server) {
         ServerLevel end = server.getLevel(Level.END);
         if (end == null) return;

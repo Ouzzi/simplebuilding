@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,metal=false": {
       "model": "simpleblocks:block/shapecutter",
       "y": 90
     },
-    "facing=north": {
+    "facing=east,metal=true": {
+      "model": "simpleblocks:block/shapecutter_metal",
+      "y": 90
+    },
+    "facing=north,metal=false": {
       "model": "simpleblocks:block/shapecutter"
     },
-    "facing=south": {
+    "facing=north,metal=true": {
+      "model": "simpleblocks:block/shapecutter_metal"
+    },
+    "facing=south,metal=false": {
       "model": "simpleblocks:block/shapecutter",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,metal=true": {
+      "model": "simpleblocks:block/shapecutter_metal",
+      "y": 180
+    },
+    "facing=west,metal=false": {
       "model": "simpleblocks:block/shapecutter",
+      "y": 270
+    },
+    "facing=west,metal=true": {
+      "model": "simpleblocks:block/shapecutter_metal",
       "y": 270
     }
   }

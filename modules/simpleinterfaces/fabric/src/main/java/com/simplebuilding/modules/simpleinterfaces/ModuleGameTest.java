@@ -33,6 +33,7 @@ public final class ModuleGameTest {
     @GameTest(maxTicks = 100) public void linkedSuperSwitch(GameTestHelper h) { LinkedTests.superSwitch(h); }
     @GameTest public void tooltipEnderSnapshot(GameTestHelper h) { TooltipTests.enderSnapshot(h); }
     @GameTest public void tooltipSnapshotCodec(GameTestHelper h) { TooltipTests.snapshotCodec(h); }
+    @GameTest public void zoomMath(GameTestHelper h) { TooltipTests.zoomMath(h); }
     @GameTest public void tooltipShulkerGrid(GameTestHelper h) { TooltipTests.shulkerGrid(h); }
     @GameTest public void tooltipTierShulker(GameTestHelper h) { TooltipTests.tierShulker(h); }
     @GameTest public void tooltipConfigOff(GameTestHelper h) { TooltipTests.configOff(h); }

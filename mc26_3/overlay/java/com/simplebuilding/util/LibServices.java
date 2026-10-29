@@ -167,7 +167,7 @@ public final class LibServices {
         Map<Block, SledgehammerUpgrades.Upgrade> table = new HashMap<>();
         for (InWorldUpgrades.Entry entry : InWorldUpgrades.table().values()) {
             SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgradeData.upgrade(entry.from(), entry.to(), entry.material(),
-                    entry.minTool(), entry.damagePerHit(), entry.tier(), entry.durationFactor(), entry.materialCount());
+                    entry.minTool(), entry.damagePerHit(), entry.tier(), entry.durationFactor(), entry.materialCount(), entry.strikesPerMaterial());
             if (upgrade != null) {
                 table.put(upgrade.from(), upgrade);
             }
