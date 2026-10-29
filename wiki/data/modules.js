@@ -47,6 +47,7 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
+      "simpleanimals",
       "simplemusic",
       "simpleearth"
     ],
@@ -1689,5 +1690,40 @@ window.WIKI_MODULES = [
       "features": 5
     },
     "dataHash": "559e7ecb2c74"
+  },
+  {
+    "id": "simpleanimals",
+    "displayName": "Simple Animals",
+    "description": "Deer, wild boar, hedgehog, crab and zebra (with the infertile zorse): five new animals with low spawn rates, Vanilla goals and no block damage. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplemoney",
+      "simplemobheads"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, whose cross with a horse is the infertile zorse.",
+      "de": "Fünf Tiere, die Vanilla nicht hat: der scheue Hirsch, das Wildschwein, das seine Frischlinge verteidigt, der Igel, der Silberfische jagt und sich blitzschnell einrollt, der seltene Krebs, der seitwärts läuft, und das Zebra, dessen Kreuzung mit einem Pferd das unfruchtbare Zorse ist."
+    },
+    "purpose": {
+      "en": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar.",
+      "de": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArElEQVR42mOw8zX8TwlmABGHbqwF4wcXFhDNnnOgCtWAVSd7wZIgDGODaGQ2TB6kuaArAtMAZEXoBiBrvvT4MG4DkDVoSQmAMbJmGMZrAEjTijQrFAwSI8oAbJqxGULQgC9vbvyXEeIBs0E0iE+0AVUuKhi2g8SIMgCbIeiaiTZAT0YIjEkyAKYApAFmALpmnAagK4KlA3RxrAaAUhc2hbgwigEwAVIx3ABKMABly2zs6ByQcQAAAABJRU5ErkJggg==",
+    "counts": {
+      "items": 8,
+      "recipes": 4,
+      "features": 9
+    },
+    "dataHash": "6912a1389da9"
   }
 ];
