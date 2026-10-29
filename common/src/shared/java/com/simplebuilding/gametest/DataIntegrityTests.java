@@ -1148,7 +1148,7 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
-            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().endsWith("_blazewood_bookshelf")) {
+            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().endsWith("_blazewood_bookshelf") && !blockId.getPath().startsWith("chiseled_")) {
                 // Wie Vanillas Buecherregal: ohne Behutsamkeit 3 Lohenbuecher (Konzept Astral-Verzauberung).
                 for (List<ItemStack> produced : rolls) {
                     if (produced.size() != 1 || !produced.getFirst().is(ModItems.BLAZE_BOOK) || produced.getFirst().getCount() != 3) {
