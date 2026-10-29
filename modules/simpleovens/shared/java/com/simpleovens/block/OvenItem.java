@@ -21,7 +21,7 @@ public class OvenItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> out, TooltipFlag flag) {
-        out.accept(Component.translatable("tooltip.simpleovens.speed", this.tier.speed()).withStyle(ChatFormatting.GRAY));
+        out.accept(Component.translatable("tooltip.simpleovens.speed", this.tier.defaultSpeed()).withStyle(ChatFormatting.GRAY));
         if (this.tier.upper()) out.accept(Component.translatable("tooltip.simpleovens.experience").withStyle(ChatFormatting.GRAY));
     }
 }

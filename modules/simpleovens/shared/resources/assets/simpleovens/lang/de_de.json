@@ -35,7 +35,7 @@
   "itemgroup.simpleovens.ovens": "Simple Ovens",
   "simpleovens.testcentre.station": "Simple Ovens",
   "tooltip.simpleovens.experience": "Doppelte Erfahrung",
-  "tooltip.simpleovens.speed": "Arbeitet %s× so schnell",
+  "tooltip.simpleovens.speed": "Arbeitet %s× so schnell (Standard; ein Server kann es ändern)",
   "tip.simpleovens.oven_upgrade": "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten",
   "item.simpleovens.guide_book": "Simple-Ovens-Handbuch",
   "simpleovens.guide.page.1.title": "Simple Ovens",

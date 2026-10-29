@@ -29,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 public final class MapsNetwork {
     /** Minimum ticks between two tile requests of one player, and the byte budget of one answer. */
     public static final int REQUEST_INTERVAL = 4, ANSWER_BYTES = 384 * 1024;
+    /** Tile renders (map reads) one request may cause, whatever it asks for; the rest stays for the client's next request. */
+    public static final int MAX_RENDERS = 24;
     /** Coordinates beyond the world border are refused. */
     public static final int MAX_COORD = 30_000_000;
     public static final double FRAME_REACH_SQR = 8.0 * 8.0;
@@ -52,6 +54,7 @@ public final class MapsNetwork {
         LAST_REQUEST.put(player.getUUID(), now);
         if (LAST_REQUEST.size() > 4096) LAST_REQUEST.keySet().retainAll(server.getPlayerList().getPlayers().stream().map(ServerPlayer::getUUID).toList());
         int budget = ANSWER_BYTES;
+        int renders = 0;
         Set<Integer> maps = new LinkedHashSet<>();
         Set<Integer> allowed = carriedIds(player);
         boolean framesAdded = false;
@@ -71,7 +74,8 @@ public final class MapsNetwork {
                         data.dimension().map(k -> k.identifier().toString()).orElse(""), data.tileCount(),
                         marksChanged, marksChanged ? data.marks() : java.util.List.of()));
             }
-            if (budget <= 0) continue;
+            if (budget <= 0 || renders >= MAX_RENDERS) continue;
+            renders++;
             int zoom = WayfinderData.validZoom(e.zoom());
             WayfinderData.Rendered tile = data.render(zoom, e.tx(), e.tz());
             if (tile.version() == e.version()) continue;

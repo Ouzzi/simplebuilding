@@ -10,7 +10,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 
 @Mixin(Entity.class)
 public abstract class EntityMuteMixin {
@@ -18,6 +22,26 @@ public abstract class EntityMuteMixin {
     @Shadow public abstract boolean hasCustomName();
     @Shadow public abstract Component getCustomName();
     @Shadow public abstract EntityType<?> getType();
+
+    /** REV2-B-2: the id strings resolved to types once; rebuilt only when the config list changes. */
+    private static List<String> simplemobmanners$source;
+    private static int simplemobmanners$hash;
+    private static Set<EntityType<?>> simplemobmanners$types = Set.of();
+
+    private static synchronized Set<EntityType<?>> mutedTypes(List<String> ids) {
+        int hash = ids.hashCode();
+        if (ids != simplemobmanners$source || hash != simplemobmanners$hash) {
+            Set<EntityType<?>> out = new HashSet<>();
+            for (String id : ids) {
+                Identifier key = id == null ? null : Identifier.tryParse(id);
+                if (key != null) BuiltInRegistries.ENTITY_TYPE.getOptional(key).ifPresent(out::add);
+            }
+            simplemobmanners$types = out;
+            simplemobmanners$source = ids;
+            simplemobmanners$hash = hash;
+        }
+        return simplemobmanners$types;
+    }
 
     @Inject(method = "isSilent", at = @At("HEAD"), cancellable = true)
     private void checkMuted(CallbackInfoReturnable<Boolean> cir) {
@@ -27,9 +51,7 @@ public abstract class EntityMuteMixin {
         List<String> mutedEntities = SimpleMobManners.config().mutedEntities;
 
         if (mutedEntities != null && !mutedEntities.isEmpty()) {
-            // EntityType zu String ist relativ schnell (intern gecached)
-            String entityId = EntityType.getKey(this.getType()).toString();
-            if (mutedEntities.contains(entityId)) {
+            if (mutedTypes(mutedEntities).contains(this.getType())) {
                 cir.setReturnValue(true);
                 return; // Wenn hier gemutet, sind wir fertig!
             }

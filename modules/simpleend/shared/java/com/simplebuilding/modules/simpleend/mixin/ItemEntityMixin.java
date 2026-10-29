@@ -34,6 +34,9 @@ public abstract class ItemEntityMixin {
             self.needsSync = true;
         } else if (self.isNoGravity() && self.getY() < floor + 0.5 && self.getDeltaMovement().y > 0) {
             self.setDeltaMovement(Vec3.ZERO);
+        } else if (self.isNoGravity() && self.getY() >= floor + 0.5) {
+            // Ground built below, or lifted up: normal gravity again (REV2-A-6).
+            self.setNoGravity(false);
         }
     }
 }
