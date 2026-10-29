@@ -112,7 +112,7 @@
   "block.simpleblocks.shapecutter": "Formsäge",
   "item.simpleblocks.shapecutter": "Formsäge",
   "container.simpleblocks.shapecutter": "Formsäge",
-  "jei.simpleblocks.info.shapecutter": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.",
+  "jei.simpleblocks.info.shapecutter": "Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung. Metall-Finish: dasselbe Werkzeug an einer Formsäge benutzen, während 2 schwere Druckplatten in der Nebenhand liegen (sie werden verbraucht und kommen beim Abbauen zurück).",
   "tip.simpleblocks.shapecutter": "Schneidet Stein und Holz zu Treppen, Stufen und mehr",
   "block.simpleblocks.sculk_tiles": "Sculk-Fliesen",
   "item.simpleblocks.sculk_tiles": "Sculk-Fliesen",

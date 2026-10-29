@@ -214,23 +214,30 @@ def models_and_states():
 
 
 def saw_model():
-    """The stonecutter's model (9 px table, blade across the middle): polished metal top/side/bottom (Vanilla-derived,
-    tools/textures/shapecutter_2026_10_21.py) and the Vanilla blade regreyed there (variant S1/S2, BLADE; animation kept)."""
+    """The stonecutter's model (9 px table, blade across the middle) in two finishes (BS25-3, blockstate `metal`):
+    `shapecutter` = wood finish (default, what the recipe makes) and `shapecutter_metal` = plates on top and bottom
+    (conversion with 2 heavy pressure plates). The metal one keeps the polished-iron Vanilla-derived textures
+    (tools/textures/shapecutter_2026_10_21.py, blade S2); until the owner picks the wood look (preview a-tex29) the wood
+    finish references Vanilla's own stonecutter textures (nothing copied)."""
+    def model(t_top, t_side, t_bottom, t_saw):
+        return {
+            'parent': 'minecraft:block/block',
+            'textures': {'particle': t_bottom, 'bottom': t_bottom, 'top': t_top, 'side': t_side, 'saw': t_saw},
+            'elements': [
+                {'from': [0, 0, 0], 'to': [16, 9, 16], 'faces': {
+                    'down': {'uv': [0, 0, 16, 16], 'texture': '#bottom', 'cullface': 'down'},
+                    'up': {'uv': [0, 0, 16, 16], 'texture': '#top'},
+                    **{side: {'uv': [0, 7, 16, 16], 'texture': '#side', 'cullface': side} for side in ('north', 'south', 'west', 'east')}}},
+                {'from': [1, 9, 8], 'to': [15, 16, 8], 'faces': {
+                    'north': {'uv': [1, 9, 15, 16], 'texture': '#saw'},
+                    'south': {'uv': [15, 9, 1, 16], 'texture': '#saw'}}}]}
     t = f'{NS}:block/{SAW}'
-    put(f'assets/{NS}/models/block/{SAW}.json', {
-        'parent': 'minecraft:block/block',
-        'textures': {'particle': f'{t}_bottom', 'bottom': f'{t}_bottom', 'top': f'{t}_top', 'side': f'{t}_side', 'saw': f'{t}_saw'},
-        'elements': [
-            {'from': [0, 0, 0], 'to': [16, 9, 16], 'faces': {
-                'down': {'uv': [0, 0, 16, 16], 'texture': '#bottom', 'cullface': 'down'},
-                'up': {'uv': [0, 0, 16, 16], 'texture': '#top'},
-                **{side: {'uv': [0, 7, 16, 16], 'texture': '#side', 'cullface': side} for side in ('north', 'south', 'west', 'east')}}},
-            {'from': [1, 9, 8], 'to': [15, 16, 8], 'faces': {
-                'north': {'uv': [1, 9, 15, 16], 'texture': '#saw'},
-                'south': {'uv': [15, 9, 1, 16], 'texture': '#saw'}}}]})
+    put(f'assets/{NS}/models/block/{SAW}.json', model(*(f'minecraft:block/stonecutter_{p}' for p in ('top', 'side', 'bottom', 'saw'))))
+    put(f'assets/{NS}/models/block/{SAW}_metal.json', model(f'{t}_top', f'{t}_side', f'{t}_bottom', f'{t}_saw'))
     y = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
-    put(f'assets/{NS}/blockstates/{SAW}.json', {'variants': {f'facing={f}': ({'model': f'{NS}:block/{SAW}', 'y': y[f]} if y[f] else {'model': f'{NS}:block/{SAW}'})
-                                                         for f in ('east', 'north', 'south', 'west')}})
+    put(f'assets/{NS}/blockstates/{SAW}.json', {'variants': {
+        f'facing={f},metal={metal}': {'model': f'{NS}:block/{SAW}' + ('_metal' if metal == 'true' else ''), **({'y': y[f]} if y[f] else {})}
+        for f in ('east', 'north', 'south', 'west') for metal in ('false', 'true')}})
     put(f'assets/{NS}/items/{SAW}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{SAW}'}})
 
 
@@ -312,9 +319,13 @@ def recipes():
         else:
             recipe(f'{name}_from_moss_block', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
                                                'ingredients': [brick, 'minecraft:moss_block'], 'result': result(name)}, 'minecraft:moss_block')
-    # Shapecutter: the Vanilla stonecutter recipe (iron ingot over 3 stone) with a copper ingot on each side of the iron.
-    recipe(SAW, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'C': 'minecraft:copper_ingot', 'I': 'minecraft:iron_ingot', '#': 'minecraft:stone'},
-                 'pattern': ['CIC', '###'], 'result': result(SAW)}, 'minecraft:copper_ingot', 'decorations')
+    # Shapecutter (BS25-3, owner 25.10.): a stonecutter in the middle, a tool above it (with Simple Hammers a hammer, else an
+    # axe, like the in-world upgrade, SawUpgrade.toolFits) and a U of planks around and below it. The metal finish (plates on
+    # top and bottom) is a conversion with 2 heavy pressure plates in the off hand (SawUpgrade.tryMetal), not a recipe.
+    hammers, no_hammers = mod_condition('simplehammers'), mod_condition('simplehammers', True)
+    for rid, tool, cond in ((f'{SAW}_with_hammers', '#simplelib:hammers', hammers), (SAW, '#minecraft:axes', no_hammers)):
+        recipe(rid, {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'T': tool, 'S': 'minecraft:stonecutter', 'P': '#minecraft:planks'},
+                     'pattern': [' T ', 'PSP', 'PPP'], 'result': result(SAW)}, 'minecraft:stonecutter', 'decorations', cond)
     # Gravity blocks (b-blocksmove): SimpleBuilding's way (Nihilith shard / Astralit dust, same recipe ids as before the move)
     # only with SimpleBuilding; alone a Vanilla way (phantom membrane: slow falling / breeze rod: wind lifts), principles 1 and 5.
     sb, no_sb = mod_condition('simplebuilding'), mod_condition('simplebuilding', True)
@@ -347,8 +358,13 @@ def loot():
     for name, *_ in GRAVITY:
         put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                             'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
-    put(f'data/{NS}/loot_table/blocks/{SAW}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
-                                                    'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{SAW}'}], 'rolls': 1}]})
+    # The metal finish gives its 2 heavy pressure plates back when the Shapecutter is broken.
+    put(f'data/{NS}/loot_table/blocks/{SAW}.json', {'type': 'minecraft:block', 'pools': [
+        {'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{SAW}'}], 'rolls': 1},
+        {'conditions': [{'condition': 'minecraft:survives_explosion'},
+                        {'condition': 'minecraft:block_state_property', 'block': f'{NS}:{SAW}', 'properties': {'metal': 'true'}}],
+         'entries': [{'type': 'minecraft:item', 'name': 'minecraft:heavy_weighted_pressure_plate', 'functions': [{'function': 'minecraft:set_count', 'count': 2}]}],
+         'rolls': 1}]})
 
 
 def tag(rel, ids):
@@ -431,10 +447,12 @@ def names():
 SAW_LANG = {
     'en_us': dict(name='Shapecutter',
                   info='Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. '
-                       'The nuggets are used up and the stonecutter becomes a Shapecutter facing the same way.'),
+                       'The nuggets are used up and the stonecutter becomes a Shapecutter facing the same way. '
+                       'Metal finish: use the same tool on a Shapecutter while 2 heavy weighted pressure plates are in your off hand (they are used up and come back when you break it).'),
     'de_de': dict(name='Formsäge',
                   info='Eine platzierte Steinsäge aufwerten: mit einer Axt (mit Simple Hammers stattdessen mit einem Hammer) benutzen, '
-                       'während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung.'),
+                       'während du 4 Eisennuggets dabeihast. Die Nuggets werden verbraucht, die Steinsäge wird zur Formsäge in derselben Ausrichtung. '
+                       'Metall-Finish: dasselbe Werkzeug an einer Formsäge benutzen, während 2 schwere Druckplatten in der Nebenhand liegen (sie werden verbraucht und kommen beim Abbauen zurück).'),
 }
 
 

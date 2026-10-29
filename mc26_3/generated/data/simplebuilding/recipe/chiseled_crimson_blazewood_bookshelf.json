@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": "minecraft:crimson_slab",
+    "W": "simplebuilding:crimson_blazewood_planks"
+  },
+  "pattern": [
+    "WWW",
+    "SSS",
+    "WWW"
+  ],
+  "result": {
+    "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf"
+  }
+}

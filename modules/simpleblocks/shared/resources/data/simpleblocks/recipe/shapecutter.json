@@ -1,14 +1,42 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplehammers"
+        ]
+      }
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "simplehammers"
+      }
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:not",
+    "value": {
+      "type": "forge:mod_loaded",
+      "modid": "simplehammers"
+    }
+  },
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": "minecraft:copper_ingot",
-    "I": "minecraft:iron_ingot",
-    "#": "minecraft:stone"
+    "T": "#minecraft:axes",
+    "S": "minecraft:stonecutter",
+    "P": "#minecraft:planks"
   },
   "pattern": [
-    "CIC",
-    "###"
+    " T ",
+    "PSP",
+    "PPP"
   ],
   "result": {
     "id": "simpleblocks:shapecutter"

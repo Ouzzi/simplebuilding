@@ -112,7 +112,7 @@
   "block.simpleblocks.shapecutter": "Shapecutter",
   "item.simpleblocks.shapecutter": "Shapecutter",
   "container.simpleblocks.shapecutter": "Shapecutter",
-  "jei.simpleblocks.info.shapecutter": "Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. The nuggets are used up and the stonecutter becomes a Shapecutter facing the same way.",
+  "jei.simpleblocks.info.shapecutter": "Upgrade a placed stonecutter: use an axe on it (with Simple Hammers a hammer instead) while you carry 4 iron nuggets. The nuggets are used up and the stonecutter becomes a Shapecutter facing the same way. Metal finish: use the same tool on a Shapecutter while 2 heavy weighted pressure plates are in your off hand (they are used up and come back when you break it).",
   "tip.simpleblocks.shapecutter": "Cuts stone and wood into stairs, slabs and more",
   "block.simpleblocks.sculk_tiles": "Sculk Tiles",
   "item.simpleblocks.sculk_tiles": "Sculk Tiles",

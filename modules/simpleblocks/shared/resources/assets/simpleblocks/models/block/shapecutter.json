@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "simpleblocks:block/shapecutter_bottom",
-    "bottom": "simpleblocks:block/shapecutter_bottom",
-    "top": "simpleblocks:block/shapecutter_top",
-    "side": "simpleblocks:block/shapecutter_side",
-    "saw": "simpleblocks:block/shapecutter_saw"
+    "particle": "minecraft:block/stonecutter_bottom",
+    "bottom": "minecraft:block/stonecutter_bottom",
+    "top": "minecraft:block/stonecutter_top",
+    "side": "minecraft:block/stonecutter_side",
+    "saw": "minecraft:block/stonecutter_saw"
   },
   "elements": [
     {
