@@ -1,0 +1,10 @@
+{
+	"chapter.54A1B319F488B728.title": "{\"translate\": \"quests.simpleanimals.start.title\"}",
+	"chapter.54A1B319F488B728.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleanimals.start.subtitle\"}"
+	],
+	"quest.2B5DC7B35CC91217.title": "{\"translate\": \"quests.simpleanimals.start.welcome.title\"}",
+	"quest.2B5DC7B35CC91217.quest_desc": [
+		"{\"translate\": \"quests.simpleanimals.start.welcome.description\"}"
+	]
+}

@@ -255,6 +255,14 @@ Dorf-Wanderer: ein fahrender Händler je Dorf mit Pferd, Warenwechsel alle 3 Tag
 
 - keine eigenen Regeln bisher
 
+### Simple Animals (`simpleanimals`)
+Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein, Igel, Krebs, Zebra (mit unfruchtbarem Zorse); allein mit Vanilla spielbar.
+
+- **A12 je Tier** steht in `docs/ai/PLAN-A-ANIMALS-2026-10-29.md`; neue Tiere kommen erst nach Besitzer-Wahl dazu (SPÄTER-Liste im Konzept WP-18).
+- Natürliches Spawnen nur über niedrige Gewichte (1 bis 4) und die Regel in `checkSpawnRules` der Entität (Tageslicht, Boden); Ei, Spawner und Zucht sind nie begrenzt. Kein Blockschaden, nur Vanilla-Goals.
+- Modelle und Texturen kommen aus einer Spezifikation (`tools/gen_models.py`, `tools/gen_items.py`); Java-`*Layers` nie von Hand ändern.
+- Jede neue Entität des Moduls braucht eine Ausnahme in `simplemobheads/data/mobs.json`, solange es keinen Kopf gibt.
+
 ### Simple Stats (`simplestats`)
 Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.
 

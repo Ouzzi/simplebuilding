@@ -1,0 +1,90 @@
+{
+  "guide_book": {
+    "lore": [
+      "A field notebook for the animals that were missing."
+    ],
+    "use": [
+      "The Simple Animals Guide explains the deer, the wild boar, the hedgehog, the crab and the zebra. Craft it shapeless from a book and sweet berries."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  },
+  "deer_spawn_egg": {
+    "lore": [
+      "A shy forest animal, folded into an egg."
+    ],
+    "use": [
+      "Creative only. It spawns a deer. Wild deer live in forests and taiga and run from players who sprint or come close empty-handed."
+    ],
+    "secret": [
+      "Sneak up or hold wheat or a carrot and a deer stays; breed two with the same food."
+    ]
+  },
+  "boar_spawn_egg": {
+    "lore": [
+      "Something small and stubborn grunts inside."
+    ],
+    "use": [
+      "Creative only. It spawns a wild boar. Never come close to its piglets: the adults charge like polar bears do."
+    ],
+    "secret": [
+      "Sneaking does not wake it, but standing next to one for six seconds still earns you a ram."
+    ]
+  },
+  "hedgehog_spawn_egg": {
+    "lore": [
+      "A round, prickly little surprise."
+    ],
+    "use": [
+      "Creative only. It spawns a hedgehog, which hunts silverfish within eight blocks and rolls up in a third of a second."
+    ],
+    "secret": [
+      "Run past it and it curls; stay calm and it keeps hunting."
+    ]
+  },
+  "crab_spawn_egg": {
+    "lore": [
+      "It scuttles a little even in the shell."
+    ],
+    "use": [
+      "Creative only. It spawns a crab. Wild crabs are rare and only walk the beaches and mangrove mud by day."
+    ],
+    "secret": [
+      "They walk sideways, so do not wait for one to face you."
+    ]
+  },
+  "zebra_spawn_egg": {
+    "lore": [
+      "Black on white, or white on black?"
+    ],
+    "use": [
+      "Creative only. It spawns a zebra, a horse with stripes. Tame it by riding, then saddle and armor it like a horse."
+    ],
+    "secret": [
+      "A tamed zebra and a tamed horse in love give a zorse, which can never have foals."
+    ]
+  },
+  "raw_crab": {
+    "lore": [
+      "The meat of a small shore crab."
+    ],
+    "use": [
+      "Eaten raw it feeds like raw cod. Smelt it, smoke it or cook it on a campfire for cooked crab."
+    ],
+    "secret": [
+      "A crab leg has little meat, but it cooks quickly."
+    ]
+  },
+  "cooked_crab": {
+    "lore": [
+      "Sweet meat in a bright shell."
+    ],
+    "use": [
+      "Eaten it feeds like cooked cod."
+    ],
+    "secret": [
+      "Cooked crab is a shore meal, not a new food level."
+    ]
+  }
+}

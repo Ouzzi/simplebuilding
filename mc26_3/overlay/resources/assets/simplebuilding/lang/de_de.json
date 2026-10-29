@@ -2039,6 +2039,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleEarth.@Tooltip": "Schaltet das gebündelte Modul Simple Earth ein oder aus: weit über der Welt (Aktivierungshöhe, Standard 1024) erscheint die Oberwelt als Würfel mit Terrain in Kartenfarben aus dem Weltgenerator. Aus: kein Orbit, alles bleibt Vanilla. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleGadgets": "Simple Gadgets aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleGadgets.@Tooltip": "Schaltet das mitgelieferte Modul Simple Gadgets an oder aus: die Geräte, die man in der Hand hält und benutzt (vorerst die Messuhr). Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Geräte und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleAnimals": "Simple Animals aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleAnimals.@Tooltip": "Schaltet das gebündelte Modul Simple Animals ein oder aus: Hirsch, Wildschwein, Igel, Krebs und Zebra. Aus stoppt ihr natürliches Spawnen; Tiere, die schon in der Welt sind, bleiben. Wirkt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

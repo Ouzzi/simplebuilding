@@ -1,0 +1,15 @@
+{
+  "module": "simpleanimals",
+  "derivation": "Simple Animals sells nothing for money: the animals are wild (spawn eggs are creative only), and raw and cooked crab have the value of Vanilla raw and cooked cod, which carry no price.",
+  "excluded": {
+    "simpleanimals:deer_spawn_egg": "Creative only.",
+    "simpleanimals:boar_spawn_egg": "Creative only.",
+    "simpleanimals:hedgehog_spawn_egg": "Creative only.",
+    "simpleanimals:crab_spawn_egg": "Creative only.",
+    "simpleanimals:zebra_spawn_egg": "Creative only.",
+    "simpleanimals:raw_crab": "Dropped by crabs; the value of raw cod, which has no price.",
+    "simpleanimals:cooked_crab": "Cooked raw crab; the value of cooked cod, which has no price.",
+    "simpleanimals:guide_book": "Crafted from a book and sweet berries."
+  },
+  "prices": []
+}

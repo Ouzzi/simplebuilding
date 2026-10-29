@@ -1,0 +1,90 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein Feldbuch für die Tiere, die gefehlt haben."
+    ],
+    "use": [
+      "Das Simple-Animals-Handbuch erklärt Hirsch, Wildschwein, Igel, Krebs und Zebra. Formlos aus einem Buch und Süßbeeren gebaut."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache und nichts wird verbraucht."
+    ]
+  },
+  "deer_spawn_egg": {
+    "lore": [
+      "Ein scheues Waldtier, in ein Ei gefaltet."
+    ],
+    "use": [
+      "Nur Kreativ. Es erzeugt einen Hirsch. Wilde Hirsche leben in Wäldern und der Taiga und fliehen vor Spielern, die sprinten oder mit leeren Händen näher kommen."
+    ],
+    "secret": [
+      "Schleiche oder halte Weizen oder eine Karotte und ein Hirsch bleibt; zwei lassen sich mit demselben Futter züchten."
+    ]
+  },
+  "boar_spawn_egg": {
+    "lore": [
+      "Etwas Kleines und Stures grunzt darin."
+    ],
+    "use": [
+      "Nur Kreativ. Es erzeugt ein Wildschwein. Komm nie in die Nähe seiner Frischlinge: die Erwachsenen greifen an wie Eisbären."
+    ],
+    "secret": [
+      "Schleichen weckt es nicht, aber sechs Sekunden neben einem Wildschwein bringen trotzdem einen Rammstoß."
+    ]
+  },
+  "hedgehog_spawn_egg": {
+    "lore": [
+      "Eine runde, stachelige kleine Überraschung."
+    ],
+    "use": [
+      "Nur Kreativ. Es erzeugt einen Igel, der Silberfische im Umkreis von acht Blöcken jagt und sich in einer Drittelsekunde einrollt."
+    ],
+    "secret": [
+      "Renn an ihm vorbei und er rollt sich ein; bleib ruhig und er jagt weiter."
+    ]
+  },
+  "crab_spawn_egg": {
+    "lore": [
+      "Auch in der Schale huscht es ein wenig."
+    ],
+    "use": [
+      "Nur Kreativ. Es erzeugt einen Krebs. Wilde Krebse sind selten und laufen nur am Tag über Strände und Mangrovenschlamm."
+    ],
+    "secret": [
+      "Sie laufen seitwärts, warte also nicht, dass einer dich anschaut."
+    ]
+  },
+  "zebra_spawn_egg": {
+    "lore": [
+      "Schwarz auf weiß oder weiß auf schwarz?"
+    ],
+    "use": [
+      "Nur Kreativ. Es erzeugt ein Zebra, ein Pferd mit Streifen. Zähme es durch Reiten, dann sattle und panzere es wie ein Pferd."
+    ],
+    "secret": [
+      "Ein gezähmtes Zebra und ein gezähmtes Pferd im Liebesmodus ergeben ein Zorse, das nie Fohlen bekommt."
+    ]
+  },
+  "raw_crab": {
+    "lore": [
+      "Das Fleisch eines kleinen Strandkrebses."
+    ],
+    "use": [
+      "Roh gegessen sättigt es wie roher Kabeljau. Schmelze, räuchere oder gare ihn am Lagerfeuer zu gegartem Krebs."
+    ],
+    "secret": [
+      "Ein Krebsbein hat wenig Fleisch, gart aber schnell."
+    ]
+  },
+  "cooked_crab": {
+    "lore": [
+      "Süßes Fleisch in leuchtender Schale."
+    ],
+    "use": [
+      "Gegessen sättigt er wie gegarter Kabeljau."
+    ],
+    "secret": [
+      "Gegarter Krebs ist eine Strandmahlzeit, keine neue Nahrungsstufe."
+    ]
+  }
+}

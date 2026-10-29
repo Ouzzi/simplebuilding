@@ -11,7 +11,13 @@
   "minecraft:armor_stand": "not a mob",
   "minecraft:mannequin": "not a mob",
   "simplewanderers:village_wanderer": "head comes later (owner answer W11, village wanderer concept 2026-10-15)",
-  "simplewanderers:wanderer_horse": "head comes later (owner answer W11, village wanderer concept 2026-10-15)"
+  "simplewanderers:wanderer_horse": "head comes later (owner answer W11, village wanderer concept 2026-10-15)",
+ "simpleanimals:deer": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
+ "simpleanimals:boar": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
+ "simpleanimals:hedgehog": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
+ "simpleanimals:crab": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
+ "simpleanimals:zebra": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
+ "simpleanimals:zorse": "head comes later (Simple Animals, concept WP-18 2026-10-29)"
  },
  "heads": [
   {
