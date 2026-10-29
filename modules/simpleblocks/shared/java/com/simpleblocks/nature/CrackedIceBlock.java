@@ -28,8 +28,8 @@ import org.jspecify.annotations.Nullable;
  *
  * <p>N53 (Besitzer 2026-10-13): zwischen Eis getarnt - Eis und rissiges Eis blenden die gemeinsamen Flaechen aus wie
  * Eis neben Eis ({@link #hidesFaceTowards}, CrackedIceFacesMixin), sonst zeichneten sich die Innenflaechen als
- * dunkler Rand ab. An keine Seite eines rissigen Eisblocks laesst sich ein Block setzen ({@link #blocksPlacementAt}, CrackedIcePlaceMixin) -
- * ausser Eis und rissigem Eis selbst (B23-M2, Besitzer 23.10.: getarnte Felder muessen sich bauen lassen).
+ * dunkler Rand ab. BS25-8 (Besitzer 29.10.): das N53-Platzierverbot an allen Seiten ist weg - auf und neben rissigem Eis
+ * laesst sich normal bauen.
  */
 public class CrackedIceBlock extends IceBlock {
     public static final int MAX_AGE = 3;
@@ -77,23 +77,6 @@ public class CrackedIceBlock extends IceBlock {
             return false;
         }
         return neighbor.is(net.minecraft.world.level.block.Blocks.ICE) || neighbor.is(cracked);
-    }
-
-    /**
-     * N53: an keine der sechs Seiten eines rissigen Eisblocks darf ein Block gesetzt werden (CrackedIcePlaceMixin). B23-M2
-     * (Besitzer 23.10.): Eis und rissiges Eis ({@code placed}) duerfen daneben, sonst laesst sich kein getarntes Feld bauen.
-     */
-    public static boolean blocksPlacementAt(net.minecraft.world.level.LevelReader level, BlockPos pos, Block placed) {
-        Block cracked = NatureBlocks.CRACKED_ICE;
-        if (cracked == null || placed == cracked || placed == net.minecraft.world.level.block.Blocks.ICE) {
-            return false;
-        }
-        for (net.minecraft.core.Direction direction : net.minecraft.core.Direction.values()) {
-            if (level.getBlockState(pos.relative(direction)).is(cracked)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /** Steht ein Lebewesen (kein Zuschauer) auf der Oberseite? */

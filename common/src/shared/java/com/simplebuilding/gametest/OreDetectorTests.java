@@ -1540,6 +1540,30 @@ public final class OreDetectorTests {
         helper.succeed();
     }
 
+    /**
+     * BS28b-3: a placed detector pays durability per tone with a 50 % chance (in the hand it is every ping). 200 tones
+     * leave roughly 100 damage (checked wide, 70..130), a tone without a find or a holder costs nothing.
+     * What breaks this: {@code PlacedDetectors.wear} no longer called from {@code tick}, or paying every tone.
+     */
+    public static void placedDetectorWearsHalfTheTones(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos platePos = new BlockPos(1, 2, 1);
+        helper.setBlock(platePos, ModBlocks.PLACED_SMITHING_TEMPLATE);
+        com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity plate =
+                helper.getBlockEntity(platePos, com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity.class);
+        plate.setTemplate(new ItemStack(ModItems.ORE_DETECTOR));
+        BlockPos abs = helper.absolutePos(platePos);
+        com.simplebuilding.util.PlacedDetectors.wear(level, abs, plate, com.simplebuilding.util.PlacedDetectors.Result.NONE);
+        helper.assertTrue(plate.getTemplate().getDamageValue() == 0, "a silent tick cost durability");
+        com.simplebuilding.util.PlacedDetectors.Result tone = new com.simplebuilding.util.PlacedDetectors.Result(abs.east(), null);
+        for (int i = 0; i < 200; i++) {
+            com.simplebuilding.util.PlacedDetectors.wear(level, abs, plate, tone);
+        }
+        int damage = plate.getTemplate().getDamageValue();
+        helper.assertTrue(damage >= 70 && damage <= 130, "200 tones of a placed detector cost " + damage + " durability, expected about 100");
+        helper.succeed();
+    }
+
     private static int brightness(int rgb) {
         return ((rgb >> 16) & 255) + ((rgb >> 8) & 255) + (rgb & 255);
     }

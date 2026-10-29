@@ -65,6 +65,7 @@
     "simplebuilding:sage_orb",
     "simplebuilding:dull_astralit_dust",
     "simplebuilding:dull_nihilith_shard",
+    "simplebuilding:warden_tendril",
     {
       "id": "simplebeacons:strong_upgrade_shard",
       "required": false
@@ -79,6 +80,22 @@
     },
     {
       "id": "simplemobs:nether_gem",
+      "required": false
+    },
+    {
+      "id": "simplemobs:ender_gem",
+      "required": false
+    },
+    {
+      "id": "simplemobs:ender_heart",
+      "required": false
+    },
+    {
+      "id": "simplemobs:echo_core",
+      "required": false
+    },
+    {
+      "id": "simplemobs:dread_link",
       "required": false
     },
     {

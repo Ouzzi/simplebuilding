@@ -1112,6 +1112,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detectors_lie_down_and_keep_searching", OreDetectorTests::calibratedDetectorsLieDownAndKeepSearching)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_placed_detector_wears_half_the_tones", OreDetectorTests::placedDetectorWearsHalfTheTones)
+                    .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),
             GameTestSpec.named("quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)

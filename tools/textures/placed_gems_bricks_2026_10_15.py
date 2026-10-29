@@ -27,8 +27,11 @@ BRICKS = ['brick', 'nether_brick', 'resin_brick']
 GEMS = {
     'diamond': [2, 3, 4, 5, 5, 6, 6, 6, 6, 5, 5, 4, 3],
     'emerald': [2, 3, 4, 5, 5, 5, 5, 5, 5, 4, 3, 2],
+    'cracked_diamond': [2, 3, 4, 4, 5, 5, 6, 6, 6, 5, 5, 4, 3],  # simplelib:cracked_diamond (BS25-5), sprite rows 1..13
 }
 FIRST_ROW = 2
+FIRST_ROWS = {'cracked_diamond': 1}
+TEXTURES = {'cracked_diamond': 'simplelib:item/cracked_diamond'}
 
 
 def brick_model(name):
@@ -60,13 +63,14 @@ def gem_boxes(rows):
 
 def gem_model(name):
     rows = GEMS[name]
-    tex = 'minecraft:item/%s' % name
+    tex = TEXTURES.get(name, 'minecraft:item/%s' % name)
+    first = FIRST_ROWS.get(name, FIRST_ROW)
     elements = []
     for a, b, hw in gem_boxes(rows):
         y0 = (len(rows) - 1 - b) * 0.5
         y1 = (len(rows) - a) * 0.5
         half = hw * 0.5
-        r0, r1 = FIRST_ROW + a, FIRST_ROW + b + 1
+        r0, r1 = first + a, first + b + 1
         side = {'uv': [8 - hw, r0, 8 + hw, r1], 'texture': '#gem'}
         elements.append({'from': [8 - half, y0, 8 - half], 'to': [8 + half, y1, 8 + half], 'faces': {
             'up': {'uv': [8 - hw, r0, 8 + hw, r0 + 1], 'texture': '#gem'},

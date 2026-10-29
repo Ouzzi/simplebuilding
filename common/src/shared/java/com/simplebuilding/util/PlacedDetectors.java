@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
  *   ({@link OreDetectorItem#findTarget}, samt Radius/Constructor's Touch des Stapels), aber von der
  *   Mitte der Platte aus. Findet er den Zielblock, laeuft eine Sculk-Vibration vom Fundort zum
  *   Detector, Blockpartikel zeichnen den Strahl, dazu Glocke und Sculk-Klicken wie in der Hand
- *   (hoeher je naeher). Kostet keine Haltbarkeit.</li>
+ *   (hoeher je naeher). Jeder Ton kostet mit {@link #WEAR_CHANCE} 1 Haltbarkeit ({@link #wear}).</li>
  *   <li><b>Traeger:</b> haelt ein Spieler oder Mob in {@link #HOLDER_RANGE} Bloecken den Zielblock als
  *   Item in einer Hand, schlaegt der Detector ebenfalls an - eine
  *   Vibration fliegt vom Detector zum Traeger, dazu ein hoher Resonanzton.</li>
@@ -52,6 +52,8 @@ public final class PlacedDetectors {
     public static final double LISTEN_RANGE = 32.0;
     /** Abgelegt sucht er halb so oft wie in der Haupthand. */
     public static final int INTERVAL_FACTOR = 2;
+    /** Abgelegt kostet jeder Ton nur mit dieser Wahrscheinlichkeit 1 Haltbarkeit (BS28b-3; in der Hand immer). */
+    public static final float WEAR_CHANCE = 0.5F;
 
     private PlacedDetectors() {
     }
@@ -76,7 +78,38 @@ public final class PlacedDetectors {
                 || !level.hasNearbyAlivePlayer(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, LISTEN_RANGE)) {
             return Result.NONE;
         }
-        return scan(level, pos, be, true);
+        Result result = scan(level, pos, be, true);
+        wear(level, pos, be, result);
+        return result;
+    }
+
+    /**
+     * BS28b-3: jeder Ton eines Taktes (Fund, Traeger) kostet mit {@link #WEAR_CHANCE} 1 Haltbarkeit (in der Hand immer);
+     * Haltbarkeit/Unbreaking greift danach zusaetzlich ({@code hurtAndBreak}), die Wahrscheinlichkeiten multiplizieren
+     * sich. Geht der Detector dabei kaputt, verschwindet die Platte. Liefert die Zahl der abgezogenen Takte-Toene.
+     */
+    public static int wear(ServerLevel level, BlockPos pos, PlacedTemplateBlockEntity be, Result result) {
+        int tones = (result.found() != null ? 1 : 0) + (result.holder() != null ? 1 : 0);
+        int paid = 0;
+        for (int i = 0; i < tones && !be.getTemplate().isEmpty(); i++) {
+            if (level.getRandom().nextFloat() >= WEAR_CHANCE) {
+                continue;
+            }
+            ItemStack stack = be.getTemplate();
+            int before = stack.getDamageValue();
+            stack.hurtAndBreak(OreDetectorItem.DURABILITY_PER_HIT, level, null,
+                    item -> level.playSound(null, pos, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 0.8F, 0.8F));
+            paid++;
+            if (stack.isEmpty()) {
+                be.setTemplate(ItemStack.EMPTY);
+                level.destroyBlock(pos, false);
+                return paid;
+            }
+            if (stack.getDamageValue() != before) {
+                be.setChanged();
+            }
+        }
+        return paid;
     }
 
     /**
