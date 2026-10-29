@@ -46,7 +46,7 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 Erst wenn der Besitzer „los“ sagt bzw. Kontingent A zurückgesetzt ist. Innerhalb jeder Stufe Mechanik-Fixes vor Optik; Optik und neue Inhalte immer erst Vorschau/Konzept.
 1. Hänger/Abstürze: BS27-1 (Client-Hänger beim Reisen/Verlassen), BS25-19 (Hänger beim Tod mit Seelenfeuer-Lohenkopf).
 2. Fehler aus dem Spiel: BS25-2, -5, -6, -8, -9, BS28b-3 (Detektor), Review REV2/REV24-Rest, VIS24, CMD24.
-3. Direkte Wünsche (bauen): BS25 Rest (Texturen, Shops, Köpfe, Käse/Butter, Enchanter, Notenblatt, Meißel), BS25-21/22, WA24-Rest, OW24, BS28b-1/2/4/5, HS29-2/3, BS29-1/3, ST27-1, BS27-4, AUDM24, WIKI24.
+3. Direkte Wünsche (bauen): BS25 Rest (Texturen, Shops, Köpfe, Käse/Butter, Enchanter, Notenblatt, Meißel), BS25-21/22, WA24-Rest, OW24, BS28b-1/2/4/5, HS29-2/3, BS29-1/3/4, ST27-1, BS27-4, AUDM24, WIKI24.
 4. Konzepte mit Vorschau (nicht bauen): MOB27, BS27-2/3/5/6, BS25-23/24/25, BS28-1…5, DINO28, UI28, MAP28, HS29-1.
 5. Phase 3 / Warteliste: CH29-1 Simple Challenges (Konzept darf in Stufe 4 vorgezogen werden), BS29-2 Skilltree, BS25-20 Enchanter-Rework, Octet-Zellen-Texturen, WL-1 Simple Earth (Runden E29–E31 laufen über Abschnitte oben).
 
@@ -219,6 +219,7 @@ Abgenommen ohne Folgearbeit: WA24-3 Butter-Teppich „passt“, WA24-4 Köcher, 
 - [ ] BS29-1 „Durch Gras schlagen“ verbessern, orientiert an https://modrinth.com/mod/cut-through : mit Schärfe Chance, durch Gras/Pflanzen hindurch den Mob zu treffen (Gras ohne Hitbox) und dabei das Gras abzubauen – Schärfe I 10 %, linear bis Schärfe V 90 %. Abgebautes Gras: leichter Effekt; Standard (auch Axt) 3×3 um Block bzw. Ziel; mit Schwungkraft (Sweeping Edge) je Stufe größerer Bereich/mehr Blöcke (z. B. Stufe I 2–7 Blöcke im 3×3, Stufe II 3–9 … → größere Reichweite). Ist-Stand des vorhandenen Features prüfen, Plan, Tests.
 - [ ] BS29-2 PHASE 3: „Simple Skilltree“, angelehnt an https://modrinth.com/mod/skills und den Craftmine-Skilltree; voll konfigurierbar. Standard: einige Spieler-/allgemeine Werte als Skills, je Skillpunkt ein Upgrade, manche Skills teurer (Progression wie in To the Core, Scratchy Scratch, Bills Must Be Paid). Nur notieren/Konzept in Phase 3.
 - [ ] BS29-3 QoL Fernrohr: Fernrohr-Overlay nur am Bildschirmrand, übrige HUD-Elemente ausblenden, Zoom per Mausrad stufenlos; Zoom-Mod-Funktion integrieren (Config: Zoom nur mit Fernrohr oder zusätzlich per Hotkey, gleiches Overlay). Optik erst Vorschau.
+- [ ] BS29-4 Zwei Resourcepacks als eigene Funktion integrieren (QoL bzw. passender Mod, abschaltbar): https://modrinth.com/resourcepack/clearer-slot-highlight (deutlichere Slot-Hervorhebung) und https://modrinth.com/resourcepack/leggings-fix (Hosen-/Leggings-Darstellung). Lizenz prüfen; eigene Umsetzung/eigene Pixel, keine fremden Dateien ohne passende Lizenz, keine Mojang-Pixel im Repo. Vorher/Nachher-Vorschau.
 
 ## Besitzer 28.10. nachts – Live-Karte als Super-Mod mit Webseite (MAP28) – erst nach „weiter“
 - [ ] MAP28-1 KONZEPT (nur Konzept + Risiken, Abnahme per Artifact, dann erst bauen): neuer Super-Mod „Live-Karte“ – Webseite mit Live-Karte der Welt, 2D und 3D (neigbar/tiltbar), dazu Statistiken (Spieler, Server-Werte usw.). Vorbilder: https://mc.westeroscraft.com/# (gut) und https://map.craftluna.net/ (teils laggy → vermeiden). Zwei Betriebsarten prüfen:
