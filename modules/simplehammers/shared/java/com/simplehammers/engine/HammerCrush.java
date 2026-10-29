@@ -68,7 +68,8 @@ public final class HammerCrush {
         level.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 0.9F, 0.9F);
         level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                 16, 0.3, 0.3, 0.3, 0.05);
-        if (!player.isCreative() && player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            // hurtAndBreak itself costs nothing for a player with infinite materials (Creative).
             EquipmentSlot slot = player.getOffhandItem() == hammer ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
             hammer.hurtAndBreak(DAMAGE, level, serverPlayer, item -> player.onEquippedItemBroken(item, slot));
         }
