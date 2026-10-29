@@ -116,4 +116,11 @@ public final class ModuleGameTest {
     public void jeiMobDrops(GameTestHelper h) {
         MobsTests.ALL.get("jei_mob_drops").accept(h);
     }
+    @GameTest(structure = "simplemobs:empty") public void combatRegistered(GameTestHelper helper) { MobsTests.ALL.get("combat_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void combatRules(GameTestHelper helper) { MobsTests.ALL.get("combat_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void deflectionRoll(GameTestHelper helper) { MobsTests.ALL.get("deflection_roll").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void mirrorReflect(GameTestHelper helper) { MobsTests.ALL.get("mirror_reflect").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void mirrorBearer(GameTestHelper helper) { MobsTests.ALL.get("mirror_bearer").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void mirrorLethal(GameTestHelper helper) { MobsTests.ALL.get("mirror_lethal").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void volatileExplosion(GameTestHelper helper) { MobsTests.ALL.get("volatile_explosion").accept(helper); }
 }

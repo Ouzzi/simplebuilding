@@ -119,6 +119,34 @@
       }
     },
     {
+      "id": "combat_effects",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/CombatEffects.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/CombatEffectsMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Combat effects: Volatile, Deflection, Mirror",
+        "summary": "Three status effects, levels I-V, for mobs and players: Volatile answers hits with a small explosion, Deflection negates hits, Mirror flips a coin between more damage for the bearer and damage back to the attacker.",
+        "details": [
+          "Applied with the command /effect give <target> simplemobs:volatile|deflection|mirror <seconds> <level-1>. No mob carries them yet and there are no potions yet.",
+          "Volatile: every hit on the bearer sets off a small explosion at the bearer: about 3 hearts at melee distance on level I, falling off to nothing at 4 blocks (+0.5 blocks and +1 heart per level). The bearer is immune to it, no blocks are destroyed. Bystanders are hurt like in any explosion.",
+          "Deflection: 10 % per level (50 % at level V) that a hit is negated completely. Fall, fire, void and other damage without an attacker are never deflected.",
+          "Mirror: every hit is a coin flip (Server-Config simplemobs-server.json: mirrorReflectChance, default 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart."
+        ]
+      },
+      "de": {
+        "title": "Kampfeffekte: Explosiv, Abwehr, Spiegel",
+        "summary": "Drei Statuseffekte, Stufe I-V, für Mobs und Spieler: Explosiv antwortet auf Treffer mit einer kleinen Explosion, Abwehr negiert Treffer, Spiegel würfelt zwischen mehr Schaden für den Träger und Schaden zurück an den Schläger.",
+        "details": [
+          "Anwenden mit dem Befehl /effect give <Ziel> simplemobs:volatile|deflection|mirror <Sekunden> <Stufe-1>. Noch trägt kein Mob sie, und es gibt noch keine Tränke.",
+          "Explosiv: jeder Treffer auf den Träger löst am Träger eine kleine Explosion aus: auf Stufe I etwa 3 Herzen auf Nahkampf-Abstand, nach außen abnehmend bis 0 bei 4 Blöcken (je Stufe +0,5 Blöcke und +1 Herz). Der Träger ist immun, es werden keine Blöcke zerstört. Umstehende werden wie bei jeder Explosion verletzt.",
+          "Abwehr: 10 % je Stufe (50 % auf Stufe V), dass ein Treffer komplett negiert wird. Fall-, Feuer-, Void- und anderer Schaden ohne Angreifer wird nie abgewehrt.",
+          "Spiegel: jeder Treffer ist ein Münzwurf (Server-Config simplemobs-server.json: mirrorReflectChance, Standard 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz."
+        ]
+      }
+    },
+    {
       "id": "soulfire_blaze",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulfireBlaze.java",

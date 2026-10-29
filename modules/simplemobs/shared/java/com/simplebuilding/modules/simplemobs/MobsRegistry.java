@@ -110,6 +110,7 @@ public final class MobsRegistry {
         silenceHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, SILENCE_KEY, SILENCE);
         Registry.register(BuiltInRegistries.POTION, SILENCE_POTION_KEY, silencePotion());
         Registry.register(BuiltInRegistries.POTION, LONG_SILENCE_POTION_KEY, longSilencePotion());
+        CombatEffects.registerAll();
         MobsViewer.register(); // JEI24: loot, Wither drops and the Shellker in the recipe viewer (no JEI class)
     }
 

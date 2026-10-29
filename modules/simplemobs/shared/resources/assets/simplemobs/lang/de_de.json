@@ -142,5 +142,11 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
+  "effect.simplemobs.volatile": "Explosiv",
+  "effect.simplemobs.volatile.description": "Ein Treffer auf den Träger löst eine kleine Explosion aus, die alle in der Nähe außer dem Träger verletzt. Zerstört keine Blöcke.",
+  "effect.simplemobs.deflection": "Abwehr",
+  "effect.simplemobs.deflection.description": "10 % je Stufe (bis 50 %), einen Treffer komplett zu negieren.",
+  "effect.simplemobs.mirror": "Spiegel",
+  "effect.simplemobs.mirror.description": "Jeder Treffer ist ein Münzwurf: Der Träger erleidet 120 % bis 200 % Schaden, oder der Schläger bekommt 20 % bis 100 % zurück (nie tödlich)."
 }

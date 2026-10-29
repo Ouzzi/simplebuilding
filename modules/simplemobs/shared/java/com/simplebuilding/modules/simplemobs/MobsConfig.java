@@ -55,6 +55,8 @@ public final class MobsConfig {
     public static boolean witherWilt = true;
     /** Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on. */
     public static boolean trickMirrorEnabled = false;
+    /** Mirror effect (MOB27-1): chance per hit that the attacker takes damage back instead of the bearer taking more (0..1, owner question: 50/50 default). */
+    public static float mirrorReflectChance = 0.5f;
     /** Wither/Nether/End/Void Wings (EL24-1, WA24-2, WB24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8). */
     public static float witherWingsSpeedFactor = 2.0f, netherWingsSpeedFactor = 4.0f, endWingsSpeedFactor = 6.0f, voidWingsSpeedFactor = 8.0f;
 
@@ -183,6 +185,7 @@ public final class MobsConfig {
         witherSummonEnabled = bool(json, "witherSummonEnabled", true);
         witherWilt = bool(json, "witherWilt", true);
         trickMirrorEnabled = bool(json, "trickMirrorEnabled", false);
+        mirrorReflectChance = Math.max(0.0f, Math.min(1.0f, num(json, "mirrorReflectChance", 0.5f)));
         witherWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "witherWingsSpeedFactor", 2.0f)));
         netherWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "netherWingsSpeedFactor", 4.0f)));
         endWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "endWingsSpeedFactor", 6.0f)));
@@ -229,6 +232,7 @@ public final class MobsConfig {
         o.addProperty("witherSummonEnabled", witherSummonEnabled);
         o.addProperty("witherWilt", witherWilt);
         o.addProperty("trickMirrorEnabled", trickMirrorEnabled);
+        o.addProperty("mirrorReflectChance", mirrorReflectChance);
         o.addProperty("witherWingsSpeedFactor", witherWingsSpeedFactor);
         o.addProperty("netherWingsSpeedFactor", netherWingsSpeedFactor);
         o.addProperty("endWingsSpeedFactor", endWingsSpeedFactor);

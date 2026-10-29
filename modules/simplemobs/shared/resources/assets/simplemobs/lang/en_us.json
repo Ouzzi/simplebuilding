@@ -142,5 +142,11 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
+  "effect.simplemobs.volatile": "Volatile",
+  "effect.simplemobs.volatile.description": "A hit on the bearer sets off a small explosion that hurts everyone nearby except the bearer. Breaks no blocks.",
+  "effect.simplemobs.deflection": "Deflection",
+  "effect.simplemobs.deflection.description": "10 % per level (up to 50 %) to negate a hit completely.",
+  "effect.simplemobs.mirror": "Mirror",
+  "effect.simplemobs.mirror.description": "Every hit is a coin flip: the bearer takes 120 % to 200 % damage, or the attacker takes 20 % to 100 % back (never lethal)."
 }
