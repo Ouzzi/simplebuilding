@@ -574,14 +574,8 @@ public final class BeaconsTests {
             List<ItemStack> six = new ArrayList<>();
             for (String name : List.of("copper", "iron", "gold", "diamond", "netherite", "enderite")) {
                 six.add(cores ? new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", name + "_core")))
-                        : new ItemStack(switch (name) {
-                            case "copper" -> Items.COPPER_BLOCK;
-                            case "iron" -> Items.IRON_BLOCK;
-                            case "gold" -> Items.GOLD_BLOCK;
-                            case "diamond" -> Items.DIAMOND_BLOCK;
-                            case "netherite" -> Items.NETHERITE_BLOCK;
-                            default -> Items.EMERALD_BLOCK;
-                        }));
+                        : new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(
+                                name.equals("enderite") ? "emerald_block" : name + "_block"))));
             }
             ItemStack strongBeacon = new ItemStack(BeaconsRegistry.STRONG_BEACON_ITEM), evilBeacon = new ItemStack(BeaconsRegistry.EVIL_BEACON_ITEM);
             List<ItemStack> mightyGrid = List.of(six.get(0), six.get(1), six.get(2), six.get(3), strongBeacon, six.get(4), t, six.get(5), t);
