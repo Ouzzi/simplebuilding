@@ -12,8 +12,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.block.Blocks;
 
 /** MOB27-1 effects Volatile, Deflection and Mirror (shared by the Fabric wrappers). Standalone-safe: only vanilla mobs. */
-final class CombatTests {
-    private CombatTests() {}
+final class CombatEffectTests {
+    private CombatEffectTests() {}
 
     private static LivingEntity cow(GameTestHelper h, int x, int z) {
         for (int i = -1; i <= 10; i++) for (int j = 0; j <= 10; j++) h.getLevel().setBlock(h.absolutePos(new BlockPos(i, 1, j)), Blocks.STONE.defaultBlockState(), 3);

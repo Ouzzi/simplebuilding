@@ -193,7 +193,7 @@ public final class MobsTests {
         FearTests.addAll(MobsTests::add);
         WitherTests.addAll(MobsTests::add);
         WingsTests.addAll(MobsTests::add);
-        CombatTests.addAll(MobsTests::add);
+        CombatEffectTests.addAll(MobsTests::add);
         add("guide_book", com.simplebuilding.modules.simplemobs.guide.MobsGuide::gameTest);
     }
 
