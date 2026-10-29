@@ -70,7 +70,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 507,
       "blocks": 288,
-      "recipes": 821,
+      "recipes": 823,
       "config": 231,
       "features": 47
     }
@@ -1162,7 +1162,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 16
     },
-    "dataHash": "862d34af4655"
+    "dataHash": "c3c4259fcfc1"
   },
   {
     "id": "simpleshops",

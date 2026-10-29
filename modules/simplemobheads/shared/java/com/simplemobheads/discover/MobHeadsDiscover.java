@@ -66,6 +66,7 @@ public final class MobHeadsDiscover {
             "simplemobheads:greeting",
             "simplemobheads:guide_book",
             "simplemobheads:heads",
+            "simplemobheads:helmets",
             "simplemobheads:herobrine",
             "simplemobheads:herobrine_head",
             "simplemobheads:killer_bunny",
