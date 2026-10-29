@@ -543,6 +543,14 @@
         "summary": "3 s hochhalten: die drei nächsten Fälschungen und verkleideten Deceiver oder Spieler in einem schmalen Kegel (12 Blöcke) leuchten kurz auf und verlieren ihre Tarnung. 60 s Abklingzeit."
       }
     },
+    "simplemobs:forbidden_fire": {
+      "en": {
+        "summary": "Easter egg from the armored Wither: a Wither summoned with a chainmail helmet on a side skull drops this instead of the helmet's material - a nod to the old chainmail recipe that used fire. No use yet."
+      },
+      "de": {
+        "summary": "Easter Egg des gepanzerten Withers: Trägt ein äußerer Schädel einen Kettenhelm, droppt der Wither dieses Item statt des Helm-Materials – eine Anspielung auf das alte Kettenrüstungs-Rezept mit Feuer. Noch ohne Nutzen."
+      }
+    },
     "simplemobs:illusion_shard": {
       "en": {
         "summary": "The Deceiver's second drop (1-2, armored Deceivers twice as many). (With SimpleBuilding) Warped Potion (Awkward Potion without SimpleLib) + Illusion Shard = Potion of the Mirage."
