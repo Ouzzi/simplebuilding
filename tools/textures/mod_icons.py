@@ -159,7 +159,30 @@ def earth_icon():
                 [("Kontur", "o"), ("Oberseite", "GFWS"), ("Linke Seite", "Ld"), ("Rechte Seite", "Re")], *rows_of(g))
 
 
+def challenges_icon():
+    """Simple Challenges: a 3 x 3 grid of cells - the four top-left ones free (grass), the rest locked (stone), a gold price in the corner cell."""
+    g = blank()
+    lines = (2, 6, 10, 14)
+    for y in lines:
+        for x in range(2, 15):
+            g[y][x] = "o"
+    for x in lines:
+        for y in range(2, 15):
+            g[y][x] = "o"
+    for cr in range(3):
+        for cc in range(3):
+            free = cr < 2 and cc < 2
+            for dy in range(3):
+                for dx in range(3):
+                    ch = ("G" if dy < 2 else "g") if free else ("S" if dy < 2 else "s")
+                    g[3 + cr * 4 + dy][3 + cc * 4 + dx] = ch
+    g[12][12] = "Y"
+    return icon("Zellraster: frei und gesperrt", {"o": "#10141e", "G": "#7fb238", "g": "#5f8a2a", "S": "#9a9a9a", "s": "#6a6a6a", "Y": "#f0c040"},
+                [("Kontur", "o"), ("Freie Zellen", "Gg"), ("Gesperrte Zellen", "Ss"), ("Preis", "Y")], *rows_of(g))
+
+
 ICONS: dict[str, dict] = {
+    "simplechallenges": challenges_icon(),
     "simpleearth": earth_icon(),
     "wiringexample": icon("Redstone-Knoten (Verdrahtung)", {"o": "#3a0a08", "R": "#d82818", "r": "#9a1a10",
                                                             "H": "#ff6a4a", "L": "#ffd0b0"},
@@ -633,6 +656,7 @@ BG = {
     "simpleoptserver": "#2e3a6a", "simplestorage": "#90b8a0", "simplemusic": "#e0a858",
     "simplelights": "#e8c870",
     "simpleearth": "#1e2a52",
+    "simplechallenges": "#3a5a3a",
     "simplegadgets": "#c87848",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))

@@ -57,7 +57,8 @@
         "simpleshops",
         "simplewanderers",
         "simplemusic",
-        "simpleearth"
+        "simpleearth",
+        "simplechallenges"
       ],
       "paths": {
         "root": ".",
@@ -4250,6 +4251,77 @@
       },
       "projects": {
         "fabric": ":modules:simpleearth:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simplechallenges",
+      "name": "Simple Challenges",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Challenges",
+      "description": "Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplechallenges/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplechallenges",
+        "catalogues": [
+          "modules/simplechallenges/fabric/src/main/java/com/simplebuilding/modules/simplechallenges/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplechallenges"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplechallengesGameTest",
+            "report": "integration/build/simplechallenges-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplechallengesStandaloneGameTest",
+              "report": "integration/build/standalone/simplechallenges-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplechallenges.ModuleClientSmoke"
+          ],
+          "sources": "modules/simplechallenges/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simplechallenges",
+        "shared": "modules/simplechallenges/shared",
+        "fabric": "modules/simplechallenges/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplechallenges/generated/resources",
+        "lang": "modules/simplechallenges/shared/resources/assets/simplechallenges/lang",
+        "wikiManual": "modules/simplechallenges/wiki/manual.json",
+        "balanceDir": "balance/simplechallenges"
+      },
+      "projects": {
+        "fabric": ":modules:simplechallenges:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "optional"

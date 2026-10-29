@@ -2039,6 +2039,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleEarth.@Tooltip": "Schaltet das gebündelte Modul Simple Earth ein oder aus: weit über der Welt (Aktivierungshöhe, Standard 1024) erscheint die Oberwelt als Würfel mit Terrain in Kartenfarben aus dem Weltgenerator. Aus: kein Orbit, alles bleibt Vanilla. Gilt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleGadgets": "Simple Gadgets aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleGadgets.@Tooltip": "Schaltet das mitgelieferte Modul Simple Gadgets an oder aus: die Geräte, die man in der Hand hält und benutzt (vorerst die Messuhr). Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Geräte und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleChallenges": "Simple Challenges aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleChallenges.@Tooltip": "Schaltet das gebündelte Modul Simple Challenges ein oder aus: Spielmodi, die für eine Welt gewählt werden, zuerst der Unlock-Modus (Zellen, die man bezahlt, um sie zu öffnen). Ohne gewählte Challenge ändert es so oder so nichts. Aus ignoriert auch eine gewählte Challenge.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

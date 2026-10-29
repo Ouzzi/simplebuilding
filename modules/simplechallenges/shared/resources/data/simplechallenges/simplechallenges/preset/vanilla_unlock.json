@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "Vanilla Unlock",
+  "icon": "minecraft:grass_block",
+  "family": "unlock",
+  "modes": [
+    {
+      "type": "unlock",
+      "cell": 16,
+      "start": [[-1, -1, 0, 0]],
+      "currency": "items",
+      "difficulty": "medium",
+      "dimensions": ["minecraft:overworld"],
+      "pityMinutes": 30
+    }
+  ]
+}

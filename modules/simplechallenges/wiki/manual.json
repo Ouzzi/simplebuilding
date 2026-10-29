@@ -1,0 +1,161 @@
+{
+  "features": [
+    {
+      "id": "safety_lock",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/Gate.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/ChallengeState.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/ChallengeService.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/config/ChallengeServerConfig.java"
+      ],
+      "en": {
+        "title": "Safety lock",
+        "summary": "Without a chosen challenge Simple Challenges changes nothing: no state file is written, the collision and block hooks return at once and no tick work runs. A challenge exists only in a world whose state says so. It is chosen by the server option defaultChallenge for a brand-new world, or, in test worlds, by a game master with /simplechallenges activate after allowAdminCommands was switched on (off by default). The Enable Simple Challenges switch of SimpleBuilding and the mod's own enabled option close the gate again at any time."
+      },
+      "de": {
+        "title": "Sicherheitssperre",
+        "summary": "Ohne gewählte Challenge ändert Simple Challenges nichts: Es wird keine Zustandsdatei geschrieben, die Kollisions- und Block-Hooks kehren sofort zurück und es läuft keine Tick-Arbeit. Eine Challenge gibt es nur in einer Welt, deren Zustand das sagt. Gewählt wird sie über die Server-Option defaultChallenge für eine brandneue Welt oder in Testwelten von einem Spielleiter mit /simplechallenges activate, nachdem allowAdminCommands eingeschaltet wurde (standardmäßig aus). Der Schalter Simple Challenges aktivieren von SimpleBuilding und die eigene Option enabled schließen das Tor jederzeit wieder."
+      }
+    },
+    {
+      "id": "unlock_grid",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/unlock/UnlockGrid.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/Enforcement.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/EntityCollideMixin.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/LevelSetBlockMixin.java"
+      ],
+      "en": {
+        "title": "Unlock grid",
+        "summary": "The Overworld is cut into square columns of 1, 2, 4, 8, 16 (a chunk), 32 or 48 blocks (three chunks) over the full height. Only free cells can be entered: every entity, players, mobs, items, vehicles and projectiles, stops at a locked cell like at a wall, without a border entity or rubber banding, and slides along it. Blocks in locked cells cannot be changed (players, pistons, fluids, growth, explosions). Anyone found inside a locked cell (teleport, ender pearl, respawn, spawn) is brought to the nearest free cell. Creative and spectator players may pass if exemptCreative is on."
+      },
+      "de": {
+        "title": "Freischalt-Raster",
+        "summary": "Die Oberwelt wird in quadratische Säulen von 1, 2, 4, 8, 16 (ein Chunk), 32 oder 48 Blöcken (drei Chunks) über die ganze Höhe zerlegt. Nur freie Zellen sind betretbar: Jede Entität, Spieler, Mobs, Items, Fahrzeuge und Projektile, stoppt an einer gesperrten Zelle wie an einer Wand, ohne Grenz-Entität und ohne Zurückruckeln, und gleitet an ihr entlang. Blöcke in gesperrten Zellen lassen sich nicht ändern (Spieler, Kolben, Flüssigkeiten, Wachstum, Explosionen). Wer in einer gesperrten Zelle gefunden wird (Teleport, Enderperle, Respawn, Spawn), kommt in die nächste freie Zelle. Kreativ- und Zuschauer-Spieler dürfen durch, wenn exemptCreative an ist."
+      }
+    },
+    {
+      "id": "border_line",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/ChallengeClient.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/ChallengeClientCommands.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/net/UnlockSyncPayload.java"
+      ],
+      "en": {
+        "title": "Border line",
+        "summary": "Clients with the mod get the free cells from the server (everything at join, one cell per unlock) and see the edge of the free area as a line of red dust near them. /simplechallenges border switches the line on and off on your client. The client uses the same collision as the server, so walking against the border feels like a wall."
+      },
+      "de": {
+        "title": "Grenzlinie",
+        "summary": "Clients mit der Mod bekommen die freien Zellen vom Server (alles beim Beitritt, eine Zelle je Freischaltung) und sehen den Rand des freien Bereichs als Linie roter Partikel in ihrer Nähe. /simplechallenges border schaltet die Linie auf deinem Client an und aus. Der Client nutzt dieselbe Kollision wie der Server, das Laufen gegen die Grenze fühlt sich wie eine Wand an."
+      }
+    },
+    {
+      "id": "prices",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/price/PriceEngine.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/UnlockService.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/LevelProbe.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/price/BlockValues.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/preset/UnlockMode.java"
+      ],
+      "en": {
+        "title": "Prices",
+        "summary": "Every cell next to the free area has a price, worked out once from the world seed, the cell and what the world offers there, and then kept in the world state. Easy: an item the free area gives by hand (dirt, sand, logs of a tree at the start). Medium: an item of the cell's own surroundings. Hard: a ladder from cobblestone through coal, iron, gold to diamonds by how many cells are free. Block-by-block unlock (cell size 1) prices a column by the value of its blocks (data/simplechallenges/simplechallenges/block_value.json). The amount grows with the cell edge and is capped at two stacks. The currency is items, credits or experience levels. Looking at the world never generates a chunk."
+      },
+      "de": {
+        "title": "Preise",
+        "summary": "Jede Zelle neben dem freien Bereich hat einen Preis, einmal aus Welt-Seed, Zelle und dem, was die Welt dort bietet, berechnet und dann im Weltzustand gehalten. Leicht: ein Item, das der freie Bereich von Hand liefert (Erde, Sand, Holz eines Baums am Start). Mittel: ein Item aus der Umgebung der Zelle selbst. Schwer: eine Leiter von Bruchstein über Kohle, Eisen, Gold bis Diamanten nach Zahl der freien Zellen. Block-für-Block-Freischaltung (Zellgröße 1) bepreist eine Säule nach dem Wert ihrer Blöcke (data/simplechallenges/simplechallenges/block_value.json). Die Menge wächst mit der Zellkante und ist auf zwei Stapel begrenzt. Die Währung ist Items, Credits oder Erfahrungslevel. Das Ansehen der Welt erzeugt nie einen Chunk."
+      }
+    },
+    {
+      "id": "credits",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/Credits.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/preset/UnlockMode.java"
+      ],
+      "en": {
+        "title": "Credits from advancements",
+        "summary": "With credits as currency, every advancement that shows a toast and is not a root or recipe advancement pays credits once for the whole team: task 1, goal 2, challenge 5 (changeable in the preset). Advancements a player already had when they were first seen count as the baseline and pay nothing. A cell then costs 1 credit."
+      },
+      "de": {
+        "title": "Credits durch Erfolge",
+        "summary": "Mit Credits als Währung zahlt jeder Erfolg mit Anzeige, der kein Wurzel- oder Rezepterfolg ist, einmal für das ganze Team Credits: Aufgabe 1, Ziel 2, Herausforderung 5 (im Preset änderbar). Erfolge, die ein Spieler beim ersten Sehen schon hatte, zählen als Basislinie und zahlen nichts. Eine Zelle kostet dann 1 Credit."
+      }
+    },
+    {
+      "id": "deadlock_protection",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/price/Solvability.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/UnlockService.java"
+      ],
+      "en": {
+        "title": "Deadlock protection",
+        "summary": "When a challenge starts and after every unlock the mod checks that at least one cell next to the free area can be paid with something the free area offers. If not, one cell gets a replacement price from the area's own items, or a single level if the area offers nothing. In addition, when nothing was unlocked for the preset's pity time (default 30 minutes while someone is online) and nothing can be paid, or credits are used up, the cell nearest to the origin opens for free. Switch off with pityEnabled."
+      },
+      "de": {
+        "title": "Deadlock-Schutz",
+        "summary": "Beim Start einer Challenge und nach jeder Freischaltung prüft die Mod, dass mindestens eine Zelle neben dem freien Bereich mit etwas bezahlt werden kann, das der freie Bereich bietet. Sonst bekommt eine Zelle einen Ersatzpreis aus den Items des Bereichs oder einen einzelnen Level, wenn der Bereich nichts bietet. Außerdem öffnet sich die Zelle nächst dem Ursprung gratis, wenn die Notfallzeit des Presets (Standard 30 Minuten, solange jemand online ist) nichts freigeschaltet wurde und nichts bezahlbar ist oder die Credits aufgebraucht sind. Ausschalten mit pityEnabled."
+      }
+    },
+    {
+      "id": "presets",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/preset/PresetParser.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/PresetRegistry.java"
+      ],
+      "en": {
+        "title": "Presets",
+        "summary": "A challenge is a preset file: data/<namespace>/simplechallenges/preset/<id>.json in a mod or data pack, or config/simplechallenges/presets/<id>.json of your own. The loader checks everything (cell size 1 to 48, start rectangles in cell units up to 4096 cells, currency, price tier, dimensions, pity time, credits per frame) and shows readable problems instead of crashing; modes planned for later stages load with a note but cannot be started. A world keeps a copy of the preset it started with. Shipped: Vanilla Unlock (chunks), Block by Block, Quick Steps (three chunks) and Trophy Land (credits from advancements)."
+      },
+      "de": {
+        "title": "Presets",
+        "summary": "Eine Challenge ist eine Preset-Datei: data/<Namensraum>/simplechallenges/preset/<id>.json in einer Mod oder einem Datenpaket, oder eigene in config/simplechallenges/presets/<id>.json. Der Lader prüft alles (Zellgröße 1 bis 48, Startrechtecke in Zelleneinheiten bis 4096 Zellen, Währung, Preisstufe, Dimensionen, Notfallzeit, Credits je Rahmen) und zeigt lesbare Probleme statt abzustürzen; Modi, die für spätere Stufen geplant sind, laden mit Hinweis, lassen sich aber nicht starten. Eine Welt behält eine Kopie des Presets, mit dem sie begann. Mitgeliefert: Vanilla Unlock (Chunks), Block by Block, Quick Steps (drei Chunks) und Trophy Land (Credits durch Erfolge)."
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/command/ChallengeCommands.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/ChallengeClientCommands.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplechallenges (status) shows the challenge, free cells, credits and the price of the cell you look at. /simplechallenges unlock pays for the cell in your line of sight (or /simplechallenges unlock <x> <z>). /simplechallenges presets lists the presets and problems. Game masters, only when allowAdminCommands is on: activate <preset>, deactivate, credits add <n>, unlock <x> <z> free. Client: /simplechallenges guide opens this handbook, /simplechallenges border toggles the border line. /simplechallenges config sets the server options."
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplechallenges (Status) zeigt Challenge, freie Zellen, Credits und den Preis der Zelle, die du ansiehst. /simplechallenges unlock bezahlt die Zelle in deiner Blickrichtung (oder /simplechallenges unlock <x> <z>). /simplechallenges presets listet Presets und Probleme. Spielleiter, nur bei eingeschaltetem allowAdminCommands: activate <Preset>, deactivate, credits add <n>, unlock <x> <z> free. Client: /simplechallenges guide öffnet dieses Handbuch, /simplechallenges border schaltet die Grenzlinie. /simplechallenges config stellt die Server-Optionen ein."
+      }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/config/ChallengeServerConfig.java"
+      ],
+      "en": {
+        "title": "Server settings",
+        "summary": "config/simplechallenges-server.json, read at start; every value is checked.",
+        "details": [
+          "enabled (true): master switch.",
+          "allowAdminCommands (false): game master switch-over commands.",
+          "defaultChallenge (none): preset for a brand-new world.",
+          "exemptCreative (true): creative and spectator pass the borders.",
+          "pityEnabled (true): emergency unlock."
+        ]
+      },
+      "de": {
+        "title": "Server-Einstellungen",
+        "summary": "config/simplechallenges-server.json, beim Start gelesen; jeder Wert wird geprüft.",
+        "details": [
+          "enabled (true): Hauptschalter.",
+          "allowAdminCommands (false): Umstell-Befehle für Spielleiter.",
+          "defaultChallenge (none): Preset für eine brandneue Welt.",
+          "exemptCreative (true): Kreativ und Zuschauer passieren die Grenzen.",
+          "pityEnabled (true): Notfall-Freischaltung."
+        ]
+      }
+    }
+  ],
+  "notes": {}
+}

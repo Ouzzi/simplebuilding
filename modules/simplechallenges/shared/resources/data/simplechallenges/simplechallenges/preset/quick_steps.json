@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "Quick Steps",
+  "icon": "minecraft:oak_boat",
+  "family": "unlock",
+  "modes": [
+    {
+      "type": "unlock",
+      "cell": 48,
+      "start": [[-1, -1, 0, 0]],
+      "currency": "items",
+      "difficulty": "easy",
+      "dimensions": ["minecraft:overworld"],
+      "pityMinutes": 45
+    }
+  ]
+}
