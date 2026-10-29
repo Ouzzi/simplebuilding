@@ -48,7 +48,7 @@ Erst wenn der Besitzer „los“ sagt bzw. Kontingent A zurückgesetzt ist. Inne
 2. Fehler aus dem Spiel: BS25-2, -5, -6, -8, -9, BS28b-3 (Detektor), Review REV2/REV24-Rest, VIS24, CMD24.
 3. Direkte Wünsche (bauen): BS25 Rest (Texturen, Shops, Köpfe, Käse/Butter, Enchanter, Notenblatt, Meißel), BS25-21/22, WA24-Rest, OW24, BS28b-1/2/4/5, HS29-2/3, BS29-1/3, ST27-1, BS27-4, AUDM24, WIKI24.
 4. Konzepte mit Vorschau (nicht bauen): MOB27, BS27-2/3/5/6, BS25-23/24/25, BS28-1…5, DINO28, UI28, MAP28, HS29-1.
-5. Phase 3 / Warteliste: BS29-2 Skilltree, BS25-20 Enchanter-Rework, Octet-Zellen-Texturen, WL-1 Simple Earth (Runden E29–E31 laufen über Abschnitte oben).
+5. Phase 3 / Warteliste: CH29-1 Simple Challenges (Konzept darf in Stufe 4 vorgezogen werden), BS29-2 Skilltree, BS25-20 Enchanter-Rework, Octet-Zellen-Texturen, WL-1 Simple Earth (Runden E29–E31 laufen über Abschnitte oben).
 
 ## Offen – Überblick (Stand 2026-10-23, a-queue23)
 
@@ -329,6 +329,7 @@ Screenshots: /root/sb-tools-a/owner-img/25-glow-frame-titel.png (Fragentisch), 2
 - [x] (A→B, a-elytra24, 24.10.: e1a183974, simplemobs 218/218, data_integrity 51/51, check grün; Look-Wahl https://claude.ai/artifact/VjX8pB6xntzC93gyaALeAH, Client-Sicht offen) EL24-1 Neue Elytra-Stufen: Stufe 1 = Elytra + Strong-Upgrade-Vorlage + Wither-Herz (Schmieden; Besitzer: „meinetwegen erstmal im Amboss“) → Optik mehr „Flügel“; Stufe 2 = Stufe 1 + Strong-Upgrade + Nether-Gem. Kein Grundtempo-Bonus: nur die Höchstgeschwindigkeit (z. B. mit Raketen) ist bei Stufe 1 doppelt, bei Stufe 2 vierfach so hoch wie Vanilla (höheres Risiko an Wänden). Weitere Anpassungen folgen später.
 
 ## Warteliste (später, Besitzer 23.10.)
+- [ ] CH29-1 KONZEPT „Simple Challenges“ (Spielmodi-Sub-Mod: Chunk/Block Unlock, Skyblock/One Block, Lucky Block, Skyline Block mit Easter Eggs, Presets, Welt-Erstellungs-UI, harte Sicherheitssperre ohne Konfiguration). Volle Spezifikation: docs/ai/WUNSCH-SIMPLE-CHALLENGES-2026-10-29.md. Zuerst intensive Recherche der beliebtesten Vorbilder (Verhalten, Probleme, Code), dann verbessern statt kopieren, Plan + Konzept-Artifact zur Abnahme. Umsetzung spätestens Phase 3, Konzept früher bereithalten.
 - [ ] PHASEN (Besitzer 27.10.): Phase 2 beginnt mit der Veröffentlichung (Bugfixes + Fertigstellen aller nicht fertigen/nicht polierten Mods). Phase 3 = Verbesserungsphase. Für Phase 3 vermerkt: Octet-Zellen-Texturen nicht optimal → Referenzbilder /root/sb-tools-a/owner-img/27-octet-texturen-1.png und 27-octet-texturen-2.webp.
 - [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` – **Konzept fertig (a-earth-konzept, 23.10.), Fragen E1–E12 an den Besitzer**, Empfehlung Tesserakt-Variante V3 „Eckfenster + Umstülpen“; Vorschau `/root/sb-tools-a/previews/earth-konzept.html`. Umsetzung erst auf Besitzer-Anforderung.
 
