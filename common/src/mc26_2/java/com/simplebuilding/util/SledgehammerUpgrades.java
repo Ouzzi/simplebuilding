@@ -98,6 +98,11 @@ public final class SledgehammerUpgrades {
     public static final int UPGRADE_TICKS = 100;
     /** Ein Hammerschlag pro Sekunde. */
     public static final int HIT_INTERVAL = 20;
+
+    /** Strike gap for {@code hammer}; this version has one gap for every tier (HS29-2 tiers live in 26.3). */
+    public static int hitInterval(ItemStack hammer) {
+        return HIT_INTERVAL;
+    }
     /** Kupfertruhe -> Verstaerkte Truhe mit einem Rissigen Diamanten: jeder Vorschlaghammer genuegt. */
     public static final int REINFORCED_DAMAGE_PER_HIT = 2;
     public static final int NETHERITE_DAMAGE_PER_HIT = 4;
