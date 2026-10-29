@@ -204,4 +204,14 @@ public final class ModuleGameTest {
     public void recipeViewerPartnerShown(GameTestHelper h) {
         LibTests.ALL.get("recipe_viewer_partner_shown").accept(h);
     }
+
+    @GameTest
+    public void ownedLightsSweepDeferred(GameTestHelper h) {
+        LibTests.ALL.get("owned_lights_sweep_deferred").accept(h);
+    }
+
+    @GameTest
+    public void hangWatchdogDump(GameTestHelper h) {
+        LibTests.ALL.get("hang_watchdog_dump").accept(h);
+    }
 }

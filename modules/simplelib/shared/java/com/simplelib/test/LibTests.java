@@ -61,6 +61,8 @@ public final class LibTests {
         ALL.put("recipe_viewer_table_entries", RecipeViewerTests::tableEntries);
         ALL.put("recipe_viewer_loot_items", RecipeViewerTests::lootItems);
         ALL.put("recipe_viewer_partner_shown", RecipeViewerTests::partnerShown);
+        ALL.put("owned_lights_sweep_deferred", HangTests::ownedLightsSweepDeferred);
+        ALL.put("hang_watchdog_dump", HangTests::hangWatchdogDump);
     }
 
     // ------------------------------------------------------------ helpers

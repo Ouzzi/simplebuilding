@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 /**
- * Config screen of SimpleLib (Fabric, Mod Menu): the legendary moments (SP22-2). Cloth Config stays optional for SimpleLib - the
+ * Config screen of SimpleLib (Fabric, Mod Menu): the legendary moments (SP22-2) and the hang watchdog (BS27-1). Cloth Config stays optional for SimpleLib - the
  * entry only offers this screen while Cloth is loaded (owner 22.10.: only 26.3 Fabric for now). The warm
  * food values stay in the file (server bounds, see the wiki).
  */
@@ -18,6 +18,8 @@ public final class LibConfigScreen {
         boolean[] effects = {LibConfig.legendaryEffects};
         boolean[] allChallenges = {LibConfig.legendaryAllChallenges};
         boolean[] muteToast = {LibConfig.legendaryMuteToast};
+        boolean[] hang = {LibConfig.hangWatchdog};
+        int[] hangSeconds = {LibConfig.hangWatchdogSeconds};
         List<List<String>> lists = new ArrayList<>(List.of(strings(LibConfig.legendaryAdvancements), strings(LibConfig.legendaryEnchantments)));
         var b = me.shedaniel.clothconfig2.api.ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("simplelib.title"));
         var e = b.entryBuilder();
@@ -32,7 +34,15 @@ public final class LibConfigScreen {
                 .setTooltip(tip("legendaryAdvancements")).setSaveConsumer(v -> lists.set(0, v)).build());
         legendary.addEntry(e.startStrList(name("legendaryEnchantments"), lists.get(1)).setDefaultValue(List.of())
                 .setTooltip(tip("legendaryEnchantments")).setSaveConsumer(v -> lists.set(1, v)).build());
+        var diagnosis = b.getOrCreateCategory(Component.translatable("simplelib.tab.diagnosis"));
+        diagnosis.addEntry(e.startBooleanToggle(name("hangWatchdog"), hang[0]).setDefaultValue(true)
+                .setTooltip(tip("hangWatchdog")).setSaveConsumer(v -> hang[0] = v).build());
+        diagnosis.addEntry(e.startIntField(name("hangWatchdogSeconds"), hangSeconds[0]).setDefaultValue(LibConfig.HANG_SECONDS_DEFAULT)
+                .setMin(LibConfig.HANG_SECONDS_MIN).setMax(LibConfig.HANG_SECONDS_MAX)
+                .setTooltip(tip("hangWatchdogSeconds")).setSaveConsumer(v -> hangSeconds[0] = v).build());
         b.setSavingRunnable(() -> {
+            LibConfig.hangWatchdog = hang[0];
+            LibConfig.hangWatchdogSeconds = Math.max(LibConfig.HANG_SECONDS_MIN, Math.min(LibConfig.HANG_SECONDS_MAX, hangSeconds[0]));
             LibConfig.legendaryEffects = effects[0];
             LibConfig.legendaryAllChallenges = allChallenges[0];
             LibConfig.legendaryMuteToast = muteToast[0];
