@@ -49,37 +49,144 @@
       }
     },
     {
+      "id": "evil_upgrade_template",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/BeaconsRegistry.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_upgrade_template.json",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_beacon_smithing.json"
+      ],
+      "en": {
+        "title": "Evil Upgrade",
+        "summary": "A smithing template that turns a beacon into an Evil Beacon (with a nether star). With Simple Mobs: a Strong Upgrade, a crying obsidian, a Nether Heart and a Red Nether Jewel (shapeless) make one.",
+        "details": [
+          "Smithing table: beacon + Evil Upgrade + nether star. In the world like the Strong Upgrade: template in the off hand, axe or hammer in the main hand, a nether star in the inventory, 8 strikes on a Vanilla beacon.",
+          "Without Simple Mobs there is no crafting recipe (Nether Heart and Red Nether Jewel come from its Withers); the template is then creative or loot only."
+        ]
+      },
+      "de": {
+        "title": "Evil Upgrade",
+        "summary": "Eine Schmiedevorlage, die ein Leuchtfeuer zu einem Bösen Leuchtfeuer macht (mit einem Netherstern). Mit Simple Mobs: eine Starke Aufwertung, ein Weinender Obsidian, ein Netherherz und ein Rotes Nether-Juwel (formlos) ergeben eine.",
+        "details": [
+          "Schmiedetisch: Leuchtfeuer + Böse Aufwertungsvorlage + Netherstern. In der Welt wie die Starke Aufwertung: Vorlage in der Nebenhand, Axt oder Hammer in der Haupthand, ein Netherstern im Inventar, 8 Schläge auf ein Vanilla-Leuchtfeuer.",
+          "Ohne Simple Mobs gibt es kein Bastelrezept (Netherherz und Rotes Nether-Juwel kommen von dessen Withern); die Vorlage ist dann nur Kreativ oder Beute."
+        ]
+      }
+    },
+    {
       "id": "strong_beacon",
       "sources": [
         "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconLogic.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/BeaconKind.java",
         "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconBlockEntity.java",
         "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconMenu.java",
         "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_beacon_smithing.json"
       ],
       "en": {
         "title": "Strong Beacon",
-        "summary": "A beacon with up to six pyramid levels: 11x11 and 13x13 below the Vanilla four (454 blocks in all), three powers on every primary level. Range is (10 + 10 per level) x the material factor (with Iron 60 blocks at level 5, 70 at level 6), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
+        "summary": "A beacon with up to five pyramid levels (11x11 below the Vanilla four, 285 blocks in all): primary powers on levels 1 to 4, the secondary power on level 5. Range is (10 + 10 per level) x the material factor (60 blocks with Iron at level 5, at most 340 with every setting), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
         "details": [
-          "Smithing table: beacon + Strong Upgrade + nether star. Levels 1 to 4 keep Vanilla's powers and rules.",
-          "Every primary level offers three powers: level 1 Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range); level 2 Resistance, Jump Boost and Health Boost I (two more hearts); level 3 Strength, Invisibility and Hero of the Village I (cheaper trades).",
-          "Level 5 adds Night Vision, Water Breathing and Slow Falling as primary powers; level 6 adds Fire Resistance, Dolphin's Grace and Absorption I.",
-          "The secondary power stays Vanilla's: Regeneration or level II of a Vanilla primary power. The new powers have no level II (no Absorption II, no Saturation II).",
-          "Absorption fills two extra hearts once and Health Boost adds two hearts; while you stay in range both are only renewed, not refilled or reset.",
+          "Smithing table: beacon + Strong Upgrade + nether star. Placed beacons can also be upgraded in the world.",
+          "Level 1: Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range). Level 2: Jump Boost, Resistance and Slow Falling. Level 3: Strength, Invisibility and Dolphin's Grace. Level 4: Luck I.",
+          "Level 5 unlocks the secondary power: Regeneration, or level II of a Vanilla primary power (Speed, Haste, Resistance, Jump Boost, Strength). The new powers have no level II.",
+          "Older worlds: a Strong Beacon placed before this change keeps its block, name and lock. Its saved powers that no longer exist (Extra Hearts on level 2, Hero of the Village, Night Vision ...) are cleared and have to be chosen again; a saved 6th level counts as 5.",
+          "The Mighty Beacon (made of this one) adds a sixth level, Night Vision, Extra Hearts and more.",
           "Pyramid blocks: #minecraft:beacon_base_blocks, plus the tag #simplebeacons:strong_base_blocks (empty) for modpacks.",
           "Payment as in Vanilla: one item of #minecraft:beacon_payment_items. The server checks every choice; a power the pyramid or the server does not allow is refused and the payment stays."
         ]
       },
       "de": {
         "title": "Starkes Leuchtfeuer",
-        "summary": "Ein Leuchtfeuer mit bis zu sechs Pyramidenebenen: 11x11 und 13x13 unter den vier Vanilla-Ebenen (zusammen 454 Blöcke), drei Kräfte auf jeder Primärstufe. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, 70 auf Ebene 6), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
+        "summary": "Ein Leuchtfeuer mit bis zu fünf Pyramidenebenen (11x11 unter den vier Vanilla-Ebenen, zusammen 285 Blöcke): Primärkräfte auf den Ebenen 1 bis 4, die Sekundärkraft auf Ebene 5. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, bei allen Einstellungen höchstens 340), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
         "details": [
-          "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Die Ebenen 1 bis 4 behalten die Vanilla-Kräfte und -Regeln.",
-          "Jede Primärstufe bietet drei Kräfte: Stufe 1 Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig); Stufe 2 Resistenz, Sprungkraft und Extraherzen I (zwei Herzen mehr); Stufe 3 Stärke, Unsichtbarkeit und Held des Dorfes I (billigerer Handel).",
-          "Ebene 5 bringt Nachtsicht, Wasseratmung und Langsamen Fall als Primärkraft; Ebene 6 Feuerresistenz, Delfingunst und Absorption I.",
-          "Die Sekundärkraft bleibt Vanilla: Regeneration oder Stufe II einer Vanilla-Primärkraft. Die neuen Kräfte haben keine Stufe II (kein Absorption II, kein Sättigung II).",
-          "Absorption füllt zwei Extraherzen einmal, Extraherzen gibt zwei Herzen mehr; solange man in Reichweite bleibt, werden beide nur verlängert, nicht nachgefüllt oder zurückgesetzt.",
+          "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Gesetzte Leuchtfeuer lassen sich auch in der Welt aufwerten.",
+          "Ebene 1: Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig). Ebene 2: Sprungkraft, Resistenz und Langsamer Fall. Ebene 3: Stärke, Unsichtbarkeit und Gnade des Delfins. Ebene 4: Glück I.",
+          "Ebene 5 schaltet die Sekundärkraft frei: Regeneration oder Stufe II einer Vanilla-Primärkraft (Tempo, Eile, Resistenz, Sprungkraft, Stärke). Die neuen Kräfte haben keine Stufe II.",
+          "Alte Welten: Ein vor dieser Änderung gesetztes Starkes Leuchtfeuer behält Block, Namen und Sperre. Seine gespeicherten Kräfte, die es nicht mehr gibt (Extraherzen auf Ebene 2, Held des Dorfes, Nachtsicht ...), werden gelöscht und müssen neu gewählt werden; eine gespeicherte 6. Ebene zählt als 5.",
+          "Das Mächtige Leuchtfeuer (aus diesem gebaut) bringt eine sechste Ebene, Nachtsicht, Extraherzen und mehr.",
           "Pyramidenblöcke: #minecraft:beacon_base_blocks, dazu das Tag #simplebeacons:strong_base_blocks (leer) für Modpacks.",
-          "Bezahlung wie Vanilla: ein Item aus #minecraft:beacon_payment_items. Der Server prüft jede Wahl; eine Kraft, die Pyramide oder Server nicht erlauben, wird abgelehnt und die Bezahlung bleibt liegen."
+          "Bezahlung wie Vanilla: ein Item aus #minecraft:beacon_payment_items. Der Server prüft jede Wahl; eine Kraft, die Pyramide oder Server nicht erlauben, wird abgelehnt und die Bezahlung bleibt."
+        ]
+      }
+    },
+    {
+      "id": "mighty_beacon",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/BeaconKind.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconLogic.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_beacon.json",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_beacon_without_simplebuilding.json"
+      ],
+      "en": {
+        "title": "Mighty Beacon",
+        "summary": "The next step after the Strong Beacon: up to six pyramid levels (454 blocks), primary powers on levels 1 to 5, the secondary power on level 6, range 70 blocks with Iron at level 6.",
+        "details": [
+          "Crafting: the Strong Beacon in the middle, the six cores (copper, iron, gold, diamond, netherite, enderite) around it - top row copper, iron, gold; left diamond, right netherite; bottom middle enderite - and a Strong Upgrade in each bottom corner. Without SimpleBuilding the cores are blocks of copper, iron, gold, diamond, netherite and emerald.",
+          "Levels 1 to 3 as on the Strong Beacon. Level 4: Luck I, Night Vision and a placeholder Resistance II. Level 5: Extra Hearts I (two hearts), and the placeholders Speed II and Jump Boost II. Fire Resistance and Absorption do not exist.",
+          "The secondary power (level 6) is Regeneration, or the primary power one step higher: Speed II becomes III, Extra Hearts I becomes II (four hearts); at most III.",
+          "The placeholder powers are marked II on their button; real powers will replace them later."
+        ]
+      },
+      "de": {
+        "title": "Mighty Beacon",
+        "summary": "Die nächste Stufe nach dem Starken Leuchtfeuer: bis zu sechs Pyramidenebenen (454 Blöcke), Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6, Reichweite 70 Blöcke mit Eisen auf Ebene 6.",
+        "details": [
+          "Herstellung: das Starke Leuchtfeuer in der Mitte, die sechs Kerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit) drumherum - oben Kupfer, Eisen, Gold; links Diamant, rechts Netherit; unten Mitte Enderit - und in jeder unteren Ecke eine Starke Aufwertung. Ohne SimpleBuilding sind die Kerne Blöcke aus Kupfer, Eisen, Gold, Diamant, Netherit und Smaragd.",
+          "Ebenen 1 bis 3 wie beim Starken Leuchtfeuer. Ebene 4: Glück I, Nachtsicht und ein Platzhalter Resistenz II. Ebene 5: Extraherzen I (zwei Herzen) und die Platzhalter Tempo II und Sprungkraft II. Feuerresistenz und Absorption gibt es nicht.",
+          "Die Sekundärkraft (Ebene 6) ist Regeneration oder die Primärkraft eine Stufe höher: aus Tempo II wird III, aus Extraherzen I wird II (vier Herzen); höchstens III.",
+          "Die Platzhalter-Kräfte tragen ein II auf dem Knopf; echte Kräfte ersetzen sie später."
+        ]
+      }
+    },
+    {
+      "id": "evil_beacon",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/BeaconKind.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/EvilGate.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconLogic.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_beacon_smithing.json"
+      ],
+      "en": {
+        "title": "Evil Beacon",
+        "summary": "A beacon that weakens instead of helping: mild negative powers for players in range (primary levels 1 to 4, the secondary power on level 5), up to 5 pyramid levels like the Strong Beacon. Made of a beacon with the Evil Upgrade.",
+        "details": [
+          "Level 1: Slowness, Mining Fatigue, Hunger. Level 2: Weakness, Bad Luck, Oozing. Level 3: Darkness, Glowing, Infested. Level 4: Weaving. Secondary (level 5): Nausea. All level I, no level II.",
+          "Fair play: the Evil beacons only reach survival players who died at least 5 minutes ago (config evilBeaconGraceMinutes), who are not under the newcomer protection of Simple Tweaks and have not switched their personal PvP off. Nobody can be kept down at a spawn point.",
+          "Every power can be switched off by the server (strongBeaconEffects)."
+        ]
+      },
+      "de": {
+        "title": "Böses Leuchtfeuer",
+        "summary": "Ein Leuchtfeuer, das schwächt statt hilft: leichte negative Kräfte für Spieler in Reichweite (Primärstufen 1 bis 4, die Sekundärkraft auf Ebene 5), bis zu 5 Pyramidenebenen wie das Starke Leuchtfeuer. Gebaut aus einem Leuchtfeuer mit der Bösen Aufwertungsvorlage.",
+        "details": [
+          "Ebene 1: Langsamkeit, Abbaumüdigkeit, Hunger. Ebene 2: Schwäche, Pech, Schleimigkeit. Ebene 3: Dunkelheit, Leuchten, Befall. Ebene 4: Gewebe. Sekundär (Ebene 5): Übelkeit. Alle Stufe I, keine Stufe II.",
+          "Fairness: Die Bösen Leuchtfeuer erreichen nur Überlebens-Spieler, die vor mindestens 5 Minuten gestorben sind (Config evilBeaconGraceMinutes), nicht unter dem Neulingsschutz von Simple Tweaks stehen und ihr persönliches PvP nicht ausgeschaltet haben. Niemand kann am Spawnpunkt unten gehalten werden.",
+          "Jede Kraft kann der Server abschalten (strongBeaconEffects)."
+        ]
+      }
+    },
+    {
+      "id": "mighty_evil_beacon",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/BeaconKind.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/EvilGate.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/beacon/StrongBeaconLogic.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_beacon.json",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_beacon_without_simplebuilding.json"
+      ],
+      "en": {
+        "title": "Mighty Evil Beacon",
+        "summary": "The Evil Beacon's big brother: up to six pyramid levels, primary powers on levels 1 to 5, the secondary power on level 6. Same recipe as the Mighty Beacon with the Evil Beacon in the middle.",
+        "details": [
+          "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged and the placeholders Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
+          "The same protections as the Evil Beacon apply (5 minutes after death, no newcomers, no PvP-off players)."
+        ]
+      },
+      "de": {
+        "title": "Mächtiges Böses Leuchtfeuer",
+        "summary": "Der große Bruder des Bösen Leuchtfeuers: bis zu sechs Pyramidenebenen, Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6. Dasselbe Rezept wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte.",
+        "details": [
+          "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
+          "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer (5 Minuten nach dem Tod, keine Neulinge, keine Spieler mit PvP aus)."
         ]
       }
     },
@@ -90,18 +197,18 @@
       ],
       "en": {
         "title": "Beacon screen",
-        "summary": "The Strong Beacon opens a beacon screen in Vanilla's own style, two rows taller: every primary row has three powers, below Vanilla's rows a row for level 5 and one for level 6; the pyramid counter (for example Pyramid 6/6), the material factor (for example Material ×1.25) and the current range and duration sit in the right field.",
+        "summary": "The beacons open a beacon screen in Vanilla's own style: one row taller (Strong, Evil: four primary rows) or two rows taller (Mighty kinds: five rows), three powers per row; every pyramid level has its own marker icon. The pyramid counter (for example Pyramid 0/6), the material factor (for example Material ×1.25) and the current range and duration sit in the right field.",
         "details": [
           "Rows the pyramid does not reach yet are greyed out; their tooltip names the level and the blocks it needs (level 5: 285, level 6: 454).",
-          "The tooltip of every new power says in one line what it does. The II button is greyed out while a new power is chosen."
+          "The tooltip of every power says in one line what it does; placeholder powers carry II. The II button is greyed out for powers that cannot be raised."
         ]
       },
       "de": {
         "title": "Leuchtfeuer-Bildschirm",
-        "summary": "Das Starke Leuchtfeuer öffnet einen Leuchtfeuer-Bildschirm im Vanilla-Stil, zwei Zeilen höher: jede Primärzeile hat drei Kräfte, unter den Vanilla-Zeilen je eine Zeile für Ebene 5 und Ebene 6; der Pyramidenzähler (zum Beispiel Pyramide 6/6), der Materialfaktor (zum Beispiel Material ×1,25) sowie Reichweite und Dauer stehen im rechten Feld.",
+        "summary": "Die Leuchtfeuer öffnen einen Leuchtfeuer-Bildschirm im Vanilla-Stil: eine Zeile höher (Stark, Böse: vier Primärzeilen) oder zwei Zeilen höher (Mächtige: fünf Zeilen), drei Kräfte je Zeile; jede Pyramidenebene hat ein eigenes Symbol. Der Pyramidenzähler (zum Beispiel Pyramide 0/6), der Materialfaktor (zum Beispiel Material ×1,25) sowie Reichweite und Dauer stehen im rechten Feld.",
         "details": [
           "Zeilen, die die Pyramide noch nicht erreicht, sind ausgegraut; ihr Tooltip nennt die Ebene und die nötigen Blöcke (Ebene 5: 285, Ebene 6: 454).",
-          "Der Tooltip jeder neuen Kraft sagt in einer Zeile, was sie tut. Der Knopf II ist ausgegraut, solange eine neue Kraft gewählt ist."
+          "Der Tooltip jeder Kraft sagt in einer Zeile, was sie tut; Platzhalter-Kräfte tragen II. Der Knopf II ist bei Kräften ausgegraut, die sich nicht steigern lassen."
         ]
       }
     },
@@ -116,22 +223,24 @@
       ],
       "en": {
         "title": "Range by pyramid material",
-        "summary": "The range of the Strong Beacon and of the Vanilla beacon grows with the pyramid's material: Netherite blocks count x2, Diamond x1.5, Gold and Emerald x1.1, Iron x1. The factor is the average over all blocks of the counted levels.",
+        "summary": "The range of all Strong, Mighty, Evil and Vanilla beacons grows with the pyramid's material: Netherite blocks count x2, Diamond x1.5, Gold and Emerald x1.1, Iron x1. The factor is the average over all blocks of the counted levels.",
         "details": [
           "Example: four Vanilla levels with the bottom level (81 blocks) of Diamond and the rest Iron: (83 x 1 + 81 x 1.5) / 164 = x1.25, range 50 x 1.25 = 62 blocks. A whole Netherite pyramid doubles the range.",
           "Only complete levels count, like Vanilla's level count; blocks of an unfinished level below change nothing. Other base blocks (for example from modpacks) count x1.",
           "Both beacon screens show the factor (Material ×1.25) in the right field; the Vanilla screen also shows the range.",
-          "Server switches strongBeaconMaterialRange and vanillaBeaconMaterialRange (both true); off gives the plain range."
+          "Server switches strongBeaconMaterialRange and vanillaBeaconMaterialRange (both true); off gives the plain range.",
+          "The range never exceeds 340 blocks (REV2-A-1: 50 + 20 x 6 = 170 at the highest settings, x2 Netherite). The server looks for players in its short player list, not for every entity in 680 x 680 blocks, so a full Netherite Mighty Beacon is cheap every 4 seconds."
         ]
       },
       "de": {
         "title": "Reichweite nach Pyramidenmaterial",
-        "summary": "Die Reichweite des Starken und des Vanilla-Leuchtfeuers wächst mit dem Material der Pyramide: Netheritblöcke zählen x2, Diamant x1,5, Gold und Smaragd x1,1, Eisen x1. Der Faktor ist der Durchschnitt über alle Blöcke der gezählten Ebenen.",
+        "summary": "Die Reichweite aller Starken, Mächtigen, Bösen und des Vanilla-Leuchtfeuers wächst mit dem Material der Pyramide: Netheritblöcke zählen x2, Diamant x1,5, Gold und Smaragd x1,1, Eisen x1. Der Faktor ist der Durchschnitt über alle Blöcke der gezählten Ebenen.",
         "details": [
           "Beispiel: vier Vanilla-Ebenen, die unterste (81 Blöcke) aus Diamant, der Rest Eisen: (83 x 1 + 81 x 1,5) / 164 = x1,25, Reichweite 50 x 1,25 = 62 Blöcke. Eine ganze Netherit-Pyramide verdoppelt die Reichweite.",
           "Nur vollständige Ebenen zählen, wie bei der Vanilla-Ebenenzählung; Blöcke einer unfertigen Ebene darunter ändern nichts. Andere Basisblöcke (etwa aus Modpacks) zählen x1.",
           "Beide Leuchtfeuer-Bildschirme zeigen den Faktor (Material ×1,25) im rechten Feld; der Vanilla-Bildschirm zusätzlich die Reichweite.",
-          "Server-Schalter strongBeaconMaterialRange und vanillaBeaconMaterialRange (beide true); aus ergibt die einfache Reichweite."
+          "Server-Schalter strongBeaconMaterialRange und vanillaBeaconMaterialRange (beide true); aus ergibt die einfache Reichweite.",
+          "Die Reichweite übersteigt nie 340 Blöcke (REV2-A-1: 50 + 20 x 6 = 170 bei den höchsten Einstellungen, x2 Netherit). Der Server sucht Spieler in seiner kurzen Spielerliste statt alle Wesen in 680 x 680 Blöcken, ein volles Netherit-Mächtiges Leuchtfeuer ist alle 4 Sekunden billig."
         ]
       }
     },
@@ -147,7 +256,8 @@
         "details": [
           "Every strike cracks the block, rings a rising anvil sound and lets the Strong block grow over the old one from below.",
           "The last strike swaps the block in place: chosen powers, lock and name stay. The template and one nether star are used up, the tool wears by one per strike.",
-          "Without a nether star the strike is refused. The beacon does not have to be active."
+          "Without a nether star the strike is refused. The beacon does not have to be active.",
+          "With the Evil Upgrade in the off hand the same strikes turn a Vanilla beacon into an Evil Beacon (conduits are not affected)."
         ]
       },
       "de": {
@@ -156,7 +266,8 @@
         "details": [
           "Jeder Schlag lässt Risse erscheinen, spielt einen steigenden Amboss-Klang und lässt den starken Block von unten über den alten wachsen.",
           "Der letzte Schlag tauscht den Block an Ort und Stelle: gewählte Kräfte, Sperre und Name bleiben. Vorlage und ein Netherstern werden verbraucht, das Werkzeug nutzt sich je Schlag um eins ab.",
-          "Ohne Netherstern wird der Schlag abgelehnt. Das Leuchtfeuer muss nicht aktiv sein."
+          "Ohne Netherstern wird der Schlag abgelehnt. Das Leuchtfeuer muss nicht aktiv sein.",
+          "Mit der Bösen Aufwertungsvorlage in der Nebenhand machen dieselben Schläge aus einem Vanilla-Leuchtfeuer ein Böses Leuchtfeuer (Aquisatoren bleiben unberührt)."
         ]
       }
     },
@@ -200,12 +311,13 @@
         "summary": "config/simplebeacons-server.json, read at start; every number is clamped to a safe range.",
         "details": [
           "enabled (true): off makes the module inert (no upgrades, placed Strong blocks do nothing).",
-          "strongBeaconMaxLevels (6, 4 to 6): highest pyramid level that counts.",
+          "strongBeaconMaxLevels (6, 4 to 6): highest pyramid level that counts (Strong and Evil beacons stop at 5 anyway).",
           "strongBeaconRangeBase (10, 0 to 50) and strongBeaconRangePerLevel (10, 1 to 20): range = base + per level x levels.",
-          "strongBeaconEffects: one switch per new power (night_vision, water_breathing, slow_falling, fire_resistance, dolphins_grace, absorption, saturation, health_boost, invisibility, hero_of_the_village), all true.",
+          "strongBeaconEffects: one switch per extra power (night_vision, slow_falling, dolphins_grace, saturation, health_boost, invisibility, luck, slowness, mining_fatigue, hunger, weakness, unluck, oozing, darkness, glowing, infested, weaving, nausea, wind_charged), all true.",
           "strongBeaconMaterialRange (true) and vanillaBeaconMaterialRange (true): range factor from the pyramid's material for the Strong and the Vanilla beacon.",
           "strongConduitMaxRange (216, 96 to 256): cap of the Strong Conduit range.",
           "upgradeStrikes (8, 1 to 32): strikes of the in-world upgrade.",
+          "evilBeaconGraceMinutes (5, 0 to 60): minutes after a player's last death before the Evil beacons reach them.",
           "With SimpleBuilding the switch Enable Simple Beacons in its config turns the bundled module on or off."
         ]
       },
@@ -214,12 +326,13 @@
         "summary": "config/simplebeacons-server.json, beim Start gelesen; jede Zahl wird auf einen sicheren Bereich begrenzt.",
         "details": [
           "enabled (true): aus macht das Modul wirkungslos (keine Aufwertung, gesetzte starke Blöcke tun nichts).",
-          "strongBeaconMaxLevels (6, 4 bis 6): höchste zählende Pyramidenebene.",
+          "strongBeaconMaxLevels (6, 4 bis 6): höchste zählende Pyramidenebene (Starke und Böse Leuchtfeuer enden ohnehin bei 5).",
           "strongBeaconRangeBase (10, 0 bis 50) und strongBeaconRangePerLevel (10, 1 bis 20): Reichweite = Grundwert + je Ebene x Ebenen.",
-          "strongBeaconEffects: ein Schalter je neuer Kraft (night_vision, water_breathing, slow_falling, fire_resistance, dolphins_grace, absorption, saturation, health_boost, invisibility, hero_of_the_village), alle true.",
+          "strongBeaconEffects: ein Schalter je zusätzlicher Kraft (night_vision, slow_falling, dolphins_grace, saturation, health_boost, invisibility, luck, slowness, mining_fatigue, hunger, weakness, unluck, oozing, darkness, glowing, infested, weaving, nausea, wind_charged), alle true.",
           "strongBeaconMaterialRange (true) und vanillaBeaconMaterialRange (true): Reichweitenfaktor nach Pyramidenmaterial für das Starke und das Vanilla-Leuchtfeuer.",
           "strongConduitMaxRange (216, 96 bis 256): Deckel der Reichweite des Starken Aquisators.",
           "upgradeStrikes (8, 1 bis 32): Schläge der Aufwertung in der Welt.",
+          "evilBeaconGraceMinutes (5, 0 bis 60): Minuten nach dem letzten Tod eines Spielers, bevor die Bösen Leuchtfeuer ihn erreichen.",
           "Mit SimpleBuilding schaltet Simple Beacons aktivieren in dessen Konfiguration das gebündelte Modul ein oder aus."
         ]
       }
@@ -267,6 +380,118 @@
   ],
   "recipes": [
     {
+      "id": "simplebeacons:evil_beacon_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebeacons:evil_beacon",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_beacon_smithing.json",
+      "ingredients": [
+        "minecraft:beacon",
+        "minecraft:nether_star",
+        "simplebeacons:evil_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebeacons:evil_upgrade_template"
+        ],
+        "base": [
+          "minecraft:beacon"
+        ],
+        "addition": [
+          "minecraft:nether_star"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 5
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 5
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:obsidian",
+            "count": 3
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 2
+          },
+          {
+            "id": "simplemobs:nether_gem",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:evil_upgrade_template",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:evil_upgrade_template",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_upgrade_template.json",
+      "ingredients": [
+        "minecraft:crying_obsidian",
+        "simplebeacons:strong_upgrade_template",
+        "simplemobs:nether_gem",
+        "simplemobs:nether_heart"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebeacons:strong_upgrade_template"
+        ],
+        [
+          "minecraft:crying_obsidian"
+        ],
+        [
+          "simplemobs:nether_heart"
+        ],
+        [
+          "simplemobs:nether_gem"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 5
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 2
+          },
+          {
+            "id": "simplemobs:nether_gem",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebeacons:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -301,6 +526,426 @@
           },
           {
             "id": "minecraft:prismarine_shard",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_beacon",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_beacon",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_beacon.json",
+      "ingredients": [
+        "simplebeacons:strong_beacon",
+        "simplebeacons:strong_upgrade_template",
+        "simplebuilding:copper_core",
+        "simplebuilding:diamond_core",
+        "simplebuilding:enderite_core",
+        "simplebuilding:gold_core",
+        "simplebuilding:iron_core",
+        "simplebuilding:netherite_core"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "c": [
+          "simplebuilding:copper_core"
+        ],
+        "i": [
+          "simplebuilding:iron_core"
+        ],
+        "g": [
+          "simplebuilding:gold_core"
+        ],
+        "d": [
+          "simplebuilding:diamond_core"
+        ],
+        "n": [
+          "simplebuilding:netherite_core"
+        ],
+        "e": [
+          "simplebuilding:enderite_core"
+        ],
+        "B": [
+          "simplebeacons:strong_beacon"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 12
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 5
+          },
+          {
+            "id": "minecraft:obsidian",
+            "count": 3
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 3
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:copper_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:diamond_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:gold_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_core",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_beacon_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_beacon",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_beacon_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:copper_block",
+        "minecraft:diamond_block",
+        "minecraft:emerald_block",
+        "minecraft:gold_block",
+        "minecraft:iron_block",
+        "minecraft:netherite_block",
+        "simplebeacons:strong_beacon",
+        "simplebeacons:strong_upgrade_template"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "c": [
+          "minecraft:copper_block"
+        ],
+        "i": [
+          "minecraft:iron_block"
+        ],
+        "g": [
+          "minecraft:gold_block"
+        ],
+        "d": [
+          "minecraft:diamond_block"
+        ],
+        "n": [
+          "minecraft:netherite_block"
+        ],
+        "e": [
+          "minecraft:emerald_block"
+        ],
+        "B": [
+          "simplebeacons:strong_beacon"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 21
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 12
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:emerald",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 5
+          },
+          {
+            "id": "minecraft:obsidian",
+            "count": 3
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 3
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_evil_beacon",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_evil_beacon",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_beacon.json",
+      "ingredients": [
+        "simplebeacons:evil_beacon",
+        "simplebeacons:strong_upgrade_template",
+        "simplebuilding:copper_core",
+        "simplebuilding:diamond_core",
+        "simplebuilding:enderite_core",
+        "simplebuilding:gold_core",
+        "simplebuilding:iron_core",
+        "simplebuilding:netherite_core"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "c": [
+          "simplebuilding:copper_core"
+        ],
+        "i": [
+          "simplebuilding:iron_core"
+        ],
+        "g": [
+          "simplebuilding:gold_core"
+        ],
+        "d": [
+          "simplebuilding:diamond_core"
+        ],
+        "n": [
+          "simplebuilding:netherite_core"
+        ],
+        "e": [
+          "simplebuilding:enderite_core"
+        ],
+        "B": [
+          "simplebeacons:evil_beacon"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 13
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 5
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
+            "id": "minecraft:obsidian",
+            "count": 3
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplebuilding:copper_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:diamond_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:gold_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_core",
+            "count": 1
+          },
+          {
+            "id": "simplemobs:nether_gem",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_evil_beacon_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_evil_beacon",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_beacon_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:copper_block",
+        "minecraft:diamond_block",
+        "minecraft:emerald_block",
+        "minecraft:gold_block",
+        "minecraft:iron_block",
+        "minecraft:netherite_block",
+        "simplebeacons:evil_beacon",
+        "simplebeacons:strong_upgrade_template"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "c": [
+          "minecraft:copper_block"
+        ],
+        "i": [
+          "minecraft:iron_block"
+        ],
+        "g": [
+          "minecraft:gold_block"
+        ],
+        "d": [
+          "minecraft:diamond_block"
+        ],
+        "n": [
+          "minecraft:netherite_block"
+        ],
+        "e": [
+          "minecraft:emerald_block"
+        ],
+        "B": [
+          "simplebeacons:evil_beacon"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 21
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 13
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:emerald",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 5
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
+            "id": "minecraft:obsidian",
+            "count": 3
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 2
+          },
+          {
+            "id": "simplemobs:nether_gem",
             "count": 1
           }
         ]
@@ -534,6 +1179,54 @@
   ],
   "lootTables": [
     {
+      "id": "simplebeacons:blocks/evil_beacon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebeacons:evil_beacon"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/evil_beacon.json"
+    },
+    {
+      "id": "simplebeacons:blocks/mighty_beacon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebeacons:mighty_beacon"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/mighty_beacon.json"
+    },
+    {
+      "id": "simplebeacons:blocks/mighty_evil_beacon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebeacons:mighty_evil_beacon"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/mighty_evil_beacon.json"
+    },
+    {
       "id": "simplebeacons:blocks/strong_beacon",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -578,6 +1271,64 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simplebeacons:evil_upgrade_template",
+      "name": {
+        "en_us": "Evil Upgrade",
+        "de_de": "Böse Aufwertungsvorlage"
+      },
+      "note": {
+        "en": {
+          "title": "Evil Upgrade",
+          "summary": "A smithing template that turns a beacon into an Evil Beacon (with a nether star). With Simple Mobs: a Strong Upgrade, a crying obsidian, a Nether Heart and a Red Nether Jewel (shapeless) make one.",
+          "details": [
+            "Smithing table: beacon + Evil Upgrade + nether star. In the world like the Strong Upgrade: template in the off hand, axe or hammer in the main hand, a nether star in the inventory, 8 strikes on a Vanilla beacon.",
+            "Without Simple Mobs there is no crafting recipe (Nether Heart and Red Nether Jewel come from its Withers); the template is then creative or loot only."
+          ]
+        },
+        "de": {
+          "title": "Evil Upgrade",
+          "summary": "Eine Schmiedevorlage, die ein Leuchtfeuer zu einem Bösen Leuchtfeuer macht (mit einem Netherstern). Mit Simple Mobs: eine Starke Aufwertung, ein Weinender Obsidian, ein Netherherz und ein Rotes Nether-Juwel (formlos) ergeben eine.",
+          "details": [
+            "Schmiedetisch: Leuchtfeuer + Böse Aufwertungsvorlage + Netherstern. In der Welt wie die Starke Aufwertung: Vorlage in der Nebenhand, Axt oder Hammer in der Haupthand, ein Netherstern im Inventar, 8 Schläge auf ein Vanilla-Leuchtfeuer.",
+            "Ohne Simple Mobs gibt es kein Bastelrezept (Netherherz und Rotes Nether-Juwel kommen von dessen Withern); die Vorlage ist dann nur Kreativ oder Beute."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplebeacons/item/evil_upgrade_template.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The same slab as the Strong Upgrade, but it hums out of tune."
+          ],
+          "use": [
+            "Smithing table with a beacon and a nether star, or in the world: off hand, hit a beacon 8 times with an axe or sledgehammer while carrying a nether star.",
+            "With Simple Mobs: Strong Upgrade, crying obsidian, Nether Heart and Red Nether Jewel make one."
+          ],
+          "secret": [
+            "It only works on beacons, not on conduits."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Dieselbe Platte wie die Starke Aufwertung, doch sie summt schief."
+          ],
+          "use": [
+            "Schmiedetisch mit Leuchtfeuer und Netherstern, oder in der Welt: Nebenhand, mit Axt oder Vorschlaghammer 8-mal auf ein Leuchtfeuer schlagen, einen Netherstern dabei.",
+            "Mit Simple Mobs: Starke Aufwertung, Weinender Obsidian, Netherherz und Rotes Nether-Juwel ergeben eine."
+          ],
+          "secret": [
+            "Sie wirkt nur auf Leuchtfeuer, nicht auf Aquisatoren."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:evil_upgrade_template"
+      ],
+      "usedIn": [
+        "simplebeacons:evil_beacon_smithing"
+      ]
+    },
+    {
       "id": "simplebeacons:guide_book",
       "name": {
         "en_us": "Simple Beacons Guide",
@@ -589,10 +1340,10 @@
           "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
+          "summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
+          "summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
         }
       },
       "texture": "assets/textures/simplebeacons/item/guide_book.png",
@@ -706,6 +1457,11 @@
         "simplebeacons:strong_upgrade_template_from_shards"
       ],
       "usedIn": [
+        "simplebeacons:evil_upgrade_template",
+        "simplebeacons:mighty_beacon",
+        "simplebeacons:mighty_beacon_without_simplebuilding",
+        "simplebeacons:mighty_evil_beacon",
+        "simplebeacons:mighty_evil_beacon_without_simplebuilding",
         "simplebeacons:strong_beacon_smithing",
         "simplebeacons:strong_conduit_smithing",
         "simplebeacons:strong_upgrade_template_duplication"
@@ -713,6 +1469,183 @@
     }
   ],
   "blocks": [
+    {
+      "id": "simplebeacons:evil_beacon",
+      "name": {
+        "en_us": "Evil Beacon",
+        "de_de": "Böses Leuchtfeuer"
+      },
+      "note": {
+        "en": {
+          "title": "Evil Beacon",
+          "summary": "A beacon that weakens instead of helping: mild negative powers for players in range (primary levels 1 to 4, the secondary power on level 5), up to 5 pyramid levels like the Strong Beacon. Made of a beacon with the Evil Upgrade.",
+          "details": [
+            "Level 1: Slowness, Mining Fatigue, Hunger. Level 2: Weakness, Bad Luck, Oozing. Level 3: Darkness, Glowing, Infested. Level 4: Weaving. Secondary (level 5): Nausea. All level I, no level II.",
+            "Fair play: the Evil beacons only reach survival players who died at least 5 minutes ago (config evilBeaconGraceMinutes), who are not under the newcomer protection of Simple Tweaks and have not switched their personal PvP off. Nobody can be kept down at a spawn point.",
+            "Every power can be switched off by the server (strongBeaconEffects)."
+          ]
+        },
+        "de": {
+          "title": "Böses Leuchtfeuer",
+          "summary": "Ein Leuchtfeuer, das schwächt statt hilft: leichte negative Kräfte für Spieler in Reichweite (Primärstufen 1 bis 4, die Sekundärkraft auf Ebene 5), bis zu 5 Pyramidenebenen wie das Starke Leuchtfeuer. Gebaut aus einem Leuchtfeuer mit der Bösen Aufwertungsvorlage.",
+          "details": [
+            "Ebene 1: Langsamkeit, Abbaumüdigkeit, Hunger. Ebene 2: Schwäche, Pech, Schleimigkeit. Ebene 3: Dunkelheit, Leuchten, Befall. Ebene 4: Gewebe. Sekundär (Ebene 5): Übelkeit. Alle Stufe I, keine Stufe II.",
+            "Fairness: Die Bösen Leuchtfeuer erreichen nur Überlebens-Spieler, die vor mindestens 5 Minuten gestorben sind (Config evilBeaconGraceMinutes), nicht unter dem Neulingsschutz von Simple Tweaks stehen und ihr persönliches PvP nicht ausgeschaltet haben. Niemand kann am Spawnpunkt unten gehalten werden.",
+            "Jede Kraft kann der Server abschalten (strongBeaconEffects)."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplebeacons/block/evil_beacon.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "It does not light the way. It makes the way hard."
+          ],
+          "use": [
+            "Pyramid of up to 5 levels. Level 1: Slowness, Mining Fatigue, Hunger; level 2: Weakness, Bad Luck, Oozing; level 3: Darkness, Glowing, Infested; level 4: Weaving; level 5: Nausea as the second power.",
+            "It only reaches survival players who died at least 5 minutes ago."
+          ],
+          "secret": [
+            "Newcomer protection and a switched-off personal PvP of Simple Tweaks shield a player from it."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Es leuchtet nicht den Weg. Es macht ihn schwer."
+          ],
+          "use": [
+            "Pyramide mit bis zu 5 Ebenen. Ebene 1: Langsamkeit, Abbaumüdigkeit, Hunger; Ebene 2: Schwäche, Pech, Schleimigkeit; Ebene 3: Dunkelheit, Leuchten, Befall; Ebene 4: Gewebe; Ebene 5: Übelkeit als zweite Kraft.",
+            "Es erreicht nur Überlebens-Spieler, die vor mindestens 5 Minuten gestorben sind."
+          ],
+          "secret": [
+            "Neulingsschutz und ein ausgeschaltetes persönliches PvP von Simple Tweaks schützen einen Spieler davor."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:evil_beacon_smithing"
+      ],
+      "usedIn": [
+        "simplebeacons:mighty_evil_beacon",
+        "simplebeacons:mighty_evil_beacon_without_simplebuilding"
+      ]
+    },
+    {
+      "id": "simplebeacons:mighty_beacon",
+      "name": {
+        "en_us": "Mighty Beacon",
+        "de_de": "Mächtiges Leuchtfeuer"
+      },
+      "note": {
+        "en": {
+          "title": "Mighty Beacon",
+          "summary": "The next step after the Strong Beacon: up to six pyramid levels (454 blocks), primary powers on levels 1 to 5, the secondary power on level 6, range 70 blocks with Iron at level 6.",
+          "details": [
+            "Crafting: the Strong Beacon in the middle, the six cores (copper, iron, gold, diamond, netherite, enderite) around it - top row copper, iron, gold; left diamond, right netherite; bottom middle enderite - and a Strong Upgrade in each bottom corner. Without SimpleBuilding the cores are blocks of copper, iron, gold, diamond, netherite and emerald.",
+            "Levels 1 to 3 as on the Strong Beacon. Level 4: Luck I, Night Vision and a placeholder Resistance II. Level 5: Extra Hearts I (two hearts), and the placeholders Speed II and Jump Boost II. Fire Resistance and Absorption do not exist.",
+            "The secondary power (level 6) is Regeneration, or the primary power one step higher: Speed II becomes III, Extra Hearts I becomes II (four hearts); at most III.",
+            "The placeholder powers are marked II on their button; real powers will replace them later."
+          ]
+        },
+        "de": {
+          "title": "Mighty Beacon",
+          "summary": "Die nächste Stufe nach dem Starken Leuchtfeuer: bis zu sechs Pyramidenebenen (454 Blöcke), Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6, Reichweite 70 Blöcke mit Eisen auf Ebene 6.",
+          "details": [
+            "Herstellung: das Starke Leuchtfeuer in der Mitte, die sechs Kerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit) drumherum - oben Kupfer, Eisen, Gold; links Diamant, rechts Netherit; unten Mitte Enderit - und in jeder unteren Ecke eine Starke Aufwertung. Ohne SimpleBuilding sind die Kerne Blöcke aus Kupfer, Eisen, Gold, Diamant, Netherit und Smaragd.",
+            "Ebenen 1 bis 3 wie beim Starken Leuchtfeuer. Ebene 4: Glück I, Nachtsicht und ein Platzhalter Resistenz II. Ebene 5: Extraherzen I (zwei Herzen) und die Platzhalter Tempo II und Sprungkraft II. Feuerresistenz und Absorption gibt es nicht.",
+            "Die Sekundärkraft (Ebene 6) ist Regeneration oder die Primärkraft eine Stufe höher: aus Tempo II wird III, aus Extraherzen I wird II (vier Herzen); höchstens III.",
+            "Die Platzhalter-Kräfte tragen ein II auf dem Knopf; echte Kräfte ersetzen sie später."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplebeacons/block/mighty_beacon.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "The sixth step is the last one."
+          ],
+          "use": [
+            "Craft it: Strong Beacon in the middle, the six cores around it, a Strong Upgrade in each bottom corner. Pyramid of up to 6 levels (454 blocks). Level 4 adds Night Vision, level 5 Extra Hearts; Speed II, Jump Boost II and Resistance II are placeholders.",
+            "Level 6 unlocks the second power: Regeneration or one step higher (Speed III, four hearts)."
+          ],
+          "secret": [
+            "Fire Resistance and Absorption were dropped as too strong."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Die sechste Stufe ist die letzte."
+          ],
+          "use": [
+            "Herstellen: Starkes Leuchtfeuer in der Mitte, die sechs Kerne drumherum, unten in jeder Ecke eine Starke Aufwertung. Pyramide mit bis zu 6 Ebenen (454 Blöcke). Ebene 4 bringt Nachtsicht, Ebene 5 Extraherzen; Tempo II, Sprungkraft II und Resistenz II sind Platzhalter.",
+            "Ebene 6 schaltet die zweite Kraft frei: Regeneration oder eine Stufe höher (Tempo III, vier Herzen)."
+          ],
+          "secret": [
+            "Feuerresistenz und Absorption wurden als zu stark gestrichen."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:mighty_beacon",
+        "simplebeacons:mighty_beacon_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplebeacons:mighty_evil_beacon",
+      "name": {
+        "en_us": "Mighty Evil Beacon",
+        "de_de": "Mächtiges Böses Leuchtfeuer"
+      },
+      "note": {
+        "en": {
+          "title": "Mighty Evil Beacon",
+          "summary": "The Evil Beacon's big brother: up to six pyramid levels, primary powers on levels 1 to 5, the secondary power on level 6. Same recipe as the Mighty Beacon with the Evil Beacon in the middle.",
+          "details": [
+            "Levels 1 to 4 as on the Evil Beacon. Level 5: Wind Charged and the placeholders Hunger II and Mining Fatigue II. Secondary (level 6): Nausea.",
+            "The same protections as the Evil Beacon apply (5 minutes after death, no newcomers, no PvP-off players)."
+          ]
+        },
+        "de": {
+          "title": "Mächtiges Böses Leuchtfeuer",
+          "summary": "Der große Bruder des Bösen Leuchtfeuers: bis zu sechs Pyramidenebenen, Primärkräfte auf den Ebenen 1 bis 5, die Sekundärkraft auf Ebene 6. Dasselbe Rezept wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte.",
+          "details": [
+            "Ebenen 1 bis 4 wie beim Bösen Leuchtfeuer. Ebene 5: Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II. Sekundär (Ebene 6): Übelkeit.",
+            "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer (5 Minuten nach dem Tod, keine Neulinge, keine Spieler mit PvP aus)."
+          ]
+        }
+      },
+      "texture": "assets/textures/simplebeacons/block/mighty_evil_beacon.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Six steps down."
+          ],
+          "use": [
+            "Craft it like the Mighty Beacon with the Evil Beacon in the middle. Pyramid of up to 6 levels; level 5 adds Wind Charged and the placeholders Hunger II and Mining Fatigue II; level 6 unlocks Nausea."
+          ],
+          "secret": [
+            "The same protections as the Evil Beacon apply."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Sechs Stufen abwärts."
+          ],
+          "use": [
+            "Herstellen wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte. Pyramide mit bis zu 6 Ebenen; Ebene 5 bringt Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II; Ebene 6 schaltet Übelkeit frei."
+          ],
+          "secret": [
+            "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:mighty_evil_beacon",
+        "simplebeacons:mighty_evil_beacon_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
     {
       "id": "simplebeacons:strong_beacon",
       "name": {
@@ -722,28 +1655,28 @@
       "note": {
         "en": {
           "title": "Strong Beacon",
-          "summary": "A beacon with up to six pyramid levels: 11x11 and 13x13 below the Vanilla four (454 blocks in all), three powers on every primary level. Range is (10 + 10 per level) x the material factor (with Iron 60 blocks at level 5, 70 at level 6), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
+          "summary": "A beacon with up to five pyramid levels (11x11 below the Vanilla four, 285 blocks in all): primary powers on levels 1 to 4, the secondary power on level 5. Range is (10 + 10 per level) x the material factor (60 blocks with Iron at level 5, at most 340 with every setting), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
           "details": [
-            "Smithing table: beacon + Strong Upgrade + nether star. Levels 1 to 4 keep Vanilla's powers and rules.",
-            "Every primary level offers three powers: level 1 Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range); level 2 Resistance, Jump Boost and Health Boost I (two more hearts); level 3 Strength, Invisibility and Hero of the Village I (cheaper trades).",
-            "Level 5 adds Night Vision, Water Breathing and Slow Falling as primary powers; level 6 adds Fire Resistance, Dolphin's Grace and Absorption I.",
-            "The secondary power stays Vanilla's: Regeneration or level II of a Vanilla primary power. The new powers have no level II (no Absorption II, no Saturation II).",
-            "Absorption fills two extra hearts once and Health Boost adds two hearts; while you stay in range both are only renewed, not refilled or reset.",
+            "Smithing table: beacon + Strong Upgrade + nether star. Placed beacons can also be upgraded in the world.",
+            "Level 1: Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range). Level 2: Jump Boost, Resistance and Slow Falling. Level 3: Strength, Invisibility and Dolphin's Grace. Level 4: Luck I.",
+            "Level 5 unlocks the secondary power: Regeneration, or level II of a Vanilla primary power (Speed, Haste, Resistance, Jump Boost, Strength). The new powers have no level II.",
+            "Older worlds: a Strong Beacon placed before this change keeps its block, name and lock. Its saved powers that no longer exist (Extra Hearts on level 2, Hero of the Village, Night Vision ...) are cleared and have to be chosen again; a saved 6th level counts as 5.",
+            "The Mighty Beacon (made of this one) adds a sixth level, Night Vision, Extra Hearts and more.",
             "Pyramid blocks: #minecraft:beacon_base_blocks, plus the tag #simplebeacons:strong_base_blocks (empty) for modpacks.",
             "Payment as in Vanilla: one item of #minecraft:beacon_payment_items. The server checks every choice; a power the pyramid or the server does not allow is refused and the payment stays."
           ]
         },
         "de": {
           "title": "Starkes Leuchtfeuer",
-          "summary": "Ein Leuchtfeuer mit bis zu sechs Pyramidenebenen: 11x11 und 13x13 unter den vier Vanilla-Ebenen (zusammen 454 Blöcke), drei Kräfte auf jeder Primärstufe. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, 70 auf Ebene 6), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
+          "summary": "Ein Leuchtfeuer mit bis zu fünf Pyramidenebenen (11x11 unter den vier Vanilla-Ebenen, zusammen 285 Blöcke): Primärkräfte auf den Ebenen 1 bis 4, die Sekundärkraft auf Ebene 5. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, bei allen Einstellungen höchstens 340), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
           "details": [
-            "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Die Ebenen 1 bis 4 behalten die Vanilla-Kräfte und -Regeln.",
-            "Jede Primärstufe bietet drei Kräfte: Stufe 1 Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig); Stufe 2 Resistenz, Sprungkraft und Extraherzen I (zwei Herzen mehr); Stufe 3 Stärke, Unsichtbarkeit und Held des Dorfes I (billigerer Handel).",
-            "Ebene 5 bringt Nachtsicht, Wasseratmung und Langsamen Fall als Primärkraft; Ebene 6 Feuerresistenz, Delfingunst und Absorption I.",
-            "Die Sekundärkraft bleibt Vanilla: Regeneration oder Stufe II einer Vanilla-Primärkraft. Die neuen Kräfte haben keine Stufe II (kein Absorption II, kein Sättigung II).",
-            "Absorption füllt zwei Extraherzen einmal, Extraherzen gibt zwei Herzen mehr; solange man in Reichweite bleibt, werden beide nur verlängert, nicht nachgefüllt oder zurückgesetzt.",
+            "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Gesetzte Leuchtfeuer lassen sich auch in der Welt aufwerten.",
+            "Ebene 1: Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig). Ebene 2: Sprungkraft, Resistenz und Langsamer Fall. Ebene 3: Stärke, Unsichtbarkeit und Gnade des Delfins. Ebene 4: Glück I.",
+            "Ebene 5 schaltet die Sekundärkraft frei: Regeneration oder Stufe II einer Vanilla-Primärkraft (Tempo, Eile, Resistenz, Sprungkraft, Stärke). Die neuen Kräfte haben keine Stufe II.",
+            "Alte Welten: Ein vor dieser Änderung gesetztes Starkes Leuchtfeuer behält Block, Namen und Sperre. Seine gespeicherten Kräfte, die es nicht mehr gibt (Extraherzen auf Ebene 2, Held des Dorfes, Nachtsicht ...), werden gelöscht und müssen neu gewählt werden; eine gespeicherte 6. Ebene zählt als 5.",
+            "Das Mächtige Leuchtfeuer (aus diesem gebaut) bringt eine sechste Ebene, Nachtsicht, Extraherzen und mehr.",
             "Pyramidenblöcke: #minecraft:beacon_base_blocks, dazu das Tag #simplebeacons:strong_base_blocks (leer) für Modpacks.",
-            "Bezahlung wie Vanilla: ein Item aus #minecraft:beacon_payment_items. Der Server prüft jede Wahl; eine Kraft, die Pyramide oder Server nicht erlauben, wird abgelehnt und die Bezahlung bleibt liegen."
+            "Bezahlung wie Vanilla: ein Item aus #minecraft:beacon_payment_items. Der Server prüft jede Wahl; eine Kraft, die Pyramide oder Server nicht erlauben, wird abgelehnt und die Bezahlung bleibt."
           ]
         }
       },
@@ -751,33 +1684,36 @@
       "questionary": {
         "en": {
           "lore": [
-            "Six steps closer to the sky."
+            "Five steps closer to the sky."
           ],
           "use": [
-            "Build a pyramid of up to 6 levels (13x13 at the bottom, 454 blocks). Level 5 offers Night Vision, Water Breathing and Slow Falling, level 6 Fire Resistance, Dolphin's Grace and Absorption.",
-            "Range 60 blocks at level 5 and 70 at level 6."
+            "Build a pyramid of up to 5 levels (11x11 at the bottom, 285 blocks). Level 1: Speed, Haste, Saturation; level 2: Jump Boost, Resistance, Slow Falling; level 3: Strength, Invisibility, Dolphin's Grace; level 4: Luck. Level 5 unlocks the second power.",
+            "Range 60 blocks at level 5 (with Iron), at most 340 blocks."
           ],
           "secret": [
-            "The new powers have no level II, but Regeneration still works as the second power."
+            "The new powers have no level II, but Regeneration still works as the second power. The Mighty Beacon needs the Strong Beacon, six cores and two Strong Upgrades."
           ]
         },
         "de": {
           "lore": [
-            "Sechs Stufen näher am Himmel."
+            "Fünf Stufen näher am Himmel."
           ],
           "use": [
-            "Eine Pyramide mit bis zu 6 Ebenen bauen (13x13 unten, 454 Blöcke). Ebene 5 bietet Nachtsicht, Wasseratmung und Langsamen Fall, Ebene 6 Feuerresistenz, Delfingunst und Absorption.",
-            "Reichweite 60 Blöcke auf Ebene 5 und 70 auf Ebene 6."
+            "Baue eine Pyramide mit bis zu 5 Ebenen (11x11 unten, 285 Blöcke). Ebene 1: Tempo, Eile, Sättigung; Ebene 2: Sprungkraft, Resistenz, Langsamer Fall; Ebene 3: Stärke, Unsichtbarkeit, Gnade des Delfins; Ebene 4: Glück. Ebene 5 schaltet die zweite Kraft frei.",
+            "Reichweite 60 Blöcke auf Ebene 5 (mit Eisen), höchstens 340 Blöcke."
           ],
           "secret": [
-            "Die neuen Kräfte haben keine Stufe II, Regeneration bleibt aber als zweite Kraft."
+            "Die neuen Kräfte haben keine Stufe II, aber Regeneration geht weiter als zweite Kraft. Das Mächtige Leuchtfeuer braucht das Starke, sechs Kerne und zwei Starke Aufwertungen."
           ]
         }
       },
       "craftedBy": [
         "simplebeacons:strong_beacon_smithing"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simplebeacons:mighty_beacon",
+        "simplebeacons:mighty_beacon_without_simplebuilding"
+      ]
     },
     {
       "id": "simplebeacons:strong_conduit",
@@ -855,14 +1791,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
-    "recipes": 6,
-    "lootTables": 2,
+    "features": 13,
+    "recipes": 12,
+    "lootTables": 5,
     "tags": 1,
     "advancements": 0,
     "enchantments": 0,
-    "items": 3,
-    "blocks": 2,
+    "items": 4,
+    "blocks": 5,
     "trades": 0,
     "config": 0,
     "quests": 0,

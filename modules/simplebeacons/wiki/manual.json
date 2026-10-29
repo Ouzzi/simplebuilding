@@ -362,16 +362,9 @@
   ],
   "notes": {
     "simplebeacons:guide_book": {
-      "sources": [
-        "modules/simplebeacons/shared/java/com/simplebeacons/guide/BeaconsGuide.java",
-        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/guide_book.json"
-      ],
-      "en": {
-        "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
-      },
-      "de": {
-        "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
-      }
+      "sources": ["modules/simplebeacons/shared/java/com/simplebeacons/guide/BeaconsGuide.java", "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/guide_book.json"],
+      "en": {"summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."},
+      "de": {"summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."}
     },
     "simplebeacons:strong_upgrade_shard": {
       "en": {

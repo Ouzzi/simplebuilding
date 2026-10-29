@@ -1066,8 +1066,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and ten more powers, and a conduit into a Strong Conduit with a 7x7x7 frame.",
-      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen und zehn weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen."
+      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a Strong Conduit with a 7x7x7 frame. The Mighty Beacon adds a sixth level; the Evil beacons weaken players instead.",
+      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit fünf Pyramidenebenen und neuen Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen. Das Mächtige Leuchtfeuer bringt eine sechste Ebene; die Bösen Leuchtfeuer schwächen Spieler stattdessen."
     },
     "purpose": {
       "en": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
@@ -1075,12 +1075,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 3,
-      "blocks": 2,
-      "recipes": 6,
-      "features": 9
+      "items": 4,
+      "blocks": 5,
+      "recipes": 12,
+      "features": 13
     },
-    "dataHash": "701ad7619008"
+    "dataHash": "9a50f0379085"
   },
   {
     "id": "simpleovens",
