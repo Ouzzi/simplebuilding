@@ -75,6 +75,7 @@ public final class EndDiscover {
             "simpleend:biomes",
             "simpleend:buds_and_trees",
             "simpleend:burrowed_end_stone",
+            "simpleend:commands",
             "simpleend:drift_fruit",
             "simpleend:dusk_bud",
             "simpleend:duskwood_boat",

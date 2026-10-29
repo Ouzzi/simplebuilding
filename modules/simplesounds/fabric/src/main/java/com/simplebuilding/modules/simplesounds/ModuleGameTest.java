@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simplesounds;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h){com.simplelib.test.ConfigCommandTests.module(h,"simplesounds",true);}
  @GameTest public void guideBook(GameTestHelper h){com.simplebuilding.modules.simplesounds.guide.SoundsGuide.gameTest(h);}
  @GameTest public void subModSwitch(GameTestHelper h){SoundTests.subModSwitch(h);}
  @GameTest public void launchSmoke(GameTestHelper h){SoundTests.launch(h);}

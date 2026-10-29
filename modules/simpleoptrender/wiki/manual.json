@@ -111,6 +111,26 @@
         "title": "Detail-Schalter",
         "summary": "Schalter ohne Sodium, standardmäßig alle true (Vanilla): particles false erzeugt keine Partikel, textureAnimations false hält animierte Texturen (Wasser, Lava, Feuer, Portale) auf ihrem aktuellen Bild, fog false hebt den Luft- und Sichtweiten-Nebel auf. Nebel in Wasser, Lava oder Pulverschnee und der Nebel von Blindheit und Dunkelheit bleiben immer."
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleoptrender/fabric/src/main/java/com/simplebuilding/modules/simpleoptrender/fabric/RenderOptFabric.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleclient simpleoptrender shows and changes every option of config/simpleoptrender.json (list [group], get, set, reset, help; Tab completes options and values). The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). A client command, no permission needed (singleplayer and servers alike).",
+        "details": [
+          "Example: /simpleclient simpleoptrender get <option> shows the value, the default and the type; /simpleclient simpleoptrender reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleclient simpleoptrender zeigt und ändert jede Option von config/simpleoptrender.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen: Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Ein Client-Befehl, keine Berechtigung nötig (Einzelspieler und Server).",
+        "details": [
+          "Beispiel: /simpleclient simpleoptrender get <Option> zeigt Wert, Standard und Typ; /simpleclient simpleoptrender reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "notes": {}

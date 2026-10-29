@@ -3,6 +3,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric runs only @GameTest methods: one wrapper per shared test body in {@link DragonFightTests}. */
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleenddragonfight", false); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void registered(GameTestHelper helper) { DragonFightTests.ALL.get("registered").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void scalingMath(GameTestHelper helper) { DragonFightTests.ALL.get("scaling_math").accept(helper); }
     @GameTest(structure = "simpleenddragonfight:empty", maxTicks = 100) public void scaleKeepsShare(GameTestHelper helper) { DragonFightTests.ALL.get("scale_keeps_share").accept(helper); }

@@ -165,6 +165,26 @@
           "summonScaling 0,15, summonMaxMultiplier 3,0, summonSpeedCap 2,0 (weitere Beschwörungen)."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleenddragonfight/fabric/src/main/java/com/simplebuilding/modules/simpleenddragonfight/DragonFightFabric.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleenddragonfight config shows and changes every option of config/simpleenddragonfight.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "details": [
+          "Example: /simpleenddragonfight config get <option> shows the value, the default and the type; /simpleenddragonfight config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleenddragonfight config zeigt und ändert jede Option von config/simpleenddragonfight.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simpleenddragonfight config get <Option> zeigt Wert, Standard und Typ; /simpleenddragonfight config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -331,10 +351,10 @@
           "modules/simpleenddragonfight/shared/resources/data/simpleenddragonfight/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + ender pearl. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End Dragon Fight\" gives one for free."
+          "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + ender pearl. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End Dragon Fight\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Enderperle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End Dragon Fight\" eins."
+          "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Enderperle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End Dragon Fight\" eins."
         }
       },
       "texture": "assets/textures/simpleenddragonfight/item/guide_book.png",
@@ -383,7 +403,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
+    "features": 7,
     "recipes": 1,
     "lootTables": 1,
     "tags": 0,

@@ -30,6 +30,26 @@
         "title": "Super-Mod für Optimierungen",
         "summary": "Simple Optimization hat keine eigenen Inhalte: Es bündelt Simple Opt Render, Simple Opt Memory und Simple Opt Server. config/simpleoptimization.json hat je einen Schalter (enableSimpleOptRender, enableSimpleOptMemory, enableSimpleOptServer, Standard true); aus macht die Sub-Mod wirkungslos, ihre eigenen Einstellungen bleiben in ihrer Config. Jede Sub-Mod läuft auch allein; ein Server braucht nur Simple Opt Server."
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleoptimization/fabric/src/main/java/com/simplebuilding/modules/simpleoptimization/OptimizationFabric.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleoptimization config shows and changes every option of config/simpleoptimization.json (list [group], get, set, reset, help; Tab completes options and values). The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). Permission level 2.",
+        "details": [
+          "Example: /simpleoptimization config get <option> shows the value, the default and the type; /simpleoptimization config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleoptimization config zeigt und ändert jede Option von config/simpleoptimization.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen: Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Berechtigung 2.",
+        "details": [
+          "Beispiel: /simpleoptimization config get <Option> zeigt Wert, Standard und Typ; /simpleoptimization config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -53,7 +73,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 1,
+    "features": 2,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

@@ -5,6 +5,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric catalogue (Fabric runs only {@code @GameTest} methods); NeoForge mirrors WeatherTests.ALL in ModuleNeoTests. */
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleweather", false); }
     @GameTest(maxTicks = 100) public void weather(GameTestHelper h) { WeatherTests.weather(h); }
     @GameTest public void config(GameTestHelper h) { WeatherTests.config(h); }
     @GameTest public void qolMigration(GameTestHelper h) { WeatherTests.qolMigration(h); }

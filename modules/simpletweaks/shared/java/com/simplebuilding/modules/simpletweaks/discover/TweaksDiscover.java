@@ -64,6 +64,7 @@ public final class TweaksDiscover {
             "simpletweaks:claim_table",
             "simpletweaks:claims",
             "simpletweaks:claims_map",
+            "simpletweaks:commands",
             "simpletweaks:creative_tab_switch",
             "simpletweaks:forge_support",
             "simpletweaks:guide_book",

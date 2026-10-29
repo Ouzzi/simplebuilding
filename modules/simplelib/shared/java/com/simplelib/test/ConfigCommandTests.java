@@ -212,4 +212,22 @@ public final class ConfigCommandTests {
             spec.set(path, before);
         }
     }
+
+    /**
+     * For the modules (CMD24-2/3): the config of {@code modId} is announced with options and a default for each; a server
+     * config is also run through {@link #roundTrip} with its first switch (set, wrong type refused, reset, level 0 refused).
+     */
+    public static void module(GameTestHelper h, String modId, boolean client) {
+        var spec = ConfigCommands.spec(modId, client);
+        check(h, spec != null, modId + " config not announced");
+        var options = spec.options();
+        check(h, !options.isEmpty(), modId + " has no options");
+        for (var option : options) check(h, option.defaultValue() != null, modId + " " + option.path() + " has no default");
+        if (!client) {
+            var flag = options.stream().filter(o -> o.kind() == Kind.BOOL).findFirst();
+            check(h, flag.isPresent(), modId + " has no switch to try");
+            roundTrip(h, modId, flag.get().path(), "true", "true", "abc");
+        }
+        h.succeed();
+    }
 }

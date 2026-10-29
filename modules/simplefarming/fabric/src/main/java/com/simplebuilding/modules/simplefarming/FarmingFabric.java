@@ -7,6 +7,9 @@ public final class FarmingFabric implements ModInitializer {
     public void onInitialize() {
         SimpleFarming.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
         SimpleFarming.load();
+        // CMD24: /simplefarming config for every option; save() normalises, writes and syncs the clients (Fabric entry: SimpleLib is bundled here).
+        com.simplelib.api.config.ConfigCommands.server(SimpleFarming.MOD_ID).gson(FarmingConfig.class, () -> SimpleFarming.CONFIG, c -> { c.normalize(); SimpleFarming.CONFIG = c; },
+                () -> { FarmingConfig d = new FarmingConfig(); d.normalize(); return d; }).save(SimpleFarming::save).register();
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> FarmingCommands.register(d));
         HoeHarvestHint.register();
         InteractionGuard.permission = (p, pos) -> net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.invoker()

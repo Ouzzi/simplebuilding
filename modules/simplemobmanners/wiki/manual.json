@@ -130,15 +130,22 @@
     {
       "id": "commands",
       "sources": [
-        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersCommands.java"
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/MobMannersCommands.java",
+        "modules/simplemobmanners/shared/java/com/simplebuilding/modules/simplemobmanners/SimpleMobManners.java"
       ],
       "en": {
         "title": "Commands",
-        "summary": "Permission level 2: /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>. Changes are saved to config/simplemobmanners.json. Formerly Simple Creatures: /simplecreatures still works as an alias with a hint, config/simplecreatures.json and the super-mod switch are taken over once."
+        "summary": "Permission level 2: /simplemobmanners muteSuffixes, babySuffixes and mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims and piglinsIgnoreGoldTools <true|false>. Changes are saved to config/simplemobmanners.json. Formerly Simple Creatures: /simplecreatures still works as an alias with a hint, config/simplecreatures.json and the super-mod switch are taken over once. /simplemobmanners config shows and changes every option of config/simplemobmanners.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "details": [
+          "Example: /simplemobmanners config get <option> shows the value, the default and the type; /simplemobmanners config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "Berechtigung 2: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Früher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig übernommen."
+        "summary": "Berechtigung 2: /simplemobmanners muteSuffixes, babySuffixes und mutedEntities list/add/remove/clear; piglinsIgnoreGoldTrims und piglinsIgnoreGoldTools <true|false>. Speichern in config/simplemobmanners.json. Früher Simple Creatures: /simplecreatures bleibt als Alias mit Hinweis, config/simplecreatures.json und der Super-Mod-Schalter werden einmalig übernommen. /simplemobmanners config zeigt und ändert jede Option von config/simplemobmanners.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simplemobmanners config get <Option> zeigt Wert, Standard und Typ; /simplemobmanners config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
       }
     },
     {
