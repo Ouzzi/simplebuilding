@@ -97,6 +97,11 @@ public final class SledgehammerUpgrades {
     public static int hitInterval(ItemStack hammer) {
         return HIT_INTERVAL;
     }
+
+    /** Upgrade length with this hammer's strike gap (one gap in this version). */
+    public static int upgradeTicks(Upgrade upgrade, ItemStack hammer) {
+        return upgradeTicks();
+    }
     /** Kupfertruhe -> Verstaerkte Truhe mit einem Rissigen Diamanten: jeder Vorschlaghammer genuegt. */
     public static final int REINFORCED_DAMAGE_PER_HIT = 2;
     public static final int NETHERITE_DAMAGE_PER_HIT = 4;
