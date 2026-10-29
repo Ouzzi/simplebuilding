@@ -232,6 +232,21 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void giantHeadsKeepApart(GameTestHelper helper) {
+        MobHeadTests.ALL.get("giant_heads_keep_apart").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void helmetOnHead(GameTestHelper helper) {
+        MobHeadTests.ALL.get("helmet_on_head").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void helmetOnWitherSkull(GameTestHelper helper) {
+        MobHeadTests.ALL.get("helmet_on_wither_skull").accept(helper);
+    }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
     public void jeiChargedCreeperHeads(GameTestHelper h) {
         MobHeadTests.ALL.get("jei_charged_creeper_heads").accept(h);
     }

@@ -16,6 +16,8 @@
     "HeadAbilityLivingEntityMixin",
     "HeadAbilityPlayerMixin",
     "HeadAbilityShulkerBoxMixin",
+    "HeadHelmetDropMixin",
+    "HeadHelmetUseMixin",
     "IgniteItemMixin",
     "MobTargetMixin",
     "PigThunderMixin",
@@ -28,8 +30,11 @@
   ],
   "client": [
     "client.CustomHeadLayerMixin",
+    "client.EntityRendererContextMixin",
     "client.LivingEntityRendererMixin",
     "client.PigRendererMixin",
+    "client.SkullBlockRenderStateMixin",
+    "client.SkullHelmetMixin",
     "client.SkullBlockRendererMixin",
     "client.WornModHeadMixin"
   ],

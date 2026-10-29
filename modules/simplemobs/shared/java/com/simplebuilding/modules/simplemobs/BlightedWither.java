@@ -96,6 +96,11 @@ public class BlightedWither extends WitherBoss {
         return WitherLogic.NETHERITE;
     }
 
+    /** BS28b-2: more experience for the side helmets of the armored Wither ({@link ArmoredWither#apply}). */
+    public void addExperience(int xp) {
+        this.xpReward += xp;
+    }
+
     public int phase() {
         return WitherLogic.phase(this.getHealth(), this.getMaxHealth());
     }
@@ -113,7 +118,7 @@ public class BlightedWither extends WitherBoss {
         boolean waking = this.getInvulnerableTicks() > 0;
         super.customServerAiStep(level);
         // Vanilla heals 10 every 10 ticks while waking (enough for 300 from a third); scaled up it reaches full health.
-        if (waking && this.tickCount % 10 == 0) this.heal(10.0F * (float) (stage().health() / 300.0 - 1.0));
+        if (waking && this.tickCount % 10 == 0) this.heal(10.0F * (float) (this.getMaxHealth() / 300.0 - 1.0));
         if (!waking) tickAbilities(level);
         if (!waking && MobsConfig.minibossBars) syncBossBar();
     }
@@ -341,6 +346,8 @@ public class BlightedWither extends WitherBoss {
         if (stage().gems() > 0) placeLater.add(new ItemStack(WitherMobs.GEM, stage().gems()));
         ItemStack nuggets = nuggets(stage(), WitherLogic.NUGGETS_MIN + this.random.nextInt(WitherLogic.NUGGETS_MAX - WitherLogic.NUGGETS_MIN + 1));
         if (!nuggets.isEmpty()) keep(this.spawnAtLocation(level, nuggets));
+        // BS28b-2: the materials of the side helmets come back (the Chainmail Helmet gives the forbidden fire)
+        for (ItemStack back : ArmoredWither.loot(ArmoredWither.helmets(this), this.random)) keep(this.spawnAtLocation(level, back));
     }
 
     /** Loot that waits for the end of the death (dropped as items if the Wither goes away otherwise). */

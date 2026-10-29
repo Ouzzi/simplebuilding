@@ -27,7 +27,8 @@
     "tex": "blaze/blaze"
    },
    "ability": "blaze",
-   "from": "simplebuilding"
+   "from": "simplebuilding",
+   "helmet": 1
   },
   {
    "id": "enderman",
@@ -42,7 +43,8 @@
     "tex": "enderman/enderman"
    },
    "ability": "enderman",
-   "from": "simplebuilding"
+   "from": "simplebuilding",
+   "helmet": 1
   },
   {
    "id": "husk",
@@ -58,7 +60,8 @@
    },
    "ability": "husk",
    "trial": true,
-   "from": "simplebuilding"
+   "from": "simplebuilding",
+   "helmet": 1
   },
   {
    "id": "spider",
@@ -108,7 +111,8 @@
    "trial": true,
    "item": "stray_skull",
    "freeze_immune": true,
-   "from": "simplebuilding"
+   "from": "simplebuilding",
+   "helmet": 1
   },
   {
    "id": "bogged",
@@ -125,7 +129,8 @@
    "ability": "bogged",
    "trial": true,
    "item": "bogged_skull",
-   "from": "simplebuilding"
+   "from": "simplebuilding",
+   "helmet": 1
   },
   {
    "id": "slime",
@@ -310,7 +315,8 @@
     "tex": "zombie/drowned"
    },
    "ability": "drowned",
-   "from": "simplebuilding"
+   "from": "simplebuilding",
+   "helmet": 1
   },
   {
    "id": "pig",
@@ -654,7 +660,8 @@
      }
     ]
    },
-   "variant_layer": true
+   "variant_layer": true,
+   "helmet": 1
   },
   {
    "id": "witch",
@@ -685,7 +692,8 @@
     "hide": [
      "hat"
     ]
-   }
+   },
+   "helmet": 1
   },
   {
    "id": "vindicator",
@@ -702,7 +710,8 @@
     "hide": [
      "hat"
     ]
-   }
+   },
+   "helmet": 1
   },
   {
    "id": "evoker",
@@ -719,7 +728,8 @@
     "hide": [
      "hat"
     ]
-   }
+   },
+   "helmet": 1
   },
   {
    "id": "illusioner",
@@ -733,7 +743,8 @@
     "layer": "minecraft:illusioner#main",
     "part": "head",
     "tex": "illager/illusioner"
-   }
+   },
+   "helmet": 1
   },
   {
    "id": "ravager",
@@ -843,7 +854,12 @@
       "tex": "warden/warden_bioluminescent_layer",
       "render": "eyes"
      }
-    ]
+    ],
+    "hide": [
+     "right_tendril",
+     "left_tendril"
+    ],
+    "scale": 1
    },
    "ability": "warden",
    "drop": "warden"
@@ -1037,7 +1053,8 @@
     "layer": "minecraft:zombified_piglin#main",
     "part": "head",
     "tex": "piglin/zombified_piglin"
-   }
+   },
+   "helmet": 1.25
   },
   {
    "id": "strider",
@@ -1176,7 +1193,8 @@
    "model": {
     "layer": "minecraft:bat#main",
     "part": "head",
-    "tex": "bat/bat"
+    "tex": "bat/bat",
+    "render": "cull"
    }
   },
   {
@@ -1415,7 +1433,11 @@
    "model": {
     "layer": "minecraft:horse#main",
     "part": "head_parts",
-    "tex": "horse/horse_white"
+    "tex": "horse/horse_white",
+    "hide": [
+     "head_parts!",
+     "mane"
+    ]
    },
    "variants": {
     "component": "minecraft:horse/variant",
@@ -1735,7 +1757,10 @@
    "model": {
     "layer": "minecraft:nautilus#main",
     "part": "",
-    "tex": "nautilus/nautilus"
+    "tex": "nautilus/nautilus",
+    "hide": [
+     "shell"
+    ]
    }
   },
   {
@@ -2394,7 +2419,18 @@
    "model": {
     "layer": "minecraft:squid#main",
     "part": "",
-    "tex": "squid/squid"
+    "tex": "squid/squid",
+    "hide": [
+     "tentacle0",
+     "tentacle1",
+     "tentacle2",
+     "tentacle3",
+     "tentacle4",
+     "tentacle5",
+     "tentacle6",
+     "tentacle7"
+    ],
+    "scale": 1
    }
   },
   {

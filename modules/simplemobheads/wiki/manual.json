@@ -367,7 +367,8 @@
           "Giant cow: every hay bale an adult cow eats from your hand is one try in 5000 to make it a giant cow (three times as big, 30 health, the same drops and milk as any cow); a cow eats at most 64 bales, then it is full. A lucky cow in a barn too low keeps its luck and grows as soon as it stands in the open.",
           "Only a charged creeper's explosion drops a giant's head, with its kind or variant, instead of the normal head. A player's kill gives none. Vanilla's giant (only by command) drops the Giant Head too.",
           "Worn, the wearer grows to one and a half times the size and steps up whole blocks; the Giant Head also walks a little faster, hides the wearer from every zombie kind (half the sight) and works like the head of its kind (husk: food gives no Hunger, drowned: magma bubbles do not drag down). The Giant Cow Head works like the cow head (others can milk the wearer).",
-          "Placed, a giant head is one and a half blocks big on a full block; in the inventory and worn it has the normal head size."
+          "Placed, a giant head is one and a half blocks big on a full block; in the inventory and worn it has the normal head size.",
+          "Two giant heads are never placed next to each other (also not diagonally or one above the other): they would overlap and flicker. Keep at least one free block between them; ordinary heads may stand next to a giant head."
         ]
       },
       "de": {
@@ -378,7 +379,8 @@
           "Riesen-Kuh: Jeder Heuballen, den eine erwachsene Kuh aus der Hand frisst, ist ein Versuch von 5000, sie zur Riesen-Kuh zu machen (dreimal so groß, 30 Lebenspunkte, Beute und Milch wie jede Kuh); eine Kuh frisst höchstens 64 Ballen, dann ist sie satt. Eine Glückskuh in einem zu niedrigen Stall behält ihr Glück und wächst, sobald sie im Freien steht.",
           "Nur die Explosion eines geladenen Creepers lässt den Kopf eines Riesen fallen, mit seiner Art oder Variante, statt des normalen Kopfs. Ein Spieler-Kill gibt keinen. Vanillas Riese (nur per Befehl) lässt auch den Riesenkopf fallen.",
           "Getragen wächst der Träger auf anderthalbfache Größe und steigt ganze Blöcke hoch; der Riesenkopf läuft zusätzlich etwas schneller, tarnt vor jeder Zombie-Art (halbe Sicht) und wirkt wie der Kopf seiner Art (Wüstenzombie: Essen macht nicht hungrig, Ertrunkener: Magma-Blasen ziehen nicht hinab). Der Riesenkuhkopf wirkt wie der Kuhkopf (andere können den Träger melken).",
-          "Aufgestellt ist ein Riesenkopf anderthalb Blöcke groß auf einem vollen Block; im Inventar und getragen hat er normale Kopfgröße."
+          "Aufgestellt ist ein Riesenkopf anderthalb Blöcke groß auf einem vollen Block; im Inventar und getragen hat er normale Kopfgröße.",
+          "Zwei Riesenköpfe werden nie nebeneinander gesetzt (auch nicht diagonal oder übereinander): sie würden sich überlappen und flackern. Lass mindestens einen Block dazwischen frei; gewöhnliche Köpfe dürfen neben einem Riesenkopf stehen."
         ]
       },
       "sources": [
@@ -386,7 +388,36 @@
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/EasterThunderMixin.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/CowFeedMixin.java",
         "modules/simplemobheads/shared/java/com/simplemobheads/mixin/CreeperMixin.java",
-        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java"
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeads.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/MobHeadItem.java"
+      ]
+    },
+    {
+      "id": "helmets",
+      "en": {
+        "title": "Helmets on Heads",
+        "summary": "Right-click a placed head with a helmet and it sits on the head, drawn with the helmet's own armor model. An empty hand takes it off again.",
+        "details": [
+          "Heads with a human-sized face take a helmet: the Vanilla skeleton, wither skeleton, zombie and player heads, and the Blaze, Enderman, Husk, Stray, Bogged, Drowned, Zombie Villager, Zombified Piglin, Pillager, Vindicator, Evoker and Illusioner heads. Animal heads and the creeper head do not.",
+          "One helmet per head; dye, trim and enchantment glint show. Breaking the head drops the helmet. Only real helmets go on (no carved pumpkin, no other head).",
+          "Wither skeleton skulls take helmets up to Diamond (leather, copper, chainmail, iron, gold, diamond). With Simple Mobs, a Netherite or Enderite Helmet belongs to the crown of the Wither figure's middle skull instead (see the Blighted Wither); the helmets of the two outer skulls make that Wither a little stronger."
+        ]
+      },
+      "de": {
+        "title": "Helme auf Köpfen",
+        "summary": "Rechtsklick auf einen gesetzten Kopf mit einem Helm: der Helm sitzt auf dem Kopf und wird mit seinem eigenen Rüstungsmodell gezeichnet. Mit leerer Hand nimmst du ihn wieder ab.",
+        "details": [
+          "Köpfe mit menschengroßem Gesicht nehmen einen Helm: die Vanilla-Köpfe von Skelett, Witherskelett, Zombie und Spieler sowie die Köpfe von Lohe, Enderman, Wüstenzombie, Eiswanderer, Sumpfskelett, Ertrunkenem, Zombiedorfbewohner, Zombifiziertem Piglin, Plünderer, Diener, Magier und Illusionist. Tierköpfe und der Creeperkopf nicht.",
+          "Ein Helm je Kopf; Färbung, Rüstungsbesatz und Verzauberungsglanz sind zu sehen. Wird der Kopf abgebaut, fällt der Helm heraus. Nur echte Helme passen (kein Kürbis, kein anderer Kopf).",
+          "Witherskelettschädel nehmen Helme bis Diamant (Leder, Kupfer, Kette, Eisen, Gold, Diamant). Mit Simple Mobs gehört ein Netherit- oder Enderit-Helm stattdessen als Krone auf den mittleren Schädel der Wither-Figur (siehe Verdorrter Wither); die Helme der beiden äußeren Schädel machen diesen Wither etwas stärker."
+        ]
+      },
+      "sources": [
+        "modules/simplemobheads/shared/java/com/simplemobheads/helmet/HeadHelmets.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadHelmetUseMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadHelmetDropMixin.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/client/HeadHelmetRender.java",
+        "modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/SkullHelmetMixin.java"
       ]
     }
   ],
