@@ -53,6 +53,9 @@ Neue Pixelkunst im Stil des Besitzers, immer mit 16-fach-Vorschau alt neben neu;
 
 **Besitzer 21.10.:** (c) Jede Mod hat ein eigenes 16×16-Pixelart-Icon (Mod-Liste). (a) Alle Texturen so nah wie möglich an Vanilla halten – Formensprache, Schattierung, Farbgebung/Paletten, Kontur wie bei Minecraft (eigene Pixel, keine kopierten). (b) Jede Textur wird in Grundform **als Ebenen** gespeichert (Ebenen-Quelle neben dem PNG, Format siehe Pixeleditor-Plan), damit sie im Wiki-Pixeleditor (Dev) angepasst werden kann; das PNG ist das zusammengesetzte Ergebnis.
 
+### A8b Weiche Übergänge – Richtwert „~7 % hart“ (Besitzer 29.10.)
+Texturen nach dem Vorbild der abgenommenen Endholz-Bretter A (a-tex29): Vanilla-Raster und Tonverteilung, etwa 7 % harte Übergänge (Anteil benachbarter Pixel mit großem Helligkeitssprung), nicht ~25–30 % wie die alten, kantigen Texturen. Generatoren messen den Anteil und weisen ihn in Vorschauen aus; Kandidaten über ~12 % gelten als zu hart.
+
 ### A9 Server-Autorität und Belege
 Alle Stellschrauben serverseitig mit Obergrenzen, die Vanilla nicht gefährden (3.8). Wiki-Aussagen müssen im Code beweisbar sein (3.6); Handbücher/Wiki nach Änderungen neu erzeugen.
 

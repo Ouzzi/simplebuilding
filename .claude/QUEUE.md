@@ -100,6 +100,16 @@ Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP)
 **Summen Agentenzeit:** A 6,0 h (7 Pakete) · B 37 h (9) · C 25 h (9) · D 43 h (WP-26…31; WP-32…34 offen/Besitzer). Umsetzungen nach Konzeptwahl (aus C) kommen als eigene WP hinterher und sind nicht eingerechnet.
 **Überholt/Dublette (Zeilen bleiben, mit Vermerk):** (d) Howler-Sounds überholt durch howler5 (HOW-1/2); OW24-3 = WA24-7; OW24-4 = Funde 23.10. (Rissiges Eis); OW24-5/OW24-6 erledigt b-small25 (Haken in den [x]-Zeilen im Abschnitt AUDM24); OW24-7 = HOW-1/2; OW24-2 = b-gadgets24 + MA-N70; e3/e5 = END-1/END-2; WIKI24-2 = OPS-4; END-10 = TZ22-9 (Abnahmeteil).
 
+## Besitzer 29.10. abends – Abnahmen Runde 1 (ABN29)
+- [ ] ABN29-1 Fernrohr-Overlay (a-qol29): Varianten A/B abgelehnt („schrecklich“). Neu: Vanilla-Overlay aufwerten zu einem INVERTIERTEN UI-Fensterrahmen (wie Inventar/Kisten-UI, aber umgekehrt: Rahmen innen, UI-Fläche außen), 4 px vom Bildschirmrand: 2 px schwarz + 2 px Rahmen (bzw. wie der UI-Rahmen aufgebaut ist). Erst Vorschau.
+- [ ] ABN29-2 Slot-Hervorhebung hinter dem Item: abgenommen. Hosen-Unterseite: abgenommen.
+- [ ] ABN29-3 Konzept WP-17: Simple Doors abgenommen (Lesarten D1/D2 wie vorgeschlagen); Doppelkolben Variante B (1×2); Signaldämpfer abgenommen. → Bau-Paket.
+- [ ] ABN29-4 Starkes Schwarzpulver: Variante B (blau) ohne Tönung des Ganzen; Starkes TNT: Vanilla-TNT bleibt, Mitte und graue Oberseite gleich, NUR die roten Pixel werden zum Blau des starken Schwarzpulvers B (kein Blau-Tint auf dem Block).
+- [ ] ABN29-5 Texturen a-tex29: Bretter Aschholz + Dämmerholz A (7 % harte Übergänge – neues Prinzip A8b), Boote + Kistenboote A, Diamant- und Seelenfeuerrute A, Verstummte Tiefenschiefer-Fliesen und Sculk-Tiefenschiefer = Empfehlung; Sculk-Fliesen Animation A, aber weicher (wie Dämmerholz, Härte runter) – evtl. C, weil dunkler; Tür-Items Dämmerholz + Aschholz: C, aber oben ein Bereich durchsichtig (Fenster wie Vanilla-/alte Tür; bei Aschholz die 3 Pixel im Zweieck durchsichtig); Astral-Kolben: alte Textur bevorzugt → Mischung alt + C; Nihil-Kolben: B, etwas weniger hart; Formsäge: missverstanden – nur die Eckpfeiler aus (Vanilla-)Holz, Oberfläche und Seiten wie vorher; gemeißelte Lohen-Regale abgenommen.
+- [ ] ABN29-6 Mob-Köpfe: neue Formen gefallen, aber FLACH platzieren (Pferdekopf liegt geneigt → flach auf dem Kopf), Tintenfisch gut, Warden: Antennen wieder dran. Helme abgenommen. Übrige Köpfe nach derselben Technik umbauen.
+- [ ] ABN29-7 Schwingen: Feder-Look A gut; Knochenschwingen (B) als gerenderte Live-Vorschau (3D, getragen am Spieler) zeigen, nicht nur Textur.
+- [ ] ABN29-8 Bereits früher beantwortet (nicht erneut fragen!): Display-Tönung C „beide sanft“, inverser Besatz (3 Stufen WA24-1), Butter-Teppich (WA24-3), Köcher (WA24-4), Nether-Juwel-Animation (wie jetzt im Spiel). Abnahme-Seiten vorher gegen Queue/Memory abgleichen.
+
 ## Offen – Überblick (Stand 2026-10-23, a-queue23)
 
 Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fett); hier nur die Arbeitsströme. Maßgeblich bleibt der Haken in der Zeile.
