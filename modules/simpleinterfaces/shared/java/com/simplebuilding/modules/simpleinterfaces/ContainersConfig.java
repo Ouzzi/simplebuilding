@@ -27,10 +27,26 @@ public final class ContainersConfig {
     /** Rows of four entries the bundle tooltip shows at most (3..16, Vanilla: 3). */
     public int bundleMaxRows = 6;
 
+    /** Item slot highlight only behind the item (not over it), so the selected item stays fully visible. */
+    public boolean slotHighlightBehind = true;
+    /** Fills the missing underside of leggings (their legs showed a hole without boots). */
+    public boolean leggingsFix = true;
+    /** The spyglass overlay darkens only the screen edge instead of a black frame with a round window. */
+    public boolean scopeEdgeOverlay = true;
+    /** The rest of the HUD hides while zooming (crosshair stays). */
+    public boolean scopeHideHud = true;
+    /** The mouse wheel zooms steplessly while looking through the spyglass or zooming. */
+    public boolean scopeWheelZoom = true;
+    /** The zoom key zooms without a spyglass, with the same overlay. Off: zoom only with the spyglass. */
+    public boolean zoomHotkey = false;
+    /** Strongest magnification the wheel reaches (2..100). */
+    public int zoomMaxMagnification = 30;
+
     /** Super-mod switch "Enable Simple QoL" (framework SubMods): off = every screen exactly Vanilla, no toggle button. Runtime only. */
     public static boolean on() { return com.simplebuilding.framework.api.SubMods.enabled("simpleinterfaces"); }
 
     public void normalize() {
+        zoomMaxMagnification = Math.clamp(zoomMaxMagnification, 2, 100);
         if (screens == null) screens = new HashMap<>();
         screens.values().removeIf(java.util.Objects::isNull);
     }

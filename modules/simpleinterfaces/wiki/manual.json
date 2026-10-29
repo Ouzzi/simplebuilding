@@ -946,6 +946,210 @@
           "Beispiel: /simpleinterfaces config get <Option> zeigt Wert, Standard und Typ; /simpleinterfaces config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
+    },
+    {
+      "id": "scope_zoom",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/ZoomState.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/ZoomHudMixin.java"
+      ],
+      "en": {
+        "title": "Spyglass and zoom",
+        "summary": "The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel. Optionally the zoom key (default C) zooms without a spyglass with the same overlay.",
+        "details": [
+          "Client only. The overlay is one own texture (soft rim, clear middle) stretched over the screen. Every part has its own switch in config/simpleinterfaces.json: scopeEdgeOverlay, scopeHideHud, scopeWheelZoom, zoomHotkey, zoomMaxMagnification; with all off the spyglass is exactly Vanilla.",
+          "The mouse slows down with the zoom."
+        ]
+      },
+      "de": {
+        "title": "Fernrohr und Zoom",
+        "summary": "Das Fernrohr dunkelt nur den Bildschirmrand ab, blendet das HUD aus (Fadenkreuz bleibt) und zoomt stufenlos mit dem Mausrad. Optional zoomt die Zoom-Taste (Standard C) ohne Fernrohr mit demselben Overlay.",
+        "details": [
+          "Nur clientseitig. Das Overlay ist eine eigene Textur (weicher Rand, klare Mitte), über den Bildschirm gezogen. Jeder Teil hat einen eigenen Schalter in config/simpleinterfaces.json: scopeEdgeOverlay, scopeHideHud, scopeWheelZoom, zoomHotkey, zoomMaxMagnification; sind alle aus, ist das Fernrohr genau wie Vanilla.",
+          "Die Maus wird mit dem Zoom langsamer."
+        ]
+      }
+    },
+    {
+      "id": "slot_highlight",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/SlotHighlightMixin.java"
+      ],
+      "en": {
+        "title": "Clearer slot highlight",
+        "summary": "The highlight of the hovered slot is drawn only behind the item, so the item stays fully visible. Own implementation (no pack files); switch slotHighlightBehind.",
+        "details": [
+          "Client only. Idea of the MIT-licensed pack Clearer Slot Highlight; nothing of it is copied."
+        ]
+      },
+      "de": {
+        "title": "Deutlichere Slot-Hervorhebung",
+        "summary": "Die Hervorhebung des überfahrenen Slots liegt nur hinter dem Item, sodass es voll sichtbar bleibt. Eigene Umsetzung (keine Paket-Dateien); Schalter slotHighlightBehind.",
+        "details": [
+          "Nur clientseitig. Idee des MIT-lizenzierten Pakets Clearer Slot Highlight; nichts davon ist kopiert."
+        ]
+      }
+    },
+    {
+      "id": "leggings_fix",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/LeggingsFix.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ZoomMath.java"
+      ],
+      "en": {
+        "title": "Leggings fix",
+        "summary": "The missing underside of the leggings legs is filled when the textures load, so legs are no longer open from below. Own implementation; switch leggingsFix.",
+        "details": [
+          "Client only. The pack Leggings Fix is all rights reserved, so no file or pixel of it is used: the underside is derived at load time from the hem row of the leg texture (only where it is transparent). Applies after a resource reload (F3+T)."
+        ]
+      },
+      "de": {
+        "title": "Hosen-Korrektur",
+        "summary": "Die fehlende Unterseite der Hosenbeine wird beim Laden der Texturen gefüllt, sodass die Beine unten nicht mehr offen sind. Eigene Umsetzung; Schalter leggingsFix.",
+        "details": [
+          "Nur clientseitig. Das Paket Leggings Fix ist 'alle Rechte vorbehalten', daher wird keine Datei und kein Pixel davon benutzt: Die Unterseite wird beim Laden aus der Saumzeile der Bein-Textur abgeleitet (nur wo sie durchsichtig ist). Wirkt nach dem Neuladen der Ressourcen (F3+T)."
+        ]
+      }
+    },
+    {
+      "id": "config_slotHighlightBehind",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Slot highlight behind item",
+        "summary": "The highlight of the hovered inventory slot is drawn behind the item, so the item stays fully visible. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Slot-Hervorhebung hinter dem Item",
+        "summary": "Die Hervorhebung des überfahrenen Inventar-Slots liegt hinter dem Item, sodass es voll sichtbar bleibt. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_leggingsFix",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Leggings fix",
+        "summary": "Fills the missing underside of the leggings legs (open from below without boots). Applies after the resources reload (F3+T). Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Hosen-Korrektur",
+        "summary": "Füllt die fehlende Unterseite der Hosenbeine (ohne Stiefel von unten offen). Wirkt nach dem Neuladen der Ressourcen (F3+T). Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_scopeEdgeOverlay",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Spyglass overlay at the edge",
+        "summary": "The spyglass (and zoom) darkens only the screen edge instead of a black frame with a round window. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Fernrohr-Overlay nur am Rand",
+        "summary": "Fernrohr (und Zoom) dunkeln nur den Bildschirmrand ab statt eines schwarzen Rahmens mit rundem Fenster. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_scopeHideHud",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Hide HUD while zooming",
+        "summary": "The hotbar, status bars and other HUD elements hide while looking through the spyglass or zooming; the crosshair stays. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "HUD beim Zoomen ausblenden",
+        "summary": "Hotbar, Statusleisten und übrige HUD-Elemente verschwinden beim Blick durchs Fernrohr oder Zoomen; das Fadenkreuz bleibt. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_scopeWheelZoom",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Mouse wheel zoom",
+        "summary": "The mouse wheel zooms steplessly while looking through the spyglass or zooming, instead of scrolling the hotbar. Default: on.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Mausrad-Zoom",
+        "summary": "Das Mausrad zoomt stufenlos beim Blick durchs Fernrohr oder Zoomen, statt die Hotbar zu scrollen. Standard: an.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_zoomHotkey",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Zoom key without spyglass",
+        "summary": "The zoom key (default C, change it in the controls) zooms without a spyglass, with the same overlay. Off: zoom only with the spyglass. Default: off.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Zoom-Taste ohne Fernrohr",
+        "summary": "Die Zoom-Taste (Standard C, in den Steuerungen änderbar) zoomt ohne Fernrohr, mit demselben Overlay. Aus: Zoom nur mit dem Fernrohr. Standard: aus.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
+    },
+    {
+      "id": "config_zoomMaxMagnification",
+      "sources": [
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/ContainersConfig.java"
+      ],
+      "en": {
+        "title": "Strongest zoom",
+        "summary": "Strongest magnification the mouse wheel reaches. Default: 30. Allowed range: 2–100.",
+        "details": [
+          "Local value in config/simpleinterfaces.json (client only)."
+        ]
+      },
+      "de": {
+        "title": "Stärkster Zoom",
+        "summary": "Stärkste Vergrößerung, die das Mausrad erreicht. Standard: 30. Erlaubter Bereich: 2–100.",
+        "details": [
+          "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
+        ]
+      }
     }
   ],
   "notes": {}

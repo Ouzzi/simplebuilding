@@ -34,12 +34,12 @@
         "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/mixin/SharpnessGrassCutMixin.java"
       ],
       "en": {
-        "title": "Sharpness cuts vegetation",
-        "summary": "Sharpness III or higher on a sword or axe clears explicit small vegetation overlapping the attacked entity. Sneaking disables it. At most 27 positions within 4.5 blocks are considered; loader break vetoes and action cooldown apply. The matching vegetation outline is hidden."
+        "title": "Cut through grass",
+        "summary": "With Sharpness I or higher a sword or axe swings through grass and flowers: the chance to hit the mob behind them is 10 % at Sharpness I and rises linearly to 90 % at V (the outline of the plant disappears for a swing that passes). A hit cuts the vegetation in a 3x3 area around the target; every Sweeping Edge level adds a ring. Sneaking disables it. Loader break vetoes and the action cooldown apply. Options: grassCutMinSharpness, grassThroughMinPercent, grassThroughMaxPercent, grassSweepRadiusPerLevel; sharpnessCutsGrass switches it all off."
       },
       "de": {
-        "title": "Schärfe schneidet Pflanzen",
-        "summary": "Schärfe III oder höher auf Schwert oder Axt entfernt kleine Pflanzen am angegriffenen Wesen. Schleichen deaktiviert es. Höchstens 27 Positionen innerhalb 4.5 Blöcken; Loader-Abbruch und Aktionspause gelten. Passende Pflanzenumrisse werden verborgen."
+        "title": "Durch Gras schlagen",
+        "summary": "Mit Schärfe I oder höher schlagen Schwert und Axt durch Gras und Blumen: Die Chance, den Mob dahinter zu treffen, beträgt 10 % bei Schärfe I und steigt linear auf 90 % bei V (bei einem durchgehenden Schlag verschwindet der Umriss der Pflanze). Ein Treffer schneidet die Pflanzen in einer 3x3-Fläche um das Ziel; jede Stufe Schwungkraft fügt einen Ring hinzu. Schleichen schaltet es ab. Abbau-Sperren des Loaders und die Aktions-Abklingzeit gelten. Optionen: grassCutMinSharpness, grassThroughMinPercent, grassThroughMaxPercent, grassSweepRadiusPerLevel; sharpnessCutsGrass schaltet alles ab."
       }
     },
     {
@@ -68,6 +68,62 @@
       "de": {
         "title": "sharpnessCutsGrass",
         "summary": "Servereinstellung. Standard: true."
+      }
+    },
+    {
+      "id": "config_grassCutMinSharpness",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "grassCutMinSharpness",
+        "summary": "Lowest Sharpness level for cutting and swinging through grass. Server setting. Default: 1, range 1-5."
+      },
+      "de": {
+        "title": "grassCutMinSharpness",
+        "summary": "Niedrigste Schärfe-Stufe zum Schneiden und Durchschlagen von Gras. Servereinstellung. Standard: 1, Bereich 1-5."
+      }
+    },
+    {
+      "id": "config_grassThroughMinPercent",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "grassThroughMinPercent",
+        "summary": "Swing-through chance in percent at Sharpness I. Server setting. Default: 10."
+      },
+      "de": {
+        "title": "grassThroughMinPercent",
+        "summary": "Durchschlag-Chance in Prozent bei Schärfe I. Servereinstellung. Standard: 10."
+      }
+    },
+    {
+      "id": "config_grassThroughMaxPercent",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "grassThroughMaxPercent",
+        "summary": "Swing-through chance in percent at Sharpness V. Server setting. Default: 90."
+      },
+      "de": {
+        "title": "grassThroughMaxPercent",
+        "summary": "Durchschlag-Chance in Prozent bei Schärfe V. Servereinstellung. Standard: 90."
+      }
+    },
+    {
+      "id": "config_grassSweepRadiusPerLevel",
+      "sources": [
+        "modules/simplefarming/shared/java/com/simplebuilding/modules/simplefarming/FarmingConfig.java"
+      ],
+      "en": {
+        "title": "grassSweepRadiusPerLevel",
+        "summary": "Extra rings of the cut area per Sweeping Edge level. Server setting. Default: 1, range 0-3."
+      },
+      "de": {
+        "title": "grassSweepRadiusPerLevel",
+        "summary": "Zusätzliche Ringe der Schnittfläche je Stufe Schwungkraft. Servereinstellung. Standard: 1, Bereich 0-3."
       }
     },
     {
