@@ -36,9 +36,16 @@ public final class LinkBudget extends SavedData {
         SimpleMoney.config.links.normalize();
         Entry e = players.get(player);
         if (now < 0) return false;
-        if (e == null) return players.size() < MAX_PLAYERS;
+        if (e == null) {
+            if (players.size() >= MAX_PLAYERS) prune(now);
+            return players.size() < MAX_PLAYERS;
+        }
         if (now < e.last() || now - e.last() < SimpleMoney.config.links.cooldownTicks) return false;
         return now >= e.window() && (now - e.window() >= DAY_TICKS || e.count() < SimpleMoney.config.links.dailyLimit);
+    }
+    /** Full table: entries untouched for more than a day are worth nothing (a new window would start anyway); drop them. */
+    private void prune(long now) {
+        if (players.values().removeIf(x -> now - x.last() >= DAY_TICKS)) setDirty();
     }
     public boolean spend(UUID player, long now) {
         if (!allowed(player, now)) return false;

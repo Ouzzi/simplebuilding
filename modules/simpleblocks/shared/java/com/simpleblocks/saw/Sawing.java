@@ -173,6 +173,13 @@ public final class Sawing {
         CLIENT_LISTENERS.forEach(Runnable::run);
     }
 
+    /** Drops the cached recipe manager and the list received from a server (server stop / disconnect). */
+    public static synchronized void forgetAll() {
+        cachedManager = null;
+        cached = List.of();
+        clientEntries = List.of();
+    }
+
     public static List<Entry> clientEntries() {
         return clientEntries;
     }

@@ -212,7 +212,7 @@ public class PocketJukeboxBlock extends BaseEntityBlock {
     public static boolean scroll(Player player, BlockPos pos, int step) {
         Level level = player.level();
         if (step == 0 || !player.isAlive() || player.isSpectator() || !player.isShiftKeyDown() || !player.mayBuild()
-                || !level.mayInteract(player, pos) || !level.isLoaded(pos) || !player.isWithinBlockInteractionRange(pos, SCROLL_RANGE_SLACK)
+                || !level.mayInteract(player, pos) || !player.mayUseItemAt(pos, net.minecraft.core.Direction.UP, player.getMainHandItem()) || !level.isLoaded(pos) || !player.isWithinBlockInteractionRange(pos, SCROLL_RANGE_SLACK)
                 || !(level.getBlockEntity(pos) instanceof PocketJukeboxBlockEntity be) || be.contents().size() < 2) {
             return false;
         }

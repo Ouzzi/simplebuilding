@@ -75,7 +75,10 @@ public final class SkyPortalBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveCustomOnly(registries);
+        // The client only needs the tint colour: link/anchor coordinates stay on the server.
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("Color", color);
+        return tag;
     }
 
     @Override

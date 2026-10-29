@@ -18,6 +18,7 @@ public final class BlocksFabric implements ModInitializer {
         SimpleBlocks.registerIdMoves();
         SimpleBlocks.simplebuildingLoaded = FabricLoader.getInstance().isModLoaded("simplebuilding");
         BlocksRegistry.registerAll();
+        com.simplelib.api.PlayerState.onStop("simpleblocks:sawing", com.simpleblocks.saw.Sawing::forgetAll);
         // Stonecutter -> Shapecutter in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
         com.simpleblocks.saw.SawUpgrade.hammerMode = FabricLoader.getInstance().isModLoaded("simplehammers");
         net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((player, level, hand, hit) ->
