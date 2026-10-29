@@ -6,3 +6,5 @@ ext.forgeMixinConfigs = ['simpleend.mixins.json', 'simpleend.forge.mixins.json']
 // Super-mod level 2: nests its optional sub-mod next to framework.
 ext.forgeBundleModules = [':modules:simpleenddragonfight:forge']
 apply from: rootProject.file('gradle/module-forge.gradle')
+// a-abn29t: the boat textures are Vanilla-derived (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')

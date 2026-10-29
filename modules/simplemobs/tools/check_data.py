@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 MODULE = Path(__file__).resolve().parents[1]
-DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder'}
+DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder', 'soulfire_rod'}
 _vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
 assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
 ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings', 'void_wings', 'ender_heart', 'ender_gem')
