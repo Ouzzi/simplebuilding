@@ -757,6 +757,8 @@ def main(argv=None):
             f'{n}_hanging_sign': fill_wood(vanilla_mask(args.jar, 'textures/block/oak_hanging_sign.png'), s, metal=True),
         }
         for k, im in blocks.items():
+            if k == f'{n}_planks':      # a-abn29t: planks A (Vanilla grid), tools/textures/abn29_2026_10_29.py
+                continue
             write(im, TEX / 'block' / f'{k}.png', out)
         items = {
             f'{n}_door': door_item(blocks[f'{n}_door_top'], blocks[f'{n}_door_bottom']),
@@ -765,9 +767,9 @@ def main(argv=None):
             f'{n}_chest_boat': fill_wood(vanilla_mask(args.jar, 'textures/item/oak_chest_boat.png'), s, ramp_name='bark'),
         }
         for k, im in items.items():
+            if k in (f'{n}_door', f'{n}_boat', f'{n}_chest_boat'):   # a-abn29t: door item C and the boats A (item + entity,
+                continue                                              # Vanilla-derived) come from tools/textures/abn29_2026_10_29.py
             write(im, TEX / 'item' / f'{k}.png', out)
-        write(boat_entity(vanilla_mask(args.jar, 'textures/entity/boat/oak.png'), s, False), TEX / 'entity/boat' / f'{n}.png', out)
-        write(boat_entity(vanilla_mask(args.jar, 'textures/entity/chest_boat/oak.png'), s, True), TEX / 'entity/chest_boat' / f'{n}.png', out)
         write(fill_wood(vanilla_mask(args.jar, 'textures/gui/signs/oak.png'), s), GUI / 'signs' / f'simpleend_{n}.png', out)
         write(fill_wood(vanilla_mask(args.jar, 'textures/gui/hanging_signs/oak.png'), s, metal=True), GUI / 'hanging_signs' / f'simpleend_{n}.png', out)
     write(end_grass(), TEX / 'block/end_grass.png', out)
@@ -811,7 +813,7 @@ def preview(dest):
         n = s['name']
         names = [f'block/{n}_log', f'block/{n}_log_top', f'block/stripped_{n}_log', f'block/{n}_planks', f'block/{n}_door_top',
                  f'block/{n}_door_bottom', f'block/{n}_trapdoor', f'block/{n}_leaves', f'block/{s["bud"]}', f'block/{n}_sticks',
-                 f'item/{n}_sign', f'item/{n}_hanging_sign', f'item/{n}_boat', f'item/{n}_chest_boat', f'item/{n}_door',
+                 f'item/{n}_sign', f'item/{n}_hanging_sign', f'item/{n}_door',
                  'block/end_grass', 'block/end_bush', 'item/drift_fruit', f'block/{n}_leaves_crystal', 'item/spoiled_drift_fruit']
         sheet = Image.new('RGBA', (len(names) * 136, 136), (40, 36, 44, 255))
         for i, k in enumerate(names):
@@ -824,11 +826,6 @@ def preview(dest):
         for i, k in enumerate((f'block/{n}_leaves_loose', f'block/{n}_leaves', f'block/{n}_leaves_inner')):
             sheet.alpha_composite(tinted(Image.open(TEX / f'{k}.png').convert('RGBA'), TINTS[n]).resize((256, 256), Image.NEAREST), (i * 264 + 8, 4))
         sheet.save(dest / f'{n}_leaves_variants.png')
-        for k in ('boat', 'chest_boat'):
-            pass
-        for k in ('boat', 'chest_boat'):
-            im = Image.open(TEX / f'entity/{k}/{n}.png')
-            im.resize((im.width * 4, im.height * 4), Image.NEAREST).save(dest / f'{n}_{k}_entity.png')
     sheet = Image.new('RGBA', (64 * 8 * 2 + 16 * 8 * 2 + 40, 32 * 8), (40, 36, 44, 255))
     for i, k in enumerate(('ash', 'dusk')):
         im = Image.open(TEX / f'entity/nibblemite/{k}.png').convert('RGBA')

@@ -1,8 +1,8 @@
 {
   "parent": "block/block",
   "textures": {
-    "top": "simplebuilding:block/crimson_blazewood_planks",
-    "side": "simplebuilding:block/crimson_blazewood_planks",
+    "top": "simplebuilding:block/chiseled_crimson_blazewood_bookshelf_side",
+    "side": "simplebuilding:block/chiseled_crimson_blazewood_bookshelf_side",
     "particle": "#top"
   },
   "elements": [

@@ -215,10 +215,10 @@ def models_and_states():
 
 def saw_model():
     """The stonecutter's model (9 px table, blade across the middle) in two finishes (BS25-3, blockstate `metal`):
-    `shapecutter` = wood finish (default, what the recipe makes) and `shapecutter_metal` = plates on top and bottom
-    (conversion with 2 heavy pressure plates). The metal one keeps the polished-iron Vanilla-derived textures
-    (tools/textures/shapecutter_2026_10_21.py, blade S2); until the owner picks the wood look (preview a-tex29) the wood
-    finish references Vanilla's own stonecutter textures (nothing copied)."""
+    `shapecutter` (default, what the recipe makes) and `shapecutter_metal` = plates fitted on top and bottom (conversion
+    with 2 heavy pressure plates). Both use the polished-iron Vanilla-derived textures (tools/textures/shapecutter_2026_10_21.py,
+    blade S2); since a-abn29t (owner 29.10., "only the corner posts are wood") the default has Vanilla-wood corner caps on
+    top and the metal finish steel caps (shapecutter_metal_top)."""
     def model(t_top, t_side, t_bottom, t_saw):
         return {
             'parent': 'minecraft:block/block',
@@ -232,8 +232,8 @@ def saw_model():
                     'north': {'uv': [1, 9, 15, 16], 'texture': '#saw'},
                     'south': {'uv': [15, 9, 1, 16], 'texture': '#saw'}}}]}
     t = f'{NS}:block/{SAW}'
-    put(f'assets/{NS}/models/block/{SAW}.json', model(*(f'minecraft:block/stonecutter_{p}' for p in ('top', 'side', 'bottom', 'saw'))))
-    put(f'assets/{NS}/models/block/{SAW}_metal.json', model(f'{t}_top', f'{t}_side', f'{t}_bottom', f'{t}_saw'))
+    put(f'assets/{NS}/models/block/{SAW}.json', model(f'{t}_top', f'{t}_side', f'{t}_bottom', f'{t}_saw'))
+    put(f'assets/{NS}/models/block/{SAW}_metal.json', model(f'{t}_metal_top', f'{t}_side', f'{t}_bottom', f'{t}_saw'))
     y = {'north': 0, 'east': 90, 'south': 180, 'west': 270}
     put(f'assets/{NS}/blockstates/{SAW}.json', {'variants': {
         f'facing={f},metal={metal}': {'model': f'{NS}:block/{SAW}' + ('_metal' if metal == 'true' else ''), **({'y': y[f]} if y[f] else {})}

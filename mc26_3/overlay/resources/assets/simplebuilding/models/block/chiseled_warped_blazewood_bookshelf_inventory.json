@@ -1,9 +1,9 @@
 {
   "parent": "block/block",
   "textures": {
-    "top": "simplebuilding:block/warped_blazewood_planks",
-    "side": "simplebuilding:block/warped_blazewood_planks",
-    "front": "block/chiseled_bookshelf_empty",
+    "top": "simplebuilding:block/chiseled_warped_blazewood_bookshelf_side",
+    "side": "simplebuilding:block/chiseled_warped_blazewood_bookshelf_side",
+    "front": "simplebuilding:block/chiseled_warped_blazewood_bookshelf_empty",
     "particle": "#top"
   },
   "elements": [

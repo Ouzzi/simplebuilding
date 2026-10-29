@@ -1,10 +1,10 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "minecraft:block/tnt_side",
-    "top": "minecraft:block/tnt_top",
-    "bottom": "minecraft:block/tnt_bottom",
-    "side": "minecraft:block/tnt_side"
+    "particle": "simplemobs:block/strong_tnt_side",
+    "top": "simplemobs:block/strong_tnt_top",
+    "bottom": "simplemobs:block/strong_tnt_bottom",
+    "side": "simplemobs:block/strong_tnt_side"
   },
   "elements": [
     {
@@ -21,32 +21,26 @@
       "faces": {
         "down": {
           "texture": "#bottom",
-          "tintindex": 0,
           "cullface": "down"
         },
         "up": {
           "texture": "#top",
-          "tintindex": 0,
           "cullface": "up"
         },
         "north": {
           "texture": "#side",
-          "tintindex": 0,
           "cullface": "north"
         },
         "south": {
           "texture": "#side",
-          "tintindex": 0,
           "cullface": "south"
         },
         "west": {
           "texture": "#side",
-          "tintindex": 0,
           "cullface": "west"
         },
         "east": {
           "texture": "#side",
-          "tintindex": 0,
           "cullface": "east"
         }
       }

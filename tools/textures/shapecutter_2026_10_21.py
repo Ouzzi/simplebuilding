@@ -4,7 +4,8 @@ Owner 21.10.: "die textur einfach nur die stein base aus metall. also die blade 
 glenzender/polierter". So, from the Vanilla stonecutter (docs/ai/PLAN-B-SHAPECUTTER-2026-10-21.md, decision 4):
   - every stone grey of top, side and bottom becomes polished iron: a cool, light steel ramp whose mid tones lie closer
     together than the stone's (less noise = polished);
-  - the brass corner caps of the top become copper (the recipe's two copper ingots); the wooden frame stays Vanilla;
+  - the brass corner caps of the top become Vanilla wood (a-abn29t, owner 29.10.: only the corner posts are wood; was copper);
+    the wooden frame of the sides stays Vanilla; the metal finish (plates fitted) has steel caps (shapecutter_metal_top);
   - on top of that the own gloss layers (tools/textures/shapecutter/gloss_<face>.layers.json: "Glanzkanten",
     "Schattenkante", "Highlights"; own pixels, editable in the wiki pixel editor) add the shiny edges and highlights;
   - the blade (owner 21.10. evening: "sägeblatt etwas dunkler in einer variante und in der anderen heller bzw polierter")
@@ -76,8 +77,19 @@ def _ramp(v, anchors):
     return anchors[-1][1]
 
 
-def metal(src, anchors=IRON):
-    """Every grey (stone) pixel of a Vanilla texture onto the metal ramp; caps to copper; everything else unchanged."""
+STEEL_CAPS = [(0x4e, 0x53, 0x5b), (0x94, 0x9a, 0xa2), (0xa6, 0xac, 0xb3), (0xbb, 0xc0, 0xc6), (0xe0, 0xe3, 0xe7)]
+
+
+def wood_caps(side):
+    """The tones of the Vanilla frame posts (the wood of the stonecutter side), dark to light: the corner caps become that wood."""
+    cols = sorted({p[:3] for p in (side.getpixel((x, y)) for y in range(side.height) for x in range(side.width))
+                   if p[3] and p[0] - p[2] > 20}, key=_lum)
+    return cols or COPPER
+
+
+def metal(src, anchors=IRON, caps=COPPER):
+    """Every grey (stone) pixel of a Vanilla texture onto the metal ramp; caps onto the `caps` ramp (a-abn29t: Vanilla wood);
+    everything else unchanged."""
     im = src.convert('RGBA').copy()
     brass = [im.getpixel((x, y)) for y in range(im.height) for x in range(im.width) if _is_brass(im.getpixel((x, y)))]
     lo, hi = (min(map(_lum, brass)), max(map(_lum, brass))) if brass else (0, 1)
@@ -88,7 +100,7 @@ def metal(src, anchors=IRON):
                 im.putpixel((x, y), _ramp(p[0], anchors) + (p[3],))
             elif _is_brass(p):
                 t = 0 if hi <= lo else (_lum(p) - lo) / (hi - lo)
-                im.putpixel((x, y), COPPER[max(0, min(len(COPPER) - 1, round(t * (len(COPPER) - 1))))] + (p[3],))
+                im.putpixel((x, y), caps[max(0, min(len(caps) - 1, round(t * (len(caps) - 1))))] + (p[3],))
     return im
 
 
@@ -120,8 +132,11 @@ def blade(src, variant=BLADE):
 
 def build(read, blade_variant=BLADE):
     """read(name) -> Image of a Vanilla block texture. Returns texture path -> image."""
-    out = {f'block/shapecutter_{face}.png': polish(metal(read(f'stonecutter_{face}.png'), IRON), face)
+    caps = wood_caps(read('stonecutter_side.png'))
+    out = {f'block/shapecutter_{face}.png': polish(metal(read(f'stonecutter_{face}.png'), IRON, caps), face)
            for face in ('top', 'side', 'bottom')}
+    # Metal finish (plates fitted): the corner caps are steel, the posts of the sides stay Vanilla wood.
+    out['block/shapecutter_metal_top.png'] = polish(metal(read('stonecutter_top.png'), IRON, STEEL_CAPS), 'top')
     out['block/shapecutter_saw.png'] = blade(read('stonecutter_saw.png'), blade_variant)
     return out
 

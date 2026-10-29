@@ -3,7 +3,7 @@
   "textures": {
     "particle": "simpleblocks:block/shapecutter_bottom",
     "bottom": "simpleblocks:block/shapecutter_bottom",
-    "top": "simpleblocks:block/shapecutter_top",
+    "top": "simpleblocks:block/shapecutter_metal_top",
     "side": "simpleblocks:block/shapecutter_side",
     "saw": "simpleblocks:block/shapecutter_saw"
   },
