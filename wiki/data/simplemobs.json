@@ -137,6 +137,34 @@
       }
     },
     {
+      "id": "combat_effects",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/CombatEffects.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/CombatEffectsMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Combat effects: Volatile, Deflection, Mirror",
+        "summary": "Three status effects, levels I-V, for mobs and players: Volatile answers hits with a small explosion, Deflection negates hits, Mirror flips a coin between more damage for the bearer and damage back to the attacker.",
+        "details": [
+          "Applied with the command /effect give <target> simplemobs:volatile|deflection|mirror <seconds> <level-1>. No mob carries them yet and there are no potions yet.",
+          "Volatile: every hit on the bearer sets off a small explosion at the bearer: about 3 hearts at melee distance on level I, falling off to nothing at 4 blocks (+0.5 blocks and +1 heart per level). The bearer is immune to it, no blocks are destroyed. Bystanders are hurt like in any explosion.",
+          "Deflection: 10 % per level (50 % at level V) that a hit is negated completely. Fall, fire, void and other damage without an attacker are never deflected.",
+          "Mirror: every hit is a coin flip (Server-Config simplemobs-server.json: mirrorReflectChance, default 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart."
+        ]
+      },
+      "de": {
+        "title": "Kampfeffekte: Explosiv, Abwehr, Spiegel",
+        "summary": "Drei Statuseffekte, Stufe I-V, für Mobs und Spieler: Explosiv antwortet auf Treffer mit einer kleinen Explosion, Abwehr negiert Treffer, Spiegel würfelt zwischen mehr Schaden für den Träger und Schaden zurück an den Schläger.",
+        "details": [
+          "Anwenden mit dem Befehl /effect give <Ziel> simplemobs:volatile|deflection|mirror <Sekunden> <Stufe-1>. Noch trägt kein Mob sie, und es gibt noch keine Tränke.",
+          "Explosiv: jeder Treffer auf den Träger löst am Träger eine kleine Explosion aus: auf Stufe I etwa 3 Herzen auf Nahkampf-Abstand, nach außen abnehmend bis 0 bei 4 Blöcken (je Stufe +0,5 Blöcke und +1 Herz). Der Träger ist immun, es werden keine Blöcke zerstört. Umstehende werden wie bei jeder Explosion verletzt.",
+          "Abwehr: 10 % je Stufe (50 % auf Stufe V), dass ein Treffer komplett negiert wird. Fall-, Feuer-, Void- und anderer Schaden ohne Angreifer wird nie abgewehrt.",
+          "Spiegel: jeder Treffer ist ein Münzwurf (Server-Config simplemobs-server.json: mirrorReflectChance, Standard 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz."
+        ]
+      }
+    },
+    {
       "id": "soulfire_blaze",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulfireBlaze.java",
@@ -322,8 +350,7 @@
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemHelmetWitherMixin.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DisplayWitherCrownMixin.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLoot.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLootBlock.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ArmoredWither.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLootBlock.java"
       ],
       "en": {
         "title": "Blighted Wither, Nether Heart and Red Nether Gem",
@@ -338,8 +365,7 @@
           "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is thrown far away (knockback resistance does not help). Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
           "Drops (Looting does not change it): the Blighted Wither exactly one Nether Heart, 1-2 Nether Stars and 3-5 Netherite nuggets (without a mod that adds them one Netherite Scrap); the Abyssal Wither one Nether Heart, one Red Nether Gem and 3-5 Enderite nuggets (tag c:nuggets/enderite, only when a mod adds them) - no Nether Star. Only these two drop heart and gem.",
           "Placed loot: once the death has ended, Nether Heart and Red Nether Gem are set as small blocks on the ground straight under the Wither (searched down to 24 blocks, the gem on a free spot next to the heart). Without ground they drop as items. Both survive explosions and fire as items and as blocks (blast resistance 1200, Withers cannot break them); breaking the block gives the item back. The placed Nether Heart is its icon in 3D (the heart with its two vessel stubs, thicker in the middle) and turns its front to whoever places it (after the fight to the nearest player).",
-          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: with the Strong Upgrade it turns Wither Wings into Nether Wings (see Wither Wings). Old Wither Hearts become Nether Hearts.",
-          "Armored Wither (with Simple Mobheads): the two outer skulls may wear helmets up to Diamond (right-click the skull with a leather, copper, chainmail, iron, gold or diamond helmet). With a helmet on a side skull the Vanilla Wither does not come when the figure is complete - it waits for the Netherite or Enderite Helmet on the middle skull, which then calls the Blighted or Abyssal Wither at once. The side helmets are used up and make it a little stronger (3 % more health, 0.2 armor and 5 experience per point: leather 1, copper/chainmail/gold 2, iron 3, diamond 5). When it dies it gives back one to one and a half times the material of the side helmets (two Diamond Helmets: 10 to 15 Diamonds); a Chainmail Helmet gives the forbidden fire instead, the item the old chainmail recipe asked for."
+          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: with the Strong Upgrade it turns Wither Wings into Nether Wings (see Wither Wings). Old Wither Hearts become Nether Hearts."
         ]
       },
       "de": {
@@ -355,8 +381,7 @@
           "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weit weggeschleudert (Rückstoßresistenz hilft nicht). Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
           "Beute (Plünderung ändert sie nicht): der Verdorrte Wither genau ein Netherherz, 1-2 Nethersterne und 3-5 Netheritnuggets (ohne Mod, die sie hinzufügt, eine Netheritplatte); der Abgrund-Wither ein Netherherz, ein Rotes Nether-Juwel und 3-5 Enderitnuggets (Tag c:nuggets/enderite, nur wenn eine Mod sie hinzufügt) - keinen Netherstern. Nur diese beiden lassen Herz und Juwel fallen.",
           "Gesetzte Beute: Wenn der Tod vorbei ist, stehen Netherherz und Rotes Nether-Juwel als kleine Blöcke auf dem Boden direkt unter dem Wither (bis 24 Blöcke tief gesucht, das Juwel auf einem freien Platz neben dem Herz). Ohne Boden fallen sie als Gegenstände. Beide überstehen Explosionen und Feuer, als Gegenstand und als Block (Explosionsfestigkeit 1200, Wither zerstören sie nicht); abgebaut geben sie den Gegenstand zurück. Das gesetzte Netherherz ist sein Symbol in 3D (das Herz mit seinen zwei Adern-Stummeln, in der Mitte dicker) und dreht seine Vorderseite zu dem, der es setzt (nach dem Kampf zum nächsten Spieler).",
-          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: macht mit der Starken Aufwertung aus Wither-Schwingen Nether-Schwingen (siehe Wither-Schwingen). Alte Witherherzen werden zu Netherherzen.",
-          "Gepanzerter Wither (mit Simple Mobheads): Die beiden äußeren Schädel dürfen Helme bis Diamant tragen (Rechtsklick mit Leder-, Kupfer-, Ketten-, Eisen-, Gold- oder Diamanthelm). Mit einem Helm auf einem Seitenschädel kommt bei fertiger Figur kein Vanilla-Wither - sie wartet auf den Netherit- oder Enderit-Helm auf dem mittleren Schädel, der dann sofort den Verdorrten oder den Abgrund-Wither ruft. Die Seitenhelme werden verbraucht und machen ihn etwas stärker (3 % mehr Leben, 0,2 Rüstung und 5 Erfahrung je Punkt: Leder 1, Kupfer/Kette/Gold 2, Eisen 3, Diamant 5). Beim Tod gibt er das Ein- bis Anderthalbfache des Materials der Seitenhelme zurück (zwei Diamanthelme: 10 bis 15 Diamanten); ein Kettenhelm gibt stattdessen das verbotene Feuer, das Item, das das alte Kettenrüstungs-Rezept verlangte."
+          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: macht mit der Starken Aufwertung aus Wither-Schwingen Nether-Schwingen (siehe Wither-Schwingen). Alte Witherherzen werden zu Netherherzen."
         ]
       }
     },
@@ -414,15 +439,13 @@
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherWings.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/FireworkRocketWingsMixin.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/StrongExplosives.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
       ],
       "en": {
         "title": "Wither Wings",
-        "summary": "Four Elytra stages that raise only the top speed a strong firework rocket reaches: x2 Wither, x4 Nether, x6 End and x8 Void Wings. Normal rockets and gliding without a rocket stay Vanilla.",
+        "summary": "Four Elytra stages that raise only the top speed a firework rocket reaches: x2 Wither, x4 Nether, x6 End and x8 Void Wings. Gliding without a rocket stays Vanilla.",
         "details": [
           "Smithing table: Strong Upgrade template (Simple Beacons) + Elytra + Nether Heart = Wither Wings; Strong Upgrade + Wither Wings + Red Nether Gem = Nether Wings; + Nether Wings + Ender Heart = End Wings; + End Wings + Ender Gem = Void Wings. Without Simple Beacons the Netherite Upgrade template takes its place. Enchantments and wear carry over.",
-          "Only a strong rocket (flight duration 4 or more, see Strong Gunpowder) uses the higher cap of the wings. A normal rocket (flight duration 1-3) gives exactly the Vanilla push with every pair of wings - and pulls a wearer who is faster than Vanilla back to the Vanilla Elytra top speed.",
           "A rocket pushes towards 1.5 x factor blocks per tick instead of 1.5, so the speed it holds is about 33 m/s (Vanilla), 67, 133, 200 and 267 m/s. Hitting a wall hurts by the Vanilla rule (speed lost x 10 - 3), so the risk grows with the speed.",
           "Server options in simplemobs-server.json: witherWingsSpeedFactor (default 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) and voidWingsSpeedFactor (8), 1 to 8. The server stamps its factor into the worn wings, so clients fly with the server's value.",
           "Ender Heart (stage 3) and Ender Gem (stage 4) have no loot yet: they will drop from a later End boss. Until then they are only given by commands, the creative tab and the test centre. Their look is provisional.",
@@ -431,46 +454,13 @@
       },
       "de": {
         "title": "Wither-Schwingen",
-        "summary": "Vier Elytra-Stufen, die nur die Höchstgeschwindigkeit mit starken Feuerwerksraketen anheben: x2 Wither-, x4 Nether-, x6 End- und x8 Leeren-Schwingen. Normale Raketen und Gleiten ohne Rakete bleiben Vanilla.",
+        "summary": "Vier Elytra-Stufen, die nur die Höchstgeschwindigkeit mit Feuerwerksraketen anheben: x2 Wither-, x4 Nether-, x6 End- und x8 Leeren-Schwingen. Gleiten ohne Rakete bleibt Vanilla.",
         "details": [
           "Schmiedetisch: Vorlage Starke Aufwertung (Simple Beacons) + Elytren + Netherherz = Wither-Schwingen; Starke Aufwertung + Wither-Schwingen + Rotes Nether-Juwel = Nether-Schwingen; + Nether-Schwingen + Ender-Herz = End-Schwingen; + End-Schwingen + Ender-Juwel = Leeren-Schwingen. Ohne Simple Beacons tritt die Netherit-Aufwertung an ihre Stelle. Verzauberungen und Abnutzung bleiben.",
-          "Nur eine starke Rakete (Flugdauer 4 oder mehr, siehe Starkes Schwarzpulver) nutzt die höhere Kappe der Schwingen. Eine normale Rakete (Flugdauer 1-3) gibt mit jeder Schwinge genau den Vanilla-Schub - und zieht einen schnelleren Träger auf das Vanilla-Elytra-Höchsttempo zurück.",
           "Eine Rakete schiebt Richtung 1,5 x Faktor Blöcke pro Tick statt 1,5; gehalten werden etwa 33 m/s (Vanilla), 67, 133, 200 und 267 m/s. Ein Aufprall an der Wand schadet nach der Vanilla-Regel (verlorenes Tempo x 10 - 3), das Risiko wächst also mit dem Tempo.",
           "Server-Optionen in simplemobs-server.json: witherWingsSpeedFactor (Standard 2), netherWingsSpeedFactor (4), endWingsSpeedFactor (6) und voidWingsSpeedFactor (8), 1 bis 8. Der Server stempelt seinen Faktor in die getragenen Schwingen, Clients fliegen also mit dem Serverwert.",
           "Ender-Herz (Stufe 3) und Ender-Juwel (Stufe 4) haben noch keine Beute-Quelle: sie fallen später von einem neuen End-Boss. Bis dahin nur per Befehl, Kreativ-Reiter und Testzentrale. Ihre Optik ist vorläufig.",
           "576, 768, 960 bzw. 1152 Haltbarkeit (Elytren 432), Reparatur mit Phantomhaut, feuerfest wie Netherit, Elytren-nahe Form mit eigenem Muster je Stufe auf dem Rücken. Die Leeren-Schwingen sind mythisch."
-        ]
-      }
-    },
-    {
-      "id": "strong_explosives",
-      "sources": [
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/StrongExplosives.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/StrongTntBlock.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/PrimedTntStrongMixin.java",
-        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_gunpowder.json",
-        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_firework_rocket.json",
-        "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_tnt.json",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
-      ],
-      "en": {
-        "title": "Strong Gunpowder, Strong Rocket, Strong TNT",
-        "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 2) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
-        "details": [
-          "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behaviour changes.",
-          "The strong rocket is a Vanilla firework rocket with flight duration 4, so it also works with the Elytra (longer burn, Vanilla speed) and in dispensers. Its tooltip shows the flight duration.",
-          "Strong TNT is lit by flint and steel, fire charge, redstone, burning arrows and other explosions like TNT, is not flammable and drops itself; the game rule tntExplodes applies. Server option strongTntPower in simplemobs-server.json (default 6, 4 to 16).",
-          "Looks are placeholders (Vanilla textures with a tint) until the owner picks a texture."
-        ]
-      },
-      "de": {
-        "title": "Starkes Schwarzpulver, Starke Rakete, Starkes TNT",
-        "summary": "Starkes Schwarzpulver (3 Schwarzpulver + 1 Lohenstaub -> 2) macht starke Raketen (Papier + 1 Starkes Schwarzpulver -> 3, Flugdauer 4) und Starkes TNT (wie TNT mit Starkem Schwarzpulver, Sprengkraft 6 statt 4). Vanilla-Schwarzpulver, -TNT und -Raketen bleiben unberührt.",
-        "details": [
-          "Wozu: eine starke Rakete brauchen Wither-/Nether-/End-/Leeren-Schwingen, um über dem Vanilla-Höchsttempo zu fliegen; Starkes TNT ist die größere Sprengung für Bergbau und Tunnel. Beides sind eigene Items, die man gezielt herstellt - kein Vanilla-Rezept und kein Vanilla-Verhalten ändert sich.",
-          "Die starke Rakete ist eine Vanilla-Feuerwerksrakete mit Flugdauer 4, sie geht also auch mit den Elytren (längere Brenndauer, Vanilla-Tempo) und im Werfer. Ihr Tooltip zeigt die Flugdauer.",
-          "Starkes TNT zündet wie TNT mit Feuerzeug, Feuerkugel, Redstone, brennenden Pfeilen und anderen Explosionen, ist nicht brennbar und lässt sich selbst fallen; die Spielregel tntExplodes gilt. Server-Option strongTntPower in simplemobs-server.json (Standard 6, 4 bis 16).",
-          "Die Optik ist ein Platzhalter (Vanilla-Texturen mit Tönung), bis der Besitzer eine Textur wählt."
         ]
       }
     },
@@ -2006,144 +1996,6 @@
       }
     },
     {
-      "id": "simplemobs:strong_firework_rocket",
-      "type": "minecraft:crafting_shapeless",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "minecraft:firework_rocket",
-        "count": 3,
-        "components": {
-          "minecraft:fireworks": {
-            "flight_duration": 4
-          },
-          "minecraft:item_name": {
-            "translate": "simplemobs.item.strong_firework_rocket"
-          }
-        }
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_firework_rocket.json",
-      "ingredients": [
-        "minecraft:paper",
-        "simplemobs:strong_gunpowder"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:paper"
-        ],
-        [
-          "simplemobs:strong_gunpowder"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 3,
-        "materials": [
-          {
-            "id": "minecraft:gunpowder",
-            "count": 1.5
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplemobs:strong_gunpowder",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplemobs:strong_gunpowder",
-        "count": 2
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_gunpowder.json",
-      "ingredients": [
-        "minecraft:blaze_powder",
-        "minecraft:gunpowder"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:gunpowder"
-        ],
-        [
-          "minecraft:gunpowder"
-        ],
-        [
-          "minecraft:gunpowder"
-        ],
-        [
-          "minecraft:blaze_powder"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 2,
-        "materials": [
-          {
-            "id": "minecraft:gunpowder",
-            "count": 3
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplemobs:strong_tnt",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplemobs:strong_tnt",
-        "count": 1
-      },
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_tnt.json",
-      "ingredients": [
-        "#minecraft:sand",
-        "simplemobs:strong_gunpowder"
-      ],
-      "pattern": [
-        "GSG",
-        "SGS",
-        "GSG"
-      ],
-      "key": {
-        "G": [
-          "simplemobs:strong_gunpowder"
-        ],
-        "S": [
-          "#minecraft:sand"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gunpowder",
-            "count": 7.5
-          },
-          {
-            "id": "minecraft:sand",
-            "count": 4
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "count": 1.25
-          }
-        ],
-        "tagExamples": [
-          "#minecraft:sand"
-        ]
-      }
-    },
-    {
       "id": "simplemobs:void_wings_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -2380,24 +2232,6 @@
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/blocks/nether_heart.json"
-    },
-    {
-      "id": "simplemobs:blocks/strong_tnt",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:strong_tnt"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/blocks/strong_tnt.json"
     },
     {
       "id": "simplemobs:entities/deceiver",
@@ -3070,23 +2904,6 @@
       ]
     },
     {
-      "id": "simplemobs:forbidden_fire",
-      "name": {
-        "en_us": "Fire",
-        "de_de": "Feuer"
-      },
-      "note": {
-        "en": {
-          "summary": "Easter egg from the armored Wither: a Wither summoned with a chainmail helmet on a side skull drops this instead of the helmet's material - a nod to the old chainmail recipe that used fire. No use yet."
-        },
-        "de": {
-          "summary": "Easter Egg des gepanzerten Withers: Trägt ein äußerer Schädel einen Kettenhelm, droppt der Wither dieses Item statt des Helm-Materials – eine Anspielung auf das alte Kettenrüstungs-Rezept mit Feuer. Noch ohne Nutzen."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplemobs:guide_book",
       "name": {
         "en_us": "Simple Mobs Guide",
@@ -3098,10 +2915,10 @@
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 24 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 24 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "texture": "assets/textures/simplemobs/item/guide_book.png",
@@ -3579,29 +3396,6 @@
       ]
     },
     {
-      "id": "simplemobs:strong_gunpowder",
-      "name": {
-        "en_us": "Strong Gunpowder",
-        "de_de": "Starkes Schwarzpulver"
-      },
-      "note": {
-        "en": {
-          "summary": "3 gunpowder + 1 blaze powder -> 2 (shapeless). Makes strong rockets and Strong TNT. Placeholder look: Vanilla gunpowder, tinted."
-        },
-        "de": {
-          "summary": "3 Schwarzpulver + 1 Lohenstaub -> 2 (formlos). Macht starke Raketen und Starkes TNT. Platzhalter-Optik: Vanilla-Schwarzpulver, getönt."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/strong_gunpowder.png",
-      "craftedBy": [
-        "simplemobs:strong_gunpowder"
-      ],
-      "usedIn": [
-        "simplemobs:strong_firework_rocket",
-        "simplemobs:strong_tnt"
-      ]
-    },
-    {
       "id": "simplemobs:trick_mirror",
       "name": {
         "en_us": "Trick Mirror",
@@ -3845,25 +3639,6 @@
         "simplemobs:wither_wings_smithing",
         "simplemobs:wither_wings_smithing_without_simplebeacons"
       ]
-    },
-    {
-      "id": "simplemobs:strong_tnt",
-      "name": {
-        "en_us": "Strong TNT",
-        "de_de": "Starkes TNT"
-      },
-      "note": {
-        "en": {
-          "summary": "5 Strong Gunpowder + 4 sand like TNT. Explosion power 6 (TNT 4, option strongTntPower); lit like TNT, not flammable. Placeholder look: Vanilla TNT, tinted."
-        },
-        "de": {
-          "summary": "5 Starkes Schwarzpulver + 4 Sand wie TNT. Sprengkraft 6 (TNT 4, Option strongTntPower); zündet wie TNT, nicht brennbar. Platzhalter-Optik: Vanilla-TNT, getönt."
-        }
-      },
-      "craftedBy": [
-        "simplemobs:strong_tnt"
-      ],
-      "usedIn": []
     }
   ],
   "trades": [],
@@ -3881,13 +3656,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 15,
-    "recipes": 73,
-    "lootTables": 11,
+    "recipes": 70,
+    "lootTables": 10,
     "tags": 7,
     "advancements": 0,
     "enchantments": 0,
-    "items": 28,
-    "blocks": 3,
+    "items": 26,
+    "blocks": 2,
     "trades": 0,
     "config": 0,
     "quests": 0,

@@ -12,6 +12,7 @@
     "ServerPlayerGameModeDisguiseMixin",
     "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
+    "CombatEffectsMixin",
     "EndGatewayFeatureMixin",
     "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin",
