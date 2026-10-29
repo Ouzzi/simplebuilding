@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,8 +37,10 @@ public class SharpnessGrassCutMixin {
 
                 if (sharpness.isPresent()) {
                     int level = EnchantmentHelper.getItemEnchantmentLevel(sharpness.get(), mainHand);
-                    if (level >= 3) {
-                        cutGrassAround(player, target);
+                    if (level >= SimpleFarming.config().grassCutMinSharpness) {
+                        var sweeping = registry.get().get(Enchantments.SWEEPING_EDGE);
+                        int sweep = sweeping.isPresent() ? EnchantmentHelper.getItemEnchantmentLevel(sweeping.get(), mainHand) : 0;
+                        cutGrassAround(player, target, VegetationUtil.cutRadius(sweep, SimpleFarming.config()));
                     }
                 }
             }
@@ -47,16 +48,15 @@ public class SharpnessGrassCutMixin {
     }
 
     @Unique
-    private void cutGrassAround(Player player, Entity target) {
+    private void cutGrassAround(Player player, Entity target, int radius) {
         if (player.isShiftKeyDown() || player.distanceToSqr(target) > 4.5 * 4.5) return;
         if (!com.simplebuilding.modules.simplefarming.InteractionGuard.action(player)) return;
-        AABB box = target.getBoundingBox().intersect(player.getBoundingBox().inflate(2));
-        BlockPos min = BlockPos.containing(box.minX, box.minY, box.minZ);
-        BlockPos max = BlockPos.containing(box.maxX, box.maxY, box.maxZ);
-
+        BlockPos center = target.blockPosition();
+        // Basic area 3x3 around the target (feet and head height); Sweeping Edge widens it by one ring per level.
+        int limit = (2 * radius + 1) * (2 * radius + 1) * 2;
         int checked = 0;
-        for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
-            if (++checked > 27) break;
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-radius, 0, -radius), center.offset(radius, 1, radius))) {
+            if (++checked > limit) break;
             if (!com.simplebuilding.modules.simplefarming.InteractionGuard.mayChange(player, pos)) continue;
             BlockState state = player.level().getBlockState(pos);
 

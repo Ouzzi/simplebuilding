@@ -8,9 +8,9 @@ import net.minecraft.resources.Identifier;
 /** Client key for the screen-style comparison switch. */
 public final class StyleToggleClient {
     public static boolean development;
+    public static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simpleinterfaces", "general"));
     public static final KeyMapping KEY = new KeyMapping("key.simpleinterfaces.toggle_style",
-            com.mojang.blaze3d.platform.InputConstants.UNKNOWN.getValue(),
-            KeyMapping.Category.register(Identifier.fromNamespaceAndPath("simpleinterfaces", "general")));
+            com.mojang.blaze3d.platform.InputConstants.UNKNOWN.getValue(), CATEGORY);
 
     private StyleToggleClient() {}
 

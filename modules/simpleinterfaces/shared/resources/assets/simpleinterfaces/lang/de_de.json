@@ -83,5 +83,20 @@
   "simpleinterfaces.option.enableEnderChestTooltip.tooltip": "Schickt jedem Spieler den Inhalt seiner eigenen\nEndertruhe beim Einloggen und beim Schließen,\nfür den Tooltip der Endertruhe. Nie fremde\nTruhen. Standard: true.",
   "simpleinterfaces.tooltip.shulker.shift": "Umschalt halten für Inhalt",
   "simpleinterfaces.tooltip.ender_chest.shift": "Umschalt halten für deine Endertruhe",
-  "simpleinterfaces.tooltip.ender_chest.empty": "Deine Endertruhe ist leer"
+  "simpleinterfaces.tooltip.ender_chest.empty": "Deine Endertruhe ist leer",
+  "simpleinterfaces.option.slotHighlightBehind": "Slot-Hervorhebung hinter dem Item",
+  "simpleinterfaces.option.slotHighlightBehind.tooltip": "Die Hervorhebung des überfahrenen Inventar-Slots\nliegt hinter dem Item, sodass es voll sichtbar\nbleibt. Standard: an.",
+  "simpleinterfaces.option.leggingsFix": "Hosen-Korrektur",
+  "simpleinterfaces.option.leggingsFix.tooltip": "Füllt die fehlende Unterseite der Hosenbeine\n(ohne Stiefel von unten offen). Wirkt nach dem\nNeuladen der Ressourcen (F3+T). Standard: an.",
+  "simpleinterfaces.option.scopeEdgeOverlay": "Fernrohr-Overlay nur am Rand",
+  "simpleinterfaces.option.scopeEdgeOverlay.tooltip": "Fernrohr (und Zoom) dunkeln nur den Bildschirmrand\nab statt eines schwarzen Rahmens mit rundem\nFenster. Standard: an.",
+  "simpleinterfaces.option.scopeHideHud": "HUD beim Zoomen ausblenden",
+  "simpleinterfaces.option.scopeHideHud.tooltip": "Hotbar, Statusleisten und übrige HUD-Elemente\nverschwinden beim Blick durchs Fernrohr oder\nZoomen; das Fadenkreuz bleibt. Standard: an.",
+  "simpleinterfaces.option.scopeWheelZoom": "Mausrad-Zoom",
+  "simpleinterfaces.option.scopeWheelZoom.tooltip": "Das Mausrad zoomt stufenlos beim Blick durchs\nFernrohr oder Zoomen, statt die Hotbar zu\nscrollen. Standard: an.",
+  "simpleinterfaces.option.zoomHotkey": "Zoom-Taste ohne Fernrohr",
+  "simpleinterfaces.option.zoomHotkey.tooltip": "Die Zoom-Taste (Standard C, in den Steuerungen\nänderbar) zoomt ohne Fernrohr, mit demselben\nOverlay. Aus: Zoom nur mit dem Fernrohr.\nStandard: aus.",
+  "simpleinterfaces.option.zoomMaxMagnification": "Stärkster Zoom",
+  "simpleinterfaces.option.zoomMaxMagnification.tooltip": "Stärkste Vergrößerung, die das Mausrad erreicht.\nStandard: 30. Erlaubter Bereich: 2–100.",
+  "key.simpleinterfaces.zoom": "Zoom"
 }

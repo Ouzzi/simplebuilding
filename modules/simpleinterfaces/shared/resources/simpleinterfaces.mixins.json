@@ -41,7 +41,12 @@
     "ClientTooltipPreviewMixin",
     "ItemStackPreviewMixin",
     "BundleTooltipViewMixin",
-    "BundleSelectionMixin"
+    "BundleSelectionMixin",
+    "ZoomHudMixin",
+    "ZoomInputMixin",
+    "ZoomFovMixin",
+    "SlotHighlightMixin",
+    "LeggingsTextureMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -47,6 +47,20 @@ public final class ContainersScreen {
         general.addEntry(e.startIntField(name("bundleMaxRows"), c.bundleMaxRows).setMin(com.simplebuilding.modules.simpleinterfaces.tooltip.BundleView.MIN_ROWS)
                 .setMax(com.simplebuilding.modules.simpleinterfaces.tooltip.BundleView.MAX_ROWS).setDefaultValue(6)
                 .setTooltip(tip("bundleMaxRows")).setSaveConsumer(v -> c.bundleMaxRows = v).build());
+        general.addEntry(e.startBooleanToggle(name("slotHighlightBehind"), c.slotHighlightBehind).setDefaultValue(true)
+                .setTooltip(tip("slotHighlightBehind")).setSaveConsumer(v -> c.slotHighlightBehind = v).build());
+        general.addEntry(e.startBooleanToggle(name("leggingsFix"), c.leggingsFix).setDefaultValue(true)
+                .setTooltip(tip("leggingsFix")).setSaveConsumer(v -> c.leggingsFix = v).build());
+        general.addEntry(e.startBooleanToggle(name("scopeEdgeOverlay"), c.scopeEdgeOverlay).setDefaultValue(true)
+                .setTooltip(tip("scopeEdgeOverlay")).setSaveConsumer(v -> c.scopeEdgeOverlay = v).build());
+        general.addEntry(e.startBooleanToggle(name("scopeHideHud"), c.scopeHideHud).setDefaultValue(true)
+                .setTooltip(tip("scopeHideHud")).setSaveConsumer(v -> c.scopeHideHud = v).build());
+        general.addEntry(e.startBooleanToggle(name("scopeWheelZoom"), c.scopeWheelZoom).setDefaultValue(true)
+                .setTooltip(tip("scopeWheelZoom")).setSaveConsumer(v -> c.scopeWheelZoom = v).build());
+        general.addEntry(e.startBooleanToggle(name("zoomHotkey"), c.zoomHotkey).setDefaultValue(false)
+                .setTooltip(tip("zoomHotkey")).setSaveConsumer(v -> c.zoomHotkey = v).build());
+        general.addEntry(e.startIntField(name("zoomMaxMagnification"), c.zoomMaxMagnification).setMin(2).setMax(100).setDefaultValue(30)
+                .setTooltip(tip("zoomMaxMagnification")).setSaveConsumer(v -> c.zoomMaxMagnification = v).build());
         // Server values (formerly Simple QoL): linked containers and Easy Shulkers / Ender Chests.
         var s = gson.fromJson(gson.toJson(SimpleInterfaces.CONFIG), LinkedConfig.class);
         var server = b.getOrCreateCategory(Component.translatable("simpleinterfaces.tab.server"));

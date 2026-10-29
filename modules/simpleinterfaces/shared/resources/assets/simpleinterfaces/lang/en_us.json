@@ -83,5 +83,20 @@
   "simpleinterfaces.option.enableEnderChestTooltip.tooltip": "Send each player their own ender chest contents\nat login and when closing it, for the ender\nchest item tooltip. Never another player's chest.\nDefault: true.",
   "simpleinterfaces.tooltip.shulker.shift": "Hold Shift for contents",
   "simpleinterfaces.tooltip.ender_chest.shift": "Hold Shift for your ender chest",
-  "simpleinterfaces.tooltip.ender_chest.empty": "Your ender chest is empty"
+  "simpleinterfaces.tooltip.ender_chest.empty": "Your ender chest is empty",
+  "simpleinterfaces.option.slotHighlightBehind": "Slot highlight behind item",
+  "simpleinterfaces.option.slotHighlightBehind.tooltip": "The highlight of the hovered inventory slot is\ndrawn behind the item, so the item stays fully\nvisible. Default: on.",
+  "simpleinterfaces.option.leggingsFix": "Leggings fix",
+  "simpleinterfaces.option.leggingsFix.tooltip": "Fills the missing underside of the leggings legs\n(open from below without boots). Applies after\nthe resources reload (F3+T). Default: on.",
+  "simpleinterfaces.option.scopeEdgeOverlay": "Spyglass overlay at the edge",
+  "simpleinterfaces.option.scopeEdgeOverlay.tooltip": "The spyglass (and zoom) darkens only the screen\nedge instead of a black frame with a round\nwindow. Default: on.",
+  "simpleinterfaces.option.scopeHideHud": "Hide HUD while zooming",
+  "simpleinterfaces.option.scopeHideHud.tooltip": "The hotbar, status bars and other HUD elements\nhide while looking through the spyglass or\nzooming; the crosshair stays. Default: on.",
+  "simpleinterfaces.option.scopeWheelZoom": "Mouse wheel zoom",
+  "simpleinterfaces.option.scopeWheelZoom.tooltip": "The mouse wheel zooms steplessly while looking\nthrough the spyglass or zooming, instead of\nscrolling the hotbar. Default: on.",
+  "simpleinterfaces.option.zoomHotkey": "Zoom key without spyglass",
+  "simpleinterfaces.option.zoomHotkey.tooltip": "The zoom key (default C, change it in the controls)\nzooms without a spyglass, with the same overlay.\nOff: zoom only with the spyglass. Default: off.",
+  "simpleinterfaces.option.zoomMaxMagnification": "Strongest zoom",
+  "simpleinterfaces.option.zoomMaxMagnification.tooltip": "Strongest magnification the mouse wheel reaches.\nDefault: 30. Allowed range: 2–100.",
+  "key.simpleinterfaces.zoom": "Zoom"
 }

@@ -25,6 +25,7 @@ public final class TooltipTests {
     public static final java.util.Map<String, Consumer<GameTestHelper>> ALL = new java.util.LinkedHashMap<>();
 
     static {
+        ALL.put("zoom_math", TooltipTests::zoomMath);
         ALL.put("tooltip_ender_snapshot", TooltipTests::enderSnapshot);
         ALL.put("tooltip_snapshot_codec", TooltipTests::snapshotCodec);
         ALL.put("tooltip_shulker_grid", TooltipTests::shulkerGrid);
@@ -201,6 +202,26 @@ public final class TooltipTests {
             items.add(ItemStackTemplate.fromNonEmptyStack(stack));
         }
         return new BundleContents(items);
+    }
+
+    /** BS29-3/4: pure zoom step and leggings underside; the new options default as recommended and are clamped. */
+    public static void zoomMath(GameTestHelper h) {
+        var c = new ContainersConfig();
+        h.assertTrue(c.scopeEdgeOverlay && c.scopeHideHud && c.scopeWheelZoom && !c.zoomHotkey && c.slotHighlightBehind && c.leggingsFix, "defaults");
+        c.zoomMaxMagnification = 1000;
+        c.normalize();
+        h.assertTrue(c.zoomMaxMagnification == 100, "magnification clamped");
+        double in = ZoomMath.factorAfter(0.1, 1, 30), out = ZoomMath.factorAfter(0.1, -1, 30);
+        h.assertTrue(in < 0.1 && out > 0.1, "wheel up zooms in, down out");
+        h.assertTrue(ZoomMath.factorAfter(0.1, 100, 30) >= 1.0 / 30 - 1e-9 && ZoomMath.factorAfter(0.1, -100, 30) <= ZoomMath.WIDEST + 1e-9, "bounded");
+        int[] px = new int[64 * 32];
+        for (int i = 0; i < 4; i++) px[31 * 64 + 4 + i] = 0xFF204060 + i;
+        h.assertTrue(ZoomMath.fillLeggingsUnderside(px, 64, 32) == 16, "16 underside pixels filled");
+        h.assertTrue(px[16 * 64 + 8] == 0xFF204060 && px[19 * 64 + 11] == 0xFF204063, "colors from the hem row");
+        px[16 * 64 + 8] = 0xFF112233;
+        h.assertTrue(ZoomMath.fillLeggingsUnderside(px, 64, 32) == 0 && px[16 * 64 + 8] == 0xFF112233, "second run changes nothing");
+        h.assertTrue(ZoomMath.fillLeggingsUnderside(new int[10], 10, 1) == 0, "foreign layout untouched");
+        h.succeed();
     }
 
     /** Layout for n entries: all up to maxRows*4, beyond that pages of maxRows*4-1 plus "+n", following the selection. */

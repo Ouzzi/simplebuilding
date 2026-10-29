@@ -27,6 +27,7 @@ public final class FarmingTests {
   ALL.put("hoe_harvest",FarmingTests::hoeHarvest);
   ALL.put("vegetation",FarmingTests::vegetation);
   ALL.put("sharpness_action",FarmingTests::sharpnessAction);
+  ALL.put("grass_through",FarmingTests::grassThrough);
   // ALL-END
  }
  private FarmingTests(){}
@@ -66,5 +67,20 @@ public final class FarmingTests {
  });h.succeed();}
  public static void vegetation(GameTestHelper h){h.assertTrue(VegetationUtil.isCuttable(Blocks.SHORT_GRASS.defaultBlockState())&&VegetationUtil.isCuttable(Blocks.DANDELION.defaultBlockState()),"Grass/flowers supported");h.assertTrue(!VegetationUtil.isCuttable(Blocks.WATER.defaultBlockState())&&!VegetationUtil.isCuttable(Blocks.STONE.defaultBlockState()),"Fluids and building blocks excluded");h.succeed();}
  public static void sharpnessAction(GameTestHelper h){configured(()->{var pos=new BlockPos(2,2,2);h.setBlock(pos.below(),Blocks.DIRT);h.setBlock(pos,Blocks.SHORT_GRASS);var target=h.spawn(EntityTypes.COW,2,2,2);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,enchanted(h,Items.DIAMOND_SWORD,Enchantments.SHARPNESS));var old=InteractionGuard.permission;try{InteractionGuard.permission=(a,b)->false;p.attack(target);h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos)).is(Blocks.SHORT_GRASS),"Actual attack respects claim veto");p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,enchanted(h,Items.DIAMOND_SWORD,Enchantments.SHARPNESS));InteractionGuard.permission=(a,b)->true;p.attack(target);h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos)).isAir(),"Actual Sharpness attack cuts grass");}finally{InteractionGuard.permission=old;}});h.succeed();}
+/** Swing-through chance 10 % (Sharpness I) to 90 % (V), linear; Sweeping Edge widens the cut area from 3x3 by a ring per level; the roll is stable and respects the percentage. */
+ public static void grassThrough(GameTestHelper h){var c=new FarmingConfig();
+  int[] want={10,30,50,70,90};for(int l=1;l<=5;l++)h.assertTrue(VegetationUtil.chancePercent(l,c)==want[l-1],"Sharpness "+l+" chance "+want[l-1]);
+  h.assertTrue(VegetationUtil.chancePercent(0,c)==0&&VegetationUtil.chancePercent(7,c)==90,"none below I, capped at V");
+  h.assertTrue(VegetationUtil.cutRadius(0,c)==1&&VegetationUtil.cutRadius(1,c)==2&&VegetationUtil.cutRadius(3,c)==4,"3x3 plus one ring per Sweeping Edge level");
+  h.assertTrue(!VegetationUtil.passes(0,5L,1,100L)&&VegetationUtil.passes(100,5L,1,100L),"0 never, 100 always");
+  int hits=0;for(int i=0;i<2000;i++)if(VegetationUtil.passes(30,i,1,100L))hits++;h.assertTrue(hits>480&&hits<720,"30 % rolls near 30 %, got "+hits);
+  h.assertTrue(VegetationUtil.passes(30,42L,1,100L)==VegetationUtil.passes(30,42L,1,105L),"roll is stable inside a half second");
+  c.grassThroughMinPercent=80;c.grassThroughMaxPercent=20;c.normalizeNumbers();h.assertTrue(c.grassThroughMaxPercent>=c.grassThroughMinPercent,"normalized");
+  configured(()->{var pos=new BlockPos(2,2,2);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,enchanted(h,Items.DIAMOND_AXE,Enchantments.SHARPNESS));
+   h.setBlock(pos.below(),Blocks.DIRT);h.setBlock(pos,Blocks.SHORT_GRASS);h.setBlock(pos.east(),Blocks.SHORT_GRASS);h.setBlock(pos.east().east(),Blocks.SHORT_GRASS);var target=h.spawn(EntityTypes.COW,2,2,2);
+   var old=InteractionGuard.permission;try{InteractionGuard.permission=(a,b)->true;p.attack(target);}finally{InteractionGuard.permission=old;}
+   h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos.east())).isAir(),"axe cuts the 3x3 around the target");
+   h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos.east().east())).is(Blocks.SHORT_GRASS),"outside 3x3 without Sweeping Edge stays");});
+  h.succeed();}
 // MOVED-END
 }
