@@ -997,6 +997,20 @@
         {
           "rolls": 1,
           "items": [
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
+            "simplesandwiches:butter_slice",
             "simplesandwiches:butter_slice"
           ],
           "conditions": [
@@ -1025,6 +1039,38 @@
         }
       ],
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/cheese_block.json"
+    },
+    {
+      "id": "simplesandwiches:blocks/cheese_carpet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice",
+            "simplesandwiches:cheese_slice"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/loot_table/blocks/cheese_carpet.json"
     },
     {
       "id": "simplesandwiches:blocks/cherry_cutting_board",
@@ -1671,10 +1717,10 @@
       },
       "note": {
         "en": {
-          "summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient or restore a partly sliced cheese block."
+          "summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient, restore a partly sliced cheese block, or sneak and right-click to lay it down as a cheese carpet."
         },
         "de": {
-          "summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen oder einen angeschnittenen Käselaib ergänzen."
+          "summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen, einen angeschnittenen Käselaib ergänzen oder mit Schleichen und Rechtsklick als Käse-Teppich legen."
         }
       },
       "texture": "assets/textures/simplesandwiches/item/cheese_slice.png",
@@ -1969,10 +2015,10 @@
       },
       "note": {
         "en": {
-          "summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter. Breaking it drops the slice."
+          "summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). More butter slices on it stack it like snow, one pixel per slice, and the 16th makes a whole butter block (which has to be cut again). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter, you sink in and are slowed. Breaking it drops one slice per layer."
         },
         "de": {
-          "summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt die Scheibe zurück."
+          "summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Weitere Butterscheiben darauf stapeln ihn wie Schnee, ein Pixel pro Scheibe; die 16. ergibt einen ganzen Butterblock (der wieder geschnitten werden muss). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt eine Scheibe pro Schicht zurück."
         }
       },
       "craftedBy": [],
@@ -2014,6 +2060,23 @@
           "secret": [
             "Mit aktivem Trichter unter dem Kessel wird zuerst die Butter entnommen, es entsteht also kein Käse. Den Trichter mit Redstone sperren."
           ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplesandwiches:cheese_carpet",
+      "name": {
+        "en_us": "Cheese Carpet",
+        "de_de": "Käse-Teppich"
+      },
+      "note": {
+        "en": {
+          "summary": "Sneak and right-click with a cheese slice to lay it down as a 1 px cheese carpet (a normal click eats it). More cheese slices on the carpet stack it like snow (one pixel per slice, walkable); the 16th makes a whole cheese block, which has to be cut again. Breaking it drops one slice per layer."
+        },
+        "de": {
+          "summary": "Mit einer Käsescheibe Schleichen und Rechtsklick legt sie als 1 px dünner Käse-Teppich ab (ein normaler Klick isst sie). Weitere Käsescheiben darauf stapeln ihn wie Schnee (ein Pixel pro Scheibe, begehbar); die 16. ergibt einen ganzen Käseblock, der wieder geschnitten werden muss. Abbauen gibt eine Scheibe pro Schicht zurück."
         }
       },
       "craftedBy": [],
@@ -2297,12 +2360,12 @@
   "counts": {
     "features": 7,
     "recipes": 17,
-    "lootTables": 19,
+    "lootTables": 20,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
     "items": 6,
-    "blocks": 19,
+    "blocks": 20,
     "trades": 0,
     "config": 0,
     "quests": 0,

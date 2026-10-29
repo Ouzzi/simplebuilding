@@ -291,7 +291,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "314f96b911d5"
+    "dataHash": "7f6f6e2748f7"
   },
   {
     "id": "simplesounds",
@@ -509,11 +509,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 19,
+      "blocks": 20,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "513e78aa0d4e"
+    "dataHash": "602f46a6cd88"
   },
   {
     "id": "simplelib",
@@ -1303,10 +1303,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 54,
-      "recipes": 283,
+      "recipes": 284,
       "features": 9
     },
-    "dataHash": "36be559be2bf"
+    "dataHash": "3042d3c350e4"
   },
   {
     "id": "simplecrucibles",
@@ -1602,7 +1602,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "db7d548043b8"
+    "dataHash": "90a1b9ebe7da"
   },
   {
     "id": "simplelights",

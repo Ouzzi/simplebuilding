@@ -8491,6 +8491,7 @@
         "simplebuilding:crimson_blazewood_planks"
       ],
       "usedIn": [
+        "simplebuilding:chiseled_crimson_blazewood_bookshelf",
         "simplebuilding:crimson_blazewood_bookshelf"
       ],
       "trades": [],
@@ -29832,6 +29833,7 @@
         "simplebuilding:warped_blazewood_planks"
       ],
       "usedIn": [
+        "simplebuilding:chiseled_warped_blazewood_bookshelf",
         "simplebuilding:warped_blazewood_bookshelf"
       ],
       "trades": [],
@@ -33162,6 +33164,7 @@
         "simplebuilding:crimson_blazewood_planks"
       ],
       "usedIn": [
+        "simplebuilding:chiseled_crimson_blazewood_bookshelf",
         "simplebuilding:crimson_blazewood_bookshelf"
       ],
       "trades": [],
@@ -44381,6 +44384,7 @@
         "simplebuilding:warped_blazewood_planks"
       ],
       "usedIn": [
+        "simplebuilding:chiseled_warped_blazewood_bookshelf",
         "simplebuilding:warped_blazewood_bookshelf"
       ],
       "trades": [],
@@ -51144,6 +51148,50 @@
       }
     },
     {
+      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json",
+      "ingredients": [
+        "minecraft:crimson_slab",
+        "simplebuilding:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "SSS",
+        "WWW"
+      ],
+      "key": {
+        "S": [
+          "minecraft:crimson_slab"
+        ],
+        "W": [
+          "simplebuilding:crimson_blazewood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 24
+          },
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 1.875
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -51530,6 +51578,50 @@
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chiseled_warped_blazewood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json",
+      "ingredients": [
+        "minecraft:warped_slab",
+        "simplebuilding:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "SSS",
+        "WWW"
+      ],
+      "key": {
+        "S": [
+          "minecraft:warped_slab"
+        ],
+        "W": [
+          "simplebuilding:warped_blazewood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 24
+          },
+          {
+            "id": "minecraft:warped_stem",
+            "count": 1.875
           }
         ]
       }
@@ -89691,6 +89783,24 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_astralit_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/chiseled_crimson_blazewood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:chiseled_crimson_blazewood_bookshelf"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_crimson_blazewood_bookshelf.json"
+    },
+    {
       "id": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -89725,6 +89835,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
+    },
+    {
+      "id": "simplebuilding:blocks/chiseled_warped_blazewood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:chiseled_warped_blazewood_bookshelf"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/chiseled_warped_blazewood_bookshelf.json"
     },
     {
       "id": "simplebuilding:blocks/chunk_loader",
@@ -130495,8 +130623,8 @@
   "counts": {
     "items": 507,
     "blocks": 288,
-    "recipes": 821,
-    "lootTables": 306,
+    "recipes": 823,
+    "lootTables": 308,
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
