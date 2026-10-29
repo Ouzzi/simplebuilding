@@ -477,4 +477,27 @@ public final class ServerTuningTests {
     private static LivingEntity spawnPig(GameTestHelper helper, BlockPos pos) {
         return helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, pos);
     }
+
+    /**
+     * BS27-1: a powered Enderite block within 64 blocks still keeps natural Endermen away, but the spawn check reads section
+     * palettes instead of 2.1 million blocks (it used to stall the server tick at night and in the End).
+     */
+    public static void theEnderiteShieldIsCheapAndStillStopsEndermen(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos spawn = helper.absolutePos(new BlockPos(1, 2, 1));
+        BlockPos block = helper.absolutePos(new BlockPos(3, 2, 1));
+        var random = level.getRandom();
+        long started = System.nanoTime();
+        for (int i = 0; i < 20; i++) {
+            net.minecraft.world.entity.monster.Monster.checkMonsterSpawnRules(net.minecraft.world.entity.EntityTypes.ENDERMAN, level,
+                    net.minecraft.world.entity.EntitySpawnReason.NATURAL, spawn, random);
+        }
+        long perCheck = (System.nanoTime() - started) / 20;
+        helper.assertTrue(perCheck < 5_000_000L, "an Enderman spawn check takes " + perCheck / 1000 + " us");
+        level.setBlock(block, com.simplebuilding.blocks.ModBlocks.ENDERITE_BLOCK.defaultBlockState(), 3);
+        level.setBlock(block.above(), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
+        helper.assertTrue(!net.minecraft.world.entity.monster.Monster.checkMonsterSpawnRules(net.minecraft.world.entity.EntityTypes.ENDERMAN,
+                level, net.minecraft.world.entity.EntitySpawnReason.NATURAL, spawn, random), "a powered Enderite block stops the Enderman spawn");
+        helper.succeed();
+    }
 }

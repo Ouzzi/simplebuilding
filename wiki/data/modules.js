@@ -545,9 +545,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 5
+      "features": 6
     },
-    "dataHash": "a33cdc057568"
+    "dataHash": "5ecc7ae0c097"
   },
   {
     "id": "simpleinterfaces",

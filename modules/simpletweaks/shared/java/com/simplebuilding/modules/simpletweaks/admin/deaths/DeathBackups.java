@@ -28,10 +28,15 @@ public final class DeathBackups {
     /** Before the player drops anything (mixin at the start of {@code ServerPlayer.die}). */
     public static void died(ServerPlayer player, DamageSource source) {
         if (!active()) return;
-        var server = player.level().getServer();
-        String cause = player.getCombatTracker().getDeathMessage().getString();
-        if (cause.length() > 256) cause = cause.substring(0, 256);
-        add(server, player.getUUID(), snapshot(player, cause));
+        // BS25-19/BS27-1: a stack that cannot be encoded (or a file problem) must never break the death itself
+        try {
+            var server = player.level().getServer();
+            String cause = player.getCombatTracker().getDeathMessage().getString();
+            if (cause.length() > 256) cause = cause.substring(0, 256);
+            add(server, player.getUUID(), snapshot(player, cause));
+        } catch (RuntimeException e) {
+            org.slf4j.LoggerFactory.getLogger("simpletweaks-admin").warn("Could not back up the inventory of {} on death", player.getGameProfile().name(), e);
+        }
     }
     public static Backup snapshot(ServerPlayer p, String cause) {
         var slots = new ArrayList<ItemStack>();

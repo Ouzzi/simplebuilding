@@ -1047,6 +1047,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("server_tuning_game_test_tuning_values_reach_the_tools_and_machines", ServerTuningTests::tuningValuesReachTheToolsAndMachines)
                     .build(),
+            GameTestSpec.named("server_tuning_game_test_the_enderite_shield_is_cheap_and_still_stops_endermen", ServerTuningTests::theEnderiteShieldIsCheapAndStillStopsEndermen)
+                    .build(),
             GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_both_smithing_upgrades_add_one_level_per_step_and_stop_at_their_cap", DynamicLightTests::bothSmithingUpgradesAddOneLevelPerStepAndStopAtTheirCap)

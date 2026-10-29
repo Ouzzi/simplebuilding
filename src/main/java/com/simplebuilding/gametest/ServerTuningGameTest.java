@@ -49,4 +49,9 @@ public final class ServerTuningGameTest {
     public void tuningValuesReachTheToolsAndMachines(GameTestHelper helper) {
         ServerTuningTests.tuningValuesReachTheToolsAndMachines(helper);
     }
+
+    @GameTest
+    public void theEnderiteShieldIsCheapAndStillStopsEndermen(GameTestHelper helper) {
+        ServerTuningTests.theEnderiteShieldIsCheapAndStillStopsEndermen(helper);
+    }
 }

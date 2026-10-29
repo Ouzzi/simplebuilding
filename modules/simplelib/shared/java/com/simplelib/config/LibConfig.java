@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Server config {@code config/simplelib-server.json} (the warm food options). Every value is clamped to its hard bounds when
+ * Server config {@code config/simplelib-server.json} (the warm food options, legendary moments, hang watchdog). Every value is clamped to its hard bounds when
  * loaded (plan section 13), so an edited file can never exceed them; missing keys use the defaults
  * and the file is rewritten with the clamped values.
  */
@@ -31,11 +31,16 @@ public final class LibConfig {
     public static boolean legendaryMuteToast = true;
     public static java.util.List<net.minecraft.resources.Identifier> legendaryAdvancements = java.util.List.of();
     public static java.util.List<net.minecraft.resources.Identifier> legendaryEnchantments = java.util.List.of();
+    /** BS27-1 hang diagnosis ({@link com.simplelib.api.HangWatchdog}): thread dump when the server tick stands this long. */
+    public static final int HANG_SECONDS_DEFAULT = 30, HANG_SECONDS_MIN = 10, HANG_SECONDS_MAX = 600;
+    public static volatile boolean hangWatchdog = true;
+    public static volatile int hangWatchdogSeconds = HANG_SECONDS_DEFAULT;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplelib-server.json";
     /** The keys this class owns (the config command lists only these, CMD24). */
     public static final java.util.List<String> KEYS = java.util.List.of("warmBaseTicks", "warmDurationTicks", "warmBundleDurationTicks",
-            "eatSpeedBonus", "legendaryEffects", "legendaryAllChallenges", "legendaryMuteToast", "legendaryAdvancements", "legendaryEnchantments");
+            "eatSpeedBonus", "legendaryEffects", "legendaryAllChallenges", "legendaryMuteToast", "legendaryAdvancements", "legendaryEnchantments",
+            "hangWatchdog", "hangWatchdogSeconds");
     /** Keys this class does not own (the crucible options before split stage 5): written back unchanged so Simple Crucibles can still take them over. */
     private static JsonObject kept = new JsonObject();
     private static Path file;
@@ -73,6 +78,8 @@ public final class LibConfig {
         legendaryMuteToast = getBool(json, "legendaryMuteToast", true);
         legendaryAdvancements = getIds(json, "legendaryAdvancements");
         legendaryEnchantments = getIds(json, "legendaryEnchantments");
+        hangWatchdog = getBool(json, "hangWatchdog", true);
+        hangWatchdogSeconds = clamp(getInt(json, "hangWatchdogSeconds", HANG_SECONDS_DEFAULT), HANG_SECONDS_MIN, HANG_SECONDS_MAX);
     }
 
     /** Valid ids only, no duplicates, at most {@value #LEGENDARY_LIST_MAX}. Public for the config screen. */
@@ -112,6 +119,8 @@ public final class LibConfig {
         o.addProperty("legendaryMuteToast", legendaryMuteToast);
         o.add("legendaryAdvancements", toArray(legendaryAdvancements));
         o.add("legendaryEnchantments", toArray(legendaryEnchantments));
+        o.addProperty("hangWatchdog", hangWatchdog);
+        o.addProperty("hangWatchdogSeconds", hangWatchdogSeconds);
         return o;
     }
 

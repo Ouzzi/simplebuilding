@@ -74,5 +74,10 @@
   "jei.simplelib.grade.netherite": "Netheritstufe",
   "jei.simplelib.grade.enderite": "Enderitstufe",
   "key.simplelib.freelook": "Freie Sicht (halten)",
-  "key.category.simplelib.general": "Simple Lib"
+  "key.category.simplelib.general": "Simple Lib",
+  "simplelib.tab.diagnosis": "Diagnose",
+  "text.autoconfig.simplelib.option.hangWatchdog": "Hänger-Wächter",
+  "text.autoconfig.simplelib.option.hangWatchdog.@Tooltip": "Steht der Server-Tick still (auch beim\nSpeichern und Verlassen), wird eine Liste\naller Threads nach logs/simplebuilding-hang-*.txt\ngeschrieben. Liest nur, ändert nichts am Spiel.\nStandard: an.",
+  "text.autoconfig.simplelib.option.hangWatchdogSeconds": "Hänger-Wächter Grenze (Sekunden)",
+  "text.autoconfig.simplelib.option.hangWatchdogSeconds.@Tooltip": "So lange darf der Tick stehen, bevor die\nListe geschrieben wird (10 bis 600). Ein\npausiertes Einzelspielerspiel zählt nicht.\nStandard: 30."
 }
