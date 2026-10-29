@@ -322,7 +322,8 @@
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemHelmetWitherMixin.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DisplayWitherCrownMixin.java",
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLoot.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLootBlock.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/WitherLootBlock.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ArmoredWither.java"
       ],
       "en": {
         "title": "Blighted Wither, Nether Heart and Red Nether Gem",
@@ -337,7 +338,8 @@
           "Phase 3 \"Blight\" (below 15 %): a nova every 12 s - a ring of soul smoke 8 blocks wide warns for 2 s, whoever is still inside gets Wither II for 6 s and is thrown far away (knockback resistance does not help). Every 30 s the wilt (ash falls for 2 s first): short grass, ferns and flowers within 12 blocks turn into dead bushes, natural leaves fall, one in five grass blocks becomes coarse dirt. Placed leaves, crops, saplings and all other blocks stay. Needs the mobGriefing game rule; server config witherWilt.",
           "Drops (Looting does not change it): the Blighted Wither exactly one Nether Heart, 1-2 Nether Stars and 3-5 Netherite nuggets (without a mod that adds them one Netherite Scrap); the Abyssal Wither one Nether Heart, one Red Nether Gem and 3-5 Enderite nuggets (tag c:nuggets/enderite, only when a mod adds them) - no Nether Star. Only these two drop heart and gem.",
           "Placed loot: once the death has ended, Nether Heart and Red Nether Gem are set as small blocks on the ground straight under the Wither (searched down to 24 blocks, the gem on a free spot next to the heart). Without ground they drop as items. Both survive explosions and fire as items and as blocks (blast resistance 1200, Withers cannot break them); breaking the block gives the item back. The placed Nether Heart is its icon in 3D (the heart with its two vessel stubs, thicker in the middle) and turns its front to whoever places it (after the fight to the nearest player).",
-          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: with the Strong Upgrade it turns Wither Wings into Nether Wings (see Wither Wings). Old Wither Hearts become Nether Hearts."
+          "Nether Heart: the heart of the Strong Upgrade template with Simple Beacons and of the Biome Brush with Simple Tools. Red Nether Gem: with the Strong Upgrade it turns Wither Wings into Nether Wings (see Wither Wings). Old Wither Hearts become Nether Hearts.",
+          "Armored Wither (with Simple Mobheads): the two outer skulls may wear helmets up to Diamond (right-click the skull with a leather, copper, chainmail, iron, gold or diamond helmet). With a helmet on a side skull the Vanilla Wither does not come when the figure is complete - it waits for the Netherite or Enderite Helmet on the middle skull, which then calls the Blighted or Abyssal Wither at once. The side helmets are used up and make it a little stronger (3 % more health, 0.2 armor and 5 experience per point: leather 1, copper/chainmail/gold 2, iron 3, diamond 5). When it dies it gives back one to one and a half times the material of the side helmets (two Diamond Helmets: 10 to 15 Diamonds); a Chainmail Helmet gives the forbidden fire instead, the item the old chainmail recipe asked for."
         ]
       },
       "de": {
@@ -353,7 +355,8 @@
           "Phase 3 „Welken“ (unter 15 %): alle 12 s eine Nova - ein Ring aus Seelenrauch mit 8 Blöcken Radius warnt 2 s, wer dann noch drinsteht, bekommt 6 s Ausdörrung II und wird weit weggeschleudert (Rückstoßresistenz hilft nicht). Alle 30 s das Welken (vorher fällt 2 s Asche): Gras, Farne und Blumen im Umkreis von 12 Blöcken werden zu toten Büschen, natürliches Laub fällt ab, jeder fünfte Grasblock wird zu grober Erde. Gesetztes Laub, Feldfrüchte, Setzlinge und alle anderen Blöcke bleiben. Braucht die Spielregel mobGriefing; Server-Config witherWilt.",
           "Beute (Plünderung ändert sie nicht): der Verdorrte Wither genau ein Netherherz, 1-2 Nethersterne und 3-5 Netheritnuggets (ohne Mod, die sie hinzufügt, eine Netheritplatte); der Abgrund-Wither ein Netherherz, ein Rotes Nether-Juwel und 3-5 Enderitnuggets (Tag c:nuggets/enderite, nur wenn eine Mod sie hinzufügt) - keinen Netherstern. Nur diese beiden lassen Herz und Juwel fallen.",
           "Gesetzte Beute: Wenn der Tod vorbei ist, stehen Netherherz und Rotes Nether-Juwel als kleine Blöcke auf dem Boden direkt unter dem Wither (bis 24 Blöcke tief gesucht, das Juwel auf einem freien Platz neben dem Herz). Ohne Boden fallen sie als Gegenstände. Beide überstehen Explosionen und Feuer, als Gegenstand und als Block (Explosionsfestigkeit 1200, Wither zerstören sie nicht); abgebaut geben sie den Gegenstand zurück. Das gesetzte Netherherz ist sein Symbol in 3D (das Herz mit seinen zwei Adern-Stummeln, in der Mitte dicker) und dreht seine Vorderseite zu dem, der es setzt (nach dem Kampf zum nächsten Spieler).",
-          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: macht mit der Starken Aufwertung aus Wither-Schwingen Nether-Schwingen (siehe Wither-Schwingen). Alte Witherherzen werden zu Netherherzen."
+          "Netherherz: Kern der Starken Aufwertungsvorlage mit Simple Beacons und des Biom-Pinsels mit Simple Tools. Rotes Nether-Juwel: macht mit der Starken Aufwertung aus Wither-Schwingen Nether-Schwingen (siehe Wither-Schwingen). Alte Witherherzen werden zu Netherherzen.",
+          "Gepanzerter Wither (mit Simple Mobheads): Die beiden äußeren Schädel dürfen Helme bis Diamant tragen (Rechtsklick mit Leder-, Kupfer-, Ketten-, Eisen-, Gold- oder Diamanthelm). Mit einem Helm auf einem Seitenschädel kommt bei fertiger Figur kein Vanilla-Wither - sie wartet auf den Netherit- oder Enderit-Helm auf dem mittleren Schädel, der dann sofort den Verdorrten oder den Abgrund-Wither ruft. Die Seitenhelme werden verbraucht und machen ihn etwas stärker (3 % mehr Leben, 0,2 Rüstung und 5 Erfahrung je Punkt: Leder 1, Kupfer/Kette/Gold 2, Eisen 3, Diamant 5). Beim Tod gibt er das Ein- bis Anderthalbfache des Materials der Seitenhelme zurück (zwei Diamanthelme: 10 bis 15 Diamanten); ein Kettenhelm gibt stattdessen das verbotene Feuer, das Item, das das alte Kettenrüstungs-Rezept verlangte."
         ]
       }
     },
@@ -2876,6 +2879,16 @@
       ]
     },
     {
+      "id": "simplemobs:forbidden_fire",
+      "name": {
+        "en_us": "Fire",
+        "de_de": "Feuer"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:guide_book",
       "name": {
         "en_us": "Simple Mobs Guide",
@@ -3624,7 +3637,9 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplemobs:forbidden_fire"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 14,
@@ -3633,13 +3648,13 @@
     "tags": 7,
     "advancements": 0,
     "enchantments": 0,
-    "items": 26,
+    "items": 27,
     "blocks": 2,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }

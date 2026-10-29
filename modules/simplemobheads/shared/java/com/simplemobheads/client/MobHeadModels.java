@@ -38,6 +38,8 @@ public final class MobHeadModels {
     public static final float MAX_SIZE = 12.0F;
     /** Vanilla's worn skull scale ({@code CustomHeadLayer}): a head of E model pixels is drawn {@value #WORN_SCALE} x E wide. */
     public static final float WORN_SCALE = 1.1875F;
+    /** {@code hide} entry for the own cubes of the look's root part. */
+    private static final String ROOT_OWN = ".!";
     private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
     /** Per look kind: {native edge of the mob's head, edge inside the skull model} in model pixels. */
     private static final Map<String, float[]> EDGES = new ConcurrentHashMap<>();
@@ -65,6 +67,8 @@ public final class MobHeadModels {
         return switch (render) {
             case "translucent" -> RenderTypes.entityTranslucent(tex);
             case "emissive" -> RenderTypes.entityTranslucentEmissive(tex);
+            // BS25-18: flat planes (bat ears) have a front and a back face in the same plane; without culling they fight
+            case "cull" -> RenderTypes.entityCutoutCull(tex);
             default -> RenderTypes.entityCutout(tex);
         };
     }
@@ -150,7 +154,7 @@ public final class MobHeadModels {
     }
 
     private static MobHeadModel generic(EntityModelSet models, HeadDef.Look look) {
-        Set<String> hide = new HashSet<>(look.hide());
+        Set<String> hide = hideSet(look);
         ModelPart base = part(models, look.layer(), look.part(), hide);
         PartPose pose = pose(base, look, hide);
         float[] size = bounds(base, hide); // still the mob's own size: pose() only rotated the part
@@ -179,6 +183,19 @@ public final class MobHeadModels {
         return new MobHeadModel(root, passes);
     }
 
+    /**
+     * The look's {@code hide} list as the model code reads it: {@code name} hides a part with its children, {@code name!} only the
+     * part's own cubes (BS25-18: the horse's neck is the cube of {@code head_parts} itself, its head and mouth are children that
+     * stay); {@code <part>!} for the look's own root part becomes {@value #ROOT_OWN}.
+     */
+    static Set<String> hideSet(HeadDef.Look look) {
+        Set<String> out = new HashSet<>();
+        for (String entry : look.hide()) {
+            out.add(entry.equals(look.part() + "!") ? ROOT_OWN : entry);
+        }
+        return out;
+    }
+
     /** {@code namespace:path#layer} -> the baked part {@code name} ('' = the whole model) with the hidden parts switched off. */
     static ModelPart part(EntityModelSet models, String layer, String name, Set<String> hide) {
         int hash = layer.indexOf('#');
@@ -190,9 +207,14 @@ public final class MobHeadModels {
             throw new IllegalArgumentException("no part '" + name + "' in " + location);
         }
         for (String hidden : hide) {
-            ModelPart h = find(part, hidden);
+            boolean own = hidden.endsWith("!");
+            ModelPart h = hidden.equals(ROOT_OWN) ? part : find(part, own ? hidden.substring(0, hidden.length() - 1) : hidden);
             if (h != null) {
-                h.visible = false;
+                if (own) {
+                    h.skipDraw = true;
+                } else {
+                    h.visible = false;
+                }
             }
         }
         return part;
@@ -246,6 +268,10 @@ public final class MobHeadModels {
     static float[] bounds(ModelPart part, Set<String> hide) {
         float[] b = {Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE, -Float.MAX_VALUE};
         part.visit(new PoseStack(), (pose, path, index, cube) -> {
+            String owner = path.substring(path.lastIndexOf('/') + 1);
+            if (hide.contains(path.isEmpty() ? ROOT_OWN : owner + "!")) {
+                return; // own cubes of a part that is not drawn (a skipped part's children still count)
+            }
             for (String segment : path.split("/")) {
                 if (hide.contains(segment)) {
                     return;

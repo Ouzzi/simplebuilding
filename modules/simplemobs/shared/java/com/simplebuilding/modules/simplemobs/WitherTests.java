@@ -94,6 +94,14 @@ final class WitherTests {
         return ItemStack.EMPTY;
     }
 
+    /** Puts {@code helmet} on the wither skull at {@code rel} as Simple Mobheads does (its component in the block entity). */
+    @SuppressWarnings("unchecked")
+    private static void sideHelmet(GameTestHelper h, BlockPos rel, net.minecraft.core.component.DataComponentType<?> type, ItemStack helmet) {
+        var skull = (net.minecraft.world.level.block.entity.SkullBlockEntity) h.getLevel().getBlockEntity(h.absolutePos(rel));
+        var patch = net.minecraft.core.component.DataComponentPatch.builder().set((net.minecraft.core.component.DataComponentType<ItemStack>) type, helmet).build();
+        skull.applyComponents(net.minecraft.core.component.DataComponentMap.EMPTY, patch);
+    }
+
     private static void clearBosses(GameTestHelper h) {
         h.getEntities(WitherMobs.BLIGHTED_WITHER).forEach(e -> e.discard());
         h.getEntities(WitherMobs.ABYSSAL_WITHER).forEach(e -> e.discard());
@@ -245,6 +253,54 @@ final class WitherTests {
             h.assertTrue(BlightedPattern.crownAt(level, h.absolutePos(MIDDLE)) != null, "the helmet stays on");
             placeSkull(h, RIGHT);
             h.assertTrue(h.getEntities(WitherMobs.BLIGHTED_WITHER).size() == 1, "third skull: the Blighted Wither");
+            clearBosses(h);
+            h.succeed();
+        }));
+        add.accept("wither_armored", h -> normal(h, () -> {
+            ServerLevel level = h.getLevel();
+            // pure rules: points, materials (5 pieces, 1 to 1.5 times), the forbidden fire of the Chainmail Helmet
+            h.assertTrue(ArmoredWither.points(Items.LEATHER_HELMET) == 1 && ArmoredWither.points(Items.IRON_HELMET) == 3
+                    && ArmoredWither.points(Items.DIAMOND_HELMET) == 5 && ArmoredWither.points(Items.NETHERITE_HELMET) == 0, "side helmet points");
+            var random = net.minecraft.util.RandomSource.create(7);
+            int low = 99, high = 0;
+            for (int i = 0; i < 200; i++) {
+                int diamonds = count(ArmoredWither.loot(java.util.List.of(Items.DIAMOND_HELMET, Items.DIAMOND_HELMET), random), Items.DIAMOND);
+                low = Math.min(low, diamonds);
+                high = Math.max(high, diamonds);
+            }
+            h.assertTrue(low >= 10 && high <= 15 && high > low, "two Diamond Helmets give 10 to 15 Diamonds: " + low + ".." + high);
+            var chain = ArmoredWither.loot(java.util.List.of(Items.CHAINMAIL_HELMET), random);
+            h.assertTrue(chain.size() == 1 && chain.getFirst().is(Items.FIRE_CHARGE)
+                    && com.simplelib.api.SimpleRarity.of(chain.getFirst()) == com.simplelib.api.SimpleRarity.CURSED, "the Chainmail Helmet gives the forbidden fire");
+            // the figure: side helmets come from Simple Mobheads (its component); without it there are none (standalone run)
+            var type = BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Identifier.fromNamespaceAndPath("simplemobheads", "helmet"));
+            if (type == null) {
+                h.assertTrue(ArmoredWither.helmetAt(level, h.absolutePos(MIDDLE)).isEmpty(), "no Mobheads: no side helmets");
+                h.succeed();
+                return;
+            }
+            clearBosses(h);
+            figure(h, true, true, true);
+            sideHelmet(h, LEFT, type, new ItemStack(Items.DIAMOND_HELMET));
+            sideHelmet(h, RIGHT, type, new ItemStack(Items.DIAMOND_HELMET));
+            WitherSkullBlock.checkSpawn(level, h.absolutePos(MIDDLE));
+            h.assertTrue(h.getEntities(EntityTypes.WITHER).isEmpty() && h.getEntities(WitherMobs.BLIGHTED_WITHER).isEmpty(),
+                    "helmets on the side skulls: the Vanilla Wither does not come");
+            h.assertTrue(BlightedPattern.canCrown(level, h.absolutePos(MIDDLE)), "the complete armored figure waits for its crown");
+            h.assertTrue(putHelmet(h, MIDDLE, new ItemStack(Items.NETHERITE_HELMET)).isEmpty(), "the Netherite Helmet is put on");
+            var armored = h.getEntities(WitherMobs.BLIGHTED_WITHER);
+            h.assertTrue(armored.size() == 1 && h.getEntities(EntityTypes.WITHER).isEmpty(), "the crown calls the Blighted Wither");
+            BlightedWither w = armored.getFirst();
+            h.assertTrue(ArmoredWither.helmets(w).equals(java.util.List.of(Items.DIAMOND_HELMET, Items.DIAMOND_HELMET)), "it remembers its side helmets");
+            h.assertTrue(Math.abs(w.getMaxHealth() - 600.0 * 1.3) < 0.5 && w.getMaxHealth() < 1000.0, "a little stronger: " + w.getMaxHealth());
+            h.assertTrue(w.getAttributeValue(Attributes.ARMOR) > 8.0, "a little more armor");
+            h.assertTrue(count(h.getEntities(EntityTypes.ITEM), Items.DIAMOND_HELMET) == 0, "the side helmets are used up, not dropped");
+            clearBosses(h);
+            // one side helmet is enough; no helmet at all stays the Vanilla Wither (wither_summon)
+            figure(h, true, true, true);
+            sideHelmet(h, RIGHT, type, new ItemStack(Items.LEATHER_HELMET));
+            WitherSkullBlock.checkSpawn(level, h.absolutePos(MIDDLE));
+            h.assertTrue(h.getEntities(EntityTypes.WITHER).isEmpty(), "one leather helmet is enough to hold the Vanilla Wither back");
             clearBosses(h);
             h.succeed();
         }));

@@ -33,6 +33,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.MobVisibility;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.WallSkullBlock;
@@ -54,6 +55,13 @@ public final class MobHeads {
     /** The variant of a head ({@code siamese}); kept by the placed head (block entity components) and its drop. */
     public static final DataComponentType<String> VARIANT = DataComponentType.<String>builder()
             .persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build();
+
+    /**
+     * BS28b-1: the helmet a placed head wears (block entity components like {@link #VARIANT}: saved with the chunk, sent to
+     * the client in the update tag, dropped by {@code HeadHelmets} when the head goes). One helmet, never part of the head item.
+     */
+    public static final DataComponentType<ItemStack> HELMET = DataComponentType.<ItemStack>builder()
+            .persistent(ItemStack.CODEC).networkSynchronized(ItemStack.STREAM_CODEC).build();
 
     /** Silverfish head: the wearer shrinks to half size (attribute {@code minecraft:scale}, moved in from SimpleBuilding). */
     public static final double SILVERFISH_SCALE = -0.5;
@@ -143,6 +151,7 @@ public final class MobHeads {
 
     public static void components() {
         Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMobHeads.id("variant"), VARIANT);
+        Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleMobHeads.id("helmet"), HELMET);
     }
 
     public static void lootTypes(boolean functions, boolean conditions) {
@@ -229,6 +238,22 @@ public final class MobHeads {
      * Vanilla skull's 8 px box would sit lost inside it).
      */
     public static final VoxelShape BIG_SHAPE = Block.column(16.0, 0.0, 16.0);
+
+    /**
+     * BS25-17: a giant head is drawn 1.5 blocks wide and high, so two of them in neighbouring blocks (also diagonally, also one
+     * above the other) overlap and flicker. A giant head is not placed when another one stands in the 3x3x3 blocks around it.
+     */
+    public static boolean crowded(LevelReader level, BlockPos pos) {
+        for (BlockPos near : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+            if (!near.equals(pos)) {
+                Block block = level.getBlockState(near).getBlock();
+                if (block instanceof BigSkullBlock || block instanceof BigWallSkullBlock) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     static final class BigSkullBlock extends SkullBlock {
         BigSkullBlock(SkullBlock.Type type, BlockBehaviour.Properties properties) {
