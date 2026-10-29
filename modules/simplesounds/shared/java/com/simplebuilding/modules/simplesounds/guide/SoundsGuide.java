@@ -19,7 +19,7 @@ import net.minecraft.network.chat.Component;
  */
 public final class SoundsGuide {
     public static final String NAMESPACE = "simplesounds";
-    public static final int PAGES = 16;
+    public static final int PAGES = 18;
 
     private SoundsGuide() {
     }
