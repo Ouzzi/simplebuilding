@@ -141,6 +141,9 @@ dependencies {
 	devMods "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 	devMods "maven.modrinth:mouse-tweaks:${project.mc263_dev_mousetweaks_fabric}"
 	devMods "maven.modrinth:appleskin:${project.mc263_dev_appleskin_fabric}"
+	devMods "maven.modrinth:distanthorizons:${project.mc263_dev_dh_fabric}"
+	devMods "maven.modrinth:voxy:${project.mc263_dev_voxy_fabric}"
+	devMods "maven.modrinth:sodium:${project.mc263_dev_sodium_fabric}"
 
 	implementation fabricApi.module("fabric-gametest-api-v1", project.mc263_fabric_version)
 }

@@ -738,7 +738,35 @@ public final class CrucibleTests {
             // The kitchen really holds its crucible (old "Name" palette keys loaded as air in 26.3, found by TZ22-3).
             check(h, !template.get().filterBlocks(BlockPos.ZERO, new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(),
                     CrucibleBlocks.IRON_CRUCIBLE).isEmpty(), type + ": kitchen template holds no iron crucible");
+            // WD25-20: campfire in the ground layer (y 0), crucible directly above it (y 1)
+            var settings = new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings();
+            var fires = template.get().filterBlocks(BlockPos.ZERO, settings, Blocks.CAMPFIRE);
+            var crucibles = template.get().filterBlocks(BlockPos.ZERO, settings, CrucibleBlocks.IRON_CRUCIBLE);
+            check(h, fires.size() == 1 && crucibles.size() == 1, type + ": one campfire and one crucible");
+            check(h, fires.get(0).pos().getY() == 0 && crucibles.get(0).pos().equals(fires.get(0).pos().above()),
+                    type + ": campfire at ground level, crucible on it, got " + fires.get(0).pos() + " / " + crucibles.get(0).pos());
         }
+        // 10 % of the campfires become magma blocks (position-seeded, so the share over many positions is stable)
+        var list = access.lookupOrThrow(net.minecraft.core.registries.Registries.PROCESSOR_LIST).get(net.minecraft.resources.ResourceKey.create(
+                net.minecraft.core.registries.Registries.PROCESSOR_LIST, com.simplecrucibles.SimpleCrucibles.id("field_kitchen")));
+        check(h, list.isPresent(), "field_kitchen processor list is registered");
+        var info = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo(
+                BlockPos.ZERO, Blocks.CAMPFIRE.defaultBlockState(), null);
+        int magma = 0;
+        int total = 4000;
+        for (int n = 0; n < total; n++) {
+            BlockPos at = new BlockPos(n % 80, 64, n / 80);
+            var moved = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo(at, info.state(), null);
+            var out = list.get().value().list().get(0).processBlock(h.getLevel(), BlockPos.ZERO, at, at, moved,
+                    new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings());
+            if (out != null && out.state().is(Blocks.MAGMA_BLOCK)) magma++;
+        }
+        check(h, magma > total * 0.07 && magma < total * 0.13, "about 10 % magma, got " + magma + " of " + total);
+        // magma counts as a heat source for the crucible
+        check(h, h.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.BLOCK).getOrThrow(
+                net.minecraft.world.level.block.Blocks.MAGMA_BLOCK.builtInRegistryHolder().key()).is(
+                net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, com.simplecrucibles.SimpleCrucibles.id("heat_source/medium"))),
+                "magma block is a medium heat source");
         h.succeed();
     }
 
