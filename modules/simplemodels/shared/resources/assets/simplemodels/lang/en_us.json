@@ -61,7 +61,7 @@
   "simplemodels.guide.page.10.title": "Folder Catalog and Resource Packs",
   "simplemodels.guide.page.10": "Model changes do not change item names or stats. Server Settings is read-only; admins edit config/simplemodels/config.json.",
   "simplemodels.guide.page.11.title": "Folder Catalog and Resource Packs",
-  "simplemodels.guide.page.11": "The catalog's JSON format is described in the Simple Models documentation of the project repository.",
+  "simplemodels.guide.page.11": "The catalogue's JSON format is described in the Simple Models documentation of the project repository.",
   "simplemodels.guide.page.12.title": "Multiplayer Safety",
   "simplemodels.guide.page.12": "The server owns the catalog and policy.",
   "simplemodels.guide.page.13.title": "Multiplayer Safety",

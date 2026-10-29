@@ -110,14 +110,16 @@
         "title": "Knockback V",
         "summary": "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.",
         "details": [
-          "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks."
+          "Vanilla Knockback accepts feathers/sticks and levels up to five; this replaces vanilla enchantment data and can collide with datapacks.",
+          "The knockback cap (Max knockback) also applies when the higher-knockback switch is off: without it the cap is 2."
         ]
       },
       "de": {
         "title": "Rückstoß V",
         "summary": "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
         "details": [
-          "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren."
+          "Vanilla-Rückstoß erlaubt Federn/Stöcke und Stufe fünf; überschreibt Vanilla-Daten und kann mit Datenpaketen kollidieren.",
+          "Die Rückstoß-Kappe (Max. Rückstoß) wirkt auch bei ausgeschaltetem Schalter für höheren Rückstoß: ohne ihn gilt die Kappe 2."
         ]
       },
       "sources": [
