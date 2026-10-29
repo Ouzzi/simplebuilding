@@ -3581,7 +3581,7 @@
   "tip.simplebuilding.hopper_filter": "Set up an item filter in its menu",
   "tip.simplebuilding.fletching": "Use it to make arrows: tip, shaft, fletching",
   "layer.simplebuilding.chunk_loaders": "Chunk loaders",
-  "simplebuilding.testcentre.command.stats": "Test centre: %s sections, %s x %s blocks, %s item frames, %s armour stands",
+  "simplebuilding.testcentre.command.stats": "Test center: %s sections, %s x %s blocks, %s item frames, %s armor stands",
   "simplebuilding.testcentre.modules.all": "All items",
   "simplebuilding.testcentre.modules.more": "More",
   "simplebuilding.testcentre.blocks.row.end_stones": "End stones",

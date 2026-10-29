@@ -76,12 +76,15 @@ public final class MusicCommands {
 
     private static int ban(CommandContext<CommandSourceStack> c, boolean on) {
         String name = StringArgumentType.getString(c, "player");
-        ServerPlayer player = c.getSource().getServer().getPlayerList().getPlayerByName(name);
-        if (player == null) {
+        var server = c.getSource().getServer();
+        ServerPlayer player = server.getPlayerList().getPlayerByName(name);
+        // Offline players too (REV2-B-6): the server's name cache knows everyone who joined once.
+        java.util.UUID id = player != null ? player.getUUID() : server.services().nameToIdCache().get(name).map(net.minecraft.server.players.NameAndId::id).orElse(null);
+        if (id == null) {
             c.getSource().sendFailure(Component.translatable("simplemusic.command.no_player", name));
             return 0;
         }
-        MusicServer.store(c.getSource().getServer()).ban(player.getUUID(), on);
+        MusicServer.store(server).ban(id, on);
         c.getSource().sendSuccess(() -> Component.translatable(on ? "simplemusic.command.ban" : "simplemusic.command.unban", name), true);
         return 1;
     }
