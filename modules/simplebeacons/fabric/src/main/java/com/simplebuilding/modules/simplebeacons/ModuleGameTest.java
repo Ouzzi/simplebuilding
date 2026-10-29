@@ -145,4 +145,34 @@ public final class ModuleGameTest {
     public void vanillaConduitOnlyConduitPower(GameTestHelper h) {
         BeaconsTests.ALL.get("vanilla_conduit_only_conduit_power").accept(h);
     }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void mightyEffects(GameTestHelper h) {
+        BeaconsTests.ALL.get("mighty_effects").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void evilEffects(GameTestHelper h) {
+        BeaconsTests.ALL.get("evil_effects").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void evilBeaconDelayAndProtection(GameTestHelper h) {
+        BeaconsTests.ALL.get("evil_beacon_delay_and_protection").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void beaconKindsAndNames(GameTestHelper h) {
+        BeaconsTests.ALL.get("beacon_kinds_and_names").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void rangeCap340(GameTestHelper h) {
+        BeaconsTests.ALL.get("range_cap_340").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void evilUpgradeInWorld(GameTestHelper h) {
+        BeaconsTests.ALL.get("evil_upgrade_in_world").accept(h);
+    }
 }

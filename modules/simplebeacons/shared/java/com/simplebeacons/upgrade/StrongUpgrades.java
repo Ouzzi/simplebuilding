@@ -26,7 +26,7 @@ import net.minecraft.world.level.storage.TagValueInput;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The in-world Strong upgrade (concept §2 B): an upgrade tool in the main hand ({@code #simplelib:upgrade_tools}, i.e.
+ * The in-world Strong (or Evil) upgrade (concept §2 B): an upgrade tool in the main hand ({@code #simplelib:upgrade_tools}, i.e.
  * a hammer mod's sledgehammer, or any axe while SimpleLib's Vanilla axe ways are on - principle 5a), the Strong
  * Upgrade template in the off hand and a nether star anywhere in the inventory; use on a placed Vanilla beacon or
  * conduit. {@link BeaconsConfig#upgradeStrikes} strikes (default 8) with SimpleLib's cracks, sound and the growing
@@ -37,16 +37,18 @@ import org.jspecify.annotations.Nullable;
 public final class StrongUpgrades {
     public static final String KIND = "simplebeacons:strong_upgrade";
 
-    /** The Strong block a Vanilla block becomes, or null. */
-    public static @Nullable Block targetFor(BlockState state) {
-        if (state.is(Blocks.BEACON)) return BeaconsRegistry.STRONG_BEACON;
-        if (state.is(Blocks.CONDUIT)) return BeaconsRegistry.STRONG_CONDUIT;
+    /** The Strong block a Vanilla block becomes with the template in the off hand (the Evil template: Evil Beacon, beacons only), or null. */
+    public static @Nullable Block targetFor(BlockState state, ItemStack template) {
+        boolean evil = template.is(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE);
+        if (state.is(Blocks.BEACON)) return evil ? BeaconsRegistry.EVIL_BEACON : BeaconsRegistry.STRONG_BEACON;
+        if (state.is(Blocks.CONDUIT) && !evil) return BeaconsRegistry.STRONG_CONDUIT;
         return null;
     }
 
-    /** Main hand tool + off hand template (the stance; the star is checked per strike). */
+    /** Main hand tool + off hand template, Strong or Evil (the stance; the star is checked per strike). */
     public static boolean isStance(Player player) {
-        return SimpleLibApi.isUpgradeTool(player.getMainHandItem()) && player.getOffhandItem().is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE);
+        return SimpleLibApi.isUpgradeTool(player.getMainHandItem()) && (player.getOffhandItem().is(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE)
+                || player.getOffhandItem().is(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE));
     }
 
     /** Slot of a nether star in the inventory, or -1. */
@@ -65,7 +67,7 @@ public final class StrongUpgrades {
     public static @Nullable InteractionResult strike(ServerLevel level, BlockPos pos, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND || !SimpleBeacons.on() || !isStance(player)) return null;
         BlockState state = level.getBlockState(pos);
-        Block target = targetFor(state);
+        Block target = targetFor(state, player.getOffhandItem());
         if (target == null) return null;
         if (!player.mayBuild() || !level.mayInteract(player, pos)) return InteractionResult.FAIL;
         if (!player.hasInfiniteMaterials() && starSlot(player) < 0) {

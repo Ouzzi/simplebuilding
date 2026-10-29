@@ -20,7 +20,7 @@ public final class BeaconsFabric implements ModInitializer {
         SimpleBeacons.init(FabricLoader.getInstance().getConfigDir());
         BeaconsRegistry.registerBlocks();
         BeaconsRegistry.registerItems();
-        BeaconsRegistry.registerBlockEntities(new BlockEntityType<>(StrongBeaconBlockEntity::new, Set.of(BeaconsRegistry.STRONG_BEACON)),
+        BeaconsRegistry.registerBlockEntities(new BlockEntityType<>(StrongBeaconBlockEntity::new, BeaconsRegistry.beaconBlocks()),
                 new BlockEntityType<>(StrongConduitBlockEntity::new, Set.of(BeaconsRegistry.STRONG_CONDUIT)));
         BeaconsRegistry.registerMenus();
         BeaconsRegistry.registerTab();
@@ -35,7 +35,7 @@ public final class BeaconsFabric implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {
             if (!SimpleBeacons.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleBeacons.MOD_ID)) return;
-            var template = java.util.List.of(new net.minecraft.world.item.ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE));
+            var template = BeaconsRegistry.templateStacks();
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))) {
                 out.insertAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, template, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             } else {

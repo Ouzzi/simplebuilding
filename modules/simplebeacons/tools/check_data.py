@@ -9,20 +9,24 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplebeacons'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/BeaconsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert len(config_keys) == 9, config_keys
+assert len(config_keys) == 10, config_keys
 used = set()
 for src in JAVA.rglob('*.java'):
     used |= set(re.findall(r'translatable\("([a-z0-9_.]+)"', src.read_text(encoding='utf-8')))
 used = {k for k in used if NS in k and not k.endswith('.')}
 effects = re.search(r'EFFECT_IDS = List\.of\(([^;]*)\);', (JAVA / 'config/BeaconsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 effects = re.findall(r'"([a-z_]+)"', effects)
-assert len(effects) == 10, effects
+assert len(effects) == 19, effects
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
-    for k in sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.strong_upgrade_template', f'item.{NS}.strong_upgrade_shard', f'block.{NS}.strong_beacon',
-                             f'block.{NS}.strong_conduit', f'{NS}.testcentre.station'] + [f'{NS}.screen.effect.{e}' for e in effects]:
+    required = (sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.strong_upgrade_template', f'item.{NS}.strong_upgrade_shard',
+                                f'item.{NS}.evil_upgrade_template', f'{NS}.testcentre.station', f'block.{NS}.strong_conduit']
+                + [f'block.{NS}.{b}' for b in ('strong_beacon', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon')]
+                + [f'container.{NS}.{b}' for b in ('strong_beacon', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon')]
+                + [f'{NS}.screen.effect.{e}' for e in effects])
+    for k in required:
         assert data.get(k), (locale, k)
     for k, v in data.items():
         if k.startswith(f'{NS}.screen.effect.'):
@@ -45,6 +49,19 @@ assert 'fabric:load_conditions' in heart and 'neoforge:conditions' in heart and 
 shards = recipes['strong_upgrade_template_from_shards']
 assert shards['pattern'] == ['SSS', 'SSS', 'SSS'] and shards['key']['S'] == f'{NS}:strong_upgrade_shard' and shards['result']['count'] == 1
 assert json.loads((RES / f'data/{NS}/tags/block/strong_base_blocks.json').read_text(encoding='utf-8'))['values'] == []
+# A29 (BS28b-4/5): Mighty = Strong Beacon + six cores + two Strong Upgrades; Evil = beacon + Evil Upgrade + star
+for name, center in (('mighty_beacon', 'strong_beacon'), ('mighty_evil_beacon', 'evil_beacon')):
+    for variant in (name, name + '_without_simplebuilding'):
+        r = recipes[variant]
+        assert r['type'] == 'minecraft:crafting_shaped' and r['pattern'] == ['cig', 'dBn', 'UeU'], variant
+        assert r['key']['B'] == f'{NS}:{center}' and r['key']['U'] == f'{NS}:strong_upgrade_template', variant
+        assert len(set(r['key'][k] for k in 'cigdne')) == 6, variant
+        assert r['result']['id'] == f'{NS}:{name}', variant
+assert all(recipes[r]['key'][k].startswith('simplebuilding:') for r in ('mighty_beacon', 'mighty_evil_beacon') for k in 'cigdne'), 'cores'
+evil = recipes['evil_beacon_smithing']
+assert evil['template'] == f'{NS}:evil_upgrade_template' and evil['base'] == 'minecraft:beacon' and evil['addition'] == 'minecraft:nether_star'
+assert sorted(recipes['evil_upgrade_template']['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'simplemobs:nether_heart', 'simplemobs:nether_gem'])
+assert 'fabric:load_conditions' in recipes['evil_upgrade_template'], 'Evil Upgrade recipe needs Simple Mobs'
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 mixins = json.loads((RES / f'{NS}.mixins.json').read_text(encoding='utf-8'))
 for name in mixins['mixins'] + mixins['client']:
@@ -60,5 +77,5 @@ for f in manual['features']:
         assert (MODULE.parents[1] / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'strong_upgrade_template', 'strong_upgrade_shard', 'strong_beacon', 'strong_conduit'}, (locale, set(q))
+    assert set(q) == {'strong_upgrade_template', 'strong_upgrade_shard', 'strong_beacon', 'strong_conduit', 'evil_upgrade_template', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon'}, (locale, set(q))
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure, questionary and wiki valid')

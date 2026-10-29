@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/beacon",
+  "textures": {
+    "particle": "minecraft:block/glass",
+    "glass": "minecraft:block/glass",
+    "obsidian": "minecraft:block/crying_obsidian",
+    "beacon": "simplebeacons:block/mighty_evil_beacon"
+  }
+}

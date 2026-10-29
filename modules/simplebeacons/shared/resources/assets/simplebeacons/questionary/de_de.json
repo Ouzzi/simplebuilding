@@ -24,14 +24,14 @@
   },
   "strong_beacon": {
     "lore": [
-      "Sechs Stufen näher am Himmel."
+      "Fünf Stufen näher am Himmel."
     ],
     "use": [
-      "Eine Pyramide mit bis zu 6 Ebenen bauen (13x13 unten, 454 Blöcke). Ebene 5 bietet Nachtsicht, Wasseratmung und Langsamen Fall, Ebene 6 Feuerresistenz, Delfingunst und Absorption.",
-      "Reichweite 60 Blöcke auf Ebene 5 und 70 auf Ebene 6."
+      "Baue eine Pyramide mit bis zu 5 Ebenen (11x11 unten, 285 Blöcke). Ebene 1: Tempo, Eile, Sättigung; Ebene 2: Sprungkraft, Resistenz, Langsamer Fall; Ebene 3: Stärke, Unsichtbarkeit, Gnade des Delfins; Ebene 4: Glück. Ebene 5 schaltet die zweite Kraft frei.",
+      "Reichweite 60 Blöcke auf Ebene 5 (mit Eisen), höchstens 340 Blöcke."
     ],
     "secret": [
-      "Die neuen Kräfte haben keine Stufe II, Regeneration bleibt aber als zweite Kraft."
+      "Die neuen Kräfte haben keine Stufe II, aber Regeneration geht weiter als zweite Kraft. Das Mächtige Leuchtfeuer braucht das Starke, sechs Kerne und zwei Starke Aufwertungen."
     ]
   },
   "strong_conduit": {
@@ -44,6 +44,53 @@
     ],
     "secret": [
       "Der volle große Rahmen trifft feindliche Mobs im Wasser im Umkreis von 12 Blöcken."
+    ]
+  },
+  "mighty_beacon": {
+    "lore": [
+      "Die sechste Stufe ist die letzte."
+    ],
+    "use": [
+      "Herstellen: Starkes Leuchtfeuer in der Mitte, die sechs Kerne drumherum, unten in jeder Ecke eine Starke Aufwertung. Pyramide mit bis zu 6 Ebenen (454 Blöcke). Ebene 4 bringt Nachtsicht, Ebene 5 Extraherzen; Tempo II, Sprungkraft II und Resistenz II sind Platzhalter.",
+      "Ebene 6 schaltet die zweite Kraft frei: Regeneration oder eine Stufe höher (Tempo III, vier Herzen)."
+    ],
+    "secret": [
+      "Feuerresistenz und Absorption wurden als zu stark gestrichen."
+    ]
+  },
+  "evil_upgrade_template": {
+    "lore": [
+      "Dieselbe Platte wie die Starke Aufwertung, doch sie summt schief."
+    ],
+    "use": [
+      "Schmiedetisch mit Leuchtfeuer und Netherstern, oder in der Welt: Nebenhand, mit Axt oder Vorschlaghammer 8-mal auf ein Leuchtfeuer schlagen, einen Netherstern dabei.",
+      "Mit Simple Mobs: Starke Aufwertung, Weinender Obsidian, Netherherz und Rotes Nether-Juwel ergeben eine."
+    ],
+    "secret": [
+      "Sie wirkt nur auf Leuchtfeuer, nicht auf Aquisatoren."
+    ]
+  },
+  "evil_beacon": {
+    "lore": [
+      "Es leuchtet nicht den Weg. Es macht ihn schwer."
+    ],
+    "use": [
+      "Pyramide mit bis zu 5 Ebenen. Ebene 1: Langsamkeit, Abbaumüdigkeit, Hunger; Ebene 2: Schwäche, Pech, Schleimigkeit; Ebene 3: Dunkelheit, Leuchten, Befall; Ebene 4: Gewebe; Ebene 5: Übelkeit als zweite Kraft.",
+      "Es erreicht nur Überlebens-Spieler, die vor mindestens 5 Minuten gestorben sind."
+    ],
+    "secret": [
+      "Neulingsschutz und ein ausgeschaltetes persönliches PvP von Simple Tweaks schützen einen Spieler davor."
+    ]
+  },
+  "mighty_evil_beacon": {
+    "lore": [
+      "Sechs Stufen abwärts."
+    ],
+    "use": [
+      "Herstellen wie das Mächtige Leuchtfeuer mit dem Bösen Leuchtfeuer in der Mitte. Pyramide mit bis zu 6 Ebenen; Ebene 5 bringt Windgeladen und die Platzhalter Hunger II und Abbaumüdigkeit II; Ebene 6 schaltet Übelkeit frei."
+    ],
+    "secret": [
+      "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer."
     ]
   }
 }

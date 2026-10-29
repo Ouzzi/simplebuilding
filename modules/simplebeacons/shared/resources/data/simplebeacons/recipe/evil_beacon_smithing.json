@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:nether_star",
+  "base": "minecraft:beacon",
+  "result": {
+    "id": "simplebeacons:evil_beacon"
+  },
+  "template": "simplebeacons:evil_upgrade_template"
+}

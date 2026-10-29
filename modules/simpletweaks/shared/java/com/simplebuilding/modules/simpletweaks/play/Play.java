@@ -44,6 +44,9 @@ public final class Play {
     public static void start(MinecraftServer s) {
         server = s;
         state = PlayState.load(s);
+        // A29: other modules' harmful blocks (Simple Beacons' Evil Beacon) skip players this module protects.
+        com.simplelib.api.HarmShields.register("simpletweaks", p -> on() && server != null
+                && (NewPlayerShield.shielded(p) || com.simplebuilding.modules.simpletweaks.play.pvp.Pvp.active() && !com.simplebuilding.modules.simpletweaks.play.pvp.Pvp.on(p)));
         Borders.apply(s);
         Pregen.start(s);
     }

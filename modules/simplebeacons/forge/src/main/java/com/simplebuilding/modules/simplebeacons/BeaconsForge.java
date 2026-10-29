@@ -27,7 +27,7 @@ public final class BeaconsForge {
             if (key.equals(Registries.ITEM)) BeaconsRegistry.registerItems();
             if (key.equals(Registries.CREATIVE_MODE_TAB)) BeaconsRegistry.registerTab();
             if (key.equals(Registries.BLOCK_ENTITY_TYPE)) {
-                BeaconsRegistry.registerBlockEntities(new BlockEntityType<>(StrongBeaconBlockEntity::new, Set.of(BeaconsRegistry.STRONG_BEACON)),
+                BeaconsRegistry.registerBlockEntities(new BlockEntityType<>(StrongBeaconBlockEntity::new, BeaconsRegistry.beaconBlocks()),
                         new BlockEntityType<>(StrongConduitBlockEntity::new, Set.of(BeaconsRegistry.STRONG_CONDUIT)));
             }
             if (key.equals(Registries.MENU)) BeaconsRegistry.registerMenus();
@@ -38,7 +38,7 @@ public final class BeaconsForge {
                 BeaconsRegistry.tabStacks().forEach(s -> event.getEntries().put(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             }
             if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS) && vanillaTabs && SimpleBeacons.on()) {
-                event.getEntries().put(new ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                BeaconsRegistry.templateStacks().forEach(s -> event.getEntries().put(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleBeacons.on()) {
                 event.getEntries().put(com.simplebeacons.guide.BeaconsGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

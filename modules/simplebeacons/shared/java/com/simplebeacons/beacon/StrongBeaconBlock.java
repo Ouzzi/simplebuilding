@@ -17,10 +17,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
-/** Strong Beacon block: like Vanilla's beacon (white beam, opens its menu), with {@link StrongBeaconBlockEntity}. */
+/** Block of the Strong, Mighty, Evil and Mighty Evil beacons: like Vanilla's beacon (white beam, opens its menu), with {@link StrongBeaconBlockEntity}. */
 public class StrongBeaconBlock extends BaseEntityBlock implements BeaconBeamBlock {
-    public StrongBeaconBlock(BlockBehaviour.Properties properties) {
+    private final BeaconKind kind;
+
+    public StrongBeaconBlock(BeaconKind kind, BlockBehaviour.Properties properties) {
         super(properties);
+        this.kind = kind;
+    }
+
+    public BeaconKind kind() {
+        return this.kind;
     }
 
     @Override

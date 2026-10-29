@@ -29,7 +29,8 @@ public final class SimpleBeacons {
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(BeaconsConfig::toJson, BeaconsConfig::apply).file(configDir, BeaconsConfig.FILE).register();
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "beacons", "simplebeacons.testcentre.station",
-                java.util.List.of("simplebeacons:strong_upgrade_template", "simplebeacons:strong_upgrade_shard", "simplebeacons:strong_beacon",
+                java.util.List.of("simplebeacons:strong_upgrade_template", "simplebeacons:evil_upgrade_template", "simplebeacons:strong_upgrade_shard",
+                        "simplebeacons:strong_beacon", "simplebeacons:mighty_beacon", "simplebeacons:evil_beacon", "simplebeacons:mighty_evil_beacon",
                         "simplebeacons:strong_conduit", "simplebeacons:guide_book"));
     }
 

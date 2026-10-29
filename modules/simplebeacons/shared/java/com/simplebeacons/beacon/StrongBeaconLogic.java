@@ -22,31 +22,23 @@ import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The rules of the Strong Beacon (concept §3): Vanilla's levels 1-4 plus one or two more primary effects on levels 1-3
- * (SP22-10: three per level), levels 5 and 6 with three more primary effects each, range
- * {@code (rangeBase + rangePerLevel x levels) x material factor} (10/10: level 5 = 60, level 6 = 70 with Iron), duration
- * {@code 9 + 2 x levels} seconds, players only, ambient like Vanilla. Static and side free, so tests call it directly.
+ * The rules of the Strong, Mighty, Evil and Mighty Evil beacons (concept §3, BS28b-4/5): Vanilla's pyramid scan with up to
+ * six levels, the powers per level from {@link BeaconKind}, range {@code (rangeBase + rangePerLevel x levels) x material
+ * factor} capped at {@link #RANGE_CAP} (REV2-A-1), duration {@code 9 + 2 x levels} seconds, players only, ambient like
+ * Vanilla. Static and side free, so tests call it directly.
  */
 public final class StrongBeaconLogic {
-    /** Highest pyramid the block can ever reach (the config may lower it to 4 or 5). */
+    /** Highest pyramid any kind can reach (the config may lower it to 4 or 5). */
     public static final int MAX_LEVELS = 6;
-    public static final int LEVELS_NEEDED_FOR_SECONDARY = 4;
-    /**
-     * Effects per level (index = level - 1). Level 4 is Vanilla's secondary (Regeneration). The third column of levels
-     * 1-3 is new (SP22-10, plan docs/ai/PLAN-A-BEACONS22-2026-10-22.md): Saturation, Health Boost, Invisibility and Hero of the Village.
-     */
-    public static final List<List<Holder<MobEffect>>> EFFECTS = List.of(
-            List.of(MobEffects.SPEED, MobEffects.HASTE, MobEffects.SATURATION),
-            List.of(MobEffects.RESISTANCE, MobEffects.JUMP_BOOST, MobEffects.HEALTH_BOOST),
-            List.of(MobEffects.STRENGTH, MobEffects.INVISIBILITY, MobEffects.HERO_OF_THE_VILLAGE),
-            List.of(MobEffects.REGENERATION),
-            List.of(MobEffects.NIGHT_VISION, MobEffects.WATER_BREATHING, MobEffects.SLOW_FALLING),
-            List.of(MobEffects.FIRE_RESISTANCE, MobEffects.DOLPHINS_GRACE, MobEffects.ABSORPTION));
-    /** Vanilla's own beacon powers: only these have a level II and no server switch. */
+    /** Hard cap of the effect range in blocks (REV2-A-1): 50 + 20 x 6 = 170 at most, times the Netherite factor 2. */
+    public static final int RANGE_CAP = 340;
+    /** Highest amplifier a beacon gives (III). */
+    public static final int MAX_AMPLIFIER = 2;
+    /** Vanilla's own beacon powers: these (and Health Boost on Mighty beacons) can be raised by the secondary power. */
     public static final List<Holder<MobEffect>> VANILLA = List.of(MobEffects.SPEED, MobEffects.HASTE, MobEffects.RESISTANCE,
             MobEffects.JUMP_BOOST, MobEffects.STRENGTH, MobEffects.REGENERATION);
     /** Effects renewed in place instead of re-added, so their one-time buffer (hearts) is not reset every 4 seconds. */
-    static final List<Holder<MobEffect>> RENEW_ONLY = List.of(MobEffects.ABSORPTION, MobEffects.HEALTH_BOOST);
+    static final List<Holder<MobEffect>> RENEW_ONLY = List.of(MobEffects.HEALTH_BOOST);
     /**
      * Saturation feeds every tick while it lasts, so the beacon gives it as a one-tick pulse every third cycle (12 s):
      * one hunger point and two saturation, about what walking and mining use - no hunger in range, no extra healing
@@ -65,6 +57,11 @@ public final class StrongBeaconLogic {
 
     public static int maxLevels() {
         return BeaconsConfig.strongBeaconMaxLevels;
+    }
+
+    /** Highest pyramid of {@code kind}: its own top level (primary levels + 1), lowered by the server config. */
+    public static int maxLevels(BeaconKind kind) {
+        return Math.min(kind.secondaryLevel(), maxLevels());
     }
 
     public static boolean isBase(BlockState state) {
@@ -99,7 +96,7 @@ public final class StrongBeaconLogic {
 
     /** Effect range with the material factor in percent ({@link RangeFactor}). */
     public static double range(int levels, int percent) {
-        return RangeFactor.apply(range(levels), percent);
+        return Math.min(RANGE_CAP, RangeFactor.apply(range(levels), percent));
     }
 
     /** Whether the beacon cycle at {@code gameTime} (every 80 ticks) gives the Saturation pulse. */
@@ -112,65 +109,71 @@ public final class StrongBeaconLogic {
         return (9 + levels * 2) * 20;
     }
 
-    /** The level an effect needs, {@link Integer#MAX_VALUE} for foreign or switched off effects, 0 for none. */
-    public static int requiredLevel(@Nullable Holder<MobEffect> effect) {
-        if (effect == null) return 0;
-        for (int i = 0; i < EFFECTS.size(); i++) {
-            if (EFFECTS.get(i).contains(effect)) {
-                if (isStrongEffect(effect) && !BeaconsConfig.effectOn(path(effect))) return Integer.MAX_VALUE;
-                return i + 1 > maxLevels() ? Integer.MAX_VALUE : i + 1;
-            }
-        }
-        return Integer.MAX_VALUE;
+    /** Whether the server lets players choose {@code effect} (the extra effects can be switched off; Vanilla's always). */
+    public static boolean effectOn(Holder<MobEffect> effect) {
+        return BeaconsConfig.effectOn(path(effect));
     }
 
-    /** Whether {@code effect} is one of the ten new ones (not Vanilla's): no level II, switchable by the server. */
-    public static boolean isStrongEffect(@Nullable Holder<MobEffect> effect) {
-        return effect != null && isKnown(effect) && !VANILLA.contains(effect);
+    /** The primary level the power ({@code effect}, {@code amplifier}) needs on {@code kind}, {@link Integer#MAX_VALUE} when it is unavailable. */
+    public static int primaryLevel(BeaconKind kind, @Nullable Holder<MobEffect> effect, int amplifier) {
+        int level = kind.primaryLevelOf(effect, amplifier);
+        if (level == 0 || !effectOn(effect) || level > maxLevels(kind)) return Integer.MAX_VALUE;
+        return level;
     }
 
-    public static boolean isKnown(@Nullable Holder<MobEffect> effect) {
-        return effect != null && EFFECTS.stream().anyMatch(list -> list.contains(effect));
+    /** Whether the secondary power may raise {@code effect} by one step (the "II" button). */
+    public static boolean canRaise(BeaconKind kind, @Nullable Holder<MobEffect> effect) {
+        if (effect == null || kind.evil()) return false;
+        return VANILLA.contains(effect) || kind.mighty() && MobEffects.HEALTH_BOOST.equals(effect);
+    }
+
+    /** The amplifier a primary power gets: its base, plus one when the secondary is the same effect and raising is allowed. */
+    public static int amplifier(BeaconKind kind, @Nullable Holder<MobEffect> primary, int baseAmplifier, @Nullable Holder<MobEffect> secondary, int levels) {
+        boolean raised = primary != null && primary.equals(secondary) && levels >= kind.secondaryLevel() && canRaise(kind, primary);
+        return Math.min(MAX_AMPLIFIER, baseAmplifier + (raised ? 1 : 0));
+    }
+
+    /** {@link #validate(BeaconKind, Holder, int, Holder, int)} with the lowest amplifier of the primary power. */
+    public static boolean validate(BeaconKind kind, @Nullable Holder<MobEffect> primary, @Nullable Holder<MobEffect> secondary, int levels) {
+        return validate(kind, primary, Math.max(0, kind.baseAmplifier(primary)), secondary, levels);
     }
 
     /**
-     * Server check of a choice (never trust the client): the primary is from levels 1-3 or 5-6 and within reach, the
-     * secondary needs level 4 and is Regeneration or the same primary ("II" - only for Vanilla's own level 1-3 effects,
-     * so no Absorption II or Saturation II).
+     * Server check of a choice (never trust the client): the primary power ({@code primaryAmp} picks between a power
+     * and its "II" placeholder) is on {@code kind}, switched on and within reach; the secondary needs the top level
+     * and is one of the kind's secondary powers or the same primary again (only where {@link #canRaise}).
      */
-    public static boolean validate(@Nullable Holder<MobEffect> primary, @Nullable Holder<MobEffect> secondary, int levels) {
+    public static boolean validate(BeaconKind kind, @Nullable Holder<MobEffect> primary, int primaryAmp, @Nullable Holder<MobEffect> secondary, int levels) {
         if (primary == null) return secondary == null;
-        int primaryLevel = requiredLevel(primary);
-        if (primaryLevel > levels || primaryLevel == LEVELS_NEEDED_FOR_SECONDARY) return false;
+        if (primaryLevel(kind, primary, primaryAmp) > levels) return false;
         if (secondary == null) return true;
-        if (levels < LEVELS_NEEDED_FOR_SECONDARY) return false;
-        if (secondary.equals(primary)) return primaryLevel < LEVELS_NEEDED_FOR_SECONDARY && !isStrongEffect(primary);
-        return requiredLevel(secondary) == LEVELS_NEEDED_FOR_SECONDARY;
+        if (levels < kind.secondaryLevel() || kind.secondaryLevel() > maxLevels(kind)) return false;
+        if (secondary.equals(primary)) return canRaise(kind, primary);
+        return kind.isSecondary(secondary) && effectOn(secondary);
     }
 
-    /** {@link #applyEffects(Level, BlockPos, int, Holder, Holder, int)} without a material factor. */
-    public static List<Player> applyEffects(Level level, BlockPos pos, int levels, @Nullable Holder<MobEffect> primary,
-                                            @Nullable Holder<MobEffect> secondary) {
-        return applyEffects(level, pos, levels, primary, secondary, RangeFactor.NONE);
-    }
-
-    /** Vanilla's {@code applyEffects} with the Strong range times {@code percent}; returns the players that got the primary effect. */
-    public static List<Player> applyEffects(Level level, BlockPos pos, int levels, @Nullable Holder<MobEffect> primary,
-                                            @Nullable Holder<MobEffect> secondary, int percent) {
-        if (level.isClientSide() || primary == null || requiredLevel(primary) > levels) return List.of();
+    /** Vanilla's {@code applyEffects} with the kind's powers and range times {@code percent}; returns the players that got the primary effect. */
+    public static List<Player> applyEffects(Level level, BlockPos pos, BeaconKind kind, int levels, @Nullable Holder<MobEffect> primary,
+                                            int primaryAmp, @Nullable Holder<MobEffect> secondary, int percent) {
+        if (level.isClientSide() || primary == null || primaryLevel(kind, primary, primaryAmp) > levels) return List.of();
         double range = range(levels, percent);
-        int amplifier = levels >= LEVELS_NEEDED_FOR_SECONDARY && Objects.equals(primary, secondary) && !isStrongEffect(primary) ? 1 : 0;
+        int amplifier = amplifier(kind, primary, primaryAmp, secondary, levels);
         int duration = durationTicks(levels);
+        // The box spans the whole height like Vanilla. Players are read from the level's short player list instead of an
+        // entity search: with a range of up to 340 blocks the search would scan hundreds of chunks every 80 ticks (REV2-A-1).
         AABB box = new AABB(pos).inflate(range).expandTowards(0.0, level.getHeight(), 0.0);
-        List<Player> players = level.getEntitiesOfClass(Player.class, box);
+        List<Player> players = new java.util.ArrayList<>();
+        for (Player player : level.players()) {
+            if (box.intersects(player.getBoundingBox()) && (!kind.evil() || EvilGate.affects(player))) players.add(player);
+        }
         boolean pulse = MobEffects.SATURATION.equals(primary);
         if (!pulse || saturationDue(level.getGameTime())) {
             for (Player player : players) {
                 give(player, primary, pulse ? 1 : duration, amplifier);
             }
         }
-        if (levels >= LEVELS_NEEDED_FOR_SECONDARY && secondary != null && !Objects.equals(primary, secondary)
-                && requiredLevel(secondary) <= levels) {
+        if (levels >= kind.secondaryLevel() && secondary != null && !Objects.equals(primary, secondary)
+                && kind.isSecondary(secondary) && effectOn(secondary) && kind.secondaryLevel() <= maxLevels(kind)) {
             for (Player player : players) {
                 give(player, secondary, duration, 0);
             }
@@ -179,9 +182,9 @@ public final class StrongBeaconLogic {
     }
 
     /**
-     * Adds the ambient effect. Absorption is a one-time buffer per stay (concept §3.2): while the player still has it,
+     * Adds the ambient effect. Health Boost's extra hearts are a one-time buffer per stay (concept §3.2): while the player still has it,
      * only its duration is renewed - a plain {@code addEffect} would call {@code onEffectStarted} again and refill the
-     * hearts every 4 seconds. Health Boost likewise: renewing in place keeps its max-health modifier untouched instead of removing and re-adding it.
+     * hearts every 4 seconds. Health Boost: renewing in place keeps its max-health modifier untouched instead of removing and re-adding it.
      */
     static void give(Player player, Holder<MobEffect> effect, int duration, int amplifier) {
         MobEffectInstance next = new MobEffectInstance(effect, duration, amplifier, true, true);

@@ -1,0 +1,41 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplebuilding"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplebuilding"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplebuilding"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "simplebuilding:copper_core",
+    "i": "simplebuilding:iron_core",
+    "g": "simplebuilding:gold_core",
+    "d": "simplebuilding:diamond_core",
+    "n": "simplebuilding:netherite_core",
+    "e": "simplebuilding:enderite_core",
+    "B": "simplebeacons:evil_beacon",
+    "U": "simplebeacons:strong_upgrade_template"
+  },
+  "pattern": [
+    "cig",
+    "dBn",
+    "UeU"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebeacons:mighty_evil_beacon"
+  }
+}

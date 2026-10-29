@@ -1,5 +1,6 @@
 package com.simplebeacons;
 
+import com.simplebeacons.beacon.BeaconKind;
 import com.simplebeacons.beacon.StrongBeaconBlock;
 import com.simplebeacons.beacon.StrongBeaconBlockEntity;
 import com.simplebeacons.beacon.StrongBeaconMenu;
@@ -35,20 +36,29 @@ import net.minecraft.world.level.material.MapColor;
  * directly in the initializer), in this order: blocks, items, block entity types, menu.
  */
 public final class BeaconsRegistry {
-    public static Block STRONG_BEACON, STRONG_CONDUIT;
-    public static Item STRONG_UPGRADE_TEMPLATE, STRONG_UPGRADE_SHARD, STRONG_BEACON_ITEM, STRONG_CONDUIT_ITEM;
+    public static Block STRONG_BEACON, MIGHTY_BEACON, EVIL_BEACON, MIGHTY_EVIL_BEACON, STRONG_CONDUIT;
+    public static Item STRONG_UPGRADE_TEMPLATE, EVIL_UPGRADE_TEMPLATE, STRONG_UPGRADE_SHARD, STRONG_BEACON_ITEM, MIGHTY_BEACON_ITEM,
+            EVIL_BEACON_ITEM, MIGHTY_EVIL_BEACON_ITEM, STRONG_CONDUIT_ITEM;
     public static BlockEntityType<StrongBeaconBlockEntity> STRONG_BEACON_BE;
     public static BlockEntityType<StrongConduitBlockEntity> STRONG_CONDUIT_BE;
     public static MenuType<StrongBeaconMenu> STRONG_BEACON_MENU;
 
     public static void registerBlocks() {
-        STRONG_BEACON = block("strong_beacon", StrongBeaconBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND)
-                .instrument(NoteBlockInstrument.HAT).strength(3.0F).lightLevel(state -> 15).noOcclusion().isRedstoneConductor((s, l, p) -> false));
+        STRONG_BEACON = beacon(BeaconKind.STRONG, MapColor.DIAMOND);
+        MIGHTY_BEACON = beacon(BeaconKind.MIGHTY, MapColor.GOLD);
+        EVIL_BEACON = beacon(BeaconKind.EVIL, MapColor.CRIMSON_NYLIUM);
+        MIGHTY_EVIL_BEACON = beacon(BeaconKind.MIGHTY_EVIL, MapColor.COLOR_RED);
         STRONG_CONDUIT = block("strong_conduit", StrongConduitBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND)
                 .forceSolidOn().instrument(NoteBlockInstrument.HAT).strength(3.0F).lightLevel(state -> 15).noOcclusion());
     }
 
     public static void registerItems() {
+        EVIL_UPGRADE_TEMPLATE = item("evil_upgrade_template", p -> new SmithingTemplateItem(
+                Component.translatable("item.simplebeacons.evil_upgrade_template.applies_to").withStyle(ChatFormatting.BLUE),
+                Component.translatable("item.simplebeacons.evil_upgrade_template.ingredients").withStyle(ChatFormatting.BLUE),
+                Component.translatable("item.simplebeacons.evil_upgrade_template.base_slot_description"),
+                Component.translatable("item.simplebeacons.evil_upgrade_template.additions_slot_description"),
+                List.of(), List.of(), p), SimpleRarity.MYTHIC.apply(new Item.Properties()));
         STRONG_UPGRADE_TEMPLATE = item("strong_upgrade_template", p -> new SmithingTemplateItem(
                 Component.translatable("item.simplebeacons.strong_upgrade_template.applies_to").withStyle(ChatFormatting.BLUE),
                 Component.translatable("item.simplebeacons.strong_upgrade_template.ingredients").withStyle(ChatFormatting.BLUE),
@@ -59,6 +69,12 @@ public final class BeaconsRegistry {
         STRONG_UPGRADE_SHARD = item("strong_upgrade_shard", Item::new, new Item.Properties().rarity(Rarity.UNCOMMON)
                 .delayedComponent(DataComponents.DAMAGE_RESISTANT, registries -> new DamageResistant(registries.getOrThrow(DamageTypeTags.IS_EXPLOSION))));
         STRONG_BEACON_ITEM = item("strong_beacon", p -> new BlockItem(STRONG_BEACON, p),
+                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+        MIGHTY_BEACON_ITEM = item("mighty_beacon", p -> new BlockItem(MIGHTY_BEACON, p),
+                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+        EVIL_BEACON_ITEM = item("evil_beacon", p -> new BlockItem(EVIL_BEACON, p),
+                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+        MIGHTY_EVIL_BEACON_ITEM = item("mighty_evil_beacon", p -> new BlockItem(MIGHTY_EVIL_BEACON, p),
                 SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
         STRONG_CONDUIT_ITEM = item("strong_conduit", p -> new BlockItem(STRONG_CONDUIT, p),
                 SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
@@ -78,7 +94,23 @@ public final class BeaconsRegistry {
     /** Creative tab stacks after the Vanilla beacon/conduit (empty while the module is switched off). */
     public static List<ItemStack> tabStacks() {
         if (!SimpleBeacons.on()) return List.of();
-        return List.of(new ItemStack(STRONG_BEACON_ITEM), new ItemStack(STRONG_CONDUIT_ITEM));
+        return List.of(new ItemStack(STRONG_BEACON_ITEM), new ItemStack(MIGHTY_BEACON_ITEM), new ItemStack(EVIL_BEACON_ITEM),
+                new ItemStack(MIGHTY_EVIL_BEACON_ITEM), new ItemStack(STRONG_CONDUIT_ITEM));
+    }
+
+    /** The upgrade templates (Vanilla Ingredients tab, after Vanilla's Netherite template). */
+    public static List<ItemStack> templateStacks() {
+        return List.of(new ItemStack(STRONG_UPGRADE_TEMPLATE), new ItemStack(EVIL_UPGRADE_TEMPLATE));
+    }
+
+    /** The four beacon blocks, the valid blocks of the one beacon block entity type. */
+    public static java.util.Set<Block> beaconBlocks() {
+        return java.util.Set.of(STRONG_BEACON, MIGHTY_BEACON, EVIL_BEACON, MIGHTY_EVIL_BEACON);
+    }
+
+    private static Block beacon(BeaconKind kind, MapColor color) {
+        return block(kind.id, p -> new StrongBeaconBlock(kind, p), BlockBehaviour.Properties.of().mapColor(color)
+                .instrument(NoteBlockInstrument.HAT).strength(3.0F).lightLevel(state -> 15).noOcclusion().isRedstoneConductor((s, l, pos) -> false));
     }
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties) {
@@ -115,6 +147,7 @@ public final class BeaconsRegistry {
                             out.accept(com.simplebeacons.guide.BeaconsGuide.stack());
                             tabStacks().forEach(out::accept);
                             out.accept(new net.minecraft.world.item.ItemStack(STRONG_UPGRADE_TEMPLATE));
+                            out.accept(new net.minecraft.world.item.ItemStack(EVIL_UPGRADE_TEMPLATE));
                             out.accept(new net.minecraft.world.item.ItemStack(STRONG_UPGRADE_SHARD));
                         }).build());
     }
