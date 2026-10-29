@@ -1,18 +1,14 @@
 package com.simplemusic.sheet;
 
-import com.simplemusic.registry.MusicComponents;
-import com.simplemusic.registry.MusicRegistry;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.world.item.ItemStack;
 
 /**
  * Example sheets that ship with the mod (NA24-8): three original pieces and public domain classics, from simple to
  * complex. The note code lives in {@code data/simplemusic/examples/<id>.txt} (sources named in each file's first
- * comment line); the creative tab hands them out as signed sheets.
+ * comment line); the sheet editor's "Add example" button loads one into the open sheet (BS25-13, owner 29.10.: no single example items).
  */
 public final class SheetExamples {
     /** An example: file id, title (at most {@link NoteCode#MAX_TITLE_LENGTH} characters) and author for the signature. */
@@ -38,16 +34,5 @@ public final class SheetExamples {
         } catch (IOException e) {
             return "";
         }
-    }
-
-    /** One signed sheet per example (creative tab). */
-    public static List<ItemStack> stacks() {
-        List<ItemStack> out = new ArrayList<>();
-        for (Example e : ALL) {
-            ItemStack stack = new ItemStack(MusicRegistry.SHEET_MUSIC);
-            stack.set(MusicComponents.SHEET, new SheetContent(code(e), e.title(), e.author(), true));
-            out.add(stack);
-        }
-        return out;
     }
 }

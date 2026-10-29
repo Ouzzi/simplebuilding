@@ -118,6 +118,10 @@ public final class VisualsTests {
    for(int i=0;i<=FrameTilt.STEPS;i++){h.assertTrue(frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO).consumesAction(),"Chisel click acts");steps.add(c.simplevisuals$tiltStep());}
    h.assertTrue(steps.equals(List.of(1,2,3,4,5,6,0)),"Sneak + chisel: 15 degree steps to 90, then flat: "+steps);
    h.assertTrue(frame.getRotation()==0&&frame.getItem().is(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE)&&p.getMainHandItem().getDamageValue()==0,"Rotation, item and chisel untouched (no Simple Tools reverse turn)");
+   frame.setItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND),false);steps.clear();
+   for(int i=0;i<=FrameTilt.STEPS;i++){frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);steps.add(c.simplevisuals$tiltStep());}
+   h.assertTrue(steps.equals(List.of(1,2,3,4,5,6,0)),"BS25-7: the chisel works on every item, not only flat blocks: "+steps);
+   frame.setItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.OAK_PRESSURE_PLATE),false);
    c.simplevisuals$setTiltStep(2);p.setShiftKeyDown(false);frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);
    h.assertTrue(c.simplevisuals$tiltStep()==2&&frame.getRotation()==1,"Without sneaking: Vanilla turn, tilt stays");
    Visuals.CONFIG.visuals.enableTiltedFrameItems=false;p.setShiftKeyDown(true);frame.interact(p,net.minecraft.world.InteractionHand.MAIN_HAND,net.minecraft.world.phys.Vec3.ZERO);

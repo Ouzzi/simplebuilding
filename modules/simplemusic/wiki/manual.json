@@ -66,7 +66,7 @@
         "title": "Editor",
         "summary": "Coloured code field with line numbers and underlined problems (the blueprint editor's field, now in SimpleLib). Listen plays the code on your client only.",
         "details": [
-          "Buttons: Listen/Stop, Import, Copy (code to the clipboard), Sign, Upload, Done. Closing saves the draft.",
+          "Buttons: Listen/Stop, Import, Add example (loads one of nine ready-made pieces, simple to complex, into the sheet and the grid; there are no single example items), Copy (code to the clipboard), Sign, Upload, Done. Closing saves the draft.",
           "Upload opens the upload window: it lists the .ogg files in config/simplemusic/upload/; choose a file, give a title, Upload. The client checks the file first, then sends it in parts. Only upload your own or free music."
         ]
       },
@@ -74,7 +74,7 @@
         "title": "Editor",
         "summary": "Farbiges Codefeld mit Zeilennummern und unterstrichenen Fehlern (das Feld des Blaupausen-Editors, jetzt in SimpleLib). Probehören spielt den Code nur auf deinem Client.",
         "details": [
-          "Knöpfe: Probehören/Stopp, Importieren, Kopieren (Code in die Zwischenablage), Signieren, Hochladen, Fertig. Schließen speichert den Entwurf.",
+          "Knöpfe: Probehören/Stopp, Importieren, Beispiel hinzufügen (lädt eines von neun fertigen Stücken, einfach bis komplex, in Blatt und Raster; es gibt keine einzelnen Beispiel-Items), Kopieren (Code in die Zwischenablage), Signieren, Hochladen, Fertig. Schließen speichert den Entwurf.",
           "Hochladen öffnet das Upload-Fenster mit den .ogg-Dateien aus config/simplemusic/upload/; Datei wählen, Titel geben, Hochladen. Der Client prüft die Datei zuerst und schickt sie dann in Stücken. Nur eigene oder freie Musik hochladen."
         ]
       }

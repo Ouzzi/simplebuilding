@@ -2,6 +2,7 @@ package com.simplesandwiches.registry;
 
 import com.simplesandwiches.Sandwiches;
 import com.simplesandwiches.item.KnifeItem;
+import com.simplesandwiches.item.SliceLayerItem;
 import com.simplesandwiches.sandwich.SandwichContents;
 import com.simplesandwiches.sandwich.SandwichItem;
 import java.util.LinkedHashMap;
@@ -33,9 +34,10 @@ public final class ModItems {
         KNIFE = register("knife", p -> new KnifeItem(KnifeItem.properties(p)));
         SANDWICH = register("sandwich", p -> new SandwichItem(p.stacksTo(SANDWICH_STACK)
                 .component(ModComponents.SANDWICH_CONTENTS, SandwichContents.EMPTY)));
-        CHEESE_SLICE = register("cheese_slice", p -> new Item(p.food(CHEESE_SLICE_FOOD)));
+        // BS25-14: eaten on a click, laid down as a cheese layer while sneaking.
+        CHEESE_SLICE = register("cheese_slice", p -> new SliceLayerItem(ModBlocks.CHEESE_CARPET, p.food(CHEESE_SLICE_FOOD).useItemDescriptionPrefix(), true));
         // Owner 24.10.: the slice can be laid down as a butter carpet (the block borrows the item name prefix).
-        BUTTER_SLICE = register("butter_slice", p -> new BlockItem(ModBlocks.BUTTER_CARPET, p.useItemDescriptionPrefix()));
+        BUTTER_SLICE = register("butter_slice", p -> new SliceLayerItem(ModBlocks.BUTTER_CARPET, p.useItemDescriptionPrefix(), false));
         // Eaten in one go, like a cake bite.
         CAKE_SLICE = register("cake_slice", p -> new Item(p.stacksTo(CAKE_SLICE_STACK)
                 .food(CAKE_SLICE_FOOD, Consumable.builder().consumeSeconds(0.0F).build())));

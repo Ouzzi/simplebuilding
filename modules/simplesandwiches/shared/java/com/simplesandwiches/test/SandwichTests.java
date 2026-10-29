@@ -7,6 +7,7 @@ import com.simplesandwiches.block.CuttingBoardBlockEntity.Stage;
 import com.simplesandwiches.block.MilkCauldronBlock;
 import com.simplesandwiches.block.MilkCauldronBlock.Content;
 import com.simplesandwiches.block.SliceBlock;
+import com.simplesandwiches.block.SliceLayerBlock;
 import com.simplesandwiches.config.SandwichConfig;
 import com.simplesandwiches.item.BundleEating;
 import com.simplesandwiches.item.KnifeItem;
@@ -52,6 +53,7 @@ import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -88,6 +90,7 @@ public final class SandwichTests {
         ALL.put("slippery_from_butter", SandwichTests::slipperyFromButter);
         ALL.put("slippery_friction", SandwichTests::slipperyFriction);
         ALL.put("butter_carpet_place_break", SandwichTests::butterCarpetPlaceBreak);
+        ALL.put("slice_layers", SandwichTests::sliceLayers);
         ALL.put("slice_block_cutting", SandwichTests::sliceBlockCutting);
         ALL.put("slice_block_keeps_state", SandwichTests::sliceBlockKeepsState);
         ALL.put("cheese_bounces_like_bed", SandwichTests::cheeseBouncesLikeBed);
@@ -576,6 +579,49 @@ public final class SandwichTests {
         h.assertTrue(kept[1] > kept[0] * 1.3, "slippery keeps more speed than plain stone: " + kept[0] + " vs " + kept[1]);
         h.assertTrue(com.simplesandwiches.registry.ModEffects.friction(p, 0.6F) == ModBlocks.BUTTER_FRICTION
                 && com.simplesandwiches.registry.ModEffects.friction(p, 0.98F) == 0.98F, "ice stays slicker, stone lifted to butter");
+        h.succeed();
+    }
+
+    /**
+     * BS25-14: cheese lies down as a carpet only while sneaking (a normal click does not place it), cheese and butter layers stack
+     * one slice per click up to 15, the 16th makes the full block, breaking drops one slice per layer.
+     */
+    static void sliceLayers(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos abs = h.absolutePos(pos);
+        h.setBlock(pos.below(), Blocks.STONE);
+        ServerPlayer p = player(h, pos.below());
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.CHEESE_SLICE, 32));
+        BlockHitResult top = new BlockHitResult(Vec3.atCenterOf(abs).relative(Direction.DOWN, 0.5), Direction.UP, abs.below(), false);
+        p.setShiftKeyDown(false);
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, top);
+        h.assertTrue(h.getLevel().getBlockState(abs).isAir(), "a normal click does not lay cheese down: " + h.getLevel().getBlockState(abs));
+        p.setShiftKeyDown(true);
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, top);
+        h.assertTrue(h.getLevel().getBlockState(abs).is(ModBlocks.CHEESE_CARPET), "sneaking lays a cheese carpet: " + h.getLevel().getBlockState(abs));
+        p.setShiftKeyDown(false);
+        BlockHitResult onCarpet = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        for (int i = 2; i <= 15; i++) {
+            p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+            BlockState now = h.getLevel().getBlockState(abs);
+            h.assertTrue(now.is(ModBlocks.CHEESE_CARPET) && now.getValue(SliceLayerBlock.LAYERS) == i, "layer " + i + ": " + now);
+        }
+        h.assertTrue(h.getLevel().getBlockState(abs).getShape(h.getLevel(), abs).max(Direction.Axis.Y) == 15.0 / 16, "15 layers are 15 px high");
+        var drops = Block.getDrops(h.getLevel().getBlockState(abs), h.getLevel(), abs, null);
+        h.assertTrue(drops.size() == 1 && drops.get(0).is(ModItems.CHEESE_SLICE) && drops.get(0).getCount() == 15, "15 layers drop 15 slices: " + drops);
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        BlockState full = h.getLevel().getBlockState(abs);
+        h.assertTrue(full.is(ModBlocks.CHEESE_BLOCK) && full.getValue(SliceBlock.SLICES) == SliceBlock.MAX, "the 16th slice makes the full cheese block: " + full);
+        h.assertTrue(p.getMainHandItem().getCount() == 32 - 16, "sixteen slices used: " + p.getMainHandItem().getCount());
+        // butter: layers stack the same way; two layers keep the walk-through behaviour and drop two slices
+        h.setBlock(pos, ModBlocks.BUTTER_CARPET);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.BUTTER_SLICE, 4));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        BlockState butter = h.getLevel().getBlockState(abs);
+        h.assertTrue(butter.is(ModBlocks.BUTTER_CARPET) && butter.getValue(SliceLayerBlock.LAYERS) == 2, "butter stacks: " + butter);
+        h.assertTrue(butter.getCollisionShape(h.getLevel(), abs).isEmpty(), "butter layers stay walk-through");
+        var butterDrops = Block.getDrops(butter, h.getLevel(), abs, null);
+        h.assertTrue(butterDrops.size() == 1 && butterDrops.get(0).is(ModItems.BUTTER_SLICE) && butterDrops.get(0).getCount() == 2, "two layers drop two slices: " + butterDrops);
         h.succeed();
     }
 
