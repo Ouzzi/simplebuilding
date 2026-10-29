@@ -377,6 +377,7 @@ public final class HammerTests {
             h.getLevel().setBlockAndUpdate(pos.below(), Blocks.BEDROCK.defaultBlockState());
             h.getLevel().setBlockAndUpdate(pos, Blocks.STONE.defaultBlockState());
             ServerPlayer player = lookingDown(h, new ItemStack(HammerRegistry.hammer(HammerTiers.STONE)));
+            player.getAbilities().instabuild = false; // the mock player starts in creative: durability must be paid
             ItemStack hammer = player.getMainHandItem();
             h.assertTrue(com.simplehammers.engine.HammerCrush.crushes(Blocks.STONE.defaultBlockState(), player)
                     && com.simplehammers.engine.HammerCrush.crushes(Blocks.COBBLESTONE.defaultBlockState(), player)
