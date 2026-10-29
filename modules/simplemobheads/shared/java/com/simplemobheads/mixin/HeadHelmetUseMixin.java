@@ -31,7 +31,10 @@ public abstract class HeadHelmetUseMixin {
 
     @Inject(method = "useWithoutItem", at = @At("HEAD"), cancellable = true)
     private void simplemobheads$helmetOff(Level level, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
-        if ((Object) this instanceof BlockState state && HeadHelmets.size(state) > 0.0F && HeadHelmets.take(level, hit.getBlockPos(), player)) {
+        // the click also arrives here after a held item found nothing to do (TRY_WITH_EMPTY_HAND): only a really empty hand takes
+        // the helmet off, so a block can still be placed against a helmeted head
+        if ((Object) this instanceof BlockState state && player.getMainHandItem().isEmpty() && HeadHelmets.size(state) > 0.0F
+                && HeadHelmets.take(level, hit.getBlockPos(), player)) {
             cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }
