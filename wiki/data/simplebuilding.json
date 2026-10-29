@@ -100013,6 +100013,10 @@
           "required": true
         },
         {
+          "id": "simplebuilding:warden_tendril",
+          "required": true
+        },
+        {
           "id": "simplebeacons:strong_upgrade_shard",
           "required": false
         },
@@ -100026,6 +100030,22 @@
         },
         {
           "id": "simplemobs:nether_gem",
+          "required": false
+        },
+        {
+          "id": "simplemobs:ender_gem",
+          "required": false
+        },
+        {
+          "id": "simplemobs:ender_heart",
+          "required": false
+        },
+        {
+          "id": "simplemobs:echo_core",
+          "required": false
+        },
+        {
+          "id": "simplemobs:dread_link",
           "required": false
         },
         {

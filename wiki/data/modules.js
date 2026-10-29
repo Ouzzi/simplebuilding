@@ -1306,7 +1306,7 @@ window.WIKI_MODULES = [
       "recipes": 283,
       "features": 9
     },
-    "dataHash": "0c3439764a93"
+    "dataHash": "36be559be2bf"
   },
   {
     "id": "simplecrucibles",
