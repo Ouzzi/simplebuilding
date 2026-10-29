@@ -77,7 +77,7 @@ public final class FarmingTests {
   h.assertTrue(VegetationUtil.passes(30,42L,1,100L)==VegetationUtil.passes(30,42L,1,105L),"roll is stable inside a half second");
   c.grassThroughMinPercent=80;c.grassThroughMaxPercent=20;c.normalizeNumbers();h.assertTrue(c.grassThroughMaxPercent>=c.grassThroughMinPercent,"normalized");
   configured(()->{var pos=new BlockPos(2,2,2);var p=player(h,pos);p.setItemSlot(EquipmentSlot.MAINHAND,enchanted(h,Items.DIAMOND_AXE,Enchantments.SHARPNESS));
-   h.setBlock(pos.below(),Blocks.DIRT);h.setBlock(pos,Blocks.SHORT_GRASS);h.setBlock(pos.east(),Blocks.SHORT_GRASS);h.setBlock(pos.east().east(),Blocks.SHORT_GRASS);var target=h.spawn(EntityTypes.COW,2,2,2);
+   for(int dx=0;dx<=2;dx++)h.setBlock(pos.below().east(dx),Blocks.DIRT);h.setBlock(pos,Blocks.SHORT_GRASS);h.setBlock(pos.east(),Blocks.SHORT_GRASS);h.setBlock(pos.east().east(),Blocks.SHORT_GRASS);var target=h.spawn(EntityTypes.COW,2,2,2);
    var old=InteractionGuard.permission;try{InteractionGuard.permission=(a,b)->true;p.attack(target);}finally{InteractionGuard.permission=old;}
    h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos.east())).isAir(),"axe cuts the 3x3 around the target");
    h.assertTrue(h.getLevel().getBlockState(h.absolutePos(pos.east().east())).is(Blocks.SHORT_GRASS),"outside 3x3 without Sweeping Edge stays");});
