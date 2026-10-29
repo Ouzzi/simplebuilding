@@ -277,6 +277,7 @@ QUEST = {
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
+    "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
