@@ -38,7 +38,7 @@ public class Zorse extends AbstractHorse {
     }
 
     @Override
-    protected void hurtArmor(DamageSource source, float damage) {
+    public void hurtArmor(DamageSource source, float damage) {
         this.doHurtEquipment(source, damage, EquipmentSlot.BODY);
     }
 
