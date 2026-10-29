@@ -45,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
  *       "material": "minecraft:netherite_ingot",  // off hand, used up on the last strike
  *       "material_count": 1,                       // optional, per block (default 1)
  *       "duration_factor": 1,                      // optional, times the strikes (default 1)
+ *       "strikes_per_material": 2,                 // optional, strikes = this x material_count (replaces the duration factor; default 0 = off)
  *       "tool": "#simplelib:upgrade_tools",        // optional item tag of the tool (this is the default)
  *       "min_tool": "diamond",                     // optional, the tool owner's grade name (old name: min_hammer)
  *       "damage_per_hit": 4,                       // optional tool durability per strike (default 1)
@@ -83,11 +84,17 @@ public final class InWorldUpgrades {
 
     /** One upgrade step as the files say it. {@code minTool} and {@code tier} mean what the tool's owner defines. */
     public record Entry(Block from, Block to, Item material, int materialCount, int durationFactor, TagKey<Item> tool,
-                        String minTool, int damagePerHit, String tier) {
+                        String minTool, int damagePerHit, String tier, int strikesPerMaterial) {
         public Entry {
             materialCount = Math.max(1, materialCount);
             durationFactor = Math.max(1, durationFactor);
             damagePerHit = Math.max(0, damagePerHit);
+            strikesPerMaterial = Math.max(0, strikesPerMaterial);
+        }
+
+        public Entry(Block from, Block to, Item material, int materialCount, int durationFactor, TagKey<Item> tool,
+                     String minTool, int damagePerHit, String tier) {
+            this(from, to, material, materialCount, durationFactor, tool, minTool, damagePerHit, tier, 0);
         }
     }
 
@@ -246,7 +253,7 @@ public final class InWorldUpgrades {
         ItemStack material = player.getOffhandItem();
         boolean pays = !player.hasInfiniteMaterials();
         if (pays && (!material.is(entry.material()) || material.getCount() < entry.materialCount())) return false;
-        int total = AXE_STRIKES * entry.durationFactor();
+        int total = entry.strikesPerMaterial() > 0 ? entry.strikesPerMaterial() * entry.materialCount() : AXE_STRIKES * entry.durationFactor();
         int done = InWorldStrikes.count(level, pos, AXE_KIND, state, total, level.getGameTime());
         if (done == 0) return true;
         InWorldStrikes.feedback(level, pos, state, done, total);
@@ -358,7 +365,8 @@ public final class InWorldUpgrades {
                 json.has("duration_factor") ? json.get("duration_factor").getAsInt() : 1,
                 tool, minTool,
                 json.has("damage_per_hit") ? json.get("damage_per_hit").getAsInt() : 1,
-                json.has("tier") ? json.get("tier").getAsString() : "");
+                json.has("tier") ? json.get("tier").getAsString() : "",
+                json.has("strikes_per_material") ? json.get("strikes_per_material").getAsInt() : 0);
     }
 
     private static @Nullable Block block(Identifier file, String id) {

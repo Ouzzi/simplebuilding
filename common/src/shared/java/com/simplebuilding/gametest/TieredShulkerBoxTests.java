@@ -541,13 +541,16 @@ public final class TieredShulkerBoxTests {
         click(helper, player, pos);
         helper.assertTrue(player.containerMenu == player.inventoryMenu, what + ": the click opened the box instead of the hammer");
         helper.assertTrue(player.isUsingItem() && SledgehammerUpgrades.hasJob(player), what + ": the click did not start the upgrade");
-        for (int tick = 1; tick <= CHEST_UPGRADE_TICKS; tick++) {
+        // Five blows (the chest's length) at the strike gap of this hammer tier (HS29-2), then five more.
+        int gap = SledgehammerUpgrades.hitInterval(hammer);
+        int chestTicks = CHEST_UPGRADE_TICKS * gap / SledgehammerUpgrades.HIT_INTERVAL, shulkerTicks = SHULKER_UPGRADE_TICKS * gap / SledgehammerUpgrades.HIT_INTERVAL;
+        for (int tick = 1; tick <= chestTicks; tick++) {
             player.connection.tick();
         }
         helper.assertTrue(helper.getBlockState(pos).is(from) && SledgehammerUpgrades.hasJob(player),
                 what + ": after the chest's five seconds the box is " + helper.getBlockState(pos) + " (job "
                         + SledgehammerUpgrades.hasJob(player) + "), expected still " + from);
-        for (int tick = CHEST_UPGRADE_TICKS + 1; tick <= SHULKER_UPGRADE_TICKS; tick++) {
+        for (int tick = chestTicks + 1; tick <= shulkerTicks; tick++) {
             player.connection.tick();
         }
         helper.assertFalse(SledgehammerUpgrades.hasJob(player), what + ": the job outlived the upgrade");

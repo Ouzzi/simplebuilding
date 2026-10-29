@@ -746,7 +746,8 @@ public final class TieredChestTests {
         click(helper, player, chest);
         helper.assertTrue(player.containerMenu == player.inventoryMenu, what + ": the click opened the chest instead of the hammer");
         helper.assertTrue(player.isUsingItem() && SledgehammerUpgrades.hasJob(player), what + ": the click did not start the upgrade");
-        for (int tick = 1; tick <= UPGRADE_TICKS; tick++) {
+        // Five blows at the strike gap of this hammer tier (HS29-2).
+        for (int tick = 1; tick <= UPGRADE_TICKS * SledgehammerUpgrades.hitInterval(hammer) / SledgehammerUpgrades.HIT_INTERVAL; tick++) {
             player.connection.tick();
         }
         helper.assertFalse(SledgehammerUpgrades.hasJob(player), what + ": the job outlived the upgrade");

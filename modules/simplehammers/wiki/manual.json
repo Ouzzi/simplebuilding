@@ -107,6 +107,55 @@
       }
     },
     {
+      "id": "stone_crush",
+      "sources": [
+        "modules/simplehammers/shared/java/com/simplehammers/engine/HammerCrush.java",
+        "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java"
+      ],
+      "en": {
+        "title": "Crushing stone: Stone, Cobblestone, Gravel, Sand",
+        "summary": "Right-click (not sneaking) Stone, Cobblestone or Gravel five times with any sledgehammer: Stone becomes Cobblestone, Cobblestone becomes Gravel, Gravel becomes Sand.",
+        "details": [
+          "The same for all seven hammers; only the tempo differs by tier (see strike tempo). Each strike cracks the block and grows the next stage over it; the fifth swaps the block and costs 1 durability. Gravel and Sand fall like in Vanilla.",
+          "Sneaking is the reshape and carve stance and leaves these blocks alone. The 3x3 area breaking, the one-block sneak break and the corner carving are unchanged.",
+          "Strikes count per block, any player continues them; without a further strike the count runs out after 5 seconds. Claims and protections apply as for reshaping."
+        ]
+      },
+      "de": {
+        "title": "Stein zerkleinern: Stein, Bruchstein, Kies, Sand",
+        "summary": "Fünf Rechtsklicks (ohne Schleichen) auf Stein, Bruchstein oder Kies mit jedem Vorschlaghammer: Stein wird Bruchstein, Bruchstein wird Kies, Kies wird Sand.",
+        "details": [
+          "Für alle sieben Hämmer gleich; nur das Tempo unterscheidet sich nach Stufe (siehe Schlagtempo). Jeder Schlag lässt den Block reißen und lässt die nächste Stufe darüber wachsen; der fünfte tauscht den Block und kostet 1 Haltbarkeit. Kies und Sand fallen wie bei Vanilla.",
+          "Schleichen ist die Umform- und Ecken-Haltung und lässt diese Blöcke in Ruhe. Das 3x3-Abbauen, das Ein-Block-Abbauen beim Schleichen und das Ecken-Abtragen bleiben unverändert.",
+          "Die Schläge zählen je Block, jeder Spieler setzt sie fort; ohne weiteren Schlag verfällt die Zählung nach 5 Sekunden. Claims und Schutz gelten wie beim Umformen."
+        ]
+      }
+    },
+    {
+      "id": "strike_tempo",
+      "sources": [
+        "modules/simplehammers/shared/java/com/simplehammers/HammerTiers.java",
+        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
+        "modules/simplelib/shared/java/com/simplelib/api/InWorldStrikes.java"
+      ],
+      "en": {
+        "title": "Strike tempo by hammer tier",
+        "summary": "Every conversion with a hammer strikes at the tempo of the tier: Netherite every 20 ticks (the old tempo), Enderite 19, Diamond 21, Gold 22, Iron 23, Copper 24, Stone 25.",
+        "details": [
+          "Holding use (machine, chest, crucible, enchanter upgrades) and single right-click strikes (quartz block, diamond block, chips, placed smithing templates, Strong upgrades, stone crushing) follow the same gap, so a quartz block is no longer crushed in a blink.",
+          "An upgrade takes strikes x gap ticks: five strikes are 100 ticks with a Netherite hammer, 125 with a Stone hammer. Axe ways without a hammer mod keep their own pace."
+        ]
+      },
+      "de": {
+        "title": "Schlagtempo je Hammerstufe",
+        "summary": "Jede Umwandlung mit dem Hammer schlägt im Takt der Stufe: Netherit alle 20 Ticks (das alte Tempo), Enderit 19, Diamant 21, Gold 22, Eisen 23, Kupfer 24, Stein 25.",
+        "details": [
+          "Gehaltenes Benutzen (Aufwertungen von Maschinen, Truhen, Tiegeln, Verzauberer) und einzelne Rechtsklick-Schläge (Quarzblock, Diamantblock, Späne, abgelegte Schmiedevorlagen, Starke Aufwertungen, Stein zerkleinern) folgen demselben Abstand, ein Quarzblock zerspringt also nicht mehr im Nu.",
+          "Eine Aufwertung dauert Schläge x Abstand Ticks: fünf Schläge sind 100 Ticks mit einem Netherit-Hammer, 125 mit einem Steinhammer. Axt-Wege ohne Hammer-Mod behalten ihr eigenes Tempo."
+        ]
+      }
+    },
+    {
       "id": "in_world_upgrade",
       "sources": [
         "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
@@ -120,26 +169,28 @@
       ],
       "en": {
         "title": "In-world upgrades with the hammer",
-        "summary": "Hammer in the main hand, the upgrade material in the off hand, hold use on an upgradable block: one strike per second (5 by default), the last one turns it into the next tier with its contents. Which blocks go up is SimpleLib's data type in_world_upgrades - every Simple mod ships its own (crucibles, furnaces, beacons, SimpleBuilding's chests, hoppers and pistons).",
+        "summary": "Hammer in the main hand, the upgrade material in the off hand, hold use on an upgradable block: one strike per tick-gap of the hammer tier (about one per second, 5 by default), the last one turns it into the next tier with its contents. Which blocks go up is SimpleLib's data type in_world_upgrades - every Simple mod ships its own (crucibles, furnaces, beacons, SimpleBuilding's chests, hoppers and pistons).",
         "details": [
           "While Simple Hammers is loaded the axe ways of the other Simple mods are off: building crucibles, attaching barrels and upgrading run with the hammer only.",
           "Netherite tiers need at least a Diamond Sledgehammer, Enderite tiers a Netherite one (min_tool). Each strike costs 2 (to reinforced), 4 (Netherite) or 10 (Enderite) durability (config).",
           "Strikes are saved with the world and shown as cracks; anyone continues where it stopped. Letting go, looking away, a changed block or missing material stops it without using the material.",
           "Crucibles go up strike by strike with one material unit every few strikes (Simple Crucibles); a double chest needs the material twice (SimpleBuilding).",
           "Wrong material, a too weak hammer or too little material: a quiet clunk instead of text.",
-          "Between two strikes the hammer draws back like a bow and rushes forward onto the block for the strike (first person); other players see the arm lifted over the head and the blow. Every upgradable block item says in its tooltip how it goes up and which off-hand material it takes how often."
+          "Between two strikes the hammer draws back like a bow and rushes forward onto the block for the strike (first person); other players see the arm lifted over the head and the blow. Every upgradable block item says in its tooltip how it goes up and which off-hand material it takes how often.",
+          "Strike gap by hammer tier (Netherite 20 ticks, Enderite 19 ... Stone 25) and strikes_per_material: an entry may take one material per N strikes - the Astral Enchanting Table takes 8 Enderite Nuggets over 16 strikes at 35 durability each (a durability value that differs from the tier's default counts)."
         ]
       },
       "de": {
         "title": "Aufwerten in der Welt mit dem Hammer",
-        "summary": "Hammer in der Haupthand, das Aufwertungsmaterial in der Nebenhand, Benutzen auf einem aufwertbaren Block halten: ein Schlag je Sekunde (Standard 5), der letzte macht ihn samt Inhalt zur nächsten Stufe. Welche Blöcke aufsteigen, sagt SimpleLibs Datentyp in_world_upgrades - jede Simple-Mod bringt ihre eigenen mit (Tiegel, Öfen, Leuchtfeuer, SimpleBuildings Truhen, Trichter und Kolben).",
+        "summary": "Hammer in der Haupthand, das Aufwertungsmaterial in der Nebenhand, Benutzen auf einem aufwertbaren Block halten: ein Schlag im Takt der Hammerstufe (etwa einer je Sekunde, Standard 5), der letzte macht ihn samt Inhalt zur nächsten Stufe. Welche Blöcke aufsteigen, sagt SimpleLibs Datentyp in_world_upgrades - jede Simple-Mod bringt ihre eigenen mit (Tiegel, Öfen, Leuchtfeuer, SimpleBuildings Truhen, Trichter und Kolben).",
         "details": [
           "Solange Simple Hammers geladen ist, sind die Axt-Wege der anderen Simple-Mods aus: Tiegel bauen, Fässer andocken und Aufwerten gehen nur mit dem Hammer.",
           "Netherit-Stufen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Stufen einen aus Netherit (min_tool). Jeder Schlag kostet 2 (zu verstärkt), 4 (Netherit) oder 10 (Enderit) Haltbarkeit (Config).",
           "Die Schläge werden mit der Welt gespeichert und als Risse gezeigt; jeder setzt dort fort. Loslassen, Wegschauen, ein anderer Block oder fehlendes Material bricht ab, ohne Material zu verbrauchen.",
           "Tiegel steigen Schlag für Schlag auf, alle paar Schläge eine Materialeinheit (Simple Crucibles); eine Doppeltruhe braucht das Material doppelt (SimpleBuilding).",
           "Falsches Material, zu schwacher Hammer oder zu wenig Material: ein leises Klonk statt Text.",
-          "Zwischen zwei Schlägen holt der Hammer wie ein Bogen aus und saust zum Schlag auf den Block (erste Person); andere sehen den Arm über dem Kopf und den Schlag. Jedes aufwertbare Block-Item sagt im Tooltip, wie es aufsteigt und welches Material es wie oft in der Nebenhand braucht."
+          "Zwischen zwei Schlägen holt der Hammer wie ein Bogen aus und saust zum Schlag auf den Block (erste Person); andere sehen den Arm über dem Kopf und den Schlag. Jedes aufwertbare Block-Item sagt im Tooltip, wie es aufsteigt und welches Material es wie oft in der Nebenhand braucht.",
+          "Schlagabstand je Hammerstufe (Netherit 20 Ticks, Enderit 19 ... Stein 25) und strikes_per_material: ein Eintrag kann ein Material je N Schläge nehmen - der Astral-Verzauberungstisch nimmt 8 Enderit-Nuggets über 16 Schläge zu je 35 Haltbarkeit (ein vom Stufen-Standard abweichender Haltbarkeitswert gilt)."
         ]
       }
     },

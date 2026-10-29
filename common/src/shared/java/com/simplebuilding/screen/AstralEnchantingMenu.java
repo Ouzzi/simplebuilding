@@ -211,9 +211,27 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         return AstralEnchanting.basePrice(this.chosen, maxLevels(), this.value);
     }
 
-    /** The price in levels (tax included, at most 50): used up on enchanting, and the player needs it. */
+    /** Whether the item slot holds a golden apple (BS25-22): the table then offers the Enchanted Golden Apple instead of sliders. */
+    public boolean isApple() {
+        return this.itemSlot.getItem(0).is(Items.GOLDEN_APPLE);
+    }
+
+    /** The price in levels (tax included, at most 50): used up on enchanting, and the player needs it. A golden apple: {@link AstralEnchanting#APPLE_LEVELS}. */
     public int price() {
-        return AstralEnchanting.price(this.chosen, maxLevels(), this.value);
+        return isApple() ? AstralEnchanting.APPLE_LEVELS : AstralEnchanting.price(this.chosen, maxLevels(), this.value);
+    }
+
+    /** Levels the click takes off the player: the apple's whole price, else 1-5 like Vanilla's table. */
+    public int levelsTaken() {
+        return isApple() ? AstralEnchanting.APPLE_LEVELS : AstralEnchanting.levelCost(price());
+    }
+
+    public int lapisNeeded() {
+        return isApple() ? AstralEnchanting.APPLE_LAPIS : AstralEnchanting.lapisCost(price());
+    }
+
+    public int blazeNeeded() {
+        return isApple() ? AstralEnchanting.APPLE_BLAZE : AstralEnchanting.blazePowderCost(price());
     }
 
     /** Highest level the slider in {@code row} may reach now (the rest greyed out). */
@@ -232,10 +250,10 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     /** Whether {@code player} could enchant now (client: to light the button; server checks again). */
     public boolean canEnchant(Player player) {
         int price = price();
-        if (this.itemSlot.getItem(0).isEmpty() || price <= 0 || price > budget()) return false;
+        boolean apple = isApple();
+        if (this.itemSlot.getItem(0).isEmpty() || price <= 0 || (!apple && price > budget())) return false;
         if (player.hasInfiniteMaterials()) return true;
-        return player.experienceLevel >= price
-                && lapis() >= AstralEnchanting.lapisCost(price) && blazePowder() >= AstralEnchanting.blazePowderCost(price);
+        return player.experienceLevel >= price && lapis() >= lapisNeeded() && blazePowder() >= blazeNeeded();
     }
 
     /** Enchantment of a row on this side, or null. */
@@ -257,8 +275,28 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         return true;
     }
 
+    /** BS25-22: the golden apple becomes an Enchanted Golden Apple for 40 levels, 3 lapis lazuli and 3 blaze powder. */
+    private boolean enchantApple(Player player) {
+        return this.access.evaluate((level, pos) -> {
+            if (!player.hasInfiniteMaterials()) {
+                player.giveExperienceLevels(-AstralEnchanting.APPLE_LEVELS);
+                this.stock.removeItem(AstralEnchantingTableBlockEntity.LAPIS, AstralEnchanting.APPLE_LAPIS);
+                this.stock.removeItem(AstralEnchantingTableBlockEntity.BLAZE, AstralEnchanting.APPLE_BLAZE);
+            }
+            ItemStack result = new ItemStack(Items.ENCHANTED_GOLDEN_APPLE);
+            player.awardStat(Stats.ENCHANT_ITEM);
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.ENCHANTED_ITEM.trigger(serverPlayer, result, AstralEnchanting.APPLE_LEVELS);
+            }
+            this.itemSlot.setItem(0, result);
+            level.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+            return true;
+        }, false);
+    }
+
     private boolean enchant(Player player) {
         if (!canEnchant(player)) return false;
+        if (isApple()) return enchantApple(player);
         return this.access.evaluate((level, pos) -> {
             int tier = readTier(level, pos);
             int levels = price();

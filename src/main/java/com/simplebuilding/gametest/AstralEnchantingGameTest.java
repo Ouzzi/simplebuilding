@@ -25,6 +25,11 @@ public final class AstralEnchantingGameTest {
     }
 
     @GameTest
+    public void goldenAppleBecomesEnchanted(GameTestHelper helper) {
+        AstralEnchantingTests.goldenAppleBecomesEnchanted(helper);
+    }
+
+    @GameTest
     public void breakingDropsTableNuggetAndStock(GameTestHelper helper) {
         AstralEnchantingTests.breakingDropsTableNuggetAndStock(helper);
     }

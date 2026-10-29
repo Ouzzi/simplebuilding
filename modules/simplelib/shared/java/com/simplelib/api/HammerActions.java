@@ -47,6 +47,8 @@ public final class HammerActions {
     public static final String RESHAPE = "reshape";
     /** The hammer crushed a diamond block (or cracked diamond block) into pebbles. */
     public static final String DIAMOND_CRUSH = "diamond_crush";
+    /** The hammer crushed Stone / Cobblestone / Gravel one stage further (HS29-3). */
+    public static final String CRUSH = "crush";
     /** One extra block of an area break. */
     public static final String AREA_BLOCK = "area_block";
     /** An in-world upgrade to the Netherite / Enderite tier finished. */

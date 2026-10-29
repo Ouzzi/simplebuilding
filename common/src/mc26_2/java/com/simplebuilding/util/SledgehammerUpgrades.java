@@ -128,15 +128,21 @@ public final class SledgehammerUpgrades {
      * das Material je Block (Shulkerkisten: 2; eine Doppeltruhe braucht es zweimal).
      */
     public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
-                          boolean toReinforced, int durationFactor, int materialCost) {
+                          boolean toReinforced, int durationFactor, int materialCost, int strikesPerMaterial) {
         public Upgrade {
             durationFactor = Math.max(1, durationFactor);
             materialCost = Math.max(1, materialCost);
+            strikesPerMaterial = Math.max(0, strikesPerMaterial);
+        }
+
+        public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
+                       boolean toReinforced, int durationFactor, int materialCost) {
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, durationFactor, materialCost, 0);
         }
 
         public Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
                        boolean toReinforced) {
-            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1);
+            this(from, to, nugget, minHammerRank, damagePerHit, toEnderite, toReinforced, 1, 1, 0);
         }
 
         /** Ob diese Stufe eine Truhe umbaut (Doppeltruhen: beide Haelften, ein Material je Haelfte). */
@@ -172,6 +178,7 @@ public final class SledgehammerUpgrades {
      */
     public static int blows(Upgrade upgrade) {
         if (staged(upgrade)) return com.simplebuilding.crucible.CrucibleCompat.crucibleUpgradeStrikes();
+        if (upgrade.strikesPerMaterial() > 0) return upgrade.strikesPerMaterial() * upgrade.materialCost();
         return blows() * upgrade.durationFactor();
     }
 

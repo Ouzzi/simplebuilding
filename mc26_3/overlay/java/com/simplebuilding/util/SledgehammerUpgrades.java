@@ -82,12 +82,12 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
             }
             // Crucibles, barrels and the cauldron: Simple Crucibles ships them (data/simplecrucibles/in_world_upgrades, a-small22),
             // so the hammer ways also work without SimpleBuilding.
-            // Astral-Verzauberungstisch (Queue N27): Verzauberungstisch + Enderit-Nugget, ab Netherit-Hammer, 4x so viele
-            // Schlaege (Standard 5 -> 20); verbraucht wird das Nugget beim letzten Schlag.
+            // Astral-Verzauberungstisch (Queue N27, BS25-16 29.10.): Verzauberungstisch + 8 Enderit-Nuggets (alle 2 Schlaege
+            // eins = 16 Schlaege), ab Netherit-Hammer, 35 Haltbarkeit je Schlag; verbraucht werden die Nuggets beim letzten Schlag.
             if (McVersion.ASTRAL_ENCHANTING) {
                 map.put(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE, new Upgrade(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE,
-                        ModBlocks.ASTRAL_ENCHANTING_TABLE, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false,
-                        ASTRAL_TABLE_DURATION_FACTOR, 1));
+                        ModBlocks.ASTRAL_ENCHANTING_TABLE, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ASTRAL_TABLE_DAMAGE_PER_HIT, true, false,
+                        1, ASTRAL_TABLE_NUGGETS, ASTRAL_TABLE_STRIKES_PER_NUGGET));
             }
             table = Map.copyOf(map);
             builtIn = table;
@@ -95,8 +95,8 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
         return table;
     }
 
-    /** Astral Enchanting Table: four times the blows of a machine upgrade (about 20, owner N27). */
-    public static final int ASTRAL_TABLE_DURATION_FACTOR = 4;
+    /** Astral Enchanting Table (BS25-16, owner 25.10./29.10.): 8 Enderite nuggets, one per 2 strikes, 35 durability a strike (30-40). */
+    public static final int ASTRAL_TABLE_NUGGETS = 8, ASTRAL_TABLE_STRIKES_PER_NUGGET = 2, ASTRAL_TABLE_DAMAGE_PER_HIT = 35;
 
     private static void toNetherite(Map<Block, Upgrade> map, Block from, Block to) {
         map.put(from, new Upgrade(from, to, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false));

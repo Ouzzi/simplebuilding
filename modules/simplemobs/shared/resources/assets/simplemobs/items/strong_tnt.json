@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplemobs:block/strong_tnt",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 16751164
+      }
+    ]
+  }
+}

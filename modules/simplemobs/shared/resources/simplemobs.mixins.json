@@ -20,7 +20,8 @@
     "ItemHelmetWitherMixin",
     "DisplayWitherCrownMixin",
     "WitherBossAccessor",
-    "FireworkRocketWingsMixin"
+    "FireworkRocketWingsMixin",
+    "PrimedTntStrongMixin"
   ],
   "client": [
     "DeceiverLookMixin",

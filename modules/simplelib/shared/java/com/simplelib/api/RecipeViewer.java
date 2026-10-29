@@ -196,7 +196,8 @@ public final class RecipeViewer {
             List<Item> tools = tools(entry);
             if (tools.isEmpty()) continue;
             HammerActions.Staged staged = HammerActions.staged(entry.from());
-            int strikes = staged != null ? staged.strikes() : InWorldUpgrades.AXE_STRIKES * entry.durationFactor();
+            int strikes = staged != null ? staged.strikes() : entry.strikesPerMaterial() > 0 ? entry.strikesPerMaterial() * entry.materialCount()
+                    : InWorldUpgrades.AXE_STRIKES * entry.durationFactor();
             List<Component> notes = new ArrayList<>();
             notes.add(Component.translatable(NOTE + "upgrade.strikes", strikes));
             if (!"any".equals(entry.minTool()) && !entry.minTool().isBlank()) {
