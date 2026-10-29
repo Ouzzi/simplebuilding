@@ -141,9 +141,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 9,
-      "features": 73
+      "features": 74
     },
-    "dataHash": "3911dfcb569b"
+    "dataHash": "115419313a33"
   },
   {
     "id": "simpleriding",
@@ -253,7 +253,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "7db736f28ed7"
+    "dataHash": "6ee78ecaa18a"
   },
   {
     "id": "simplevisuals",
@@ -291,7 +291,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "314f96b911d5"
+    "dataHash": "7f6f6e2748f7"
   },
   {
     "id": "simplesounds",
@@ -324,9 +324,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVR42mNICHP4TwlmABHfnh8hGX+4sQDVgE931/7/8fYKmCaEQZrXzinGNAAZa2lpgTE2zSCL8BoA0jhr1iwMA6wWnAAbgNUFMBtBODs7G8UAZI0wNlYDQBqRMcwAZI0wNtEGoNtMWwOwhQE2zQSjETkWYBrRDcJpAEwBzDXIBiBjrAbgUkyUAaDURbYBMAFSMdwASjAABHrCsb/q5xYAAAAASUVORK5CYII=",
     "counts": {
-      "features": 20
+      "features": 21
     },
-    "dataHash": "ca8b76219997"
+    "dataHash": "edf746181675"
   },
   {
     "id": "simplequalityoflife",
@@ -376,7 +376,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "7caa44151688"
+    "dataHash": "af7a8b8c1286"
   },
   {
     "id": "simpletweaks",
@@ -434,9 +434,9 @@ window.WIKI_MODULES = [
       "items": 2,
       "blocks": 1,
       "recipes": 3,
-      "features": 41
+      "features": 42
     },
-    "dataHash": "03627290d5c3"
+    "dataHash": "b4d3490e3b7f"
   },
   {
     "id": "simpledimensions",
@@ -476,9 +476,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 2,
       "recipes": 1,
-      "features": 7
+      "features": 8
     },
-    "dataHash": "3d4e88564fde"
+    "dataHash": "1095fa1f9dc9"
   },
   {
     "id": "simplesandwiches",
@@ -509,11 +509,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 19,
+      "blocks": 20,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "513e78aa0d4e"
+    "dataHash": "602f46a6cd88"
   },
   {
     "id": "simplelib",
@@ -545,9 +545,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 5
+      "features": 6
     },
-    "dataHash": "a33cdc057568"
+    "dataHash": "5ecc7ae0c097"
   },
   {
     "id": "simpleinterfaces",
@@ -576,9 +576,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 44
+      "features": 54
     },
-    "dataHash": "e10cc3060dd6"
+    "dataHash": "ba87fdc02399"
   },
   {
     "id": "simplemaps",
@@ -682,12 +682,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 26,
-      "blocks": 2,
-      "recipes": 70,
-      "features": 15
+      "items": 28,
+      "blocks": 3,
+      "recipes": 73,
+      "features": 16
     },
-    "dataHash": "a46159bc6338"
+    "dataHash": "747cb77dc5bf"
   },
   {
     "id": "simpleweather",
@@ -715,9 +715,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnUlEQVR42mOQVtD5TwlmABHdk5aSjF0C8lANiMto+r96wz4wDcJZxQ0oGCYOwiDNhlb+mAYga/706RMKhhkC0gyyCKsBMNvQNSMbAsMYBuDTiMswuAGkaqbYgB0HzmAaABIkBaMYAAsDUjDWWLCvfwCPKhAG8WFsdD6GAaRoxpmQkBUQwhgGgFIXMTbD+CgGwARAkiAahgnx4QZQggHab2K50IVYOwAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 3
+      "features": 4
     },
-    "dataHash": "3616f2fcabf2"
+    "dataHash": "02a80fbfa5f0"
   },
   {
     "id": "simplemovement",
@@ -750,7 +750,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "12b924862908"
+    "dataHash": "4825252ad46b"
   },
   {
     "id": "simpletools",
@@ -817,9 +817,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVR42mMw8Ir6TwlmABGrL78hGVfseIBqQPehJ/8P3f/4/8WBADAbhHGxQZrDWhZiGgBStKNNB0zjYoM0gyzCagBMEYjGxQYZQLELcBpAsQtAuGuWAQobpgGZjdcAZENgmtA14zXASkPgf5aXAgYGidPHAGQnk+wFdMUkBSIodaErwsdHMQAmQCqGG0AJBgArfJi0eSLOewAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 8
+      "features": 12
     },
-    "dataHash": "c071b405e733"
+    "dataHash": "e0104a495005"
   },
   {
     "id": "simplemobmanners",
@@ -850,7 +850,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "3799780864c9"
+    "dataHash": "a5f287b56d5b"
   },
   {
     "id": "simpleloot",
@@ -880,7 +880,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "6e92e23b0138"
+    "dataHash": "4e9aaf9aef23"
   },
   {
     "id": "simplequestionary",
@@ -940,9 +940,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAp0lEQVR42mNIcHD4TwlmABHfjhwhGX9YsADVgE9r1/7/ceUKmCaEQZrXFhdjGgDCXnoiODFMM8girAaAFJ2YHoUTwwzC6gKY5hsGBmAM02SQcAOM0Q1CMQDZZmIMgBmC1QB8+MMFAzDGaYDBAgcwRvczWQbAAguE0V2IEQbIgYgt1NHFcKYDbBqwGYrTAGQn48IwNRgGgFIXTJIYjGIATIBUDDeAEgwA2P53d0BxE80AAAAASUVORK5CYII=",
     "counts": {
-      "features": 1
+      "features": 2
     },
-    "dataHash": "3845d0a9a7fc"
+    "dataHash": "114eba662b8d"
   },
   {
     "id": "simpleenddragonfight",
@@ -971,9 +971,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 3,
       "recipes": 1,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "91e796736d27"
+    "dataHash": "ec8d9bba5552"
   },
   {
     "id": "simpleend",
@@ -1011,9 +1011,9 @@ window.WIKI_MODULES = [
       "items": 8,
       "blocks": 47,
       "recipes": 35,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "ccaa2a7c6402"
+    "dataHash": "3414b5acbe6c"
   },
   {
     "id": "simplerespawn",
@@ -1160,9 +1160,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 194,
       "recipes": 1,
-      "features": 15
+      "features": 16
     },
-    "dataHash": "3035c34060e2"
+    "dataHash": "c3c4259fcfc1"
   },
   {
     "id": "simpleshops",
@@ -1236,9 +1236,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 2,
       "recipes": 1,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "fa4db1970970"
+    "dataHash": "ac833fe29133"
   },
   {
     "id": "simplestats",
@@ -1303,10 +1303,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 54,
-      "recipes": 283,
+      "recipes": 284,
       "features": 9
     },
-    "dataHash": "0c3439764a93"
+    "dataHash": "3042d3c350e4"
   },
   {
     "id": "simplecrucibles",
@@ -1418,9 +1418,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 11,
-      "features": 11
+      "features": 13
     },
-    "dataHash": "bcb93301041a"
+    "dataHash": "10d06da62ef9"
   },
   {
     "id": "simpleoptimization",
@@ -1449,9 +1449,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAj0lEQVR42mOQU3H+TwlmABH9M0/ixVleHCgYJOYVtQLVgOTCLf/Xbb0BppExSMP/Bw5g/GCBApgP0mzqWIlpALGaQRYRNACXZhjGawA2zegYpwHImrFhmIF4DUDHZAciSCHMAPRwIGgAPs0EDSCkGa8BxGjGaQCyZlwacRoASl0wAwhpxjAAJkAqhhtACQYAbsktVjUvMIsAAAAASUVORK5CYII=",
     "counts": {
-      "features": 1
+      "features": 2
     },
-    "dataHash": "e12d569d2e7e"
+    "dataHash": "9cfc20793065"
   },
   {
     "id": "simpleoptrender",
@@ -1472,9 +1472,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhElEQVR42mMw1PL9TwlmABFrF98gGVdlHUA1oLf+5P/Dex6DaUIYpDnCpwvTAGI1gyzCa4CWlhVWDNIMw1gNgCn88OEDVoxsEIYB6Bqtum6gYHSDUAzApRkEBCQUcBpC0ACQZqIMoNgLVAlE5HgmOxqRFRDCGAaAUhfZBsAESMVwAyjBAB7LeXTJODZuAAAAAElFTkSuQmCC",
     "counts": {
-      "features": 7
+      "features": 8
     },
-    "dataHash": "eb375323c098"
+    "dataHash": "4b418760885a"
   },
   {
     "id": "simpleoptmemory",
@@ -1495,9 +1495,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAe0lEQVR42mPwDYj9TwlmABE37n4kGR848QLVgJMXXv9//OwrmCaEQZq7JizHNIBYzSCLUAzgsxIhC6MYoNVlRRLGaoCUlBQYwxTh49PGAIq88OKAw3+5LC2iaQwDKIoF5HQAimdiMNaERKxmrAaAUhfZBsAESMVwAyjBAPycZS9pdCIrAAAAAElFTkSuQmCC",
     "counts": {
-      "features": 2
+      "features": 3
     },
-    "dataHash": "157e4d5f1abc"
+    "dataHash": "ebfd3e8b02bb"
   },
   {
     "id": "simpleoptserver",
@@ -1521,9 +1521,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mMQEtf6TwlmABG1rYtJxnpWWagGeIfV/5eSUSAKgzQravlgN2DWghV4MUjNwmV78BugpWeCgkFiDg8S4AZQ7AKCBgxOF3w4YDBiwiAqIQMvxmkAKHWRnZRhAqRiuAGUYABjgOz4Wx7bWwAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 2
+      "features": 3
     },
-    "dataHash": "17654e2d97fc"
+    "dataHash": "f41813886410"
   },
   {
     "id": "simplestorage",
@@ -1602,7 +1602,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "db7d548043b8"
+    "dataHash": "90a1b9ebe7da"
   },
   {
     "id": "simplelights",
