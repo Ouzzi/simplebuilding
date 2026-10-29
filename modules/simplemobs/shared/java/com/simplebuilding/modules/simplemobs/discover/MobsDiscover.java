@@ -67,6 +67,7 @@ public final class MobsDiscover {
             "simplemobs:ender_gem",
             "simplemobs:ender_heart",
             "simplemobs:first_pickup_tips",
+            "simplemobs:forbidden_fire",
             "simplemobs:guide_book",
             "simplemobs:high_gravity",
             "simplemobs:hollow_howler",
