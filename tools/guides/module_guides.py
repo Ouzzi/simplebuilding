@@ -107,10 +107,11 @@ MODULES = [
     dict(module="simplebeacons", ns="simplebeacons", package="com.simplebeacons.guide", cls="BeaconsGuide", kind="item",
          author="Simple Beacons", recipe="minecraft:prismarine_shard",
          name=("Simple Beacons Guide", "Simple-Beacons-Handbuch"),
-         intro=("The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and ten more powers, and a "
-                "conduit into a Strong Conduit with a 7x7x7 frame.",
-                "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen "
-                "und zehn weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.")),
+         intro=("The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a "
+                "Strong Conduit with a 7x7x7 frame. The Mighty Beacon adds a sixth level; the Evil beacons weaken players instead.",
+                "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit fünf Pyramidenebenen und neuen "
+                "Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen. Das Mächtige Leuchtfeuer bringt eine sechste "
+                "Ebene; die Bösen Leuchtfeuer schwächen Spieler stattdessen.")),
     dict(module="simpleshops", ns="simpleshops", package="com.simpleshops.guide", cls="ShopsGuide", kind="item",
          author="Simple Shops", recipe="minecraft:emerald",
          name=("Simple Shops Guide", "Simple-Shops-Handbuch"),
