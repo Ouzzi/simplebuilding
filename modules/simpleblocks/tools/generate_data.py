@@ -358,12 +358,13 @@ def loot():
     for name, *_ in GRAVITY:
         put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': {'type': 'minecraft:survives_explosion'},
                                                             'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
-    # The metal finish gives its 2 heavy pressure plates back when the Shapecutter is broken.
+    # The metal finish gives its 2 heavy pressure plates back when the Shapecutter is broken (26.3 loot keys: entry "condition", "modifier").
     put(f'data/{NS}/loot_table/blocks/{SAW}.json', {'type': 'minecraft:block', 'pools': [
         {'condition': {'type': 'minecraft:survives_explosion'}, 'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{SAW}'}], 'rolls': 1},
-        {'conditions': [{'condition': 'minecraft:survives_explosion'},
-                        {'condition': 'minecraft:block_state_property', 'block': f'{NS}:{SAW}', 'properties': {'metal': 'true'}}],
-         'entries': [{'type': 'minecraft:item', 'name': 'minecraft:heavy_weighted_pressure_plate', 'functions': [{'function': 'minecraft:set_count', 'count': 2}]}],
+        {'condition': {'type': 'minecraft:survives_explosion'},
+         'entries': [{'type': 'minecraft:item', 'name': 'minecraft:heavy_weighted_pressure_plate',
+                      'condition': {'type': 'minecraft:match_block', 'blocks': f'{NS}:{SAW}', 'state': {'metal': 'true'}},
+                      'modifier': [{'type': 'minecraft:set_count', 'count': 2}]}],
          'rolls': 1}]})
 
 
