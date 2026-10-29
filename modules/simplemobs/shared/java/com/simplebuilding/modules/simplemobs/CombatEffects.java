@@ -106,7 +106,7 @@ public final class CombatEffects {
         int deflect = amp(self, deflection());
         if (deflect >= 0 && roll(self) < deflectChance(deflect)) {
             level.sendParticles(ParticleTypes.CRIT, self.getX(), self.getY(0.5), self.getZ(), 8, 0.3, 0.4, 0.3, 0.1);
-            level.playSound(null, self.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 0.8f, 1.4f);
+            level.playSound(null, self.blockPosition(), SoundEvents.SHIELD_BLOCK.value(), SoundSource.PLAYERS, 0.8f, 1.4f);
             return false;
         }
         int mirror = amp(self, mirror());
