@@ -253,7 +253,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "141a82a512e2"
+    "dataHash": "7db736f28ed7"
   },
   {
     "id": "simplevisuals",

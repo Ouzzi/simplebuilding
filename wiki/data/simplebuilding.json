@@ -101297,7 +101297,7 @@
       "groupDe": null,
       "label": "Enable Simple Earth",
       "labelDe": "Simple Earth aktivieren",
-      "tooltip": "Turns the bundled Simple Earth module on or off: far above the world (activation height, default 1024) the Overworld shows as a cube with map-coloured terrain read from the world generator. Off: no orbit, everything stays Vanilla. Takes effect after a restart. Default: on.",
+      "tooltip": "Turns the bundled Simple Earth module on or off: far above the world (activation height, default 1024) the Overworld shows as a cube with map-colored terrain read from the world generator. Off: no orbit, everything stays Vanilla. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Earth ein oder aus: weit über der Welt (Aktivierungshöhe, Standard 1024) erscheint die Oberwelt als Würfel mit Terrain in Kartenfarben aus dem Weltgenerator. Aus: kein Orbit, alles bleibt Vanilla. Gilt nach einem Neustart. Standard: an."
     },
     {
