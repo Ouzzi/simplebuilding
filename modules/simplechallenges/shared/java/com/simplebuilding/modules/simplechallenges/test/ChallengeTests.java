@@ -81,7 +81,7 @@ public final class ChallengeTests {
             check(h, ChallengeServerConfig.enabled && !ChallengeServerConfig.allowAdminCommands, "admin commands are off by default (safety lock)");
             check(h, "none".equals(ChallengeServerConfig.defaultChallenge), "no default challenge");
             check(h, ChallengeServerConfig.exemptCreative && ChallengeServerConfig.pityEnabled, "defaults");
-            ChallengeServerConfig.apply(JsonParser.parseString("{\"defaultChallenge\":\"\",\"enabled\":\"zzz\"}").getAsJsonObject());
+            ChallengeServerConfig.apply(JsonParser.parseString("{\"defaultChallenge\":\"\",\"enabled\":{}}").getAsJsonObject());
             check(h, "none".equals(ChallengeServerConfig.defaultChallenge) && ChallengeServerConfig.enabled, "broken values use the defaults");
             ChallengeServerConfig.reset();
             check(h, ChallengeServerConfig.toJson().keySet().containsAll(ChallengeServerConfig.KEYS), "all keys written");
@@ -311,14 +311,18 @@ public final class ChallengeTests {
             ChallengeService.deactivate(server);
             boolean exempt = ChallengeServerConfig.exemptCreative;
             ChallengeServerConfig.exemptCreative = false;
+            String dim = OW;
             try {
-                check(h, ChallengeService.activate(server, "vanilla_unlock") == ChallengeService.Result.OK, "activated");
+                // the test level may not be the Overworld: a preset that covers exactly its dimension
+                dim = Gate.dim(level);
+                PresetRegistry.add("zz_test", "{\"schemaVersion\":1,\"name\":\"T\",\"modes\":[{\"type\":\"unlock\",\"cell\":16,\"start\":[[-1,-1,0,0]],\"dimensions\":[\"" + dim + "\"]}]}", "test");
+                check(h, ChallengeService.activate(server, "zz_test") == ChallengeService.Result.OK, "activated: " + PresetRegistry.problems());
                 Active a = ChallengeRuntime.server();
-                UnlockGrid g = a.grid(OW);
+                UnlockGrid g = a.grid(dim);
                 BlockPos origin = h.absolutePos(BlockPos.ZERO);
                 int cx0 = g.cellOf(origin.getX()), cz0 = g.cellOf(origin.getZ());
                 g.addRect(cx0 - 2, cz0 - 2, cx0 + 2, cz0 + 2);
-                check(h, Gate.active(level), "gate open for the test level");
+                check(h, Gate.active(level), "gate open for the test level " + dim);
                 double edge = (cx0 + 3) * 16.0, y = origin.getY() + 2;
                 Pig pig = h.spawn(EntityTypes.PIG, new Vec3(1.5, 2, 1.5));
                 pig.setPos(edge - 1.0, y, origin.getZ() + 8.5);
@@ -360,6 +364,7 @@ public final class ChallengeTests {
             } finally {
                 ChallengeServerConfig.exemptCreative = exempt;
                 ChallengeService.deactivate(server);
+                PresetRegistry.remove("zz_test");
             }
             check(h, !Gate.active(level) && !Enforcement.blocksChange(h.getLevel(), new BlockPos(5_000_000, 70, 0)), "off again: nothing refused");
             h.succeed();
