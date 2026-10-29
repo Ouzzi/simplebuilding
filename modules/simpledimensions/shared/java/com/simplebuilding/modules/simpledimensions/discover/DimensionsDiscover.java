@@ -53,6 +53,7 @@ public final class DimensionsDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simpledimension:claims_adapter",
+            "simpledimension:commands",
             "simpledimension:configuration",
             "simpledimension:guide_book",
             "simpledimension:light_blue_portal",

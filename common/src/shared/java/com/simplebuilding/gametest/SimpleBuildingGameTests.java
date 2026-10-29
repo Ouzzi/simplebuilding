@@ -1047,6 +1047,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("server_tuning_game_test_tuning_values_reach_the_tools_and_machines", ServerTuningTests::tuningValuesReachTheToolsAndMachines)
                     .build(),
+            GameTestSpec.named("server_tuning_game_test_the_enderite_shield_is_cheap_and_still_stops_endermen", ServerTuningTests::theEnderiteShieldIsCheapAndStillStopsEndermen)
+                    .build(),
             GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_both_smithing_upgrades_add_one_level_per_step_and_stop_at_their_cap", DynamicLightTests::bothSmithingUpgradesAddOneLevelPerStepAndStopAtTheirCap)
@@ -1109,6 +1111,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("ore_detector_game_test_off_hand_detector_is_slower_quieter_and_fainter", OreDetectorTests::offHandDetectorIsSlowerQuieterAndFainter)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detectors_lie_down_and_keep_searching", OreDetectorTests::calibratedDetectorsLieDownAndKeepSearching)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_placed_detector_wears_half_the_tones", OreDetectorTests::placedDetectorWearsHalfTheTones)
                     .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),

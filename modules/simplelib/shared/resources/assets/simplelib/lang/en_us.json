@@ -74,5 +74,10 @@
   "jei.simplelib.grade.netherite": "Netherite tier",
   "jei.simplelib.grade.enderite": "Enderite tier",
   "key.simplelib.freelook": "Free look (hold)",
-  "key.category.simplelib.general": "Simple Lib"
+  "key.category.simplelib.general": "Simple Lib",
+  "simplelib.tab.diagnosis": "Diagnosis",
+  "text.autoconfig.simplelib.option.hangWatchdog": "Hang Watchdog",
+  "text.autoconfig.simplelib.option.hangWatchdog.@Tooltip": "When the server tick stands still (also while\nsaving on quit), a list of all threads is\nwritten to logs/simplebuilding-hang-*.txt.\nOnly reads, never changes the game.\nDefault: true.",
+  "text.autoconfig.simplelib.option.hangWatchdogSeconds": "Hang Watchdog Limit (Seconds)",
+  "text.autoconfig.simplelib.option.hangWatchdogSeconds.@Tooltip": "How long the tick may stand before the dump\nis written (10 to 600). A paused singleplayer\ngame does not count.\nDefault: 30."
 }

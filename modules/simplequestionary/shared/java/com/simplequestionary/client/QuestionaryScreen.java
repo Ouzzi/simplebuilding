@@ -402,7 +402,7 @@ public class QuestionaryScreen extends AbstractContainerScreen<QuestionaryMenu> 
         g.pose().popMatrix();
         int y = py + PLATE + 4;
         List<FormattedCharSequence> name = font.split(Component.literal(stack.getHoverName().getString()).withStyle(keyword()), rightW);
-        for (int i = 0; i < Math.min(2, name.size()); i++, y += LINE) g.centeredText(font, name.get(i), RIGHT_X + rightW / 2, y, KEYWORD);
+        for (int i = 0; i < Math.min(2, name.size()); i++, y += LINE) g.text(font, name.get(i), RIGHT_X + (rightW - font.width(name.get(i))) / 2, y, KEYWORD, false); // BS25-2: bold + shadow smeared on the light page
         String mod = modName(stack);
         g.text(font, mod, RIGHT_X + (rightW - font.width(mod)) / 2, y, CAPTION, false);
         y += LINE + 6;

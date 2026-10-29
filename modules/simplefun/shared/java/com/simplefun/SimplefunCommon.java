@@ -34,6 +34,12 @@ public final class SimplefunCommon {
     return config;
   }
 
+  /** CMD24: the config command swaps in a new, normalised object. */
+  public static synchronized void replaceConfig(SimplefunConfig c) {
+    c.normalize();
+    config = c;
+  }
+
   public static void saveConfig() {
     try {
       config.normalize();

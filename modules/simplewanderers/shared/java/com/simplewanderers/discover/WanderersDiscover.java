@@ -52,6 +52,7 @@ public final class WanderersDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "simplewanderers:biome_assortment",
+            "simplewanderers:commands",
             "simplewanderers:config_server",
             "simplewanderers:guide_book",
             "simplewanderers:village_wanderer",

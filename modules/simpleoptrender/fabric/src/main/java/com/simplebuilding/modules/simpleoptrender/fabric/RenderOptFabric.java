@@ -9,5 +9,7 @@ public final class RenderOptFabric implements ModInitializer {
     @Override public void onInitialize() {
         FabricLoader loader = FabricLoader.getInstance();
         RenderOpt.boot(loader.getConfigDir(), loader::isModLoaded);
+        // CMD24: all areas are client side, so /simpleclient simpleoptrender.
+        com.simplelib.api.config.ConfigCommands.optSettings(com.simplelib.api.config.ConfigCommands.client(RenderOpt.MOD_ID), loader.getConfigDir(), RenderOpt.FILE, RenderOpt.defaults()).register();
     }
 }

@@ -36,8 +36,16 @@ public final class SimpleLibFabric implements ModInitializer {
                 com.simplelib.material.MaterialLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.InWorldStrikes::tick);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.LegendaryMoments::tick);
-        // Carried-light blocks that outlived their carrier (crash): swept when their chunk loads (OwnedLights).
-        net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_LOAD.register((level, chunk, generated) -> com.simplelib.api.OwnedLights.sweep(level, chunk.getPos()));
+        // Carried-light blocks that outlived their carrier (crash): swept after their chunk loaded (OwnedLights). BS27-1: never
+        // inside CHUNK_LOAD - touching blocks of the loading chunk there deadlocks the server thread.
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents.CHUNK_LOAD.register((level, chunk, generated) -> com.simplelib.api.OwnedLights.chunkLoaded(level, chunk.getPos()));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.OwnedLights::tick);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.api.OwnedLights.stopped());
+        // BS27-1 diagnosis: a stalled server tick (also while saving on quit) writes a thread dump to logs/simplebuilding-hang-*.txt.
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(com.simplelib.api.HangWatchdog::start);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> com.simplelib.api.HangWatchdog.beat());
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server -> com.simplelib.api.HangWatchdog.stopping());
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.api.HangWatchdog.stop());
         // Per-player static state of the modules (PlayerState): dropped on disconnect and server stop.
         net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplelib.api.PlayerState.left(handler.getPlayer()));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.api.PlayerState.stopped());

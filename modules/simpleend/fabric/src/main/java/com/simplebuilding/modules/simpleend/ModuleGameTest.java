@@ -3,6 +3,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 /** Fabric runs only @GameTest methods: one wrapper per shared test body in {@link EndTests}. */
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleend", false); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void guideBook(GameTestHelper helper) { EndTests.ALL.get("guide_book").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void registered(GameTestHelper helper) { EndTests.ALL.get("registered").accept(helper); }
     @GameTest(structure = "simpleend:grove", maxTicks = 200) public void woodTagsAndRecipes(GameTestHelper helper) { EndTests.ALL.get("wood_tags_and_recipes").accept(helper); }

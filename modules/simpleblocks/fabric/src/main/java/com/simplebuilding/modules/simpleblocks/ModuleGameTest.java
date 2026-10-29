@@ -173,7 +173,7 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper h) {
-        BlocksTests.ALL.get("cracked_ice_blocks_placement_on_all_sides_and_blends_with_ice").accept(h);
+        BlocksTests.ALL.get("cracked_ice_allows_placement_on_all_sides_and_blends_with_ice").accept(h);
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)

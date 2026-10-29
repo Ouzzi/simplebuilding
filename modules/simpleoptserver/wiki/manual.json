@@ -33,6 +33,26 @@
         "title": "Aktivierungsbereich (Standard aus)",
         "summary": "Verändert das Spiel, deshalb steht er in config/simpleoptserver.json auf mode off; mit mode auto einschalten (Neustart nötig). Ein Mob ohne lebenden Spieler im Umkreis von range Blöcken (Standard 32, 16 bis 128) läuft dann nur jeden interval-ten Tick voll (Standard 4, 2 bis 20); sein Alterszähler läuft weiter. Voll aktiv bleiben Mobs, die reiten oder getragen werden, angeleint sind, ein Ziel haben, verletzt sind, in der Luft, in Wasser oder Lava, brennen, Babys, verliebt oder zahm sind; Dorfbewohner, Händler und Bosse bleiben immer aktiv. ServerCore deckt denselben Bereich ab und gewinnt; ändert ein anderer Mod dieselbe Klasse, schaltet er sich ebenfalls ab (Zielprüfung)."
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleoptserver/fabric/src/main/java/com/simplebuilding/modules/simpleoptserver/fabric/ServerOptFabric.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleoptserver config shows and changes every option of config/simpleoptserver.json (list [group], get, set, reset, help; Tab completes options and values). The file is read once while the game starts, so a change is saved at once but takes effect after a restart (each answer says so). Permission level 2.",
+        "details": [
+          "Example: /simpleoptserver config get <option> shows the value, the default and the type; /simpleoptserver config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleoptserver config zeigt und ändert jede Option von config/simpleoptserver.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Die Datei wird einmal beim Start gelesen: Eine Änderung wird sofort gespeichert, wirkt aber erst nach einem Neustart (jede Antwort sagt das). Berechtigung 2.",
+        "details": [
+          "Beispiel: /simpleoptserver config get <Option> zeigt Wert, Standard und Typ; /simpleoptserver config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "notes": {}

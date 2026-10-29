@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.ChunkPos;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.saveddata.SavedDataType;
  * Register of the invisible {@code minecraft:light} blocks that mods set as carried light (radiance armor, torches in hand).
  * The carriers keep their positions in memory, which a server crash loses, so standing lights would stay in the world for
  * good. Every light a mod sets is marked here (a {@link SavedData} per dimension); when a chunk loads, {@link #sweep}
- * removes the marked light blocks that no live carrier claims ({@link #claim}). A Vanilla light block nobody marked
+ * (at the end of that server tick, {@link #chunkLoaded}) removes the marked light blocks that no live carrier claims ({@link #claim}). A Vanilla light block nobody marked
  * (placed by a player or command) is never touched. Cost: one set lookup per chunk load, no world scan.
  * Server thread only.
  */
@@ -67,8 +68,44 @@ public final class OwnedLights extends SavedData {
         return o != null && o.marks.contains(pos.asLong());
     }
 
+    /** A loaded chunk waiting for its sweep at the end of the server tick. */
+    private record Pending(ServerLevel level, ChunkPos chunk) {}
+    private static final List<Pending> PENDING = new ArrayList<>();
+    private static final int PENDING_MAX = 4096;
+
     /**
-     * Loader hook for a loaded chunk (also callable directly): removes marked light blocks of this chunk that no claim keeps
+     * Loader hook for a chunk that is just loading (Fabric CHUNK_LOAD): only remembers it. BS27-1: the event runs inside the
+     * chunk's FULL step, before its future is done, so {@code level.getBlockState} on that chunk waits for itself forever
+     * ({@code ServerChunkCache.getChunk} -> {@code managedBlock}) - the server thread hangs, nothing loads, saving hangs.
+     * {@link #tick} sweeps it once it is fully loaded.
+     */
+    public static void chunkLoaded(ServerLevel level, ChunkPos chunk) {
+        OwnedLights o = of(level);
+        if (o != null && !o.marks.isEmpty() && PENDING.size() < PENDING_MAX) PENDING.add(new Pending(level, chunk));
+    }
+
+    /** End of a server tick: sweeps the remembered chunks that are fully loaded now (an unloaded one keeps its marks for the next load). */
+    public static void tick(MinecraftServer server) {
+        if (PENDING.isEmpty()) return;
+        List<Pending> now = new ArrayList<>(PENDING);
+        PENDING.clear();
+        for (Pending p : now) {
+            if (p.level().getServer() == server && p.level().getChunkSource().getChunkNow(p.chunk().x(), p.chunk().z()) != null) sweep(p.level(), p.chunk());
+        }
+    }
+
+    /** Server stop: forget the remembered chunks. */
+    public static void stopped() {
+        PENDING.clear();
+    }
+
+    /** Chunks waiting for their sweep (tests). */
+    public static int pending() {
+        return PENDING.size();
+    }
+
+    /**
+     * Sweep of a fully loaded chunk (from {@link #tick}, also callable directly; never from inside a chunk load): removes marked light blocks of this chunk that no claim keeps
      * and forgets marks whose block is no longer a light block. Returns how many light blocks it removed.
      */
     public static int sweep(ServerLevel level, ChunkPos chunk) {

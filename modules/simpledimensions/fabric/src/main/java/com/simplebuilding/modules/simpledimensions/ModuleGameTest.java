@@ -2,6 +2,7 @@ package com.simplebuilding.modules.simpledimensions;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpledimension", false); }
  @GameTest(structure="simpledimensions:empty",maxTicks=100) public void guideBook(GameTestHelper h){com.simplebuilding.modules.simpledimensions.guide.DimensionsGuide.gameTest(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsFootprints(GameTestHelper h){PortalProtectionTests.footprints(h);}
  @GameTest(structure="simpledimensions:empty",maxTicks=240) public void claimsLinkedTravel(GameTestHelper h){PortalProtectionTests.linkedTravel(h);}

@@ -366,6 +366,7 @@ public final class MoneyDiscover {
             "simplemobheads:zombie_villager_head",
             "simplemobheads:zombified_piglin_head",
             "simplemoney:blank_note",
+            "simplemoney:commands",
             "simplemoney:configuration",
             "simplemoney:forge_263",
             "simplemoney:guide_book",

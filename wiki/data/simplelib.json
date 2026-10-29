@@ -112,6 +112,31 @@
       }
     },
     {
+      "id": "hang_watchdog",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/HangWatchdog.java",
+        "modules/simplelib/shared/java/com/simplelib/config/LibConfig.java"
+      ],
+      "en": {
+        "title": "Hang watchdog",
+        "summary": "When the server tick stands still, Simple Lib writes a list of all threads to the logs folder, so a frozen game can be diagnosed.",
+        "details": [
+          "A watcher thread checks once a second whether the server tick still advances. After 30 seconds without a tick (hangWatchdogSeconds, 10 to 600) it writes logs/simplebuilding-hang-<date>.txt with every thread of the game (server thread first, render thread, chunk workers) including full stacks, held locks and detected deadlocks; a second file follows after four times the limit.",
+          "A paused singleplayer game does not count; saving on Save and Quit does. The watcher only reads, it never changes the game. Switch: hangWatchdog (default true) in simplelib-server.json, /simplelib config or the config screen (tab Diagnosis).",
+          "When the game hangs: wait one minute, then send the newest logs/simplebuilding-hang-*.txt and logs/latest.log."
+        ]
+      },
+      "de": {
+        "title": "Hänger-Wächter",
+        "summary": "Steht der Server-Tick still, schreibt Simple Lib eine Liste aller Threads in den Logs-Ordner, damit sich ein eingefrorenes Spiel untersuchen lässt.",
+        "details": [
+          "Ein Wächter-Thread prüft jede Sekunde, ob der Server-Tick weiterläuft. Nach 30 Sekunden ohne Tick (hangWatchdogSeconds, 10 bis 600) schreibt er logs/simplebuilding-hang-<Datum>.txt mit allen Threads des Spiels (zuerst der Server-Thread, dann Render-Thread, Chunk-Worker) samt vollständigen Stacks, gehaltenen Sperren und erkannten Deadlocks; nach der vierfachen Zeit folgt eine zweite Datei.",
+          "Ein pausiertes Einzelspielerspiel zählt nicht, das Speichern beim Verlassen schon. Der Wächter liest nur und ändert nichts am Spiel. Schalter: hangWatchdog (Standard an) in simplelib-server.json, /simplelib config oder im Konfig-Bildschirm (Reiter Diagnose).",
+          "Wenn das Spiel hängt: eine Minute warten, dann die neueste logs/simplebuilding-hang-*.txt und logs/latest.log schicken."
+        ]
+      }
+    },
+    {
       "id": "commands",
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/SimpleLib.java",
@@ -1641,7 +1666,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 5,
+    "features": 6,
     "recipes": 29,
     "lootTables": 7,
     "tags": 5,

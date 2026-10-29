@@ -7,6 +7,9 @@ public final class MovementFabric implements ModInitializer {
     public void onInitialize() {
         SimpleMovement.configDir = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir();
         SimpleMovement.load();
+        // CMD24: /simplemovement config for every option; save() normalises, writes and syncs the clients (Fabric entry: SimpleLib is bundled here).
+        com.simplelib.api.config.ConfigCommands.server(SimpleMovement.MOD_ID).gson(MovementConfig.class, () -> SimpleMovement.CONFIG, c -> { c.normalize(); SimpleMovement.CONFIG = c; },
+                () -> { MovementConfig d = new MovementConfig(); d.normalize(); return d; }).save(SimpleMovement::save).register();
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, r, e) -> MovementCommands.register(d));
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(com.simplebuilding.modules.simplemovement.network.CrawlStatePayload.TYPE, com.simplebuilding.modules.simplemovement.network.CrawlStatePayload.CODEC);
         SimpleMovement.crawlSync = (player, state) -> {

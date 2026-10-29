@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link WandererTests}, all on the 15 x 12 x 15 arena. */
 public final class ModuleGameTest {
+ @GameTest public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simplewanderers", false); }
     @GameTest(structure = "simplewanderers:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
         WandererTests.ALL.get("registered").accept(h);

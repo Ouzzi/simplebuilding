@@ -7,3 +7,5 @@ dependencies { include project(':modules:simpleenddragonfight:fabric') }
 // JEI24: optional JEI plugin (fabric/src: mob drop info pages), compiled against, never bundled.
 repositories { maven { url = "https://maven.blamejared.com" } }
 dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }
+// SimpleLib nested per principle 6a and compiled against: /<modid> config (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

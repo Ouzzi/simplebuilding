@@ -4,3 +4,5 @@ dependencies { include project(':framework') }
 
 repositories { maven { url = "https://maven.shedaniel.me/" }; maven { url = "https://maven.terraformersmc.com/releases/" } }
 dependencies { implementation "me.shedaniel.cloth:cloth-config-fabric:${rootProject.mc263_cloth_version}"; compileOnly "com.terraformersmc:modmenu:${rootProject.mc263_modmenu_version}" }
+// SimpleLib nested per principle 6a and compiled against: /simpleclient simplesounds (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

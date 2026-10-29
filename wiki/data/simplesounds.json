@@ -421,6 +421,26 @@
           "Mit -Pforge263=true aktivieren. Cloth-Konfigurationsoberfläche fehlt; Modul-JSON-Konfiguration bleibt unterstützt. Forge-Clientaudio wurde nicht geprüft."
         ]
       }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplesounds/fabric/src/main/java/com/simplebuilding/modules/simplesounds/SoundsFabric.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpleclient simplesounds shows and changes every option of config/simplesounds.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file and saved at once. A client command, no permission needed.",
+        "details": [
+          "Example: /simpleclient simplesounds get <option> shows the value, the default and the type; /simpleclient simplesounds reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpleclient simplesounds zeigt und ändert jede Option von config/simplesounds.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte sind wie in der Datei begrenzt und werden sofort gespeichert. Ein Client-Befehl, keine Berechtigung nötig.",
+        "details": [
+          "Beispiel: /simpleclient simplesounds get <Option> zeigt Wert, Standard und Typ; /simpleclient simplesounds reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -444,7 +464,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 20,
+    "features": 21,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

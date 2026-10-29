@@ -9,12 +9,13 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 /**
  * Village field kitchen (owner, plan section 11; answers 44-46): a small piece in the houses pool of
- * all five village types - an iron crucible on an unlit campfire holding cooked food, a barrel with
+ * all five village types - an iron crucible on an unlit campfire (10 % magma block) holding cooked food, a barrel with
  * raw meat beside it and a seat. Weight 3 by default (about every third village); 0 switches it off.
  */
 public final class VillageKitchen {
@@ -25,6 +26,9 @@ public final class VillageKitchen {
         int weight = CrucibleConfig.villageKitchenWeight;
         if (weight <= 0) return 0;
         Registry<StructureTemplatePool> pools = access.lookupOrThrow(Registries.TEMPLATE_POOL);
+        // 10 % of the campfires become magma blocks (WD25-20); without the list the kitchen still works with plain campfires
+        var processors = access.lookupOrThrow(Registries.PROCESSOR_LIST)
+                .get(ResourceKey.create(Registries.PROCESSOR_LIST, SimpleCrucibles.id("field_kitchen")));
         int changed = 0;
         for (String type : TYPES) {
             var pool = pools.getValue(Identifier.withDefaultNamespace("village/" + type + "/houses"));
@@ -32,7 +36,7 @@ public final class VillageKitchen {
             String location = SimpleCrucibles.MOD_ID + ":village/" + type + "/field_kitchen";
             TemplatePoolAccessor accessor = (TemplatePoolAccessor) pool;
             if (accessor.simplecrucibles$templates().stream().anyMatch(e -> e.toString().contains(location))) continue;
-            StructurePoolElement element = StructurePoolElement.legacy(location).apply(StructureTemplatePool.Projection.RIGID);
+            StructurePoolElement element = (processors.isPresent() ? StructurePoolElement.legacy(location, processors.get()) : StructurePoolElement.legacy(location)).apply(StructureTemplatePool.Projection.RIGID);
             for (int i = 0; i < weight; i++) accessor.simplecrucibles$templates().add(element);
             try {
                 accessor.simplecrucibles$rawTemplates().add(Pair.of(element, weight));

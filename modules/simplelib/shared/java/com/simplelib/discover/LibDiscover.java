@@ -61,6 +61,7 @@ public final class LibDiscover {
             "simplelib:enderite_nugget",
             "simplelib:enderite_scrap",
             "simplelib:enderite_upgrade_template",
+            "simplelib:hang_watchdog",
             "simplelib:layered_raw_enderite",
             "simplelib:legendary_moments",
             "simplelib:netherite_nugget",
