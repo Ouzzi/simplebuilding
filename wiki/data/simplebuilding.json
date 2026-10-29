@@ -30602,6 +30602,19 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astral_redstone_wall_torch",
+      "name": {
+        "en_us": "Astral Redstone Torch",
+        "de_de": "Astral-Redstone-Fackel"
+      },
+      "texture": "assets/textures/block/astral_redstone_torch.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/astral_redstone_wall_torch.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:astral_vault",
       "name": {
         "en_us": "Astral Vault",
@@ -39096,6 +39109,19 @@
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_redstone_wall_torch",
+      "name": {
+        "en_us": "Nihil Redstone Torch",
+        "de_de": "Nihil-Redstone-Fackel"
+      },
+      "texture": "assets/textures/block/nihil_redstone_torch.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/nihil_redstone_wall_torch.png",
       "hasCustomBehaviour": false
     },
     {
@@ -130494,7 +130520,7 @@
   },
   "counts": {
     "items": 507,
-    "blocks": 288,
+    "blocks": 290,
     "recipes": 821,
     "lootTables": 306,
     "trades": 20,
