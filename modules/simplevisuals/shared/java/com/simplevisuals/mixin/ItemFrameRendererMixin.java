@@ -30,6 +30,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemFrameRendererMixin {
     /** Half the diagonal of the drawn object (0.5 block wide, turned up to 45 degrees in the frame), in frame units. */
     private static final float SIMPLEVISUALS$HALF_DIAGONAL = 0.36F;
+    /** Half the height of a framed item sprite (0.5 wide at scale 0.5), in frame units. */
+    private static final float SIMPLEVISUALS$ITEM_HALF = 0.25F;
     /** Front of the frame's back plate, seen from the item origin. */
     private static final float SIMPLEVISUALS$BACK_PLATE = 1.0F / 32.0F;
 
@@ -42,11 +44,26 @@ public abstract class ItemFrameRendererMixin {
         tilt.simplevisuals$setTilt(false, false, 0.0F);
         if (!Visuals.active(Visuals.CONFIG.visuals.enableTiltedFrameItems) || state.mapId != null || state.item.isEmpty()) return;
         var kind = FrameTilt.kind(frame.getItem());
-        if (kind == FrameTilt.Kind.VANILLA || kind == FrameTilt.Kind.FLAT && !state.item.usesBlockLight()) return;
+        int step = ((ChiseledFrame) frame).simplevisuals$tiltStep();
+        if (kind == FrameTilt.Kind.VANILLA || kind == FrameTilt.Kind.FLAT && !state.item.usesBlockLight()) {
+            tilt.simplevisuals$setTilt(false, false, FrameTilt.degrees(step)); // BS25-7: any other item leans out of the plate, see simplevisuals$liftItem
+            return;
+        }
         blockModelResolver.update(tilt.simplevisuals$model(), FrameTilt.viewState(frame.getItem()), ItemFrameRenderer.BLOCK_DISPLAY_CONTEXT);
         if (tilt.simplevisuals$model().isEmpty()) return;
         state.item.clear(); // Vanilla skips its item branch; the model is drawn below at the item position
-        tilt.simplevisuals$setTilt(true, kind == FrameTilt.Kind.PANE, FrameTilt.degrees(((ChiseledFrame) frame).simplevisuals$tiltStep()));
+        tilt.simplevisuals$setTilt(true, kind == FrameTilt.Kind.PANE, FrameTilt.degrees(step));
+    }
+
+    /** BS25-7: the plain item view (sprite or model) leans like the block models; before its Z rotation the pose is at the item origin. */
+    @Inject(method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V", ordinal = 4))
+    private void simplevisuals$liftItem(ItemFrameRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera, CallbackInfo ci) {
+        var tilt = (TiltedFrameState) state;
+        float degrees = tilt.simplevisuals$degrees();
+        if (tilt.simplevisuals$tilted() || degrees <= 0.0F || state.mapId != null || state.item.isEmpty()) return;
+        poseStack.translate(0.0F, 0.0F, -(float) Math.sin(Math.toRadians(degrees)) * SIMPLEVISUALS$ITEM_HALF);
+        poseStack.rotateDegrees(Axis.XP, degrees);
     }
 
     /** Before the last popPose of submit the pose sits at the item origin (frame space: viewer on -Z, wall on +Z). */

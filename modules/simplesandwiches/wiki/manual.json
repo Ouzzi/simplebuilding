@@ -203,8 +203,8 @@
       "de": {"summary": "Gereifte Butter mit leerer Hand aus dem Milchkessel nehmen oder von einem aktiven Trichter darunter einsammeln lassen. Enthält 16 Scheiben; mit dem Messer schneiden und mit Scheiben ergänzen. Reibung: 0,9. Wer auf Butter läuft, bekommt 3 Sekunden Rutschig."}
     },
     "simplesandwiches:butter_carpet": {
-      "en": {"summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter. Breaking it drops the slice."},
-      "de": {"summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt die Scheibe zurück."}
+      "en": {"summary": "A butter slice placed on the ground like a carpet (1 px thin, needs a block below). More butter slices on it stack it like snow, one pixel per slice, and the 16th makes a whole butter block (which has to be cut again). Friction 0.9; walking on it, like on a butter block, gives Slippery for 3 seconds: every ground is as slippery as butter, you sink in and are slowed. Breaking it drops one slice per layer."},
+      "de": {"summary": "Eine auf den Boden gelegte Butterscheibe wie ein Teppich (1 px dünn, braucht einen Block darunter). Weitere Butterscheiben darauf stapeln ihn wie Schnee, ein Pixel pro Scheibe; die 16. ergibt einen ganzen Butterblock (der wieder geschnitten werden muss). Reibung 0,9; wer darauf läuft, bekommt wie auf dem Butterblock 3 Sekunden Rutschig: jeder Boden ist so glatt wie Butter. Abbauen gibt eine Scheibe pro Schicht zurück."}
     },
     "simplesandwiches:butter_slice": {
       "en": {"summary": "Not edible. Hold a knife in the other hand to butter opened bread before toppings. Default bonus: 10% hunger, saturation and summed effect duration, subject to effect caps. Placed on the ground it becomes a butter carpet."},
@@ -218,9 +218,13 @@
       "en": {"summary": "Butter left in the cauldron ripens into cheese after 5 more minutes; it never spoils. Contains 16 slices; the first knife cut fixes direction until full again."},
       "de": {"summary": "Butter, die im Kessel bleibt, reift nach 5 weiteren Minuten zu Käse; er verdirbt nie. Enthält 16 Scheiben; der erste Messerschnitt legt die Richtung fest, bis der Block wieder voll ist."}
     },
+    "simplesandwiches:cheese_carpet": {
+      "en": {"summary": "Sneak and right-click with a cheese slice to lay it down as a 1 px cheese carpet (a normal click eats it). More cheese slices on the carpet stack it like snow (one pixel per slice, walkable); the 16th makes a whole cheese block, which has to be cut again. Breaking it drops one slice per layer."},
+      "de": {"summary": "Mit einer Käsescheibe Schleichen und Rechtsklick legt sie als 1 px dünner Käse-Teppich ab (ein normaler Klick isst sie). Weitere Käsescheiben darauf stapeln ihn wie Schnee (ein Pixel pro Scheibe, begehbar); die 16. ergibt einen ganzen Käseblock, der wieder geschnitten werden muss. Abbauen gibt eine Scheibe pro Schicht zurück."}
+    },
     "simplesandwiches:cheese_slice": {
-      "en": {"summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient or restore a partly sliced cheese block."},
-      "de": {"summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen oder einen angeschnittenen Käselaib ergänzen."}
+      "en": {"summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient, restore a partly sliced cheese block, or sneak and right-click to lay it down as a cheese carpet."},
+      "de": {"summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen, einen angeschnittenen Käselaib ergänzen oder mit Schleichen und Rechtsklick als Käse-Teppich legen."}
     },
     "simplesandwiches:knife": {
       "en": {"summary": "Iron kitchen tool: 250 durability, total damage 2, attack speed 2.0 and iron-nugget repair. Crafted from one stick and four iron nuggets. Prepares bread and cuts cheese, butter, melons and cakes."},
