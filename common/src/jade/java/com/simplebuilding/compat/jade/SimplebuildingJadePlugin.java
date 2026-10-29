@@ -81,10 +81,18 @@ public class SimplebuildingJadePlugin implements IWailaPlugin {
         // Jade's universal fluid line ("Empty 1B") is wrong for the milk cauldron: it holds no fluid.
         registration.addTooltipCollectedCallback((root, accessor) -> {
             // BS25-9: a pile of small parts shows the name of the part it points at (the picked one), not the block's "Small Parts".
-            if (accessor instanceof BlockAccessor block
-                    && block.getBlockEntity() instanceof com.simplebuilding.blocks.entity.custom.PlacedSmallPartsBlockEntity pile
-                    && !pile.parts().isEmpty()) {
-                root.getTooltip().replace(JadeIds.CORE_OBJECT_NAME, pile.parts().getLast().getHoverName());
+            // Looked up by name: this source is shared with versions that have no small-parts pile.
+            if (accessor instanceof BlockAccessor block && block.getBlockEntity() != null
+                    && block.getBlockEntity().getClass().getSimpleName().equals("PlacedSmallPartsBlockEntity")) {
+                try {
+                    Object parts = block.getBlockEntity().getClass().getMethod("parts").invoke(block.getBlockEntity());
+                    if (parts instanceof java.util.List<?> list && !list.isEmpty()
+                            && list.getLast() instanceof net.minecraft.world.item.ItemStack last) {
+                        root.getTooltip().replace(JadeIds.CORE_OBJECT_NAME, last.getHoverName());
+                    }
+                } catch (ReflectiveOperationException ignored) {
+                    // keep Jade's default name
+                }
             }
             if (accessor instanceof BlockAccessor block
                     && NO_FLUID_CAULDRONS.contains(BuiltInRegistries.BLOCK.getKey(block.getBlock()).toString())) {
