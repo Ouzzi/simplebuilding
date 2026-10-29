@@ -46,7 +46,7 @@ public final class RedstoneRegistry {
         PISTON_ARM = block("double_piston_arm", DoublePistonArmBlock::new, true);
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleRedstone.id("signal_dampener"));
         SIGNAL_DAMPENER = Registry.register(BuiltInRegistries.BLOCK, key, new SignalDampenerBlock(BlockBehaviour.Properties.of()
-                .setId(key).instabreak().sound(SoundType.STONE).pushReaction(PushReaction.DESTROY)));
+                .setId(key).instabreak().sound(SoundType.STONE).pushReaction(PushReaction.POPPED)));
     }
 
     public static void registerItems() {

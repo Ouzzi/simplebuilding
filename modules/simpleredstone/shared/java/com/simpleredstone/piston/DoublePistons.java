@@ -183,7 +183,6 @@ public final class DoublePistons {
             BlockState state = level.getBlockState(pos);
             BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
             Block.dropResources(state, level, pos, blockEntity);
-            state.onDestroyedByPushReaction(level, pos, direction, level.getFluidState(pos));
             toUpdate[updateIndex++] = state;
         }
         for (int i = toPush.size() - 1; i >= 0; i--) {
