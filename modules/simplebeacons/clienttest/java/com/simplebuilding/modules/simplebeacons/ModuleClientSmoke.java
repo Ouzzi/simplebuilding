@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 /**
- * Client smoke: the Strong Beacon screen (Vanilla style, two extra rows; pyramid 6/6 and 4/6, inside the window, no button
+ * Client smoke: the Strong Beacon screen (Vanilla style, one extra row; pyramid 5/5 and 3/5, inside the window, no button
  * overlaps), the Strong Beacon on a six level pyramid with its beam, and a Strong Conduit in a full 7x7x7 frame.
  */
 public final class ModuleClientSmoke implements FabricClientGameTest {
@@ -43,8 +43,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             server.runCommand("execute as @a at @s run tp @s ~-2 ~3 ~ 20 10");
             context.waitTicks(200);
             context.takeScreenshot("simplebeacons-world");
-            show(context, "simplebeacons-screen-6", 6, true);
-            show(context, "simplebeacons-screen-4", 4, false);
+            show(context, "simplebeacons-screen-5", 5, true);
+            show(context, "simplebeacons-screen-3", 3, false);
         }
     }
 
@@ -58,11 +58,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(3);
         context.runOnClient(c -> {
             if (!(c.gui.screen() instanceof StrongBeaconScreen screen)) throw new AssertionError(name + ": not the Strong Beacon screen");
-            if (choose) ((BeaconScreenAccessor) screen).simplebeacons$setPrimary(MobEffects.FIRE_RESISTANCE);
+            if (choose) ((BeaconScreenAccessor) screen).simplebeacons$setPrimary(MobEffects.NIGHT_VISION);
             var buttons = screen.strongButtons();
-            // SP22-10: the new powers of levels 1 (1), 2 (1), 3 (2), then levels 5 and 6 (3 each)
-            int[] tiers = {1, 2, 3, 3, 5, 5, 5, 6, 6, 6};
-            if (buttons.size() != tiers.length) throw new AssertionError(name + ": 10 extra buttons expected, got " + buttons.size());
+            // A29: the Strong Beacon's own buttons - three powers on levels 1-3, Luck on level 4 (the secondary power is Vanilla's)
+            int[] tiers = {1, 1, 1, 2, 2, 2, 3, 3, 3, 4};
+            if (buttons.size() != tiers.length) throw new AssertionError(name + ": 10 buttons expected, got " + buttons.size());
             for (AbstractWidget a : buttons) {
                 if (a.getRight() > c.getWindow().getGuiScaledWidth()) throw new AssertionError(name + ": button outside the window");
                 for (var child : screen.children()) {

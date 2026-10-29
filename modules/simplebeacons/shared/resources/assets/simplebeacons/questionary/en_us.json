@@ -24,14 +24,14 @@
   },
   "strong_beacon": {
     "lore": [
-      "Six steps closer to the sky."
+      "Five steps closer to the sky."
     ],
     "use": [
-      "Build a pyramid of up to 6 levels (13x13 at the bottom, 454 blocks). Level 5 offers Night Vision, Water Breathing and Slow Falling, level 6 Fire Resistance, Dolphin's Grace and Absorption.",
-      "Range 60 blocks at level 5 and 70 at level 6."
+      "Build a pyramid of up to 5 levels (11x11 at the bottom, 285 blocks). Level 1: Speed, Haste, Saturation; level 2: Jump Boost, Resistance, Slow Falling; level 3: Strength, Invisibility, Dolphin's Grace; level 4: Luck. Level 5 unlocks the second power.",
+      "Range 60 blocks at level 5 (with Iron), at most 340 blocks."
     ],
     "secret": [
-      "The new powers have no level II, but Regeneration still works as the second power."
+      "The new powers have no level II, but Regeneration still works as the second power. The Mighty Beacon needs the Strong Beacon, six cores and two Strong Upgrades."
     ]
   },
   "strong_conduit": {
@@ -44,6 +44,53 @@
     ],
     "secret": [
       "The full large frame strikes hostile mobs in the water within 12 blocks."
+    ]
+  },
+  "mighty_beacon": {
+    "lore": [
+      "The sixth step is the last one."
+    ],
+    "use": [
+      "Craft it: Strong Beacon in the middle, the six cores around it, a Strong Upgrade in each bottom corner. Pyramid of up to 6 levels (454 blocks). Level 4 adds Night Vision, level 5 Extra Hearts; Speed II, Jump Boost II and Resistance II are placeholders.",
+      "Level 6 unlocks the second power: Regeneration or one step higher (Speed III, four hearts)."
+    ],
+    "secret": [
+      "Fire Resistance and Absorption were dropped as too strong."
+    ]
+  },
+  "evil_upgrade_template": {
+    "lore": [
+      "The same slab as the Strong Upgrade, but it hums out of tune."
+    ],
+    "use": [
+      "Smithing table with a beacon and a nether star, or in the world: off hand, hit a beacon 8 times with an axe or sledgehammer while carrying a nether star.",
+      "With Simple Mobs: Strong Upgrade, crying obsidian, Nether Heart and Red Nether Jewel make one."
+    ],
+    "secret": [
+      "It only works on beacons, not on conduits."
+    ]
+  },
+  "evil_beacon": {
+    "lore": [
+      "It does not light the way. It makes the way hard."
+    ],
+    "use": [
+      "Pyramid of up to 5 levels. Level 1: Slowness, Mining Fatigue, Hunger; level 2: Weakness, Bad Luck, Oozing; level 3: Darkness, Glowing, Infested; level 4: Weaving; level 5: Nausea as the second power.",
+      "It only reaches survival players who died at least 5 minutes ago."
+    ],
+    "secret": [
+      "Newcomer protection and a switched-off personal PvP of Simple Tweaks shield a player from it."
+    ]
+  },
+  "mighty_evil_beacon": {
+    "lore": [
+      "Six steps down."
+    ],
+    "use": [
+      "Craft it like the Mighty Beacon with the Evil Beacon in the middle. Pyramid of up to 6 levels; level 5 adds Wind Charged and the placeholders Hunger II and Mining Fatigue II; level 6 unlocks Nausea."
+    ],
+    "secret": [
+      "The same protections as the Evil Beacon apply."
     ]
   }
 }

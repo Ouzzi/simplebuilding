@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplebeacons:block/evil_beacon"
+    }
+  }
+}

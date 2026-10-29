@@ -1,0 +1,72 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simplemobs"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simplemobs"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simplemobs"
+  },
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nether_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:nether_gem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nether_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:nether_heart"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_strong_upgrade_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebeacons:strong_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebeacons:evil_upgrade_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nether_gem",
+      "has_nether_heart",
+      "has_strong_upgrade_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebeacons:evil_upgrade_template"
+    ]
+  }
+}
