@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -150,7 +149,7 @@ public final class WideDoorTests {
         for (DoorFormat f : formats()) {
             if (!(block(f) instanceof WideDoorBlock door) || door.format() != f) problems.add("block " + f);
             if (!(item(f) instanceof net.minecraft.world.item.BlockItem)) problems.add("item " + f);
-            if (block(f).defaultBlockState().getPistonPushReaction() != PushReaction.IMMOVEABLE) problems.add("movable " + f);
+            if (McVersion.pushReaction(block(f).defaultBlockState()) != McVersion.PUSH_BLOCKED) problems.add("movable " + f);
         }
         var recipes = h.getLevel().getServer().getRecipeManager();
         ItemStack door = new ItemStack(Items.OAK_DOOR), planks = new ItemStack(Items.OAK_PLANKS), stick = new ItemStack(Items.STICK);

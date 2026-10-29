@@ -1,6 +1,7 @@
 package com.simplebuilding.doors;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.version.McVersion;
 import java.util.List;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +14,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.material.PushReaction;
 
 /**
  * Registration of Simple Doors (WP-17 / BS28-2). Only oak for now (owner choice ABN29-3: the other woods wait for the approval of
@@ -32,7 +32,7 @@ public final class WideDoors {
     public static Block registerOak(DoorFormat format) {
         Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, format.id(OAK));
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, id);
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).setId(key).pushReaction(PushReaction.IMMOVEABLE);
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).setId(key).pushReaction(McVersion.PUSH_BLOCKED);
         return Registry.register(BuiltInRegistries.BLOCK, id, new WideDoorBlock(format, BlockSetType.OAK, properties));
     }
 
