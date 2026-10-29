@@ -266,7 +266,8 @@ public final class TestCentreLayout {
      * Die Tweaks-Station setzt je Familie ein Vorfuehrstueck von Hand.
      */
     public static boolean frameOnly(Block block) {
-        return block instanceof PadBlock || TweaksBlocks.legacy().contains(block);
+        // Multi-cell doors (WP-17): a single gallery cell of a door would fall apart at once; their items hang in the tab wall.
+        return block instanceof PadBlock || TweaksBlocks.legacy().contains(block) || block instanceof com.simplebuilding.doors.WideDoorBlock;
     }
 
     /** Breite des Ausgabe-Knopfs vorn links an jeder Station (Befehlsblock + eine Spalte Luft). */

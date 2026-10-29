@@ -680,3 +680,8 @@ modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/chisele
 wiki/assets/textures/simpleblocks/block/chiseled_blue_ice.png
 wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/chiseled_blue_ice.png
 wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/chiseled_blue_ice.png
+
+# Simple Doors (WP-17 / BS28-2): Vanilla-derived door cell textures are built, never committed (AGENTS.md rule 7)
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/oak_door_*.png
+wiki/assets/textures/block/oak_door_*.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/oak_door_*.png

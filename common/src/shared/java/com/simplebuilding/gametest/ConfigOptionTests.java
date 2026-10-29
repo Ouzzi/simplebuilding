@@ -577,6 +577,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleLights boolean=true",
             "root.enableSimpleEarth boolean=true",
             "root.enableSimpleGadgets boolean=true",
+            "root.enableSimpleRedstone boolean=true",
             "root.enableSimpleOctets boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -739,6 +740,7 @@ public final class ConfigOptionTests {
             "server.features.scarecrowRadius int=8",
             "server.features.armorStandArms boolean=true",
             "server.features.armorStandSwap boolean=true",
+            "server.features.simpleDoors boolean=true",
             "server.chunkLoaders.requireOwnerOnline boolean=true",
             "server.dimensionLocks.chunkLoaderBlockedDimensions String=",
             "server.dimensionLocks.flypadBlockedDimensions String=",
@@ -1196,7 +1198,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
                 {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"},
-                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}};
+                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleRedstone", "simpleredstone"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

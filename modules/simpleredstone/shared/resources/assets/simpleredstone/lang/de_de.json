@@ -1,0 +1,11 @@
+{
+  "block.simpleredstone.double_piston": "Doppelkolben",
+  "item.simpleredstone.double_piston": "Doppelkolben",
+  "block.simpleredstone.double_piston_barrel": "Doppelkolben-Lauf",
+  "block.simpleredstone.double_piston_head": "Doppelkolben-Kopf",
+  "block.simpleredstone.double_piston_arm": "Doppelkolben-Schaft",
+  "block.simpleredstone.signal_dampener": "Signaldämpfer",
+  "item.simpleredstone.signal_dampener": "Signaldämpfer",
+  "itemgroup.simpleredstone.redstone": "Simple Redstone",
+  "simpleredstone.testcentre.station": "Simple Redstone"
+}
