@@ -152,7 +152,9 @@ public final class PlacedSmallParts {
      */
     private static final java.util.Map<String, int[]> GEM_ROWS = java.util.Map.of(
             "minecraft:diamond", new int[]{2, 3, 4, 5, 5, 6, 6, 6, 6, 5, 5, 4, 3},
-            "minecraft:emerald", new int[]{2, 3, 4, 5, 5, 5, 5, 5, 5, 4, 3, 2});
+            "minecraft:emerald", new int[]{2, 3, 4, 5, 5, 5, 5, 5, 5, 4, 3, 2},
+            // BS25-5: the cracked diamond stands like the diamond (sprite rows 1..13)
+            "simplelib:cracked_diamond", new int[]{2, 3, 4, 4, 5, 5, 6, 6, 6, 5, 5, 4, 3});
     /** Edelsteine mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}). */
     public static final java.util.Set<String> MODELLED_GEMS = GEM_ROWS.keySet();
 

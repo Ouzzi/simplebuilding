@@ -337,7 +337,7 @@ public final class TcCanvas {
     }
 
     /** Tiefe des Bodenrasters einer {@link #exhibition}. */
-    public static final int EXHIBIT_DEPTH = 6;
+    public static final int EXHIBIT_DEPTH = 8; // BS27-4: was 6, palettes spawn 25 % shorter
     /** Rueckwand einer {@link #exhibition}: hinter dem Raster ein Feld Gang, dann die Wand. */
     public static final int EXHIBIT_WALL_Z = EXHIBIT_DEPTH + 2;
     /** Hoehe der Rueckwand einer {@link #exhibition}: Schilder auf y 1, Kante auf y 2. */

@@ -110,4 +110,9 @@ public final class OreDetectorGameTest {
     public void calibratedDetectorsLieDownAndKeepSearching(GameTestHelper helper) {
         OreDetectorTests.calibratedDetectorsLieDownAndKeepSearching(helper);
     }
+
+    @GameTest
+    public void placedDetectorWearsHalfTheTones(GameTestHelper helper) {
+        OreDetectorTests.placedDetectorWearsHalfTheTones(helper);
+    }
 }

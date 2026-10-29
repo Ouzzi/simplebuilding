@@ -76,7 +76,7 @@ public final class NatureTests {
         all.put("cracked_ice_leaves_no_water", NatureTests::crackedIceLeavesNoWater);
         all.put("cracked_ice_melts_under_an_entity_after_some_seconds", NatureTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds);
         maxTicks.put("cracked_ice_melts_under_an_entity_after_some_seconds", CRACKED_ICE_MAX_TICKS);
-        all.put("cracked_ice_blocks_placement_on_all_sides_and_blends_with_ice", NatureTests::crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce);
+        all.put("cracked_ice_allows_placement_on_all_sides_and_blends_with_ice", NatureTests::crackedIceAllowsPlacementOnAllSidesAndBlendsWithIce);
         all.put("cracked_ice_drops_itself_with_silk_touch", NatureTests::crackedIceDropsItselfWithSilkTouch);
         all.put("moved_blocks_registered", NatureTests::movedBlocksRegistered);
         all.put("moved_ids_from_simplebuilding", NatureTests::movedIdsFromSimplebuilding);
@@ -349,7 +349,7 @@ public final class NatureTests {
      * rissiges Eis selbst schon), und
      * Eis und rissiges Eis blenden die Flaechen zueinander aus wie Eis neben Eis (getarnt, keine Innenraender).
      */
-    public static void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper helper) {
+    public static void crackedIceAllowsPlacementOnAllSidesAndBlendsWithIce(GameTestHelper helper) {
         BlockPos centre = new BlockPos(3, 3, 3);
         helper.setBlock(centre, NatureBlocks.CRACKED_ICE);
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
@@ -359,8 +359,8 @@ public final class NatureTests {
             helper.setBlock(target, Blocks.AIR);
             ItemStack stone = new ItemStack(Items.STONE, 4);
             var result = placeAt(helper, player, stone, target);
-            helper.assertTrue(!result.consumesAction() && helper.getBlockState(target).isAir() && stone.getCount() == 4,
-                    "placing stone " + direction + " of cracked ice gave " + result + ", block " + helper.getBlockState(target));
+            helper.assertTrue(result.consumesAction() && helper.getBlockState(target).is(Blocks.STONE),
+                    "BS25-8: placing stone " + direction + " of cracked ice gave " + result + ", block " + helper.getBlockState(target));
         }
         BlockPos ice = new BlockPos(6, 3, 6);
         helper.setBlock(ice, Blocks.ICE);
