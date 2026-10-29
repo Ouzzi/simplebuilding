@@ -47,6 +47,12 @@ public final class StateTables {
         return canon;
     }
 
+    /** Registries are frozen and every block state is built: the lookup maps are not needed any more (the counters stay). */
+    public static void release() {
+        OBJECTS.clear();
+        FACES.clear();
+    }
+
     private static long align(long bytes) {
         return (bytes + 7) & ~7L;
     }

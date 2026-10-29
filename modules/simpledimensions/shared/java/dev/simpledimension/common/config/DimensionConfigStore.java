@@ -79,7 +79,7 @@ public final class DimensionConfigStore {
             if (Files.isSymbolicLink(path) || Files.size(path)>ConfigLimits.MAX_BYTES) return null;
             return ConfigLimits.validate(GSON.fromJson(reader, DimensionPortalConfig.class));
         } catch (Exception error) {
-            System.err.println("Simple Dimensions rejected " + path.getFileName() + ": " + error.getMessage());
+            org.slf4j.LoggerFactory.getLogger("simpledimensions").warn("Simple Dimensions rejected {}: {}", path.getFileName(), error.getMessage());
             return null;
         }
     }

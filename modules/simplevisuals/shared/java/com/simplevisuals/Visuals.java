@@ -27,7 +27,7 @@ public final class Visuals {
    return level==null?null:level.shared();
   });
  }
- public static void save(){ConfigOptions.normalize(CONFIG);try{Files.createDirectories(CONFIG_PATH.getParent());com.simplebuilding.framework.api.ConfigFiles.writeAtomic(CONFIG_PATH,GSON.toJson(CONFIG));}catch(Exception e){throw new IllegalStateException(e);}}
+ public static void save(){ConfigOptions.normalize(CONFIG);try{Files.createDirectories(CONFIG_PATH.getParent());com.simplebuilding.framework.api.ConfigFiles.writeAtomic(CONFIG_PATH,GSON.toJson(CONFIG));}catch(Exception e){org.slf4j.LoggerFactory.getLogger("simplevisuals").error("Cannot save the Simple Visuals config",e);}}
  public static String formatName(String name,boolean enabled){
   if(name==null)return null;
   if(name.length()>50)return null;

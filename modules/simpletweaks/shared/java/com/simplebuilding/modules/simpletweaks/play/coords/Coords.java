@@ -81,6 +81,11 @@ public final class Coords {
         }
     }
     /** Tests: forget cooldowns and markers. */
+    /** Leaving: drop the share time once its cooldown is over. */
+    public static void forget(ServerPlayer p) {
+        Long last = LAST.get(p.getUUID());
+        if (last != null && System.currentTimeMillis() - last >= Play.config().coords().cooldownSeconds() * 1000L) LAST.remove(p.getUUID());
+    }
     public static void reset() { PINGS.clear(); LAST.clear(); }
     private Coords() {}
 }

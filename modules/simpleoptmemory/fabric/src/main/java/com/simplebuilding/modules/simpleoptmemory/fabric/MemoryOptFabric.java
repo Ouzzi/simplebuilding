@@ -10,6 +10,7 @@ public final class MemoryOptFabric implements ModInitializer {
     @Override public void onInitialize() {
         FabricLoader loader = FabricLoader.getInstance();
         MemoryOpt.boot(loader.getConfigDir(), loader::isModLoaded);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(s -> StateTables.release());
         if (MemoryOpt.live(MemoryOpt.STATE_TABLES)) MemoryOpt.LOG.info(StateTables.summary());
     }
 }

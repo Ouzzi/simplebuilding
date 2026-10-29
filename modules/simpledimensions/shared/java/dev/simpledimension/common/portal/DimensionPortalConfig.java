@@ -219,8 +219,9 @@ public final class DimensionPortalConfig {
                 if (parsed.hasInterior()) {
                     out.add(parsed);
                 }
-            } catch (RuntimeException ignored) {
+            } catch (RuntimeException e) {
                 // skip malformed recipe rather than break loading
+                org.slf4j.LoggerFactory.getLogger("simpledimensions").warn("Simple Dimensions skipped a malformed portal recipe: {}", e.getMessage());
             }
         }
         return out;

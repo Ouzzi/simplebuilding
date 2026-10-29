@@ -46,6 +46,9 @@ public final class DeedService {
         return stack.is(ClaimDeedItem.item()) ? stack : ItemStack.EMPTY;
     }
 
+    /** Leaving: the 5-tick packet clocks are over long before a relog. */
+    public static void forget(ServerPlayer player) { LAST.remove(player.getUUID()); LAST_CHUNKS.remove(player.getUUID()); }
+
     /** Tests only: forget the packet times (a game test sends several packets in one tick). */
     public static void resetThrottle() { LAST.clear(); LAST_CHUNKS.clear(); }
 

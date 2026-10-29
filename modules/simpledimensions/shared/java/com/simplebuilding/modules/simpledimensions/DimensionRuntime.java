@@ -87,7 +87,7 @@ public final class DimensionRuntime {
  private void save(){
   try{var root=new JsonObject();root.add("returns",new Gson().toJsonTree(returns));root.add("portals",new Gson().toJsonTree(portals));
    var temp=ledger.resolveSibling("simpledimension-returns.tmp");Files.writeString(temp,new Gson().toJson(root));Files.move(temp,ledger,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
-  }catch(Exception e){throw new IllegalStateException("Cannot persist safe returns",e);}
+  }catch(Exception e){org.slf4j.LoggerFactory.getLogger("simpledimensions").error("Cannot persist safe returns (will retry on the next change)",e);}
  }
  private static String key(ServerLevel l,BlockPos p){return l.dimension().identifier()+"@"+p.asLong();}
  public boolean reserve(ServerLevel l,BlockPos3i p){return portals.size()<ConfigLimits.MAX_PORTALS||portals.contains(key(l,pos(p)));}

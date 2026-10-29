@@ -13,6 +13,7 @@ public final class BlocksFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         MenuScreens.<ShapecutterMenu, ShapecutterScreen>register(Sawing.MENU, ShapecutterScreen::new);
         ClientPlayNetworking.registerGlobalReceiver(Sawing.Payload.TYPE, (payload, context) -> context.client().execute(() -> Sawing.receive(payload.entries())));
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> Sawing.forgetAll());
         // The rising block is drawn like falling sand; the grass slab is tinted by the biome like the grass block.
         net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(com.simpleblocks.nature.NatureBlocks.LEVITATING_BLOCK,
                 net.minecraft.client.renderer.entity.FallingBlockRenderer::new);

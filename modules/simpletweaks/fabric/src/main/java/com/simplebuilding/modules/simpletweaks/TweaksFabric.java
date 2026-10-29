@@ -16,6 +16,20 @@ public final class TweaksFabric implements ModInitializer {
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(com.simplebuilding.modules.simpletweaks.claims.Claims::start);
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(com.simplebuilding.modules.simpletweaks.claims.Claims::stop);
         com.simplelib.api.PlayerState.onLeave("simpletweaks:roof", com.simplebuilding.modules.simpletweaks.play.roof.NetherRoof::forget);
+        // REV2-C-7: small per-player static maps are dropped on leave / stop.
+        com.simplelib.api.PlayerState.onLeave("simpletweaks:statics", p -> {
+            com.simplebuilding.modules.simpletweaks.admin.freeze.Freeze.forget(p);
+            com.simplebuilding.modules.simpletweaks.admin.blocklog.BlockLogCommands.forget(p);
+            com.simplebuilding.modules.simpletweaks.admin.blocklog.Inspect.forget(p.getUUID());
+            com.simplebuilding.modules.simpletweaks.play.pvp.Pvp.forget(p);
+            com.simplebuilding.modules.simpletweaks.play.coords.Coords.forget(p);
+            com.simplebuilding.modules.simpletweaks.deed.DeedService.forget(p);
+        });
+        com.simplelib.api.PlayerState.onStop("simpletweaks:statics", () -> {
+            com.simplebuilding.modules.simpletweaks.play.pvp.Pvp.resetCooldowns();
+            com.simplebuilding.modules.simpletweaks.play.coords.Coords.reset();
+            com.simplebuilding.modules.simpletweaks.deed.DeedService.resetThrottle();
+        });
         com.simplelib.api.PlayerState.onStop("simpletweaks:roof", com.simplebuilding.modules.simpletweaks.play.roof.NetherRoof::forgetAll);
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d,r,e)->com.simplebuilding.modules.simpletweaks.claims.ClaimCommands.register(d));
     }

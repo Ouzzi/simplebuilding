@@ -22,6 +22,7 @@ public final class DragonFightFabric implements ModInitializer {
         });
         if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simpleenddragonfight.guide.DragonFightGuide.installQuests(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         DragonFightRegistry.registerAll();
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> DragonFightServer.forgetAll());
         FabricDefaultAttributeRegistry.register(DragonFightRegistry.DRAGONMITE, Dragonmite.createAttributes());
         ServerTickEvents.END_SERVER_TICK.register(DragonFightServer::tick);
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS).register(out -> {

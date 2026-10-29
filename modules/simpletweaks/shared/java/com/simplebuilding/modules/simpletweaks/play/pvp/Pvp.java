@@ -45,6 +45,8 @@ public final class Pvp {
         long left = Play.config().pvp().cooldownSeconds() * 1000L - (System.currentTimeMillis() - at);
         return left <= 0 ? 0 : left / 1000 + 1;
     }
+    /** Leaving: drop the toggle time once its cooldown is over (a relog must not skip a running cooldown). */
+    public static void forget(ServerPlayer p) { if (waitSeconds(p) == 0) TOGGLED.remove(p.getUUID()); }
     public static void resetCooldowns() { TOGGLED.clear(); }
 
     public static void register(CommandDispatcher<CommandSourceStack> d, PlayConfig c) {

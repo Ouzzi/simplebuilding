@@ -39,6 +39,7 @@ public final class Freeze {
             p.connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("simpletweaks.admin.freeze.released").withStyle(ChatFormatting.GREEN)));
         }
     }
+    public static void forget(ServerPlayer p) { AT.remove(p.getUUID()); }
     public static void joined(ServerPlayer p) { if (frozen(p)) AT.put(p.getUUID(), p.position()); }
 
     public static void tick(MinecraftServer server) {
