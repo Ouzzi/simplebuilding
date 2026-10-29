@@ -53,4 +53,9 @@ public final class AstralEnchantingGameTest {
     public void blazingObsidianKeepsFireBurning(GameTestHelper helper) {
         AstralEnchantingTests.blazingObsidianKeepsFireBurning(helper);
     }
+
+    @GameTest
+    public void chiseledBookshelvesStoreBooks(GameTestHelper helper) {
+        AstralEnchantingTests.chiseledBookshelvesStoreBooks(helper);
+    }
 }

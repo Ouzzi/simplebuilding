@@ -202,9 +202,9 @@ public final class ImmersionTests {
         expectLines(helper, TweaksBlocks.REINFORCED_FLYPAD, "Tier II of III", "Flight area: 8 x 8 blocks, 16 high", "Flying out gives you Slow Falling");
         expectLines(helper, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "Tier III of III", "Stand still 5 s: bed or anchor.");
         expectLines(helper, TweaksBlocks.POTION_PAD, "Tier I of III", "Up to 45 s; cooldown 67.5 s");
-        expectOven(helper, com.simplebuilding.util.OvenRefs.block("enderite_furnace"), "Works 8× as fast", "Double experience");
-        expectOven(helper, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), "Works 2× as fast");
-        expectOven(helper, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), "Works 4× as fast", "Double experience");
+        expectOven(helper, com.simplebuilding.util.OvenRefs.block("enderite_furnace"), ovenSpeed("8"), "Double experience");
+        expectOven(helper, com.simplebuilding.util.OvenRefs.block("reinforced_smoker"), ovenSpeed("2"));
+        expectOven(helper, com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), ovenSpeed("4"), "Double experience");
         for (var furnace : List.of(com.simplebuilding.util.OvenRefs.block("netherite_blast_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_blast_furnace"))) {
             helper.assertValueEqual(ovenLines(helper, new ItemStack(furnace)).size(), 2,
                     "blast furnace tooltip contains only speed and experience");
@@ -381,6 +381,11 @@ public final class ImmersionTests {
     }
 
     // =====================================================================================
+
+    /** The speed line of a furnace: Simple Ovens (26.3) words it "Default: works N× as fast", the SimpleBuilding line (26.2) "Works N× as fast". */
+    private static String ovenSpeed(String factor) {
+        return (com.simplebuilding.version.McVersion.OVENS_IN_SB ? "Works " : "Default: works ") + factor + "× as fast";
+    }
 
     private static void expectOven(GameTestHelper helper, ItemLike item, String... expected) {
         List<String> lines = ovenLines(helper, new ItemStack(item)).stream().map(Component::getString).toList();
