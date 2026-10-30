@@ -165,6 +165,8 @@
   "gui.simplestorage.controller.broken.conflict": "A second controller is on this network.",
   "gui.simplestorage.controller.broken.too_big": "More than %s cables and interfaces.",
   "gui.simplestorage.controller.broken.fix": "Remove chests or cables, or use a higher controller.",
+  "tip.simplestorage.pipe": "Sneak + use turns the output; open it for a filter",
+  "tip.simplestorage.chest_network": "Put interfaces on the chests, link them with cables",
   "item.simplestorage.guide_book": "Simple Storage Guide",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Crates of every wood that hold nine stacks of food in layers, the Storage Crafting Table that keeps its grid on its top, chests, shulker boxes, chest carts and chest boats in three tiers with more slots and bigger stacks, and bundles",
@@ -241,7 +243,5 @@
   "quests.simplestorage.start.title": "Welcome to Simple Storage",
   "quests.simplestorage.start.subtitle": "Your free guide",
   "quests.simplestorage.start.welcome.title": "A free guide",
-  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel.",
-  "tip.simplestorage.pipe": "Sneak + use turns the output; open it for a filter",
-  "tip.simplestorage.chest_network": "Put interfaces on the chests, link them with cables"
+  "quests.simplestorage.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Storage Guide as a reward. You can also craft it from a book and a barrel."
 }
