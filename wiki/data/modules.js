@@ -52,7 +52,8 @@ window.WIKI_MODULES = [
       "simpleearth",
       "simplechallenges",
       "simpleredstone",
-      "simpledinos"
+      "simpledinos",
+      "simpleresonance"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -673,7 +674,9 @@ window.WIKI_MODULES = [
     "requires": [
       "simplelib"
     ],
-    "optional": [],
+    "optional": [
+      "simpleresonance"
+    ],
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -689,9 +692,9 @@ window.WIKI_MODULES = [
       "items": 28,
       "blocks": 3,
       "recipes": 73,
-      "features": 16
+      "features": 17
     },
-    "dataHash": "747cb77dc5bf"
+    "dataHash": "fb622c03ab1b"
   },
   {
     "id": "simpleweather",
@@ -1559,7 +1562,7 @@ window.WIKI_MODULES = [
       "en": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
       "de": "Pflicht-Sub-Mod von SB: Kisten aller Hölzer, Lager-Werkbank, gestufte/Fallen-Truhen, Shulkerkisten-Stufen, Truhenloren/-boote, Bündel, Köcher, Rucksäcke und die Lager-Verzauberungen (IDs migrieren)."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABw0lEQVR42qWTV0tDQRCF/RW+2LAhKGpM7BoSu8YWo9gQG4pdYu9YsSESFERRISgidg32XmJ78Enf/SnHzMgNmqxPPpw7e3fmfDu77DpEatT4jxzoc/5uFmoxX84S5Qynxt8A4/0O3j4/OLZEeXC0HUsic/VIiz2ApPVxZBNF27FkpoWEACp6nSzAy0Q+nsfy8DSai8eRHJiHs/EwpLOChB1QgoruB7NwN6DFbX8mbvsycNObjuueNFx1p2IuR4biQCeuFQKo6LJLg4tODc47UnDWnozTtiSctCbiuDkBhkx/BlCkejvAeIovFx41xeNQH8f7NzXE4KBezblJjR8DKP4C0A+ZqEgSmaXxoQXao/Zmc12Ym/0WaIJWmskOgkEngyFLBvONCdPaAExlBMCkT0CXygubawuoCfkDsFerwk61ks+BNDXWx3G1JAz7jXHoUHpyB1XBrmLAdlU0NiujYCwKsdNufSxao78BlQoXMWCjIhLr5RFYKpDbSIGt2hg0W86EAOVyZzFgrSyc2/15kKSF3CBs1Kigj3BHqcxZfJFoghIrxaHc8nKhgh/RvMVMl2dWF2i9hWSUZAVIkopE+us5fwF7/ihD39cG0AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 17,
       "blocks": 47,
@@ -1821,5 +1824,39 @@ window.WIKI_MODULES = [
       "features": 6
     },
     "dataHash": "647d3af3850a"
+  },
+  {
+    "id": "simpleresonance",
+    "displayName": "Simple Resonance",
+    "description": "Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplemobs"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "How experienced you are and how dangerous the land is: your player value grows with playing time and bosses and falls only by a part when you die, danger zones rise softly with the distance from the world spawn, every monster spawn belongs to one player nearby, and a newcomer protection keeps the first hours gentle. Other mods ask it through an API.",
+      "de": "Wie erfahren du bist und wie gefährlich das Land ist: dein Spielerwert wächst mit Spielzeit und Bossen und sinkt beim Tod nur um einen Teil, Gefahrenzonen steigen weich mit der Entfernung vom Welt-Spawn, jeder Monster-Spawn gehört einem Spieler in der Nähe, und ein Anfängerschutz hält die ersten Stunden mild. Andere Mods fragen es über eine Schnittstelle ab."
+    },
+    "purpose": {
+      "en": "Spielerwert (Spielzeit, Überleben, Bosse, Teilverlust beim Tod), Gefahrenzonen nach Entfernung vom Spawn, Spawn-Besitzer-Wahl und Anfängerschutz als Schnittstelle für andere Mods (Simple Mobs vergibt danach Statuseffekte an neue Monster); allein mit Vanilla spielbar.",
+      "de": "Spielerwert (Spielzeit, Überleben, Bosse, Teilverlust beim Tod), Gefahrenzonen nach Entfernung vom Spawn, Spawn-Besitzer-Wahl und Anfängerschutz als Schnittstelle für andere Mods (Simple Mobs vergibt danach Statuseffekte an neue Monster); allein mit Vanilla spielbar."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPQUnb7TwlmABGLp5/DiqWEDMAYm1xWxAZUA+rzd//fs+U2mIZpPLHhAxjD+CA5EAZp9rGvxzQAphmmER2D5ECaQRZhNQCmGWbYrLoHYAzjIxuCYQCyZphGdAzSCDOEoAEgGgQ+vPgP1ojXAGR/w2yDaYZhmDhyeOA1AFkzQQOweQHkXJhmgl6gSiAiRyNIIcxWmEZkzTgTEkiCmISE1QBQ6oJJ4krKMHkMA2AC6BimEZscigGUYAAdGmaSr7d4OgAAAABJRU5ErkJggg==",
+    "counts": {
+      "items": 1,
+      "recipes": 1,
+      "features": 8
+    },
+    "dataHash": "bffdf6de3be9"
   }
 ];

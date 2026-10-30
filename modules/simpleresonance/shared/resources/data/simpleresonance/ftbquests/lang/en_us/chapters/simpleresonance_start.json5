@@ -1,0 +1,10 @@
+{
+	"chapter.51139D93015FD032.title": "{\"translate\": \"quests.simpleresonance.start.title\"}",
+	"chapter.51139D93015FD032.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleresonance.start.subtitle\"}"
+	],
+	"quest.32F08DF40B781C01.title": "{\"translate\": \"quests.simpleresonance.start.welcome.title\"}",
+	"quest.32F08DF40B781C01.quest_desc": [
+		"{\"translate\": \"quests.simpleresonance.start.welcome.description\"}"
+	]
+}

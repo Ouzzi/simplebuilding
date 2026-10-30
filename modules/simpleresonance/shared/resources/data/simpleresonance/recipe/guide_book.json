@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleresonance:guide_book"
+  }
+}

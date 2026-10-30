@@ -96,7 +96,8 @@ public final class MobsDiscover {
             "simplemobs:trick_mirror",
             "simplemobs:void_wings",
             "simplemobs:watcher_eye",
-            "simplemobs:wither_wings");
+            "simplemobs:wither_wings",
+            "simplemobs:zone_effects");
     static final List<Tip> TIPS = List.of(
             new Tip("trick_mirror", List.of("trick_mirror")),
             new Tip("deceiver_cloak", List.of("deceiver_cloak")),
