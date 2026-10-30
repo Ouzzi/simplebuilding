@@ -3596,6 +3596,20 @@
             }
           }
         },
+        "combos": [
+          {
+            "with": [
+              "simpleores"
+            ],
+            "reason": "Optional rose gold hammers (ABN30-10): the two tiers exist only with Simple Ores, recipes and values are tested together.",
+            "loaders": {
+              "fabric": {
+                "task": ":integration:runSimplehammersWithSimpleoresGameTest",
+                "report": "integration/build/combo/simplehammers-simpleores-junit.xml"
+              }
+            }
+          }
+        ],
         "client": {
           "entrypoints": [
             "com.simplebuilding.modules.simplehammers.ModuleClientSmoke"
