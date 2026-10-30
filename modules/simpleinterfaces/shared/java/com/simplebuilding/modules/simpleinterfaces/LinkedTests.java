@@ -547,7 +547,15 @@ public final class LinkedTests {
             h.assertTrue(count(p.getInventory(), Items.EMERALD) == 4 && p.getEnderChestInventory().getItem(0).isEmpty(), "Moves out of the ender inventory");
             menu.clicked(27 + 27 + 4, 0, ContainerInput.PICKUP, p);
             h.assertTrue(menu.getCarried().isEmpty() && p.getInventory().getItem(4) == chest, "Ender chest item locked too");
-            p.closeContainer();
+            var snapshots = new ArrayList<com.simplebuilding.modules.simpleinterfaces.network.EnderChestSnapshotPayload>();
+            var oldSender = com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.sender;
+            com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.sender = (to, payload) -> to == p && snapshots.add(payload);
+            try {
+                p.closeContainer();
+            } finally {
+                com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.sender = oldSender;
+            }
+            h.assertTrue(snapshots.size() == 1, "Closing the Easy Ender Chest refreshes the tooltip snapshot (INT-P2-1): " + snapshots.size());
             SimpleInterfaces.config().enableEasyEnderChests = false;
             h.assertTrue(!PortableContainers.open(p, 4), "Switch off: ender chest stays closed");
             p.getEnderChestInventory().clearContent();
