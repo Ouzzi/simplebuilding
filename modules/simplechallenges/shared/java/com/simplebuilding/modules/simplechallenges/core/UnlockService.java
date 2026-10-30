@@ -53,7 +53,7 @@ public final class UnlockService {
     public static boolean canPay(Active a, ServerPlayer player, Price p) {
         return switch (p.currency()) {
             case ITEMS -> count(player, p.item()) >= p.count();
-            case CREDITS -> a.state.credits >= p.count();
+            case CREDITS -> Credits.of(a, player) >= p.count();
             case XP -> player.experienceLevel >= p.count();
         };
     }
@@ -72,10 +72,7 @@ public final class UnlockService {
                 }
                 inv.setChanged();
             }
-            case CREDITS -> {
-                a.state.credits -= p.count();
-                a.state.setDirty();
-            }
+            case CREDITS -> Credits.add(a, player, -p.count());
             case XP -> player.giveExperienceLevels(-p.count());
         }
     }
@@ -148,6 +145,13 @@ public final class UnlockService {
         }
     }
 
+    /** True when someone can still pay a credit (the team pot, or any online player's own pot). */
+    private static boolean anyCredit(Active a) {
+        if (!ChallengeServerConfig.perPlayerCredits) return a.state.credits >= 1;
+        for (ServerPlayer p : a.server.getPlayerList().getPlayers()) if (Credits.of(a, p) >= 1) return true;
+        return false;
+    }
+
     /** Every 20 ticks: the emergency unlock when nothing was unlocked for pityMinutes and nothing can be paid (or no credit is left). */
     public static void pity(Active a) {
         pity(a, !a.server.getPlayerList().getPlayers().isEmpty());
@@ -155,14 +159,14 @@ public final class UnlockService {
 
     /** @param playersOnline the timer only runs while someone plays (tests pass true) */
     public static void pity(Active a, boolean playersOnline) {
-        if (!ChallengeServerConfig.pityEnabled || !playersOnline) return;
+        if (a.mode == null || !ChallengeServerConfig.pityEnabled || !playersOnline) return;
         long now = a.server.overworld().getGameTime();
         long pityTicks = a.mode.pityMinutes() * 60L * 20L;
         if (now - a.state.lastUnlockTick < pityTicks) return;
         for (String dim : a.dimensions()) {
             UnlockGrid g = a.grid(dim);
             if (g == null) continue;
-            boolean stuck = a.mode.currency() == Currency.CREDITS ? a.state.credits < 1
+            boolean stuck = a.mode.currency() == Currency.CREDITS ? !anyCredit(a)
                     : Solvability.payableFrontier(g, k -> priceOf(a, dim, UnlockGrid.keyX(k), UnlockGrid.keyZ(k)), a::obtainable).isEmpty();
             if (!Solvability.due(true, now - a.state.lastUnlockTick, pityTicks, stuck)) continue;
             long[] frontier = g.frontier();

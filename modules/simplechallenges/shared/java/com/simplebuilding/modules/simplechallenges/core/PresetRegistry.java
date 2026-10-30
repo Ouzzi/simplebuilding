@@ -25,6 +25,9 @@ import net.minecraft.server.packs.resources.ResourceManager;
  */
 public final class PresetRegistry {
     private static final String DIR = "simplechallenges/preset";
+    /** The presets of the mod jar: the world creation screen (no server, no data packs yet) reads these from the class path. */
+    public static final List<String> SHIPPED = List.of("vanilla_unlock", "block_by_block", "quick_steps", "trophy_land", "island_unlock",
+            "classic_skyblock", "sky_one_block", "sky_grid");
     private static final Map<String, Preset> PRESETS = new LinkedHashMap<>();
     private static final List<String> PROBLEMS = new ArrayList<>();
 
@@ -69,6 +72,55 @@ public final class PresetRegistry {
         } catch (RuntimeException e) {
             PROBLEMS.add("could not list presets: " + e);
         }
+        loadUser(configDir);
+        SimpleChallenges.LOG.info("Simple Challenges: {} presets, {} problems", PRESETS.size(), PROBLEMS.size());
+    }
+
+    /** The text of a shipped preset from the class path, or null. */
+    public static String shippedText(String id) {
+        try (java.io.InputStream in = PresetRegistry.class.getResourceAsStream("/data/" + SimpleChallenges.MOD_ID + "/" + DIR + "/" + id + ".json")) {
+            return in == null ? null : new String(in.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    /** Client side, before any server exists (world creation screen): the shipped presets and the user's own. */
+    public static synchronized void loadClient(Path configDir) {
+        PRESETS.clear();
+        PROBLEMS.clear();
+        for (String id : SHIPPED) {
+            String text = shippedText(id);
+            if (text == null) PROBLEMS.add("missing shipped preset " + id);
+            else add(id, text, "shipped " + id);
+        }
+        loadUser(configDir);
+    }
+
+    /** Writes the user's preset file {@code config/simplechallenges/presets/<name>.json} and registers it as {@code user/<name>}. */
+    public static synchronized String saveUser(Path configDir, String name, String text) throws IOException {
+        String clean = name.toLowerCase(java.util.Locale.ROOT).replaceAll("[^a-z0-9_-]+", "_");
+        if (clean.isBlank() || clean.length() > 40) clean = "preset";
+        Path folder = configDir.resolve(SimpleChallenges.MOD_ID).resolve("presets");
+        Files.createDirectories(folder);
+        Files.writeString(folder.resolve(clean + ".json"), text, StandardCharsets.UTF_8);
+        add("user/" + clean, text, "user " + clean);
+        return "user/" + clean;
+    }
+
+    /** Deletes a user preset file (shipped and data pack presets cannot be deleted). */
+    public static synchronized boolean deleteUser(Path configDir, String id) {
+        if (!id.startsWith("user/") || configDir == null) return false;
+        try {
+            boolean gone = Files.deleteIfExists(configDir.resolve(SimpleChallenges.MOD_ID).resolve("presets").resolve(id.substring(5) + ".json"));
+            PRESETS.remove(id);
+            return gone;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    private static void loadUser(Path configDir) {
         if (configDir != null) {
             Path folder = configDir.resolve(SimpleChallenges.MOD_ID).resolve("presets");
             if (Files.isDirectory(folder)) {
@@ -86,7 +138,6 @@ public final class PresetRegistry {
                 }
             }
         }
-        SimpleChallenges.LOG.info("Simple Challenges: {} presets, {} problems", PRESETS.size(), PROBLEMS.size());
     }
 
     private static String readAll(Reader in) throws IOException {

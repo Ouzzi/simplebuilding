@@ -71,6 +71,26 @@ public final class ModuleGameTest {
         ChallengeTests.ALL.get("unlock_pay_and_credits").accept(h);
     }
 
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void skyPlans(GameTestHelper h) {
+        ChallengeTests.ALL.get("sky_plans").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void presetWorldModes(GameTestHelper h) {
+        ChallengeTests.ALL.get("preset_world_modes").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void skyWorldModes(GameTestHelper h) {
+        ChallengeTests.ALL.get("sky_world_modes").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void leanSpawnLook(GameTestHelper h) {
+        ChallengeTests.ALL.get("lean_spawn_look").accept(h);
+    }
+
     @GameTest(structure = "simplechallenges:empty", maxTicks = 100)
     public void guidePages(GameTestHelper h) {
         com.simplebuilding.modules.simplechallenges.guide.ChallengesGuide.gameTest(h);

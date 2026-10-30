@@ -8,6 +8,7 @@ import com.simplebuilding.modules.simplechallenges.config.ChallengeServerConfig;
 import com.simplebuilding.modules.simplechallenges.core.Active;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeRuntime;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeService;
+import com.simplebuilding.modules.simplechallenges.core.Credits;
 import com.simplebuilding.modules.simplechallenges.core.PresetRegistry;
 import com.simplebuilding.modules.simplechallenges.core.UnlockService;
 import com.simplebuilding.modules.simplechallenges.preset.Preset;
@@ -71,9 +72,14 @@ public final class ChallengeCommands {
             s.sendSuccess(() -> Component.translatable("simplechallenges.status.none"), false);
             return 1;
         }
+        if (a.mode == null) {
+            s.sendSuccess(() -> Component.translatable("simplechallenges.status.world_only", a.preset.name()), false);
+            return 1;
+        }
         UnlockGrid any = a.grid(a.mode.dimensions().get(0));
+        ServerPlayer self = s.getEntity() instanceof ServerPlayer sp ? sp : null;
         s.sendSuccess(() -> Component.translatable("simplechallenges.status.active", a.preset.name(), any == null ? 0 : any.size(), a.mode.cell(),
-                a.state.credits), false);
+                Credits.of(a, self)), false);
         if (s.getEntity() instanceof ServerPlayer p) {
             String dim = p.level().dimension().identifier().toString();
             UnlockGrid g = a.grid(dim);
@@ -171,9 +177,9 @@ public final class ChallengeCommands {
             s.sendFailure(Component.translatable("simplechallenges.status.none"));
             return 0;
         }
-        a.state.credits = Math.max(0, a.state.credits + amount);
-        a.state.setDirty();
-        s.sendSuccess(() -> Component.translatable("simplechallenges.cmd.credits", a.state.credits), true);
+        ServerPlayer self = s.getEntity() instanceof ServerPlayer sp ? sp : null;
+        Credits.add(a, self, amount);
+        s.sendSuccess(() -> Component.translatable("simplechallenges.cmd.credits", Credits.of(a, self)), true);
         return 1;
     }
 }

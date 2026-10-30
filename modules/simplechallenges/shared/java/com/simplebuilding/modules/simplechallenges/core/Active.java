@@ -17,7 +17,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
-/** The running challenge of a server: preset, state, price engine and what the unlocked area offers (the easy-tier price pool). */
+/**
+ * The running challenge of a server: preset, state, price engine and what the unlocked area offers (the easy-tier price pool).
+ * {@code mode} (the Unlock mode) is null for a preset that has only a world mode (pure Skyblock): then there are no grids, no
+ * prices and no borders, and every unlock hook finds nothing to do.
+ */
 public final class Active implements View {
     public final MinecraftServer server;
     public final Preset preset;
@@ -31,13 +35,13 @@ public final class Active implements View {
         this.preset = preset;
         this.mode = preset.unlock();
         this.state = state;
-        this.engine = new PriceEngine(state.seed, mode);
-        state.bind(mode);
+        this.engine = mode == null ? null : new PriceEngine(state.seed, mode);
+        if (mode != null) state.bind(mode);
     }
 
     @Override
     public UnlockGrid grid(String dimension) {
-        return state.grids.get(dimension);
+        return mode == null ? null : state.grids.get(dimension);
     }
 
     @Override
@@ -46,7 +50,7 @@ public final class Active implements View {
     }
 
     public Iterable<String> dimensions() {
-        return mode.dimensions();
+        return mode == null ? java.util.List.of() : mode.dimensions();
     }
 
     public ServerLevel level(String dimension) {

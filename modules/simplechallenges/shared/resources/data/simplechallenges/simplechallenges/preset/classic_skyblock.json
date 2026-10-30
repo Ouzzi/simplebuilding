@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "Classic Skyblock",
+  "icon": "minecraft:oak_sapling",
+  "family": "skyblock",
+  "modes": [
+    { "type": "skyblock", "style": "classic" }
+  ]
+}

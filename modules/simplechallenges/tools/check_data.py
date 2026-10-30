@@ -15,7 +15,10 @@ for key in sorted(server_keys):
         assert f'text.autoconfig.{ID}.option.{key}{suffix}' in en, f'missing label {key}{suffix}'
 # every translatable key used in the Java code exists
 code = ''.join(p.read_text(encoding='utf-8') for p in (MODULE / 'shared/java').rglob('*.java') if '/test/' not in p.as_posix())
-for key in sorted(set(re.findall(r'"(simplechallenges\.(?:msg|cmd|price|status|unlock|border)\.[a-z_]+)"', code))):
+for key in sorted(set(re.findall(r'"(simplechallenges\.(?:msg|cmd|price|status|unlock|border|hud|ui)\.[a-z_.]+)"', code))):
+    if key.endswith('.'):  # a prefix completed in code, e.g. simplechallenges.ui.family.
+        assert any(k.startswith(key) for k in en), f'no lang key for prefix {key}'
+        continue
     assert key in en, f'missing lang key {key}'
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 assert manual['features'], 'wiki features'
@@ -24,11 +27,15 @@ for feature in manual['features']:
     for source in feature['sources']:
         assert (REPO / source).is_file(), source
 presets = sorted((MODULE / f'shared/resources/data/{ID}/{ID}/preset').glob('*.json'))
-assert len(presets) >= 4, presets
+assert len(presets) >= 8, presets
+registry = (MODULE / 'shared/java/com/simplebuilding/modules/simplechallenges/core/PresetRegistry.java').read_text(encoding='utf-8')
+shipped = set(re.findall(r'"([a-z0-9_]+)"', registry.split('SHIPPED = List.of(')[1].split(');')[0]))
+assert shipped == {p.stem for p in presets}, f'PresetRegistry.SHIPPED differs from the preset files: {shipped ^ {p.stem for p in presets}}'
 for p in presets:
     d = json.loads(p.read_text(encoding='utf-8'))
     assert d['schemaVersion'] == 1 and d['name'] and d['modes'], p.name
     for m in d['modes']:
+        assert m['type'] in ('unlock', 'skyblock', 'oneblock', 'skygrid'), p.name
         if m['type'] == 'unlock':
             assert m.get('cell', 16) in (1, 2, 4, 8, 16, 32, 48), p.name
 values = json.loads((MODULE / f'shared/resources/data/{ID}/{ID}/block_value.json').read_text(encoding='utf-8'))

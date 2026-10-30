@@ -49,7 +49,7 @@ window.WIKI_MODULES = [
       "simplewanderers",
       "simplemusic",
       "simpleearth",
-      "simpleredstone"
+      "simplechallenges"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -71,9 +71,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 507,
       "blocks": 288,
-      "recipes": 825,
-      "config": 233,
-      "features": 48
+      "recipes": 821,
+      "config": 232,
+      "features": 47
     }
   },
   {
@@ -214,7 +214,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 14
     },
-    "dataHash": "a66be992c6de"
+    "dataHash": "5665a55c0b6f"
   },
   {
     "id": "simplefun",
@@ -1692,9 +1692,9 @@ window.WIKI_MODULES = [
     "dataHash": "559e7ecb2c74"
   },
   {
-    "id": "simpleredstone",
-    "displayName": "Simple Redstone",
-    "description": "Double Piston (1x2: signal 1-7 reaches one block, 8-15 two, pushes with Vanilla rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
+    "id": "simplechallenges",
+    "displayName": "Simple Challenges",
+    "description": "Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1709,16 +1709,13 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "The Double Piston - two blocks long, one block out for a weak signal and two for a strong one - and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-      "de": "Der Doppelkolben - zwei Blöcke lang, bei schwachem Signal einen Block weit draußen, bei starkem zwei - und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
+      "en": "Game modes for a world of your choice. First the Unlock mode: the world is cut into cells and only free cells can be entered; you pay to open the next one. Without a chosen challenge the mod changes nothing. Open this guide again with /simplechallenges guide.",
+      "de": "Spielmodi für eine Welt deiner Wahl. Zuerst der Unlock-Modus: Die Welt ist in Zellen zerlegt und nur freie Zellen sind betretbar; die nächste öffnest du gegen Bezahlung. Ohne gewählte Challenge ändert die Mod nichts. Dieses Handbuch öffnet /simplechallenges guide."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 1,
-      "blocks": 5,
-      "recipes": 3,
-      "features": 5
+      "features": 12
     },
-    "dataHash": "3ce18e63948b"
+    "dataHash": "e65ee85ff848"
   }
 ];

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public final class ChallengeServerConfig {
     public static final String FILE = "simplechallenges-server.json";
-    public static final List<String> KEYS = List.of("enabled", "allowAdminCommands", "defaultChallenge", "exemptCreative", "pityEnabled");
+    public static final List<String> KEYS = List.of("enabled", "allowAdminCommands", "defaultChallenge", "exemptCreative", "pityEnabled", "perPlayerCredits");
 
     public static boolean enabled;
     /** Whether /simplechallenges activate, deactivate, unlock-for-free and credits add work (R2: test worlds only). */
@@ -27,6 +27,8 @@ public final class ChallengeServerConfig {
     public static boolean exemptCreative;
     /** The emergency unlock when nothing can be paid for a while (concept 3, deadlock protection). */
     public static boolean pityEnabled;
+    /** Credits belong to each player (a pot of their own) instead of one pot for the whole team. */
+    public static boolean perPlayerCredits;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -58,6 +60,7 @@ public final class ChallengeServerConfig {
         defaultChallenge = text(json, "defaultChallenge", "none");
         exemptCreative = bool(json, "exemptCreative", true);
         pityEnabled = bool(json, "pityEnabled", true);
+        perPlayerCredits = bool(json, "perPlayerCredits", false);
     }
 
     public static JsonObject toJson() {
@@ -67,6 +70,7 @@ public final class ChallengeServerConfig {
         o.addProperty("defaultChallenge", defaultChallenge);
         o.addProperty("exemptCreative", exemptCreative);
         o.addProperty("pityEnabled", pityEnabled);
+        o.addProperty("perPlayerCredits", perPlayerCredits);
         return o;
     }
 
