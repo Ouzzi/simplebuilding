@@ -143,10 +143,12 @@ MODULES = [
     dict(module="simpleores", ns="simpleores", package="com.simpleores.guide", cls="OresGuide", kind="item",
          author="Simple Ores", recipe="minecraft:raw_gold",
          name=("Simple Ores Guide", "Simple-Ores-Handbuch"),
-         intro=("Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver, pressed into "
-                "bundles, smelted in the blast furnace only, with tools and armor of their own.",
-                "Silbererz in der Oberwelt und im End sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu "
-                "Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen.")),
+         intro=("Silver ore in the Overworld and the End with the silver arrow against the undead and the silver mirror, lead whose blocks muffle sound "
+                "and stop the Sculk, and rose gold: two alloys of gold, copper and silver, pressed into bundles, smelted in the blast furnace only, "
+                "with tools and armor of their own.",
+                "Silbererz in der Oberwelt und im End mit Silberpfeil gegen Untote und Silberspiegel, Blei, dessen Blöcke Geräusche dämmen und den "
+                "Sculk taub halten, sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen "
+                "geschmolzen, mit eigenen Werkzeugen und Rüstungen.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),

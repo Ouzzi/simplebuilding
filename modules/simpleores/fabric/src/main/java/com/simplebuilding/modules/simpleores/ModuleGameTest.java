@@ -72,4 +72,39 @@ public final class ModuleGameTest {
     public void discoverBehaviourHints(GameTestHelper h) {
         OresTests.ALL.get("discover_behaviour_hints").accept(h);
     }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void leadBlastResistance(GameTestHelper h) {
+        OresTests.ALL.get("lead_blast_resistance").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void leadOccludesVibrations(GameTestHelper h) {
+        OresTests.ALL.get("lead_occludes_vibrations").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void soundproofAttenuation(GameTestHelper h) {
+        OresTests.ALL.get("soundproof_attenuation").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void silverArrowRecipe(GameTestHelper h) {
+        OresTests.ALL.get("silver_arrow_recipe").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void silverArrowUndeadBonus(GameTestHelper h) {
+        OresTests.ALL.get("silver_arrow_undead_bonus").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void silverMirrorPlacement(GameTestHelper h) {
+        OresTests.ALL.get("silver_mirror_placement").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void leadWorldgen(GameTestHelper h) {
+        OresTests.ALL.get("lead_worldgen").accept(h);
+    }
 }

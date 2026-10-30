@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "raw_lead",
+  "ingredients": [
+    "simpleores:raw_lead_block"
+  ],
+  "result": {
+    "id": "simpleores:raw_lead",
+    "count": 9
+  }
+}

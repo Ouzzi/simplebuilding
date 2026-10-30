@@ -21,12 +21,13 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 /**
- * Fabric entry: registries are open during init, so everything registers directly. The silver veins are placed features in
+ * Fabric entry: registries are open during init, so everything registers directly. The silver and lead veins are placed features in
  * the module's data (NeoForge uses biome modifier files with the same features); here they are added to the Overworld and to
  * the outer End biomes (tag {@code simpleores:has_end_silver_ore}), only while the module is switched on.
  */
 public final class OresFabric implements ModInitializer {
     private static final ResourceKey<PlacedFeature> SILVER = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("silver_ore"));
+    private static final ResourceKey<PlacedFeature> LEAD = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("lead_ore"));
     private static final ResourceKey<PlacedFeature> END_SILVER = ResourceKey.create(Registries.PLACED_FEATURE, SimpleOres.id("end_silver_ore"));
     private static final TagKey<Biome> END_BIOMES = TagKey.create(Registries.BIOME, SimpleOres.id("has_end_silver_ore"));
 
@@ -38,6 +39,7 @@ public final class OresFabric implements ModInitializer {
                 .file(FabricLoader.getInstance().getConfigDir(), com.simpleores.config.OresConfig.FILE).register();
         OresRegistry.registerAll();
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, SILVER);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, LEAD);
         BiomeModifications.addFeature(BiomeSelectors.tag(END_BIOMES).and(ctx -> SimpleOres.on()), GenerationStep.Decoration.UNDERGROUND_ORES, END_SILVER);
         tab(CreativeModeTabs.NATURAL_BLOCKS, Items.GOLD_ORE, OresRegistry.NATURAL);
         tab(CreativeModeTabs.BUILDING_BLOCKS, Items.GOLD_BLOCK, OresRegistry.BUILDING);
