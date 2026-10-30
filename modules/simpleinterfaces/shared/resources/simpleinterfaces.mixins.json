@@ -46,8 +46,7 @@
     "ZoomHudMixin",
     "ZoomInputMixin",
     "ZoomFovMixin",
-    "SlotHighlightMixin",
-    "LeggingsTextureMixin"
+    "SlotHighlightMixin"
   ],
   "injectors": {
     "defaultRequire": 1
