@@ -164,7 +164,7 @@ public final class SelectChallengeScreen extends Screen {
         if (p == null) return;
         PresetDraft d = PresetDraft.from(p);
         d.name = p.name() + " 2";
-        d.family = d.worldKind != null ? "skyblock" : "unlock";
+        d.family = p.family();
         String base = p.id().replace("user/", "").replaceAll("[^a-z0-9_-]+", "_");
         String file = base + "_copy";
         for (int i = 2; PresetRegistry.get("user/" + file) != null; i++) file = base + "_copy" + i;

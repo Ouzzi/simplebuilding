@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "name": "Random Drops",
+  "icon": "minecraft:dispenser",
+  "family": "lucky",
+  "modes": [
+    {
+      "type": "randomdrops",
+      "pity": 0
+    }
+  ]
+}

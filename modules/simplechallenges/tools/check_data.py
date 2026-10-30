@@ -27,7 +27,7 @@ for feature in manual['features']:
     for source in feature['sources']:
         assert (REPO / source).is_file(), source
 presets = sorted((MODULE / f'shared/resources/data/{ID}/{ID}/preset').glob('*.json'))
-assert len(presets) >= 8, presets
+assert len(presets) >= 16, presets
 registry = (MODULE / 'shared/java/com/simplebuilding/modules/simplechallenges/core/PresetRegistry.java').read_text(encoding='utf-8')
 shipped = set(re.findall(r'"([a-z0-9_]+)"', registry.split('SHIPPED = List.of(')[1].split(');')[0]))
 assert shipped == {p.stem for p in presets}, f'PresetRegistry.SHIPPED differs from the preset files: {shipped ^ {p.stem for p in presets}}'
@@ -35,9 +35,11 @@ for p in presets:
     d = json.loads(p.read_text(encoding='utf-8'))
     assert d['schemaVersion'] == 1 and d['name'] and d['modes'], p.name
     for m in d['modes']:
-        assert m['type'] in ('unlock', 'skyblock', 'oneblock', 'skygrid'), p.name
+        assert m['type'] in ('unlock', 'skyblock', 'oneblock', 'skygrid', 'lucky', 'randomdrops', 'skyline'), p.name
         if m['type'] == 'unlock':
             assert m.get('cell', 16) in (1, 2, 4, 8, 16, 32, 48), p.name
+        if m['type'] == 'skyline':
+            assert m.get('layout', 'linear') in ('linear', 'grid', 'ring'), p.name
 values = json.loads((MODULE / f'shared/resources/data/{ID}/{ID}/block_value.json').read_text(encoding='utf-8'))
 assert values['values'] and values['patterns'], 'block value table'
 fabric = json.loads((MODULE / 'fabric/src/main/resources/fabric.mod.json').read_text(encoding='utf-8'))

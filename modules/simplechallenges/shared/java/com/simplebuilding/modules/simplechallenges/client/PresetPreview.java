@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simplechallenges.client;
 
+import com.simplebuilding.modules.simplechallenges.preset.LuckyMode;
 import com.simplebuilding.modules.simplechallenges.preset.Preset;
 import com.simplebuilding.modules.simplechallenges.preset.StartArea;
 import com.simplebuilding.modules.simplechallenges.preset.UnlockMode;
@@ -7,6 +8,7 @@ import com.simplebuilding.modules.simplechallenges.preset.WorldMode;
 import com.simplebuilding.modules.simplechallenges.sky.IslandPlan;
 import com.simplebuilding.modules.simplechallenges.sky.OneBlockPhases;
 import com.simplebuilding.modules.simplechallenges.sky.SkyGridPlan;
+import com.simplebuilding.modules.simplechallenges.skyline.Layout;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +74,9 @@ public final class PresetPreview {
         if (world != null && world.kind() == WorldMode.Kind.ISLAND) return island(g, p, x, y, w, h);
         if (world != null && world.kind() == WorldMode.Kind.ONEBLOCK) return oneBlock(g, font, x, y, w, h);
         if (world != null && world.kind() == WorldMode.Kind.SKYGRID) return skyGrid(g, world.spacing(), x, y, w, h);
+        if (p.skyline() != null) return skyline(g, p.skyline().layout(), p.skyline().hasEggs(), x, y, w, h);
         if (unlock != null) return map(g, unlock, x, y, w, h);
+        if (p.lucky() != null) return lucky(g, font, p.lucky().kind(), x, y, w, h);
         g.centeredText(font, Component.translatable("simplechallenges.ui.no_preview"), x + w / 2, y + h / 2 - 4, 0xFFA0A0A0);
         return Component.empty();
     }
@@ -154,5 +158,41 @@ public final class PresetPreview {
             }
         }
         return Component.translatable("simplechallenges.ui.caption.skygrid", spacing);
+    }
+
+    /** The first blocks of a Skyline from above: each block one dot, the colour runs through the rainbow with the number (the sequence itself is the registry's). */
+    private static Component skyline(GuiGraphicsExtractor g, Layout layout, boolean eggs, int x, int y, int w, int h) {
+        int n = layout == Layout.LINEAR ? 24 : layout == Layout.GRID ? 49 : 81;
+        int minX = 0, maxX = 0, minZ = 0, maxZ = 0;
+        int[][] cells = new int[n][];
+        for (int i = 0; i < n; i++) {
+            cells[i] = layout.cell(i);
+            minX = Math.min(minX, cells[i][0]);
+            maxX = Math.max(maxX, cells[i][0]);
+            minZ = Math.min(minZ, cells[i][1]);
+            maxZ = Math.max(maxZ, cells[i][1]);
+        }
+        int cols = maxX - minX + 1, rows = maxZ - minZ + 1;
+        int step = Math.max(3, Math.min((w - 10) / cols, (h - 10) / rows));
+        int ox = x + (w - cols * step) / 2, oy = y + (h - rows * step) / 2;
+        int dot = Math.max(2, step - 2);
+        for (int i = 0; i < n; i++) {
+            int px = ox + (cells[i][0] - minX) * step, pz = oy + (cells[i][1] - minZ) * step;
+            g.fill(px, pz, px + dot, pz + dot, 0xFF000000 | java.awt.Color.HSBtoRGB(i * 0.013F, 0.55F, 0.95F));
+        }
+        int sx = ox - minX * step, sz = oy - minZ * step;
+        g.outline(sx - 1, sz - 1, dot + 2, dot + 2, ORIGIN);
+        if (eggs) g.fill(Math.max(x + 2, ox - 2 * step), oy + (-minZ) * step, Math.max(x + 3, ox - 2 * step + dot), oy + (-minZ) * step + dot, 0xFFE0B040);
+        return Component.translatable("simplechallenges.ui.caption.skyline." + layout.id);
+    }
+
+    private static final String[] LUCKY_ICONS = {"minecraft:oak_log", "minecraft:cobblestone", "minecraft:gold_block", "minecraft:tnt", "minecraft:diamond_block"};
+
+    /** A row of blocks for the Lucky modes. */
+    private static Component lucky(GuiGraphicsExtractor g, Font font, LuckyMode.Kind kind, int x, int y, int w, int h) {
+        int gap = Math.max(20, Math.min(30, (w - 8) / LUCKY_ICONS.length));
+        int x0 = x + (w - LUCKY_ICONS.length * gap) / 2 + (gap - 16) / 2, yy = y + h / 2 - 8;
+        for (int i = 0; i < LUCKY_ICONS.length; i++) g.item(new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(LUCKY_ICONS[i]))), x0 + i * gap, yy);
+        return Component.translatable(kind == LuckyMode.Kind.FIXED ? "simplechallenges.ui.caption.randomdrops" : "simplechallenges.ui.caption.lucky");
     }
 }

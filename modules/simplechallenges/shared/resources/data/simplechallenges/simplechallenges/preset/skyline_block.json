@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "name": "Skyline Block",
+  "icon": "minecraft:lightning_rod",
+  "family": "skyline",
+  "modes": [
+    {
+      "type": "skyline",
+      "layout": "linear",
+      "easterEggs": true
+    }
+  ]
+}
