@@ -306,6 +306,12 @@ INTEGRATION_TARGETS = (Target(
     kind="client", mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
     gradle_args=("-PmoduleClientTest=vis24all",), audit=True,
 ), Target(
+    # A-MIXCHECK31: all modules in a real client, world entered, then every mixin target force-loaded (MixinEnvironment.audit),
+    # so a client mixin whose 26.3 target vanished fails here. Opt in (heavy, boots a real client).
+    id="mixinaudit-client-263", label="Mixin-Audit: alle Module im echten Client - MC 26.3", loader="fabric", kind="client",
+    mc_line="integration-26.3", gradle_task=":integration:runClientGameTest", report="", catalogue="",
+    gradle_args=("-PmoduleClientTest=mixinaudit",), audit=True,
+), Target(
     # Simple Optimization concept 4.7: our three sub-mods next to Cull Leaves, More Culling, BadOptimizations and ServerCore.
     # Starts, prints its decision tables, theirs wins every area they cover, no crash. Mods: tools/bench (Modrinth, pinned).
     id="compat-opt-263", label="Simple Optimization compat (Cull Leaves, More Culling, BadOptimizations, ServerCore) - MC 26.3",
