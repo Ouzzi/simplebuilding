@@ -206,7 +206,7 @@ public final class OresTests {
             level.setBlockAndUpdate(pos, OresRegistry.DEEPSLATE_SILVER_ORE.defaultBlockState());
             List<ItemStack> raw = Block.getDrops(level.getBlockState(pos), level, pos, null, null, pick);
             check(h, raw.size() == 1 && raw.getFirst().is(item("raw_silver")), "deepslate silver ore gives raw silver: " + raw);
-            check(h, Block.getDrops(level.getBlockState(pos), level, pos, null, null, new ItemStack(Items.WOODEN_PICKAXE)).isEmpty(), "a wooden pickaxe gets nothing");
+            check(h, level.getBlockState(pos).requiresCorrectToolForDrops() && !new ItemStack(Items.WOODEN_PICKAXE).isCorrectToolForDrops(level.getBlockState(pos)) && pick.isCorrectToolForDrops(level.getBlockState(pos)), "the ore needs an iron pickaxe");
             level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             h.succeed();
         });
