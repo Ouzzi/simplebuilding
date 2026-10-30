@@ -81,18 +81,28 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
 
         @Override
         public boolean isOwnContainer(Player player) {
-            return player.containerMenu instanceof TieredChestMenu menu && menu.shows(TieredChestBlockEntity.this);
+            return TieredChestBlockEntity.this.ownsMenu(player);
         }
     };
 
     public TieredChestBlockEntity(BlockPos pos, BlockState state) {
-        super(StorageBlockEntities.TIERED_CHEST, pos, state);
+        this(StorageBlockEntities.TIERED_CHEST, pos, state);
+    }
+
+    /** For variants with their own block entity type (the controller chest). */
+    protected TieredChestBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
         this.tier = state.getBlock() instanceof TieredChestBlock chest ? chest.tier() : ChestTier.REINFORCED;
         this.setItems(NonNullList.withSize(this.tier.slots(), ItemStack.EMPTY));
     }
 
     public ChestTier tier() {
         return this.tier;
+    }
+
+    /** Whether the menu {@code player} has open is this chest's own (the opener count keeps the lid up while it is). */
+    protected boolean ownsMenu(Player player) {
+        return player.containerMenu instanceof TieredChestMenu menu && menu.shows(this);
     }
 
     @Override
@@ -130,6 +140,8 @@ public class TieredChestBlockEntity extends ChestBlockEntity {
         }
         table.fill(this, params.create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST),
                 seed == 0L ? 0L : seed * 31L + SECOND_ROLL_OFFSET);
+        // BS29b-3: a better chest sometimes holds a controller chest of its step with an interface and some cable.
+        com.simplestorage.network.ControllerLoot.maybeAdd(this, seed);
     }
 
     /** Abstand des zweiten Beute-Seeds. */

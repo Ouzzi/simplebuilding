@@ -8,7 +8,7 @@ common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java mo
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlockEntity.java
-common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java
+common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java allow: ownsMenu/1
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlockEntity.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/TrappedCopperChestBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlockEntity.java
 common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackKeyHandler.java allow: create/0

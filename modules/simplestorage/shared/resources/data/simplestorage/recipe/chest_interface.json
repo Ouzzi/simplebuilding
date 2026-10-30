@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "Q": "minecraft:quartz",
+    "R": "minecraft:repeater",
+    "P": "minecraft:glass_pane",
+    "C": "minecraft:comparator"
+  },
+  "pattern": [
+    "GRQ",
+    "QPG",
+    "GCQ"
+  ],
+  "result": {
+    "id": "simplestorage:chest_interface"
+  }
+}

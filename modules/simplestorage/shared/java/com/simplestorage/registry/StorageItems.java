@@ -34,6 +34,10 @@ public final class StorageItems {
     public static Item QUIVER, REINFORCED_QUIVER, NETHERITE_QUIVER, ENDERITE_QUIVER;
     /** Split stage 8c-2: the four backpacks in tier order (worn in the chest slot, placeable as a block). */
     public static final Map<com.simplestorage.backpack.BackpackTier, Item> BACKPACKS = new EnumMap<>(com.simplestorage.backpack.BackpackTier.class);
+    /** ST27-1: the four pipes in tier order. BS29b-3: cable, interface, the four controller chests in step order. */
+    public static final Map<com.simplestorage.pipe.PipeTier, Item> PIPES = new EnumMap<>(com.simplestorage.pipe.PipeTier.class);
+    public static Item COPPER_CABLE, CHEST_INTERFACE;
+    public static final Map<com.simplestorage.network.ControllerLevel, Item> CONTROLLERS = new EnumMap<>(com.simplestorage.network.ControllerLevel.class);
     /** Split stage 8b-3: the tier shulker shells (rare shulkers drop them; Netherite uncommon and Enderite epic, both fire-proof). */
     public static Item REINFORCED_SHULKER_SHELL, NETHERITE_SHULKER_SHELL, ENDERITE_SHULKER_SHELL;
 
@@ -65,10 +69,38 @@ public final class StorageItems {
         }
         registerBundles();
         registerBackpacks();
+        registerPipesAndNetwork();
         REINFORCED_SHULKER_SHELL = item("reinforced_shulker_shell", p -> p, Item::new);
         NETHERITE_SHULKER_SHELL = item("netherite_shulker_shell", StorageItems::netherite, Item::new);
         ENDERITE_SHULKER_SHELL = item("enderite_shulker_shell", StorageItems::enderite, Item::new);
         com.simplestorage.guide.StorageGuide.register();
+    }
+
+    /** ST27-1 and BS29b-3: block items of the same ids; Netherite and Enderite fire-proof and rarer like the chests. */
+    private static void registerPipesAndNetwork() {
+        for (com.simplestorage.pipe.PipeTier tier : com.simplestorage.pipe.PipeTier.values()) {
+            java.util.function.UnaryOperator<Item.Properties> extra = switch (tier) {
+                case NETHERITE -> StorageItems::netherite;
+                case ENDERITE -> StorageItems::enderite;
+                default -> p -> p;
+            };
+            Block block = StorageBlocks.PIPES.get(tier);
+            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, BuiltInRegistries.BLOCK.getKey(block));
+            PIPES.put(tier, Registry.register(BuiltInRegistries.ITEM, key, new com.simplestorage.pipe.PipeItem(block, extra.apply(new Item.Properties().setId(key)))));
+        }
+        COPPER_CABLE = blockItem(StorageBlocks.COPPER_CABLE, 0);
+        CHEST_INTERFACE = blockItem(StorageBlocks.CHEST_INTERFACE, 0);
+        for (com.simplestorage.network.ControllerLevel step : com.simplestorage.network.ControllerLevel.values()) {
+            java.util.function.UnaryOperator<Item.Properties> extra = switch (step) {
+                case NETHERITE -> StorageItems::netherite;
+                case ENDERITE -> StorageItems::enderite;
+                default -> p -> p;
+            };
+            Block block = StorageBlocks.CONTROLLERS.get(step);
+            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, BuiltInRegistries.BLOCK.getKey(block));
+            CONTROLLERS.put(step, Registry.register(BuiltInRegistries.ITEM, key,
+                    new com.simplestorage.network.ControllerChestItem(block, extra.apply(new Item.Properties().setId(key)))));
+        }
     }
 
     /** Split stage 8c-1: bundles and quivers (call inside {@link #register}, after the chests). */

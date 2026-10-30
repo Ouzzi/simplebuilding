@@ -19,6 +19,10 @@ public final class StorageFabricClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(StorageBlockEntities.TIERED_CHEST, com.simplestorage.client.TieredChestRenderer::new);
         BlockEntityRendererRegistry.register(StorageBlockEntities.TRAPPED_COPPER_CHEST, com.simplestorage.client.TrappedCopperChestRenderer::new);
         BlockEntityRendererRegistry.register(StorageBlockEntities.TIERED_SHULKER_BOX, com.simplestorage.client.TieredShulkerBoxRenderer::new);
+        // ST27-1 / BS29b-3: the pipe's window and the controller chest's network window; the controller chests draw like tier chests.
+        MenuScreens.register(StorageMenus.PIPE, com.simplestorage.client.PipeScreen::new);
+        MenuScreens.register(StorageMenus.CONTROLLER, com.simplestorage.client.ControllerScreen::new);
+        BlockEntityRendererRegistry.register(StorageBlockEntities.CONTROLLER_CHEST, com.simplestorage.client.TieredChestRenderer::new);
         for (var type : StorageMenus.tieredTypes()) MenuScreens.register(type, com.simplestorage.client.TieredChestScreen::new);
         // Split stage 8c-1: the bundle packets, the placed bundle (item above it, dyed leather layer), the tooltip, the quiver on the back.
         com.simplestorage.bundle.BundleNet.toServer = payload -> {

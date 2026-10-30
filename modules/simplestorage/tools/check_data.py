@@ -123,8 +123,36 @@ SB_OPTIONAL = {f'data/{NS}/recipe/reinforced_bundle.json', f'data/{NS}/recipe/re
                f'data/{NS}/advancement/recipes/tools/backpack.json', f'data/{NS}/advancement/recipes/tools/reinforced_backpack.json',
                f'data/{NS}/tags/item/deep_pockets_enchantable.json', f'data/{NS}/tags/item/funnel_enchantable.json',
                f'data/{NS}/tags/enchantment/exclusive_set/builder_group.json'}
+# ST27-1 (pipes) and BS29b-3 (cable, interface, controller chests): block and item of each id, block states with multiparts, models,
+# loot, recipes (unlock advancements are the discover tool's), the pipes' upgrade file, the config keys.
+PIPES = ['pipe', 'reinforced_pipe', 'netherite_pipe', 'enderite_pipe']
+CONTROLLERS = [f'{s}_controller_chest' for s in ('wooden', 'reinforced', 'netherite', 'enderite')]
+NETWORK = PIPES + ['copper_cable', 'chest_interface'] + CONTROLLERS
+for b in NETWORK:
+    for kind in ('blockstates', 'items'):
+        assert (RES / f'assets/{NS}/{kind}/{b}.json').is_file(), (kind, b)
+    assert (RES / f'data/{NS}/loot_table/blocks/{b}.json').is_file(), b
+    assert (RES / f'data/{NS}/recipe/{b}.json').is_file(), b
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(f'block.{NS}.{b}') and langs[locale].get(f'item.{NS}.{b}'), (locale, b)
+for b in PIPES:
+    for part in ('core', 'arm', 'out', 'item'):
+        assert (RES / f'assets/{NS}/models/block/{b}_{part}.json').is_file(), (b, part)
+    assert (RES / f'assets/{NS}/textures/block/{b}.png').is_file(), b
+for b in CONTROLLERS:
+    assert (RES / f'assets/{NS}/textures/entity/chest/{b.replace("_chest", "")}.png').is_file(), b
+for b in ('copper_cable', 'chest_interface'):
+    assert (RES / f'assets/{NS}/textures/block/{b}.png').is_file(), b
+pipe_upgrades = json.loads((RES / f'data/{NS}/in_world_upgrades/pipes.json').read_text(encoding='utf-8'))['upgrades']
+assert [(u['from'], u['to']) for u in pipe_upgrades] == [(f'{NS}:{a}', f'{NS}:{b}') for a, b in zip(PIPES, PIPES[1:])], pipe_upgrades
+for key in ('chestNetwork', 'controllerLootPercent'):
+    assert f'"{key}"' in config, key
+for key in ('direction.simplestorage.down', 'gui.simplestorage.controller.broken', 'tooltip.simplestorage.pipe.turn',
+            'tooltip.simplestorage.controller.limit', 'message.simplestorage.pipe.output'):
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(key), (locale, key)
 pickaxe = json.loads((RES / 'data/minecraft/tags/block/mineable/pickaxe.json').read_text(encoding='utf-8'))['values']
-assert {f'{NS}:{b}' for b in CHESTS} == set(pickaxe), set(pickaxe) ^ {f'{NS}:{b}' for b in CHESTS}
+assert {f'{NS}:{b}' for b in CHESTS + NETWORK} == set(pickaxe), set(pickaxe) ^ {f'{NS}:{b}' for b in CHESTS + NETWORK}
 upgrades = json.loads((RES / f'data/{NS}/in_world_upgrades/storage.json').read_text(encoding='utf-8'))['upgrades']
 assert len(upgrades) == 31 and all(u['to'].startswith(NS + ':') for u in upgrades), len(upgrades)
 for path in (RES / f'data/{NS}').rglob('*.json'):
