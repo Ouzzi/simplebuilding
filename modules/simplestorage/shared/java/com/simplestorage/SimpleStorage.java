@@ -69,6 +69,7 @@ public final class SimpleStorage {
         movedBackpacks().forEach(path -> items.add(MOD_ID + ":" + path));
         MOVED_SHELLS.forEach(path -> items.add(MOD_ID + ":" + path));
         pipeAndNetworkIds().forEach(path -> items.add(MOD_ID + ":" + path));
+        items.add(MOD_ID + ":leather_sheet");
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "storage", "simplestorage.testcentre.station", items);
         // Split stage 8c-2: the worn backpack offers its entries (SimpleLib CarriedStacks): the quivers' bow search and, with
@@ -258,6 +259,10 @@ public final class SimpleStorage {
             IdMoves.move(Registries.RECIPE, old(path), id(path));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/tools/" + path), id("recipes/tools/" + path));
         }
+        // IG31-8: the leather sheet (item, its recipe and the recipe's unlock advancement).
+        IdMoves.move(Registries.ITEM, old("leather_sheet"), id("leather_sheet"));
+        IdMoves.move(Registries.RECIPE, old("leather_sheet"), id("leather_sheet"));
+        IdMoves.move(Registries.ADVANCEMENT, old("recipes/misc/leather_sheet"), id("recipes/misc/leather_sheet"));
         for (String dye : DYES) {
             IdMoves.move(Registries.RECIPE, old(dye + "_dyed_storage"), id(dye + "_dyed_storage"));
             IdMoves.move(Registries.ADVANCEMENT, old("recipes/tools/" + dye + "_dyed_storage"), id("recipes/tools/" + dye + "_dyed_storage"));

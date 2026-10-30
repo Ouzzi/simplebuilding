@@ -70,6 +70,17 @@
       "chance": 0.1
     },
     {
+      "item": "simplestorage:leather_sheet",
+      "tier": 0,
+      "hours": 0.5,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 1,
+      "stock": 2,
+      "chance": 1
+    },
+    {
       "item": "simplestorage:netherite_backpack",
       "tier": 4,
       "hours": 24.9,

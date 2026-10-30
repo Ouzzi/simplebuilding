@@ -54,6 +54,386 @@
       }
     },
     {
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "edge_e": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_e"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "edge_w": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_w"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "edge_u": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_u"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "north"
+          },
+          {
+            "edge_d": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_d"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "edge_e": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_e",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "edge_w": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_w",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "edge_u": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_u",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "east"
+          },
+          {
+            "edge_d": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_d",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "edge_e": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_e",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "edge_w": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_w",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "edge_u": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_u",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "south"
+          },
+          {
+            "edge_d": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_d",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "edge_e": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_e",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "edge_w": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_w",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "edge_u": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_u",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "west"
+          },
+          {
+            "edge_d": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_d",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "up"
+          },
+          {
+            "edge_e": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_e",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "up"
+          },
+          {
+            "edge_w": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_w",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "up"
+          },
+          {
+            "edge_u": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_u",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "up"
+          },
+          {
+            "edge_d": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_d",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "down"
+          },
+          {
+            "edge_e": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_e",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "down"
+          },
+          {
+            "edge_w": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_w",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "down"
+          },
+          {
+            "edge_u": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_u",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "facing": "down"
+          },
+          {
+            "edge_d": "true"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_edge_d",
+        "x": 90
+      }
+    },
+    {
       "apply": {
         "model": "simplestorage:block/copper_cable_core"
       }

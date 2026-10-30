@@ -790,7 +790,7 @@ public final class BundleWiringTests {
 
         ItemStack string = new ItemStack(Items.STRING);
         ItemStack pebble = new ItemStack(ModItems.DIAMOND_PEBBLE);
-        ItemStack sheet = new ItemStack(ModItems.LEATHER_SHEET);
+        ItemStack sheet = new ItemStack(com.simplebuilding.util.StorageRefs.item("leather_sheet"));
         ItemStack vanillaBundle = new ItemStack(Items.BUNDLE);
 
         // "DSD" / "DBD" / "DXD" - six diamond pebbles since 2026-09-29

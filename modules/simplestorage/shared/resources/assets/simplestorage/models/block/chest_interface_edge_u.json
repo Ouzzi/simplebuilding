@@ -1,0 +1,76 @@
+{
+  "textures": {
+    "plate": "simplestorage:block/chest_interface",
+    "particle": "simplestorage:block/chest_interface"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        15,
+        -1
+      ],
+      "to": [
+        15,
+        16,
+        3
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            14,
+            1
+          ],
+          "texture": "#plate"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            14,
+            1
+          ],
+          "texture": "#plate"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            4,
+            1
+          ],
+          "texture": "#plate"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            4,
+            1
+          ],
+          "texture": "#plate"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            14,
+            4
+          ],
+          "texture": "#plate"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            14,
+            4
+          ],
+          "texture": "#plate"
+        }
+      }
+    }
+  ]
+}

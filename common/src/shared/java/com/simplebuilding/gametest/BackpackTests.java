@@ -293,7 +293,7 @@ public final class BackpackTests {
         // --- the basic backpack ---
         ItemStack n = new ItemStack(Items.COPPER_NUGGET);
         ItemStack s = new ItemStack(Items.STRING);
-        ItemStack p = new ItemStack(ModItems.LEATHER_SHEET);
+        ItemStack p = new ItemStack(com.simplebuilding.util.StorageRefs.item("leather_sheet"));
         ItemStack heavy = new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE);
         ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, heavy, heavy, heavy)),
                 "copper nuggets, string, leather sheets and heavy weighted pressure plates", "simplebuilding:backpack");

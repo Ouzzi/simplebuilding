@@ -68,7 +68,8 @@ public final class SandwichDiscover {
             "simplesandwiches:knife",
             "simplesandwiches:milk_cauldron",
             "simplesandwiches:sandwich",
-            "simplesandwiches:sandwiches");
+            "simplesandwiches:sandwiches",
+            "simplesandwiches:slice_stack");
     static final List<Tip> TIPS = List.of(
             new Tip("cutting_board", List.of("*_cutting_board")));
 

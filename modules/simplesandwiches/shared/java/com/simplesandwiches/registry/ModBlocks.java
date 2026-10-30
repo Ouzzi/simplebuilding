@@ -3,6 +3,7 @@ package com.simplesandwiches.registry;
 import com.simplesandwiches.Sandwiches;
 import com.simplesandwiches.block.CuttingBoardBlock;
 import com.simplesandwiches.block.MilkCauldronBlock;
+import com.simplesandwiches.block.MixedSliceLayerBlock;
 import com.simplesandwiches.block.SliceBlock;
 import com.simplesandwiches.block.SliceLayerBlock;
 import java.util.LinkedHashMap;
@@ -37,6 +38,8 @@ public final class ModBlocks {
     public static final Map<String, CuttingBoardBlock> CUTTING_BOARDS = new LinkedHashMap<>();
     public static SliceBlock CHEESE_BLOCK, BUTTER_BLOCK;
     public static SliceLayerBlock BUTTER_CARPET, CHEESE_CARPET;
+    /** IG31-7: cheese and butter layers in one stack (no item: it only comes from stacking the other kind). */
+    public static MixedSliceLayerBlock MIXED_LAYERS;
     public static MilkCauldronBlock MILK_CAULDRON;
 
     public static void register() {
@@ -72,6 +75,9 @@ public final class ModBlocks {
         CHEESE_CARPET = register("cheese_carpet", new SliceLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW)
                 .strength(0.1F).sound(SoundType.WOOL).pushReaction(PushReaction.POPPED)
                 .setId(key("cheese_carpet")), () -> ModItems.CHEESE_SLICE, () -> CHEESE_BLOCK, false));
+        MIXED_LAYERS = register("slice_stack", new MixedSliceLayerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW)
+                .strength(0.1F).sound(SoundType.WOOL).pushReaction(PushReaction.POPPED).noLootTable()
+                .setId(key("slice_stack"))));
         MILK_CAULDRON = register("milk_cauldron", new MilkCauldronBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.CAULDRON)
                 .setId(key("milk_cauldron"))));
     }

@@ -67,6 +67,48 @@ public final class NetworkTests {
         h.setBlock(pos, StorageBlocks.CHEST_INTERFACE.defaultBlockState().setValue(InterfaceBlock.FACING, toChest));
     }
 
+    /**
+     * IG31-6: an interface next to a chest grows to a wall beside it (edge flag and shape reach the block's edge, no see-through
+     * gap), and only there: with air beside the plate the edge flags stay off and the shape keeps the 1 px margin.
+     */
+    public static void interfaceReachesTheWallBesideIt(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        BlockPos at = new BlockPos(3, 2, 3);
+        h.setBlock(at.north(), Blocks.CHEST);
+        interfaceAt(h, at, Direction.NORTH);
+        BlockPos abs = h.absolutePos(at);
+        BlockState open = InterfaceBlock.withArms(h.getBlockState(at), h.getLevel(), abs);
+        for (Direction side : InterfaceBlock.localSides(Direction.NORTH)) {
+            if (open.getValue(edgeOf(side))) problems.add("edge " + side + " set with nothing beside the plate");
+        }
+        h.setBlock(at.east(), Blocks.STONE);
+        BlockState walled = h.getBlockState(at);
+        if (!walled.getValue(InterfaceBlock.EDGE_E)) problems.add("the stone to the east did not set edge_e: " + walled);
+        if (walled.getValue(InterfaceBlock.EDGE_W) || walled.getValue(InterfaceBlock.EDGE_U) || walled.getValue(InterfaceBlock.EDGE_D)) problems.add("other edges set: " + walled);
+        double reach = walled.getShape(h.getLevel(), abs).max(Direction.Axis.X);
+        if (reach != 1.0) problems.add("the plate stops at x " + reach + " instead of the wall");
+        double free = open.getShape(h.getLevel(), abs).max(Direction.Axis.X);
+        if (free != 15.0 / 16) problems.add("the free plate is " + free + " wide, expected the 1 px margin");
+        // a plate on the up side of a chest: the local edges turn (east neighbour of an UP plate is local +x again)
+        BlockPos top = new BlockPos(5, 3, 5);
+        h.setBlock(top.above(), Blocks.CHEST);
+        interfaceAt(h, top, Direction.UP);
+        h.setBlock(top.south(), Blocks.STONE);
+        BlockState up = h.getBlockState(top);
+        if (!up.getValue(InterfaceBlock.EDGE_U)) problems.add("a wall south of an up-plate sets the local up edge: " + up);
+        h.assertTrue(problems.isEmpty(), "interface edges: " + problems);
+        h.succeed();
+    }
+
+    private static net.minecraft.world.level.block.state.properties.BooleanProperty edgeOf(Direction side) {
+        return switch (side) {
+            case EAST -> InterfaceBlock.EDGE_E;
+            case WEST -> InterfaceBlock.EDGE_W;
+            case UP -> InterfaceBlock.EDGE_U;
+            default -> InterfaceBlock.EDGE_D;
+        };
+    }
+
     private static Container container(GameTestHelper h, BlockPos pos) {
         return (Container) h.getBlockEntity(pos, BlockEntity.class);
     }

@@ -37,6 +37,8 @@ public final class StorageItems {
     /** ST27-1: the four pipes in tier order. BS29b-3: cable, interface, the four controller chests in step order. */
     public static final Map<com.simplestorage.pipe.PipeTier, Item> PIPES = new EnumMap<>(com.simplestorage.pipe.PipeTier.class);
     public static Item COPPER_CABLE, CHEST_INTERFACE;
+    /** IG31-8: nine leather in one sheet; the ingredient of backpacks, bundles, quivers and the paint box (moved from SimpleBuilding). */
+    public static Item LEATHER_SHEET;
     public static final Map<com.simplestorage.network.ControllerLevel, Item> CONTROLLERS = new EnumMap<>(com.simplestorage.network.ControllerLevel.class);
     /** Split stage 8b-3: the tier shulker shells (rare shulkers drop them; Netherite uncommon and Enderite epic, both fire-proof). */
     public static Item REINFORCED_SHULKER_SHELL, NETHERITE_SHULKER_SHELL, ENDERITE_SHULKER_SHELL;
@@ -67,6 +69,7 @@ public final class StorageItems {
             CHEST_BOATS.put(tier, item(tier.textureName() + "_chest_boat", extra, p -> new com.simplestorage.vehicle.TieredChestBoatItem(p.stacksTo(1),
                     () -> StorageEntities.CHEST_BOATS.get(tier))));
         }
+        LEATHER_SHEET = item("leather_sheet", p -> p, Item::new);
         registerBundles();
         registerBackpacks();
         registerPipesAndNetwork();

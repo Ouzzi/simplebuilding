@@ -97,6 +97,7 @@ assets/simplebuilding/items/guide_book_tweaks.json
 assets/simplebuilding/items/husk_head.json
 assets/simplebuilding/items/iron_sledgehammer.json
 assets/simplebuilding/items/layered_raw_enderite.json
+assets/simplebuilding/items/leather_sheet.json
 assets/simplebuilding/items/levitating_gravel.json
 assets/simplebuilding/items/levitating_sand.json
 assets/simplebuilding/items/netherite_backpack.json
@@ -223,6 +224,7 @@ assets/simplebuilding/models/item/guide_book_trims.json
 assets/simplebuilding/models/item/guide_book_tweaks.json
 assets/simplebuilding/models/item/iron_sledgehammer.json
 assets/simplebuilding/models/item/layered_raw_enderite.json
+assets/simplebuilding/models/item/leather_sheet.json
 assets/simplebuilding/models/item/netherite_backpack.json
 assets/simplebuilding/models/item/netherite_backpack_dyed.json
 assets/simplebuilding/models/item/netherite_bundle.json
@@ -382,6 +384,7 @@ data/simplebuilding/advancement/recipes/misc/guide_book_tools.json
 data/simplebuilding/advancement/recipes/misc/guide_book_trims.json
 data/simplebuilding/advancement/recipes/misc/guide_book_tweaks.json
 data/simplebuilding/advancement/recipes/misc/layered_raw_enderite.json
+data/simplebuilding/advancement/recipes/misc/leather_sheet.json
 data/simplebuilding/advancement/recipes/misc/netherite_backpack_dyed.json
 data/simplebuilding/advancement/recipes/misc/netherite_bundle_dyed.json
 data/simplebuilding/advancement/recipes/misc/netherite_ingot.json
@@ -528,6 +531,7 @@ data/simplebuilding/recipe/guide_book_trims.json
 data/simplebuilding/recipe/guide_book_tweaks.json
 data/simplebuilding/recipe/iron_sledgehammer.json
 data/simplebuilding/recipe/layered_raw_enderite.json
+data/simplebuilding/recipe/leather_sheet.json
 data/simplebuilding/recipe/levitating_gravel.json
 data/simplebuilding/recipe/levitating_sand.json
 data/simplebuilding/recipe/light_blue_enderite_shulker_box.json

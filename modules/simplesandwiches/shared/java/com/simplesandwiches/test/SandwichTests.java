@@ -7,6 +7,7 @@ import com.simplesandwiches.block.CuttingBoardBlockEntity.Stage;
 import com.simplesandwiches.block.MilkCauldronBlock;
 import com.simplesandwiches.block.MilkCauldronBlock.Content;
 import com.simplesandwiches.block.SliceBlock;
+import com.simplesandwiches.block.MixedSliceLayerBlock;
 import com.simplesandwiches.block.SliceLayerBlock;
 import com.simplesandwiches.config.SandwichConfig;
 import com.simplesandwiches.item.BundleEating;
@@ -91,6 +92,7 @@ public final class SandwichTests {
         ALL.put("slippery_friction", SandwichTests::slipperyFriction);
         ALL.put("butter_carpet_place_break", SandwichTests::butterCarpetPlaceBreak);
         ALL.put("slice_layers", SandwichTests::sliceLayers);
+        ALL.put("mixed_slice_layers", SandwichTests::mixedSliceLayers);
         ALL.put("slice_block_cutting", SandwichTests::sliceBlockCutting);
         ALL.put("slice_block_keeps_state", SandwichTests::sliceBlockKeepsState);
         ALL.put("cheese_bounces_like_bed", SandwichTests::cheeseBouncesLikeBed);
@@ -622,6 +624,62 @@ public final class SandwichTests {
         h.assertTrue(butter.getCollisionShape(h.getLevel(), abs).isEmpty(), "butter layers stay walk-through");
         var butterDrops = Block.getDrops(butter, h.getLevel(), abs, null);
         h.assertTrue(butterDrops.size() == 1 && butterDrops.get(0).is(ModItems.BUTTER_SLICE) && butterDrops.get(0).getCount() == 2, "two layers drop two slices: " + butterDrops);
+        h.succeed();
+    }
+
+    /**
+     * IG31-7: a sneaking click stacks too (in every game mode, no new carpet above), cheese and butter mix in one stack that keeps
+     * each layer's kind, drops the right slices and is walkable up to its highest cheese layer; a full mixed stack takes no more.
+     */
+    static void mixedSliceLayers(GameTestHelper h) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        BlockPos abs = h.absolutePos(pos);
+        h.setBlock(pos.below(), Blocks.STONE);
+        ServerPlayer p = player(h, pos.below());
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.CHEESE_SLICE, 32));
+        BlockHitResult top = new BlockHitResult(Vec3.atCenterOf(abs).relative(Direction.DOWN, 0.5), Direction.UP, abs.below(), false);
+        BlockHitResult onCarpet = new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false);
+        p.setShiftKeyDown(true);
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, top);
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        BlockState two = h.getLevel().getBlockState(abs);
+        h.assertTrue(two.is(ModBlocks.CHEESE_CARPET) && two.getValue(SliceLayerBlock.LAYERS) == 2, "sneaking stacks cheese: " + two);
+        h.assertTrue(h.getLevel().getBlockState(abs.above()).isAir(), "no carpet laid above the stack");
+        // butter on cheese: a mixed stack, cheese below, butter on top
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.BUTTER_SLICE, 16));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        BlockState mixed = h.getLevel().getBlockState(abs);
+        h.assertTrue(mixed.is(ModBlocks.MIXED_LAYERS) && mixed.getValue(MixedSliceLayerBlock.LAYERS) == 3
+                && mixed.getValue(MixedSliceLayerBlock.PATTERN) == 0b100, "cheese, cheese, butter: " + mixed);
+        p.setShiftKeyDown(false);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.CHEESE_SLICE, 16));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        mixed = h.getLevel().getBlockState(abs);
+        h.assertTrue(mixed.getValue(MixedSliceLayerBlock.LAYERS) == 4 && mixed.getValue(MixedSliceLayerBlock.PATTERN) == 0b0100, "cheese on top: " + mixed);
+        h.assertTrue(mixed.getCollisionShape(h.getLevel(), abs).max(Direction.Axis.Y) == 3.0 / 16, "walkable up to the top cheese layer minus its pixel");
+        var drops = Block.getDrops(mixed, h.getLevel(), abs, null);
+        int cheese = 0, butter = 0;
+        for (ItemStack drop : drops) {
+            if (drop.is(ModItems.CHEESE_SLICE)) cheese += drop.getCount();
+            if (drop.is(ModItems.BUTTER_SLICE)) butter += drop.getCount();
+        }
+        h.assertTrue(cheese == 3 && butter == 1, "drops 3 cheese + 1 butter: " + drops);
+        // fill to the limit, then no more
+        for (int i = 5; i <= MixedSliceLayerBlock.MAX_LAYERS; i++) {
+            p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(i % 2 == 0 ? ModItems.BUTTER_SLICE : ModItems.CHEESE_SLICE, 4));
+            p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        }
+        BlockState full = h.getLevel().getBlockState(abs);
+        h.assertTrue(full.is(ModBlocks.MIXED_LAYERS) && full.getValue(MixedSliceLayerBlock.LAYERS) == MixedSliceLayerBlock.MAX_LAYERS, "eight layers: " + full);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.BUTTER_SLICE, 4));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        h.assertTrue(h.getLevel().getBlockState(abs) == full && p.getMainHandItem().getCount() == 4, "a full mixed stack takes no more");
+        // a pure butter stack mixes too
+        h.setBlock(pos, ModBlocks.BUTTER_CARPET);
+        p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.CHEESE_SLICE, 4));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND, onCarpet);
+        BlockState bc = h.getLevel().getBlockState(abs);
+        h.assertTrue(bc.is(ModBlocks.MIXED_LAYERS) && bc.getValue(MixedSliceLayerBlock.PATTERN) == 0b01, "butter then cheese: " + bc);
         h.succeed();
     }
 

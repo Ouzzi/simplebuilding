@@ -139,7 +139,7 @@
       "A bundle that only wants arrows, and has never once been disappointed."
     ],
     "use": [
-      "Takes only arrows, both when clicked in and when picked up off the ground, and feeds a bow automatically from the off hand, the chest slot or the hotbar. Craft: string, leather, a copper nugget and a bundle."
+      "Takes only arrows, both when clicked in and when picked up off the ground, and feeds a bow automatically from the off hand, the chest slot or the hotbar. Craft: string, two leather sheets, a copper nugget and a bundle."
     ],
     "secret": [
       "Arrows, spectral arrows and tipped arrows go in; a bow does not. Upgrade it at the crafting table into the Reinforced Quiver and it keeps its arrows."
@@ -253,6 +253,17 @@
     ],
     "secret": [
       "With SimpleBuilding every tier also comes from the shell one tier below, placed in the world. Craft any copper chest, a tier shell and a vanilla Shulker Shell to get the tier's shulker box."
+    ]
+  },
+  "leather_sheet": {
+    "lore": [
+      "Nine hides pressed flat, until the leather forgot it was ever a cow."
+    ],
+    "use": [
+      "Nine leather in the crafting grid make one sheet. It goes into the Quiver (two), the Reinforced Bundle and Reinforced Quiver (one, below), the Backpack and Reinforced Backpack (three in the bottom row) and the Paint Box."
+    ],
+    "secret": [
+      "It is a crafting material only; the next tier of bundle, the Reinforced one, needs diamond pebbles on top of it."
     ]
   }
 }

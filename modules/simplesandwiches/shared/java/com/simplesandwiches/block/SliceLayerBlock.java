@@ -1,6 +1,8 @@
 package com.simplesandwiches.block;
 
+import com.simplesandwiches.registry.ModBlocks;
 import com.simplesandwiches.registry.ModEffects;
+import com.simplesandwiches.registry.ModItems;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -78,14 +80,50 @@ public class SliceLayerBlock extends CarpetBlock {
         return now >= MAX_LAYERS ? full.get().defaultBlockState() : state.setValue(LAYERS, now + 1);
     }
 
+    /** True for a butter stack (the other pure kind is cheese). */
+    public boolean butter() {
+        return this.butter;
+    }
+
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
-        if (!com.simplesandwiches.Sandwiches.on() || !stack.is(slice.get())) return InteractionResult.PASS;
+        return stackSlice(stack, state, level, pos, player);
+    }
+
+    /**
+     * Lays {@code stack} (a cheese or butter slice) on the stack at {@code pos} - pure or mixed, any game mode, sneaking or not
+     * (IG31-7: the item and the block both call this, so a sneaking click stacks too instead of laying a new carpet above).
+     * The same kind adds a layer (the 16th makes the full block); the other kind turns a pure stack of up to
+     * {@link MixedSliceLayerBlock#MAX_LAYERS} - 1 layers into a {@link MixedSliceLayerBlock}. PASS for anything else, FAIL when the stack is too high.
+     */
+    public static InteractionResult stackSlice(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player) {
+        if (!com.simplesandwiches.Sandwiches.on()) return InteractionResult.PASS;
+        boolean butterSlice = stack.is(ModItems.BUTTER_SLICE);
+        if (!butterSlice && !stack.is(ModItems.CHEESE_SLICE)) return InteractionResult.PASS;
+        BlockState next;
+        if (state.getBlock() instanceof SliceLayerBlock pure) {
+            if (pure.butter == butterSlice) next = pure.stacked(state);
+            else if (state.getValue(LAYERS) >= MixedSliceLayerBlock.MAX_LAYERS) next = null;
+            else {
+                // the existing layers are all the pure kind: butter bits set for a butter stack
+                int layers = state.getValue(LAYERS);
+                int pattern = pure.butter ? (1 << layers) - 1 : 0;
+                next = ModBlocks.MIXED_LAYERS.of(layers + 1, pattern | (butterSlice ? 1 << layers : 0));
+            }
+        } else if (state.getBlock() instanceof MixedSliceLayerBlock mixed) {
+            next = mixed.stacked(state, butterSlice);
+        } else {
+            return InteractionResult.PASS;
+        }
+        if (next == null) {
+            if (player != null) player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.simplesandwiches.stack_full"));
+            return InteractionResult.FAIL;
+        }
         if (!level.isClientSide()) {
-            level.setBlock(pos, stacked(state), Block.UPDATE_ALL);
+            level.setBlock(pos, next, Block.UPDATE_ALL);
             stack.consume(1, player);
-            level.playSound(null, pos, getSoundType(state).getPlaceSound(), SoundSource.BLOCKS, 0.8F, 1.2F);
+            level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.8F, 1.2F);
         }
         return InteractionResult.SUCCESS;
     }

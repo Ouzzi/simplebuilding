@@ -739,3 +739,9 @@ Branch a-animals31, Plan docs/ai/PLAN-A-ANIMALS-VARIANTEN-2026-10-30.md, Vorscha
 - [~] IG31-2 Mighty/Evil/Mighty-Evil-Conduit in Simple Beacons (Rahmen, Reichweite, Effekte, Partikel, Ton, Rezepte). Offen: Icon-Wahl A/B (Vorschau /root/sb-tools-a/previews/a-ig31a-preview.html, Antwortcode IG31A-ICON-A|B), Client-Sicht.
 - [~] IG31-3 Dev-Tab entfernt, Kreativ-Tab-Regeln (SimpleLib `CreativeTabPolicy`: keine Mod-Items in Vanilla-Tabs, keine schlichten Vanilla-Items in Mod-Tabs, Reihenfolge Super-Mod -> Sub-Mods, Fabric), Simple-Mobs-Icon = Deceiver-Ei. Offen: Client-Sicht der Tab-Reihenfolge; Restcode der Vanilla-Einsortierung (VANILLA_TABS, placements, Loader-Hooks) wirkungslos, aber noch da (Aufräumen).
 - [~] IG31-4 Untersucht, nichts geändert: Text beim ersten Aufheben der Formsäge = First-Pickup-Tip (`BlocksDiscover` Tip shapecutter, `simpleblocks.firstPickupTips` in config/simple-tips.properties). RÜCKFRAGE an Besitzer: behalten oder abschaffen?
+## IG31 Teil B (a-ig31b, 30.10.)
+- [~] IG31-5 Rohr-Fenster: 6 Richtungs-Knoepfe (Sechseck), ein Ausgang, Rohr gestuft zum Ausgang. Gametest pipe_side_keys_choose_the_output; offen: Client-Sicht/Vorschau-Wahl (/root/sb-tools-a/previews/a-ig31b-preview.html)
+- [~] IG31-6 Kupferkabel mit Klemmringen, Interface buendig + Randstreifen zur Wand (edge_*-Properties). Gametest network_interface_reaches_the_wall_beside_it; offen: Client-Sicht, ggf. neue Kabeltextur (Endholz-Prozess nach Wahl)
+- [x] IG31-7 Kaese wie Butter stapelbar (Schleichen-Fix in SliceLayerItem), gemischte Schichten (Block slice_stack, max 8). Gametest mixed_slice_layers
+- [~] IG31-8 Ledertuch nach simplestorage (IdMoves), Rezepte Koecher/Rucksack/Buendel, Farbkasten PPP/LBL/PPP. Gametest bundle_storage_leather_sheet_is_storages_own; offen: Datagen-Lauf 26.3 gegen Hand-Overrides pruefen
+

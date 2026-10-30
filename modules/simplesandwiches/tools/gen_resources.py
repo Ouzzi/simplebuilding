@@ -177,6 +177,21 @@ def resources():
              "condition": {"type": "minecraft:match_block", "blocks": f"{NS}:{name}", "state": {"layers": str(n)}},
              "modifier": {"type": "minecraft:set_count", "count": n}} for n in range(1, 16)]})
 
+    # IG31-7: mixed cheese/butter stack. Layer i (1 = bottom) is a 1 px slab at y = i-1; pattern bit i-1 set = butter.
+    # Max 8 layers (MixedSliceLayerBlock.MAX_LAYERS): the blockstate lists every layer and kind.
+    mixed = []
+    for i in range(1, 9):
+        for food in ("butter", "cheese"):
+            asset(f"models/block/slice_stack/{food}_{i}", {
+                "parent": "minecraft:block/block",
+                "textures": {"top": f"{NS}:block/{food}_block_top", "side": f"{NS}:block/{food}_block_side", "particle": "#top"},
+                "elements": [cuboid([0, i - 1, 0, 16, i, 16])],
+            })
+            patterns = [str(v) for v in range(256) if bool(v >> (i - 1) & 1) == (food == "butter")]
+            mixed.append({"when": {"AND": [{"layers": "|".join(str(n) for n in range(max(i, 2), 9))}, {"pattern": "|".join(patterns)}]},
+                          "apply": {"model": f"{NS}:block/slice_stack/{food}_{i}"}})
+    asset("blockstates/slice_stack", {"multipart": mixed})
+
     # Milk cauldron; reinforced=true when it was made from SimpleLib's reinforced cauldron (owner addition 11): same
     # contents with the reinforced cauldron's textures (only reachable with SimpleLib), emptying returns that cauldron.
     variants = {}

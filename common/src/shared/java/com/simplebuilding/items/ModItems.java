@@ -319,7 +319,8 @@ public class ModItems {
     // Materials and Blocks Components
 
     // Neun Leder in einer Platte: Zutat des verstaerkten Buendels und des verstaerkten Koechers.
-    public static final Item LEATHER_SHEET = registerItem("leather_sheet", settings -> new Item(settings));
+    // IG31-8: on 26.3 the sheet belongs to Simple Storage (simplestorage:leather_sheet, old ids migrate); use StorageRefs.item("leather_sheet") outside registration.
+    public static final Item LEATHER_SHEET = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("leather_sheet", settings -> new Item(settings));
 
     public static final Item SILENT_DANDELION = com.simplebuilding.version.McVersion.SILENT_DANDELION
             ? registerItem("silent_dandelion", settings -> new BlockItem(ModBlocks.SILENT_DANDELION, settings)) : null;

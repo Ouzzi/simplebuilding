@@ -794,7 +794,7 @@ public final class DataIntegrityTests {
         }
         assertShapedRecipe(helper, storageRecipes, "quiver", com.simplebuilding.util.StorageRefs.item("quiver"), 1,
                 new String[]{" SL", "SLN", "B  "},
-                Map.of('S', Items.STRING, 'L', Items.LEATHER, 'N', Items.COPPER_NUGGET, 'B', Items.BUNDLE),
+                Map.of('S', Items.STRING, 'L', com.simplebuilding.util.StorageRefs.item("leather_sheet"), 'N', Items.COPPER_NUGGET, 'B', Items.BUNDLE),
                 shapes);
         assertSmithingRecipe(helper, storageRecipes, "netherite_quiver_smithing",
                 Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, com.simplebuilding.util.StorageRefs.item("reinforced_quiver"), Items.NETHERITE_INGOT,
@@ -3258,7 +3258,7 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("resources_diamond", ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
                 CreativeTabLayout.Row.of("resources_netherite",
                         Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT,
-                        gap, ModItems.LEATHER_SHEET),
+                        gap, com.simplebuilding.util.StorageRefs.item("leather_sheet")),
                 CreativeTabLayout.Row.of("resources_enderite",
                         ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET,
                         ModItems.ENDERITE_INGOT),

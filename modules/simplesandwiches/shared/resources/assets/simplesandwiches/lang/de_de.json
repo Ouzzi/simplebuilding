@@ -4,6 +4,8 @@
   "block.simplesandwiches.birch_cutting_board": "Birken-Schneidebrett",
   "block.simplesandwiches.butter_block": "Butterblock",
   "block.simplesandwiches.butter_carpet": "Butter-Teppich",
+  "block.simplesandwiches.slice_stack": "Käse-Butter-Stapel",
+  "message.simplesandwiches.stack_full": "Der Stapel ist voll: ein gemischter Stapel fasst 8 Scheiben",
   "block.simplesandwiches.cheese_carpet": "Käse-Teppich",
   "effect.simplesandwiches.slippery": "Rutschig",
   "block.simplesandwiches.cheese_block": "Käselaib",

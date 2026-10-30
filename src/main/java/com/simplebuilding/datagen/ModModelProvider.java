@@ -880,7 +880,8 @@ public class ModModelProvider extends FabricModelProvider {
             generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_QUIVER);
             generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_QUIVER);
         }
-        itemModelGenerator.generateFlatItem(ModItems.LEATHER_SHEET, ModelTemplates.FLAT_ITEM);
+        // IG31-8: on 26.3 the leather sheet is Simple Storage's (its own model).
+        if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) itemModelGenerator.generateFlatItem(ModItems.LEATHER_SHEET, ModelTemplates.FLAT_ITEM);
         // Handbuecher (GuideBooks): flache Item-Modelle, je Buch eine eigene Textur.
         for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.values()) {
             if (!com.simplebuilding.version.McVersion.MEGA_GUIDES || book.isHub()) itemModelGenerator.generateFlatItem(com.simplebuilding.guide.GuideBooks.item(book), ModelTemplates.FLAT_ITEM);

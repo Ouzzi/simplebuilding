@@ -479,7 +479,7 @@ public final class ModItemGroupsContent {
                         ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, Items.DIAMOND),
                 CreativeTabLayout.Row.of("resources_netherite",
                         Items.ANCIENT_DEBRIS, Items.NETHERITE_SCRAP, ModItems.NETHERITE_NUGGET, Items.NETHERITE_INGOT,
-                        CreativeTabLayout.GAP, ModItems.LEATHER_SHEET),
+                        CreativeTabLayout.GAP, com.simplebuilding.util.StorageRefs.item("leather_sheet")),
                 CreativeTabLayout.Row.of("resources_enderite",
                         ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT),
                 CreativeTabLayout.Row.of("building_cores",

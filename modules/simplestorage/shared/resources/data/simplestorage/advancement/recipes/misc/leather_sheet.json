@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:leather_sheet"
+        "recipes": "simplestorage:leather_sheet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:leather_sheet"
+      "simplestorage:leather_sheet"
     ]
   }
 }

@@ -1271,7 +1271,7 @@ P10_MUTATIONS: list[Mutation] = [
              'the reinforced sticky piston drops itself', kind="server"),
     # --- leather sheet and reinforced quiver ---------------------------------------------------
     Mutation('p10-leather-sheet-eight',
-             f'{_GEN}/recipe/leather_sheet.json',
+             'modules/simplestorage/shared/resources/data/simplestorage/recipe/leather_sheet.json',
              '"LLL",\n    "LLL",\n    "LLL"',
              '"LLL",\n    "LLL",\n    "LL "',
              _LQ + 'leather_sheet_takes_exactly_nine_leather',

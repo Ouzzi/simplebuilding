@@ -92,10 +92,10 @@
   },
   "reinforced_bundle": {
     "lore": [
-      "Ein Bündel, das mit Lederplatte und Diamantkieseln lernte, mehr zu halten."
+      "Ein Bündel, das mit Ledertuch und Diamantkieseln lernte, mehr zu halten."
     ],
     "use": [
-      "1,5-fache Kapazität eines Vanilla-Bündels, 96 Gegenstände bei Stapelgröße 64. Herstellung: Faden über einem Bündel, Lederplatte darunter, sechs Diamantkiesel in den Seitenspalten. Inhalt, Verzauberungen und Name bleiben erhalten."
+      "1,5-fache Kapazität eines Vanilla-Bündels, 96 Gegenstände bei Stapelgröße 64. Herstellung: Faden über einem Bündel, Ledertuch darunter, sechs Diamantkiesel in den Seitenspalten. Inhalt, Verzauberungen und Name bleiben erhalten."
     ],
     "secret": [
       "Das Mausrad im Inventar wählt, welchen Eintrag es herausgibt. Es ist die Basis für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette. Schleichen + Rechtsklick setzt es als 3D-Bündel ab."
@@ -139,7 +139,7 @@
       "Ein Bündel, das nur Pfeile will und noch nie enttäuscht wurde."
     ],
     "use": [
-      "Nimmt nur Pfeile auf, beim Hineinklicken wie beim Aufheben vom Boden, und versorgt einen Bogen automatisch aus der Nebenhand, dem Brustplatz oder der Schnellleiste. Herstellung: Faden, Leder, ein Kupferklumpen und ein Bündel."
+      "Nimmt nur Pfeile auf, beim Hineinklicken wie beim Aufheben vom Boden, und versorgt einen Bogen automatisch aus der Nebenhand, dem Brustplatz oder der Schnellleiste. Herstellung: Faden, zwei Ledertücher, ein Kupferklumpen und ein Bündel."
     ],
     "secret": [
       "Pfeile, Spektralpfeile und getränkte Pfeile passen hinein, ein Bogen nicht. Am Handwerkstisch wird er zum Verstärkten Köcher und behält seine Pfeile."
@@ -147,7 +147,7 @@
   },
   "reinforced_quiver": {
     "lore": [
-      "Ein Köcher mit Lederplatte und Diamantkieseln in den Nähten."
+      "Ein Köcher mit Ledertuch und Diamantkieseln in den Nähten."
     ],
     "use": [
       "Kapazitätsfaktor 3/2, 96 Pfeile. Am Handwerkstisch aus einem Köcher hergestellt, ohne Pfeile zu verlieren. Er ist das Einzige, aus dem der Netherit-Köcher geschmiedet werden kann."
@@ -180,10 +180,10 @@
   },
   "backpack": {
     "lore": [
-      "{name}: Lederplatte, Faden, schwere Druckplatte und Kupferklumpen: Jedes Abenteuer beginnt mit einem Beutel."
+      "{name}: Ledertuch, Faden, schwere Druckplatte und Kupferklumpen: Jedes Abenteuer beginnt mit einem Beutel."
     ],
     "use": [
-      "Tragbares Lager mit 9 Plätzen; gibt 1 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Herstellung: Kupferklumpen, Faden, schwere Druckplatten und Lederplatten."
+      "Tragbares Lager mit 9 Plätzen; gibt 1 Rüstung im Brustplatz. Rechtsklick legt ihn an; mit B (Rucksack-Taste) öffnest du ihn. Herstellung: Kupferklumpen, Faden, schwere Druckplatten und Ledertücher."
     ],
     "secret": [
       "Er öffnet sich nur getragen, ein Brustpanzer oder Elytren und ein Rucksack schließen sich also aus. Der Inhalt liegt am Gegenstand selbst und wandert mit, auch wenn er beim Tod fällt."
@@ -253,6 +253,17 @@
     ],
     "secret": [
       "Mit SimpleBuilding entsteht jede Stufe auch aus der abgelegten Schale der Stufe darunter. Eine Kupfertruhe, eine Stufenhülle und eine Vanilla-Shulkerschale ergeben die Shulkerkiste der Stufe."
+    ]
+  },
+  "leather_sheet": {
+    "lore": [
+      "Neun Häute, flachgepresst, bis das Leder vergaß, dass es je eine Kuh war."
+    ],
+    "use": [
+      "Neun Leder im Handwerksraster ergeben ein Tuch. Es kommt in den Köcher (zwei), das Verstärkte Bündel und den Verstärkten Köcher (eins, unten), den Rucksack und den Verstärkten Rucksack (dreimal in die untere Reihe) und den Farbkasten."
+    ],
+    "secret": [
+      "Es ist nur ein Handwerksmaterial; die nächste Bündelstufe, die Verstärkte, braucht zusätzlich Diamantkiesel."
     ]
   }
 }

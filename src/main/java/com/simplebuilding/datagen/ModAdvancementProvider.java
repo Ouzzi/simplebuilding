@@ -204,8 +204,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         }
 
         private void storage(AdvancementHolder root) {
-            AdvancementHolder sheet = node("storage/sheet_happens", root, ModItems.LEATHER_SHEET, AdvancementType.TASK, "leather_sheet",
-                    any(ModItems.LEATHER_SHEET));
+            AdvancementHolder sheet = node("storage/sheet_happens", root, com.simplebuilding.util.StorageRefs.item("leather_sheet"), AdvancementType.TASK, "leather_sheet",
+                    any(com.simplebuilding.util.StorageRefs.item("leather_sheet")));
             // Split stage 8c-2: the backpacks by id (26.3 Simple Storage's); setting one down is Vanilla's placed_block there.
             AdvancementHolder backpack = node("storage/pack_mule", sheet, com.simplebuilding.util.StorageRefs.backpack(""), AdvancementType.TASK, "backpack",
                     any(com.simplebuilding.util.StorageRefs.backpack(""), com.simplebuilding.util.StorageRefs.backpack("reinforced"), com.simplebuilding.util.StorageRefs.backpack("netherite"), com.simplebuilding.util.StorageRefs.backpack("enderite")));

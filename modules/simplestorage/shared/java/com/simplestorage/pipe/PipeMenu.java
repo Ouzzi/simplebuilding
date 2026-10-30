@@ -14,11 +14,12 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The window of the pipe (ST27-1): laid out like the Vanilla hopper window (slot row at y 20, inventory at y 51, height 133) with its one slot, the filter key (button 0) and the output key (button 1), above the inventory.
+ * The window of the pipe (ST27-1): laid out like the Vanilla hopper window (slot row at y 20, inventory at y 51, height 133) with its one slot, the filter key (button 0) and the six side keys (buttons 2..7, one output at a time), above the inventory.
  * The server menu is wired to the block entity; filter mode, output side and tier reach the client as three data slots.
  */
 public class PipeMenu extends AbstractContainerMenu {
-    public static final int BUTTON_FILTER = 0, BUTTON_OUTPUT = 1;
+    /** Buttons: filter, turn the output on (sneak-click equivalent), and {@code BUTTON_SIDE + direction ordinal} = point the output at exactly that side (IG31-5). */
+    public static final int BUTTON_FILTER = 0, BUTTON_OUTPUT = 1, BUTTON_SIDE = 2;
     /** Window size and the place of the pipe's slot (the screen and the menu use the same numbers). */
     public static final int IMAGE_WIDTH = 176, SLOT_X = 80, SLOT_Y = 20, INVENTORY_Y = 51;
 
@@ -80,6 +81,12 @@ public class PipeMenu extends AbstractContainerMenu {
         }
         if (id == BUTTON_OUTPUT && this.pipe.getLevel() != null) {
             ItemPipeBlock.turnOutput(this.pipe.getLevel(), this.pipe.getBlockPos(), this.pipe.getBlockState(), null);
+            return true;
+        }
+        if (id >= BUTTON_SIDE && id < BUTTON_SIDE + 6 && this.pipe.getLevel() != null) {
+            Direction side = Direction.values()[id - BUTTON_SIDE];
+            if (!Pipes.allowed(this.pipe.tier(), side)) return false;
+            ItemPipeBlock.setOutput(this.pipe.getLevel(), this.pipe.getBlockPos(), this.pipe.getBlockState(), side, null);
             return true;
         }
         return false;
