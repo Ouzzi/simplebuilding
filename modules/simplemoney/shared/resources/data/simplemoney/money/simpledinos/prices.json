@@ -1,0 +1,18 @@
+{
+  "module": "simpledinos",
+  "derivation": "Simple Dinosaurs sells nothing for money: the fossil block and the eggs are finds, the saddle and the armor are crafted from priced Vanilla materials and are not offered by shops.",
+  "excluded": {
+    "simpledinos:fossil_block": "Rare find in the underground; has no price.",
+    "simpledinos:trex_egg": "Result of brushing a fossil block; has no price.",
+    "simpledinos:triceratops_egg": "Result of brushing a fossil block; has no price.",
+    "simpledinos:stegosaurus_egg": "Result of brushing a fossil block; has no price.",
+    "simpledinos:utahraptor_egg": "Result of brushing a fossil block; has no price.",
+    "simpledinos:parasaurolophus_egg": "Result of brushing a fossil block; has no price.",
+    "simpledinos:large_saddle": "Crafted from a saddle, leather and iron.",
+    "simpledinos:trex_armor_leather": "Crafted from leather around a bone block.",
+    "simpledinos:trex_armor_iron": "Crafted from iron ingots around a bone block.",
+    "simpledinos:trex_armor_diamond": "Crafted from diamonds around a bone block.",
+    "simpledinos:guide_book": "Crafted from a book and a bone."
+  },
+  "prices": []
+}

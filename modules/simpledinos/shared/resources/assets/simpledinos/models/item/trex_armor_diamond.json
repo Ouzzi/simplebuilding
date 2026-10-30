@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simpledinos:item/trex_armor_diamond"
+  }
+}

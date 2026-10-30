@@ -2045,6 +2045,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleAnimals.@Tooltip": "Schaltet das gebündelte Modul Simple Animals ein oder aus: Hirsch, Wildschwein, Igel, Krebs und Zebra. Aus stoppt ihr natürliches Spawnen; Tiere, die schon in der Welt sind, bleiben. Wirkt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleRedstone": "Simple Redstone aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleRedstone.@Tooltip": "Schaltet das gebündelte Modul Simple Redstone ein oder aus: den Doppelkolben (1x2, Signal 1-7 ein Block, 8-15 zwei) und den Signaldämpfer. Aus blendet seine Kreativtab-Einträge und sein Handbuch aus und lässt beide Teile nicht mehr arbeiten; gesetzte Blöcke bleiben. Gilt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleDinos": "Simple Dinosaurs aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleDinos.@Tooltip": "Schaltet das gebündelte Modul Simple Dinosaurs an oder aus: Fossilienblock, Dinosaurier-Eier und der T-Rex. Aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Blöcke, Eier und Dinosaurier funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

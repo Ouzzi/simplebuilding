@@ -1,0 +1,41 @@
+{
+	"id": "14D6FD03DD0AB382",
+	"order_index": 0,
+	"filename": "simpledinos_start",
+	"icon": {
+		"id": "simpledinos:guide_book"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "5DCC7F4FEBE6081F",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": [],
+			"tasks": [
+				{
+					"id": "4D49F34C35B717A2",
+					"type": "item",
+					"item": {
+						"id": "minecraft:crafting_table",
+						"count": 1
+					}
+				}
+			],
+			"rewards": [
+				{
+					"id": "7EA85774ED759266",
+					"type": "item",
+					"item": {
+						"id": "simpledinos:guide_book",
+						"count": 1
+					}
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

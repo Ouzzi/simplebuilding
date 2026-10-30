@@ -47,11 +47,9 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
-      "simpleanimals",
+      "simpledinos",
       "simplemusic",
-      "simpleearth",
-      "simplechallenges",
-      "simpleredstone"
+      "simpleearth"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -73,9 +71,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 507,
       "blocks": 290,
-      "recipes": 827,
-      "config": 235,
-      "features": 48
+      "recipes": 823,
+      "config": 232,
+      "features": 47
     }
   },
   {
@@ -216,7 +214,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 14
     },
-    "dataHash": "a66be992c6de"
+    "dataHash": "5665a55c0b6f"
   },
   {
     "id": "simplefun",
@@ -1561,11 +1559,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
     "counts": {
       "items": 17,
-      "blocks": 47,
-      "recipes": 187,
-      "features": 15
+      "blocks": 37,
+      "recipes": 177,
+      "features": 13
     },
-    "dataHash": "8daecba71925"
+    "dataHash": "fedde42b8786"
   },
   {
     "id": "simplemusic",
@@ -1694,36 +1692,9 @@ window.WIKI_MODULES = [
     "dataHash": "559e7ecb2c74"
   },
   {
-    "id": "simplechallenges",
-    "displayName": "Simple Challenges",
-    "description": "Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.",
-    "version": "0.1.0",
-    "minecraft": "26.3",
-    "loaders": [
-      "fabric"
-    ],
-    "requires": [
-      "simplelib"
-    ],
-    "optional": [
-      "simplebuilding"
-    ],
-    "parent": "simplebuilding",
-    "bundle": "optional",
-    "intro": {
-      "en": "Game modes for a world of your choice. First the Unlock mode: the world is cut into cells and only free cells can be entered; you pay to open the next one. Without a chosen challenge the mod changes nothing. Open this guide again with /simplechallenges guide.",
-      "de": "Spielmodi für eine Welt deiner Wahl. Zuerst der Unlock-Modus: Die Welt ist in Zellen zerlegt und nur freie Zellen sind betretbar; die nächste öffnest du gegen Bezahlung. Ohne gewählte Challenge ändert die Mod nichts. Dieses Handbuch öffnet /simplechallenges guide."
-    },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
-    "counts": {
-      "features": 16
-    },
-    "dataHash": "e280449cf45d"
-  },
-  {
-    "id": "simpleanimals",
-    "displayName": "Simple Animals",
-    "description": "Deer, wild boar, hedgehog, crab and zebra (with the infertile zorse): five new animals with low spawn rates, Vanilla goals and no block damage. Works on its own with Vanilla.",
+    "id": "simpledinos",
+    "displayName": "Simple Dinosaurs",
+    "description": "Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1740,49 +1711,20 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, whose cross with a horse is the infertile zorse.",
-      "de": "Fünf Tiere, die Vanilla nicht hat: der scheue Hirsch, das Wildschwein, das seine Frischlinge verteidigt, der Igel, der Silberfische jagt und sich blitzschnell einrollt, der seltene Krebs, der seitwärts läuft, und das Zebra, dessen Kreuzung mit einem Pferd das unfruchtbare Zorse ist."
+      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen."
     },
     "purpose": {
-      "en": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar.",
-      "de": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar."
+      "en": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar.",
+      "de": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArElEQVR42mOw8zX8TwlmABGHbqwF4wcXFhDNnnOgCtWAVSd7wZIgDGODaGQ2TB6kuaArAtMAZEXoBiBrvvT4MG4DkDVoSQmAMbJmGMZrAEjTijQrFAwSI8oAbJqxGULQgC9vbvyXEeIBs0E0iE+0AVUuKhi2g8SIMgCbIeiaiTZAT0YIjEkyAKYApAFmALpmnAagK4KlA3RxrAaAUhc2hbgwigEwAVIx3ABKMABly2zs6ByQcQAAAABJRU5ErkJggg==",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
     "counts": {
-      "items": 8,
-      "recipes": 4,
-      "features": 9
+      "items": 5,
+      "blocks": 6,
+      "recipes": 5,
+      "features": 6
     },
-    "dataHash": "6912a1389da9"
-  },
-  {
-    "id": "simpleredstone",
-    "displayName": "Simple Redstone",
-    "description": "Double Piston (1x2: signal 1-7 reaches one block, 8-15 two, pushes with Vanilla rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
-    "version": "0.1.0",
-    "minecraft": "26.3",
-    "loaders": [
-      "fabric"
-    ],
-    "requires": [
-      "simplelib"
-    ],
-    "optional": [
-      "simplebuilding"
-    ],
-    "parent": "simplebuilding",
-    "bundle": "optional",
-    "intro": {
-      "en": "The Double Piston - two blocks long, one block out for a weak signal and two for a strong one - and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-      "de": "Der Doppelkolben - zwei Blöcke lang, bei schwachem Signal einen Block weit draußen, bei starkem zwei - und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
-    },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
-    "counts": {
-      "items": 1,
-      "blocks": 5,
-      "recipes": 3,
-      "features": 5
-    },
-    "dataHash": "3ce18e63948b"
+    "dataHash": "4a3dd1149811"
   }
 ];

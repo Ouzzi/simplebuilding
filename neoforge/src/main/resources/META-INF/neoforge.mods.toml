@@ -212,6 +212,7 @@ side="BOTH"
 
 [[dependencies.${modId}]]
 modId="simpleanimals"
+modId="simpledinos"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"

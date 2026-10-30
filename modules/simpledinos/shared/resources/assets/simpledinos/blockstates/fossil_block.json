@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "simpledinos:block/fossil_0"
+    },
+    "stage=1": {
+      "model": "simpledinos:block/fossil_1"
+    },
+    "stage=2": {
+      "model": "simpledinos:block/fossil_2"
+    },
+    "stage=3": {
+      "model": "simpledinos:block/fossil_3"
+    },
+    "stage=4": {
+      "model": "simpledinos:block/fossil_4"
+    },
+    "stage=5": {
+      "model": "simpledinos:block/fossil_5"
+    },
+    "stage=6": {
+      "model": "simpledinos:block/fossil_6"
+    },
+    "stage=7": {
+      "model": "simpledinos:block/fossil_7"
+    },
+    "stage=8": {
+      "model": "simpledinos:block/fossil_8"
+    },
+    "stage=9": {
+      "model": "simpledinos:block/fossil_9"
+    }
+  }
+}

@@ -54,6 +54,8 @@ BOOKS = {
     "simplewanderers": ("simplewanderers", ("#2e1a0a", "#4a2c14", "#c08a48", "#a06c34", "#7a4e24"), "#5aa04a", "Reisemantel-Ocker, Schalgruen"),
     # 2026-10-29 (a-animals29)
     "simpleanimals": ("simpleanimals", ("#1e2a12", "#324420", "#8aa860", "#688a44", "#4e6c32"), "#e0d0a0", "Waldgruen, Geweih-Elfenbein"),
+    # 2026-10-30 (a-dino30)
+    "simpledinos": ("simpledinos", ("#1c2a12", "#2e4420", "#8a9a50", "#6a7e3a", "#4c5e2a"), "#e8e0b8", "Urwaldgruen, Fossil-Elfenbein"),
     "simpleblocks": ("simpleblocks", ("#14181c", "#222830", "#6a7482", "#4c5460", "#383f4a"), "#3ac6b4", "Tiefenschiefer, Sculk-Türkis"),
     "simpleshops": ("simpleshops", ("#2a1a0c", "#40281a", "#b0824c", "#8e6234", "#6e4a26"), "#ffd23a", "Kassenholz, Muenzgold"),
     # 2026-10-15 (oc-simplestats)

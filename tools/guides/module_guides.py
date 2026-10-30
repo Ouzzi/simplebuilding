@@ -135,6 +135,11 @@ MODULES = [
                 "Fünf Tiere, die Vanilla nicht hat: der scheue Hirsch, das Wildschwein, das seine Frischlinge verteidigt, der Igel, der "
                 "Silberfische jagt und sich blitzschnell einrollt, der seltene Krebs, der seitwärts läuft, und das Zebra, dessen Kreuzung "
                 "mit einem Pferd das unfruchtbare Zorse ist.")),
+    dict(module="simpledinos", ns="simpledinos", package="com.simpledinos.guide", cls="DinosGuide", kind="item",
+         author="Simple Dinosaurs", recipe="minecraft:bone",
+         name=("Simple Dinosaurs Guide", "Simple-Dinosaurs-Handbuch"),
+         intro=("Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+                "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),

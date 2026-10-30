@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpledinos"
+version="${version}"
+displayName="Simple Dinosaurs"
+iconFile="assets/simpledinos/icon.png"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
+description="Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla."
+[[dependencies.simpledinos]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpledinos]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpledinos]]
+modId="simplemoney"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpledinos]]
+modId="simplemobheads"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

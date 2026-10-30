@@ -1,0 +1,10 @@
+{
+	"chapter.14D6FD03DD0AB382.title": "{\"translate\": \"quests.simpledinos.start.title\"}",
+	"chapter.14D6FD03DD0AB382.chapter_subtitle": [
+		"{\"translate\": \"quests.simpledinos.start.subtitle\"}"
+	],
+	"quest.5DCC7F4FEBE6081F.title": "{\"translate\": \"quests.simpledinos.start.welcome.title\"}",
+	"quest.5DCC7F4FEBE6081F.quest_desc": [
+		"{\"translate\": \"quests.simpledinos.start.welcome.description\"}"
+	]
+}

@@ -134,6 +134,7 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleRedstone = true;
+    public boolean enableSimpleDinos = true;
 
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
@@ -166,6 +167,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simplechallenges", c.enableSimpleChallenges);
         setSubMod("simpleanimals", c.enableSimpleAnimals);
         setSubMod("simpleredstone", c.enableSimpleRedstone);
+        setSubMod("simpledinos", c.enableSimpleDinos);
     }
 
     /**

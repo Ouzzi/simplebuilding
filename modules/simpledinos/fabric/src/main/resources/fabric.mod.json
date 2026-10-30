@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "simpledinos",
+  "version": "${version}",
+  "name": "Simple Dinosaurs",
+  "icon": "assets/simpledinos/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpledinos.DinosFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpledinos.DinosFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpledinos.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simplelib": ">=0.3.0",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simplemoney": "*",
+    "simplemobheads": "*"
+  }
+}

@@ -17,7 +17,8 @@
  "simpleanimals:hedgehog": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
  "simpleanimals:crab": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
  "simpleanimals:zebra": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
- "simpleanimals:zorse": "head comes later (Simple Animals, concept WP-18 2026-10-29)"
+ "simpleanimals:zorse": "head comes later (Simple Animals, concept WP-18 2026-10-29)",
+  "simpledinos:trex": "head comes later (Simple Dinosaurs, concept WP-18 2026-10-30)"
  },
  "heads": [
   {
