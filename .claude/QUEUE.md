@@ -134,6 +134,7 @@ Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP)
 - [ ] RG30-4 Abnahme verbessern: alle offenen Abnahmen strukturiert neu aufbereiten – jede Frage mit klickbaren Optionen (funktionierend), Empfehlung, Bild; eine gesammelte Antwort zum Kopieren; nichts doppelt, Beantwortetes raus; kaputte/unklare Seiten (ohne Auswahl, verbuggt) reparieren.
 
 ## Funde 29.10.
+- [ ] TR31-R Trials-Rest (a-trials31 nicht gebaut): Wither-Treffer Stufe 2, bremsende Pfeile Stufe 3, Void-Dunkelheit + teleportierende Schützen, Evil-Raid Extra-Welle + Plünderer-Truhe, max. 3 aktive Spawner je Struktur, Evil an Vanilla-Spawnern (Config, aus), Ziehen ohne Zurücklegen, Struktur-Schalter/Verfall-Config, JEI-Beute-Kategorie mit Gewichten.
 - [x] (A, a-hyg30, 30.10.) QW30-1 Testrunner: Prüfung „Katalog gegen Fabric-Adapter“ (jede GameTestSpec im Katalog braucht eine @GameTest-Methode im Fabric-Adapter) als schneller Check (Python, in `check`), damit fehlende Adapter nicht erst im Gesamt-Gate auffallen (Ursache Gate-Rot 77/78). Quick Win. — erledigt a-hyg30: `tools/check_gametest_adapters.py` (`checkGametestAdapters` in `check`) + Unit-Test `tools/testrunner/test_check_gametest_adapters.py` (`testGametestAdapters`); Ist-Stand 0 Luecken
 
 ## Besitzer 29.10. spät – Abnahmen Runde 2: Konzepte (ABN29b)
