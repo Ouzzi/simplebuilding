@@ -1,5 +1,6 @@
 package com.simpledinos.entity;
 
+import com.simpledinos.DinoVariants;
 import com.simpledinos.config.DinosConfig;
 import java.util.EnumSet;
 import net.minecraft.core.BlockPos;
@@ -12,9 +13,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -28,7 +32,10 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -39,6 +46,7 @@ import org.jspecify.annotations.Nullable;
  */
 public abstract class Dino extends AbstractHorse {
     private static final EntityDataAccessor<Integer> GROWTH = SynchedEntityData.defineId(Dino.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COAT = SynchedEntityData.defineId(Dino.class, EntityDataSerializers.INT);
     public static final float MIN_SCALE = 0.25F;
 
     protected Dino(EntityType<? extends Dino> type, Level level) {
@@ -49,6 +57,35 @@ public abstract class Dino extends AbstractHorse {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(GROWTH, 100);
+        builder.define(COAT, 0);
+    }
+
+    /** Coat variant, an index into {@link DinoVariants#COATS} (the rearing biome, see there); every dinosaur kind has it. */
+    public int coat() {
+        return this.entityData.get(COAT);
+    }
+
+    public void setCoat(int coat) {
+        this.entityData.set(COAT, DinoVariants.clamp(coat));
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("CoatVariant", coat());
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        setCoat(input.getIntOr("CoatVariant", 0));
+    }
+
+    /** Spawned by command, spawner or egg: the coat of the biome where it stands (an egg sets the coat itself before it hatches). */
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData group) {
+        setCoat(DinoVariants.pick(level.getBiome(blockPosition()), this.random));
+        return super.finalizeSpawn(level, difficulty, reason, group);
     }
 
     /** Size factor for a growth percentage (0 = just hatched, 100 = grown up). */

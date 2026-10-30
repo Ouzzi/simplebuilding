@@ -93,9 +93,19 @@ def spots(base, spot, every=5, seed=4, k=0.04):
     """Fawn / young boar coat: light spots or stripes on the sides."""
     def f(face, x, y, w, h):
         c = base
-        if face in ('right', 'left', 'back', 'front') and (x * 7 + y * 13) % every == 0 and hsh(x, y, seed) > 0.25:
-            c = mix(base, spot, 0.7)
+        if face in ('right', 'left', 'back', 'front') and hsh(x, y, seed) > 0.84:
+            c = mix(base, spot, 0.42)
         return lit(c, face, hsh(x, y, seed + 9), k)
+    return f
+
+
+def dappled(inner, spot, seed=22, every=6, k=0.38):
+    """Fallow deer: pale spots scattered over the upper sides of an otherwise smooth coat."""
+    def f(face, x, y, w, h):
+        c = inner(face, x, y, w, h)
+        if face in ('right', 'left', 'back') and y < h * 0.72 and hsh(x // 1, y, seed) > 0.9:
+            c = mix(c, lit(spot, face), k)
+        return c
     return f
 
 
@@ -111,11 +121,13 @@ def striped_boar(base, stripe, belly, seed=5):
     return f
 
 
-def spiny(base, tip, seed=6):
+def spiny(base, tip, seed=6, band=None):
     """Hedgehog spines: short vertical strokes, tips lighter."""
     def f(face, x, y, w, h):
         stroke = (x + (y // 2) * 2) % 3
-        c = mix(base, tip, 0.5 if stroke == 0 else 0.18)
+        c = mix(base, tip, 0.38 if stroke == 0 else 0.16)
+        if band is not None and (y // 2) % 2 == 0:
+            c = mix(c, band, 0.4)
         if face != 'top':
             c = mix(c, base, 0.25 + 0.5 * y / max(1, h))
         return lit(c, face, hsh(x, y, seed), 0.07)
@@ -170,12 +182,14 @@ def mark_eyes(sides, positions, eye=(20, 16, 14), glint=(240, 240, 232)):
     return {(s, x, y): eye for s in sides for (x, y) in positions}
 
 
-def deer_spec(coat, belly, dark, antler, spot=None, name='deer'):
+def deer_spec(coat, belly, dark, antler, spot=None, dapple=None, name='deer'):
     """Deer, 1 px = 1/16 block. Standing height about 1.5 m with the head up; antlers on the bucks."""
     body_c = fur(coat, belly, 0.62, 0.05, 11, dark_back=dark)
     leg = hoofed(coat, H('2a2018'), 2, belly=mix(coat, belly, 0.5), seed=12)
     head_marks = mark_eyes(['right', 'left'], [(5, 1)])
     head_marks.update({('front', 1, 2): H('201814'), ('front', 2, 2): H('201814')})  # nose
+    if dapple is not None:
+        body_c = dappled(body_c, dapple)
     if spot is not None:
         body_c = spots(coat, spot, 5, 21)
         leg = hoofed(coat, H('2a2018'), 2, seed=12)
@@ -224,12 +238,12 @@ def boar_spec(coat, dark, belly, snout, tusk, young=False, name='boar'):
     ])
 
 
-def hedgehog_spec(spine, tip, skin, belly, name='hedgehog'):
+def hedgehog_spec(spine, tip, skin, belly, band=None, name='hedgehog'):
     head_marks = mark_eyes(['right', 'left'], [(2, 1)])
     head_marks.update({('front', 1, 1): H('1c1410')})
     return dict(name=name, w=32, parts=[
         P('body', [B((-3, -4, -4.5), (6, 4, 9), fur(skin, belly, 0.5, 0.05, 41), share='body')], pose=(0, 22, 0)),
-        P('spines', [B((-3.5, -6, -5), (7, 4, 9), spiny(spine, tip, 42), share='spines')], pose=(0, 0.5, 0.5), parent='body'),
+        P('spines', [B((-3.5, -6, -5), (7, 4, 9), spiny(spine, tip, 42, band), share='spines')], pose=(0, 0.5, 0.5), parent='body'),
         P('head', [B((-1.5, -2.5, -4), (3, 3, 4), with_marks(fur(skin, belly, 0.6, 0.05, 43), head_marks), share='head'),
                    B((-0.5, -1.5, -5), (1, 1, 1), solid(H('1c1410'), 0.02, 44), share='nose')], pose=(0, 21.5, -4.5)),
         P('ear_right', [B((-0.5, -1, -0.5), (1, 1, 1), fur(skin, None, 1, 0.05, 45), share='ear')], pose=(-1.6, -2.4, -1.2), parent='head'),
@@ -321,6 +335,20 @@ def hard_share(img):
     return hard / max(1, n)
 
 
+def finish(img, tones):
+    """A8b: at most `tones` colours (median cut over the opaque pixels, no dithering), alpha kept."""
+    rgb = Image.new('RGB', img.size)
+    rgb.paste(img.convert('RGB'))
+    q = rgb.quantize(colors=tones, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGBA')
+    out = img.copy()
+    src, dst = img.load(), out.load()
+    for y in range(img.height):
+        for x in range(img.width):
+            if src[x, y][3]:
+                dst[x, y] = q.getpixel((x, y))[:3] + (src[x, y][3],)
+    return out
+
+
 def render_model(spec):
     place, height = pack(spec)
     img = Image.new('RGBA', (spec['w'], height), (0, 0, 0, 0))
@@ -342,9 +370,9 @@ HORSE_BOXES = [('body', (0, 32), (10, 10, 22)), ('neck', (0, 35), (4, 12, 7)), (
                ('tail', (42, 36), (3, 14, 4)), ('ear', (19, 16), (2, 3, 1))]
 
 
-def horse_texture(light, dark, mane, muzzle, hoof, seed, mask=None, base=None):
+def horse_texture(light, dark, mane, muzzle, hoof, seed, mask=None, base=None, hard=False):
     """Zebra (cream and charcoal stripes) or zorse (brown, stripes on legs/neck/rump) on the Vanilla horse layout."""
-    st = stripes(light, dark, seed, (3, 5), 0.25, True, 1.0, mask)
+    st = stripes(light, dark, seed, (3, 5), 0.25, not hard, 1.0, mask)
     coat = fur(base, mix(base, light, 0.5), 0.7, 0.05, seed + 1) if base is not None else None
     paint = {
         'body': st if base is None else (lambda f, x, y, w, h: st(f, x, y, w, h) if mask(f, x, y, w, h) > 0 else coat(f, x, y, w, h)),
@@ -364,22 +392,30 @@ def horse_texture(light, dark, mane, muzzle, hoof, seed, mask=None, base=None):
 
 # ---------------------------------------------------------------- the animals
 PALETTES = {
-    'deer_red': deer_spec(H('9a5a30'), H('d8c4a0'), H('6a3a20'), H('c9b48a')),
-    'deer_fallow': deer_spec(H('b98a58'), H('ece0c8'), H('8a6038'), H('d8c8a0')),
+    # Deer: red deer (reddish brown, cream belly, dark neck and back), fallow deer (fawn with pale spots), fawn
+    'deer_red': deer_spec(H('93582f'), H('d9c7a2'), H('5e3a22'), H('c9b48a')),
+    'deer_fallow': deer_spec(H('b58650'), H('efe3cc'), H('86603a'), H('d8c8a0'), dapple=H('f6ecd6')),
     'deer_fawn': deer_spec(H('a8693a'), H('e8d8b8'), H('7a4a28'), H('d8c8a0'), spot=H('f0e4c8')),
-    'boar_dark': boar_spec(H('4a3a30'), H('2a201a'), H('786858'), H('8a6a5a'), H('e8e0cc')),
-    'boar_light': boar_spec(H('6a5848'), H('3a2c22'), H('98887a'), H('9a7a6a'), H('e8e0cc')),
+    # Boar: dark (standard), sandy (dry), frost grey (cold), rust (wet)
+    'boar_dark': boar_spec(H('443630'), H('26201b'), H('766858'), H('85665a'), H('e8e0cc')),
+    'boar_sandy': boar_spec(H('86694a'), H('4e3a28'), H('b09a78'), H('9a7a62'), H('ece4d0')),
+    'boar_frost': boar_spec(H('666058'), H('38342f'), H('a8a094'), H('8e7a6e'), H('ece8dc')),
+    'boar_rust': boar_spec(H('5e3c2c'), H('34221a'), H('8c6a52'), H('8a6048'), H('e6dcc4')),
     'boar_young': boar_spec(H('6a4a30'), H('3a2a1c'), H('d8c4a0'), H('9a7a6a'), H('e8e0cc'), young=True),
-    'hedgehog_brown': hedgehog_spec(H('6a5238'), H('c8b088'), H('c8a888'), H('e8d8c0')),
-    'hedgehog_grey': hedgehog_spec(H('62605a'), H('b8b4a8'), H('b09880'), H('ddd0bc')),
-    'crab_red': crab_spec(H('b8502e'), H('8a3820'), H('e0b898'), H('d8643a')),
-    'crab_sand': crab_spec(H('c89868'), H('a07848'), H('ecd8b8'), H('d8a878')),
+    # Hedgehog: European brown, desert, white-breasted (dark, pale face and belly), four-toed (cream spines)
+    'hedgehog_brown': hedgehog_spec(H('5a4430'), H('b79a70'), H('b99a76'), H('e2d2b6')),
+    'hedgehog_desert': hedgehog_spec(H('9a7f58'), H('e0cba0'), H('d2b88e'), H('efe2c8')),
+    'hedgehog_whitebreast': hedgehog_spec(H('3e3028'), H('9c8466'), H('e2d6c0'), H('f4ece0')),
+    'hedgehog_fourtoed': hedgehog_spec(H('c9bca2'), H('f0e8d6'), H('e6dcc8'), H('f6efe2'), band=H('7a6044')),
+    # Crab: red, coral red
+    'crab_red': crab_spec(H('b3301d'), H('7e2016'), H('e0a888'), H('c9402a')),
+    'crab_coral': crab_spec(H('d24e2c'), H('9a3320'), H('f0c4a0'), H('e46a3a')),
 }
 MODELS = {'deer': 'deer_red', 'boar': 'boar_dark', 'hedgehog': 'hedgehog_brown', 'crab': 'crab_red'}
 
 
 def zebra_tex():
-    return horse_texture(H('dcd4c2'), H('3a322b'), H('3a322b'), H('7a6a5a'), H('2a2420'), 61)
+    return horse_texture(H('eeeae2'), H('1d1b1a'), H('1d1b1a'), H('8a7a6a'), H('231f1c'), 61, hard=True)
 
 
 def zorse_tex():
@@ -389,13 +425,14 @@ def zorse_tex():
     return t
 
 
-TEXTURES = {k: (lambda spec=v: render_model(spec)[0]) for k, v in PALETTES.items()}
-TEXTURES['zebra'] = zebra_tex
-TEXTURES['zorse'] = zorse_tex
+TONES = 14
+TEXTURES = {k: (lambda spec=v: finish(render_model(spec)[0], TONES)) for k, v in PALETTES.items()}
+TEXTURES['zebra'] = lambda: finish(zebra_tex(), 10)
+TEXTURES['zorse'] = lambda: finish(zorse_tex(), TONES)
 OUT_NAMES = {'deer_red': 'deer/red', 'deer_fallow': 'deer/fallow', 'deer_fawn': 'deer/fawn', 'boar_dark': 'boar/dark',
-             'boar_light': 'boar/light', 'boar_young': 'boar/young', 'hedgehog_brown': 'hedgehog/brown',
-             'hedgehog_grey': 'hedgehog/grey', 'crab_red': 'crab/red', 'crab_sand': 'crab/sand', 'zebra': 'zebra',
-             'zorse': 'zorse'}
+             'boar_sandy': 'boar/sandy', 'boar_frost': 'boar/frost', 'boar_rust': 'boar/rust', 'boar_young': 'boar/young',
+             'hedgehog_brown': 'hedgehog/brown', 'hedgehog_desert': 'hedgehog/desert', 'hedgehog_whitebreast': 'hedgehog/whitebreast',
+             'hedgehog_fourtoed': 'hedgehog/fourtoed', 'crab_red': 'crab/red', 'crab_coral': 'crab/coral', 'zebra': 'zebra', 'zorse': 'zorse'}
 
 
 # ---------------------------------------------------------------- Java

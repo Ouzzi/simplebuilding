@@ -75,12 +75,12 @@ def skin(base, belly, dark, seed, k=0.05, belly_from=0.6):
         c = base
         blotch = hsh(x // 2, y // 2, seed)
         if blotch > 0.7:
-            c = mix(c, dark, 0.45)
+            c = mix(c, dark, 0.28)
         elif blotch < 0.12:
-            c = mix(c, belly, 0.18)
+            c = mix(c, belly, 0.14)
         band = (x // 3 + (y // 4) * 2) % 5 == 0
         if face in ('top', 'right', 'left', 'back') and band and hsh(x, y, seed + 1) > 0.35:
-            c = mix(c, dark, 0.55)
+            c = mix(c, dark, 0.32)
         if face == 'top':
             c = mix(c, dark, 0.3)
         if face != 'top' and t > belly_from:
@@ -190,26 +190,44 @@ def trex_spec(coat, belly, dark, tier=0, name='trex'):
 
 
 # ---------------------------------------------------------------- the textures
-# Coat variants (the owner picks from the preview; the first is the default in the game).
+# Coat variants by rearing biome (DinoVariants.COATS, same names and order): earthy tones, dark back, light belly.
 COATS = {
-    'olive': (H('5e7a3c'), H('c9c08a'), H('33461f')),
-    'sand': (H('a08a5a'), H('e0d4a8'), H('5a4a2c')),
-    'rust': (H('9a5a38'), H('dcc09a'), H('50301c')),
+    'olive': (H('66703f'), H('cfc6a0'), H('353a1f')),   # temperate land (standard)
+    'sand': (H('a58e57'), H('e6d9ab'), H('5f4d2a')),    # desert, savanna
+    'rust': (H('8d583a'), H('d9bd98'), H('4a2c1b')),    # badlands
+    'moss': (H('4b5a35'), H('b9b68c'), H('222d17')),    # jungle, swamp
+    'ash': (H('7b7165'), H('d0c9ba'), H('3d372f')),     # cold, mountains
 }
-DEFAULT_COAT = 'olive'
 TIER_NAMES = {0: 'plain', 1: 'leather', 2: 'iron', 3: 'diamond'}
 PALETTES = {}
 for _coat, (_c, _b, _d) in COATS.items():
     for _tier in range(4):
         PALETTES[f'trex_{_coat}_{_tier}'] = trex_spec(_c, _b, _d, _tier)
-MODELS = {'trex': f'trex_{DEFAULT_COAT}_0'}
-TEXTURES = {k: (lambda spec=v: render_model(spec)[0]) for k, v in PALETTES.items()}
+MODELS = {'trex': 'trex_olive_0'}
+TONES = 16
+
+
+def finish(img, tones):
+    """A8b: at most `tones` colours (median cut over the opaque pixels, no dithering), alpha kept."""
+    rgb = Image.new('RGB', img.size)
+    rgb.paste(img.convert('RGB'))
+    q = rgb.quantize(colors=tones, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGBA')
+    out = img.copy()
+    src, dst = img.load(), out.load()
+    for y in range(img.height):
+        for x in range(img.width):
+            if src[x, y][3]:
+                dst[x, y] = q.getpixel((x, y))[:3] + (src[x, y][3],)
+    return out
+
+
+TEXTURES = {k: (lambda spec=v, tier=int(k.split('_')[2]): finish(render_model(spec)[0], TONES + (6 if tier else 0))) for k, v in PALETTES.items()}
 
 
 def out_name(key):
-    """The default coat is what the game uses (textures/entity/trex/<tier>.png); the other coats are preview-only."""
+    """textures/entity/trex/<coat>/<tier>.png for every coat and armor tier."""
     _, coat, tier = key.split('_')
-    return f'trex/{TIER_NAMES[int(tier)]}' if coat == DEFAULT_COAT else None
+    return f'trex/{coat}/{TIER_NAMES[int(tier)]}'
 
 
 # ---------------------------------------------------------------- packing + painting
@@ -379,7 +397,7 @@ def main(argv):
                     path.parent.mkdir(parents=True, exist_ok=True)
                     L.save(content, path)
     for key in PALETTES:
-        if key.endswith('_0'):
+        if key.endswith('_0') or key.endswith('_1'):
             img = TEXTURES[key]()
             print(f'{key}: {img.width}x{img.height}, hard transitions {hard_share(img) * 100:.1f} %')
     if args.preview:

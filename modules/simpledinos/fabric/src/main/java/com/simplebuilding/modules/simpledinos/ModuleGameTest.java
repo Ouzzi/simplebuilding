@@ -102,4 +102,14 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         DinosTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void dinoVariantCatalog(GameTestHelper h) {
+        DinosTests.ALL.get("dino_variant_catalog").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void dinoCoatState(GameTestHelper h) {
+        DinosTests.ALL.get("dino_coat_state").accept(h);
+    }
 }

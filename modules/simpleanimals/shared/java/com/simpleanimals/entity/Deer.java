@@ -1,5 +1,6 @@
 package com.simpleanimals.entity;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.AnimalsRegistry;
 import com.simpleanimals.AnimalsSpawn;
 import com.simpleanimals.config.AnimalsConfig;
@@ -87,7 +88,7 @@ public class Deer extends Animal {
     }
 
     public void setVariant(int v) {
-        this.entityData.set(VARIANT, v == 1 ? 1 : 0);
+        this.entityData.set(VARIANT, AnimalVariants.clamp(AnimalVariants.DEER, v));
     }
 
     public boolean hasAntlers() {
@@ -114,7 +115,7 @@ public class Deer extends Animal {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData group) {
-        setVariant(this.random.nextInt(3) == 0 ? 1 : 0);
+        setVariant(AnimalVariants.pick(AnimalVariants.DEER, level.getBiome(blockPosition()), this.random));
         setAntlers(this.random.nextBoolean());
         return super.finalizeSpawn(level, difficulty, reason, group);
     }

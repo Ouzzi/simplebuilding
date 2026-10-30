@@ -102,4 +102,14 @@ public final class ModuleGameTest {
     public void guideBook(GameTestHelper h) {
         AnimalsTests.ALL.get("guide_book").accept(h);
     }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void variantCatalog(GameTestHelper h) {
+        AnimalsTests.ALL.get("variant_catalog").accept(h);
+    }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void variantEntities(GameTestHelper h) {
+        AnimalsTests.ALL.get("variant_entities").accept(h);
+    }
 }

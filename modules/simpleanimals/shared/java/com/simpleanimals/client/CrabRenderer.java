@@ -1,5 +1,6 @@
 package com.simpleanimals.client;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.SimpleAnimals;
 import com.simpleanimals.entity.Crab;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -9,7 +10,8 @@ import net.minecraft.resources.Identifier;
 
 /** Crab with two shell colours (red, sand). */
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderer.State, CrabModel> {
-    private static final Identifier[] TEXTURES = {SimpleAnimals.id("textures/entity/crab/red.png"), SimpleAnimals.id("textures/entity/crab/sand.png")};
+    private static final Identifier[] TEXTURES = AnimalVariants.CRAB.stream()
+            .map(v -> SimpleAnimals.id("textures/entity/crab/" + v.name() + ".png")).toArray(Identifier[]::new);
 
     public static class State extends LivingEntityRenderState {
         public int variant;
@@ -21,7 +23,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderer.State, CrabMode
 
     @Override
     public Identifier getTextureLocation(State state) {
-        return TEXTURES[state.variant == 1 ? 1 : 0];
+        return TEXTURES[AnimalVariants.clamp(AnimalVariants.CRAB, state.variant)];
     }
 
     @Override
