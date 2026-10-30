@@ -61,6 +61,10 @@ public final class MobsConfig {
     public static float witherWingsSpeedFactor = 2.0f, netherWingsSpeedFactor = 4.0f, endWingsSpeedFactor = 6.0f, voidWingsSpeedFactor = 8.0f;
     /** Strong TNT (BS25-21): explosion power (Vanilla TNT 4, charged Creeper 6); 4 to 16. */
     public static float strongTntPower = StrongExplosives.DEFAULT_POWER;
+    /** Evil Omen (BS27-3): the master switch of Evil Potion brewing, Evil Omen, Evil Trials / Raids and the Evil Vault; the Weathered Trials themselves stay. */
+    public static boolean evilOmen = true;
+    /** Void chain (BS27-6): Void Potion / Omen / Trial / Vault; off until the Ender Heart has a source (concept R9). Needs {@link #evilOmen}. */
+    public static boolean voidChain = false;
 
     /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
     public static boolean howlerRagePulse = true;
@@ -193,6 +197,8 @@ public final class MobsConfig {
         endWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "endWingsSpeedFactor", 6.0f)));
         voidWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "voidWingsSpeedFactor", 8.0f)));
         strongTntPower = Math.max(4.0f, Math.min(16.0f, num(json, "strongTntPower", StrongExplosives.DEFAULT_POWER)));
+        evilOmen = bool(json, "evilOmen", true);
+        voidChain = bool(json, "voidChain", false);
     }
 
     public static JsonObject toJson() {
@@ -241,6 +247,8 @@ public final class MobsConfig {
         o.addProperty("endWingsSpeedFactor", endWingsSpeedFactor);
         o.addProperty("voidWingsSpeedFactor", voidWingsSpeedFactor);
         o.addProperty("strongTntPower", strongTntPower);
+        o.addProperty("evilOmen", evilOmen);
+        o.addProperty("voidChain", voidChain);
         return o;
     }
 

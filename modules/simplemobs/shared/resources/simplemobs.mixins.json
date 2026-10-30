@@ -22,7 +22,12 @@
     "DisplayWitherCrownMixin",
     "WitherBossAccessor",
     "FireworkRocketWingsMixin",
-    "PrimedTntStrongMixin"
+    "PrimedTntStrongMixin",
+    "BlockEntityTypeTrialsMixin",
+    "BrewingStandSoulMixin",
+    "TrialSpawnerDetectMixin",
+    "TrialSpawnerEvilMixin",
+    "TrialVaultKeysMixin"
   ],
   "client": [
     "DeceiverLookMixin",

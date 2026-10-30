@@ -1,0 +1,18 @@
+{
+  "upgrades": [
+    {
+      "from": "simplemobs:weathered_vault",
+      "to": "simplemobs:evil_vault",
+      "material": "minecraft:diamond_block",
+      "strikes_per_material": 5,
+      "tier": "evil"
+    },
+    {
+      "from": "simplemobs:evil_vault",
+      "to": "simplemobs:void_vault",
+      "material": "minecraft:netherite_block",
+      "strikes_per_material": 5,
+      "tier": "void"
+    }
+  ]
+}

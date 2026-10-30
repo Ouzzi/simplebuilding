@@ -503,6 +503,124 @@
           "Beispiel: /simplemobs config get <Option> zeigt Wert, Standard und Typ; /simplemobs config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
+    },
+    {
+      "id": "weathered_trials",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/WeatheredTrialSpawnerBlock.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialVaultBlock.java",
+        "tools/structures/generate_weathered_trials.py",
+        "tools/textures/trials_2026_10_30.py",
+        "modules/simplemobs/shared/resources/data/simplemobs/worldgen/structure/weathered_trial.json"
+      ],
+      "en": {
+        "title": "Weathered Trials",
+        "summary": "Rare dungeon-like rooms underground with a Weathered Trial Spawner and Weathered Vaults - the Trial Chambers loop in verdigris copper, with their own loot.",
+        "details": [
+          "Where: a separate structure (not the Vanilla Trial Chambers) from y -48 to 20 in land biomes, about one in 28 chunk squares, never near Trial Chambers. 86 % are the normal room (9x9 inside, 1 spawner, 1 vault), 10 % (1 in 10) the large room (13x13, 2-4 spawners, 1 ominous and 3 normal vaults behind a grate door), 4 % (1 in 25) the giant cross (19x19, 6-8 spawners, 2 ominous and 6 normal vaults). Free spawner places are fully weathered chiseled copper. 11 % of the wall blocks have crumbled, plus moss, cracks and fallen spots; spawners and vaults are always intact.",
+          "The Weathered Trial Spawner is the Vanilla Trial Spawner in verdigris copper (corner broken open): waiting, active, reward, cooldown; with Bad Omen the trial turns ominous exactly like the Vanilla one. Mobs by theme: undead, spiders, creepers and silverfish, wind (bogged; breeze when ominous). Its reward is a Trial Key or an Ominous Trial Key, as in Vanilla.",
+          "The Weathered Vault is a Vanilla vault with its own loot: normal (2 draws, iron, emerald, copper, gold, diamond, enchanted books, golden apple, wind charges, an Ominous Bottle, rarely a totem) and ominous (3 draws, more diamonds and golden apples, netherite scrap, heavy core, totem). Never hearts, never nether stars. Once per player, as in Vanilla. The keys are the Vanilla keys, so they also fit Vanilla vaults and the other way round.",
+          "Spawners and vaults cannot be broken in survival (as in Vanilla); you find them only in the rooms or in Creative. Server config simplemobs-server.json: evilOmen (master switch for everything below)."
+        ]
+      },
+      "de": {
+        "title": "Verwitterte Prüfungen",
+        "summary": "Seltene dungeonartige Räume unter der Erde mit Verwittertem Prüfungs-Spawner und Verwitterten Tresoren – die Trial-Chambers-Schleife in grünspanigem Kupfer, mit eigener Beute.",
+        "details": [
+          "Wo: eine eigene Struktur (nicht die Vanilla-Trial-Chambers) von Höhe -48 bis 20 in Land-Biomen, etwa jedes 28. Chunk-Feld, nie bei Trial Chambers. 86 % sind der normale Raum (9x9 innen, 1 Spawner, 1 Tresor), 10 % (jeder 10.) der große Raum (13x13, 2–4 Spawner, 1 unheilvoller und 3 normale Tresore hinter einer Gittertür), 4 % (jeder 25.) das riesige Kreuz (19x19, 6–8 Spawner, 2 unheilvolle und 6 normale Tresore). Freie Spawner-Plätze sind komplett verwittertes gemeißeltes Kupfer. 11 % der Wandblöcke sind zerfallen, dazu Moos, Risse und eingestürzte Stellen; Spawner und Tresore sind immer heil.",
+          "Der Verwitterte Prüfungs-Spawner ist der Vanilla-Trial-Spawner in grünspanigem Kupfer (Ecke aufgebrochen): wartend, aktiv, Belohnung, Abklingzeit; mit Unheilvollem Omen wird die Prüfung unheilvoll wie in Vanilla. Mobs nach Thema: Untote, Spinnen, Creeper und Silberfische, Wind (Morast-Skelett; unheilvoll Breeze). Belohnung ist ein Prüfungsschlüssel oder ein Unheilvoller Prüfungsschlüssel wie in Vanilla.",
+          "Der Verwitterte Tresor ist ein Vanilla-Tresor mit eigener Beute: normal (2 Züge: Eisen, Smaragd, Kupfer, Gold, Diamant, verzauberte Bücher, Goldener Apfel, Windkugeln, eine Unheilvolle Flasche, selten ein Totem) und unheilvoll (3 Züge: mehr Diamanten und Goldäpfel, Netherit-Schrott, Schwerer Kern, Totem). Nie Herzen, nie Netherstern. Einmal pro Spieler wie in Vanilla. Die Schlüssel sind die Vanilla-Schlüssel, passen also auch an Vanilla-Tresore und umgekehrt.",
+          "Spawner und Tresore sind im Überleben nicht abbaubar (wie in Vanilla); es gibt sie nur in den Räumen oder im Kreativmodus. Server-Konfiguration simplemobs-server.json: evilOmen (Hauptschalter für alles Folgende)."
+        ]
+      },
+      "related": [
+        "simplemobs:weathered_trial_spawner",
+        "simplemobs:weathered_vault"
+      ]
+    },
+    {
+      "id": "evil_omen",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/BrewingStandSoulMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrialSpawnerEvilMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrialVaultKeysMixin.java",
+        "modules/simplemobs/shared/resources/data/simplemobs/in_world_upgrades/trials.json"
+      ],
+      "en": {
+        "title": "Evil Omen",
+        "summary": "A stronger Bad Omen for Netherite-age players: brew the Evil Potion with a Nether Heart, drink it, turn a Weathered Trial or a village raid evil, win Evil Trial Keys and open an Evil Vault.",
+        "details": [
+          "Evil Potion I-V: put 1-3 Ominous Bottles into the lower slots of a Brewing Stand and a Nether Heart into the top slot. The stand must be fuelled with Soulfire Powder (the fuel slot accepts it; 1 powder = 20 soul charges, every Evil brew takes one). Each bottle keeps its stage, one heart serves all bottles, so up to 3 potions per heart. Normal brewing and blaze powder stay as they are.",
+          "Drinking it gives Evil Omen I-V for 100 minutes and replaces Bad Omen. Walking into a Weathered Trial Spawner with it turns that trial evil (red particles): mobs get +10 % life per stage and effects - I Strength, II Speed, III Strength II and Resistance, IV Regeneration (and sometimes Volatile), V Strength III, Speed II, Resistance II, Regeneration II and Deflection or Mirror. The omen is used up. Evil Omen in a village starts a Vanilla raid of that stage whose raiders get the same buffs (30 minutes).",
+          "Reward: the Evil Trial Key of the stage (always) plus golden apple, diamonds, emeralds and an Ominous Bottle by chance. Evil Trial Keys fit only an Evil Vault and also not Vanilla vaults.",
+          "Evil Vault: hold a diamond block in the off hand and strike a Weathered Vault 5 times with a hammer (with no hammer mod an axe does it); it turns into an Evil Vault for good. Only Weathered Vaults - never Vanilla vaults. It opens with an Evil Trial Key of any stage, once per player, and pays by the key stage: 3 draws (4 from stage 4) from diamonds, emeralds, golden apples, enchanted books, netherite scrap and ingots, enchanted golden apple, totem, heavy core; higher stages shift towards netherite and totems.",
+          "Not built: the 10 % Wither hit of stage 2, slowing arrows of stage 3, the extra raid wave and the raider chest. Config: evilOmen (default true) switches the whole chain."
+        ]
+      },
+      "de": {
+        "title": "Böses Omen",
+        "summary": "Ein stärkeres Unheilvolles Omen für Spieler im Netherit-Zeitalter: Böser Trank mit Netherherz brauen, trinken, eine Verwitterte Prüfung oder einen Dorf-Überfall böse machen, Böse Prüfungsschlüssel gewinnen und einen Bösen Tresor öffnen.",
+        "details": [
+          "Böser Trank I–V: 1–3 Unheilvolle Flaschen in die unteren Plätze eines Braustands, ein Netherherz in den oberen. Der Braustand muss mit Seelenfeuer-Lohenstaub befeuert sein (der Brennstoffplatz nimmt ihn an; 1 Staub = 20 Seelenladungen, jeder Böse Brauvorgang kostet eine). Jede Flasche behält ihre Stufe, ein Herz reicht für alle Flaschen, also bis zu 3 Tränke je Herz. Normales Brauen und Lohenstaub bleiben unverändert.",
+          "Trinken gibt Böses Omen I–V für 100 Minuten und ersetzt das Unheilvolle Omen. Damit in einen Verwitterten Prüfungs-Spawner gehen macht die Prüfung böse (rote Partikel): Mobs bekommen +10 % Leben je Stufe und Effekte – I Stärke, II Tempo, III Stärke II und Resistenz, IV Regeneration (manchmal Flüchtig), V Stärke III, Tempo II, Resistenz II, Regeneration II und Ablenkung oder Spiegel. Das Omen wird verbraucht. Böses Omen im Dorf startet einen Vanilla-Überfall der Stufe, dessen Plünderer dieselben Verstärkungen bekommen (30 Minuten).",
+          "Belohnung: der Böse Prüfungsschlüssel der Stufe (immer) und je nach Zufall Goldener Apfel, Diamanten, Smaragde und eine Unheilvolle Flasche. Böse Prüfungsschlüssel passen nur an einen Bösen Tresor, auch nicht an Vanilla-Tresore.",
+          "Böser Tresor: Diamantblock in die Nebenhand und 5-mal mit einem Hammer auf einen Verwitterten Tresor schlagen (ohne Hammer-Mod geht eine Axt); er wird dauerhaft zum Bösen Tresor. Nur Verwitterte Tresore – nie Vanilla-Tresore. Er öffnet mit einem Bösen Prüfungsschlüssel jeder Stufe, einmal pro Spieler, und zahlt nach der Schlüsselstufe: 3 Züge (ab Stufe 4 vier) aus Diamanten, Smaragden, Goldäpfeln, verzauberten Büchern, Netherit-Schrott und -Barren, Verzaubertem Goldenen Apfel, Totem, Schwerem Kern; höhere Stufen verschieben zu Netherit und Totems.",
+          "Nicht gebaut: der 10-%-Wither-Treffer der Stufe 2, bremsende Pfeile der Stufe 3, die Extra-Welle und die Plünderer-Truhe. Config: evilOmen (Standard an) schaltet die ganze Kette."
+        ]
+      },
+      "related": [
+        "simplemobs:evil_vault",
+        "simplemobs:evil_potion_1",
+        "simplemobs:evil_trial_key_1",
+        "simplemobs:evil_potion_2",
+        "simplemobs:evil_trial_key_2",
+        "simplemobs:evil_potion_3",
+        "simplemobs:evil_trial_key_3",
+        "simplemobs:evil_potion_4",
+        "simplemobs:evil_trial_key_4",
+        "simplemobs:evil_potion_5",
+        "simplemobs:evil_trial_key_5"
+      ]
+    },
+    {
+      "id": "void_chain",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialsHooks.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Void chain",
+        "summary": "The Evil chain one tier up - Void Potion, Void Omen, Void Trial, Void Vault - switched off by default until the Ender Heart has a source.",
+        "details": [
+          "Same steps as the Evil Omen: Ominous Bottle + Ender Heart in the soul-fuelled Brewing Stand = Void Potion I-V, Void Omen, a Weathered Trial or raid turns void (violet particles; life +60 to +100 %, every effect one step higher), the reward is the Void Trial Key of the stage, and a Void Vault is made from an Evil Vault with a netherite block in the off hand and 5 strikes. It pays 3 to 5 draws of netherite, enchanted golden apples, totems, echo shards, heavy cores, phantom membrane and stage V ominous bottles.",
+          "The Ender Heart has no source in the game yet, so the whole chain is off: config voidChain (default false, needs evilOmen). The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Not built: the darkness aura and the teleporting archers of Void mobs."
+        ]
+      },
+      "de": {
+        "title": "Leere-Kette",
+        "summary": "Die Böse Kette eine Stufe höher – Leere-Trank, Leere-Omen, Leere-Prüfung, Leere-Tresor –, standardmäßig aus, bis das Enderherz eine Quelle hat.",
+        "details": [
+          "Dieselben Schritte wie beim Bösen Omen: Unheilvolle Flasche + Enderherz im seelenbefeuerten Braustand = Leere-Trank I–V, Leere-Omen, eine Verwitterte Prüfung oder ein Überfall wird zur Leere (violette Partikel; Leben +60 bis +100 %, jeder Effekt eine Stufe höher), Belohnung ist der Leere-Prüfungsschlüssel der Stufe, und ein Leere-Tresor entsteht aus einem Bösen Tresor mit einem Netheritblock in der Nebenhand und 5 Schlägen. Er zahlt 3 bis 5 Züge aus Netherit, Verzauberten Goldäpfeln, Totems, Echosplittern, Schweren Kernen, Phantommembranen und Unheilvollen Flaschen der Stufe V.",
+          "Das Enderherz hat im Spiel noch keine Quelle, deshalb ist die ganze Kette aus: Config voidChain (Standard false, braucht evilOmen). Die Gegenstände bleiben im Kreativ-Tab, die Rezepte erscheinen im Rezeptbetrachter nur bei eingeschalteter Kette. Nicht gebaut: Dunkelheits-Aura und teleportierende Bogenschützen der Leere-Mobs."
+        ]
+      },
+      "related": [
+        "simplemobs:void_vault",
+        "simplemobs:void_potion_1",
+        "simplemobs:void_trial_key_1",
+        "simplemobs:void_potion_2",
+        "simplemobs:void_trial_key_2",
+        "simplemobs:void_potion_3",
+        "simplemobs:void_trial_key_3",
+        "simplemobs:void_potion_4",
+        "simplemobs:void_trial_key_4",
+        "simplemobs:void_potion_5",
+        "simplemobs:void_trial_key_5"
+      ]
     }
   ],
   "notes": {
