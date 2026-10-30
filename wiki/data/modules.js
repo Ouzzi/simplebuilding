@@ -686,12 +686,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 28,
-      "blocks": 3,
+      "items": 48,
+      "blocks": 7,
       "recipes": 73,
-      "features": 16
+      "features": 19
     },
-    "dataHash": "747cb77dc5bf"
+    "dataHash": "f0782fd287f8"
   },
   {
     "id": "simpleweather",
