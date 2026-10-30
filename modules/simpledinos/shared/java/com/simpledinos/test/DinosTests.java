@@ -111,7 +111,7 @@ public final class DinosTests {
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_spawn_egg")), "no spawn egg (owner)");
             h.assertTrue(DinosRegistry.FOSSIL_BE != null && DinosRegistry.EGG_BE != null, "block entity types");
             h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX), "attributes");
-            h.assertTrue(DinosConfig.enabled && DinosConfig.brushSeconds == 60 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
+            h.assertTrue(DinosConfig.enabled && DinosConfig.brushSeconds == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
                     && DinosConfig.growMinutes == 40 && DinosConfig.trexBiteDamage == 10.0, "config defaults = concept times");
             h.assertTrue(DinoKind.TREX.hatchable() && !DinoKind.TRICERATOPS.hatchable() && DinoKind.hatchableKinds().size() == 1,
                     "stage 1: only the T. rex hatches");
@@ -180,7 +180,7 @@ public final class DinosTests {
             BlockPos pos = at(4, 4);
             FossilBlockEntity be = fossil(h, pos);
             int total = DinosConfig.brushTicks();
-            h.assertTrue(total == 1200, "about one minute");
+            h.assertTrue(total == 900, "45 s = 75 % of the former minute");
             int seen = 0;
             long t = 1000;
             for (int i = 0; i < total / 2; i++) be.advance(level, t++, true);
@@ -194,6 +194,19 @@ public final class DinosTests {
             be.advance(level, t + 100_000, false);
             h.assertTrue(be.progress() == 0 && h.getBlockState(pos).getValue(FossilBlock.STAGE) == 0, "a long pause empties it");
             h.assertTrue(h.getBlockState(pos).is(DinosRegistry.FOSSIL), "and the block is still a fossil (no reroll, nothing lost)");
+            h.succeed();
+        });
+        ALL.put("fossil_first_frame_within_one_second", h -> {
+            ServerLevel level = h.getLevel();
+            BlockPos pos = at(4, 4);
+            FossilBlockEntity be = fossil(h, pos);
+            long t = 5000;
+            for (int i = 0; i < 14; i++) be.advance(level, t++, true);
+            h.assertTrue(h.getBlockState(pos).getValue(FossilBlock.STAGE) == 0, "14 ticks: still stage 0");
+            be.advance(level, t++, true);
+            h.assertTrue(h.getBlockState(pos).getValue(FossilBlock.STAGE) == 1, "15 ticks (< 20): first frame change");
+            h.assertTrue(FossilBlockEntity.stageFor(100, 100) == FossilBlock.STAGES - 1 && FossilBlockEntity.stageFor(0, 100) == 0, "short brush time still maps 0..9");
+            be.advance(level, t + 100_000, false);
             h.succeed();
         });
         ALL.put("fossil_finish_drops_trex_egg", h -> {

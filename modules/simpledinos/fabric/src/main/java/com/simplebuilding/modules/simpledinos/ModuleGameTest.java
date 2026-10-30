@@ -34,6 +34,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
+    public void fossilFirstFrameWithinOneSecond(GameTestHelper h) {
+        DinosTests.ALL.get("fossil_first_frame_within_one_second").accept(h);
+    }
+
+    @GameTest(structure = "simpledinos:arena", maxTicks = 100)
     public void fossilFinishDropsTrexEgg(GameTestHelper h) {
         DinosTests.ALL.get("fossil_finish_drops_trex_egg").accept(h);
     }

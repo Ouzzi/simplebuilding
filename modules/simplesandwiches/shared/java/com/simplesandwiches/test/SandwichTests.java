@@ -248,11 +248,19 @@ public final class SandwichTests {
 
     static void hungerSum(GameTestHelper h) {
         FoodProperties f = SandwichFormula.create(contents(false, Items.COOKED_BEEF, ModItems.CHEESE_SLICE, Items.CARROT)).get(DataComponents.FOOD);
-        h.assertTrue(f.nutrition() == 5 + 8 + 2 + 3, "bread + steak + cheese + carrot = 18, got " + f.nutrition());
-        near(h, f.saturation(), 6.0 + 12.8 + 1.2 + 3.6, "saturation sum");
+        // IG31-28: max + falling bonus (10 %, 5 %, 2.5 % ...), saturation <= 1.2 x hunger, saturation rounded to 0.5.
+        h.assertTrue(f.nutrition() == 9, "steak 8 + bread 5 x 10 % + carrot 3 x 5 % + cheese 2 x 2.5 % = 8.7 -> 9, got " + f.nutrition());
+        near(h, f.saturation(), 10.5, "saturation 13.6 capped at 1.2 x 9 = 10.8 -> 10.5");
+        FoodProperties chicken = SandwichFormula.create(contents(false, Items.COOKED_CHICKEN, Items.CARROT, ModItems.CHEESE_SLICE)).get(DataComponents.FOOD);
+        h.assertTrue(chicken.nutrition() == 7, "chicken+carrot+cheese: 6.7 -> 7 (was 16), got " + chicken.nutrition());
+        near(h, chicken.saturation(), 8.0, "chicken+carrot+cheese saturation 8.0 (was 18)");
+        FoodProperties plain = SandwichFormula.create(contents(false)).get(DataComponents.FOOD);
+        h.assertTrue(plain.nutrition() == 5, "bread alone stays 5, got " + plain.nutrition());
+        near(h, plain.saturation(), 6.0, "bread alone saturation");
         FoodProperties five = SandwichFormula.create(contents(false, Items.COOKED_BEEF, Items.COOKED_BEEF, Items.COOKED_BEEF,
                 Items.COOKED_BEEF, Items.COOKED_BEEF)).get(DataComponents.FOOD);
-        h.assertTrue(five.nutrition() == 45, "no cap (owner F4 = C): 5 + 5 x 8 = 45, got " + five.nutrition());
+        h.assertTrue(five.nutrition() == 10, "5 steaks: 8 + 0.8 + 0.4 + 0.2 + 0.1 + bread = 9.53 -> 10, got " + five.nutrition());
+        near(h, five.saturation(), 12.0, "5 steaks saturation capped at 1.2 x 10");
         h.assertTrue(!five.canAlwaysEat(), "steak cannot always be eaten");
         h.assertTrue(SandwichFormula.create(contents(false, Items.GOLDEN_APPLE)).get(DataComponents.FOOD).canAlwaysEat(),
                 "golden apple makes it always edible");
@@ -263,8 +271,8 @@ public final class SandwichTests {
 
     static void butterBonus(GameTestHelper h) {
         FoodProperties f = SandwichFormula.create(contents(true, Items.COOKED_BEEF)).get(DataComponents.FOOD);
-        h.assertTrue(f.nutrition() == Math.round((5 + 8) * 1.1), "butter +10 % nutrition, got " + f.nutrition());
-        near(h, f.saturation(), (6.0 + 12.8) * 1.1, "butter +10 % saturation");
+        h.assertTrue(f.nutrition() == 9, "butter +10 %: (8 + 0.5) x 1.1 = 9.35 -> 9, got " + f.nutrition());
+        near(h, f.saturation(), 10.5, "butter saturation 14.7 capped at 1.2 x 9");
         float[] p = new float[1];
         MobEffectInstance hunger = effect(SandwichFormula.create(contents(true, Items.CHICKEN)), MobEffects.HUNGER, p);
         h.assertTrue(hunger != null && hunger.getDuration() == 660, "butter +10 % effect duration (600 -> 660)");
@@ -293,7 +301,7 @@ public final class SandwichTests {
             ModItems.SANDWICH.inventoryTick(stale, h.getLevel(), player(h, new BlockPos(2, 2, 2)), null);
             ItemStack fresh = SandwichFormula.create(contents(true, Items.COOKED_BEEF));
             h.assertTrue(stale.getCount() == 3, "count kept");
-            h.assertTrue(stale.get(DataComponents.FOOD).nutrition() == Math.round((5 + 8) * 1.1), "recomputed with the new bonus");
+            h.assertTrue(stale.get(DataComponents.FOOD).nutrition() == 9, "recomputed with the new bonus");
             h.assertTrue(ItemStack.isSameItemSameComponents(stale, fresh), "stale stack now stacks with a fresh one");
             ItemStack plain = SandwichFormula.create(contents(false, Items.COOKED_BEEF));
             h.assertTrue(SandwichContents.current(false) == plain.get(com.simplesandwiches.registry.ModComponents.SANDWICH_CONTENTS).formula(), "plain stamp ignores the bonus");
@@ -306,18 +314,18 @@ public final class SandwichTests {
     static void effectMerge(GameTestHelper h) {
         float[] p = new float[1];
         MobEffectInstance two = effect(SandwichFormula.create(contents(false, Items.CHICKEN, Items.CHICKEN)), MobEffects.HUNGER, p);
-        h.assertTrue(two != null && two.getDuration() == 1200 && two.getAmplifier() == 0, "2x raw chicken: hunger 60 s, level I");
+        h.assertTrue(two != null && two.getDuration() == 600 && two.getAmplifier() == 0, "2x raw chicken: hunger stays 30 s (longest, no sum), level I");
         near(h, p[0], 1 - 0.7 * 0.7, "2x 30 % -> 51 %");
         MobEffectInstance three = effect(SandwichFormula.create(contents(false, Items.CHICKEN, Items.CHICKEN, Items.CHICKEN)), MobEffects.HUNGER, p);
-        h.assertTrue(three.getDuration() == 1200, "duration capped at twice the longest single duration");
+        h.assertTrue(three.getDuration() == 600, "duration is the longest single one");
         effect(SandwichFormula.create(contents(false, Items.ROTTEN_FLESH, Items.CHICKEN)), MobEffects.HUNGER, p);
         near(h, p[0], 1 - 0.2 * 0.7, "80 % and 30 % -> 86 %");
         ItemStack apples = SandwichFormula.create(contents(false, Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE));
         MobEffectInstance absorption = effect(apples, MobEffects.ABSORPTION, p);
         h.assertTrue(absorption.getAmplifier() == 3, "strength is the maximum (absorption IV), got " + absorption.getAmplifier());
-        h.assertTrue(absorption.getDuration() == 4800, "absorption 2 min + 2 min = 4 min, got " + absorption.getDuration());
+        h.assertTrue(absorption.getDuration() == 2400, "absorption longest 2 min, got " + absorption.getDuration());
         MobEffectInstance regen = effect(apples, MobEffects.REGENERATION, p);
-        h.assertTrue(regen.getAmplifier() == 1 && regen.getDuration() == 500, "regeneration II 5 s + 20 s = 25 s, got " + regen.getDuration());
+        h.assertTrue(regen.getAmplifier() == 1 && regen.getDuration() == 400, "regeneration II longest 20 s, got " + regen.getDuration());
         h.assertTrue(apples.get(DataComponents.RARITY) == Items.ENCHANTED_GOLDEN_APPLE.components().get(DataComponents.RARITY), "highest rarity");
         h.assertTrue(Boolean.TRUE.equals(apples.get(DataComponents.ENCHANTMENT_GLINT_OVERRIDE)), "glint from the enchanted apple");
         h.assertTrue(EffectMerger.cappedDuration(30_000, 20_000, 1.0, false) == 12_000, "absolute 10 min cap");

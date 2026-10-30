@@ -20,14 +20,14 @@ public final class DinosConfig {
     public static final List<String> KEYS = List.of("enabled", "brushSeconds", "incubateSeconds", "hatchSeconds", "growMinutes",
             "trexBiteDamage");
 
-    public static final int BRUSH_DEFAULT = 60, BRUSH_MIN = 5, BRUSH_MAX = 600;
+    public static final int BRUSH_DEFAULT = 45, BRUSH_MIN = 5, BRUSH_MAX = 600;
     public static final int INCUBATE_DEFAULT = 300, INCUBATE_MIN = 10, INCUBATE_MAX = 3600;
     public static final int HATCH_DEFAULT = 600, HATCH_MIN = 10, HATCH_MAX = 7200;
     public static final int GROW_DEFAULT = 40, GROW_MIN = 1, GROW_MAX = 600;
     public static final double BITE_DEFAULT = 10.0, BITE_MIN = 1.0, BITE_MAX = 40.0;
 
     public static boolean enabled = true;
-    /** Seconds of brushing that free a fossil (60 = about one minute, a pause costs twice its length). */
+    /** Seconds of brushing that free a fossil (45 = 75 % of the former minute, a pause costs twice its length). */
     public static int brushSeconds = BRUSH_DEFAULT;
     /** Seconds a player has to sit on the egg until it is brooded. */
     public static int incubateSeconds = INCUBATE_DEFAULT;

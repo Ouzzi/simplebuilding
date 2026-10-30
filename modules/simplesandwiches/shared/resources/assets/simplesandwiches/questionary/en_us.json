@@ -4,10 +4,10 @@
       "Bread that took on a life of its own, and then a filling."
     ],
     "use": [
-      "Built on a cutting board: one bread plus up to five ingredients, butter first for +10%. Hunger and saturation add up; eating takes 1.6 s plus 0.2 s per ingredient. Equal ones stack to 16."
+      "Built on a cutting board: one bread plus up to five ingredients, butter first for +10%. Hunger and saturation: best ingredient in full, the others add 10%, 5%, 2.5% ... of their value (saturation at most 1.2 x hunger); eating takes 1.6 s plus 0.2 s per ingredient. Equal ones stack to 16."
     ],
     "secret": [
-      "Effects of equal ingredients merge: strongest level, summed duration. Butter lengthens them, capped at twice the longest."
+      "Effects of equal ingredients merge: strongest level, longest duration (not added). Butter lengthens them."
     ]
   },
   "knife": {

@@ -27,6 +27,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 public class FossilBlockEntity extends BlockEntity {
     /** A brusher is checked every tick; a gap of 5 ticks (0.25 s) is still "brushing". */
     public static final int GRACE = 5;
+    /** The first visible frame change comes within 1 s (20 ticks) of brushing. */
+    public static final int FIRST_STAGE_TICKS = 15;
     private int sort = -1;
     private final Progress progress = new Progress(GRACE);
 
@@ -58,12 +60,18 @@ public class FossilBlockEntity extends BlockEntity {
         else progress.settle(now);
         setChanged();
         BlockState state = getBlockState();
-        int stage = Math.min(FossilBlock.STAGES - 1, (int) ((long) progress.value() * FossilBlock.STAGES / total));
+        int stage = stageFor(progress.value(), total);
         if (progress.value() >= total) {
             finish(level);
         } else if (state.getValue(FossilBlock.STAGE) != stage) {
             level.setBlock(this.worldPosition, state.setValue(FossilBlock.STAGE, stage), Block.UPDATE_CLIENTS);
         }
+    }
+
+    /** Stage 1 shows after {@link #FIRST_STAGE_TICKS} of brushing at the latest (IG31-24), the rest is linear. */
+    public static int stageFor(int value, int total) {
+        int linear = Math.min(FossilBlock.STAGES - 1, (int) ((long) value * FossilBlock.STAGES / total));
+        return value >= Math.min(FIRST_STAGE_TICKS, Math.max(1, total / FossilBlock.STAGES)) ? Math.max(1, linear) : 0;
     }
 
     private void finish(ServerLevel level) {

@@ -61,7 +61,7 @@
         "summary": "A small animal of forests and meadows that hunts silverfish within 8 blocks and rolls up when threatened, as the armadillo does, but much faster: 0.3 seconds instead of about 1 second.",
         "details": [
           "Hunting: every second it looks for the nearest silverfish within 8 blocks (setting hedgehogHuntRadius, 2 to 16), walks to it and a bite kills it. Silverfish hidden in blocks are not entities and stay.",
-          "Rolling up: a monster, a wolf, a fox, a sprinting player within 4 blocks or whoever hurt it last makes it curl; 2 seconds after the last threat it unrolls. Curled it stands still, takes (damage - 1) / 2 like a rolled armadillo and pricks a melee attacker for 1 damage.",
+          "Rolling up: a monster, a wolf, a fox, a sprinting player within 4 blocks or whoever hurt it last makes it curl; 2 seconds after the last threat it unrolls. Curled it stands still, takes half damage (never zero) and pricks a melee attacker at once with a 50% chance for 1 to 4 damage, like Thorns I (setting hedgehogThorns).",
           "Natural spawn: forests (weight 3), plains and meadows (weight 2), 1 to 2 together, on grass in daylight. Breeds with sweet berries. No drops."
         ]
       },
@@ -70,7 +70,7 @@
         "summary": "Ein kleines Tier der Wälder und Wiesen, das Silberfische im Umkreis von 8 Blöcken jagt und sich bei Gefahr einrollt wie das Gürteltier, aber viel schneller: 0,3 Sekunden statt etwa 1 Sekunde.",
         "details": [
           "Jagd: jede Sekunde sucht er den nächsten Silberfisch im Umkreis von 8 Blöcken (Einstellung hedgehogHuntRadius, 2 bis 16), läuft hin und ein Biss tötet ihn. Silberfische in Blöcken sind keine Entities und bleiben.",
-          "Einrollen: ein Monster, ein Wolf, ein Fuchs, ein sprintender Spieler innerhalb von 4 Blöcken oder wer ihn zuletzt verletzt hat, lässt ihn sich einrollen; 2 Sekunden nach der letzten Gefahr rollt er sich aus. Eingerollt steht er still, erleidet (Schaden - 1) / 2 wie ein eingerolltes Gürteltier und sticht einen Nahkampf-Angreifer für 1 Schaden.",
+          "Einrollen: ein Monster, ein Wolf, ein Fuchs, ein sprintender Spieler innerhalb von 4 Blöcken oder wer ihn zuletzt verletzt hat, lässt ihn sich einrollen; 2 Sekunden nach der letzten Gefahr rollt er sich aus. Eingerollt steht er still, erleidet halben Schaden (nie null) und sticht einen Nahkampf-Angreifer sofort mit 50 % Chance für 1 bis 4 Schaden, wie Dornen I (Einstellung hedgehogThorns).",
           "Natürliches Spawnen: Wälder (Gewicht 3), Ebenen und Wiesen (Gewicht 2), 1 bis 2 zusammen, auf Gras bei Tageslicht. Zucht mit Süßbeeren. Keine Drops."
         ]
       }
@@ -180,7 +180,7 @@
           "enabled (true): off stops all natural spawns of the module; animals that already live stay.",
           "spawnScale (1, 0 to 1): share of natural spawn attempts that go through. deer, boar, hedgehog, crab, zebra (true): one switch per animal.",
           "boarAggression (true): off = boars attack only when hurt. boarCloseSeconds (6, 2 to 30): seconds near an adult boar before it rams.",
-          "hedgehogHunts (true) and hedgehogHuntRadius (8, 2 to 16): the silverfish hunt. zorse (true): the zebra x horse cross.",
+          "hedgehogHunts (true) and hedgehogHuntRadius (8, 2 to 16): the silverfish hunt. hedgehogThorns (true): the curled hedgehog pricks melee attackers. zorse (true): the zebra x horse cross.",
           "With SimpleBuilding the switch Enable Simple Animals in its config turns the bundled module on or off."
         ]
       },
@@ -191,7 +191,7 @@
           "enabled (true): aus stoppt alle natürlichen Spawns des Moduls; Tiere, die schon leben, bleiben.",
           "spawnScale (1, 0 bis 1): Anteil der natürlichen Spawn-Versuche, die durchgehen. deer, boar, hedgehog, crab, zebra (true): ein Schalter je Tier.",
           "boarAggression (true): aus = Wildschweine greifen nur an, wenn sie verletzt werden. boarCloseSeconds (6, 2 bis 30): Sekunden in der Nähe eines erwachsenen Wildschweins, bevor es rammt.",
-          "hedgehogHunts (true) und hedgehogHuntRadius (8, 2 bis 16): die Silberfisch-Jagd. zorse (true): die Kreuzung Zebra x Pferd.",
+          "hedgehogHunts (true) und hedgehogHuntRadius (8, 2 bis 16): die Silberfisch-Jagd. hedgehogThorns (true): der eingerollte Igel sticht Nahkämpfer. zorse (true): die Kreuzung Zebra x Pferd.",
           "Mit SimpleBuilding schaltet der Schalter Simple Animals aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }

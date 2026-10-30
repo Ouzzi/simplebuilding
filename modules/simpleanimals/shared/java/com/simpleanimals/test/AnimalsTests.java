@@ -211,8 +211,43 @@ public final class AnimalsTests {
             hedgehog.setCurled(true);
             float before = hedgehog.getHealth(), attackerBefore = attacker.getHealth();
             hedgehog.hurtServer(level, level.damageSources().mobAttack(attacker), 4.0F);
-            h.assertTrue(Math.abs((before - hedgehog.getHealth()) - 1.5F) < 0.01F, "curled: (4 - 1) / 2 = 1.5 damage, got " + (before - hedgehog.getHealth()));
+            h.assertTrue(Math.abs((before - hedgehog.getHealth()) - 2.0F) < 0.01F, "curled: half of 4 = 2 damage, got " + (before - hedgehog.getHealth()));
+            hedgehog.invulnerableTime = 0;
+            hedgehog.setHealth(hedgehog.getMaxHealth());
+            float tiny = hedgehog.getHealth();
+            hedgehog.hurtServer(level, level.damageSources().generic(), 1.0F);
+            h.assertTrue(Math.abs((tiny - hedgehog.getHealth()) - 0.5F) < 0.01F, "curled: 1 damage is 0.5, not zero");
+            // 50 % chance: over 40 hits at least one prick lands (2^-40 to miss); 1..4 damage each
+            for (int i = 0; i < 40 && attacker.getHealth() >= attackerBefore; i++) {
+                hedgehog.invulnerableTime = 0;
+                hedgehog.setHealth(hedgehog.getMaxHealth());
+                hedgehog.hurtServer(level, level.damageSources().mobAttack(attacker), 0.5F);
+            }
             h.assertTrue(attacker.getHealth() < attackerBefore, "the melee attacker is pricked");
+            h.assertTrue(attackerBefore - attacker.getHealth() <= Hedgehog.PRICK_MAX + 0.01F, "a prick is at most 4");
+            net.minecraft.util.RandomSource rnd = net.minecraft.util.RandomSource.create(42L);
+            int hits = 0, n = 2000;
+            for (int i = 0; i < n; i++) {
+                float p = Hedgehog.prick(rnd);
+                if (p > 0.0F) hits++;
+                h.assertTrue(p == 0.0F || (p >= Hedgehog.PRICK_MIN && p <= Hedgehog.PRICK_MAX), "prick 0 or 1..4, got " + p);
+            }
+            h.assertTrue(hits > n * 0.45 && hits < n * 0.55, "about 50 % pricks, got " + hits + " / " + n);
+            Mob calm = quiet(h.spawn(EntityTypes.ZOMBIE, at(1, 3)));
+            calm.setNoAi(true);
+            boolean saved = AnimalsConfig.hedgehogThorns;
+            AnimalsConfig.hedgehogThorns = false;
+            try {
+                float calmBefore = calm.getHealth();
+                for (int i = 0; i < 40; i++) {
+                    hedgehog.invulnerableTime = 0;
+                    hedgehog.setHealth(hedgehog.getMaxHealth());
+                    hedgehog.hurtServer(level, level.damageSources().mobAttack(calm), 0.5F);
+                }
+                h.assertTrue(calm.getHealth() == calmBefore, "switch off: no prick");
+            } finally {
+                AnimalsConfig.hedgehogThorns = saved;
+            }
             Hedgehog open = quiet(h.spawn(AnimalsRegistry.HEDGEHOG, at(8, 3)));
             open.setCurled(false);
             float openBefore = open.getHealth();

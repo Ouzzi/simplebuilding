@@ -54,8 +54,9 @@ import org.jspecify.annotations.Nullable;
  * kills it (silverfish in the open; hidden ones in blocks are not entities and stay).</li>
  * <li><b>Rolls up</b> like the armadillo, but far faster: curled within {@link #CURL_TICKS} ticks (0.3 s, the armadillo needs
  * about 1 s), unrolled {@link #UNROLL_DELAY} ticks after the last threat. A threat is a monster (not a silverfish: that is prey), a wolf, a fox, a sprinting
- * player within four blocks, or whoever hurt it last. Curled it stands still, takes the armadillo's reduced damage
- * ({@code (d - 1) / 2}) and pricks a melee attacker for 1 damage.</li>
+ * player within four blocks, or whoever hurt it last. Curled it stands still, takes half damage (never zero) and
+ * pricks a melee attacker at once with a {@link #PRICK_CHANCE} chance for 1 to 4 damage (IG31-17; switch
+ * {@code hedgehogThorns}).</li>
  * </ul>
  * Breeds with sweet berries. Vanilla goals only; no block damage.
  */
@@ -64,6 +65,9 @@ public class Hedgehog extends Animal {
     public static final int CURL_TICKS = 6;
     /** Ticks without a threat before it unrolls (2 s). */
     public static final int UNROLL_DELAY = 40;
+    /** Chance that a melee hit on the curled hedgehog is paid back, and the damage range (Vanilla Thorns I: 1 to 4). */
+    public static final float PRICK_CHANCE = 0.5F;
+    public static final int PRICK_MIN = 1, PRICK_MAX = 4;
     private static final EntityDataAccessor<Boolean> CURLED = SynchedEntityData.defineId(Hedgehog.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Hedgehog.class, EntityDataSerializers.INT);
 
@@ -168,14 +172,21 @@ public class Hedgehog extends Animal {
         }
     }
 
-    /** Curled: the armadillo's reduction, and a melee attacker is pricked for 1. */
+    /** Thorns-like prick: 0 (no luck) or {@link #PRICK_MIN} to {@link #PRICK_MAX}. */
+    public static float prick(net.minecraft.util.RandomSource random) {
+        return random.nextFloat() < PRICK_CHANCE ? PRICK_MIN + random.nextInt(PRICK_MAX - PRICK_MIN + 1) : 0.0F;
+    }
+
+    /** Curled: half damage, and a melee attacker may be pricked straight away. */
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         boolean curled = isCurled();
-        if (curled) damage = Math.max(0.0F, (damage - 1.0F) / 2.0F);
+        if (curled) damage /= 2.0F;
         boolean hurt = super.hurtServer(level, source, damage);
-        if (hurt && curled && source.getDirectEntity() instanceof LivingEntity attacker && attacker != this) {
-            attacker.hurtServer(level, damageSources().thorns(this), 1.0F);
+        if (curled && AnimalsConfig.hedgehogThorns && source.getDirectEntity() instanceof LivingEntity attacker && attacker != this
+                && source.getEntity() == attacker) {
+            float prick = prick(this.random);
+            if (prick > 0.0F) attacker.hurtServer(level, damageSources().thorns(this), prick);
         }
         if (hurt && source.getEntity() instanceof LivingEntity && !isBaby() && !isCurled() && canCurl()) {
             lastThreat = tickCount;
