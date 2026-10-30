@@ -2,8 +2,17 @@
   "replace": false,
   "values": [
     "minecraft:structure_void",
-    "simplebuilding:reinforced_shulker_box",
-    "simplebuilding:netherite_shulker_box",
-    "simplebuilding:enderite_shulker_box"
+    {
+      "id": "simplestorage:reinforced_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplestorage:netherite_shulker_box",
+      "required": false
+    },
+    {
+      "id": "simplestorage:enderite_shulker_box",
+      "required": false
+    }
   ]
 }

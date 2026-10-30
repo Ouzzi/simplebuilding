@@ -194,7 +194,7 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         items = NonNullList.withSize(capacity(), ItemStack.EMPTY);
-        input.read("Contents", SavedSlot.CODEC.listOf()).ifPresent(list -> {
+        input.read("Contents", com.simplelib.api.SafeCodecs.listLenient(SavedSlot.CODEC, "crucible barrel slot")).ifPresent(list -> {
             for (SavedSlot saved : list) {
                 if (saved.slot() < 0 || saved.slot() >= items.size() || saved.stack().isEmpty()) continue;
                 // Loading happens before the crucible beside it is known: allow the largest limit any crucible gives.

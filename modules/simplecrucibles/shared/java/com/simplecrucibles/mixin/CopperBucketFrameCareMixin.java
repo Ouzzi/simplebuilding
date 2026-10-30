@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -17,12 +18,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /** Nachtrag 60: honeycomb waxes and an axe scrapes a copper bucket shown in an item frame (as on a copper block). */
 @Mixin(ItemFrame.class)
 public abstract class CopperBucketFrameCareMixin {
+    @Shadow private boolean fixed;
+
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
     private void simplecrucibles$careForFramedBucket(Player player, InteractionHand hand, Vec3 hitPos, CallbackInfoReturnable<InteractionResult> cir) {
         ItemFrame frame = (ItemFrame) (Object) this;
         ItemStack handStack = player.getItemInHand(hand);
         if (!CrucibleBucketItem.isCopper(frame.getItem()) || handStack.isEmpty()
                 || !(handStack.is(Items.HONEYCOMB) || handStack.is(net.minecraft.tags.ItemTags.AXES))) return;
+        // REV2-A-4d: a fixed frame (command-made) keeps its item, and build rights (spawn protection, claims, adventure) apply
+        if (fixed || !player.level().mayInteract(player, frame.blockPosition())
+                || !player.mayUseItemAt(frame.blockPosition(), frame.getDirection(), handStack)) return;
         ItemStack shown = frame.getItem().copy();
         EquipmentSlot toolSlot = hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
         InteractionResult care = CrucibleBucketItem.care(player.level(), player, shown, handStack, toolSlot, frame.blockPosition());

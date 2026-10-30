@@ -45525,7 +45525,7 @@
       "ingredients": [
         "minecraft:ender_chest",
         "simplebuilding:astralit_dust",
-        "simplebuilding:enderite_nugget"
+        "simplelib:enderite_nugget"
       ],
       "pattern": [
         "NAN",
@@ -45537,7 +45537,7 @@
           "simplebuilding:astralit_dust"
         ],
         "N": [
-          "simplebuilding:enderite_nugget"
+          "simplelib:enderite_nugget"
         ],
         "E": [
           "minecraft:ender_chest"
@@ -45558,7 +45558,7 @@
             "count": 8
           },
           {
-            "id": "simplebuilding:enderite_nugget",
+            "id": "simplelib:enderite_nugget",
             "count": 6
           },
           {
@@ -64538,8 +64538,8 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihil_vault.json",
       "ingredients": [
         "minecraft:ender_chest",
-        "simplebuilding:enderite_nugget",
-        "simplebuilding:nihilith_shard"
+        "simplebuilding:nihilith_shard",
+        "simplelib:enderite_nugget"
       ],
       "pattern": [
         "NAN",
@@ -64551,7 +64551,7 @@
           "simplebuilding:nihilith_shard"
         ],
         "N": [
-          "simplebuilding:enderite_nugget"
+          "simplelib:enderite_nugget"
         ],
         "E": [
           "minecraft:ender_chest"
@@ -64572,7 +64572,7 @@
             "count": 8
           },
           {
-            "id": "simplebuilding:enderite_nugget",
+            "id": "simplelib:enderite_nugget",
             "count": 6
           },
           {
@@ -97700,8 +97700,8 @@
       "replace": false,
       "values": [
         {
-          "id": "simplebuilding:amethyst_lens",
-          "required": true
+          "id": "simplegadgets:amethyst_lens",
+          "required": false
         },
         {
           "id": "simplebuilding:astral_end_stone",
@@ -97800,12 +97800,12 @@
           "required": true
         },
         {
-          "id": "simplebuilding:backpack",
-          "required": true
+          "id": "simplestorage:backpack",
+          "required": false
         },
         {
-          "id": "simplebuilding:basic_upgrade_template",
-          "required": true
+          "id": "simplelib:basic_upgrade_template",
+          "required": false
         },
         {
           "id": "simplebuilding:blackstone_chess_bishop",
@@ -97912,16 +97912,16 @@
           "required": true
         },
         {
-          "id": "simplebuilding:copper_sledgehammer",
-          "required": true
+          "id": "simplehammers:copper_sledgehammer",
+          "required": false
         },
         {
-          "id": "simplebuilding:cracked_diamond",
-          "required": true
+          "id": "simplelib:cracked_diamond",
+          "required": false
         },
         {
-          "id": "simplebuilding:cracked_diamond_block",
-          "required": true
+          "id": "simplelib:cracked_diamond_block",
+          "required": false
         },
         {
           "id": "simplebuilding:detector",
@@ -97944,8 +97944,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:diamond_sledgehammer",
-          "required": true
+          "id": "simplehammers:diamond_sledgehammer",
+          "required": false
         },
         {
           "id": "simplebuilding:echo_sounder",
@@ -97956,8 +97956,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:emitting_trim_template",
-          "required": true
+          "id": "simpletrims:emitting_trim_template",
+          "required": false
         },
         {
           "id": "simplebuilding:ender_quartz",
@@ -98068,12 +98068,12 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_backpack",
-          "required": true
+          "id": "simplestorage:enderite_backpack",
+          "required": false
         },
         {
-          "id": "simplebuilding:enderite_block",
-          "required": true
+          "id": "simplelib:enderite_block",
+          "required": false
         },
         {
           "id": "simplebuilding:enderite_boots",
@@ -98124,8 +98124,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_ingot",
-          "required": true
+          "id": "simplelib:enderite_ingot",
+          "required": false
         },
         {
           "id": "simplebuilding:enderite_launchpad",
@@ -98140,8 +98140,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_nugget",
-          "required": true
+          "id": "simplelib:enderite_nugget",
+          "required": false
         },
         {
           "id": "simplebuilding:enderite_pickaxe",
@@ -98156,20 +98156,20 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_scrap",
-          "required": true
+          "id": "simplelib:enderite_scrap",
+          "required": false
         },
         {
           "id": "simplebuilding:enderite_shovel",
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_shulker_box",
-          "required": true
+          "id": "simplestorage:enderite_shulker_box",
+          "required": false
         },
         {
-          "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
+          "id": "simplehammers:enderite_sledgehammer",
+          "required": false
         },
         {
           "id": "simplebuilding:enderite_spawn_teleporter",
@@ -98184,16 +98184,16 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_upgrade_template",
-          "required": true
+          "id": "simplelib:enderite_upgrade_template",
+          "required": false
         },
         {
           "id": "simplebuilding:flypad",
           "required": true
         },
         {
-          "id": "simplebuilding:glowing_trim_template",
-          "required": true
+          "id": "simpletrims:glowing_trim_template",
+          "required": false
         },
         {
           "id": "simplebuilding:gold_building_wand",
@@ -98208,8 +98208,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:gold_sledgehammer",
-          "required": true
+          "id": "simplehammers:gold_sledgehammer",
+          "required": false
         },
         {
           "id": "simplebuilding:guide_book",
@@ -98232,8 +98232,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:iron_sledgehammer",
-          "required": true
+          "id": "simplehammers:iron_sledgehammer",
+          "required": false
         },
         {
           "id": "simplebuilding:lapis_chess_bishop",
@@ -98304,8 +98304,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:layered_raw_enderite",
-          "required": true
+          "id": "simplelib:layered_raw_enderite",
+          "required": false
         },
         {
           "id": "simplebuilding:leather_sheet",
@@ -98384,8 +98384,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:netherite_backpack",
-          "required": true
+          "id": "simplestorage:netherite_backpack",
+          "required": false
         },
         {
           "id": "simplebuilding:netherite_building_wand",
@@ -98420,8 +98420,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:netherite_nugget",
-          "required": true
+          "id": "simplelib:netherite_nugget",
+          "required": false
         },
         {
           "id": "simplebuilding:netherite_pressure_plate",
@@ -98432,12 +98432,12 @@
           "required": true
         },
         {
-          "id": "simplebuilding:netherite_shulker_box",
-          "required": true
+          "id": "simplestorage:netherite_shulker_box",
+          "required": false
         },
         {
-          "id": "simplebuilding:netherite_sledgehammer",
-          "required": true
+          "id": "simplehammers:netherite_sledgehammer",
+          "required": false
         },
         {
           "id": "simplebuilding:nihil_end_stone",
@@ -98684,8 +98684,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:polished_end_stone",
-          "required": true
+          "id": "simplelib:polished_end_stone",
+          "required": false
         },
         {
           "id": "simplebuilding:polished_ender_quartz",
@@ -98852,8 +98852,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:pulsating_trim_template",
-          "required": true
+          "id": "simpletrims:pulsating_trim_template",
+          "required": false
         },
         {
           "id": "simplebuilding:purpur_chess_bishop",
@@ -98976,8 +98976,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:raw_enderite",
-          "required": true
+          "id": "simplelib:raw_enderite",
+          "required": false
         },
         {
           "id": "simplebuilding:red_nether_brick_chess_bishop",
@@ -99044,8 +99044,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:reinforced_backpack",
-          "required": true
+          "id": "simplestorage:reinforced_backpack",
+          "required": false
         },
         {
           "id": "simpleovens:reinforced_blast_furnace",
@@ -99056,8 +99056,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:reinforced_chest",
-          "required": true
+          "id": "simplestorage:reinforced_chest",
+          "required": false
         },
         {
           "id": "simplebuilding:reinforced_flypad",
@@ -99084,8 +99084,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:reinforced_shulker_box",
-          "required": true
+          "id": "simplestorage:reinforced_shulker_box",
+          "required": false
         },
         {
           "id": "simpleovens:reinforced_smoker",
@@ -99180,8 +99180,8 @@
           "required": true
         },
         {
-          "id": "simplebuilding:stone_sledgehammer",
-          "required": true
+          "id": "simplehammers:stone_sledgehammer",
+          "required": false
         },
         {
           "id": "simplegadgets:velocity_gauge",
@@ -100927,16 +100927,16 @@
           "required": true
         },
         {
-          "id": "simplebuilding:reinforced_shulker_box",
-          "required": true
+          "id": "simplestorage:reinforced_shulker_box",
+          "required": false
         },
         {
-          "id": "simplebuilding:netherite_shulker_box",
-          "required": true
+          "id": "simplestorage:netherite_shulker_box",
+          "required": false
         },
         {
-          "id": "simplebuilding:enderite_shulker_box",
-          "required": true
+          "id": "simplestorage:enderite_shulker_box",
+          "required": false
         }
       ],
       "source": "src/main/resources/data/simplebuilding/tags/item/not_allowed_in_backpack.json"

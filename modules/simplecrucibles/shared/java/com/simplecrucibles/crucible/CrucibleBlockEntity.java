@@ -135,8 +135,17 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         if (level instanceof ServerLevel server) be.tick(server, pos, blockState);
     }
 
+    /** Surplus of a stack above the stack limit found while loading; dropped by the first tick. */
+    private final List<ItemStack> loadOverflow = new ArrayList<>();
+
     void tick(ServerLevel level, BlockPos pos, BlockState blockState) {
         age++;
+        if (!loadOverflow.isEmpty()) {
+            for (ItemStack surplus : loadOverflow) {
+                while (!surplus.isEmpty()) Block.popResource(level, pos, surplus.split(Math.max(1, surplus.getMaxStackSize())));
+            }
+            loadOverflow.clear();
+        }
         updateHeat(level, pos);
         int n = tier.slots();
         // Owner N16: jobs that reserved a crucible slot before the barrel was attached move to the barrel too.
@@ -595,10 +604,14 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         items = NonNullList.withSize(tier.slots(), ItemStack.EMPTY);
-        input.read("Contents", SavedSlot.CODEC.listOf()).ifPresent(list -> {
+        loadOverflow.clear();
+        input.read("Contents", com.simplelib.api.SafeCodecs.listLenient(SavedSlot.CODEC, "crucible slot")).ifPresent(list -> {
             for (SavedSlot saved : list) {
                 if (saved.slot() < 0 || saved.slot() >= items.size() || saved.stack().isEmpty()) continue;
-                items.set(saved.slot(), saved.stack().copyWithCount(Math.max(1, Math.min(saved.count(), getMaxStackSize(saved.stack())))));
+                int limit = getMaxStackSize(saved.stack());
+                items.set(saved.slot(), saved.stack().copyWithCount(Math.max(1, Math.min(saved.count(), limit))));
+                // A lowered limit (config, removed upgrade) must not delete the surplus: it drops on the first tick (REV2-A-4a).
+                if (saved.count() > limit) loadOverflow.add(saved.stack().copyWithCount(saved.count() - limit));
             }
         });
         int[] p = input.getIntArray("Progress").orElse(new int[0]);
@@ -614,7 +627,7 @@ public class CrucibleBlockEntity extends BaseContainerBlockEntity implements Wor
         afterglow = input.getIntOr("Afterglow", 0);
         heat = HeatLevel.byId(input.getIntOr("Heat", 0));
         upgradeUnits.clear();
-        input.read("UpgradeUnits", ItemStack.CODEC.listOf()).ifPresent(upgradeUnits::addAll);
+        input.read("UpgradeUnits", com.simplelib.api.SafeCodecs.listLenient(ItemStack.CODEC, "crucible upgrade unit")).ifPresent(upgradeUnits::addAll);
         heatDirty = true;
     }
 

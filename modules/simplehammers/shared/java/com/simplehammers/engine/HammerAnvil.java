@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * The anvil rules for sledgehammers (moved from SimpleBuilding's anvil mixin, REV24-F-18; {@code HammerAnvilMixin}
- * applies them). Hammer + hammer adds both durabilities plus 12 % and combines the enchantments like vanilla for one
+ * applies them). Hammer + hammer of the same tier adds both durabilities plus 12 % and combines the enchantments like vanilla for one
  * level; hammer + its repair material mends one eleventh per piece, one level per piece (+1 for a new name, at most
  * 39). Results never raise the repair cost.
  */
@@ -28,7 +28,8 @@ public final class HammerAnvil {
     /** The result for {@code left} + {@code right} with the typed {@code itemName}, or {@code null} for vanilla's own rules. */
     public static @Nullable Result result(ItemStack left, ItemStack right, @Nullable String itemName) {
         if (left.isEmpty() || !SledgehammerItem.isHammer(left)) return null;
-        if (SledgehammerItem.isHammer(right)) return combine(left, right, itemName);
+        // REV2-A-10a: only the same tier combines (like Vanilla's same-item rule); mixed tiers would carry enchantments across for 1 level
+        if (SledgehammerItem.isHammer(right)) return left.is(right.getItem()) ? combine(left, right, itemName) : null;
         if (left.isDamaged() && left.isValidRepairItem(right)) return repair(left, right, itemName);
         return null;
     }

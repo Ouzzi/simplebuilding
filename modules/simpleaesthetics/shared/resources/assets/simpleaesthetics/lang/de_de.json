@@ -1,6 +1,9 @@
 {
   "modmenu.nameTranslation.simpleaesthetics": "Simple Aesthetics",
   "text.autoconfig.simpleaesthetics.option.enableSimpleVisuals": "Simple Visuals aktivieren",
+  "text.autoconfig.simpleaesthetics.option.enableSimpleVisuals.@Tooltip": "Schaltet den Sub-Mod Simple Visuals ein oder aus.\nStandard: true.",
   "text.autoconfig.simpleaesthetics.option.enableSimpleSounds": "Simple Sounds aktivieren",
-  "text.autoconfig.simpleaesthetics.option.enableSimpleModels": "Simple Models aktivieren"
+  "text.autoconfig.simpleaesthetics.option.enableSimpleSounds.@Tooltip": "Schaltet den Sub-Mod Simple Sounds ein oder aus.\nStandard: true.",
+  "text.autoconfig.simpleaesthetics.option.enableSimpleModels": "Simple Models aktivieren",
+  "text.autoconfig.simpleaesthetics.option.enableSimpleModels.@Tooltip": "Schaltet den Sub-Mod Simple Models ein oder aus.\nStandard: true."
 }

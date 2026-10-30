@@ -63,7 +63,7 @@ public class SledgehammerProgress extends SavedData {
     }
 
     public static final Codec<SledgehammerProgress> CODEC = RecordCodecBuilder.create(i -> i.group(
-            Entry.CODEC.listOf().optionalFieldOf("entries", List.of()).forGetter(SledgehammerProgress::entries)
+            com.simplelib.api.SafeCodecs.listLenient(Entry.CODEC, "sledgehammer progress entry").optionalFieldOf("entries", List.of()).forGetter(SledgehammerProgress::entries)
     ).apply(i, SledgehammerProgress::new));
 
     // MC 26.2: SavedDataType nimmt eine Identifier-Id (1.21.11: einen String). Der Datenfix-Typ darf

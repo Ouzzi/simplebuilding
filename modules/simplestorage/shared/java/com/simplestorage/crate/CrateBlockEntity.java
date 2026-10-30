@@ -320,7 +320,7 @@ public class CrateBlockEntity extends BlockEntity implements Container {
         // The saved order first, then whatever is left (older saves have none: slot order).
         List<Layer> now = group();
         List<Layer> ordered = new ArrayList<>(now.size());
-        for (ItemStack kind : input.read("Order", ItemStack.CODEC.listOf()).orElse(List.of())) {
+        for (ItemStack kind : input.read("Order", com.simplelib.api.SafeCodecs.listLenient(ItemStack.CODEC, "crate order entry")).orElse(List.of())) {
             int at = indexOf(now, kind);
             if (at >= 0) {
                 ordered.add(now.remove(at));

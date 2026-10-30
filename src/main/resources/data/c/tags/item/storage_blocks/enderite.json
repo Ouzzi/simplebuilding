@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "simplebuilding:enderite_block"
+    {
+      "id": "simplelib:enderite_block",
+      "required": false
+    }
   ]
 }

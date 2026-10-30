@@ -1,9 +1,21 @@
 {
   "replace": false,
   "values": [
-    "simplebuilding:quiver",
-    "simplebuilding:reinforced_quiver",
-    "simplebuilding:netherite_quiver",
-    "simplebuilding:enderite_quiver"
+    {
+      "id": "simplestorage:quiver",
+      "required": false
+    },
+    {
+      "id": "simplestorage:reinforced_quiver",
+      "required": false
+    },
+    {
+      "id": "simplestorage:netherite_quiver",
+      "required": false
+    },
+    {
+      "id": "simplestorage:enderite_quiver",
+      "required": false
+    }
   ]
 }

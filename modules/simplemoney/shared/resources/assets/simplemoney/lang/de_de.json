@@ -14,6 +14,7 @@
   "text.autoconfig.simplemoney.title": "Simplemoney Konfiguration",
   "text.autoconfig.simplemoney.category.default": "Allgemein",
   "text.autoconfig.simplemoney.option.trades": "Handelseinstellungen",
+  "text.autoconfig.simplemoney.option.trades.@Tooltip": "Schalter für die eigenen Dorfbewohner- und Wanderhändler-Angebote.",
   "text.autoconfig.simplemoney.option.trades.enableVillagerTrades": "Dorfbewohner-Handel aktivieren",
   "text.autoconfig.simplemoney.option.trades.enableVillagerTrades.tooltip": "Aktiviert zusätzliche Dorfbewohnerangebote.\nStandard: true. Servereinstellung; nach\nÄnderungen Welt neu laden.",
   "text.autoconfig.simplemoney.option.trades.enableWanderingTrades": "Fahrenden Händler aktivieren",

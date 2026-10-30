@@ -18,6 +18,7 @@
   "text.autoconfig.simplemoney.title": "SimpleMoney Config",
   "text.autoconfig.simplemoney.category.default": "General",
   "text.autoconfig.simplemoney.option.trades": "Trades Settings",
+  "text.autoconfig.simplemoney.option.trades.@Tooltip": "Switches for the custom villager and wanderer trades.",
   "text.autoconfig.simplemoney.option.trades.enableVillagerTrades": "Enable Villager Trades",
   "text.autoconfig.simplemoney.option.trades.enableVillagerTrades.tooltip": "Enables or disables custom trades for\nvillagers. Default: true. Server setting;\nrestart or reload the world.",
   "text.autoconfig.simplemoney.option.trades.enableWanderingTrades": "Enable Wandering Trades",
