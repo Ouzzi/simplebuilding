@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": "minecraft:blue_dye",
-    "P": "#minecraft:planks",
-    "R": "minecraft:red_dye",
-    "Y": "minecraft:yellow_dye"
+    "B": "minecraft:bundle",
+    "L": "simplestorage:leather_sheet",
+    "P": "#minecraft:wooden_pressure_plates"
   },
   "pattern": [
-    "RYB",
+    "PPP",
+    "LBL",
     "PPP"
   ],
   "result": {

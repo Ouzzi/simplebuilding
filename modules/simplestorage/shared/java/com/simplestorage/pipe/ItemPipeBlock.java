@@ -123,7 +123,12 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     /** The output to the next allowed side; the actionbar names it. */
     public static void turnOutput(Level level, BlockPos pos, BlockState state, @Nullable Player player) {
         if (!(state.getBlock() instanceof ItemPipeBlock pipe)) return;
-        Direction next = Pipes.next(pipe.tier, state.getValue(FACING));
+        setOutput(level, pos, state, Pipes.next(pipe.tier, state.getValue(FACING)), player);
+    }
+
+    /** Exactly this side is the output (all others take items in); the actionbar names it when a player did it. */
+    public static void setOutput(Level level, BlockPos pos, BlockState state, Direction next, @Nullable Player player) {
+        if (!(state.getBlock() instanceof ItemPipeBlock pipe) || !Pipes.allowed(pipe.tier, next) || state.getValue(FACING) == next) return;
         level.setBlock(pos, withArms(state.setValue(FACING, next), level, pos), Block.UPDATE_ALL);
         level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.6F, 1.4F);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);

@@ -696,3 +696,10 @@ Branch a-misc31, Plan docs/ai/PLAN-A-MISC31-2026-10-30.md, Vorschau /root/sb-too
 Branch a-animals31, Plan docs/ai/PLAN-A-ANIMALS-VARIANTEN-2026-10-30.md, Vorschau /root/sb-tools-a/previews/a-animals31-preview.html (Antwortcode ANIMALS31, je Variante passt/ändern).
 - [~] (A, a-animals31, 30.10.) ABN30-1 Dinos: Farben je Aufzucht-Biom: `DinoVariants` (5 Felle olive/sand/rust/moss/ash, Heimat 8 : 1), Feld `Dino.coat` für alle Dinos, T-Rex 5 Felle x 4 Rüstungsstufen, Biom des Eis beim Schlüpfen. Gametests dino_variant_catalog, dino_coat_state. Offen: Besitzer-Sicht der Vorschau, Client-Sicht, Paletten der übrigen Dinos bei ihrem Bau.
 - [~] (A, a-animals31, 30.10.) ABN30-2 Tiere: `AnimalVariants` (Biom-Katalog): Hirsch rot/Dam (gefleckt), Wildschwein dunkel (Standard) + sandbraun/frostgrau/rostbraun (keine Geschlechter), Igel braun + Wüste/Weißbrust/Weißbauch, Krebs rot/korallenrot, Zebra schwarz-weiß (harte Streifen). Gametests variant_catalog, variant_entities. Offen: Besitzer-Wahl in der Vorschau, Client-Sicht.
+
+## IG31 Teil B (a-ig31b, 30.10.)
+- [~] IG31-5 Rohr-Fenster: 6 Richtungs-Knoepfe (Sechseck), ein Ausgang, Rohr gestuft zum Ausgang. Gametest pipe_side_keys_choose_the_output; offen: Client-Sicht/Vorschau-Wahl (/root/sb-tools-a/previews/a-ig31b-preview.html)
+- [~] IG31-6 Kupferkabel mit Klemmringen, Interface buendig + Randstreifen zur Wand (edge_*-Properties). Gametest network_interface_reaches_the_wall_beside_it; offen: Client-Sicht, ggf. neue Kabeltextur (Endholz-Prozess nach Wahl)
+- [x] IG31-7 Kaese wie Butter stapelbar (Schleichen-Fix in SliceLayerItem), gemischte Schichten (Block slice_stack, max 8). Gametest mixed_slice_layers
+- [~] IG31-8 Ledertuch nach simplestorage (IdMoves), Rezepte Koecher/Rucksack/Buendel, Farbkasten PPP/LBL/PPP. Gametest bundle_storage_leather_sheet_is_storages_own; offen: Datagen-Lauf 26.3 gegen Hand-Overrides pruefen
+

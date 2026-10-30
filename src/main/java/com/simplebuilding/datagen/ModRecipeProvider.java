@@ -77,16 +77,17 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .requires(Items.BRUSH).requires(Items.GOLD_NUGGET).requires(Items.FEATHER)
                         .unlockedBy(getHasName(Items.BRUSH), has(Items.BRUSH))
                         .save(output);
-                // Farbkasten: Rot, Gelb, Blau ueber drei Holzbrettern (nimmt dann nur Farbstoffe auf). Stufen wie das
+                // Farbkasten (IG31-8, Besitzer 30.10.): Buendel in der Mitte, zwei Ledertuecher links und rechts, sechs
+                // Holzdruckplatten oben und unten - eindeutig, keine Farbstoffe (er nimmt danach nur Farbstoffe auf). Stufen wie das
                 // Buendel: Verstaerkt an der Werkbank (behaelt den Inhalt), Netherit und Enderit am Schmiedetisch.
                 createContainerUpgrade(ModItems.REINFORCED_PAINT_BOX, ModItems.PAINT_BOX,
                         // Volles Raster: die Buendel-Aufwertung kann keine leeren Felder ueber das Netz schicken.
                         Map.of('D', ModItems.DIAMOND_PEBBLE, 'N', Items.GOLD_NUGGET, 'B', ModItems.PAINT_BOX), "NDN", "DBD", "NDN");
                 createSmithing(ModItems.REINFORCED_PAINT_BOX, ModItems.NETHERITE_PAINT_BOX, RecipeCategory.TOOLS);
                 shaped(RecipeCategory.TOOLS, ModItems.PAINT_BOX)
-                        .pattern("RYB").pattern("PPP")
-                        .define('R', getDyeItem(DyeColor.RED)).define('Y', getDyeItem(DyeColor.YELLOW)).define('B', getDyeItem(DyeColor.BLUE))
-                        .define('P', ItemTags.PLANKS)
+                        .pattern("PPP").pattern("LBL").pattern("PPP")
+                        .define('L', com.simplebuilding.util.StorageRefs.item("leather_sheet")).define('B', Items.BUNDLE)
+                        .define('P', ItemTags.WOODEN_PRESSURE_PLATES)
                         .unlockedBy(getHasName(ModItems.COLOR_BRUSH), has(ModItems.COLOR_BRUSH))
                         .save(output);
                 // Nur 26.3: Brau-Rezepte des Listigen Shulkers (datengetriebenes Brauen, ModBrewingProvider).
@@ -609,6 +610,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // LEATHER SHEET (neun Leder, kein Rueckweg)
                 // =================================================================
+                // IG31-8: on 26.3 the sheet and its recipe are Simple Storage's (data/simplestorage/recipe/leather_sheet.json).
+                if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
                 shaped(RecipeCategory.MISC, ModItems.LEATHER_SHEET)
                         .pattern("LLL")
                         .pattern("LLL")
@@ -616,6 +619,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('L', Items.LEATHER)
                         .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
                         .save(output);
+                }
 
                 // =================================================================
                 // REINFORCED BUNDLE
@@ -643,7 +647,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .pattern("SLN")
                         .pattern("B  ")
                         .define('S', Items.STRING)
-                        .define('L', Items.LEATHER)
+                        .define('L', ModItems.LEATHER_SHEET)
                         .define('N', Items.COPPER_NUGGET)
                         .define('B', Items.BUNDLE)
                         .unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))

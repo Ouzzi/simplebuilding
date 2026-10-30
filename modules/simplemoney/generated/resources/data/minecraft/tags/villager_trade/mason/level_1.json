@@ -50,10 +50,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/leather_sheet",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/oxidized_copper_pressure_plate",
       "required": false
     },
@@ -127,6 +123,10 @@
     },
     {
       "id": "simplemoney:links/simplestorage/backpack",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplestorage/leather_sheet",
       "required": false
     },
     {

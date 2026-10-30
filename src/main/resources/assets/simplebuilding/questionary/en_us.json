@@ -1949,17 +1949,6 @@
       "Every topic tab opens by itself as soon as one of its gate recipes is in your recipe book. Nothing is consumed and nothing has to be clicked."
     ]
   },
-  "leather_sheet": {
-    "lore": [
-      "Nine hides pressed flat, until the leather forgot it was ever a cow."
-    ],
-    "use": [
-      "Nine leather in the crafting grid make one sheet. It goes into the Reinforced Bundle (below the bundle) and the Backpack (three in the bottom row)."
-    ],
-    "secret": [
-      "It is a crafting material only; the next tier of bundle, the Reinforced one, needs diamond pebbles on top of it."
-    ]
-  },
   "family:octet_astral": {
     "items": [
       "regex:(polished_)?astralit(_block|_bricks)?_octet"

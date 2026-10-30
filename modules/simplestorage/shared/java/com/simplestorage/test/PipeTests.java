@@ -243,6 +243,33 @@ public final class PipeTests {
         h.succeed();
     }
 
+    /**
+     * IG31-5: the six side keys of the window point the output at exactly that side (all other sides stay inputs), a key for a side
+     * the step may not point to (up on the first step) does nothing, a key for the current output changes nothing.
+     */
+    public static void sideKeysChooseTheOutput(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        place(h, PIPE, "reinforced_pipe", Direction.DOWN);
+        PipeMenu menu = PipeMenu.server(1, player.getInventory(), entity(h, PIPE));
+        for (Direction side : Direction.values()) {
+            if (!menu.clickMenuButton(player, PipeMenu.BUTTON_SIDE + side.ordinal()) && side != menu.output()) problems.add("key " + side + " refused on a reinforced pipe");
+            BlockState state = h.getBlockState(PIPE);
+            if (state.getValue(ItemPipeBlock.FACING) != side) problems.add("key " + side + " gave output " + state.getValue(ItemPipeBlock.FACING));
+            if (menu.output() != side) problems.add("menu shows " + menu.output() + " for " + side);
+            if (!state.getValue(PipeBlock.PROPERTY_BY_DIRECTION.get(side))) problems.add("no arm on the chosen output " + side);
+        }
+        place(h, PIPE, "pipe", Direction.NORTH);
+        PipeMenu basic = PipeMenu.server(2, player.getInventory(), entity(h, PIPE));
+        if (basic.clickMenuButton(player, PipeMenu.BUTTON_SIDE + Direction.UP.ordinal())) problems.add("the first step took up as output");
+        if (h.getBlockState(PIPE).getValue(ItemPipeBlock.FACING) != Direction.NORTH) problems.add("the first step moved its output up");
+        if (!basic.clickMenuButton(player, PipeMenu.BUTTON_SIDE + Direction.WEST.ordinal()) || h.getBlockState(PIPE).getValue(ItemPipeBlock.FACING) != Direction.WEST) problems.add("west key on the first step");
+        if (basic.clickMenuButton(player, PipeMenu.BUTTON_SIDE + 6)) problems.add("a seventh key exists");
+        h.assertTrue(problems.isEmpty(), "side keys: " + problems);
+        h.succeed();
+    }
+
     /** Upgrading a pipe in the world keeps its item, filter and output. */
     public static void upgradeKeepsItemFilterAndOutput(GameTestHelper h) {
         place(h, PIPE, "reinforced_pipe", Direction.EAST);

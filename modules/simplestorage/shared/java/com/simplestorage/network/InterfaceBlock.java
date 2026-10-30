@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
@@ -38,6 +39,13 @@ import org.jetbrains.annotations.Nullable;
  */
 public class InterfaceBlock extends Block {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
+    /**
+     * The plate reaches to a wall (IG31-6): "a wall beside this edge of the plate". Named from the plate's own view for a chest to the
+     * north (E = +x, W = -x, U = up, D = down) and turned with {@link #FACING} like the model ({@link #localSides}).
+     */
+    public static final BooleanProperty EDGE_E = BooleanProperty.create("edge_e"), EDGE_W = BooleanProperty.create("edge_w"),
+            EDGE_U = BooleanProperty.create("edge_u"), EDGE_D = BooleanProperty.create("edge_d");
+    private static final BooleanProperty[] EDGES = {EDGE_E, EDGE_W, EDGE_U, EDGE_D};
 
     /** The plate (14 x 14 x 3) and the post from it to the middle, for a chest to the north; turned for the others. */
     private static final Map<Direction, VoxelShape> PLATE = Shapes.rotateAll(Shapes.or(Block.boxZ(14.0, 0.0, 3.0), Block.boxZ(4.0, 3.0, 8.0)));
@@ -51,11 +59,16 @@ public class InterfaceBlock extends Block {
         super(properties);
         BlockState state = this.stateDefinition.any().setValue(FACING, Direction.DOWN);
         for (Direction direction : Direction.values()) state = state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), false);
+        for (BooleanProperty edge : EDGES) state = state.setValue(edge, false);
         this.registerDefaultState(state);
         this.shapes = this.getShapeForEachState(shapeState -> {
             VoxelShape shape = Shapes.or(PLATE.get(shapeState.getValue(FACING)), CORE);
             for (Direction direction : Direction.values()) {
                 if (shapeState.getValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction))) shape = Shapes.or(shape, ARMS.get(direction));
+            }
+            Direction[] sides = localSides(shapeState.getValue(FACING));
+            for (int i = 0; i < EDGES.length; i++) {
+                if (shapeState.getValue(EDGES[i])) shape = Shapes.or(shape, edgeStrip(shapeState.getValue(FACING), sides[i]));
             }
             return shape;
         });
@@ -63,7 +76,7 @@ public class InterfaceBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PipeBlock.NORTH, PipeBlock.EAST, PipeBlock.SOUTH, PipeBlock.WEST, PipeBlock.UP, PipeBlock.DOWN);
+        builder.add(FACING, PipeBlock.NORTH, PipeBlock.EAST, PipeBlock.SOUTH, PipeBlock.WEST, PipeBlock.UP, PipeBlock.DOWN, EDGE_E, EDGE_W, EDGE_U, EDGE_D);
     }
 
     @Override
@@ -91,7 +104,48 @@ public class InterfaceBlock extends Block {
                     && ChestNetwork.conducts(level.getBlockState(pos.relative(direction)), direction.getOpposite());
             state = state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), arm);
         }
+        Direction[] sides = localSides(state.getValue(FACING));
+        for (int i = 0; i < EDGES.length; i++) {
+            BlockPos next = pos.relative(sides[i]);
+            state = state.setValue(EDGES[i], wall(level, next, level.getBlockState(next), sides[i]));
+        }
         return state;
+    }
+
+    /** For a plate on {@code facing}: the absolute sides of its local +x, -x, up and down edges (the model turned the same way). */
+    public static Direction[] localSides(Direction facing) {
+        return switch (facing) {
+            case NORTH -> new Direction[] {Direction.EAST, Direction.WEST, Direction.UP, Direction.DOWN};
+            case EAST -> new Direction[] {Direction.SOUTH, Direction.NORTH, Direction.UP, Direction.DOWN};
+            case SOUTH -> new Direction[] {Direction.WEST, Direction.EAST, Direction.UP, Direction.DOWN};
+            case WEST -> new Direction[] {Direction.NORTH, Direction.SOUTH, Direction.UP, Direction.DOWN};
+            case UP -> new Direction[] {Direction.EAST, Direction.WEST, Direction.SOUTH, Direction.NORTH};
+            case DOWN -> new Direction[] {Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH};
+        };
+    }
+
+    /** A wall beside the plate: a solid face turned to it. The plate then grows to that wall (no see-through gap). */
+    private static boolean wall(BlockGetter level, BlockPos neighborPos, BlockState neighborState, Direction side) {
+        return neighborState.isFaceSturdy(level, neighborPos, side.getOpposite());
+    }
+
+    /** The strip that closes the 1 px gap between the plate's edge on {@code side} and the wall, for a plate on {@code facing}. */
+    private static VoxelShape edgeStrip(Direction facing, Direction side) {
+        double[] min = new double[3], max = new double[3];
+        for (Direction.Axis axis : Direction.Axis.values()) {
+            int i = axis.ordinal();
+            if (axis == facing.getAxis()) {
+                min[i] = facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 13.0 : 0.0;
+                max[i] = min[i] + 3.0;
+            } else if (axis == side.getAxis()) {
+                min[i] = side.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 15.0 : 0.0;
+                max[i] = min[i] + 1.0;
+            } else {
+                min[i] = 1.0;
+                max[i] = 15.0;
+            }
+        }
+        return Block.box(min[0], min[1], min[2], max[0], max[1], max[2]);
     }
 
     @Override
@@ -99,7 +153,12 @@ public class InterfaceBlock extends Block {
                                      BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (direction == state.getValue(FACING) && !(neighborState.getBlock() instanceof ChestBlock)) return Blocks.AIR.defaultBlockState();
         boolean arm = direction != state.getValue(FACING) && ChestNetwork.conducts(neighborState, direction.getOpposite());
-        return state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), arm);
+        state = state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), arm);
+        Direction[] sides = localSides(state.getValue(FACING));
+        for (int i = 0; i < EDGES.length; i++) {
+            if (sides[i] == direction) state = state.setValue(EDGES[i], wall(level, neighborPos, neighborState, direction));
+        }
+        return state;
     }
 
     @Override

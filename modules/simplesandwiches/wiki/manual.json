@@ -222,6 +222,10 @@
       "en": {"summary": "Sneak and right-click with a cheese slice to lay it down as a 1 px cheese carpet (a normal click eats it). More cheese slices on the carpet stack it like snow (one pixel per slice, walkable); the 16th makes a whole cheese block, which has to be cut again. Breaking it drops one slice per layer."},
       "de": {"summary": "Mit einer Käsescheibe Schleichen und Rechtsklick legt sie als 1 px dünner Käse-Teppich ab (ein normaler Klick isst sie). Weitere Käsescheiben darauf stapeln ihn wie Schnee (ein Pixel pro Scheibe, begehbar); die 16. ergibt einen ganzen Käseblock, der wieder geschnitten werden muss. Abbauen gibt eine Scheibe pro Schicht zurück."}
     },
+    "simplesandwiches:slice_stack": {
+      "en": {"summary": "Cheese and butter slices stacked in one pile: lay the other kind on a cheese or butter carpet (any click, sneaking or not) and the pile keeps each layer's kind, 1 px per slice, up to 8 layers. It is walkable up to its highest cheese layer, a butter layer on top keeps the Slippery effect. Breaking it drops one slice of the right kind per layer."},
+      "de": {"summary": "Käse- und Butterscheiben in einem Stapel: die andere Sorte auf einen Käse- oder Butter-Teppich legen (jeder Klick, schleichend oder nicht), der Stapel merkt sich die Sorte jeder Schicht, 1 px pro Scheibe, bis zu 8 Schichten. Begehbar bis zur höchsten Käseschicht, oben liegende Butter behält den Rutschig-Effekt. Abbauen gibt je Schicht eine Scheibe der richtigen Sorte zurück."}
+    },
     "simplesandwiches:cheese_slice": {
       "en": {"summary": "Cut from cheese with a knife. Restores 2 hunger and 1.2 saturation. Use as a sandwich ingredient, restore a partly sliced cheese block, or sneak and right-click to lay it down as a cheese carpet."},
       "de": {"summary": "Mit dem Messer vom Käse schneiden. Gibt 2 Hunger und 1,2 Sättigung. Als Sandwichzutat nutzen, einen angeschnittenen Käselaib ergänzen oder mit Schleichen und Rechtsklick als Käse-Teppich legen."}

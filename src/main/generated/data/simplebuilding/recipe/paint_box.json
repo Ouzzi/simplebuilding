@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:bundle",
+    "L": "simplebuilding:leather_sheet",
+    "P": "#minecraft:wooden_pressure_plates"
+  },
+  "pattern": [
+    "PPP",
+    "LBL",
+    "PPP"
+  ],
+  "result": {
+    "id": "simplebuilding:paint_box"
+  }
+}

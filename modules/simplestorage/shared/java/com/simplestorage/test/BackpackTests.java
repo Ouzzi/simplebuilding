@@ -288,14 +288,11 @@ public final class BackpackTests {
         // --- the basic backpack ---
         ItemStack n = new ItemStack(Items.COPPER_NUGGET);
         ItemStack s = new ItemStack(Items.STRING);
-        // With SimpleBuilding its leather sheet, alone Vanilla's leather (the *_without_simplebuilding recipes).
-        boolean sb = sbLoaded();
-        ItemStack p = sb ? new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "leather_sheet"))) : new ItemStack(Items.LEATHER);
-        String suffix = sb ? "" : "_without_simplebuilding";
+        // IG31-8: the leather sheet is Simple Storage's own (one recipe set, with or without SimpleBuilding).
+        ItemStack p = new ItemStack(StorageItems.LEATHER_SHEET);
         ItemStack heavy = new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE);
         ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, heavy, heavy, heavy)),
-                "copper nuggets, string, leather sheets and heavy weighted pressure plates", "simplestorage:backpack" + suffix);
+                "copper nuggets, string, leather sheets and heavy weighted pressure plates", "simplestorage:backpack");
         ItemStack oak = new ItemStack(Items.OAK_PRESSURE_PLATE);
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
                         CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, oak, oak, oak)), level).isEmpty(),
@@ -320,7 +317,7 @@ public final class BackpackTests {
                         CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, d, worn, d, p, p, p)), level).isEmpty(),
                 "the old reinforced backpack pattern with two diamond pebbles still crafts something");
         ItemStack reinforced = craft(helper, level, CraftingInput.of(3, 3, List.of(d, s, d, d, worn, d, p, p, p)),
-                "the reinforced backpack pattern", "simplestorage:reinforced_backpack" + suffix);
+                "the reinforced backpack pattern", "simplestorage:reinforced_backpack");
         helper.assertTrue(reinforced.is(REINFORCED),
                 "the reinforced backpack pattern crafts " + reinforced);
         helper.assertValueEqual(BackpackItem.contents(reinforced), contents,
@@ -1217,10 +1214,10 @@ public final class BackpackTests {
                 "Funnel level " + what + " kept");
     }
 
-    /** SimpleBuilding is loaded (its leather sheet and enchantments exist). */
+    /** SimpleBuilding is loaded (one of its items exists; its enchantments come with it). */
     private static boolean sbLoaded() {
         return net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "leather_sheet"));
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", "launchpad"));
     }
 
     private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {

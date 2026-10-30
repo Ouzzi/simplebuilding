@@ -92,6 +92,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void mixedSliceLayers(GameTestHelper h) {
+        SandwichTests.ALL.get("mixed_slice_layers").accept(h);
+    }
+
+    @GameTest
     public void sliceLayers(GameTestHelper h) {
         SandwichTests.ALL.get("slice_layers").accept(h);
     }

@@ -1949,17 +1949,6 @@
       "Jeder Themen-Reiter öffnet sich von selbst, sobald eines seiner Tor-Rezepte in deinem Rezeptbuch liegt. Nichts wird verbraucht, nichts muss angeklickt werden."
     ]
   },
-  "leather_sheet": {
-    "lore": [
-      "Neun Häute, flachgepresst, bis das Leder vergaß, dass es je eine Kuh war."
-    ],
-    "use": [
-      "Neun Leder im Handwerksraster ergeben eine Platte. Sie kommt ins Verstärkte Bündel (unter das Bündel) und in den Rucksack (dreimal in die untere Reihe)."
-    ],
-    "secret": [
-      "Sie ist nur ein Handwerksmaterial; die nächste Bündelstufe, die Verstärkte, braucht zusätzlich Diamantkiesel."
-    ]
-  },
   "family:octet_astral": {
     "items": [
       "regex:(polished_)?astralit(_block|_bricks)?_octet"

@@ -115,6 +115,37 @@ final class BundleStorageTests {
         h.succeed();
     }
 
+    /**
+     * IG31-8: the Leather Sheet is Simple Storage's own: an old {@code simplebuilding:leather_sheet} stack loads as it, its recipe
+     * moved, nine leather craft it, and the quiver, backpack and reinforced recipes take sheets (the quiver two, the backpack three).
+     */
+    static void leatherSheetIsStoragesOwn(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        if (!BuiltInRegistries.ITEM.containsKey(SimpleStorage.id("leather_sheet"))) problems.add("simplestorage:leather_sheet is not registered");
+        CompoundTag old = new CompoundTag();
+        old.putString("id", "simplebuilding:leather_sheet");
+        old.putInt("count", 7);
+        ItemStack stack = ItemStack.CODEC.parse(h.getLevel().registryAccess().createSerializationContext(NbtOps.INSTANCE), old).result().orElse(ItemStack.EMPTY);
+        if (!stack.is(StorageItems.LEATHER_SHEET) || stack.getCount() != 7) problems.add("old sheet stack loads as " + stack);
+        var manager = h.getLevel().getServer().getRecipeManager();
+        if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id("leather_sheet"))).isEmpty()) problems.add("recipe simplestorage:leather_sheet missing");
+        ItemStack leather = new ItemStack(Items.LEATHER);
+        if (!craft(h, java.util.Collections.nCopies(9, leather)).is(StorageItems.LEATHER_SHEET)) problems.add("nine leather do not craft a sheet");
+        ItemStack sheet = new ItemStack(StorageItems.LEATHER_SHEET);
+        ItemStack string = new ItemStack(Items.STRING);
+        ItemStack nugget = new ItemStack(Items.COPPER_NUGGET);
+        // the quiver with leather instead of sheets crafts nothing any more
+        List<ItemStack> leatherQuiver = List.of(ItemStack.EMPTY, string, leather, string, leather, nugget, new ItemStack(Items.BUNDLE), ItemStack.EMPTY, ItemStack.EMPTY);
+        if (manager.getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, net.minecraft.world.item.crafting.CraftingInput.of(3, 3, leatherQuiver), h.getLevel()).isPresent()) {
+            problems.add("the quiver still crafts from plain leather");
+        }
+        if (!craft(h, List.of(ItemStack.EMPTY, string, sheet, string, sheet, nugget, new ItemStack(Items.BUNDLE), ItemStack.EMPTY, ItemStack.EMPTY)).is(StorageItems.QUIVER)) problems.add("quiver from sheets");
+        ItemStack plate = new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE);
+        if (!craft(h, List.of(nugget, string, nugget, sheet, sheet, sheet, plate, plate, plate)).is(StorageItems.BACKPACKS.get(com.simplestorage.backpack.BackpackTier.BASIC))) problems.add("backpack from sheets");
+        h.assertTrue(problems.isEmpty(), "leather sheet: " + problems);
+        h.succeed();
+    }
+
     private static CompoundTag oldBundle() {
         CompoundTag stack = new CompoundTag();
         stack.putString("id", "simplebuilding:netherite_bundle");
@@ -135,26 +166,22 @@ final class BundleStorageTests {
 
     /**
      * The upgrade path through the grid and the smithing table: quiver from Vanilla items, Reinforced from the plain one
-     * (with SimpleBuilding's Leather Sheet when it is loaded, else Leather; the result keeps everything of the container),
+     * (with Simple Storage's own Leather Sheet; the result keeps everything of the container),
      * Netherite (Vanilla template) and Enderite (SimpleLib's template and ingot). No recipe stays under simplebuilding.
      */
     static void recipesWorkOnTheirOwn(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         var level = h.getLevel();
         var manager = level.getServer().getRecipeManager();
-        boolean sb = BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simplebuilding", "leather_sheet"));
         for (String path : SimpleStorage.MOVED_BUNDLE_RECIPES) {
-            if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty() && (sb || !path.startsWith("reinforced_"))) problems.add("missing " + path);
+            if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty()) problems.add("missing " + path);
             if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.old(path))).isPresent()) problems.add("still under simplebuilding: " + path);
-        }
-        for (String path : List.of("reinforced_bundle_without_simplebuilding", "reinforced_quiver_without_simplebuilding")) {
-            if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isPresent() == sb) problems.add((sb ? "active with SimpleBuilding: " : "missing alone: ") + path);
         }
         ItemStack string = new ItemStack(Items.STRING);
         ItemStack pebble = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplelib", "diamond_pebble")));
-        ItemStack sheet = sb ? new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplebuilding", "leather_sheet"))) : new ItemStack(Items.LEATHER);
-        // Quiver: " SL" / "SLN" / "B  ".
-        ItemStack quiver = craft(h, List.of(ItemStack.EMPTY, string, new ItemStack(Items.LEATHER), string, new ItemStack(Items.LEATHER),
+        ItemStack sheet = new ItemStack(StorageItems.LEATHER_SHEET);
+        // Quiver: " SL" / "SLN" / "B  " with leather sheets (IG31-8).
+        ItemStack quiver = craft(h, List.of(ItemStack.EMPTY, string, sheet, string, sheet,
                 new ItemStack(Items.COPPER_NUGGET), new ItemStack(Items.BUNDLE), ItemStack.EMPTY, ItemStack.EMPTY));
         if (!quiver.is(StorageItems.QUIVER)) problems.add("quiver recipe gives " + quiver);
         // Reinforced bundle: "DSD" / "DBD" / "DXD"; the contents of the Vanilla bundle stay.

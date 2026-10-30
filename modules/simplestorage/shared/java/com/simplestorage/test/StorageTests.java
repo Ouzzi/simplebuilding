@@ -178,6 +178,7 @@ public final class StorageTests {
         ALL.put("bundle_storage_registered", BundleStorageTests::registered);
         ALL.put("bundle_storage_migration_from_simplebuilding", BundleStorageTests::migrationFromSimplebuilding);
         ALL.put("bundle_storage_recipes_work_on_their_own", BundleStorageTests::recipesWorkOnTheirOwn);
+        ALL.put("bundle_storage_leather_sheet_is_storages_own", BundleStorageTests::leatherSheetIsStoragesOwn);
         // Split stage 8c-2: the backpacks (bodies from SimpleBuilding's BackpackTests; the Master Builder / Constructor's Touch
         // interplay stays a SimpleBuilding test, it needs its enchantments and wand).
         ALL.put("backpack_right_click_wears_the_backpack_and_swaps_it_with_the_chestplate", BackpackTests::rightClickWearsTheBackpackAndSwapsItWithTheChestplate);
@@ -368,6 +369,7 @@ public final class StorageTests {
         MAX_TICKS.put("pipe_pulls_from_beside_and_pushes_to_the_output", PipeTests.MOVE_MAX_TICKS);
         ALL.put("pipe_pulls_from_beside_and_pushes_to_the_output", PipeTests::pullsFromBesideAndPushesToTheOutput);
         ALL.put("pipe_output_turns_and_the_first_step_never_points_up", PipeTests::outputTurnsAndTheFirstStepNeverPointsUp);
+        ALL.put("pipe_side_keys_choose_the_output", PipeTests::sideKeysChooseTheOutput);
         ALL.put("pipe_connections_grow_arms", PipeTests::connectionsGrowArms);
         MAX_TICKS.put("pipe_filter_keeps_one_item_and_follows_the_principle", PipeTests.MOVE_MAX_TICKS);
         ALL.put("pipe_filter_keeps_one_item_and_follows_the_principle", PipeTests::filterKeepsOneItemAndFollowsThePrinciple);
@@ -376,6 +378,7 @@ public final class StorageTests {
         MAX_TICKS.put("pipe_pipes_chain", PipeTests.MOVE_MAX_TICKS);
         ALL.put("pipe_pipes_chain", PipeTests::pipesChain);
         ALL.put("network_registered", NetworkTests::registered);
+        ALL.put("network_interface_reaches_the_wall_beside_it", NetworkTests::interfaceReachesTheWallBesideIt);
         ALL.put("network_search_finds_chests_through_cables", NetworkTests::searchFindsChestsThroughCables);
         ALL.put("network_controller_takes_chests_of_its_step_or_lower", NetworkTests::controllerTakesChestsOfItsStepOrLower);
         ALL.put("network_too_many_chests_break_the_controller", NetworkTests::tooManyChestsBreakTheController);

@@ -59,6 +59,7 @@ public final class StorageRegistry {
         out.addAll(shellStacks());
         out.addAll(chestMinecartStacks());
         out.addAll(chestBoatStacks());
+        out.add(new ItemStack(StorageItems.LEATHER_SHEET));
         out.addAll(bundleStacks());
         out.addAll(backpackStacks());
         out.add(com.simplestorage.guide.StorageGuide.stack());

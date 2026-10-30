@@ -93,8 +93,8 @@ public final class LeatherAndQuiverTests {
         Item l = Items.LEATHER;
 
         ItemStack sheet = craft(helper, level, grid3x3(l, l, l, l, l, l, l, l, l),
-                "nine leather", "simplebuilding:leather_sheet");
-        helper.assertTrue(sheet.is(ModItems.LEATHER_SHEET),
+                "nine leather", com.simplebuilding.util.StorageRefs.id("leather_sheet").toString());
+        helper.assertTrue(sheet.is(com.simplebuilding.util.StorageRefs.item("leather_sheet")),
                 "nine leather craft " + sheet + " instead of a leather sheet");
         helper.assertValueEqual(sheet.getCount(), 1, "leather sheets per nine leather");
         helper.assertValueEqual(sheet.getMaxStackSize(), 64, "stack size of the leather sheet");
@@ -155,14 +155,14 @@ public final class LeatherAndQuiverTests {
 
         CraftingInput oldPattern = CraftingInput.of(3, 3, List.of(
                 ItemStack.EMPTY, new ItemStack(Items.STRING), new ItemStack(ModItems.DIAMOND_PEBBLE),
-                new ItemStack(Items.STRING), new ItemStack(ModItems.LEATHER_SHEET), new ItemStack(Items.COPPER_NUGGET),
+                new ItemStack(Items.STRING), new ItemStack(com.simplebuilding.util.StorageRefs.item("leather_sheet")), new ItemStack(Items.COPPER_NUGGET),
                 new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), ItemStack.EMPTY, ItemStack.EMPTY));
         assertCraftsNothing(helper, level, oldPattern,
                 "the reinforced quiver pattern before 2026-09-29 (one pebble, copper nugget) still crafts something");
 
         ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE);
         CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
-                d, new ItemStack(ModItems.LEATHER_SHEET), d,
+                d, new ItemStack(com.simplebuilding.util.StorageRefs.item("leather_sheet")), d,
                 d, new ItemStack(com.simplebuilding.util.StorageRefs.item("quiver")), d,
                 d, new ItemStack(Items.STRING), d));
         assertCraftsNothing(helper, level, upsideDown,
@@ -357,7 +357,7 @@ public final class LeatherAndQuiverTests {
         }
         grid.set(1, new ItemStack(Items.STRING));
         grid.set(4, base);
-        grid.set(7, new ItemStack(ModItems.LEATHER_SHEET));
+        grid.set(7, new ItemStack(com.simplebuilding.util.StorageRefs.item("leather_sheet")));
         return CraftingInput.of(3, 3, grid);
     }
 

@@ -436,6 +436,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void bundleStorageLeatherSheetIsStoragesOwn(GameTestHelper h) {
+        StorageTests.ALL.get("bundle_storage_leather_sheet_is_storages_own").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void bundleStorageRecipesWorkOnTheirOwn(GameTestHelper h) {
         StorageTests.ALL.get("bundle_storage_recipes_work_on_their_own").accept(h);
     }
@@ -638,6 +643,16 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplestorage:empty")
     public void pipeOutputTurnsAndTheFirstStepNeverPointsUp(GameTestHelper h) {
         StorageTests.ALL.get("pipe_output_turns_and_the_first_step_never_points_up").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkInterfaceReachesTheWallBesideIt(GameTestHelper h) {
+        StorageTests.ALL.get("network_interface_reaches_the_wall_beside_it").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeSideKeysChooseTheOutput(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_side_keys_choose_the_output").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")

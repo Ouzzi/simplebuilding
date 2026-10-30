@@ -164,7 +164,6 @@ public final class MoneyDiscover {
             "simplebuilding:lapis_quartz_checker",
             "simplebuilding:launchpad",
             "simplebuilding:layered_raw_enderite",
-            "simplebuilding:leather_sheet",
             "simplebuilding:levitating_gravel",
             "simplebuilding:levitating_sand",
             "simplebuilding:magnet",

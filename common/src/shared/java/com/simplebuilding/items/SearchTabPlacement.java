@@ -538,7 +538,7 @@ public final class SearchTabPlacement {
         out.add(Placement.after(INGREDIENTS, Items.QUARTZ, com.simplebuilding.version.McVersion.DULL_ORES
                 ? new ItemLike[]{ModItems.NIHILITH_SHARD, ModItems.DULL_NIHILITH_SHARD, ModItems.ASTRALIT_DUST, ModItems.DULL_ASTRALIT_DUST, ModItems.ENDER_QUARTZ}
                 : new ItemLike[]{ModItems.NIHILITH_SHARD, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ}));
-        out.add(Placement.after(INGREDIENTS, Items.LEATHER, ModItems.LEATHER_SHEET));
+        out.add(Placement.after(INGREDIENTS, Items.LEATHER, com.simplebuilding.util.StorageRefs.item("leather_sheet")));
         out.add(Placement.after(INGREDIENTS, Items.HEAVY_CORE,
                 ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
                 ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE));

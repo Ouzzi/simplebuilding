@@ -4,6 +4,8 @@
   "block.simplesandwiches.birch_cutting_board": "Birch Cutting Board",
   "block.simplesandwiches.butter_block": "Block of Butter",
   "block.simplesandwiches.butter_carpet": "Butter Carpet",
+  "block.simplesandwiches.slice_stack": "Cheese and Butter Stack",
+  "message.simplesandwiches.stack_full": "The stack is full: a mixed stack holds 8 slices",
   "block.simplesandwiches.cheese_carpet": "Cheese Carpet",
   "effect.simplesandwiches.slippery": "Slippery",
   "block.simplesandwiches.cheese_block": "Block of Cheese",
