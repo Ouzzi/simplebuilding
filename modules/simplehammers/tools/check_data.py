@@ -41,7 +41,12 @@ for h in HAMMERS:
     assert (ASSETS / f'items/{h}.json').is_file() and (ASSETS / f'models/item/{h}.json').is_file(), h
     assert (ASSETS / f'textures/item/{h}.png').is_file(), h
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (DATA / 'recipe').glob('*.json')}
-assert set(recipes) == set(recipes_java) | {'guide_book'}, sorted(set(recipes) ^ (set(recipes_java) | {'guide_book'}))
+# ABN30-10: the two rose gold hammers are optional (only with Simple Ores): recipe and unlock behind a load condition.
+OPTIONAL = {f'{a}_sledgehammer' for a in ('rose_bronze', 'blossom_gold')}
+assert set(recipes) - OPTIONAL == set(recipes_java) | {'guide_book'}, sorted(set(recipes) ^ (set(recipes_java) | {'guide_book'} | OPTIONAL))
+for name in OPTIONAL:
+    assert recipes[name]['fabric:load_conditions'][0]['values'] == ['simpleores'] and 'forge:condition' in recipes[name], name
+    assert (DATA / f'advancement/recipes/tools/{name}.json').is_file(), ('recipe advancement', name)
 for name, folder in recipes_java.items():
     adv = DATA / f'advancement/recipes/{folder}/{name}.json'
     assert adv.is_file(), ('recipe advancement', name)
@@ -52,13 +57,14 @@ for e in ENCHANTMENTS:
     assert ench['description'] == {'translate': f'enchantment.{NS}.{e}'}, e
     assert ench['primary_items'] == f'#{NS}:sledgehammers', e
 tag = json.loads((DATA / 'tags/item/sledgehammers.json').read_text(encoding='utf-8'))['values']
-assert tag == [f'{NS}:{h}' for h in HAMMERS], tag
+assert tag[:len(HAMMERS)] == [f'{NS}:{h}' for h in HAMMERS], tag
+assert tag[len(HAMMERS):] == [{'id': f'{NS}:{n}', 'required': False} for n in sorted(OPTIONAL, reverse=True)], tag
 assert json.loads((RES / 'data/simplelib/tags/item/hammers.json').read_text(encoding='utf-8'))['values'] == [f'#{NS}:sledgehammers']
 
 # Other mods' ids only behind load conditions or as optional tag entries.
 for path in (RES / 'data').rglob('*.json'):
     text = path.read_text(encoding='utf-8')
-    for ns in ('simplebuilding', 'simpleoctets', 'simplecrucibles'):
+    for ns in ('simplebuilding', 'simpleoctets', 'simplecrucibles', 'simpleores'):
         if f'"{ns}:' in text:
             data = json.loads(text)
             ok = 'fabric:load_conditions' in data or all(isinstance(v, dict) and v.get('required') is False
