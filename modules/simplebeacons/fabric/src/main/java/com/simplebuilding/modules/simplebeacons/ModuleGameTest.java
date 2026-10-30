@@ -17,6 +17,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void jeiWitherShard(GameTestHelper h) {
+        BeaconsTests.ALL.get("jei_wither_shard").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
     public void registered(GameTestHelper h) {
         BeaconsTests.ALL.get("registered").accept(h);
     }

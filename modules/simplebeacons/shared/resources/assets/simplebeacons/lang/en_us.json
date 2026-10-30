@@ -107,5 +107,6 @@
   "quests.simplebeacons.start.title": "Welcome to Simple Beacons",
   "quests.simplebeacons.start.subtitle": "Your free guide",
   "quests.simplebeacons.start.welcome.title": "A free guide",
-  "quests.simplebeacons.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Beacons Guide as a reward. You can also craft it from a book and a prismarine shard."
+  "quests.simplebeacons.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Beacons Guide as a reward. You can also craft it from a book and a prismarine shard.",
+  "jei.simplebeacons.note.wither_shard": "The Vanilla Wither always drops one Strong Upgrade Shard next to its Nether Star"
 }

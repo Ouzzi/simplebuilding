@@ -98,6 +98,8 @@
   "jei.simplemobs.note.wither_drops": "Wenn der %s stirbt",
   "jei.simplemobs.note.wither_counts": "%s-%s Klumpen aus dem Metall der Krone",
   "jei.simplemobs.note.shellker_dress": "Rechtsklick mit der Schale auf einen Shulker",
+  "jei.simplemobs.info.trick_mirror": "Kein Rezept. 3 s Benutzen halten: enttarnt bis zu 3 verkleidete Fälschungen im Umkreis von 12 Blöcken (leuchten 2 s, 60 s Abklingzeit). Wirkt nur, wenn 'trickMirrorEnabled' in der Simple-Mobs-Konfiguration an ist (Standard aus); sonst nur im Kreativmodus.",
+  "jei.simplemobs.info.ender_parts": "Ender-Herz und Ender-Juwel haben im normalen Spiel noch keine Quelle: Sie sind die Zusatzzutaten der Schmiederezepte für End-Schwingen und Leeren-Schwingen (vorerst nur Kreativ-Reiter und Testzentrale).",
   "effect.simplemobs.volatile": "Explosiv",
   "effect.simplemobs.volatile.description": "Ein Treffer auf den Träger löst eine kleine Explosion aus, die alle in der Nähe außer dem Träger verletzt. Zerstört keine Blöcke.",
   "effect.simplemobs.deflection": "Abwehr",
