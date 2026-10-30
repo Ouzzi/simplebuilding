@@ -1,6 +1,8 @@
 package com.simplemaps.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.image.PixelArt;
 import com.simplemaps.PictureMaps;
 import com.simplemaps.SimpleMaps;
@@ -27,7 +29,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class PictureMapScreen extends Screen {
     private static final int CONTROL_H = 20, CONTROL_W = 150, GAP = 4, MAX_SOURCE_SIDE = 4096;
-    private static final int INK = 0xFFFFFFFF, SOFT = 0xFFC0C0C0, ERROR = 0xFFFF8080, OK = 0xFF90FF90;
+    /** The Wayfinder's brown box (UI28-1: the screen is one SimpleLib box like the other map screens); texts are lifted to 4.5:1 on it. */
+    private static final int FILL = WayfinderScreen.PALETTE.fill();
+    private static final int INK = UiContrast.ensure(0xFFFFFFFF, FILL), ERROR = UiContrast.ensure(0xFFFF8080, FILL), OK = UiContrast.ensure(0xFF90FF90, FILL);
 
     private final List<Path> files = new ArrayList<>();
     private int fileIndex, maps = 2;
@@ -149,6 +153,12 @@ public final class PictureMapScreen extends Screen {
     }
 
     @Override
+    public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
+        super.extractBackground(g, mouseX, mouseY, a);
+        UiBoxes.box(g, 8, 8, width - 16, height - 16, WayfinderScreen.PALETTE);
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractRenderState(g, mouseX, mouseY, a);
         g.text(font, getTitle(), 20, 20, INK, false);
@@ -158,7 +168,7 @@ public final class PictureMapScreen extends Screen {
             // Whole pixels per preview cell, sampling every step-th map pixel so large walls stay cheap to draw.
             int step = Math.max(1, (int) Math.ceil(Math.max((double) w / boxW, (double) h / boxH)));
             int pw = w / step, ph = h / step, x0 = left + (boxW - pw) / 2, y0 = top + (boxH - ph) / 2;
-            g.fill(x0 - 1, y0 - 1, x0 + pw + 1, y0 + ph + 1, 0xFF404040);
+            UiBoxes.sunkRect(g, x0 - 2, y0 - 2, pw + 4, ph + 4, WayfinderScreen.PALETTE);
             g.fill(x0, y0, x0 + pw, y0 + ph, 0xFFC8B48C);
             byte[] colors = result.colors();
             for (int y = 0; y < ph; y++) {

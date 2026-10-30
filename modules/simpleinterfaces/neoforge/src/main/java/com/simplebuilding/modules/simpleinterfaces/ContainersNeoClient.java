@@ -9,6 +9,7 @@ public final class ContainersNeoClient {
         com.simplebuilding.modules.simpleinterfaces.client.StyleToggleClient.development =
                 !net.neoforged.fml.loading.FMLEnvironment.isProduction();
         event.register(com.simplebuilding.modules.simpleinterfaces.client.StyleToggleClient.KEY);
+        event.register(com.simplebuilding.modules.simpleinterfaces.client.KeysClient.KEY);
     }
 
     @net.neoforged.bus.api.SubscribeEvent

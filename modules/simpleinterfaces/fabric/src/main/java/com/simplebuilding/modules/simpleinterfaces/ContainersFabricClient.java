@@ -11,6 +11,7 @@ public final class ContainersFabricClient implements ClientModInitializer {
         com.simplebuilding.modules.simpleinterfaces.client.LegacyMigration.run(net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir());
         StyleToggleClient.development = net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment();
         KeyMappingHelper.registerKeyMapping(StyleToggleClient.KEY);
+        KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.KeysClient.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(StyleToggleClient::tick);
         KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.ZoomState::tick);

@@ -41,4 +41,9 @@ public final class ModuleGameTest {
     @GameTest public void bundleViewPages(GameTestHelper h) { TooltipTests.bundleViewPages(h); }
     @GameTest public void bundleViewOff(GameTestHelper h) { TooltipTests.bundleViewOff(h); }
     @GameTest public void bundleSelectionBeyondTwelve(GameTestHelper h) { TooltipTests.bundleSelectionBeyondTwelve(h); }
+    @GameTest public void keyPageLayouts(GameTestHelper h) { KeyPageTests.layouts(h); }
+    @GameTest public void keyPageArrows(GameTestHelper h) { KeyPageTests.arrows(h); }
+    @GameTest public void keyPageConflicts(GameTestHelper h) { KeyPageTests.conflicts(h); }
+    @GameTest public void keyPageFilter(GameTestHelper h) { KeyPageTests.filter(h); }
+    @GameTest public void keyPageSuggest(GameTestHelper h) { KeyPageTests.suggest(h); }
 }
