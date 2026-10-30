@@ -58,6 +58,12 @@ C Türen/Köpfe/Pulver
 - [ ] IG31-10 Mob-Köpfe im Inventar: viele abgeschnitten/schief (Bild 30-mobheads-inv; z. B. Gürteltier geneigt, berührt Boden nicht) → Inventar-Darstellung wie Vanilla-Items einpassen. Shift-Klick soll den Mob-Kopf-Slot bevorzugen (nicht Vanilla-Kopfslot); Rechtsklick-Anziehen mit Geräusch.
 - [ ] IG31-11 Starkes TNT etwas dunkleres Blau; Starkes Schwarzpulver NICHT blau, sondern dunkleres Grau als Vanilla-Pulver; Rezept 3 Schwarzpulver + 1 Lohenstaub → 1 Starkes Schwarzpulver.
 - [ ] IG31-16 Enderit-Rüstung Schleich-Fall: Stärke gedeckelt auf das heutige Niveau EINER Brustplatte – auch mit vollem Set nicht stärker. Wirkung nicht mehr abbremsen, sondern nur den weiteren Anstieg der Fallgeschwindigkeit begrenzen/verlangsamen; Ziel: 200 Blöcke Fall mit vollem Enderit-Set + Schleichen + Federfall IV kann trotzdem tödlich sein. Gametest mit dieser Rechnung.
+E Tiere (Simple Animals/Dinos) – nächster freier Platz
+- [ ] IG31-17 Igel: eingerollt HALBER Schaden (nicht null); wer ihn eingerollt schlägt, bekommt sofort Schaden; offen 50 % Chance auf Dornen-Schaden für den Angreifer.
+- [ ] IG31-18 Tier mit Schaf-Geräuschen (vermutlich Hirsch – „Bier“ im Diktat) → passende Geräusche.
+- [ ] IG31-19 Modelle unausgereift: Krebs-Beine (eine Seite runter, andere hoch), Schwanz eines Tiers losgelöst unter dem Körper, Zebra/Zorse/Krebs wirken „plain“ – alle Tier-Modelle auf Vanilla-Niveau neu (Proportionen, Animation, Details); Item-Modelle mit Textur-Z-Fighting beheben; T-Rex: Kopf ragt durch Wände (Modell größer als Hitbox beim Drehen) → Hitbox/Kollision bzw. Modell anpassen.
+- [ ] IG31-20 Wildschwein: Optik noch etwas Vanilla-näher (gefällt grundsätzlich, „tiefergelegtes Schwein“); Easter Egg: gräbt sehr selten 1–2 Pilze aus (als gedroppte Items); NEUE Pilzart (unterirdisch, nur vom Wildschwein ausgegraben, z. B. Trüffel) → Pilzsuppe mit kurzem, leichtem positivem Effekt (nicht spielentscheidend).
+
 D Umbau/Texturen (danach)
 - [ ] IG31-12 Doppelkolben + Signaldämpfer gehören in den Maschinen-Mod (dort wo Kolben-Upgrades sind, „Simple Machines“) statt eigenem simpleredstone → verschieben (IdMoves).
 - [ ] IG31-13 Materialien aufteilen: Enderit-Varianten + Rohe Enderit-Fragmente, Dimensions-Schrott, Tiefenschiefer-Salbeierze → Simple Ores (Enderit-Varianten in Mods nur wenn Ores geladen); Kerne (Cores) → simplelib (genutzt von Beacons, Tools, Bauzauberstab …); Chips/Kiesel bleiben. Plan + Migration.
