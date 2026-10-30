@@ -310,6 +310,16 @@ tasks.register('checkBalance', Exec) {
 }
 tasks.named('check') { dependsOn 'checkBalance' }
 
+// QW30-1: unit test of tools/check_gametest_adapters.py (catalog entries without a Fabric @GameTest adapter).
+tasks.register('testGametestAdapters', Exec) {
+	group = 'verification'
+	workingDir = rootDir
+	commandLine wikiPython, '-m', 'unittest', 'discover', '-s', 'tools/testrunner', '-p', 'test_check_gametest*.py'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'testGametestAdapters' }
+
 // Text/data hygiene without Minecraft: lang JSON (duplicates, EN/DE pairs, 26.3 overlay must not lose shared keys)
 // and empty tag files (only documented extension points). Same skip switch as checkWiki.
 ['checkLangText': 'tools/check_tooltip_text.py', 'checkEmptyTags': 'tools/check_empty_tags.py',
@@ -317,7 +327,7 @@ tasks.named('check') { dependsOn 'checkBalance' }
  'checkItemProperties': 'tools/check_item_properties.py', 'checkMissingTextures': 'tools/check_missing_textures.py',
  'checkTextureLayers': 'tools/textures/layers.py check', 'checkModIcons': 'tools/check_mod_icons.py',
  'checkModuleStyle': 'tools/check_module_style.py', 'checkDupImpl': 'tools/check_dup_impl.py',
- 'checkConfigCommands': 'tools/check_config_commands.py'].each { taskName, script ->
+ 'checkConfigCommands': 'tools/check_config_commands.py', 'checkGametestAdapters': 'tools/check_gametest_adapters.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."
