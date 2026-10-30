@@ -101769,8 +101769,8 @@
       "groupDe": null,
       "label": "Enable Simple Challenges",
       "labelDe": "Simple Challenges aktivieren",
-      "tooltip": "Turns the bundled Simple Challenges module on or off: game modes chosen for a world, first the Unlock mode (cells you pay to open). Without a chosen challenge it changes nothing either way. Off also ignores a chosen challenge.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Challenges ein oder aus: Spielmodi, die für eine Welt gewählt werden, zuerst der Unlock-Modus (Zellen, die man bezahlt, um sie zu öffnen). Ohne gewählte Challenge ändert es so oder so nichts. Aus ignoriert auch eine gewählte Challenge."
+      "tooltip": "Turns the bundled Simple Challenges module on or off: game modes chosen for a world, first the Unlock mode (cells you pay to open). Without a chosen challenge it changes nothing either way. Off also ignores a chosen challenge. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Challenges ein oder aus: Spielmodi, die für eine Welt gewählt werden, zuerst der Unlock-Modus (Zellen, die man bezahlt, um sie zu öffnen). Ohne gewählte Challenge ändert es so oder so nichts. Aus ignoriert auch eine gewählte Challenge. Standard: an."
     },
     {
       "range": null,
@@ -101783,8 +101783,8 @@
       "type": "boolean",
       "default": "true",
       "note": null,
-      "category": null,
-      "categoryDe": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
       "group": null,
       "groupDe": null,
       "label": "Enable Simple Animals",
@@ -101803,8 +101803,8 @@
       "type": "boolean",
       "default": "true",
       "note": null,
-      "category": null,
-      "categoryDe": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
       "group": null,
       "groupDe": null,
       "label": "Enable Simple Redstone",
