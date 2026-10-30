@@ -83,7 +83,8 @@ public final class KeyboardLayout {
         row.key(RIGHT_SHIFT, 11);
         // row 5: space row
         row.at(0, 5).key(LEFT_CONTROL, 5).key(LEFT_SUPER, 5).key(LEFT_ALT, 5).key(SPACE, 25);
-        row.key(RIGHT_ALT, 5).key(RIGHT_SUPER, 5).key(MENU, 5).key(RIGHT_CONTROL, 5);
+        if (size == Size.TENKEYLESS) row.key(RIGHT_ALT, 4).key(RIGHT_CONTROL, 4);
+        else row.key(RIGHT_ALT, 5).key(RIGHT_SUPER, 5).key(MENU, 5).key(RIGHT_CONTROL, 5);
         if (size == Size.TENKEYLESS) {
             // arrow block as on a real keyboard: a gap right of the main block (60 wide), the inverted T on the shift and space rows
             int arrows = 62;

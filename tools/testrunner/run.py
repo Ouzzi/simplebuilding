@@ -861,6 +861,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
             error = f"{len(log_faults)} Fehlende-Textur/Modell-Meldungen im Client-Log (siehe {log_path.name})"
         elif "[vis24] screens shot:" in output:
             pass
+        elif "[mixinaudit] audit done without error" in output:
+            pass  # mixinaudit target: its proof line (no model audit summary)
         elif "[model-audit] items checked:" not in output:
             error = "der Audit-Test hat seine Zusammenfassung nicht geschrieben - Beweis fehlt"
     elif not expected:
