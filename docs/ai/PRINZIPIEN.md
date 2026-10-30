@@ -268,6 +268,13 @@ Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein, Igel, Krebs, Zebra (mit
 - **A12 je Tier** steht in `docs/ai/PLAN-A-ANIMALS-2026-10-29.md`; neue Tiere kommen erst nach Besitzer-Wahl dazu (SPÄTER-Liste im Konzept WP-18).
 - Natürliches Spawnen nur über niedrige Gewichte (1 bis 4) und die Regel in `checkSpawnRules` der Entität (Tageslicht, Boden); Ei, Spawner und Zucht sind nie begrenzt. Kein Blockschaden, nur Vanilla-Goals.
 - Modelle und Texturen kommen aus einer Spezifikation (`tools/gen_models.py`, `tools/gen_items.py`); Java-`*Layers` nie von Hand ändern.
+### Simple Dinosaurs (`simpledinos`)
+Fossilienblock, Dinosaurier-Eier zum Freipinseln und Ausbrüten (Daraufsitzen) und die Dinosaurier selbst (Stufe 1: der reitbare T-Rex); allein mit Vanilla spielbar.
+
+- **A12 je Teil** steht in `docs/ai/PLAN-A-DINOS-2026-10-30.md`; Dinosaurier gibt es nur durch Schlüpfen, nie wild, sie greifen nie Spieler an und zerstören keine Blöcke.
+- Fortschritte (Pinseln, Brüten) laufen über `Progress` (reine Rechnung mit Zeitstempeln, Rücklauf 2 pro Tick nach der Gnadenfrist); kein Dauer-Tick im Block, nur geplante Block-Ticks.
+- Die Zeiten stehen in `simpledinos-server.json` (Standard = Konzept: 60 s, 5 min, 10 min, 40 min); neue Sorten erst nach Besitzer-Abnahme des Musters (T-Rex).
+- Modelle und Texturen kommen aus Spezifikationen (`tools/gen_models.py`, `tools/gen_blocks.py`); Java-`*Layers` nie von Hand ändern.
 - Jede neue Entität des Moduls braucht eine Ausnahme in `simplemobheads/data/mobs.json`, solange es keinen Kopf gibt.
 
 ### Simple Stats (`simplestats`)

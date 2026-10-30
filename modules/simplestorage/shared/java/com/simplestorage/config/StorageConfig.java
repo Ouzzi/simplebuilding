@@ -24,7 +24,7 @@ public final class StorageConfig {
     public static final String LEGACY_FILE = "simplebuilding.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("invertBundleInteractions", "betterChestPercent", "reinforcedShulkerPercent",
-            "netheriteShulkerPercent", "enderiteShulkerPercent", "endermitesPerRareShulker");
+            "netheriteShulkerPercent", "enderiteShulkerPercent", "endermitesPerRareShulker", "chestNetwork", "controllerLootPercent");
     /** Highest percentages and escort a server may set (as in SimpleBuilding's {@code ServerTuning}). */
     public static final double MAX_BETTER_CHEST_PERCENT = 5.0, MAX_REINFORCED_SHULKER_PERCENT = 10.0, MAX_NETHERITE_SHULKER_PERCENT = 5.0,
             MAX_ENDERITE_SHULKER_PERCENT = 5.0;
@@ -32,6 +32,8 @@ public final class StorageConfig {
     public static final double BETTER_CHEST_DEFAULT = 1.0, REINFORCED_SHULKER_DEFAULT = 2.0, NETHERITE_SHULKER_DEFAULT = 1.0,
             ENDERITE_SHULKER_DEFAULT = 0.5;
     public static final int ENDERMITES_DEFAULT = 4;
+    /** BS29b-3: highest chance (percent) a better structure chest holds a controller chest, and its default. */
+    public static final double MAX_CONTROLLER_LOOT_PERCENT = 50.0, CONTROLLER_LOOT_DEFAULT = 10.0;
 
     /** Swap the clicks of bundles and quivers: left click takes out, right click puts in (Vanilla the other way round). */
     public static boolean invertBundleInteractions = false;
@@ -43,6 +45,14 @@ public final class StorageConfig {
     public static double enderiteShulkerPercent = ENDERITE_SHULKER_DEFAULT;
     /** Endermites per rare shulker, once, when a player comes near (at most 8; not persistent). */
     public static int endermitesPerRareShulker = ENDERMITES_DEFAULT;
+
+    /**
+     * The chest network (BS29b-3: copper cable, chest interface, controller chests). Off: the blocks already in a world turn into
+     * copper bars, glass panes and the plain chests of their step (nothing is deleted), the items cannot be placed.
+     */
+    public static boolean chestNetwork = true;
+    /** Percent per better structure chest ({@code BetterChests}) that also holds a controller chest of its step and an interface (at most 50). */
+    public static double controllerLootPercent = CONTROLLER_LOOT_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -77,7 +87,7 @@ public final class StorageConfig {
         JsonObject server = parsed.getAsJsonObject().getAsJsonObject("server");
         JsonObject loot = server == null ? null : server.getAsJsonObject("loot");
         if (loot != null) {
-            for (String key : KEYS.subList(1, KEYS.size())) {
+            for (String key : KEYS.subList(1, 6)) { // the five loot values; the later keys never lived in SimpleBuilding's config
                 JsonElement number = loot.get(key);
                 if (number != null && number.isJsonPrimitive() && number.getAsJsonPrimitive().isNumber()) taken.add(key, number.deepCopy());
             }
@@ -100,6 +110,9 @@ public final class StorageConfig {
             count = ENDERMITES_DEFAULT;
         }
         endermitesPerRareShulker = Math.max(0, Math.min(MAX_ENDERMITES_PER_RARE_SHULKER, count));
+        JsonElement network = json.get("chestNetwork");
+        chestNetwork = network == null || !network.isJsonPrimitive() || !network.getAsJsonPrimitive().isBoolean() || network.getAsBoolean();
+        controllerLootPercent = percent(json, "controllerLootPercent", CONTROLLER_LOOT_DEFAULT, MAX_CONTROLLER_LOOT_PERCENT);
     }
 
     /** A percentage between 0 and {@code max}; missing, not a number or NaN gives the default. */
@@ -123,6 +136,8 @@ public final class StorageConfig {
         o.addProperty("netheriteShulkerPercent", netheriteShulkerPercent);
         o.addProperty("enderiteShulkerPercent", enderiteShulkerPercent);
         o.addProperty("endermitesPerRareShulker", endermitesPerRareShulker);
+        o.addProperty("chestNetwork", chestNetwork);
+        o.addProperty("controllerLootPercent", controllerLootPercent);
         return o;
     }
 
@@ -144,6 +159,11 @@ public final class StorageConfig {
     /** Chance (0..0.05) per end city shulker to become Enderite; server only. */
     public static double enderiteShulkerChance() {
         return enderiteShulkerPercent / 100.0;
+    }
+
+    /** Chance (0..0.5) that a better structure chest also holds a controller chest; server only. */
+    public static double controllerLootChance() {
+        return controllerLootPercent / 100.0;
     }
 
     public static void reset() {

@@ -91,6 +91,41 @@ public final class ModuleGameTest {
         ChallengeTests.ALL.get("lean_spawn_look").accept(h);
     }
 
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void skylineLayout(GameTestHelper h) {
+        ChallengeTests.ALL.get("skyline_layout").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 400)
+    public void skylineSequence(GameTestHelper h) {
+        ChallengeTests.ALL.get("skyline_sequence").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void luckyTable(GameTestHelper h) {
+        ChallengeTests.ALL.get("lucky_table").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void luckyBreak(GameTestHelper h) {
+        ChallengeTests.ALL.get("lucky_break").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 200)
+    public void presetModesNew(GameTestHelper h) {
+        ChallengeTests.ALL.get("preset_modes_new").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 300)
+    public void skylineWorld(GameTestHelper h) {
+        ChallengeTests.ALL.get("skyline_world").accept(h);
+    }
+
+    @GameTest(structure = "simplechallenges:empty", maxTicks = 300)
+    public void easterEggs(GameTestHelper h) {
+        ChallengeTests.ALL.get("easter_eggs").accept(h);
+    }
+
     @GameTest(structure = "simplechallenges:empty", maxTicks = 100)
     public void guidePages(GameTestHelper h) {
         com.simplebuilding.modules.simplechallenges.guide.ChallengesGuide.gameTest(h);

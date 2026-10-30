@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_pipe_item",
+  "textures": {
+    "pipe": "simplestorage:block/netherite_pipe",
+    "particle": "simplestorage:block/netherite_pipe"
+  }
+}

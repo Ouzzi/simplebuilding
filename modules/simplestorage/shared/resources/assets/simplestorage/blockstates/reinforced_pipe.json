@@ -1,0 +1,157 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_core"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "north": "true"
+          },
+          {
+            "facing": "east|south|west|up|down"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_arm"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "east": "true"
+          },
+          {
+            "facing": "north|south|west|up|down"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_arm",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "south": "true"
+          },
+          {
+            "facing": "north|east|west|up|down"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_arm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "west": "true"
+          },
+          {
+            "facing": "north|east|south|up|down"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_arm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "up": "true"
+          },
+          {
+            "facing": "north|east|south|west|down"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_arm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "down": "true"
+          },
+          {
+            "facing": "north|east|south|west|up"
+          }
+        ]
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_arm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_out"
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_out",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_out",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_out",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_out",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "simplestorage:block/reinforced_pipe_out",
+        "x": 90
+      }
+    }
+  ]
+}

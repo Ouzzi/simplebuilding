@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chest_interface": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplestorage:chest_interface"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_reinforced_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplestorage:reinforced_chest"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplestorage:reinforced_controller_chest"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chest_interface",
+      "has_reinforced_chest"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplestorage:reinforced_controller_chest"
+    ]
+  }
+}

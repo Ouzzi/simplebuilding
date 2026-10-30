@@ -7,6 +7,7 @@ import com.simplebuilding.modules.simplechallenges.preset.PresetParser;
 import com.simplebuilding.modules.simplechallenges.price.BlockValues;
 import com.simplebuilding.modules.simplechallenges.sky.IslandPlan;
 import com.simplebuilding.modules.simplechallenges.sky.SkyService;
+import com.simplebuilding.modules.simplechallenges.skyline.SkylineService;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import com.google.gson.JsonParser;
 import java.io.Reader;
@@ -48,6 +49,7 @@ public final class ChallengeService {
     public static void started(MinecraftServer server) {
         loadData(server.getResourceManager());
         ChallengeRuntime.clear();
+        SkylineService.clear();
         Enforcement.clear();
         String chosen = PendingChallenge.take(); // the world creation screen's choice reaches only the world it created
         if (!SimpleChallenges.on()) return;
@@ -101,10 +103,11 @@ public final class ChallengeService {
             for (int[] r : preset.unlock().start()) g.addRect(r[0], r[1], r[2], r[3]);
             g.unlock(0, 0); // spawn is fixed at 0,0, so its cell is always free
         }
-        SkyService.start(a); // before the gate is installed: the start may stand in cells that are still locked
+        SkyService.start(a);
+        SkylineService.start(a); // before the gate is installed: the start may stand in cells that are still locked
         probeAll(a);
         UnlockService.ensureSolvable(a);
-        if (fresh) Spawn.setAtOrigin(server, preset.world() != null ? SkyService.ISLAND_Y + IslandPlan.standY() : Spawn.surfaceY(server.overworld()));
+        if (fresh) Spawn.setAtOrigin(server, preset.world() != null ? SkyService.ISLAND_Y + IslandPlan.standY() : preset.skyline() != null ? SkyService.ISLAND_Y + 1 : Spawn.surfaceY(server.overworld()));
         state.setDirty();
         ChallengeRuntime.install(a);
         Enforcement.clear();
@@ -115,6 +118,7 @@ public final class ChallengeService {
     /** Back to no challenge: the state is reset, the hooks go silent at once, clients forget the borders. */
     public static void deactivate(MinecraftServer server) {
         ChallengeRuntime.clear();
+        SkylineService.clear();
         Enforcement.clear();
         LookInfo.clear();
         ChallengeState state = ChallengeState.peek(server);
@@ -124,6 +128,7 @@ public final class ChallengeService {
 
     public static void stopped() {
         ChallengeRuntime.clear();
+        SkylineService.clear();
         Enforcement.clear();
     }
 
@@ -154,6 +159,7 @@ public final class ChallengeService {
         if (a == null || !SimpleChallenges.on()) return;
         Enforcement.tick(server);
         SkyService.tick(a);
+        SkylineService.tick(a);
         int t = server.getTickCount();
         if (t % 10 == 3) LookInfo.tick(a);
         if (t % 20 == 10) UnlockService.pity(a);

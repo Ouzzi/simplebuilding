@@ -26,6 +26,9 @@ public final class PresetDraft {
     public WorldMode.Kind worldKind;
     public String style = "classic";
     public int spacing = 4;
+    /** Lucky / Random Drops mode (null = none) and Skyline mode (null = none): kept as they are, the editor has no controls for them yet. */
+    public LuckyMode lucky;
+    public SkylineMode skyline;
 
     public static PresetDraft from(Preset p) {
         PresetDraft d = new PresetDraft();
@@ -51,6 +54,8 @@ public final class PresetDraft {
             d.style = w.style().isEmpty() ? "classic" : w.style();
             d.spacing = w.spacing();
         }
+        d.lucky = p.lucky();
+        d.skyline = p.skyline();
         return d;
     }
 
@@ -77,6 +82,20 @@ public final class PresetDraft {
             if (worldKind == WorldMode.Kind.ISLAND) w.addProperty("style", style);
             if (worldKind == WorldMode.Kind.SKYGRID) w.addProperty("spacing", spacing);
             modes.add(w);
+        }
+        if (lucky != null) {
+            JsonObject l = new JsonObject();
+            l.addProperty("type", lucky.kind().type);
+            l.addProperty("alpha", lucky.alpha());
+            l.addProperty("pity", lucky.pity());
+            modes.add(l);
+        }
+        if (skyline != null) {
+            JsonObject k = new JsonObject();
+            k.addProperty("type", "skyline");
+            k.addProperty("layout", skyline.layout().id);
+            k.addProperty("easterEggs", skyline.easterEggs());
+            modes.add(k);
         }
         if (cell != null) {
             JsonObject u = new JsonObject();

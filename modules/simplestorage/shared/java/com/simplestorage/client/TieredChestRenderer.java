@@ -50,6 +50,15 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
         }
     }
 
+    /** BS29b-3: the controller chests have one sprite each (never a double chest): {@code <step>_controller}. */
+    private static final SpriteId[] CONTROLLER_SPRITES = new SpriteId[com.simplestorage.network.ControllerLevel.values().length];
+
+    static {
+        for (com.simplestorage.network.ControllerLevel step : com.simplestorage.network.ControllerLevel.values()) {
+            CONTROLLER_SPRITES[step.ordinal()] = sprite(step.id() + "_controller");
+        }
+    }
+
     private final SpriteGetter sprites;
     private final MultiblockChestResources<ChestModel> models;
 
@@ -80,6 +89,8 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
     public static class State extends ChestRenderState {
         public ChestTier tier = ChestTier.REINFORCED;
         public boolean trapped;
+        /** The controller step when this is a controller chest, else null. */
+        public com.simplestorage.network.ControllerLevel controller;
     }
 
     @Override
@@ -96,6 +107,7 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
         state.facing = blockState.hasProperty(ChestBlock.FACING) ? blockState.getValue(ChestBlock.FACING) : Direction.SOUTH;
         state.tier = chest.tier();
         state.trapped = blockState.getBlock() instanceof TieredChestBlock block && block.isTrapped();
+        state.controller = blockState.getBlock() instanceof com.simplestorage.network.ControllerChestBlock controller ? controller.step() : null;
         DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combined;
         if (chest.getLevel() != null && blockState.getBlock() instanceof TieredChestBlock block) {
             combined = block.combine(blockState, chest.getLevel(), chest.getBlockPos(), true);
@@ -115,7 +127,8 @@ public class TieredChestRenderer implements BlockEntityRenderer<TieredChestBlock
         float open = 1.0F - state.open;
         open = 1.0F - open * open * open;
         ChestModels.submit(collector, this.models.select(state.type), open, poseStack,
-                state.lightCoords, spriteFor(state.tier, state.type, state.trapped), this.sprites, state.breakProgress);
+                state.lightCoords, state.controller != null ? CONTROLLER_SPRITES[state.controller.ordinal()] : spriteFor(state.tier, state.type, state.trapped),
+                this.sprites, state.breakProgress);
         poseStack.popPose();
     }
 }

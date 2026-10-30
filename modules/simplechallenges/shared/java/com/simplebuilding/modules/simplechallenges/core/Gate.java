@@ -13,6 +13,9 @@ import net.minecraft.world.level.Level;
 public final class Gate {
     private static final ConcurrentHashMap<ResourceKey<Level>, String> NAMES = new ConcurrentHashMap<>();
 
+    /** Whether a player counts as creative for the Lucky and Skyline hooks. Test seam: GameTest mock players always report creative. */
+    public static volatile java.util.function.Predicate<net.minecraft.world.entity.player.Player> creativeCheck = net.minecraft.world.entity.player.Player::isCreative;
+
     private Gate() {}
 
     /** The dimension id as text, cached (the hooks run for every block change and every move). */

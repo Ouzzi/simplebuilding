@@ -24,11 +24,17 @@ public final class StorageMenus {
      * each loader builds the type itself ({@link #registerBackpack}, in the MENU phase).
      */
     public static MenuType<com.simplestorage.backpack.BackpackMenu> BACKPACK;
+    /** ST27-1: the pipe's window; BS29b-3: the controller chest's network window (no opening data: everything travels in data slots). */
+    public static MenuType<com.simplestorage.pipe.PipeMenu> PIPE;
+    public static MenuType<com.simplestorage.network.ControllerMenu> CONTROLLER;
     private static final Map<TieredChestOpenData, MenuType<TieredChestMenu>> TIERED = new LinkedHashMap<>();
 
     public static void register() {
         STORAGE_CRAFTING_TABLE = Registry.register(BuiltInRegistries.MENU, SimpleStorage.id(SimpleStorage.STORAGE_CRAFTING_TABLE),
                 new MenuType<>(StorageCraftingMenu::new, FeatureFlags.VANILLA_SET));
+        PIPE = Registry.register(BuiltInRegistries.MENU, SimpleStorage.id("pipe"), new MenuType<>(com.simplestorage.pipe.PipeMenu::new, FeatureFlags.VANILLA_SET));
+        CONTROLLER = Registry.register(BuiltInRegistries.MENU, SimpleStorage.id("controller"),
+                new MenuType<>(com.simplestorage.network.ControllerMenu::new, FeatureFlags.VANILLA_SET));
         for (ChestTier tier : ChestTier.values()) {
             tiered(tier.textureName() + "_chest", TieredChestOpenData.of(tier, false));
             tiered(tier.textureName() + "_double_chest", TieredChestOpenData.of(tier, true));

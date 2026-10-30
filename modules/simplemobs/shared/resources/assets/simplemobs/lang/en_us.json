@@ -98,6 +98,8 @@
   "jei.simplemobs.note.wither_drops": "When the %s dies",
   "jei.simplemobs.note.wither_counts": "%s-%s nuggets of the crown's metal",
   "jei.simplemobs.note.shellker_dress": "Right-click a Shulker with the shell",
+  "jei.simplemobs.info.trick_mirror": "No recipe. Hold use for 3 s to reveal up to 3 disguised fakes within 12 blocks (they glow for 2 s, 60 s cooldown). Only works when 'trickMirrorEnabled' is on in the Simple Mobs config (off by default); otherwise creative only.",
+  "jei.simplemobs.info.ender_parts": "Ender Heart and Ender Gem have no source in normal play yet: they are the extra ingredients of the End Wings and Void Wings smithing recipes (creative tab and test centre only for now).",
   "effect.simplemobs.volatile": "Volatile",
   "effect.simplemobs.volatile.description": "A hit on the bearer sets off a small explosion that hurts everyone nearby except the bearer. Breaks no blocks.",
   "effect.simplemobs.deflection": "Deflection",

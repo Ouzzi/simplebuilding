@@ -14,5 +14,6 @@ public final class ModuleGameTest {
  @GameTest(maxTicks=100) public void goldTrim(GameTestHelper h){MobMannersTests.goldTrim(h);}
  @GameTest(maxTicks=100) public void renameMigration(GameTestHelper h){MobMannersTests.renameMigration(h);}
  @GameTest(maxTicks=100) public void frogBucket(GameTestHelper h){MobMannersTests.frogBucket(h);}
+ @GameTest(maxTicks=100) public void jeiFrogBucket(GameTestHelper h){h.assertTrue(com.simplelib.api.RecipeViewer.info(SimpleMobManners.MOD_ID).stream().anyMatch(i->i.items().stream().anyMatch(s->s.is(FrogBucket.item()))&&!i.lines().isEmpty()),"frog bucket info page");h.succeed();}
  // CAT-END
 }

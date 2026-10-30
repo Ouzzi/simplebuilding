@@ -50,6 +50,9 @@ public final class TestCentreLayout {
      * eigene Reihe, eine Reihe ist hoechstens {@link #MAX_ROW_WIDTH} breit. Die Reihenfolge ist die in der Welt. Namen der
      * Bezirke (fuer den Teilbau, TZ22-4) in {@link #DISTRICT_NAMES}, gleiche Reihenfolge.
      */
+    /** Prefix of the tour anchors: {@code tp section/<id>} (TZ22-9). */
+    public static final String SECTION_ANCHOR = "section/";
+
     public static final List<List<String>> DISTRICTS = List.of(
             // Eingang: Steuerwand, Werkzeuge und Bauen.
             List.of("controls", "tools", "chisel", "planning", "mining", "enchants"),
@@ -549,6 +552,8 @@ public final class TestCentreLayout {
         for (String id : sectionIds) {
             BlockPos offset = offsets.get(id);
             canvases.get(id).anchors().forEach((name, pos) -> anchors.put(name, origin.offset(offset).offset(pos)));
+            // TZ22-9: every section is a stop of the tour - /sbtestcentre tp section/<id> stands in the aisle in front of it.
+            anchors.putIfAbsent(SECTION_ANCHOR + id, origin.offset(offset).offset(1, 0, -3));
         }
         BoundingBox bounds = bounds(origin, canvases, offsets, sectionIds);
         // Zweite Runde: jetzt mit den echten Koordinaten.

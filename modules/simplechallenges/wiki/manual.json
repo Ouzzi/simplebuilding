@@ -212,6 +212,68 @@
         "title": "Spawn, Ränder und die Fadenkreuz-Zeile",
         "summary": "Eine für eine brandneue Welt gewählte Challenge legt den Weltspawn auf Block 0,0 ohne die Vanilla-Streuung fest, sodass der Start immer im Startbereich liegt (eine schon gespielte Welt behält ihren Spawn). In gesperrten Zellen erscheint kein neuer Mob. Ein schleichender Spieler darf sich ein Viertel Block über die Grenze lehnen, um am Rand zu bauen. Der Blick auf eine gesperrte Zelle neben dem freien Bereich zeigt unter dem Fadenkreuz eine Zeile: den Preis, wie viel du hast und ob du ihn zahlen kannst (zahlen mit /simplechallenges unlock)."
       }
+    },
+    {
+      "id": "lucky_block",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/lucky/LuckyService.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/lucky/LuckyTable.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/lucky/BlockCatalog.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/price/BlockValues.java"
+      ],
+      "en": {
+        "title": "Lucky Block and Random Drops",
+        "summary": "In a Lucky challenge a block you break drops another block instead of itself. Common blocks come up more often than rare ones: the chance of a block is its commonness divided by (rarity value + 1) to the power alpha (default 1.3), both read from block_value.json, so stone is far more likely than a diamond ore and a Netherite block almost never comes. The first six blocks of a world (the pity) give wood and stone so nobody starts without tools. Random Drops swaps every block for one fixed other block per world seed instead of rolling anew. Creative players, blocks with contents such as chests, and breaks that would drop nothing anyway (wrong tool) stay Vanilla. Lucky combines with Unlock (Lucky Land) and with the One Block (Lucky One Block)."
+      },
+      "de": {
+        "title": "Glücksblock und Zufallsdrops",
+        "summary": "In einer Lucky-Challenge lässt ein abgebauter Block einen anderen Block fallen statt sich selbst. Häufige Blöcke kommen öfter als seltene: Die Chance eines Blocks ist seine Häufigkeit geteilt durch (Seltenheitswert + 1) hoch alpha (Standard 1,3), beides aus block_value.json, darum ist Stein viel wahrscheinlicher als Diamanterz und ein Netherit-Block kommt fast nie. Die ersten sechs Blöcke einer Welt (die Starthilfe) geben Holz und Stein, damit niemand ohne Werkzeug startet. Zufallsdrops tauscht jeden Block gegen einen festen anderen Block je Welt-Seed, statt neu zu würfeln. Kreative, Blöcke mit Inhalt wie Truhen und Abbauten, die ohnehin nichts droppen (falsches Werkzeug), bleiben Vanilla. Lucky lässt sich mit Freischalten (Lucky Land) und dem One Block (Lucky One Block) verbinden."
+      }
+    },
+    {
+      "id": "skyline_lines",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/skyline/Layout.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/skyline/SkylinePlans.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/skyline/SkylineService.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/lucky/BlockCatalog.java"
+      ],
+      "en": {
+        "title": "Skyline Block",
+        "summary": "The world is void and single blocks float in the air with one block of air between them, in a fixed order per dimension: the Overworld line starts with grass, dirt and wood and ends with Obsidian (the portal block), the Nether line holds all Nether blocks, the End line all End blocks. Linear lays them along +X, Grid fills the positive quarter in shells on every second coordinate, Ring winds in layers round the start. A block you break grows back at once, so the line is endless. Blocks that cannot stand alone (torches, plants, doors, rails, ladders) get a Bedrock support, falling blocks one below. Arriving in a dimension puts you on its first block: there is no platform and no portal destination of its own; in the End the main island and the dragon stay Vanilla and the line starts at the place of the arrival platform. The Nether line ends in a Bedrock seal: hit it with a Netherite pickaxe while holding an Eye of Ender in the other hand to open it, and an End portal stands next to it. The chunks get their blocks while they are generated; nothing is scanned."
+      },
+      "de": {
+        "title": "Skyline Block",
+        "summary": "Die Welt ist leer und einzelne Blöcke schweben mit einem Block Luft dazwischen in fester Reihenfolge je Dimension: Die Oberwelt-Linie beginnt mit Gras, Erde und Holz und endet mit Obsidian (dem Portalblock), die Nether-Linie enthält alle Nether-Blöcke, die End-Linie alle End-Blöcke. Linear legt sie entlang +X, Raster füllt das positive Viertel in Schalen auf jeder zweiten Koordinate, Ring windet sich in Schichten um den Start. Ein abgebauter Block wächst sofort nach, die Linie ist also unendlich. Blöcke, die nicht allein stehen (Fackeln, Pflanzen, Türen, Schienen, Leitern), bekommen eine Grundgestein-Stütze, fallende Blöcke eine darunter. Wer in einer Dimension ankommt, steht auf deren erstem Block: Es gibt keine Plattform und kein eigenes Portalziel; im End bleiben Hauptinsel und Drache Vanilla und die Linie beginnt am Ort der Ankunftsplattform. Die Nether-Linie endet in einem Siegel aus Grundgestein: Mit einer Netherit-Spitzhacke schlagen, während ein Ender-Auge in der anderen Hand liegt, öffnet es, und daneben steht ein Endportal. Die Chunks bekommen ihre Blöcke beim Erzeugen; es wird nichts gescannt."
+      }
+    },
+    {
+      "id": "easter_eggs",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/skyline/Eggs.java"
+      ],
+      "en": {
+        "title": "Easter eggs of the Skyline",
+        "summary": "In the linear and the grid Skyline (never the ring) a loot structure waits in -X, where no line block stands: in the End a small ship with an Elytra in a frame, in the Nether a mini bastion whose chest always holds a Netherite upgrade smithing template, in the Overworld a vault that gives a Heavy Core and a frame with a trial key. The Elytra and the key come back whenever someone takes them; the vault is the Vanilla vault, every player opens it once. Each egg exists twice at the same distance from the start (96 blocks, 190 in the End), the second one 30 degrees aside, in case the first is destroyed. A structure is built when the chunk of its place is generated. The shipped Skyline presets have the eggs on (easterEggs in the preset)."
+      },
+      "de": {
+        "title": "Easter Eggs der Skyline",
+        "summary": "In der linearen und der Raster-Skyline (nie im Ring) wartet in -X, wo kein Linienblock steht, eine Beute-Struktur: im End ein kleines Schiff mit Elytra im Rahmen, im Nether eine Mini-Bastion, deren Truhe immer eine Netherit-Schmiedevorlage enthält, in der Oberwelt ein Tresor, der einen Schweren Kern gibt, und ein Rahmen mit Prüfungsschlüssel. Elytra und Schlüssel kommen wieder, sobald jemand sie nimmt; der Tresor ist der Vanilla-Tresor, jeder Spieler öffnet ihn einmal. Jedes Ei gibt es zweimal in gleicher Entfernung vom Start (96 Blöcke, im End 190), das zweite 30 Grad versetzt, falls das erste zerstört wird. Eine Struktur wird gebaut, wenn der Chunk ihres Ortes erzeugt wird. Die mitgelieferten Skyline-Presets haben die Eggs an (easterEggs im Preset)."
+      }
+    },
+    {
+      "id": "preset_list",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/PresetRegistry.java"
+      ],
+      "en": {
+        "title": "The 16 presets",
+        "summary": "Shipped challenges: Vanilla Unlock (a chunk per cell), Block by Block (a single block per cell), Quick Steps (three chunks per cell), Trophy Land (advancements give credits), Island Unlock (Skyblock with unlockable cells), Classic Skyblock, Sky One Block, Sky Grid, Lucky Strike (broken blocks drop other blocks), Lucky Land (Lucky with Unlock), Lucky One Block, Random Drops (every block always drops the same other block), Skyline Block (one line), Skyline Grid, Skyline Ring and One Line (a one chunk wide corridor to unlock along). Everything is a preset file, so you can copy one and change it."
+      },
+      "de": {
+        "title": "Die 16 Presets",
+        "summary": "Mitgelieferte Challenges: Vanilla Unlock (ein Chunk je Zelle), Block by Block (ein Block je Zelle), Quick Steps (drei Chunks je Zelle), Trophy Land (Erfolge geben Credits), Island Unlock (Skyblock mit freischaltbaren Zellen), Classic Skyblock, Sky One Block, Sky Grid, Lucky Strike (abgebaute Blöcke lassen andere Blöcke fallen), Lucky Land (Lucky mit Freischalten), Lucky One Block, Random Drops (jeder Block lässt immer denselben anderen Block fallen), Skyline Block (eine Linie), Skyline Grid, Skyline Ring und One Line (ein Chunk breiter Korridor zum Weiter-Freischalten). Alles ist eine Preset-Datei, du kannst eine kopieren und ändern."
+      }
     }
   ],
   "notes": {}

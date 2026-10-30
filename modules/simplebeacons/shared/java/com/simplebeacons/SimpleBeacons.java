@@ -27,6 +27,7 @@ public final class SimpleBeacons {
         BeaconsConfig.load(configDir);
         // CMD24: /simplebeacons config for every option.
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(BeaconsConfig::toJson, BeaconsConfig::apply).file(configDir, BeaconsConfig.FILE).register();
+        BeaconsViewer.register(); // AUDM24-3: the Wither's shard in the recipe viewer's Mob Drops tab (no JEI class)
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "beacons", "simplebeacons.testcentre.station",
                 java.util.List.of("simplebeacons:strong_upgrade_template", "simplebeacons:evil_upgrade_template", "simplebeacons:strong_upgrade_shard",

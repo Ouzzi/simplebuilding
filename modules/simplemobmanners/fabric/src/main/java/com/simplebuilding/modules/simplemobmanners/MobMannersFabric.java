@@ -11,6 +11,7 @@ public final class MobMannersFabric implements ModInitializer {
         com.simplelib.api.config.ConfigCommands.server(SimpleMobManners.MOD_ID).gson(MobMannersConfig.class, () -> SimpleMobManners.CONFIG, c -> { c.normalize(); SimpleMobManners.CONFIG = c; },
                 () -> { MobMannersConfig d = new MobMannersConfig(); d.normalize(); return d; }).save(SimpleMobManners::save).register();
         FrogBucket.register();
+        MobMannersViewer.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
             if (SimpleMobManners.active()) {
                 entries.insertAfter(net.minecraft.world.item.Items.TADPOLE_BUCKET, java.util.List.of(new net.minecraft.world.item.ItemStack(FrogBucket.item())),

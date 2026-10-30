@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.simplebuilding.modules.simplechallenges.skyline.Layout;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,12 @@ import java.util.Set;
  * {@code cell}, {@code start} (rectangles {@code [x0,z0,x1,z1]} in cell units), {@code currency}, {@code difficulty},
  * {@code dimensions}, {@code pityMinutes}, {@code credits} {task, goal, challenge}. The world modes (S4) are {@code skyblock}
  * ({@code style}: classic, mini, desert), {@code oneblock} and {@code skygrid} ({@code spacing}); at most one per preset.
+ * S5/S6: {@code lucky} / {@code randomdrops} ({@code alpha}, {@code pity}) and {@code skyline} ({@code layout}: linear, grid, ring; {@code easterEggs}).
  */
 public final class PresetParser {
     public static final int SCHEMA = 1;
     /** Modes the concept lists that later stages build: accepted with a warning, not runnable yet. */
-    private static final Set<String> PLANNED = Set.of("lucky", "skyline", "line", "randomdrops");
+    private static final Set<String> PLANNED = Set.of("pillarrace", "hardcoreunlock", "biomeroulette");
 
     public record Result(Preset preset, List<String> errors, List<String> warnings) {
         public boolean ok() {
@@ -49,6 +51,8 @@ public final class PresetParser {
         String family = str(root, "family", "unlock");
         UnlockMode unlock = null;
         WorldMode world = null;
+        LuckyMode lucky = null;
+        SkylineMode skyline = null;
         JsonArray modes = root.has("modes") && root.get("modes").isJsonArray() ? root.getAsJsonArray("modes") : null;
         if (modes == null || modes.isEmpty()) {
             errors.add("modes must be a non-empty array");
@@ -75,6 +79,18 @@ public final class PresetParser {
                         continue;
                     }
                     world = parseWorld(WorldMode.Kind.parse(type), mode, errors);
+                } else if (LuckyMode.Kind.parse(type) != null) {
+                    if (lucky != null) {
+                        errors.add("only one of lucky and randomdrops per preset");
+                        continue;
+                    }
+                    lucky = parseLucky(LuckyMode.Kind.parse(type), mode, errors);
+                } else if (type.equals("skyline")) {
+                    if (skyline != null) {
+                        errors.add("only one skyline mode per preset");
+                        continue;
+                    }
+                    skyline = parseSkyline(mode, errors);
                 } else if (PLANNED.contains(type)) {
                     warnings.add("mode '" + type + "' is not available in this version");
                 } else {
@@ -82,8 +98,33 @@ public final class PresetParser {
                 }
             }
         }
+        // the sky modes own the void world: they exclude each other, and a skyline cannot carry an unlock grid (its blocks are the whole world)
+        if (skyline != null && (world != null || unlock != null)) errors.add("skyline cannot be combined with skyblock modes or unlock");
         if (!errors.isEmpty()) return new Result(null, errors, warnings);
-        return new Result(new Preset(id, name, icon, family, unlock, world, List.copyOf(warnings), text), errors, warnings);
+        return new Result(new Preset(id, name, icon, family, unlock, world, lucky, skyline, List.copyOf(warnings), text), errors, warnings);
+    }
+
+    private static LuckyMode parseLucky(LuckyMode.Kind kind, JsonObject o, List<String> errors) {
+        double alpha = o.has("alpha") ? doubleOf(o, "alpha", -1) : LuckyMode.DEFAULT_ALPHA;
+        int pity = intOf(o, "pity", LuckyMode.DEFAULT_PITY);
+        if (alpha < LuckyMode.MIN_ALPHA || alpha > LuckyMode.MAX_ALPHA) errors.add("alpha must be " + LuckyMode.MIN_ALPHA + "-" + LuckyMode.MAX_ALPHA);
+        if (pity < 0 || pity > LuckyMode.MAX_PITY) errors.add("pity must be 0-" + LuckyMode.MAX_PITY);
+        return new LuckyMode(kind, alpha, pity);
+    }
+
+    private static SkylineMode parseSkyline(JsonObject o, List<String> errors) {
+        Layout layout = Layout.parse(str(o, "layout", "linear"));
+        if (layout == null) {
+            errors.add("skyline layout must be linear, grid or ring");
+            return null;
+        }
+        boolean eggs = true;
+        try {
+            if (o.has("easterEggs")) eggs = o.get("easterEggs").getAsBoolean();
+        } catch (RuntimeException e) {
+            errors.add("easterEggs must be true or false");
+        }
+        return new SkylineMode(layout, eggs);
     }
 
     private static WorldMode parseWorld(WorldMode.Kind kind, JsonObject o, List<String> errors) {
@@ -161,6 +202,14 @@ public final class PresetParser {
     private static String str(JsonObject o, String key, String def) {
         try {
             return o.has(key) ? o.get(key).getAsString() : def;
+        } catch (RuntimeException e) {
+            return def;
+        }
+    }
+
+    private static double doubleOf(JsonObject o, String key, double def) {
+        try {
+            return o.has(key) ? o.get(key).getAsDouble() : def;
         } catch (RuntimeException e) {
             return def;
         }

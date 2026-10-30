@@ -1,0 +1,7 @@
+{
+  "parent": "simplestorage:block/template_pipe_item",
+  "textures": {
+    "pipe": "simplestorage:block/reinforced_pipe",
+    "particle": "simplestorage:block/reinforced_pipe"
+  }
+}

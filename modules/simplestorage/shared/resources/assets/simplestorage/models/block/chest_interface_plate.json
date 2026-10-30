@@ -1,0 +1,126 @@
+{
+  "textures": {
+    "plate": "simplestorage:block/chest_interface",
+    "particle": "simplestorage:block/chest_interface"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        1,
+        0
+      ],
+      "to": [
+        15,
+        15,
+        3
+      ],
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "texture": "#plate"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "texture": "#plate"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            14,
+            3
+          ],
+          "texture": "#plate"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            14,
+            3
+          ],
+          "texture": "#plate"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ],
+          "texture": "#plate"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            3,
+            14
+          ],
+          "texture": "#plate"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        6,
+        3
+      ],
+      "to": [
+        10,
+        10,
+        6
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            4,
+            3
+          ],
+          "texture": "#plate"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            4,
+            3
+          ],
+          "texture": "#plate"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            3,
+            4
+          ],
+          "texture": "#plate"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            3,
+            4
+          ],
+          "texture": "#plate"
+        }
+      }
+    }
+  ]
+}

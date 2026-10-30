@@ -614,4 +614,104 @@ public final class ModuleGameTest {
     public void jeiShellsAndTiers(GameTestHelper h) {
         StorageTests.ALL.get("jei_shells_and_tiers").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeRegistered(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeTransferStepFollowsTheTier(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_transfer_step_follows_the_tier").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = com.simplestorage.test.PipeTests.MOVE_MAX_TICKS)
+    public void pipeCarriesItemsToTheOutputContainer(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_carries_items_to_the_output_container").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = com.simplestorage.test.PipeTests.MOVE_MAX_TICKS)
+    public void pipePullsFromBesideAndPushesToTheOutput(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_pulls_from_beside_and_pushes_to_the_output").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeOutputTurnsAndTheFirstStepNeverPointsUp(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_output_turns_and_the_first_step_never_points_up").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeConnectionsGrowArms(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_connections_grow_arms").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = com.simplestorage.test.PipeTests.MOVE_MAX_TICKS)
+    public void pipeFilterKeepsOneItemAndFollowsThePrinciple(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_filter_keeps_one_item_and_follows_the_principle").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeEmptyFilterSlotOnlyTakesPlayerItems(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_empty_filter_slot_only_takes_player_items").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeUpgradeKeepsItemFilterAndOutput(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_upgrade_keeps_item_filter_and_output").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty", maxTicks = com.simplestorage.test.PipeTests.MOVE_MAX_TICKS)
+    public void pipePipesChain(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_pipes_chain").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkRegistered(GameTestHelper h) {
+        StorageTests.ALL.get("network_registered").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkSearchFindsChestsThroughCables(GameTestHelper h) {
+        StorageTests.ALL.get("network_search_finds_chests_through_cables").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkControllerTakesChestsOfItsStepOrLower(GameTestHelper h) {
+        StorageTests.ALL.get("network_controller_takes_chests_of_its_step_or_lower").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkTooManyChestsBreakTheController(GameTestHelper h) {
+        StorageTests.ALL.get("network_too_many_chests_break_the_controller").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkSecondControllerConflicts(GameTestHelper h) {
+        StorageTests.ALL.get("network_second_controller_conflicts").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkSearchIsCachedUntilTheWiringChanges(GameTestHelper h) {
+        StorageTests.ALL.get("network_search_is_cached_until_the_wiring_changes").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkWindowListsTakesAndStores(GameTestHelper h) {
+        StorageTests.ALL.get("network_window_lists_takes_and_stores").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkInterfaceNeedsChestAndCableDrawsArms(GameTestHelper h) {
+        StorageTests.ALL.get("network_interface_needs_chest_and_cable_draws_arms").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkSwitchedOffTheBlocksBecomeSubstitutes(GameTestHelper h) {
+        StorageTests.ALL.get("network_switched_off_the_blocks_become_substitutes").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkBetterChestsHoldControllerFinds(GameTestHelper h) {
+        StorageTests.ALL.get("network_better_chests_hold_controller_finds").accept(h);
+    }
 }

@@ -51,7 +51,8 @@ window.WIKI_MODULES = [
       "simplemusic",
       "simpleearth",
       "simplechallenges",
-      "simpleredstone"
+      "simpleredstone",
+      "simpledinos"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -74,7 +75,7 @@ window.WIKI_MODULES = [
       "items": 507,
       "blocks": 290,
       "recipes": 827,
-      "config": 235,
+      "config": 236,
       "features": 48
     }
   },
@@ -1561,11 +1562,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
     "counts": {
       "items": 17,
-      "blocks": 37,
-      "recipes": 177,
-      "features": 13
+      "blocks": 47,
+      "recipes": 187,
+      "features": 15
     },
-    "dataHash": "fedde42b8786"
+    "dataHash": "8daecba71925"
   },
   {
     "id": "simplemusic",
@@ -1716,9 +1717,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 12
+      "features": 16
     },
-    "dataHash": "e65ee85ff848"
+    "dataHash": "e280449cf45d"
   },
   {
     "id": "simpleanimals",
@@ -1784,5 +1785,41 @@ window.WIKI_MODULES = [
       "features": 5
     },
     "dataHash": "3ce18e63948b"
+  },
+  {
+    "id": "simpledinos",
+    "displayName": "Simple Dinosaurs",
+    "description": "Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplemoney",
+      "simplemobheads"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen."
+    },
+    "purpose": {
+      "en": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar.",
+      "de": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
+    "counts": {
+      "items": 5,
+      "blocks": 6,
+      "recipes": 5,
+      "features": 6
+    },
+    "dataHash": "647d3af3850a"
   }
 ];

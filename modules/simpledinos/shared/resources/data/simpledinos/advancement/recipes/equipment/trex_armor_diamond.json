@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpledinos:trex_armor_diamond"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_diamond": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:diamond"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_diamond"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpledinos:trex_armor_diamond"
+    ]
+  }
+}

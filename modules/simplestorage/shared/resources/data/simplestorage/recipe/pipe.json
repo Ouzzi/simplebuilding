@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "H": "minecraft:hopper"
+  },
+  "pattern": [
+    "C",
+    "H",
+    "C"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplestorage:pipe"
+  }
+}

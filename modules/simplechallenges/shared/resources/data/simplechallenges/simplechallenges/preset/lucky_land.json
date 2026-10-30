@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "name": "Lucky Land",
+  "icon": "minecraft:emerald_block",
+  "family": "lucky",
+  "modes": [
+    {
+      "type": "lucky",
+      "alpha": 1.3,
+      "pity": 6
+    },
+    {
+      "type": "unlock",
+      "cell": 16,
+      "start": [
+        [
+          -1,
+          -1,
+          0,
+          0
+        ]
+      ],
+      "currency": "items",
+      "difficulty": "easy",
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "pityMinutes": 30
+    }
+  ]
+}

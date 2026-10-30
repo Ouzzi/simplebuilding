@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplestorage:netherite_pipe",
+    "simplelib:enderite_nugget",
+    "simplelib:enderite_nugget"
+  ],
+  "result": {
+    "id": "simplestorage:enderite_pipe"
+  }
+}

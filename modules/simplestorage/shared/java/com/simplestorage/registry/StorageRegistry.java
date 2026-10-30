@@ -53,6 +53,8 @@ public final class StorageRegistry {
         out.add(new ItemStack(StorageItems.STORAGE_CRAFTING_TABLE));
         out.addAll(crateStacks());
         out.addAll(chestStacks());
+        out.addAll(pipeStacks());
+        out.addAll(networkStacks());
         out.addAll(shulkerBoxStacks());
         out.addAll(shellStacks());
         out.addAll(chestMinecartStacks());
@@ -77,6 +79,23 @@ public final class StorageRegistry {
             out.add(new ItemStack(item));
         }
         for (Item item : StorageItems.TRAPPED_COPPER_CHESTS) out.add(new ItemStack(item));
+        return out;
+    }
+
+    /** ST27-1: the four pipes in tier order. */
+    public static List<ItemStack> pipeStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        for (Item item : StorageItems.PIPES.values()) out.add(new ItemStack(item));
+        return out;
+    }
+
+    /** BS29b-3: cable, interface, then the controller chests in step order (empty while the network is switched off in the config). */
+    public static List<ItemStack> networkStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        if (!com.simplestorage.config.StorageConfig.chestNetwork) return out;
+        out.add(new ItemStack(StorageItems.COPPER_CABLE));
+        out.add(new ItemStack(StorageItems.CHEST_INTERFACE));
+        for (Item item : StorageItems.CONTROLLERS.values()) out.add(new ItemStack(item));
         return out;
     }
 

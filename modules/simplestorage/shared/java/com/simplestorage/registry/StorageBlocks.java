@@ -38,6 +38,11 @@ public final class StorageBlocks {
     public static Block REINFORCED_SHULKER_BOX, NETHERITE_SHULKER_BOX, ENDERITE_SHULKER_BOX;
     /** Split stage 8c-1: a bundle set down on a top face (no item; the bundle lives in the block entity). */
     public static Block PLACED_BUNDLE;
+    /** ST27-1: the four pipes in tier order. */
+    public static final Map<com.simplestorage.pipe.PipeTier, Block> PIPES = new EnumMap<>(com.simplestorage.pipe.PipeTier.class);
+    /** BS29b-3: the chest network - copper cable, interface plate and the four controller chests in step order. */
+    public static Block COPPER_CABLE, CHEST_INTERFACE;
+    public static final Map<com.simplestorage.network.ControllerLevel, Block> CONTROLLERS = new EnumMap<>(com.simplestorage.network.ControllerLevel.class);
     /** Split stage 8c-2: the four placed backpacks in tier order (Basic, Reinforced, Netherite, Enderite). */
     public static final Map<com.simplestorage.backpack.BackpackTier, Block> BACKPACKS = new EnumMap<>(com.simplestorage.backpack.BackpackTier.class);
 
@@ -57,6 +62,43 @@ public final class StorageBlocks {
                         .noLootTable().mapColor(net.minecraft.world.level.material.MapColor.COLOR_BROWN)
                         .pushReaction(net.minecraft.world.level.material.PushReaction.POPPED)));
         registerBackpacks();
+        registerPipes();
+        registerNetwork();
+    }
+
+    /** ST27-1: strength and sound like the chests of the tier; thin shapes need {@code noOcclusion}. */
+    private static void registerPipes() {
+        PIPES.put(com.simplestorage.pipe.PipeTier.BASIC, block("pipe", Blocks.IRON_BLOCK, p -> new com.simplestorage.pipe.ItemPipeBlock(
+                com.simplestorage.pipe.PipeTier.BASIC, p.strength(2.0F, 4.0F).sound(SoundType.COPPER).mapColor(MapColor.COLOR_ORANGE).noOcclusion())));
+        PIPES.put(com.simplestorage.pipe.PipeTier.REINFORCED, block("reinforced_pipe", Blocks.IRON_BLOCK, p -> new com.simplestorage.pipe.ItemPipeBlock(
+                com.simplestorage.pipe.PipeTier.REINFORCED, p.strength(3.5F, 6.0F).sound(SoundType.COPPER).mapColor(MapColor.METAL).noOcclusion())));
+        PIPES.put(com.simplestorage.pipe.PipeTier.NETHERITE, block("netherite_pipe", Blocks.IRON_BLOCK, p -> new com.simplestorage.pipe.ItemPipeBlock(
+                com.simplestorage.pipe.PipeTier.NETHERITE, p.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_BLACK).noOcclusion())));
+        PIPES.put(com.simplestorage.pipe.PipeTier.ENDERITE, block("enderite_pipe", Blocks.IRON_BLOCK, p -> new com.simplestorage.pipe.ItemPipeBlock(
+                com.simplestorage.pipe.PipeTier.ENDERITE, p.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE).noOcclusion())));
+    }
+
+    /** BS29b-3: cable and interface are soft copper parts; the controllers copy the chest of their step. */
+    private static void registerNetwork() {
+        COPPER_CABLE = block("copper_cable", Blocks.IRON_BLOCK, p -> new com.simplestorage.network.CableBlock(
+                p.strength(1.0F, 3.0F).sound(SoundType.COPPER).mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
+        CHEST_INTERFACE = block("chest_interface", Blocks.IRON_BLOCK, p -> new com.simplestorage.network.InterfaceBlock(
+                p.strength(1.0F, 3.0F).sound(SoundType.COPPER).mapColor(MapColor.GOLD).noOcclusion()));
+        CONTROLLERS.put(com.simplestorage.network.ControllerLevel.WOODEN, block("wooden_controller_chest", Blocks.CHEST, p ->
+                new com.simplestorage.network.ControllerChestBlock(com.simplestorage.network.ControllerLevel.WOODEN, SoundEvents.CHEST_OPEN, SoundEvents.CHEST_CLOSE, p)));
+        CONTROLLERS.put(com.simplestorage.network.ControllerLevel.REINFORCED, block("reinforced_controller_chest", REINFORCED_CHEST, p ->
+                new com.simplestorage.network.ControllerChestBlock(com.simplestorage.network.ControllerLevel.REINFORCED, SoundEvents.COPPER_CHEST_OPEN, SoundEvents.COPPER_CHEST_CLOSE, p)));
+        CONTROLLERS.put(com.simplestorage.network.ControllerLevel.NETHERITE, block("netherite_controller_chest", NETHERITE_CHEST, p ->
+                new com.simplestorage.network.ControllerChestBlock(com.simplestorage.network.ControllerLevel.NETHERITE, SoundEvents.CHEST_OPEN, SoundEvents.CHEST_CLOSE, p)));
+        CONTROLLERS.put(com.simplestorage.network.ControllerLevel.ENDERITE, block("enderite_controller_chest", ENDERITE_CHEST, p ->
+                new com.simplestorage.network.ControllerChestBlock(com.simplestorage.network.ControllerLevel.ENDERITE, SoundEvents.CHEST_OPEN, SoundEvents.CHEST_CLOSE, p)));
+    }
+
+    /** The cable, the interface and the controller chests (the network blocks of the config switch). */
+    public static Block[] networkBlocks() {
+        java.util.List<Block> out = new java.util.ArrayList<>(java.util.List.of(COPPER_CABLE, CHEST_INTERFACE));
+        out.addAll(CONTROLLERS.values());
+        return out.toArray(Block[]::new);
     }
 
     /** Ids of the four backpacks (item and block) in tier order. */

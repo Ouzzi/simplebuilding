@@ -5,19 +5,24 @@ import com.simplebuilding.modules.simplechallenges.core.PendingChallenge;
 import com.simplebuilding.modules.simplechallenges.core.PresetRegistry;
 import com.simplebuilding.modules.simplechallenges.core.RecentChallenges;
 import com.simplebuilding.modules.simplechallenges.preset.Preset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.WorldDimensions;
 import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
 import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorPresets;
 import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
@@ -59,28 +64,50 @@ public final class CreateChallenge {
         return true;
     }
 
-    /** Whether the chosen preset starts in the void world (the Skyblock family). */
-    public static boolean needsVoid(String presetId) {
+    /** What the dimensions of the new world look like for a choice. */
+    public enum Terrain { NORMAL, VOID, SKYLINE }
+
+    /** The terrain the preset needs: a void Overworld for the Skyblock family, void Overworld and Nether for the Skyline, the normal world for everything else. */
+    public static Terrain terrainOf(String presetId) {
         Preset p = presetId == null ? null : PresetRegistry.get(presetId);
-        return p != null && p.world() != null;
+        if (p == null) return Terrain.NORMAL;
+        return p.skyline() != null ? Terrain.SKYLINE : p.world() != null ? Terrain.VOID : Terrain.NORMAL;
     }
 
-    /** Makes the Overworld generator fit the choice (void for Skyblock, normal otherwise); a no-op when it already fits. */
+    private static Terrain current(WorldCreationUiState ui) {
+        var dims = ui.getSettings().selectedDimensions();
+        if (!(dims.overworld() instanceof FlatLevelSource)) return Terrain.NORMAL;
+        boolean netherFlat = dims.get(LevelStem.NETHER).map(stem -> stem.generator() instanceof FlatLevelSource).orElse(false);
+        return netherFlat ? Terrain.SKYLINE : Terrain.VOID;
+    }
+
+    /** Makes the generators fit the choice (void for Skyblock, void Overworld and Nether for the Skyline, normal otherwise); a no-op when they already fit. */
     public static void sync(WorldCreationUiState ui) {
-        boolean wantVoid = needsVoid(PendingChallenge.peek());
-        boolean isVoid = ui.getSettings().selectedDimensions().overworld() instanceof FlatLevelSource;
-        if (wantVoid && !isVoid) ui.updateDimensions(voidWorld());
-        else if (!wantVoid && isVoid) ui.updateDimensions((registries, dims) -> WorldPresets.createNormalWorldDimensions(registries));
+        Terrain want = terrainOf(PendingChallenge.peek());
+        if (want == current(ui)) return;
+        ui.updateDimensions(switch (want) {
+            case NORMAL -> (registries, dims) -> WorldPresets.createNormalWorldDimensions(registries);
+            case VOID -> voidWorld(false);
+            case SKYLINE -> voidWorld(true);
+        });
     }
 
-    /** The Vanilla "The Void" flat preset with plains as the biome (animals and trees can live there), no structures. */
-    static WorldCreationContext.DimensionsUpdater voidWorld() {
-        return (registries, dims) -> {
-            FlatLevelGeneratorSettings base = registries.lookupOrThrow(Registries.FLAT_LEVEL_GENERATOR_PRESET)
-                    .getOrThrow(FlatLevelGeneratorPresets.THE_VOID).value().settings();
-            Holder<Biome> plains = registries.lookupOrThrow(Registries.BIOME).getOrThrow(Biomes.PLAINS);
-            FlatLevelGeneratorSettings settings = base.withBiomeAndLayers(List.of(new FlatLayerInfo(1, Blocks.AIR)), Optional.of(HolderSet.empty()), plains);
-            return dims.replaceOverworldGenerator(registries, new FlatLevelSource(settings));
+    private static FlatLevelSource voidSource(HolderLookup.Provider registries, ResourceKey<Biome> biome) {
+        FlatLevelGeneratorSettings base = registries.lookupOrThrow(Registries.FLAT_LEVEL_GENERATOR_PRESET)
+                .getOrThrow(FlatLevelGeneratorPresets.THE_VOID).value().settings();
+        Holder<Biome> holder = registries.lookupOrThrow(Registries.BIOME).getOrThrow(biome);
+        return new FlatLevelSource(base.withBiomeAndLayers(List.of(new FlatLayerInfo(1, Blocks.AIR)), Optional.of(HolderSet.empty()), holder));
+    }
+
+    /** The Vanilla "The Void" flat preset with plains as the biome (animals and trees can live there), no structures; the Skyline also empties the Nether (the End stays Vanilla). */
+    static WorldCreationContext.DimensionsUpdater voidWorld(boolean nether) {
+        return (registries, ignored) -> {
+            WorldDimensions dims = WorldPresets.createNormalWorldDimensions(registries).replaceOverworldGenerator(registries, voidSource(registries, Biomes.PLAINS));
+            if (!nether) return dims;
+            Map<ResourceKey<LevelStem>, LevelStem> map = new HashMap<>(dims.dimensions());
+            LevelStem old = map.get(LevelStem.NETHER);
+            map.put(LevelStem.NETHER, new LevelStem(old.type(), voidSource(registries, Biomes.NETHER_WASTES)));
+            return new WorldDimensions(map);
         };
     }
 }

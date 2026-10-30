@@ -33,12 +33,139 @@
     "minecraft:diamond_ore": 30,
     "minecraft:deepslate_diamond_ore": 30,
     "minecraft:emerald_ore": 30,
-    "minecraft:ancient_debris": 60
+    "minecraft:ancient_debris": 60,
+    "minecraft:netherite_block": 400,
+    "minecraft:beacon": 150,
+    "minecraft:emerald_block": 270,
+    "minecraft:gold_block": 108,
+    "minecraft:iron_block": 54,
+    "minecraft:lapis_block": 90,
+    "minecraft:redstone_block": 72,
+    "minecraft:coal_block": 27,
+    "minecraft:copper_block": 36,
+    "minecraft:enchanting_table": 40,
+    "minecraft:ender_chest": 30,
+    "minecraft:heavy_core": 60,
+    "minecraft:conduit": 40,
+    "minecraft:dragon_head": 80,
+    "minecraft:dragon_egg": 200,
+    "minecraft:sculk_shrieker": 30,
+    "minecraft:sculk_catalyst": 20,
+    "minecraft:budding_amethyst": 40,
+    "minecraft:lodestone": 40,
+    "minecraft:respawn_anchor": 20,
+    "minecraft:crying_obsidian": 15,
+    "minecraft:obsidian": 3,
+    "minecraft:sponge": 5,
+    "minecraft:wet_sponge": 5,
+    "minecraft:glowstone": 2,
+    "minecraft:jukebox": 10,
+    "minecraft:trial_spawner": 80,
+    "minecraft:vault": 60,
+    "minecraft:wither_skeleton_skull": 60,
+    "minecraft:creeper_head": 30,
+    "minecraft:zombie_head": 30,
+    "minecraft:skeleton_skull": 30,
+    "minecraft:piglin_head": 30,
+    "minecraft:player_head": 30
   },
   "patterns": [
-    { "contains": "_log", "value": 0.5 },
-    { "contains": "_ore", "value": 8 },
-    { "contains": "spawner", "value": 80 },
-    { "contains": "diamond_block", "value": 270 }
-  ]
+    {
+      "contains": "_log",
+      "value": 0.5
+    },
+    {
+      "contains": "_ore",
+      "value": 8
+    },
+    {
+      "contains": "spawner",
+      "value": 80
+    },
+    {
+      "contains": "diamond_block",
+      "value": 270
+    },
+    {
+      "contains": "netherite",
+      "value": 400
+    },
+    {
+      "contains": "shulker_box",
+      "value": 25
+    },
+    {
+      "contains": "_head",
+      "value": 30
+    },
+    {
+      "contains": "amethyst",
+      "value": 6
+    },
+    {
+      "contains": "copper_block",
+      "value": 36
+    },
+    {
+      "contains": "gold_block",
+      "value": 108
+    },
+    {
+      "contains": "trial",
+      "value": 40
+    },
+    {
+      "contains": "ominous",
+      "value": 60
+    }
+  ],
+  "commonness": {
+    "values": {
+      "minecraft:stone": 300,
+      "minecraft:cobblestone": 150,
+      "minecraft:dirt": 200,
+      "minecraft:grass_block": 150,
+      "minecraft:sand": 100,
+      "minecraft:gravel": 80,
+      "minecraft:deepslate": 200,
+      "minecraft:netherrack": 150,
+      "minecraft:oak_log": 60,
+      "minecraft:oak_leaves": 40,
+      "minecraft:andesite": 40,
+      "minecraft:diorite": 40,
+      "minecraft:granite": 40,
+      "minecraft:tuff": 20,
+      "minecraft:end_stone": 100,
+      "minecraft:clay": 10,
+      "minecraft:snow_block": 10,
+      "minecraft:ice": 10,
+      "minecraft:sandstone": 15,
+      "minecraft:coal_ore": 20,
+      "minecraft:iron_ore": 8,
+      "minecraft:copper_ore": 8,
+      "minecraft:water": 0
+    },
+    "patterns": [
+      {
+        "contains": "_log",
+        "value": 8
+      },
+      {
+        "contains": "_planks",
+        "value": 6
+      },
+      {
+        "contains": "_leaves",
+        "value": 6
+      },
+      {
+        "contains": "_ore",
+        "value": 2
+      },
+      {
+        "contains": "deepslate_",
+        "value": 4
+      }
+    ]
+  }
 }

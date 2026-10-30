@@ -99693,6 +99693,14 @@
           "required": true
         },
         {
+          "id": "simplestorage:enderite_controller_chest",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_pipe",
+          "required": true
+        },
+        {
           "id": "simplestorage:enderite_quiver",
           "required": true
         },
@@ -99965,6 +99973,14 @@
         },
         {
           "id": "simplestorage:enderite_chest_minecart",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_controller_chest",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_pipe",
           "required": true
         },
         {
@@ -101811,6 +101827,26 @@
       "labelDe": "Simple Redstone aktivieren",
       "tooltip": "Turns the bundled Simple Redstone module on or off: the Double Piston (1x2, signal 1-7 one block, 8-15 two) and the Signal Dampener. Off hides its creative tab entries and its guide and stops both parts from working; placed blocks stay. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Redstone ein oder aus: den Doppelkolben (1x2, Signal 1-7 ein Block, 8-15 zwei) und den Signaldämpfer. Aus blendet seine Kreativtab-Einträge und sein Handbuch aus und lässt beide Teile nicht mehr arbeiten; gesetzte Blöcke bleiben. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleDinos",
+      "shortName": "enableSimpleDinos",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Dinosaurs",
+      "labelDe": "Simple Dinosaurs aktivieren",
+      "tooltip": "Turns the bundled Simple Dinosaurs module on or off: fossil block, dinosaur eggs and the T. rex. Off hides the module's creative entries and its guide; blocks, eggs and dinosaurs that already exist keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Dinosaurs an oder aus: Fossilienblock, Dinosaurier-Eier und der T-Rex. Aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Blöcke, Eier und Dinosaurier funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -130992,7 +131028,7 @@
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
-    "config": 235,
+    "config": 236,
     "inWorld": 481,
     "advancements": 116,
     "features": 48,

@@ -1,0 +1,123 @@
+{
+  "fossil_block": {
+    "lore": [
+      "Old bones, sleeping in a layer of dust."
+    ],
+    "use": [
+      "Brush it with the Vanilla brush for about a minute to free a dinosaur egg. Pausing makes the progress run back at twice the speed. Mine it with Silk Touch to keep the block."
+    ],
+    "secret": [
+      "Which egg sleeps inside depends only on the place where the block lies."
+    ]
+  },
+  "trex_egg": {
+    "lore": [
+      "A big green egg, warm to the touch."
+    ],
+    "use": [
+      "Place it and sit on it with an empty hand: 5 minutes of sitting broods it, 10 minutes later a tame T. rex hatchling hatches for the player who sat longest."
+    ],
+    "secret": [
+      "Stand up too early and the warmth leaks away twice as fast as it came."
+    ]
+  },
+  "triceratops_egg": {
+    "lore": [
+      "A sand-coloured egg with brown bands."
+    ],
+    "use": [
+      "Can be placed and brooded like every dinosaur egg. The Triceratops itself is not built yet, so it stays an egg for now."
+    ],
+    "secret": [
+      "It is waiting for its dinosaur."
+    ]
+  },
+  "stegosaurus_egg": {
+    "lore": [
+      "A slate-grey egg with a pattern like small plates."
+    ],
+    "use": [
+      "Can be placed and brooded like every dinosaur egg. The Stegosaurus itself is not built yet, so it stays an egg for now."
+    ],
+    "secret": [
+      "It is waiting for its dinosaur."
+    ]
+  },
+  "utahraptor_egg": {
+    "lore": [
+      "A rust-red egg with dark speckles."
+    ],
+    "use": [
+      "Can be placed and brooded like every dinosaur egg. The Utahraptor itself is not built yet, so it stays an egg for now."
+    ],
+    "secret": [
+      "It is waiting for its dinosaur."
+    ]
+  },
+  "parasaurolophus_egg": {
+    "lore": [
+      "A teal egg with light dots."
+    ],
+    "use": [
+      "Can be placed and brooded like every dinosaur egg. The Parasaurolophus itself is not built yet, so it stays an egg for now."
+    ],
+    "secret": [
+      "It is waiting for its dinosaur."
+    ]
+  },
+  "large_saddle": {
+    "lore": [
+      "A saddle made for something much bigger than a horse."
+    ],
+    "use": [
+      "Use it on a tamed adult dinosaur to ride it; one rider. Shaped: a saddle in the middle, 4 leather in the corners, 4 iron ingots on the sides."
+    ],
+    "secret": [
+      "A normal saddle does not fit, and this one fits no horse."
+    ]
+  },
+  "trex_armor_leather": {
+    "lore": [
+      "Boiled leather plates, cut for a skull the size of a door."
+    ],
+    "use": [
+      "Use it on a tamed adult T. rex. Protection 3, like leather horse armor. 8 leather around a bone block."
+    ],
+    "secret": [
+      "The bone block in the middle is the part the T. rex likes best."
+    ]
+  },
+  "trex_armor_iron": {
+    "lore": [
+      "Riveted iron plates for a head and a back that bite back."
+    ],
+    "use": [
+      "Use it on a tamed adult T. rex. Protection 5, like iron horse armor. 8 iron ingots around a bone block."
+    ],
+    "secret": [
+      "The rivets are the only part that is not heavy."
+    ]
+  },
+  "trex_armor_diamond": {
+    "lore": [
+      "Diamond plates that throw the light around the cave."
+    ],
+    "use": [
+      "Use it on a tamed adult T. rex. Protection 11, like diamond horse armor. 8 diamonds around a bone block."
+    ],
+    "secret": [
+      "Looks best on a green T. rex."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "A field notebook for the finds under the sand."
+    ],
+    "use": [
+      "The Simple Dinosaurs Guide explains the fossil block, the eggs and the T. rex. Craft it shapeless from a book and a bone."
+    ],
+    "secret": [
+      "Its pages open in your language and nothing is consumed."
+    ]
+  }
+}

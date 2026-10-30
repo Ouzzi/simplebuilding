@@ -41,8 +41,17 @@ public final class ChallengeState extends SavedData {
             Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("prices", Map.of()).forGetter(s -> s.prices),
             Codec.BOOL.optionalFieldOf("worldBuilt", false).forGetter(s -> s.worldBuilt),
             Codec.INT.optionalFieldOf("oneBlockCount", 0).forGetter(s -> s.oneBlockCount),
-            Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("playerCredits", Map.of()).forGetter(s -> s.playerCredits)
+            Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("playerCredits", Map.of()).forGetter(s -> s.playerCredits),
+            Extra.CODEC.optionalFieldOf("sky", new Extra(0, false, List.of())).forGetter(s -> new Extra(s.luckyBreaks, s.sealOpened, new ArrayList<>(s.eggs)))
     ).apply(i, ChallengeState::new));
+
+    /** What the Lucky and Skyline modes remember (S5-S7), kept in one field so the main codec stays below the record limit. */
+    public record Extra(int luckyBreaks, boolean sealOpened, List<String> eggs) {
+        static final Codec<Extra> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.INT.optionalFieldOf("luckyBreaks", 0).forGetter(Extra::luckyBreaks),
+                Codec.BOOL.optionalFieldOf("sealOpened", false).forGetter(Extra::sealOpened),
+                Codec.STRING.listOf().optionalFieldOf("eggs", List.of()).forGetter(Extra::eggs)).apply(i, Extra::new));
+    }
 
     public static final SavedDataType<ChallengeState> TYPE = new SavedDataType<>(SimpleChallenges.id("state"), ChallengeState::new, CODEC,
             DataFixTypes.SAVED_DATA_COMMAND_STORAGE);
@@ -72,6 +81,13 @@ public final class ChallengeState extends SavedData {
     /** Credits of each player (uuid) when the server config gives every player a pot of their own. */
     public final Map<String, Integer> playerCredits = new LinkedHashMap<>();
 
+    /** How many blocks the Lucky mode has changed so far (the first few are the pity: wood and stone). */
+    public int luckyBreaks;
+    /** Whether the seal at the end of the Nether line was opened (the End portal stands). */
+    public boolean sealOpened;
+    /** Easter egg sites that are built, {@code dimension|name}. */
+    public final Set<String> eggs = new LinkedHashSet<>();
+
     private final Map<String, long[]> rawFree = new HashMap<>();
     /** Live grids by dimension, built by {@link #bind}. */
     final Map<String, UnlockGrid> grids = new HashMap<>();
@@ -80,7 +96,7 @@ public final class ChallengeState extends SavedData {
 
     private ChallengeState(String challenge, String presetJson, boolean initialized, long seed, int credits, long lastUnlockTick,
                            int unlockCount, List<String> rewarded, List<String> baselined, Map<String, List<Long>> free,
-                           Map<String, String> prices, boolean worldBuilt, int oneBlockCount, Map<String, Integer> playerCredits) {
+                           Map<String, String> prices, boolean worldBuilt, int oneBlockCount, Map<String, Integer> playerCredits, Extra sky) {
         this.challenge = challenge;
         this.presetJson = presetJson;
         this.initialized = initialized;
@@ -99,6 +115,9 @@ public final class ChallengeState extends SavedData {
         this.worldBuilt = worldBuilt;
         this.oneBlockCount = oneBlockCount;
         this.playerCredits.putAll(playerCredits);
+        this.luckyBreaks = sky.luckyBreaks();
+        this.sealOpened = sky.sealOpened();
+        this.eggs.addAll(sky.eggs());
     }
 
     private Map<String, List<Long>> freeEncoded() {
@@ -138,6 +157,9 @@ public final class ChallengeState extends SavedData {
         worldBuilt = false;
         oneBlockCount = 0;
         playerCredits.clear();
+        luckyBreaks = 0;
+        sealOpened = false;
+        eggs.clear();
         unlockCount = 0;
         rewarded.clear();
         baselined.clear();

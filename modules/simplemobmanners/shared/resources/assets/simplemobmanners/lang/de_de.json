@@ -19,5 +19,6 @@
   "command.simplemobmanners.missing": "Suffix nicht gefunden.",
   "command.simplemobmanners.cleared": "Suffixliste geleert.",
   "command.simplemobmanners.renamed": "/%s heißt jetzt /%s: Simple Creatures wurde in Simple Mob Manners umbenannt.",
-  "item.simplemobmanners.frog_bucket": "Eimer mit Frosch"
+  "item.simplemobmanners.frog_bucket": "Eimer mit Frosch",
+  "jei.simplemobmanners.info.frog_bucket": "Kein Rezept. Wassereimer auf einen Frosch benutzen fängt ihn; Variante, Name und Alter bleiben erhalten. Den Eimer auf den Boden benutzen lässt ihn frei."
 }

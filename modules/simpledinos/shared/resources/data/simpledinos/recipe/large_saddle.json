@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": "minecraft:leather",
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:saddle"
+  },
+  "pattern": [
+    "LIL",
+    "ISI",
+    "LIL"
+  ],
+  "result": {
+    "id": "simpledinos:large_saddle",
+    "count": 1
+  }
+}

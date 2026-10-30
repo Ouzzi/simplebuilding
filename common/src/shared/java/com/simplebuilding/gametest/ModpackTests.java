@@ -465,7 +465,7 @@ public final class ModpackTests {
                     storageSteps++;
                 }
             }
-            if (storageSteps != 31) problems.add("Simple Storage's file should load 31 chest and shulker box upgrade steps, loaded " + storageSteps);
+            if (storageSteps != 34) problems.add("Simple Storage's file should load 34 chest, shulker box and pipe upgrade steps, loaded " + storageSteps);
         }
         // a-small22: on 26.3 the 7 crucible, barrel and cauldron steps come from Simple Crucibles' own file
         // (data/simplecrucibles/in_world_upgrades), so the hammer ways also work without SimpleBuilding.

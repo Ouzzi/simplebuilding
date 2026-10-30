@@ -669,6 +669,108 @@
           "Beispiel: /simplestorage config get <Option> zeigt Wert, Standard und Typ; /simplestorage config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
+    },
+    {
+      "id": "pipes",
+      "related": [
+        "simplestorage:pipe",
+        "simplestorage:reinforced_pipe",
+        "simplestorage:netherite_pipe",
+        "simplestorage:enderite_pipe",
+        "simplelib:cracked_diamond",
+        "simplelib:netherite_nugget",
+        "simplelib:enderite_nugget",
+        "minecraft:hopper"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/Pipes.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/PipeScreen.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/pipe.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/in_world_upgrades/pipes.json",
+        "modules/simplelib/shared/java/com/simplelib/api/ItemFilterRules.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/PipeTests.java"
+      ],
+      "en": {
+        "title": "Pipes",
+        "summary": "A pipe is a hopper with one slot that looks like a cable. It moves items from the containers beside it into the container at its one output, which ends in an arrow: 1 item every 8 ticks, Reinforced every 6, Netherite 2 items every 4, Enderite 4 items every 2. The first step points down or sideways only; from Reinforced on the output may also point up.",
+        "details": [
+          "Shape: alone it is only a middle piece; every neighbour that holds items (chest, furnace, hopper, another pipe) grows an arm, the output arm carries the arrow. It takes items from every container beside it except the output side (never from another pipe, those push on their own) and pushes into the container at the output.",
+          "Turning the output: sneak and right-click with an empty hand, or press the output key in its window. The first step skips up.",
+          "Filter (the owner's filter principle, as with the hoppers): the window has one slot and the filter key - off, exact (same item and data) or same kind. With a filter on, the real item in the slot is the filter: one of it stays, only the second and every further one is moved; automation only adds matching items and never fills an empty filter slot - put the item in by hand.",
+          "Upgrade: pipe -> Reinforced Pipe (Cracked Diamond) -> Netherite Pipe (Netherite Nugget) -> Enderite Pipe (Enderite Nugget), in the world like the chests (hammer or axe in the main hand, the material in the off hand; item and filter stay) or in the crafting grid (the pipe and two pieces of the material).",
+          "Recipe: two copper ingots around a hopper make 2 pipes."
+        ]
+      },
+      "de": {
+        "title": "Rohre",
+        "summary": "Ein Rohr ist ein Trichter mit einem Platz, der wie ein Kabel aussieht. Es schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang, der in einem Pfeil endet: 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 Items alle 4, Enderit 4 Items alle 2. Die erste Stufe zeigt nur nach unten oder zur Seite; ab Verstärkt darf der Ausgang auch nach oben zeigen.",
+        "details": [
+          "Form: allein nur ein Mittelstück; jeder Nachbar mit Items (Truhe, Ofen, Trichter, anderes Rohr) bekommt einen Arm, der Ausgangsarm trägt den Pfeil. Es nimmt aus jedem Behälter neben sich außer an der Ausgangsseite (nie aus einem anderen Rohr, die schieben selbst) und schiebt in den Behälter am Ausgang.",
+          "Ausgang drehen: Schleichen und Rechtsklick mit leerer Hand oder im Fenster den Ausgangsknopf drücken. Die erste Stufe überspringt oben.",
+          "Filter (Filter-Prinzip des Besitzers, wie bei den Trichtern): das Fenster hat einen Platz und den Filterknopf - aus, exakt (gleiches Item samt Daten) oder gleiche Art. Mit Filter ist das echte Item im Platz der Filter: eines bleibt, erst das zweite und jedes weitere wird bewegt; Automatik legt nur Passendes dazu und füllt einen leeren Filterplatz nie - das Item von Hand hineinlegen.",
+          "Aufwertung: Rohr -> Verstärktes Rohr (Rissdiamant) -> Netherit-Rohr (Netheritklumpen) -> Enderit-Rohr (Enderitklumpen), in der Welt wie die Truhen (Hammer oder Axt in der Haupthand, das Material in der Nebenhand; Item und Filter bleiben) oder im Handwerksgitter (das Rohr und zwei Stück des Materials).",
+          "Rezept: zwei Kupferbarren um einen Trichter ergeben 2 Rohre."
+        ]
+      }
+    },
+    {
+      "id": "chest_network",
+      "related": [
+        "simplestorage:copper_cable",
+        "simplestorage:chest_interface",
+        "simplestorage:wooden_controller_chest",
+        "simplestorage:reinforced_controller_chest",
+        "simplestorage:netherite_controller_chest",
+        "simplestorage:enderite_controller_chest",
+        "minecraft:writable_book",
+        "minecraft:ender_pearl"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/ChestNetwork.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/CableBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/InterfaceBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLevel.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/NetworkSubstitutes.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLoot.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/ControllerScreen.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/copper_cable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/chest_interface.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_controller_chest.json",
+        "modules/simplestorage/shared/java/com/simplestorage/test/NetworkTests.java"
+      ],
+      "en": {
+        "title": "Chest network (prototype)",
+        "summary": "Copper cables connect chests, each with a chest interface on its side, to one controller chest. The controller's window lists every kind of item in all connected chests: take stacks out, click with an item to store it, shift-click in the inventory to store.",
+        "details": [
+          "Wiring: an interface plate sits in the cell next to a chest and points at it; it connects to cables and other interfaces on its other five sides. The controller chest needs an interface too. The cable is also a decoration block that draws arms like a chorus plant (lines, corners, pillars).",
+          "Steps and limits (chest blocks, half of a double chest counts one): Wooden controller 4 (two double chests), Reinforced 12, Netherite 32, Enderite 64. A controller takes chests of its step or lower (Vanilla and copper chests count as wood); higher chests stay out of the list and are counted in the window. The controller's own slots belong to the network.",
+          "Broken: too many chests, a second controller on the same network, or more than 512 cables and interfaces: the controller shows a broken screen with the cause and gives no access until fixed.",
+          "Recipes: cable - three copper ingots in the middle row with one wool above and below make 3; interface - glass pane in the middle, gold and quartz alternating around it, repeater on top and comparator below; controller - interface, a chest of the step, a book and quill and an ender pearl (a wooden chest for the wooden controller). Better structure chests (Reinforced, Netherite, Enderite) hold a controller of their own step with 2 interfaces and 4 cables (controllerLootPercent, default 10 % of them).",
+          "Config chestNetwork (default on): off turns the cable into copper bars, the interface into a glass pane and the controller chest into the plain chest of its step when the block is touched or on a random tick; contents stay, the items cannot be placed. controllerLootPercent (0-50) is the loot chance.",
+          "Speed: the network is searched again only when cables or interfaces changed, and the chests are read only while a controller window is open."
+        ]
+      },
+      "de": {
+        "title": "Truhen-Netzwerk (Prototyp)",
+        "summary": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen: Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
+        "details": [
+          "Verdrahtung: eine Schnittstellen-Platte sitzt in der Zelle neben einer Truhe und zeigt auf sie; auf ihren anderen fünf Seiten verbindet sie sich mit Kabeln und anderen Schnittstellen. Auch die Controller-Truhe braucht eine. Das Kabel ist zugleich ein Dekoblock, der wie eine Chorus-Pflanze Arme zeichnet (Linien, Ecken, Säulen).",
+          "Stufen und Grenzen (Truhenblöcke, eine Doppeltruhenhälfte zählt eins): Hölzerner Controller 4 (zwei Doppeltruhen), Verstärkt 12, Netherit 32, Enderit 64. Ein Controller nimmt Truhen seiner Stufe oder niedriger (Vanilla- und Kupfertruhen zählen als Holz); höhere Truhen bleiben aus der Liste und werden im Fenster gezählt. Die eigenen Plätze des Controllers gehören zum Netz.",
+          "Kaputt: zu viele Truhen, ein zweiter Controller am selben Netz oder mehr als 512 Kabel und Schnittstellen: der Controller zeigt einen Kaputt-Bildschirm mit der Ursache und gibt keinen Zugriff, bis es behoben ist.",
+          "Rezepte: Kabel - drei Kupferbarren in der Mittelreihe mit je einer Wolle darüber und darunter ergeben 3; Schnittstelle - Glasscheibe in der Mitte, Gold und Quarz abwechselnd ringsum, oben Verstärker und unten Komparator; Controller - Schnittstelle, eine Truhe der Stufe, ein Buch mit Feder und eine Enderperle (für den hölzernen Controller eine Holztruhe). Bessere Struktur-Truhen der Stufen enthalten mit controllerLootPercent (Standard 10 % der besseren Truhen) einen Controller ihrer Stufe mit 2 Schnittstellen und 4 Kabeln.",
+          "Config chestNetwork (Standard an): aus verwandelt das Kabel in Kupfergitter, die Schnittstelle in eine Glasscheibe und die Controller-Truhe in die normale Truhe ihrer Stufe, sobald der Block berührt wird oder sein Zufallstick kommt; der Inhalt bleibt, die Items lassen sich nicht mehr platzieren. controllerLootPercent (0-50) ist die Fund-Chance.",
+          "Tempo: das Netz wird nur neu gesucht, wenn sich Kabel oder Schnittstellen geändert haben, und die Truhen werden nur gelesen, solange ein Controller-Fenster offen ist."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -1263,6 +1365,119 @@
             "id": "minecraft:cherry_log",
             "count": 1.75
           }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:chest_interface",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:chest_interface",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/chest_interface.json",
+      "ingredients": [
+        "minecraft:comparator",
+        "minecraft:glass_pane",
+        "minecraft:gold_ingot",
+        "minecraft:quartz",
+        "minecraft:repeater"
+      ],
+      "pattern": [
+        "GRQ",
+        "QPG",
+        "GCQ"
+      ],
+      "key": {
+        "G": [
+          "minecraft:gold_ingot"
+        ],
+        "Q": [
+          "minecraft:quartz"
+        ],
+        "R": [
+          "minecraft:repeater"
+        ],
+        "P": [
+          "minecraft:glass_pane"
+        ],
+        "C": [
+          "minecraft:comparator"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.625
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:copper_cable",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:copper_cable",
+        "count": 3
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/copper_cable.json",
+      "ingredients": [
+        "#minecraft:wool",
+        "minecraft:copper_ingot"
+      ],
+      "pattern": [
+        " W ",
+        "CCC",
+        " W "
+      ],
+      "key": {
+        "W": [
+          "#minecraft:wool"
+        ],
+        "C": [
+          "minecraft:copper_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 3,
+        "materials": [
+          {
+            "id": "minecraft:string",
+            "count": 8
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 3
+          }
+        ],
+        "tagExamples": [
+          "#minecraft:wool"
         ]
       }
     },
@@ -2208,6 +2423,145 @@
           },
           {
             "id": "simplestorage:netherite_chest",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_controller_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:enderite_controller_chest",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_controller_chest.json",
+      "ingredients": [
+        "minecraft:ender_pearl",
+        "minecraft:writable_book",
+        "simplestorage:chest_interface",
+        "simplestorage:enderite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:chest_interface"
+        ],
+        [
+          "simplestorage:enderite_chest"
+        ],
+        [
+          "minecraft:writable_book"
+        ],
+        [
+          "minecraft:ender_pearl"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:enderite_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.625
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:enderite_pipe",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:enderite_pipe",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_pipe.json",
+      "ingredients": [
+        "simplelib:enderite_nugget",
+        "simplestorage:netherite_pipe"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:netherite_pipe"
+        ],
+        [
+          "simplelib:enderite_nugget"
+        ],
+        [
+          "simplelib:enderite_nugget"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2.5
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "simplelib:enderite_nugget",
+            "count": 2
+          },
+          {
+            "id": "simplelib:netherite_nugget",
+            "count": 2
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
             "count": 1
           }
         ]
@@ -3876,6 +4230,141 @@
       }
     },
     {
+      "id": "simplestorage:netherite_controller_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:netherite_controller_chest",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_controller_chest.json",
+      "ingredients": [
+        "minecraft:ender_pearl",
+        "minecraft:writable_book",
+        "simplestorage:chest_interface",
+        "simplestorage:netherite_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:chest_interface"
+        ],
+        [
+          "simplestorage:netherite_chest"
+        ],
+        [
+          "minecraft:writable_book"
+        ],
+        [
+          "minecraft:ender_pearl"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "simplestorage:netherite_chest",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.625
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:netherite_pipe",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:netherite_pipe",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_pipe.json",
+      "ingredients": [
+        "simplelib:netherite_nugget",
+        "simplestorage:reinforced_pipe"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:reinforced_pipe"
+        ],
+        [
+          "simplelib:netherite_nugget"
+        ],
+        [
+          "simplelib:netherite_nugget"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2.5
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "simplelib:netherite_nugget",
+            "count": 2
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplestorage:netherite_quiver_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -4323,6 +4812,51 @@
         ],
         "material": [
           "minecraft:pink_dye"
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:pipe",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:pipe",
+        "count": 2
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/pipe.json",
+      "ingredients": [
+        "minecraft:copper_ingot",
+        "minecraft:hopper"
+      ],
+      "pattern": [
+        "C",
+        "H",
+        "C"
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ],
+        "H": [
+          "minecraft:hopper"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          }
         ]
       }
     },
@@ -5428,6 +5962,141 @@
           {
             "id": "simplelib:cracked_diamond",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_controller_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:reinforced_controller_chest",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_controller_chest.json",
+      "ingredients": [
+        "minecraft:ender_pearl",
+        "minecraft:writable_book",
+        "simplestorage:chest_interface",
+        "simplestorage:reinforced_chest"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:chest_interface"
+        ],
+        [
+          "simplestorage:reinforced_chest"
+        ],
+        [
+          "minecraft:writable_book"
+        ],
+        [
+          "minecraft:ender_pearl"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.625
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplestorage:reinforced_pipe",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:reinforced_pipe",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_pipe.json",
+      "ingredients": [
+        "simplelib:cracked_diamond",
+        "simplestorage:pipe"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:pipe"
+        ],
+        [
+          "simplelib:cracked_diamond"
+        ],
+        [
+          "simplelib:cracked_diamond"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 2.5
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
           }
         ]
       }
@@ -6674,6 +7343,86 @@
       }
     },
     {
+      "id": "simplestorage:wooden_controller_chest",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplestorage:wooden_controller_chest",
+        "count": 1
+      },
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/wooden_controller_chest.json",
+      "ingredients": [
+        "minecraft:chest",
+        "minecraft:ender_pearl",
+        "minecraft:writable_book",
+        "simplestorage:chest_interface"
+      ],
+      "ingredientGroups": [
+        [
+          "simplestorage:chest_interface"
+        ],
+        [
+          "minecraft:chest"
+        ],
+        [
+          "minecraft:writable_book"
+        ],
+        [
+          "minecraft:ender_pearl"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:redstone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2.625
+          },
+          {
+            "id": "minecraft:ender_pearl",
+            "count": 1
+          },
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sand",
+            "count": 0.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplestorage:yellow_dyed_storage",
       "type": "minecraft:crafting_transmute",
       "category": "equipment",
@@ -6887,6 +7636,42 @@
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/cherry_crate.json"
     },
     {
+      "id": "simplestorage:blocks/chest_interface",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:chest_interface"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/chest_interface.json"
+    },
+    {
+      "id": "simplestorage:blocks/copper_cable",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:copper_cable"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/copper_cable.json"
+    },
+    {
       "id": "simplestorage:blocks/crimson_crate",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -6973,6 +7758,42 @@
         }
       ],
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/enderite_chest.json"
+    },
+    {
+      "id": "simplestorage:blocks/enderite_controller_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:enderite_controller_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/enderite_controller_chest.json"
+    },
+    {
+      "id": "simplestorage:blocks/enderite_pipe",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:enderite_pipe"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/enderite_pipe.json"
     },
     {
       "id": "simplestorage:blocks/enderite_shulker_box",
@@ -7097,6 +7918,42 @@
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/netherite_chest.json"
     },
     {
+      "id": "simplestorage:blocks/netherite_controller_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:netherite_controller_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/netherite_controller_chest.json"
+    },
+    {
+      "id": "simplestorage:blocks/netherite_pipe",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:netherite_pipe"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/netherite_pipe.json"
+    },
+    {
       "id": "simplestorage:blocks/netherite_shulker_box",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7185,6 +8042,24 @@
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/pale_oak_crate.json"
     },
     {
+      "id": "simplestorage:blocks/pipe",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:pipe"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/pipe.json"
+    },
+    {
       "id": "simplestorage:blocks/reinforced_backpack",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7217,6 +8092,42 @@
         }
       ],
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/reinforced_chest.json"
+    },
+    {
+      "id": "simplestorage:blocks/reinforced_controller_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:reinforced_controller_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/reinforced_controller_chest.json"
+    },
+    {
+      "id": "simplestorage:blocks/reinforced_pipe",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:reinforced_pipe"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/reinforced_pipe.json"
     },
     {
       "id": "simplestorage:blocks/reinforced_shulker_box",
@@ -7413,6 +8324,24 @@
         }
       ],
       "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/weathered_trapped_copper_chest.json"
+    },
+    {
+      "id": "simplestorage:blocks/wooden_controller_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplestorage:wooden_controller_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/loot_table/blocks/wooden_controller_chest.json"
     }
   ],
   "tags": [
@@ -8427,10 +9356,10 @@
           "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 32 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+          "summary": "Guide to this mod: 36 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 32 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+          "summary": "Handbuch zu dieser Mod: 36 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
         }
       },
       "texture": "assets/textures/simplestorage/item/guide_book.png",
@@ -9926,6 +10855,61 @@
       "usedIn": []
     },
     {
+      "id": "simplestorage:chest_interface",
+      "name": {
+        "en_us": "Chest Interface",
+        "de_de": "Truhen-Schnittstelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/network/InterfaceBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/network/ChestNetwork.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/chest_interface.json"
+        ],
+        "en": {
+          "summary": "A plate that sits next to a chest and points at it; it connects the chest to the cables of a chest network. The controller chest needs one as well."
+        },
+        "de": {
+          "summary": "Eine Platte, die neben einer Truhe sitzt und auf sie zeigt; sie verbindet die Truhe mit den Kabeln eines Truhen-Netzwerks. Auch die Controller-Truhe braucht eine."
+        }
+      },
+      "texture": "assets/textures/simplestorage/block/chest_interface.png",
+      "craftedBy": [
+        "simplestorage:chest_interface"
+      ],
+      "usedIn": [
+        "simplestorage:enderite_controller_chest",
+        "simplestorage:netherite_controller_chest",
+        "simplestorage:reinforced_controller_chest",
+        "simplestorage:wooden_controller_chest"
+      ]
+    },
+    {
+      "id": "simplestorage:copper_cable",
+      "name": {
+        "en_us": "Copper Cable",
+        "de_de": "Kupferkabel"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/network/CableBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/network/ChestNetwork.java",
+          "modules/simplestorage/shared/resources/data/simplestorage/recipe/copper_cable.json"
+        ],
+        "en": {
+          "summary": "Connects chest interfaces to a controller chest; also a decoration block that draws arms like a chorus plant. Three copper ingots with wool above and below make 3."
+        },
+        "de": {
+          "summary": "Verbindet Truhen-Schnittstellen mit einer Controller-Truhe; auch ein Dekoblock, der wie eine Chorus-Pflanze Arme zeichnet. Drei Kupferbarren mit Wolle darüber und darunter ergeben 3."
+        }
+      },
+      "texture": "assets/textures/simplestorage/block/copper_cable.png",
+      "craftedBy": [
+        "simplestorage:copper_cable"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplestorage:crimson_crate",
       "name": {
         "en_us": "Crimson Crate",
@@ -10243,8 +11227,62 @@
         "simplestorage:enderite_chest_boat_poplar",
         "simplestorage:enderite_chest_boat_spruce",
         "simplestorage:enderite_chest_minecart",
+        "simplestorage:enderite_controller_chest",
         "simplestorage:enderite_trapped_chest"
       ]
+    },
+    {
+      "id": "simplestorage:enderite_controller_chest",
+      "name": {
+        "en_us": "Enderite Controller Chest",
+        "de_de": "Enderit-Controller-Truhe"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:enderite_controller_chest"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:enderite_pipe",
+      "name": {
+        "en_us": "Enderite Pipe",
+        "de_de": "Enderit-Rohr"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "A hopper with one slot that looks like a cable: it moves items from the containers beside it into the container at its one output (arrow). Sneak + right-click turns the output; the window has a filter key. 1 item every 8 ticks, Reinforced every 6, Netherite 2 every 4, Enderite 4 every 2."
+        },
+        "de": {
+          "summary": "Ein Trichter mit einem Platz, der wie ein Kabel aussieht: er schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang (Pfeil). Schleichen + Rechtsklick dreht den Ausgang; das Fenster hat einen Filterknopf. 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 alle 4, Enderit 4 alle 2."
+        }
+      },
+      "texture": "assets/textures/simplestorage/block/enderite_pipe.png",
+      "craftedBy": [
+        "simplestorage:enderite_pipe"
+      ],
+      "usedIn": []
     },
     {
       "id": "simplestorage:enderite_shulker_box",
@@ -10650,7 +11688,63 @@
         "simplestorage:netherite_chest_boat_poplar",
         "simplestorage:netherite_chest_boat_spruce",
         "simplestorage:netherite_chest_minecart",
+        "simplestorage:netherite_controller_chest",
         "simplestorage:netherite_trapped_chest"
+      ]
+    },
+    {
+      "id": "simplestorage:netherite_controller_chest",
+      "name": {
+        "en_us": "Netherite Controller Chest",
+        "de_de": "Netherit-Controller-Truhe"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:netherite_controller_chest"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:netherite_pipe",
+      "name": {
+        "en_us": "Netherite Pipe",
+        "de_de": "Netherit-Rohr"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "A hopper with one slot that looks like a cable: it moves items from the containers beside it into the container at its one output (arrow). Sneak + right-click turns the output; the window has a filter key. 1 item every 8 ticks, Reinforced every 6, Netherite 2 every 4, Enderite 4 every 2."
+        },
+        "de": {
+          "summary": "Ein Trichter mit einem Platz, der wie ein Kabel aussieht: er schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang (Pfeil). Schleichen + Rechtsklick dreht den Ausgang; das Fenster hat einen Filterknopf. 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 alle 4, Enderit 4 alle 2."
+        }
+      },
+      "texture": "assets/textures/simplestorage/block/netherite_pipe.png",
+      "craftedBy": [
+        "simplestorage:netherite_pipe"
+      ],
+      "usedIn": [
+        "simplestorage:enderite_pipe"
       ]
     },
     {
@@ -10825,6 +11919,35 @@
         "simplestorage:pale_oak_crate"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simplestorage:pipe",
+      "name": {
+        "en_us": "Pipe",
+        "de_de": "Rohr"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "A hopper with one slot that looks like a cable: it moves items from the containers beside it into the container at its one output (arrow). Sneak + right-click turns the output; the window has a filter key. 1 item every 8 ticks, Reinforced every 6, Netherite 2 every 4, Enderite 4 every 2."
+        },
+        "de": {
+          "summary": "Ein Trichter mit einem Platz, der wie ein Kabel aussieht: er schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang (Pfeil). Schleichen + Rechtsklick dreht den Ausgang; das Fenster hat einen Filterknopf. 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 alle 4, Enderit 4 alle 2."
+        }
+      },
+      "texture": "assets/textures/simplestorage/block/pipe.png",
+      "craftedBy": [
+        "simplestorage:pipe"
+      ],
+      "usedIn": [
+        "simplestorage:reinforced_pipe"
+      ]
     },
     {
       "id": "simplestorage:placed_bundle",
@@ -11115,7 +12238,63 @@
         "simplestorage:reinforced_chest_boat_poplar",
         "simplestorage:reinforced_chest_boat_spruce",
         "simplestorage:reinforced_chest_minecart",
+        "simplestorage:reinforced_controller_chest",
         "simplestorage:reinforced_trapped_chest"
+      ]
+    },
+    {
+      "id": "simplestorage:reinforced_controller_chest",
+      "name": {
+        "en_us": "Reinforced Controller Chest",
+        "de_de": "Verstärkte Controller-Truhe"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:reinforced_controller_chest"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplestorage:reinforced_pipe",
+      "name": {
+        "en_us": "Reinforced Pipe",
+        "de_de": "Verstärktes Rohr"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "A hopper with one slot that looks like a cable: it moves items from the containers beside it into the container at its one output (arrow). Sneak + right-click turns the output; the window has a filter key. 1 item every 8 ticks, Reinforced every 6, Netherite 2 every 4, Enderite 4 every 2."
+        },
+        "de": {
+          "summary": "Ein Trichter mit einem Platz, der wie ein Kabel aussieht: er schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang (Pfeil). Schleichen + Rechtsklick dreht den Ausgang; das Fenster hat einen Filterknopf. 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 alle 4, Enderit 4 alle 2."
+        }
+      },
+      "texture": "assets/textures/simplestorage/block/reinforced_pipe.png",
+      "craftedBy": [
+        "simplestorage:reinforced_pipe"
+      ],
+      "usedIn": [
+        "simplestorage:netherite_pipe"
       ]
     },
     {
@@ -11494,6 +12673,32 @@
       "usedIn": [
         "simplestorage:waxed_weathered_trapped_copper_chest_from_honeycomb"
       ]
+    },
+    {
+      "id": "simplestorage:wooden_controller_chest",
+      "name": {
+        "en_us": "Wooden Controller Chest",
+        "de_de": "Hölzerne Controller-Truhe"
+      },
+      "note": {
+        "sources": [
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredTrappedChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TrappedCopperChestBlock.java",
+          "modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlockEntity.java",
+          "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+        ],
+        "en": {
+          "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside."
+        },
+        "de": {
+          "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt."
+        }
+      },
+      "craftedBy": [
+        "simplestorage:wooden_controller_chest"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -11510,14 +12715,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
-    "recipes": 177,
-    "lootTables": 36,
+    "features": 15,
+    "recipes": 187,
+    "lootTables": 46,
     "tags": 8,
     "advancements": 0,
     "enchantments": 3,
     "items": 17,
-    "blocks": 37,
+    "blocks": 47,
     "trades": 0,
     "config": 0,
     "quests": 0,

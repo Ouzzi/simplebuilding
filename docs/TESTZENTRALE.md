@@ -47,7 +47,7 @@ Alle unter `/sbtestcentre`, Befehlsrechte Stufe 2 (Operator/Cheats; Befehlsblöc
 | `kit [Spieler]` | höchste Stufe von Meißel, Baustab, Vorschlaghammer, Spitzhacke (max. verzaubert), die Geräte, eine Blaupause, Steinziegel |
 | `give <station> [Spieler]` | das Kit einer Station (siehe unten); **ersetzt das Inventar**. So ruft der Ausgabe-Knopf vorn an jeder Station |
 | `tp` | zum Eingang |
-| `tp <platz>` | zu einem benannten Platz der Planung, z. B. `tp mob/simplemobs/shellker` (Blick in die Mob-Zelle) |
+| `tp <platz>` | zu einem benannten Platz der Planung, z. B. `tp mob/simplemobs/shellker` (Blick in die Mob-Zelle); **`tp section/<id>`** = Haltestelle vor jedem Abschnitt (TZ22-9), Laufweg in `docs/ai/RUNDGANG-TESTZENTRALE-2026-10-30.md` |
 | `coverage` | nennt Mod-Items, die noch keinem Abschnitt zugeordnet sind |
 | `stats [only\|without …]` | Abschnitte, Fläche, Item-Rahmen und Rüstungsständer der Planung (ohne Bau); je Abschnitt eine Zeile im Log (TZ22-2); mit Optionen die Größe eines Teilbaus |
 

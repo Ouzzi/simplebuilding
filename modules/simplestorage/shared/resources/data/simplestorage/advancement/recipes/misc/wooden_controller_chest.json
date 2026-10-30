@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chest_interface": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplestorage:chest_interface"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplestorage:wooden_controller_chest"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chest_interface"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplestorage:wooden_controller_chest"
+    ]
+  }
+}

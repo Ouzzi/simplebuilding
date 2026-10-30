@@ -1,0 +1,123 @@
+{
+  "fossil_block": {
+    "lore": [
+      "Alte Knochen, die in einer Staubschicht schlafen."
+    ],
+    "use": [
+      "Etwa eine Minute mit dem Vanilla-Pinsel pinseln, dann fällt ein Dinosaurier-Ei heraus. Pausen lassen den Fortschritt doppelt so schnell zurücklaufen. Mit Behutsamkeit abbauen, um den Block zu behalten."
+    ],
+    "secret": [
+      "Welches Ei darin schläft, hängt nur vom Ort ab, an dem der Block liegt."
+    ]
+  },
+  "trex_egg": {
+    "lore": [
+      "Ein großes grünes Ei, warm anzufassen."
+    ],
+    "use": [
+      "Platzieren und mit leerer Hand daraufsetzen: 5 Minuten Sitzen brüten es aus, 10 Minuten später schlüpft ein zahmes T-Rex-Jungtier für den Spieler, der am längsten gesessen hat."
+    ],
+    "secret": [
+      "Wer zu früh aufsteht, verliert die Wärme doppelt so schnell, wie sie kam."
+    ]
+  },
+  "triceratops_egg": {
+    "lore": [
+      "Ein sandfarbenes Ei mit braunen Bändern."
+    ],
+    "use": [
+      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Triceratops selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+    ],
+    "secret": [
+      "Es wartet auf seinen Dinosaurier."
+    ]
+  },
+  "stegosaurus_egg": {
+    "lore": [
+      "Ein schiefergraues Ei mit einem Muster wie kleine Platten."
+    ],
+    "use": [
+      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Stegosaurus selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+    ],
+    "secret": [
+      "Es wartet auf seinen Dinosaurier."
+    ]
+  },
+  "utahraptor_egg": {
+    "lore": [
+      "Ein rostrotes Ei mit dunklen Sprenkeln."
+    ],
+    "use": [
+      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Utahraptor selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+    ],
+    "secret": [
+      "Es wartet auf seinen Dinosaurier."
+    ]
+  },
+  "parasaurolophus_egg": {
+    "lore": [
+      "Ein türkisfarbenes Ei mit hellen Punkten."
+    ],
+    "use": [
+      "Lässt sich wie jedes Dinosaurier-Ei platzieren und bebrüten. Der Parasaurolophus selbst ist noch nicht gebaut, das Ei bleibt vorerst ein Ei."
+    ],
+    "secret": [
+      "Es wartet auf seinen Dinosaurier."
+    ]
+  },
+  "large_saddle": {
+    "lore": [
+      "Ein Sattel für etwas, das viel größer ist als ein Pferd."
+    ],
+    "use": [
+      "An einem gezähmten erwachsenen Dinosaurier benutzen, um ihn zu reiten; ein Reiter. Formrezept: ein Sattel in der Mitte, 4 Leder in den Ecken, 4 Eisenbarren an den Seiten."
+    ],
+    "secret": [
+      "Ein normaler Sattel passt nicht, und dieser passt auf kein Pferd."
+    ]
+  },
+  "trex_armor_leather": {
+    "lore": [
+      "Gekochte Lederplatten, zugeschnitten für einen Schädel so groß wie eine Tür."
+    ],
+    "use": [
+      "An einem gezähmten erwachsenen T-Rex benutzen. Schutz 3, wie die Lederpferderüstung. 8 Leder um einen Knochenblock."
+    ],
+    "secret": [
+      "Der Knochenblock in der Mitte gefällt dem T-Rex am besten."
+    ]
+  },
+  "trex_armor_iron": {
+    "lore": [
+      "Genietete Eisenplatten für Kopf und Rücken, die zurückbeißen."
+    ],
+    "use": [
+      "An einem gezähmten erwachsenen T-Rex benutzen. Schutz 5, wie die Eisenpferderüstung. 8 Eisenbarren um einen Knochenblock."
+    ],
+    "secret": [
+      "Die Nieten sind das Einzige, was nicht schwer ist."
+    ]
+  },
+  "trex_armor_diamond": {
+    "lore": [
+      "Diamantplatten, die das Licht durch die Höhle werfen."
+    ],
+    "use": [
+      "An einem gezähmten erwachsenen T-Rex benutzen. Schutz 11, wie die Diamantpferderüstung. 8 Diamanten um einen Knochenblock."
+    ],
+    "secret": [
+      "Sieht an einem grünen T-Rex am besten aus."
+    ]
+  },
+  "guide_book": {
+    "lore": [
+      "Ein Feldbuch für die Funde unter dem Sand."
+    ],
+    "use": [
+      "Das Simple-Dinosaurs-Handbuch erklärt Fossilienblock, Eier und T-Rex. Formlos aus einem Buch und einem Knochen gebaut."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache und nichts wird verbraucht."
+    ]
+  }
+}

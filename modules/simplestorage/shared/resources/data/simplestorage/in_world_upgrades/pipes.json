@@ -1,0 +1,28 @@
+{
+  "upgrades": [
+    {
+      "damage_per_hit": 2,
+      "from": "simplestorage:pipe",
+      "material": "simplelib:cracked_diamond",
+      "min_tool": "any",
+      "tier": "reinforced",
+      "to": "simplestorage:reinforced_pipe"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplestorage:reinforced_pipe",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "tier": "netherite",
+      "to": "simplestorage:netherite_pipe"
+    },
+    {
+      "damage_per_hit": 10,
+      "from": "simplestorage:netherite_pipe",
+      "material": "simplelib:enderite_nugget",
+      "min_tool": "netherite",
+      "tier": "enderite",
+      "to": "simplestorage:enderite_pipe"
+    }
+  ]
+}

@@ -28,6 +28,9 @@ public final class Active implements View {
     public final UnlockMode mode;
     public final ChallengeState state;
     public final PriceEngine engine;
+    /** The Lucky odds (null without a lucky / randomdrops mode) and the Skyline plans (null without a skyline mode); tests may replace the plans. */
+    public final com.simplebuilding.modules.simplechallenges.lucky.LuckyTable lucky;
+    public volatile com.simplebuilding.modules.simplechallenges.skyline.SkylinePlans skyline;
     private final Map<String, WeightedItem> available = new LinkedHashMap<>();
 
     Active(MinecraftServer server, Preset preset, ChallengeState state) {
@@ -37,6 +40,8 @@ public final class Active implements View {
         this.state = state;
         this.engine = mode == null ? null : new PriceEngine(state.seed, mode);
         if (mode != null) state.bind(mode);
+        this.lucky = preset.lucky() == null ? null : com.simplebuilding.modules.simplechallenges.lucky.LuckyTable.build(preset.lucky().alpha());
+        this.skyline = preset.skyline() == null ? null : com.simplebuilding.modules.simplechallenges.skyline.SkylinePlans.build(preset.skyline());
     }
 
     @Override
