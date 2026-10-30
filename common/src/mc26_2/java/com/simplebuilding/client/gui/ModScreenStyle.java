@@ -100,6 +100,10 @@ public final class ModScreenStyle {
         return false;
     }
 
+    public static boolean paper(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
+        return false;
+    }
+
     public static boolean field(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
         return false;
     }

@@ -11,6 +11,7 @@ import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
 import com.simplebuilding.blueprint.BlueprintTiers;
 import com.simplebuilding.blueprint.BlueprintViewControls;
+import com.simplebuilding.client.gui.ModScreenStyle;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BlueprintItem;
 import com.simplebuilding.networking.BlueprintEditPayload;
@@ -67,6 +68,18 @@ public class BlueprintScreen extends Screen {
     static final int ERROR = 0xFFA82020; // 5.5:1 on PAPER (was 4.2:1)
     static final int OK = 0xFF256528; // 5.3:1 on PAPER (was 3.9:1)
     private static final int SELECT = 0xFF3A6EA5;
+    /**
+     * Das Blatt {@code r} (UI28-1): als Simple-Kasten (Rahmen, gestufte Ecken, Schatten; er waechst um den Rahmen nach aussen, die Papierflaeche
+     * liegt innen auf {@code r}), bei ausgeschaltetem Stil wie bisher flach.
+     */
+    static void paper(GuiGraphicsExtractor g, Rect r) {
+        if (ModScreenStyle.paper(g, PAPER, r.x() - 4, r.y() - 4, r.w() + 8, r.h() + 10)) return;
+        g.fill(r.x() - 1, r.y() - 1, r.right() + 1, r.bottom() + 1, PAPER_EDGE);
+        g.fill(r.x(), r.y(), r.right(), r.bottom(), PAPER);
+        g.fill(r.x() + 2, r.y() + 2, r.right() - 2, r.y() + 3, PAPER_SHADE);
+        g.fill(r.x() + 2, r.bottom() - 3, r.right() - 2, r.bottom() - 2, PAPER_SHADE);
+    }
+
     /** Autospeichern so lange nach der letzten Aenderung. */
     public static final long AUTOSAVE_MS = 1500;
     private static final int[] TIER_COLOURS = {0xFFB87333, 0xFFA8A8A8, 0xFFE0B82E, 0xFF4FC3C7, 0xFF5A4A4A, 0xFF7B3FA0};
@@ -485,10 +498,7 @@ public class BlueprintScreen extends Screen {
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         Rect p = layout.panel;
-        g.fill(p.x() - 1, p.y() - 1, p.right() + 1, p.bottom() + 1, PAPER_EDGE);
-        g.fill(p.x(), p.y(), p.right(), p.bottom(), PAPER);
-        g.fill(p.x() + 2, p.y() + 2, p.right() - 2, p.y() + 3, PAPER_SHADE);
-        g.fill(p.x() + 2, p.bottom() - 3, p.right() - 2, p.bottom() - 2, PAPER_SHADE);
+        paper(g, p);
         // Hintergrund der Vorschau vor den Knoepfen, damit die Knoepfe darauf liegen
         Rect v = layout.view;
         g.fill(v.x(), v.y(), v.right(), v.bottom(), PAPER_EDGE);

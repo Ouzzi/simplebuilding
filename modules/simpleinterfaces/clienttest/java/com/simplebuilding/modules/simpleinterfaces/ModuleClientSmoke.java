@@ -130,6 +130,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             show(context, "simpleinterfaces-inventory", c -> new InventoryScreen(c.player));
             showWork(context);
+            keysPage(context);
             context.runOnClient(c -> c.setScreenAndShow(null));
         }
     }
@@ -188,6 +189,27 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
     /** W1 G2: crafting table, the three furnaces (lit, half cooked), brewing stand (brewing), beacon, enchanting table. */
+    /** WP-25: the key binding page opens in the list and in the keyboard view (60 / 75 / 100 %), nothing throws while drawing. */
+    private static void keysPage(ClientGameTestContext context) {
+        var keysClass = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.class;
+        record Shot(String name, boolean list, com.simplelib.api.client.keys.KeyboardLayout.Size size) {}
+        for (Shot shot : java.util.List.of(
+                new Shot("simpleinterfaces-keys-list", true, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL),
+                new Shot("simpleinterfaces-keys-60", false, com.simplelib.api.client.keys.KeyboardLayout.Size.COMPACT),
+                new Shot("simpleinterfaces-keys-75", false, com.simplelib.api.client.keys.KeyboardLayout.Size.TENKEYLESS),
+                new Shot("simpleinterfaces-keys-100", false, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL))) {
+            context.runOnClient(c -> {
+                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(shot.list(), shot.size());
+                c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
+            });
+            context.waitTicks(3);
+            context.runOnClient(c -> {
+                if (!keysClass.isInstance(c.gui.screen())) throw new AssertionError(shot.name() + ": key page did not open");
+            });
+            context.takeScreenshot(shot.name());
+        }
+    }
+
     private static void showWork(ClientGameTestContext context) {
         show(context, "simpleinterfaces-crafting", c -> {
             var menu = new net.minecraft.world.inventory.CraftingMenu(0, c.player.getInventory());

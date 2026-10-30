@@ -16,5 +16,6 @@ public final class StyleToggleClient {
 
     public static void tick(Minecraft client) {
         while (KEY.consumeClick()) UiStyleToggle.toggle();
+        KeysClient.tick(client);
     }
 }
