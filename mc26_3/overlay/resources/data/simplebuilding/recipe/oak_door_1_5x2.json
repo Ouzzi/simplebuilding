@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "minecraft:oak_door",
+    "simplebuilding:oak_door_half_2"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:oak_door_1_5x2"
+  }
+}

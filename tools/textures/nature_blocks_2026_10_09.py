@@ -10,7 +10,7 @@
   Variante) - Seite ein weiches rundes Leuchten mit feinen senkrechten Schlieren, Stirnseite ein flacher heller Kern
   mit weichem, unregelmaessigem Rand; eigene Farbrampen.
 
-Rissiges Eis braucht keine Textur (Modelle zeigen auf minecraft:block/frosted_ice_0..3), die Stufen ebenso.
+Rissiges Eis hat seit ABN30-7 eigene Vanilla-abgeleitete Texturen (ice31_2026_10_30.py), vorher zeigten die Modelle auf minecraft:block/frosted_ice_0..3.
 
   python3 tools/textures/nature_blocks_2026_10_09.py            # schreibt die PNGs + Vorschau
   python3 tools/textures/nature_blocks_2026_10_09.py --check    # prueft, ob die PNGs aktuell sind

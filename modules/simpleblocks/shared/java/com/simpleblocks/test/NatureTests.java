@@ -55,6 +55,8 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 public final class NatureTests {
     /** Rissiges Eis: vier Stufen a {@link CrackedIceBlock#TICKS_PER_CRACK} plus Fallen und Reserve. */
     public static final int CRACKED_ICE_MAX_TICKS = 200;
+    /** Rissiges Packeis/Blaueis (ABN30-7): vier Stufen a 30 bzw. 40 Ticks plus Reserve. */
+    public static final int CRACKED_HARD_ICE_MAX_TICKS = 260;
     public static final int FALLING_SLAB_MAX_TICKS = 100;
     public static final int GRAVITY_MAX_TICKS = 100;
 
@@ -76,6 +78,8 @@ public final class NatureTests {
         all.put("cracked_ice_leaves_no_water", NatureTests::crackedIceLeavesNoWater);
         all.put("cracked_ice_melts_under_an_entity_after_some_seconds", NatureTests::crackedIceMeltsUnderAnEntityAfterSomeSeconds);
         maxTicks.put("cracked_ice_melts_under_an_entity_after_some_seconds", CRACKED_ICE_MAX_TICKS);
+        all.put("cracked_hard_ice_cracks_in_graded_steps", NatureTests::crackedHardIceCracksInGradedSteps);
+        maxTicks.put("cracked_hard_ice_cracks_in_graded_steps", CRACKED_HARD_ICE_MAX_TICKS);
         all.put("cracked_ice_allows_placement_on_all_sides_and_blends_with_ice", NatureTests::crackedIceAllowsPlacementOnAllSidesAndBlendsWithIce);
         all.put("cracked_ice_drops_itself_with_silk_touch", NatureTests::crackedIceDropsItselfWithSilkTouch);
         all.put("moved_blocks_registered", NatureTests::movedBlocksRegistered);
@@ -111,7 +115,8 @@ public final class NatureTests {
             }
         }
         Set<String> cuts = stonecutting(helper.getLevel());
-        for (String cut : List.of("ice -> 1 cracked_ice", "packed_ice -> 1 chiseled_packed_ice", "blue_ice -> 1 chiseled_blue_ice")) {
+        for (String cut : List.of("ice -> 1 cracked_ice", "packed_ice -> 1 chiseled_packed_ice", "blue_ice -> 1 chiseled_blue_ice",
+                "packed_ice -> 1 cracked_packed_ice", "blue_ice -> 1 cracked_blue_ice")) {
             if (!cuts.contains(cut)) {
                 missing.add("stonecutter " + cut);
             }
@@ -221,6 +226,38 @@ public final class NatureTests {
             helper.assertTrue(helper.getBlockState(alone).is(NatureBlocks.CRACKED_ICE)
                     && helper.getBlockState(alone).getValue(CrackedIceBlock.AGE) == 0, "cracked ice nobody stood on changed: "
                     + helper.getBlockState(alone));
+        });
+    }
+
+    /**
+     * ABN30-7: rissiges Eis, Packeis und Blaueis reissen unter je einem Lebewesen abgestuft: nach 25 Ticks hat das Eis schon einen
+     * Riss, Packeis und Blaueis noch nicht; alle drei brechen zuletzt weg, in der Reihenfolge Eis, Packeis, Blaueis.
+     */
+    public static void crackedHardIceCracksInGradedSteps(GameTestHelper helper) {
+        BlockPos[] spots = {new BlockPos(1, 1, 1), new BlockPos(3, 1, 1), new BlockPos(5, 1, 1)};
+        Block[] blocks = {NatureBlocks.CRACKED_ICE, NatureBlocks.CRACKED_PACKED_ICE, NatureBlocks.CRACKED_BLUE_ICE};
+        for (int i = 0; i < 3; i++) {
+            helper.setBlock(spots[i], blocks[i]);
+            helper.assertTrue(helper.spawn(EntityTypes.ARMOR_STAND, spots[i].above()) != null, "no armor stand " + i);
+        }
+        int[] gone = {-1, -1, -1};
+        int[] tick = {0};
+        helper.onEachTick(() -> {
+            tick[0]++;
+            for (int i = 0; i < 3; i++) {
+                if (gone[i] < 0 && helper.getBlockState(spots[i]).isAir()) {
+                    gone[i] = tick[0];
+                }
+            }
+        });
+        helper.runAfterDelay(25, () -> {
+            helper.assertTrue(helper.getBlockState(spots[0]).getValue(CrackedIceBlock.AGE) >= 1, "ice cracks after 20 ticks: " + helper.getBlockState(spots[0]));
+            helper.assertValueEqual(helper.getBlockState(spots[1]).getValue(CrackedIceBlock.AGE), 0, "packed ice holds longer than 25 ticks");
+            helper.assertValueEqual(helper.getBlockState(spots[2]).getValue(CrackedIceBlock.AGE), 0, "blue ice holds longer than 25 ticks");
+        });
+        helper.succeedWhen(() -> {
+            helper.assertTrue(gone[0] > 0 && gone[1] > 0 && gone[2] > 0, "all three break away without water: " + java.util.Arrays.toString(gone));
+            helper.assertTrue(gone[0] < gone[1] && gone[1] < gone[2], "graded: ice before packed ice before blue ice: " + java.util.Arrays.toString(gone));
         });
     }
 
@@ -443,7 +480,8 @@ public final class NatureTests {
             if (!state.is(net.minecraft.tags.BlockTags.SLABS) || !state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)
                     || !new ItemStack(slab).is(net.minecraft.tags.TagKey.create(Registries.ITEM, net.minecraft.resources.Identifier.withDefaultNamespace("slabs")))) problems.add("slab tags of " + slab);
         }
-        for (Block ice : List.of(NatureBlocks.CRACKED_ICE, NatureBlocks.CHISELED_PACKED_ICE, NatureBlocks.CHISELED_BLUE_ICE)) {
+        for (Block ice : List.of(NatureBlocks.CRACKED_ICE, NatureBlocks.CRACKED_PACKED_ICE, NatureBlocks.CRACKED_BLUE_ICE, NatureBlocks.CHISELED_PACKED_ICE,
+                NatureBlocks.CHISELED_BLUE_ICE)) {
             if (!ice.defaultBlockState().is(net.minecraft.tags.BlockTags.ICE) || !ice.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("ice tags of " + ice);
         }
         if (!NatureBlocks.NAUTILUS_SHELL_BLOCK.defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) problems.add("nautilus shell block pickaxe");

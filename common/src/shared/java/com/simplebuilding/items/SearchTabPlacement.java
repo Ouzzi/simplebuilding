@@ -179,7 +179,7 @@ public final class SearchTabPlacement {
         }
         if (com.simplebuilding.version.McVersion.DOORS) {
             // Simple Doors (WP-17 / BS28-2): behind the Vanilla oak door, next to their model.
-            out.add(Placement.after(BUILDING_BLOCKS, Items.OAK_DOOR, ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+            out.add(Placement.after(BUILDING_BLOCKS, Items.OAK_DOOR, ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Schienen wie Vanilla in beiden Tabs hinter der Antriebsschiene; Redstone kommt im Suchtab zuerst.
@@ -387,8 +387,8 @@ public final class SearchTabPlacement {
             out.add(Placement.after(NATURAL_BLOCKS, Items.GRASS_BLOCK, block(BlockRefs.GRASS_SLAB)));
             out.add(Placement.after(NATURAL_BLOCKS, Items.DIRT, block(BlockRefs.DIRT_SLAB)));
             out.add(Placement.after(NATURAL_BLOCKS, Items.ICE, block(BlockRefs.CRACKED_ICE)));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, block(BlockRefs.CHISELED_PACKED_ICE)));
-            out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, block(BlockRefs.CHISELED_BLUE_ICE)));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.PACKED_ICE, chain(block(BlockRefs.CHISELED_PACKED_ICE), block(BlockRefs.CRACKED_PACKED_ICE))));
+            out.add(Placement.after(NATURAL_BLOCKS, Items.BLUE_ICE, chain(block(BlockRefs.CHISELED_BLUE_ICE), block(BlockRefs.CRACKED_BLUE_ICE))));
             out.add(Placement.after(NATURAL_BLOCKS, Items.BONE_BLOCK, chain(block(BlockRefs.NAUTILUS_SHELL_BLOCK), octet("bone_block"))));
             out.add(Placement.after(NATURAL_BLOCKS, Items.SCULK_SHRIEKER, ModItems.SCULK_JAW));
             out.add(Placement.after(NATURAL_BLOCKS, Items.PEARLESCENT_FROGLIGHT,

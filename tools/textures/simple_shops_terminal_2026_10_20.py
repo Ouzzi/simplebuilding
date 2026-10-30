@@ -210,7 +210,8 @@ VARIANTS = {
 
 
 def outputs():
-    return {f'trade_terminal_{face}.png': fn() for face, fn in VARIANTS[CHOSEN].items()}
+    # ABN30-6: the terminal is drawn by shops31_2026_10_30.py (Boersentafel A, refined); VARIANTS above stay as history and for --variants.
+    return {}
 
 
 def sheet(path, scale=16):

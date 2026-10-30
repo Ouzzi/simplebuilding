@@ -65,6 +65,28 @@
       "Steht niemand darauf, bleiben die Risse, wie sie sind. So legst du eine Falle, oder du reparierst die Straße, indem du gehst."
     ]
   },
+  "cracked_packed_ice": {
+    "lore": [
+      "Packeis, das zu viele Schritte gesehen hat."
+    ],
+    "use": [
+      "Im Steinschneider aus einem Packeis eines. Ein darauf stehendes Lebewesen lässt es alle 1,5 Sekunden eine Stufe brechen; nach vier Stufen bricht es weg und hinterlässt kein Wasser. Lässt sich nur mit Behutsamkeit einsammeln."
+    ],
+    "secret": [
+      "Je härter das Eis, desto länger hält es: Eis 1 s, Packeis 1,5 s, Blaueis 2 s je Stufe."
+    ]
+  },
+  "cracked_blue_ice": {
+    "lore": [
+      "Blaueis, das zu viele Schritte gesehen hat."
+    ],
+    "use": [
+      "Im Steinschneider aus einem Blaueis eines. Ein darauf stehendes Lebewesen lässt es alle 2 Sekunden eine Stufe brechen; nach vier Stufen bricht es weg und hinterlässt kein Wasser. Lässt sich nur mit Behutsamkeit einsammeln."
+    ],
+    "secret": [
+      "Die Schollen des Blaueises geben als letzte nach."
+    ]
+  },
   "nautilus_shell_block": {
     "lore": [
       "Die Spirale des Meeres, zu einem Block gestapelt."

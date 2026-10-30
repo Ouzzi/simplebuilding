@@ -608,7 +608,7 @@ public final class ModItemGroupsContent {
         }
         if (com.simplebuilding.version.McVersion.DOORS) {
             // Simple Doors (WP-17 / BS28-2): the oak doors of 2x2, 2x3 and half width.
-            rows.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+            rows.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
         }
         return rows;
     }

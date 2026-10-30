@@ -191,9 +191,7 @@ def case_glass():
 
 def outputs():
     return {
-        'sales_block_front.png': sales_front(),
-        'sales_block_side.png': sales_side(),
-        'sales_block_top.png': sales_top(),
+        # ABN30-6: the sales block is drawn by shops31_2026_10_30.py (Marktstand A with ender pearls / eyes); the old look stays above as history.
         'display_case_base.png': case_base(False),
         'display_case_frame.png': case_frame(False),
         'glow_display_case_base.png': case_base(True),

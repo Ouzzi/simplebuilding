@@ -46,6 +46,8 @@ public final class WideDoorTests {
         return switch (f) {
             case FULL_2X2 -> ModBlocks.OAK_DOOR_2X2;
             case FULL_2X3 -> ModBlocks.OAK_DOOR_2X3;
+            case WIDE_1_5X2 -> ModBlocks.OAK_DOOR_1_5X2;
+            case WIDE_1_5X3 -> ModBlocks.OAK_DOOR_1_5X3;
             case HALF_2 -> ModBlocks.OAK_DOOR_HALF_2;
             case HALF_3 -> ModBlocks.OAK_DOOR_HALF_3;
         };
@@ -157,6 +159,8 @@ public final class WideDoorTests {
         List<Case> cases = List.of(
                 new Case("2x2", CraftingInput.of(2, 2, List.of(door, door, door, door)), item(DoorFormat.FULL_2X2)),
                 new Case("2x3", CraftingInput.of(2, 3, List.of(door, door, door, door, door, door)), item(DoorFormat.FULL_2X3)),
+                new Case("1.5x2", CraftingInput.of(2, 1, List.of(door, new ItemStack(item(DoorFormat.HALF_2)))), item(DoorFormat.WIDE_1_5X2)),
+                new Case("1.5x3", CraftingInput.of(2, 1, List.of(new ItemStack(item(DoorFormat.WIDE_1_5X2)), planks)), item(DoorFormat.WIDE_1_5X3)),
                 new Case("half 2", CraftingInput.of(1, 3, List.of(planks, planks, stick)), item(DoorFormat.HALF_2)),
                 new Case("half 3", CraftingInput.of(2, 1, List.of(new ItemStack(item(DoorFormat.HALF_2)), planks)), item(DoorFormat.HALF_3)));
         for (Case c : cases) {
@@ -222,7 +226,7 @@ public final class WideDoorTests {
         }
         ServerPlayer player = player(h);
         List<String> problems = new ArrayList<>();
-        for (DoorFormat f : List.of(DoorFormat.FULL_2X2, DoorFormat.FULL_2X3)) {
+        for (DoorFormat f : List.of(DoorFormat.FULL_2X2, DoorFormat.FULL_2X3, DoorFormat.WIDE_1_5X2, DoorFormat.WIDE_1_5X3)) {
             for (int blockedCol = 0; blockedCol < 2; blockedCol++) {
                 clear(h);
                 place(h, player, f, ORIGIN);
@@ -286,6 +290,35 @@ public final class WideDoorTests {
         h.assertTrue(near(closed.getXsize(), 1.0) && near(closed.getZsize(), 3.0 / 16.0) && near(closed.minZ, 13.0 / 16.0), "closed slab: " + closed);
         h.assertTrue(near(hingeLeaf.minX, 0.0) && near(hingeLeaf.maxX, 3.0 / 16.0) && near(hingeLeaf.getZsize(), 1.0), "leaf in the hinge cell: " + hingeLeaf);
         h.assertTrue(near(swingLeaf.minX, 0.0) && near(swingLeaf.maxX, 3.0 / 16.0) && near(swingLeaf.getZsize(), 1.0), "leaf in the swing cell: " + swingLeaf);
+        h.succeed();
+    }
+
+    /**
+     * ABN30-5: the 1.5 wide door. Closed, the second column holds an 8 px stub on the hinge side (the leaf ends in the middle of the
+     * block); open, the swing cell holds an 8 px stub next to the hinge cell; the swing area stays the full width x height.
+     */
+    public static void wide15LeafEndsInTheBlockMiddle(GameTestHelper h) {
+        if (!McVersion.DOORS) {
+            h.succeed();
+            return;
+        }
+        ServerPlayer player = player(h);
+        for (DoorFormat f : List.of(DoorFormat.WIDE_1_5X2, DoorFormat.WIDE_1_5X3)) {
+            clear(h);
+            place(h, player, f, ORIGIN);
+            AABB first = at(h, ORIGIN).getShape(h.getLevel(), h.absolutePos(ORIGIN)).bounds();
+            AABB second = at(h, ORIGIN.east()).getShape(h.getLevel(), h.absolutePos(ORIGIN.east())).bounds();
+            h.assertTrue(near(first.getXsize(), 1.0) && near(second.getXsize(), 0.5) && near(second.minX, 0.0) && near(second.minZ, 13.0 / 16.0),
+                    f + " closed: first " + first + ", second " + second);
+            h.useBlock(hinge(0), player);
+            AABB hingeLeaf = at(h, hinge(0)).getShape(h.getLevel(), h.absolutePos(hinge(0))).bounds();
+            AABB swingLeaf = at(h, swing(0, 0)).getShape(h.getLevel(), h.absolutePos(swing(0, 0))).bounds();
+            h.assertTrue(openAndWhole(h, f), f + " open state wrong: " + at(h, hinge(0)) + " / " + at(h, swing(0, 0)));
+            h.assertTrue(near(hingeLeaf.getZsize(), 1.0) && near(swingLeaf.getZsize(), 0.5) && near(swingLeaf.minZ, 0.5) && near(swingLeaf.minX, 0.0),
+                    f + " open: hinge leaf " + hingeLeaf + ", swing leaf " + swingLeaf);
+            h.useBlock(hinge(0), player);
+            h.assertTrue(closedAndWhole(h, f), f + " did not close");
+        }
         h.succeed();
     }
 

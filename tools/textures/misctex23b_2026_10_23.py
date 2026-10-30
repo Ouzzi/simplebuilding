@@ -766,8 +766,7 @@ BUTTER_CHOICE = 'X'   # W24-1 (owner 23.10. late: all open choices accepted, rec
 def built():
     """repo path -> (Tex, mcmeta or None) for everything this generator ships (the leaves go through gen_textures)."""
     out = {}
-    for n, t in sales_storage_soft(SHOP_TABLE_CHOICE).items():
-        out[SHOPS / f'{n}.png'] = (t, None)
+    # ABN30-6: the Sales Storage faces are drawn by shops31_2026_10_30.py (A, refined); sales_storage_soft() stays as history.
     for n, t in storage_table_soft(SHOP_TABLE_CHOICE).items():
         out[STORAGE / 'block' / f'{n}.png'] = (t, None)
     out[FUN / 'piggy_effect.png'] = (piggy(PIGGY_CHOICE), None)

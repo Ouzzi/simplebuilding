@@ -13,7 +13,8 @@ public final class NatureIds {
     /** Block paths in registration (and tab) order. */
     public static final List<String> NAMES = List.of("suspended_sand", "suspended_gravel", "levitating_sand", "levitating_gravel",
             "dirt_slab", "grass_slab", "sand_slab", "gravel_slab", "cracked_ice", "chiseled_packed_ice", "chiseled_blue_ice",
-            "nautilus_shell_block", "scarlet_froglight", "aqua_froglight", "azure_froglight");
+            "nautilus_shell_block", "scarlet_froglight", "aqua_froglight", "azure_froglight",
+            "cracked_packed_ice", "cracked_blue_ice");
     /** The rising block's entity type path. */
     public static final String LEVITATING_ENTITY = "levitating_block";
     /** Recipe ids that came from SimpleBuilding (recipe book) -> folder of their unlock advancement {@code recipes/<folder>/<path>}. */
@@ -25,7 +26,8 @@ public final class NatureIds {
         Map<String, String> out = new LinkedHashMap<>();
         for (String path : List.of("suspended_sand", "suspended_gravel", "levitating_sand", "levitating_gravel", "dirt_slab", "grass_slab",
                 "sand_slab", "gravel_slab", "cracked_ice_from_ice_stonecutting", "chiseled_packed_ice_from_packed_ice_stonecutting",
-                "chiseled_blue_ice_from_blue_ice_stonecutting", "nautilus_shell_block", "scarlet_froglight", "aqua_froglight", "azure_froglight")) {
+                "chiseled_blue_ice_from_blue_ice_stonecutting", "nautilus_shell_block", "scarlet_froglight", "aqua_froglight", "azure_froglight",
+                "cracked_packed_ice_from_packed_ice_stonecutting", "cracked_blue_ice_from_blue_ice_stonecutting")) {
             out.put(path, "building_blocks");
         }
         out.put("nautilus_shell_from_nautilus_shell_block", "misc");
