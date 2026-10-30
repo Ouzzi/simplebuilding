@@ -205,6 +205,46 @@
       }
     },
     {
+      "id": "simpleredstone:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleredstone:guide_book",
+        "count": 1
+      },
+      "source": "modules/simpleredstone/shared/resources/data/simpleredstone/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:redstone"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleredstone:signal_dampener",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -319,7 +359,32 @@
   "tags": [],
   "advancements": [],
   "enchantments": [],
-  "items": [],
+  "items": [
+    {
+      "id": "simpleredstone:guide_book",
+      "name": {
+        "en_us": "Simple Redstone Guide",
+        "de_de": "Simple-Redstone-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleredstone/shared/java/com/simpleredstone/guide/RedstoneGuide.java",
+          "modules/simpleredstone/shared/resources/data/simpleredstone/recipe/guide_book.json"
+        ],
+        "en": {
+          "summary": "Guide to this mod: 6 pages taken from this wiki, shown in your language. Shapeless recipe: book + redstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Redstone\" gives one for free."
+        },
+        "de": {
+          "summary": "Handbuch zu dieser Mod: 6 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Redstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Redstone\" eins."
+        }
+      },
+      "texture": "assets/textures/simpleredstone/item/guide_book.png",
+      "craftedBy": [
+        "simpleredstone:guide_book"
+      ],
+      "usedIn": []
+    }
+  ],
   "blocks": [
     {
       "id": "simpleredstone:double_piston",
@@ -466,12 +531,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 5,
-    "recipes": 2,
+    "recipes": 3,
     "lootTables": 5,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
-    "items": 0,
+    "items": 1,
     "blocks": 5,
     "trades": 0,
     "config": 0,
