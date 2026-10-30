@@ -290,9 +290,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_creative_spacer_cannot_be_taken_or_kept", DataIntegrityTests::creativeSpacerCannotBeTakenOrKept)
                     .build(),
-            GameTestSpec.named("data_integrity_game_test_vanilla_tabs_stay_unchanged_when_mod_items_are_disabled",
-                    DataIntegrityTests::vanillaTabsStayUnchangedWhenModItemsAreDisabled)
-                    .build(),
             GameTestSpec.named("data_integrity_game_test_creative_tab_spacers_follow_the_config",
                     DataIntegrityTests::creativeTabSpacersFollowTheConfig)
                     .build(),

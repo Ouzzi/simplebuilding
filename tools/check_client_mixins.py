@@ -14,6 +14,10 @@ server), parses the compiled mixin classes and checks them against the game jar 
     @ModifyReceiver, @WrapMethod) match a method of the target class
   * @At INVOKE/INVOKE_ASSIGN/FIELD/NEW targets occur as an instruction in a selected target method
   * @Inject handler arguments before the CallbackInfo equal the target's arguments (or are absent)
+  * @Slice from/to selectors and @At CONSTANT / @ModifyConstant @Constant values occur in the target methods
+  * handler signatures of @Redirect (INVOKE), @WrapOperation (INVOKE: receiver + arguments + Operation) and
+    @ModifyArg (index >= 0): parameter count, primitive types and the return type (object types are compared
+    loosely, a subclass or interface is fine); not checked: @Local captures, @ModifyArgs, @At FIELD handlers
 
 Usage (Gradle passes explicit paths, see :integration:checkClientMixins):
   check_client_mixins.py --mods <dir|jar>... --cp <dir|jar>...
@@ -79,6 +83,30 @@ def _oplen(code: bytes, pc: int) -> int:
     return 1
 
 
+def _constant(code: bytes, pc: int, op: int, cp: list):
+    """The constant a load instruction pushes, as (kind, value), or None."""
+    if 0x02 <= op <= 0x08:
+        return "int", op - 3
+    if op in (0x09, 0x0a):
+        return "long", op - 9
+    if 0x0b <= op <= 0x0d:
+        return "float", float(op - 0x0b)
+    if op in (0x0e, 0x0f):
+        return "double", float(op - 0x0e)
+    if op == 0x10:
+        return "int", struct.unpack_from(">b", code, pc + 1)[0]
+    if op == 0x11:
+        return "int", struct.unpack_from(">h", code, pc + 1)[0]
+    if op in (0x12, 0x13, 0x14):
+        idx = code[pc + 1] if op == 0x12 else struct.unpack_from(">H", code, pc + 1)[0]
+        e = cp[idx]
+        if isinstance(e, tuple) and e and e[0] in ("int", "float", "long", "double"):
+            return e[0], e[1]
+        if isinstance(e, tuple) and len(e) == 2 and e[0] == 8:
+            return "string", cp[e[1]]
+    return None
+
+
 def parse_class(data: bytes, with_code: bool) -> ClassInfo:
     off = 10
     count = struct.unpack_from(">H", data, 8)[0]
@@ -91,10 +119,10 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
             cp[i] = data[off + 3:off + 3 + ln].decode("utf-8", "replace")
             off += 3 + ln
         elif tag in (3, 4):
-            cp[i] = ("num",)
+            cp[i] = ("int", struct.unpack_from(">i", data, off + 1)[0]) if tag == 3 else ("float", struct.unpack_from(">f", data, off + 1)[0])
             off += 5
         elif tag in (5, 6):
-            cp[i] = ("num",)
+            cp[i] = ("long", struct.unpack_from(">q", data, off + 1)[0]) if tag == 5 else ("double", struct.unpack_from(">d", data, off + 1)[0])
             off += 9
             i += 1
         elif tag in (7, 8, 16, 19, 20):
@@ -130,7 +158,7 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
         off += 1
         if tag in "BCDFIJSZs":
             v = cp[u2()]
-            return v if tag == "s" else None
+            return v if tag in "sIJFDBCSZ" else None
         if tag == "e":
             u2()
             return cp[u2()]
@@ -169,6 +197,9 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
                 pc = 0
                 while pc < clen:
                     op = code[pc]
+                    const = _constant(code, pc, op, cp)
+                    if const is not None:
+                        insns.add(("CONST",) + const + ("",))
                     if 0xb2 <= op <= 0xb9 or op == 0xbb:
                         ref = cp[struct.unpack_from(">H", code, pc + 1)[0]]
                         if op == 0xbb:
@@ -177,6 +208,8 @@ def parse_class(data: bytes, with_code: bool) -> ClassInfo:
                             nat = cp[ref[2]]
                             kind = "FIELD" if op <= 0xb5 else "INVOKE"
                             insns.add((kind, cls(ref[1]), cp[nat[1]], cp[nat[2]]))
+                            if op == 0xb8:
+                                insns.add(("STATIC", cls(ref[1]), cp[nat[1]], cp[nat[2]]))
                     pc += _oplen(code, pc)
             off = end
         return anns, insns
@@ -350,6 +383,120 @@ def check_mixin(cp: ClassPath, mixin: ClassInfo, problems: list[str]) -> None:
                 check_injector(cp, tag, tname, target, m, atype, m.ann[atype], problems)
 
 
+def at_matches(selected, kind, ref):
+    """The instructions of the selected methods a @At INVOKE/FIELD/NEW selector names ({} for an other kind)."""
+    owner, name, desc = parse_ref(ref)
+    if kind == "NEW":
+        owner = owner or name.replace(".", "/")
+        if owner.startswith("L") and owner.endswith(";"):
+            owner = owner[1:-1]
+        return [("NEW", owner, "", "")] if any(("NEW", owner, "", "") in (m.insns or ()) for m in selected) else []
+    want = "FIELD" if kind == "FIELD" else "INVOKE"
+    return [i for m in selected for i in (m.insns or ())
+            if i[0] == want and (owner is None or i[1] == owner) and i[2] == name and (not desc or i[3] == desc)]
+
+
+def check_at(cp, tag, tname, handler, short, selected, at, problems):
+    kind, ref = at.get("value", ""), at.get("target", "")
+    if kind == "CONSTANT":
+        check_constant_args(tag, tname, handler, short, selected, at.get("args", []), problems)
+        return
+    if not ref or kind not in ("INVOKE", "INVOKE_ASSIGN", "FIELD", "NEW"):
+        return
+    if not at_matches(selected, kind, ref):
+        owner = parse_ref(ref)[0]
+        where = "known class" if owner and cp.known(owner) else "unknown class" if owner else "no owner"
+        problems.append(f"{tag}.{handler.name}: {short} @At({kind}) {ref} not found in {tname}."
+                        f"{'/'.join(sorted({m.name for m in selected}))} ({where})")
+
+
+def _has_constant(selected, kind, value):
+    if kind in ("int", "long") and value == 0:
+        return True  # implicit zero of a comparison (ifeq ...), Mixin finds it without an instruction
+    for m in selected:
+        for i in m.insns or ():
+            if i[0] == "CONST" and i[1] == kind and (i[2] == value or kind == "float" and abs(i[2] - value) < 1e-6 * max(1.0, abs(value))):
+                return True
+    return False
+
+
+def check_constant_args(tag, tname, handler, short, selected, args, problems):
+    """@At(CONSTANT, args = "intValue=12" ...)"""
+    if isinstance(args, str):
+        args = [args]
+    for arg in args:
+        if "=" not in arg:
+            continue
+        key, val = arg.split("=", 1)
+        kind = {"intValue": "int", "longValue": "long", "floatValue": "float", "doubleValue": "double", "stringValue": "string"}.get(key)
+        try:
+            value = {"int": int, "long": int, "float": float, "double": float, "string": str, None: None}[kind](val) if kind else None
+        except (TypeError, ValueError):
+            continue
+        if kind and not _has_constant(selected, kind, value):
+            problems.append(f"{tag}.{handler.name}: {short} CONSTANT {key}={val} not found in {tname}."
+                            f"{'/'.join(sorted({m.name for m in selected}))}")
+
+
+def check_constants(tag, tname, handler, short, selected, ann, problems):
+    """@ModifyConstant(constant = @Constant(intValue = 12))"""
+    c = ann.get("constant")
+    if c is None:
+        return
+    for _, cv in (c if isinstance(c, list) else [c]):
+        for key, kind in (("intValue", "int"), ("longValue", "long"), ("floatValue", "float"), ("doubleValue", "double"), ("stringValue", "string")):
+            if key in cv and cv[key] is not None:
+                v = cv[key][1] if isinstance(cv[key], tuple) else cv[key]
+                if not _has_constant(selected, kind, v):
+                    problems.append(f"{tag}.{handler.name}: {short} {key}={v} not found in {tname}."
+                                    f"{'/'.join(sorted({m.name for m in selected}))}")
+
+
+def loose(a: str, b: str) -> bool:
+    """Descriptor types equal; object types match any object type (subclass, interface, erased generic)."""
+    if a == b:
+        return True
+    return a[0] in "L[" and b[0] in "L[" and not (a[0] == "[" and b[0] == "[" and a.lstrip("[")[0] != "L" and b.lstrip("[")[0] != "L")
+
+
+def check_signature(tag, handler, atype, short, selected, ann, problems):
+    """Handler signature of @Redirect / @WrapOperation (INVOKE) and @ModifyArg (index >= 0) against the invoked method."""
+    kinds = {INJ + "Redirect;": 0, MX + "wrapoperation/WrapOperation;": 1, INJ + "ModifyArg;": 2}
+    if atype not in kinds:
+        return
+    kind = kinds[atype]
+    at_list = ats(ann)
+    if len(at_list) != 1 or at_list[0].get("value") not in ("INVOKE", "INVOKE_ASSIGN") or not at_list[0].get("target"):
+        return
+    owner, name, desc = parse_ref(at_list[0]["target"])
+    hits = at_matches(selected, "INVOKE", at_list[0]["target"])
+    if not hits or not desc:
+        return  # not found is reported by check_at
+    hargs, hret = split_args(handler.desc)
+    if kind == 2:
+        index = ann.get("index")
+        index = index[1] if isinstance(index, tuple) else -1
+    reasons = []
+    for hit in hits:
+        static = any(i[0] == "STATIC" and i[1:] == hit[1:] for m in selected for i in (m.insns or ()))
+        iargs, iret = split_args(hit[3])
+        recv = [] if static else ["L" + hit[1] + ";"]
+        if kind == 2:
+            if index < 0 or index >= len(iargs):
+                return
+            want_args, want_ret = [iargs[index]], iargs[index]
+            ok = len(hargs) >= 1 and loose(hargs[0], want_args[0]) and loose(hret, want_ret)
+        else:
+            want_args, want_ret = recv + iargs, iret
+            extra = 1 if kind == 1 else 0
+            ok = (len(hargs) >= len(want_args) + extra and all(loose(h, w) for h, w in zip(hargs, want_args))
+                  and (not extra or "wrapoperation/Operation" in hargs[len(want_args)]) and loose(hret, want_ret))
+        if ok:
+            return
+        reasons.append(f"{''.join(want_args)}{'+Operation' if kind == 1 else ''} -> {want_ret}")
+    problems.append(f"{tag}.{handler.name}: {short} handler {handler.desc} does not fit {name}{desc}; expected ({reasons[0]})")
+
+
 def check_injector(cp, tag, tname, target, handler, atype, ann, problems):
     short = "@" + atype.rsplit("/", 1)[-1].rstrip(";")
     selectors = ann.get("method", [])
@@ -362,24 +509,13 @@ def check_injector(cp, tag, tname, target, handler, atype, ann, problems):
     if not selected:
         problems.append(f"{tag}.{handler.name}: {short} method {', '.join(selectors)} not in {tname}")
         return
-    for at in ats(ann):
-        kind, ref = at.get("value", ""), at.get("target", "")
-        if not ref or kind not in ("INVOKE", "INVOKE_ASSIGN", "FIELD", "NEW"):
-            continue
-        owner, name, desc = parse_ref(ref)
-        if kind == "NEW":
-            owner = owner or name.replace(".", "/")
-            if owner.startswith("L") and owner.endswith(";"):
-                owner = owner[1:-1]
-            ok = any(("NEW", owner, "", "") in (m.insns or ()) for m in selected)
-        else:
-            want = "FIELD" if kind == "FIELD" else "INVOKE"
-            ok = any(i[0] == want and (owner is None or i[1] == owner) and i[2] == name and (not desc or i[3] == desc)
-                     for m in selected for i in (m.insns or ()))
-        if not ok:
-            where = "known class" if owner and cp.known(owner) else "unknown class" if owner else "no owner"
-            problems.append(f"{tag}.{handler.name}: {short} @At({kind}) {ref} not found in {tname}."
-                            f"{'/'.join(sorted({m.name for m in selected}))} ({where})")
+    slices = []
+    for _, sl in (ann.get("slice") if isinstance(ann.get("slice"), list) else [ann["slice"]] if ann.get("slice") else []):
+        slices += [v for key in ("from", "to") if sl.get(key) for _, v in [sl[key]]]
+    for at in ats(ann) + slices:
+        check_at(cp, tag, tname, handler, short, selected, at, problems)
+    check_constants(tag, tname, handler, short, selected, ann, problems)
+    check_signature(tag, handler, atype, short, selected, ann, problems)
     if atype == INJ + "Inject;":
         args, _ = split_args(handler.desc)
         ci_at = next((i for i, a in enumerate(args) if "callback/CallbackInfo" in a), None)

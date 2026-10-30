@@ -226,7 +226,8 @@ def egg_parent_model():
     elements = []
     for tex, grow in (('#egg', 0.0), ('#overlay', 0.02)):
         for lo, hi in boxes:
-            elements.append({'from': [round(v - grow, 3) for v in lo], 'to': [round(v + grow, 3) for v in hi],
+            # the overlay may not leave the 16 x 16 block (its default UV would, "Cannot compute translucency out of bounds"): the floor stays at 0
+            elements.append({'from': [max(0.0, round(v - grow, 3)) for v in lo], 'to': [round(v + grow, 3) for v in hi],
                              'faces': {f: {'texture': tex} for f in FACES}})
     return {'parent': 'minecraft:block/block', 'textures': {'particle': '#egg'}, 'elements': elements}
 

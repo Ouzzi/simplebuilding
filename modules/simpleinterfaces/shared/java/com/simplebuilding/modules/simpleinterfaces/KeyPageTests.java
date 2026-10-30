@@ -73,6 +73,10 @@ public final class KeyPageTests {
                     right = cell(cells, KeyboardLayout.RIGHT);
             h.assertTrue(up != null && down != null && left != null && right != null, size + ": all four arrows");
             h.assertTrue(up.x() == down.x() && up.bottom() == down.y(), size + ": up sits right above down");
+            Cell shift = cell(cells, KeyboardLayout.RIGHT_SHIFT), enter = cell(cells, KeyboardLayout.ENTER);
+            h.assertTrue(left.x() >= shift.right() && up.x() >= shift.right() && up.x() >= enter.right(), size + ": arrow block stands right of the main block, no overlap");
+            h.assertTrue(up.y() == shift.y() && left.y() > up.y(), size + ": up on the shift row, left/down/right one row below");
+            h.assertTrue(up.x() + up.w() / 2 == down.x() + down.w() / 2, size + ": up is centred above down");
             h.assertTrue(left.right() == down.x() && right.x() == down.right() && left.y() == down.y() && right.y() == down.y(), size + ": left and right beside down");
         }
         h.succeed();

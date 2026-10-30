@@ -189,20 +189,24 @@ def item_model(wood, fmt):
 
 
 def blockstate(wood, fmt):
+    """Every state of the block (col 0-1, row 0-2, swing) gets a model: the block's state definition has all combinations, and
+    the ones a door never reaches (MIXCHECK31-5: open with col 1, rows above the door, closed swing cells) fall back to the
+    nearest real cell, so the client does not log 'Missing model for variant'."""
     cols, rows, half = FORMATS[fmt]
     rot = {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}}
     variants = {}
     for facing, rt in rot.items():
         for hinge in ("left", "right"):
-            for r in range(rows):
-                for c in range(cols):
-                    key = f"facing={facing},hinge={hinge},open=false,col={c},row={r},swing=false"
-                    variants[key] = {"model": f"{NS}:block/{wood}_door_{fmt}_closed_c{c}_r{r}_{hinge}", **rt}
-                variants[f"facing={facing},hinge={hinge},open=true,col=0,row={r},swing=false"] = {
-                    "model": f"{NS}:block/{wood}_door_{fmt}_open_s0_r{r}_{hinge}", **rt}
-                if not half:
-                    variants[f"facing={facing},hinge={hinge},open=true,col=0,row={r},swing=true"] = {
-                        "model": f"{NS}:block/{wood}_door_{fmt}_open_s1_r{r}_{hinge}", **rt}
+            for r in range(3):
+                rr = min(r, rows - 1)
+                for c in range(2):
+                    cc = min(c, cols - 1)
+                    for swing in ("false", "true"):
+                        closed = f"{NS}:block/{wood}_door_{fmt}_closed_c{cc}_r{rr}_{hinge}"
+                        variants[f"facing={facing},hinge={hinge},open=false,col={c},row={r},swing={swing}"] = {"model": closed, **rt}
+                        s1 = swing == "true" and not half and c == 0 and r < rows
+                        variants[f"facing={facing},hinge={hinge},open=true,col={c},row={r},swing={swing}"] = {
+                            "model": f"{NS}:block/{wood}_door_{fmt}_open_s{1 if s1 else 0}_r{rr}_{hinge}", **rt}
     return {"variants": variants}
 
 

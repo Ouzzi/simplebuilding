@@ -76,26 +76,26 @@ public final class KeyboardLayout {
         row.at(0, 3).key(CAPS_LOCK, 7);
         for (char c : "ASDFGHJKL".toCharArray()) row.key(c, 4);
         row.key(SEMICOLON, 4).key(APOSTROPHE, 4).key(ENTER, 9);
-        // row 4: Shift row (75 %: shorter right Shift and the up arrow)
+        // row 4: Shift row (the arrow keys of the 75 % layout stand right of the main block, see below)
         row.at(0, 4).key(LEFT_SHIFT, 9);
         for (char c : "ZXCVBNM".toCharArray()) row.key(c, 4);
         row.key(COMMA, 4).key(PERIOD, 4).key(SLASH, 4);
-        if (size == Size.TENKEYLESS) row.key(RIGHT_SHIFT, 7).key(UP, 4); // above the down key
-        else row.key(RIGHT_SHIFT, 11);
+        row.key(RIGHT_SHIFT, 11);
         // row 5: space row
         row.at(0, 5).key(LEFT_CONTROL, 5).key(LEFT_SUPER, 5).key(LEFT_ALT, 5).key(SPACE, 25);
+        row.key(RIGHT_ALT, 5).key(RIGHT_SUPER, 5).key(MENU, 5).key(RIGHT_CONTROL, 5);
         if (size == Size.TENKEYLESS) {
-            row.key(RIGHT_ALT, 4).key(RIGHT_CONTROL, 4).gap(4).key(LEFT, 4).key(DOWN, 4).key(RIGHT, 4);
-        } else {
-            row.key(RIGHT_ALT, 5).key(RIGHT_SUPER, 5).key(MENU, 5).key(RIGHT_CONTROL, 5);
-        }
-        if (size == Size.TENKEYLESS) {
+            // arrow block as on a real keyboard: a gap right of the main block (60 wide), the inverted T on the shift and space rows
+            int arrows = 62;
+            row.at(arrows + 4, 4).key(UP, 4);
+            row.at(arrows, 5).key(LEFT, 4).key(DOWN, 4).key(RIGHT, 4);
             // one column right of the arrow block
-            row.at(64, 0).key(DELETE, 4);
-            row.at(64, 1).key(HOME, 4);
-            row.at(64, 2).key(PAGE_UP, 4);
-            row.at(64, 3).key(PAGE_DOWN, 4);
-            row.at(64, 4).key(END, 4);
+            int nav = arrows + 14;
+            row.at(nav, 0).key(DELETE, 4);
+            row.at(nav, 1).key(HOME, 4);
+            row.at(nav, 2).key(PAGE_UP, 4);
+            row.at(nav, 3).key(PAGE_DOWN, 4);
+            row.at(nav, 4).key(END, 4);
         }
         if (size == Size.FULL) {
             int nav = 62;

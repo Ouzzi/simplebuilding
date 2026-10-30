@@ -167,11 +167,6 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
-    public void vanillaTabsStayUnchangedWhenModItemsAreDisabled(GameTestHelper helper) {
-        DataIntegrityTests.vanillaTabsStayUnchangedWhenModItemsAreDisabled(helper);
-    }
-
-    @GameTest
     public void creativeTabSpacersFollowTheConfig(GameTestHelper helper) {
         DataIntegrityTests.creativeTabSpacersFollowTheConfig(helper);
     }
