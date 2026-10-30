@@ -271,7 +271,7 @@ def select(target: ClassInfo, selector: str) -> list[Member]:
     name = name.rstrip("*")
     out = []
     for m in target.methods:
-        if (not name and wildcard) or m.name == name or (wildcard and m.name.startswith(name) and not desc):
+        if (not name and wildcard) or m.name == name:
             if not desc or m.desc == desc:
                 out.append(m)
     return out
@@ -329,7 +329,7 @@ def check_mixin(cp: ClassPath, mixin: ClassInfo, problems: list[str]) -> None:
                     problems.append(f"{tag}: @Shadow field {n}:{f.desc} not in {tname}")
         for m in mixin.methods:
             if SHADOW in m.ann or OVERWRITE in m.ann:
-                a = m.ann.get(SHADOW) or m.ann.get(OVERWRITE)
+                a = m.ann[SHADOW] if SHADOW in m.ann else m.ann[OVERWRITE]
                 n = strip_prefix(m.name, a)
                 names = [n] + list(a.get("aliases", []))
                 if not any((x, m.desc) in methods for x in names):
@@ -357,13 +357,10 @@ def check_injector(cp, tag, tname, target, handler, atype, ann, problems):
         selectors = [selectors]
     if not selectors:
         return  # @Desc-based selection: not checked
-    selected = []
-    for s in selectors:
-        hit = select(target, s)
-        if not hit:
-            problems.append(f"{tag}.{handler.name}: {short} method {s} not in {tname}")
-        selected += hit
+    # Several selectors are version alternatives: only all of them missing fails (require counts injections).
+    selected = [m for s in selectors for m in select(target, s)]
     if not selected:
+        problems.append(f"{tag}.{handler.name}: {short} method {', '.join(selectors)} not in {tname}")
         return
     for at in ats(ann):
         kind, ref = at.get("value", ""), at.get("target", "")
