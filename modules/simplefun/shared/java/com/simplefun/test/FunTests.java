@@ -119,7 +119,7 @@ public final class FunTests {
 
   /**
    * The fun tab holds only the mod's items (guide, brick snowball, no vanilla ingredients); the brick
-   * snowball follows the snowball in Combat, and in the search tab it stands there exactly once.
+   * snowball stands in no Vanilla tab, and in the search tab it stands exactly once.
    */
   public static void creativeTabs(GameTestHelper h) {
     CreativeModeTabs.tryRebuildTabContents(
@@ -142,21 +142,11 @@ public final class FunTests {
             .stream()
             .map(ItemStack::getItem)
             .toList();
-    for (var list : List.of(combat, search))
-      follows(h, list, FunContent.SNOWBALL_ANCHOR, List.of(ModItems.BRICK_SNOWBALL));
+    h.assertTrue(!combat.contains(ModItems.BRICK_SNOWBALL), "Combat has no brick snowball (own tab only)");
     for (var item : expected)
       h.assertTrue(
           search.stream().filter(item::equals).count() == 1, "search tab lists " + item + " once");
     h.succeed();
-  }
-
-  private static void follows(GameTestHelper h, List<Item> list, Item anchor, List<Item> items) {
-    int at = list.indexOf(anchor);
-    h.assertTrue(
-        at >= 0
-            && at + items.size() < list.size()
-            && list.subList(at + 1, at + 1 + items.size()).equals(items),
-        items + " follow " + anchor);
   }
 
   private static String snake(String k) {

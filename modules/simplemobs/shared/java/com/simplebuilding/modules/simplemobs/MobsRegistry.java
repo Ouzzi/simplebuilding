@@ -123,7 +123,8 @@ public final class MobsRegistry {
                 net.minecraft.resources.Identifier.fromNamespaceAndPath(ID, "mobs"),
                 net.minecraft.world.item.CreativeModeTab.builder(net.minecraft.world.item.CreativeModeTab.Row.TOP, 0)
                         .title(net.minecraft.network.chat.Component.translatable("itemgroup.simplemobs.mobs"))
-                        .icon(() -> new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.ECHO_SHARD))
+                        // IG31-3: the Deceiver spawn egg is the tab icon
+                        .icon(() -> new net.minecraft.world.item.ItemStack(EGG))
                         .displayItems((params, out) -> {
                             if (!on()) return;
                             out.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());

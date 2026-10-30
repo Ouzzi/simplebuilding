@@ -29,7 +29,6 @@ public final class ConfigOptions {
     public static final Set<String> CLIENT_SIDE = Set.of(
             "enableDoubleJump",
             "enableArmorTrimBenefits",
-            "showDevEnchantedTab",
             "creativeTabSpacers",
             "vanillaEnchantedBookTextures",
             "modEnchantedBookTextures",

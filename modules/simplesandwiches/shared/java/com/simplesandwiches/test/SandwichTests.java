@@ -1049,18 +1049,22 @@ public final class SandwichTests {
 
     private SandwichTests() {}
 
-    /** Creative-tab switch: the Vanilla-tab entries are items of the own tab (guide book and sample sandwiches stay out). */
+    /** Creative tabs (owner 30.10.): no item of the own tab stands in a Vanilla tab, and the own tab holds no plain Vanilla item. */
     private static void vanillaTabStacks(GameTestHelper h) {
-        var own = SandwichRegistry.tabStacks();
-        int sorted = 0;
-        h.assertTrue(SandwichRegistry.VANILLA_TABS.containsAll(SandwichRegistry.vanillaTabStacks().keySet()), "every target tab is registered by the Fabric listener list");
-        for (var e : SandwichRegistry.vanillaTabStacks().entrySet()) {
-            for (var stack : e.getValue()) {
-                sorted++;
-                h.assertTrue(own.stream().anyMatch(o -> o.is(stack.getItem())), "not in the own tab: " + stack.getItem());
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+        var own = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(
+                net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.CREATIVE_MODE_TAB, com.simplesandwiches.Sandwiches.id("kitchen"))).getDisplayItems();
+        h.assertTrue(!own.isEmpty(), "the own tab has items");
+        for (var stack : own) {
+            boolean plainVanilla = "minecraft".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace()) && stack.getComponentsPatch().isEmpty();
+            h.assertTrue(!plainVanilla, "plain Vanilla item in the own tab: " + stack.getItem());
+        }
+        for (var tabKey : SandwichRegistry.VANILLA_TABS) {
+            for (var stack : net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(tabKey).getDisplayItems()) {
+                h.assertTrue(own.stream().noneMatch(o -> o.is(stack.getItem()) && !"minecraft".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())),
+                        "mod item of the own tab in the Vanilla tab " + tabKey.identifier() + ": " + stack.getItem());
             }
         }
-        h.assertTrue(sorted == 1 + ModItems.CUTTING_BOARDS.size() + 5, "knife, boards, cheese/butter blocks and slices, cake slice: " + sorted);
         h.succeed();
     }
 

@@ -745,7 +745,7 @@ public final class MobHeadTests {
         helper.succeed();
     }
 
-    /** Own tab: every head with its variants; Functional Blocks and the search tab: the heads right behind the dragon head. */
+    /** Own tab: every head with its variants; Functional Blocks holds none of the mod heads (owner 30.10.). */
     public static void creativeTabs(GameTestHelper helper) {
         CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true, helper.getLevel().registryAccess());
         CreativeModeTab own = BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(MobHeads.TAB);
@@ -754,9 +754,7 @@ public final class MobHeadTests {
         List<Item> functional = BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(CreativeModeTabs.FUNCTIONAL_BLOCKS).getDisplayItems()
                 .stream().map(ItemStack::getItem).toList();
         List<Item> heads = MobHeads.baseStacks().stream().map(ItemStack::getItem).toList();
-        int at = functional.indexOf(MobHeads.HEAD_ANCHOR);
-        helper.assertTrue(at >= 0 && at + heads.size() < functional.size() && functional.subList(at + 1, at + 1 + heads.size()).equals(heads),
-                "the heads do not follow the dragon head");
+        helper.assertTrue(heads.stream().noneMatch(functional::contains), "the heads stand in the own tab only, not in Functional Blocks");
         helper.succeed();
     }
 

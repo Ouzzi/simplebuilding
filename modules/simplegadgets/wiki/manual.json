@@ -144,13 +144,17 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "Own tab with the gadgets and the guide. Without SimpleBuilding the gadgets also sit behind the recovery compass in the Vanilla tools tab (switch addItemsToVanillaTabs); with SimpleBuilding its tabs list them in their old places. Switched off (SimpleBuilding's Enable Simple Gadgets), the tab and the Vanilla tab entries are empty; the gadgets keep working.",
-        "details": []
+        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
+        "details": [
+          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+        ]
       },
       "de": {
         "title": "Kreativ-Tabs",
-        "summary": "Eigener Tab mit den Geräten und dem Handbuch. Ohne SimpleBuilding stehen die Geräte zusätzlich hinter dem Bergungskompass im Vanilla-Tab Werkzeuge (Schalter addItemsToVanillaTabs); mit SimpleBuilding führen dessen Tabs sie an ihren alten Plätzen. Ausgeschaltet (SimpleBuildings Simple Gadgets aktivieren) bleiben Tab und Vanilla-Tab-Einträge leer; die Geräte funktionieren weiter.",
-        "details": []
+        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
+        "details": [
+          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+        ]
       }
     }
   ],

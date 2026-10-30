@@ -180,4 +180,14 @@ public final class ModuleGameTest {
     public void evilUpgradeInWorld(GameTestHelper h) {
         BeaconsTests.ALL.get("evil_upgrade_in_world").accept(h);
     }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void conduitKinds(GameTestHelper h) {
+        BeaconsTests.ALL.get("conduit_kinds").accept(h);
+    }
+
+    @GameTest(structure = "simplebeacons:arena", maxTicks = 100)
+    public void conduitEvilEffects(GameTestHelper h) {
+        BeaconsTests.ALL.get("conduit_evil_effects").accept(h);
+    }
 }

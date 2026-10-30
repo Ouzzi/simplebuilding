@@ -63,6 +63,9 @@ public final class BeaconsDiscover {
             "simplebeacons:strong_beacon",
             "simplebeacons:strong_beacon_screen",
             "simplebeacons:strong_conduit",
+            "simplebeacons:mighty_conduit",
+            "simplebeacons:evil_conduit",
+            "simplebeacons:mighty_evil_conduit",
             "simplebeacons:strong_upgrade_in_world",
             "simplebeacons:strong_upgrade_shard",
             "simplebeacons:strong_upgrade_template");

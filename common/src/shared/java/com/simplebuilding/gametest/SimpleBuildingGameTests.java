@@ -281,8 +281,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_building_blocks_tab_follows_simple_blocks", DataIntegrityTests::buildingBlocksTabFollowsSimpleBlocks)
                     .build(),
-            GameTestSpec.named("data_integrity_game_test_every_mod_item_has_its_place_in_the_search_tab", DataIntegrityTests::everyModItemHasItsPlaceInTheSearchTab)
-                    .build(),
             GameTestSpec.named("data_integrity_game_test_tools_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::toolsTabIsLaidOutInRowsOfNine)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_combat_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::combatTabIsLaidOutInRowsOfNine)
@@ -301,8 +299,6 @@ public final class SimpleBuildingGameTests {
                     DataIntegrityTests::creativeTabSettingsArePerModAndDefaultOn)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_offers_every_exclusive_choice_at_max_level_on_top_tiers", DataIntegrityTests::devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers)
-                    .build(),
-            GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_is_only_filled_in_development_or_when_configured", DataIntegrityTests::devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_trimmable_armour_shows_every_trim_pattern_on_its_icon", DataIntegrityTests::everyTrimmableArmourShowsEveryTrimPatternOnItsIcon)
                     .build(),

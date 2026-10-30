@@ -37,11 +37,11 @@ import org.jspecify.annotations.Nullable;
 public final class StrongUpgrades {
     public static final String KIND = "simplebeacons:strong_upgrade";
 
-    /** The Strong block a Vanilla block becomes with the template in the off hand (the Evil template: Evil Beacon, beacons only), or null. */
+    /** The Strong block a Vanilla block becomes with the template in the off hand (the Evil template: Evil Beacon / Evil Conduit), or null. */
     public static @Nullable Block targetFor(BlockState state, ItemStack template) {
         boolean evil = template.is(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE);
         if (state.is(Blocks.BEACON)) return evil ? BeaconsRegistry.EVIL_BEACON : BeaconsRegistry.STRONG_BEACON;
-        if (state.is(Blocks.CONDUIT) && !evil) return BeaconsRegistry.STRONG_CONDUIT;
+        if (state.is(Blocks.CONDUIT)) return evil ? BeaconsRegistry.EVIL_CONDUIT : BeaconsRegistry.STRONG_CONDUIT;
         return null;
     }
 

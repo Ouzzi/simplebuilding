@@ -2669,23 +2669,11 @@ public final class DataIntegrityTests {
                 problems.add(id + " is titled " + registered.getDisplayName() + " instead of " + tab.translationKey());
             }
         }
-        // Der Entwickler-Tab ist kein Tab-Enum-Eintrag (nur in Entwicklungsumgebungen oder per Konfig
-        // gefuellt, Duplikate erlaubt); sein Inhalt steht in devEnchantedTabOffersEveryExclusiveChoice...
-        tabIds.add(Identifier.fromNamespaceAndPath(MOD_ID, com.simplebuilding.items.DevEnchantedTab.ID));
         for (Identifier id : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
             if (MOD_ID.equals(id.getNamespace()) && !tabIds.contains(id)) {
                 problems.add(id + " is a creative tab ModItemGroupsContent.Tab does not know");
             }
         }
-        // Registry order (by id), not keySet(): keySet() is a hash set without a defined order.
-        List<Identifier> modTabOrder = BuiltInRegistries.CREATIVE_MODE_TAB.stream()
-                .map(BuiltInRegistries.CREATIVE_MODE_TAB::getKey)
-                .filter(id -> id != null && MOD_ID.equals(id.getNamespace())).toList();
-        Identifier devTab = Identifier.fromNamespaceAndPath(MOD_ID, com.simplebuilding.items.DevEnchantedTab.ID);
-        if (modTabOrder.isEmpty() || !devTab.equals(modTabOrder.getLast())) {
-            problems.add("development creative tab is not last in the SimpleBuilding tab order: " + modTabOrder);
-        }
-
         Map<Item, List<ModItemGroupsContent.Tab>> where = new HashMap<>();
         Map<ModItemGroupsContent.Tab, Integer> books = new LinkedHashMap<>();
         Map<ModItemGroupsContent.Tab, Integer> spacers = new LinkedHashMap<>();
@@ -2891,178 +2879,6 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
-    /**
-     * In the vanilla search tab every mod item stands next to its vanilla counterpart, not in a block at
-     * the very end (owner 2026-09-29): the reinforced, netherite and enderite hoppers right after the
-     * vanilla hopper, the enderite tools after the netherite ones, the mod plates by the vanilla plates,
-     * the blaze and enderman heads by the vanilla heads, the mod's enchanted books among vanilla's books.
-     *
-     * <p>The search tab collects every tab's search entries in registry order - vanilla tabs first -
-     * keeping the first of equal stacks. {@code SearchTabPlacement} therefore also puts each mod item
-     * into the fitting vanilla tab right after (or before) its anchor; the loaders do that through
-     * their tab content events. The test rebuilds all tab contents the way the creative screen does
-     * ({@code CreativeModeTabs.tryRebuildTabContents}) and reads the result back:
-     * <ul>
-     *   <li>every item of a mod tab (except vanilla items and the enchanted books vanilla generates
-     *       itself) has a placement, so nothing is left for the end of the search tab;</li>
-     *   <li>in its vanilla tab each placement stands exactly after (or before) its anchor, in order;</li>
-     *   <li>in the search tab each placement's stacks follow one another, a set of pinned neighbours
-     *       holds (hopper, netherite hoe, diamond block, piglin head, netherite sword, furnace), every
-     *       mod enchanted book sits between enchanted books, and no stack appears twice.</li>
-     * </ul>
-     *
-     * <p>What breaks this: a new mod item without placement, an anchor vanilla dropped or renamed (the
-     * loader then skips the placement), a loader that no longer hooks its tab event, a duplicate.
-     */
-    public static void everyModItemHasItsPlaceInTheSearchTab(GameTestHelper helper) {
-        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
-        boolean originalVanillaTabOption = config.addItemsToVanillaTabs;
-        config.addItemsToVanillaTabs = true;
-        try {
-        List<String> problems = new ArrayList<>();
-        List<com.simplebuilding.items.SearchTabPlacement.Placement> placements =
-                com.simplebuilding.items.SearchTabPlacement.placements();
-        Set<Item> placed = new HashSet<>();
-        List<ItemStack> placedStacks = new ArrayList<>();
-        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
-            if (placement.secondary()) {
-                continue;
-            }
-            for (ItemStack stack : placement.stacks()) {
-                // Varianten eines Items (gefertigte Pfeile, B14) zaehlen einzeln: doppelt ist nur derselbe Stapel.
-                boolean twice = placedStacks.stream().anyMatch(other -> ItemStack.isSameItemSameComponents(other, stack));
-                placedStacks.add(stack);
-                placed.add(stack.getItem());
-                if (twice) {
-                    problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " is placed twice");
-                }
-            }
-        }
-        // Zweitplatzierungen (wie Vanillas Aexte in Werkzeuge und Kampf) wiederholen nur, was schon eine erste
-        // Platzierung hat, und stehen in einem anderen Vanilla-Tab als diese.
-        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
-            if (!placement.secondary()) {
-                continue;
-            }
-            for (ItemStack stack : placement.stacks()) {
-                boolean firstElsewhere = placements.stream().anyMatch(p -> !p.secondary() && !p.tab().equals(placement.tab())
-                        && p.stacks().stream().anyMatch(other -> ItemStack.isSameItemSameComponents(other, stack)));
-                if (!firstElsewhere) {
-                    problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " has a second placement in "
-                            + placement.tab().identifier() + " but no first one in another vanilla tab");
-                }
-            }
-        }
-        Set<Item> inModTabs = new java.util.LinkedHashSet<>();
-        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
-            ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
-                if (!stack.is(ModItems.CREATIVE_SPACER) && !stack.is(Items.ENCHANTED_BOOK)
-                        && (MOD_ID.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())
-                        || com.simplebuilding.util.SharedMaterials.isShared(stack.getItem()))) {
-                    inModTabs.add(stack.getItem());
-                }
-            }, helper.getLevel().registryAccess());
-        }
-        for (Item item : inModTabs) {
-            if (!placed.contains(item)) {
-                problems.add(BuiltInRegistries.ITEM.getKey(item) + " has no place in a vanilla tab (SearchTabPlacement), "
-                        + "so the search tab lists it at the very end");
-            }
-        }
-        for (Item item : placed) {
-            // Sub-mod items SB's chains still order (octets of Simple Octets) live in their own module's tab.
-            boolean sbItem = MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
-                    || com.simplebuilding.util.SharedMaterials.isShared(item);
-            if (sbItem && !inModTabs.contains(item)) {
-                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is placed for the search tab but is in no mod tab");
-            }
-        }
-
-        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
-                helper.getLevel().registryAccess());
-
-        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
-            List<ItemStack> content = new ArrayList<>(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(placement.tab()).getDisplayItems());
-            int at = indexOf(content, new ItemStack(placement.anchor()));
-            if (at < 0) {
-                problems.add(placement.tab().identifier() + " has no " + BuiltInRegistries.ITEM.getKey(placement.anchor())
-                        + " to place " + names(placement.stacks()) + " by");
-                continue;
-            }
-            int from = placement.before() ? at - placement.stacks().size() : at + 1;
-            List<ItemStack> actual = content.subList(Math.max(0, from), Math.min(content.size(), Math.max(0, from) + placement.stacks().size()));
-            if (from < 0 || !sameStacks(actual, placement.stacks())) {
-                problems.add(placement.tab().identifier() + ": " + (placement.before() ? "before " : "after ")
-                        + BuiltInRegistries.ITEM.getKey(placement.anchor()) + " stand " + names(actual) + " instead of "
-                        + names(placement.stacks()));
-            }
-        }
-
-        List<ItemStack> search = new ArrayList<>(net.minecraft.world.item.CreativeModeTabs.searchTab().getDisplayItems());
-        Set<String> seen = new HashSet<>();
-        for (ItemStack stack : search) {
-            if (!seen.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + stack.getComponentsPatch().toString())) {
-                problems.add("the search tab lists " + stack + " twice");
-            }
-        }
-        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
-            if (placement.secondary()) {
-                continue; // im Suchtab steht das erste Vorkommen
-            }
-            int first = indexOf(search, placement.stacks().getFirst());
-            List<ItemStack> actual = first < 0 ? List.of()
-                    : search.subList(first, Math.min(search.size(), first + placement.stacks().size()));
-            if (!sameStacks(actual, placement.stacks())) {
-                problems.add("in the search tab " + names(placement.stacks()) + " do not follow one another: " + names(actual));
-            }
-        }
-        Map<Item, Item> neighbours = new LinkedHashMap<>();
-        neighbours.put(Items.HOPPER, ModItems.REINFORCED_HOPPER);
-        neighbours.put(Items.NETHERITE_HOE, ModItems.NETHERITE_CHISEL);
-        // Mod-Werkzeuge je Stufe hinter Vanillas Hacke dieser Stufe (Besitzer 2026-10-02).
-        neighbours.put(Items.STONE_HOE, ModItems.STONE_CHISEL);
-        neighbours.put(Items.IRON_HOE, ModItems.IRON_CHISEL);
-        neighbours.put(Items.DIAMOND_HOE, ModItems.DIAMOND_CHISEL);
-        neighbours.put(Items.DIAMOND_BLOCK, ModItems.CRACKED_DIAMOND_BLOCK);
-        if (!McVersion.HEADS_IN_MOBHEADS) {
-            neighbours.put(Items.PIGLIN_HEAD, TweaksItems.mobHeadsInSpawnOrder().getFirst().asItem());
-        }
-        neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
-        neighbours.put(Items.FURNACE, com.simplebuilding.util.OvenRefs.item("reinforced_furnace"));
-        if (McVersion.END_SYSTEMS) {
-            neighbours.put(Items.REDSTONE, ModItems.NIHIL_REDSTONE);
-            neighbours.put(Items.REDSTONE_LAMP, ModItems.NIHILITH_LAMP);
-            neighbours.put(Items.ENDER_CHEST, ModItems.ASTRAL_VAULT);
-        }
-        neighbours.forEach((vanilla, mod) -> {
-            int at = indexOf(search, new ItemStack(vanilla));
-            if (at < 0 || at + 1 >= search.size() || !search.get(at + 1).is(mod)) {
-                problems.add("in the search tab " + BuiltInRegistries.ITEM.getKey(vanilla) + " is followed by "
-                        + (at >= 0 && at + 1 < search.size() ? search.get(at + 1) : "nothing") + " instead of "
-                        + BuiltInRegistries.ITEM.getKey(mod));
-            }
-        });
-        // Die Buecher der Mod-Verzauberungen erzeugt Vanilla selbst (Tab "Zutaten", jede Stufe im Suchtab).
-        List<ItemStack> modBooks = new ArrayList<>();
-        ModItemGroupsContent.populate(ModItemGroupsContent.Tab.TOOLS, (CreativeModeTab.Output) (stack, visibility) -> {
-            if (stack.is(Items.ENCHANTED_BOOK)) {
-                modBooks.add(stack);
-            }
-        }, helper.getLevel().registryAccess());
-        for (ItemStack book : modBooks) {
-            int at = indexOf(search, book);
-            if (at <= 0 || at + 1 >= search.size() || !search.get(at - 1).is(Items.ENCHANTED_BOOK)
-                    || !search.get(at + 1).is(Items.ENCHANTED_BOOK)) {
-                problems.add("the mod book " + book.getComponentsPatch() + " is not among vanilla's enchanted books in the search tab (index "
-                        + at + ")");
-            }
-        }
-        helper.assertTrue(problems.isEmpty(), "search tab placement: " + problems);
-        helper.succeed();
-        } finally {
-            config.addItemsToVanillaTabs = originalVanillaTabOption;
-        }
-    }
 
     private static int indexOf(List<ItemStack> stacks, ItemStack wanted) {
         for (int i = 0; i < stacks.size(); i++) {
@@ -3993,17 +3809,10 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
-    /** With the switch off, no loader receives placements that would alter Vanilla tabs. */
+    /** IG31-3: SimpleBuilding no longer places items in Vanilla tabs - the placement list the loaders read is always empty. */
     public static void vanillaTabsStayUnchangedWhenModItemsAreDisabled(GameTestHelper helper) {
-        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
-        boolean original = config.addItemsToVanillaTabs;
-        try {
-            config.addItemsToVanillaTabs = false;
-            helper.assertTrue(com.simplebuilding.items.SearchTabPlacement.placementsIfEnabled().isEmpty(),
-                    "Vanilla-tab placements were enabled while addItemsToVanillaTabs was off");
-        } finally {
-            config.addItemsToVanillaTabs = original;
-        }
+        helper.assertTrue(com.simplebuilding.items.SearchTabPlacement.placementsIfEnabled().isEmpty(),
+                "Vanilla-tab placements are enabled although Simple mods keep to their own tabs");
         helper.succeed();
     }
 
@@ -4045,8 +3854,8 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * Owner N22, shared switch of every Simple mod (framework {@code CreativeTabSettings}): a mod without a key adds
-     * its items to the Vanilla tabs and gets its key written; switched off it reads false; the switch is per mod.
+     * IG31-3 (owner 30.10.): the shared switch of every Simple mod (framework {@code CreativeTabSettings}) is gone - a mod never
+     * adds its items to the Vanilla tabs, whatever an old {@code simple-creative-tabs.properties} says.
      */
     public static void creativeTabSettingsArePerModAndDefaultOn(GameTestHelper helper) {
         // Reflektion: der Framework-Baustein liegt nur auf der Hauptlinie 26.3 auf dem Klassenpfad (26.2 ohne Framework).
@@ -4061,15 +3870,10 @@ public final class DataIntegrityTests {
             java.nio.file.Path dir = java.nio.file.Files.createTempDirectory("simple-creative-tabs");
             java.lang.reflect.Method read = settings.getMethod("addItemsToVanillaTabs", java.nio.file.Path.class, String.class);
             java.lang.reflect.Method set = settings.getMethod("set", java.nio.file.Path.class, String.class, boolean.class);
-            String fileName = (String) settings.getField("FILE").get(null);
-            helper.assertTrue((Boolean) read.invoke(null, dir, "simplemoney"), "a mod without a key must add its items to the Vanilla tabs");
-            java.nio.file.Path file = dir.resolve(fileName);
-            helper.assertTrue(java.nio.file.Files.readString(file).contains("simplemoney.addItemsToVanillaTabs=true"),
-                    "the default key was not written to " + file);
-            set.invoke(null, dir, "simplemoney", false);
-            helper.assertFalse((Boolean) read.invoke(null, dir, "simplemoney"),
-                    "switched off, CreativeTabSettings still allows Vanilla-tab placements");
-            helper.assertTrue((Boolean) read.invoke(null, dir, "simpleriding"), "switching one mod off must not switch another");
+            helper.assertFalse((Boolean) read.invoke(null, dir, "simplemoney"), "a mod without a key must not add its items to the Vanilla tabs");
+            set.invoke(null, dir, "simplemoney", true);
+            helper.assertFalse((Boolean) read.invoke(null, dir, "simplemoney"), "an old 'true' in the file must not bring the Vanilla-tab placement back");
+            helper.assertFalse((Boolean) read.invoke(null, dir, "simpleriding"), "no mod adds its items to the Vanilla tabs");
         } catch (ReflectiveOperationException | java.io.IOException e) {
             throw helper.assertionException("CreativeTabSettings: " + e);
         }
@@ -4090,8 +3894,8 @@ public final class DataIntegrityTests {
      * item family, pre-enchanted at max level, with one variant per choice among mutually exclusive
      * enchantments.
      *
-     * <p><b>Registered</b> as {@code simplebuilding:enchanted_dev} with its title key; its entries are
-     * {@code PARENT_TAB_ONLY}, so none of the duplicates reaches the search tab.
+     * <p>The tab itself is gone (IG31-3, owner 30.10.); the variants stay the source of the test centre.
+     * Its entries are {@code PARENT_TAB_ONLY}, so none of the duplicates would reach the search tab.
      *
      * <p><b>Top tiers only</b>: the enderite chisel, wand, sledgehammer, bundle, quiver, backpack,
      * tools and armour, the tierless gadgets and the two vanilla items Constructor's Touch gives a
@@ -4109,15 +3913,6 @@ public final class DataIntegrityTests {
      */
     public static void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-
-        Identifier devId = Identifier.fromNamespaceAndPath(MOD_ID, "enchanted_dev");
-        CreativeModeTab registered = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(devId);
-        if (registered == null) {
-            problems.add(devId + " is not a registered creative tab");
-        } else if (!(registered.getDisplayName().getContents() instanceof TranslatableContents title)
-                || !"itemgroup.simplebuilding.enchanted_dev".equals(title.getKey())) {
-            problems.add(devId + " is titled " + registered.getDisplayName());
-        }
 
         Map<Item, List<ItemStack>> byItem = new LinkedHashMap<>();
         com.simplebuilding.items.DevEnchantedTab.populate((CreativeModeTab.Output) (stack, visibility) -> {
@@ -4228,42 +4023,6 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
-    /**
-     * The dev tab is only filled in a development environment or with {@code showDevEnchantedTab};
-     * otherwise it stays empty, and vanilla does not show an empty category tab at all.
-     *
-     * <p>Both switches are flipped here and restored in {@code finally}; the body does not yield, so
-     * no other test runs while they are flipped.
-     *
-     * <p>What breaks this: the gate dropped (tab always filled), or one of the two switches ignored.
-     */
-    public static void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
-        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
-        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
-        boolean development = com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment();
-        boolean option = config.showDevEnchantedTab;
-        List<String> problems = new ArrayList<>();
-        try {
-            boolean[][] cases = {{false, false}, {false, true}, {true, false}};
-            for (boolean[] c : cases) {
-                com.simplebuilding.platform.ModEnvironment.setDevelopmentEnvironment(c[0]);
-                config.showDevEnchantedTab = c[1];
-                int[] count = {0};
-                com.simplebuilding.items.DevEnchantedTab.populateIfShown(
-                        (CreativeModeTab.Output) (stack, visibility) -> count[0]++, helper.getLevel().registryAccess());
-                boolean shouldFill = c[0] || c[1];
-                if ((count[0] > 0) != shouldFill) {
-                    problems.add("development=" + c[0] + ", showDevEnchantedTab=" + c[1] + " gave " + count[0]
-                            + " entries, expected " + (shouldFill ? "some" : "none"));
-                }
-            }
-        } finally {
-            com.simplebuilding.platform.ModEnvironment.setDevelopmentEnvironment(development);
-            config.showDevEnchantedTab = option;
-        }
-        helper.assertTrue(problems.isEmpty(), "dev tab gate: " + problems);
-        helper.succeed();
-    }
 
     /** The 18 trim patterns vanilla ships, spelled out so an empty registry cannot pass the icon test. */
     private static final List<String> VANILLA_TRIM_PATTERNS = List.of(

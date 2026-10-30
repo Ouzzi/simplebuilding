@@ -34,7 +34,7 @@
           "All nine are in mineable/pickaxe and drop themselves.",
           "The item tooltip names the speed and, for Netherite and Enderite, the double experience.",
           "Hoppers fill and empty them like Vanilla furnaces; on NeoForge they offer the item handler capability like a Vanilla furnace.",
-          "Creative tab Simple Ovens; also behind the Vanilla furnace, smoker and blast furnace in the Functional Blocks tab (per-mod switch addItemsToVanillaTabs)."
+          "Creative tab Simple Ovens (no Vanilla tabs)."
         ]
       },
       "de": {
@@ -52,7 +52,7 @@
           "Alle neun stehen in mineable/pickaxe und droppen sich selbst.",
           "Der Item-Tooltip nennt das Tempo und bei Netherit und Enderit die doppelte Erfahrung.",
           "Trichter füllen und leeren sie wie Vanilla-Öfen; auf NeoForge bieten sie die Item-Handler-Capability wie ein Vanilla-Ofen.",
-          "Kreativ-Tab Simple Ovens; zusätzlich hinter Vanillas Ofen, Räucherofen und Schmelzofen im Tab Gebrauchsblöcke (Schalter addItemsToVanillaTabs je Mod)."
+          "Kreativ-Tab Simple Ovens (keine Vanilla-Tabs)."
         ]
       },
       "related": [
@@ -222,16 +222,16 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "The shared switch simpleovens.addItemsToVanillaTabs in config/simple-creative-tabs.properties (default true, read when a world is joined) keeps the Vanilla tabs unchanged; the module's own tab stays. Guide books always stay in Tools & Utilities."
+          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
-        "summary": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Der gemeinsame Schalter simpleovens.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
+          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },

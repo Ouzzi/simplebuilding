@@ -105,11 +105,11 @@ ALL.put("config_command", h -> {
         ALL.put("registered", h -> {
             h.assertTrue(BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(SimpleBeacons.id("beacons")), "own creative tab beacons is registered");
             for (String id : List.of("strong_upgrade_template", "evil_upgrade_template", "strong_upgrade_shard", "strong_beacon", "mighty_beacon", "evil_beacon",
-                    "mighty_evil_beacon", "strong_conduit", "guide_book")) {
+                    "mighty_evil_beacon", "strong_conduit", "mighty_conduit", "evil_conduit", "mighty_evil_conduit", "guide_book")) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleBeacons.id(id)), "item missing: " + id);
             }
             h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleBeacons.id("strong_beacon")) == BeaconsRegistry.STRONG_BEACON, "block");
-            for (String id : List.of("mighty_beacon", "evil_beacon", "mighty_evil_beacon")) {
+            for (String id : List.of("mighty_beacon", "evil_beacon", "mighty_evil_beacon", "mighty_conduit", "evil_conduit", "mighty_evil_conduit")) {
                 h.assertTrue(BuiltInRegistries.BLOCK.containsKey(SimpleBeacons.id(id)), "block missing: " + id);
             }
             h.assertTrue(BuiltInRegistries.MENU.containsKey(SimpleBeacons.id("strong_beacon")), "menu type");
@@ -117,12 +117,18 @@ ALL.put("config_command", h -> {
             h.succeed();
         });
         ALL.put("strong_items_rarity", h -> {
-            // owner 21.10.: the rarest items get SimpleLib's mythic tier (turquoise-green name, glint)
-            for (var item : List.of(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE, BeaconsRegistry.EVIL_UPGRADE_TEMPLATE, BeaconsRegistry.STRONG_BEACON_ITEM,
-                    BeaconsRegistry.MIGHTY_BEACON_ITEM, BeaconsRegistry.EVIL_BEACON_ITEM, BeaconsRegistry.MIGHTY_EVIL_BEACON_ITEM, BeaconsRegistry.STRONG_CONDUIT_ITEM)) {
+            // owner 21.10.: the rarest items get SimpleLib's mythic tier (turquoise-green name, glint); IG31-1: the Evil things their own tier
+            for (var item : List.of(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE, BeaconsRegistry.STRONG_BEACON_ITEM, BeaconsRegistry.MIGHTY_BEACON_ITEM,
+                    BeaconsRegistry.STRONG_CONDUIT_ITEM, BeaconsRegistry.MIGHTY_CONDUIT_ITEM)) {
                 var stack = new net.minecraft.world.item.ItemStack(item);
                 h.assertTrue(com.simplelib.api.SimpleRarity.of(stack) == com.simplelib.api.SimpleRarity.MYTHIC, "mythic: " + item);
                 h.assertTrue(stack.getRarity() == net.minecraft.world.item.Rarity.EPIC && stack.hasFoil(), "Epic fallback + glint: " + item);
+            }
+            for (var item : List.of(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE, BeaconsRegistry.EVIL_BEACON_ITEM, BeaconsRegistry.MIGHTY_EVIL_BEACON_ITEM,
+                    BeaconsRegistry.EVIL_CONDUIT_ITEM, BeaconsRegistry.MIGHTY_EVIL_CONDUIT_ITEM)) {
+                var stack = new net.minecraft.world.item.ItemStack(item);
+                h.assertTrue(com.simplelib.api.SimpleRarity.of(stack) == com.simplelib.api.SimpleRarity.EVIL, "evil tier: " + item);
+                h.assertTrue(stack.getRarity() == net.minecraft.world.item.Rarity.EPIC, "Epic fallback: " + item);
             }
             h.assertTrue(com.simplelib.api.SimpleRarity.of(new net.minecraft.world.item.ItemStack(BeaconsRegistry.STRONG_UPGRADE_SHARD)) == null, "the shard stays plain");
             h.succeed();
@@ -469,7 +475,8 @@ ALL.put("config_command", h -> {
             BlockState beacon = Blocks.BEACON.defaultBlockState(), conduit = Blocks.CONDUIT.defaultBlockState();
             h.assertTrue(StrongUpgrades.targetFor(beacon, evilTemplate) == BeaconsRegistry.EVIL_BEACON && StrongUpgrades.targetFor(beacon, strongTemplate) == BeaconsRegistry.STRONG_BEACON,
                     "Evil Upgrade makes an Evil Beacon, Strong Upgrade a Strong Beacon");
-            h.assertTrue(StrongUpgrades.targetFor(conduit, evilTemplate) == null && StrongUpgrades.targetFor(conduit, strongTemplate) == BeaconsRegistry.STRONG_CONDUIT, "the Evil Upgrade does not touch conduits");
+            h.assertTrue(StrongUpgrades.targetFor(conduit, evilTemplate) == BeaconsRegistry.EVIL_CONDUIT && StrongUpgrades.targetFor(conduit, strongTemplate) == BeaconsRegistry.STRONG_CONDUIT,
+                    "the Evil Upgrade makes an Evil Conduit, the Strong Upgrade a Strong Conduit");
             h.setBlock(CENTER, Blocks.BEACON);
             BlockPos pos = h.absolutePos(CENTER);
             ServerPlayer player = upgrader(h, true);
@@ -536,9 +543,18 @@ ALL.put("config_command", h -> {
         });
         ALL.put("recipes", h -> {
             var server = h.getLevel().getServer();
-            ItemStack beacon = smith(h, new ItemStack(Items.BEACON));
-            h.assertTrue(beacon.is(BeaconsRegistry.STRONG_BEACON_ITEM), "smithing: beacon + template + nether star");
-            h.assertTrue(smith(h, new ItemStack(Items.CONDUIT)).is(BeaconsRegistry.STRONG_CONDUIT_ITEM), "smithing: conduit");
+            // IG31-1: the Nether Heart (Strong) and the Red Nether Gem (Evil) of Simple Mobs replace the nether star in smithing
+            if (BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "nether_heart"))) {
+                Item heart = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "nether_heart"));
+                Item gem = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "nether_gem"));
+                ItemStack strongT = new ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE), evilT = new ItemStack(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE);
+                h.assertTrue(smith(h, strongT, new ItemStack(Items.BEACON), new ItemStack(heart)).is(BeaconsRegistry.STRONG_BEACON_ITEM), "smithing: beacon + Strong Upgrade + Nether Heart");
+                h.assertTrue(smith(h, strongT, new ItemStack(Items.CONDUIT), new ItemStack(heart)).is(BeaconsRegistry.STRONG_CONDUIT_ITEM), "smithing: conduit + Strong Upgrade + Nether Heart");
+                h.assertTrue(smith(h, evilT, new ItemStack(Items.BEACON), new ItemStack(gem)).is(BeaconsRegistry.EVIL_BEACON_ITEM), "smithing: beacon + Evil Upgrade + Nether Gem");
+                h.assertTrue(smith(h, evilT, new ItemStack(Items.CONDUIT), new ItemStack(gem)).is(BeaconsRegistry.EVIL_CONDUIT_ITEM), "smithing: conduit + Evil Upgrade + Nether Gem");
+                h.assertTrue(smith(h, strongT, new ItemStack(Items.BEACON), new ItemStack(Items.NETHER_STAR)).isEmpty()
+                        && smith(h, evilT, new ItemStack(Items.BEACON), new ItemStack(Items.NETHER_STAR)).isEmpty(), "the nether star no longer upgrades");
+            }
             ItemStack o = new ItemStack(Items.CRYING_OBSIDIAN), d = new ItemStack(Items.DIAMOND), n = new ItemStack(Items.NETHER_STAR);
             // Owner 21.10.: not craftable from base materials - the Nether Star way and the Basic Upgrade way are gone
             h.assertTrue(craft(h, List.of(o, d, o, d, n, d, o, d, o)).isEmpty(), "no template from a Nether Star");
@@ -670,6 +686,55 @@ ALL.put("config_command", h -> {
             h.assertTrue(swimmer.isInWater() && reached.contains(swimmer) && !reached.contains(dry), "only players in the water");
             h.assertTrue(swimmer.hasEffect(MobEffects.CONDUIT_POWER) && swimmer.hasEffect(MobEffects.DOLPHINS_GRACE), "conduit power + dolphin's grace");
             h.assertTrue(!dry.hasEffect(MobEffects.CONDUIT_POWER), "dry player gets nothing");
+            h.succeed();
+        });
+        ALL.put("conduit_kinds", h -> {
+            // IG31-2: Mighty / Evil / Mighty Evil Conduit - kinds, frames, range, attack
+            BeaconsConfig.reset();
+            h.assertTrue(StrongConduitLogic.shell(BlockPos.ZERO, 4).size() == StrongConduitLogic.FULL_HUGE, "9x9x9 shell: 90 blocks");
+            for (var kind : com.simplebeacons.conduit.ConduitKind.values()) {
+                h.assertTrue(BuiltInRegistries.BLOCK.getValue(SimpleBeacons.id(kind.id)) instanceof com.simplebeacons.conduit.StrongConduitBlock block && block.kind() == kind, "block of " + kind);
+                h.assertTrue(kind.maxRadius() == (kind.mighty() ? 4 : 3) && kind.rangePer7() == (kind.mighty() ? 32 : 24), "frame and range of " + kind);
+                h.assertTrue(!kind.effects().isEmpty() && kind.volume() > 1.0F, "effects and a louder hum: " + kind);
+            }
+            var mighty = com.simplebeacons.conduit.ConduitKind.MIGHTY;
+            h.assertTrue(StrongConduitLogic.range(90, mighty) == 324 && StrongConduitLogic.range(42, mighty) == 192 && StrongConduitLogic.range(90) == 216, "ranges: Mighty 32 per 7 capped at 1.5 x config");
+            h.assertTrue(mighty.killRange(90, 4) == 16 && mighty.killRange(66, 3) == 12 && mighty.killRange(42, 2) == 8 && mighty.killRange(20, 2) == 0, "Mighty attack 16 / 12 / 8");
+            h.assertTrue(com.simplebeacons.conduit.ConduitKind.EVIL.killRange(66, 3) == 0 && com.simplebeacons.conduit.ConduitKind.MIGHTY_EVIL.killRange(90, 4) == 0, "Evil conduits never attack");
+            // the conduit block entity type accepts all four blocks
+            h.assertTrue(BeaconsRegistry.conduitBlocks().size() == 4, "four conduit blocks");
+            h.succeed();
+        });
+        ALL.put("conduit_evil_effects", h -> {
+            // IG31-2: the evil conduits reach only players really under water that the Evil gate lets through; the Mighty one adds Darkness
+            BeaconsConfig.reset();
+            water(h);
+            BlockPos center = h.absolutePos(CENTER);
+            ServerPlayer swimmer = h.makeMockServerPlayerInLevel();
+            h.runBeforeTestEnd(() -> {
+                h.getLevel().getServer().getPlayerList().remove(swimmer);
+                com.simplelib.api.HarmShields.unregister("conduits-test");
+            });
+            swimmer.snapTo(center.getX() + 0.5, center.getY() - 1.0, center.getZ() + 0.5);
+            swimmer.baseTick();
+            var stat = net.minecraft.stats.Stats.CUSTOM.get(net.minecraft.stats.Stats.TIME_SINCE_DEATH);
+            swimmer.getStats().setValue(swimmer, stat, 5 * 1200 - 1);
+            h.assertTrue(swimmer.isInWater() && StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.EVIL).isEmpty()
+                    && !swimmer.hasEffect(MobEffects.MINING_FATIGUE), "just respawned: the Evil Conduit does nothing");
+            swimmer.getStats().setValue(swimmer, stat, 5 * 1200);
+            h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.EVIL).contains(swimmer), "after 5 minutes: reached");
+            h.assertTrue(swimmer.hasEffect(MobEffects.MINING_FATIGUE) && swimmer.hasEffect(MobEffects.SLOWNESS)
+                    && !swimmer.hasEffect(MobEffects.CONDUIT_POWER) && !swimmer.hasEffect(MobEffects.DOLPHINS_GRACE), "Mining Fatigue and Slowness, nothing good");
+            swimmer.removeAllEffects();
+            StrongConduitLogic.applyEffects(h.getLevel(), center, 90, com.simplebeacons.conduit.ConduitKind.MIGHTY_EVIL);
+            MobEffectInstance fatigue = swimmer.getEffect(MobEffects.MINING_FATIGUE);
+            h.assertTrue(fatigue != null && fatigue.getAmplifier() == 1 && swimmer.hasEffect(MobEffects.WEAKNESS) && swimmer.hasEffect(MobEffects.DARKNESS), "Mighty Evil: Mining Fatigue II, Weakness, Darkness");
+            swimmer.removeAllEffects();
+            com.simplelib.api.HarmShields.register("conduits-test", p -> p == swimmer);
+            h.assertTrue(StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.EVIL).isEmpty(), "a protected player is not affected");
+            com.simplelib.api.HarmShields.unregister("conduits-test");
+            StrongConduitLogic.applyEffects(h.getLevel(), center, 66, com.simplebeacons.conduit.ConduitKind.MIGHTY);
+            h.assertTrue(swimmer.hasEffect(MobEffects.CONDUIT_POWER) && swimmer.hasEffect(MobEffects.NIGHT_VISION), "Mighty Conduit: Conduit Power + Night Vision");
             h.succeed();
         });
         ALL.put("range_factor_by_material", h -> {
@@ -856,8 +921,8 @@ ALL.put("config_command", h -> {
         return tag;
     }
 
-    static ItemStack smith(GameTestHelper h, ItemStack base) {
-        SmithingRecipeInput input = new SmithingRecipeInput(new ItemStack(BeaconsRegistry.STRONG_UPGRADE_TEMPLATE), base, new ItemStack(Items.NETHER_STAR));
+    static ItemStack smith(GameTestHelper h, ItemStack template, ItemStack base, ItemStack addition) {
+        SmithingRecipeInput input = new SmithingRecipeInput(template, base, addition);
         return h.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING, input, h.getLevel())
                 .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
     }

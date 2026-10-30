@@ -24,36 +24,13 @@ public final class CreativeTabSettings {
 
     private CreativeTabSettings() {}
 
-    /** Whether {@code modId} may add its items to Vanilla creative tabs; {@code true} unless switched off. */
-    public static synchronized boolean addItemsToVanillaTabs(Path configDir, String modId) {
-        String key = modId + SUFFIX;
-        if (configDir == null) {
-            return true;
-        }
-        Path file = configDir.resolve(FILE);
-        Properties properties = new Properties();
-        if (Files.isRegularFile(file)) {
-            try (Reader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
-                properties.load(reader);
-            } catch (IOException | IllegalArgumentException e) {
-                return true;
-            }
-        }
-        String value = properties.getProperty(key);
-        if (value == null) {
-            properties.setProperty(key, "true");
-            try {
-                Files.createDirectories(configDir);
-                try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-                    properties.store(writer, "Simple mods: add each mod's items to the Vanilla creative tabs too "
-                            + "(false = Vanilla tabs stay unchanged, the mod's own tab remains)");
-                }
-            } catch (IOException ignored) {
-                // read-only config directory: the default stays in effect
-            }
-            return true;
-        }
-        return !"false".equalsIgnoreCase(value.trim());
+    /**
+     * Whether {@code modId} may add its items to Vanilla creative tabs. Since 30.10. (owner, IG31-3) always {@code false}: Simple
+     * mods keep their items in their own tabs and Vanilla tabs stay Vanilla (SimpleLib's {@code CreativeTabPolicy} also removes
+     * what a mod still adds). The file {@value #FILE} is no longer read; old values stay in it, unused.
+     */
+    public static boolean addItemsToVanillaTabs(Path configDir, String modId) {
+        return false;
     }
 
     /** Writes the switch for {@code modId} (config screens and tests). */

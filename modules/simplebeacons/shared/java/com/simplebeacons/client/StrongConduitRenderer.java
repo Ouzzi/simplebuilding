@@ -24,13 +24,15 @@ import org.joml.Vector3f;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The Strong Conduit: Vanilla's conduit geometry and textures (shell, cage, wind, eye) with a star-blue tint on shell, cage
- * and wind, so it reads apart from a Vanilla conduit at a glance (concept §4). Vanilla's {@link ConduitRenderer#submit} has
+ * The conduits of Simple Beacons: Vanilla's conduit geometry and textures (shell, cage, wind, eye) with a tint per kind (Strong star-blue,
+ * Mighty gold, Evil violet, Mighty Evil red) on shell, cage and wind, so it reads apart from a Vanilla conduit at a glance (concept §4). Vanilla's {@link ConduitRenderer#submit} has
  * no tint hook, so its drawing is repeated here with the tint as the colour argument; the textures stay Vanilla's.
  */
-public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitBlockEntity, ConduitRenderState> {
-    /** ARGB multiplied onto the Vanilla textures. */
-    private static final int TINT = 0xFF9FE6FF;
+public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitBlockEntity, StrongConduitRenderer.State> {
+    /** Vanilla's render state plus the tint of the conduit's {@link com.simplebeacons.conduit.ConduitKind} (ARGB, multiplied onto the Vanilla textures). */
+    public static class State extends ConduitRenderState {
+        public int tint = 0xFFFFFFFF;
+    }
 
     private final SpriteGetter sprites;
     private final ModelPart eye;
@@ -47,12 +49,12 @@ public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitB
     }
 
     @Override
-    public ConduitRenderState createRenderState() {
-        return new ConduitRenderState();
+    public State createRenderState() {
+        return new State();
     }
 
     @Override
-    public void extractRenderState(StrongConduitBlockEntity entity, ConduitRenderState state, float partialTicks, Vec3 camera,
+    public void extractRenderState(StrongConduitBlockEntity entity, State state, float partialTicks, Vec3 camera,
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(entity, state, partialTicks, camera, breakProgress);
         state.isActive = entity.isActive();
@@ -60,10 +62,11 @@ public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitB
         state.animTime = entity.tickCount + partialTicks;
         state.animationPhase = entity.tickCount / 66 % 3;
         state.isHunting = entity.isHunting();
+        state.tint = entity.kind().tint();
     }
 
     @Override
-    public void submit(ConduitRenderState state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
         int light = state.lightCoords;
         if (!state.isActive) {
             pose.pushPose();
@@ -71,7 +74,7 @@ public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitB
             pose.rotateDegrees(Axis.YP, state.activeRotation);
             SpriteId shellId = ConduitRenderer.SHELL_TEXTURE;
             var shellType = shellId.renderType(RenderTypes::entitySolid);
-            collector.submitModelPart(this.shell, pose, shellType, light, OverlayTexture.NO_OVERLAY, this.sprites.get(shellId), TINT);
+            collector.submitModelPart(this.shell, pose, shellType, light, OverlayTexture.NO_OVERLAY, this.sprites.get(shellId), state.tint);
             if (state.breakProgress != null) {
                 collector.order(1).submitCrumblingOverlay(this.shell, pose, shellType, light, OverlayTexture.NO_OVERLAY, -1, state.breakProgress);
             }
@@ -86,7 +89,7 @@ public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitB
         pose.rotate(new Quaternionf().rotationAxis(rotation * (float) (Math.PI / 180.0), new Vector3f(0.5F, 1.0F, 0.5F).normalize()));
         SpriteId cageId = ConduitRenderer.ACTIVE_SHELL_TEXTURE;
         var cageType = cageId.renderType(RenderTypes::entityCutout);
-        collector.submitModelPart(this.cage, pose, cageType, light, OverlayTexture.NO_OVERLAY, this.sprites.get(cageId), TINT);
+        collector.submitModelPart(this.cage, pose, cageType, light, OverlayTexture.NO_OVERLAY, this.sprites.get(cageId), state.tint);
         if (state.breakProgress != null) {
             collector.order(1).submitCrumblingOverlay(this.cage, pose, cageType, light, OverlayTexture.NO_OVERLAY, -1, state.breakProgress);
         }
@@ -102,14 +105,14 @@ public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitB
         SpriteId windId = state.animationPhase == 1 ? ConduitRenderer.VERTICAL_WIND_TEXTURE : ConduitRenderer.WIND_TEXTURE;
         var windType = windId.renderType(RenderTypes::entityCutout);
         TextureAtlasSprite windSprite = this.sprites.get(windId);
-        collector.submitModelPart(this.wind, pose, windType, light, OverlayTexture.NO_OVERLAY, windSprite, TINT);
+        collector.submitModelPart(this.wind, pose, windType, light, OverlayTexture.NO_OVERLAY, windSprite, state.tint);
         pose.popPose();
 
         pose.pushPose();
         pose.translate(0.5F, 0.5F, 0.5F);
         pose.scale(0.875F, 0.875F, 0.875F);
         pose.rotate(new Quaternionf().rotationXYZ((float) Math.PI, 0.0F, (float) Math.PI));
-        collector.submitModelPart(this.wind, pose, windType, light, OverlayTexture.NO_OVERLAY, windSprite, TINT);
+        collector.submitModelPart(this.wind, pose, windType, light, OverlayTexture.NO_OVERLAY, windSprite, state.tint);
         pose.popPose();
 
         pose.pushPose();

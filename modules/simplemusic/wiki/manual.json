@@ -378,16 +378,16 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "The module's items sit in its own creative tab and next to the jukebox in Functional Blocks.",
+        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
         "details": [
-          "The shared switch simplemusic.addItemsToVanillaTabs in config/simple-creative-tabs.properties (default true) keeps the Vanilla tabs unchanged; the guide book stays in Tools & Utilities."
+          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
-        "summary": "Die Items des Moduls stehen im eigenen Kreativ-Tab und neben der Jukebox in Funktionsblöcke.",
+        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
         "details": [
-          "Der gemeinsame Schalter simplemusic.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true) lässt die Vanilla-Tabs unverändert; das Handbuch bleibt in Werkzeuge & Hilfsmittel."
+          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },

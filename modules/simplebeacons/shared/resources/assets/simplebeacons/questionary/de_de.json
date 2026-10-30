@@ -92,5 +92,41 @@
     "secret": [
       "Es gelten dieselben Schutzregeln wie beim Bösen Leuchtfeuer."
     ]
+  },
+  "mighty_conduit": {
+    "lore": [
+      "Die Tiefe gab ihm einen Rahmen aus neun."
+    ],
+    "use": [
+      "Wird wie das Mächtige Leuchtfeuer aus einem Starken Aquisator gebaut. Rahmen bis 9x9x9 (90 Blöcke) aus Prismarin, Dunklem Prismarin, Prismarinziegeln oder Seelaternen für bis zu 324 Blöcke Reichweite.",
+      "Spieler im Wasser bekommen Aquisator-Kraft, Delfingunst und Nachtsicht."
+    ],
+    "secret": [
+      "Der volle 9x9x9-Rahmen trifft feindliche Mobs im Wasser im Umkreis von 16 Blöcken."
+    ]
+  },
+  "evil_conduit": {
+    "lore": [
+      "Das Meer antwortet, aber nicht freundlich."
+    ],
+    "use": [
+      "Schmiedetisch: ein Aquisator, die Böse Aufwertung und ein Rotes Nether-Juwel. Gleiche Rahmen wie der Starke Aquisator (bis 7x7x7, 216 Blöcke).",
+      "Spieler, die wirklich unter Wasser sind, bekommen Abbaumüdigkeit und Langsamkeit. Mobs nimmt er nichts."
+    ],
+    "secret": [
+      "Wie das Böse Leuchtfeuer verschont er Neulinge, geschützte Spieler und alle, die in den letzten 5 Minuten gestorben sind."
+    ]
+  },
+  "mighty_evil_conduit": {
+    "lore": [
+      "Ein Rahmen aus neun, eine Flut aus Grauen."
+    ],
+    "use": [
+      "Wird wie das Mächtige Böse Leuchtfeuer aus einem Bösen Aquisator gebaut. Rahmen bis 9x9x9, Reichweite bis 324 Blöcke.",
+      "Spieler, die wirklich unter Wasser sind, bekommen Abbaumüdigkeit II, Langsamkeit, Schwäche und Dunkelheit."
+    ],
+    "secret": [
+      "Es gilt derselbe Schutz wie beim Bösen Leuchtfeuer."
+    ]
   }
 }

@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
@@ -52,6 +53,7 @@ public final class LibTests {
         ALL.put("pixel_rle_round_trip", PixelArtTests::rleRoundTrip);
         ALL.put("pixel_size_limit", PixelArtTests::sizeLimit);
         ALL.put("simple_rarity_names", LibTests::simpleRarityNames);
+        ALL.put("creative_tab_policy", LibTests::creativeTabPolicy);
         ALL.put("legendary_advancements", LegendaryTests::advancements);
         ALL.put("legendary_enchantments", LegendaryTests::enchantments);
         ALL.put("legendary_toast_switch", LegendaryTests::toastSwitch);
@@ -392,6 +394,51 @@ public final class LibTests {
         ALL.put("discover_behaviour_hints", com.simplelib.discover.LibDiscover::behaviourHints);
         ALL.put("discover_first_pickup_tips", com.simplelib.discover.LibDiscover::firstPickupTips);
         WarpedWartTests.register();
+    }
+
+    /**
+     * IG31-3 (owner 30.10.): the creative tab rules. The mod tree order (super-mod, then its sub-mods, SimpleLib last), the pure
+     * stack rules and, on the rebuilt tabs of whatever is loaded: no mod item that a mod tab offers stands in a Vanilla tab, and no
+     * plain Vanilla item stands in a mod tab.
+     */
+    private static void creativeTabPolicy(GameTestHelper h) {
+        var order = com.simplelib.api.CreativeTabPolicy.order();
+        check(h, !order.isEmpty() && order.getLast().equals("simplelib"), "SimpleLib is last in the mod tree order: " + order);
+        int sb = order.indexOf("simplebuilding"), blocks = order.indexOf("simpleblocks"), qol = order.indexOf("simplequalityoflife");
+        check(h, sb == 0 && sb < blocks && blocks < qol && qol < order.indexOf("simpletools"), "super-mod first, then its sub-mods: " + order);
+        int end = order.indexOf("simpleend");
+        check(h, end > 0 && order.get(end + 1).equals("simpleenddragonfight"), "a nested sub-mod follows its parent");
+        check(h, com.simplelib.api.CreativeTabPolicy.rank("not_a_mod") == Integer.MAX_VALUE, "unknown namespaces come last");
+
+        var compass = new ItemStack(Items.COMPASS);
+        var book = new ItemStack(Items.ENCHANTED_BOOK);
+        book.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal("Mod content"));
+        check(h, com.simplelib.api.CreativeTabPolicy.isPlainVanilla(compass) && !com.simplelib.api.CreativeTabPolicy.isModItem(compass), "a bare compass is plain Vanilla");
+        check(h, !com.simplelib.api.CreativeTabPolicy.isPlainVanilla(book) && !com.simplelib.api.CreativeTabPolicy.isModItem(book), "a Vanilla item with components is mod content, not a mod item");
+        check(h, com.simplelib.api.CreativeTabPolicy.isModItem(new ItemStack(com.simplelib.registry.LibItems.WARPED_WART)), "a SimpleLib item is a mod item");
+
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+        var registry = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
+        java.util.Set<String> homes = new java.util.HashSet<>();
+        for (var tab : registry) {
+            var id = registry.getKey(tab);
+            if (id != null && !com.simplelib.api.CreativeTabPolicy.isVanilla(id) && tab.getType() == net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) {
+                for (var stack : tab.getDisplayItems()) {
+                    homes.add(com.simplelib.api.CreativeTabPolicy.key(stack));
+                    check(h, !com.simplelib.api.CreativeTabPolicy.isPlainVanilla(stack), "plain Vanilla item " + stack + " in the mod tab " + id);
+                }
+            }
+        }
+        for (var tab : registry) {
+            var id = registry.getKey(tab);
+            if (id != null && com.simplelib.api.CreativeTabPolicy.isVanilla(id) && tab.getType() == net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) {
+                for (var stack : tab.getDisplayItems()) {
+                    check(h, !(com.simplelib.api.CreativeTabPolicy.isModItem(stack) && homes.contains(com.simplelib.api.CreativeTabPolicy.key(stack))),
+                            "mod item " + stack + " in the Vanilla tab " + id + " although a mod tab offers it");
+                }
+            }
+        }
+        h.succeed();
     }
 
     /**

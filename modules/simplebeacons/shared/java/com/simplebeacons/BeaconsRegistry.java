@@ -4,6 +4,7 @@ import com.simplebeacons.beacon.BeaconKind;
 import com.simplebeacons.beacon.StrongBeaconBlock;
 import com.simplebeacons.beacon.StrongBeaconBlockEntity;
 import com.simplebeacons.beacon.StrongBeaconMenu;
+import com.simplebeacons.conduit.ConduitKind;
 import com.simplebeacons.conduit.StrongConduitBlock;
 import com.simplebeacons.conduit.StrongConduitBlockEntity;
 import com.simplelib.api.SimpleRarity;
@@ -36,9 +37,9 @@ import net.minecraft.world.level.material.MapColor;
  * directly in the initializer), in this order: blocks, items, block entity types, menu.
  */
 public final class BeaconsRegistry {
-    public static Block STRONG_BEACON, MIGHTY_BEACON, EVIL_BEACON, MIGHTY_EVIL_BEACON, STRONG_CONDUIT;
+    public static Block STRONG_BEACON, MIGHTY_BEACON, EVIL_BEACON, MIGHTY_EVIL_BEACON, STRONG_CONDUIT, MIGHTY_CONDUIT, EVIL_CONDUIT, MIGHTY_EVIL_CONDUIT;
     public static Item STRONG_UPGRADE_TEMPLATE, EVIL_UPGRADE_TEMPLATE, STRONG_UPGRADE_SHARD, STRONG_BEACON_ITEM, MIGHTY_BEACON_ITEM,
-            EVIL_BEACON_ITEM, MIGHTY_EVIL_BEACON_ITEM, STRONG_CONDUIT_ITEM;
+            EVIL_BEACON_ITEM, MIGHTY_EVIL_BEACON_ITEM, STRONG_CONDUIT_ITEM, MIGHTY_CONDUIT_ITEM, EVIL_CONDUIT_ITEM, MIGHTY_EVIL_CONDUIT_ITEM;
     public static BlockEntityType<StrongBeaconBlockEntity> STRONG_BEACON_BE;
     public static BlockEntityType<StrongConduitBlockEntity> STRONG_CONDUIT_BE;
     public static MenuType<StrongBeaconMenu> STRONG_BEACON_MENU;
@@ -48,17 +49,20 @@ public final class BeaconsRegistry {
         MIGHTY_BEACON = beacon(BeaconKind.MIGHTY, MapColor.GOLD);
         EVIL_BEACON = beacon(BeaconKind.EVIL, MapColor.CRIMSON_NYLIUM);
         MIGHTY_EVIL_BEACON = beacon(BeaconKind.MIGHTY_EVIL, MapColor.COLOR_RED);
-        STRONG_CONDUIT = block("strong_conduit", StrongConduitBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND)
-                .forceSolidOn().instrument(NoteBlockInstrument.HAT).strength(3.0F).lightLevel(state -> 15).noOcclusion());
+        STRONG_CONDUIT = conduit(ConduitKind.STRONG, MapColor.DIAMOND);
+        MIGHTY_CONDUIT = conduit(ConduitKind.MIGHTY, MapColor.GOLD);
+        EVIL_CONDUIT = conduit(ConduitKind.EVIL, MapColor.CRIMSON_NYLIUM);
+        MIGHTY_EVIL_CONDUIT = conduit(ConduitKind.MIGHTY_EVIL, MapColor.COLOR_RED);
     }
 
     public static void registerItems() {
+        // IG31-1: the Evil things have their own tier (SimpleRarity.EVIL), not the Mythic one of the Strong things
         EVIL_UPGRADE_TEMPLATE = item("evil_upgrade_template", p -> new SmithingTemplateItem(
                 Component.translatable("item.simplebeacons.evil_upgrade_template.applies_to").withStyle(ChatFormatting.BLUE),
                 Component.translatable("item.simplebeacons.evil_upgrade_template.ingredients").withStyle(ChatFormatting.BLUE),
                 Component.translatable("item.simplebeacons.evil_upgrade_template.base_slot_description"),
                 Component.translatable("item.simplebeacons.evil_upgrade_template.additions_slot_description"),
-                List.of(), List.of(), p), SimpleRarity.MYTHIC.apply(new Item.Properties()));
+                List.of(), List.of(), p), SimpleRarity.EVIL.apply(new Item.Properties()));
         STRONG_UPGRADE_TEMPLATE = item("strong_upgrade_template", p -> new SmithingTemplateItem(
                 Component.translatable("item.simplebeacons.strong_upgrade_template.applies_to").withStyle(ChatFormatting.BLUE),
                 Component.translatable("item.simplebeacons.strong_upgrade_template.ingredients").withStyle(ChatFormatting.BLUE),
@@ -73,11 +77,17 @@ public final class BeaconsRegistry {
         MIGHTY_BEACON_ITEM = item("mighty_beacon", p -> new BlockItem(MIGHTY_BEACON, p),
                 SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
         EVIL_BEACON_ITEM = item("evil_beacon", p -> new BlockItem(EVIL_BEACON, p),
-                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+                SimpleRarity.EVIL.apply(new Item.Properties().useBlockDescriptionPrefix()));
         MIGHTY_EVIL_BEACON_ITEM = item("mighty_evil_beacon", p -> new BlockItem(MIGHTY_EVIL_BEACON, p),
-                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+                SimpleRarity.EVIL.apply(new Item.Properties().useBlockDescriptionPrefix()));
         STRONG_CONDUIT_ITEM = item("strong_conduit", p -> new BlockItem(STRONG_CONDUIT, p),
                 SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+        MIGHTY_CONDUIT_ITEM = item("mighty_conduit", p -> new BlockItem(MIGHTY_CONDUIT, p),
+                SimpleRarity.MYTHIC.apply(new Item.Properties().useBlockDescriptionPrefix()));
+        EVIL_CONDUIT_ITEM = item("evil_conduit", p -> new BlockItem(EVIL_CONDUIT, p),
+                SimpleRarity.EVIL.apply(new Item.Properties().useBlockDescriptionPrefix()));
+        MIGHTY_EVIL_CONDUIT_ITEM = item("mighty_evil_conduit", p -> new BlockItem(MIGHTY_EVIL_CONDUIT, p),
+                SimpleRarity.EVIL.apply(new Item.Properties().useBlockDescriptionPrefix()));
         com.simplebeacons.guide.BeaconsGuide.register();
     }
 
@@ -95,7 +105,8 @@ public final class BeaconsRegistry {
     public static List<ItemStack> tabStacks() {
         if (!SimpleBeacons.on()) return List.of();
         return List.of(new ItemStack(STRONG_BEACON_ITEM), new ItemStack(MIGHTY_BEACON_ITEM), new ItemStack(EVIL_BEACON_ITEM),
-                new ItemStack(MIGHTY_EVIL_BEACON_ITEM), new ItemStack(STRONG_CONDUIT_ITEM));
+                new ItemStack(MIGHTY_EVIL_BEACON_ITEM), new ItemStack(STRONG_CONDUIT_ITEM), new ItemStack(MIGHTY_CONDUIT_ITEM),
+                new ItemStack(EVIL_CONDUIT_ITEM), new ItemStack(MIGHTY_EVIL_CONDUIT_ITEM));
     }
 
     /** The upgrade templates (Vanilla Ingredients tab, after Vanilla's Netherite template). */
@@ -106,6 +117,16 @@ public final class BeaconsRegistry {
     /** The four beacon blocks, the valid blocks of the one beacon block entity type. */
     public static java.util.Set<Block> beaconBlocks() {
         return java.util.Set.of(STRONG_BEACON, MIGHTY_BEACON, EVIL_BEACON, MIGHTY_EVIL_BEACON);
+    }
+
+    /** The four conduit blocks, the valid blocks of the one conduit block entity type. */
+    public static java.util.Set<Block> conduitBlocks() {
+        return java.util.Set.of(STRONG_CONDUIT, MIGHTY_CONDUIT, EVIL_CONDUIT, MIGHTY_EVIL_CONDUIT);
+    }
+
+    private static Block conduit(ConduitKind kind, MapColor color) {
+        return block(kind.id, p -> new StrongConduitBlock(kind, p), BlockBehaviour.Properties.of().mapColor(color)
+                .forceSolidOn().instrument(NoteBlockInstrument.HAT).strength(3.0F).lightLevel(state -> 15).noOcclusion());
     }
 
     private static Block beacon(BeaconKind kind, MapColor color) {

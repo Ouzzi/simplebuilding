@@ -363,19 +363,6 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean pistonsFireBreakEvents = true;
 
-    // Zeigt den Kreativ-Tab "SimpleEnchants (Dev)" auch ausserhalb einer
-    // Entwicklungsumgebung (dort ist er immer da), siehe DevEnchantedTab. Wirkt beim naechsten
-    // Neuaufbau der Kreativ-Tabs, also spaetestens nach dem erneuten Betreten der Welt.
-    @ConfigEntry.Category("advanced")
-    @ConfigEntry.Gui.Tooltip
-    public boolean showDevEnchantedTab = false;
-
-    // Zusaetzliche Vorkommen der Mod-Items in den Vanilla-Tabs und damit im Suchtab.
-    // Aus: Vanilla-Tabs bleiben unveraendert; der eigene Mod-Tab bleibt bestehen. Standard an (bisheriges Verhalten).
-    @ConfigEntry.Category("advanced")
-    @ConfigEntry.Gui.Tooltip
-    public boolean addItemsToVanillaTabs = true;
-
     // Leere Trennzellen zwischen den Kategorien der eigenen Kreativ-Tabs (alte Zeilen-Logik, Besitzer N22:
     // Standard aus, Logik bleibt abschaltbar erhalten, siehe CreativeTabLayout).
     @ConfigEntry.Category("advanced")

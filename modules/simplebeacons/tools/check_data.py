@@ -22,7 +22,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     required = (sorted(used) + [f'item.{NS}.guide_book', f'item.{NS}.strong_upgrade_template', f'item.{NS}.strong_upgrade_shard',
-                                f'item.{NS}.evil_upgrade_template', f'{NS}.testcentre.station', f'block.{NS}.strong_conduit']
+                                f'item.{NS}.evil_upgrade_template', f'{NS}.testcentre.station', f'block.{NS}.strong_conduit', f'block.{NS}.mighty_conduit', f'block.{NS}.evil_conduit', f'block.{NS}.mighty_evil_conduit']
                 + [f'block.{NS}.{b}' for b in ('strong_beacon', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon')]
                 + [f'container.{NS}.{b}' for b in ('strong_beacon', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon')]
                 + [f'{NS}.screen.effect.{e}' for e in effects])
@@ -34,7 +34,13 @@ for locale in ('en_us', 'de_de'):
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
 assert recipes['strong_beacon_smithing']['base'] == 'minecraft:beacon' and recipes['strong_conduit_smithing']['base'] == 'minecraft:conduit'
-assert all(recipes[r]['addition'] == 'minecraft:nether_star' for r in ('strong_beacon_smithing', 'strong_conduit_smithing'))
+# IG31-1: the Nether Heart (Strong) and the Red Nether Gem (Evil) of Simple Mobs, no nether star
+assert all(recipes[r]['addition'] == 'simplemobs:nether_heart' for r in ('strong_beacon_smithing', 'strong_conduit_smithing'))
+assert all(recipes[r]['addition'] == 'simplemobs:nether_gem' for r in ('evil_beacon_smithing', 'evil_conduit_smithing'))
+assert recipes['evil_conduit_smithing']['base'] == 'minecraft:conduit' and recipes['evil_beacon_smithing']['base'] == 'minecraft:beacon'
+for r in ('mighty_conduit', 'mighty_evil_conduit'):
+    assert recipes[r]['key']['B'] in (f'{NS}:strong_conduit', f'{NS}:evil_conduit'), r
+    assert recipes[r + '_without_simplebuilding']['key']['B'] == recipes[r]['key']['B'], r
 dup = recipes['strong_upgrade_template_duplication']
 assert dup['result']['count'] == 2 and dup['type'] == 'minecraft:crafting_shapeless'
 assert sorted(dup['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'minecraft:diamond', 'simplemobs:nether_heart']), dup['ingredients']
@@ -59,7 +65,7 @@ for name, center in (('mighty_beacon', 'strong_beacon'), ('mighty_evil_beacon', 
         assert r['result']['id'] == f'{NS}:{name}', variant
 assert all(recipes[r]['key'][k].startswith('simplebuilding:') for r in ('mighty_beacon', 'mighty_evil_beacon') for k in 'cigdne'), 'cores'
 evil = recipes['evil_beacon_smithing']
-assert evil['template'] == f'{NS}:evil_upgrade_template' and evil['base'] == 'minecraft:beacon' and evil['addition'] == 'minecraft:nether_star'
+assert evil['template'] == f'{NS}:evil_upgrade_template' and evil['base'] == 'minecraft:beacon' and evil['addition'] == 'simplemobs:nether_gem'
 assert sorted(recipes['evil_upgrade_template']['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'simplemobs:nether_heart', 'simplemobs:nether_gem'])
 assert 'fabric:load_conditions' in recipes['evil_upgrade_template'], 'Evil Upgrade recipe needs Simple Mobs'
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
@@ -77,5 +83,5 @@ for f in manual['features']:
         assert (MODULE.parents[1] / src).is_file(), src
 for locale in ('en_us', 'de_de'):
     q = json.loads((RES / f'assets/{NS}/questionary/{locale}.json').read_text(encoding='utf-8'))
-    assert set(q) == {'strong_upgrade_template', 'strong_upgrade_shard', 'strong_beacon', 'strong_conduit', 'evil_upgrade_template', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon'}, (locale, set(q))
+    assert set(q) == {'strong_upgrade_template', 'strong_upgrade_shard', 'strong_beacon', 'strong_conduit', 'evil_upgrade_template', 'mighty_beacon', 'evil_beacon', 'mighty_evil_beacon', 'mighty_conduit', 'evil_conduit', 'mighty_evil_conduit'}, (locale, set(q))
 print(f'{NS}: {len(config_keys)} config keys, {len(used)} UI texts, {len(recipes)} recipes, mixins, structure, questionary and wiki valid')

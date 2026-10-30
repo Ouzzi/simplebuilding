@@ -92,5 +92,41 @@
     "secret": [
       "The same protections as the Evil Beacon apply."
     ]
+  },
+  "mighty_conduit": {
+    "lore": [
+      "The deep gave it a frame of nine."
+    ],
+    "use": [
+      "Crafted from a Strong Conduit like the Mighty Beacon. Frame it up to 9x9x9 (90 blocks) with prismarine, dark prismarine, prismarine bricks or sea lanterns for up to 324 blocks of range.",
+      "Players in the water get Conduit Power, Dolphin's Grace and Night Vision."
+    ],
+    "secret": [
+      "The full 9x9x9 frame strikes hostile mobs in the water within 16 blocks."
+    ]
+  },
+  "evil_conduit": {
+    "lore": [
+      "The sea answers, but not kindly."
+    ],
+    "use": [
+      "Smithing table: a conduit, the Evil Upgrade and a Red Nether Gem. Same frames as the Strong Conduit (up to 7x7x7, 216 blocks).",
+      "Players really under water in range get Mining Fatigue and Slowness. It does not hurt mobs."
+    ],
+    "secret": [
+      "Like the Evil Beacon it spares newcomers, protected players and anyone who died in the last 5 minutes."
+    ]
+  },
+  "mighty_evil_conduit": {
+    "lore": [
+      "A frame of nine, a tide of dread."
+    ],
+    "use": [
+      "Crafted from an Evil Conduit like the Mighty Evil Beacon. Frame up to 9x9x9, range up to 324 blocks.",
+      "Players really under water in range get Mining Fatigue II, Slowness, Weakness and Darkness."
+    ],
+    "secret": [
+      "The same protection as the Evil Beacon applies."
+    ]
   }
 }
