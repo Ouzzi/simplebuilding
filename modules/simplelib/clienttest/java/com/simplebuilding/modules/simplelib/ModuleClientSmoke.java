@@ -26,6 +26,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(10);
             context.takeScreenshot("simplelib-warped-wart-stages");
             context.takeScreenshot("simplelib-world");
+            // ABN30-9: the dev variants panel beside the Vanilla inventory (shown in the dev environment by default).
+            com.simplelib.api.DevVariants.register("simplelib:smoke_frame", "Simple Lib", "Smoke-Rahmen", "a",
+                    new com.simplelib.api.DevVariants.Option("a", "A"), new com.simplelib.api.DevVariants.Option("b", "B"));
+            context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(net.minecraft.client.Minecraft.getInstance().player));
+            context.waitTicks(5);
+            context.takeScreenshot("simplelib-devvariants-inventory");
+            if (!com.simplelib.api.DevVariants.select("simplelib:smoke_frame", "b") || !com.simplelib.api.DevVariants.is("simplelib:smoke_frame", "b")) throw new AssertionError("dev variant select");
+            context.setScreen(() -> null);
         }
     }
 }
