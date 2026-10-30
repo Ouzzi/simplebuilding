@@ -235,7 +235,7 @@ public final class ImmersionTests {
     }
 
     /**
-     * Enderite sink damper (owner 2026-10-02): sneaking while falling lowers gravity by 25/45/65/80 % for 1-4 pieces,
+     * Enderite sink damper (owner 2026-10-02): sneaking while falling lowers gravity by 25 % for 1-4 pieces (IG31-16: capped at one piece, no stronger with the full set),
      * nothing without sneaking, on the ground or while rising; the counted fall distance shrinks by the same share.
      */
     public static void enderiteArmorDampsTheFallWhileSneaking(GameTestHelper helper) {
@@ -248,16 +248,29 @@ public final class ImmersionTests {
         net.minecraft.world.entity.EquipmentSlot[] slots = {net.minecraft.world.entity.EquipmentSlot.FEET, net.minecraft.world.entity.EquipmentSlot.LEGS,
                 net.minecraft.world.entity.EquipmentSlot.CHEST, net.minecraft.world.entity.EquipmentSlot.HEAD};
         net.minecraft.world.item.Item[] armor = {ModItems.ENDERITE_BOOTS, ModItems.ENDERITE_LEGGINGS, ModItems.ENDERITE_CHESTPLATE, ModItems.ENDERITE_HELMET};
-        double[] expected = {0.25, 0.45, 0.65, 0.8};
+        double[] expected = {0.25, 0.25, 0.25, 0.25};
         for (int i = 0; i < 4; i++) {
             player.setItemSlot(slots[i], new ItemStack(armor[i]));
             helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), expected[i], "damping with " + (i + 1) + " pieces");
         }
         double gravity = effectiveGravity(player);
-        helper.assertTrue(Math.abs(gravity - player.getGravity() * 0.2) < 1.0E-9, "effective gravity with 4 pieces while sneaking: " + gravity);
+        helper.assertTrue(Math.abs(gravity - player.getGravity() * 0.75) < 1.0E-9, "effective gravity with 4 pieces while sneaking: " + gravity);
         player.fallDistance = 0.0;
         checkFallDamage(player, -1.0);
-        helper.assertTrue(Math.abs(player.fallDistance - 0.2) < 1.0E-6, "counted fall distance for 1 block with 4 pieces: " + player.fallDistance);
+        helper.assertTrue(Math.abs(player.fallDistance - 0.75) < 1.0E-6, "counted fall distance for 1 block with 4 pieces: " + player.fallDistance);
+        // IG31-16 calculation: 200 blocks, full set + sneaking + Feather Falling IV. Vanilla per tick: v = (v - g) * 0.98.
+        // The damper only lowers g (acceleration), it never brakes: the speed grows every tick, toward g * 0.98 / 0.02 (about 2.9 b/t).
+        double g = gravity, v = 0.0, dist = 0.0, last = 0.0;
+        for (int tick = 0; dist < 200.0 && tick < 1000; tick++) {
+            v = (v - g) * 0.98;
+            helper.assertTrue(-v >= last, "fall speed shrank at tick " + tick + " (a brake): " + -v + " < " + last);
+            last = -v;
+            dist += -v;
+        }
+        double counted = 200.0 * (1.0 - com.simplebuilding.util.EnderiteSinkDamper.damping(player)); // 150
+        double damage = Math.ceil(counted - 3.0) * (1.0 - Math.min(20.0, 4 * 4.0) / 25.0);          // 147 * 0.36 = 52.9
+        helper.assertTrue(last > 2.0 && last < 3.0, "end speed after 200 blocks in b/t: " + last);
+        helper.assertTrue(damage > player.getMaxHealth(), "200 blocks must stay lethal with the full set, sneaking and Feather Falling IV: " + damage + " damage vs " + player.getMaxHealth() + " HP");
         player.setShiftKeyDown(false);
         helper.assertValueEqual(com.simplebuilding.util.EnderiteSinkDamper.damping(player), 0.0, "no damping without sneaking");
         player.setShiftKeyDown(true);

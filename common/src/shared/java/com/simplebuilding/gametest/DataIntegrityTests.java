@@ -290,6 +290,8 @@ public final class DataIntegrityTests {
             "simplemusic:custom_disc"); // only made by the disc press, an empty one plays nothing
 
     private static final Set<String> ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
+            "oak_door_half_2", // IG31-9: half doors stay registered for old worlds, not in tabs or recipes
+            "oak_door_half_3",
             "creative_spacer", // layout filler; spacers are switched off by default (owner N22)
             "stone_spatula",
             "copper_spatula",
@@ -3216,7 +3218,7 @@ public final class DataIntegrityTests {
             expected.add(CreativeTabLayout.Row.of("amplifiers", ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
         if (McVersion.DOORS) {
-            expected.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+            expected.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3));
         }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), flowed(expected), "SimpleMachines", problems);

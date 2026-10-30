@@ -12,8 +12,12 @@ import net.minecraft.world.item.ItemStack;
  * eigenen Spielers rechnet der Client), deshalb nur aus Ruestung und Schleich-Zustand, ohne Effekte oder Pakete.
  */
 public final class EnderiteSinkDamper {
-    /** Daempfung je Anzahl getragener Enderit-Teile (Index = Teile): Anteil der Schwerkraft und des Fallwegs, der wegfaellt. */
-    public static final double[] DAMPING = {0.0, 0.25, 0.45, 0.65, 0.8};
+    /**
+     * Daempfung je Anzahl getragener Enderit-Teile (Index = Teile): Anteil der Schwerkraft und des Fallwegs, der wegfaellt.
+     * IG31-16: gedeckelt auf das Niveau eines einzelnen Teils - das volle Set ist nicht staerker, ein Sturz aus 200 Bloecken
+     * bleibt auch mit Schleichen und Federfall IV toedlich (Rechnung im Gametest enderiteArmorDampsTheFallWhileSneaking).
+     */
+    public static final double[] DAMPING = {0.0, 0.25, 0.25, 0.25, 0.25};
     /**
      * Sprint-Bremse je Teile (Besitzer 2026-10-02): wer im Fall oder Gleitflug sprintet, verliert pro Tick diesen Anteil
      * seiner Sinkgeschwindigkeit - nur die senkrechte, die Vorwaertsfahrt bleibt. Sanft: mit vier Teilen faellt man nach

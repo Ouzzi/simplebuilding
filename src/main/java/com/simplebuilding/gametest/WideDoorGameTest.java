@@ -4,6 +4,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class WideDoorGameTest {
     @GameTest public void registeredAndCraftable(GameTestHelper helper) { WideDoorTests.registeredAndCraftable(helper); }
     @GameTest public void placesEveryCell(GameTestHelper helper) { WideDoorTests.placesEveryCell(helper); }
+    @GameTest public void placementToleratesAClickOneCellTooHigh(GameTestHelper helper) { WideDoorTests.placementToleratesAClickOneCellTooHigh(helper); }
     @GameTest(maxTicks = 100) public void openAndCloseByHand(GameTestHelper helper) { WideDoorTests.openAndCloseByHand(helper); }
     @GameTest(maxTicks = 100) public void blockedSwingAndOpening(GameTestHelper helper) { WideDoorTests.blockedSwingAndOpening(helper); }
     @GameTest public void halfDoorsSwingInsideTheirBlock(GameTestHelper helper) { WideDoorTests.halfDoorsSwingInsideTheirBlock(helper); }

@@ -159,10 +159,8 @@ public final class WideDoorTests {
         List<Case> cases = List.of(
                 new Case("2x2", CraftingInput.of(2, 2, List.of(door, door, door, door)), item(DoorFormat.FULL_2X2)),
                 new Case("2x3", CraftingInput.of(2, 3, List.of(door, door, door, door, door, door)), item(DoorFormat.FULL_2X3)),
-                new Case("1.5x2", CraftingInput.of(2, 1, List.of(door, new ItemStack(item(DoorFormat.HALF_2)))), item(DoorFormat.WIDE_1_5X2)),
-                new Case("1.5x3", CraftingInput.of(2, 1, List.of(new ItemStack(item(DoorFormat.WIDE_1_5X2)), planks)), item(DoorFormat.WIDE_1_5X3)),
-                new Case("half 2", CraftingInput.of(1, 3, List.of(planks, planks, stick)), item(DoorFormat.HALF_2)),
-                new Case("half 3", CraftingInput.of(2, 1, List.of(new ItemStack(item(DoorFormat.HALF_2)), planks)), item(DoorFormat.HALF_3)));
+                new Case("1.5x2", CraftingInput.of(2, 2, List.of(door, planks, planks, stick)), item(DoorFormat.WIDE_1_5X2)),
+                new Case("1.5x3", CraftingInput.of(2, 1, List.of(new ItemStack(item(DoorFormat.WIDE_1_5X2)), planks)), item(DoorFormat.WIDE_1_5X3)));
         for (Case c : cases) {
             ItemStack out = recipes.getRecipeFor(RecipeType.CRAFTING, c.input(), h.getLevel()).map(r -> r.value().assemble(c.input())).orElse(ItemStack.EMPTY);
             if (!out.is(c.expect()) || out.getCount() != 1) problems.add("recipe " + c.what() + " gave " + out);
@@ -194,6 +192,31 @@ public final class WideDoorTests {
             if (at(h, ORIGIN.below()).isAir() && place(h, player, f, ORIGIN) && at(h, ORIGIN).is(block(f))) problems.add(f + " floats");
         }
         h.assertTrue(problems.isEmpty(), "placing problems: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * IG31-9: a click that lands one cell too high (on the side of a stone one above the floor) still places the door on the floor
+     * (the item tries the cells within two down and one sideways before it refuses); the half doors have no recipe any more.
+     */
+    public static void placementToleratesAClickOneCellTooHigh(GameTestHelper h) {
+        if (!McVersion.DOORS) {
+            h.succeed();
+            return;
+        }
+        ServerPlayer player = player(h);
+        clear(h);
+        BlockPos wall = new BlockPos(3, 3, 3);
+        h.setBlock(wall.below(), Blocks.STONE);
+        h.setBlock(wall, Blocks.STONE);
+        ItemStack stack = new ItemStack(item(DoorFormat.FULL_2X2));
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockPos abs = h.absolutePos(wall);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs).add(0.5, 0, 0), Direction.EAST, abs, false);
+        boolean placed = stack.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit)).consumesAction();
+        BlockPos onFloor = wall.east().below();
+        h.assertTrue(placed && at(h, onFloor).is(block(DoorFormat.FULL_2X2)) && at(h, onFloor).getValue(WideDoorBlock.ROW) == 0,
+                "the door was not placed on the floor: " + placed + " / " + at(h, onFloor) + " / " + at(h, wall.east()));
         h.succeed();
     }
 

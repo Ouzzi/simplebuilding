@@ -18,8 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * The extra head slot (owner N49, {@link ExtraHead}) in the player inventory: added after the off-hand slot (index 46,
- * Vanilla's indices stay), above the off-hand slot, level with the helmet slot. Shift-click puts a head there when
- * the helmet slot is taken (an empty helmet slot gets it first, like Vanilla); out of it, Vanilla's last branch
+ * Vanilla's indices stay), above the off-hand slot, level with the helmet slot. Shift-click puts a head there first (IG31-10:
+ * also with an empty helmet slot; a carved pumpkin still goes to the helmet slot first); out of it, Vanilla's last branch
  * moves it into the inventory.
  */
 @Mixin(InventoryMenu.class)
@@ -40,8 +40,10 @@ public abstract class InventoryMenuExtraHeadMixin extends AbstractContainerMenu 
         }
         Slot from = this.slots.get(slotIndex);
         Slot head = extraHeadSlot();
+        // IG31-10: a head goes into the extra head slot first, even with the helmet slot empty (not Vanilla's helmet slot);
+        // a carved pumpkin keeps Vanilla's way (helmet slot first)
         if (head == null || head.hasItem() || !from.hasItem() || !ExtraHead.fits(from.getItem())
-                || !this.slots.get(InventoryMenu.ARMOR_SLOT_START).hasItem()) {
+                || (from.getItem().is(net.minecraft.world.item.Items.CARVED_PUMPKIN) && !this.slots.get(InventoryMenu.ARMOR_SLOT_START).hasItem())) {
             return;
         }
         ItemStack stack = from.getItem();

@@ -340,7 +340,8 @@ public final class WideDoorBlock extends Block {
             }
         }
         for (BlockPos p : touched) level.updateNeighborsAt(p, this);
-        level.playSound(source instanceof Player ? (Player) source : null, pos, open ? type.doorOpen() : type.doorClose(), SoundSource.BLOCKS, 1.0F,
+        // null: the opener hears it too (the client does not predict this door, so excluding the player made it silent, IG31-9)
+        level.playSound(null, pos, open ? type.doorOpen() : type.doorClose(), SoundSource.BLOCKS, 1.0F,
                 level.getRandom().nextFloat() * 0.1F + 0.9F);
         level.gameEvent(source, open ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
         return true;

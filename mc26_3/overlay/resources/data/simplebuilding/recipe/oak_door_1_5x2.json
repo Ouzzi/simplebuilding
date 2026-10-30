@@ -3,7 +3,9 @@
   "category": "redstone",
   "ingredients": [
     "minecraft:oak_door",
-    "simplebuilding:oak_door_half_2"
+    "minecraft:oak_planks",
+    "minecraft:oak_planks",
+    "minecraft:stick"
   ],
   "result": {
     "count": 1,

@@ -31,11 +31,14 @@
   "client": [
     "client.CustomHeadLayerMixin",
     "client.EntityRendererContextMixin",
+    "client.GuiHeadFitMixin",
+    "client.ItemStackRenderStateAccessor",
     "client.LivingEntityRendererMixin",
     "client.PigRendererMixin",
     "client.SkullBlockRenderStateMixin",
     "client.SkullHelmetMixin",
     "client.SkullBlockRendererMixin",
+    "client.SkullSpecialRendererAccessor",
     "client.WornModHeadMixin"
   ],
   "injectors": {
