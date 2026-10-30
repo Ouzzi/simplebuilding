@@ -323,7 +323,8 @@ public final class ChallengeTests {
                 int cx0 = g.cellOf(origin.getX()), cz0 = g.cellOf(origin.getZ());
                 g.addRect(cx0 - 2, cz0 - 2, cx0 + 2, cz0 + 2);
                 check(h, Gate.active(level), "gate open for the test level " + dim);
-                double edge = (cx0 + 3) * 16.0, y = origin.getY() + 2;
+                // high above any terrain, so only the borders can stop the moves
+                double edge = (cx0 + 3) * 16.0, y = Math.min(origin.getY() + 90, level.getMaxY() - 8);
                 Pig pig = h.spawn(EntityTypes.PIG, new Vec3(1.5, 2, 1.5));
                 pig.setPos(edge - 1.0, y, origin.getZ() + 8.5);
                 double x0 = pig.getX();
@@ -331,7 +332,7 @@ public final class ChallengeTests {
                 double half = pig.getBoundingBox().getXsize() / 2;
                 check(h, pig.getX() > x0 + 0.3 && pig.getX() + half <= edge, "stops at the edge instead of crossing: x " + pig.getX() + " edge " + edge);
                 pig.move(MoverType.SELF, new Vec3(-2, 0, 0));
-                check(h, pig.getX() < edge - 2.0, "moving away is free");
+                check(h, pig.getX() < edge - 2.0, "moving away is free: x " + pig.getX() + " edge " + edge + " y " + pig.getY());
                 // block changes: refused in a locked cell, allowed in a free one
                 BlockPos locked = new BlockPos((cx0 + 6) * 16 + 3, origin.getY() + 2, origin.getZ() + 3);
                 check(h, Enforcement.blocksChange(level, locked) && !level.setBlock(locked, Blocks.STONE.defaultBlockState(), 3), "locked cell refuses setBlock");
