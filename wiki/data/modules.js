@@ -47,11 +47,9 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
-      "simpleanimals",
       "simplemusic",
       "simpleearth",
-      "simplechallenges",
-      "simpleredstone"
+      "simplechallenges"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -72,10 +70,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
       "items": 507,
-      "blocks": 290,
-      "recipes": 827,
-      "config": 235,
-      "features": 48
+      "blocks": 288,
+      "recipes": 821,
+      "config": 232,
+      "features": 47
     }
   },
   {
@@ -216,7 +214,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 14
     },
-    "dataHash": "a66be992c6de"
+    "dataHash": "5665a55c0b6f"
   },
   {
     "id": "simplefun",
@@ -256,7 +254,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "6ee78ecaa18a"
+    "dataHash": "47b312d32354"
   },
   {
     "id": "simplevisuals",
@@ -294,7 +292,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 78
     },
-    "dataHash": "7f6f6e2748f7"
+    "dataHash": "314f96b911d5"
   },
   {
     "id": "simplesounds",
@@ -379,7 +377,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 9
     },
-    "dataHash": "af7a8b8c1286"
+    "dataHash": "ee9f1be08521"
   },
   {
     "id": "simpletweaks",
@@ -512,11 +510,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 20,
+      "blocks": 19,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "602f46a6cd88"
+    "dataHash": "513e78aa0d4e"
   },
   {
     "id": "simplelib",
@@ -579,9 +577,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 54
+      "features": 44
     },
-    "dataHash": "ba87fdc02399"
+    "dataHash": "e10cc3060dd6"
   },
   {
     "id": "simplemaps",
@@ -685,12 +683,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 28,
-      "blocks": 3,
-      "recipes": 73,
-      "features": 16
+      "items": 26,
+      "blocks": 2,
+      "recipes": 70,
+      "features": 14
     },
-    "dataHash": "747cb77dc5bf"
+    "dataHash": "ed23c346918f"
   },
   {
     "id": "simpleweather",
@@ -820,9 +818,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkUlEQVR42mMw8Ir6TwlmABGrL78hGVfseIBqQPehJ/8P3f/4/8WBADAbhHGxQZrDWhZiGgBStKNNB0zjYoM0gyzCagBMEYjGxQYZQLELcBpAsQtAuGuWAQobpgGZjdcAZENgmtA14zXASkPgf5aXAgYGidPHAGQnk+wFdMUkBSIodaErwsdHMQAmQCqGG0AJBgArfJi0eSLOewAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 12
+      "features": 8
     },
-    "dataHash": "e0104a495005"
+    "dataHash": "981ccb81f68d"
   },
   {
     "id": "simplemobmanners",
@@ -1069,8 +1067,8 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a Strong Conduit with a 7x7x7 frame. The Mighty Beacon adds a sixth level; the Evil beacons weaken players instead.",
-      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit fünf Pyramidenebenen und neuen Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen. Das Mächtige Leuchtfeuer bringt eine sechste Ebene; die Bösen Leuchtfeuer schwächen Spieler stattdessen."
+      "en": "The Strong Upgrade turns a beacon into a Strong Beacon with six pyramid levels and ten more powers, and a conduit into a Strong Conduit with a 7x7x7 frame.",
+      "de": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit sechs Pyramidenebenen und zehn weiteren Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen."
     },
     "purpose": {
       "en": "Strong Beacon (6 pyramid levels, 10 more effects, range by pyramid material, two-column screen), Strong Conduit (7x7x7 frame, up to 216 blocks under water, Dolphin's Grace) and the Strong Upgrade template (nether star). Axe on its own, sledgehammer with a hammer mod.",
@@ -1078,12 +1076,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 4,
-      "blocks": 5,
-      "recipes": 12,
-      "features": 13
+      "items": 3,
+      "blocks": 2,
+      "recipes": 6,
+      "features": 9
     },
-    "dataHash": "4bc6987750c8"
+    "dataHash": "701ad7619008"
   },
   {
     "id": "simpleovens",
@@ -1163,9 +1161,9 @@ window.WIKI_MODULES = [
       "items": 1,
       "blocks": 194,
       "recipes": 1,
-      "features": 16
+      "features": 15
     },
-    "dataHash": "c3c4259fcfc1"
+    "dataHash": "3035c34060e2"
   },
   {
     "id": "simpleshops",
@@ -1306,10 +1304,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 1,
       "blocks": 54,
-      "recipes": 284,
+      "recipes": 283,
       "features": 9
     },
-    "dataHash": "3042d3c350e4"
+    "dataHash": "36be559be2bf"
   },
   {
     "id": "simplecrucibles",
@@ -1421,9 +1419,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 11,
-      "features": 13
+      "features": 11
     },
-    "dataHash": "10d06da62ef9"
+    "dataHash": "bcb93301041a"
   },
   {
     "id": "simpleoptimization",
@@ -1605,7 +1603,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "90a1b9ebe7da"
+    "dataHash": "db7d548043b8"
   },
   {
     "id": "simplelights",
@@ -1716,73 +1714,8 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 12
+      "features": 16
     },
-    "dataHash": "e65ee85ff848"
-  },
-  {
-    "id": "simpleanimals",
-    "displayName": "Simple Animals",
-    "description": "Deer, wild boar, hedgehog, crab and zebra (with the infertile zorse): five new animals with low spawn rates, Vanilla goals and no block damage. Works on its own with Vanilla.",
-    "version": "0.1.0",
-    "minecraft": "26.3",
-    "loaders": [
-      "fabric",
-      "neoforge",
-      "forge"
-    ],
-    "requires": [],
-    "optional": [
-      "simplebuilding",
-      "simplemoney",
-      "simplemobheads"
-    ],
-    "parent": "simplebuilding",
-    "bundle": "optional",
-    "intro": {
-      "en": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, whose cross with a horse is the infertile zorse.",
-      "de": "Fünf Tiere, die Vanilla nicht hat: der scheue Hirsch, das Wildschwein, das seine Frischlinge verteidigt, der Igel, der Silberfische jagt und sich blitzschnell einrollt, der seltene Krebs, der seitwärts läuft, und das Zebra, dessen Kreuzung mit einem Pferd das unfruchtbare Zorse ist."
-    },
-    "purpose": {
-      "en": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar.",
-      "de": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar."
-    },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArElEQVR42mOw8zX8TwlmABGHbqwF4wcXFhDNnnOgCtWAVSd7wZIgDGODaGQ2TB6kuaArAtMAZEXoBiBrvvT4MG4DkDVoSQmAMbJmGMZrAEjTijQrFAwSI8oAbJqxGULQgC9vbvyXEeIBs0E0iE+0AVUuKhi2g8SIMgCbIeiaiTZAT0YIjEkyAKYApAFmALpmnAagK4KlA3RxrAaAUhc2hbgwigEwAVIx3ABKMABly2zs6ByQcQAAAABJRU5ErkJggg==",
-    "counts": {
-      "items": 8,
-      "recipes": 4,
-      "features": 9
-    },
-    "dataHash": "6912a1389da9"
-  },
-  {
-    "id": "simpleredstone",
-    "displayName": "Simple Redstone",
-    "description": "Double Piston (1x2: signal 1-7 reaches one block, 8-15 two, pushes with Vanilla rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
-    "version": "0.1.0",
-    "minecraft": "26.3",
-    "loaders": [
-      "fabric"
-    ],
-    "requires": [
-      "simplelib"
-    ],
-    "optional": [
-      "simplebuilding"
-    ],
-    "parent": "simplebuilding",
-    "bundle": "optional",
-    "intro": {
-      "en": "The Double Piston - two blocks long, one block out for a weak signal and two for a strong one - and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-      "de": "Der Doppelkolben - zwei Blöcke lang, bei schwachem Signal einen Block weit draußen, bei starkem zwei - und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
-    },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
-    "counts": {
-      "items": 1,
-      "blocks": 5,
-      "recipes": 3,
-      "features": 5
-    },
-    "dataHash": "3ce18e63948b"
+    "dataHash": "e280449cf45d"
   }
 ];

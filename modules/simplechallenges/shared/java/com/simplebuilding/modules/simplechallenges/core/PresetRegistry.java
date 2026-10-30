@@ -27,7 +27,8 @@ public final class PresetRegistry {
     private static final String DIR = "simplechallenges/preset";
     /** The presets of the mod jar: the world creation screen (no server, no data packs yet) reads these from the class path. */
     public static final List<String> SHIPPED = List.of("vanilla_unlock", "block_by_block", "quick_steps", "trophy_land", "island_unlock",
-            "classic_skyblock", "sky_one_block", "sky_grid");
+            "classic_skyblock", "sky_one_block", "sky_grid", "lucky_strike", "lucky_land", "lucky_one_block", "random_drops", "skyline_block", "skyline_grid",
+            "skyline_ring", "one_line");
     private static final Map<String, Preset> PRESETS = new LinkedHashMap<>();
     private static final List<String> PROBLEMS = new ArrayList<>();
 

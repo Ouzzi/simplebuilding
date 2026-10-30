@@ -4,16 +4,21 @@ import com.simplebuilding.modules.simplechallenges.command.ChallengeCommands;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeService;
 import com.simplebuilding.modules.simplechallenges.net.CellInfoPayload;
 import com.simplebuilding.modules.simplechallenges.net.UnlockSyncPayload;
-import com.simplebuilding.modules.simplechallenges.sky.SkyService;
+import com.simplebuilding.modules.simplechallenges.lucky.LuckyService;
+import com.simplebuilding.modules.simplechallenges.skyline.SkylineService;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityLevelChangeEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.world.InteractionResult;
 
 /** Fabric entry: config, the sync payloads, the commands and the lifecycle hooks of the challenge (all inert until a challenge is chosen). */
 public final class ChallengeFabric implements ModInitializer {
@@ -34,7 +39,13 @@ public final class ChallengeFabric implements ModInitializer {
         });
         ServerTickEvents.END_SERVER_TICK.register(ChallengeService::tick);
         // Skyblock family: the sky grid fills freshly generated chunks (inert unless the running challenge is a sky grid)
-        ServerChunkEvents.CHUNK_GENERATE.register(SkyService::chunkGenerated);
+        ServerChunkEvents.CHUNK_GENERATE.register(com.simplebuilding.modules.simplechallenges.sky.SkyService::chunkGenerated);
+        // Skyline: the line blocks of a new chunk, the egg sites, the seal, the arrival on the first block (all inert without a running skyline)
+        ServerChunkEvents.CHUNK_GENERATE.register(SkylineService::chunkGenerated);
+        AttackBlockCallback.EVENT.register((player, level, hand, pos, direction) -> SkylineService.attack(player, level, pos) ? InteractionResult.SUCCESS : InteractionResult.PASS);
+        ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> SkylineService.arrived(player, destination));
+        // Lucky Block / Random Drops: a broken block drops another block (inert unless the running challenge has the mode)
+        PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> LuckyService.beforeBreak(level, player, pos, state));
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> ChallengeService.join(handler.player));
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> ChallengeService.leave(handler.player));
     }

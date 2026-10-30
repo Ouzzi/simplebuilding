@@ -188,7 +188,7 @@ public final class ChallengeTests {
         });
 
         ALL.put("preset_parser", h -> {
-            String ok = "{\"schemaVersion\":1,\"name\":\"X\",\"modes\":[{\"type\":\"unlock\",\"cell\":16,\"start\":[[-1,-1,0,0]]},{\"type\":\"lucky\"}]}";
+            String ok = "{\"schemaVersion\":1,\"name\":\"X\",\"modes\":[{\"type\":\"unlock\",\"cell\":16,\"start\":[[-1,-1,0,0]]},{\"type\":\"pillarrace\"}]}";
             var r = PresetParser.parse("x", ok);
             check(h, r.ok() && r.preset().unlock().cell() == 16 && r.warnings().size() == 1, "valid preset with a planned mode: " + r.errors());
             check(h, r.preset().unlock().currency() == Currency.ITEMS && r.preset().unlock().difficulty() == Difficulty.MEDIUM, "defaults");
@@ -205,7 +205,7 @@ public final class ChallengeTests {
                     "not json at all"};
             for (String text : bad) check(h, !PresetParser.parse("x", text).ok() && !PresetParser.parse("x", text).errors().isEmpty(), "refused with a message: " + text);
             check(h, !PresetParser.parse("Bad Id", ok).ok(), "bad id refused");
-            Preset planned = PresetParser.parse("sky", "{\"schemaVersion\":1,\"modes\":[{\"type\":\"skyline\"}]}").preset();
+            Preset planned = PresetParser.parse("sky", "{\"schemaVersion\":1,\"modes\":[{\"type\":\"pillarrace\"}]}").preset();
             check(h, planned != null && !planned.runnable(), "a preset with only planned modes loads but is not runnable");
             PresetRegistry.add("zz_broken", "{\"schemaVersion\":1,\"modes\":[]}", "test");
             check(h, PresetRegistry.get("zz_broken") == null && PresetRegistry.problems().stream().anyMatch(p -> p.startsWith("test:")), "a broken file is a readable problem, not a crash");
@@ -684,5 +684,7 @@ public final class ChallengeTests {
             }
             h.succeed();
         });
+
+        ALL.putAll(SkylineTests.ALL);
     }
 }

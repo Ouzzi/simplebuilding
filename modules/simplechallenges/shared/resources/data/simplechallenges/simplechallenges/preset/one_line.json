@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "name": "One Line",
+  "icon": "minecraft:rail",
+  "family": "unlock",
+  "modes": [
+    {
+      "type": "unlock",
+      "cell": 16,
+      "start": [
+        [
+          0,
+          0,
+          31,
+          0
+        ]
+      ],
+      "currency": "items",
+      "difficulty": "medium",
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "pityMinutes": 30
+    }
+  ]
+}

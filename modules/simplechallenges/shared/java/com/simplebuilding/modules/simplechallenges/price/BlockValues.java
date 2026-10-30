@@ -22,6 +22,9 @@ public final class BlockValues {
     private final double fallback;
     private final Map<String, Double> values = new HashMap<>();
     private final List<Pattern> patterns = new ArrayList<>();
+    /** How common a block is in the world and its crafting (Lucky Block odds, concept 5): 1 for everything not listed. */
+    private final Map<String, Double> common = new HashMap<>();
+    private final List<Pattern> commonPatterns = new ArrayList<>();
 
     private BlockValues(double fallback) {
         this.fallback = fallback;
@@ -51,6 +54,18 @@ public final class BlockValues {
                     v.patterns.add(new Pattern(o.get("contains").getAsString(), Math.max(0, o.get("value").getAsDouble())));
                 }
             }
+            if (json != null && json.has("commonness") && json.get("commonness").isJsonObject()) {
+                JsonObject c = json.getAsJsonObject("commonness");
+                if (c.has("values") && c.get("values").isJsonObject()) {
+                    for (Map.Entry<String, JsonElement> e : c.getAsJsonObject("values").entrySet()) v.common.put(e.getKey(), Math.max(0, e.getValue().getAsDouble()));
+                }
+                if (c.has("patterns") && c.get("patterns").isJsonArray()) {
+                    for (JsonElement p : c.getAsJsonArray("patterns")) {
+                        JsonObject o = p.getAsJsonObject();
+                        v.commonPatterns.add(new Pattern(o.get("contains").getAsString(), Math.max(0, o.get("value").getAsDouble())));
+                    }
+                }
+            }
         } catch (RuntimeException e) {
             v = new BlockValues(0.05);
         }
@@ -68,6 +83,21 @@ public final class BlockValues {
         double best = fallback;
         int bestLen = -1;
         for (Pattern p : patterns) {
+            if (blockId.contains(p.contains()) && p.contains().length() > bestLen) {
+                best = p.value();
+                bestLen = p.contains().length();
+            }
+        }
+        return best;
+    }
+
+    /** Commonness of one block: exact id first, then the longest matching pattern, else 1. Lucky weight = commonness / (value + 1)^alpha. */
+    public double commonness(String blockId) {
+        Double exact = common.get(blockId);
+        if (exact != null) return exact;
+        double best = 1;
+        int bestLen = -1;
+        for (Pattern p : commonPatterns) {
             if (blockId.contains(p.contains()) && p.contains().length() > bestLen) {
                 best = p.value();
                 bestLen = p.contains().length();
