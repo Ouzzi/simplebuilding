@@ -320,6 +320,23 @@ tasks.register('testGametestAdapters', Exec) {
 }
 tasks.named('check') { dependsOn 'testGametestAdapters' }
 
+// RG30-3: mod structure page (docs/MODSTRUKTUR.html/.md) generated from modules/modules.json; stale -> fix: python tools/modtree/modtree.py
+tasks.register('checkModtree', Exec) {
+	group = 'verification'
+	workingDir = rootDir
+	commandLine wikiPython, 'tools/modtree/modtree.py', '--check'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.register('testModtree', Exec) {
+	group = 'verification'
+	workingDir = rootDir
+	commandLine wikiPython, '-m', 'unittest', 'discover', '-s', 'tools/modtree', '-p', 'test_modtree.py'
+	onlyIf { !project.hasProperty('skipWiki') }
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'checkModtree', 'testModtree' }
+
 // Text/data hygiene without Minecraft: lang JSON (duplicates, EN/DE pairs, 26.3 overlay must not lose shared keys)
 // and empty tag files (only documented extension points). Same skip switch as checkWiki.
 ['checkLangText': 'tools/check_tooltip_text.py', 'checkEmptyTags': 'tools/check_empty_tags.py',

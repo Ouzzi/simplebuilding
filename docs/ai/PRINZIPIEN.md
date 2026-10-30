@@ -76,6 +76,9 @@ Neue und angefasste Module folgen einem Schema; `tools/check_module_style.py` (G
 ### A12 Vanilla-Nutzen und Eingriff klären (Besitzer 28.10.)
 Jedes neue Feature (Mob, Block, Mechanik, Item) braucht vor dem Bau eine kurze Klärung: (1) welchen Nutzen es im Vanilla-Spielgeschehen hat, (2) was es am Spielgeschehen ändert, (3) ob es das Vanilla-Geschehen stark verändert. Starke Eingriffe in Vanilla eher nicht – oder nur abschaltbar und mit Besitzer-Freigabe. Gehört in jedes Konzept und jeden Plan.
 
+### A13 Mod-Struktur-Seite aktuell halten (Besitzer 30.10.)
+`docs/MODSTRUKTUR.html` (Baum am Desktop, Liste am Handy) und `docs/MODSTRUKTUR.md` werden aus `modules/modules.json` erzeugt (`python tools/modtree/modtree.py`). Bei jedem neuen Mod, jedem Sub-Mod-Umzug und jeder geänderten Abhängigkeit neu erzeugen und im selben Commit mitgeben; `checkModtree` (in `check`) schlägt bei veralteten Dateien fehl. Geplante Mods ohne Manifest-Eintrag: `tools/modtree/planned.json`. Die Hauptsitzung veröffentlicht die HTML als Artifact neu.
+
 ## Teil 2 – Je Mod
 
 Reihenfolge wie `modules/modules.json`; Mods ohne Sonderregeln stehen mit „keine eigenen Regeln bisher“ da, damit jede Mod einen Platz für ihre Regeln hat. Neue Module bekommen hier
