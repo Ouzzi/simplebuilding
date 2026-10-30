@@ -92,11 +92,11 @@
       ],
       "en": {
         "title": "Credits from advancements",
-        "summary": "With credits as currency, every advancement that shows a toast and is not a root or recipe advancement pays credits once for the whole team: task 1, goal 2, challenge 5 (changeable in the preset). Advancements a player already had when they were first seen count as the baseline and pay nothing. A cell then costs 1 credit."
+        "summary": "With credits as currency, every advancement that shows a toast and is not a root or recipe advancement pays credits once for the whole team (or, with the server option perPlayerCredits, once for each player into a pot of their own): task 1, goal 2, challenge 5 (changeable in the preset). Advancements a player already had when they were first seen count as the baseline and pay nothing. A cell then costs 1 credit."
       },
       "de": {
         "title": "Credits durch Erfolge",
-        "summary": "Mit Credits als Währung zahlt jeder Erfolg mit Anzeige, der kein Wurzel- oder Rezepterfolg ist, einmal für das ganze Team Credits: Aufgabe 1, Ziel 2, Herausforderung 5 (im Preset änderbar). Erfolge, die ein Spieler beim ersten Sehen schon hatte, zählen als Basislinie und zahlen nichts. Eine Zelle kostet dann 1 Credit."
+        "summary": "Mit Credits als Währung zahlt jeder Erfolg mit Anzeige, der kein Wurzel- oder Rezepterfolg ist, einmal für das ganze Team Credits (oder mit der Server-Option perPlayerCredits einmal je Spieler in einen eigenen Topf): Aufgabe 1, Ziel 2, Herausforderung 5 (im Preset änderbar). Erfolge, die ein Spieler beim ersten Sehen schon hatte, zählen als Basislinie und zahlen nichts. Eine Zelle kostet dann 1 Credit."
       }
     },
     {
@@ -118,15 +118,16 @@
       "id": "presets",
       "sources": [
         "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/preset/PresetParser.java",
-        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/PresetRegistry.java"
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/PresetRegistry.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/preset/WorldMode.java"
       ],
       "en": {
         "title": "Presets",
-        "summary": "A challenge is a preset file: data/<namespace>/simplechallenges/preset/<id>.json in a mod or data pack, or config/simplechallenges/presets/<id>.json of your own. The loader checks everything (cell size 1 to 48, start rectangles in cell units up to 4096 cells, currency, price tier, dimensions, pity time, credits per frame) and shows readable problems instead of crashing; modes planned for later stages load with a note but cannot be started. A world keeps a copy of the preset it started with. Shipped: Vanilla Unlock (chunks), Block by Block, Quick Steps (three chunks) and Trophy Land (credits from advancements)."
+        "summary": "A challenge is a preset file: data/<namespace>/simplechallenges/preset/<id>.json in a mod or data pack, or config/simplechallenges/presets/<id>.json of your own. The loader checks everything (cell size 1 to 48, start rectangles in cell units up to 4096 cells, currency, price tier, dimensions, pity time, credits per frame) and shows readable problems instead of crashing; modes planned for later stages load with a note but cannot be started. A world keeps a copy of the preset it started with. Shipped: Vanilla Unlock (chunks), Block by Block, Quick Steps (three chunks), Trophy Land (credits from advancements), Classic Skyblock, Sky One Block, Sky Grid and Island Unlock (island with cells)."
       },
       "de": {
         "title": "Presets",
-        "summary": "Eine Challenge ist eine Preset-Datei: data/<Namensraum>/simplechallenges/preset/<id>.json in einer Mod oder einem Datenpaket, oder eigene in config/simplechallenges/presets/<id>.json. Der Lader prüft alles (Zellgröße 1 bis 48, Startrechtecke in Zelleneinheiten bis 4096 Zellen, Währung, Preisstufe, Dimensionen, Notfallzeit, Credits je Rahmen) und zeigt lesbare Probleme statt abzustürzen; Modi, die für spätere Stufen geplant sind, laden mit Hinweis, lassen sich aber nicht starten. Eine Welt behält eine Kopie des Presets, mit dem sie begann. Mitgeliefert: Vanilla Unlock (Chunks), Block by Block, Quick Steps (drei Chunks) und Trophy Land (Credits durch Erfolge)."
+        "summary": "Eine Challenge ist eine Preset-Datei: data/<Namensraum>/simplechallenges/preset/<id>.json in einer Mod oder einem Datenpaket, oder eigene in config/simplechallenges/presets/<id>.json. Der Lader prüft alles (Zellgröße 1 bis 48, Startrechtecke in Zelleneinheiten bis 4096 Zellen, Währung, Preisstufe, Dimensionen, Notfallzeit, Credits je Rahmen) und zeigt lesbare Probleme statt abzustürzen; Modi, die für spätere Stufen geplant sind, laden mit Hinweis, lassen sich aber nicht starten. Eine Welt behält eine Kopie des Presets, mit dem sie begann. Mitgeliefert: Vanilla Unlock (Chunks), Block by Block, Quick Steps (drei Chunks), Trophy Land (Credits durch Erfolge), Classic Skyblock, Sky One Block, Sky Grid und Island Unlock (Insel mit Zellen)."
       }
     },
     {
@@ -157,7 +158,8 @@
           "allowAdminCommands (false): game master switch-over commands.",
           "defaultChallenge (none): preset for a brand-new world.",
           "exemptCreative (true): creative and spectator pass the borders.",
-          "pityEnabled (true): emergency unlock."
+          "pityEnabled (true): emergency unlock.",
+          "perPlayerCredits (false): every player has a pot of credits of their own."
         ]
       },
       "de": {
@@ -168,8 +170,63 @@
           "allowAdminCommands (false): Umstell-Befehle für Spielleiter.",
           "defaultChallenge (none): Preset für eine brandneue Welt.",
           "exemptCreative (true): Kreativ und Zuschauer passieren die Grenzen.",
-          "pityEnabled (true): Notfall-Freischaltung."
+          "pityEnabled (true): Notfall-Freischaltung.",
+          "perPlayerCredits (false): jeder Spieler hat einen eigenen Credit-Topf."
         ]
+      }
+    },
+    {
+      "id": "world_creation",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/CreateChallenge.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/ChallengeRow.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/SelectChallengeScreen.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/StartAreaEditorScreen.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/client/WorldTabMixin.java"
+      ],
+      "en": {
+        "title": "World creation",
+        "summary": "The world type button of the Create New World screen offers Simple Challenges next to Superflat. Chosen, the World tab shows the challenge, three buttons with the challenges played last (first start: Classic Skyblock, Sky One Block, Vanilla Unlock) and Select Challenge. That screen lists the shipped presets and your own, with a picture of each (start area map, island from above, block ladder, grid), and Play Challenge fixes the choice for the world that Create New World makes. Duplicate makes a copy of your own that you can change: name, cell size, price, price tier and the start area, which you paint as rectangles on a map (left drag adds, right drag removes, middle drag moves, wheel zooms; the spawn cell always stays). Own presets are files in config/simplechallenges/presets/. Leaving the screen or choosing another world type drops the choice. A Skyblock preset makes the Overworld a void world."
+      },
+      "de": {
+        "title": "Welt-Erstellung",
+        "summary": "Der Weltentyp-Knopf von Neue Welt erstellen bietet Simple Challenges neben Superflat an. Gewählt, zeigt der Welt-Tab die Challenge, drei Knöpfe mit den zuletzt gespielten Challenges (erster Start: Classic Skyblock, Sky One Block, Vanilla Unlock) und Challenge wählen. Der Bildschirm listet die mitgelieferten Presets und deine eigenen mit je einem Bild (Karte des Startbereichs, Insel von oben, Block-Leiter, Gitter), und Challenge spielen legt die Wahl für die Welt fest, die Neue Welt erstellen anlegt. Duplizieren legt eine eigene Kopie an, die du ändern kannst: Name, Zellgröße, Preis, Preisstufe und der Startbereich, den du als Rechtecke auf einer Karte malst (links ziehen fügt hinzu, rechts ziehen entfernt, mittlere Taste verschiebt, Mausrad zoomt; die Spawn-Zelle bleibt immer). Eigene Presets sind Dateien in config/simplechallenges/presets/. Das Verlassen des Bildschirms oder ein anderer Weltentyp verwirft die Wahl. Ein Skyblock-Preset macht die Oberwelt zu einer Leerwelt."
+      }
+    },
+    {
+      "id": "skyblock_family",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/sky/SkyService.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/sky/IslandPlan.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/sky/OneBlockPhases.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/sky/SkyGridPlan.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/preset/WorldMode.java"
+      ],
+      "en": {
+        "title": "Skyblock family",
+        "summary": "Three world modes start in the void and can be combined with the Unlock mode. Classic Skyblock builds a start island at the spawn (styles classic, mini and desert) with a chest and a tree or cactus. Sky One Block puts one grass block at 0,0; mined, it grows back within a quarter second with the next block of a sequence that picks from ever richer phases (every 40 blocks a new one: meadow, stone age, caves, deep, nether, end). Sky Grid puts a block every 4 blocks in all three directions (kind picked from a weighted list by the world seed) into every new chunk; a platform at the spawn is left free. Island Unlock combines the island with cells of 2 blocks: only the middle of the island is free at first, and the island's own items (dirt, wood, leaves) pay for the next cells. Nether and End stay Vanilla."
+      },
+      "de": {
+        "title": "Skyblock-Familie",
+        "summary": "Drei Weltmodi starten in der Leere und lassen sich mit dem Freischalt-Modus kombinieren. Classic Skyblock baut am Spawn eine Startinsel (Stile classic, mini und desert) mit Truhe und Baum oder Kaktus. Sky One Block setzt einen Grasblock auf 0,0; abgebaut wächst er binnen einer Viertelsekunde mit dem nächsten Block einer Folge nach, die aus immer reicheren Phasen wählt (alle 40 Blöcke eine neue: Wiese, Steinzeit, Höhlen, Tiefe, Nether, End). Sky Grid setzt in jeden neuen Chunk alle 4 Blöcke in allen drei Richtungen einen Block (Art aus einer gewichteten Liste nach dem Welt-Seed); eine Plattform am Spawn bleibt frei. Island Unlock verbindet die Insel mit Zellen von 2 Blöcken: zunächst ist nur die Inselmitte frei, und die Items der Insel (Erde, Holz, Laub) bezahlen die nächsten Zellen. Nether und End bleiben Vanilla."
+      }
+    },
+    {
+      "id": "spawn_and_edges",
+      "sources": [
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/Spawn.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/Enforcement.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/mixin/ServerLevelSpawnMixin.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/core/LookInfo.java",
+        "modules/simplechallenges/shared/java/com/simplebuilding/modules/simplechallenges/client/ChallengeHud.java"
+      ],
+      "en": {
+        "title": "Spawn, edges and the crosshair line",
+        "summary": "A challenge chosen for a brand-new world fixes the world spawn at block 0,0 without the Vanilla scatter, so the start always lies inside the start area (a world that was already played keeps its spawn). No new mob appears in a locked cell. A sneaking player may lean a quarter of a block over the border to build at the edge. Looking at a locked cell next to the free area shows a line under the crosshair: the price, how much you have, and whether you can pay it (pay with /simplechallenges unlock)."
+      },
+      "de": {
+        "title": "Spawn, Ränder und die Fadenkreuz-Zeile",
+        "summary": "Eine für eine brandneue Welt gewählte Challenge legt den Weltspawn auf Block 0,0 ohne die Vanilla-Streuung fest, sodass der Start immer im Startbereich liegt (eine schon gespielte Welt behält ihren Spawn). In gesperrten Zellen erscheint kein neuer Mob. Ein schleichender Spieler darf sich ein Viertel Block über die Grenze lehnen, um am Rand zu bauen. Der Blick auf eine gesperrte Zelle neben dem freien Bereich zeigt unter dem Fadenkreuz eine Zeile: den Preis, wie viel du hast und ob du ihn zahlen kannst (zahlen mit /simplechallenges unlock)."
       }
     }
   ],
@@ -194,7 +251,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
+    "features": 12,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,
