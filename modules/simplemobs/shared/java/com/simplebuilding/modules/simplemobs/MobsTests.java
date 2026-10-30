@@ -195,6 +195,7 @@ public final class MobsTests {
         WingsTests.addAll(MobsTests::add);
         StrongExplosivesTests.addAll(MobsTests::add);
         CombatEffectTests.addAll(MobsTests::add);
+        ZoneEffectTests.addAll(MobsTests::add);
         add("guide_book", com.simplebuilding.modules.simplemobs.guide.MobsGuide::gameTest);
     }
 

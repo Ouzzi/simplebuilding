@@ -1,0 +1,8 @@
+{
+  "module": "simpleresonance",
+  "derivation": "Simple Resonance sells nothing for money: it adds no items except its guide book, which is crafted from a book and an echo shard.",
+  "excluded": {
+    "simpleresonance:guide_book": "Crafted from a book and an echo shard."
+  },
+  "prices": []
+}

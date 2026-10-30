@@ -656,6 +656,24 @@ ICONS: dict[str, dict] = {
                         ".....oooooo.....",
                         "................",
                         "................"),
+    "simpleresonance": icon("Resonanz-Wellen um einen Kern", {"o": "#1a1230", "A": "#c8b0f0", "B": "#9a7ee0", "S": "#f0e8ff", "W": "#ffffff"},
+                          [("Kontur", "o"), ("Wellen", "AB"), ("Kern", "SW")],
+                          "................",
+                          ".......oo.......",
+                          ".....ooAAoo.....",
+                          "....oAAAAAAo....",
+                          "...oA..BB..Ao...",
+                          "..oA.BBBBBB.Ao..",
+                          "..oA.B.WS.B.Ao..",
+                          ".oAABBWSSSBBAAo.",
+                          ".oAABBSSSSBBAAo.",
+                          "..oA.B.SS.B.Ao..",
+                          "..oA.BBBBBB.Ao..",
+                          "...oA..BB..Ao...",
+                          "....oAAAAAAo....",
+                          ".....ooAAoo.....",
+                          ".......oo.......",
+                          "................"),
 }
 PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon}
 
@@ -698,6 +716,7 @@ BG = {
     "simpleanimals": "#9cc07a",
     "simpleredstone": "#b85a50",
     "simpledinos": "#d8b878",
+    "simpleresonance": "#6a58b0",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 

@@ -588,6 +588,141 @@ public final class AstralEnchantingTests {
         helper.succeed();
     }
 
+    // ------------------------------------------------------------------ endgame levels (WP-22 / MOB27-4)
+
+    /**
+     * Endgame levels: Protection and Feather Falling reach V at the top tier only, never below tier 50 and never with the switch off;
+     * unknown enchantments keep their Vanilla maximum; the hook clamps to V; the price of a level above the Vanilla maximum is the
+     * plain share plus the endgame surcharge, and every price below it stays exactly as before.
+     */
+    public static void endgameLevelRules(GameTestHelper helper) {
+        String protection = "minecraft:protection", fall = "minecraft:feather_falling";
+        eq(helper, AstralEnchanting.levelCap(protection, 4, 50, true), 5, "Protection V at tier 50");
+        eq(helper, AstralEnchanting.levelCap(fall, 4, 50, true), 5, "Feather Falling V at tier 50");
+        eq(helper, AstralEnchanting.levelCap(protection, 4, 49, true), 4, "tier 49 stays at the Vanilla maximum");
+        eq(helper, AstralEnchanting.levelCap(protection, 4, 40, true), 4, "tier 40 (all blazewood, no floor)");
+        eq(helper, AstralEnchanting.levelCap(protection, 4, 50, false), 4, "switch off");
+        eq(helper, AstralEnchanting.levelCap("minecraft:sharpness", 5, 50, true), 5, "Sharpness keeps V");
+        eq(helper, AstralEnchanting.levelCap("minecraft:unbreaking", 3, 50, true), 3, "unknown enchantments keep their maximum");
+        eq(helper, AstralEnchanting.levelCap("somemod:odd", 2, 50, true), 2, "foreign enchantments too");
+        AstralEnchanting.registerEndgame(Identifier.fromNamespaceAndPath("simplebuilding", "test_only_endgame"), 99);
+        eq(helper, AstralEnchanting.levelCap("simplebuilding:test_only_endgame", 1, 50, true), AstralEnchanting.ENDGAME_MAX_LEVEL, "the hook never goes above V (VI adds nothing to a full set)");
+        eq(helper, AstralEnchanting.endgameLevels().get(protection), 5, "table: Protection");
+        // Protection: value 12 at max IV. Levels up to IV cost what they cost; V costs the share 15 plus 6.
+        eq(helper, AstralEnchanting.levelPrice(4, 4, 12), 12, "Protection IV as before");
+        eq(helper, AstralEnchanting.levelPrice(4, 5, 4, 12), 12, "Protection IV with the endgame slider: the same");
+        eq(helper, AstralEnchanting.levelPrice(2, 5, 4, 12), 6, "Protection II: the same");
+        eq(helper, AstralEnchanting.levelPrice(5, 5, 4, 12), 21, "Protection V: share 15 + 6");
+        eq(helper, AstralEnchanting.levelPrice(0, 5, 4, 12), 0, "nothing");
+        eq(helper, AstralEnchanting.price(new int[] {5, 0, 0}, new int[] {5, 3, 3}, new int[] {4, 3, 3}, new int[] {12, 15, 12}), 17, "Protection V alone is scaled like any dear offer (N37)");
+        int lastPrice = -1;
+        for (int level = 0; level <= 5; level++) {
+            int price = AstralEnchanting.price(new int[] {level, 0, 0}, new int[] {5, 3, 3}, new int[] {4, 3, 3}, new int[] {12, 15, 12});
+            helper.assertTrue(price >= lastPrice && (level == 0 || price > lastPrice), "every level costs more: " + level + " -> " + price);
+            lastPrice = price;
+        }
+        eq(helper, AstralEnchanting.maxAffordable(0, new int[3], new int[] {5, 3, 3}, new int[] {4, 3, 3}, new int[] {12, 15, 12}, AstralEnchanting.budget(50)), 5, "tier 50 reaches V");
+        eq(helper, AstralEnchanting.maxAffordable(0, new int[3], new int[] {5, 3, 3}, new int[] {4, 3, 3}, new int[] {12, 15, 12}, AstralEnchanting.budget(3)), 1, "tier 0 budget 3: only level I");
+        // Vanilla's own maximum is untouched: the anvil can combine two IV books to IV only.
+        Holder<Enchantment> prot = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.PROTECTION);
+        Holder<Enchantment> ff = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.FEATHER_FALLING);
+        eq(helper, prot.value().getMaxLevel(), 4, "Vanilla max_level of Protection is not raised");
+        eq(helper, ff.value().getMaxLevel(), 4, "Vanilla max_level of Feather Falling is not raised");
+        eq(helper, AstralEnchanting.levelCap(prot, 50), com.simplebuilding.config.ServerTuning.get().features.endgameEnchantLevels ? 5 : 4, "holder cap at tier 50");
+        eq(helper, AstralEnchanting.levelCap(prot, 30), 4, "holder cap at tier 30");
+        helper.succeed();
+    }
+
+    /** Sets the seed the player's table offers are drawn from (the field is protected, no setter exists). */
+    private static void setSeed(ServerPlayer player, int seed) {
+        try {
+            var field = net.minecraft.world.entity.player.Player.class.getDeclaredField("enchantmentSeed");
+            field.setAccessible(true);
+            field.setInt(player, seed);
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    /** A seed for which the table offers {@code wanted} on {@code stack}. */
+    private static int seedOffering(GameTestHelper helper, ItemStack stack, net.minecraft.resources.ResourceKey<Enchantment> wanted) {
+        for (int seed = 1; seed < 5000; seed++) {
+            for (Holder<Enchantment> holder : AstralEnchanting.choices(helper.getLevel().registryAccess(), stack, seed)) {
+                if (holder.is(wanted)) return seed;
+            }
+        }
+        throw new AssertionError("no seed offers " + wanted);
+    }
+
+    private static int rowOf(GameTestHelper helper, AstralEnchantingMenu menu, net.minecraft.resources.ResourceKey<Enchantment> wanted) {
+        for (int row = 0; row < 3; row++) {
+            Holder<Enchantment> holder = menu.enchantment(helper.getLevel(), row);
+            if (holder != null && holder.is(wanted)) return row;
+        }
+        throw new AssertionError(wanted + " is not offered");
+    }
+
+    /**
+     * At the top tier (15 blazewood shelves and the blazing obsidian floor) the Protection slider reaches V and the result carries
+     * Protection V; one stage lower (tier 40, no floor) and with the switch off it ends at IV.
+     */
+    public static void endgameLevelsAtTheTable(GameTestHelper helper) {
+        if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
+        var features = com.simplebuilding.config.ServerTuning.get().features;
+        boolean before = features.endgameEnchantLevels;
+        try {
+            features.endgameEnchantLevels = true;
+            floor(helper, ModBlocks.BLAZING_OBSIDIAN);
+            helper.setBlock(TABLE, ModBlocks.ASTRAL_ENCHANTING_TABLE);
+            var table = helper.getBlockEntity(TABLE, AstralEnchantingTableBlockEntity.class);
+            table.setItem(AstralEnchantingTableBlockEntity.LAPIS, new ItemStack(Items.LAPIS_LAZULI, 10));
+            table.setItem(AstralEnchantingTableBlockEntity.BLAZE, new ItemStack(Items.BLAZE_POWDER, 10));
+            ServerPlayer player = survivor(helper);
+            player.giveExperienceLevels(60);
+            ItemStack chestplate = new ItemStack(Items.DIAMOND_CHESTPLATE);
+            var protection = net.minecraft.world.item.enchantment.Enchantments.PROTECTION;
+            setSeed(player, seedOffering(helper, chestplate, protection));
+            // Tier 40: all blazewood shelves without the floor ends at IV.
+            floor(helper, Blocks.STONE);
+            shelves(helper, 15, 15);
+            AstralEnchantingMenu low = open(helper, player);
+            low.getSlot(AstralEnchantingMenu.ITEM_SLOT).set(chestplate.copy());
+            eq(helper, low.tier(), 40, "tier without the floor");
+            int lowRow = rowOf(helper, low, protection);
+            eq(helper, low.maxLevel(lowRow), 4, "Protection ends at IV below the top tier");
+            low.removed(player);
+            // Tier 50.
+            floor(helper, ModBlocks.BLAZING_OBSIDIAN);
+            setSeed(player, seedOffering(helper, chestplate, protection));
+            AstralEnchantingMenu menu = open(helper, player);
+            menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).set(chestplate.copy());
+            eq(helper, menu.tier(), 50, "top tier");
+            int row = rowOf(helper, menu, protection);
+            eq(helper, menu.maxLevel(row), 5, "Protection V at the top tier");
+            eq(helper, menu.baseMax(row), 4, "the Vanilla maximum is kept next to it");
+            helper.assertTrue(menu.levelPrice(row, 5) > menu.levelPrice(row, 4), "V costs more than IV");
+            helper.assertTrue(menu.clickMenuButton(player, row * AstralEnchantingMenu.LEVELS_PER_ROW + 5), "slider click refused");
+            eq(helper, menu.chosen(row), 5, "slider at V");
+            helper.assertTrue(menu.clickMenuButton(player, AstralEnchantingMenu.BUTTON_ENCHANT), "enchanting refused");
+            ItemStack result = menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).getItem();
+            Holder<Enchantment> holder = menu.enchantment(helper.getLevel(), row);
+            eq(helper, EnchantmentHelper.getItemEnchantmentLevel(holder, result), 5, "Protection V on the chestplate");
+            menu.removed(player);
+            // Switch off: the same table offers IV only.
+            features.endgameEnchantLevels = false;
+            setSeed(player, seedOffering(helper, chestplate, protection));
+            AstralEnchantingMenu off = open(helper, player);
+            off.getSlot(AstralEnchantingMenu.ITEM_SLOT).set(chestplate.copy());
+            eq(helper, off.maxLevel(rowOf(helper, off, protection)), 4, "switch off: Vanilla maximum");
+            off.removed(player);
+        } finally {
+            features.endgameEnchantLevels = before;
+        }
+        helper.succeed();
+    }
+
     private static void eq(GameTestHelper helper, int actual, int expected, String what) {
         helper.assertValueEqual(actual, expected, what);
     }

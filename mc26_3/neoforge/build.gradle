@@ -298,6 +298,7 @@ dependencies {
     jarJar project(':modules:simpleshops:neoforge')
     jarJar project(':modules:simplewanderers:neoforge')
     jarJar project(':modules:simpleanimals:neoforge')
+    jarJar project(':modules:simpleresonance:neoforge')
     jarJar project(':modules:simpledinos:neoforge')
     jarJar project(':modules:simplemusic:neoforge')
 }

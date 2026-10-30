@@ -147,6 +147,38 @@
       }
     },
     {
+      "id": "zone_effects",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneEffects.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneSpawns.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/MobZoneSpawnMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/ResonanceContracts.java"
+      ],
+      "en": {
+        "title": "Danger zones: effects on new monsters",
+        "summary": "With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. Off by default until the client check.",
+        "details": [
+          "Which spawns: natural spawns, patrols and chunk generation of monsters (zoneSpawnReasons). Never spawners, eggs, commands, raids, summoned, named monsters or bosses.",
+          "Pools and chance at level 5: Strength 35 % (up to III), Speed 25 % (II), Extra Hearts 30 % (II), Oozing 20 % (I), Infested 20 % (I), Deflection 25 % (V), Volatile 15 % (V), Mirror 10 % (V). The chance grows as chance x (level / 5)^1.3; the pools are drawn in random order, at most zoneMaxEffects (3) per monster.",
+          "The level of an effect follows the spawn level around a bell curve (level 1: I 61 %, II 33 %, III 5 %; level 5: V 61 %, IV 33 %), limited by the pool's levelCap. Effects last for good and are saved with the monster.",
+          "zoneMobsEnabled (false), zoneMaxEffects (3, 0 to 8), zoneSpawnReasons (natural, patrol, chunk_generation) and zoneEffects.<pool>.chance / levelCap are in simplemobs-server.json and /simplemobs config.",
+          "Killing a Hollow Howler, Hollow Watcher or Blighted / Abyssal Wither gives the killer 5 resonance points (once per 24 played hours each)."
+        ]
+      },
+      "de": {
+        "title": "Gefahrenzonen: Effekte für neue Monster",
+        "summary": "Mit installiertem Simple Resonance und eingeschaltetem zoneMobsEnabled bekommen neue Monster je nach Gefahrenstufe ihres Spawn-Ortes Statuseffekte (nie mehr Leben): je weiter vom Welt-Spawn und je erfahrener der nächste Spieler, desto wahrscheinlicher und stärker. Standardmäßig aus bis zur Client-Abnahme.",
+        "details": [
+          "Welche Spawns: natürliche Spawns, Patrouillen und Chunk-Erzeugung von Monstern (zoneSpawnReasons). Nie Spawner, Eier, Befehle, Raids, beschworene, benannte Monster oder Bosse.",
+          "Töpfe und Chance bei Stufe 5: Stärke 35 % (bis III), Geschwindigkeit 25 % (II), Extraherzen 30 % (II), Oozing 20 % (I), Infested 20 % (I), Ablenkung 25 % (V), Flüchtig 15 % (V), Spiegel 10 % (V). Die Chance wächst wie Chance x (Stufe / 5)^1,3; die Töpfe werden in zufälliger Reihenfolge gewürfelt, höchstens zoneMaxEffects (3) je Monster.",
+          "Die Stufe eines Effekts folgt der Spawn-Stufe um eine Glockenkurve (Stufe 1: I 61 %, II 33 %, III 5 %; Stufe 5: V 61 %, IV 33 %), begrenzt durch das levelCap des Topfs. Effekte halten für immer und werden mit dem Monster gespeichert.",
+          "zoneMobsEnabled (false), zoneMaxEffects (3, 0 bis 8), zoneSpawnReasons (natural, patrol, chunk_generation) und zoneEffects.<Topf>.chance / levelCap stehen in simplemobs-server.json und /simplemobs config.",
+          "Wer einen Hollow Howler, Hollow Watcher oder Blighted / Abyssal Wither besiegt, bekommt 5 Resonanzpunkte (je einmal pro 24 gespielte Stunden)."
+        ]
+      }
+    },
+    {
       "id": "soulfire_blaze",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulfireBlaze.java",

@@ -247,6 +247,13 @@ public class ServerTuningConfig {
         /** Simple Doors (WP-17, 2026-10-29): the 2x2, 2x3 and half doors open by hand and redstone; aus: sie bleiben, wie sie stehen (zu). */
         @ConfigEntry.Gui.Tooltip
         public boolean simpleDoors = true;
+        /**
+         * Endgame enchantment levels (WP-22, MOB27-4): at the top stage of the Astral Enchanter (tier 50) the sliders of Protection and
+         * Feather Falling reach level V, above Vanilla's maximum IV. Vanilla's {@code max_level} stays untouched (the anvil cannot make V);
+         * aus: every slider ends at the Vanilla maximum.
+         */
+        @ConfigEntry.Gui.Tooltip
+        public boolean endgameEnchantLevels = true;
     }
 
     public static class ChunkLoaders {

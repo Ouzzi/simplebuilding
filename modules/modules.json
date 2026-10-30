@@ -61,7 +61,8 @@
         "simpleearth",
         "simplechallenges",
         "simpleredstone",
-        "simpledinos"
+        "simpledinos",
+        "simpleresonance"
       ],
       "paths": {
         "root": ".",
@@ -1572,7 +1573,9 @@
       "requires": [
         "simplelib"
       ],
-      "optional": [],
+      "optional": [
+        "simpleresonance"
+      ],
       "checks": [
         "modules/simplemobs/tools/check_data.py"
       ],
@@ -4554,6 +4557,88 @@
         "fabric": ":modules:simpledinos:fabric",
         "neoforge": ":modules:simpledinos:neoforge",
         "forge": ":modules:simpledinos:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simpleresonance",
+      "name": "Simple Resonance",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Resonance",
+      "description": "Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.",
+      "loaders": [
+        "fabric",
+        "neoforge",
+        "forge"
+      ],
+      "requires": [],
+      "optional": [
+        "simplebuilding",
+        "simplemobs"
+      ],
+      "checks": [
+        "modules/simpleresonance/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleresonance",
+        "catalogues": [
+          "modules/simpleresonance/fabric/src/main/java/com/simplebuilding/modules/simpleresonance/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleresonance"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleresonanceGameTest",
+            "report": "integration/build/simpleresonance-junit.xml"
+          },
+          "neoforge": {
+            "task": ":modules:simpleresonance:neoforge:runModuleIntegrationGameTest",
+            "report": "modules/simpleresonance/neoforge/build/module-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleresonanceStandaloneGameTest",
+              "report": "integration/build/standalone/simpleresonance-junit.xml"
+            },
+            "neoforge": {
+              "task": ":modules:simpleresonance:neoforge:runModuleStandaloneGameTest",
+              "report": "modules/simpleresonance/neoforge/build/standalone-junit.xml"
+            }
+          }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simpleresonance.ModuleClientSmoke"
+          ],
+          "sources": "modules/simpleresonance/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
+        }
+      },
+      "paths": {
+        "root": "modules/simpleresonance",
+        "shared": "modules/simpleresonance/shared",
+        "fabric": "modules/simpleresonance/fabric",
+        "neoforge": "modules/simpleresonance/neoforge",
+        "forge": "modules/simpleresonance/forge",
+        "generated": "modules/simpleresonance/generated/resources",
+        "lang": "modules/simpleresonance/shared/resources/assets/simpleresonance/lang",
+        "wikiManual": "modules/simpleresonance/wiki/manual.json",
+        "balanceDir": "balance/simpleresonance"
+      },
+      "projects": {
+        "fabric": ":modules:simpleresonance:fabric",
+        "neoforge": ":modules:simpleresonance:neoforge",
+        "forge": ":modules:simpleresonance:forge"
       },
       "parent": "simplebuilding",
       "bundle": "optional"

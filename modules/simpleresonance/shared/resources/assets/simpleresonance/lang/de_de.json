@@ -1,0 +1,12 @@
+{
+  "simpleresonance.testcentre.station": "Simple Resonance",
+  "command.simpleresonance.off": "Simple Resonance ist ausgeschaltet.",
+  "command.simpleresonance.value": "Dein Resonanzwert: %s (Stufe %s von 5).",
+  "command.simpleresonance.parts": "Anteil seit deinem letzten Tod: %s, langfristiger Anteil: %s.",
+  "command.simpleresonance.zone": "Gefahrenstufe des Landes hier: %s von 5.",
+  "command.simpleresonance.grace": "Anfängerschutz: Monster in deiner Nähe bleiben noch %s Spielstunden auf Stufe 1.",
+  "command.simpleresonance.grace_over": "Dein Anfängerschutz ist vorbei; Monster richten sich jetzt nach deiner Stufe plus eins.",
+  "command.simpleresonance.debug_head": "Mögliche Besitzer eines Spawns hier: %s",
+  "command.simpleresonance.debug_owner": "%s: %s Blöcke, Chance %s %%",
+  "command.simpleresonance.debug_level": "Ein Spawn hier mit dem ersten Kandidaten als Besitzer bekäme Stufe %s (Zone %s)."
+}

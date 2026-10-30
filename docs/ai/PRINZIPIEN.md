@@ -89,6 +89,7 @@ Super-Mod der Familie: Hülle mit Konfig, Mega-Guide, Testzentrale, Baugeräte (
 - Gadgets zeigen keinen Text auf dem Bildschirm (AGENTS.md 3.4): Sounds, Partikel, Blockzustände.
 - Pflicht-Sub-Mods sind gebündelt (`requires` in `modules.json`); alles andere nur als `optional` (Schalter `enableSimpleX`).
 - Schach-Achtel (`checker_octet`) und Schach-Figuren bleiben hier (Plan F3).
+- Endgame-Verzauberungsstufen (WP-22, MOB27-4): Vanillas `max_level` wird nie angehoben (der Amboss darf aus zwei Schutz-IV-Büchern kein V machen); Stufe V für Schutz und Federfall entsteht nur am Astral-Verzauberer auf der obersten Stufe (Tier 50), Schalter `server.features.endgameEnchantLevels`; Preis je Stufe über dem Vanilla-Maximum `+6`. Der Dark-/End-Verzauberer (BS25-20) hängt sich später nur über `AstralEnchanting.registerEndgame`/`levelCap` ein.
 
 ### Simple Redstone (`simpleredstone`)
 Doppelkolben (1×2) und Signaldämpfer; nur Vanilla-Zutaten, nur Fabric 26.3 vorerst (WP-17, `docs/ai/KONZEPT-A-WP17-2026-10-29.md`).
@@ -180,6 +181,7 @@ Leuchtende/Emittierende/Pulsierende Besatzvorlagen, platzierbare Vorlagen, Besat
 Hollow Howler, Hollow Watcher, Shellker, Soulfire Blaze, Dread, Deceiver, Blighted Wither, Potion of Silence, Biome Brush.
 
 - Sculk-Kiefer (Howler-Falle) gehört thematisch hierher; liegt bis zur Verschiebung in SimpleBuilding.
+- Gefahrenzonen (WP-22, MOB27-2): neue Monster bekommen über `ResonanceContracts` (Simple Resonance, nur optional) Chancen auf Statuseffekte, nie mehr Leben oder Attribute; Hook nur `Mob.finalizeSpawn` RETURN, nur natürliche Spawns/Patrouillen/Chunk-Erzeugung von Monstern; `zoneMobsEnabled` Standard aus (A12: Eingriff mittel, bis zur Client-Abnahme).
 
 ### Simple Weather (`simpleweather`)
 Wetter-Schalter (Server), Regendichte (Client); Sub-Mod von QoL.
@@ -268,6 +270,14 @@ Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein, Igel, Krebs, Zebra (mit
 - **A12 je Tier** steht in `docs/ai/PLAN-A-ANIMALS-2026-10-29.md`; neue Tiere kommen erst nach Besitzer-Wahl dazu (SPÄTER-Liste im Konzept WP-18).
 - Natürliches Spawnen nur über niedrige Gewichte (1 bis 4) und die Regel in `checkSpawnRules` der Entität (Tageslicht, Boden); Ei, Spawner und Zucht sind nie begrenzt. Kein Blockschaden, nur Vanilla-Goals.
 - Modelle und Texturen kommen aus einer Spezifikation (`tools/gen_models.py`, `tools/gen_items.py`); Java-`*Layers` nie von Hand ändern.
+### Simple Resonance (`simpleresonance`)
+Spielerwert, Gefahrenzonen, Spawn-Besitzer-Wahl und Anfängerschutz als Schnittstelle für andere Mods (`framework` `ResonanceContracts`, reines Java); allein mit Vanilla spielbar.
+
+- **A12:** Nutzen: ein gemeinsamer, erklärbarer Erfahrungswert statt verstreuter Zähler; Zonen machen fernes Gelände abwechslungsreicher. Ändert für sich nichts am Spiel (nur Messung und `/resonance`); die Wirkung kommt erst durch Verwender wie Simple Mobs (`zoneMobsEnabled`, Standard aus). Eingriff in Vanilla: keiner im Modul selbst.
+- Der Wert steuert nur Chancen, nie Leben oder Schaden. Kein Modul importiert ein anderes: Verwender fragen `ResonanceContracts.get()` und behandeln `null` als „Vanilla“.
+- Spielerdaten liegen in einem `SavedData` (`simpleresonance:players`), nicht im Spieler-NBT; der alte SB-Block `SimpleBuildingData` wird einmal gelesen (Mixin) und bleibt im Kern unverändert (Welten brechen nicht).
+- Konstanten stehen in `ResonanceMath`/`ResonanceConfig`; Wiki-Zahlen müssen dort beweisbar sein. Neue Verwender nutzen den Vertrag, keine Klassen des Moduls.
+
 ### Simple Dinosaurs (`simpledinos`)
 Fossilienblock, Dinosaurier-Eier zum Freipinseln und Ausbrüten (Daraufsitzen) und die Dinosaurier selbst (Stufe 1: der reitbare T-Rex); allein mit Vanilla spielbar.
 

@@ -32,6 +32,9 @@
     "java": ">=25",
     "simplelib": ">=0.3.0"
   },
+  "suggests": {
+    "simpleresonance": "*"
+  },
   "mixins": [
     "simplemobs.mixins.json"
   ]

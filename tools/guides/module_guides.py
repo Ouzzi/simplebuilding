@@ -140,6 +140,15 @@ MODULES = [
          name=("Simple Dinosaurs Guide", "Simple-Dinosaurs-Handbuch"),
          intro=("Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
                 "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen.")),
+    dict(module="simpleresonance", ns="simpleresonance", package="com.simpleresonance.guide", cls="ResonanceGuide", kind="item",
+         author="Simple Resonance", recipe="minecraft:echo_shard",
+         name=("Simple Resonance Guide", "Simple-Resonance-Handbuch"),
+         intro=("How experienced you are and how dangerous the land is: your player value grows with playing time and bosses and falls only "
+                "by a part when you die, danger zones rise softly with the distance from the world spawn, every monster spawn belongs to "
+                "one player nearby, and a newcomer protection keeps the first hours gentle. Other mods ask it through an API.",
+                "Wie erfahren du bist und wie gefährlich das Land ist: dein Spielerwert wächst mit Spielzeit und Bossen und sinkt beim Tod nur "
+                "um einen Teil, Gefahrenzonen steigen weich mit der Entfernung vom Welt-Spawn, jeder Monster-Spawn gehört einem Spieler in der "
+                "Nähe, und ein Anfängerschutz hält die ersten Stunden mild. Andere Mods fragen es über eine Schnittstelle ab.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),

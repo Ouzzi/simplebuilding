@@ -1,0 +1,13 @@
+{
+  "guide_book": {
+    "lore": [
+      "Ein Notizbuch, das misst, wie weit du gekommen bist."
+    ],
+    "use": [
+      "Das Simple-Resonance-Handbuch erklärt deinen Spielerwert, die Gefahrenzonen, den Besitzer eines Monster-Spawns und den Anfängerschutz. Formlos aus Buch und Echo-Scherbe herstellbar. /resonance zeigt deine eigenen Zahlen."
+    ],
+    "secret": [
+      "Seine Seiten öffnen sich in deiner Sprache und nichts wird verbraucht."
+    ]
+  }
+}

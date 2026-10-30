@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleresonance"
+version="${version}"
+displayName="Simple Resonance"
+iconFile="assets/simpleresonance/icon.png"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
+description="How experienced a player is and how dangerous the land is: a player value from playing time and survival, danger zones that grow softly with the distance from the spawn, the owner of a monster spawn and a newcomer protection. An API for other mods; allows Simple Mobs to give new monsters status effects instead of more health."
+[[mixins]]
+config="simpleresonance.mixins.json"
+[[dependencies.simpleresonance]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpleresonance]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleresonance]]
+modId="simplemobs"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
