@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplestorage:pipe",
+    "simplelib:cracked_diamond",
+    "simplelib:cracked_diamond"
+  ],
+  "result": {
+    "id": "simplestorage:reinforced_pipe"
+  }
+}

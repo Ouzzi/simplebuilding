@@ -16,6 +16,16 @@
     "simplestorage:enderite_chest",
     "simplestorage:reinforced_shulker_box",
     "simplestorage:netherite_shulker_box",
-    "simplestorage:enderite_shulker_box"
+    "simplestorage:enderite_shulker_box",
+    "simplestorage:pipe",
+    "simplestorage:reinforced_pipe",
+    "simplestorage:netherite_pipe",
+    "simplestorage:enderite_pipe",
+    "simplestorage:copper_cable",
+    "simplestorage:chest_interface",
+    "simplestorage:wooden_controller_chest",
+    "simplestorage:reinforced_controller_chest",
+    "simplestorage:netherite_controller_chest",
+    "simplestorage:enderite_controller_chest"
   ]
 }

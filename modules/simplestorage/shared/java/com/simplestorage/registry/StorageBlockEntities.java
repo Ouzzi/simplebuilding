@@ -26,6 +26,10 @@ public final class StorageBlockEntities {
     /** Split stage 8c-2: the placed backpack (was {@code simplebuilding:backpack}). */
     public static BlockEntityType<com.simplestorage.backpack.BackpackBlockEntity> BACKPACK;
 
+    /** ST27-1: the pipes' one block entity type; BS29b-3: the controller chests'. */
+    public static BlockEntityType<com.simplestorage.pipe.ItemPipeBlockEntity> PIPE;
+    public static BlockEntityType<com.simplestorage.network.ControllerChestBlockEntity> CONTROLLER_CHEST;
+
     /** The loader's {@code BlockEntityType} constructor. */
     public interface Types {
         <T extends BlockEntity> BlockEntityType<T> create(BlockEntityType.BlockEntitySupplier<? extends T> factory, Set<Block> blocks);
@@ -39,6 +43,8 @@ public final class StorageBlockEntities {
         TRAPPED_COPPER_CHEST = register("trapped_copper_chest", types.create(TrappedCopperChestBlockEntity::new, Set.of(StorageBlocks.trappedCopperChests())));
         TIERED_SHULKER_BOX = register("tiered_shulker_box", types.create(TieredShulkerBoxBlockEntity::new, Set.of(StorageBlocks.shulkerBoxes())));
         PLACED_BUNDLE = register("placed_bundle", types.create(com.simplestorage.bundle.PlacedBundleBlockEntity::new, Set.of(StorageBlocks.PLACED_BUNDLE)));
+        PIPE = register("pipe", types.create(com.simplestorage.pipe.ItemPipeBlockEntity::new, Set.copyOf(StorageBlocks.PIPES.values())));
+        CONTROLLER_CHEST = register("controller_chest", types.create(com.simplestorage.network.ControllerChestBlockEntity::new, Set.copyOf(StorageBlocks.CONTROLLERS.values())));
         BACKPACK = register("backpack", types.create(com.simplestorage.backpack.BackpackBlockEntity::new, Set.copyOf(StorageBlocks.BACKPACKS.values())));
     }
 

@@ -38,7 +38,14 @@ public class TieredChestBlock extends ChestBlock {
     }
 
     public TieredChestBlock(ChestTier tier, SoundEvent open, SoundEvent close, BlockBehaviour.Properties properties) {
-        super(() -> StorageBlockEntities.TIERED_CHEST, open, close, properties);
+        this(tier, open, close, () -> StorageBlockEntities.TIERED_CHEST, properties);
+    }
+
+    /** A variant with its own block entity type (the controller chests of the chest network). */
+    protected TieredChestBlock(ChestTier tier, SoundEvent open, SoundEvent close,
+                               java.util.function.Supplier<net.minecraft.world.level.block.entity.BlockEntityType<? extends net.minecraft.world.level.block.entity.ChestBlockEntity>> type,
+                               BlockBehaviour.Properties properties) {
+        super(type, open, close, properties);
         this.tier = tier;
     }
 

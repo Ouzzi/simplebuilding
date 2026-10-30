@@ -52,7 +52,10 @@ public final class StorageDiscover {
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
             "minecraft:copper_chest",
+            "minecraft:ender_pearl",
+            "minecraft:hopper",
             "minecraft:shulker_box",
+            "minecraft:writable_book",
             "simplebuilding:color_palette",
             "simplebuilding:constructors_touch",
             "simplebuilding:leather_sheet",
@@ -68,11 +71,15 @@ public final class StorageDiscover {
             "simplestorage:*_shulker_box",
             "simplestorage:*_shulker_shell",
             "simplestorage:*backpack",
+            "simplestorage:*pipe",
             "simplestorage:backpack",
             "simplestorage:backpacks",
             "simplestorage:bundles",
+            "simplestorage:chest_interface",
+            "simplestorage:chest_network",
             "simplestorage:chests",
             "simplestorage:commands",
+            "simplestorage:copper_cable",
             "simplestorage:crates",
             "simplestorage:creative_tab_switch",
             "simplestorage:deep_pockets",
@@ -80,6 +87,8 @@ public final class StorageDiscover {
             "simplestorage:enderite_backpack",
             "simplestorage:enderite_bundle",
             "simplestorage:enderite_chest",
+            "simplestorage:enderite_controller_chest",
+            "simplestorage:enderite_pipe",
             "simplestorage:enderite_quiver",
             "simplestorage:enderite_shulker_box",
             "simplestorage:enderite_shulker_shell",
@@ -91,11 +100,15 @@ public final class StorageDiscover {
             "simplestorage:netherite_backpack",
             "simplestorage:netherite_bundle",
             "simplestorage:netherite_chest",
+            "simplestorage:netherite_controller_chest",
+            "simplestorage:netherite_pipe",
             "simplestorage:netherite_quiver",
             "simplestorage:netherite_shulker_box",
             "simplestorage:netherite_shulker_shell",
             "simplestorage:netherite_trapped_chest",
             "simplestorage:oxidized_trapped_copper_chest",
+            "simplestorage:pipe",
+            "simplestorage:pipes",
             "simplestorage:placed_bundle",
             "simplestorage:placed_bundles",
             "simplestorage:quiver",
@@ -104,6 +117,8 @@ public final class StorageDiscover {
             "simplestorage:reinforced_backpack",
             "simplestorage:reinforced_bundle",
             "simplestorage:reinforced_chest",
+            "simplestorage:reinforced_controller_chest",
+            "simplestorage:reinforced_pipe",
             "simplestorage:reinforced_quiver",
             "simplestorage:reinforced_shulker_box",
             "simplestorage:reinforced_shulker_shell",
@@ -116,10 +131,13 @@ public final class StorageDiscover {
             "simplestorage:waxed_oxidized_trapped_copper_chest",
             "simplestorage:waxed_trapped_copper_chest",
             "simplestorage:waxed_weathered_trapped_copper_chest",
-            "simplestorage:weathered_trapped_copper_chest");
+            "simplestorage:weathered_trapped_copper_chest",
+            "simplestorage:wooden_controller_chest");
     static final List<Tip> TIPS = List.of(
             new Tip("chest_upgrade", List.of("reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest", "netherite_trapped_chest", "netherite_shulker_box")),
-            new Tip("backpack", List.of("backpack", "*_backpack")));
+            new Tip("backpack", List.of("backpack", "*_backpack")),
+            new Tip("pipe", List.of("pipe", "*_pipe")),
+            new Tip("chest_network", List.of("chest_interface", "*_controller_chest")));
 
     record Tip(String group, List<String> patterns) {
         String key() {

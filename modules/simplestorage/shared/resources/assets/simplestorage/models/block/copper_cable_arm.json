@@ -1,0 +1,67 @@
+{
+  "textures": {
+    "cable": "simplestorage:block/copper_cable",
+    "particle": "simplestorage:block/copper_cable"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        6,
+        0
+      ],
+      "to": [
+        10,
+        10,
+        6
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            0,
+            12,
+            4
+          ],
+          "texture": "#cable"
+        },
+        "up": {
+          "uv": [
+            4,
+            0,
+            8,
+            6
+          ],
+          "texture": "#cable"
+        },
+        "down": {
+          "uv": [
+            4,
+            0,
+            8,
+            6
+          ],
+          "texture": "#cable"
+        },
+        "east": {
+          "uv": [
+            0,
+            6,
+            6,
+            10
+          ],
+          "texture": "#cable"
+        },
+        "west": {
+          "uv": [
+            0,
+            6,
+            6,
+            10
+          ],
+          "texture": "#cable"
+        }
+      }
+    }
+  ]
+}

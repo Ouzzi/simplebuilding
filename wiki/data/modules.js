@@ -1559,11 +1559,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
     "counts": {
       "items": 17,
-      "blocks": 37,
-      "recipes": 177,
-      "features": 13
+      "blocks": 47,
+      "recipes": 187,
+      "features": 15
     },
-    "dataHash": "fedde42b8786"
+    "dataHash": "8daecba71925"
   },
   {
     "id": "simplemusic",

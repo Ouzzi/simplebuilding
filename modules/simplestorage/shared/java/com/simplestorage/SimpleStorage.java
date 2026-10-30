@@ -56,6 +56,8 @@ public final class SimpleStorage {
             com.simplestorage.chest.TieredShulkerBoxes.upgradeInPlace(level, pos, to);
             return 1;
         });
+        // ST27-1: a pipe keeps its item, filter and output when it climbs a step (in_world_upgrades/pipes.json).
+        com.simplelib.api.InWorldUpgrades.registerHandler(block -> block instanceof com.simplestorage.pipe.ItemPipeBlock, com.simplestorage.pipe.Pipes::upgradeInPlace);
         // A double chest upgrades as one: the hammer works both halves.
         com.simplelib.api.HammerActions.registerParts(block -> block instanceof com.simplestorage.chest.TieredChestBlock,
                 com.simplestorage.chest.TieredChests::halves);
@@ -66,6 +68,7 @@ public final class SimpleStorage {
         movedBundles().forEach(path -> items.add(MOD_ID + ":" + path));
         movedBackpacks().forEach(path -> items.add(MOD_ID + ":" + path));
         MOVED_SHELLS.forEach(path -> items.add(MOD_ID + ":" + path));
+        pipeAndNetworkIds().forEach(path -> items.add(MOD_ID + ":" + path));
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "storage", "simplestorage.testcentre.station", items);
         // Split stage 8c-2: the worn backpack offers its entries (SimpleLib CarriedStacks): the quivers' bow search and, with
@@ -99,6 +102,18 @@ public final class SimpleStorage {
         for (String tier : TIERS) out.add(tier + "_trapped_chest");
         for (String waxed : List.of("", "waxed_")) for (String stage : COPPER_STAGES) out.add(waxed + stage + "trapped_copper_chest");
         for (String tier : TIERS) out.add(tier + "_shulker_box");
+        return out;
+    }
+
+    /**
+     * New in Simple Storage (no old ids): ST27-1 the four pipes, BS29b-3 the copper cable, the chest interface and the four
+     * controller chests (block and item of the same id).
+     */
+    public static List<String> pipeAndNetworkIds() {
+        List<String> out = new ArrayList<>(com.simplestorage.pipe.PipeTier.IDS);
+        out.add("copper_cable");
+        out.add("chest_interface");
+        for (com.simplestorage.network.ControllerLevel step : com.simplestorage.network.ControllerLevel.values()) out.add(step.controllerId());
         return out;
     }
 

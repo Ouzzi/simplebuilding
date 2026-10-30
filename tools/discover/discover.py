@@ -150,7 +150,12 @@ MODS = [
                 "Axt oder Hammer, Nugget in Nebenhand: vor Ort aufwerten"),
                # split stage 8c-2: the backpacks
                ("backpack", ["backpack", "*_backpack"], "Use to wear it, then press the backpack key (B)",
-                "Benutzen zum Anlegen, dann Rucksack-Taste (B)")]),
+                "Benutzen zum Anlegen, dann Rucksack-Taste (B)"),
+               # ST27-1 and BS29b-3: the pipe and the chest network
+               ("pipe", ["pipe", "*_pipe"], "Sneak + use turns the output; open it for a filter",
+                "Schleichen + Benutzen dreht den Ausgang; Fenster: Filter"),
+               ("chest_network", ["chest_interface", "*_controller_chest"], "Put interfaces on the chests, link them with cables",
+                "Schnittstellen an die Truhen setzen, mit Kabeln verbinden")]),
     dict(id="simplelights", ns=["simplelights"], cls="LightsDiscover", package="com.simplelights.discover",
          own_packages=["com.simplelights."]),
     dict(id="simplegadgets", ns=["simplegadgets"], cls="GadgetsDiscover", package="com.simplegadgets.discover",

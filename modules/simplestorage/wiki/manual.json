@@ -651,6 +651,108 @@
           "Beispiel: /simplestorage config get <Option> zeigt Wert, Standard und Typ; /simplestorage config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
+    },
+    {
+      "id": "pipes",
+      "related": [
+        "simplestorage:pipe",
+        "simplestorage:reinforced_pipe",
+        "simplestorage:netherite_pipe",
+        "simplestorage:enderite_pipe",
+        "simplelib:cracked_diamond",
+        "simplelib:netherite_nugget",
+        "simplelib:enderite_nugget",
+        "minecraft:hopper"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/Pipes.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/PipeScreen.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/pipe.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/in_world_upgrades/pipes.json",
+        "modules/simplelib/shared/java/com/simplelib/api/ItemFilterRules.java",
+        "modules/simplestorage/shared/java/com/simplestorage/test/PipeTests.java"
+      ],
+      "en": {
+        "title": "Pipes",
+        "summary": "A pipe is a hopper with one slot that looks like a cable. It moves items from the containers beside it into the container at its one output, which ends in an arrow: 1 item every 8 ticks, Reinforced every 6, Netherite 2 items every 4, Enderite 4 items every 2. The first step points down or sideways only; from Reinforced on the output may also point up.",
+        "details": [
+          "Shape: alone it is only a middle piece; every neighbour that holds items (chest, furnace, hopper, another pipe) grows an arm, the output arm carries the arrow. It takes items from every container beside it except the output side (never from another pipe, those push on their own) and pushes into the container at the output.",
+          "Turning the output: sneak and right-click with an empty hand, or press the output key in its window. The first step skips up.",
+          "Filter (the owner's filter principle, as with the hoppers): the window has one slot and the filter key - off, exact (same item and data) or same kind. With a filter on, the real item in the slot is the filter: one of it stays, only the second and every further one is moved; automation only adds matching items and never fills an empty filter slot - put the item in by hand.",
+          "Upgrade: pipe -> Reinforced Pipe (Cracked Diamond) -> Netherite Pipe (Netherite Nugget) -> Enderite Pipe (Enderite Nugget), in the world like the chests (hammer or axe in the main hand, the material in the off hand; item and filter stay) or in the crafting grid (the pipe and two pieces of the material).",
+          "Recipe: two copper ingots around a hopper make 2 pipes."
+        ]
+      },
+      "de": {
+        "title": "Rohre",
+        "summary": "Ein Rohr ist ein Trichter mit einem Platz, der wie ein Kabel aussieht. Es schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang, der in einem Pfeil endet: 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 Items alle 4, Enderit 4 Items alle 2. Die erste Stufe zeigt nur nach unten oder zur Seite; ab Verstärkt darf der Ausgang auch nach oben zeigen.",
+        "details": [
+          "Form: allein nur ein Mittelstück; jeder Nachbar mit Items (Truhe, Ofen, Trichter, anderes Rohr) bekommt einen Arm, der Ausgangsarm trägt den Pfeil. Es nimmt aus jedem Behälter neben sich außer an der Ausgangsseite (nie aus einem anderen Rohr, die schieben selbst) und schiebt in den Behälter am Ausgang.",
+          "Ausgang drehen: Schleichen und Rechtsklick mit leerer Hand oder im Fenster den Ausgangsknopf drücken. Die erste Stufe überspringt oben.",
+          "Filter (Filter-Prinzip des Besitzers, wie bei den Trichtern): das Fenster hat einen Platz und den Filterknopf - aus, exakt (gleiches Item samt Daten) oder gleiche Art. Mit Filter ist das echte Item im Platz der Filter: eines bleibt, erst das zweite und jedes weitere wird bewegt; Automatik legt nur Passendes dazu und füllt einen leeren Filterplatz nie - das Item von Hand hineinlegen.",
+          "Aufwertung: Rohr -> Verstärktes Rohr (Rissdiamant) -> Netherit-Rohr (Netheritklumpen) -> Enderit-Rohr (Enderitklumpen), in der Welt wie die Truhen (Hammer oder Axt in der Haupthand, das Material in der Nebenhand; Item und Filter bleiben) oder im Handwerksgitter (das Rohr und zwei Stück des Materials).",
+          "Rezept: zwei Kupferbarren um einen Trichter ergeben 2 Rohre."
+        ]
+      }
+    },
+    {
+      "id": "chest_network",
+      "related": [
+        "simplestorage:copper_cable",
+        "simplestorage:chest_interface",
+        "simplestorage:wooden_controller_chest",
+        "simplestorage:reinforced_controller_chest",
+        "simplestorage:netherite_controller_chest",
+        "simplestorage:enderite_controller_chest",
+        "minecraft:writable_book",
+        "minecraft:ender_pearl"
+      ],
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/ChestNetwork.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/CableBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/InterfaceBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLevel.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/NetworkSubstitutes.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLoot.java",
+        "modules/simplestorage/shared/java/com/simplestorage/client/ControllerScreen.java",
+        "modules/simplestorage/shared/java/com/simplestorage/config/StorageConfig.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/copper_cable.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/chest_interface.json",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_controller_chest.json",
+        "modules/simplestorage/shared/java/com/simplestorage/test/NetworkTests.java"
+      ],
+      "en": {
+        "title": "Chest network (prototype)",
+        "summary": "Copper cables connect chests, each with a chest interface on its side, to one controller chest. The controller's window lists every kind of item in all connected chests: take stacks out, click with an item to store it, shift-click in the inventory to store.",
+        "details": [
+          "Wiring: an interface plate sits in the cell next to a chest and points at it; it connects to cables and other interfaces on its other five sides. The controller chest needs an interface too. The cable is also a decoration block that draws arms like a chorus plant (lines, corners, pillars).",
+          "Steps and limits (chest blocks, half of a double chest counts one): Wooden controller 4 (two double chests), Reinforced 12, Netherite 32, Enderite 64. A controller takes chests of its step or lower (Vanilla and copper chests count as wood); higher chests stay out of the list and are counted in the window. The controller's own slots belong to the network.",
+          "Broken: too many chests, a second controller on the same network, or more than 512 cables and interfaces: the controller shows a broken screen with the cause and gives no access until fixed.",
+          "Recipes: cable - three copper ingots in the middle row with one wool above and below make 3; interface - glass pane in the middle, gold and quartz alternating around it, repeater on top and comparator below; controller - interface, a chest of the step, a book and quill and an ender pearl (a wooden chest for the wooden controller). Better structure chests (Reinforced, Netherite, Enderite) hold a controller of their own step with 2 interfaces and 4 cables (controllerLootPercent, default 10 % of them).",
+          "Config chestNetwork (default on): off turns the cable into copper bars, the interface into a glass pane and the controller chest into the plain chest of its step when the block is touched or on a random tick; contents stay, the items cannot be placed. controllerLootPercent (0-50) is the loot chance.",
+          "Speed: the network is searched again only when cables or interfaces changed, and the chests are read only while a controller window is open."
+        ]
+      },
+      "de": {
+        "title": "Truhen-Netzwerk (Prototyp)",
+        "summary": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen: Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
+        "details": [
+          "Verdrahtung: eine Schnittstellen-Platte sitzt in der Zelle neben einer Truhe und zeigt auf sie; auf ihren anderen fünf Seiten verbindet sie sich mit Kabeln und anderen Schnittstellen. Auch die Controller-Truhe braucht eine. Das Kabel ist zugleich ein Dekoblock, der wie eine Chorus-Pflanze Arme zeichnet (Linien, Ecken, Säulen).",
+          "Stufen und Grenzen (Truhenblöcke, eine Doppeltruhenhälfte zählt eins): Hölzerner Controller 4 (zwei Doppeltruhen), Verstärkt 12, Netherit 32, Enderit 64. Ein Controller nimmt Truhen seiner Stufe oder niedriger (Vanilla- und Kupfertruhen zählen als Holz); höhere Truhen bleiben aus der Liste und werden im Fenster gezählt. Die eigenen Plätze des Controllers gehören zum Netz.",
+          "Kaputt: zu viele Truhen, ein zweiter Controller am selben Netz oder mehr als 512 Kabel und Schnittstellen: der Controller zeigt einen Kaputt-Bildschirm mit der Ursache und gibt keinen Zugriff, bis es behoben ist.",
+          "Rezepte: Kabel - drei Kupferbarren in der Mittelreihe mit je einer Wolle darüber und darunter ergeben 3; Schnittstelle - Glasscheibe in der Mitte, Gold und Quarz abwechselnd ringsum, oben Verstärker und unten Komparator; Controller - Schnittstelle, eine Truhe der Stufe, ein Buch mit Feder und eine Enderperle (für den hölzernen Controller eine Holztruhe). Bessere Struktur-Truhen der Stufen enthalten mit controllerLootPercent (Standard 10 % der besseren Truhen) einen Controller ihrer Stufe mit 2 Schnittstellen und 4 Kabeln.",
+          "Config chestNetwork (Standard an): aus verwandelt das Kabel in Kupfergitter, die Schnittstelle in eine Glasscheibe und die Controller-Truhe in die normale Truhe ihrer Stufe, sobald der Block berührt wird oder sein Zufallstick kommt; der Inhalt bleibt, die Items lassen sich nicht mehr platzieren. controllerLootPercent (0-50) ist die Fund-Chance.",
+          "Tempo: das Netz wird nur neu gesucht, wenn sich Kabel oder Schnittstellen geändert haben, und die Truhen werden nur gelesen, solange ein Controller-Fenster offen ist."
+        ]
+      }
     }
   ],
   "notes": {
@@ -660,10 +762,10 @@
         "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 32 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+        "summary": "Guide to this mod: 36 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 32 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+        "summary": "Handbuch zu dieser Mod: 36 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
       }
     },
     "simplestorage:*_crate": {
@@ -1950,6 +2052,103 @@
         "common/src/shared/java/com/simplebuilding/util/ShulkerShells.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedSmallPartsBlock.java"
       ]
+    },
+    "simplestorage:*pipe": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeTier.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/ItemPipeBlockEntity.java",
+        "modules/simplestorage/shared/java/com/simplestorage/pipe/PipeMenu.java",
+        "modules/simplestorage/shared/java/com/simplestorage/registry/StorageBlocks.java"
+      ],
+      "en": {
+        "summary": "A hopper with one slot that looks like a cable: it moves items from the containers beside it into the container at its one output (arrow). Sneak + right-click turns the output; the window has a filter key. 1 item every 8 ticks, Reinforced every 6, Netherite 2 every 4, Enderite 4 every 2."
+      },
+      "de": {
+        "summary": "Ein Trichter mit einem Platz, der wie ein Kabel aussieht: er schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang (Pfeil). Schleichen + Rechtsklick dreht den Ausgang; das Fenster hat einen Filterknopf. 1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 alle 4, Enderit 4 alle 2."
+      }
+    },
+    "simplestorage:copper_cable": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/CableBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ChestNetwork.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/copper_cable.json"
+      ],
+      "en": {
+        "summary": "Connects chest interfaces to a controller chest; also a decoration block that draws arms like a chorus plant. Three copper ingots with wool above and below make 3."
+      },
+      "de": {
+        "summary": "Verbindet Truhen-Schnittstellen mit einer Controller-Truhe; auch ein Dekoblock, der wie eine Chorus-Pflanze Arme zeichnet. Drei Kupferbarren mit Wolle darüber und darunter ergeben 3."
+      }
+    },
+    "simplestorage:chest_interface": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/InterfaceBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ChestNetwork.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/chest_interface.json"
+      ],
+      "en": {
+        "summary": "A plate that sits next to a chest and points at it; it connects the chest to the cables of a chest network. The controller chest needs one as well."
+      },
+      "de": {
+        "summary": "Eine Platte, die neben einer Truhe sitzt und auf sie zeigt; sie verbindet die Truhe mit den Kabeln eines Truhen-Netzwerks. Auch die Controller-Truhe braucht eine."
+      }
+    },
+    "simplestorage:wooden_controller_chest": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLevel.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerMenu.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/wooden_controller_chest.json"
+      ],
+      "en": {
+        "summary": "The hub of a chest network: a chest whose window lists every kind of item of all connected chests. Takes up to 4 chest blocks of its step or lower; too many chests break it. Interface + chest + book and quill + ender pearl."
+      },
+      "de": {
+        "summary": "Die Zentrale eines Truhen-Netzwerks: eine Truhe, deren Fenster jede Sorte aller verbundenen Truhen listet. Nimmt bis zu 4 Truhenblöcke seiner Stufe oder niedriger; zu viele Truhen machen sie kaputt. Schnittstelle + Truhe + Buch mit Feder + Enderperle."
+      }
+    },
+    "simplestorage:reinforced_controller_chest": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLevel.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerMenu.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/reinforced_controller_chest.json"
+      ],
+      "en": {
+        "summary": "The hub of a chest network: a chest whose window lists every kind of item of all connected chests. Takes up to 12 chest blocks of its step or lower; too many chests break it. Interface + chest + book and quill + ender pearl."
+      },
+      "de": {
+        "summary": "Die Zentrale eines Truhen-Netzwerks: eine Truhe, deren Fenster jede Sorte aller verbundenen Truhen listet. Nimmt bis zu 12 Truhenblöcke seiner Stufe oder niedriger; zu viele Truhen machen sie kaputt. Schnittstelle + Truhe + Buch mit Feder + Enderperle."
+      }
+    },
+    "simplestorage:netherite_controller_chest": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLevel.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerMenu.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/netherite_controller_chest.json"
+      ],
+      "en": {
+        "summary": "The hub of a chest network: a chest whose window lists every kind of item of all connected chests. Takes up to 32 chest blocks of its step or lower; too many chests break it. Interface + chest + book and quill + ender pearl."
+      },
+      "de": {
+        "summary": "Die Zentrale eines Truhen-Netzwerks: eine Truhe, deren Fenster jede Sorte aller verbundenen Truhen listet. Nimmt bis zu 32 Truhenblöcke seiner Stufe oder niedriger; zu viele Truhen machen sie kaputt. Schnittstelle + Truhe + Buch mit Feder + Enderperle."
+      }
+    },
+    "simplestorage:enderite_controller_chest": {
+      "sources": [
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerChestBlock.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerLevel.java",
+        "modules/simplestorage/shared/java/com/simplestorage/network/ControllerMenu.java",
+        "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_controller_chest.json"
+      ],
+      "en": {
+        "summary": "The hub of a chest network: a chest whose window lists every kind of item of all connected chests. Takes up to 64 chest blocks of its step or lower; too many chests break it. Interface + chest + book and quill + ender pearl."
+      },
+      "de": {
+        "summary": "Die Zentrale eines Truhen-Netzwerks: eine Truhe, deren Fenster jede Sorte aller verbundenen Truhen listet. Nimmt bis zu 64 Truhenblöcke seiner Stufe oder niedriger; zu viele Truhen machen sie kaputt. Schnittstelle + Truhe + Buch mit Feder + Enderperle."
+      }
     }
   }
 }

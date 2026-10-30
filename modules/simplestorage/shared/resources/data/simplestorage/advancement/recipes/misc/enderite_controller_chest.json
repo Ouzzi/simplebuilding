@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chest_interface": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplestorage:chest_interface"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_enderite_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplestorage:enderite_chest"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplestorage:enderite_controller_chest"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chest_interface",
+      "has_enderite_chest"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplestorage:enderite_controller_chest"
+    ]
+  }
+}
