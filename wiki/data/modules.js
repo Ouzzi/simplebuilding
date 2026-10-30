@@ -1714,8 +1714,8 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
     "counts": {
-      "features": 12
+      "features": 16
     },
-    "dataHash": "e65ee85ff848"
+    "dataHash": "e280449cf45d"
   }
 ];
