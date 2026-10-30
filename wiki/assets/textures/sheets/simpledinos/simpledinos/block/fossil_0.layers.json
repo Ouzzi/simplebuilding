@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#c4ae80ff", "#dccaa0ff", "#8e7a52ff"],
+  "palette": ["#b39c6eff", "#c9b588ff", "#7a6642ff"],
   "layers": [
     {"name": "Grundform", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "00010001000000010200000000000000",
