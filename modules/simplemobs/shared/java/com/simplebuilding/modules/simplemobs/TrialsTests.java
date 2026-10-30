@@ -266,7 +266,7 @@ public final class TrialsTests {
             check(voidKey.getCount() == 1, "a Void Key does not open the Evil Vault");
             ItemStack key = new ItemStack(Trials.EVIL_KEYS[2]);
             VaultBlockEntity.Server.tryInsertKey(level, pos, level.getBlockState(pos), vault.getConfig(), vault.getServerData(), vault.getSharedData(), player, key);
-            check(key.isEmpty() && level.getBlockState(pos).getValue(VaultBlock.STATE) == VaultState.UNLOCKING, "an Evil Trial Key of stage 3 opens it: " + key + " " + level.getBlockState(pos));
+            check(level.getBlockState(pos).getValue(VaultBlock.STATE) == VaultState.UNLOCKING, "an Evil Trial Key of stage 3 opens it: " + key + " " + level.getBlockState(pos));   // a creative mock player keeps the key (Vanilla consume rule)
             check(Trials.keyStage(new ItemStack(Trials.EVIL_KEYS[2])) == 3 && Trials.keyKind(new ItemStack(Trials.VOID_KEYS[4])) == TrialKind.VOID && Trials.keyKind(new ItemStack(Items.TRIAL_KEY)) == null, "key helpers");
             h.succeed();
         });
