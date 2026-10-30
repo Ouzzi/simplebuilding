@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpledinos:triceratops_egg"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simpledinos:blocks/triceratops_egg"
+}

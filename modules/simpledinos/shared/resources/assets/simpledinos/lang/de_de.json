@@ -1,0 +1,16 @@
+{
+  "entity.simpledinos.trex": "T-Rex",
+  "block.simpledinos.fossil_block": "Fossilienblock",
+  "block.simpledinos.trex_egg": "T-Rex-Ei",
+  "block.simpledinos.triceratops_egg": "Triceratops-Ei",
+  "block.simpledinos.stegosaurus_egg": "Stegosaurus-Ei",
+  "block.simpledinos.utahraptor_egg": "Utahraptor-Ei",
+  "block.simpledinos.parasaurolophus_egg": "Parasaurolophus-Ei",
+  "item.simpledinos.large_saddle": "Großer Sattel",
+  "item.simpledinos.trex_armor_leather": "Leder-T-Rex-Rüstung",
+  "item.simpledinos.trex_armor_iron": "Eisen-T-Rex-Rüstung",
+  "item.simpledinos.trex_armor_diamond": "Diamant-T-Rex-Rüstung",
+  "simpledinos.testcentre.station": "Simple Dinosaurs",
+  "simpledinos.egg.brooded": "Dieses Ei ist schon bebrütet. Es schlüpft bald.",
+  "simpledinos.egg.occupied": "Auf diesem Ei sitzt schon jemand."
+}

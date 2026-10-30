@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:iron_ingot",
+    "B": "minecraft:bone_block"
+  },
+  "pattern": [
+    "MMM",
+    "MBM",
+    "MMM"
+  ],
+  "result": {
+    "id": "simpledinos:trex_armor_iron",
+    "count": 1
+  }
+}

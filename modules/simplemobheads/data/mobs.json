@@ -11,7 +11,8 @@
   "minecraft:armor_stand": "not a mob",
   "minecraft:mannequin": "not a mob",
   "simplewanderers:village_wanderer": "head comes later (owner answer W11, village wanderer concept 2026-10-15)",
-  "simplewanderers:wanderer_horse": "head comes later (owner answer W11, village wanderer concept 2026-10-15)"
+  "simplewanderers:wanderer_horse": "head comes later (owner answer W11, village wanderer concept 2026-10-15)",
+  "simpledinos:trex": "head comes later (Simple Dinosaurs, concept WP-18 2026-10-30)"
  },
  "heads": [
   {

@@ -1,0 +1,7 @@
+{
+  "parent": "simpledinos:block/dino_egg",
+  "textures": {
+    "egg": "simpledinos:block/egg_parasaurolophus",
+    "overlay": "simpledinos:block/egg_overlay_9"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#simpledinos:has_fossil_block",
+  "features": "simpledinos:fossil_block",
+  "step": "underground_ores"
+}

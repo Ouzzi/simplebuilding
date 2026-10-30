@@ -1,0 +1,276 @@
+{
+  "features": [
+    {
+      "id": "fossil",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/block/FossilBlock.java",
+        "modules/simpledinos/shared/java/com/simpledinos/block/FossilBlockEntity.java",
+        "modules/simpledinos/shared/java/com/simpledinos/Progress.java"
+      ],
+      "en": {
+        "title": "Fossil block",
+        "summary": "A very rare find in the underground of deserts, badlands and swamps. Mined with Silk Touch it stays a block; without it, it breaks into up to two bones and the find is lost. Brush it with the Vanilla brush: after about a minute of brushing, a dinosaur egg falls out.",
+        "details": [
+          "Brushing fills a progress of 60 seconds (setting brushSeconds); ten visible stages show the bones coming out. If you stop for more than a quarter of a second, the progress runs back at twice the speed: a pause of 1 second takes 2 seconds of progress away.",
+          "Which egg is inside follows from the block's position, so stopping and starting again never changes it. Stage 1 only holds T. rex eggs; the other four dinosaurs follow.",
+          "Generation: one cluster of up to 3 blocks in roughly every fourth chunk of desert, badlands, swamp and mangrove swamp, height -10 to 50, in stone and sandstone. After brushing, a sandstone block is left, and sometimes a bone."
+        ]
+      },
+      "de": {
+        "title": "Fossilienblock",
+        "summary": "Ein sehr seltener Fund im Untergrund von Wüsten, Badlands und Sümpfen. Mit Behutsamkeit abgebaut bleibt er ein Block; ohne bricht er in bis zu zwei Knochen und der Fund geht verloren. Mit dem Vanilla-Pinsel freilegen: nach etwa einer Minute Pinseln fällt ein Dinosaurier-Ei heraus.",
+        "details": [
+          "Das Pinseln füllt einen Fortschritt von 60 Sekunden (Einstellung brushSeconds); zehn sichtbare Stufen zeigen, wie die Knochen herauskommen. Hörst du länger als eine Viertelsekunde auf, läuft der Fortschritt doppelt so schnell zurück: 1 Sekunde Pause nimmt 2 Sekunden Fortschritt weg.",
+          "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. In Stufe 1 stecken nur T-Rex-Eier darin; die anderen vier Dinosaurier folgen.",
+          "Generierung: ein Vorkommen von bis zu 3 Blöcken in etwa jedem vierten Chunk von Wüste, Badlands, Sumpf und Mangrovensumpf, Höhe -10 bis 50, in Stein und Sandstein. Nach dem Pinseln bleibt ein Sandsteinblock übrig, manchmal ein Knochen."
+        ]
+      }
+    },
+    {
+      "id": "eggs",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/block/DinoEggBlock.java",
+        "modules/simpledinos/shared/java/com/simpledinos/block/DinoEggBlockEntity.java",
+        "modules/simpledinos/shared/java/com/simpledinos/DinoKind.java"
+      ],
+      "en": {
+        "title": "Dinosaur eggs",
+        "summary": "One egg per dinosaur: T. rex, Triceratops, Stegosaurus, Utahraptor and Parasaurolophus. Place the egg, then sit on it with an empty hand (right click): after 5 minutes of sitting it is brooded, after 10 more minutes it hatches into a hatchling that belongs to the player who sat longest.",
+        "details": [
+          "Twelve visible brooding stages; standing up (sneak) makes the progress run back at twice the speed. A brooded egg does not run back, cracks now and then and shows three crack stages before it hatches.",
+          "The egg hatches only while a player is within 16 blocks, so it waits for you. Times: incubateSeconds (300) and hatchSeconds (600). No spawn egg exists.",
+          "Stage 1: only the T. rex hatches. The eggs of the other four dinosaurs can be placed and brooded, but stay eggs until their dinosaur is built."
+        ]
+      },
+      "de": {
+        "title": "Dinosaurier-Eier",
+        "summary": "Ein Ei je Dinosaurier: T-Rex, Triceratops, Stegosaurus, Utahraptor und Parasaurolophus. Ei platzieren, mit leerer Hand daraufsetzen (Rechtsklick): nach 5 Minuten Sitzen ist es bebrütet, nach 10 weiteren Minuten schlüpft ein Jungtier, das dem Spieler gehört, der am längsten gesessen hat.",
+        "details": [
+          "Zwölf sichtbare Brutstufen; Aufstehen (Schleichen) lässt den Fortschritt doppelt so schnell zurücklaufen. Ein bebrütetes Ei läuft nicht mehr zurück, knackt ab und zu und zeigt vor dem Schlüpfen drei Rissstufen.",
+          "Das Ei schlüpft nur, wenn ein Spieler in 16 Blöcken ist, es wartet also auf dich. Zeiten: incubateSeconds (300) und hatchSeconds (600). Ein Spawn-Ei gibt es nicht.",
+          "Stufe 1: Nur der T-Rex schlüpft. Die Eier der anderen vier Dinosaurier lassen sich platzieren und bebrüten, bleiben aber Eier, bis ihr Dinosaurier gebaut ist."
+        ]
+      }
+    },
+    {
+      "id": "trex",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Trex.java",
+        "modules/simpledinos/shared/java/com/simpledinos/entity/Dino.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/TrexModel.java"
+      ],
+      "en": {
+        "title": "T. rex",
+        "summary": "The combat mount: life size, a core hitbox of 3 x 4 blocks (head and tail reach beyond it). It hatches as a tame hatchling at a quarter of its size and grows to full size in 40 minutes (setting growMinutes); meat speeds growth up. Only adults carry a rider, with a large saddle.",
+        "details": [
+          "Adults eat any raw or cooked meat to heal (4 hearts per piece, up to full health). They bite 10 damage (setting trexBiteDamage), only monsters that attack the owner or the dinosaur, follow the owner and never attack players. Hatchlings run away when hurt.",
+          "A T. rex that was not hatched from an egg (summoned by command) has no owner and cannot be ridden. It does not breed, never spawns on its own and does not break blocks.",
+          "Sounds are Vanilla sounds (ravager) for now; own recordings come later."
+        ]
+      },
+      "de": {
+        "title": "T-Rex",
+        "summary": "Das Kampf-Reittier: Lebensgröße, Kern-Hitbox 3 x 4 Blöcke (Kopf und Schwanz ragen darüber hinaus). Es schlüpft zahm als Jungtier mit einem Viertel der Größe und wächst in 40 Minuten zur vollen Größe (Einstellung growMinutes); Fleisch beschleunigt das Wachstum. Nur Erwachsene tragen einen Reiter, mit großem Sattel.",
+        "details": [
+          "Erwachsene fressen jedes rohe oder gegarte Fleisch zum Heilen (4 Herzen je Stück, bis zur vollen Gesundheit). Sie beißen mit 10 Schaden (Einstellung trexBiteDamage), nur Monster, die den Besitzer oder den Dinosaurier angreifen, folgen dem Besitzer und greifen nie Spieler an. Jungtiere laufen weg, wenn sie verletzt werden.",
+          "Ein T-Rex, der nicht aus einem Ei geschlüpft ist (per Befehl gerufen), hat keinen Besitzer und lässt sich nicht reiten. Er züchtet nicht, spawnt nie von selbst und zerstört keine Blöcke.",
+          "Die Geräusche sind vorerst Vanilla-Geräusche (Verwüster); eigene Aufnahmen folgen."
+        ]
+      }
+    },
+    {
+      "id": "gear",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
+        "modules/simpledinos/shared/java/com/simpledinos/client/TrexRenderer.java"
+      ],
+      "en": {
+        "title": "Large saddle and T. rex armor",
+        "summary": "The large saddle (a saddle, 4 leather and 4 iron ingots) fits only dinosaurs; one rider. The T. rex armor comes in leather, iron and diamond (8 of the material around a bone block) with the protection values of the Vanilla horse armor (3, 5, 11).",
+        "details": [
+          "Saddle and armor go on like on a horse: use them on a tamed adult T. rex. The saddle shows as a seat on its back, the armor as plates on head and back (a different texture per material).",
+          "Hatchlings take neither. The recipes unlock when you hold a saddle, leather, iron or diamonds."
+        ]
+      },
+      "de": {
+        "title": "Großer Sattel und T-Rex-Rüstung",
+        "summary": "Der große Sattel (ein Sattel, 4 Leder und 4 Eisenbarren) passt nur auf Dinosaurier; ein Reiter. Die T-Rex-Rüstung gibt es aus Leder, Eisen und Diamant (8 Stück des Materials um einen Knochenblock) mit den Schutzwerten der Vanilla-Pferderüstung (3, 5, 11).",
+        "details": [
+          "Sattel und Rüstung legt man wie beim Pferd an einem gezähmten erwachsenen T-Rex an. Der Sattel erscheint als Sitz auf dem Rücken, die Rüstung als Platten auf Kopf und Rücken (je Material eine andere Textur).",
+          "Jungtiere tragen keins von beiden. Die Rezepte schalten sich frei, wenn du einen Sattel, Leder, Eisen oder Diamanten hältst."
+        ]
+      }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/config/DinosConfig.java"
+      ],
+      "en": {
+        "title": "Server settings",
+        "summary": "config/simpledinos-server.json, read at start; every number is clamped to a safe range.",
+        "details": [
+          "enabled (true): off hides the module's creative entries and its guide; fossil blocks, eggs and dinosaurs that exist keep working.",
+          "brushSeconds (60, 5 to 600): seconds of brushing that free a fossil. incubateSeconds (300, 10 to 3600): seconds of sitting that brood an egg. hatchSeconds (600, 10 to 7200): seconds from a brooded egg to the hatchling.",
+          "growMinutes (40, 1 to 600): minutes a hatchling needs to grow up. trexBiteDamage (10, 1 to 40): bite damage of an adult T. rex.",
+          "With SimpleBuilding the switch Enable Simple Dinosaurs in its config turns the bundled module on or off."
+        ]
+      },
+      "de": {
+        "title": "Server-Einstellungen",
+        "summary": "config/simpledinos-server.json, beim Start gelesen; jede Zahl wird auf einen sicheren Bereich begrenzt.",
+        "details": [
+          "enabled (true): aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Fossilienblöcke, Eier und Dinosaurier funktionieren weiter.",
+          "brushSeconds (60, 5 bis 600): Sekunden Pinseln, die einen Fund freilegen. incubateSeconds (300, 10 bis 3600): Sekunden Sitzen, die ein Ei ausbrüten. hatchSeconds (600, 10 bis 7200): Sekunden vom bebrüteten Ei bis zum Jungtier.",
+          "growMinutes (40, 1 bis 600): Minuten, die ein Jungtier zum Erwachsenwerden braucht. trexBiteDamage (10, 1 bis 40): Bissschaden eines erwachsenen T-Rex.",
+          "Mit SimpleBuilding schaltet der Schalter Simple Dinosaurs aktivieren in dessen Config das gebündelte Modul ein oder aus."
+        ]
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/SimpleDinos.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simpledinos config shows and changes every option of config/simpledinos-server.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
+        "details": [
+          "Example: /simpledinos config get <option> shows the value, the default and the type; /simpledinos config reset <option> brings the default back; a wrong type is refused and nothing is saved."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simpledinos config zeigt und ändert jede Option von config/simpledinos-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
+        "details": [
+          "Beispiel: /simpledinos config get <Option> zeigt Wert, Standard und Typ; /simpledinos config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simpledinos:fossil_block": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java",
+        "modules/simpledinos/shared/java/com/simpledinos/block/FossilBlock.java"
+      ],
+      "en": {
+        "summary": "A rare underground find. Brush it with the Vanilla brush for about a minute to free a dinosaur egg; Silk Touch keeps the block."
+      },
+      "de": {
+        "summary": "Ein seltener Fund im Untergrund. Etwa eine Minute mit dem Vanilla-Pinsel pinseln, dann fällt ein Dinosaurier-Ei heraus; mit Behutsamkeit bleibt der Block erhalten."
+      }
+    },
+    "simpledinos:trex_egg": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Egg of the T. rex. Place it and sit on it to brood it; it hatches a tame hatchling."
+      },
+      "de": {
+        "summary": "Ei des T-Rex. Platzieren und daraufsetzen zum Ausbrüten; es schlüpft ein zahmes Jungtier."
+      }
+    },
+    "simpledinos:triceratops_egg": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Egg of the Triceratops. Can be placed and brooded; hatches once the Triceratops is built (not in stage 1)."
+      },
+      "de": {
+        "summary": "Ei des Triceratops. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Triceratops gebaut ist (nicht in Stufe 1)."
+      }
+    },
+    "simpledinos:stegosaurus_egg": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Egg of the Stegosaurus. Can be placed and brooded; hatches once the Stegosaurus is built (not in stage 1)."
+      },
+      "de": {
+        "summary": "Ei des Stegosaurus. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Stegosaurus gebaut ist (nicht in Stufe 1)."
+      }
+    },
+    "simpledinos:utahraptor_egg": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Egg of the Utahraptor. Can be placed and brooded; hatches once the Utahraptor is built (not in stage 1)."
+      },
+      "de": {
+        "summary": "Ei des Utahraptors. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Utahraptor gebaut ist (nicht in Stufe 1)."
+      }
+    },
+    "simpledinos:parasaurolophus_egg": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Egg of the Parasaurolophus. Can be placed and brooded; hatches once the Parasaurolophus is built (not in stage 1)."
+      },
+      "de": {
+        "summary": "Ei des Parasaurolophus. Lässt sich platzieren und bebrüten; schlüpft erst, wenn der Parasaurolophus gebaut ist (nicht in Stufe 1)."
+      }
+    },
+    "simpledinos:large_saddle": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Saddle for dinosaurs, one rider. Shaped recipe: a saddle in the middle, 4 leather in the corners, 4 iron ingots on the sides."
+      },
+      "de": {
+        "summary": "Sattel für Dinosaurier, ein Reiter. Formrezept: ein Sattel in der Mitte, 4 Leder in den Ecken, 4 Eisenbarren an den Seiten."
+      }
+    },
+    "simpledinos:trex_armor_leather": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Leather armor for the T. rex (protection 3). 8 leather around a bone block."
+      },
+      "de": {
+        "summary": "Lederrüstung für den T-Rex (Schutz 3). 8 Leder um einen Knochenblock."
+      }
+    },
+    "simpledinos:trex_armor_iron": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Iron armor for the T. rex (protection 5). 8 iron ingots around a bone block."
+      },
+      "de": {
+        "summary": "Eisenrüstung für den T-Rex (Schutz 5). 8 Eisenbarren um einen Knochenblock."
+      }
+    },
+    "simpledinos:trex_armor_diamond": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/DinosRegistry.java"
+      ],
+      "en": {
+        "summary": "Diamond armor for the T. rex (protection 11). 8 diamonds around a bone block."
+      },
+      "de": {
+        "summary": "Diamantrüstung für den T-Rex (Schutz 11). 8 Diamanten um einen Knochenblock."
+      }
+    },
+    "simpledinos:guide_book": {
+      "sources": [
+        "modules/simpledinos/shared/java/com/simpledinos/guide/DinosGuide.java",
+        "modules/simpledinos/shared/resources/data/simpledinos/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Dinosaurs\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Dinosaurs\" eins."
+      }
+    }
+  }
+}

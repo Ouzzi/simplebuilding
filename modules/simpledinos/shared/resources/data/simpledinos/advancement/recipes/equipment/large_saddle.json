@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpledinos:large_saddle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_saddle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:saddle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_saddle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpledinos:large_saddle"
+    ]
+  }
+}

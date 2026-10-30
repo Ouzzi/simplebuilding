@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 3,
+    "targets": [
+      {
+        "state": {
+          "Name": "simpledinos:fossil_block"
+        },
+        "target": {
+          "tag": "minecraft:base_stone_overworld",
+          "predicate_type": "minecraft:tag_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "simpledinos:fossil_block"
+        },
+        "target": {
+          "block": "minecraft:sandstone",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "simpledinos:fossil_block"
+        },
+        "target": {
+          "block": "minecraft:red_sandstone",
+          "predicate_type": "minecraft:block_match"
+        }
+      }
+    ]
+  }
+}

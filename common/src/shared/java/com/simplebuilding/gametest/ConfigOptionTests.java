@@ -577,6 +577,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleLights boolean=true",
             "root.enableSimpleEarth boolean=true",
             "root.enableSimpleGadgets boolean=true",
+            "root.enableSimpleDinos boolean=true",
             "root.enableSimpleOctets boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1196,7 +1197,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
                 {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"},
-                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}};
+                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleDinos", "simpledinos"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

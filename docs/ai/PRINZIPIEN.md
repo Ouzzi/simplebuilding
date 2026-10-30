@@ -255,6 +255,15 @@ Dorf-Wanderer: ein fahrender Händler je Dorf mit Pferd, Warenwechsel alle 3 Tag
 
 - keine eigenen Regeln bisher
 
+### Simple Dinosaurs (`simpledinos`)
+Fossilienblock, Dinosaurier-Eier zum Freipinseln und Ausbrüten (Daraufsitzen) und die Dinosaurier selbst (Stufe 1: der reitbare T-Rex); allein mit Vanilla spielbar.
+
+- **A12 je Teil** steht in `docs/ai/PLAN-A-DINOS-2026-10-30.md`; Dinosaurier gibt es nur durch Schlüpfen, nie wild, sie greifen nie Spieler an und zerstören keine Blöcke.
+- Fortschritte (Pinseln, Brüten) laufen über `Progress` (reine Rechnung mit Zeitstempeln, Rücklauf 2 pro Tick nach der Gnadenfrist); kein Dauer-Tick im Block, nur geplante Block-Ticks.
+- Die Zeiten stehen in `simpledinos-server.json` (Standard = Konzept: 60 s, 5 min, 10 min, 40 min); neue Sorten erst nach Besitzer-Abnahme des Musters (T-Rex).
+- Modelle und Texturen kommen aus Spezifikationen (`tools/gen_models.py`, `tools/gen_blocks.py`); Java-`*Layers` nie von Hand ändern.
+- Jede neue Entität des Moduls braucht eine Ausnahme in `simplemobheads/data/mobs.json`, solange es keinen Kopf gibt.
+
 ### Simple Stats (`simplestats`)
 Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.
 

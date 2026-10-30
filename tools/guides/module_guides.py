@@ -127,6 +127,11 @@ MODULES = [
                 "a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
                 "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, "
                 "alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer.")),
+    dict(module="simpledinos", ns="simpledinos", package="com.simpledinos.guide", cls="DinosGuide", kind="item",
+         author="Simple Dinosaurs", recipe="minecraft:bone",
+         name=("Simple Dinosaurs Guide", "Simple-Dinosaurs-Handbuch"),
+         intro=("Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+                "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),

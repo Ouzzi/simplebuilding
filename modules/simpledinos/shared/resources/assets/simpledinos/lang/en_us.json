@@ -1,0 +1,16 @@
+{
+  "entity.simpledinos.trex": "T. rex",
+  "block.simpledinos.fossil_block": "Fossil Block",
+  "block.simpledinos.trex_egg": "T. rex Egg",
+  "block.simpledinos.triceratops_egg": "Triceratops Egg",
+  "block.simpledinos.stegosaurus_egg": "Stegosaurus Egg",
+  "block.simpledinos.utahraptor_egg": "Utahraptor Egg",
+  "block.simpledinos.parasaurolophus_egg": "Parasaurolophus Egg",
+  "item.simpledinos.large_saddle": "Large Saddle",
+  "item.simpledinos.trex_armor_leather": "Leather T. rex Armor",
+  "item.simpledinos.trex_armor_iron": "Iron T. rex Armor",
+  "item.simpledinos.trex_armor_diamond": "Diamond T. rex Armor",
+  "simpledinos.testcentre.station": "Simple Dinosaurs",
+  "simpledinos.egg.brooded": "This egg is already brooded. It hatches soon.",
+  "simpledinos.egg.occupied": "Somebody is already sitting on this egg."
+}

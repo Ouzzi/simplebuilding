@@ -596,6 +596,24 @@ ICONS: dict[str, dict] = {
                             "...oooooooooo...",
                             "................",
                             "................"),
+    "simpledinos": icon("Dino-Ei", {"o": "#2a1c10", "A": "#9ac07a", "B": "#6e9a52", "b": "#4e7a3a", "S": "#e8e0b8", "W": "#f6f0d0"},
+                        [("Kontur", "o"), ("Schale", "ABb"), ("Flecken", "SW")],
+                        "................",
+                        "................",
+                        ".....oooooo.....",
+                        "....oAAAAWWo....",
+                        "...oAAAAAWWBo...",
+                        "...oAASAAABBo...",
+                        "..oAAAAAAABBBo..",
+                        "..oAAAAASABBBo..",
+                        "..oAASAAAABBbo..",
+                        "..oAAAAAABBBbo..",
+                        "..oBAAASABBBbo..",
+                        "...oBBBBBBBbo...",
+                        "...oobBBBBboo...",
+                        ".....oooooo.....",
+                        "................",
+                        "................"),
 }
 PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon}
 
@@ -634,6 +652,7 @@ BG = {
     "simplelights": "#e8c870",
     "simpleearth": "#1e2a52",
     "simplegadgets": "#c87848",
+    "simpledinos": "#d8b878",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 

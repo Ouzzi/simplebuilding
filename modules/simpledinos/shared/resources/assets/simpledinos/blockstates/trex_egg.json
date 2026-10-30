@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "phase=0": {
+      "model": "simpledinos:block/trex_egg_0"
+    },
+    "phase=1": {
+      "model": "simpledinos:block/trex_egg_1"
+    },
+    "phase=2": {
+      "model": "simpledinos:block/trex_egg_2"
+    },
+    "phase=3": {
+      "model": "simpledinos:block/trex_egg_3"
+    },
+    "phase=4": {
+      "model": "simpledinos:block/trex_egg_4"
+    },
+    "phase=5": {
+      "model": "simpledinos:block/trex_egg_5"
+    },
+    "phase=6": {
+      "model": "simpledinos:block/trex_egg_6"
+    },
+    "phase=7": {
+      "model": "simpledinos:block/trex_egg_7"
+    },
+    "phase=8": {
+      "model": "simpledinos:block/trex_egg_8"
+    },
+    "phase=9": {
+      "model": "simpledinos:block/trex_egg_9"
+    },
+    "phase=10": {
+      "model": "simpledinos:block/trex_egg_10"
+    },
+    "phase=11": {
+      "model": "simpledinos:block/trex_egg_11"
+    },
+    "phase=12": {
+      "model": "simpledinos:block/trex_egg_12"
+    },
+    "phase=13": {
+      "model": "simpledinos:block/trex_egg_13"
+    },
+    "phase=14": {
+      "model": "simpledinos:block/trex_egg_14"
+    }
+  }
+}
