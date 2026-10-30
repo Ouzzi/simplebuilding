@@ -2304,6 +2304,23 @@
       "usedIn": []
     },
     {
+      "id": "simplesandwiches:slice_stack",
+      "name": {
+        "en_us": "Cheese and Butter Stack",
+        "de_de": "Käse-Butter-Stapel"
+      },
+      "note": {
+        "en": {
+          "summary": "Cheese and butter slices stacked in one pile: lay the other kind on a cheese or butter carpet (any click, sneaking or not) and the pile keeps each layer's kind, 1 px per slice, up to 8 layers. It is walkable up to its highest cheese layer, a butter layer on top keeps the Slippery effect. Breaking it drops one slice of the right kind per layer."
+        },
+        "de": {
+          "summary": "Käse- und Butterscheiben in einem Stapel: die andere Sorte auf einen Käse- oder Butter-Teppich legen (jeder Klick, schleichend oder nicht), der Stapel merkt sich die Sorte jeder Schicht, 1 px pro Scheibe, bis zu 8 Schichten. Begehbar bis zur höchsten Käseschicht, oben liegende Butter behält den Rutschig-Effekt. Abbauen gibt je Schicht eine Scheibe der richtigen Sorte zurück."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplesandwiches:spruce_cutting_board",
       "name": {
         "en_us": "Spruce Cutting Board",
@@ -2365,7 +2382,7 @@
     "advancements": 0,
     "enchantments": 0,
     "items": 6,
-    "blocks": 20,
+    "blocks": 21,
     "trades": 0,
     "config": 0,
     "quests": 0,

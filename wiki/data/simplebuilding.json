@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 549,
+      "count": 548,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -16336,77 +16336,6 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/layered_astralit.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:leather_sheet",
-      "name": {
-        "en_us": "Leather Sheet",
-        "de_de": "Lederplatte"
-      },
-      "texture": "assets/textures/item/leather_sheet.png",
-      "craftedBy": [
-        "simplebuilding:leather_sheet"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "Nine hides pressed flat, until the leather forgot it was ever a cow."
-          ],
-          "use": [
-            "Nine leather in the crafting grid make one sheet. It goes into the Reinforced Bundle (below the bundle) and the Backpack (three in the bottom row)."
-          ],
-          "secret": [
-            "It is a crafting material only; the next tier of bundle, the Reinforced one, needs diamond pebbles on top of it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Neun Häute, flachgepresst, bis das Leder vergaß, dass es je eine Kuh war."
-          ],
-          "use": [
-            "Neun Leder im Handwerksraster ergeben eine Platte. Sie kommt ins Verstärkte Bündel (unter das Bündel) und in den Rucksack (dreimal in die untere Reihe)."
-          ],
-          "secret": [
-            "Sie ist nur ein Handwerksmaterial; die nächste Bündelstufe, die Verstärkte, braucht zusätzlich Diamantkiesel."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Leather Sheet is a crafting material: nine leather pressed into one sheet, used for the Reinforced Bundle and the Reinforced Quiver.",
-          "details": [
-            "Crafting table recipe (shaped, 3x3): nine Leather (minecraft:leather) filling the whole grid give one Leather Sheet. The recipe unlocks as soon as you own leather.",
-            "There is no way back: no recipe turns a Leather Sheet into leather again.",
-            "Used in two recipes: the Reinforced Bundle (bundle, string, Diamond Pebble, Leather Sheet) and the Reinforced Quiver (Quiver, string, Diamond Pebble, Leather Sheet, copper nugget).",
-            "A plain item without behavior of its own; stacks to 64.",
-            "The mod's creative tab: first entry of the resources section, before the Diamond Pebble."
-          ]
-        },
-        "de": {
-          "summary": "Die Lederplatte ist ein Handwerksmaterial: neun Leder zu einer Platte gepresst, gebraucht für das Verstärkte Bündel und den Verstärkten Köcher.",
-          "details": [
-            "Rezept an der Werkbank (geformt, 3x3): neun Leder (minecraft:leather), die das ganze Raster füllen, ergeben eine Lederplatte. Das Rezept wird freigeschaltet, sobald man Leder besitzt.",
-            "Es gibt keinen Rückweg: Kein Rezept macht aus einer Lederplatte wieder Leder.",
-            "Zutat in zwei Rezepten: Verstärktes Bündel (Bündel, Faden, Diamantkiesel, Lederplatte) und Verstärkter Köcher (Köcher, Faden, Diamantkiesel, Lederplatte, Kupferklumpen).",
-            "Ein einfacher Gegenstand ohne eigenes Verhalten; Stapelgröße 64.",
-            "Kreativ-Tab der Mod: erster Eintrag im Abschnitt Ressourcen, vor dem Diamantkiesel."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
-          "src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
-          "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
-          "src/main/generated/wiki/items.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -57579,15 +57508,15 @@
             "count": 4
           },
           {
-            "id": "minecraft:beetroot",
-            "count": 1
+            "id": "minecraft:oak_log",
+            "count": 3
           },
           {
-            "id": "minecraft:dandelion",
-            "count": 1
+            "id": "simplestorage:leather_sheet",
+            "count": 2
           },
           {
-            "id": "minecraft:lapis_lazuli",
+            "id": "minecraft:leather",
             "count": 1
           },
           {
@@ -57599,16 +57528,16 @@
             "count": 1
           },
           {
+            "id": "minecraft:string",
+            "count": 1
+          },
+          {
             "id": "simplelib:enderite_ingot",
             "count": 1
           },
           {
             "id": "simplelib:enderite_upgrade_template",
             "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.75
           },
           {
             "id": "minecraft:gold_ingot",
@@ -62033,44 +61962,6 @@
       }
     },
     {
-      "id": "simplebuilding:leather_sheet",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:leather_sheet",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
-      "ingredients": [
-        "minecraft:leather"
-      ],
-      "pattern": [
-        "LLL",
-        "LLL",
-        "LLL"
-      ],
-      "key": {
-        "L": [
-          "minecraft:leather"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:leather",
-            "count": 9
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -64114,15 +64005,15 @@
             "count": 4
           },
           {
-            "id": "minecraft:beetroot",
-            "count": 1
+            "id": "minecraft:oak_log",
+            "count": 3
           },
           {
-            "id": "minecraft:dandelion",
-            "count": 1
+            "id": "simplestorage:leather_sheet",
+            "count": 2
           },
           {
-            "id": "minecraft:lapis_lazuli",
+            "id": "minecraft:leather",
             "count": 1
           },
           {
@@ -64134,8 +64025,8 @@
             "count": 1
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.75
+            "id": "minecraft:string",
+            "count": 1
           },
           {
             "id": "minecraft:gold_ingot",
@@ -68285,29 +68176,74 @@
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/paint_box.json",
       "ingredients": [
-        "#minecraft:planks",
-        "minecraft:blue_dye",
-        "minecraft:red_dye",
-        "minecraft:yellow_dye"
+        "#minecraft:wooden_pressure_plates",
+        "minecraft:bundle",
+        "simplestorage:leather_sheet"
       ],
       "pattern": [
-        "RYB",
+        "PPP",
+        "LBL",
         "PPP"
       ],
       "key": {
         "B": [
-          "minecraft:blue_dye"
+          "minecraft:bundle"
+        ],
+        "L": [
+          "simplestorage:leather_sheet"
         ],
         "P": [
-          "#minecraft:planks"
-        ],
-        "R": [
-          "minecraft:red_dye"
-        ],
-        "Y": [
-          "minecraft:yellow_dye"
+          "#minecraft:wooden_pressure_plates"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "#minecraft:wooden_pressure_plates",
+                "minecraft:bundle",
+                "simplestorage:leather_sheet"
+              ],
+              "other": [
+                "#minecraft:wooden_pressure_plates",
+                "minecraft:bundle",
+                "simplebuilding:leather_sheet"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "B": [
+                  "minecraft:bundle"
+                ],
+                "L": [
+                  "simplestorage:leather_sheet"
+                ],
+                "P": [
+                  "#minecraft:wooden_pressure_plates"
+                ]
+              },
+              "other": {
+                "B": [
+                  "minecraft:bundle"
+                ],
+                "L": [
+                  "simplebuilding:leather_sheet"
+                ],
+                "P": [
+                  "#minecraft:wooden_pressure_plates"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/paint_box.json"
+        }
+      ],
       "lines": [
         "26.3"
       ],
@@ -68315,24 +68251,24 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 0.75
+            "count": 3
+          },
+          {
+            "id": "simplestorage:leather_sheet",
+            "count": 2
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:string",
+            "count": 1
           }
         ],
         "tagExamples": [
-          "#minecraft:planks"
+          "#minecraft:wooden_pressure_plates"
         ]
       }
     },
@@ -75040,20 +74976,20 @@
             "count": 4
           },
           {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 0.75
+            "count": 3
+          },
+          {
+            "id": "simplestorage:leather_sheet",
+            "count": 2
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:string",
+            "count": 1
           },
           {
             "id": "minecraft:gold_ingot",
@@ -84833,6 +84769,34 @@
       ]
     },
     {
+      "id": "simplebuilding:leather_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:leather_sheet",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+      "ingredients": [
+        "minecraft:leather"
+      ],
+      "pattern": [
+        "LLL",
+        "LLL",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:leather"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:levitating_gravel",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -85801,6 +85765,41 @@
       ]
     },
     {
+      "id": "simplebuilding:paint_box",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:paint_box",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/paint_box.json",
+      "ingredients": [
+        "#minecraft:wooden_pressure_plates",
+        "minecraft:bundle",
+        "simplebuilding:leather_sheet"
+      ],
+      "pattern": [
+        "PPP",
+        "LBL",
+        "PPP"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bundle"
+        ],
+        "L": [
+          "simplebuilding:leather_sheet"
+        ],
+        "P": [
+          "#minecraft:wooden_pressure_plates"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:pink_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -86260,7 +86259,45 @@
         ]
       },
       "lines": [
-        "1.21.11",
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:quiver",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/quiver.json",
+      "ingredients": [
+        "minecraft:bundle",
+        "minecraft:copper_nugget",
+        "minecraft:string",
+        "simplebuilding:leather_sheet"
+      ],
+      "pattern": [
+        " SL",
+        "SLN",
+        "B  "
+      ],
+      "key": {
+        "B": [
+          "minecraft:bundle"
+        ],
+        "L": [
+          "simplebuilding:leather_sheet"
+        ],
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "S": [
+          "minecraft:string"
+        ]
+      },
+      "lines": [
         "26.2"
       ]
     },
@@ -128084,7 +128121,7 @@
       },
       "description": {
         "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
-        "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+        "de_de": "Mit Diamantkieseln und einem Ledertuch fasst ein Bündel die Hälfte mehr"
       },
       "criteria": [
         {
@@ -128277,7 +128314,7 @@
     {
       "id": "simplebuilding:storage/sheet_happens",
       "parent": "simplebuilding:root",
-      "icon": "simplebuilding:leather_sheet",
+      "icon": "simplestorage:leather_sheet",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -128286,19 +128323,19 @@
       },
       "description": {
         "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it",
-        "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten"
+        "de_de": "Neun Leder ergeben ein Ledertuch - daraus werden Rucksäcke, Bündel und Köcher geschnitten"
       },
       "criteria": [
         {
           "name": "leather_sheet",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:leather_sheet"
+            "simplestorage:leather_sheet"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
     },
     {
       "id": "simplebuilding:storage/splash_of_color",
@@ -128960,11 +128997,11 @@
           },
           "title": {
             "en_us": "Leather Sheet",
-            "de_de": "Lederplatte"
+            "de_de": "Ledertuch"
           },
           "description": {
             "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it.",
-            "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten."
+            "de_de": "Neun Leder ergeben ein Ledertuch - daraus werden Rucksäcke, Bündel und Köcher geschnitten."
           },
           "dependencies": [
             "stage_1.welcome"
@@ -130554,7 +130591,7 @@
           },
           "description": {
             "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
-            "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+            "de_de": "Mit Diamantkieseln und einem Ledertuch fasst ein Bündel die Hälfte mehr"
           },
           "dependencies": [
             "storage.bundle",
@@ -130573,7 +130610,7 @@
           },
           "description": {
             "en_us": "Diamond Pebbles, a Leather Sheet and string reinforce a backpack: more room for your things.",
-            "de_de": "Diamantkiesel, eine Lederplatte und Faden verstärken einen Rucksack: mehr Platz für deine Sachen."
+            "de_de": "Diamantkiesel, ein Ledertuch und Faden verstärken einen Rucksack: mehr Platz für deine Sachen."
           },
           "dependencies": [
             "stage_2.pebbles"
@@ -130591,7 +130628,7 @@
           },
           "description": {
             "en_us": "Diamond Pebbles and a Leather Sheet reinforce a quiver, just like a bundle.",
-            "de_de": "Diamantkiesel und eine Lederplatte verstärken einen Köcher, genau wie ein Bündel."
+            "de_de": "Diamantkiesel und ein Ledertuch verstärken einen Köcher, genau wie ein Bündel."
           },
           "dependencies": [
             "storage.quiver",
@@ -131147,9 +131184,9 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 507,
+    "items": 506,
     "blocks": 290,
-    "recipes": 829,
+    "recipes": 828,
     "lootTables": 314,
     "trades": 20,
     "enchantments": 13,
