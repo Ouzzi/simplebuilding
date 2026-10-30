@@ -64,7 +64,7 @@ BONES = ["................",
 
 def fossil_stage(stage: int):
     """Sediment (sandstone-like) with the fossil: the bones are covered at stage 0 and fully free at stage 9."""
-    sed, sed_d, sed_l = H('c4ae80'), H('8e7a52'), H('dccaa0')
+    sed, sed_d, sed_l = H('b39c6e'), H('7a6642'), H('c9b588')
     bone, bone_d, bone_l = H('efe6cc'), H('b8aa84'), H('fbf6e4')
     pixels = [(x, y) for y, row in enumerate(BONES) for x, ch in enumerate(row) if ch == 'x']
     # reveal in a stable random order

@@ -59,8 +59,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)
-    public void eggHatchesATameHatchling(GameTestHelper h) {
-        DinosTests.ALL.get("egg_hatches_a_tame_hatchling").accept(h);
+    public void eggHatchesTameHatchling(GameTestHelper h) {
+        DinosTests.ALL.get("egg_hatches_tame_hatchling").accept(h);
     }
 
     @GameTest(structure = "simpledinos:arena", maxTicks = 100)

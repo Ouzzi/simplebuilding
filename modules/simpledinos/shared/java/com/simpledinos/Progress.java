@@ -33,9 +33,12 @@ public final class Progress {
         if (now > settledAt) settledAt = now;
     }
 
-    /** Adds {@code amount} ticks of work at {@code now}, capped at {@code max}; returns the new value. */
+    /**
+     * Adds {@code amount} ticks of work that ended at {@code now}, capped at {@code max}; returns the new value. The work covers the
+     * last {@code amount} ticks, so only the time before it can have rewound the progress.
+     */
     public int add(long now, int amount, int max) {
-        settle(now);
+        settle(now - amount);
         value = Math.min(max, value + amount);
         lastWork = now;
         settledAt = now;

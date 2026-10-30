@@ -146,6 +146,9 @@ public final class DinosTests {
             for (int t = 1; t <= 100; t++) resume.add(t, 1, 1200);
             resume.add(200, 1, 1200); // 100 ticks pause: 100 - 2 * (100 - 5) = 0 left, then +1
             h.assertTrue(resume.value() == 1, "work after a long pause starts from what is left");
+            Progress chunks = new Progress(10);
+            for (int i = 1; i <= 10; i++) chunks.add(i * 40L, 40, 6000);
+            h.assertTrue(chunks.value() == 400, "work credited in chunks longer than the grace is not rewound (" + chunks.value() + ")");
             h.succeed();
         });
 
@@ -244,7 +247,7 @@ public final class DinosTests {
             h.assertTrue(seat.isRemoved(), "the seat goes with the egg");
             h.succeed();
         });
-        ALL.put("egg_hatches_a_tame_hatchling", h -> {
+        ALL.put("egg_hatches_tame_hatchling", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = at(4, 4);
             DinoEggBlockEntity be = egg(h, pos);
@@ -265,7 +268,7 @@ public final class DinosTests {
             baby.discard();
             h.succeed();
         });
-        MAX_TICKS.put("egg_hatches_a_tame_hatchling", 100);
+        MAX_TICKS.put("egg_hatches_tame_hatchling", 100);
         ALL.put("egg_waits_without_players", h -> {
             ServerLevel level = h.getLevel();
             BlockPos pos = at(4, 4);
