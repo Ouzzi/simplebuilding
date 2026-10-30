@@ -38,7 +38,7 @@ for r in ('large_saddle',) + ARMORS:
     assert (RES / f'data/{NS}/advancement/recipes/equipment/{r}.json').is_file(), r
 assert json.loads((RES / f'data/{NS}/recipe/trex_armor_iron.json').read_text(encoding='utf-8'))['key']['B'] == 'minecraft:bone_block'
 # World generation: configured + placed feature, biome tag, NeoForge modifier; Fabric reads the tag.
-for p in ('worldgen/configured_feature', 'worldgen/placed_feature'):
+for p in ('worldgen/feature', 'worldgen/placed_feature'):
     assert (RES / f'data/{NS}/{p}/fossil_block.json').is_file(), p
 assert (RES / f'data/{NS}/tags/worldgen/biome/has_fossil_block.json').is_file()
 mod = json.loads((RES / f'data/{NS}/neoforge/biome_modifier/fossil_block.json').read_text(encoding='utf-8'))
