@@ -703,7 +703,7 @@
           "Turning the output: sneak and right-click with an empty hand, or press the output key in its window. The first step skips up.",
           "Filter (the owner's filter principle, as with the hoppers): the window has one slot and the filter key - off, exact (same item and data) or same kind. With a filter on, the real item in the slot is the filter: one of it stays, only the second and every further one is moved; automation only adds matching items and never fills an empty filter slot - put the item in by hand.",
           "Upgrade: pipe -> Reinforced Pipe (Cracked Diamond) -> Netherite Pipe (Netherite Nugget) -> Enderite Pipe (Enderite Nugget), in the world like the chests (hammer or axe in the main hand, the material in the off hand; item and filter stay) or in the crafting grid (the pipe and two pieces of the material).",
-          "Recipe: two copper ingots around a hopper make 2 pipes."
+          "Recipe: eight iron ingots around a chest make 4 pipes (a hopper costs 5 iron and a chest for one block with five slots; a pipe has one slot and no inventory of its own, so it costs about 2 iron and a quarter of a chest). The copper cable has its own copper recipe. The filter key is available from the Reinforced pipe on."
         ]
       },
       "de": {
@@ -714,7 +714,7 @@
           "Ausgang drehen: Schleichen und Rechtsklick mit leerer Hand oder im Fenster den Ausgangsknopf drücken. Die erste Stufe überspringt oben.",
           "Filter (Filter-Prinzip des Besitzers, wie bei den Trichtern): das Fenster hat einen Platz und den Filterknopf - aus, exakt (gleiches Item samt Daten) oder gleiche Art. Mit Filter ist das echte Item im Platz der Filter: eines bleibt, erst das zweite und jedes weitere wird bewegt; Automatik legt nur Passendes dazu und füllt einen leeren Filterplatz nie - das Item von Hand hineinlegen.",
           "Aufwertung: Rohr -> Verstärktes Rohr (Rissdiamant) -> Netherit-Rohr (Netheritklumpen) -> Enderit-Rohr (Enderitklumpen), in der Welt wie die Truhen (Hammer oder Axt in der Haupthand, das Material in der Nebenhand; Item und Filter bleiben) oder im Handwerksgitter (das Rohr und zwei Stück des Materials).",
-          "Rezept: zwei Kupferbarren um einen Trichter ergeben 2 Rohre."
+          "Rezept: acht Eisenbarren um eine Truhe ergeben 4 Rohre (ein Trichter kostet 5 Eisen und eine Truhe für einen Block mit fünf Plätzen; das Rohr hat nur einen Platz, kostet also etwa 2 Eisen und eine Viertel-Truhe). Das Kupferkabel hat ein eigenes Kupfer-Rezept. Der Filter-Knopf gibt es ab dem Verstärkten Rohr."
         ]
       }
     },
@@ -756,6 +756,7 @@
           "Broken: too many chests, a second controller on the same network, or more than 512 cables and interfaces: the controller shows a broken screen with the cause and gives no access until fixed.",
           "Recipes: cable - three copper ingots in the middle row with one wool above and below make 3; interface - glass pane in the middle, gold and quartz alternating around it, repeater on top and comparator below; controller - interface, a chest of the step, a book and quill and an ender pearl (a wooden chest for the wooden controller). Better structure chests (Reinforced, Netherite, Enderite) hold a controller of their own step with 2 interfaces and 4 cables (controllerLootPercent, default 10 % of them).",
           "Config chestNetwork (default on): off turns the cable into copper bars, the interface into a glass pane and the controller chest into the plain chest of its step when the block is touched or on a random tick; contents stay, the items cannot be placed. controllerLootPercent (0-50) is the loot chance.",
+          "Window (like an ME terminal): a scrollable grid, one cell per kind of item with the total in the corner (compact: 999, 1.2k, 32k, 5M; the exact number in the tooltip). Search field: words of the item name or id (\"oak plank\"), @mod for a mod, right-click clears; the key left of it sorts by amount or name. Left click takes a full stack, right click half a stack, shift-click takes a stack straight into the inventory. A click with an item on the cursor stores it (right click one), shift-click on an inventory slot stores that stack.",
           "Speed: the network is searched again only when cables or interfaces changed, and the chests are read only while a controller window is open."
         ]
       },
@@ -768,6 +769,7 @@
           "Kaputt: zu viele Truhen, ein zweiter Controller am selben Netz oder mehr als 512 Kabel und Schnittstellen: der Controller zeigt einen Kaputt-Bildschirm mit der Ursache und gibt keinen Zugriff, bis es behoben ist.",
           "Rezepte: Kabel - drei Kupferbarren in der Mittelreihe mit je einer Wolle darüber und darunter ergeben 3; Schnittstelle - Glasscheibe in der Mitte, Gold und Quarz abwechselnd ringsum, oben Verstärker und unten Komparator; Controller - Schnittstelle, eine Truhe der Stufe, ein Buch mit Feder und eine Enderperle (für den hölzernen Controller eine Holztruhe). Bessere Struktur-Truhen der Stufen enthalten mit controllerLootPercent (Standard 10 % der besseren Truhen) einen Controller ihrer Stufe mit 2 Schnittstellen und 4 Kabeln.",
           "Config chestNetwork (Standard an): aus verwandelt das Kabel in Kupfergitter, die Schnittstelle in eine Glasscheibe und die Controller-Truhe in die normale Truhe ihrer Stufe, sobald der Block berührt wird oder sein Zufallstick kommt; der Inhalt bleibt, die Items lassen sich nicht mehr platzieren. controllerLootPercent (0-50) ist die Fund-Chance.",
+          "Fenster (wie ein ME-Terminal): ein scrollbares Raster, eine Zelle je Sorte mit der Gesamtzahl in der Ecke (kompakt: 999, 1.2k, 32k, 5M; die genaue Zahl im Tooltip). Suchfeld: Wörter aus Name oder ID (\"oak plank\"), @Mod für eine Mod, Rechtsklick leert; die Taste links davon sortiert nach Menge oder Name. Linksklick nimmt einen ganzen Stapel, Rechtsklick einen halben, Shift-Klick bringt einen Stapel direkt ins Inventar. Ein Klick mit einem Item auf dem Cursor lagert es ein (Rechtsklick eins), Shift-Klick auf einen Inventarplatz lagert den Stapel ein.",
           "Tempo: das Netz wird nur neu gesucht, wenn sich Kabel oder Schnittstellen geändert haben, und die Truhen werden nur gelesen, solange ein Controller-Fenster offen ist."
         ]
       }
@@ -2542,7 +2544,7 @@
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 2.5
+            "count": 2
           },
           {
             "id": "simplelib:cracked_diamond",
@@ -2557,12 +2559,8 @@
             "count": 2
           },
           {
-            "id": "minecraft:copper_ingot",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 1
+            "count": 0.5
           }
         ]
       }
@@ -4343,7 +4341,7 @@
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 2.5
+            "count": 2
           },
           {
             "id": "simplelib:cracked_diamond",
@@ -4354,12 +4352,8 @@
             "count": 2
           },
           {
-            "id": "minecraft:copper_ingot",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 1
+            "count": 0.5
           }
         ]
       }
@@ -4822,36 +4816,32 @@
       "group": null,
       "result": {
         "id": "simplestorage:pipe",
-        "count": 2
+        "count": 4
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/pipe.json",
       "ingredients": [
-        "minecraft:copper_ingot",
-        "minecraft:hopper"
+        "minecraft:chest",
+        "minecraft:iron_ingot"
       ],
       "pattern": [
-        "C",
-        "H",
-        "C"
+        "III",
+        "ICI",
+        "III"
       ],
       "key": {
-        "C": [
-          "minecraft:copper_ingot"
+        "I": [
+          "minecraft:iron_ingot"
         ],
-        "H": [
-          "minecraft:hopper"
+        "C": [
+          "minecraft:chest"
         ]
       },
       "baseMaterials": {
-        "yield": 2,
+        "yield": 4,
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 2
+            "count": 8
           },
           {
             "id": "minecraft:oak_log",
@@ -6084,19 +6074,15 @@
         "materials": [
           {
             "id": "minecraft:iron_ingot",
-            "count": 2.5
+            "count": 2
           },
           {
             "id": "simplelib:cracked_diamond",
             "count": 2
           },
           {
-            "id": "minecraft:copper_ingot",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 1
+            "count": 0.5
           }
         ]
       }

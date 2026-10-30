@@ -1168,6 +1168,31 @@
           "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
         ]
       }
+    },
+    {
+      "id": "keys_page",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/client/keys/KeyboardLayout.java",
+        "modules/simplelib/shared/java/com/simplelib/api/client/keys/KeyConflicts.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeysScreen.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/KeyBindsScreenMixin.java"
+      ],
+      "en": {
+        "title": "Key binding page",
+        "summary": "A page for all key bindings of Minecraft and every mod: a list with search and conflict marks, and a keyboard picture in 60, 75 or 100 percent.",
+        "details": [
+          "Open it with the Simple Keys button on the Vanilla controls page or with its own key (unbound by default). Click a key button, press the new key to bind; the reset arrow restores the default.",
+          "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key lets you view, free or move them. Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt."
+        ]
+      },
+      "de": {
+        "title": "Tastenbelegungs-Seite",
+        "summary": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod: Liste mit Suche und Konfliktmarken sowie ein Tastaturbild in 60, 75 oder 100 Prozent.",
+        "details": [
+          "Öffnen mit dem Knopf Simple Keys auf der Vanilla-Steuerungsseite oder mit einer eigenen Taste (standardmäßig unbelegt). Auf den Tastenknopf klicken und die neue Taste drücken; der Pfeil setzt auf den Standard zurück.",
+          "Die Tastatur färbt Tasten grün (eine Aktion), rot (von mehreren Aktionen geteilt) oder grau (frei), zusätzlich mit Haken, Ausrufezeichen oder Strich. Darüberfahren zeigt die Aktionen; ein Klick lässt sie ansehen, freimachen oder verschieben. Konflikte werden nur angezeigt, nie automatisch geändert. Gespeichert wird wie in Vanilla in der options.txt."
+        ]
+      }
     }
   ],
   "recipes": [],
@@ -1191,7 +1216,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 54,
+    "features": 55,
     "recipes": 0,
     "lootTables": 0,
     "tags": 0,

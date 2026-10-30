@@ -74,7 +74,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 507,
       "blocks": 290,
-      "recipes": 827,
+      "recipes": 829,
       "config": 236,
       "features": 48
     }
@@ -580,9 +580,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 54
+      "features": 55
     },
-    "dataHash": "ba87fdc02399"
+    "dataHash": "fc829bfdbcdd"
   },
   {
     "id": "simplemaps",
@@ -1566,7 +1566,7 @@ window.WIKI_MODULES = [
       "recipes": 187,
       "features": 15
     },
-    "dataHash": "8daecba71925"
+    "dataHash": "7ce55e15ad05"
   },
   {
     "id": "simplemusic",
@@ -1754,7 +1754,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 9
     },
-    "dataHash": "6912a1389da9"
+    "dataHash": "92e83f382233"
   },
   {
     "id": "simpleredstone",
