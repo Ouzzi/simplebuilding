@@ -15,6 +15,17 @@ import com.simplebuilding.modules.simplechallenges.core.LevelProbe;
 import com.simplebuilding.modules.simplechallenges.core.PresetRegistry;
 import com.simplebuilding.modules.simplechallenges.core.UnlockService;
 import com.simplebuilding.modules.simplechallenges.net.UnlockSyncPayload;
+import com.simplebuilding.modules.simplechallenges.core.LookInfo;
+import com.simplebuilding.modules.simplechallenges.core.PendingChallenge;
+import com.simplebuilding.modules.simplechallenges.core.RecentChallenges;
+import com.simplebuilding.modules.simplechallenges.net.CellInfoPayload;
+import com.simplebuilding.modules.simplechallenges.preset.PresetDraft;
+import com.simplebuilding.modules.simplechallenges.preset.StartArea;
+import com.simplebuilding.modules.simplechallenges.preset.WorldMode;
+import com.simplebuilding.modules.simplechallenges.sky.IslandPlan;
+import com.simplebuilding.modules.simplechallenges.sky.OneBlockPhases;
+import com.simplebuilding.modules.simplechallenges.sky.SkyGridPlan;
+import com.simplebuilding.modules.simplechallenges.sky.SkyService;
 import com.simplebuilding.modules.simplechallenges.preset.Currency;
 import com.simplebuilding.modules.simplechallenges.preset.Difficulty;
 import com.simplebuilding.modules.simplechallenges.preset.Preset;
@@ -36,6 +47,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
@@ -44,12 +56,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -73,6 +87,12 @@ public final class ChallengeTests {
 
     private static UnlockMode mode(int cell, Currency c, Difficulty d) {
         return new UnlockMode(cell, List.of(new int[]{-1, -1, 0, 0}), c, d, List.of(OW), 30, 1, 2, 5);
+    }
+
+    /** Removes an island built by a test (blocks and chest) so the test area is empty again. */
+    private static void clear(ServerLevel level, BlockPos origin, IslandPlan plan) {
+        for (IslandPlan.Block b : plan.blocks()) level.setBlock(origin.offset(b.dx(), b.dy(), b.dz()), Blocks.AIR.defaultBlockState(), 2);
+        level.setBlock(origin.offset(plan.chestX, plan.chestY, plan.chestZ), Blocks.AIR.defaultBlockState(), 2);
     }
 
     static {
@@ -193,7 +213,7 @@ public final class ChallengeTests {
         });
 
         ALL.put("presets_shipped", h -> {
-            for (String id : List.of("vanilla_unlock", "block_by_block", "quick_steps", "trophy_land")) {
+            for (String id : PresetRegistry.SHIPPED) {
                 Preset p = PresetRegistry.get(id);
                 check(h, p != null && p.runnable(), "shipped preset " + id + " loaded: " + PresetRegistry.problems());
             }
@@ -433,6 +453,234 @@ public final class ChallengeTests {
                 }
             } finally {
                 ChallengeService.deactivate(server);
+            }
+            h.succeed();
+        });
+
+        // ---- S3/S4 ----
+
+        ALL.put("sky_plans", h -> {
+            for (String style : WorldMode.ISLAND_STYLES) {
+                IslandPlan p = IslandPlan.of(style);
+                check(h, p.covers(0, 0), style + ": the island covers the spawn column");
+                boolean top = false, free = true, chestFree = true;
+                for (IslandPlan.Block b : p.blocks()) {
+                    check(h, BuiltInRegistries.BLOCK.containsKey(Identifier.parse(b.block())), style + ": known block " + b.block());
+                    if (b.dx() == 0 && b.dz() == 0 && b.dy() == 0) top = true;
+                    if (b.dx() == 0 && b.dz() == 0 && b.dy() >= IslandPlan.standY() && b.dy() <= IslandPlan.standY() + 1) free = false;
+                    if (b.dx() == p.chestX && b.dz() == p.chestZ && b.dy() == p.chestY) chestFree = false;
+                }
+                check(h, top && free && chestFree, style + ": top layer at the spawn, two free blocks to stand in, chest place free");
+                check(h, !p.chest.isEmpty() && p.chest.stream().allMatch(c -> BuiltInRegistries.ITEM.containsKey(Identifier.parse(c.item())) && c.count() > 0), style + ": chest items");
+                check(h, !IslandPlan.reachable(style).isEmpty(), style + ": price pool");
+            }
+            check(h, OneBlockPhases.block(7, 0).equals("minecraft:grass_block"), "the first block is grass");
+            check(h, OneBlockPhases.block(7, 55).equals(OneBlockPhases.block(7, 55)), "same seed, same block");
+            int differing = 0;
+            for (int n = 1; n <= 200; n++) if (!OneBlockPhases.block(1, n).equals(OneBlockPhases.block(2, n))) differing++;
+            check(h, differing > 20, "another seed gives another sequence: " + differing);
+            check(h, OneBlockPhases.phaseOf(0) == 0 && OneBlockPhases.phaseOf(OneBlockPhases.PHASE_LENGTH) == 1 && OneBlockPhases.phaseOf(10_000_000) == OneBlockPhases.PHASES.size() - 1, "phases");
+            for (int n = 1; n <= 1500; n++) {
+                String id = OneBlockPhases.block(42, n);
+                final int count = n;
+                check(h, OneBlockPhases.PHASES.get(OneBlockPhases.phaseOf(count)).stream().anyMatch(e -> e.block().equals(id)), "block " + n + " belongs to its phase: " + id);
+            }
+            for (var phase : OneBlockPhases.PHASES) for (var e : phase) check(h, BuiltInRegistries.BLOCK.containsKey(Identifier.parse(e.block())), "known one block " + e.block());
+            for (var e : SkyGridPlan.BLOCKS) check(h, BuiltInRegistries.BLOCK.containsKey(Identifier.parse(e.block())), "known grid block " + e.block());
+            check(h, SkyGridPlan.blockAt(1, 4, 0, 64, 0) != null && SkyGridPlan.blockAt(1, 4, 1, 64, 0) == null && SkyGridPlan.blockAt(1, 4, -4, -64, 8) != null, "nodes every 4 blocks, also below zero");
+            Set<String> kinds = new HashSet<>();
+            int[] count = {0};
+            int n = SkyGridPlan.nodes(9, 4, 1600, 1600, -64, 319, (x, y, z, id) -> {
+                count[0]++;
+                kinds.add(id);
+            });
+            check(h, n == count[0] && n == SkyGridPlan.nodesPerChunk(4, -64, 320) && n == 16 * 96, "1536 nodes in a chunk column: " + n);
+            check(h, kinds.size() >= 12, "a varied grid: " + kinds.size());
+            check(h, SkyGridPlan.isStarter(0, 64, 0, 64) && SkyGridPlan.isStarter(7, 70, -7, 64) && !SkyGridPlan.isStarter(8, 64, 0, 64) && !SkyGridPlan.isStarter(0, 80, 0, 64), "the start platform is left alone");
+            h.succeed();
+        });
+
+        ALL.put("preset_world_modes", h -> {
+            String both = "{\"schemaVersion\":1,\"name\":\"Both\",\"modes\":[{\"type\":\"skyblock\",\"style\":\"mini\"},{\"type\":\"unlock\",\"cell\":2,\"start\":[[-1,-1,0,0]]}]}";
+            var r = PresetParser.parse("both", both);
+            check(h, r.ok() && r.preset().runnable() && r.preset().world().kind() == WorldMode.Kind.ISLAND && r.preset().world().style().equals("mini") && r.preset().unlock().cell() == 2, "island + unlock: " + r.errors());
+            String[] bad = {
+                    "{\"schemaVersion\":1,\"modes\":[{\"type\":\"skyblock\",\"style\":\"bogus\"}]}",
+                    "{\"schemaVersion\":1,\"modes\":[{\"type\":\"skygrid\",\"spacing\":1}]}",
+                    "{\"schemaVersion\":1,\"modes\":[{\"type\":\"skygrid\",\"spacing\":9}]}",
+                    "{\"schemaVersion\":1,\"modes\":[{\"type\":\"oneblock\"},{\"type\":\"skygrid\"}]}"};
+            for (String text : bad) check(h, !PresetParser.parse("x", text).ok(), "refused: " + text);
+            check(h, PresetRegistry.get("classic_skyblock").world().kind() == WorldMode.Kind.ISLAND && PresetRegistry.get("classic_skyblock").unlock() == null, "classic skyblock has no borders");
+            check(h, PresetRegistry.get("sky_one_block").world().kind() == WorldMode.Kind.ONEBLOCK && PresetRegistry.get("sky_grid").world().spacing() == 4, "one block and sky grid");
+            check(h, PresetRegistry.get("island_unlock").world() != null && PresetRegistry.get("island_unlock").unlock().cell() == 2, "island unlock combines both");
+            // the editor's draft writes a file that reads back identically
+            for (String id : PresetRegistry.SHIPPED) {
+                Preset p = PresetRegistry.get(id);
+                var back = PresetParser.parse("user/copy", PresetDraft.from(p).toJson());
+                check(h, back.ok(), id + " draft reads back: " + back.errors());
+                Preset q = back.preset();
+                check(h, q.name().equals(p.name()) && q.icon().equals(p.icon()) && (q.world() == null) == (p.world() == null) && (q.unlock() == null) == (p.unlock() == null), id + " draft keeps the modes");
+                if (p.world() != null) check(h, q.world().kind() == p.world().kind() && q.world().style().equals(p.world().style()), id + " draft keeps the world mode");
+                if (p.unlock() != null) {
+                    check(h, q.unlock().cell() == p.unlock().cell() && q.unlock().currency() == p.unlock().currency() && q.unlock().difficulty() == p.unlock().difficulty()
+                            && StartArea.cells(q.unlock().start()).equals(StartArea.cells(p.unlock().start())) && q.unlock().creditsChallenge() == p.unlock().creditsChallenge(), id + " draft keeps the unlock mode");
+                }
+            }
+            PresetDraft draft = PresetDraft.from(PresetRegistry.get("vanilla_unlock"));
+            draft.setCurrency(Currency.CREDITS);
+            draft.cell = 8;
+            var credits = PresetParser.parse("user/c", draft.toJson());
+            check(h, credits.ok() && credits.preset().unlock().earnsCredits() && credits.preset().unlock().cell() == 8, "switching the draft to credits is a valid preset: " + credits.errors());
+            // the start area: rectangles <-> cells
+            var l = new java.util.ArrayList<int[]>(List.of(new int[]{-1, -1, 0, 0}, new int[]{1, -1, 3, -1}, new int[]{-1, 1, -1, 4}));
+            Set<Long> cells = StartArea.cells(l);
+            check(h, cells.size() == 4 + 3 + 4 && cells.contains(UnlockGrid.key(0, 0)), "L shape cells: " + cells.size());
+            check(h, StartArea.cells(StartArea.cover(cells)).equals(cells), "cover gives exactly the cells");
+            check(h, StartArea.cover(cells).size() <= 3, "few rectangles: " + StartArea.cover(cells).size());
+            java.util.Random random = new java.util.Random(5);
+            for (int round = 0; round < 20; round++) {
+                Set<Long> set = new HashSet<>();
+                set.add(UnlockGrid.key(0, 0));
+                for (int i = 0; i < 60; i++) set.add(UnlockGrid.key(random.nextInt(9) - 4, random.nextInt(9) - 4));
+                check(h, StartArea.cells(StartArea.cover(set)).equals(set), "random set " + round + " covered exactly");
+            }
+            check(h, StartArea.cells(List.of()).equals(Set.of(UnlockGrid.key(0, 0))), "the spawn cell is always there");
+            int[] bounds = StartArea.bounds(cells);
+            check(h, bounds[0] == -1 && bounds[1] == -1 && bounds[2] == 3 && bounds[3] == 4, "bounds");
+            // recent challenges and the pending choice
+            check(h, RecentChallenges.push(List.of("a", "b", "c"), "c").equals(List.of("c", "a", "b")) && RecentChallenges.push(List.of("a", "b", "c"), "d").equals(List.of("d", "a", "b")), "recent: front, no duplicates, three at most");
+            check(h, RecentChallenges.shown(List.of()).equals(RecentChallenges.DEFAULTS) && RecentChallenges.shown(List.of("x")).equals(List.of("x", "classic_skyblock", "sky_one_block")), "recent: defaults fill the free places");
+            PendingChallenge.set("sky_grid");
+            check(h, "sky_grid".equals(PendingChallenge.peek()) && "sky_grid".equals(PendingChallenge.take()) && PendingChallenge.peek() == null && PendingChallenge.take() == null, "the choice is taken once");
+            h.succeed();
+        });
+
+        ALL.put("sky_world_modes", h -> {
+            ServerLevel level = h.getLevel();
+            MinecraftServer server = level.getServer();
+            ChallengeService.deactivate(server);
+            BlockPos origin = h.absolutePos(new BlockPos(0, 40, 0));
+            BlockPos oldOrigin = SkyService.origin;
+            SkyService.origin = origin;
+            SkyService.levelOverride = level;
+            IslandPlan plan = IslandPlan.of("classic");
+            try {
+                // classic island: the plan stands, the chest holds its items, the world has no borders
+                check(h, ChallengeService.activate(server, "classic_skyblock") == ChallengeService.Result.OK, "activated: " + PresetRegistry.problems());
+                Active a = ChallengeRuntime.server();
+                check(h, a.mode == null && a.grid(Gate.dim(level)) == null && !Gate.active(level), "a world mode alone has no borders");
+                check(h, a.state.worldBuilt && level.getBlockState(origin).is(Blocks.GRASS_BLOCK) && level.getBlockState(origin.below()).is(Blocks.DIRT) && level.getBlockState(origin.below(3)).is(Blocks.BEDROCK), "island built");
+                check(h, level.getBlockState(origin.offset(0, 1, 5)).is(Blocks.OAK_LOG), "the tree stands");
+                BlockPos chest = origin.offset(plan.chestX, plan.chestY, plan.chestZ);
+                check(h, level.getBlockEntity(chest) instanceof ChestBlockEntity c && c.getItem(0).is(Items.ICE) && c.getItem(0).getCount() == 2, "the chest holds the items");
+                ChallengeService.tick(server);
+                ServerPlayer player = h.makeMockServerPlayerInLevel();
+                check(h, LookInfo.of(a, player) == CellInfoPayload.NONE, "no crosshair line without borders");
+                Credits.poll(a, List.of(player));
+                ChallengeService.deactivate(server);
+                check(h, ChallengeRuntime.server() == null, "off again");
+                clear(level, origin, plan);
+                // island + unlock: the island's items are the price pool, the cells lie over the island
+                check(h, ChallengeService.activate(server, "island_unlock") == ChallengeService.Result.OK, "island unlock activated");
+                a = ChallengeRuntime.server();
+                String dim = a.dimensions().iterator().next();
+                check(h, a.mode != null && a.region().stream().anyMatch(w -> w.id().equals("minecraft:dirt")), "the island offers dirt");
+                check(h, a.grid(dim).size() == 4 && a.grid(dim).isFree(0, 0), "start area 2 x 2 cells");
+                ChallengeService.deactivate(server);
+                clear(level, origin, plan);
+                // one block: grows back with the next block, the phases advance
+                check(h, ChallengeService.activate(server, "sky_one_block") == ChallengeService.Result.OK, "one block activated");
+                a = ChallengeRuntime.server();
+                check(h, level.getBlockState(origin).is(Blocks.GRASS_BLOCK) && a.state.oneBlockCount == 0, "the first block stands");
+                check(h, !SkyService.refill(a), "nothing to refill while the block stands");
+                level.setBlock(origin, Blocks.AIR.defaultBlockState(), 3);
+                check(h, SkyService.refill(a) && a.state.oneBlockCount == 1, "a mined block comes back");
+                check(h, level.getBlockState(origin).getBlock() == SkyService.state(OneBlockPhases.block(a.state.seed, 1)).getBlock(), "it is the next block of the sequence");
+                a.state.oneBlockCount = OneBlockPhases.PHASE_LENGTH - 1;
+                level.setBlock(origin, Blocks.AIR.defaultBlockState(), 3);
+                check(h, SkyService.refill(a) && OneBlockPhases.phaseOf(a.state.oneBlockCount) == 1, "the next phase starts after " + OneBlockPhases.PHASE_LENGTH + " blocks");
+                ChallengeService.deactivate(server);
+                level.setBlock(origin, Blocks.AIR.defaultBlockState(), 3);
+            } finally {
+                ChallengeService.deactivate(server);
+                SkyService.origin = oldOrigin;
+                SkyService.levelOverride = null;
+                clear(level, origin, plan);
+                level.setBlock(origin, Blocks.AIR.defaultBlockState(), 3);
+            }
+            h.succeed();
+        });
+
+        ALL.put("lean_spawn_look", h -> {
+            ServerLevel level = h.getLevel();
+            MinecraftServer server = level.getServer();
+            ChallengeService.deactivate(server);
+            boolean exempt = ChallengeServerConfig.exemptCreative;
+            ChallengeServerConfig.exemptCreative = false;
+            try {
+                String dim = Gate.dim(level);
+                PresetRegistry.add("zz_lean", "{\"schemaVersion\":1,\"name\":\"L\",\"modes\":[{\"type\":\"unlock\",\"cell\":16,\"start\":[[-1,-1,0,0]],\"dimensions\":[\"" + dim + "\"]}]}", "test");
+                check(h, ChallengeService.activate(server, "zz_lean") == ChallengeService.Result.OK, "activated");
+                Active a = ChallengeRuntime.server();
+                UnlockGrid g = a.grid(dim);
+                BlockPos origin = h.absolutePos(BlockPos.ZERO);
+                int cx0 = g.cellOf(origin.getX()), cz0 = g.cellOf(origin.getZ());
+                g.addRect(cx0 - 2, cz0 - 2, cx0 + 2, cz0 + 2);
+                double edge = (cx0 + 3) * 16.0, y = Math.min(origin.getY() + 90, level.getMaxY() - 8);
+                // leaning over the edge: a sneaking player's body reaches LEAN further
+                ServerPlayer player = h.makeMockServerPlayerInLevel();
+                player.setPos(edge - 1.0, y, origin.getZ() + 8.5);
+                Vec3 want = new Vec3(3, 0, 0);
+                Vec3 plain = Enforcement.clampMove(player, want);
+                player.setShiftKeyDown(true);
+                Vec3 leaning = Enforcement.clampMove(player, want);
+                check(h, Math.abs(leaning.x - plain.x - Enforcement.LEAN) < 1.0E-3 && plain.x > 0.3, "sneaking leans over the edge: " + plain.x + " -> " + leaning.x);
+                player.setShiftKeyDown(false);
+                // no new mob appears in a locked cell, one in a free cell does
+                var pig = EntityTypes.PIG.create(level, EntitySpawnReason.COMMAND);
+                pig.setPos((cx0 + 8) * 16 + 4.5, y, origin.getZ() + 8.5);
+                check(h, Enforcement.refusesSpawn(level, pig) && !level.addFreshEntity(pig), "a mob is not added to a locked cell");
+                var pig2 = EntityTypes.PIG.create(level, EntitySpawnReason.COMMAND);
+                pig2.setPos(edge - 4.5, y, origin.getZ() + 8.5);
+                check(h, !Enforcement.refusesSpawn(level, pig2) && level.addFreshEntity(pig2), "a mob is added to a free cell");
+                pig2.discard();
+                // the crosshair line: looking east at the border shows the first locked cell, its price and whether it can be paid
+                player.setPos(edge - 2.0, y, origin.getZ() + 8.5);
+                player.setYRot(-90);
+                player.setXRot(0);
+                CellInfoPayload info = LookInfo.of(a, player);
+                check(h, info.show() && info.blockX() == (int) edge && info.count() > 0 && !info.currency().isEmpty(), "the looked cell has a price: " + info);
+                player.setXRot(80);
+                check(h, LookInfo.of(a, player) == CellInfoPayload.NONE, "looking down shows nothing");
+                FriendlyByteBuf buf = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+                CellInfoPayload.CODEC.encode(buf, info);
+                check(h, CellInfoPayload.CODEC.decode(buf).equals(info), "cell info payload round trip");
+                // a pot of credits per player
+                ChallengeService.deactivate(server);
+                check(h, ChallengeService.activate(server, "trophy_land") == ChallengeService.Result.OK, "trophy land activated");
+                a = ChallengeRuntime.server();
+                ServerPlayer p1 = h.makeMockServerPlayerInLevel(), p2 = h.makeMockServerPlayerInLevel();
+                ChallengeServerConfig.perPlayerCredits = true;
+                try {
+                    Credits.add(a, p1, 3);
+                    check(h, Credits.of(a, p1) == 3 && Credits.of(a, p2) == 0 && a.state.credits == 0, "each player has their own pot");
+                    a.state.prices.put(OW + "|1|0", Price.credits(2).encode());
+                    check(h, UnlockService.tryUnlock(a, p2, OW, 1, 0) == UnlockService.Outcome.CANNOT_PAY, "the other player cannot pay with it");
+                    check(h, UnlockService.tryUnlock(a, p1, OW, 1, 0) == UnlockService.Outcome.OK && Credits.of(a, p1) == 1, "paid from the own pot");
+                    Credits.add(a, p1, -5);
+                    check(h, Credits.of(a, p1) == 0, "never below zero");
+                    Tag tag = ChallengeState.CODEC.encodeStart(NbtOps.INSTANCE, a.state).getOrThrow();
+                    check(h, ChallengeState.CODEC.parse(NbtOps.INSTANCE, tag).getOrThrow().playerCredits.equals(a.state.playerCredits), "the pots are saved");
+                } finally {
+                    ChallengeServerConfig.perPlayerCredits = false;
+                }
+                Credits.add(a, p1, 4);
+                check(h, Credits.of(a, p1) == 4 && Credits.of(a, p2) == 4 && a.state.credits == 4, "off: one pot for the team");
+            } finally {
+                ChallengeServerConfig.exemptCreative = exempt;
+                ChallengeServerConfig.perPlayerCredits = false;
+                ChallengeService.deactivate(server);
+                PresetRegistry.remove("zz_lean");
             }
             h.succeed();
         });

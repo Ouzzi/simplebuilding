@@ -38,7 +38,10 @@ public final class ChallengeState extends SavedData {
             Codec.STRING.listOf().optionalFieldOf("rewarded", List.of()).forGetter(s -> new ArrayList<>(s.rewarded)),
             Codec.STRING.listOf().optionalFieldOf("baselined", List.of()).forGetter(s -> new ArrayList<>(s.baselined)),
             Codec.unboundedMap(Codec.STRING, Codec.LONG.listOf()).optionalFieldOf("free", Map.of()).forGetter(ChallengeState::freeEncoded),
-            Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("prices", Map.of()).forGetter(s -> s.prices)
+            Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("prices", Map.of()).forGetter(s -> s.prices),
+            Codec.BOOL.optionalFieldOf("worldBuilt", false).forGetter(s -> s.worldBuilt),
+            Codec.INT.optionalFieldOf("oneBlockCount", 0).forGetter(s -> s.oneBlockCount),
+            Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("playerCredits", Map.of()).forGetter(s -> s.playerCredits)
     ).apply(i, ChallengeState::new));
 
     public static final SavedDataType<ChallengeState> TYPE = new SavedDataType<>(SimpleChallenges.id("state"), ChallengeState::new, CODEC,
@@ -62,6 +65,13 @@ public final class ChallengeState extends SavedData {
     /** Cached prices {@code dimension|cx|cz} -> {@link com.simplebuilding.modules.simplechallenges.price.Price#encode()}; frontier cells only. */
     public final Map<String, String> prices = new LinkedHashMap<>();
 
+    /** Whether the world mode already built its start (island, one block, platform); a resumed world never builds again. */
+    public boolean worldBuilt;
+    /** How many blocks the One Block has given so far. */
+    public int oneBlockCount;
+    /** Credits of each player (uuid) when the server config gives every player a pot of their own. */
+    public final Map<String, Integer> playerCredits = new LinkedHashMap<>();
+
     private final Map<String, long[]> rawFree = new HashMap<>();
     /** Live grids by dimension, built by {@link #bind}. */
     final Map<String, UnlockGrid> grids = new HashMap<>();
@@ -70,7 +80,7 @@ public final class ChallengeState extends SavedData {
 
     private ChallengeState(String challenge, String presetJson, boolean initialized, long seed, int credits, long lastUnlockTick,
                            int unlockCount, List<String> rewarded, List<String> baselined, Map<String, List<Long>> free,
-                           Map<String, String> prices) {
+                           Map<String, String> prices, boolean worldBuilt, int oneBlockCount, Map<String, Integer> playerCredits) {
         this.challenge = challenge;
         this.presetJson = presetJson;
         this.initialized = initialized;
@@ -86,6 +96,9 @@ public final class ChallengeState extends SavedData {
             rawFree.put(dim, keys);
         });
         this.prices.putAll(prices);
+        this.worldBuilt = worldBuilt;
+        this.oneBlockCount = oneBlockCount;
+        this.playerCredits.putAll(playerCredits);
     }
 
     private Map<String, List<Long>> freeEncoded() {
@@ -122,6 +135,9 @@ public final class ChallengeState extends SavedData {
         challenge = NONE;
         presetJson = "";
         credits = 0;
+        worldBuilt = false;
+        oneBlockCount = 0;
+        playerCredits.clear();
         unlockCount = 0;
         rewarded.clear();
         baselined.clear();

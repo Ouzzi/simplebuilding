@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "Sky One Block",
+  "icon": "minecraft:grass_block",
+  "family": "skyblock",
+  "modes": [
+    { "type": "oneblock" }
+  ]
+}

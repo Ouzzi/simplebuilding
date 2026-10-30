@@ -13,12 +13,13 @@ import java.util.Set;
  * Reads and validates a preset file. Problems come back as readable messages (shown in the selection screen later), never as
  * an exception. Schema (version 1): {@code name}, {@code icon}, {@code family}, {@code modes[]}; the mode {@code unlock} has
  * {@code cell}, {@code start} (rectangles {@code [x0,z0,x1,z1]} in cell units), {@code currency}, {@code difficulty},
- * {@code dimensions}, {@code pityMinutes}, {@code credits} {task, goal, challenge}.
+ * {@code dimensions}, {@code pityMinutes}, {@code credits} {task, goal, challenge}. The world modes (S4) are {@code skyblock}
+ * ({@code style}: classic, mini, desert), {@code oneblock} and {@code skygrid} ({@code spacing}); at most one per preset.
  */
 public final class PresetParser {
     public static final int SCHEMA = 1;
     /** Modes the concept lists that later stages build: accepted with a warning, not runnable yet. */
-    private static final Set<String> PLANNED = Set.of("skyblock", "oneblock", "lucky", "skyline", "line", "randomdrops", "skygrid");
+    private static final Set<String> PLANNED = Set.of("lucky", "skyline", "line", "randomdrops");
 
     public record Result(Preset preset, List<String> errors, List<String> warnings) {
         public boolean ok() {
@@ -47,6 +48,7 @@ public final class PresetParser {
         if (!icon.contains(":")) errors.add("icon must be an item id like minecraft:grass_block");
         String family = str(root, "family", "unlock");
         UnlockMode unlock = null;
+        WorldMode world = null;
         JsonArray modes = root.has("modes") && root.get("modes").isJsonArray() ? root.getAsJsonArray("modes") : null;
         if (modes == null || modes.isEmpty()) {
             errors.add("modes must be a non-empty array");
@@ -66,6 +68,13 @@ public final class PresetParser {
                         continue;
                     }
                     unlock = parseUnlock(mode, errors);
+                } else if (WorldMode.Kind.parse(type) != null) {
+                    // one world mode per preset (island, one block and sky grid exclude each other)
+                    if (world != null) {
+                        errors.add("only one world mode per preset (skyblock, oneblock or skygrid)");
+                        continue;
+                    }
+                    world = parseWorld(WorldMode.Kind.parse(type), mode, errors);
                 } else if (PLANNED.contains(type)) {
                     warnings.add("mode '" + type + "' is not available in this version");
                 } else {
@@ -74,7 +83,18 @@ public final class PresetParser {
             }
         }
         if (!errors.isEmpty()) return new Result(null, errors, warnings);
-        return new Result(new Preset(id, name, icon, family, unlock, List.copyOf(warnings), text), errors, warnings);
+        return new Result(new Preset(id, name, icon, family, unlock, world, List.copyOf(warnings), text), errors, warnings);
+    }
+
+    private static WorldMode parseWorld(WorldMode.Kind kind, JsonObject o, List<String> errors) {
+        int before = errors.size();
+        String style = str(o, "style", kind == WorldMode.Kind.ISLAND ? "classic" : "");
+        if (kind == WorldMode.Kind.ISLAND && !WorldMode.ISLAND_STYLES.contains(style)) errors.add("island style must be one of " + WorldMode.ISLAND_STYLES + ", found '" + style + "'");
+        int spacing = intOf(o, "spacing", 4);
+        if (kind == WorldMode.Kind.SKYGRID && (spacing < WorldMode.MIN_SPACING || spacing > WorldMode.MAX_SPACING)) {
+            errors.add("spacing must be " + WorldMode.MIN_SPACING + "-" + WorldMode.MAX_SPACING + ", found " + spacing);
+        }
+        return errors.size() == before ? new WorldMode(kind, style, spacing) : null;
     }
 
     private static UnlockMode parseUnlock(JsonObject o, List<String> errors) {

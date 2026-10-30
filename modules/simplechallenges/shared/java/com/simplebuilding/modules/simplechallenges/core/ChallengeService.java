@@ -5,6 +5,8 @@ import com.simplebuilding.modules.simplechallenges.config.ChallengeServerConfig;
 import com.simplebuilding.modules.simplechallenges.preset.Preset;
 import com.simplebuilding.modules.simplechallenges.preset.PresetParser;
 import com.simplebuilding.modules.simplechallenges.price.BlockValues;
+import com.simplebuilding.modules.simplechallenges.sky.IslandPlan;
+import com.simplebuilding.modules.simplechallenges.sky.SkyService;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import com.google.gson.JsonParser;
 import java.io.Reader;
@@ -47,16 +49,17 @@ public final class ChallengeService {
         loadData(server.getResourceManager());
         ChallengeRuntime.clear();
         Enforcement.clear();
+        String chosen = PendingChallenge.take(); // the world creation screen's choice reaches only the world it created
         if (!SimpleChallenges.on()) return;
         ChallengeState state = ChallengeState.peek(server);
         if (state != null) {
             if (state.activated()) resume(server, state);
             return;
         }
-        String wanted = ChallengeServerConfig.defaultChallenge;
+        String wanted = chosen != null ? chosen : ChallengeServerConfig.defaultChallenge;
         if (!"none".equals(wanted) && server.overworld().getGameTime() == 0) {
-            Result r = activate(server, wanted);
-            SimpleChallenges.LOG.info("defaultChallenge '{}' for the new world: {}", wanted, r);
+            Result r = activate(server, wanted, true);
+            SimpleChallenges.LOG.info("{} '{}' for the new world: {}", chosen != null ? "Chosen challenge" : "defaultChallenge", wanted, r);
         }
     }
 
@@ -74,6 +77,14 @@ public final class ChallengeService {
 
     /** Chooses a challenge for the running world: start area, probe, deadlock check, sync. */
     public static Result activate(MinecraftServer server, String presetId) {
+        return activate(server, presetId, false);
+    }
+
+    /**
+     * @param fresh the world is brand new: the world spawn moves to block 0,0 (scatter 0), above the island for a Skyblock preset.
+     *              A world that was already played keeps its spawn.
+     */
+    public static Result activate(MinecraftServer server, String presetId, boolean fresh) {
         Preset preset = PresetRegistry.get(presetId);
         if (preset == null) return Result.UNKNOWN_PRESET;
         if (!preset.runnable()) return Result.NOT_RUNNABLE;
@@ -90,8 +101,10 @@ public final class ChallengeService {
             for (int[] r : preset.unlock().start()) g.addRect(r[0], r[1], r[2], r[3]);
             g.unlock(0, 0); // spawn is fixed at 0,0, so its cell is always free
         }
+        SkyService.start(a); // before the gate is installed: the start may stand in cells that are still locked
         probeAll(a);
         UnlockService.ensureSolvable(a);
+        if (fresh) Spawn.setAtOrigin(server, preset.world() != null ? SkyService.ISLAND_Y + IslandPlan.standY() : Spawn.surfaceY(server.overworld()));
         state.setDirty();
         ChallengeRuntime.install(a);
         Enforcement.clear();
@@ -103,6 +116,7 @@ public final class ChallengeService {
     public static void deactivate(MinecraftServer server) {
         ChallengeRuntime.clear();
         Enforcement.clear();
+        LookInfo.clear();
         ChallengeState state = ChallengeState.peek(server);
         if (state != null) state.reset();
         ChallengeSync.sendEnd(server);
@@ -115,6 +129,7 @@ public final class ChallengeService {
 
     /** The unlocked area's surface items (price pool of the easy tier). */
     private static void probeAll(Active a) {
+        a.addAvailable(SkyService.reachable(a));
         for (String dim : a.dimensions()) {
             UnlockGrid g = a.grid(dim);
             var level = a.level(dim);
@@ -130,6 +145,7 @@ public final class ChallengeService {
 
     public static void leave(ServerPlayer player) {
         Enforcement.forget(player.getUUID());
+        LookInfo.forget(player.getUUID());
     }
 
     /** Server tick: borders every tick, pity every second, credits every two seconds. */
@@ -137,7 +153,9 @@ public final class ChallengeService {
         Active a = ChallengeRuntime.server();
         if (a == null || !SimpleChallenges.on()) return;
         Enforcement.tick(server);
+        SkyService.tick(a);
         int t = server.getTickCount();
+        if (t % 10 == 3) LookInfo.tick(a);
         if (t % 20 == 10) UnlockService.pity(a);
         if (t % 40 == 5) Credits.poll(a);
     }

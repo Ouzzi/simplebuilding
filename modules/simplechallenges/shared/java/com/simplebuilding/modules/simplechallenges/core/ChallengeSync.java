@@ -39,6 +39,9 @@ public final class ChallengeSync {
         UnlockSyncPayload p = new UnlockSyncPayload("", 0, true, false, new long[0]);
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             if (SimpleChallenges.canSend.test(player, UnlockSyncPayload.TYPE)) SimpleChallenges.toClient.accept(player, p);
+            if (SimpleChallenges.canSend.test(player, com.simplebuilding.modules.simplechallenges.net.CellInfoPayload.TYPE)) {
+                SimpleChallenges.toClient.accept(player, com.simplebuilding.modules.simplechallenges.net.CellInfoPayload.NONE);
+            }
         }
     }
 }

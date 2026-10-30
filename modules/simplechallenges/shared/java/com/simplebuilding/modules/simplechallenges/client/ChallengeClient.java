@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplechallenges.client;
 
 import com.simplebuilding.modules.simplechallenges.core.ChallengeRuntime;
+import com.simplebuilding.modules.simplechallenges.net.CellInfoPayload;
 import com.simplebuilding.modules.simplechallenges.net.UnlockSyncPayload;
 import com.simplebuilding.modules.simplechallenges.unlock.UnlockGrid;
 import java.util.List;
@@ -17,6 +18,16 @@ public final class ChallengeClient {
     private static final DustParticleOptions BORDER = new DustParticleOptions(0xFF3030, 1.0F);
     private static final int RADIUS = 24;
     private static boolean border = true;
+    private static volatile CellInfoPayload looked = CellInfoPayload.NONE;
+
+    /** The locked cell in view (crosshair line), or {@link CellInfoPayload#NONE}. */
+    public static CellInfoPayload looked() {
+        return looked;
+    }
+
+    public static void receiveInfo(CellInfoPayload p) {
+        looked = p;
+    }
 
     private ChallengeClient() {}
 
@@ -31,6 +42,7 @@ public final class ChallengeClient {
 
     public static void receive(UnlockSyncPayload p) {
         if (p.cell() == 0) {
+            looked = CellInfoPayload.NONE;
             ChallengeRuntime.clearClient();
             return;
         }
@@ -40,6 +52,7 @@ public final class ChallengeClient {
     }
 
     public static void left() {
+        looked = CellInfoPayload.NONE;
         ChallengeRuntime.clearClient();
     }
 

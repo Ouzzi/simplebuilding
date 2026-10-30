@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "Sky Grid",
+  "icon": "minecraft:cobblestone",
+  "family": "skyblock",
+  "modes": [
+    { "type": "skygrid", "spacing": 4 }
+  ]
+}

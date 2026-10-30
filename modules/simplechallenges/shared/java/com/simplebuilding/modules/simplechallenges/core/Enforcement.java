@@ -21,10 +21,13 @@ import net.minecraft.world.phys.Vec3;
  * Keeps the borders (S1). Three layers: the entity collision (mixin {@code Entity.collide}: every entity on both sides stops at a
  * locked cell like at a wall, no entity border, no rubber banding), block changes inside locked cells are refused (mixin
  * {@code Level.setBlock}, server), and a tick that brings anyone found inside a locked cell (teleport, ender pearl, respawn,
- * spawn) back to the nearest free cell. All of it starts with the {@link Gate}.
+ * spawn) back to the nearest free cell; new mobs are not spawned inside locked cells; sneaking leans over the edge. All of it starts
+ * with the {@link Gate}.
  */
 public final class Enforcement {
     private static final int RESCUE_RADIUS = 512;
+    /** How far a sneaking player's body may hang over the border (lean over the edge to build there): the box shrinks by this on every side. */
+    public static final double LEAN = 0.25;
     /** Last position of each player that was inside the free area. */
     private static final Map<UUID, double[]> SAFE = new HashMap<>();
 
@@ -44,7 +47,8 @@ public final class Enforcement {
         UnlockGrid g = view.grid(Gate.dim(level));
         if (g == null || exempt(e, view)) return move;
         AABB b = e.getBoundingBox();
-        double[] c = g.clamp(b.minX, b.maxX, b.minZ, b.maxZ, move.x, move.z);
+        double lean = e instanceof Player p && p.isShiftKeyDown() ? LEAN : 0;
+        double[] c = g.clamp(b.minX + lean, b.maxX - lean, b.minZ + lean, b.maxZ - lean, move.x, move.z);
         return c[0] == move.x && c[1] == move.z ? move : new Vec3(c[0], move.y, c[1]);
     }
 
@@ -53,6 +57,13 @@ public final class Enforcement {
         if (level.isClientSide()) return false;
         UnlockGrid g = Gate.grid(level);
         return g != null && !g.isFree(g.cellOf(pos.getX()), g.cellOf(pos.getZ()));
+    }
+
+    /** True when a new mob would appear inside a locked cell (natural spawns, spawners, eggs, breeding): refused, nothing lives there. */
+    public static boolean refusesSpawn(Level level, Entity entity) {
+        if (level.isClientSide() || !(entity instanceof net.minecraft.world.entity.Mob)) return false;
+        UnlockGrid g = Gate.grid(level);
+        return g != null && !g.isFreeAtBlock(entity.getX(), entity.getZ());
     }
 
     /** Each server tick: players inside a locked cell go back; every 20 ticks the same for other entities. */
