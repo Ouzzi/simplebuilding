@@ -385,7 +385,7 @@ public final class StorageTests {
         ALL.put("network_interface_needs_chest_and_cable_draws_arms", NetworkTests::interfaceNeedsChestAndCableDrawsArms);
         ALL.put("network_switched_off_the_blocks_become_substitutes", NetworkTests::switchedOffTheBlocksBecomeSubstitutes);
         ALL.put("network_better_chests_hold_controller_finds", NetworkTests::betterChestsHoldControllerFinds);
-        ALL.put("pipe_recipe_is_iron_around_a_chest", PipeTests::recipeIsIronAroundAChest);
+        ALL.put("pipe_recipe_is_iron_around_chest", PipeTests::recipeIsIronAroundChest);
         ALL.put("pipe_first_step_has_no_filter", PipeTests::firstStepHasNoFilter);
         ALL.put("pipe_window_follows_the_hopper_layout", PipeTests::windowFollowsTheHopperLayout);
         ALL.put("network_compact_counts_are_short", NetworkTests::compactCountsAreShort);

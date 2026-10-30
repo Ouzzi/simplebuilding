@@ -716,8 +716,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void pipeRecipeIsIronAroundAChest(GameTestHelper h) {
-        StorageTests.ALL.get("pipe_recipe_is_iron_around_a_chest").accept(h);
+    public void pipeRecipeIsIronAroundChest(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_recipe_is_iron_around_chest").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")

@@ -158,7 +158,7 @@
   "tooltip.simplestorage.controller.sort": "Sort: amount or name",
   "tooltip.simplestorage.controller.chests": "Connected chests / limit",
   "tooltip.simplestorage.controller.rejected": "%s chests too high, ignored",
-  "tooltip.simplestorage.controller.search": "Search: words of the item name or id; @mod for a mod; right-click clears",
+  "tooltip.simplestorage.controller.search": "Search: name, id, @mod; right-click clears",
   "gui.simplestorage.controller.search": "Search...",
   "gui.simplestorage.controller.sort.count": "Amount",
   "gui.simplestorage.controller.sort.name": "Name",

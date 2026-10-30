@@ -287,7 +287,7 @@ public final class PipeTests {
     }
 
     /** Eight iron ingots around a chest (the Vanilla hopper's material) make 4 pipes; the old copper-and-hopper grid and a ring around a hopper make none. */
-    public static void recipeIsIronAroundAChest(GameTestHelper h) {
+    public static void recipeIsIronAroundChest(GameTestHelper h) {
         ItemStack iron = new ItemStack(Items.IRON_INGOT);
         ItemStack chest = new ItemStack(Items.CHEST);
         List<String> problems = new ArrayList<>();
