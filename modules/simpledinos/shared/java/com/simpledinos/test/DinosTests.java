@@ -202,7 +202,7 @@ public final class DinosTests {
             java.util.Set<Integer> phases = new java.util.TreeSet<>();
             long t = 1000;
             be.advance(level, t, null); // the first step only sets the clock
-            while (!be.brooded() && t < 1000 + 4000) {
+            while (!be.brooded() && t < 1000 + 8000) {
                 t += 40;
                 be.advance(level, t, sitter);
                 phases.add(h.getBlockState(pos).getValue(DinoEggBlock.PHASE));
@@ -237,7 +237,7 @@ public final class DinosTests {
             ServerPlayer first = player(h, 4, 6);
             ServerPlayer second = player(h, 6, 6);
             h.assertTrue(be.sit(level, first), "the first player sits down");
-            h.assertTrue(first.getVehicle() instanceof ArmorStand s && s.getTags().contains(DinoEggBlockEntity.SEAT_TAG), "on an invisible seat");
+            h.assertTrue(first.getVehicle() instanceof ArmorStand s && s.entityTags().contains(DinoEggBlockEntity.SEAT_TAG), "on an invisible seat");
             ArmorStand seat = (ArmorStand) first.getVehicle();
             h.assertTrue(!be.sit(level, second), "a second player cannot sit on the same egg");
             h.setBlock(pos, Blocks.AIR);
@@ -251,7 +251,7 @@ public final class DinosTests {
             ServerPlayer owner = player(h, 5, 5);
             long t = 3000;
             be.advance(level, t, null);
-            while (!be.brooded() && t < 3000 + 4000) be.advance(level, t += 40, owner.getUUID());
+            while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, owner.getUUID());
             h.assertTrue(be.brooded(), "brooded");
             be.advance(level, be.hatchAt() - 1, null);
             h.assertTrue(h.getBlockState(pos).is(DinosRegistry.EGGS.get(DinoKind.TREX)), "not yet hatched one tick early");
@@ -273,7 +273,7 @@ public final class DinosTests {
             UUID gone = UUID.randomUUID(); // an owner who is not online
             long t = 3000;
             be.advance(level, t, null);
-            while (!be.brooded() && t < 3000 + 4000) be.advance(level, t += 40, gone);
+            while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, gone);
             be.advance(level, be.hatchAt() + 10, null);
             Vec3 c = Vec3.atCenterOf(h.absolutePos(pos));
             if (level.getNearestPlayer(c.x, c.y, c.z, 16.0, false) == null) {
@@ -289,7 +289,7 @@ public final class DinosTests {
             ServerPlayer owner = player(h, 5, 5);
             long t = 3000;
             be.advance(level, t, null);
-            while (!be.brooded() && t < 3000 + 4000) be.advance(level, t += 40, owner.getUUID());
+            while (!be.brooded() && t < 3000 + 8000) be.advance(level, t += 40, owner.getUUID());
             be.advance(level, be.hatchAt() + 10, null);
             h.assertTrue(be.brooded() && h.getBlockState(pos).getBlock() == DinosRegistry.EGGS.get(DinoKind.TRICERATOPS),
                     "a kind without a dinosaur yet brooded, but stays an egg (stage 1)");

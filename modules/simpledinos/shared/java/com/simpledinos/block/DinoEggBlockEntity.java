@@ -28,7 +28,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Brooding state of an egg. A sitter rides an invisible armor stand (the seat); while somebody sits, the egg's scheduled tick
+ * Brooding state of an egg. A sitter rides an invisible armor stand (the seat; Vanilla armor stands that are invisible cannot be hurt); while somebody sits, the egg's scheduled tick
  * credits the elapsed ticks to the {@link Progress} (5 min = 100 %); after the sitter gets up, the progress runs back at twice
  * the speed. At 100 % the egg is brooded: it cracks now and then and hatches after {@code hatchSeconds}, for the sitter with
  * the most sitting time.
@@ -95,7 +95,6 @@ public class DinoEggBlockEntity extends BlockEntity {
             stand = new ArmorStand(level, pos.getX() + 0.5, pos.getY() - SEAT_DROP, pos.getZ() + 0.5);
             stand.setInvisible(true);
             stand.setNoGravity(true);
-            stand.setInvulnerable(true);
             stand.addTag(SEAT_TAG);
             level.addFreshEntity(stand);
             seat = stand.getUUID();
