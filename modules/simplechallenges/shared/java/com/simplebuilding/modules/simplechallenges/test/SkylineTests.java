@@ -126,7 +126,8 @@ public final class SkylineTests {
             check(h, Support.parts(Blocks.LADDER).stream().anyMatch(p -> p.state().is(Blocks.BEDROCK)), "a ladder hangs on bedrock");
             List<Support.Part> door = Support.parts(Blocks.OAK_DOOR);
             check(h, door.stream().anyMatch(p -> p.dy() == 1 && p.state().getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) && door.stream().anyMatch(p -> p.state().is(Blocks.BEDROCK)), "a door has both halves and a floor");
-            check(h, Support.parts(Blocks.RED_BED).size() == 2 && Support.parts(Blocks.RED_BED).get(1).dz() == 1, "a bed has a head");
+            Block bed = BlockCatalog.all().stream().filter(b -> b.defaultBlockState().hasProperty(BlockStateProperties.BED_PART)).findFirst().orElse(null);
+            check(h, bed != null && Support.parts(bed).size() == 2 && Support.parts(bed).get(1).dz() == 1, "a bed has a head");
             check(h, Support.parts(Blocks.OAK_LEAVES).get(0).state().getValue(BlockStateProperties.PERSISTENT), "leaves do not decay");
             h.succeed();
         });
@@ -156,7 +157,11 @@ public final class SkylineTests {
             }
             check(h, different > 20, "another seed gives other partners: " + different);
             check(h, !BlockCatalog.includable(Blocks.BEDROCK) && !BlockCatalog.includable(Blocks.SPAWNER) && !BlockCatalog.includable(Blocks.WATER) && !BlockCatalog.includable(Blocks.WALL_TORCH)
-                    && !BlockCatalog.includable(Blocks.WAXED_COPPER_BLOCK) && BlockCatalog.includable(Blocks.STONE), "which blocks count");
+                    && BlockCatalog.includable(Blocks.STONE), "which blocks count");
+            for (Block b : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+                String path = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(b).getPath();
+                check(h, !(path.startsWith("waxed_") || path.startsWith("infested_")) || !BlockCatalog.includable(b), path + " is only a recipe variant");
+            }
             h.succeed();
         });
 
@@ -371,7 +376,7 @@ public final class SkylineTests {
                 // mini bastion: the chest always holds the smithing template
                 Eggs.build(level, new Eggs.Site("t", Eggs.Kind.NETHER_BASTION, a));
                 check(h, level.getBlockEntity(a.offset(-2, 1, 0)) instanceof ChestBlockEntity c && c.getItem(0).is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), "bastion chest has the smithing template");
-                check(h, level.getBlockState(a.offset(3, 1, 0)).isAir() && level.getBlockState(a.offset(3, 1, 1)).is(Blocks.BLACKSTONE_BRICKS), "bastion door");
+                check(h, level.getBlockState(a.offset(3, 1, 0)).isAir() && level.getBlockState(a.offset(3, 1, 1)).is(Blocks.POLISHED_BLACKSTONE_BRICKS), "bastion door");
                 wipe(level, a.offset(-4, -1, -4), a.offset(4, 5, 4));
                 // vault: block entity points at the Heavy Core loot table, the key frame is kept
                 Eggs.build(level, new Eggs.Site("t", Eggs.Kind.OVERWORLD_VAULT, a));

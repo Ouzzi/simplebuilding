@@ -107,9 +107,9 @@ public final class Eggs {
                         boolean wall = Math.abs(x) == 3 || Math.abs(z) == 3;
                         boolean door = x == 3 && z == 0;
                         boolean gilded = Math.abs(x) == 2 && Math.abs(z) == 2;
-                        put(level, a, x, 0, z, gilded ? Blocks.GILDED_BLACKSTONE : Blocks.POLISHED_BLACKSTONE_BRICKS);
-                        for (int y = 1; y <= 3; y++) put(level, a, x, y, z, wall && !(door && y <= 2) ? Blocks.BLACKSTONE_BRICKS : Blocks.AIR);
-                        put(level, a, x, 4, z, Blocks.BLACKSTONE_BRICKS);
+                        put(level, a, x, 0, z, gilded ? Blocks.GILDED_BLACKSTONE : Blocks.POLISHED_BLACKSTONE);
+                        for (int y = 1; y <= 3; y++) put(level, a, x, y, z, wall && !(door && y <= 2) ? Blocks.POLISHED_BLACKSTONE_BRICKS : Blocks.AIR);
+                        put(level, a, x, 4, z, Blocks.POLISHED_BLACKSTONE_BRICKS);
                     }
                 }
                 BlockPos chest = a.offset(-2, 1, 0);
@@ -163,15 +163,13 @@ public final class Eggs {
             if (found.isEmpty()) {
                 ItemFrame frame = new ItemFrame(level, f.pos(), f.facing());
                 frame.setItem(new ItemStack(f.item()), false);
-                frame.setInvulnerable(true);
                 level.addFreshEntity(frame);
                 refilled++;
             } else {
                 for (ItemFrame frame : found) {
                     if (frame.getItem().isEmpty()) {
                         frame.setItem(new ItemStack(f.item()), false);
-                        frame.setInvulnerable(true);
-                        refilled++;
+                                refilled++;
                     }
                 }
             }
