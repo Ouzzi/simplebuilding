@@ -87,5 +87,7 @@
   "quests.simplehammers.start.title": "Willkommen bei Simple Hammers",
   "quests.simplehammers.start.subtitle": "Dein Handbuch gratis",
   "quests.simplehammers.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplehammers.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Hammers-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Eisenbarren herstellen."
+  "quests.simplehammers.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Hammers-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Eisenbarren herstellen.",
+  "item.simplehammers.rose_bronze_sledgehammer": "Rosenbronze-Vorschlaghammer",
+  "item.simplehammers.blossom_gold_sledgehammer": "Blütengold-Vorschlaghammer"
 }

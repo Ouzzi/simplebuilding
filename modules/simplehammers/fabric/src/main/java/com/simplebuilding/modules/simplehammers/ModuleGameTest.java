@@ -110,4 +110,9 @@ public final class ModuleGameTest {
     public void jeiToolGrades(GameTestHelper h) {
         HammerTests.ALL.get("jei_tool_grades").accept(h);
     }
+
+    @GameTest(structure = "simplehammers:empty")
+    public void roseGoldOptional(GameTestHelper h) {
+        HammerTests.ALL.get("rose_gold_optional").accept(h);
+    }
 }

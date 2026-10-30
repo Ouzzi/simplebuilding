@@ -91,6 +91,7 @@ public final class SimpleHammers {
         // Test centre station (framework contract, no import of the test centre): the hammers and the guide by id.
         List<String> items = new ArrayList<>();
         TIERS.forEach(tier -> items.add(MOD_ID + ":" + tier + "_sledgehammer"));
+        if (isLoaded("simpleores")) java.util.List.of("rose_bronze", "blossom_gold").forEach(tier -> items.add(MOD_ID + ":" + tier + "_sledgehammer"));
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "hammers", "simplehammers.testcentre.station", items);
     }

@@ -56,6 +56,7 @@ public final class HammerTests {
         ALL.put("registered", h -> {
             List<String> problems = new ArrayList<>();
             for (HammerTiers tier : HammerTiers.values()) {
+                if (!tier.enabled()) continue;
                 var item = BuiltInRegistries.ITEM.getValue(SimpleHammers.id(tier.id()));
                 if (!(item instanceof SledgehammerItem hammer) || hammer.tier() != tier) {
                     problems.add("item " + tier.id());
@@ -339,10 +340,11 @@ public final class HammerTests {
         });
         ALL.put("hammer_tempo", h -> {
             // HS29-2: Netherite keeps the old tempo (20), Enderite one tick faster, every tier below one tick slower.
-            int[] want = {25, 24, 23, 22, 21, 20, 19};
+            int[] want = {25, 24, 23, 22, 21, 20, 19, 23, 22};
             List<String> problems = new ArrayList<>();
             var probe = new SledgehammerUpgrades.Upgrade(Blocks.CAULDRON, Blocks.ANVIL, Items.IRON_NUGGET, 0, 1, false, true);
             for (HammerTiers tier : HammerTiers.values()) {
+                if (!tier.enabled()) continue;
                 ItemStack stack = new ItemStack(HammerRegistry.hammer(tier));
                 if (tier.strikeInterval != want[tier.ordinal()]) problems.add("gap of " + tier.id() + " is " + tier.strikeInterval);
                 if (SledgehammerUpgrades.hitInterval(stack) != tier.strikeInterval) problems.add("engine gap of " + tier.id());
@@ -407,6 +409,26 @@ public final class HammerTests {
             }
             h.assertTrue(hammer.getDamageValue() == 3 * com.simplehammers.engine.HammerCrush.DAMAGE, "one durability per crushed stage: " + hammer.getDamageValue());
             h.assertTrue(com.simplehammers.engine.HammerCrush.strike(h.getLevel(), pos, player, hammer, now + 1000) == 0, "sand is not crushed further");
+            h.succeed();
+        });
+        ALL.put("rose_gold_optional", h -> {
+            // ABN30-10: the rose gold hammers exist exactly while Simple Ores is loaded; without it nothing is registered and nothing breaks.
+            boolean ores = SimpleHammers.isLoaded("simpleores");
+            for (HammerTiers tier : new HammerTiers[] {HammerTiers.ROSE_BRONZE, HammerTiers.BLOSSOM_GOLD}) {
+                boolean there = BuiltInRegistries.ITEM.containsKey(SimpleHammers.id(tier.id()));
+                h.assertTrue(there == ores && tier.enabled() == ores, tier.id() + " registered=" + there + " but Simple Ores loaded=" + ores);
+                if (!ores) continue;
+                ItemStack hammer = new ItemStack(HammerRegistry.hammer(tier));
+                h.assertTrue(hammer.getMaxDamage() == tier.baseDurability * SledgehammerItem.BASE_DURABILITY_MULTIPLIER, tier.id() + " durability");
+                h.assertTrue(SimpleLibApi.isHammer(hammer) && hammer.is(ItemTags.MINING_ENCHANTABLE), tier.id() + " is a hammer");
+                var block = new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", tier.name + "_block")));
+                var ingot = new ItemStack(BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", tier.name + "_ingot")));
+                var stick = new ItemStack(net.minecraft.world.item.Items.STICK);
+                var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(block, ingot, ingot, ItemStack.EMPTY, stick, ItemStack.EMPTY, ItemStack.EMPTY, stick, ItemStack.EMPTY));
+                ItemStack crafted = h.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, h.getLevel())
+                        .map(recipe -> recipe.value().assemble(input)).orElse(ItemStack.EMPTY);
+                h.assertTrue(crafted.is(hammer.getItem()), tier.id() + " recipe crafted " + crafted);
+            }
             h.succeed();
         });
         ALL.put("guide_book", com.simplehammers.guide.HammersGuide::gameTest);

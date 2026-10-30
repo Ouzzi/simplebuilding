@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 1200,
+  "experience": 0.5,
+  "ingredient": "simpleores:blossom_gold_pressling",
+  "result": {
+    "id": "simpleores:blossom_gold_ingot"
+  }
+}

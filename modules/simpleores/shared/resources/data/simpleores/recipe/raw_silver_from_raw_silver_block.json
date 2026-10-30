@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "raw_silver",
+  "ingredients": [
+    "simpleores:raw_silver_block"
+  ],
+  "result": {
+    "id": "simpleores:raw_silver",
+    "count": 9
+  }
+}
