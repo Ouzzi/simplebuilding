@@ -343,15 +343,15 @@ public final class ChallengeTests {
                 check(h, !g.isFreeAtBlock(pig.getX(), pig.getZ()), "pig is in a locked cell");
                 Enforcement.rescue(a, pig, false);
                 check(h, g.isFreeAtBlock(pig.getX(), pig.getZ()), "rescued into a free cell: x " + pig.getX());
-                // creative players may pass when the server allows it
+                // creative players may pass when the server allows it (the mock player is always in creative)
                 ChallengeServerConfig.exemptCreative = true;
                 ServerPlayer player = h.makeMockServerPlayerInLevel();
-                player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
                 player.setPos(edge - 1.0, y, origin.getZ() + 8.5);
                 Vec3 want = new Vec3(3, 0, 0);
                 check(h, Enforcement.clampMove(player, want) == want, "creative is exempt");
-                player.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
-                check(h, Enforcement.clampMove(player, want) != want, "survival is limited");
+                ChallengeServerConfig.exemptCreative = false;
+                Vec3 limited = Enforcement.clampMove(player, want);
+                check(h, limited != want && limited.x > 0 && limited.x < 1, "limited when the server does not exempt creative: " + limited);
                 // the switches close the gate while the challenge stays chosen
                 boolean before = com.simplebuilding.framework.api.SubMods.enabled(SimpleChallenges.MOD_ID);
                 try {
