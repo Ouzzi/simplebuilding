@@ -42,6 +42,13 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 8. **Neue Besitzer-Nachträge** oben unter dem Überblick als eigener Abschnitt mit ID-Präfix (z. B. `W23-n`) und zugleich im Überblick eintragen.
 9. **Vor Rückfragen** Queue/Pläne/Memory nach Besitzer-Antworten durchsuchen; Fragen gesammelt auf die Abnahme-Seite.
 
+## PRIORITÄT ab 30.10. 13 Uhr (Besitzer)
+1. Simple Ores (ABN30-10, RG30) – läuft (a-ores31), danach Blei/Zink/Platin/Silberpfeil/-spiegel bauen.
+2. Tastenbelegung (WP-25/UI28-1, Empfehlungen K1–K5) + UI-Vereinheitlichung der Ausreißer.
+3. Trials + Evil/Void Omen (WP-20, BS27-2/3/5/6; Spawner B, Tresor B).
+4. Zonen/Resonanz/Schutz V/Enchanter (WP-22, MOB27-2/3/4, BS25-20).
+5. Danach der Rest (Bosse, Dinos 4, Live-Karte, Simple Foundry, Phase 2/3).
+
 ## ARBEITSPAKETE (optimiert 29.10.)
 Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP) gebündelt, schnelle Erfolge zuerst und in einem Rutsch, danach Mittel, Konzepte (parallel, ohne Gradle) und Groß/Phase 3. Jede Einzelzeile unten trägt am Ende „→ WP-xx“. Start erst bei „los“ bzw. Kontingent A; Regeln aus „So wird die Queue abgearbeitet“ (Claim `[~]`, eigener Branch, ≤ 6 Agenten, ein Bündel-Gate). Optik/neue Inhalte bleiben exemplarisch (Vorschau zuerst). Nur Fabric 26.3.
 
