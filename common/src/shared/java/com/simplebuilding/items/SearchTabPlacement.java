@@ -178,7 +178,7 @@ public final class SearchTabPlacement {
         }
         if (com.simplebuilding.version.McVersion.DOORS) {
             // Simple Doors (WP-17 / BS28-2): behind the Vanilla oak door, next to their model.
-            out.add(Placement.after(BUILDING_BLOCKS, Items.OAK_DOOR, ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+            out.add(Placement.after(BUILDING_BLOCKS, Items.OAK_DOOR, ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_1_5X2, ModItems.OAK_DOOR_1_5X3));
         }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Schienen wie Vanilla in beiden Tabs hinter der Antriebsschiene; Redstone kommt im Suchtab zuerst.

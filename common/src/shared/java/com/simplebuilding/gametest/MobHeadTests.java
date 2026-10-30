@@ -530,6 +530,13 @@ public final class MobHeadTests {
         menu.quickMoveStack(player, 46);
         helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).isEmpty(), "shift-click did not empty the extra head slot");
         helper.assertValueEqual(player.getInventory().countItem(Items.ZOMBIE_HEAD), 1, "zombie heads after moving in and out");
+        // IG31-10: with the helmet slot empty the head still goes to the extra slot first, the helmet slot stays free
+        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        player.getInventory().setItem(10, new ItemStack(Items.SKELETON_SKULL));
+        menu.quickMoveStack(player, 10);
+        helper.assertTrue(com.simplebuilding.util.ExtraHead.get(player).is(Items.SKELETON_SKULL),
+                "shift-click with an empty helmet slot did not use the extra head slot");
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.HEAD).isEmpty(), "shift-click put the head into the helmet slot");
         helper.succeed();
     }
 

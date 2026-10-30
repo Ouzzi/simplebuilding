@@ -465,7 +465,7 @@
       ],
       "en": {
         "title": "Strong Gunpowder, Strong Rocket, Strong TNT",
-        "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 2) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
+        "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 1) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
         "details": [
           "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behaviour changes.",
           "The strong rocket is a Vanilla firework rocket with flight duration 4, so it also works with the Elytra (longer burn, Vanilla speed) and in dispensers. Its tooltip shows the flight duration.",
@@ -475,7 +475,7 @@
       },
       "de": {
         "title": "Starkes Schwarzpulver, Starke Rakete, Starkes TNT",
-        "summary": "Starkes Schwarzpulver (3 Schwarzpulver + 1 Lohenstaub -> 2) macht starke Raketen (Papier + 1 Starkes Schwarzpulver -> 3, Flugdauer 4) und Starkes TNT (wie TNT mit Starkem Schwarzpulver, Sprengkraft 6 statt 4). Vanilla-Schwarzpulver, -TNT und -Raketen bleiben unberührt.",
+        "summary": "Starkes Schwarzpulver (3 Schwarzpulver + 1 Lohenstaub -> 1) macht starke Raketen (Papier + 1 Starkes Schwarzpulver -> 3, Flugdauer 4) und Starkes TNT (wie TNT mit Starkem Schwarzpulver, Sprengkraft 6 statt 4). Vanilla-Schwarzpulver, -TNT und -Raketen bleiben unberührt.",
         "details": [
           "Wozu: eine starke Rakete brauchen Wither-/Nether-/End-/Leeren-Schwingen, um über dem Vanilla-Höchsttempo zu fliegen; Starkes TNT ist die größere Sprengung für Bergbau und Tunnel. Beides sind eigene Items, die man gezielt herstellt - kein Vanilla-Rezept und kein Vanilla-Verhalten ändert sich.",
           "Die starke Rakete ist eine Vanilla-Feuerwerksrakete mit Flugdauer 4, sie geht also auch mit den Elytren (längere Brenndauer, Vanilla-Tempo) und im Werfer. Ihr Tooltip zeigt die Flugdauer.",
@@ -862,10 +862,10 @@
     },
     "simplemobs:strong_gunpowder": {
       "en": {
-        "summary": "3 gunpowder + 1 blaze powder -> 2 (shapeless). Makes strong rockets and Strong TNT. Placeholder look: Vanilla gunpowder, tinted."
+        "summary": "3 gunpowder + 1 blaze powder -> 1 (shapeless). Makes strong rockets and Strong TNT. Placeholder look: Vanilla gunpowder, tinted."
       },
       "de": {
-        "summary": "3 Schwarzpulver + 1 Lohenstaub -> 2 (formlos). Macht starke Raketen und Starkes TNT. Platzhalter-Optik: Vanilla-Schwarzpulver, getönt."
+        "summary": "3 Schwarzpulver + 1 Lohenstaub -> 1 (formlos). Macht starke Raketen und Starkes TNT. Platzhalter-Optik: Vanilla-Schwarzpulver, getönt."
       }
     },
     "simplemobs:strong_tnt": {

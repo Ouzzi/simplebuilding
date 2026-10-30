@@ -226,6 +226,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.FINE_ELYTRA_PAD.asItem()))
                 // Versteckt, Ende der Easter-Kette (docs/SIMPLETWEAKS-UEBERNAHME.md, Spoiler).
                 .add(key(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick()));
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // IG31-9: half doors have no recipe and no tab any more (the owner wanted 1.5 wide ones), they stay for old worlds
+            builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
+                    .add(key(ModItems.OAK_DOOR_HALF_2))
+                    .add(key(ModItems.OAK_DOOR_HALF_3));
+        }
 
         // End-Paletten: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {

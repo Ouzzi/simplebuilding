@@ -62,7 +62,7 @@ final class StrongExplosivesTests {
         add.accept("strong_recipes", h -> {
             ItemStack powder = craft(h, "strong_gunpowder", 2, 2, List.of(new ItemStack(Items.GUNPOWDER), new ItemStack(Items.GUNPOWDER),
                     new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)));
-            h.assertTrue(powder.is(StrongExplosives.GUNPOWDER) && powder.getCount() == 2, "3 gunpowder + 1 blaze powder -> 2 Strong Gunpowder: " + powder);
+            h.assertTrue(powder.is(StrongExplosives.GUNPOWDER) && powder.getCount() == 1, "3 gunpowder + 1 blaze powder -> 1 Strong Gunpowder: " + powder);
             ItemStack rockets = craft(h, "strong_firework_rocket", 2, 1, List.of(new ItemStack(Items.PAPER), new ItemStack(StrongExplosives.GUNPOWDER)));
             h.assertTrue(rockets.is(Items.FIREWORK_ROCKET) && rockets.getCount() == 3 && WitherWings.strongRocket(rockets), "paper + Strong Gunpowder -> 3 strong rockets: " + rockets);
             ItemStack gunpowder = new ItemStack(StrongExplosives.GUNPOWDER);

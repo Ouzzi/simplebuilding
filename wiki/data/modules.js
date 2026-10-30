@@ -73,9 +73,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 506,
+      "items": 507,
       "blocks": 290,
-      "recipes": 828,
+      "recipes": 827,
       "config": 237,
       "features": 48
     }
@@ -148,7 +148,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 74
     },
-    "dataHash": "c85803633ec9"
+    "dataHash": "115419313a33"
   },
   {
     "id": "simpleriding",
@@ -514,11 +514,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 21,
+      "blocks": 20,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "ed66b7bbd64f"
+    "dataHash": "602f46a6cd88"
   },
   {
     "id": "simplelib",
@@ -692,7 +692,7 @@ window.WIKI_MODULES = [
       "recipes": 73,
       "features": 19
     },
-    "dataHash": "d31cefc4a7b5"
+    "dataHash": "a93f67462043"
   },
   {
     "id": "simpleweather",
@@ -1563,12 +1563,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
     "counts": {
-      "items": 18,
+      "items": 17,
       "blocks": 47,
-      "recipes": 184,
+      "recipes": 187,
       "features": 15
     },
-    "dataHash": "6fd1fe157c5c"
+    "dataHash": "7ce55e15ad05"
   },
   {
     "id": "simplemusic",
