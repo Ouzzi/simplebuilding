@@ -116,6 +116,10 @@
   "tip.simpleblocks.shapecutter": "Cuts stone and wood into stairs, slabs and more",
   "block.simpleblocks.sculk_tiles": "Sculk Tiles",
   "item.simpleblocks.sculk_tiles": "Sculk Tiles",
+  "block.simpleblocks.cracked_packed_ice": "Cracked Packed Ice",
+  "item.simpleblocks.cracked_packed_ice": "Cracked Packed Ice",
+  "block.simpleblocks.cracked_blue_ice": "Cracked Blue Ice",
+  "item.simpleblocks.cracked_blue_ice": "Cracked Blue Ice",
   "item.simpleblocks.guide_book": "Simple Blocks Guide",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate,",
@@ -146,9 +150,5 @@
   "quests.simpleblocks.start.title": "Welcome to Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Your free guide",
   "quests.simpleblocks.start.welcome.title": "A free guide",
-  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball.",
-  "block.simpleblocks.cracked_packed_ice": "Cracked Packed Ice",
-  "item.simpleblocks.cracked_packed_ice": "Cracked Packed Ice",
-  "block.simpleblocks.cracked_blue_ice": "Cracked Blue Ice",
-  "item.simpleblocks.cracked_blue_ice": "Cracked Blue Ice"
+  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball."
 }

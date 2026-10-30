@@ -116,6 +116,10 @@
   "tip.simpleblocks.shapecutter": "Schneidet Stein und Holz zu Treppen, Stufen und mehr",
   "block.simpleblocks.sculk_tiles": "Sculk-Fliesen",
   "item.simpleblocks.sculk_tiles": "Sculk-Fliesen",
+  "block.simpleblocks.cracked_packed_ice": "Rissiges Packeis",
+  "item.simpleblocks.cracked_packed_ice": "Rissiges Packeis",
+  "block.simpleblocks.cracked_blue_ice": "Rissiges Blaueis",
+  "item.simpleblocks.cracked_blue_ice": "Rissiges Blaueis",
   "item.simpleblocks.guide_book": "Simple-Blocks-Handbuch",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "Die fehlenden Baublöcke:",
@@ -146,9 +150,5 @@
   "quests.simpleblocks.start.title": "Willkommen bei Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleblocks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen.",
-  "block.simpleblocks.cracked_packed_ice": "Rissiges Packeis",
-  "item.simpleblocks.cracked_packed_ice": "Rissiges Packeis",
-  "block.simpleblocks.cracked_blue_ice": "Rissiges Blaueis",
-  "item.simpleblocks.cracked_blue_ice": "Rissiges Blaueis"
+  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen."
 }
