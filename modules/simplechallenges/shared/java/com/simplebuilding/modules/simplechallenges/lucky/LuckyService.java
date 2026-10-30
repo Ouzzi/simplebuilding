@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simplechallenges.lucky;
 import com.simplebuilding.modules.simplechallenges.SimpleChallenges;
 import com.simplebuilding.modules.simplechallenges.core.Active;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeRuntime;
+import com.simplebuilding.modules.simplechallenges.core.Gate;
 import com.simplebuilding.modules.simplechallenges.preset.LuckyMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -37,7 +38,7 @@ public final class LuckyService {
     public static boolean beforeBreak(Level level, net.minecraft.world.entity.player.Player player, BlockPos pos, BlockState state) {
         Active a = ChallengeRuntime.server();
         if (a == null || a.preset.lucky() == null || level.isClientSide() || !(level instanceof ServerLevel sl) || !(player instanceof ServerPlayer)) return true;
-        if (!SimpleChallenges.on() || player.isCreative() || state.hasBlockEntity() || !player.hasCorrectToolForDrops(state)) return true;
+        if (!SimpleChallenges.on() || Gate.creativeCheck.test(player) || state.hasBlockEntity() || !player.hasCorrectToolForDrops(state)) return true;
         Block drop = rolled(a, sl, state);
         if (drop == null || drop.asItem() == net.minecraft.world.item.Items.AIR) return true;
         ItemStack tool = player.getMainHandItem();

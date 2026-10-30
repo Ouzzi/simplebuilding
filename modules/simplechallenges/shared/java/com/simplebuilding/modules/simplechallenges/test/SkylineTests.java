@@ -4,6 +4,7 @@ import com.simplebuilding.modules.simplechallenges.core.Active;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeRuntime;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeService;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeState;
+import com.simplebuilding.modules.simplechallenges.core.Gate;
 import com.simplebuilding.modules.simplechallenges.core.PresetRegistry;
 import com.simplebuilding.modules.simplechallenges.lucky.BlockCatalog;
 import com.simplebuilding.modules.simplechallenges.lucky.LuckyService;
@@ -171,6 +172,8 @@ public final class SkylineTests {
             ChallengeService.deactivate(server);
             BlockPos pos = h.absolutePos(new BlockPos(0, 40, 0));
             AABB box = new AABB(pos).inflate(1.5);
+            ServerPlayer creative = h.makeMockServerPlayerInLevel();
+            Gate.creativeCheck = pl -> pl == creative; // mock players always report creative: only this one does
             try {
                 ServerPlayer p = miner(h);
                 // no challenge: Vanilla break
@@ -197,8 +200,6 @@ public final class SkylineTests {
                 check(h, items.size() == 1 && !items.get(0).getItem().isEmpty(), "one rolled block dropped");
                 items.get(0).discard();
                 // left to Vanilla: creative, no tool for drops, blocks with contents, non-survival blocks
-                ServerPlayer creative = h.makeMockServerPlayerInLevel();
-                creative.setGameMode(GameType.CREATIVE);
                 check(h, LuckyService.beforeBreak(level, creative, pos, Blocks.STONE.defaultBlockState()), "creative breaks normally");
                 ServerPlayer hand = h.makeMockServerPlayerInLevel();
                 hand.setGameMode(GameType.SURVIVAL);
@@ -221,6 +222,7 @@ public final class SkylineTests {
                     items.get(0).discard();
                 }
             } finally {
+                Gate.creativeCheck = net.minecraft.world.entity.player.Player::isCreative;
                 ChallengeService.deactivate(server);
                 wipe(level, pos.offset(-1, -1, -1), pos.offset(1, 1, 1));
             }
@@ -282,6 +284,7 @@ public final class SkylineTests {
             BlockPos o = new BlockPos(chunk.getPos().getMinBlockX(), at.getY(), chunk.getPos().getMinBlockZ() + 2);
             BlockPos oldOverride = SkylineService.originOverride;
             SkylineService.originOverride = o;
+            Gate.creativeCheck = pl -> false; // mock players always report creative
             try {
                 check(h, ChallengeService.activate(server, "skyline_block") == ChallengeService.Result.OK, "activated: " + PresetRegistry.problems());
                 Active a = ChallengeRuntime.server();
@@ -334,6 +337,7 @@ public final class SkylineTests {
                 ChallengeService.tick(server);
                 check(h, level.getBlockState(o).isAir(), "inert without a challenge");
             } finally {
+                Gate.creativeCheck = net.minecraft.world.entity.player.Player::isCreative;
                 ChallengeService.deactivate(server);
                 SkylineService.originOverride = oldOverride;
                 wipe(level, o.offset(-3, -3, -6), o.offset(22, 4, 6));

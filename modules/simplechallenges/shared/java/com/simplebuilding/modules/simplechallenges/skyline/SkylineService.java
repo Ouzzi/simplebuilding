@@ -3,6 +3,7 @@ package com.simplebuilding.modules.simplechallenges.skyline;
 import com.simplebuilding.modules.simplechallenges.SimpleChallenges;
 import com.simplebuilding.modules.simplechallenges.core.Active;
 import com.simplebuilding.modules.simplechallenges.core.ChallengeRuntime;
+import com.simplebuilding.modules.simplechallenges.core.Gate;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import net.minecraft.core.BlockPos;
@@ -174,7 +175,7 @@ public final class SkylineService {
         a.state.setDirty();
         sl.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
         Eggs.buildPortal(sl, pos);
-        if (!player.isCreative()) {
+        if (!Gate.creativeCheck.test(player)) {
             off.shrink(1);
             main.hurtAndBreak(8, player, InteractionHand.MAIN_HAND);
         }
