@@ -177,6 +177,10 @@ public final class SearchTabPlacement {
             // End-Kolben vor dem Schleimblock, also hinter den Kolbenstufen der Mod (die stehen hinter dem Klebekolben).
             out.add(Placement.before(REDSTONE_BLOCKS, Items.SLIME_BLOCK, ModItems.NIHIL_PISTON, ModItems.ASTRAL_PISTON));
         }
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // Simple Doors (WP-17 / BS28-2): behind the Vanilla oak door, next to their model.
+            out.add(Placement.after(BUILDING_BLOCKS, Items.OAK_DOOR, ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+        }
         if (com.simplebuilding.version.McVersion.END_RAILS) {
             // Schienen wie Vanilla in beiden Tabs hinter der Antriebsschiene; Redstone kommt im Suchtab zuerst.
             out.add(Placement.after(REDSTONE_BLOCKS, Items.POWERED_RAIL, ModItems.ASTRAL_RAIL, ModItems.NIHIL_RAIL));

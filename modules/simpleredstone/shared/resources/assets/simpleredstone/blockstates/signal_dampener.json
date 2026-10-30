@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=north,stage=0,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_0"
+    },
+    "facing=north,stage=0,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_0_on"
+    },
+    "facing=north,stage=1,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_1"
+    },
+    "facing=north,stage=1,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_1_on"
+    },
+    "facing=north,stage=2,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_2"
+    },
+    "facing=north,stage=2,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_2_on"
+    },
+    "facing=north,stage=3,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_3"
+    },
+    "facing=north,stage=3,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_3_on"
+    },
+    "facing=east,stage=0,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_0",
+      "y": 90
+    },
+    "facing=east,stage=0,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_0_on",
+      "y": 90
+    },
+    "facing=east,stage=1,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_1",
+      "y": 90
+    },
+    "facing=east,stage=1,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_1_on",
+      "y": 90
+    },
+    "facing=east,stage=2,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_2",
+      "y": 90
+    },
+    "facing=east,stage=2,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_2_on",
+      "y": 90
+    },
+    "facing=east,stage=3,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_3",
+      "y": 90
+    },
+    "facing=east,stage=3,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_3_on",
+      "y": 90
+    },
+    "facing=south,stage=0,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_0",
+      "y": 180
+    },
+    "facing=south,stage=0,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_0_on",
+      "y": 180
+    },
+    "facing=south,stage=1,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_1",
+      "y": 180
+    },
+    "facing=south,stage=1,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_1_on",
+      "y": 180
+    },
+    "facing=south,stage=2,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_2",
+      "y": 180
+    },
+    "facing=south,stage=2,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_2_on",
+      "y": 180
+    },
+    "facing=south,stage=3,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_3",
+      "y": 180
+    },
+    "facing=south,stage=3,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_3_on",
+      "y": 180
+    },
+    "facing=west,stage=0,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_0",
+      "y": 270
+    },
+    "facing=west,stage=0,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_0_on",
+      "y": 270
+    },
+    "facing=west,stage=1,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_1",
+      "y": 270
+    },
+    "facing=west,stage=1,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_1_on",
+      "y": 270
+    },
+    "facing=west,stage=2,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_2",
+      "y": 270
+    },
+    "facing=west,stage=2,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_2_on",
+      "y": 270
+    },
+    "facing=west,stage=3,powered=false": {
+      "model": "simpleredstone:block/signal_dampener_3",
+      "y": 270
+    },
+    "facing=west,stage=3,powered=true": {
+      "model": "simpleredstone:block/signal_dampener_3_on",
+      "y": 270
+    }
+  }
+}

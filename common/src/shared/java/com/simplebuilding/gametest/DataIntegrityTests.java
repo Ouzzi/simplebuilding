@@ -3215,6 +3215,9 @@ public final class DataIntegrityTests {
         if (McVersion.MUSIC_DISCS) {
             expected.add(CreativeTabLayout.Row.of("amplifiers", ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
+        if (McVersion.DOORS) {
+            expected.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+        }
 
         expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems), flowed(expected), "SimpleMachines", problems);
         helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);

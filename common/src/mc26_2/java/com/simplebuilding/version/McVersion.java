@@ -109,6 +109,8 @@ public final class McVersion {
     public static final boolean JUKEBOX_CHEST_PLAYLIST = false;
     /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
     public static final boolean END_RAILS = false;
+    /** Simple Doors (WP-17 / BS28-2): the 2x2, 2x3 and half-width oak doors; 26.3 only until the port run. */
+    public static final boolean DOORS = false;
     /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
     public static final boolean CRUCIBLE = false;
     /** Trim templates in SimpleBuilding: 26.2 has no modules, the templates stay {@code simplebuilding:*} here (26.3: Simple Trims). */

@@ -150,6 +150,22 @@ OUTPUTS = {
     'block/chiseled_warped_blazewood_bookshelf_empty.png': ((16, 16), 'abn29_2026_10_29.derived_core() - Vanilla blaze rod / chiseled bookshelf recoloured (a-abn29t, ABN29-5)'),
     'block/chiseled_warped_blazewood_bookshelf_occupied.png': ((16, 16), 'abn29_2026_10_29.derived_core() - Vanilla blaze rod / chiseled bookshelf recoloured (a-abn29t, ABN29-5)'),
     'block/chiseled_warped_blazewood_bookshelf_side.png': ((16, 16), 'abn29_2026_10_29.derived_core() - Vanilla blaze rod / chiseled bookshelf recoloured (a-abn29t, ABN29-5)'),
+    # Simple Doors (WP-17 / BS28-2): the cells of the wide and half oak doors; explicit lines for the Groovy fallback.
+    'block/oak_door_2x2_c0_r0.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x2_c0_r1.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x2_c1_r0.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x2_c1_r1.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x3_c0_r0.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x3_c0_r1.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x3_c0_r2.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x3_c1_r0.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x3_c1_r1.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_2x3_c1_r2.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_half2_r0.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_half2_r1.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_half3_r0.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_half3_r1.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
+    'block/oak_door_half3_r2.png': ((16, 16), 'doors_2026_10_29.derived() - Vanilla oak door rearranged (WP-17 / BS28-2)'),
 }
 # Module textures (namespace = module id, shipped by that module's own jars through gradle/module-vanilla-derived.gradle):
 # module -> {texture path under assets/<module>/textures/: (size, generator description)}.
@@ -182,7 +198,7 @@ MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures', 'abn29_
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23', 'abn29_core')
+                    'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23', 'abn29_core', 'doors_2026_10_29')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 # Shipped next to placeholder textures (assets/<ns>/<MARKER>, also by the Gradle fallbacks): the client logs an error

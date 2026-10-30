@@ -759,3 +759,7 @@ modules/simpleblocks/shared/resources/assets/simpleblocks/textures/block/shapecu
 wiki/assets/textures/simpleblocks/block/shapecutter_metal_top.png
 wiki/assets/textures/sheets/simplebuilding/simpleblocks/block/shapecutter_metal_top.png
 wiki/assets/textures/sheets/simpleblocks/simpleblocks/block/shapecutter_metal_top.png
+# Simple Doors (WP-17 / BS28-2): Vanilla-derived door cell textures are built, never committed (AGENTS.md rule 7)
+mc26_3/overlay/resources/assets/simplebuilding/textures/block/oak_door_*.png
+wiki/assets/textures/block/oak_door_*.png
+wiki/assets/textures/sheets/simplebuilding/simplebuilding/block/oak_door_*.png

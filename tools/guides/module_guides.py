@@ -216,6 +216,13 @@ MODULES = [
                 "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor "
                 "Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, "
                 "der Blöcke an Ort und Stelle dreht und tauscht, und der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst.")),
+    dict(module="simpleredstone", ns="simpleredstone", package="com.simpleredstone.guide", cls="RedstoneGuide", kind="item",
+         author="Simple Redstone", recipe="minecraft:redstone",
+         name=("Simple Redstone Guide", "Simple-Redstone-Handbuch"),
+         intro=("The Double Piston - two blocks long, one block out for a weak signal and two for a strong one - and the "
+                "Signal Dampener, a repeater that takes up to 3 off the signal.",
+                "Der Doppelkolben - zwei Blöcke lang, bei schwachem Signal einen Block weit draußen, bei starkem zwei - und der "
+                "Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),
@@ -286,6 +293,7 @@ QUEST = {
 }
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
+    "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
@@ -588,6 +596,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:stonecutter": ("stonecutter", "Steinmetz"),

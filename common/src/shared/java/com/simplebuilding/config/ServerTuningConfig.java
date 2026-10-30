@@ -244,6 +244,9 @@ public class ServerTuningConfig {
          */
         @ConfigEntry.Gui.Tooltip
         public boolean armorStandSwap = true;
+        /** Simple Doors (WP-17, 2026-10-29): the 2x2, 2x3 and half doors open by hand and redstone; aus: sie bleiben, wie sie stehen (zu). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean simpleDoors = true;
     }
 
     public static class ChunkLoaders {

@@ -1,0 +1,41 @@
+{
+  "textures": {
+    "sleeve": "simpleredstone:block/double_piston_barrel_side",
+    "open": "simpleredstone:block/double_piston_front_open",
+    "particle": "simpleredstone:block/double_piston_barrel_side"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#open"
+        },
+        "south": {
+          "texture": "#sleeve"
+        },
+        "east": {
+          "texture": "#sleeve"
+        },
+        "west": {
+          "texture": "#sleeve"
+        },
+        "up": {
+          "texture": "#sleeve"
+        },
+        "down": {
+          "texture": "#sleeve"
+        }
+      }
+    }
+  ]
+}

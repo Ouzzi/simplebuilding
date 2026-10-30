@@ -105,6 +105,8 @@ public final class McVersion {
     public static final boolean JUKEBOX_CHEST_PLAYLIST = true;
     /** Astral rail (boosts towards a raised top speed) and Nihil rail (brakes to a stop), fed by their End channel (2026-10-04). */
     public static final boolean END_RAILS = true;
+    /** Simple Doors (WP-17 / BS28-2): the 2x2, 2x3 and half-width oak doors; 26.3 only until the port run. */
+    public static final boolean DOORS = true;
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */

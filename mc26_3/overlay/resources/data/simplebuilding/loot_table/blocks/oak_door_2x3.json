@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "simplebuilding:oak_door_2x3",
+            "state": {
+              "col": "0",
+              "row": "0",
+              "swing": "false"
+            }
+          },
+          "name": "simplebuilding:oak_door_2x3"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplebuilding:blocks/oak_door_2x3"
+}

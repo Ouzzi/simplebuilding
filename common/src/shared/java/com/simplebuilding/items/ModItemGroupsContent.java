@@ -606,6 +606,10 @@ public final class ModItemGroupsContent {
             // Lautsprecher (2026-10-03): Astralit (Plattenspieler), Nihilit (Notenblock).
             rows.add(CreativeTabLayout.Row.of("amplifiers", ModItems.JUKEBOX_AMPLIFIER, ModItems.NOTE_AMPLIFIER));
         }
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // Simple Doors (WP-17 / BS28-2): the oak doors of 2x2, 2x3 and half width.
+            rows.add(CreativeTabLayout.Row.of("wide_doors", ModItems.OAK_DOOR_2X2, ModItems.OAK_DOOR_2X3, ModItems.OAK_DOOR_HALF_2, ModItems.OAK_DOOR_HALF_3));
+        }
         return rows;
     }
 
