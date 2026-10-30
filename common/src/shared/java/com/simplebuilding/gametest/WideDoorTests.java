@@ -213,7 +213,7 @@ public final class WideDoorTests {
      * IG31-9: a click that lands one cell too high (on the side of a stone one above the floor) still places the door on the floor
      * (the item tries the cells within two down and one sideways before it refuses); the half doors have no recipe any more.
      */
-    public static void placementToleratesAClickOneCellTooHigh(GameTestHelper h) {
+    public static void placementToleratesClickOneCellTooHigh(GameTestHelper h) {
         if (!McVersion.DOORS) {
             h.succeed();
             return;
