@@ -55,6 +55,8 @@ import org.jspecify.annotations.Nullable;
  *       edge into the row in front of it: open, only the hinge column stays (as {@code swing=false}) and the leaf's second block
  *       fills the cell in front of each hinge cell ({@code swing=true}); the free column becomes air (the opening). Opening needs the
  *       whole {@code cols x rows} area in front free (concept D1 A); closing needs the free column free again.</li>
+ *   <li><b>1.5 wide doors</b> ({@link DoorFormat#narrow}) behave exactly like the two-wide ones (same cells, same swing area), only
+ *       their leaf is 24 px: the second column and the swing cell hold a half-length (8 px) piece.</li>
  *   <li><b>Half doors</b> are one block wide, the leaf 8 px: it sits on the hinge half of the cell and swings inside the cell, so
  *       nothing needs to be free and no cell changes but its {@code open} state.</li>
  *   <li><b>Redstone</b> on any cell opens the door (rising edge) and closes it (falling edge), like Vanilla; a hand opens only
@@ -153,7 +155,9 @@ public final class WideDoorBlock extends Block {
         boolean left = state.getValue(HINGE) == DoorHingeSide.LEFT;
         boolean open = state.getValue(OPEN);
         Map<Direction, VoxelShape> shapes;
-        if (format.half) {
+        // 1.5 wide: the second column's leaf (closed) and the swing cell's leaf (open) are 8 px long, on the hinge side / next to the hinge cell
+        boolean stub = format.narrow && (open ? state.getValue(SWING) : state.getValue(COL) == 1);
+        if (format.half || stub) {
             shapes = open ? (left ? OPEN_HALF_LEFT : OPEN_HALF_RIGHT) : (left ? CLOSED_HALF_LEFT : CLOSED_HALF_RIGHT);
         } else {
             shapes = open ? (left ? OPEN_FULL_LEFT : OPEN_FULL_RIGHT) : CLOSED_FULL;

@@ -1,6 +1,7 @@
 package com.simpledinos.block;
 
 import com.simpledinos.DinoKind;
+import com.simpledinos.DinoVariants;
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.Progress;
 import com.simpledinos.config.DinosConfig;
@@ -222,6 +223,7 @@ public class DinoEggBlockEntity extends BlockEntity {
         if (!(entity instanceof Dino dino)) return false;
         BlockPos pos = this.worldPosition;
         dino.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, level.getRandom().nextFloat() * 360.0F, 0.0F);
+        dino.setCoat(DinoVariants.pick(level.getBiome(pos), level.getRandom())); // rearing biome: where the egg lay
         dino.hatch(player);
         level.removeBlock(pos, false);
         level.addFreshEntity(dino);

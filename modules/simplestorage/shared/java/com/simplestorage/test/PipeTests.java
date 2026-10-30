@@ -223,7 +223,7 @@ public final class PipeTests {
 
     /** An empty filter slot takes nothing from automation but anything from a player (that sets the filter). */
     public static void emptyFilterSlotOnlyTakesPlayerItems(GameTestHelper h) {
-        place(h, PIPE, "pipe", Direction.DOWN);
+        place(h, PIPE, "reinforced_pipe", Direction.DOWN);
         ItemPipeBlockEntity pipe = entity(h, PIPE);
         pipe.cycleFilterMode();
         List<String> problems = new ArrayList<>();
@@ -233,7 +233,7 @@ public final class PipeTests {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);
         PipeMenu menu = PipeMenu.server(1, player.getInventory(), pipe);
-        if (menu.filterMode() != 1 || menu.output() != Direction.DOWN || menu.tier() != PipeTier.BASIC) problems.add("menu data " + menu.filterMode() + "/" + menu.output() + "/" + menu.tier());
+        if (menu.filterMode() != 1 || menu.output() != Direction.DOWN || menu.tier() != PipeTier.REINFORCED) problems.add("menu data " + menu.filterMode() + "/" + menu.output() + "/" + menu.tier());
         if (!menu.getSlot(0).mayPlace(new ItemStack(Items.STONE))) problems.add("menu slot refused the first item");
         menu.getSlot(0).set(new ItemStack(Items.STONE, 2));
         if (menu.getSlot(0).mayPlace(new ItemStack(Items.DIRT))) problems.add("menu slot took dirt into a stone filter");
@@ -245,16 +245,16 @@ public final class PipeTests {
 
     /** Upgrading a pipe in the world keeps its item, filter and output. */
     public static void upgradeKeepsItemFilterAndOutput(GameTestHelper h) {
-        place(h, PIPE, "pipe", Direction.EAST);
+        place(h, PIPE, "reinforced_pipe", Direction.EAST);
         ItemPipeBlockEntity pipe = entity(h, PIPE);
         pipe.setItem(0, new ItemStack(Items.STONE, 5));
         pipe.cycleFilterMode();
         pipe.cycleFilterMode(); // kind
         List<String> problems = new ArrayList<>();
         BlockPos abs = h.absolutePos(PIPE);
-        Pipes.upgradeInPlace(h.getLevel(), abs, pipe("reinforced_pipe"));
+        Pipes.upgradeInPlace(h.getLevel(), abs, pipe("netherite_pipe"));
         BlockState now = h.getBlockState(PIPE);
-        if (now.getBlock() != pipe("reinforced_pipe") || now.getValue(ItemPipeBlock.FACING) != Direction.EAST) problems.add("state after the upgrade " + now);
+        if (now.getBlock() != pipe("netherite_pipe") || now.getValue(ItemPipeBlock.FACING) != Direction.EAST) problems.add("state after the upgrade " + now);
         ItemPipeBlockEntity upgraded = entity(h, PIPE);
         if (upgraded.getItem(0).getCount() != 5 || !upgraded.getItem(0).is(Items.STONE) || upgraded.filterMode() != 2) problems.add("contents " + upgraded.getItem(0) + " mode " + upgraded.filterMode());
         var entry = com.simplelib.api.InWorldUpgrades.entryFor(pipe("pipe"));
@@ -278,5 +278,64 @@ public final class PipeTests {
             int got = container(h, second.below()).countItem(Items.STONE);
             h.assertTrue(got == 12, "the chest at the end of the chain holds " + got + " of 12");
         });
+    }
+
+    private static ItemStack craft(GameTestHelper h, java.util.List<ItemStack> grid) {
+        var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, grid);
+        return h.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, h.getLevel())
+                .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
+    }
+
+    /** Eight iron ingots around a chest (the Vanilla hopper's material) make 4 pipes; the old copper-and-hopper grid and a ring around a hopper make none. */
+    public static void recipeIsIronAroundChest(GameTestHelper h) {
+        ItemStack iron = new ItemStack(Items.IRON_INGOT);
+        ItemStack chest = new ItemStack(Items.CHEST);
+        List<String> problems = new ArrayList<>();
+        ItemStack ring = craft(h, List.of(iron, iron, iron, iron, chest, iron, iron, iron, iron));
+        if (!ring.is(StorageItems.PIPES.get(PipeTier.BASIC)) || ring.getCount() != 4) problems.add("iron ring around a chest gave " + ring);
+        ItemStack hopper = craft(h, List.of(iron, iron, iron, iron, new ItemStack(Items.HOPPER), iron, iron, iron, iron));
+        if (!hopper.isEmpty()) problems.add("a ring around a hopper gave " + hopper);
+        ItemStack copper = craft(h, List.of(ItemStack.EMPTY, new ItemStack(Items.COPPER_INGOT), ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(Items.HOPPER),
+                ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(Items.COPPER_INGOT), ItemStack.EMPTY));
+        if (!copper.isEmpty()) problems.add("the old copper recipe still crafts " + copper);
+        ItemStack gap = craft(h, List.of(iron, iron, iron, iron, chest, iron, iron, iron, ItemStack.EMPTY));
+        if (!gap.isEmpty()) problems.add("seven iron gave " + gap);
+        h.assertTrue(problems.isEmpty(), "pipe recipe: " + problems);
+        h.succeed();
+    }
+
+    /** The filter is a feature of Reinforced and up: the first step ignores the key and moves everything, even with a stored mode. */
+    public static void firstStepHasNoFilter(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        for (PipeTier tier : PipeTier.values()) {
+            if (tier.canFilter() != (tier != PipeTier.BASIC)) problems.add(tier + " canFilter " + tier.canFilter());
+        }
+        place(h, PIPE, "pipe", Direction.DOWN);
+        ItemPipeBlockEntity pipe = entity(h, PIPE);
+        pipe.setItem(0, new ItemStack(Items.STONE, 3));
+        pipe.cycleFilterMode();
+        if (pipe.filterMode() != 0) problems.add("the first step took a filter mode (" + pipe.filterMode() + ")");
+        if (!pipe.canPlaceItem(0, new ItemStack(Items.DIRT))) problems.add("the first step refused dirt");
+        if (!pipe.canTakeItemThroughFace(0, new ItemStack(Items.STONE), Direction.DOWN)) problems.add("the first step keeps a last item back");
+        pipe.receiveUpgraded(new ItemStack(Items.STONE, 3), 1); // a mode that came along from somewhere
+        if (pipe.mode() != 0 || !pipe.canPlaceItem(0, new ItemStack(Items.DIRT))) problems.add("a stored mode counts on the first step");
+        Pipes.upgradeInPlace(h.getLevel(), h.absolutePos(PIPE), pipe("reinforced_pipe"));
+        ItemPipeBlockEntity upgraded = entity(h, PIPE);
+        if (upgraded.mode() != 1 || upgraded.canPlaceItem(0, new ItemStack(Items.DIRT))) problems.add("the mode did not start working after the upgrade (" + upgraded.mode() + ")");
+        h.assertTrue(problems.isEmpty(), "first step: " + problems);
+        h.succeed();
+    }
+
+    /** The window has the Vanilla hopper's rows: slot row at y 20, inventory at y 51, one slot in the middle of the five. */
+    public static void windowFollowsTheHopperLayout(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        if (PipeMenu.SLOT_Y != 20 || PipeMenu.INVENTORY_Y != 51 || PipeMenu.IMAGE_WIDTH != 176 || PipeMenu.SLOT_X != 80) problems.add("layout constants");
+        place(h, PIPE, "reinforced_pipe", Direction.DOWN);
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        PipeMenu menu = PipeMenu.server(1, player.getInventory(), entity(h, PIPE));
+        if (menu.getSlot(0).x != 80 || menu.getSlot(0).y != 20) problems.add("pipe slot at " + menu.getSlot(0).x + "," + menu.getSlot(0).y);
+        if (menu.slots.size() != 1 + 36 || menu.getSlot(1).x != 8 || menu.getSlot(1).y != 51) problems.add("inventory at " + menu.getSlot(1).x + "," + menu.getSlot(1).y + " slots " + menu.slots.size());
+        h.assertTrue(problems.isEmpty(), "window layout: " + problems);
+        h.succeed();
     }
 }

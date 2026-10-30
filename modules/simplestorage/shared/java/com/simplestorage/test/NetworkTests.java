@@ -357,4 +357,98 @@ public final class NetworkTests {
         h.assertTrue(problems.isEmpty(), "controller loot: " + problems);
         h.succeed();
     }
+
+    /** The compact totals of the list cells. */
+    public static void compactCountsAreShort(GameTestHelper h) {
+        Object[][] cases = {{0L, "0"}, {7L, "7"}, {999L, "999"}, {1000L, "1k"}, {1234L, "1.2k"}, {9999L, "9.9k"}, {10_000L, "10k"}, {32_000L, "32k"},
+                {32_999L, "32k"}, {999_999L, "999k"}, {1_000_000L, "1M"}, {5_400_000L, "5.4M"}, {32_000_000L, "32M"}, {1_073_741_823L, "1B"}};
+        List<String> problems = new ArrayList<>();
+        for (Object[] c : cases) {
+            String got = ChestNetwork.shortCount((Long) c[0]);
+            if (!got.equals(c[1])) problems.add(c[0] + " -> " + got + " expected " + c[1]);
+        }
+        h.assertTrue(problems.isEmpty(), "compact counts: " + problems);
+        h.succeed();
+    }
+
+    /** What a click takes: a whole stack (left), half a stack rounded up (right), at most what the network has. */
+    public static void takeAmountsAreStacksAndHalves(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        int[][] cases = {{64, 100, 0, 64}, {64, 100, 1, 32}, {16, 100, 0, 16}, {16, 100, 1, 8}, {1, 5, 0, 1}, {1, 5, 1, 1}, {64, 10, 0, 10}, {64, 10, 1, 10}, {64, 3, 1, 3}};
+        net.minecraft.world.item.Item[] items = {Items.STONE, Items.STONE, Items.ENDER_PEARL, Items.ENDER_PEARL, Items.DIAMOND_PICKAXE, Items.DIAMOND_PICKAXE, Items.STONE, Items.STONE, Items.STONE};
+        for (int i = 0; i < cases.length; i++) {
+            int got = ChestNetwork.takeAmount(new ItemStack(items[i]), cases[i][2] == 1, cases[i][1]);
+            if (got != cases[i][3]) problems.add(items[i] + " have " + cases[i][1] + (cases[i][2] == 1 ? " half" : " full") + " -> " + got + " expected " + cases[i][3]);
+        }
+        h.assertTrue(problems.isEmpty(), "take amounts: " + problems);
+        h.succeed();
+    }
+
+    /** The search: every word must match the id (underscores as spaces) or the name, @mod matches the mod id, an empty search keeps all. */
+    public static void searchFiltersByWordsAndMod(GameTestHelper h) {
+        List<ChestNetwork.Entry> all = new ArrayList<>();
+        for (net.minecraft.world.item.Item item : List.of(Items.STONE, Items.OAK_PLANKS, Items.DIAMOND_PICKAXE, Items.GOLD_INGOT)) all.add(new ChestNetwork.Entry(new ItemStack(item), 5));
+        String[][] cases = {{"", "4"}, {"   ", "4"}, {"oak", "1"}, {"OAK PLANK", "1"}, {"pickaxe diamond", "1"}, {"gold ingot", "1"}, {"ingot", "1"}, {"@minecraft", "4"},
+                {"@minecraft pickaxe", "1"}, {"@simplelib", "0"}, {"zzz", "0"}, {"oak zzz", "0"}};
+        List<String> problems = new ArrayList<>();
+        for (String[] c : cases) {
+            int got = ChestNetwork.filter(all, c[0]).size();
+            if (got != Integer.parseInt(c[1])) problems.add("'" + c[0] + "' -> " + got + " expected " + c[1]);
+        }
+        h.assertTrue(problems.isEmpty(), "search: " + problems);
+        h.succeed();
+    }
+
+    /** The window as a player drives it: search by menu clicks, backspace, clear, scrollbar jumps, half and full stacks. */
+    public static void windowSearchScrollAndStackTakes(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        container(h, UP_CHEST).setItem(0, new ItemStack(Items.STONE, 64));
+        container(h, UP_CHEST).setItem(1, new ItemStack(Items.STONE, 36));
+        container(h, SOUTH_CHEST).setItem(0, new ItemStack(Items.GOLD_INGOT, 3));
+        ServerPlayer player = player(h);
+        ControllerMenu menu = ControllerMenu.server(1, player.getInventory(), controller);
+        List<String> problems = new ArrayList<>();
+        // 100 stone: left click a full stack, right click half
+        menu.clicked(0, 0, ContainerInput.PICKUP, player);
+        if (menu.getCarried().getCount() != 64) problems.add("left click took " + menu.getCarried());
+        menu.setCarried(ItemStack.EMPTY);
+        menu.clicked(0, 1, ContainerInput.PICKUP, player);
+        if (menu.getCarried().getCount() != 32) problems.add("right click took " + menu.getCarried());
+        menu.setCarried(ItemStack.EMPTY);
+        // search "gold": one kind, by one click per character
+        for (char c : "gold".toCharArray()) menu.clickMenuButton(player, ControllerMenu.CHAR + c);
+        if (!menu.search().equals("gold") || menu.kinds() != 1 || !menu.getSlot(0).getItem().is(Items.GOLD_INGOT)) problems.add("search gold: '" + menu.search() + "' kinds " + menu.kinds());
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_BACK);
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_BACK);
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_BACK);
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_BACK);
+        if (!menu.search().isEmpty() || menu.kinds() != 2) problems.add("after backspaces: '" + menu.search() + "' kinds " + menu.kinds());
+        menu.clickMenuButton(player, ControllerMenu.CHAR + 'x');
+        if (menu.kinds() != 0) problems.add("search x kinds " + menu.kinds());
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_CLEAR);
+        if (!menu.search().isEmpty() || menu.kinds() != 2) problems.add("after clear kinds " + menu.kinds());
+        // a click on a hidden kind takes nothing from an empty cell
+        menu.clickMenuButton(player, ControllerMenu.CHAR + 'q');
+        menu.clicked(0, 0, ContainerInput.PICKUP, player);
+        if (!menu.getCarried().isEmpty()) problems.add("an empty cell gave " + menu.getCarried());
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SEARCH_CLEAR);
+        // the scrollbar: more kinds than the 45 cells, the jump clamps to the last row
+        int placed = 0;
+        for (net.minecraft.world.item.Item item : BuiltInRegistries.ITEM) {
+            if (item == Items.AIR || item == Items.STONE || item == Items.GOLD_INGOT || placed >= 60) continue;
+            if (placed < 36) controller.setItem(placed, new ItemStack(item));
+            else container(h, SOUTH_CHEST).setItem(placed - 36 + 1, new ItemStack(item));
+            placed++;
+        }
+        menu.clickMenuButton(player, ControllerMenu.BUTTON_SORT);
+        menu.refresh();
+        if (menu.maxScroll() < 1) problems.add("no scroll range for " + menu.kinds() + " kinds");
+        menu.clickMenuButton(player, ControllerMenu.SCROLL_MAX);
+        if (menu.scrollRow() != menu.maxScroll()) problems.add("a jump past the end gave row " + menu.scrollRow() + " of " + menu.maxScroll());
+        menu.clickMenuButton(player, ControllerMenu.SCROLL_TO);
+        if (menu.scrollRow() != 0) problems.add("a jump to row 0 gave " + menu.scrollRow());
+        if (menu.clickMenuButton(player, 50)) problems.add("button 50 must be unknown");
+        h.assertTrue(problems.isEmpty(), "window search/scroll: " + problems);
+        h.succeed();
+    }
 }

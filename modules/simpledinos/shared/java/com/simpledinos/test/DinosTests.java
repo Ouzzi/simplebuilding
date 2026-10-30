@@ -1,6 +1,7 @@
 package com.simpledinos.test;
 
 import com.simpledinos.DinoKind;
+import com.simpledinos.DinoVariants;
 import com.simpledinos.DinosRegistry;
 import com.simpledinos.Progress;
 import com.simpledinos.SimpleDinos;
@@ -16,12 +17,14 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
@@ -31,6 +34,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -55,6 +60,23 @@ public final class DinosTests {
         Vec3 pos = h.absoluteVec(new Vec3(x + 0.5, 1.0, z + 0.5));
         p.setPos(pos.x, pos.y, pos.z);
         return p;
+    }
+
+    private static Holder<Biome> biome(GameTestHelper h, ResourceKey<Biome> key) {
+        return h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(key);
+    }
+
+    /** One coat at home in one biome: nobody else is, the weighted pick favours it and every other coat still appears now and then. */
+    private static void checkHome(GameTestHelper h, int coat, Holder<Biome> biome, String what) {
+        h.assertTrue(DinoVariants.atHome(coat, biome), what + " is at home");
+        for (int other = 0; other < DinoVariants.COATS.size(); other++) {
+            if (other != coat) h.assertTrue(!DinoVariants.atHome(other, biome), what + ": coat " + other + " is not at home too");
+        }
+        RandomSource random = RandomSource.create(777L + coat);
+        int[] count = new int[DinoVariants.COATS.size()];
+        for (int i = 0; i < 1000; i++) count[DinoVariants.pick(biome, random)]++;
+        h.assertTrue(count[coat] * 100 >= 1000 * 55, what + ": the home coat is the most common (" + count[coat] + " of 1000)");
+        for (int i = 0; i < count.length; i++) h.assertTrue(count[i] > 0, what + ": coat " + i + " still appears now and then");
     }
 
     private static FossilBlockEntity fossil(GameTestHelper h, BlockPos rel) {
@@ -265,6 +287,7 @@ public final class DinosTests {
             Trex baby = found.get(0);
             h.assertTrue(baby.isBaby() && baby.isTamed() && baby.getOwner() != null && baby.getOwner().getUUID().equals(owner.getUUID()), "a tame baby that belongs to the player who sat");
             h.assertTrue(baby.growth() == 0 && baby.getAgeScale() == Dino.MIN_SCALE, "25 % of the size at the start");
+            h.assertTrue(baby.coat() >= 0 && baby.coat() < DinoVariants.COATS.size(), "the hatchling has a coat of its rearing biome");
             baby.discard();
             h.succeed();
         });
@@ -370,6 +393,33 @@ public final class DinosTests {
             wild.mobInteract(p, InteractionHand.MAIN_HAND);
             h.assertTrue(!wild.isTamed() && wild.getPassengers().isEmpty(), "an untamed T. rex is not tamed by riding");
             wild.discard();
+            h.succeed();
+        });
+        ALL.put("dino_variant_catalog", h -> {
+            h.assertTrue(DinoVariants.COATS.size() == 5 && DinoVariants.name(0).equals("olive") && DinoVariants.name(1).equals("sand")
+                    && DinoVariants.name(2).equals("rust") && DinoVariants.name(3).equals("moss") && DinoVariants.name(4).equals("ash"), "five coats, stored indices keep their meaning");
+            h.assertTrue(DinoVariants.clamp(-4) == 0 && DinoVariants.clamp(99) == 4 && DinoVariants.name(99).equals("ash"), "clamp");
+            checkHome(h, 0, biome(h, Biomes.PLAINS), "olive in plains (standard)");
+            checkHome(h, 0, biome(h, Biomes.FOREST), "olive in forest (standard)");
+            checkHome(h, 1, biome(h, Biomes.DESERT), "sand in desert");
+            checkHome(h, 1, biome(h, Biomes.SAVANNA), "sand in savanna");
+            checkHome(h, 2, biome(h, Biomes.BADLANDS), "rust in badlands");
+            checkHome(h, 3, biome(h, Biomes.JUNGLE), "moss in jungle");
+            checkHome(h, 3, biome(h, Biomes.SWAMP), "moss in swamp");
+            checkHome(h, 4, biome(h, Biomes.TAIGA), "ash in taiga");
+            h.succeed();
+        });
+        ALL.put("dino_coat_state", h -> {
+            Trex trex = h.spawn(DinosRegistry.TREX, at(8, 8));
+            trex.setPersistenceRequired();
+            h.assertTrue(trex.coat() >= 0 && trex.coat() < DinoVariants.COATS.size(), "a spawned dinosaur has a valid coat");
+            trex.setCoat(99);
+            h.assertTrue(trex.coat() == 4, "too large is clamped");
+            trex.setCoat(-2);
+            h.assertTrue(trex.coat() == 0, "negative is clamped");
+            trex.setCoat(2);
+            h.assertTrue(trex.coat() == 2, "a valid coat stays");
+            trex.discard();
             h.succeed();
         });
         ALL.put("guide_book", com.simpledinos.guide.DinosGuide::gameTest);

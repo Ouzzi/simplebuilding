@@ -419,6 +419,23 @@ public final class ModScreenStyle {
         return true;
     }
 
+    /**
+     * A sheet of paper as a box (the blueprint editor, UI28-1): the same frame, stepped corners and shadow as every Simple
+     * panel, {@code fill} as the paper. Paper stays paper: the inventory brightness does not darken it, as the dark ink
+     * would then vanish on it. {@code false} = not drawn (toggle off), the screen then paints its old flat sheet.
+     */
+    public static boolean paper(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
+        if (!panels()) return false;
+        com.simplelib.api.client.ui.UiBrightness saved = com.simplelib.api.client.ui.UiBrightness.current();
+        com.simplelib.api.client.ui.UiBrightness.set(com.simplelib.api.client.ui.UiBrightness.LIGHT);
+        try {
+            UiBoxes.box(g, x, y, w, h, palette(fill));
+        } finally {
+            com.simplelib.api.client.ui.UiBrightness.set(saved);
+        }
+        return true;
+    }
+
     /** A light sunk field (lists, summaries) in the inventory grey, dark text reads on it like on Vanilla's panels. */
     public static boolean field(GuiGraphicsExtractor g, int fill, int x, int y, int w, int h) {
         if (!panels()) return false;

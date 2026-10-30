@@ -158,6 +158,8 @@
   "tooltip.simplestorage.controller.sort": "Sortieren: Menge oder Name",
   "tooltip.simplestorage.controller.chests": "Verbundene Truhen / Grenze",
   "tooltip.simplestorage.controller.rejected": "%s Truhen zu hoch, ignoriert",
+  "tooltip.simplestorage.controller.search": "Suche: Name, ID, @Mod; Rechtsklick leert",
+  "gui.simplestorage.controller.search": "Suchen...",
   "gui.simplestorage.controller.sort.count": "Menge",
   "gui.simplestorage.controller.sort.name": "Name",
   "gui.simplestorage.controller.broken": "Controller kaputt",

@@ -25,9 +25,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ControllerMenu extends AbstractContainerMenu {
     public static final int COLUMNS = 9, ROWS = 5, CELLS = COLUMNS * ROWS;
-    public static final int BUTTON_UP = 0, BUTTON_DOWN = 1, BUTTON_SORT = 2;
+    public static final int BUTTON_UP = 0, BUTTON_DOWN = 1, BUTTON_SORT = 2, BUTTON_SEARCH_CLEAR = 3, BUTTON_SEARCH_BACK = 4;
+    /** Menu button ids: {@code SCROLL_TO + row} jumps to a row (the scrollbar), {@code CHAR + codepoint} appends a character to the search. */
+    public static final int SCROLL_TO = 100, SCROLL_MAX = 999, CHAR = 1000;
     /** Window geometry (menu and screen use the same numbers). */
-    public static final int IMAGE_WIDTH = 176, VIEW_X = 8, VIEW_Y = 30, INVENTORY_Y = 140, IMAGE_HEIGHT = 222;
+    public static final int IMAGE_WIDTH = 194, VIEW_X = 8, VIEW_Y = 30, INVENTORY_Y = 140, IMAGE_HEIGHT = 222, INVENTORY_X = 16;
     /** Data slot numbers. */
     public static final int D_STATUS = 0, D_CHESTS = 1, D_LIMIT = 2, D_REJECTED = 3, D_SCROLL = 4, D_MAX_SCROLL = 5, D_SORT = 6, D_KINDS = 7, D_STEP = 8, D_COUNTS = 9;
     private static final int DATA_COUNT = D_COUNTS + 2 * CELLS;
@@ -40,6 +42,7 @@ public class ControllerMenu extends AbstractContainerMenu {
     private List<ChestNetwork.Entry> entries = List.of();
     private ChestNetwork.Sort sort = ChestNetwork.Sort.COUNT;
     private int scroll;
+    private String search = "";
     private int ticks;
     private boolean dirty = true;
 
@@ -70,7 +73,7 @@ public class ControllerMenu extends AbstractContainerMenu {
                 }
             });
         }
-        addStandardInventorySlots(inventory, 8, INVENTORY_Y);
+        addStandardInventorySlots(inventory, INVENTORY_X, INVENTORY_Y);
         addDataSlots(this.data);
         if (controller != null) {
             controller.startOpen(inventory.player);
@@ -117,6 +120,11 @@ public class ControllerMenu extends AbstractContainerMenu {
         return ControllerLevel.values()[Math.floorMod(this.data.get(D_STEP), ControllerLevel.values().length)];
     }
 
+    /** The search text the server filters by (tests). */
+    public String search() {
+        return this.search;
+    }
+
     public int kinds() {
         return this.data.get(D_KINDS);
     }
@@ -148,7 +156,8 @@ public class ControllerMenu extends AbstractContainerMenu {
         set(D_STEP, controller.step().ordinal());
         set(D_REJECTED, members.rejected());
         set(D_SORT, this.sort.ordinal());
-        this.entries = status == ChestNetwork.Status.OK ? new ChestNetwork.Storage(level, controller, members, this.player).entries(this.sort) : List.of();
+        this.entries = status == ChestNetwork.Status.OK
+                ? ChestNetwork.filter(new ChestNetwork.Storage(level, controller, members, this.player).entries(this.sort), this.search) : List.of();
         int maxScroll = Math.max(0, (this.entries.size() + COLUMNS - 1) / COLUMNS - ROWS);
         this.scroll = Math.max(0, Math.min(this.scroll, maxScroll));
         set(D_SCROLL, this.scroll);
@@ -180,8 +189,24 @@ public class ControllerMenu extends AbstractContainerMenu {
             case BUTTON_UP -> this.scroll = Math.max(0, this.scroll - 1);
             case BUTTON_DOWN -> this.scroll = this.scroll + 1;
             case BUTTON_SORT -> this.sort = this.sort.next();
+            case BUTTON_SEARCH_CLEAR -> {
+                this.search = "";
+                this.scroll = 0;
+            }
+            case BUTTON_SEARCH_BACK -> {
+                if (!this.search.isEmpty()) this.search = this.search.substring(0, this.search.offsetByCodePoints(this.search.length(), -1));
+                this.scroll = 0;
+            }
             default -> {
-                return false;
+                if (id >= SCROLL_TO && id <= SCROLL_MAX) {
+                    this.scroll = id - SCROLL_TO;
+                } else if (id >= CHAR && id <= CHAR + Character.MAX_CODE_POINT && this.search.codePointCount(0, this.search.length()) < ChestNetwork.MAX_SEARCH
+                        && !Character.isISOControl(id - CHAR)) {
+                    this.search += new String(Character.toChars(id - CHAR));
+                    this.scroll = 0;
+                } else {
+                    return false;
+                }
             }
         }
         refresh();
@@ -220,12 +245,12 @@ public class ControllerMenu extends AbstractContainerMenu {
                 return;
             }
             ItemStack kind = this.entries.get(index).kind();
-            int stack = kind.getMaxStackSize();
+            long available = this.entries.get(index).count();
             if (input == ContainerInput.PICKUP && carried.isEmpty()) {
-                ItemStack taken = storage.take(kind, button == 1 ? (stack + 1) / 2 : stack);
+                ItemStack taken = storage.take(kind, ChestNetwork.takeAmount(kind, button == 1, available));
                 if (!taken.isEmpty()) setCarried(taken);
             } else if (input == ContainerInput.QUICK_MOVE) {
-                ItemStack taken = storage.take(kind, stack);
+                ItemStack taken = storage.take(kind, ChestNetwork.takeAmount(kind, false, available));
                 if (!taken.isEmpty()) {
                     player.getInventory().add(taken);
                     if (!taken.isEmpty()) storage.insert(taken);

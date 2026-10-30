@@ -15,7 +15,8 @@
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/enderite_sledgehammer_smithing.json",
         "modules/simplehammers/shared/resources/data/simplehammers/tags/item/sledgehammers.json",
         "modules/simplehammers/shared/java/com/simplehammers/client/HammerAreaClient.java",
-        "modules/simplehammers/shared/java/com/simplehammers/client/HammerVisuals.java"
+        "modules/simplehammers/shared/java/com/simplehammers/client/HammerVisuals.java",
+        "modules/simplehammers/shared/resources/data/simplehammers/recipe/rose_bronze_sledgehammer.json"
       ],
       "en": {
         "title": "Sledgehammers: mining a whole area",
@@ -26,7 +27,8 @@
           "Durability is four times a pickaxe of the tier (Stone 760 ... Enderite 10000); every broken block costs 2, a block of the area it is not the right tool for one more. Netherite and Enderite hammers do not burn.",
           "Mining time: the area time is computed on client and server alike; switching between sneaking (one block) and the area while mining converts the progress, so it never jumps ahead.",
           "Other mods may replace the area (SimpleBuilding: an octant with a selection in the off hand) through SimpleLib's HammerActions.",
-          "While a sledgehammer is in the main hand, an outline with a faint fill marks every further block the swing takes along, and while mining them they show breaking cracks too; both follow the same list as the server. SimpleBuilding's highlight key and its option buildingHighlightOpacity (default 40) steer the outline when it is installed."
+          "While a sledgehammer is in the main hand, an outline with a faint fill marks every further block the swing takes along, and while mining them they show breaking cracks too; both follow the same list as the server. SimpleBuilding's highlight key and its option buildingHighlightOpacity (default 40) steer the outline when it is installed.",
+          "Optional (only with Simple Ores installed, otherwise not registered at all): the Rose Bronze Sledgehammer (base durability 250 like iron, strike gap 23) and the Blossom Gold Sledgehammer (225, gap 22), made like the Gold one from a block and two ingots of the alloy; the area, tempo and tool tier follow the two alloys of Simple Ores (mines like iron)."
         ]
       },
       "de": {
@@ -38,7 +40,8 @@
           "Haltbarkeit: das Vierfache einer Spitzhacke der Stufe (Stein 760 ... Enderit 10000); jeder abgebaute Block kostet 2, ein Block der Fläche, für den er nicht das richtige Werkzeug ist, einen mehr. Netherit- und Enderit-Hämmer verbrennen nicht.",
           "Abbauzeit: Client und Server rechnen die Flächenzeit gleich; wer beim Abbauen zwischen Schleichen (ein Block) und Fläche wechselt, behält die Abbauzeit, der Fortschritt springt nie vor.",
           "Andere Mods können die Fläche ersetzen (SimpleBuilding: ein Oktant mit Auswahl in der Nebenhand), über SimpleLibs HammerActions.",
-          "Solange ein Vorschlaghammer in der Haupthand liegt, markiert ein Umriss mit zarter Füllung jeden weiteren Block, den der Schlag mitnimmt, und beim Abbauen zeigen sie ebenfalls Risse; beides folgt derselben Liste wie der Server. Ist SimpleBuilding installiert, steuern seine Hervorhebungs-Taste und seine Option buildingHighlightOpacity (Standard 40) den Umriss."
+          "Solange ein Vorschlaghammer in der Haupthand liegt, markiert ein Umriss mit zarter Füllung jeden weiteren Block, den der Schlag mitnimmt, und beim Abbauen zeigen sie ebenfalls Risse; beides folgt derselben Liste wie der Server. Ist SimpleBuilding installiert, steuern seine Hervorhebungs-Taste und seine Option buildingHighlightOpacity (Standard 40) den Umriss.",
+          "Optional (nur mit Simple Ores, sonst gar nicht registriert): der Rosenbronze-Vorschlaghammer (Grundhaltbarkeit 250 wie Eisen, Schlagabstand 23) und der Blütengold-Vorschlaghammer (225, Abstand 22), hergestellt wie der goldene aus einem Block und zwei Barren der Legierung; Fläche, Tempo und Werkzeugstufe folgen den beiden Legierungen von Simple Ores (baut ab wie Eisen)."
         ]
       },
       "related": [
@@ -48,7 +51,9 @@
         "simplehammers:gold_sledgehammer",
         "simplehammers:diamond_sledgehammer",
         "simplehammers:netherite_sledgehammer",
-        "simplehammers:enderite_sledgehammer"
+        "simplehammers:enderite_sledgehammer",
+        "simplehammers:rose_bronze_sledgehammer",
+        "simplehammers:blossom_gold_sledgehammer"
       ]
     },
     {

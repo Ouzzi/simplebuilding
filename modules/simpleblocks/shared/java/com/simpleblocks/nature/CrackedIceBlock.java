@@ -23,7 +23,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Rissiges Eis (Besitzer N25): wer darauf steht, laesst es reissen - jede Sekunde mit jemandem darauf eine Stufe mehr
- * (Modelle auf Vanillas {@code frosted_ice_0..3}, N53 wieder wie vor N52), nach der letzten Stufe bricht es weg (ohne Wasserquelle, Nachtrag 35). Steht niemand mehr darauf, bleibt der erreichte Riss stehen. Sonst verhaelt es sich wie Eis
+ * (ABN30-7: Texturen aus Vanillas Eis abgeleitet, Variante B Trittbruch, tools/textures/ice31_2026_10_30.py), nach der letzten Stufe bricht es weg (ohne Wasserquelle, Nachtrag 35). Steht niemand mehr darauf, bleibt der erreichte Riss stehen. Sonst verhaelt es sich wie Eis
  * (Licht schmilzt es, abgebaut hinterlaesst es anders als Eis kein Wasser).
  *
  * <p>N53 (Besitzer 2026-10-13): zwischen Eis getarnt - Eis und rissiges Eis blenden die gemeinsamen Flaechen aus wie
@@ -44,15 +44,25 @@ public class CrackedIceBlock extends IceBlock {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (!level.isClientSide() && entity instanceof LivingEntity && !entity.isSpectator()
-                && !level.getBlockTicks().hasScheduledTick(pos, this)) {
-            level.scheduleTick(pos, this, TICKS_PER_CRACK);
-        }
+        scheduleCrack(level, pos, this, entity, TICKS_PER_CRACK);
         super.stepOn(level, pos, state, entity);
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        crack(state, level, pos, this, TICKS_PER_CRACK);
+    }
+
+    /** Eine Lebewesen betritt den Block: der naechste Riss wird eingeplant (geteilt mit {@link CrackedHardIceBlock}, ABN30-7). */
+    static void scheduleCrack(Level level, BlockPos pos, Block self, Entity entity, int ticksPerCrack) {
+        if (!level.isClientSide() && entity instanceof LivingEntity && !entity.isSpectator()
+                && !level.getBlockTicks().hasScheduledTick(pos, self)) {
+            level.scheduleTick(pos, self, ticksPerCrack);
+        }
+    }
+
+    /** Eine Rissstufe weiter, solange jemand darauf steht; nach der letzten bricht der Block weg (ohne Wasser, Nachtrag 35). */
+    static void crack(BlockState state, ServerLevel level, BlockPos pos, Block self, int ticksPerCrack) {
         if (!isStoodOn(level, pos)) {
             return;
         }
@@ -60,9 +70,8 @@ public class CrackedIceBlock extends IceBlock {
         if (age < MAX_AGE) {
             level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
             level.playSound(null, pos, SoundEvents.GLASS_HIT, SoundSource.BLOCKS, 0.7F, 0.6F + 0.15F * age);
-            level.scheduleTick(pos, this, TICKS_PER_CRACK);
+            level.scheduleTick(pos, self, ticksPerCrack);
         } else {
-            // Einbrechen: das Eis bricht weg und hinterlaesst keine Wasserquelle (Nachtrag 35).
             level.destroyBlock(pos, false);
         }
     }

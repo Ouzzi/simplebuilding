@@ -19,6 +19,7 @@ public final class ContainersForgeClient {
         com.simplebuilding.modules.simpleinterfaces.client.StyleToggleClient.development =
                 !net.minecraftforge.fml.loading.FMLEnvironment.production;
         event.register(com.simplebuilding.modules.simpleinterfaces.client.StyleToggleClient.KEY);
+        event.register(com.simplebuilding.modules.simpleinterfaces.client.KeysClient.KEY);
     }
 
     @net.minecraftforge.eventbus.api.listener.SubscribeEvent

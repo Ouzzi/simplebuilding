@@ -11,7 +11,10 @@ public enum HammerTiers {
     GOLD("gold", ToolMaterial.GOLD, 5, -2.8F, 32, 22, 22),
     DIAMOND("diamond", ToolMaterial.DIAMOND, 7, -2.8F, 1561, 10, 21),
     NETHERITE("netherite", ToolMaterial.NETHERITE, 8, -2.6F, 2031, 15, 20),
-    ENDERITE("enderite", Holder.MATERIAL, 9, -2.4F, 2500, 18, 19);
+    ENDERITE("enderite", Holder.MATERIAL, 9, -2.4F, 2500, 18, 19),
+    /** Optional tiers (ABN30-10): exist only while Simple Ores is loaded; the numbers copy its two alloys, tempo like gold/iron. */
+    ROSE_BRONZE("rose_bronze", Holder.ROSE_BRONZE, 5, -2.8F, 250, 20, 23, "simpleores"),
+    BLOSSOM_GOLD("blossom_gold", Holder.BLOSSOM_GOLD, 5, -2.8F, 225, 22, 22, "simpleores");
 
     public final String name;
     public final ToolMaterial material;
@@ -26,8 +29,16 @@ public enum HammerTiers {
      * Crucible upgrade before the change), Enderite one tick faster, every tier below one tick slower - small steps.
      */
     public final int strikeInterval;
+    /** The mod this tier needs (null = always there). Never a hard requirement: without it the tier is simply not registered. */
+    public final String requiredMod;
 
     HammerTiers(String name, ToolMaterial material, int attackDamage, float attackSpeed, int baseDurability, int enchantability, int strikeInterval) {
+        this(name, material, attackDamage, attackSpeed, baseDurability, enchantability, strikeInterval, null);
+    }
+
+    HammerTiers(String name, ToolMaterial material, int attackDamage, float attackSpeed, int baseDurability, int enchantability, int strikeInterval,
+                String requiredMod) {
+        this.requiredMod = requiredMod;
         this.strikeInterval = strikeInterval;
         this.name = name;
         this.material = material;
@@ -39,6 +50,11 @@ public enum HammerTiers {
 
     public String id() {
         return name + "_sledgehammer";
+    }
+
+    /** Whether this tier exists in the running game (the always-there tiers, or its optional mod is loaded). */
+    public boolean enabled() {
+        return requiredMod == null || SimpleHammers.isLoaded(requiredMod);
     }
 
     public boolean fireResistant() {
@@ -58,5 +74,12 @@ public enum HammerTiers {
         static final ToolMaterial MATERIAL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2530, 10.0F, 5.0F, 18,
                 net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
                         net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "repairs_enderite_equipment")));
+        /** Copies of Simple Ores' tool materials (this mod must not import it): iron durability/tempo 11, resp. 225/gold tempo 12. */
+        static final ToolMaterial ROSE_BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 11.0F, 0.0F, 20,
+                net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "repairs_rose_bronze_equipment")));
+        static final ToolMaterial BLOSSOM_GOLD = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 225, 12.0F, 0.0F, 22,
+                net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "repairs_blossom_gold_equipment")));
     }
 }

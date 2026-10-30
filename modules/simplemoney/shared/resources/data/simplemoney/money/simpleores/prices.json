@@ -1,0 +1,8 @@
+{
+  "module": "simpleores",
+  "derivation": "Simple Ores sells nothing for money: silver and rose gold are found, smelted and crafted; the raw materials and ingots are the currency of crafting, not of trade.",
+  "excluded": {
+    "simpleores:guide_book": "Crafted from a book and raw gold."
+  },
+  "prices": []
+}

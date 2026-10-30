@@ -1,5 +1,6 @@
 package com.simpleanimals.client;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.SimpleAnimals;
 import com.simpleanimals.entity.Hedgehog;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -7,9 +8,10 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
-/** Hedgehog with two coat variants (brown, grey) and the curl blend for the animation. */
+/** Hedgehog with coat variants by biome ({@link AnimalVariants}). */
 public class HedgehogRenderer extends MobRenderer<Hedgehog, HedgehogRenderer.State, HedgehogModel> {
-    private static final Identifier[] TEXTURES = {SimpleAnimals.id("textures/entity/hedgehog/brown.png"), SimpleAnimals.id("textures/entity/hedgehog/grey.png")};
+    private static final Identifier[] TEXTURES = AnimalVariants.HEDGEHOG.stream()
+            .map(v -> SimpleAnimals.id("textures/entity/hedgehog/" + v.name() + ".png")).toArray(Identifier[]::new);
 
     public static class State extends LivingEntityRenderState {
         public int variant;
@@ -22,7 +24,7 @@ public class HedgehogRenderer extends MobRenderer<Hedgehog, HedgehogRenderer.Sta
 
     @Override
     public Identifier getTextureLocation(State state) {
-        return TEXTURES[state.variant == 1 ? 1 : 0];
+        return TEXTURES[AnimalVariants.clamp(AnimalVariants.HEDGEHOG, state.variant)];
     }
 
     @Override

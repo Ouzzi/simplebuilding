@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#simpleores:has_end_silver_ore",
+  "features": "simpleores:end_silver_ore",
+  "step": "underground_ores"
+}

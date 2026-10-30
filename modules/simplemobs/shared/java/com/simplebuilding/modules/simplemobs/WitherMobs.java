@@ -86,6 +86,7 @@ public final class WitherMobs {
         sink.accept(HEART_BLOCK_KEY, HEART_BLOCK);
         sink.accept(GEM_BLOCK_KEY, GEM_BLOCK);
         StrongExplosives.blocks(sink);
+        com.simplebuilding.modules.simplemobs.trials.Trials.blocks(sink);
     }
 
     public static void items(BiConsumer<ResourceKey<Item>, Item> sink) {
@@ -93,6 +94,7 @@ public final class WitherMobs {
         sink.accept(GEM_KEY, GEM);
         WitherWings.items(sink);
         StrongExplosives.items(sink);
+        com.simplebuilding.modules.simplemobs.trials.Trials.items(sink);
     }
 
     /** Fabric: direct registration. */

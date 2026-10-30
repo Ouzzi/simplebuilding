@@ -127,6 +127,7 @@ public final class ConfigOptions {
             "enableSimpleAnimals",
             "enableSimpleRedstone",
             "enableSimpleDinos",
+            "enableSimpleOres",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

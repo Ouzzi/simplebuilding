@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "simpleores:blossom_gold"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "simpleores:blossom_gold"
+      }
+    ]
+  }
+}

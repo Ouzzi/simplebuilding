@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "blossom_gold_ingot",
+  "ingredients": [
+    "simpleores:blossom_gold_block"
+  ],
+  "result": {
+    "id": "simpleores:blossom_gold_ingot",
+    "count": 9
+  }
+}

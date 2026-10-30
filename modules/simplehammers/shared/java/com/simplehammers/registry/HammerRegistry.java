@@ -30,7 +30,7 @@ public final class HammerRegistry {
     public static final Map<HammerTiers, Item> VANILLA_ANCHORS = new EnumMap<>(Map.of(
             HammerTiers.STONE, Items.STONE_HOE, HammerTiers.COPPER, Items.COPPER_HOE, HammerTiers.IRON, Items.IRON_HOE,
             HammerTiers.GOLD, Items.GOLDEN_HOE, HammerTiers.DIAMOND, Items.DIAMOND_HOE, HammerTiers.NETHERITE, Items.NETHERITE_HOE,
-            HammerTiers.ENDERITE, Items.NETHERITE_HOE));
+            HammerTiers.ENDERITE, Items.NETHERITE_HOE, HammerTiers.ROSE_BRONZE, Items.GOLDEN_HOE, HammerTiers.BLOSSOM_GOLD, Items.GOLDEN_HOE));
     public static CreativeModeTab TAB;
 
     private HammerRegistry() {}
@@ -38,6 +38,7 @@ public final class HammerRegistry {
     public static void registerItems() {
         if (!HAMMERS.isEmpty()) return;
         for (HammerTiers tier : HammerTiers.values()) {
+            if (!tier.enabled()) continue;
             ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleHammers.id(tier.id()));
             int durability = tier.baseDurability * SledgehammerItem.BASE_DURABILITY_MULTIPLIER;
             Item.Properties properties = new Item.Properties().setId(key).durability(durability).enchantable(tier.enchantability);
@@ -92,6 +93,7 @@ public final class HammerRegistry {
         Map<Item, List<ItemStack>> out = new java.util.LinkedHashMap<>();
         if (!SimpleHammers.on() || SimpleHammers.isLoaded("simplebuilding")) return out;
         for (HammerTiers tier : HammerTiers.values()) {
+            if (!tier.enabled()) continue;
             out.computeIfAbsent(VANILLA_ANCHORS.get(tier), k -> new ArrayList<>()).add(new ItemStack(HAMMERS.get(tier)));
         }
         return out;

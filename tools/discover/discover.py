@@ -133,6 +133,8 @@ MODS = [
          own_packages=["com.simpleanimals."]),
     dict(id="simpledinos", ns=["simpledinos"], cls="DinosDiscover", package="com.simpledinos.discover",
          own_packages=["com.simpledinos."]),
+    dict(id="simpleores", ns=["simpleores"], cls="OresDiscover", package="com.simpleores.discover",
+         own_packages=["com.simpleores."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",
          mixin_package="com.simpleblocks.mixin", own_packages=["com.simpleblocks."],
          tips=[("shapecutter", ["shapecutter"], "Cuts stone and wood into stairs, slabs and more",

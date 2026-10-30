@@ -33,7 +33,11 @@ public final class MobsFabric implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
         com.simplelib.api.PlayerState.onLeave("simplemobs:fear", FearNet::forget);
         com.simplelib.api.PlayerState.onStop("simplemobs:fear", FearNet::forgetAll);
+        com.simplebuilding.modules.simplemobs.trials.Trials.registerEffects();
         WitherMobs.registerAll();
+        com.simplebuilding.modules.simplemobs.trials.TrialsHooks.register();
+        ServerTickEvents.END_SERVER_TICK.register(com.simplebuilding.modules.simplemobs.trials.EvilOmen::serverTick);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_LOAD.register(com.simplebuilding.modules.simplemobs.trials.EvilOmen::onRaiderLoaded);
         com.simplebuilding.modules.simplemobs.guide.MobsGuide.register();
         MobsRegistry.registerTab();
         if (FabricLoader.getInstance().isModLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FabricLoader.getInstance().getConfigDir());

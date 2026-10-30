@@ -9,3 +9,5 @@ dependencies { include project(':modules:simplelib:fabric'); implementation proj
 // Optional JEI plugin (shared/java/com/simplehammers/compat/jei): compiled against, never bundled.
 repositories { maven { url = "https://maven.blamejared.com" } }
 dependencies { compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}" }
+// ABN30-10: the optional rose gold hammer textures are Vanilla-derived from the own gold hammer (built, never committed).
+apply from: rootProject.file("gradle/module-vanilla-derived.gradle")

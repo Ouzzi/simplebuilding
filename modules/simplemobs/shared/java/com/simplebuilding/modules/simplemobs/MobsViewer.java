@@ -31,10 +31,12 @@ public final class MobsViewer {
 
     /** Items no recipe, loot table or way gives: the Trick Mirror (config-gated recipe) and the Ender Heart / Gem (no source yet). */
     public static List<RecipeViewer.Info> infoPages() {
-        return List.of(
+        List<RecipeViewer.Info> pages = new ArrayList<>(List.of(
                 new RecipeViewer.Info(List.of(new ItemStack(DisguiseRegistry.MIRROR)), List.of(Component.translatable("jei.simplemobs.info.trick_mirror"))),
                 new RecipeViewer.Info(List.of(new ItemStack(WitherWings.ENDER_HEART), new ItemStack(WitherWings.ENDER_GEM)),
-                        List.of(Component.translatable("jei.simplemobs.info.ender_parts"))));
+                        List.of(Component.translatable("jei.simplemobs.info.ender_parts")))));
+        pages.addAll(com.simplebuilding.modules.simplemobs.trials.TrialsViewer.infoPages());   // a-trials31: Weathered Trials, Evil Omen, Void chain
+        return pages;
     }
 
     /** One entry per Wither stage: what {@code BlightedWither#dropCustomDeathLoot} places, in that order. */
@@ -58,8 +60,10 @@ public final class MobsViewer {
     }
 
     public static List<InWorldUpgrade> special() {
-        return List.of(new InWorldUpgrade(OWNER + "/shellker_dress",
+        List<InWorldUpgrade> out = new ArrayList<>(List.of(new InWorldUpgrade(OWNER + "/shellker_dress",
                 List.of(InWorldUpgrade.Input.of(Items.SHULKER_SPAWN_EGG, 1)), List.of(EndNetherMobs.SHELL),
-                new ItemStack(EndNetherMobs.SHELLKER_EGG), List.of(Component.translatable(NOTE + "shellker_dress"))));
+                new ItemStack(EndNetherMobs.SHELLKER_EGG), List.of(Component.translatable(NOTE + "shellker_dress")))));
+        out.addAll(com.simplebuilding.modules.simplemobs.trials.TrialsViewer.special());          // a-trials31: soul brewing
+        return out;
     }
 }

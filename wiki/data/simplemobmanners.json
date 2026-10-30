@@ -57,7 +57,7 @@
       },
       "de": {
         "title": "Goldausrüstung für Piglins",
-        "summary": "Goldbesatz oder goldenes Schwert, Speer, Spitzhacke, Axt, Schaufel oder Hacke in einer Hand gelten als sichere Ausrüstung. Beide Schalter standardmäßig true. Angriff oder das Öffnen von Behältern kann weiterhin Wut auslösen."
+        "summary": "Goldbesatz oder goldene Waffe und Werkzeuge in einer Hand gelten als sichere Ausrüstung. Beide Schalter standardmäßig true. Angriff oder Behälter öffnen macht sie weiter wütend."
       }
     },
     {

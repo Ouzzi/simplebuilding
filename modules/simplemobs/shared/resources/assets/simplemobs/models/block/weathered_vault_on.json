@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_vault",
+  "textures": {
+    "bottom": "simplemobs:block/weathered_vault_bottom",
+    "front": "simplemobs:block/weathered_vault_front_on",
+    "side": "simplemobs:block/weathered_vault_side_on",
+    "top": "simplemobs:block/weathered_vault_top"
+  }
+}

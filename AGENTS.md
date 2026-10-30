@@ -115,6 +115,9 @@ Speichern schreibt Zahlen direkt in Java/JSON. Details: `docs/BALANCING-ZENTRALE
 4. Grün lesen → committen → pushen. 5. Wiki/Bücher/Testzentrale aktualisieren. 6. Erst nach Abnahme: Port-Run.
 7. Neues oder geändertes Feature, neues Modul, geänderte Abhängigkeit: `docs/MODS-UND-FEATURES.md` im selben Commit nachziehen
    (Übersicht aller Mods/Sub-Mods; Grundlage für die Entscheidung, wohin ein Feature gehört).
+8. **Checkliste neues Modul / geänderte Mod-Struktur:** Eintrag in `modules/modules.json` (parent/bundle/requires/optional), dann
+   `python tools/modtree/modtree.py` ausführen und `docs/MODSTRUKTUR.html` + `.md` mit committen (`./gradlew check` schlägt sonst fehl).
+   Die Seite ist der dauerhaft gepflegte Struktur-Überblick (PRINZIPIEN A13); die Hauptsitzung veröffentlicht sie neu als Artifact.
 
 ## 9. Wichtige Entscheidungen des Besitzers (Kurzfassung, Details in `docs/HANDOFF.md`)
 Config serverseitig + Obergrenzen · Chunk-Loader nur bei Online-Besitzer · Steinmetz verkauft keine Kerne, fahrender Händler

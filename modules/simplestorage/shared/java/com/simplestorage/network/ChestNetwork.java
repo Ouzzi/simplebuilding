@@ -164,6 +164,57 @@ public final class ChestNetwork {
         }
     }
 
+    /**
+     * The compact total of the list cells (ME-terminal style): 1..999, then 1k, 1.2k .. 9.9k, 10k .. 999k, 1M, 1.2M .. 9.9M, 10M .. 999M, 1B.
+     * The exact number is in the tooltip. Truncates, never rounds up (999999 is 999k, not 1000k).
+     */
+    public static String shortCount(long count) {
+        if (count < 1000) return Long.toString(Math.max(0, count));
+        String[] units = {"k", "M", "B"};
+        long divisor = 1000;
+        for (int i = 0; i < units.length; i++, divisor *= 1000) {
+            if (count < divisor * 1000 || i == units.length - 1) {
+                long whole = count / divisor;
+                long tenth = (count % divisor) * 10 / divisor;
+                return whole >= 10 || tenth == 0 ? whole + units[i] : whole + "." + tenth + units[i];
+            }
+        }
+        return Long.toString(count);
+    }
+
+    /** Longest search text the window sends (one menu click per character). */
+    public static final int MAX_SEARCH = 32;
+
+    /**
+     * The entries whose item matches every word of {@code query} (case-insensitive): a word matches the item id with underscores as
+     * spaces ("oak planks"), the item's name as the server knows it, or - with a leading {@code @} - the mod id ("@minecraft"). An empty
+     * query keeps everything.
+     */
+    public static List<Entry> filter(List<Entry> entries, String query) {
+        String[] words = query == null ? new String[0] : query.toLowerCase(java.util.Locale.ROOT).trim().split("\\s+");
+        if (words.length == 0 || words[0].isEmpty()) return entries;
+        List<Entry> out = new ArrayList<>();
+        for (Entry entry : entries) {
+            var id = BuiltInRegistries.ITEM.getKey(entry.kind().getItem());
+            String text = id.getPath().replace('_', ' ') + " " + entry.kind().getHoverName().getString().toLowerCase(java.util.Locale.ROOT);
+            boolean all = true;
+            for (String word : words) {
+                if (word.startsWith("@") ? !id.getNamespace().startsWith(word.substring(1)) : !text.contains(word)) {
+                    all = false;
+                    break;
+                }
+            }
+            if (all) out.add(entry);
+        }
+        return out;
+    }
+
+    /** What a click on a list cell takes out: a full stack (left), half a stack rounded up (right); never more than the network has. */
+    public static int takeAmount(ItemStack kind, boolean half, long available) {
+        int stack = kind.getMaxStackSize();
+        return (int) Math.min(available, half ? (stack + 1) / 2 : stack);
+    }
+
     public enum Sort {
         COUNT,
         NAME;

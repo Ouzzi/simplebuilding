@@ -6,6 +6,14 @@
     "simplehammers:gold_sledgehammer",
     "simplehammers:diamond_sledgehammer",
     "simplehammers:netherite_sledgehammer",
-    "simplehammers:enderite_sledgehammer"
+    "simplehammers:enderite_sledgehammer",
+    {
+      "id": "simplehammers:rose_bronze_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplehammers:blossom_gold_sledgehammer",
+      "required": false
+    }
   ]
 }

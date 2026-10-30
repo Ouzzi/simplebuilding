@@ -1,5 +1,6 @@
 package com.simpleanimals.client;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.SimpleAnimals;
 import com.simpleanimals.entity.Boar;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -7,9 +8,10 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
-/** Boar with two coat variants (dark, light) and the striped piglet. */
+/** Boar with coat variants by biome ({@link AnimalVariants}). */
 public class BoarRenderer extends MobRenderer<Boar, BoarRenderer.State, BoarModel> {
-    private static final Identifier[] TEXTURES = {SimpleAnimals.id("textures/entity/boar/dark.png"), SimpleAnimals.id("textures/entity/boar/light.png")};
+    private static final Identifier[] TEXTURES = AnimalVariants.BOAR.stream()
+            .map(v -> SimpleAnimals.id("textures/entity/boar/" + v.name() + ".png")).toArray(Identifier[]::new);
     private static final Identifier YOUNG = SimpleAnimals.id("textures/entity/boar/young.png");
 
     public static class State extends LivingEntityRenderState {
@@ -22,7 +24,7 @@ public class BoarRenderer extends MobRenderer<Boar, BoarRenderer.State, BoarMode
 
     @Override
     public Identifier getTextureLocation(State state) {
-        return state.isBaby ? YOUNG : TEXTURES[state.variant == 1 ? 1 : 0];
+        return state.isBaby ? YOUNG : TEXTURES[AnimalVariants.clamp(AnimalVariants.BOAR, state.variant)];
     }
 
     @Override

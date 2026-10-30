@@ -48,6 +48,7 @@ window.WIKI_MODULES = [
       "simpleshops",
       "simplewanderers",
       "simpleanimals",
+      "simpleores",
       "simplemusic",
       "simpleearth",
       "simplechallenges",
@@ -74,8 +75,8 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 507,
       "blocks": 290,
-      "recipes": 827,
-      "config": 236,
+      "recipes": 829,
+      "config": 237,
       "features": 48
     }
   },
@@ -580,9 +581,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 54
+      "features": 55
     },
-    "dataHash": "ba87fdc02399"
+    "dataHash": "fc829bfdbcdd"
   },
   {
     "id": "simplemaps",
@@ -686,12 +687,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 28,
-      "blocks": 3,
+      "items": 48,
+      "blocks": 7,
       "recipes": 73,
-      "features": 16
+      "features": 19
     },
-    "dataHash": "747cb77dc5bf"
+    "dataHash": "d31cefc4a7b5"
   },
   {
     "id": "simpleweather",
@@ -854,7 +855,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "a5f287b56d5b"
+    "dataHash": "bfdf831b96e8"
   },
   {
     "id": "simpleloot",
@@ -1306,11 +1307,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 54,
-      "recipes": 284,
+      "blocks": 56,
+      "recipes": 286,
       "features": 9
     },
-    "dataHash": "3042d3c350e4"
+    "dataHash": "4ce5deec2ff2"
   },
   {
     "id": "simplecrucibles",
@@ -1406,6 +1407,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleoctets",
       "simplecrucibles",
+      "simpleores",
       "jei"
     ],
     "parent": "simplebuilding",
@@ -1420,11 +1422,11 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA40lEQVR42mMItlL7jw9HRUXhlWcAEY92zcGKQZpBQFNTE0PuwoQEVAOuLyj7/+rsdjANwjDNb968gRsCkwNpnpbhimkANs0wDDLAw1T0f6SHBtginAaga7537x4Yg9jVSab/NeS4iXMBsmYQXr9+/f/6+nqwSwgaADMkOjoarBGbIQQNAGGQn5ENIckAkGaQn9WBfgZpxGYITgOQNYP8C1KMbAheA0Ca29PU4ZphGNkQEMZqAC7NyIaAbMdqAEhzuq8cTs3ohsANAGkkZDM2Q+CxgKwZJEgKhnsBpBmECWVtbBgAwfhqwWiFR/AAAAAASUVORK5CYII=",
     "counts": {
-      "items": 8,
-      "recipes": 11,
+      "items": 10,
+      "recipes": 13,
       "features": 13
     },
-    "dataHash": "10d06da62ef9"
+    "dataHash": "28ab7dbebc7d"
   },
   {
     "id": "simpleoptimization",
@@ -1566,7 +1568,7 @@ window.WIKI_MODULES = [
       "recipes": 187,
       "features": 15
     },
-    "dataHash": "8daecba71925"
+    "dataHash": "7ce55e15ad05"
   },
   {
     "id": "simplemusic",
@@ -1754,7 +1756,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 9
     },
-    "dataHash": "6912a1389da9"
+    "dataHash": "92e83f382233"
   },
   {
     "id": "simpleredstone",
@@ -1821,5 +1823,40 @@ window.WIKI_MODULES = [
       "features": 6
     },
     "dataHash": "647d3af3850a"
+  },
+  {
+    "id": "simpleores",
+    "displayName": "Simple Ores",
+    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplehammers"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver, pressed into bundles, smelted in the blast furnace only, with tools and armor of their own.",
+      "de": "Silbererz in der Oberwelt und im End sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen."
+    },
+    "purpose": {
+      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
+      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 26,
+      "blocks": 7,
+      "recipes": 44,
+      "features": 4
+    },
+    "dataHash": "1cd21e2c078d"
   }
 ];

@@ -33,7 +33,8 @@
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/enderite_sledgehammer_smithing.json",
         "modules/simplehammers/shared/resources/data/simplehammers/tags/item/sledgehammers.json",
         "modules/simplehammers/shared/java/com/simplehammers/client/HammerAreaClient.java",
-        "modules/simplehammers/shared/java/com/simplehammers/client/HammerVisuals.java"
+        "modules/simplehammers/shared/java/com/simplehammers/client/HammerVisuals.java",
+        "modules/simplehammers/shared/resources/data/simplehammers/recipe/rose_bronze_sledgehammer.json"
       ],
       "en": {
         "title": "Sledgehammers: mining a whole area",
@@ -44,7 +45,8 @@
           "Durability is four times a pickaxe of the tier (Stone 760 ... Enderite 10000); every broken block costs 2, a block of the area it is not the right tool for one more. Netherite and Enderite hammers do not burn.",
           "Mining time: the area time is computed on client and server alike; switching between sneaking (one block) and the area while mining converts the progress, so it never jumps ahead.",
           "Other mods may replace the area (SimpleBuilding: an octant with a selection in the off hand) through SimpleLib's HammerActions.",
-          "While a sledgehammer is in the main hand, an outline with a faint fill marks every further block the swing takes along, and while mining them they show breaking cracks too; both follow the same list as the server. SimpleBuilding's highlight key and its option buildingHighlightOpacity (default 40) steer the outline when it is installed."
+          "While a sledgehammer is in the main hand, an outline with a faint fill marks every further block the swing takes along, and while mining them they show breaking cracks too; both follow the same list as the server. SimpleBuilding's highlight key and its option buildingHighlightOpacity (default 40) steer the outline when it is installed.",
+          "Optional (only with Simple Ores installed, otherwise not registered at all): the Rose Bronze Sledgehammer (base durability 250 like iron, strike gap 23) and the Blossom Gold Sledgehammer (225, gap 22), made like the Gold one from a block and two ingots of the alloy; the area, tempo and tool tier follow the two alloys of Simple Ores (mines like iron)."
         ]
       },
       "de": {
@@ -56,7 +58,8 @@
           "Haltbarkeit: das Vierfache einer Spitzhacke der Stufe (Stein 760 ... Enderit 10000); jeder abgebaute Block kostet 2, ein Block der Fläche, für den er nicht das richtige Werkzeug ist, einen mehr. Netherit- und Enderit-Hämmer verbrennen nicht.",
           "Abbauzeit: Client und Server rechnen die Flächenzeit gleich; wer beim Abbauen zwischen Schleichen (ein Block) und Fläche wechselt, behält die Abbauzeit, der Fortschritt springt nie vor.",
           "Andere Mods können die Fläche ersetzen (SimpleBuilding: ein Oktant mit Auswahl in der Nebenhand), über SimpleLibs HammerActions.",
-          "Solange ein Vorschlaghammer in der Haupthand liegt, markiert ein Umriss mit zarter Füllung jeden weiteren Block, den der Schlag mitnimmt, und beim Abbauen zeigen sie ebenfalls Risse; beides folgt derselben Liste wie der Server. Ist SimpleBuilding installiert, steuern seine Hervorhebungs-Taste und seine Option buildingHighlightOpacity (Standard 40) den Umriss."
+          "Solange ein Vorschlaghammer in der Haupthand liegt, markiert ein Umriss mit zarter Füllung jeden weiteren Block, den der Schlag mitnimmt, und beim Abbauen zeigen sie ebenfalls Risse; beides folgt derselben Liste wie der Server. Ist SimpleBuilding installiert, steuern seine Hervorhebungs-Taste und seine Option buildingHighlightOpacity (Standard 40) den Umriss.",
+          "Optional (nur mit Simple Ores, sonst gar nicht registriert): der Rosenbronze-Vorschlaghammer (Grundhaltbarkeit 250 wie Eisen, Schlagabstand 23) und der Blütengold-Vorschlaghammer (225, Abstand 22), hergestellt wie der goldene aus einem Block und zwei Barren der Legierung; Fläche, Tempo und Werkzeugstufe folgen den beiden Legierungen von Simple Ores (baut ab wie Eisen)."
         ]
       },
       "related": [
@@ -66,7 +69,9 @@
         "simplehammers:gold_sledgehammer",
         "simplehammers:diamond_sledgehammer",
         "simplehammers:netherite_sledgehammer",
-        "simplehammers:enderite_sledgehammer"
+        "simplehammers:enderite_sledgehammer",
+        "simplehammers:rose_bronze_sledgehammer",
+        "simplehammers:blossom_gold_sledgehammer"
       ]
     },
     {
@@ -358,6 +363,55 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simplehammers:blossom_gold_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplehammers:blossom_gold_sledgehammer",
+        "count": 1
+      },
+      "source": "modules/simplehammers/shared/resources/data/simplehammers/recipe/blossom_gold_sledgehammer.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:blossom_gold_block",
+        "simpleores:blossom_gold_ingot"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "simpleores:blossom_gold_block"
+        ],
+        "M": [
+          "simpleores:blossom_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:blossom_gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "simpleores:blossom_gold_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
     {
       "id": "simplehammers:copper_sledgehammer",
       "type": "minecraft:crafting_shaped",
@@ -683,6 +737,55 @@
       }
     },
     {
+      "id": "simplehammers:rose_bronze_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplehammers:rose_bronze_sledgehammer",
+        "count": 1
+      },
+      "source": "modules/simplehammers/shared/resources/data/simplehammers/recipe/rose_bronze_sledgehammer.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_bronze_block",
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "simpleores:rose_bronze_block"
+        ],
+        "M": [
+          "simpleores:rose_bronze_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 2
+          },
+          {
+            "id": "simpleores:rose_bronze_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplehammers:stone_sledgehammer",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -927,6 +1030,14 @@
         {
           "id": "simplehammers:enderite_sledgehammer",
           "required": true
+        },
+        {
+          "id": "simplehammers:rose_bronze_sledgehammer",
+          "required": false
+        },
+        {
+          "id": "simplehammers:blossom_gold_sledgehammer",
+          "required": false
         }
       ],
       "source": "modules/simplehammers/shared/resources/data/simplehammers/tags/item/sledgehammers.json"
@@ -1238,6 +1349,30 @@
   ],
   "items": [
     {
+      "id": "simplehammers:blossom_gold_sledgehammer",
+      "name": {
+        "en_us": "Blossom Gold Sledgehammer",
+        "de_de": "Blütengold-Vorschlaghammer"
+      },
+      "note": {
+        "sources": [
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/registry/HammerRegistry.java"
+        ],
+        "en": {
+          "summary": "A sledgehammer: mines the 3x3 area in front of you, sneak + hold use carves an octet, right-click crushes diamond and quartz blocks, hold use with material in the off hand upgrades blocks in the world."
+        },
+        "de": {
+          "summary": "Ein Vorschlaghammer: baut die 3x3-Fläche vor dir ab, Schleichen + Benutzen halten trägt ein Achtel ab, Rechtsklick zerschlägt Diamant- und Quarzblöcke, Benutzen halten mit Material in der Nebenhand wertet Blöcke in der Welt auf."
+        }
+      },
+      "texture": "assets/textures/simplehammers/item/blossom_gold_sledgehammer.png",
+      "craftedBy": [
+        "simplehammers:blossom_gold_sledgehammer"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplehammers:copper_sledgehammer",
       "name": {
         "en_us": "Copper Sledgehammer",
@@ -1443,6 +1578,30 @@
       ]
     },
     {
+      "id": "simplehammers:rose_bronze_sledgehammer",
+      "name": {
+        "en_us": "Rose Bronze Sledgehammer",
+        "de_de": "Rosenbronze-Vorschlaghammer"
+      },
+      "note": {
+        "sources": [
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/registry/HammerRegistry.java"
+        ],
+        "en": {
+          "summary": "A sledgehammer: mines the 3x3 area in front of you, sneak + hold use carves an octet, right-click crushes diamond and quartz blocks, hold use with material in the off hand upgrades blocks in the world."
+        },
+        "de": {
+          "summary": "Ein Vorschlaghammer: baut die 3x3-Fläche vor dir ab, Schleichen + Benutzen halten trägt ein Achtel ab, Rechtsklick zerschlägt Diamant- und Quarzblöcke, Benutzen halten mit Material in der Nebenhand wertet Blöcke in der Welt auf."
+        }
+      },
+      "texture": "assets/textures/simplehammers/item/rose_bronze_sledgehammer.png",
+      "craftedBy": [
+        "simplehammers:rose_bronze_sledgehammer"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplehammers:stone_sledgehammer",
       "name": {
         "en_us": "Stone Sledgehammer",
@@ -1483,12 +1642,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 13,
-    "recipes": 11,
+    "recipes": 13,
     "lootTables": 0,
     "tags": 2,
     "advancements": 0,
     "enchantments": 3,
-    "items": 8,
+    "items": 10,
     "blocks": 0,
     "trades": 0,
     "config": 0,

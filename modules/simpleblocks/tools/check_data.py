@@ -26,7 +26,7 @@ assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '
 # of the module's data names a simplebuilding: id outside a simplebuilding load condition.
 nature_java = (MODULE / 'shared/java/com/simpleblocks/nature/NatureBlocks.java').read_text(encoding='utf-8')
 assert re.findall(r'(?:add|froglight)\("([a-z_]+)"', nature_java) == g.MOVED, (re.findall(r'(?:add|froglight)\("([a-z_]+)"', nature_java), g.MOVED)
-assert len(g.MOVED) == 15
+assert len(g.MOVED) == 17
 for name in g.MOVED:
     for rel in (f'assets/{NS}/blockstates/{name}.json', f'assets/{NS}/items/{name}.json', f'data/{NS}/loot_table/blocks/{name}.json'):
         assert (RES / rel).exists(), rel
@@ -85,4 +85,4 @@ for color in g.WOOLS:
 for path, ingredient, out, count, mod in cuts:
     foreign = {ingredient.lstrip('#').split(':')[0], out.split(':')[0]} - {'minecraft', NS}
     assert foreign <= ({mod} if mod else set()), (path, 'needs a mod-loaded condition for', foreign)
-print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

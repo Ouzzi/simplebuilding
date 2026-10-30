@@ -556,6 +556,8 @@ public class ModItems {
     // Simple Doors (WP-17 / BS28-2), 26.3 only.
     public static final Item OAK_DOOR_2X2 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_2X2, com.simplebuilding.doors.DoorFormat.FULL_2X2) : null;
     public static final Item OAK_DOOR_2X3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_2X3, com.simplebuilding.doors.DoorFormat.FULL_2X3) : null;
+    public static final Item OAK_DOOR_1_5X2 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_1_5X2, com.simplebuilding.doors.DoorFormat.WIDE_1_5X2) : null;
+    public static final Item OAK_DOOR_1_5X3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_1_5X3, com.simplebuilding.doors.DoorFormat.WIDE_1_5X3) : null;
     public static final Item OAK_DOOR_HALF_2 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_HALF_2, com.simplebuilding.doors.DoorFormat.HALF_2) : null;
     public static final Item OAK_DOOR_HALF_3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_HALF_3, com.simplebuilding.doors.DoorFormat.HALF_3) : null;
 

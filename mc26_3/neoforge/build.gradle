@@ -299,6 +299,7 @@ dependencies {
     jarJar project(':modules:simplewanderers:neoforge')
     jarJar project(':modules:simpleanimals:neoforge')
     jarJar project(':modules:simpledinos:neoforge')
+    jarJar project(':modules:simpleores:neoforge')
     jarJar project(':modules:simplemusic:neoforge')
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.

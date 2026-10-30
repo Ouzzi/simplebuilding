@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleores"
+version="${version}"
+displayName="Simple Ores"
+iconFile="assets/simpleores/icon.png"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
+description="Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla."
+[[dependencies.simpleores]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpleores]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleores]]
+modId="simplehammers"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,31 @@
+# Konzept ORES31: Rezept-Auswahl, Erz-Nutzen, Blei, Silberpfeil/-spiegel (A, a-ores31, 30.10.2026)
+
+Nur Konzept + Vorschau (`/root/sb-tools-a/previews/a-ores31-preview.html`, klickbar mit Checkboxen, ein gesammelter Antwortcode). Nichts davon ist gebaut. Gebaut ist nur Teil 1 (Simple Ores: Silber, Roségold, Werkzeuge/Rüstung; Plan `PLAN-A-ORES-2026-10-30.md`). Besitzer-Wortlaut: Queue ABN30-10.
+
+## 1. Rezept-Auswahl (Checkboxen)
+Gebaut ist der Empfehlungssatz (hart 6/5/4 Gold + 2 Kupfer + 1 Silber, weich 7 Gold + 1 Kupfer + 1 Silber/Silberklumpen; 1 Pressling je Rezept (Besitzer 30.10. korrigiert)). Die Vorschau zeigt jedes Rezept als 3x3-Gitter; Häkchen = soll im Spiel sein. Geänderte Wahl: Rezeptdateien `data/simpleores/recipe/*_pressling_*.json` über `modules/simpleores/tools/gen_data.py` (Tabelle `PRESSINGS`).
+
+## 2. Erz-Nutzen (A12 je Zeile, alles zum Abhaken)
+Regel: kein Erz außer Roségold bekommt Werkzeug-Stufen; Nutzen zuerst im Vanilla-Geschehen, Eingriff klein.
+- **Zink (mehrere)**: Messing (Zink + Kupfer: Bauplatten, Laternen, Glocken-Deko), Zinkdach (graublaue Dachplatten/-stufen/-platten, rosten nie, Octet-Regel O1), Verzinkt (Eisengitter/Ketten/Eisentür in rostfreier Optik), Zinkeimer (Eimer-Familie aus Simple Crucibles, leichter als Eisen), Regenrinne (Block über dem Kessel sammelt Regen der Nachbarfelder und füllt ihn schneller).
+- **Nickel (neu, ersetzt Edelstahl/Münz-Idee)**: Attractor-Kern (Nickel ist magnetisch: Reichweiten-Upgrade des Attractors in Simple Gadgets, optional), Neusilber (Kupfer + Nickel + Zink: silbrige Deko-Barren), Nickelmünzen (Wechselgeld für Simple Money, optional), Nickelstahl-Tiegel (Eisen-Tiegel-Stufe, hitzefest).
+- **Platin** (Seltenheit zwischen Gold und Diamant: tief im Tiefenschiefer, Y -64..-24, 1–2 Adern zu 4): Besatz-Material (Simple Trims, weißblau), Politur (einmalig am Amboss: nimmt einem Gegenstand 2 Stufen Anvil-Kosten, begrenzt), Hochofen-Katalysator (Platinsieb im Hochofen: +1 Ausbeute bei Erzen, verbraucht sich langsam), Platinschloss (Tresor/Schlüssel in Simple Loot), Beacon-Basis wie Diamant (Prestige), Prestige-Block/Trophäe (reine Deko).
+- **Weiterer Silber-Nutzen**: Silberspiegel, Silberglocke (läutet: Untote im Umkreis leuchten kurz, wie die Illager-Glocke), Kerzenleuchter, Tafelsilber für Simple Sandwiches, Silberkette (Deko-Kette).
+
+## 3. Blei (vom Besitzer gewollt) – technisches Konzept
+Name EN: „Lead“ gibt es als Leine; Blei-Gegenstände heißen „Lead Ingot / Block of Lead“ (Leine bleibt „Lead“ – Rückfrage in der Vorschau, Alternative „Plumbum“).
+1. **Woll-Nutzen mit Geräuschen**: Blei lässt Vibrationen NICHT durch (`#minecraft:occludes_vibration_signals`, wie Wolle: Sculk-Sensor/Warden hören nicht durch eine Bleiwand), ist aber NICHT in `#minecraft:dampens_vibrations`: wer darauf läuft oder es abbaut, macht Lärm (eigener `SoundType` mit schwerem Metall-Klonk für Schritt/Abbau/Treffer/Fallen). Ergebnis: Wand und Boden schützen vor Sculk, aber man kann nicht darüber schleichen.
+2. **Explosionswiderstand etwas unter Obsidian**: Obsidian 1200, Härte 50. Vorschlag Blei 1000 (Wahl 600/900/1000), Härte 25, braucht Eisenspitzhacke. Wirkt wie jeder Block in Vanilla-Explosionen; kein Eingriff in die Explosionsberechnung.
+3. **Schalldämmende Wand**: Sounds, die der Server an Spieler schickt, laufen durch `PlayerList#broadcast`. Ein kleiner Mixin (Modul `simpleores`, abschaltbar) zählt je Spieler die Bleiblöcke auf der Strecke Schallquelle → Spieler (3D-DDA, höchstens 24 Schritte) und skaliert die Lautstärke des Pakets mit `Dämpfung^Anzahl`. Fällt die neue Lautstärke unter die Schwelle (`soundproofThreshold`, Vorschlag 0,05), wird das Paket gar nicht gesendet. Beispiel TNT (Lautstärke 4): drei Bleiblöcke dazwischen, Dämpfung 0,5 → 0,5: außen nur leise und nur in 8 Blöcken Nähe; direkt an der Wand (1 Block Blei) → 2,0: gut hörbar, aber leiser als offen. Spieler im selben Raum ohne Blei auf dem Weg: unverändert.
+   Grenzen: nur Sound-Pakete von Welt-Ereignissen (Explosion, Block, Tier, Redstone), keine Spieler-Stimmen/Musik-Geräte (Wahl: Schallplatten mitdämpfen), keine Client-Änderung. Kosten: nur für Sounds mit Lautstärke ≥ 0,3 und Spieler in Hörweite, DDA ≤ 24 Schritte; ohne Bleiblock im Spiel (Zähler) wird nichts gerechnet.
+   A12: Vanilla-Nutzen = Sculk/Warden-Schutz und Schalldichtung; Änderung = Sound-Pakete leiser; Eingriff mittel, abschaltbar (`soundproofing`), nur wo Blei steht.
+4. Config `simpleores-server.json` (Obergrenzen klemmen): `soundproofing` (true), `soundproofFactor` (0,5, 0,2–0,9), `soundproofThreshold` (0,05, 0,01–0,3), `soundproofRecords` (false).
+
+## 4. Silberpfeil und Silberspiegel – Bau-Plan
+- **Simple Arrows – Ist-Stand**: gibt es nicht (kein Modul in `modules/`, kein Plan, kein Queue-Eintrag außer ABN30-10). Zwei Wege: **A** Silberpfeil in Simple Ores (kein neues Modul, keine Abhängigkeit, empfohlen), **B** neues Sub-Mod `simplearrows` (Silberpfeil als erstes Mitglied, Silber nur über Item-Tag `c:nuggets/silver`, ohne Ores nicht herstellbar – damit nicht allein spielbar, wenn sonst nichts darin ist).
+- **Silberpfeil**: Rezept Silberklumpen über Stock über Feder → 4 Pfeile (wie Vanilla-Pfeil). Eigene Pfeil-Entität (Unterklasse von `Arrow`, eigener Entity-Typ, Renderer mit silberner Spitze, Vanilla-Pfeil-Modell). Gegen `#minecraft:undead` +3 Schaden (wie Bann III bei Schwert, Standard an, `silverArrowUndeadBonus` 0–6, 0 = aus), sonst wie ein Pfeil. Dispenser, Spectral/Tipped nicht in Stufe 1. Tests: Rezept, Schaden gegen Zombie vs. Schaf, Bonus 0 = Vanilla.
+- **Silberspiegel**: Wandblock (1x1x1/16 dick, 4 Richtungen) mit Rahmen aus Silber und spiegelnder Textur (abgeleitet aus Glasscheibe + Silberblock); reine Deko, keine Redstone-Funktion, keine neue Mechanik. Option: Untote-Variante „Vampir“: Zombie/Skelett gehen nicht näher als 3 Blöcke an einen Spiegel (Eingriff gering, abschaltbar) – nur auf Wahl.
+- Reihenfolge nach der Wahl: Antwortcode auswerten → Rezepte/Nutzen als eigene Stufen im Plan, je Erz erst ein Beispiel (UI/Optik erst exemplarisch).
+
+## 5. Offene Rückfragen für den Besitzer
+Welche Nutzen-Vorschläge (Haken), Bleiwiderstand/-dämpfung, EN-Name von Blei, Pfeil in Ores oder eigenem Mod, Spiegel-Variante. Alles in der Vorschau, ein Antwortcode.

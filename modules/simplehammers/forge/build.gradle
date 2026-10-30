@@ -10,3 +10,5 @@ ext.forgeBundleSimplelib = true
 // 0.9.0: SimpleBuilding 26.3 requires simplehammers >=0.9.0 (modules stay 0.x until the owner's approval, then 1.0.0).
 ext.moduleVersion = '0.9.0'
 apply from: rootProject.file('gradle/module-forge.gradle')
+// ABN30-10: the optional rose gold hammer textures are Vanilla-derived from the own gold hammer (built, never committed).
+apply from: rootProject.file("gradle/module-vanilla-derived.gradle")

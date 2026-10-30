@@ -1,0 +1,76 @@
+{
+  "textures": {
+    "t": "simplebuilding:block/oak_door_1_5x2_c1_r1",
+    "particle": "minecraft:block/oak_planks"
+  },
+  "elements": [
+    {
+      "from": [
+        8,
+        0,
+        13
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#t",
+          "uv": [
+            8,
+            0,
+            0,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#t",
+          "uv": [
+            0,
+            0,
+            8,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#t",
+          "uv": [
+            0,
+            0,
+            8,
+            3
+          ]
+        },
+        "down": {
+          "texture": "#t",
+          "uv": [
+            0,
+            0,
+            8,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#t",
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#t",
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

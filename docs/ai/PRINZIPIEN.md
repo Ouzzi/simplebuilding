@@ -76,6 +76,9 @@ Neue und angefasste Module folgen einem Schema; `tools/check_module_style.py` (G
 ### A12 Vanilla-Nutzen und Eingriff klären (Besitzer 28.10.)
 Jedes neue Feature (Mob, Block, Mechanik, Item) braucht vor dem Bau eine kurze Klärung: (1) welchen Nutzen es im Vanilla-Spielgeschehen hat, (2) was es am Spielgeschehen ändert, (3) ob es das Vanilla-Geschehen stark verändert. Starke Eingriffe in Vanilla eher nicht – oder nur abschaltbar und mit Besitzer-Freigabe. Gehört in jedes Konzept und jeden Plan.
 
+### A13 Mod-Struktur-Seite aktuell halten (Besitzer 30.10.)
+`docs/MODSTRUKTUR.html` (Baum am Desktop, Liste am Handy) und `docs/MODSTRUKTUR.md` werden aus `modules/modules.json` erzeugt (`python tools/modtree/modtree.py`). Bei jedem neuen Mod, jedem Sub-Mod-Umzug und jeder geänderten Abhängigkeit neu erzeugen und im selben Commit mitgeben; `checkModtree` (in `check`) schlägt bei veralteten Dateien fehl. Geplante Mods ohne Manifest-Eintrag: `tools/modtree/planned.json`. Die Hauptsitzung veröffentlicht die HTML als Artifact neu.
+
 ## Teil 2 – Je Mod
 
 Reihenfolge wie `modules/modules.json`; Mods ohne Sonderregeln stehen mit „keine eigenen Regeln bisher“ da, damit jede Mod einen Platz für ihre Regeln hat. Neue Module bekommen hier
@@ -276,6 +279,13 @@ Fossilienblock, Dinosaurier-Eier zum Freipinseln und Ausbrüten (Daraufsitzen) u
 - Die Zeiten stehen in `simpledinos-server.json` (Standard = Konzept: 60 s, 5 min, 10 min, 40 min); neue Sorten erst nach Besitzer-Abnahme des Musters (T-Rex).
 - Modelle und Texturen kommen aus Spezifikationen (`tools/gen_models.py`, `tools/gen_blocks.py`); Java-`*Layers` nie von Hand ändern.
 - Jede neue Entität des Moduls braucht eine Ausnahme in `simplemobheads/data/mobs.json`, solange es keinen Kopf gibt.
+
+### Simple Ores (`simpleores`)
+Silbererz (Oberwelt, End) und Roségold (zwei Legierungen, Pressling, nur Hochofen) mit Werkzeugen und Rüstung; allein mit Vanilla spielbar.
+
+- **A12 je Teil** steht in `docs/ai/PLAN-A-ORES-2026-10-30.md`; Silber ist **kein** Werkzeugmaterial, Roségold-Hämmer gibt es nur in Simple Hammers und nur mit Simple Ores (optionale Stufe, kein `requires`).
+- Daten (Modelle, Loot, Rezepte, Fortschritte, Tags, Worldgen, Lang, Wiki) kommen aus `modules/simpleores/tools/gen_data.py`; alle Texturen sind Vanilla-abgeleitet (`tools/textures/ores_2026_10_30.py`), nie eingecheckt.
+- Ausbeute je Pressling ist immer 1 Barren; der Verlust steckt im Rezept (1 Pressling aus 7–9 Barren). Hochofen-`cookingtime` 1200 = 600 Ticks (26.3 halbiert im Hochofen).
 
 ### Simple Stats (`simplestats`)
 Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.

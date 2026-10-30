@@ -35,6 +35,7 @@ public final class ModuleNeoTests {
             new Case("module_game_test_work_palettes", ContainerTests::workPalettes)));
         LinkedTests.ALL.forEach((name, body) -> out.add(new Case("module_game_test_" + name, body)));
         TooltipTests.ALL.forEach((name, body) -> out.add(new Case("module_game_test_" + name, body)));
+        KeyPageTests.ALL.forEach((name, body) -> out.add(new Case("module_game_test_" + name, body)));
         return List.copyOf(out);
     }
 

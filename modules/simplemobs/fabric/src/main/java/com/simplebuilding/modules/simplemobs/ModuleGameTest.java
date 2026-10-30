@@ -128,4 +128,14 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void mirrorBearer(GameTestHelper helper) { MobsTests.ALL.get("mirror_bearer").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void mirrorLethal(GameTestHelper helper) { MobsTests.ALL.get("mirror_lethal").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void volatileExplosion(GameTestHelper helper) { MobsTests.ALL.get("volatile_explosion").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsRegistered(GameTestHelper helper) { TrialsTests.ALL.get("trials_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsTemplates(GameTestHelper helper) { TrialsTests.ALL.get("trials_templates").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 400) public void trialsPlaceRooms(GameTestHelper helper) { TrialsTests.ALL.get("trials_place_rooms").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsLoot(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 400) public void trialsBrewSoul(GameTestHelper helper) { TrialsTests.ALL.get("trials_brew_soul").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsVaultConvert(GameTestHelper helper) { TrialsTests.ALL.get("trials_vault_convert").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsVaultKeys(GameTestHelper helper) { TrialsTests.ALL.get("trials_vault_keys").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsEvilTurn(GameTestHelper helper) { TrialsTests.ALL.get("trials_evil_turn").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsBuffs(GameTestHelper helper) { TrialsTests.ALL.get("trials_buffs").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsConfigVoidOff(GameTestHelper helper) { TrialsTests.ALL.get("trials_config_void_off").accept(helper); }
 }

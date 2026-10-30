@@ -48,8 +48,9 @@ fab = sorted((a.lower(), int(w), int(lo), int(hi)) for a, w, lo, hi in weights)
 mod = sorted((json.loads(p.read_text(encoding='utf-8'))['spawners']['type'].split(':')[1], json.loads(p.read_text(encoding='utf-8'))['spawners']['weight'],
               json.loads(p.read_text(encoding='utf-8'))['spawners']['minCount'], json.loads(p.read_text(encoding='utf-8'))['spawners']['maxCount']) for p in neo)
 assert fab == mod, (fab, mod)
-for tex in [f'entity/{t}' for t in ('deer/red', 'deer/fallow', 'deer/fawn', 'boar/dark', 'boar/light', 'boar/young', 'hedgehog/brown',
-                                    'hedgehog/grey', 'crab/red', 'crab/sand', 'zebra', 'zorse')] + [f'item/{i}' for i in ITEMS]:
+for tex in [f'entity/{t}' for t in ('deer/red', 'deer/fallow', 'deer/fawn', 'boar/dark', 'boar/sandy', 'boar/frost', 'boar/rust', 'boar/young',
+                                    'hedgehog/brown', 'hedgehog/desert', 'hedgehog/whitebreast', 'hedgehog/fourtoed', 'crab/red', 'crab/coral',
+                                    'zebra', 'zorse')] + [f'item/{i}' for i in ITEMS]:
     assert (RES / f'assets/{NS}/textures/{tex}.png').is_file(), tex
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))

@@ -69,6 +69,8 @@ public class ModBlocks {
     // Simple Doors (WP-17 / BS28-2): oak doors of 2x2, 2x3 and half width, one multi-cell block per format (no block entity).
     public static final Block OAK_DOOR_2X2 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.FULL_2X2) : null;
     public static final Block OAK_DOOR_2X3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.FULL_2X3) : null;
+    public static final Block OAK_DOOR_1_5X2 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.WIDE_1_5X2) : null;
+    public static final Block OAK_DOOR_1_5X3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.WIDE_1_5X3) : null;
     public static final Block OAK_DOOR_HALF_2 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.HALF_2) : null;
     public static final Block OAK_DOOR_HALF_3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.HALF_3) : null;
 

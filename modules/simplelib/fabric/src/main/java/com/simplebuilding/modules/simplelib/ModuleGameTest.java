@@ -214,4 +214,9 @@ public final class ModuleGameTest {
     public void hangWatchdogDump(GameTestHelper h) {
         LibTests.ALL.get("hang_watchdog_dump").accept(h);
     }
+
+    @GameTest
+    public void devVariantsRegistryPersistence(GameTestHelper h) {
+        LibTests.ALL.get("dev_variants_registry_persistence").accept(h);
+    }
 }

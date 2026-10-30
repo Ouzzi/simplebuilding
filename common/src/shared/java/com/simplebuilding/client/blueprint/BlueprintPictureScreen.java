@@ -256,10 +256,7 @@ public class BlueprintPictureScreen extends Screen {
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         Rect m = layout.modal;
-        g.fill(m.x() - 1, m.y() - 1, m.right() + 1, m.bottom() + 1, BlueprintScreen.PAPER_EDGE);
-        g.fill(m.x(), m.y(), m.right(), m.bottom(), BlueprintScreen.PAPER);
-        g.fill(m.x() + 2, m.y() + 2, m.right() - 2, m.y() + 3, BlueprintScreen.PAPER_SHADE);
-        g.fill(m.x() + 2, m.bottom() - 3, m.right() - 2, m.bottom() - 2, BlueprintScreen.PAPER_SHADE);
+        BlueprintScreen.paper(g, m);
     }
 
     @Override
