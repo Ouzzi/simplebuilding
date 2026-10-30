@@ -268,16 +268,16 @@
       "id": "creative_tab",
       "en": {
         "title": "Creative Tab",
-        "summary": "Own tab \"Simple Mob Heads\" with every head and variant; in Functional Blocks and the search tab the heads stand right behind the dragon head.",
+        "summary": "Own tab \"Simple Mob Heads\" with every head and variant; no Vanilla tabs, the search tab finds the heads through it.",
         "details": [
-          "The shared switch in config/simple-creative-tabs.properties keeps the Vanilla tabs unchanged."
+          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs."
         ]
       },
       "de": {
         "title": "Kreativ-Tab",
-        "summary": "Eigener Tab \"Simple Mob Heads\" mit jedem Kopf und jeder Variante; in Funktionsblöcken und im Suchtab stehen die Köpfe direkt hinter dem Drachenkopf.",
+        "summary": "Eigener Tab \"Simple Mob Heads\" mit jedem Kopf und jeder Variante; keine Vanilla-Tabs, der Suchtab findet die Köpfe darüber.",
         "details": [
-          "Der gemeinsame Schalter in config/simple-creative-tabs.properties lässt die Vanilla-Tabs unverändert."
+          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs."
         ]
       },
       "sources": [

@@ -16,7 +16,7 @@
   "simpleredstone.guide.page.3.title": "Signaldämpfer",
   "simpleredstone.guide.page.3": "Ein flaches Redstone-Teil wie der Verstärker, das 0 bis 3 vom Signal abzieht und es einen Redstone-Tick später weitergibt.",
   "simpleredstone.guide.page.4.title": "Kreativtabs",
-  "simpleredstone.guide.page.4": "Eigener Tab mit beiden Teilen und dem Handbuch. Beide Teile stehen auch hinter dem Verstärker im Vanilla-Redstone-Tab (config/simple-creative-tabs.properties).",
+  "simpleredstone.guide.page.4": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simpleredstone.guide.page.5.title": "Befehle",
   "simpleredstone.guide.page.5": "/simpleredstone config [list | get | set | reset | help] (Operatoren).",
   "simpleredstone.guide.page.6.title": "Einstellungen",

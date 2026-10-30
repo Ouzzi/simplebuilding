@@ -59,7 +59,7 @@
   "simpleovens.guide.page.10.title": "Moved from SimpleBuilding",
   "simpleovens.guide.page.10": "Old worlds load them under simpleovens:* through SimpleLib's id moves and save the new ids.",
   "simpleovens.guide.page.11.title": "Creative tabs",
-  "simpleovens.guide.page.11": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+  "simpleovens.guide.page.11": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simpleovens.guide.page.12.title": "Commands",
   "simpleovens.guide.page.12": "/simpleovens config shows and changes every option of config/simpleovens-server.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simpleovens.guide.page.13.title": "Commands",

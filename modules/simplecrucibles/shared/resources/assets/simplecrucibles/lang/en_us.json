@@ -124,7 +124,7 @@
   "simplecrucibles.guide.page.8.title": "First pickup tips",
   "simplecrucibles.guide.page.8": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
   "simplecrucibles.guide.page.9.title": "Creative tabs",
-  "simplecrucibles.guide.page.9": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+  "simplecrucibles.guide.page.9": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simplecrucibles.guide.page.10.title": "Commands",
   "simplecrucibles.guide.page.10": "/simplecrucibles config shows and changes every option of config/simplecrucibles-server.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simplecrucibles.guide.page.11.title": "Commands",

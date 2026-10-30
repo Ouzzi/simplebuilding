@@ -124,7 +124,7 @@
   "simplecrucibles.guide.page.8.title": "Tipps beim ersten Aufheben",
   "simplecrucibles.guide.page.8": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
   "simplecrucibles.guide.page.9.title": "Kreativ-Tabs",
-  "simplecrucibles.guide.page.9": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+  "simplecrucibles.guide.page.9": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simplecrucibles.guide.page.10.title": "Befehle",
   "simplecrucibles.guide.page.10": "/simplecrucibles config zeigt und ändert jede Option von config/simplecrucibles-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simplecrucibles.guide.page.11.title": "Befehle",

@@ -308,7 +308,7 @@
           "Chiseled Packed Ice and Chiseled Blue Ice come from the stonecutter (one packed or blue ice makes one), are as slippery as their base block and drop only with Silk Touch.",
           "Block of Nautilus Shell: four nautilus shells in a square; it crafts back into four shells. It is placed along an axis like the bone block.",
           "Scarlet, Aqua and Azure Froglights: any froglight (tag simpleblocks:froglights) plus red, cyan or blue dye. They glow at light level 15 like the vanilla froglights; the three vanilla colors still come only from frogs.",
-          "Creative mode: in the Simple Blocks tab behind the module's own blocks and, while addItemsToVanillaTabs is on, next to their base block in Natural Blocks (with SimpleBuilding its search-tab placement puts them there, the froglights also in Functional Blocks).",
+          "Creative mode: in the Simple Blocks tab behind the module's own blocks (no Vanilla tabs).",
           "Moved from SimpleBuilding (26.3): worlds with the old simplebuilding: ids keep these blocks and items; recipes and their unlocks keep working (SimpleLib id moves)."
         ]
       },
@@ -325,7 +325,7 @@
           "Gemeißeltes Packeis und gemeißeltes Blaueis entstehen am Steinmetz (ein Pack- bzw. Blaueis ergibt eins), sind so rutschig wie ihr Grundblock und droppen nur mit Behutsamkeit.",
           "Nautilusschalenblock: vier Nautilusschalen im Quadrat; er lässt sich wieder in vier Schalen zerlegen. Er wird wie der Knochenblock entlang einer Achse gesetzt.",
           "Scharlachrotes, türkises und azurblaues Froschlicht: ein beliebiges Froschlicht (Tag simpleblocks:froglights) plus roter, cyanfarbener oder blauer Farbstoff. Sie leuchten wie die Vanilla-Froschlichter mit Lichtstufe 15; die drei Vanilla-Farben gibt es weiterhin nur von Fröschen.",
-          "Kreativmodus: im Tab Simple Blocks hinter den eigenen Blöcken des Moduls und, solange addItemsToVanillaTabs an ist, neben dem Grundblock in Naturblöcke (mit SimpleBuilding setzt dessen Suchtab-Platzierung sie dorthin, die Froschlichter auch in Gebrauchsblöcke).",
+          "Kreativmodus: im Tab Simple Blocks hinter den eigenen Blöcken des Moduls (keine Vanilla-Tabs).",
           "Aus SimpleBuilding umgezogen (26.3): Welten mit den alten simplebuilding:-Ids behalten diese Blöcke und Gegenstände; Rezepte und ihre Freischaltungen gelten weiter (SimpleLib-Id-Umzüge)."
         ]
       }
