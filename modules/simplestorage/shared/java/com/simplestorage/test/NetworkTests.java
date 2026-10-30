@@ -146,7 +146,7 @@ public final class NetworkTests {
         if (wooden.chests().size() != 1 || wooden.rejected() != 1) problems.add("wooden takes " + wooden);
         if (reinforced.chests().size() != 2 || reinforced.rejected() != 0) problems.add("reinforced takes " + reinforced);
         // a copper chest counts as wood (rank 0), a double chest as two chest blocks
-        h.setBlock(SOUTH_CHEST, Blocks.COPPER_CHEST);
+        h.setBlock(SOUTH_CHEST, Blocks.COPPER_CHEST.weathering().unaffected());
         if (ChestNetwork.members(h.getLevel(), 0, controller.scan()).chests().size() != 1) problems.add("copper chest above a wooden controller");
         h.assertTrue(problems.isEmpty(), "controller steps: " + problems);
         h.succeed();
@@ -304,7 +304,7 @@ public final class NetworkTests {
             StorageConfig.chestNetwork = false;
             if (!StorageRegistry.networkStacks().isEmpty()) problems.add("network items stay in the tab while off");
             if (NetworkSubstitutes.enabled()) problems.add("switch not read");
-            if (!NetworkSubstitutes.replaceIfDisabled(h.getLevel(), h.absolutePos(cable), h.getBlockState(cable)) || !h.getBlockState(cable).is(Blocks.COPPER_BARS)) problems.add("cable -> " + h.getBlockState(cable));
+            if (!NetworkSubstitutes.replaceIfDisabled(h.getLevel(), h.absolutePos(cable), h.getBlockState(cable)) || !h.getBlockState(cable).is(Blocks.COPPER_BARS.weathering().unaffected())) problems.add("cable -> " + h.getBlockState(cable));
             if (!NetworkSubstitutes.replaceIfDisabled(h.getLevel(), h.absolutePos(plate), h.getBlockState(plate)) || !h.getBlockState(plate).is(Blocks.GLASS_PANE)) problems.add("interface -> " + h.getBlockState(plate));
             if (!NetworkSubstitutes.replaceIfDisabled(h.getLevel(), h.absolutePos(wooden), h.getBlockState(wooden)) || !h.getBlockState(wooden).is(Blocks.CHEST)) problems.add("wooden controller -> " + h.getBlockState(wooden));
             if (!NetworkSubstitutes.replaceIfDisabled(h.getLevel(), h.absolutePos(reinforced), h.getBlockState(reinforced)) || !h.getBlockState(reinforced).is(block("reinforced_chest"))) problems.add("reinforced controller -> " + h.getBlockState(reinforced));

@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * The network window of the controller chest (BS29b-3), in the box style of the chests: the list of every kind in the network
@@ -143,12 +142,12 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
         graphics.text(this.font, count + (this.menu.rejected() > 0 ? " !" : ""), SORT_X + SORT_WIDTH + 6, KEY_Y + 3, color, false);
     }
 
+    /** The list cells show the item; the total goes into the corner like a stack count (the exact number is in the tooltip). */
     @Override
-    protected void renderSlotContents(GuiGraphicsExtractor graphics, ItemStack stack, Slot slot, @Nullable String itemCount) {
-        if (slot.index < ControllerMenu.CELLS && !stack.isEmpty()) {
-            super.renderSlotContents(graphics, stack, slot, shortCount(this.menu.countAt(slot.index)));
-        } else {
-            super.renderSlotContents(graphics, stack, slot, itemCount);
+    protected void extractSlot(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY) {
+        super.extractSlot(graphics, slot, mouseX, mouseY);
+        if (slot.index < ControllerMenu.CELLS && slot.hasItem()) {
+            graphics.itemDecorations(this.font, slot.getItem(), slot.x, slot.y, shortCount(this.menu.countAt(slot.index)));
         }
     }
 
@@ -162,7 +161,7 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
     @Override
     protected List<Component> getTooltipFromContainerItem(ItemStack stack) {
         List<Component> lines = new ArrayList<>(super.getTooltipFromContainerItem(stack));
-        Slot hovered = getHoveredSlot();
+        Slot hovered = this.hoveredSlot;
         if (hovered != null && hovered.index < ControllerMenu.CELLS) {
             lines.add(Component.translatable("tooltip.simplestorage.controller.total", this.menu.countAt(hovered.index)).withStyle(net.minecraft.ChatFormatting.GRAY));
         }

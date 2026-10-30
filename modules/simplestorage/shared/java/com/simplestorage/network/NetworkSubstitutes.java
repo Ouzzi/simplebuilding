@@ -38,7 +38,7 @@ public final class NetworkSubstitutes {
         if (enabled() || !(level instanceof ServerLevel server)) return false;
         Block block = state.getBlock();
         if (block instanceof CableBlock) {
-            server.setBlock(pos, Blocks.COPPER_BARS.defaultBlockState(), Block.UPDATE_ALL);
+            server.setBlock(pos, Blocks.COPPER_BARS.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
         } else if (block instanceof InterfaceBlock) {
             server.setBlock(pos, Blocks.GLASS_PANE.defaultBlockState(), Block.UPDATE_ALL);
         } else if (block instanceof ControllerChestBlock controller) {
