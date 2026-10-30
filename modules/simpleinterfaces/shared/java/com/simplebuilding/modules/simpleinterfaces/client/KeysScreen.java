@@ -112,7 +112,7 @@ public final class KeysScreen extends Screen {
     }
 
     private static String nameOf(int code) {
-        return NAMES.computeIfAbsent(code, c -> InputConstants.Type.KEYSYM.getOrCreate(c).getName());
+        return NAMES.computeIfAbsent(code, c -> InputConstants.Type.KEYBOARD.getOrCreate(c).getName());
     }
 
     private List<Group> groups() {
@@ -335,7 +335,7 @@ public final class KeysScreen extends Screen {
                 UiContrast.ensure(0xFFFFFFFF, keyFace), false);
         list.add(new Hit(keyX, ry, KEY_W, ROW - 1, () -> {
             if (pickCode >= 0) {
-                assign(e.mapping, InputConstants.Type.KEYSYM.getOrCreate(pickCode));
+                assign(e.mapping, InputConstants.Type.KEYBOARD.getOrCreate(pickCode));
                 pickCode = -1;
                 listTab = false;
             } else {
@@ -407,7 +407,7 @@ public final class KeysScreen extends Screen {
                 if (free.isPresent()) {
                     KeyboardLayout.Cell target = free.get();
                     button(g, mx, my, bx - 62, ry, 60, ROW - 1, t("move", target.label()), false, true,
-                            () -> assign(e.mapping, InputConstants.Type.KEYSYM.getOrCreate(target.code())));
+                            () -> assign(e.mapping, InputConstants.Type.KEYBOARD.getOrCreate(target.code())));
                 }
             }
             ry += ROW;
@@ -435,7 +435,7 @@ public final class KeysScreen extends Screen {
         if (listening != null) {
             KeyMapping m = listening;
             listening = null;
-            if (event.key() != InputConstants.KEY_ESCAPE) assign(m, InputConstants.Type.KEYSYM.getOrCreate(event.key()));
+            if (event.key() != InputConstants.KEY_ESCAPE) assign(m, InputConstants.Type.KEYBOARD.getOrCreate(event.key()));
             return true;
         }
         if (event.key() == InputConstants.KEY_ESCAPE && (popupCode >= 0 || pickCode >= 0)) {
