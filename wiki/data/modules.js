@@ -76,7 +76,7 @@ window.WIKI_MODULES = [
       "items": 507,
       "blocks": 290,
       "recipes": 829,
-      "config": 236,
+      "config": 237,
       "features": 48
     }
   },
@@ -855,7 +855,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "a5f287b56d5b"
+    "dataHash": "bfdf831b96e8"
   },
   {
     "id": "simpleloot",
@@ -1857,6 +1857,6 @@ window.WIKI_MODULES = [
       "recipes": 44,
       "features": 4
     },
-    "dataHash": "597662143b0c"
+    "dataHash": "1cd21e2c078d"
   }
 ];
