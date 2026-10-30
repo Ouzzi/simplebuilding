@@ -72,13 +72,17 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "Own tab with both parts and the guide. Both parts also sit behind the Repeater in Vanilla's redstone tab (config/simple-creative-tabs.properties).",
-        "details": []
+        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
+        "details": [
+          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+        ]
       },
       "de": {
         "title": "Kreativtabs",
-        "summary": "Eigener Tab mit beiden Teilen und dem Handbuch. Beide Teile stehen auch hinter dem Verstärker im Vanilla-Redstone-Tab (config/simple-creative-tabs.properties).",
-        "details": []
+        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
+        "details": [
+          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+        ]
       }
     },
     {

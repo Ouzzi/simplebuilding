@@ -1,8 +1,6 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.config.SimplebuildingConfig;
-import com.simplebuilding.platform.ModEnvironment;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -26,23 +24,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Entwickler-Tab "SimpleEnchants (Dev)": vorverzauberte Gegenstaende auf Hoechststufe.
- *
- * <p><b>Sichtbarkeit.</b> Der Tab ist auf jedem Loader immer registriert, wird aber nur gefuellt,
- * wenn {@link #isShown()} gilt - in einer Entwicklungsumgebung oder mit der Konfigoption
- * {@code showDevEnchantedTab}. Ein leerer Kategorie-Tab wird von Vanilla
- * ({@code CreativeModeTab#shouldDisplay}) gar nicht angezeigt. Die Einträge sind
- * {@code PARENT_TAB_ONLY}, erscheinen also nie im Suchtab.
- *
- * <p><b>Keine Luecke auf Fabrics Tab-Seiten</b> (geprueft 2026-09-25 am Bytecode von
- * fabric-creative-tab-api-v1 5.0.21 fuer 26.2 und fabric-item-group-api-v1 4.2.36 fuer 1.21.11):
- * Fabric verteilt die Mod-Tabs nach jedem {@code CreativeModeTabs#buildAllTabContents} neu auf Seiten
- * ({@code CreativeModeTabsMixin#paginateTabs}) und sortiert dabei die angezeigten Tabs vor die
- * leeren. Ein leerer Dev-Tab landet also hinter allen sichtbaren Tabs statt zwischen ihnen, und weil
- * die Seitenzahl ({@code FabricCreativeGuiComponents#getPageCount}) nur {@code CreativeModeTabs#tabs()}
- * zaehlt - die angezeigten -, macht er auch keine Seite auf. Ihn ausserhalb der Entwicklung gar nicht
- * zu registrieren braucht es deshalb nicht (sie muesste sonst auf allen drei
- * Loadern eigens an Entwicklungsumgebung und Konfig gebunden werden).
+ * Vorverzauberte Gegenstaende auf Hoechststufe (Quelle der Testzentrale; der Kreativ-Tab "SimpleEnchants (Dev)" ist seit
+ * 30.10. entfernt, IG31-3).
  *
  * <p><b>Inhalt, vollstaendig aus Registern abgeleitet.</b>
  * <ul>
@@ -63,8 +46,6 @@ import java.util.Set;
  * Neue Verzauberungen und neue Items erscheinen damit ohne Aenderung hier.
  */
 public final class DevEnchantedTab {
-    public static final String ID = "enchanted_dev";
-
     /** Hoechstens so viele Varianten je Item werden als volles Kreuzprodukt ausgegeben. */
     public static final int MAX_CROSS_PRODUCT = 6;
 
@@ -76,30 +57,7 @@ public final class DevEnchantedTab {
     private DevEnchantedTab() {
     }
 
-    public static String translationKey() {
-        return "itemgroup." + Simplebuilding.MOD_ID + "." + ID;
-    }
-
-    public static ItemStack icon() {
-        ItemStack icon = new ItemStack(ModItems.ENDERITE_PICKAXE);
-        icon.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
-        return icon;
-    }
-
-    /** Entwicklungsumgebung oder Konfigoption {@code showDevEnchantedTab}. */
-    public static boolean isShown() {
-        SimplebuildingConfig config = Simplebuilding.getConfig();
-        return ModEnvironment.isDevelopmentEnvironment() || (config != null && config.showDevEnchantedTab);
-    }
-
-    /** Was jeder Loader dem registrierten Tab als Inhalt gibt. */
-    public static void populateIfShown(CreativeModeTab.Output entries, HolderLookup.Provider lookup) {
-        if (isShown()) {
-            populate(entries, lookup);
-        }
-    }
-
-    /** Der Inhalt, unabhaengig von der Sichtbarkeit. */
+    /** Der Inhalt als Kreativ-Eintraege (der Tab selbst ist seit 30.10. entfernt, IG31-3). */
     public static void populate(CreativeModeTab.Output entries, HolderLookup.Provider lookup) {
         for (ItemStack stack : variants(lookup)) {
             entries.accept(stack, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);

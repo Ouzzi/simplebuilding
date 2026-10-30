@@ -28,14 +28,21 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
-/** Strong Conduit block: Vanilla's conduit block (waterlogged, 6 px cube) with {@link StrongConduitBlockEntity}. */
+/** Conduit block of every {@link ConduitKind}: Vanilla's conduit block (waterlogged, 6 px cube) with {@link StrongConduitBlockEntity}. */
 public class StrongConduitBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape SHAPE = Block.cube(6.0);
 
-    public StrongConduitBlock(BlockBehaviour.Properties properties) {
+    private final ConduitKind kind;
+
+    public StrongConduitBlock(ConduitKind kind, BlockBehaviour.Properties properties) {
         super(properties);
+        this.kind = kind;
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, true));
+    }
+
+    public ConduitKind kind() {
+        return this.kind;
     }
 
     @Override

@@ -97,7 +97,7 @@ public final class CrossModGameTest {
         for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
             CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId);
             Set<String> seen = new HashSet<>();
-            if (!"minecraft".equals(tabId.getNamespace()) && !tabId.getPath().equals("enchanted_dev") && tab.getDisplayItems().isEmpty()
+            if (!"minecraft".equals(tabId.getNamespace()) && tab.getDisplayItems().isEmpty()
                     && !tabId.getPath().equals("arrows")) {
                 problems.add(tabId + " is a mod tab without any item");
             }
@@ -106,6 +106,30 @@ public final class CrossModGameTest {
                 String key = BuiltInRegistries.ITEM.getKey(stack.getItem()) + stack.getComponentsPatch().toString();
                 if (!"minecraft".equals(tabId.getNamespace()) && !seen.add(key)) {
                     problems.add(tabId + " offers " + key + " twice");
+                }
+            }
+        }
+        // Owner 30.10.: no plain Vanilla item (no component changes) in a mod tab; no mod item in a Vanilla tab when a mod tab offers it.
+        Set<net.minecraft.world.item.Item> inModTabs = new HashSet<>();
+        for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
+            if ("minecraft".equals(tabId.getNamespace())) {
+                continue;
+            }
+            for (ItemStack stack : BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId).getDisplayItems()) {
+                inModTabs.add(stack.getItem());
+                if ("minecraft".equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace()) && stack.getComponentsPatch().isEmpty()) {
+                    problems.add(tabId + " offers the plain Vanilla item " + BuiltInRegistries.ITEM.getKey(stack.getItem()));
+                }
+            }
+        }
+        for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
+            if (!"minecraft".equals(tabId.getNamespace())) {
+                continue;
+            }
+            for (ItemStack stack : BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId).getDisplayItems()) {
+                Identifier itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                if (!"minecraft".equals(itemId.getNamespace()) && inModTabs.contains(stack.getItem())) {
+                    problems.add("Vanilla tab " + tabId + " offers the mod item " + itemId);
                 }
             }
         }
@@ -277,5 +301,54 @@ public final class CrossModGameTest {
             helper.assertTrue(sorted.size() > reference.size(), "family block entities measured");
             helper.succeed();
         });
+    }
+
+    /**
+     * IG31-3: the mod tabs follow the mod tree (super-mod, then its sub-mods): walking the displayed mod tabs by page, row and
+     * column, the rank of their namespaces never falls. Fabric only (the page comes from Fabric's tab pagination).
+     */
+    @GameTest(maxTicks = 100)
+    public void creativeTabsFollowTheModTree(GameTestHelper helper) {
+        CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true, helper.getLevel().registryAccess());
+        java.lang.reflect.Method page;
+        try {
+            page = CreativeModeTab.class.getMethod("fabric_getPage");
+        } catch (NoSuchMethodException e) {
+            helper.succeed();
+            return;
+        }
+        var registry = BuiltInRegistries.CREATIVE_MODE_TAB;
+        java.util.TreeMap<Integer, Identifier> byPosition = new java.util.TreeMap<>();
+        for (CreativeModeTab tab : registry) {
+            Identifier id = registry.getKey(tab);
+            if (id == null || "minecraft".equals(id.getNamespace()) || !tab.shouldDisplay()) continue;
+            try {
+                int position = (Integer) page.invoke(tab) * 10 + (tab.row() == CreativeModeTab.Row.TOP ? 0 : 5) + tab.column();
+                helper.assertTrue(byPosition.put(position, id) == null, "two mod tabs share the position " + position + ": " + id);
+            } catch (ReflectiveOperationException e) {
+                throw helper.assertionException("fabric_getPage: " + e);
+            }
+        }
+        java.lang.reflect.Method rankOf;
+        try {
+            rankOf = Class.forName("com.simplelib.api.CreativeTabPolicy").getMethod("rank", String.class);
+        } catch (ReflectiveOperationException e) {
+            helper.succeed(); // no SimpleLib: no mod tree order
+            return;
+        }
+        int last = -1;
+        Identifier lastId = null;
+        for (var entry : byPosition.entrySet()) {
+            int rank;
+            try {
+                rank = (Integer) rankOf.invoke(null, entry.getValue().getNamespace());
+            } catch (ReflectiveOperationException e) {
+                throw helper.assertionException("rank: " + e);
+            }
+            helper.assertTrue(rank >= last, entry.getValue() + " stands behind " + lastId + " but its mod comes earlier in the mod tree");
+            last = rank;
+            lastId = entry.getValue();
+        }
+        helper.succeed();
     }
 }

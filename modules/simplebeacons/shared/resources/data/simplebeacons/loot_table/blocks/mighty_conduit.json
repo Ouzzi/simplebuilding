@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebeacons:mighty_conduit"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplebeacons:blocks/mighty_conduit"
+}

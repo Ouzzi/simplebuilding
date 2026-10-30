@@ -56,10 +56,9 @@ public final class SearchTabPlacement {
     private SearchTabPlacement() {
     }
 
-    /** Whether this mod may add its items to Vanilla tabs; enabled by default. */
+    /** Whether this mod may add its items to Vanilla tabs: never since 30.10. (owner, IG31-3: Simple mods keep to their own tabs). */
     public static boolean enabled() {
-        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
-        return config != null && config.addItemsToVanillaTabs;
+        return false;
     }
 
     /** Placements enabled by the current mod config, for loader hooks and pure data tests. */

@@ -219,4 +219,9 @@ public final class ModuleGameTest {
     public void devVariantsRegistryPersistence(GameTestHelper h) {
         LibTests.ALL.get("dev_variants_registry_persistence").accept(h);
     }
+
+    @GameTest
+    public void creativeTabPolicy(GameTestHelper h) {
+        LibTests.ALL.get("creative_tab_policy").accept(h);
+    }
 }

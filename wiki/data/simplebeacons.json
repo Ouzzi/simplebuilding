@@ -57,17 +57,17 @@
       ],
       "en": {
         "title": "Evil Upgrade",
-        "summary": "A smithing template that turns a beacon into an Evil Beacon (with a nether star). With Simple Mobs: a Strong Upgrade, a crying obsidian, a Nether Heart and a Red Nether Jewel (shapeless) make one.",
+        "summary": "A smithing template that turns a beacon into an Evil Beacon (with a Red Nether Gem; also conduits). With Simple Mobs: a Strong Upgrade, a crying obsidian, a Nether Heart and a Red Nether Jewel (shapeless) make one.",
         "details": [
-          "Smithing table: beacon + Evil Upgrade + nether star. In the world like the Strong Upgrade: template in the off hand, axe or hammer in the main hand, a nether star in the inventory, 8 strikes on a Vanilla beacon.",
+          "Smithing table: beacon or conduit + Evil Upgrade + Red Nether Gem (Simple Mobs). In the world like the Strong Upgrade: template in the off hand, axe or hammer in the main hand, a nether star in the inventory, 8 strikes on a Vanilla beacon.",
           "Without Simple Mobs there is no crafting recipe (Nether Heart and Red Nether Jewel come from its Withers); the template is then creative or loot only."
         ]
       },
       "de": {
         "title": "Evil Upgrade",
-        "summary": "Eine Schmiedevorlage, die ein Leuchtfeuer zu einem Bösen Leuchtfeuer macht (mit einem Netherstern). Mit Simple Mobs: eine Starke Aufwertung, ein Weinender Obsidian, ein Netherherz und ein Rotes Nether-Juwel (formlos) ergeben eine.",
+        "summary": "Eine Schmiedevorlage, die ein Leuchtfeuer zu einem Bösen Leuchtfeuer macht (mit einem Roten Nether-Juwel; auch Aquisatoren). Mit Simple Mobs: eine Starke Aufwertung, ein Weinender Obsidian, ein Netherherz und ein Rotes Nether-Juwel (formlos) ergeben eine.",
         "details": [
-          "Schmiedetisch: Leuchtfeuer + Böse Aufwertungsvorlage + Netherstern. In der Welt wie die Starke Aufwertung: Vorlage in der Nebenhand, Axt oder Hammer in der Haupthand, ein Netherstern im Inventar, 8 Schläge auf ein Vanilla-Leuchtfeuer.",
+          "Schmiedetisch: Leuchtfeuer oder Aquisator + Böse Aufwertungsvorlage + Rotes Nether-Juwel (Simple Mobs). In der Welt wie die Starke Aufwertung: Vorlage in der Nebenhand, Axt oder Hammer in der Haupthand, ein Netherstern im Inventar, 8 Schläge auf ein Vanilla-Leuchtfeuer.",
           "Ohne Simple Mobs gibt es kein Bastelrezept (Netherherz und Rotes Nether-Juwel kommen von dessen Withern); die Vorlage ist dann nur Kreativ oder Beute."
         ]
       }
@@ -85,7 +85,7 @@
         "title": "Strong Beacon",
         "summary": "A beacon with up to five pyramid levels (11x11 below the Vanilla four, 285 blocks in all): primary powers on levels 1 to 4, the secondary power on level 5. Range is (10 + 10 per level) x the material factor (60 blocks with Iron at level 5, at most 340 with every setting), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
         "details": [
-          "Smithing table: beacon + Strong Upgrade + nether star. Placed beacons can also be upgraded in the world.",
+          "Smithing table: beacon + Strong Upgrade + Nether Heart (Simple Mobs). Placed beacons can also be upgraded in the world.",
           "Level 1: Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range). Level 2: Jump Boost, Resistance and Slow Falling. Level 3: Strength, Invisibility and Dolphin's Grace. Level 4: Luck I.",
           "Level 5 unlocks the secondary power: Regeneration, or level II of a Vanilla primary power (Speed, Haste, Resistance, Jump Boost, Strength). The new powers have no level II.",
           "Older worlds: a Strong Beacon placed before this change keeps its block, name and lock. Its saved powers that no longer exist (Extra Hearts on level 2, Hero of the Village, Night Vision ...) are cleared and have to be chosen again; a saved 6th level counts as 5.",
@@ -98,7 +98,7 @@
         "title": "Starkes Leuchtfeuer",
         "summary": "Ein Leuchtfeuer mit bis zu fünf Pyramidenebenen (11x11 unter den vier Vanilla-Ebenen, zusammen 285 Blöcke): Primärkräfte auf den Ebenen 1 bis 4, die Sekundärkraft auf Ebene 5. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, bei allen Einstellungen höchstens 340), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
         "details": [
-          "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Gesetzte Leuchtfeuer lassen sich auch in der Welt aufwerten.",
+          "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherherz (Simple Mobs). Gesetzte Leuchtfeuer lassen sich auch in der Welt aufwerten.",
           "Ebene 1: Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig). Ebene 2: Sprungkraft, Resistenz und Langsamer Fall. Ebene 3: Stärke, Unsichtbarkeit und Gnade des Delfins. Ebene 4: Glück I.",
           "Ebene 5 schaltet die Sekundärkraft frei: Regeneration oder Stufe II einer Vanilla-Primärkraft (Tempo, Eile, Resistenz, Sprungkraft, Stärke). Die neuen Kräfte haben keine Stufe II.",
           "Alte Welten: Ein vor dieser Änderung gesetztes Starkes Leuchtfeuer behält Block, Namen und Sperre. Seine gespeicherten Kräfte, die es nicht mehr gibt (Extraherzen auf Ebene 2, Held des Dorfes, Nachtsicht ...), werden gelöscht und müssen neu gewählt werden; eine gespeicherte 6. Ebene zählt als 5.",
@@ -282,7 +282,7 @@
         "title": "Strong Conduit",
         "summary": "A conduit with a larger area (owner: no new ability): range is (frame blocks / 7) x 24, 1.5 times Vanilla's 16 - 144 blocks with the Vanilla 5x5x5 frame, 216 with the full 7x7x7 frame (three crossing 7x7 rings of prismarine, prismarine bricks, dark prismarine or sea lanterns, 66 blocks).",
         "details": [
-          "Smithing table: conduit + Strong Upgrade + nether star. A Vanilla conduit stays Vanilla: up to 96 blocks, Conduit Power only.",
+          "Smithing table: conduit + Strong Upgrade + Nether Heart (Simple Mobs). A Vanilla conduit stays Vanilla: up to 96 blocks, Conduit Power only.",
           "It needs water around it and at least 16 frame blocks, like Vanilla.",
           "Players in the water or rain get Conduit Power like Vanilla; players in the water also get Dolphin's Grace. Beyond 96 blocks only players really under water count, not rain.",
           "The full 7x7x7 frame attacks hostile mobs in the water within 12 blocks (the full 5x5x5 frame: 8), with Vanilla's damage.",
@@ -293,11 +293,87 @@
         "title": "Starker Aquisator",
         "summary": "Ein Aquisator mit größerem Bereich (Besitzer: keine neue Fähigkeit): Die Reichweite ist (Rahmenblöcke / 7) x 24, das 1,5-Fache von Vanillas 16 - 144 Blöcke mit dem Vanilla-Rahmen 5x5x5, 216 mit dem vollen 7x7x7-Rahmen (drei sich kreuzende 7x7-Ringe aus Prismarin, Prismarinziegeln, Dunklem Prismarin oder Seelaternen, 66 Blöcke).",
         "details": [
-          "Schmiedetisch: Aquisator + Starke Aufwertungsvorlage + Netherstern. Ein Vanilla-Aquisator bleibt Vanilla: bis 96 Blöcke, nur Meereskraft.",
+          "Schmiedetisch: Aquisator + Starke Aufwertungsvorlage + Netherherz (Simple Mobs). Ein Vanilla-Aquisator bleibt Vanilla: bis 96 Blöcke, nur Meereskraft.",
           "Er braucht Wasser um sich und mindestens 16 Rahmenblöcke, wie Vanilla.",
           "Spieler im Wasser oder Regen erhalten Meereskraft wie bei Vanilla; Spieler im Wasser zusätzlich Delfingunst. Jenseits von 96 Blöcken zählen nur Spieler wirklich unter Wasser, nicht im Regen.",
           "Der volle 7x7x7-Rahmen greift feindliche Mobs im Wasser im Umkreis von 12 Blöcken an (der volle 5x5x5-Rahmen: 8), mit Vanilla-Schaden.",
           "Er sieht aus wie ein Vanilla-Aquisator."
+        ]
+      }
+    },
+    {
+      "id": "mighty_conduit",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/conduit/ConduitKind.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/conduit/StrongConduitLogic.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_conduit.json"
+      ],
+      "en": {
+        "title": "Mighty Conduit",
+        "summary": "The Strong Conduit's big brother: frames up to 9x9x9 (90 blocks), range (frame blocks / 7) x 32 (at most 324), attack 16 with the full frame.",
+        "details": [
+          "Crafted like the Mighty Beacon, with the Strong Conduit in the middle (the six cores, or Copper, Iron, Gold, Diamond, Netherite and Emerald blocks without SimpleBuilding, plus two Strong Upgrades).",
+          "Conduit Power, Dolphin's Grace and Night Vision for players in the water.",
+          "Bubbles of light rise around it and it hums louder than a Vanilla conduit, so it is easy to find."
+        ]
+      },
+      "de": {
+        "title": "Mächtiger Aquisator",
+        "summary": "Der große Bruder des Starken Aquisators: Rahmen bis 9x9x9 (90 Blöcke), Reichweite (Rahmenblöcke / 7) x 32 (höchstens 324), Angriff 16 mit vollem Rahmen.",
+        "details": [
+          "Gebaut wie das Mächtige Leuchtfeuer, mit dem Starken Aquisator in der Mitte (die sechs Kerne, ohne SimpleBuilding Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Smaragdblöcke, dazu zwei Starke Aufwertungen).",
+          "Meereskraft, Delfingunst und Nachtsicht für Spieler im Wasser.",
+          "Lichtpartikel steigen um ihn auf und er brummt lauter als ein Vanilla-Aquisator, so ist er leicht zu finden."
+        ]
+      }
+    },
+    {
+      "id": "evil_conduit",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/conduit/ConduitKind.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/conduit/StrongConduitLogic.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_conduit_smithing.json"
+      ],
+      "en": {
+        "title": "Evil Conduit",
+        "summary": "The opposite of the Strong Conduit: players really under water in range get Mining Fatigue and Slowness. Same frames as the Strong Conduit (up to 7x7x7, range 24 per 7 frame blocks).",
+        "details": [
+          "Smithing table: conduit + Evil Upgrade + Red Nether Gem (Simple Mobs).",
+          "Protected like the Evil Beacon: no spectators, no newcomers or players protected by Simple Tweaks, and only 5 minutes after the last death (config).",
+          "It does not attack mobs. Dark soul particles rise around it and it hums low."
+        ]
+      },
+      "de": {
+        "title": "Böser Aquisator",
+        "summary": "Das Gegenteil des Starken Aquisators: Spieler, die wirklich unter Wasser sind, bekommen im Bereich Abbaumüdigkeit und Langsamkeit. Gleiche Rahmen wie der Starke Aquisator (bis 7x7x7, Reichweite 24 je 7 Rahmenblöcke).",
+        "details": [
+          "Schmiedetisch: Aquisator + Böse Aufwertungsvorlage + Rotes Nether-Juwel (Simple Mobs).",
+          "Geschützt wie das Böse Leuchtfeuer: keine Zuschauer, keine Neulinge oder durch Simple Tweaks geschützten Spieler, und erst 5 Minuten nach dem letzten Tod (Konfig).",
+          "Er greift keine Mobs an. Dunkle Seelenpartikel steigen um ihn auf und er brummt tief."
+        ]
+      }
+    },
+    {
+      "id": "mighty_evil_conduit",
+      "sources": [
+        "modules/simplebeacons/shared/java/com/simplebeacons/conduit/ConduitKind.java",
+        "modules/simplebeacons/shared/java/com/simplebeacons/conduit/StrongConduitLogic.java",
+        "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_conduit.json"
+      ],
+      "en": {
+        "title": "Mighty Evil Conduit",
+        "summary": "The Evil Conduit with a 9x9x9 frame, range up to 324 blocks and harsher effects: Mining Fatigue II, Slowness, Weakness and Darkness.",
+        "details": [
+          "Crafted like the Mighty Beacon, with the Evil Conduit in the middle.",
+          "The same protection as the Evil Conduit applies."
+        ]
+      },
+      "de": {
+        "title": "Mächtiger Böser Aquisator",
+        "summary": "Der Böse Aquisator mit 9x9x9-Rahmen, Reichweite bis 324 Blöcke und härteren Wirkungen: Abbaumüdigkeit II, Langsamkeit, Schwäche und Dunkelheit.",
+        "details": [
+          "Gebaut wie das Mächtige Leuchtfeuer, mit dem Bösen Aquisator in der Mitte.",
+          "Es gilt derselbe Schutz wie beim Bösen Aquisator."
         ]
       }
     },
@@ -344,16 +420,16 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs; Vanilla items do not stand in the module's tab).",
         "details": [
-          "The shared switch simplebeacons.addItemsToVanillaTabs in config/simple-creative-tabs.properties (default true, read when a world is joined) keeps the Vanilla tabs unchanged; the module's own tab stays. Guide books always stay in Tools & Utilities."
+          "Since 30.10. (IG31-3) the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
-        "summary": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs; Vanilla-Items stehen nicht im Tab des Moduls).",
         "details": [
-          "Der gemeinsame Schalter simplebeacons.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
+          "Seit 30.10. (IG31-3) sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
         ]
       }
     },
@@ -391,8 +467,8 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_beacon_smithing.json",
       "ingredients": [
         "minecraft:beacon",
-        "minecraft:nether_star",
-        "simplebeacons:evil_upgrade_template"
+        "simplebeacons:evil_upgrade_template",
+        "simplemobs:nether_gem"
       ],
       "slots": {
         "template": [
@@ -402,7 +478,7 @@
           "minecraft:beacon"
         ],
         "addition": [
-          "minecraft:nether_star"
+          "simplemobs:nether_gem"
         ]
       },
       "baseMaterials": {
@@ -425,7 +501,7 @@
             "count": 3
           },
           {
-            "id": "minecraft:nether_star",
+            "id": "simplemobs:nether_gem",
             "count": 2
           },
           {
@@ -433,7 +509,63 @@
             "count": 2
           },
           {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:evil_conduit_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebeacons:evil_conduit",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/evil_conduit_smithing.json",
+      "ingredients": [
+        "minecraft:conduit",
+        "simplebeacons:evil_upgrade_template",
+        "simplemobs:nether_gem"
+      ],
+      "slots": {
+        "template": [
+          "simplebeacons:evil_upgrade_template"
+        ],
+        "base": [
+          "minecraft:conduit"
+        ],
+        "addition": [
+          "simplemobs:nether_gem"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 8
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 5
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
             "id": "simplemobs:nether_gem",
+            "count": 2
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 2
+          },
+          {
+            "id": "minecraft:heart_of_the_sea",
             "count": 1
           }
         ]
@@ -598,16 +730,16 @@
             "count": 5
           },
           {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
             "id": "minecraft:obsidian",
             "count": 3
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 3
-          },
-          {
             "id": "minecraft:nether_star",
-            "count": 2
+            "count": 1
           },
           {
             "id": "simplebuilding:copper_core",
@@ -723,16 +855,214 @@
             "count": 5
           },
           {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
             "id": "minecraft:obsidian",
             "count": 3
           },
           {
-            "id": "simplemobs:nether_heart",
-            "count": 3
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_conduit",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_conduit",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_conduit.json",
+      "ingredients": [
+        "simplebeacons:strong_conduit",
+        "simplebeacons:strong_upgrade_template",
+        "simplebuilding:copper_core",
+        "simplebuilding:diamond_core",
+        "simplebuilding:enderite_core",
+        "simplebuilding:gold_core",
+        "simplebuilding:iron_core",
+        "simplebuilding:netherite_core"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "B": [
+          "simplebeacons:strong_conduit"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ],
+        "c": [
+          "simplebuilding:copper_core"
+        ],
+        "i": [
+          "simplebuilding:iron_core"
+        ],
+        "g": [
+          "simplebuilding:gold_core"
+        ],
+        "d": [
+          "simplebuilding:diamond_core"
+        ],
+        "n": [
+          "simplebuilding:netherite_core"
+        ],
+        "e": [
+          "simplebuilding:enderite_core"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 12
           },
           {
-            "id": "minecraft:nether_star",
-            "count": 2
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 8
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
+            "id": "minecraft:heart_of_the_sea",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:copper_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:diamond_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:gold_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_core",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_conduit_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_conduit",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_conduit_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:copper_block",
+        "minecraft:diamond_block",
+        "minecraft:emerald_block",
+        "minecraft:gold_block",
+        "minecraft:iron_block",
+        "minecraft:netherite_block",
+        "simplebeacons:strong_conduit",
+        "simplebeacons:strong_upgrade_template"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "B": [
+          "simplebeacons:strong_conduit"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ],
+        "c": [
+          "minecraft:copper_block"
+        ],
+        "i": [
+          "minecraft:iron_block"
+        ],
+        "g": [
+          "minecraft:gold_block"
+        ],
+        "d": [
+          "minecraft:diamond_block"
+        ],
+        "n": [
+          "minecraft:netherite_block"
+        ],
+        "e": [
+          "minecraft:emerald_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 21
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 12
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:emerald",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 8
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
+            "id": "minecraft:heart_of_the_sea",
+            "count": 1
           }
         ]
       }
@@ -812,8 +1142,12 @@
             "count": 3
           },
           {
-            "id": "minecraft:nether_star",
+            "id": "simplemobs:nether_gem",
             "count": 2
+          },
+          {
+            "id": "minecraft:nether_star",
+            "count": 1
           },
           {
             "id": "simplebuilding:copper_core",
@@ -837,10 +1171,6 @@
           },
           {
             "id": "simplebuilding:netherite_core",
-            "count": 1
-          },
-          {
-            "id": "simplemobs:nether_gem",
             "count": 1
           }
         ]
@@ -941,11 +1271,217 @@
             "count": 3
           },
           {
-            "id": "minecraft:nether_star",
+            "id": "simplemobs:nether_gem",
             "count": 2
           },
           {
+            "id": "minecraft:nether_star",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_evil_conduit",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_evil_conduit",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_conduit.json",
+      "ingredients": [
+        "simplebeacons:evil_conduit",
+        "simplebeacons:strong_upgrade_template",
+        "simplebuilding:copper_core",
+        "simplebuilding:diamond_core",
+        "simplebuilding:enderite_core",
+        "simplebuilding:gold_core",
+        "simplebuilding:iron_core",
+        "simplebuilding:netherite_core"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "B": [
+          "simplebeacons:evil_conduit"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ],
+        "c": [
+          "simplebuilding:copper_core"
+        ],
+        "i": [
+          "simplebuilding:iron_core"
+        ],
+        "g": [
+          "simplebuilding:gold_core"
+        ],
+        "d": [
+          "simplebuilding:diamond_core"
+        ],
+        "n": [
+          "simplebuilding:netherite_core"
+        ],
+        "e": [
+          "simplebuilding:enderite_core"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 13
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 12
+          },
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 8
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
             "id": "simplemobs:nether_gem",
+            "count": 2
+          },
+          {
+            "id": "minecraft:heart_of_the_sea",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:copper_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:diamond_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:gold_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:iron_core",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_core",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebeacons:mighty_evil_conduit_without_simplebuilding",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebeacons:mighty_evil_conduit",
+        "count": 1
+      },
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/mighty_evil_conduit_without_simplebuilding.json",
+      "ingredients": [
+        "minecraft:copper_block",
+        "minecraft:diamond_block",
+        "minecraft:emerald_block",
+        "minecraft:gold_block",
+        "minecraft:iron_block",
+        "minecraft:netherite_block",
+        "simplebeacons:evil_conduit",
+        "simplebeacons:strong_upgrade_template"
+      ],
+      "pattern": [
+        "cig",
+        "dBn",
+        "UeU"
+      ],
+      "key": {
+        "B": [
+          "simplebeacons:evil_conduit"
+        ],
+        "U": [
+          "simplebeacons:strong_upgrade_template"
+        ],
+        "c": [
+          "minecraft:copper_block"
+        ],
+        "i": [
+          "minecraft:iron_block"
+        ],
+        "g": [
+          "minecraft:gold_block"
+        ],
+        "d": [
+          "minecraft:diamond_block"
+        ],
+        "n": [
+          "minecraft:netherite_block"
+        ],
+        "e": [
+          "minecraft:emerald_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:diamond",
+            "count": 21
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 13
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:emerald",
+            "count": 9
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 9
+          },
+          {
+            "id": "minecraft:nautilus_shell",
+            "count": 8
+          },
+          {
+            "id": "simplemobs:nether_heart",
+            "count": 4
+          },
+          {
+            "id": "simplemobs:nether_gem",
+            "count": 2
+          },
+          {
+            "id": "minecraft:heart_of_the_sea",
             "count": 1
           }
         ]
@@ -963,8 +1499,8 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_beacon_smithing.json",
       "ingredients": [
         "minecraft:beacon",
-        "minecraft:nether_star",
-        "simplebeacons:strong_upgrade_template"
+        "simplebeacons:strong_upgrade_template",
+        "simplemobs:nether_heart"
       ],
       "slots": {
         "template": [
@@ -974,7 +1510,7 @@
           "minecraft:beacon"
         ],
         "addition": [
-          "minecraft:nether_star"
+          "simplemobs:nether_heart"
         ]
       },
       "baseMaterials": {
@@ -997,11 +1533,11 @@
             "count": 3
           },
           {
-            "id": "minecraft:nether_star",
+            "id": "simplemobs:nether_heart",
             "count": 2
           },
           {
-            "id": "simplemobs:nether_heart",
+            "id": "minecraft:nether_star",
             "count": 1
           }
         ]
@@ -1019,8 +1555,8 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/strong_conduit_smithing.json",
       "ingredients": [
         "minecraft:conduit",
-        "minecraft:nether_star",
-        "simplebeacons:strong_upgrade_template"
+        "simplebeacons:strong_upgrade_template",
+        "simplemobs:nether_heart"
       ],
       "slots": {
         "template": [
@@ -1030,7 +1566,7 @@
           "minecraft:conduit"
         ],
         "addition": [
-          "minecraft:nether_star"
+          "simplemobs:nether_heart"
         ]
       },
       "baseMaterials": {
@@ -1049,15 +1585,11 @@
             "count": 4
           },
           {
-            "id": "minecraft:heart_of_the_sea",
-            "count": 1
-          },
-          {
-            "id": "minecraft:nether_star",
-            "count": 1
-          },
-          {
             "id": "simplemobs:nether_heart",
+            "count": 2
+          },
+          {
+            "id": "minecraft:heart_of_the_sea",
             "count": 1
           }
         ]
@@ -1195,6 +1727,22 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/evil_beacon.json"
     },
     {
+      "id": "simplebeacons:blocks/evil_conduit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebeacons:evil_conduit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/evil_conduit.json"
+    },
+    {
       "id": "simplebeacons:blocks/mighty_beacon",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1211,6 +1759,22 @@
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/mighty_beacon.json"
     },
     {
+      "id": "simplebeacons:blocks/mighty_conduit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebeacons:mighty_conduit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/mighty_conduit.json"
+    },
+    {
       "id": "simplebeacons:blocks/mighty_evil_beacon",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1225,6 +1789,22 @@
         }
       ],
       "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/mighty_evil_beacon.json"
+    },
+    {
+      "id": "simplebeacons:blocks/mighty_evil_conduit",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebeacons:mighty_evil_conduit"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplebeacons/shared/resources/data/simplebeacons/loot_table/blocks/mighty_evil_conduit.json"
     },
     {
       "id": "simplebeacons:blocks/strong_beacon",
@@ -1279,17 +1859,17 @@
       "note": {
         "en": {
           "title": "Evil Upgrade",
-          "summary": "A smithing template that turns a beacon into an Evil Beacon (with a nether star). With Simple Mobs: a Strong Upgrade, a crying obsidian, a Nether Heart and a Red Nether Jewel (shapeless) make one.",
+          "summary": "A smithing template that turns a beacon into an Evil Beacon (with a Red Nether Gem; also conduits). With Simple Mobs: a Strong Upgrade, a crying obsidian, a Nether Heart and a Red Nether Jewel (shapeless) make one.",
           "details": [
-            "Smithing table: beacon + Evil Upgrade + nether star. In the world like the Strong Upgrade: template in the off hand, axe or hammer in the main hand, a nether star in the inventory, 8 strikes on a Vanilla beacon.",
+            "Smithing table: beacon or conduit + Evil Upgrade + Red Nether Gem (Simple Mobs). In the world like the Strong Upgrade: template in the off hand, axe or hammer in the main hand, a nether star in the inventory, 8 strikes on a Vanilla beacon.",
             "Without Simple Mobs there is no crafting recipe (Nether Heart and Red Nether Jewel come from its Withers); the template is then creative or loot only."
           ]
         },
         "de": {
           "title": "Evil Upgrade",
-          "summary": "Eine Schmiedevorlage, die ein Leuchtfeuer zu einem Bösen Leuchtfeuer macht (mit einem Netherstern). Mit Simple Mobs: eine Starke Aufwertung, ein Weinender Obsidian, ein Netherherz und ein Rotes Nether-Juwel (formlos) ergeben eine.",
+          "summary": "Eine Schmiedevorlage, die ein Leuchtfeuer zu einem Bösen Leuchtfeuer macht (mit einem Roten Nether-Juwel; auch Aquisatoren). Mit Simple Mobs: eine Starke Aufwertung, ein Weinender Obsidian, ein Netherherz und ein Rotes Nether-Juwel (formlos) ergeben eine.",
           "details": [
-            "Schmiedetisch: Leuchtfeuer + Böse Aufwertungsvorlage + Netherstern. In der Welt wie die Starke Aufwertung: Vorlage in der Nebenhand, Axt oder Hammer in der Haupthand, ein Netherstern im Inventar, 8 Schläge auf ein Vanilla-Leuchtfeuer.",
+            "Schmiedetisch: Leuchtfeuer oder Aquisator + Böse Aufwertungsvorlage + Rotes Nether-Juwel (Simple Mobs). In der Welt wie die Starke Aufwertung: Vorlage in der Nebenhand, Axt oder Hammer in der Haupthand, ein Netherstern im Inventar, 8 Schläge auf ein Vanilla-Leuchtfeuer.",
             "Ohne Simple Mobs gibt es kein Bastelrezept (Netherherz und Rotes Nether-Juwel kommen von dessen Withern); die Vorlage ist dann nur Kreativ oder Beute."
           ]
         }
@@ -1325,7 +1905,8 @@
         "simplebeacons:evil_upgrade_template"
       ],
       "usedIn": [
-        "simplebeacons:evil_beacon_smithing"
+        "simplebeacons:evil_beacon_smithing",
+        "simplebeacons:evil_conduit_smithing"
       ]
     },
     {
@@ -1340,10 +1921,10 @@
           "modules/simplebeacons/shared/resources/data/simplebeacons/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
+          "summary": "Guide to this mod: 31 pages taken from this wiki, shown in your language. Shapeless recipe: book + prismarine shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Beacons\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
+          "summary": "Handbuch zu dieser Mod: 31 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Prismarinscherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Beacons\" eins."
         }
       },
       "texture": "assets/textures/simplebeacons/item/guide_book.png",
@@ -1460,8 +2041,12 @@
         "simplebeacons:evil_upgrade_template",
         "simplebeacons:mighty_beacon",
         "simplebeacons:mighty_beacon_without_simplebuilding",
+        "simplebeacons:mighty_conduit",
+        "simplebeacons:mighty_conduit_without_simplebuilding",
         "simplebeacons:mighty_evil_beacon",
         "simplebeacons:mighty_evil_beacon_without_simplebuilding",
+        "simplebeacons:mighty_evil_conduit",
+        "simplebeacons:mighty_evil_conduit_without_simplebuilding",
         "simplebeacons:strong_beacon_smithing",
         "simplebeacons:strong_conduit_smithing",
         "simplebeacons:strong_upgrade_template_duplication"
@@ -1531,6 +2116,66 @@
       ]
     },
     {
+      "id": "simplebeacons:evil_conduit",
+      "name": {
+        "en_us": "Evil Conduit",
+        "de_de": "Böser Aquisator"
+      },
+      "note": {
+        "en": {
+          "title": "Evil Conduit",
+          "summary": "The opposite of the Strong Conduit: players really under water in range get Mining Fatigue and Slowness. Same frames as the Strong Conduit (up to 7x7x7, range 24 per 7 frame blocks).",
+          "details": [
+            "Smithing table: conduit + Evil Upgrade + Red Nether Gem (Simple Mobs).",
+            "Protected like the Evil Beacon: no spectators, no newcomers or players protected by Simple Tweaks, and only 5 minutes after the last death (config).",
+            "It does not attack mobs. Dark soul particles rise around it and it hums low."
+          ]
+        },
+        "de": {
+          "title": "Böser Aquisator",
+          "summary": "Das Gegenteil des Starken Aquisators: Spieler, die wirklich unter Wasser sind, bekommen im Bereich Abbaumüdigkeit und Langsamkeit. Gleiche Rahmen wie der Starke Aquisator (bis 7x7x7, Reichweite 24 je 7 Rahmenblöcke).",
+          "details": [
+            "Schmiedetisch: Aquisator + Böse Aufwertungsvorlage + Rotes Nether-Juwel (Simple Mobs).",
+            "Geschützt wie das Böse Leuchtfeuer: keine Zuschauer, keine Neulinge oder durch Simple Tweaks geschützten Spieler, und erst 5 Minuten nach dem letzten Tod (Konfig).",
+            "Er greift keine Mobs an. Dunkle Seelenpartikel steigen um ihn auf und er brummt tief."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "The sea answers, but not kindly."
+          ],
+          "use": [
+            "Smithing table: a conduit, the Evil Upgrade and a Red Nether Gem. Same frames as the Strong Conduit (up to 7x7x7, 216 blocks).",
+            "Players really under water in range get Mining Fatigue and Slowness. It does not hurt mobs."
+          ],
+          "secret": [
+            "Like the Evil Beacon it spares newcomers, protected players and anyone who died in the last 5 minutes."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Das Meer antwortet, aber nicht freundlich."
+          ],
+          "use": [
+            "Schmiedetisch: ein Aquisator, die Böse Aufwertung und ein Rotes Nether-Juwel. Gleiche Rahmen wie der Starke Aquisator (bis 7x7x7, 216 Blöcke).",
+            "Spieler, die wirklich unter Wasser sind, bekommen Abbaumüdigkeit und Langsamkeit. Mobs nimmt er nichts."
+          ],
+          "secret": [
+            "Wie das Böse Leuchtfeuer verschont er Neulinge, geschützte Spieler und alle, die in den letzten 5 Minuten gestorben sind."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:evil_conduit_smithing"
+      ],
+      "usedIn": [
+        "simplebeacons:mighty_evil_conduit",
+        "simplebeacons:mighty_evil_conduit_without_simplebuilding"
+      ]
+    },
+    {
       "id": "simplebeacons:mighty_beacon",
       "name": {
         "en_us": "Mighty Beacon",
@@ -1592,6 +2237,64 @@
       "usedIn": []
     },
     {
+      "id": "simplebeacons:mighty_conduit",
+      "name": {
+        "en_us": "Mighty Conduit",
+        "de_de": "Mächtiger Aquisator"
+      },
+      "note": {
+        "en": {
+          "title": "Mighty Conduit",
+          "summary": "The Strong Conduit's big brother: frames up to 9x9x9 (90 blocks), range (frame blocks / 7) x 32 (at most 324), attack 16 with the full frame.",
+          "details": [
+            "Crafted like the Mighty Beacon, with the Strong Conduit in the middle (the six cores, or Copper, Iron, Gold, Diamond, Netherite and Emerald blocks without SimpleBuilding, plus two Strong Upgrades).",
+            "Conduit Power, Dolphin's Grace and Night Vision for players in the water.",
+            "Bubbles of light rise around it and it hums louder than a Vanilla conduit, so it is easy to find."
+          ]
+        },
+        "de": {
+          "title": "Mächtiger Aquisator",
+          "summary": "Der große Bruder des Starken Aquisators: Rahmen bis 9x9x9 (90 Blöcke), Reichweite (Rahmenblöcke / 7) x 32 (höchstens 324), Angriff 16 mit vollem Rahmen.",
+          "details": [
+            "Gebaut wie das Mächtige Leuchtfeuer, mit dem Starken Aquisator in der Mitte (die sechs Kerne, ohne SimpleBuilding Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Smaragdblöcke, dazu zwei Starke Aufwertungen).",
+            "Meereskraft, Delfingunst und Nachtsicht für Spieler im Wasser.",
+            "Lichtpartikel steigen um ihn auf und er brummt lauter als ein Vanilla-Aquisator, so ist er leicht zu finden."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "The deep gave it a frame of nine."
+          ],
+          "use": [
+            "Crafted from a Strong Conduit like the Mighty Beacon. Frame it up to 9x9x9 (90 blocks) with prismarine, dark prismarine, prismarine bricks or sea lanterns for up to 324 blocks of range.",
+            "Players in the water get Conduit Power, Dolphin's Grace and Night Vision."
+          ],
+          "secret": [
+            "The full 9x9x9 frame strikes hostile mobs in the water within 16 blocks."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Die Tiefe gab ihm einen Rahmen aus neun."
+          ],
+          "use": [
+            "Wird wie das Mächtige Leuchtfeuer aus einem Starken Aquisator gebaut. Rahmen bis 9x9x9 (90 Blöcke) aus Prismarin, Dunklem Prismarin, Prismarinziegeln oder Seelaternen für bis zu 324 Blöcke Reichweite.",
+            "Spieler im Wasser bekommen Aquisator-Kraft, Delfingunst und Nachtsicht."
+          ],
+          "secret": [
+            "Der volle 9x9x9-Rahmen trifft feindliche Mobs im Wasser im Umkreis von 16 Blöcken."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:mighty_conduit",
+        "simplebeacons:mighty_conduit_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplebeacons:mighty_evil_beacon",
       "name": {
         "en_us": "Mighty Evil Beacon",
@@ -1647,6 +2350,62 @@
       "usedIn": []
     },
     {
+      "id": "simplebeacons:mighty_evil_conduit",
+      "name": {
+        "en_us": "Mighty Evil Conduit",
+        "de_de": "Mächtiger Böser Aquisator"
+      },
+      "note": {
+        "en": {
+          "title": "Mighty Evil Conduit",
+          "summary": "The Evil Conduit with a 9x9x9 frame, range up to 324 blocks and harsher effects: Mining Fatigue II, Slowness, Weakness and Darkness.",
+          "details": [
+            "Crafted like the Mighty Beacon, with the Evil Conduit in the middle.",
+            "The same protection as the Evil Conduit applies."
+          ]
+        },
+        "de": {
+          "title": "Mächtiger Böser Aquisator",
+          "summary": "Der Böse Aquisator mit 9x9x9-Rahmen, Reichweite bis 324 Blöcke und härteren Wirkungen: Abbaumüdigkeit II, Langsamkeit, Schwäche und Dunkelheit.",
+          "details": [
+            "Gebaut wie das Mächtige Leuchtfeuer, mit dem Bösen Aquisator in der Mitte.",
+            "Es gilt derselbe Schutz wie beim Bösen Aquisator."
+          ]
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "A frame of nine, a tide of dread."
+          ],
+          "use": [
+            "Crafted from an Evil Conduit like the Mighty Evil Beacon. Frame up to 9x9x9, range up to 324 blocks.",
+            "Players really under water in range get Mining Fatigue II, Slowness, Weakness and Darkness."
+          ],
+          "secret": [
+            "The same protection as the Evil Beacon applies."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Rahmen aus neun, eine Flut aus Grauen."
+          ],
+          "use": [
+            "Wird wie das Mächtige Böse Leuchtfeuer aus einem Bösen Aquisator gebaut. Rahmen bis 9x9x9, Reichweite bis 324 Blöcke.",
+            "Spieler, die wirklich unter Wasser sind, bekommen Abbaumüdigkeit II, Langsamkeit, Schwäche und Dunkelheit."
+          ],
+          "secret": [
+            "Es gilt derselbe Schutz wie beim Bösen Leuchtfeuer."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplebeacons:mighty_evil_conduit",
+        "simplebeacons:mighty_evil_conduit_without_simplebuilding"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplebeacons:strong_beacon",
       "name": {
         "en_us": "Strong Beacon",
@@ -1657,7 +2416,7 @@
           "title": "Strong Beacon",
           "summary": "A beacon with up to five pyramid levels (11x11 below the Vanilla four, 285 blocks in all): primary powers on levels 1 to 4, the secondary power on level 5. Range is (10 + 10 per level) x the material factor (60 blocks with Iron at level 5, at most 340 with every setting), the effect lasts 9 + 2 per level seconds; it affects players only, like Vanilla.",
           "details": [
-            "Smithing table: beacon + Strong Upgrade + nether star. Placed beacons can also be upgraded in the world.",
+            "Smithing table: beacon + Strong Upgrade + Nether Heart (Simple Mobs). Placed beacons can also be upgraded in the world.",
             "Level 1: Speed, Haste and Saturation (a pulse every 12 s: one hunger point, never hungry in range). Level 2: Jump Boost, Resistance and Slow Falling. Level 3: Strength, Invisibility and Dolphin's Grace. Level 4: Luck I.",
             "Level 5 unlocks the secondary power: Regeneration, or level II of a Vanilla primary power (Speed, Haste, Resistance, Jump Boost, Strength). The new powers have no level II.",
             "Older worlds: a Strong Beacon placed before this change keeps its block, name and lock. Its saved powers that no longer exist (Extra Hearts on level 2, Hero of the Village, Night Vision ...) are cleared and have to be chosen again; a saved 6th level counts as 5.",
@@ -1670,7 +2429,7 @@
           "title": "Starkes Leuchtfeuer",
           "summary": "Ein Leuchtfeuer mit bis zu fünf Pyramidenebenen (11x11 unter den vier Vanilla-Ebenen, zusammen 285 Blöcke): Primärkräfte auf den Ebenen 1 bis 4, die Sekundärkraft auf Ebene 5. Die Reichweite ist (10 + 10 je Ebene) x Materialfaktor (mit Eisen 60 Blöcke auf Ebene 5, bei allen Einstellungen höchstens 340), die Wirkung hält 9 + 2 je Ebene Sekunden; sie trifft nur Spieler, wie Vanilla.",
           "details": [
-            "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherstern. Gesetzte Leuchtfeuer lassen sich auch in der Welt aufwerten.",
+            "Schmiedetisch: Leuchtfeuer + Starke Aufwertungsvorlage + Netherherz (Simple Mobs). Gesetzte Leuchtfeuer lassen sich auch in der Welt aufwerten.",
             "Ebene 1: Tempo, Eile und Sättigung (alle 12 s ein Stoß: ein Hungerpunkt, in Reichweite nie hungrig). Ebene 2: Sprungkraft, Resistenz und Langsamer Fall. Ebene 3: Stärke, Unsichtbarkeit und Gnade des Delfins. Ebene 4: Glück I.",
             "Ebene 5 schaltet die Sekundärkraft frei: Regeneration oder Stufe II einer Vanilla-Primärkraft (Tempo, Eile, Resistenz, Sprungkraft, Stärke). Die neuen Kräfte haben keine Stufe II.",
             "Alte Welten: Ein vor dieser Änderung gesetztes Starkes Leuchtfeuer behält Block, Namen und Sperre. Seine gespeicherten Kräfte, die es nicht mehr gibt (Extraherzen auf Ebene 2, Held des Dorfes, Nachtsicht ...), werden gelöscht und müssen neu gewählt werden; eine gespeicherte 6. Ebene zählt als 5.",
@@ -1726,7 +2485,7 @@
           "title": "Strong Conduit",
           "summary": "A conduit with a larger area (owner: no new ability): range is (frame blocks / 7) x 24, 1.5 times Vanilla's 16 - 144 blocks with the Vanilla 5x5x5 frame, 216 with the full 7x7x7 frame (three crossing 7x7 rings of prismarine, prismarine bricks, dark prismarine or sea lanterns, 66 blocks).",
           "details": [
-            "Smithing table: conduit + Strong Upgrade + nether star. A Vanilla conduit stays Vanilla: up to 96 blocks, Conduit Power only.",
+            "Smithing table: conduit + Strong Upgrade + Nether Heart (Simple Mobs). A Vanilla conduit stays Vanilla: up to 96 blocks, Conduit Power only.",
             "It needs water around it and at least 16 frame blocks, like Vanilla.",
             "Players in the water or rain get Conduit Power like Vanilla; players in the water also get Dolphin's Grace. Beyond 96 blocks only players really under water count, not rain.",
             "The full 7x7x7 frame attacks hostile mobs in the water within 12 blocks (the full 5x5x5 frame: 8), with Vanilla's damage.",
@@ -1737,7 +2496,7 @@
           "title": "Starker Aquisator",
           "summary": "Ein Aquisator mit größerem Bereich (Besitzer: keine neue Fähigkeit): Die Reichweite ist (Rahmenblöcke / 7) x 24, das 1,5-Fache von Vanillas 16 - 144 Blöcke mit dem Vanilla-Rahmen 5x5x5, 216 mit dem vollen 7x7x7-Rahmen (drei sich kreuzende 7x7-Ringe aus Prismarin, Prismarinziegeln, Dunklem Prismarin oder Seelaternen, 66 Blöcke).",
           "details": [
-            "Schmiedetisch: Aquisator + Starke Aufwertungsvorlage + Netherstern. Ein Vanilla-Aquisator bleibt Vanilla: bis 96 Blöcke, nur Meereskraft.",
+            "Schmiedetisch: Aquisator + Starke Aufwertungsvorlage + Netherherz (Simple Mobs). Ein Vanilla-Aquisator bleibt Vanilla: bis 96 Blöcke, nur Meereskraft.",
             "Er braucht Wasser um sich und mindestens 16 Rahmenblöcke, wie Vanilla.",
             "Spieler im Wasser oder Regen erhalten Meereskraft wie bei Vanilla; Spieler im Wasser zusätzlich Delfingunst. Jenseits von 96 Blöcken zählen nur Spieler wirklich unter Wasser, nicht im Regen.",
             "Der volle 7x7x7-Rahmen greift feindliche Mobs im Wasser im Umkreis von 12 Blöcken an (der volle 5x5x5-Rahmen: 8), mit Vanilla-Schaden.",
@@ -1774,7 +2533,10 @@
       "craftedBy": [
         "simplebeacons:strong_conduit_smithing"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simplebeacons:mighty_conduit",
+        "simplebeacons:mighty_conduit_without_simplebuilding"
+      ]
     }
   ],
   "trades": [],
@@ -1791,14 +2553,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 13,
-    "recipes": 12,
-    "lootTables": 5,
+    "features": 16,
+    "recipes": 17,
+    "lootTables": 8,
     "tags": 1,
     "advancements": 0,
     "enchantments": 0,
     "items": 4,
-    "blocks": 5,
+    "blocks": 8,
     "trades": 0,
     "config": 0,
     "quests": 0,

@@ -481,7 +481,7 @@
   "simpletweaks.guide.page.62.title": "Automatic off with partner mods (autoOffWith)",
   "simpletweaks.guide.page.62": "Chunky for pregeneration, Litematica or Axiom for the action checks. Freecam only gets a log note.",
   "simpletweaks.guide.page.63.title": "Creative tabs",
-  "simpletweaks.guide.page.63": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+  "simpletweaks.guide.page.63": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simpletweaks.guide.page.64.title": "Anti-X-Ray",
   "simpletweaks.guide.page.64": "Ores that touch no air, water or other see-through block are sent to players as their host stone (stone, deepslate, netherrack, end stone), so x-ray texture packs, x-ray mods and noclip cameras see no hidden ore.",
   "simpletweaks.guide.page.65.title": "Anti-X-Ray",

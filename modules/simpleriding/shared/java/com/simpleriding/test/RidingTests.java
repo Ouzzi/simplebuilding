@@ -60,18 +60,15 @@ public final class RidingTests {
   h.succeed();
  }
  /**
-  * The horseshoes stand in vanilla's Combat tab right before the wolf armor (after every horse armor) and the
-  * template in Ingredients right before the bottle o' enchanting (owner 2026-10-02), so the search tab lists them
-  * there too. Breaks when a loader hook is gone or an anchor moves.
+  * Creative tabs (owner 30.10.): the horseshoes and the template stand only in the own tab; the Combat and Ingredients tabs
+  * hold none of them, and the search tab still finds them through the own tab.
   */
  public static void vanillaTabPlacement(GameTestHelper h){
   CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(),true,h.getLevel().registryAccess());
+  var mine=new ArrayList<net.minecraft.world.item.Item>(Horseshoes.ITEMS.values());if(Horseshoes.TEMPLATE!=null)mine.add(Horseshoes.TEMPLATE);
   for(var key:List.of(CreativeModeTabs.COMBAT,CreativeModeTabs.INGREDIENTS)){
-   var content=new ArrayList<>(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(key).getDisplayItems());
-   var stacks=Riding.vanillaTabStacks(key);h.assertTrue(!stacks.isEmpty(),"Something to place in "+key);
-   int anchor=-1;for(int i=0;i<content.size();i++)if(content.get(i).is(Riding.vanillaTabAnchor(key))){anchor=i;break;}
-   h.assertTrue(anchor>=stacks.size(),"Anchor present in "+key);
-   for(int i=0;i<stacks.size();i++)h.assertTrue(content.get(anchor-stacks.size()+i).is(stacks.get(i).getItem()),key+": "+stacks.get(i)+" right before the anchor, found "+content.get(anchor-stacks.size()+i));
+   var content=BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(key).getDisplayItems();
+   for(var item:mine)h.assertTrue(content.stream().noneMatch(s->s.is(item)),"No "+item+" in "+key);
   }
   var search=CreativeModeTabs.searchTab().getDisplayItems();
   for(var item:Horseshoes.ITEMS.values())h.assertTrue(search.stream().anyMatch(s->s.is(item)),"Search tab lists "+item);

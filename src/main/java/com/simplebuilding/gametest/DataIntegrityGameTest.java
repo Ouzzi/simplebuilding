@@ -147,11 +147,6 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
-    public void everyModItemHasItsPlaceInTheSearchTab(GameTestHelper helper) {
-        DataIntegrityTests.everyModItemHasItsPlaceInTheSearchTab(helper);
-    }
-
-    @GameTest
     public void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         DataIntegrityTests.toolsTabIsLaidOutInRowsOfNine(helper);
     }
@@ -189,11 +184,6 @@ public final class DataIntegrityGameTest {
     @GameTest
     public void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
         DataIntegrityTests.devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(helper);
-    }
-
-    @GameTest
-    public void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
-        DataIntegrityTests.devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(helper);
     }
 
     @GameTest

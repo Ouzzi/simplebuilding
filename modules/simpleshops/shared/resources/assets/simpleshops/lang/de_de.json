@@ -131,7 +131,7 @@
   "simpleshops.guide.page.15.title": "Claims und Simple Money",
   "simpleshops.guide.page.15": "Allein läuft ein Shop überall. Mit Claims (Simple Tweaks) lässt sich ein Shop nur setzen, wo der Besitzer bauen darf (Baurecht B); Kaufen braucht gar kein Recht.",
   "simpleshops.guide.page.16.title": "Kreativ-Tabs",
-  "simpleshops.guide.page.16": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+  "simpleshops.guide.page.16": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simpleshops.guide.page.17.title": "Befehle",
   "simpleshops.guide.page.17": "/simpleshops config zeigt und ändert jede Option von config/simpleshops-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simpleshops.guide.page.18.title": "Befehle",

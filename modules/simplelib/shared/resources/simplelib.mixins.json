@@ -22,6 +22,8 @@
     "WarmUseDurationMixin",
     "DiscoverTipMixin",
     "SimpleRarityNameMixin",
+    "CreativeModeTabPosition",
+    "CreativeModeTabsPolicyMixin",
     "LegendaryAdvancementMixin",
     "LegendaryEnchantTableMixin",
     "LegendaryAnvilMixin"

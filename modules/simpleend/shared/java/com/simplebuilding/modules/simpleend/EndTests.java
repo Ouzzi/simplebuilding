@@ -912,22 +912,21 @@ public final class EndTests {
         });
     }
 
-    /** Creative-tab switch: every Vanilla-tab entry is an item of the own tab, and every wood/plant/fruit/egg item is sorted into one. */
+    /** Creative tabs (owner 30.10.): no item of the own tab stands in a Vanilla tab, and the own tab holds no plain Vanilla item. */
     private static void vanillaTabStacks(GameTestHelper h) {
-        var map = EndRegistry.vanillaTabStacks();
-        var own = EndRegistry.tabStacks();
-        int sorted = 0;
-        h.assertTrue(EndRegistry.VANILLA_TABS.containsAll(map.keySet()), "every target tab is registered by the Fabric listener list");
-        for (var e : map.entrySet()) {
-            for (var stack : e.getValue()) {
-                sorted++;
-                h.assertTrue(own.stream().anyMatch(o -> o.is(stack.getItem())), "not in the own tab: " + stack.getItem());
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+        var own = BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(EndRegistry.TAB).getDisplayItems();
+        h.assertTrue(!own.isEmpty(), "the own tab has items");
+        for (var stack : own) {
+            boolean plainVanilla = "minecraft".equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace()) && stack.getComponentsPatch().isEmpty();
+            h.assertTrue(!plainVanilla, "plain Vanilla item in the own tab: " + stack.getItem());
+        }
+        for (var tabKey : EndRegistry.VANILLA_TABS) {
+            for (var stack : BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(tabKey).getDisplayItems()) {
+                h.assertTrue(own.stream().noneMatch(o -> o.is(stack.getItem()) && !"minecraft".equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())),
+                        "mod item of the own tab in the Vanilla tab " + tabKey.identifier() + ": " + stack.getItem());
             }
         }
-        int ownItems = own.size() - (com.simplebuilding.modules.simpleend.guide.EndGuide.book() != null ? 1 : 0);
-        h.assertTrue(sorted == ownItems, "Vanilla tabs get all " + ownItems + " items except the guide, got " + sorted);
-        h.assertTrue(map.containsKey(net.minecraft.world.item.CreativeModeTabs.NATURAL_BLOCKS) && map.containsKey(net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS)
-                && map.containsKey(net.minecraft.world.item.CreativeModeTabs.SPAWN_EGGS), "wood, plants and the egg land in matching tabs");
         h.succeed();
     }
 

@@ -32,7 +32,8 @@ public final class SimpleBeacons {
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "beacons", "simplebeacons.testcentre.station",
                 java.util.List.of("simplebeacons:strong_upgrade_template", "simplebeacons:evil_upgrade_template", "simplebeacons:strong_upgrade_shard",
                         "simplebeacons:strong_beacon", "simplebeacons:mighty_beacon", "simplebeacons:evil_beacon", "simplebeacons:mighty_evil_beacon",
-                        "simplebeacons:strong_conduit", "simplebeacons:guide_book"));
+                        "simplebeacons:strong_conduit", "simplebeacons:mighty_conduit", "simplebeacons:evil_conduit",
+                        "simplebeacons:mighty_evil_conduit", "simplebeacons:guide_book"));
     }
 
     private SimpleBeacons() {}

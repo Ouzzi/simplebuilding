@@ -58,7 +58,7 @@
   "simpletrims.guide.page.9.title": "Aus SimpleBuilding umgezogen",
   "simpletrims.guide.page.9": "Die Vorlagen, ihre Aufwertungsdaten, Rezepte und Fortschritte hießen früher simplebuilding:*. Alte Welten laden sie als simpletrims:* (SimpleLib-ID-Umzug); die Strahlkraft behält ihren Wert.",
   "simpletrims.guide.page.10.title": "Kreativ-Tabs",
-  "simpletrims.guide.page.10": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+  "simpletrims.guide.page.10": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simpletrims.guide.page.11.title": "Befehle",
   "simpletrims.guide.page.11": "/simpletrims config zeigt und ändert jede Option von config/simpletrims-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simpletrims.guide.page.12.title": "Befehle",

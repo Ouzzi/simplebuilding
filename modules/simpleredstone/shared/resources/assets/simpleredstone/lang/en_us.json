@@ -16,7 +16,7 @@
   "simpleredstone.guide.page.3.title": "Signal Dampener",
   "simpleredstone.guide.page.3": "A flat redstone part like the Repeater that takes 0 to 3 off the signal and passes it on one redstone tick later.",
   "simpleredstone.guide.page.4.title": "Creative tabs",
-  "simpleredstone.guide.page.4": "Own tab with both parts and the guide. Both parts also sit behind the Repeater in Vanilla's redstone tab (config/simple-creative-tabs.properties).",
+  "simpleredstone.guide.page.4": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simpleredstone.guide.page.5.title": "Commands",
   "simpleredstone.guide.page.5": "/simpleredstone config [list | get | set | reset | help] (operators).",
   "simpleredstone.guide.page.6.title": "Settings",

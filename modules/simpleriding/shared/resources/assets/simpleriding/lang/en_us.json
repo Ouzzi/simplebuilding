@@ -105,7 +105,7 @@
   "simpleriding.guide.page.11.title": "Horseshoes",
   "simpleriding.guide.page.11": "a full set adds a little speed and jump and slightly more fall damage.",
   "simpleriding.guide.page.12.title": "Creative tabs",
-  "simpleriding.guide.page.12": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
+  "simpleriding.guide.page.12": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simpleriding.guide.page.13.title": "Commands",
   "simpleriding.guide.page.13": "/simpleriding config shows and changes every option of config/simpleriding.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once;",
   "simpleriding.guide.page.14.title": "Commands",

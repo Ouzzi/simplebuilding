@@ -314,13 +314,17 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "Own tab with the seven hammers, the guide and the three enchanted books. Without SimpleBuilding each hammer also sits behind the hoe of its tier in the Vanilla tools tab (switch addItemsToVanillaTabs).",
-        "details": []
+        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
+        "details": [
+          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+        ]
       },
       "de": {
         "title": "Kreativ-Tabs",
-        "summary": "Eigener Tab mit den sieben Hämmern, dem Handbuch und den drei Verzauberungsbüchern. Ohne SimpleBuilding steht jeder Hammer zusätzlich hinter der Hacke seiner Stufe im Vanilla-Werkzeugtab (Schalter addItemsToVanillaTabs).",
-        "details": []
+        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
+        "details": [
+          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+        ]
       }
     },
     {
@@ -351,10 +355,10 @@
         "modules/simplehammers/shared/resources/data/simplehammers/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 27 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
+        "summary": "Guide to this mod: 26 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 27 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
+        "summary": "Handbuch zu dieser Mod: 26 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
       }
     },
     "simplehammers:*_sledgehammer": {

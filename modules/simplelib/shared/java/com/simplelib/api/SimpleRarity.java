@@ -25,6 +25,8 @@ import org.jspecify.annotations.Nullable;
  *       into them from below and run through the name (owner 21.10., docs/ai/PLAN-B-RARITY21B-2026-10-22.md).</li>
  *   <li>{@link #MYTHIC}: an opal that moves through the letters (aquamarine, azure, lavender) with a pearl gloss on top,
  *       a pearl sheen sweeping across in the tooltip, plus the enchantment glint (the rarest items).</li>
+ *   <li>{@link #EVIL}: the Evil things of Simple Beacons (IG31-1): a slow heartbeat between blood red and violet that runs
+ *       through the letters, no glint.</li>
  * </ul>
  * The tooltip paints both tiers pixel row by pixel row ({@code com.simplelib.client.RarityText}, colours from
  * {@link #pixel}); everywhere else a letter has one colour, and off the client (server, chat) the name has the plain tier
@@ -32,7 +34,8 @@ import org.jspecify.annotations.Nullable;
  */
 public enum SimpleRarity implements StringRepresentable {
     CURSED("cursed", 0xFF3030, 0xFF000000),
-    MYTHIC("mythic", 0x5CF2DE, 0xFF0F1838);
+    MYTHIC("mythic", 0x5CF2DE, 0xFF0F1838),
+    EVIL("evil", 0xE070FF, 0xFF1A0030);
 
     /**
      * Flame ramp of the cursed letters, cool to hot: radiant red, red-orange, orange, gold, white-gold (the bright steps
@@ -41,6 +44,8 @@ public enum SimpleRarity implements StringRepresentable {
     public static final int[] FIRE = {0xFF3030, 0xFF5A1E, 0xF7921C, 0xFFC832, 0xFFE98A};
     /** Opal of the mythic letters (cyclic): aquamarine, azure, lavender. */
     public static final int[] OPAL = {0x5CF2DE, 0x6AB6FF, 0xC6A4FF};
+    /** Evil: blood red, violet, lilac (cyclic); every stop reads 4.5:1 on the tooltip background. */
+    public static final int[] VENOM = {0xFF5C7A, 0xE070FF, 0xA98BFF};
     /** Pearl: gloss on the top rows of the mythic letters. The sweeping sheen goes to white. */
     public static final int PEARL = 0xF2FBFF;
     /** Style insertion on tooltip letters: the client overlay paints letters carrying it row by row. */
@@ -107,7 +112,7 @@ public enum SimpleRarity implements StringRepresentable {
      * letter (the hotbar compares names with equals, so nothing here may move with time).
      */
     public Component name(Component base) {
-        if (this != MYTHIC || !onClient()) return Component.empty().append(base).withStyle(style());
+        if (this == CURSED || !onClient()) return Component.empty().append(base).withStyle(style());
         return letters(base.getString(), 0L, false);
     }
 
@@ -144,6 +149,13 @@ public enum SimpleRarity implements StringRepresentable {
             double flame = 0.5 + 0.32 * wave + 0.18 * noise(index, millis / 110.0);
             double heat = flame * 1.3 - (ROWS - 1 - r) / (double) (ROWS - 1) + 0.12 * noise(index * 8 + r + 101, millis / 90.0);
             return ramp(FIRE, heat);
+        }
+        if (this == EVIL) {
+            double beat = (millis % 3600L) / 3600.0;
+            int c = cyclic(VENOM, (count <= 1 ? 0.0 : (double) index / count) * 0.5 + beat);
+            // a heartbeat: a brief lift of the whole name twice per round, the top rows a little lighter
+            double pulse = Math.max(0.0, Math.sin(2 * Math.PI * beat * 2.0)) * 0.18;
+            return mix(c, 0xFFFFFF, (float) (pulse + (r <= 1 ? 0.08 : 0.0)));
         }
         double s = (count <= 1 ? 0.0 : (double) index / count) * 0.6 + (millis % 5200L) / 5200.0;
         int c = cyclic(OPAL, s);

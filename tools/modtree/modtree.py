@@ -14,6 +14,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT_HTML, OUT_MD = ROOT / "docs/MODSTRUKTUR.html", ROOT / "docs/MODSTRUKTUR.md"
+# IG31-3: Kreativ-Tab-Reihenfolge (Super-Mod, dann seine Sub-Mods), gelesen von SimpleLibs CreativeTabPolicy
+OUT_ORDER = ROOT / "modules/simplelib/shared/resources/data/simplelib/creative_tab_order.json"
 STATUS = {"done": "fertig", "new": "neu", "planned": "geplant"}
 BASE = "simplelib"
 
@@ -184,9 +186,31 @@ def render_md(mods):
     return s
 
 
+def tab_order(mods):
+    """Mod ids in Kreativ-Tab-Reihenfolge: je Super-Mod erst er selbst, dann seine Sub-Mods (Pflicht zuerst, verschachtelt), dann die Eigenstaendigen, zuletzt die Basis."""
+    out = []
+
+    def add(m):
+        out.append(m["id"])
+        for k in children(mods, m["id"]):
+            add(k)
+    sup, rest = roots(mods)
+    for m in sup + rest:
+        add(m)
+    if BASE in mods:
+        out.append(BASE)
+    return out
+
+
+def render_order(mods):
+    import json as _json
+    return _json.dumps({"_": "Generiert von tools/modtree/modtree.py aus modules/modules.json (parent/bundle); nicht von Hand bearbeiten.",
+                        "order": tab_order(mods)}, indent=2, ensure_ascii=False) + "\n"
+
+
 def main(argv):
     mods = load()
-    files = {OUT_HTML: render_html(mods), OUT_MD: render_md(mods)}
+    files = {OUT_HTML: render_html(mods), OUT_MD: render_md(mods), OUT_ORDER: render_order(mods)}
     if "--check" in argv:
         old = [p.name for p, t in files.items() if not p.exists() or p.read_text(encoding="utf-8") != t]
         if old:
@@ -195,6 +219,7 @@ def main(argv):
         print("modtree ok")
         return 0
     for p, t in files.items():
+        p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(t, encoding="utf-8", newline="\n")
         print("geschrieben", p.relative_to(ROOT))
     return 0

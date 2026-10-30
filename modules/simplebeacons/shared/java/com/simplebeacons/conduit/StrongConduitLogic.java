@@ -1,5 +1,6 @@
 package com.simplebeacons.conduit;
 
+import com.simplebeacons.beacon.EvilGate;
 import com.simplebeacons.config.BeaconsConfig;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import net.minecraft.world.phys.AABB;
  */
 public final class StrongConduitLogic {
     public static final int MIN_ACTIVE = 16;
-    public static final int FULL_SMALL = 42, FULL_LARGE = 66;
+    public static final int FULL_SMALL = 42, FULL_LARGE = 66, FULL_HUGE = 90;
     public static final int VANILLA_MAX_RANGE = 96;
     public static final int EFFECT_TICKS = 260;
 
@@ -54,14 +55,25 @@ public final class StrongConduitLogic {
 
     /** Frame blocks of the larger complete-enough shell into {@code out}; the radius used (2, 3) or 0 when inactive. */
     public static int scan(Level level, BlockPos center, List<BlockPos> out) {
+        return scan(level, center, out, ConduitKind.STRONG);
+    }
+
+    /** As {@link #scan(Level, BlockPos, List)} for a kind: the mighty kinds also count the 9x9x9 shell (radius 4, 90 blocks). */
+    public static int scan(Level level, BlockPos center, List<BlockPos> out, ConduitKind kind) {
         out.clear();
         if (!inWater(level, center)) return 0;
-        List<BlockPos> large = frame(level, shell(center, 3));
-        List<BlockPos> small = frame(level, shell(center, 2));
-        List<BlockPos> best = large.size() >= small.size() ? large : small;
+        List<BlockPos> best = frame(level, shell(center, 2));
+        int radius = 2;
+        for (int r = 3; r <= kind.maxRadius(); r++) {
+            List<BlockPos> candidate = frame(level, shell(center, r));
+            if (candidate.size() >= best.size()) {
+                best = candidate;
+                radius = r;
+            }
+        }
         if (best.size() < MIN_ACTIVE) return 0;
         out.addAll(best);
-        return best == large ? 3 : 2;
+        return radius;
     }
 
     private static List<BlockPos> frame(Level level, List<BlockPos> shell) {
@@ -77,27 +89,41 @@ public final class StrongConduitLogic {
 
     /** Range for {@code frameBlocks} frame blocks: Vanilla's formula with {@link #RANGE_PER_7}, capped by the server config. */
     public static int range(int frameBlocks) {
-        return Math.min(frameBlocks / 7 * RANGE_PER_7, BeaconsConfig.strongConduitMaxRange);
+        return range(frameBlocks, ConduitKind.STRONG);
+    }
+
+    public static int range(int frameBlocks, ConduitKind kind) {
+        return Math.min(frameBlocks / 7 * kind.rangePer7(), kind.rangeCap(BeaconsConfig.strongConduitMaxRange));
     }
 
     /** Attack radius: 8 with the full 5x5x5 frame, 12 with the full 7x7x7 frame, else no attack (0). */
     public static int killRange(int frameBlocks, int radius) {
-        if (radius == 3 && frameBlocks >= FULL_LARGE) return 12;
-        return frameBlocks >= FULL_SMALL ? 8 : 0;
+        return ConduitKind.STRONG.killRange(frameBlocks, radius);
     }
 
     /** Effects for players in range; returns the players that got them. */
     public static List<Player> applyEffects(Level level, BlockPos pos, int frameBlocks) {
-        int range = range(frameBlocks);
+        return applyEffects(level, pos, frameBlocks, ConduitKind.STRONG);
+    }
+
+    /**
+     * The good kinds help players in the water (beyond Vanilla's 96 blocks only really under water, not rain); the evil
+     * kinds only reach players really under water that {@link EvilGate} lets through (no newcomers, no spectators, grace
+     * minutes after a death).
+     */
+    public static List<Player> applyEffects(Level level, BlockPos pos, int frameBlocks, ConduitKind kind) {
+        int range = range(frameBlocks, kind);
         AABB box = new AABB(pos).inflate(range).expandTowards(0.0, level.getHeight(), 0.0);
         List<Player> reached = new ArrayList<>();
         for (Player player : level.getEntitiesOfClass(Player.class, box)) {
             if (!pos.closerThan(player.blockPosition(), range)) continue;
             boolean far = !pos.closerThan(player.blockPosition(), VANILLA_MAX_RANGE);
-            boolean wet = far ? player.isInWater() : player.isInWaterOrRain();
-            if (!wet) continue;
-            player.addEffect(new MobEffectInstance(MobEffects.CONDUIT_POWER, EFFECT_TICKS, 0, true, true));
-            if (player.isInWater()) player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, EFFECT_TICKS, 0, true, true));
+            boolean wet = kind.evil() || far ? player.isInWater() : player.isInWaterOrRain();
+            if (!wet || kind.evil() && !EvilGate.affects(player)) continue;
+            for (ConduitKind.Power power : kind.effects()) {
+                if (power.effect().equals(MobEffects.DOLPHINS_GRACE) && !player.isInWater()) continue;
+                player.addEffect(new MobEffectInstance(power.effect(), EFFECT_TICKS, power.amplifier(), true, true));
+            }
             reached.add(player);
         }
         return reached;

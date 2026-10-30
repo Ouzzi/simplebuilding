@@ -124,7 +124,7 @@
   "simplemaps.guide.page.9.title": "Webkarten-Export",
   "simplemaps.guide.page.9": "Server-Admins können die erkundete Welt als statische Webkarte exportieren: Bildkacheln, markers.json und eine kleine Ansichtsseite.",
   "simplemaps.guide.page.10.title": "Kreativ-Tabs",
-  "simplemaps.guide.page.10": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
+  "simplemaps.guide.page.10": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simplemaps.guide.page.11.title": "Befehle",
   "simplemaps.guide.page.11": "/simplemaps config zeigt und ändert jede Option von config/simplemaps-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simplemaps.guide.page.12.title": "Befehle",
