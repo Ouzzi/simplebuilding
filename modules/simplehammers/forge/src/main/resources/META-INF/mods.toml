@@ -37,6 +37,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.simplehammers]]
+modId="simpleores"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplehammers]]
 modId="simpleoctets"
 mandatory=false
 versionRange="[0,)"

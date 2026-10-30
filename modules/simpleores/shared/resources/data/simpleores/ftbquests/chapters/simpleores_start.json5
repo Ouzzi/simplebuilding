@@ -1,0 +1,41 @@
+{
+	"id": "57E7997783F5ABC6",
+	"order_index": 0,
+	"filename": "simpleores_start",
+	"icon": {
+		"id": "simpleores:guide_book"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "6BB9F2DD063CB2DA",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": [],
+			"tasks": [
+				{
+					"id": "5B0ABFFDB39E94F6",
+					"type": "item",
+					"item": {
+						"id": "minecraft:crafting_table",
+						"count": 1
+					}
+				}
+			],
+			"rewards": [
+				{
+					"id": "0147ADDF2DF14042",
+					"type": "item",
+					"item": {
+						"id": "simpleores:guide_book",
+						"count": 1
+					}
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

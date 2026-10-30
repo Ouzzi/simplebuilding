@@ -656,6 +656,25 @@ ICONS: dict[str, dict] = {
                         ".....oooooo.....",
                         "................",
                         "................"),
+    "simpleores": icon("Silber- und Roségoldbarren", {"o": "#1e2430", "W": "#f0f4f8", "S": "#aebbca", "T": "#778699", "s": "#5b6a7e",
+                                                      "R": "#f2b88f", "Q": "#d37d5d", "r": "#b5604a"},
+                       [("Kontur", "o"), ("Silber", "WSTs"), ("Rosé", "RQr")],
+                       "................",
+                       "...oooooooooo...",
+                       "..oWWWWSSSSSso..",
+                       ".oWWSSSSSSTTTso.",
+                       ".oSSSSSSSTTTTso.",
+                       ".oSSSSSSTTTTsso.",
+                       "..oooooooooooo..",
+                       "................",
+                       "....oooooooooo..",
+                       "...oRRRRQQQQQro.",
+                       "..oRRQQQQQQrrro.",
+                       "..oQQQQQQQrrrro.",
+                       "..oQQQQQQrrrrro.",
+                       "...oooooooooooo.",
+                       "................",
+                       "................"),
 }
 PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon}
 
@@ -698,6 +717,7 @@ BG = {
     "simpleanimals": "#9cc07a",
     "simpleredstone": "#b85a50",
     "simpledinos": "#d8b878",
+    "simpleores": "#9aa8bc",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 

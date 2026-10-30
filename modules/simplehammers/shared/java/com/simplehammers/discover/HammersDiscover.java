@@ -53,6 +53,7 @@ public final class HammersDiscover {
     static final List<String> DOCUMENTED = List.of(
             "simplehammers:*_sledgehammer",
             "simplehammers:anvil",
+            "simplehammers:blossom_gold_sledgehammer",
             "simplehammers:break_through",
             "simplehammers:commands",
             "simplehammers:config_server",
@@ -72,6 +73,7 @@ public final class HammersDiscover {
             "simplehammers:override",
             "simplehammers:radius",
             "simplehammers:reshaping",
+            "simplehammers:rose_bronze_sledgehammer",
             "simplehammers:sledgehammers",
             "simplehammers:stone_crush",
             "simplehammers:stone_sledgehammer",

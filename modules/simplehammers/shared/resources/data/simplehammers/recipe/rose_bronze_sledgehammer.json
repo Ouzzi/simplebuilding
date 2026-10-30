@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleores"
+    }
+  ],
+  "forge:condition": {
+    "type": "forge:mod_loaded",
+    "modid": "simpleores"
+  },
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "simpleores:rose_bronze_block",
+    "M": "simpleores:rose_bronze_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "BMM",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "id": "simplehammers:rose_bronze_sledgehammer"
+  }
+}

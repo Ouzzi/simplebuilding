@@ -1,0 +1,10 @@
+{
+	"chapter.57E7997783F5ABC6.title": "{\"translate\": \"quests.simpleores.start.title\"}",
+	"chapter.57E7997783F5ABC6.chapter_subtitle": [
+		"{\"translate\": \"quests.simpleores.start.subtitle\"}"
+	],
+	"quest.6BB9F2DD063CB2DA.title": "{\"translate\": \"quests.simpleores.start.welcome.title\"}",
+	"quest.6BB9F2DD063CB2DA.quest_desc": [
+		"{\"translate\": \"quests.simpleores.start.welcome.description\"}"
+	]
+}

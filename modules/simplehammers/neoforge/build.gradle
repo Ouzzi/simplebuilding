@@ -20,3 +20,5 @@ neoForge.runs {
         programArguments.addAll '--tests', (project.findProperty('gametestFilter') ?: 'simplehammers:*').toString(), '--report', layout.buildDirectory.file('module-junit.xml').get().asFile.absolutePath
     }
 }
+// ABN30-10: the optional rose gold hammer textures are Vanilla-derived from the own gold hammer (built, never committed).
+apply from: rootProject.file("gradle/module-vanilla-derived.gradle")
