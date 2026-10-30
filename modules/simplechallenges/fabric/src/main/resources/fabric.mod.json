@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "simplechallenges",
+  "version": "${version}",
+  "name": "Simple Challenges",
+  "icon": "assets/simplechallenges/icon.png",
+  "description": "Game modes for a world of your choice: unlock the world cell by cell (chunks, blocks or three chunks), paid with items, credits or levels. Without a chosen challenge the mod changes nothing.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplechallenges.ChallengeFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplechallenges.ChallengeFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplechallenges.ModuleGameTest"
+    ]
+  },
+  "mixins": [
+    "simplechallenges.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

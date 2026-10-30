@@ -234,6 +234,12 @@ MODULES = [
                 "the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
                 "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus "
                 "dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.")),
+    dict(module="simplechallenges", ns="simplechallenges", package="com.simplebuilding.modules.simplechallenges.guide", cls="ChallengesGuide",
+         kind="client", author="Simple Challenges",
+         intro=("Game modes for a world of your choice. First the Unlock mode: the world is cut into cells and only free cells can be "
+                "entered; you pay to open the next one. Without a chosen challenge the mod changes nothing. Open this guide again with /simplechallenges guide.",
+                "Spielmodi für eine Welt deiner Wahl. Zuerst der Unlock-Modus: Die Welt ist in Zellen zerlegt und nur freie Zellen sind "
+                "betretbar; die nächste öffnest du gegen Bezahlung. Ohne gewählte Challenge ändert die Mod nichts. Dieses Handbuch öffnet /simplechallenges guide.")),
     dict(module="simplestats", ns="simplestats", package="com.simplebuilding.modules.simplestats.guide", cls="StatsGuide",
          kind="item", author="Simple Stats", recipe="minecraft:flint",
          name=("Simple Stats Guide", "Simple-Stats-Handbuch"),

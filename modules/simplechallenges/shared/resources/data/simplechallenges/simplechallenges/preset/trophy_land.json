@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "name": "Trophy Land",
+  "icon": "minecraft:golden_apple",
+  "family": "unlock",
+  "modes": [
+    {
+      "type": "unlock",
+      "cell": 16,
+      "start": [[-1, -1, 0, 0]],
+      "currency": "credits",
+      "difficulty": "medium",
+      "dimensions": ["minecraft:overworld"],
+      "pityMinutes": 60,
+      "credits": { "task": 1, "goal": 2, "challenge": 5 }
+    }
+  ]
+}

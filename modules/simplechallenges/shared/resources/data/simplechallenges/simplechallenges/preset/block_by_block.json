@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "Block by Block",
+  "icon": "minecraft:dirt",
+  "family": "unlock",
+  "modes": [
+    {
+      "type": "unlock",
+      "cell": 1,
+      "start": [[-4, -4, 3, 3]],
+      "currency": "items",
+      "difficulty": "medium",
+      "dimensions": ["minecraft:overworld"],
+      "pityMinutes": 20
+    }
+  ]
+}

@@ -123,6 +123,7 @@ public final class ConfigOptions {
             "enableSimpleLights",
             "enableSimpleEarth",
             "enableSimpleGadgets",
+            "enableSimpleChallenges",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",
