@@ -1,2 +1,2 @@
-[15:45:22] [Test worker/WARN]: Skipped an unreadable track entry in /tmp/simplemusic-index17674139119075287773/index.json: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
-[15:45:22] [Test worker/WARN]: Skipped an unreadable ban entry in /tmp/simplemusic-index17674139119075287773/index.json: java.lang.IllegalArgumentException: Invalid UUID string: not-a-uuid
+[23:10:22] [Test worker/WARN]: Skipped an unreadable track entry in /tmp/simplemusic-index17038511010605883863/index.json: java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+[23:10:22] [Test worker/WARN]: Skipped an unreadable ban entry in /tmp/simplemusic-index17038511010605883863/index.json: java.lang.IllegalArgumentException: Invalid UUID string: not-a-uuid
