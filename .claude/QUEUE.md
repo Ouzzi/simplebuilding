@@ -649,7 +649,7 @@ Branch a-abn29t, Plan docs/ai/PLAN-A-ABN29T-2026-10-29.md, Vorschau /root/sb-too
 
 ## a-misc31 (30.10.) – Besitzer-Abnahme Runde 3 (ABN30-5..8)
 Branch a-misc31, Plan docs/ai/PLAN-A-MISC31-2026-10-30.md, Vorschau /root/sb-tools-a/previews/a-misc31-preview.html (Generator /root/sb-tools-a/gen_misc31_preview.py).
-- [~] ABN30-5 Redstone/Türen: 1,5 breite Tür gebaut (`oak_door_1_5x2|1_5x3`, DoorFormat.WIDE_1_5X*, Gametest wide_door_game_test_wide15_leaf_ends_in_the_block_middle); Doppelkolben-Textur nach Endholz-Prozess (redstone29, 6-11 % hart). Offen: Client-Sicht, Besitzer-Abnahme der Vorschau.
+- [~] ABN30-5 Redstone/Türen: 1,5 breite Tür gebaut (`oak_door_1_5x2|1_5x3`, DoorFormat.WIDE_1_5X*, Gametest wide_door_game_test_wide15leaf_ends_in_the_block_middle); Doppelkolben-Textur nach Endholz-Prozess (redstone29, 6-11 % hart). Offen: Client-Sicht, Besitzer-Abnahme der Vorschau.
 - [~] ABN30-6 Shops: Sales Block A + Enderperlen/-augen, Trade Terminal A, Sales Storage A verfeinert und eingebaut (`shops31_2026_10_30.py --install`), Alt-Generatoren geben sie nicht mehr aus. Offen: Client-Sicht, Abnahme.
 - [~] ABN30-7 Rissiges Eis: `cracked_ice` (B), `cracked_packed_ice` (A), `cracked_blue_ice` (C), Mechanik abgestuft 20/30/40 Ticks, Rezepte Steinschneider, Texturen Vanilla-abgeleitet (`ice31_2026_10_30.py`), Gametest cracked_hard_ice_cracks_in_graded_steps. Offen: Client-Sicht (Texturen/Stufen), Abnahme.
 - [~] ABN30-8 Leuchtfeuer: Pyramiden-Icon B Standard (`icon_sheet(sized=True)`). Rest (Extraherzen +2, Texturen nach Wahl, Formsäge, Köpfe) war bereits ok/umgesetzt. Offen: Client-Sicht.

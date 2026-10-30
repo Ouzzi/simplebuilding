@@ -96,7 +96,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wide_door_game_test_blocked_swing_and_opening", WideDoorTests::blockedSwingAndOpening).maxTicks(100).build(),
             GameTestSpec.named("wide_door_game_test_half_doors_swing_inside_their_block", WideDoorTests::halfDoorsSwingInsideTheirBlock).build(),
             GameTestSpec.named("wide_door_game_test_open_leaf_shape", WideDoorTests::openLeafShape).build(),
-            GameTestSpec.named("wide_door_game_test_wide15_leaf_ends_in_the_block_middle", WideDoorTests::wide15LeafEndsInTheBlockMiddle).build(),
+            GameTestSpec.named("wide_door_game_test_wide15leaf_ends_in_the_block_middle", WideDoorTests::wide15LeafEndsInTheBlockMiddle).build(),
             GameTestSpec.named("wide_door_game_test_follow_redstone", WideDoorTests::followRedstone).maxTicks(100).build(),
             GameTestSpec.named("wide_door_game_test_redstone_at_the_opening_still_works", WideDoorTests::redstoneAtTheOpeningStillWorks).maxTicks(100).build(),
             GameTestSpec.named("wide_door_game_test_break_as_unit", WideDoorTests::breakAsUnit).maxTicks(100).build(),
