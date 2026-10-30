@@ -714,4 +714,39 @@ public final class ModuleGameTest {
     public void networkBetterChestsHoldControllerFinds(GameTestHelper h) {
         StorageTests.ALL.get("network_better_chests_hold_controller_finds").accept(h);
     }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeRecipeIsIronAroundChest(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_recipe_is_iron_around_chest").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeFirstStepHasNoFilter(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_first_step_has_no_filter").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeWindowFollowsTheHopperLayout(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_window_follows_the_hopper_layout").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkCompactCountsAreShort(GameTestHelper h) {
+        StorageTests.ALL.get("network_compact_counts_are_short").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkTakeAmountsAreStacksAndHalves(GameTestHelper h) {
+        StorageTests.ALL.get("network_take_amounts_are_stacks_and_halves").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkSearchFiltersByWordsAndMod(GameTestHelper h) {
+        StorageTests.ALL.get("network_search_filters_by_words_and_mod").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkWindowSearchScrollAndStackTakes(GameTestHelper h) {
+        StorageTests.ALL.get("network_window_search_scroll_and_stack_takes").accept(h);
+    }
 }

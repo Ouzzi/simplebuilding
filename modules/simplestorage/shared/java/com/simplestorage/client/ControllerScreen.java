@@ -20,12 +20,17 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * The network window of the controller chest (BS29b-3), in the box style of the chests: the list of every kind in the network
- * (counts in the corner, exact total in the tooltip), the sort key and two scroll keys above it (the mouse wheel scrolls too), the
- * number of chests against the limit. A broken controller shows a dark panel with a red cross and its cause instead of the list.
+ * (compact counts in the corner like "32k", exact total in the tooltip), the sort key and the search field above it, a scrollbar
+ * (drag it, or use the mouse wheel), the number of chests against the limit. A broken controller shows a dark panel with a red cross and its cause instead of the list.
  */
 public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
     private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
-    private static final int KEY_Y = 15, KEY_HEIGHT = 13, SORT_X = 8, SORT_WIDTH = 52, ARROW_WIDTH = 13, UP_X = 142, DOWN_X = 157;
+    private static final int KEY_Y = 15, KEY_HEIGHT = 13, SORT_X = 8, SORT_WIDTH = 52, SEARCH_X = 64, SEARCH_WIDTH = 100;
+    /** The scrollbar right of the list: track and thumb. */
+    private static final int BAR_X = ControllerMenu.VIEW_X + 9 * 18 + 4, BAR_WIDTH = 10, BAR_Y = ControllerMenu.VIEW_Y, BAR_HEIGHT = ControllerMenu.ROWS * 18;
+    private net.minecraft.client.gui.components.EditBox search;
+    private String sentSearch = "";
+    private boolean draggingBar;
     private static final int RED = 0xFFFF6B5E, PANEL_TEXT = 0xFFEFE4DA;
 
     public ControllerScreen(ControllerMenu menu, Inventory inventory, Component title) {
@@ -51,22 +56,39 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
                     Component label = Component.translatable("gui.simplestorage.controller.sort." + this.menu.sort().name().toLowerCase(java.util.Locale.ROOT));
                     g.text(this.font, label, x + (w - this.font.width(label)) / 2, y + 3, labelColor(p), false);
                 }));
-        addRenderableWidget(new Key(this.leftPos + UP_X, this.topPos + KEY_Y, ARROW_WIDTH, KEY_HEIGHT, button -> press(ControllerMenu.BUTTON_UP), palette,
-                (g, x, y, w, h, p) -> arrow(g, x + w / 2, y + 3, true, labelColor(p))));
-        addRenderableWidget(new Key(this.leftPos + DOWN_X, this.topPos + KEY_Y, ARROW_WIDTH, KEY_HEIGHT, button -> press(ControllerMenu.BUTTON_DOWN), palette,
-                (g, x, y, w, h, p) -> arrow(g, x + w / 2, y + 3, false, labelColor(p))));
+        this.search = new net.minecraft.client.gui.components.EditBox(this.font, this.leftPos + SEARCH_X, this.topPos + KEY_Y, SEARCH_WIDTH, KEY_HEIGHT,
+                Component.translatable("gui.simplestorage.controller.search")) {
+            @Override
+            public void setFocused(boolean focused) {
+                super.setFocused(focused);
+                net.minecraft.client.Minecraft.getInstance().onTextInputFocusChange(this, focused);
+            }
+        };
+        this.search.setMaxLength(ChestNetwork.MAX_SEARCH);
+        this.search.setHint(Component.translatable("gui.simplestorage.controller.search").withStyle(net.minecraft.ChatFormatting.GRAY));
+        this.search.setResponder(this::sendSearch);
+        addRenderableWidget(this.search);
+        this.sentSearch = "";
     }
 
     private static int labelColor(UiPalette p) {
         return UiPalette.luminance(UiPalette.mix(p.fill(), 0xFFFFFFFF, 0.18)) > 0.5 ? UiPalette.DARK_LABEL : UiPalette.LIGHT_LABEL;
     }
 
-    /** A 7 x 4 arrow head pointing up or down, centred on {@code cx}. */
-    private static void arrow(GuiGraphicsExtractor g, int cx, int y, boolean up, int color) {
-        for (int row = 0; row < 4; row++) {
-            int half = up ? row : 3 - row;
-            g.fill(cx - half, y + row + 1, cx + half + 1, y + row + 2, color);
+    /**
+     * Brings the server's search text to {@code text}: the menu has no text channel, so the difference goes as menu clicks (clear / back /
+     * one click per character, {@link ControllerMenu#CHAR} + code point). A search is a few characters, so this is a few tiny packets.
+     */
+    private void sendSearch(String text) {
+        int common = 0;
+        while (common < text.length() && common < this.sentSearch.length() && text.charAt(common) == this.sentSearch.charAt(common)) common++;
+        if (common == 0 && !this.sentSearch.isEmpty()) {
+            press(ControllerMenu.BUTTON_SEARCH_CLEAR);
+        } else {
+            for (int i = this.sentSearch.codePointCount(common, this.sentSearch.length()); i > 0; i--) press(ControllerMenu.BUTTON_SEARCH_BACK);
         }
+        text.substring(common == 0 ? 0 : common).codePoints().forEach(cp -> press(ControllerMenu.CHAR + cp));
+        this.sentSearch = text;
     }
 
     private void press(int id) {
@@ -80,6 +102,66 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
             return true;
         }
         return super.mouseScrolled(x, y, scrollX, scrollY);
+    }
+
+    private boolean overBar(double mx, double my) {
+        double x = mx - this.leftPos, y = my - this.topPos;
+        return x >= BAR_X && x < BAR_X + BAR_WIDTH && y >= BAR_Y && y < BAR_Y + BAR_HEIGHT;
+    }
+
+    /** The thumb height and its top: proportional to the rows shown out of all rows. */
+    private int thumbHeight() {
+        int total = this.menu.maxScroll() + ControllerMenu.ROWS;
+        return Math.max(10, BAR_HEIGHT * ControllerMenu.ROWS / total);
+    }
+
+    private void barTo(double my) {
+        int max = this.menu.maxScroll();
+        if (max <= 0) return;
+        int thumb = thumbHeight();
+        double t = (my - this.topPos - BAR_Y - thumb / 2.0) / (BAR_HEIGHT - thumb);
+        int row = (int) Math.round(Math.max(0, Math.min(1, t)) * max);
+        if (row != this.menu.scrollRow()) press(ControllerMenu.SCROLL_TO + row);
+    }
+
+    @Override
+    public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent event, boolean doubleClick) {
+        if (event.button() == 0 && this.menu.status() == ChestNetwork.Status.OK && overBar(event.x(), event.y())) {
+            this.draggingBar = true;
+            barTo(event.y());
+            return true;
+        }
+        // A right click on the search field clears it, like the ME terminal.
+        if (event.button() == 1 && this.search != null && this.search.isMouseOver(event.x(), event.y())) {
+            this.search.setValue("");
+            return true;
+        }
+        return super.mouseClicked(event, doubleClick);
+    }
+
+    @Override
+    public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent event, double dx, double dy) {
+        if (this.draggingBar) {
+            barTo(event.y());
+            return true;
+        }
+        return super.mouseDragged(event, dx, dy);
+    }
+
+    @Override
+    public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent event) {
+        this.draggingBar = false;
+        return super.mouseReleased(event);
+    }
+
+    /** While the search field has the focus, keys type into it (the inventory key must not close the window). */
+    @Override
+    public boolean keyPressed(net.minecraft.client.input.KeyEvent event) {
+        if (this.search != null && this.search.isFocused() && event.key() != com.mojang.blaze3d.platform.InputConstants.KEY_ESCAPE) {
+            this.search.keyPressed(event);
+            return true;
+        }
+        return super.keyPressed(event);
     }
 
     @Override
@@ -97,7 +179,19 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
             TieredChestScreen.panel(graphics, left, top, this.imageWidth, this.imageHeight);
             for (Slot slot : this.menu.slots) TieredChestScreen.slot(graphics, left + slot.x, top + slot.y);
         }
+        scrollbar(graphics, left, top);
         if (this.menu.status() != ChestNetwork.Status.OK) brokenPanel(graphics, left, top);
+    }
+
+    /** The scrollbar: an inset track with a raised thumb in the box colour (the thumb fills the track when everything fits). */
+    private void scrollbar(GuiGraphicsExtractor g, int left, int top) {
+        UiPalette p = UiStyleToggle.isEnabled() ? palette() : UiPalette.INVENTORY;
+        int x = left + BAR_X, y = top + BAR_Y;
+        UiBoxes.inset(g, x - 1, y - 1, BAR_WIDTH + 2, BAR_HEIGHT + 2, p);
+        int max = this.menu.maxScroll();
+        int thumb = max <= 0 ? BAR_HEIGHT : thumbHeight();
+        int at = max <= 0 ? 0 : (BAR_HEIGHT - thumb) * this.menu.scrollRow() / max;
+        UiBoxes.raised(g, x, y + at, BAR_WIDTH, thumb, UiPalette.mix(p.fill(), 0xFFFFFFFF, max <= 0 ? 0.08 : this.draggingBar ? 0.38 : 0.2));
     }
 
     /** The "broken" panel over the list: dark inset, a red cross, the cause. */
@@ -135,11 +229,12 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
         boolean styled = UiStyleToggle.isEnabled();
         UiPalette p = palette();
         graphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, styled ? p.label() : 0xFF404040, false);
-        // Chests against the limit, between the sort key and the scroll keys.
+        // Chests against the limit, top right in the title line.
         String count = this.menu.chests() + "/" + this.menu.limit();
         boolean ok = this.menu.status() == ChestNetwork.Status.OK;
         int color = ok ? (styled ? p.label() : 0xFF404040) : RED;
-        graphics.text(this.font, count + (this.menu.rejected() > 0 ? " !" : ""), SORT_X + SORT_WIDTH + 6, KEY_Y + 3, color, false);
+        String text = count + (this.menu.rejected() > 0 ? " !" : "");
+        graphics.text(this.font, text, this.imageWidth - 8 - this.font.width(text), this.titleLabelY, color, false);
     }
 
     /** The list cells show the item; the total goes into the corner like a stack count (the exact number is in the tooltip). */
@@ -147,15 +242,8 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
     protected void extractSlot(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY) {
         super.extractSlot(graphics, slot, mouseX, mouseY);
         if (slot.index < ControllerMenu.CELLS && slot.hasItem()) {
-            graphics.itemDecorations(this.font, slot.getItem(), slot.x, slot.y, shortCount(this.menu.countAt(slot.index)));
+            graphics.itemDecorations(this.font, slot.getItem(), slot.x, slot.y, ChestNetwork.shortCount(this.menu.countAt(slot.index)));
         }
-    }
-
-    /** 1..999, then 1k..999k, then 1M..: the exact total is in the tooltip. */
-    static String shortCount(long count) {
-        if (count < 1000) return Long.toString(count);
-        if (count < 1_000_000) return (count / 1000) + "k";
-        return (count / 1_000_000) + "M";
     }
 
     @Override
@@ -172,13 +260,14 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
     protected void extractTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         super.extractTooltip(graphics, mouseX, mouseY);
         int x = mouseX - this.leftPos, y = mouseY - this.topPos;
-        if (y < KEY_Y || y >= KEY_Y + KEY_HEIGHT) return;
-        if (x >= SORT_X && x < SORT_X + SORT_WIDTH) {
+        if (y < KEY_Y - 12 || y >= KEY_Y + KEY_HEIGHT) return;
+        if (y < KEY_Y && x >= this.imageWidth - 50) {
+            graphics.setTooltipForNextFrame(Component.translatable(this.menu.rejected() > 0 ? "tooltip.simplestorage.controller.rejected" : "tooltip.simplestorage.controller.chests",
+                    this.menu.rejected()), mouseX, mouseY);
+        } else if (y >= KEY_Y && x >= SORT_X && x < SORT_X + SORT_WIDTH) {
             graphics.setTooltipForNextFrame(Component.translatable("tooltip.simplestorage.controller.sort"), mouseX, mouseY);
-        } else if (x >= SORT_X + SORT_WIDTH && x < UP_X && this.menu.rejected() > 0) {
-            graphics.setTooltipForNextFrame(Component.translatable("tooltip.simplestorage.controller.rejected", this.menu.rejected()), mouseX, mouseY);
-        } else if (x >= SORT_X + SORT_WIDTH && x < UP_X) {
-            graphics.setTooltipForNextFrame(Component.translatable("tooltip.simplestorage.controller.chests"), mouseX, mouseY);
+        } else if (y >= KEY_Y && x >= SEARCH_X && x < SEARCH_X + SEARCH_WIDTH) {
+            graphics.setTooltipForNextFrame(Component.translatable("tooltip.simplestorage.controller.search"), mouseX, mouseY);
         }
     }
 

@@ -393,7 +393,7 @@ def shapeless(ingredients, result, count=1):
 
 def recipes() -> None:
     n = lambda x: f'{NS}:{x}'
-    dump(DATA / 'recipe/pipe.json', shaped(['C', 'H', 'C'], {'C': 'minecraft:copper_ingot', 'H': 'minecraft:hopper'}, n('pipe'), 2))
+    dump(DATA / 'recipe/pipe.json', shaped(['III', 'ICI', 'III'], {'I': 'minecraft:iron_ingot', 'C': 'minecraft:chest'}, n('pipe'), 4))  # A31: iron around a chest
     dump(DATA / 'recipe/reinforced_pipe.json', shapeless([n('pipe'), 'simplelib:cracked_diamond', 'simplelib:cracked_diamond'], n('reinforced_pipe')))
     dump(DATA / 'recipe/netherite_pipe.json', shapeless([n('reinforced_pipe'), 'simplelib:netherite_nugget', 'simplelib:netherite_nugget'], n('netherite_pipe')))
     dump(DATA / 'recipe/enderite_pipe.json', shapeless([n('netherite_pipe'), 'simplelib:enderite_nugget', 'simplelib:enderite_nugget'], n('enderite_pipe')))
