@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
 /**
  * The "Dev-Config" next to the Vanilla inventory (ABN30-9): a small button beside the UI-style switch opens a box with one
  * click row per registered {@link DevVariants.Variant}; a click selects the option at once. Shown only while
- * {@link DevVariants#enabled()}. Hooked in by the loader entry via {@link #decorate}.
+ * {@link DevVariants#enabled()}. Hooked in by the loader entry via {@link #decorate} (Fabric: {@code Screens.getWidgets}).
  */
 public final class DevVariantsPanel extends AbstractWidget {
     public static final int WIDTH = 150, ROW = 12, PAD = 5;
@@ -40,11 +40,10 @@ public final class DevVariantsPanel extends AbstractWidget {
     }
 
     /** Adds the toggle button (and, when open, the panel) to the Vanilla inventory. */
-    public static void decorate(Screen screen) {
+    public static void decorate(Screen screen, List<AbstractWidget> widgets) {
         if (!(screen instanceof InventoryScreen inv) || !DevVariants.enabled() || DevVariants.all().isEmpty()) return;
         var access = (com.simplelib.mixin.client.ContainerScreenAccessor) inv;
         int x = access.simplelib$leftPos() + access.simplelib$imageWidth() + 4, y = access.simplelib$topPos();
-        var widgets = net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen);
         DevVariantsPanel panel = new DevVariantsPanel(x, y);
         if (open) widgets.add(panel);
         widgets.add(Button.builder(Component.literal("Dev"), b -> {

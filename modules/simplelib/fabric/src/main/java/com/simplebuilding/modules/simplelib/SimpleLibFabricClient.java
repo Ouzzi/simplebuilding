@@ -22,7 +22,7 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplelib.api.client.FreeLook::tick);
         // ABN30-9: dev variants panel beside the inventory (a development environment shows it by default).
         com.simplelib.api.DevVariants.setDevEnvironment(net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment());
-        net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT.register((client, screen, w, h) -> com.simplelib.api.client.ui.DevVariantsPanel.decorate(screen));
+        net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT.register((client, screen, w, h) -> com.simplelib.api.client.ui.DevVariantsPanel.decorate(screen, net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(screen)));
         // SimpleLib's own client file (inventory brightness).
         com.simplelib.api.client.ui.UiBrightness.registerConfigCommand();
     }
