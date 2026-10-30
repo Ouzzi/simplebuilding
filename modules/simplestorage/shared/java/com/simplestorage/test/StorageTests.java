@@ -379,12 +379,12 @@ public final class StorageTests {
         ALL.put("network_search_finds_chests_through_cables", NetworkTests::searchFindsChestsThroughCables);
         ALL.put("network_controller_takes_chests_of_its_step_or_lower", NetworkTests::controllerTakesChestsOfItsStepOrLower);
         ALL.put("network_too_many_chests_break_the_controller", NetworkTests::tooManyChestsBreakTheController);
-        ALL.put("network_second_controller_is_a_conflict", NetworkTests::secondControllerIsAConflict);
+        ALL.put("network_second_controller_conflicts", NetworkTests::secondControllerConflicts);
         ALL.put("network_search_is_cached_until_the_wiring_changes", NetworkTests::searchIsCachedUntilTheWiringChanges);
         ALL.put("network_window_lists_takes_and_stores", NetworkTests::windowListsTakesAndStores);
-        ALL.put("network_interface_needs_a_chest_and_cable_draws_arms", NetworkTests::interfaceNeedsAChestAndCableDrawsArms);
+        ALL.put("network_interface_needs_chest_and_cable_draws_arms", NetworkTests::interfaceNeedsChestAndCableDrawsArms);
         ALL.put("network_switched_off_the_blocks_become_substitutes", NetworkTests::switchedOffTheBlocksBecomeSubstitutes);
-        ALL.put("network_better_chests_can_hold_a_controller_find", NetworkTests::betterChestsCanHoldAControllerFind);
+        ALL.put("network_better_chests_hold_controller_finds", NetworkTests::betterChestsHoldControllerFinds);
         crates();
         tables();
         ALL.put("guide_book", com.simplestorage.guide.StorageGuide::gameTest);

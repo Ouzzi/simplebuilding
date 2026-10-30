@@ -686,8 +686,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void networkSecondControllerIsAConflict(GameTestHelper h) {
-        StorageTests.ALL.get("network_second_controller_is_a_conflict").accept(h);
+    public void networkSecondControllerConflicts(GameTestHelper h) {
+        StorageTests.ALL.get("network_second_controller_conflicts").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")
@@ -701,8 +701,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void networkInterfaceNeedsAChestAndCableDrawsArms(GameTestHelper h) {
-        StorageTests.ALL.get("network_interface_needs_a_chest_and_cable_draws_arms").accept(h);
+    public void networkInterfaceNeedsChestAndCableDrawsArms(GameTestHelper h) {
+        StorageTests.ALL.get("network_interface_needs_chest_and_cable_draws_arms").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")
@@ -711,7 +711,7 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void networkBetterChestsCanHoldAControllerFind(GameTestHelper h) {
-        StorageTests.ALL.get("network_better_chests_can_hold_a_controller_find").accept(h);
+    public void networkBetterChestsHoldControllerFinds(GameTestHelper h) {
+        StorageTests.ALL.get("network_better_chests_hold_controller_finds").accept(h);
     }
 }

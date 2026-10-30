@@ -152,7 +152,8 @@ public final class PipeTests {
             d = Pipes.next(PipeTier.BASIC, d);
             basic.add(d);
         }
-        if (basic.contains(Direction.UP) || basic.size() != 6 || basic.get(5) != Direction.DOWN) problems.add("basic order " + basic);
+        // down -> north -> east -> south -> west -> (up skipped) down -> north
+        if (basic.contains(Direction.UP) || basic.get(3) != Direction.WEST || basic.get(4) != Direction.DOWN || basic.get(5) != Direction.NORTH) problems.add("basic order " + basic);
         List<Direction> reinforced = new ArrayList<>();
         d = Direction.DOWN;
         for (int i = 0; i < 6; i++) {

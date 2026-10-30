@@ -179,7 +179,7 @@ public final class NetworkTests {
     }
 
     /** A second controller on the same network breaks both. */
-    public static void secondControllerIsAConflict(GameTestHelper h) {
+    public static void secondControllerConflicts(GameTestHelper h) {
         ControllerChestBlockEntity first = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
         BlockPos secondPos = new BlockPos(3, 2, 0);
         h.setBlock(secondPos, block("reinforced_controller_chest"));
@@ -261,7 +261,7 @@ public final class NetworkTests {
     }
 
     /** An interface sits only on a chest and drops off when the chest goes; the cable draws arms like a chorus plant. */
-    public static void interfaceNeedsAChestAndCableDrawsArms(GameTestHelper h) {
+    public static void interfaceNeedsChestAndCableDrawsArms(GameTestHelper h) {
         BlockPos chest = new BlockPos(2, 2, 2);
         BlockPos plate = new BlockPos(3, 2, 2);
         h.setBlock(chest, Blocks.CHEST);
@@ -326,7 +326,7 @@ public final class NetworkTests {
     }
 
     /** The loot find: a controller chest of the step, two interfaces and four cables go into free slots of a better chest. */
-    public static void betterChestsCanHoldAControllerFind(GameTestHelper h) {
+    public static void betterChestsHoldControllerFinds(GameTestHelper h) {
         h.setBlock(CONTROLLER, block("reinforced_chest"));
         TieredChestBlockEntity chest = h.getBlockEntity(CONTROLLER, TieredChestBlockEntity.class);
         ControllerLoot.add(chest, ControllerLevel.REINFORCED, RandomSource.create(7));
