@@ -7,7 +7,7 @@
   "simpleinterfaces.option.showStyleToggle": "Show style comparison button",
   "simpleinterfaces.option.showStyleToggle.tooltip": "Show the button and keybind for switching Simple and Vanilla screen styles. Default: off.",
   "simpleinterfaces.option.inventoryBrightness": "Inventory brightness",
-  "simpleinterfaces.option.inventoryBrightness.tooltip": "Brightness of the mod inventory and container\nbackgrounds: Light (default), Dawn or Dark.",
+  "simpleinterfaces.option.inventoryBrightness.tooltip": "Brightness of the mod inventory and container\nbackgrounds: Light (default), Dawn or Dark. Default: Light.",
   "simpleinterfaces.option.inventoryBrightness.light": "Light",
   "simpleinterfaces.option.inventoryBrightness.dawn": "Dawn",
   "simpleinterfaces.option.inventoryBrightness.dark": "Dark",
