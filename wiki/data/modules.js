@@ -47,6 +47,7 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
+      "simpledinos",
       "simplemusic",
       "simpleearth"
     ],
@@ -1555,7 +1556,7 @@ window.WIKI_MODULES = [
       "en": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
       "de": "Pflicht-Sub-Mod von SB: Kisten aller Hölzer, Lager-Werkbank, gestufte/Fallen-Truhen, Shulkerkisten-Stufen, Truhenloren/-boote, Bündel, Köcher, Rucksäcke und die Lager-Verzauberungen (IDs migrieren)."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABw0lEQVR42qWTV0tDQRCF/RW+2LAhKGpM7BoSu8YWo9gQG4pdYu9YsSESFERRISgidg32XmJ78Enf/SnHzMgNmqxPPpw7e3fmfDu77DpEatT4jxzoc/5uFmoxX84S5Qynxt8A4/0O3j4/OLZEeXC0HUsic/VIiz2ApPVxZBNF27FkpoWEACp6nSzAy0Q+nsfy8DSai8eRHJiHs/EwpLOChB1QgoruB7NwN6DFbX8mbvsycNObjuueNFx1p2IuR4biQCeuFQKo6LJLg4tODc47UnDWnozTtiSctCbiuDkBhkx/BlCkejvAeIovFx41xeNQH8f7NzXE4KBezblJjR8DKP4C0A+ZqEgSmaXxoQXao/Zmc12Ym/0WaIJWmskOgkEngyFLBvONCdPaAExlBMCkT0CXygubawuoCfkDsFerwk61ks+BNDXWx3G1JAz7jXHoUHpyB1XBrmLAdlU0NiujYCwKsdNufSxao78BlQoXMWCjIhLr5RFYKpDbSIGt2hg0W86EAOVyZzFgrSyc2/15kKSF3CBs1Kigj3BHqcxZfJFoghIrxaHc8nKhgh/RvMVMl2dWF2i9hWSUZAVIkopE+us5fwF7/ihD39cG0AAAAABJRU5ErkJggg==",
     "counts": {
       "items": 17,
       "blocks": 37,
@@ -1689,5 +1690,41 @@ window.WIKI_MODULES = [
       "features": 5
     },
     "dataHash": "559e7ecb2c74"
+  },
+  {
+    "id": "simpledinos",
+    "displayName": "Simple Dinosaurs",
+    "description": "Fossil block, dinosaur eggs you brush free and brood by sitting on them, and the first dinosaur: a rideable T. rex that hatches as a hatchling and grows up. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplemoney",
+      "simplemobheads"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Brush a fossil block free for a dinosaur egg, sit on the egg to brood it, and raise a hatchling into a rideable T. rex.",
+      "de": "Einen Fossilienblock zum Dinosaurier-Ei freipinseln, auf dem Ei sitzend ausbrüten und aus dem Jungtier einen reitbaren T-Rex großziehen."
+    },
+    "purpose": {
+      "en": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar.",
+      "de": "Fossilienblock zum Freipinseln, Dinosaurier-Eier zum Ausbrüten durch Daraufsitzen und der T-Rex als erster Dinosaurier: schlüpft als Jungtier, wächst heran, reitbar mit großem Sattel und Dino-Rüstung; allein mit Vanilla spielbar."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAqklEQVR42mMI8zL4TwlmABHPL68mGd/YUYFqwN1D3f/f3j8EprVkBLBikBwIgzTPaQnDNACmedaBKhT87cMFMAbJgTSDLMJqADbNyAbkzQqCG0LQgBcPdqAYAtKM1wBctqMbADOEaANgLiHJAHTnIxvgV2VFmgvQbcdrAEgBIefjNAAWC8iK0TFMM95oBGGQQlyacRoASl0gCRDGlZRh8hgGwARIxXADKMEAraJkFqb3qvwAAAAASUVORK5CYII=",
+    "counts": {
+      "items": 5,
+      "blocks": 6,
+      "recipes": 5,
+      "features": 6
+    },
+    "dataHash": "4a3dd1149811"
   }
 ];
