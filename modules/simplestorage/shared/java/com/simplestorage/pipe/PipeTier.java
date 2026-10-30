@@ -40,6 +40,11 @@ public enum PipeTier {
         return this.amount;
     }
 
+    /** The filter key (ST27-1, ABN30-3): from Reinforced on; the first step moves everything. */
+    public boolean canFilter() {
+        return this != BASIC;
+    }
+
     public boolean canPointUp() {
         return this.canPointUp;
     }

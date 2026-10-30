@@ -22,10 +22,12 @@ import net.minecraft.world.inventory.Slot;
  */
 public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
-    private static final int FILTER_X = 30, KEY_Y = 22, OUTPUT_X = 112, OUTPUT_WIDTH = 56, KEY_HEIGHT = 18;
+    private static final int FILTER_X = 30, KEY_Y = 19, OUTPUT_X = 112, OUTPUT_WIDTH = 56, KEY_HEIGHT = 18;
+
+    private UiFilterButton filterButton;
 
     public PipeScreen(PipeMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, PipeMenu.INVENTORY_Y - UiBoxes.FRAME + INVENTORY_HEIGHT);
+        super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, 133);
         this.inventoryLabelY = PipeMenu.INVENTORY_Y - 11;
     }
 
@@ -45,7 +47,7 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     @Override
     protected void init() {
         super.init();
-        addRenderableWidget(new UiFilterButton(this.leftPos + FILTER_X, this.topPos + KEY_Y, button -> press(PipeMenu.BUTTON_FILTER),
+        this.filterButton = addRenderableWidget(new UiFilterButton(this.leftPos + FILTER_X, this.topPos + KEY_Y, button -> press(PipeMenu.BUTTON_FILTER),
                 this.menu::filterMode, this::palette));
         addRenderableWidget(new OutputButton(this.leftPos + OUTPUT_X, this.topPos + KEY_Y, button -> press(PipeMenu.BUTTON_OUTPUT), this.menu, this::palette));
     }
@@ -57,6 +59,8 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         super.extractBackground(graphics, mouseX, mouseY, a);
+        // The first step has no filter (the tier data reaches the client after init, so the key follows it every frame).
+        if (this.filterButton != null) this.filterButton.visible = this.menu.tier().canFilter();
         int left = this.leftPos, top = this.topPos;
         if (UiStyleToggle.isEnabled()) {
             UiPalette p = palette();
@@ -76,11 +80,11 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
         if (UiStyleToggle.isEnabled()) {
             // Only the title in the box's label colour and the filter caption (the inventory needs no label).
             graphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, palette().label(), false);
-            UiFilterButton.label(graphics, FILTER_X - UiFilterButton.LABEL_WIDTH - 2, KEY_Y + 3, palette());
+            if (this.menu.tier().canFilter()) UiFilterButton.label(graphics, FILTER_X - UiFilterButton.LABEL_WIDTH - 2, KEY_Y + 3, palette());
             return;
         }
         super.extractLabels(graphics, mouseX, mouseY);
-        UiFilterButton.label(graphics, FILTER_X - UiFilterButton.LABEL_WIDTH - 2, KEY_Y + 3, UiPalette.INVENTORY);
+        if (this.menu.tier().canFilter()) UiFilterButton.label(graphics, FILTER_X - UiFilterButton.LABEL_WIDTH - 2, KEY_Y + 3, UiPalette.INVENTORY);
     }
 
     @Override
@@ -88,7 +92,7 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
         super.extractTooltip(graphics, mouseX, mouseY);
         int x = mouseX - this.leftPos, y = mouseY - this.topPos;
         if (y < KEY_Y || y >= KEY_Y + KEY_HEIGHT) return;
-        if (x >= FILTER_X && x < FILTER_X + UiFilterButton.SIZE) {
+        if (x >= FILTER_X && x < FILTER_X + UiFilterButton.SIZE && this.menu.tier().canFilter()) {
             String mode = switch (this.menu.filterMode()) {
                 case 1 -> "exact";
                 case 2 -> "kind";

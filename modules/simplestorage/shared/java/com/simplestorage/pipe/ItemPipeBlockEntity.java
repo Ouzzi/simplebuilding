@@ -80,19 +80,25 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
         return this.filterMode;
     }
 
+    /** The mode that counts: the first step has no filter (it is a plain conveyor), from Reinforced on the key works. */
+    public int mode() {
+        return tier().canFilter() ? this.filterMode : 0;
+    }
+
     public ContainerData data() {
         return this.data;
     }
 
     /** The filter key: off - exact - same kind - off. */
     public void cycleFilterMode() {
+        if (!tier().canFilter()) return;
         this.filterMode = ItemFilterRules.next(this.filterMode);
         setChanged();
     }
 
     /** Whether the player in the menu may put {@code stack} into the slot (an empty slot takes anything: that sets the filter). */
     public boolean mayPlayerPlace(ItemStack stack) {
-        return ItemFilterRules.mayPlayerPlace(this.filterMode, this.items.get(0), stack);
+        return ItemFilterRules.mayPlayerPlace(mode(), this.items.get(0), stack);
     }
 
     /** The item and filter that moved with an upgrade (see {@link Pipes#upgradeInPlace}). */
@@ -116,7 +122,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
     /** One transfer step to the output container; true if something moved. */
     public boolean push(Level level, BlockPos pos) {
         ItemStack held = this.items.get(0);
-        int count = Math.min(tier().amount(), ItemFilterRules.movable(this.filterMode, held));
+        int count = Math.min(tier().amount(), ItemFilterRules.movable(mode(), held));
         if (held.isEmpty() || count <= 0) return false;
         Direction out = output();
         Container target = HopperBlockEntity.getContainerAt(level, pos.relative(out));
@@ -163,7 +169,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
             ItemStack candidate = source.getItem(slot);
             if (candidate.isEmpty()) continue;
             if (source instanceof WorldlyContainer worldly && !worldly.canTakeItemThroughFace(slot, candidate, face)) continue;
-            if (!ItemFilterRules.accepts(this.filterMode, held, candidate)) continue;
+            if (!ItemFilterRules.accepts(mode(), held, candidate)) continue;
             if (!held.isEmpty() && !ItemStack.isSameItemSameComponents(held, candidate)) continue;
             int limit = Math.min(getMaxStackSize(), candidate.getMaxStackSize());
             int room = limit - (held.isEmpty() ? 0 : held.getCount());
@@ -213,7 +219,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        return slot == 0 && ItemFilterRules.accepts(this.filterMode, this.items.get(0), stack);
+        return slot == 0 && ItemFilterRules.accepts(mode(), this.items.get(0), stack);
     }
 
     @Override
@@ -228,7 +234,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
-        return ItemFilterRules.movable(this.filterMode, this.items.get(0)) > 0;
+        return ItemFilterRules.movable(mode(), this.items.get(0)) > 0;
     }
 
     // ------------------------------------------------------------------ saving
