@@ -2,6 +2,7 @@ package com.simplebeacons.conduit;
 
 import java.util.List;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -21,10 +22,10 @@ import net.minecraft.world.effect.MobEffects;
  * </ul>
  */
 public enum ConduitKind {
-    STRONG("strong_conduit", 3, 24, false, 0xFF9FE6FF),
-    MIGHTY("mighty_conduit", 4, 32, false, 0xFFFFE08A),
-    EVIL("evil_conduit", 3, 24, true, 0xFFC87BFF),
-    MIGHTY_EVIL("mighty_evil_conduit", 4, 32, true, 0xFFFF5A6E);
+    STRONG("strong_conduit", 3, 24, false, 0xFF9FE6FF, 0x7FD8FF),
+    MIGHTY("mighty_conduit", 4, 32, false, 0xFFC08CFF, 0xB36BFF),
+    EVIL("evil_conduit", 3, 24, true, 0xFFFF6A5E, 0xE03030),
+    MIGHTY_EVIL("mighty_evil_conduit", 4, 32, true, 0xFFC02844, 0x8A0A1E);
 
     public record Power(Holder<MobEffect> effect, int amplifier) {
     }
@@ -35,13 +36,15 @@ public enum ConduitKind {
     private final int rangePer7;
     private final boolean evil;
     private final int tint;
+    private final int dust;
 
-    ConduitKind(String id, int maxRadius, int rangePer7, boolean evil, int tint) {
+    ConduitKind(String id, int maxRadius, int rangePer7, boolean evil, int tint, int dust) {
         this.id = id;
         this.maxRadius = maxRadius;
         this.rangePer7 = rangePer7;
         this.evil = evil;
         this.tint = tint;
+        this.dust = dust;
     }
 
     public boolean evil() {
@@ -92,14 +95,10 @@ public enum ConduitKind {
         };
     }
 
-    /** The particle that rises around an active conduit (the locator: visible from far in the water). */
+    /** The particle that rises around an active conduit (the locator: visible from far in the water): dust in the kind's colour
+     * (Mighty purple, Evil red, Mighty Evil dark red; owner 31.10.), Strong keeps the glow. */
     public ParticleOptions aura() {
-        return switch (this) {
-            case STRONG -> ParticleTypes.GLOW;
-            case MIGHTY -> ParticleTypes.END_ROD;
-            case EVIL -> ParticleTypes.SCULK_SOUL;
-            case MIGHTY_EVIL -> ParticleTypes.SQUID_INK;
-        };
+        return this == STRONG ? ParticleTypes.GLOW : new DustParticleOptions(this.dust, mighty() ? 1.2F : 0.9F);
     }
 
     /** The extra ambient sound played every few seconds beside Vanilla's conduit hum (null = none). */

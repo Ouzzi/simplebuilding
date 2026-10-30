@@ -10,7 +10,8 @@ Own pixels (committed with layer sources, written by `--write`):
   - sculk_tiles (animation A, softer and darker; written by blocks_b23_2026_10_23.main through sculk_tiles_strip())
 Vanilla-derived (built from the client jar, never committed; vanilla_derived.py calls derived_end/derived_mobs/derived_core):
   - simpleend: ashwood/duskwood boat + chest boat (item and entity sheets), A
-  - simplemobs: soulfire_rod A, strong_gunpowder dark grey, strong_tnt blue, strong_tnt_side/top/bottom (only the red pixels turn blue)
+  - simplemobs: soulfire_rod A, strong_tnt_side/top/bottom (only the red pixels turn dark blue, ig31v_2026_10_31.strong_tnt; the
+    Strong Gunpowder is own pixel art since 31.10., ig31v_2026_10_31.gunpowder)
   - core: diamond_rod A, the six textures of the chiseled crimson/warped blazewood bookshelves (frame in blazewood, blaze books)
   - simpleblocks (blocks_b23 / shapecutter modules call back here): sculk_deepslate and hushed_deepslate_tiles as 8-frame strips
 
@@ -28,6 +29,7 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import ig31v_2026_10_31 as ig31v  # noqa: E402
 import tex29_2026_10_29 as t  # noqa: E402
 from layers import save  # noqa: E402
 
@@ -37,8 +39,6 @@ SB_TEX = t.SB_TEX
 BLOCKS_TEX = t.BLOCKS_TEX
 MOBS_TEX = ROOT / 'modules/simplemobs/shared/resources/assets/simplemobs/textures'
 SEED = {'ashwood': 7, 'duskwood': 19}
-STRONG_TINT = (62, 98, 206)           # Strong TNT blue, a little darker than the first pass (92, 138, 255; owner 30.10., IG31-11)
-POWDER_TINT = (160, 160, 162)         # Strong Gunpowder: a darker grey than the Vanilla powder, not blue (owner 30.10., IG31-11)
 SOFT_TILE_SCALE = 0.74                # A8b: sculk tiles softer and darker than variant A (17 % hard) -> about 9 %
 
 
@@ -211,36 +211,10 @@ def tinted(im: Image.Image, tint) -> Image.Image:
     return out
 
 
-def is_red(p) -> bool:
-    return p[3] > 0 and p[0] > p[1] * 1.5 and p[0] > p[2] * 1.5
-
-
-def blue_of(p) -> tuple:
-    """The Strong Gunpowder blue at the brightness of the red pixel it replaces."""
-    f = t.lum(p) / t.lum(STRONG_TINT)
-    return tuple(max(0, min(255, int(round(STRONG_TINT[c] * f)))) for c in range(3)) + (p[3],)
-
-
-def strong_tnt(jar, name: str) -> Image.Image:
-    """Vanilla TNT face: structure, white middle, grey and fuse pixels unchanged, only the red pixels turn into the blue of the
-    Strong Gunpowder (owner 29.10.: no blue cast over the block)."""
-    im = jar_of(jar).img('block/' + name)
-    out = im.copy()
-    for y in range(im.height):
-        for x in range(im.width):
-            p = im.getpixel((x, y))
-            if is_red(p):
-                out.putpixel((x, y), blue_of(p))
-    return out
-
-
 def derived_mobs(jar) -> dict:
     jar = jar_of(jar)
     return {'item/soulfire_rod.png': t.rod_from(jar.img('item/blaze_rod'), t.SOULFIRE_KEYS, 0.98),
-            'item/strong_gunpowder.png': tinted(jar.img('item/gunpowder'), POWDER_TINT),
-            'block/strong_tnt_side.png': strong_tnt(jar, 'tnt_side'),
-            'block/strong_tnt_top.png': strong_tnt(jar, 'tnt_top'),
-            'block/strong_tnt_bottom.png': strong_tnt(jar, 'tnt_bottom')}
+            **{f'block/strong_tnt_{n}.png': ig31v.strong_tnt(jar.img('block/tnt_' + n)) for n in ('side', 'top', 'bottom')}}
 
 
 def derived_core(jar) -> dict:
@@ -326,7 +300,7 @@ def preview(out: str, jar_path) -> None:
     pg.row(); pg.cell(core['item/diamond_rod.png'], 12, 'Diamantrute'); pg.cell(mobs['item/soulfire_rod.png'], 12, 'Seelenfeuerrute')
     pg.cell(jar.img('item/blaze_rod'), 12, 'Vanilla Lohenrute', 'van'); pg.end()
     pg.add('<h2>Starkes Schwarzpulver B + Starkes TNT</h2>')
-    pg.row(); pg.cell(mobs['item/strong_gunpowder.png'], 12, 'Starkes Schwarzpulver (dunkelgrau)'); pg.cell(jar.img('item/gunpowder'), 12, 'Vanilla Schwarzpulver', 'van')
+    pg.row(); pg.cell(ig31v.gunpowder(), 12, 'Starkes Schwarzpulver (eigene Form, Lohenstaub-Funken)'); pg.cell(jar.img('item/gunpowder'), 12, 'Vanilla Schwarzpulver', 'van')
     for n in ('side', 'top', 'bottom'):
         pg.cell(mobs[f'block/strong_tnt_{n}.png'], 10, f'Starkes TNT {n}')
     pg.cell(jar.img('block/tnt_side'), 10, 'Vanilla TNT Seite', 'van'); pg.end()

@@ -201,42 +201,55 @@ CU = soft_ramp(['#5a2c19', '#8a4a2b', '#b2663a', '#d58a52'])
 WL = soft_ramp(['#7d776b', '#a8a295', '#cdc8bb'])
 
 
-def cable_cell(w, h, along_x: bool, seed: int) -> Image.Image:
-    """An arm side: copper strands wrapped with a pale wool band every third step; softly lit from the top left."""
+# IG31-6 (owner 31.10.): cable C "geflochten". Variants of the braid (BRAID, default C1); the arm is a plain 4x4 strand, no clamp rings.
+BRAID = 'C1'
+
+
+def braid_t(s: int, o: int, across: int, variant: str) -> float:
+    """Ramp position of the braid at step s along the arm and o across it: soft diagonal strands, never a hard stripe."""
+    if variant == 'C2':  # herringbone: the strands lean one way on the left half, the other on the right half
+        o2 = o if o < across / 2 else across - 1 - o
+        return (0.75, 0.55, 0.36)[(s + o2) % 3]
+    if variant == 'C3':  # diagonal strands with a pale wool thread between them (blended, not a stripe)
+        return (0.7, 0.5, 0.74)[(s + o) % 3]
+    return (0.75, 0.55, 0.36)[(s + o) % 3]  # C1: three strands, diagonal
+
+
+def cable_cell(w, h, along_x: bool, seed: int, variant: str = BRAID) -> Image.Image:
+    """An arm side: copper strands braided diagonally (3 strands), softly lit from the top left."""
     img = Image.new('RGBA', (w, h), CLEAR)
     for y in range(h):
         for x in range(w):
             s = x if along_x else y  # position along the arm
             o = y if along_x else x  # position across the arm
             across = w if not along_x else h
-            wrap = (0.1, 0.62, 0.1)[s % 3]  # how much wool covers this step: a soft band, never a hard stripe
-            slope = light(x, y, w, h, 0.2)
-            roll = 0.07 if o == 0 else -0.1 if o == across - 1 else 0.0
-            cu = pick(CU, 0.58 + slope + roll + (0.04 if (x + y) % 2 == 0 else 0.0))[:3]
-            wl = pick(WL, 0.55 + slope + roll)[:3]
-            img.putpixel((x, y), mix(cu, wl, wrap) + (255,))
+            slope = light(x, y, w, h, 0.16)
+            roll = 0.06 if o == 0 else -0.09 if o == across - 1 else 0.0
+            t = braid_t(s, o, across, variant)
+            cu = pick(CU, t + slope + roll)[:3]
+            if variant == 'C3':
+                strand = (s + o) % 3
+                col = mix(cu, pick(WL, 0.5 + slope + roll)[:3], 0.38) if strand == 2 else cu
+            else:
+                col = cu
+            img.putpixel((x, y), col + (255,))
     return img
 
 
-def cable_sheet() -> Image.Image:
+def cable_sheet(variant: str = BRAID) -> Image.Image:
     img = Image.new('RGBA', (16, 16), CLEAR)
-    core = Image.new('RGBA', (4, 4), CLEAR)  # core 4x4 (0,0): wool wrap ring around copper
-    for y in range(4):
-        for x in range(4):
-            edge = min(x, y, 3 - x, 3 - y)
-            slope = light(x, y, 4, 4, 0.25)
-            core.putpixel((x, y), mix(pick(CU, 0.58 + slope)[:3], pick(WL, 0.55 + slope)[:3], 0.55 if edge == 0 else 0.0) + (255,))
+    core = cable_cell(4, 4, False, 0, variant)  # core 4x4 (0,0): the braid seen from the end of the junction
     img.paste(core, (0, 0))
     snap(img, 'Kern')
-    img.paste(cable_cell(4, 6, False, 1), (4, 0))  # arm side 4 wide x 6 high: bands run across
-    img.paste(cable_cell(6, 4, True, 2), (0, 6))   # arm side 6 wide x 4 high: the same, turned
-    snap(img, 'Wickel')
-    end = Image.new('RGBA', (4, 4), CLEAR)  # arm end 4x4 (8,0): wool ring, cut copper in the middle
+    img.paste(cable_cell(4, 6, False, 1, variant), (4, 0))  # arm side 4 wide x 6 high: the braid runs along
+    img.paste(cable_cell(6, 4, True, 2, variant), (0, 6))   # arm side 6 wide x 4 high: the same, turned
+    snap(img, 'Flechtung')
+    end = Image.new('RGBA', (4, 4), CLEAR)  # arm end 4x4 (8,0): copper ring, cut copper in the middle
     for y in range(4):
         for x in range(4):
             inner = 1 <= x <= 2 and 1 <= y <= 2
             slope = light(x, y, 4, 4, 0.2)
-            end.putpixel((x, y), pick(CU, 0.68 + slope) if inner else mix(pick(CU, 0.5 + slope)[:3], pick(WL, 0.5 + slope)[:3], 0.55) + (255,))
+            end.putpixel((x, y), pick(CU, 0.68 + slope) if inner else pick(CU, 0.46 + slope))
     img.paste(end, (8, 0))
     snap(img, 'Schnittende')
     return img
