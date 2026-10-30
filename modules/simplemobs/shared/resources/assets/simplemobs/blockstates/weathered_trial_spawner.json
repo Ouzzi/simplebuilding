@@ -1,111 +1,651 @@
 {
   "variants": {
-    "kind=weathered,ominous=false,trial_spawner_state=inactive": {
+    "kind=weathered,level=0,ominous=false,trial_spawner_state=inactive": {
       "model": "simplemobs:block/weathered_trial_spawner_inactive"
     },
-    "kind=weathered,ominous=false,trial_spawner_state=cooldown": {
+    "kind=weathered,level=1,ominous=false,trial_spawner_state=inactive": {
       "model": "simplemobs:block/weathered_trial_spawner_inactive"
     },
-    "kind=weathered,ominous=false,trial_spawner_state=waiting_for_players": {
+    "kind=weathered,level=2,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=3,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=4,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=5,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=0,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=1,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=2,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=3,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=4,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=5,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive"
+    },
+    "kind=weathered,level=0,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/weathered_trial_spawner_active"
     },
-    "kind=weathered,ominous=false,trial_spawner_state=active": {
+    "kind=weathered,level=1,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/weathered_trial_spawner_active"
     },
-    "kind=weathered,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+    "kind=weathered,level=2,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/weathered_trial_spawner_active"
     },
-    "kind=weathered,ominous=false,trial_spawner_state=ejecting_reward": {
+    "kind=weathered,level=3,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=4,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=5,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=0,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=1,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=2,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=3,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=4,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=5,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=0,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=1,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=2,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=3,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=4,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=5,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active"
+    },
+    "kind=weathered,level=0,ominous=false,trial_spawner_state=ejecting_reward": {
       "model": "simplemobs:block/weathered_trial_spawner_ejecting"
     },
-    "kind=weathered,ominous=true,trial_spawner_state=inactive": {
+    "kind=weathered,level=1,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting"
+    },
+    "kind=weathered,level=2,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting"
+    },
+    "kind=weathered,level=3,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting"
+    },
+    "kind=weathered,level=4,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting"
+    },
+    "kind=weathered,level=5,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting"
+    },
+    "kind=weathered,level=0,ominous=true,trial_spawner_state=inactive": {
       "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
     },
-    "kind=weathered,ominous=true,trial_spawner_state=cooldown": {
+    "kind=weathered,level=1,ominous=true,trial_spawner_state=inactive": {
       "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
     },
-    "kind=weathered,ominous=true,trial_spawner_state=waiting_for_players": {
+    "kind=weathered,level=2,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=3,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=4,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=5,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=0,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=1,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=2,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=3,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=4,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=5,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/weathered_trial_spawner_inactive_ominous"
+    },
+    "kind=weathered,level=0,ominous=true,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
     },
-    "kind=weathered,ominous=true,trial_spawner_state=active": {
+    "kind=weathered,level=1,ominous=true,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
     },
-    "kind=weathered,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+    "kind=weathered,level=2,ominous=true,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
     },
-    "kind=weathered,ominous=true,trial_spawner_state=ejecting_reward": {
+    "kind=weathered,level=3,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=4,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=5,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=0,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=1,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=2,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=3,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=4,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=5,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=0,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=1,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=2,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=3,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=4,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=5,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/weathered_trial_spawner_active_ominous"
+    },
+    "kind=weathered,level=0,ominous=true,trial_spawner_state=ejecting_reward": {
       "model": "simplemobs:block/weathered_trial_spawner_ejecting_ominous"
     },
-    "kind=evil,ominous=false,trial_spawner_state=inactive": {
+    "kind=weathered,level=1,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting_ominous"
+    },
+    "kind=weathered,level=2,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting_ominous"
+    },
+    "kind=weathered,level=3,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting_ominous"
+    },
+    "kind=weathered,level=4,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting_ominous"
+    },
+    "kind=weathered,level=5,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/weathered_trial_spawner_ejecting_ominous"
+    },
+    "kind=evil,level=0,ominous=false,trial_spawner_state=inactive": {
       "model": "simplemobs:block/evil_trial_spawner_inactive"
     },
-    "kind=evil,ominous=false,trial_spawner_state=cooldown": {
+    "kind=evil,level=1,ominous=false,trial_spawner_state=inactive": {
       "model": "simplemobs:block/evil_trial_spawner_inactive"
     },
-    "kind=evil,ominous=false,trial_spawner_state=waiting_for_players": {
+    "kind=evil,level=2,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=3,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=4,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=5,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=0,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=1,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=2,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=3,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=4,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=5,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=0,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/evil_trial_spawner_active"
     },
-    "kind=evil,ominous=false,trial_spawner_state=active": {
+    "kind=evil,level=1,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/evil_trial_spawner_active"
     },
-    "kind=evil,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+    "kind=evil,level=2,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/evil_trial_spawner_active"
     },
-    "kind=evil,ominous=false,trial_spawner_state=ejecting_reward": {
+    "kind=evil,level=3,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=4,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=5,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=0,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=1,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=2,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=3,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=4,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=5,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=0,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=1,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=2,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=3,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=4,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=5,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=0,ominous=false,trial_spawner_state=ejecting_reward": {
       "model": "simplemobs:block/evil_trial_spawner_ejecting"
     },
-    "kind=evil,ominous=true,trial_spawner_state=inactive": {
-      "model": "simplemobs:block/evil_trial_spawner_inactive"
-    },
-    "kind=evil,ominous=true,trial_spawner_state=cooldown": {
-      "model": "simplemobs:block/evil_trial_spawner_inactive"
-    },
-    "kind=evil,ominous=true,trial_spawner_state=waiting_for_players": {
-      "model": "simplemobs:block/evil_trial_spawner_active"
-    },
-    "kind=evil,ominous=true,trial_spawner_state=active": {
-      "model": "simplemobs:block/evil_trial_spawner_active"
-    },
-    "kind=evil,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
-      "model": "simplemobs:block/evil_trial_spawner_active"
-    },
-    "kind=evil,ominous=true,trial_spawner_state=ejecting_reward": {
+    "kind=evil,level=1,ominous=false,trial_spawner_state=ejecting_reward": {
       "model": "simplemobs:block/evil_trial_spawner_ejecting"
     },
-    "kind=void,ominous=false,trial_spawner_state=inactive": {
+    "kind=evil,level=2,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=3,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=4,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=5,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=0,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=1,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=2,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=3,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=4,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=5,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=0,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=1,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=2,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=3,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=4,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=5,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/evil_trial_spawner_inactive"
+    },
+    "kind=evil,level=0,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=1,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=2,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=3,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=4,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=5,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=0,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=1,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=2,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=3,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=4,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=5,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=0,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=1,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=2,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=3,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=4,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=5,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/evil_trial_spawner_active"
+    },
+    "kind=evil,level=0,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=1,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=2,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=3,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=4,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=evil,level=5,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/evil_trial_spawner_ejecting"
+    },
+    "kind=void,level=0,ominous=false,trial_spawner_state=inactive": {
       "model": "simplemobs:block/void_trial_spawner_inactive"
     },
-    "kind=void,ominous=false,trial_spawner_state=cooldown": {
+    "kind=void,level=1,ominous=false,trial_spawner_state=inactive": {
       "model": "simplemobs:block/void_trial_spawner_inactive"
     },
-    "kind=void,ominous=false,trial_spawner_state=waiting_for_players": {
+    "kind=void,level=2,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=3,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=4,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=5,ominous=false,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=0,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=1,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=2,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=3,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=4,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=5,ominous=false,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=0,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/void_trial_spawner_active"
     },
-    "kind=void,ominous=false,trial_spawner_state=active": {
+    "kind=void,level=1,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/void_trial_spawner_active"
     },
-    "kind=void,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+    "kind=void,level=2,ominous=false,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/void_trial_spawner_active"
     },
-    "kind=void,ominous=false,trial_spawner_state=ejecting_reward": {
+    "kind=void,level=3,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=4,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=5,ominous=false,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=0,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=1,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=2,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=3,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=4,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=5,ominous=false,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=0,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=1,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=2,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=3,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=4,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=5,ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=0,ominous=false,trial_spawner_state=ejecting_reward": {
       "model": "simplemobs:block/void_trial_spawner_ejecting"
     },
-    "kind=void,ominous=true,trial_spawner_state=inactive": {
+    "kind=void,level=1,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=2,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=3,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=4,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=5,ominous=false,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=0,ominous=true,trial_spawner_state=inactive": {
       "model": "simplemobs:block/void_trial_spawner_inactive"
     },
-    "kind=void,ominous=true,trial_spawner_state=cooldown": {
+    "kind=void,level=1,ominous=true,trial_spawner_state=inactive": {
       "model": "simplemobs:block/void_trial_spawner_inactive"
     },
-    "kind=void,ominous=true,trial_spawner_state=waiting_for_players": {
+    "kind=void,level=2,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=3,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=4,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=5,ominous=true,trial_spawner_state=inactive": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=0,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=1,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=2,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=3,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=4,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=5,ominous=true,trial_spawner_state=cooldown": {
+      "model": "simplemobs:block/void_trial_spawner_inactive"
+    },
+    "kind=void,level=0,ominous=true,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/void_trial_spawner_active"
     },
-    "kind=void,ominous=true,trial_spawner_state=active": {
+    "kind=void,level=1,ominous=true,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/void_trial_spawner_active"
     },
-    "kind=void,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+    "kind=void,level=2,ominous=true,trial_spawner_state=waiting_for_players": {
       "model": "simplemobs:block/void_trial_spawner_active"
     },
-    "kind=void,ominous=true,trial_spawner_state=ejecting_reward": {
+    "kind=void,level=3,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=4,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=5,ominous=true,trial_spawner_state=waiting_for_players": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=0,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=1,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=2,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=3,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=4,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=5,ominous=true,trial_spawner_state=active": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=0,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=1,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=2,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=3,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=4,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=5,ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
+      "model": "simplemobs:block/void_trial_spawner_active"
+    },
+    "kind=void,level=0,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=1,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=2,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=3,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=4,ominous=true,trial_spawner_state=ejecting_reward": {
+      "model": "simplemobs:block/void_trial_spawner_ejecting"
+    },
+    "kind=void,level=5,ominous=true,trial_spawner_state=ejecting_reward": {
       "model": "simplemobs:block/void_trial_spawner_ejecting"
     }
   }

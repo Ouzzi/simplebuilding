@@ -319,7 +319,8 @@ def assets():
                 om = ominous == 'true' and kind == 'weathered'
                 mname = f'{kind}_trial_spawner_{phase}' + ('_ominous' if om else '')
                 models[mname] = spawner_model(kind, phase, om)
-                variants[f'kind={kind},ominous={ominous},trial_spawner_state={st}'] = {'model': f'{NS}:block/{mname}'}
+                for level in range(6):   # every property in every key (no reliance on partial keys); `level` does not change the look
+                    variants[f'kind={kind},level={level},ominous={ominous},trial_spawner_state={st}'] = {'model': f'{NS}:block/{mname}'}
     out['blockstates/weathered_trial_spawner.json'] = J({'variants': variants})
     # vaults: weathered / evil / void are three blocks
     for kind, block in (('weathered', 'weathered_vault'), ('evil', 'evil_vault'), ('void', 'void_vault')):
