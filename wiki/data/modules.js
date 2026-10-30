@@ -148,7 +148,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 74
     },
-    "dataHash": "115419313a33"
+    "dataHash": "c85803633ec9"
   },
   {
     "id": "simpleriding",
@@ -184,7 +184,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 36
     },
-    "dataHash": "9686d23d310e"
+    "dataHash": "3322bc54382c"
   },
   {
     "id": "simplemodels",
@@ -258,7 +258,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "6ee78ecaa18a"
+    "dataHash": "adec094ab477"
   },
   {
     "id": "simplevisuals",
@@ -441,7 +441,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 42
     },
-    "dataHash": "b4d3490e3b7f"
+    "dataHash": "6333b292d217"
   },
   {
     "id": "simpledimensions",
@@ -514,11 +514,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 20,
+      "blocks": 21,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "602f46a6cd88"
+    "dataHash": "ed66b7bbd64f"
   },
   {
     "id": "simplelib",
@@ -621,7 +621,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 10
     },
-    "dataHash": "d798810b7b3d"
+    "dataHash": "c4928359afdc"
   },
   {
     "id": "simpletrims",
@@ -658,7 +658,7 @@ window.WIKI_MODULES = [
       "recipes": 10,
       "features": 7
     },
-    "dataHash": "189baf8adad2"
+    "dataHash": "5b83c468ac68"
   },
   {
     "id": "simplemobs",
@@ -692,7 +692,7 @@ window.WIKI_MODULES = [
       "recipes": 73,
       "features": 19
     },
-    "dataHash": "a93f67462043"
+    "dataHash": "5592ec3797bf"
   },
   {
     "id": "simpleweather",
@@ -1081,11 +1081,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
-      "blocks": 5,
-      "recipes": 12,
-      "features": 13
+      "blocks": 8,
+      "recipes": 17,
+      "features": 16
     },
-    "dataHash": "4bc6987750c8"
+    "dataHash": "30dbd3ee5c73"
   },
   {
     "id": "simpleovens",
@@ -1121,7 +1121,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 8
     },
-    "dataHash": "49e4e83b9c36"
+    "dataHash": "69251a059453"
   },
   {
     "id": "simplemobheads",
@@ -1167,7 +1167,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 16
     },
-    "dataHash": "c3c4259fcfc1"
+    "dataHash": "93db46d12052"
   },
   {
     "id": "simpleshops",
@@ -1208,7 +1208,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 12
     },
-    "dataHash": "e88cb51860e8"
+    "dataHash": "361c1e359084"
   },
   {
     "id": "simplewanderers",
@@ -1311,7 +1311,7 @@ window.WIKI_MODULES = [
       "recipes": 286,
       "features": 9
     },
-    "dataHash": "4ce5deec2ff2"
+    "dataHash": "9adc7c29db8a"
   },
   {
     "id": "simplecrucibles",
@@ -1349,7 +1349,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "d3c4fc219e2d"
+    "dataHash": "a6bef53da80a"
   },
   {
     "id": "simpleoctets",
@@ -1426,7 +1426,7 @@ window.WIKI_MODULES = [
       "recipes": 13,
       "features": 13
     },
-    "dataHash": "28ab7dbebc7d"
+    "dataHash": "abdafff91f57"
   },
   {
     "id": "simpleoptimization",
@@ -1563,12 +1563,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
     "counts": {
-      "items": 17,
+      "items": 18,
       "blocks": 47,
-      "recipes": 187,
+      "recipes": 184,
       "features": 15
     },
-    "dataHash": "7ce55e15ad05"
+    "dataHash": "6fd1fe157c5c"
   },
   {
     "id": "simplemusic",
@@ -1608,7 +1608,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "90a1b9ebe7da"
+    "dataHash": "f974bbe42b93"
   },
   {
     "id": "simplelights",
@@ -1638,7 +1638,7 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 3
     },
-    "dataHash": "04d87eebe8c0"
+    "dataHash": "aa2472256343"
   },
   {
     "id": "simplegadgets",
@@ -1667,7 +1667,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 5
     },
-    "dataHash": "8b43d8728c80"
+    "dataHash": "d26471cf9f80"
   },
   {
     "id": "simpleearth",
@@ -1786,7 +1786,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 5
     },
-    "dataHash": "3ce18e63948b"
+    "dataHash": "96b935aa8392"
   },
   {
     "id": "simpledinos",
