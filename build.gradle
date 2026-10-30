@@ -547,7 +547,7 @@ tasks.register('checkMultimod', Exec) {
     workingDir = rootDir
     commandLine wikiPython, 'tools/multimod.py'
 }
-tasks.named('check') { dependsOn 'checkMultimod', ':framework:check', ':integration:classes' }
+tasks.named('check') { dependsOn 'checkMultimod', ':framework:check', ':integration:classes', ':integration:checkClientMixins' }
 
 // Also compile new loader entrypoints in the gate; no existing suite gains a test.
 def moduleRegistry = new groovy.json.JsonSlurper().parse(file('modules/modules.json')).modules
