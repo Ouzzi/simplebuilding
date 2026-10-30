@@ -1,5 +1,6 @@
 package com.simpleanimals.entity;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.AnimalsSpawn;
 import com.simpleanimals.config.AnimalsConfig;
 import net.minecraft.core.BlockPos;
@@ -8,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -64,13 +64,13 @@ public class Crab extends PathfinderMob {
         data.define(VARIANT, 0);
     }
 
-    /** 0 = red shell, 1 = sand shell. */
+    /** 0 = red shell (standard), 1 = coral red; by biome, see {@link AnimalVariants}. */
     public int variant() {
         return this.entityData.get(VARIANT);
     }
 
     public void setVariant(int v) {
-        this.entityData.set(VARIANT, v == 1 ? 1 : 0);
+        this.entityData.set(VARIANT, AnimalVariants.clamp(AnimalVariants.CRAB, v));
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Crab extends PathfinderMob {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData group) {
-        setVariant(level.getBiome(blockPosition()).is(BiomeTags.IS_BEACH) ? 1 : 0);
+        setVariant(AnimalVariants.pick(AnimalVariants.CRAB, level.getBiome(blockPosition()), this.random));
         return super.finalizeSpawn(level, difficulty, reason, group);
     }
 

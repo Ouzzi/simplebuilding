@@ -1,5 +1,6 @@
 package com.simpleanimals.test;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.AnimalsRegistry;
 import com.simpleanimals.AnimalsSpawn;
 import com.simpleanimals.SimpleAnimals;
@@ -14,7 +15,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -54,6 +61,23 @@ public final class AnimalsTests {
         Vec3 pos = h.absoluteVec(new Vec3(x + 0.5, 1.0, z + 0.5));
         p.setPos(pos.x, pos.y, pos.z);
         return p;
+    }
+
+    private static Holder<Biome> biome(GameTestHelper h, ResourceKey<Biome> key) {
+        return h.getLevel().registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(key);
+    }
+
+    /** Checks one catalog entry: {@code variant} is at home in {@code biome}, the weighted pick favours it and still shows every other coat. */
+    private static void checkHome(GameTestHelper h, java.util.List<AnimalVariants.Variant> catalog, int variant, Holder<Biome> biome, String what) {
+        h.assertTrue(AnimalVariants.atHome(catalog, variant, biome), what + " is at home");
+        for (int other = 0; other < catalog.size(); other++) {
+            if (other != variant) h.assertTrue(!AnimalVariants.atHome(catalog, other, biome), what + ": variant " + other + " is not at home too");
+        }
+        RandomSource random = RandomSource.create(4242L + variant);
+        int[] count = new int[catalog.size()];
+        for (int i = 0; i < 800; i++) count[AnimalVariants.pick(catalog, biome, random)]++;
+        h.assertTrue(count[variant] * 100 >= 800 * 55, what + ": the home coat is the most common (" + count[variant] + " of 800)");
+        for (int i = 0; i < catalog.size(); i++) h.assertTrue(count[i] > 0, what + ": coat " + i + " still appears now and then");
     }
 
     static {
@@ -299,6 +323,62 @@ public final class AnimalsTests {
             });
         });
         MAX_TICKS.put("natural_spawn_never_touches_players_or_blocks", 100);
+        ALL.put("variant_catalog", h -> {
+            h.assertTrue(AnimalVariants.DEER.size() == 2 && AnimalVariants.BOAR.size() == 4 && AnimalVariants.HEDGEHOG.size() == 4 && AnimalVariants.CRAB.size() == 2, "catalog sizes");
+            h.assertTrue(AnimalVariants.BOAR.get(0).name().equals("dark") && AnimalVariants.HEDGEHOG.get(0).name().equals("brown")
+                    && AnimalVariants.CRAB.get(0).name().equals("red") && AnimalVariants.DEER.get(0).name().equals("red"), "stored indices keep their meaning");
+            for (var catalog : java.util.List.of(AnimalVariants.DEER, AnimalVariants.BOAR, AnimalVariants.HEDGEHOG, AnimalVariants.CRAB)) {
+                h.assertTrue(catalog.stream().map(AnimalVariants.Variant::name).distinct().count() == catalog.size(), "unique names");
+                h.assertTrue(AnimalVariants.clamp(catalog, -5) == 0 && AnimalVariants.clamp(catalog, 99) == catalog.size() - 1, "clamp");
+            }
+            Holder<Biome> plains = biome(h, Biomes.PLAINS), desert = biome(h, Biomes.DESERT), taiga = biome(h, Biomes.TAIGA),
+                    swamp = biome(h, Biomes.SWAMP), beach = biome(h, Biomes.BEACH);
+            checkHome(h, AnimalVariants.DEER, 1, plains, "fallow deer in plains");
+            checkHome(h, AnimalVariants.DEER, 0, taiga, "red deer in taiga");
+            checkHome(h, AnimalVariants.BOAR, 0, plains, "dark boar in plains (standard)");
+            checkHome(h, AnimalVariants.BOAR, 1, desert, "sandy boar in desert");
+            checkHome(h, AnimalVariants.BOAR, 2, taiga, "frost boar in taiga");
+            checkHome(h, AnimalVariants.BOAR, 3, swamp, "rust boar in swamp");
+            checkHome(h, AnimalVariants.HEDGEHOG, 0, plains, "brown hedgehog in plains (standard)");
+            checkHome(h, AnimalVariants.HEDGEHOG, 1, desert, "desert hedgehog in desert");
+            checkHome(h, AnimalVariants.HEDGEHOG, 2, taiga, "white-breasted hedgehog in taiga");
+            checkHome(h, AnimalVariants.HEDGEHOG, 3, swamp, "four-toed hedgehog in swamp");
+            checkHome(h, AnimalVariants.CRAB, 0, plains, "red crab inland (standard)");
+            checkHome(h, AnimalVariants.CRAB, 1, beach, "coral crab on the beach");
+            h.succeed();
+        });
+        ALL.put("variant_entities", h -> {
+            ServerLevel level = h.getLevel();
+            Deer deer = quiet(h.spawn(AnimalsRegistry.DEER, at(4, 4)));
+            Boar boar = quiet(h.spawn(AnimalsRegistry.BOAR, at(8, 4)));
+            Hedgehog hedgehog = quiet(h.spawn(AnimalsRegistry.HEDGEHOG, at(4, 8)));
+            Crab crab = quiet(h.spawn(AnimalsRegistry.CRAB, at(8, 8)));
+            h.assertTrue(deer.variant() >= 0 && deer.variant() < 2 && boar.variant() >= 0 && boar.variant() < 4
+                    && hedgehog.variant() >= 0 && hedgehog.variant() < 4 && crab.variant() >= 0 && crab.variant() < 2, "a spawned animal has a valid variant");
+            deer.setVariant(99);
+            boar.setVariant(99);
+            hedgehog.setVariant(99);
+            crab.setVariant(99);
+            h.assertTrue(deer.variant() == 1 && boar.variant() == 3 && hedgehog.variant() == 3 && crab.variant() == 1, "too large values are clamped");
+            deer.setVariant(-3);
+            boar.setVariant(-3);
+            h.assertTrue(deer.variant() == 0 && boar.variant() == 0, "negative values are clamped");
+            boar.setVariant(2);
+            Boar mate = quiet(h.spawn(AnimalsRegistry.BOAR, at(10, 4)));
+            mate.setVariant(2);
+            for (int i = 0; i < 12; i++) {
+                h.assertTrue(boar.getBreedOffspring(level, mate) instanceof Boar baby && baby.variant() == 2, "two parents of one coat have a piglet of that coat");
+            }
+            deer.setVariant(0);
+            Deer doe = quiet(h.spawn(AnimalsRegistry.DEER, at(6, 4)));
+            doe.setVariant(1);
+            boolean[] seen = new boolean[2];
+            for (int i = 0; i < 60; i++) {
+                if (deer.getBreedOffspring(level, doe) instanceof Deer fawn) seen[fawn.variant()] = true;
+            }
+            h.assertTrue(seen[0] && seen[1], "a fawn takes the coat of either parent");
+            h.succeed();
+        });
         ALL.put("guide_book", com.simpleanimals.guide.AnimalsGuide::gameTest);
     }
 

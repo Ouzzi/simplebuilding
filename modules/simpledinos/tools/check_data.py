@@ -59,8 +59,9 @@ for k in KINDS:
         assert (RES / f'assets/{NS}/models/block/{k}_egg_{p}.json').is_file(), (k, p)
 for p in range(15):
     assert (tex / f'block/egg_overlay_{p}.png').is_file(), p
-for t in ('plain', 'leather', 'iron', 'diamond'):
-    assert (tex / f'entity/trex/{t}.png').is_file(), t
+for c in ('olive', 'sand', 'rust', 'moss', 'ash'):
+    for t in ('plain', 'leather', 'iron', 'diamond'):
+        assert (tex / f'entity/trex/{c}/{t}.png').is_file(), (c, t)
 for i in ('large_saddle',) + ARMORS + ('guide_book',):
     assert (tex / f'item/{i}.png').is_file(), i
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()

@@ -1,5 +1,6 @@
 package com.simpleanimals.entity;
 
+import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.AnimalsRegistry;
 import com.simpleanimals.AnimalsSpawn;
 import com.simpleanimals.config.AnimalsConfig;
@@ -103,13 +104,13 @@ public class Hedgehog extends Animal {
         return this.entityData.get(CURLED);
     }
 
-    /** 0 = brown, 1 = grey. */
+    /** 0 = brown (standard), 1 desert, 2 white-breasted, 3 four-toed; by biome, see {@link AnimalVariants}. */
     public int variant() {
         return this.entityData.get(VARIANT);
     }
 
     public void setVariant(int v) {
-        this.entityData.set(VARIANT, v == 1 ? 1 : 0);
+        this.entityData.set(VARIANT, AnimalVariants.clamp(AnimalVariants.HEDGEHOG, v));
     }
 
     /** Client: how far it is curled, 0..1, smooth between ticks. */
@@ -200,7 +201,7 @@ public class Hedgehog extends Animal {
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData group) {
-        setVariant(this.random.nextInt(3) == 0 ? 1 : 0);
+        setVariant(AnimalVariants.pick(AnimalVariants.HEDGEHOG, level.getBiome(blockPosition()), this.random));
         return super.finalizeSpawn(level, difficulty, reason, group);
     }
 

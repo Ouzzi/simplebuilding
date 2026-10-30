@@ -1,4 +1,4 @@
-"""Simple Animals: owner preview page (docs/ai/PLAN-A-ANIMALS-2026-10-29.md). NOT part of the game or the build.
+"""Simple Animals: owner preview page (docs/ai/PLAN-A-ANIMALS-VARIANTEN-2026-10-30.md). NOT part of the game or the build.
 
 Renders every model of tools/gen_models.py (and the Vanilla horse model for zebra and zorse, own texture) from the same box
 specs the game uses, with the same polygon/UV rules as Vanilla's ModelPart.Cube, as turntable frames (drag to turn), each next
@@ -260,81 +260,99 @@ def build(out_html):
 
     stats = {k: G.hard_share(G.TEXTURES[k]()) for k in G.TEXTURES}
 
-    def pct(k):
-        return f'{stats[k] * 100:.0f} % harte Übergänge'
+    def pct(k, home=''):
+        return f'{stats[k] * 100:.0f} % harte Übergänge' + (f'. Heimat: {home}' if home else '')
 
+    hide_antlers = {n: {'hide': True} for n in ('antler_right', 'antler_right_front', 'antler_right_top', 'antler_left', 'antler_left_front', 'antler_left_top')}
     deer_rel = (0.9, 1.4, 1.2)
-    card('deer', 'Hirsch', 'Scheu, Herde im Wald/Taiga, Geweih bei etwa der Hälfte. Grau = Hitbox der Vanilla-Kuh (0,9 x 1,4 m).', [
-        variant('A Rotwild (Bock)', pct('deer_red'), scene('deer_red', tex / 'deer/red.png', rel=deer_rel)),
-        variant('B Damwild (Ricke, ohne Geweih)', pct('deer_fallow'), scene('deer_fallow', tex / 'deer/fallow.png', tweaks={n: {'hide': True} for n in ('antler_right', 'antler_right_front', 'antler_right_top', 'antler_left', 'antler_left_front', 'antler_left_top')}, rel=deer_rel)),
-        variant('Kitz (halbe Größe, gefleckt)', pct('deer_fawn'), scene('deer_fawn', tex / 'deer/fawn.png', scale=0.5, tweaks={n: {'hide': True} for n in ('antler_right', 'antler_right_front', 'antler_right_top', 'antler_left', 'antler_left_front', 'antler_left_top')}, rel=deer_rel)),
+    card('deer', 'Hirsch', 'Beide Fellarten als Varianten, nach Biom verteilt (Heimat 8 : 1, also etwas Mischung). Grau = Hitbox der Vanilla-Kuh (0,9 x 1,4 m).', [
+        variant('Rotwild (Bock)', pct('deer_red', 'Taiga, Berge, Hügel, kalte Biome'), scene('deer_red', tex / 'deer/red.png', rel=deer_rel)),
+        variant('Damwild (Ricke, helle Flecken)', pct('deer_fallow', 'alle übrigen Biome (Wald, Ebene)'), scene('deer_fallow', tex / 'deer/fallow.png', tweaks=hide_antlers, rel=deer_rel)),
+        variant('Kitz (halbe Größe)', pct('deer_fawn'), scene('deer_fawn', tex / 'deer/fawn.png', scale=0.5, tweaks=hide_antlers, rel=deer_rel)),
     ])
     pig_rel = (0.9, 0.9, 1.0)
-    card('boar', 'Wildschwein', 'Neutral wie der Eisbär; Frischlinge gestreift. Grau = Hitbox des Vanilla-Schweins (0,9 x 0,9 m).', [
-        variant('A dunkel', pct('boar_dark'), scene('boar_dark', tex / 'boar/dark.png', rel=pig_rel, zoom=4.2)),
-        variant('B hell', pct('boar_light'), scene('boar_light', tex / 'boar/light.png', rel=pig_rel, zoom=4.2)),
+    card('boar', 'Wildschwein', 'Dunkel ist der Standard, dazu Biom-Varianten. Keine Geschlechter (Vanilla kennt keine). Grau = Hitbox des Vanilla-Schweins (0,9 x 0,9 m).', [
+        variant('Dunkel (Standard)', pct('boar_dark', 'überall, wo keine andere Fellfarbe zuhause ist'), scene('boar_dark', tex / 'boar/dark.png', rel=pig_rel, zoom=4.2)),
+        variant('Sandbraun', pct('boar_sandy', 'Wüste, Badlands, Savanne'), scene('boar_sandy', tex / 'boar/sandy.png', rel=pig_rel, zoom=4.2)),
+        variant('Frostgrau', pct('boar_frost', 'Taiga, Berge, kalte Biome'), scene('boar_frost', tex / 'boar/frost.png', rel=pig_rel, zoom=4.2)),
+        variant('Rostbraun', pct('boar_rust', 'Sumpf, Dschungel, Mangroven'), scene('boar_rust', tex / 'boar/rust.png', rel=pig_rel, zoom=4.2)),
         variant('Frischling (halbe Größe)', pct('boar_young'), scene('boar_young', tex / 'boar/young.png', scale=0.5, rel=pig_rel, zoom=4.2)),
     ])
     arm_rel = (0.7, 0.65, 0.8)
-    curl = {'body': {'scale': (1.1, 1.45, 0.8)}, 'head': {'hide': True}, 'right_hind_leg': {'hide': True}, 'left_hind_leg': {'hide': True},
+    curl = {'body': {'scale': (1.1, 1.45, 0.8), 'd': (0, 2, 0)}, 'head': {'hide': True}, 'right_hind_leg': {'hide': True}, 'left_hind_leg': {'hide': True},
             'right_front_leg': {'hide': True}, 'left_front_leg': {'hide': True}}
-    card('hedgehog', 'Igel', 'Jagt Silberfische (8 Blöcke), rollt sich in 0,3 s ein. Grau = Hitbox des Vanilla-Gürteltiers (0,7 x 0,65 m).', [
-        variant('A braun, offen', pct('hedgehog_brown'), scene('hedgehog_brown', tex / 'hedgehog/brown.png', rel=arm_rel, spacing=12, zoom=7.5)),
-        variant('A braun, eingerollt', pct('hedgehog_brown'), scene('hedgehog_brown', tex / 'hedgehog/brown.png', tweaks={**curl, 'body': {'scale': (1.1, 1.45, 0.8), 'd': (0, 2, 0)}}, rel=arm_rel, spacing=12, zoom=7.5)),
-        variant('B grau, offen', pct('hedgehog_grey'), scene('hedgehog_grey', tex / 'hedgehog/grey.png', rel=arm_rel, spacing=12, zoom=7.5)),
+
+    def hog(key, label, home, curled=False):
+        return variant(label, pct(key, home), scene(key, tex / (G.OUT_NAMES[key] + '.png'), tweaks=curl if curled else None, rel=arm_rel, spacing=12, zoom=7.5))
+
+    card('hedgehog', 'Igel', 'Mehrere Arten als Biom-Varianten, realistisch braun als Standard. Jagt Silberfische, rollt sich in 0,3 s ein. Grau = Hitbox des Vanilla-Gürteltiers (0,7 x 0,65 m).', [
+        hog('hedgehog_brown', 'Braunbrustigel (Standard)', 'Wald, Ebene, übrige Biome'),
+        hog('hedgehog_brown', 'Braunbrustigel, eingerollt', '', True),
+        hog('hedgehog_desert', 'Wüstenigel', 'Wüste, Badlands, Savanne'),
+        hog('hedgehog_whitebreast', 'Weißbrustigel', 'Taiga, Berge, kalte Biome'),
+        hog('hedgehog_fourtoed', 'Weißbauchigel (helle Stacheln)', 'Sumpf, Dschungel, Mangroven'),
     ])
     turtle_rel = (1.2, 0.4, 1.2)
-    card('crab', 'Krebs', 'Selten, harmlos, läuft seitwärts (Ansicht von vorn = Laufrichtung). Grau = Hitbox der Vanilla-Schildkröte (1,2 x 0,4 m).', [
-        variant('A rot', pct('crab_red'), scene('crab_red', tex / 'crab/red.png', root_rot=(0, math.pi / 2, 0), rel=turtle_rel, spacing=14, zoom=6.5)),
-        variant('B sand', pct('crab_sand'), scene('crab_sand', tex / 'crab/sand.png', root_rot=(0, math.pi / 2, 0), rel=turtle_rel, spacing=14, zoom=6.5)),
+    card('crab', 'Krebs', 'Rot. Selten, harmlos, läuft seitwärts. Grau = Hitbox der Vanilla-Schildkröte (1,2 x 0,4 m).', [
+        variant('Rot (Standard)', pct('crab_red', 'überall'), scene('crab_red', tex / 'crab/red.png', root_rot=(0, math.pi / 2, 0), rel=turtle_rel, spacing=14, zoom=6.5)),
+        variant('Korallenrot', pct('crab_coral', 'Strand, Ozean, Fluss'), scene('crab_coral', tex / 'crab/coral.png', root_rot=(0, math.pi / 2, 0), rel=turtle_rel, spacing=14, zoom=6.5)),
     ])
     horse_rel = (1.4, 1.6, 1.8)
-    card('zebra', 'Zebra und Zorse', 'Vanilla-Pferdemodell, eigene Textur. Zorse = Zebra x Pferd, unfruchtbar. Grau = Hitbox des Vanilla-Pferds (1,4 x 1,6 m).', [
-        variant('Zebra', pct('zebra'), scene('horse', tex / 'zebra.png', rel=horse_rel, spacing=30, zoom=3.0)),
+    card('zebra', 'Zebra und Zorse', 'Zebra klassisch schwarz-weiß, Streifen bewusst hart, der Rest weich. Vanilla-Pferdemodell. Grau = Hitbox des Vanilla-Pferds (1,4 x 1,6 m).', [
+        variant('Zebra (schwarz-weiß)', pct('zebra'), scene('horse', tex / 'zebra.png', rel=horse_rel, spacing=30, zoom=3.0)),
         variant('Zorse (braun, Streifen an Beinen/Hinterteil)', pct('zorse'), scene('horse', tex / 'zorse.png', rel=horse_rel, spacing=30, zoom=3.0)),
     ])
-    html = PAGE.replace('__DATA__', json.dumps(cards))
+    html = (PAGE.replace('__DATA__', json.dumps(cards)).replace('__CODE__', 'ANIMALS31').replace('__TITLE__', 'Simple Animals: Fellvarianten nach Biom')
+            .replace('__INTRO__', 'Hirsch, Wildschwein, Igel, Krebs und Zebra mit Varianten nach Biom (Heimat 8 : 1, daher etwas Mischung); Texturen nach A8b (weiche Töne, Zebra-Streifen bewusst hart). Die Standardfassung steckt bereits im Code.'))
     Path(out_html).write_text(html, encoding='utf-8')
     print('preview written:', out_html, f'{len(html) / 1e6:.1f} MB')
 
 
 PAGE = """<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Simple Animals Vorschau</title>
+<title>Simple Animals Varianten</title>
 <style>
-:root{--bg:#1d2026;--card:#272b33;--tx:#e8eaee;--mut:#a4abb8;--acc:#7fc27f;--bd:#3b414d}
-@media (prefers-color-scheme: light){:root{--bg:#f2f3f5;--card:#fff;--tx:#1c2026;--mut:#5a6270;--acc:#2f7d32;--bd:#cfd4dc}}
+:root{--bg:#1d2026;--card:#272b33;--tx:#e8eaee;--mut:#a4abb8;--acc:#7fc27f;--bad:#e0916b;--bd:#3b414d}
+@media (prefers-color-scheme: light){:root{--bg:#f2f3f5;--card:#fff;--tx:#1c2026;--mut:#5a6270;--acc:#2f7d32;--bad:#b3541f;--bd:#cfd4dc}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,sans-serif}
 main{max-width:980px;margin:0 auto;padding:16px}h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:.1em 0}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin:16px 0}
 .view{position:relative;max-width:480px;margin:8px auto;touch-action:pan-y;cursor:ew-resize;user-select:none}
 .view img{width:100%;height:auto;display:block;image-rendering:pixelated;border-radius:8px}
 .hint{color:var(--mut);font-size:.85rem;text-align:center}.vs{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-label.v{border:1px solid var(--bd);border-radius:8px;padding:6px 10px;cursor:pointer}
-label.v:has(input:checked){border-color:var(--acc);outline:2px solid var(--acc)}
+button.t{border:1px solid var(--bd);border-radius:8px;padding:6px 10px;cursor:pointer;background:var(--card);color:var(--tx);font:inherit}
+button.t[aria-pressed=true]{border-color:var(--acc);outline:2px solid var(--acc)}
 .note{color:var(--mut);font-size:.9rem}.btn{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+.rate{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0}.rate label{cursor:pointer}.ok{color:var(--acc)}.chg{color:var(--bad)}
 textarea{width:100%;min-height:90px;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px}
 </style></head><body><main>
-<h1>Simple Animals: erste Fassung der fünf Tiere</h1>
-<p class="note">Eigene Würfel und Pixel, Vanilla-nah, etwa 7 % harte Übergänge (Zebra von Natur aus streifig, daher höher). Jede Ansicht ist drehbar (ziehen, auch mit dem Finger); links steht ein Spieler (1,8 m), rechts die Hitbox des verwandten Vanilla-Tiers als grauer Kasten (Maßstab, kein Vanilla-Modell). Wähle je Tier die Variante, die im Spiel Standard sein soll; die zweite bleibt als seltenere Fellfarbe. Im Code steckt die erste Fassung bereits, damit Tests und Spiel laufen.</p>
+<h1>__TITLE__</h1>
+<p class="note">__INTRO__ Jede Ansicht ist drehbar (ziehen, auch mit dem Finger); links steht ein Spieler (1,8 m), rechts die Hitbox des verwandten Vanilla-Tiers als grauer Kasten (Maßstab, kein Vanilla-Modell). Zu jeder Variante: Reiter wählen, ansehen, unten „passt“ oder „ändern“ anklicken. Der Antwortcode ganz unten fasst alles zusammen.</p>
 <div id="cards"></div>
-<div class="card"><h2>Deine Wahl</h2><p class="note">Der Text unten fasst die Auswahl zusammen; kopiere ihn in die Antwort.</p><textarea id="out" readonly></textarea><p><button class="btn" id="copy">Kopieren</button></p></div>
+<div class="card"><h2>Deine Wahl</h2><p class="note">Antwortcode (kopieren und als Antwort senden):</p><textarea id="out" readonly></textarea>
+<p><button class="btn" id="all">Alle Varianten passen</button> <button class="btn" id="copy">Kopieren</button></p></div>
 </main><script>
-const DATA=__DATA__;const sel={};const state={};
+const DATA=__DATA__;const CODE='__CODE__';const state={},rating={};
 function build(){const root=document.getElementById('cards');DATA.forEach(c=>{
- const d=document.createElement('div');d.className='card';d.innerHTML='<h2>'+c.title+'</h2><p class="note">'+c.text+'</p><div class="view"><img alt="'+c.title+'"></div><p class="hint">ziehen zum Drehen</p><div class="vs"></div><p class="note" id="n-'+c.key+'"></p>';
- const img=d.querySelector('img'),vs=d.querySelector('.vs');state[c.key]={v:0,f:0};
- c.variants.forEach((v,i)=>{const l=document.createElement('label');l.className='v';l.innerHTML='<input type="radio" name="'+c.key+'" '+(i==0?'checked':'')+'> '+v.label;l.querySelector('input').addEventListener('change',()=>{state[c.key].v=i;show(c,img);summ()});vs.appendChild(l)});
+ const d=document.createElement('div');d.className='card';
+ d.innerHTML='<h2>'+c.title+'</h2><p class="note">'+c.text+'</p><div class="vs"></div><div class="view"><img alt="'+c.title+'"></div><p class="hint">ziehen zum Drehen</p><p class="note" id="n-'+c.key+'"></p><div class="rate"></div>';
+ const img=d.querySelector('img'),vs=d.querySelector('.vs'),rate=d.querySelector('.rate');state[c.key]={v:0,f:0};
+ c.variants.forEach((v,i)=>{rating[c.key+'/'+i]='offen';
+  const b=document.createElement('button');b.className='t';b.textContent=v.label;b.setAttribute('aria-pressed',i==0);
+  b.onclick=()=>{state[c.key].v=i;[...vs.children].forEach((x,j)=>x.setAttribute('aria-pressed',j==i));show(c,img,rate)};vs.appendChild(b)});
  const view=d.querySelector('.view');let down=false,x0=0,f0=0;
  view.addEventListener('pointerdown',e=>{down=true;x0=e.clientX;f0=state[c.key].f;view.setPointerCapture(e.pointerId)});
- view.addEventListener('pointermove',e=>{if(!down)return;const n=c.variants[state[c.key].v].frames.length;state[c.key].f=((f0-Math.round((e.clientX-x0)/18))%n+n)%n;show(c,img)});
+ view.addEventListener('pointermove',e=>{if(!down)return;const n=c.variants[state[c.key].v].frames.length;state[c.key].f=((f0-Math.round((e.clientX-x0)/18))%n+n)%n;show(c,img,rate)});
  view.addEventListener('pointerup',()=>down=false);view.addEventListener('pointercancel',()=>down=false);
- root.appendChild(d);show(c,img)})}
-function show(c,img){const s=state[c.key],v=c.variants[s.v];img.src=v.frames[s.f%v.frames.length];document.getElementById('n-'+c.key).textContent=v.note}
-function summ(){document.getElementById('out').value='ANIMALS29: '+DATA.map(c=>c.title+' = '+c.variants[state[c.key].v].label).join('; ')}
-build();summ();document.getElementById('copy').onclick=()=>{const t=document.getElementById('out');t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value)};
+ root.appendChild(d);show(c,img,rate)})}
+function show(c,img,rate){const s=state[c.key],v=c.variants[s.v],k=c.key+'/'+s.v;img.src=v.frames[s.f%v.frames.length];document.getElementById('n-'+c.key).textContent=v.note;
+ rate.innerHTML='<b>'+v.label+':</b> ';['passt','ändern'].forEach(o=>{const l=document.createElement('label');l.className=o=='passt'?'ok':'chg';const r=document.createElement('input');r.type='radio';r.name='r-'+k;r.checked=rating[k]==o;r.onchange=()=>{rating[k]=o;summ()};l.appendChild(r);l.append(' '+o);rate.appendChild(l)})}
+function summ(){document.getElementById('out').value=CODE+': '+DATA.map(c=>c.title+' ['+c.variants.map((v,i)=>v.label+'='+rating[c.key+'/'+i]).join('; ')+']').join(' | ')}
+build();summ();
+document.getElementById('all').onclick=()=>{for(const k in rating)rating[k]='passt';DATA.forEach(c=>{const d=document.querySelectorAll('.card')});summ();document.querySelectorAll('.rate input').forEach(r=>{r.checked=r.parentElement.className=='ok'})};
+document.getElementById('copy').onclick=()=>{const t=document.getElementById('out');t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value)};
 </script></body></html>
 """
 
 if __name__ == '__main__':
-    build(sys.argv[1] if len(sys.argv) > 1 else '/root/sb-tools-a/previews/a-animals29-preview.html')
+    build(sys.argv[1] if len(sys.argv) > 1 else '/root/sb-tools-a/previews/a-animals31-preview.html')

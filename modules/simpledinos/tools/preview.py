@@ -246,71 +246,78 @@ def image_uri(path, scale=8):
 
 
 def build(out_html):
-    import gen_blocks as GB
     cards = []
 
     def stats(key):
         return f'{G.hard_share(G.TEXTURES[key]()) * 100:.0f} % harte \u00dcberg\u00e4nge'
 
-    horse = (1.4, 1.6, 1.8)   # Vanilla horse hitbox for scale
     core = (3.0, 4.0, 3.0)    # the T. rex core hitbox (R4); the body is longer than that
-    variants = [('A Olivgr\u00fcn mit dunklen Bändern (Empfehlung, im Spiel)', 'olive'), ('B Sandbraun (Savanne)', 'sand'), ('C Rostrot', 'rust')]
-    cards.append(dict(key='trex', title='T-Rex, ausgewachsen', text='Lebensgröße (12 m Konzept, hier etwa 10,8 m von der Schnauze bis zur Schwanzspitze, 4,7 m Kopfhöhe), 3 x 4 Blöcke Kern-Hitbox (grau) neben dem Spieler (1,8 m). Ziehen zum Drehen.',
-                      variants=[dict(label=label, note=stats(f'trex_{coat}_0'), frames=scene(f'trex_{coat}_0', hide=GEAR, rel=core)) for label, coat in variants]))
-    cards.append(dict(key='trex_gear', title='T-Rex mit Sattel und Rüstung', text='Großer Sattel (nur aufgesetzt, wenn gesattelt) und Rüstung als Platten auf Kopf und Rücken: Leder, Eisen, Diamant (Texturvariante des T-Rex).',
-                      variants=[dict(label='Gro\u00dfer Sattel', note='Sattel', frames=scene('trex_olive_0', hide=('armor_head', 'armor_back'), rel=core)),
-                                dict(label='Leder-R\u00fcstung + Sattel', note='Leder', frames=scene('trex_olive_1', rel=core)),
-                                dict(label='Eisen-R\u00fcstung + Sattel', note='Eisen', frames=scene('trex_olive_2', rel=core)),
-                                dict(label='Diamant-R\u00fcstung + Sattel', note='Diamant', frames=scene('trex_olive_3', rel=core))]))
-    cards.append(dict(key='trex_baby', title='Jungtier (Wachstum 25 % bis 100 %)', text='Das Jungtier schl\u00fcpft mit 25 % der Gr\u00f6\u00dfe und w\u00e4chst in 40 Minuten stufenlos (wie der Schn\u00fcffler). Gezeigt: 25 %, 60 %, 100 %.',
-                      variants=[dict(label=f'{p} %', note='Wachstum', frames=scene('trex_olive_0', hide=GEAR, scale=0.25 + 0.75 * p / 100.0, rel=core)) for p in (0, 60)]
-                      + [dict(label='100 %', note='ausgewachsen', frames=scene('trex_olive_0', hide=GEAR, rel=core))]))
-    images = GB.preview_images(image_uri)
-    html = PAGE.replace('__DATA__', json.dumps(cards)).replace('__IMAGES__', json.dumps(images))
+    homes = {'olive': ('Olivbraun (Standard)', 'Aufzucht in Wald, Ebene und allen übrigen Biomen'),
+             'sand': ('Sandgelb', 'Aufzucht in Wüste und Savanne'),
+             'rust': ('Rotbraun', 'Aufzucht in Badlands'),
+             'moss': ('Moosgrün', 'Aufzucht in Dschungel, Sumpf und Mangroven'),
+             'ash': ('Aschgrau', 'Aufzucht in kalten Biomen, Taiga, Bergen und Hügeln')}
+    cards.append(dict(key='trex', title='T-Rex: Fellfarbe nach Aufzucht-Biom',
+                      text='Das Ei legt die Farbe beim Schlüpfen fest (Biom des Eis), Heimat-Farbe 8 : 1, daher etwas Variation. Erdige Töne, dunkler Rücken, heller Bauch (Gegenschattierung wie in wissenschaftlichen Rekonstruktionen; Sand und Gelb in Trockenräumen, Grau-Braun-Oliv in der Kälte). Ausgewachsen, 3 x 4 Blöcke Kern-Hitbox (grau) neben dem Spieler (1,8 m).',
+                      variants=[dict(label=homes[c][0], note=stats(f'trex_{c}_0') + '. ' + homes[c][1], frames=scene(f'trex_{c}_0', hide=GEAR, rel=core)) for c in G.COATS]))
+    cards.append(dict(key='trex_gear', title='T-Rex mit Sattel und Rüstung (Standardfarbe und Aschgrau)',
+                      text='Sattel und Rüstungsplatten sind Teile des Modells; die Fellfarbe ändert sich nicht, nur die Platten je Stufe.',
+                      variants=[dict(label='Olivbraun, Leder', note='Leder', frames=scene('trex_olive_1', rel=core)),
+                                dict(label='Sandgelb, Eisen', note='Eisen', frames=scene('trex_sand_2', rel=core)),
+                                dict(label='Aschgrau, Diamant', note='Diamant', frames=scene('trex_ash_3', rel=core))]))
+    cards.append(dict(key='trex_baby', title='Jungtier (Wachstum 25 % bis 100 %)', text='Das Jungtier trägt dieselbe Farbe und wächst in 40 Minuten stufenlos. Gezeigt: Moosgrün bei 25 %, 60 % und 100 %.',
+                      variants=[dict(label=f'{p} %', note='Wachstum', frames=scene('trex_moss_0', hide=GEAR, scale=0.25 + 0.75 * p / 100.0, rel=core)) for p in (0, 60, 100)]))
+    html = (PAGE.replace('__DATA__', json.dumps(cards)).replace('__CODE__', 'DINOS31').replace('__TITLE__', 'Simple Dinosaurs: Farbvarianten nach Aufzucht-Biom')
+            .replace('__INTRO__', 'Fünf Fellfarben des T-Rex nach Aufzucht-Biom; die Mechanik gilt später für jeden Dinosaurier (je Art eigene Texturen mit denselben fünf Farbnamen). Texturen nach A8b (weiche Töne).'))
     Path(out_html).write_text(html, encoding='utf-8')
     print('preview written:', out_html, f'{len(html) / 1e6:.1f} MB')
 
 
 PAGE = """<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Simple Dinosaurs Vorschau</title>
+<title>Simple Dinosaurs Varianten</title>
 <style>
-:root{--bg:#1d2026;--card:#272b33;--tx:#e8eaee;--mut:#a4abb8;--acc:#7fc27f;--bd:#3b414d}
-@media (prefers-color-scheme: light){:root{--bg:#f2f3f5;--card:#fff;--tx:#1c2026;--mut:#5a6270;--acc:#2f7d32;--bd:#cfd4dc}}
+:root{--bg:#1d2026;--card:#272b33;--tx:#e8eaee;--mut:#a4abb8;--acc:#7fc27f;--bad:#e0916b;--bd:#3b414d}
+@media (prefers-color-scheme: light){:root{--bg:#f2f3f5;--card:#fff;--tx:#1c2026;--mut:#5a6270;--acc:#2f7d32;--bad:#b3541f;--bd:#cfd4dc}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,sans-serif}
 main{max-width:980px;margin:0 auto;padding:16px}h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:.1em 0}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin:16px 0}
 .view{position:relative;max-width:480px;margin:8px auto;touch-action:pan-y;cursor:ew-resize;user-select:none}
 .view img{width:100%;height:auto;display:block;image-rendering:pixelated;border-radius:8px}
 .hint{color:var(--mut);font-size:.85rem;text-align:center}.vs{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-label.v{border:1px solid var(--bd);border-radius:8px;padding:6px 10px;cursor:pointer}
-label.v:has(input:checked){border-color:var(--acc);outline:2px solid var(--acc)}
+button.t{border:1px solid var(--bd);border-radius:8px;padding:6px 10px;cursor:pointer;background:var(--card);color:var(--tx);font:inherit}
+button.t[aria-pressed=true]{border-color:var(--acc);outline:2px solid var(--acc)}
 .note{color:var(--mut);font-size:.9rem}.btn{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+.rate{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0}.rate label{cursor:pointer}.ok{color:var(--acc)}.chg{color:var(--bad)}
 textarea{width:100%;min-height:90px;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px}
-.grid{display:flex;flex-wrap:wrap;gap:10px}.grid figure{margin:0;text-align:center;font-size:.8rem;color:var(--mut)}.grid img{image-rendering:pixelated;width:96px;height:96px;border:1px solid var(--bd);border-radius:6px;background:#3a3f48}
 </style></head><body><main>
-<h1>Simple Dinosaurs Stufe 1: Fossil, Eier, T-Rex</h1>
-<p class="note">Eigene Würfel und Pixel, Vanilla-nah. Jede Ansicht ist drehbar (ziehen, auch mit dem Finger); links steht ein Spieler (1,8 m), rechts die Kern-Hitbox als grauer Kasten. Wähle die Fellfarbe, die im Spiel Standard sein soll (Empfehlung A ist bereits im Code); die anderen bleiben als mögliche Varianten. Die vier weiteren Dinosaurier folgen erst nach deiner Abnahme dieses Musters.</p>
+<h1>__TITLE__</h1>
+<p class="note">__INTRO__ Jede Ansicht ist drehbar (ziehen, auch mit dem Finger); links steht ein Spieler (1,8 m), rechts die Hitbox des verwandten Vanilla-Tiers als grauer Kasten (Maßstab, kein Vanilla-Modell). Zu jeder Variante: Reiter wählen, ansehen, unten „passt“ oder „ändern“ anklicken. Der Antwortcode ganz unten fasst alles zusammen.</p>
 <div id="cards"></div>
-<div id="imgs"></div>
-<div class="card"><h2>Deine Wahl</h2><p class="note">Der Text unten fasst die Auswahl zusammen; kopiere ihn in die Antwort.</p><textarea id="out" readonly></textarea><p><button class="btn" id="copy">Kopieren</button></p></div>
+<div class="card"><h2>Deine Wahl</h2><p class="note">Antwortcode (kopieren und als Antwort senden):</p><textarea id="out" readonly></textarea>
+<p><button class="btn" id="all">Alle Varianten passen</button> <button class="btn" id="copy">Kopieren</button></p></div>
 </main><script>
-const DATA=__DATA__;const IMAGES=__IMAGES__;const state={};
+const DATA=__DATA__;const CODE='__CODE__';const state={},rating={};
 function build(){const root=document.getElementById('cards');DATA.forEach(c=>{
- const d=document.createElement('div');d.className='card';d.innerHTML='<h2>'+c.title+'</h2><p class="note">'+c.text+'</p><div class="view"><img alt="'+c.title+'"></div><p class="hint">ziehen zum Drehen</p><div class="vs"></div><p class="note" id="n-'+c.key+'"></p>';
- const img=d.querySelector('img'),vs=d.querySelector('.vs');state[c.key]={v:0,f:0};
- c.variants.forEach((v,i)=>{const l=document.createElement('label');l.className='v';l.innerHTML='<input type="radio" name="'+c.key+'" '+(i==0?'checked':'')+'> '+v.label;l.querySelector('input').addEventListener('change',()=>{state[c.key].v=i;show(c,img);summ()});vs.appendChild(l)});
+ const d=document.createElement('div');d.className='card';
+ d.innerHTML='<h2>'+c.title+'</h2><p class="note">'+c.text+'</p><div class="vs"></div><div class="view"><img alt="'+c.title+'"></div><p class="hint">ziehen zum Drehen</p><p class="note" id="n-'+c.key+'"></p><div class="rate"></div>';
+ const img=d.querySelector('img'),vs=d.querySelector('.vs'),rate=d.querySelector('.rate');state[c.key]={v:0,f:0};
+ c.variants.forEach((v,i)=>{rating[c.key+'/'+i]='offen';
+  const b=document.createElement('button');b.className='t';b.textContent=v.label;b.setAttribute('aria-pressed',i==0);
+  b.onclick=()=>{state[c.key].v=i;[...vs.children].forEach((x,j)=>x.setAttribute('aria-pressed',j==i));show(c,img,rate)};vs.appendChild(b)});
  const view=d.querySelector('.view');let down=false,x0=0,f0=0;
  view.addEventListener('pointerdown',e=>{down=true;x0=e.clientX;f0=state[c.key].f;view.setPointerCapture(e.pointerId)});
- view.addEventListener('pointermove',e=>{if(!down)return;const n=c.variants[state[c.key].v].frames.length;state[c.key].f=((f0-Math.round((e.clientX-x0)/18))%n+n)%n;show(c,img)});
+ view.addEventListener('pointermove',e=>{if(!down)return;const n=c.variants[state[c.key].v].frames.length;state[c.key].f=((f0-Math.round((e.clientX-x0)/18))%n+n)%n;show(c,img,rate)});
  view.addEventListener('pointerup',()=>down=false);view.addEventListener('pointercancel',()=>down=false);
- root.appendChild(d);show(c,img)});
- const im=document.getElementById('imgs');IMAGES.forEach(g=>{const d=document.createElement('div');d.className='card';d.innerHTML='<h2>'+g.title+'</h2><p class="note">'+g.text+'</p><div class="grid">'+g.items.map(i=>'<figure><img src="'+i.src+'" alt=""><br>'+i.label+'</figure>').join('')+'</div>';im.appendChild(d)})}
-function show(c,img){const s=state[c.key],v=c.variants[s.v];img.src=v.frames[s.f%v.frames.length];document.getElementById('n-'+c.key).textContent=v.note}
-function summ(){document.getElementById('out').value='DINO30: '+DATA.filter(c=>c.key=='trex').map(c=>c.title+' = '+c.variants[state[c.key].v].label).join('; ')}
-build();summ();document.getElementById('copy').onclick=()=>{const t=document.getElementById('out');t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value)};
+ root.appendChild(d);show(c,img,rate)})}
+function show(c,img,rate){const s=state[c.key],v=c.variants[s.v],k=c.key+'/'+s.v;img.src=v.frames[s.f%v.frames.length];document.getElementById('n-'+c.key).textContent=v.note;
+ rate.innerHTML='<b>'+v.label+':</b> ';['passt','ändern'].forEach(o=>{const l=document.createElement('label');l.className=o=='passt'?'ok':'chg';const r=document.createElement('input');r.type='radio';r.name='r-'+k;r.checked=rating[k]==o;r.onchange=()=>{rating[k]=o;summ()};l.appendChild(r);l.append(' '+o);rate.appendChild(l)})}
+function summ(){document.getElementById('out').value=CODE+': '+DATA.map(c=>c.title+' ['+c.variants.map((v,i)=>v.label+'='+rating[c.key+'/'+i]).join('; ')+']').join(' | ')}
+build();summ();
+document.getElementById('all').onclick=()=>{for(const k in rating)rating[k]='passt';DATA.forEach(c=>{const d=document.querySelectorAll('.card')});summ();document.querySelectorAll('.rate input').forEach(r=>{r.checked=r.parentElement.className=='ok'})};
+document.getElementById('copy').onclick=()=>{const t=document.getElementById('out');t.select();navigator.clipboard&&navigator.clipboard.writeText(t.value)};
 </script></body></html>
 """
 
 if __name__ == '__main__':
-    build(sys.argv[1] if len(sys.argv) > 1 else '/root/sb-tools-a/previews/a-dino30-preview.html')
+    build(sys.argv[1] if len(sys.argv) > 1 else '/root/sb-tools-a/previews/a-animals31-dinos-preview.html')
