@@ -75,7 +75,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 507,
       "blocks": 290,
-      "recipes": 829,
+      "recipes": 827,
       "config": 237,
       "features": 48
     }
@@ -692,7 +692,7 @@ window.WIKI_MODULES = [
       "recipes": 73,
       "features": 19
     },
-    "dataHash": "d31cefc4a7b5"
+    "dataHash": "a93f67462043"
   },
   {
     "id": "simpleweather",
