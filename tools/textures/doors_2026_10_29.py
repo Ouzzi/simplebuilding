@@ -26,6 +26,9 @@ import sys
 import zipfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import door_voxel  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
 OVERLAY = ROOT / "mc26_3/overlay/resources"
 ASSETS = OVERLAY / "assets/simplebuilding"
@@ -132,6 +135,22 @@ EDGE_TB = [0, 0, 16, 3]  # top / bottom of a thin leaf
 EDGE_SIDE = [0, 0, 3, 16]
 
 
+_IMAGES = {}
+
+
+def _cell_image(wood, name):
+    """The derived 16 x 16 texture of a door cell (needs the Vanilla jar; None without it, the models then keep the plain slab)."""
+    if wood not in _IMAGES:
+        _IMAGES[wood] = derive_wood(JAR, wood) if os.path.exists(JAR) else {}
+    return _IMAGES[wood].get(f"block/{name}.png")
+
+
+def _voxel(wood, name, run_axis, run, depth, front, back):
+    """IG31-9 (owner 31.10., variant B): a leaf with see-through texels becomes boxes with an inner wall (tools/door_voxel.py)."""
+    img = _cell_image(wood, name)
+    return None if img is None else door_voxel.slab_elements(img, run_axis, run, depth, front, back, "#t")
+
+
 def closed_model(wood, fmt, c, r, hinge):
     """One cell of a closed door: the slab on the south edge (north-facing frame). South face u=0 at the hinge (LEFT: west)."""
     cols, rows, half = FORMATS[fmt]
@@ -143,7 +162,9 @@ def closed_model(wood, fmt, c, r, hinge):
     side = [0, 0, 3, 16]
     el = slab([x0, 0, 13], [x1, 16, 16], {"south": south, "north": north, "up": [0, 0, w, 3], "down": [0, 0, w, 3], "east": side, "west": side})
     tex = f"{NS}:block/{tex_name(wood, fmt, c, r)}"
-    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": [el]}
+    # seen from +z (south) the left edge is the low x; the back (north) is mirrored
+    voxel = _voxel(wood, tex_name(wood, fmt, c, r), "x", (x0, x1), (13, 16), ("south", south, True), ("north", north, False))
+    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": voxel or [el]}
 
 
 def open_model(wood, fmt, seg, r, hinge):
@@ -158,7 +179,9 @@ def open_model(wood, fmt, seg, r, hinge):
     el = slab([x0, 0, z0], [x1, 16, 16], {"east": east, "west": west, "up": [0, 0, 3, length], "down": [0, 0, 3, length],
                                           "north": [0, 0, 3, 16], "south": [0, 0, 3, 16]})
     tex = f"{NS}:block/{tex_name(wood, fmt, seg, r)}"
-    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": [el]}
+    # seen from +x (east) the left edge is the high z
+    voxel = _voxel(wood, tex_name(wood, fmt, seg, r), "z", (z0, 16), (x0, x1), ("east", east, False), ("west", west, True))
+    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": voxel or [el]}
 
 
 def item_model(wood, fmt):
