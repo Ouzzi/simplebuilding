@@ -269,3 +269,28 @@ loom.runs.configureEach {
   }
  }
 }
+
+// A-MIXCHECK31: gametests run a dedicated server, so CLIENT mixins are never applied there. This checks every
+// mixin of every 26.3 Fabric module (all sections) statically against the game jar on this classpath:
+// target classes, @Shadow/@Accessor/@Invoker members, injector methods and @At INVOKE/FIELD/NEW targets.
+def mixinCheckArgs = layout.buildDirectory.file('checkClientMixins.args')
+def mixinCheckDirs = registry.modules.collectMany { entry ->
+    def build = rootProject.file(entry.projects.fabric.substring(1).replace(':', '/') + '/build')
+    [new File(build, 'classes/java/main'), new File(build, 'resources/main')]
+}
+def mixinCheckClasspath = sourceSets.main.compileClasspath
+tasks.register('checkClientMixins', Exec) {
+    group = 'verification'
+    description = 'Checks all mixins of the 26.3 Fabric modules against the 26.3 game jar (tools/check_client_mixins.py).'
+    dependsOn registry.modules.collect { "${it.projects.fabric}:classes" }
+    onlyIf { !project.hasProperty('skipWiki') }
+    workingDir = rootDir
+    doFirst {
+        def file = mixinCheckArgs.get().asFile
+        file.parentFile.mkdirs()
+        file.text = (['--mods'] + mixinCheckDirs.findAll { it.exists() }*.absolutePath
+                + ['--cp'] + mixinCheckClasspath.files*.absolutePath).join('\n') + '\n'
+    }
+    commandLine(rootProject.findProperty('wikiPython') ?: 'python', 'tools/check_client_mixins.py', "@${mixinCheckArgs.get().asFile}")
+    outputs.upToDateWhen { false }
+}
