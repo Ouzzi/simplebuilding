@@ -85,14 +85,16 @@ public final class DevVariants {
     }
 
     /** Client entry: a development environment shows the panel by default, a release does not (see {@link #enabled}). */
+    private static final boolean DEFAULT_ON = true; // switch to devEnvironment before publishing
+
     public static void setDevEnvironment(boolean value) {
         devEnvironment = value;
     }
 
-    /** Config {@code devVariants}: explicit true/false wins; absent = on in a development environment, off in a release. */
+    /** Config {@code devVariants}: explicit true/false wins; absent = on (until release; the owner uses the panel for in-game acceptance). */
     public static boolean enabled() {
         Boolean o = override;
-        return o != null ? o : devEnvironment;
+        return o != null ? o : DEFAULT_ON;
     }
 
     public static void setEnabled(Boolean value) {

@@ -28,10 +28,10 @@ final class DevVariantTests {
             // a stale stored option (variant lost it) falls back to the default
             DevVariants.register(id, "Test Mod", "Fernrohr-Rahmen", "a", new DevVariants.Option("a", "A"));
             h.assertTrue(DevVariants.is(id, "a"), "stale choice must fall back to the default");
-            // enable rule: explicit config wins, else the development environment decides
+            // enable rule: explicit config wins, else on
             DevVariants.setEnabled(null);
             DevVariants.setDevEnvironment(false);
-            h.assertTrue(!DevVariants.enabled(), "release must default to off");
+            h.assertTrue(DevVariants.enabled(), "release must default to on until publication");
             DevVariants.setDevEnvironment(true);
             h.assertTrue(DevVariants.enabled(), "development must default to on");
             DevVariants.setEnabled(false);
