@@ -104,19 +104,19 @@ public final class SelectChallengeScreen extends Screen {
     }
 
     private void rebuildList(String select) {
-        List<Entry> entries = new ArrayList<>();
-        for (String id : PresetRegistry.SHIPPED) if (PresetRegistry.get(id) != null) entries.add(new Entry(id));
-        for (String id : PresetRegistry.ids()) if (!PresetRegistry.SHIPPED.contains(id)) entries.add(new Entry(id));
+        List<PresetEntry> entries = new ArrayList<>();
+        for (String id : PresetRegistry.SHIPPED) if (PresetRegistry.get(id) != null) entries.add(new PresetEntry(id));
+        for (String id : PresetRegistry.ids()) if (!PresetRegistry.SHIPPED.contains(id)) entries.add(new PresetEntry(id));
         list.replaceEntries(entries);
-        Entry pick = null;
-        for (Entry e : entries) if (e.id.equals(select)) pick = e;
+        PresetEntry pick = null;
+        for (PresetEntry e : entries) if (e.id.equals(select)) pick = e;
         if (pick == null && !entries.isEmpty()) pick = entries.get(0);
         if (pick != null) list.setSelected(pick);
         else onSelected(null);
     }
 
     /** The selection changed: the detail widgets show the preset and are active only for the player's own presets. */
-    private void onSelected(Entry e) {
+    private void onSelected(PresetEntry e) {
         selectedId = e == null ? null : e.id;
         refresh();
     }
@@ -225,7 +225,7 @@ public final class SelectChallengeScreen extends Screen {
 
     // --- the list ---
 
-    private final class PresetList extends ObjectSelectionList<Entry> {
+    private final class PresetList extends ObjectSelectionList<PresetEntry> {
         PresetList(Minecraft mc, int width, int height, int y) {
             super(mc, width, height, y, ROW);
         }
@@ -255,21 +255,21 @@ public final class SelectChallengeScreen extends Screen {
 
         /** The Vanilla selection frame, white also while the list is not focused (the choice stays visible). */
         @Override
-        protected void extractSelection(GuiGraphicsExtractor g, Entry entry, int outlineColor) {
+        protected void extractSelection(GuiGraphicsExtractor g, PresetEntry entry, int outlineColor) {
             super.extractSelection(g, entry, 0xFFFFFFFF);
         }
 
         @Override
-        public void setSelected(Entry entry) {
+        public void setSelected(PresetEntry entry) {
             super.setSelected(entry);
             onSelected(entry);
         }
     }
 
-    private final class Entry extends ObjectSelectionList.Entry<Entry> {
+    private final class PresetEntry extends ObjectSelectionList.Entry<PresetEntry> {
         final String id;
 
-        Entry(String id) {
+        PresetEntry(String id) {
             this.id = id;
         }
 
