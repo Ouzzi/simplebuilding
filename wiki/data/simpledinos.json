@@ -178,15 +178,15 @@
       },
       "source": "modules/simpledinos/shared/resources/data/simpledinos/recipe/guide_book.json",
       "ingredients": [
-        "minecraft:bone",
-        "minecraft:book"
+        "minecraft:book",
+        "minecraft:brush"
       ],
       "ingredientGroups": [
         [
           "minecraft:book"
         ],
         [
-          "minecraft:bone"
+          "minecraft:brush"
         ]
       ],
       "baseMaterials": {
@@ -197,12 +197,20 @@
             "count": 3
           },
           {
-            "id": "minecraft:bone",
+            "id": "minecraft:copper_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:feather",
             "count": 1
           },
           {
             "id": "minecraft:leather",
             "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
           }
         ]
       }
@@ -537,10 +545,10 @@
           "modules/simpledinos/shared/resources/data/simpledinos/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Dinosaurs\" gives one for free."
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + brush. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Dinosaurs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Dinosaurs\" eins."
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Pinsel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Dinosaurs\" eins."
         }
       },
       "texture": "assets/textures/simpledinos/item/guide_book.png",

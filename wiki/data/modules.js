@@ -1820,6 +1820,6 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 6
     },
-    "dataHash": "4a3dd1149811"
+    "dataHash": "647d3af3850a"
   }
 ];

@@ -99693,6 +99693,14 @@
           "required": true
         },
         {
+          "id": "simplestorage:enderite_controller_chest",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_pipe",
+          "required": true
+        },
+        {
           "id": "simplestorage:enderite_quiver",
           "required": true
         },
@@ -99965,6 +99973,14 @@
         },
         {
           "id": "simplestorage:enderite_chest_minecart",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_controller_chest",
+          "required": true
+        },
+        {
+          "id": "simplestorage:enderite_pipe",
           "required": true
         },
         {

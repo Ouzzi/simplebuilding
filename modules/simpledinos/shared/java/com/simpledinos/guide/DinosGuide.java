@@ -42,7 +42,7 @@ public final class DinosGuide {
     public static final int PAGES = 12;
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NAMESPACE, "guide_book");
     /** The Vanilla item that, together with a book, crafts the guide. */
-    public static final Item RECIPE_ITEM = Items.BONE;
+    public static final Item RECIPE_ITEM = Items.BRUSH;
     private static Item book;
 
     private DinosGuide() {
