@@ -42,6 +42,27 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 8. **Neue Besitzer-Nachträge** oben unter dem Überblick als eigener Abschnitt mit ID-Präfix (z. B. `W23-n`) und zugleich im Überblick eintragen.
 9. **Vor Rückfragen** Queue/Pläne/Memory nach Besitzer-Antworten durchsuchen; Fragen gesammelt auf die Abnahme-Seite.
 
+## Besitzer 30.10. abends – In-Game-Abnahme 1 (IG31) – Bilder /root/sb-tools-a/owner-img/30-*
+A Leuchtfeuer/Conduits/Tabs
+- [ ] IG31-1 Evil Beacon-Rezept: Nether-Juwel + Evil Upgrade (statt Stern + Evil Upgrade); Strong Beacon per Netherherz + Strong Upgrade (Upgrade). Mighty/Mighty Evil ok. Evil Beacons: Tooltip/Seltenheit „Evil“ statt nur „Rare“.
+- [ ] IG31-2 NEU: Mighty Conduit, Evil Conduit (Gegenteil, z. B. Mining Fatigue) und Mighty Evil Conduit – mit Partikeln und Umgebungsgeräusch (leichter zu finden).
+- [ ] IG31-3 Kreativ-Tab „Simple Enchants“ (Dev-Tab) komplett entfernen. Alle Mod-Items aus Vanilla-Tabs raus, alle Vanilla-Items aus Mod-Tabs raus (z. B. Simple Tools: Kompass, Bergungskompass, Kartentisch). Tab-Reihenfolge: Super-Mod, dann direkt dahinter seine Sub-Mods; Mehrfach-Abhängigkeiten: Vorschlag machen. Simple-Mobs-Tab-Icon = Deceiver-Spawn-Ei.
+- [ ] IG31-4 Text beim ersten Aufheben (z. B. Formsäge) – Besitzer fragt, warum; RÜCKFRAGE (gewollt laut Discover/First-Pickup-Tipps?).
+B Storage/Essen/Leder
+- [ ] IG31-5 Rohr-Fenster: Ausgangs-Knopf ersetzen durch 6 Richtungs-Knöpfe als Sechseck/Hexagon (oben/unten mittig = Up/Down, 4 schräge Pfeile = N/O/S/W), Tooltips Up/Down/Norden/Süden/Osten/Westen, nur EIN Ausgang aktiv; Eingang aus allen anderen Seiten; Input in einen Ausgang = wie Trichter gegen Wand. Rohr-Form: am Ausgang schmaler wie Trichter (Abstufung dick→dünn).
+- [ ] IG31-6 Kupferkabel mehr wie Kabel. Interface bündig mit der Truhe (Bild 30-interface-luecke/-oben): keine Lücke, verbindet sich optisch mit der Truhe; liegt das Interface hinter/unter einer Truhe mit Wand daneben, bis zur Wand ausdehnen (kein Durchblick).
+- [ ] IG31-7 Käse: stapelt nicht wie Butter (Schleichen legt Teppich, Stapeln nur im Survival) → wie Butter; NEU: Käse und Butter übereinander stapelbar (gemischte Schichten).
+- [ ] IG31-8 Ledertuch (Leather Sheet) → Simple Storage; alle Rezepte damit zeigen/anlegen (verstärkter Rucksack usw.); Farbkasten aus Ledertüchern (z. B. Bündel Mitte + Ledertücher + Holzdruckplatten, eindeutiges Rezept, keine Farbstoffe); verstärktes Bündel und Köcher aus Ledertüchern.
+C Türen/Köpfe/Pulver
+- [ ] IG31-9 Mod-Türen (z. B. Aschholz-/Echo-Tür): Durchsicht-Löcher machen die Tür an der Stelle unsichtbar (Bild 30-tuer-durchsicht) → richtige Ausschnitt-/3D-Darstellung. 2×2-Türen ohne Geräusche → Vanilla-Türgeräusche. 2×3 schwer zu platzieren → verbessern. Halbtüren NICHT gewünscht – gemeint waren 1,5-Türen (a-misc31 hat oak_door_1_5x2/x3 gebaut → prüfen, Halbtüren entfernen/ausblenden).
+- [ ] IG31-10 Mob-Köpfe im Inventar: viele abgeschnitten/schief (Bild 30-mobheads-inv; z. B. Gürteltier geneigt, berührt Boden nicht) → Inventar-Darstellung wie Vanilla-Items einpassen. Shift-Klick soll den Mob-Kopf-Slot bevorzugen (nicht Vanilla-Kopfslot); Rechtsklick-Anziehen mit Geräusch.
+- [ ] IG31-11 Starkes TNT etwas dunkleres Blau; Starkes Schwarzpulver NICHT blau, sondern dunkleres Grau als Vanilla-Pulver; Rezept 3 Schwarzpulver + 1 Lohenstaub → 1 Starkes Schwarzpulver.
+D Umbau/Texturen (danach)
+- [ ] IG31-12 Doppelkolben + Signaldämpfer gehören in den Maschinen-Mod (dort wo Kolben-Upgrades sind, „Simple Machines“) statt eigenem simpleredstone → verschieben (IdMoves).
+- [ ] IG31-13 Materialien aufteilen: Enderit-Varianten + Rohe Enderit-Fragmente, Dimensions-Schrott, Tiefenschiefer-Salbeierze → Simple Ores (Enderit-Varianten in Mods nur wenn Ores geladen); Kerne (Cores) → simplelib (genutzt von Beacons, Tools, Bauzauberstab …); Chips/Kiesel bleiben. Plan + Migration.
+- [ ] IG31-14 Simple-Music-Item-Texturen, Dämmerholz-Textur und Musikplatten (nicht leer) gegen Vanilla vergleichen und neu (Proportionen). Inverser Rüstungsbesatz sieht immer noch nicht gut aus → überarbeiten. Simple Models: Beispiele hinzufügen.
+- [ ] IG31-15 RÜCKFRAGE: Simple Ovens ↔ Simple Crucibles Kopplung – frühere Besitzer-Aussage suchen (Queue-Archiv/Memory/Pläne) und Besitzer berichten.
+
 ## Besitzer 30.10. mittags – Snowlogging + Frostgras (SN30)
 - [ ] SN30-1 Snowlogging wie Bedrock: Schneeschicht/-teppich kann sich den Block mit Zaun(pfosten), Gras, Blumen, Farnen u. ä. teilen (verschneite Pflanzen sehen beschneit aus statt ohne Schnee). Technik prüfen: eigener „verschneit“-Blockzustand per Mixin auf Vanilla-Blöcken ist riskant (Weltdaten/Kompatibilität) – Alternative: Schneeschicht-Block, der die Pflanze als Inhalt trägt und mitrendert; im Plan entscheiden, abschaltbar, A12. Optik exemplarisch mit Vorschau.
 - [ ] SN30-2 Frostgras (neuer Block, + evtl. Variante): Grasblock wird mit Schnee(schicht/-teppich) obendrauf langsam zu Frostgras (Tempo ≈ Graswachstum, etwas schneller), aber nur in kalten Biomen ODER mit Eisblock darunter; ohne Schnee taut es langsam wieder zu Gras. Eigene Textur (Endholz-Prozess, Vanilla-nah, Bezug zum Vanilla-„verschneit“-Zustand des Grasblocks). Abschaltbar.
