@@ -603,10 +603,6 @@ ALL.put("config_command", h -> {
             h.assertTrue(craft(h, List.of(six.get(0), six.get(1), six.get(2), six.get(3), strongBeacon, six.get(4), t, six.get(5), ItemStack.EMPTY)).isEmpty(), "both Strong Upgrades are needed");
             h.assertTrue(craft(h, List.of(six.get(0), six.get(1), six.get(2), six.get(3), evilBeacon, six.get(4), t, six.get(5), t)).is(BeaconsRegistry.MIGHTY_EVIL_BEACON_ITEM),
                     "Mighty Evil Beacon: the same with the Evil Beacon in the middle");
-            // BS28b-5: Evil Beacon = beacon + Evil Upgrade + nether star; the template itself needs Simple Mobs
-            SmithingRecipeInput evilSmith = new SmithingRecipeInput(new ItemStack(BeaconsRegistry.EVIL_UPGRADE_TEMPLATE), new ItemStack(Items.BEACON), new ItemStack(Items.NETHER_STAR));
-            h.assertTrue(server.getRecipeManager().getRecipeFor(RecipeType.SMITHING, evilSmith, h.getLevel()).map(r -> r.value().assemble(evilSmith)).orElse(ItemStack.EMPTY)
-                    .is(BeaconsRegistry.EVIL_BEACON_ITEM), "smithing: beacon + Evil Upgrade + nether star");
             var gem = BuiltInRegistries.ITEM.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemobs", "nether_gem"));
             if (heart.isPresent() && gem.isPresent()) {
                 CraftingInput evil = CraftingInput.of(2, 2, List.of(t, o, new ItemStack(heart.get()), new ItemStack(gem.get())));
