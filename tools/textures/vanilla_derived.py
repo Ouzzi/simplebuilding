@@ -205,8 +205,7 @@ MODULE_OUTPUTS = {
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures', 'abn29_mobs'), 'simpleend': ('abn29_end',), 'simpleovens': ('ovens_carts_2026_10_13',),
                      'simplestorage': ('storage_vehicles_2026_10_20', 'shulker_shell_textures'),
-                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16', 'shapecutter_2026_10_21', 'blocks_b23_2026_10_23', 'ice31_2026_10_30'), 'simplecrucibles': ('crucibles_derived_2026_10_16', 'soul_lava_2026_10_09')}
-                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16', 'shapecutter_2026_10_21', 'blocks_b23_2026_10_23'), 'simplecrucibles': ('crucibles_derived_2026_10_16', 'soul_lava_2026_10_09'),
+                     'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16', 'shapecutter_2026_10_21', 'blocks_b23_2026_10_23', 'ice31_2026_10_30'), 'simplecrucibles': ('crucibles_derived_2026_10_16', 'soul_lava_2026_10_09'),
                      'simpleores': ('ores_derived',), 'simplehammers': ('ores_hammers_derived',)}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',

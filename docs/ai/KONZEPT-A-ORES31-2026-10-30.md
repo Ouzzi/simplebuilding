@@ -3,7 +3,7 @@
 Nur Konzept + Vorschau (`/root/sb-tools-a/previews/a-ores31-preview.html`, klickbar mit Checkboxen, ein gesammelter Antwortcode). Nichts davon ist gebaut. Gebaut ist nur Teil 1 (Simple Ores: Silber, Roségold, Werkzeuge/Rüstung; Plan `PLAN-A-ORES-2026-10-30.md`). Besitzer-Wortlaut: Queue ABN30-10.
 
 ## 1. Rezept-Auswahl (Checkboxen)
-Gebaut ist der Empfehlungssatz (hart 6/5/4 Gold + 2 Kupfer + 1 Silber, weich 7 Gold + 1 Kupfer + 1 Silber/Silberklumpen; 4 Presslinge je Rezept). Die Vorschau zeigt jedes Rezept als 3x3-Gitter; Häkchen = soll im Spiel sein. Geänderte Wahl: Rezeptdateien `data/simpleores/recipe/*_pressling_*.json` über `modules/simpleores/tools/gen_data.py` (Tabelle `PRESSINGS`).
+Gebaut ist der Empfehlungssatz (hart 6/5/4 Gold + 2 Kupfer + 1 Silber, weich 7 Gold + 1 Kupfer + 1 Silber/Silberklumpen; 1 Pressling je Rezept (Besitzer 30.10. korrigiert)). Die Vorschau zeigt jedes Rezept als 3x3-Gitter; Häkchen = soll im Spiel sein. Geänderte Wahl: Rezeptdateien `data/simpleores/recipe/*_pressling_*.json` über `modules/simpleores/tools/gen_data.py` (Tabelle `PRESSINGS`).
 
 ## 2. Erz-Nutzen (A12 je Zeile, alles zum Abhaken)
 Regel: kein Erz außer Roségold bekommt Werkzeug-Stufen; Nutzen zuerst im Vanilla-Geschehen, Eingriff klein.

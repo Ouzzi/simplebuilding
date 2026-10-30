@@ -285,7 +285,7 @@ Silbererz (Oberwelt, End) und Roségold (zwei Legierungen, Pressling, nur Hochof
 
 - **A12 je Teil** steht in `docs/ai/PLAN-A-ORES-2026-10-30.md`; Silber ist **kein** Werkzeugmaterial, Roségold-Hämmer gibt es nur in Simple Hammers und nur mit Simple Ores (optionale Stufe, kein `requires`).
 - Daten (Modelle, Loot, Rezepte, Fortschritte, Tags, Worldgen, Lang, Wiki) kommen aus `modules/simpleores/tools/gen_data.py`; alle Texturen sind Vanilla-abgeleitet (`tools/textures/ores_2026_10_30.py`), nie eingecheckt.
-- Ausbeute je Pressling ist immer 1 Barren; der Verlust steckt im Rezept (4 Presslinge aus 7–9 Barren). Hochofen-`cookingtime` 1200 = 600 Ticks (26.3 halbiert im Hochofen).
+- Ausbeute je Pressling ist immer 1 Barren; der Verlust steckt im Rezept (1 Pressling aus 7–9 Barren). Hochofen-`cookingtime` 1200 = 600 Ticks (26.3 halbiert im Hochofen).
 
 ### Simple Stats (`simplestats`)
 Statistiken je Werkzeug/Waffe/Rüstung mit eigenem Statistik-Bildschirm.

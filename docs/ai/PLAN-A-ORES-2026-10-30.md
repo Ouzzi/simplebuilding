@@ -14,7 +14,7 @@ Stand 30.10.2026. Nur MC 26.3 Fabric. Konzept: `docs/ai/KONZEPT-A-RG30-2026-10-3
 | Alles in Simple Ores, Hammers/Tools/Rüstung nur wenn Ores geladen | Werkzeuge + Rüstung in Ores; Hammers: zwei `HammerTiers` mit `requiredMod = "simpleores"`, nur dann registriert (`enabled()`), Rezepte/Fortschritte mit Lade-Bedingung; kein `requires`, Hammers kopiert die Werte (importiert Ores nie). Simple Tools hat keine Tiers (Konzept 0) |
 | Farben | hart = Palette B „Kupfer-Rosé“, weich = Palette A „Zart-Rosa“, aus Gold per Luminanz-Rampe umgefärbt (`tools/textures/ores_2026_10_30.py`) |
 | Namen | Rosenbronze (hart), Blütengold (weich), Pressling |
-| Rezepte (Barren) | Empfehlung des Konzepts: hart 6/5/4 Gold + 2 Kupfer + 1 Silber, weich 7 Gold + 1 Kupfer + 1 Silber(barren) oder Silberklumpen; 4 Presslinge je Rezept (Empfehlung „4“) |
+| Rezepte (Barren) | Empfehlung des Konzepts: hart 6/5/4 Gold + 2 Kupfer + 1 Silber, weich 7 Gold + 1 Kupfer + 1 Silber(barren) oder Silberklumpen; 1 Pressling je Rezept (Besitzer 30.10. korrigiert) (Empfehlung „4“) |
 | Hochofen | nur Hochofen (kein Ofen/Räucherofen/Lagerfeuer), 30 s, Ausbeute je Pressling immer 1 Barren |
 | Silber | Overworld 1–2 Adern je Chunk (Größe 5, Y -48..16, Tiefenschiefer-Variante), End-Silbererz (äußere Inseln, 2–6 Klumpen); KEIN Werkzeugmaterial |
 | Werte | Konzept §3: hart Eisen-Haltbarkeit 250/Tempo 11/Verz. 20, Rüstung 15 · 2/4/3/1 · Verz. 22; weich 225/12/22, Rüstung 13 · 2/5/3/1 · Verz. 25. Mining-Stufe Eisen (selbst entschieden: sonst wäre Gold-Stufe zu schwach für das knappe Silber; kein Tier schlägt Diamant in der Haltbarkeit) |

@@ -45,7 +45,7 @@ for a in ALLOYS:
         assert f'entity/equipment/{layer}/{a}.png' in derived, (a, layer)
 assert len(derived) == len(BLOCKS) + len(ITEMS) + 4, len(derived)
 
-# Pressing recipes: shapeless, 4 pressings from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
+# Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
 # 600 ticks in the blast furnace (the recipe stores the furnace time, which the blast furnace halves), exactly 1 ingot.
 for a in ALLOYS:
     blast = json.loads((RES / f'data/{NS}/recipe/{a}_ingot_from_blasting_{a}_pressling.json').read_text(encoding='utf-8'))
@@ -59,7 +59,7 @@ pressings = [p for p in (RES / f'data/{NS}/recipe').glob('*_pressling_*.json') i
 assert len(pressings) == 5, pressings
 for p in pressings:
     r = json.loads(p.read_text(encoding='utf-8'))
-    assert r['type'] == 'minecraft:crafting_shapeless' and r['result']['count'] == 4 and len(r['ingredients']) in (7, 8, 9), p.name
+    assert r['type'] == 'minecraft:crafting_shapeless' and r['result'].get('count', 1) == 1 and len(r['ingredients']) in (7, 8, 9), p.name
     assert 'minecraft:copper_ingot' in r['ingredients'] and r['ingredients'].count('minecraft:gold_ingot') >= 4, p.name
     assert any(i.startswith(f'{NS}:silver_') for i in r['ingredients']), p.name
 for p in (RES / f'data/{NS}/recipe').glob('*.json'):

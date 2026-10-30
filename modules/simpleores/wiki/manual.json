@@ -37,7 +37,7 @@
         "title": "Rose gold",
         "summary": "Two alloys of gold, copper and silver: hard Rose Bronze (about 585) and soft Blossom Gold (about 750). Made in two steps: press ingots into pressings, melt them in a blast furnace.",
         "details": [
-          "Pressing (crafting, shapeless, 4 pressings per recipe): Rose Bronze 6 gold + 2 copper + 1 silver, or 5 + 2 + 1, or 4 + 2 + 1 ingots. Blossom Gold 7 gold + 1 copper + 1 silver ingot, or 7 gold + 1 copper + 1 silver nugget.",
+          "Pressing (crafting, shapeless, 1 pressing per recipe): Rose Bronze 6 gold + 2 copper + 1 silver, or 5 + 2 + 1, or 4 + 2 + 1 ingots. Blossom Gold 7 gold + 1 copper + 1 silver ingot, or 7 gold + 1 copper + 1 silver nugget.",
           "Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 9 ingots put in is intended: silver stays the bottleneck.",
           "Rose Bronze is a darker copper-rose, Blossom Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot."
         ]
@@ -46,7 +46,7 @@
         "title": "Roségold",
         "summary": "Zwei Legierungen aus Gold, Kupfer und Silber: das harte Rosenbronze (etwa 585) und das weiche Blütengold (etwa 750). Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.",
         "details": [
-          "Pressen (Werkbank, formlos, 4 Presslinge je Rezept): Rosenbronze 6 Gold + 2 Kupfer + 1 Silber, oder 5 + 2 + 1, oder 4 + 2 + 1 Barren. Blütengold 7 Gold + 1 Kupfer + 1 Silberbarren, oder 7 Gold + 1 Kupfer + 1 Silberklumpen.",
+          "Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenbronze 6 Gold + 2 Kupfer + 1 Silber, oder 5 + 2 + 1, oder 4 + 2 + 1 Barren. Blütengold 7 Gold + 1 Kupfer + 1 Silberbarren, oder 7 Gold + 1 Kupfer + 1 Silberklumpen.",
           "Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.",
           "Rosenbronze ist ein dunkleres Kupfer-Rosé, Blütengold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren."
         ]
@@ -239,10 +239,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Gold, copper and silver ingots pressed together (4 per crafting recipe, see the wiki). Only a blast furnace melts it (30 s), always into exactly 1 rose bronze ingot."
+        "summary": "Gold, copper and silver ingots pressed together (1 per crafting recipe, see the wiki). Only a blast furnace melts it (30 s), always into exactly 1 rose bronze ingot."
       },
       "de": {
-        "summary": "Gold-, Kupfer- und Silberbarren, zusammengepresst (4 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenbronzebarren."
+        "summary": "Gold-, Kupfer- und Silberbarren, zusammengepresst (1 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenbronzebarren."
       }
     },
     "simpleores:rose_bronze_sword": {
@@ -360,10 +360,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Gold, copper and silver ingots pressed together (4 per crafting recipe, see the wiki). Only a blast furnace melts it (30 s), always into exactly 1 blossom gold ingot."
+        "summary": "Gold, copper and silver ingots pressed together (1 per crafting recipe, see the wiki). Only a blast furnace melts it (30 s), always into exactly 1 blossom gold ingot."
       },
       "de": {
-        "summary": "Gold-, Kupfer- und Silberbarren, zusammengepresst (4 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Blütengoldbarren."
+        "summary": "Gold-, Kupfer- und Silberbarren, zusammengepresst (1 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Blütengoldbarren."
       }
     },
     "simpleores:blossom_gold_sword": {
