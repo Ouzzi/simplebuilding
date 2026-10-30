@@ -42,6 +42,11 @@ Neue Regeln stehen in `docs/ai/PRINZIPIEN.md` (Einstieg), AGENTS.md 3.16/3.18/3.
 8. **Neue Besitzer-Nachträge** oben unter dem Überblick als eigener Abschnitt mit ID-Präfix (z. B. `W23-n`) und zugleich im Überblick eintragen.
 9. **Vor Rückfragen** Queue/Pläne/Memory nach Besitzer-Antworten durchsuchen; Fragen gesammelt auf die Abnahme-Seite.
 
+## Besitzer 30.10. mittags – Snowlogging + Frostgras (SN30)
+- [ ] SN30-1 Snowlogging wie Bedrock: Schneeschicht/-teppich kann sich den Block mit Zaun(pfosten), Gras, Blumen, Farnen u. ä. teilen (verschneite Pflanzen sehen beschneit aus statt ohne Schnee). Technik prüfen: eigener „verschneit“-Blockzustand per Mixin auf Vanilla-Blöcken ist riskant (Weltdaten/Kompatibilität) – Alternative: Schneeschicht-Block, der die Pflanze als Inhalt trägt und mitrendert; im Plan entscheiden, abschaltbar, A12. Optik exemplarisch mit Vorschau.
+- [ ] SN30-2 Frostgras (neuer Block, + evtl. Variante): Grasblock wird mit Schnee(schicht/-teppich) obendrauf langsam zu Frostgras (Tempo ≈ Graswachstum, etwas schneller), aber nur in kalten Biomen ODER mit Eisblock darunter; ohne Schnee taut es langsam wieder zu Gras. Eigene Textur (Endholz-Prozess, Vanilla-nah, Bezug zum Vanilla-„verschneit“-Zustand des Grasblocks). Abschaltbar.
+Priorität: nach Punkt 4 der Besitzer-Reihenfolge („Rest“), kleines Paket.
+
 ## PRIORITÄT ab 30.10. 13 Uhr (Besitzer)
 1. Simple Ores (ABN30-10, RG30) – läuft (a-ores31), danach Blei/Zink/Platin/Silberpfeil/-spiegel bauen.
 2. Tastenbelegung (WP-25/UI28-1, Empfehlungen K1–K5) + UI-Vereinheitlichung der Ausreißer.
