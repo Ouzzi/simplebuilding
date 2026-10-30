@@ -57,7 +57,8 @@
         "simpleshops",
         "simplewanderers",
         "simplemusic",
-        "simpleearth"
+        "simpleearth",
+        "simpleredstone"
       ],
       "paths": {
         "root": ".",
