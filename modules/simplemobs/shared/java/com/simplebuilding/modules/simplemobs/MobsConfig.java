@@ -65,6 +65,22 @@ public final class MobsConfig {
     public static boolean evilOmen = true;
     /** Void chain (BS27-6): Void Potion / Omen / Trial / Vault; off until the Ender Heart has a source (concept R9). Needs {@link #evilOmen}. */
     public static boolean voidChain = false;
+    /** Trials (TR31-R): at most this many Weathered Trial Spawners of one structure are active at once (0 = no limit). */
+    public static int trialSpawnerCap = 3;
+    /** Trials (TR31-R): the Evil / Void Vaults draw every item at most once per opening (Vanilla loot tables draw with replacement). */
+    public static boolean trialLootNoRepeat = true;
+    /** Trials (TR31-R): hits of Evil / Void mobs on players - Wither (stage 2), slowing arrows (stage 3), Darkness (stage 5). */
+    public static boolean evilHitEffects = true;
+    /** Trials (TR31-R): Void mobs darken the air 6 blocks around them, Void archers teleport when hit. Needs {@link #voidChain}. */
+    public static boolean voidMobTricks = true;
+    /** Trials (TR31-R): the Evil Omen also turns Vanilla Trial Spawners (Vanilla chambers) evil; off = only Weathered Trials (A12). */
+    public static boolean evilOnVanillaSpawners = false;
+    /** Trials (TR31-R): Weathered Trials generate in new chunks; off = none (existing ones stay). */
+    public static boolean weatheredStructures = true;
+    /** Trials (TR31-R): how many percent of the Weathered Trials' copper and tuff blocks are missing in new structures (0-100, Vanilla-like 11). */
+    public static int weatheredDecayPercent = 11;
+    /** Trials (TR31-R): an Evil / Void Raid has one more wave and leaves a Looter Chest after the victory. */
+    public static boolean evilRaidExtras = true;
 
     /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
     public static boolean howlerRagePulse = true;
@@ -199,6 +215,14 @@ public final class MobsConfig {
         strongTntPower = Math.max(4.0f, Math.min(16.0f, num(json, "strongTntPower", StrongExplosives.DEFAULT_POWER)));
         evilOmen = bool(json, "evilOmen", true);
         voidChain = bool(json, "voidChain", false);
+        trialSpawnerCap = Math.max(0, Math.min(8, integer(json, "trialSpawnerCap", 3)));
+        trialLootNoRepeat = bool(json, "trialLootNoRepeat", true);
+        evilHitEffects = bool(json, "evilHitEffects", true);
+        voidMobTricks = bool(json, "voidMobTricks", true);
+        evilOnVanillaSpawners = bool(json, "evilOnVanillaSpawners", false);
+        weatheredStructures = bool(json, "weatheredStructures", true);
+        weatheredDecayPercent = Math.max(0, Math.min(100, integer(json, "weatheredDecayPercent", 11)));
+        evilRaidExtras = bool(json, "evilRaidExtras", true);
     }
 
     public static JsonObject toJson() {
@@ -249,6 +273,14 @@ public final class MobsConfig {
         o.addProperty("strongTntPower", strongTntPower);
         o.addProperty("evilOmen", evilOmen);
         o.addProperty("voidChain", voidChain);
+        o.addProperty("trialSpawnerCap", trialSpawnerCap);
+        o.addProperty("trialLootNoRepeat", trialLootNoRepeat);
+        o.addProperty("evilHitEffects", evilHitEffects);
+        o.addProperty("voidMobTricks", voidMobTricks);
+        o.addProperty("evilOnVanillaSpawners", evilOnVanillaSpawners);
+        o.addProperty("weatheredStructures", weatheredStructures);
+        o.addProperty("weatheredDecayPercent", weatheredDecayPercent);
+        o.addProperty("evilRaidExtras", evilRaidExtras);
         return o;
     }
 

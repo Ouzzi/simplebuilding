@@ -7,7 +7,8 @@ Writes into modules/simplemobs/shared/resources (deterministic, committed):
   data/simplemobs/worldgen/{structure,structure_set,template_pool,processor_list}  jigsaw, spacing 28/10, decay by block_rot
   data/simplemobs/tags/worldgen/biome/has_structure/weathered_trials.json, tags/block/weathered_rottable.json
   data/simplemobs/trial_spawner/weathered/*.json   the mob configs (4 themes x normal/ominous)
-  data/simplemobs/loot_table/{vault,spawners}/...  vault loot (26.3 format: condition / modifier / type) and the Evil / Void spawner reward
+  data/simplemobs/loot_table/{vault,spawners,raid}/...  vault loot (26.3 format: condition / modifier / type), the Evil / Void spawner reward and the Looter Chest of an Evil / Void Raid
+  assets/simplemobs/loot_info/trials.json           the vault tables as weights for the recipe viewer (TrialsViewer reads it; loot tables are not synced to the client)
   data/simplemobs/in_world_upgrades/trials.json    Vault -> Evil Vault (diamond block) -> Void Vault (netherite block), 5 strikes
   assets/simplemobs/{blockstates,models/block,models/item,items}  blocks and the 20 key / potion items
 
@@ -260,6 +261,32 @@ def spawner_table(kind, n):
     return {'type': 'minecraft:chest', 'random_sequence': f'{NS}:spawners/{kind}_{n}', 'pools': pools}
 
 
+def raid_table(kind, n):
+    """Looter Chest of an Evil / Void Raid (TR31-R): the vault rows of the stage, drawn 2 + n/2 times (chest tables may repeat an item)."""
+    rows = [r for r in (evil_rows(n) if kind == 'evil' else void_rows(n)) if r['weight'] > 0]
+    return {'type': 'minecraft:chest', 'random_sequence': f'{NS}:raid/{kind}_{n}', 'pools': [{'rolls': 2 + n // 2, 'entries': entries(rows)}]}
+
+
+def loot_info():
+    """Weights of every vault table, flat, for the recipe viewer: {table: {rolls, rows: [{item, weight, min, max, book}]}}."""
+    def rows_of(rows):
+        out = []
+        for r in rows:
+            if r['weight'] <= 0: continue
+            lo = hi = 1
+            for m in r.get('modifier', []):
+                c = m.get('count')
+                if isinstance(c, dict): lo, hi = c['min'], c['max']
+                elif c is not None: lo = hi = c
+            out.append({'item': r['name'], 'weight': r['weight'], 'min': lo, 'max': hi, 'book': r['name'] == 'minecraft:book'})
+        return out
+    tables = {'weathered': (2, weathered_rows()), 'weathered_ominous': (3, ominous_rows())}
+    for n in STAGES:
+        tables[f'evil_{n}'] = (3 if n <= 3 else 4, evil_rows(n))
+        tables[f'void_{n}'] = (3 + (n - 1) // 2, void_rows(n))
+    return {name: {'rolls': rolls, 'rows': rows_of(rows)} for name, (rolls, rows) in tables.items()}
+
+
 # ---------------------------------------------------------------- spawner configs
 def mob(eid, weight=1):
     return {'data': {'entity': {'id': eid}}, 'weight': weight}
@@ -402,6 +429,9 @@ def build():
         out[f'data/simplemobs/loot_table/vault/void_{n}.json'] = J(vault_table(f'void_{n}', 3 + (n - 1) // 2, void_rows(n)))
         out[f'data/simplemobs/loot_table/spawners/evil_{n}.json'] = J(spawner_table('evil', n))
         out[f'data/simplemobs/loot_table/spawners/void_{n}.json'] = J(spawner_table('void', n))
+        out[f'data/simplemobs/loot_table/raid/evil_{n}.json'] = J(raid_table('evil', n))
+        out[f'data/simplemobs/loot_table/raid/void_{n}.json'] = J(raid_table('void', n))
+    out['assets/simplemobs/loot_info/trials.json'] = J(loot_info())
     # Evil Vault: diamond block in the off hand, 5 strikes; Void Vault only from an Evil Vault, netherite block, 5 strikes
     out['data/simplemobs/in_world_upgrades/trials.json'] = J({'upgrades': [
         {'from': f'{NS}:weathered_vault', 'to': f'{NS}:evil_vault', 'material': 'minecraft:diamond_block', 'strikes_per_material': 5, 'tier': 'evil'},

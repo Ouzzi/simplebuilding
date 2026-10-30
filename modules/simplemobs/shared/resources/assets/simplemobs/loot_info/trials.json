@@ -1,0 +1,839 @@
+{
+  "weathered": {
+    "rolls": 2,
+    "rows": [
+      {
+        "item": "minecraft:iron_ingot",
+        "weight": 14,
+        "min": 4,
+        "max": 9,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 14,
+        "min": 3,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "weight": 12,
+        "min": 6,
+        "max": 16,
+        "book": false
+      },
+      {
+        "item": "minecraft:gold_ingot",
+        "weight": 10,
+        "min": 3,
+        "max": 6,
+        "book": false
+      },
+      {
+        "item": "minecraft:diamond",
+        "weight": 8,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 10,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 7,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:wind_charge",
+        "weight": 8,
+        "min": 4,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 5,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 2,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "weathered_ominous": {
+    "rolls": 3,
+    "rows": [
+      {
+        "item": "minecraft:diamond",
+        "weight": 18,
+        "min": 1,
+        "max": 3,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 16,
+        "min": 6,
+        "max": 12,
+        "book": false
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 14,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 3,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 10,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 10,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 6,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "evil_1": {
+    "rolls": 3,
+    "rows": [
+      {
+        "item": "minecraft:diamond",
+        "weight": 22,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 18,
+        "min": 8,
+        "max": 16,
+        "book": false
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 14,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 10,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 6,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 3,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 3,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 2,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 1,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "void_1": {
+    "rolls": 3,
+    "rows": [
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 18,
+        "min": 1,
+        "max": 3,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 12,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:echo_shard",
+        "weight": 12,
+        "min": 2,
+        "max": 6,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 10,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:phantom_membrane",
+        "weight": 8,
+        "min": 4,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 6,
+        "min": 1,
+        "max": 1,
+        "book": true
+      }
+    ]
+  },
+  "evil_2": {
+    "rolls": 3,
+    "rows": [
+      {
+        "item": "minecraft:diamond",
+        "weight": 18,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 16,
+        "min": 8,
+        "max": 16,
+        "book": false
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 14,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 11,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 8,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 5,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 3,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 2,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "void_2": {
+    "rolls": 3,
+    "rows": [
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 16,
+        "min": 1,
+        "max": 3,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 12,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:echo_shard",
+        "weight": 12,
+        "min": 2,
+        "max": 6,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 10,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:phantom_membrane",
+        "weight": 8,
+        "min": 4,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 5,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": true
+      }
+    ]
+  },
+  "evil_3": {
+    "rolls": 3,
+    "rows": [
+      {
+        "item": "minecraft:diamond",
+        "weight": 15,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 14,
+        "min": 8,
+        "max": 16,
+        "book": false
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 13,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 12,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 9,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 6,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 6,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 3,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "void_3": {
+    "rolls": 4,
+    "rows": [
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 14,
+        "min": 1,
+        "max": 3,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 11,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:echo_shard",
+        "weight": 12,
+        "min": 2,
+        "max": 6,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 11,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:phantom_membrane",
+        "weight": 8,
+        "min": 4,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 6,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 10,
+        "min": 1,
+        "max": 1,
+        "book": true
+      }
+    ]
+  },
+  "evil_4": {
+    "rolls": 4,
+    "rows": [
+      {
+        "item": "minecraft:diamond",
+        "weight": 12,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 12,
+        "min": 8,
+        "max": 16,
+        "book": false
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 12,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 13,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 7,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 5,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 3,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "void_4": {
+    "rolls": 4,
+    "rows": [
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 12,
+        "min": 1,
+        "max": 3,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:echo_shard",
+        "weight": 12,
+        "min": 2,
+        "max": 6,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 12,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:phantom_membrane",
+        "weight": 8,
+        "min": 4,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 7,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 12,
+        "min": 1,
+        "max": 1,
+        "book": true
+      }
+    ]
+  },
+  "evil_5": {
+    "rolls": 4,
+    "rows": [
+      {
+        "item": "minecraft:diamond",
+        "weight": 8,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:emerald",
+        "weight": 10,
+        "min": 8,
+        "max": 16,
+        "book": false
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "weight": 12,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 14,
+        "min": 1,
+        "max": 1,
+        "book": true
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 12,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 10,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 6,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 5,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 4,
+        "min": 1,
+        "max": 1,
+        "book": false
+      }
+    ]
+  },
+  "void_5": {
+    "rolls": 5,
+    "rows": [
+      {
+        "item": "minecraft:netherite_ingot",
+        "weight": 10,
+        "min": 1,
+        "max": 3,
+        "book": false
+      },
+      {
+        "item": "minecraft:enchanted_golden_apple",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "weight": 10,
+        "min": 1,
+        "max": 2,
+        "book": false
+      },
+      {
+        "item": "minecraft:echo_shard",
+        "weight": 12,
+        "min": 2,
+        "max": 6,
+        "book": false
+      },
+      {
+        "item": "minecraft:heavy_core",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:netherite_scrap",
+        "weight": 12,
+        "min": 2,
+        "max": 4,
+        "book": false
+      },
+      {
+        "item": "minecraft:phantom_membrane",
+        "weight": 8,
+        "min": 4,
+        "max": 8,
+        "book": false
+      },
+      {
+        "item": "minecraft:ominous_bottle",
+        "weight": 8,
+        "min": 1,
+        "max": 1,
+        "book": false
+      },
+      {
+        "item": "minecraft:book",
+        "weight": 14,
+        "min": 1,
+        "max": 1,
+        "book": true
+      }
+    ]
+  }
+}

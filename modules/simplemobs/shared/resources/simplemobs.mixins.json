@@ -27,7 +27,11 @@
     "BrewingStandSoulMixin",
     "TrialSpawnerDetectMixin",
     "TrialSpawnerEvilMixin",
-    "TrialVaultKeysMixin"
+    "TrialVaultKeysMixin",
+    "RaidEvilMixin",
+    "RaidsEvilMixin",
+    "BlockRotProcessorMixin",
+    "StructureWeatheredMixin"
   ],
   "client": [
     "DeceiverLookMixin",

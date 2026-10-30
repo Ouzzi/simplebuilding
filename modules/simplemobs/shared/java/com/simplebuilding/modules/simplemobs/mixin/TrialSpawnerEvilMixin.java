@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemobs.mixin;
 
 import com.simplebuilding.modules.simplemobs.trials.EvilOmen;
+import com.simplebuilding.modules.simplemobs.trials.TrialsExtras;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -39,5 +40,6 @@ public abstract class TrialSpawnerEvilMixin {
     @Inject(method = "tickServer", at = @At("TAIL"))
     private void simplemobs$particles(ServerLevel level, BlockPos pos, boolean ominous, CallbackInfo ci) {
         EvilOmen.particles(level, pos);
+        TrialsExtras.markTick(level, pos, (TrialSpawner) (Object) this);
     }
 }

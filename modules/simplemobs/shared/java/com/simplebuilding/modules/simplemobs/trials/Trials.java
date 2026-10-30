@@ -245,6 +245,11 @@ public final class Trials {
         return ResourceKey.create(Registries.LOOT_TABLE, id("spawners/" + kind.id() + "_" + Math.max(1, Math.min(STAGES, stage))));
     }
 
+    /** The Looter Chest of an Evil / Void Raid (TR31-R). */
+    public static ResourceKey<LootTable> raidLoot(TrialKind kind, int stage) {
+        return ResourceKey.create(Registries.LOOT_TABLE, id("raid/" + kind.id() + "_" + Math.max(1, Math.min(STAGES, stage))));
+    }
+
     /** The block entity config of a vault tier: key item, loot table and the Vanilla ranges (4 / 4.5 blocks). */
     public static VaultConfig vaultConfig(TrialKind kind, boolean ominous) {
         ItemStack key = switch (kind) {
