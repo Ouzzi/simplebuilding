@@ -43,7 +43,7 @@ public abstract class GuiHeadFitMixin {
 
     @Inject(method = "applyTransform", at = @At("TAIL"))
     private void simplemobheads$fitInSlot(PoseStack.Pose pose, CallbackInfo ci) {
-        if (!(specialRenderer instanceof SkullSpecialRenderer skull)
+        if (!((Object) specialRenderer instanceof SkullSpecialRenderer skull)
                 || !(((SkullSpecialRendererAccessor) skull).simplemobheads$model() instanceof MobHeadModel)
                 || ((ItemStackRenderStateAccessor) this$0).simplemobheads$displayContext() != ItemDisplayContext.GUI) {
             return;
