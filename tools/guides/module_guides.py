@@ -127,6 +127,14 @@ MODULES = [
                 "a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
                 "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, "
                 "alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer.")),
+    dict(module="simpleanimals", ns="simpleanimals", package="com.simpleanimals.guide", cls="AnimalsGuide", kind="item",
+         author="Simple Animals", recipe="minecraft:sweet_berries",
+         name=("Simple Animals Guide", "Simple-Animals-Handbuch"),
+         intro=("Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts "
+                "silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, whose cross with a horse is the infertile zorse.",
+                "Fünf Tiere, die Vanilla nicht hat: der scheue Hirsch, das Wildschwein, das seine Frischlinge verteidigt, der Igel, der "
+                "Silberfische jagt und sich blitzschnell einrollt, der seltene Krebs, der seitwärts läuft, und das Zebra, dessen Kreuzung "
+                "mit einem Pferd das unfruchtbare Zorse ist.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),
@@ -281,6 +289,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
+    "minecraft:sweet_berries": ("sweet berries", "Süßbeeren"),
     "minecraft:brick": ("a brick", "einem Ziegel"),
     "minecraft:clay_ball": ("a clay ball", "einem Tonklumpen"),
     "minecraft:gold_nugget": ("a gold nugget", "einem Goldklumpen"),
@@ -585,6 +594,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:iron_ingot": ("iron ingot", "Eisenbarren"),
     "minecraft:emerald": ("emerald", "Smaragd"),
     "minecraft:lead": ("lead", "Leine"),
+    "minecraft:sweet_berries": ("sweet berries", "Süßbeeren"),
     "minecraft:note_block": ("note block", "Notenblock"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),

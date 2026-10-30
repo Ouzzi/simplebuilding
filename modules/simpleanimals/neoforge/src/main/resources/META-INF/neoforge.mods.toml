@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+[[mods]]
+modId="simpleanimals"
+version="${version}"
+displayName="Simple Animals"
+iconFile="assets/simpleanimals/icon.png"
+authors="Ouzzi"
+displayURL="https://azarfane.de/"
+description="Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, a striped horse whose cross with a horse is the infertile zorse. Works on its own with Vanilla."
+[[dependencies.simpleanimals]]
+modId="minecraft"
+type="required"
+versionRange="[26.3,26.4)"
+
+[[dependencies.simpleanimals]]
+modId="simplebuilding"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleanimals]]
+modId="simplemoney"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleanimals]]
+modId="simplemobheads"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

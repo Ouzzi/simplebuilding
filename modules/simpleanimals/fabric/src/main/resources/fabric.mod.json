@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleanimals",
+  "version": "${version}",
+  "name": "Simple Animals",
+  "icon": "assets/simpleanimals/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, a striped horse whose cross with a horse is the infertile zorse. Works on its own with Vanilla.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleanimals.AnimalsFabric"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleanimals.AnimalsFabricClient"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleanimals.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simplelib": ">=0.3.0",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simplemoney": "*",
+    "simplemobheads": "*"
+  }
+}

@@ -47,9 +47,9 @@ window.WIKI_MODULES = [
       "simplebeacons",
       "simpleshops",
       "simplewanderers",
+      "simpleanimals",
       "simplemusic",
-      "simpleearth",
-      "simplechallenges"
+      "simpleearth"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -1692,30 +1692,38 @@ window.WIKI_MODULES = [
     "dataHash": "559e7ecb2c74"
   },
   {
-    "id": "simplechallenges",
-    "displayName": "Simple Challenges",
-    "description": "Game modes for a world of your choice. S0-S2: the Unlock mode - the world is cut into cells (a block column, a chunk, three chunks) and only free cells can be entered; every cell has a price worked out from the world (items, credits from advancements or levels), with deadlock protection and an emergency unlock. Presets are data files. Without a chosen challenge the mod changes nothing (safety lock). Needs SimpleLib; SimpleBuilding optional.",
+    "id": "simpleanimals",
+    "displayName": "Simple Animals",
+    "description": "Deer, wild boar, hedgehog, crab and zebra (with the infertile zorse): five new animals with low spawn rates, Vanilla goals and no block damage. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
-      "fabric"
+      "fabric",
+      "neoforge",
+      "forge"
     ],
-    "requires": [
-      "simplelib"
-    ],
+    "requires": [],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "simplemoney",
+      "simplemobheads"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "Game modes for a world of your choice. First the Unlock mode: the world is cut into cells and only free cells can be entered; you pay to open the next one. Without a chosen challenge the mod changes nothing. Open this guide again with /simplechallenges guide.",
-      "de": "Spielmodi für eine Welt deiner Wahl. Zuerst der Unlock-Modus: Die Welt ist in Zellen zerlegt und nur freie Zellen sind betretbar; die nächste öffnest du gegen Bezahlung. Ohne gewählte Challenge ändert die Mod nichts. Dieses Handbuch öffnet /simplechallenges guide."
+      "en": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets, the hedgehog that hunts silverfish and rolls up in a flash, the rare sideways-walking crab and the zebra, whose cross with a horse is the infertile zorse.",
+      "de": "Fünf Tiere, die Vanilla nicht hat: der scheue Hirsch, das Wildschwein, das seine Frischlinge verteidigt, der Igel, der Silberfische jagt und sich blitzschnell einrollt, der seltene Krebs, der seitwärts läuft, und das Zebra, dessen Kreuzung mit einem Pferd das unfruchtbare Zorse ist."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mMQVxH/TwlmABGtM1tJxlZRVqgGCIjIkYwxDKjfZAHH2PizZs2CY9oYEN+lBcfY+FlZWXCM1YDRMKBCGKA7kRCfLAM+HHDAbQC6Hwnx4QaAMgZFYUAJBgCULcsj0xrVkAAAAABJRU5ErkJggg==",
+    "purpose": {
+      "en": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar.",
+      "de": "Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein (verteidigt Frischlinge), Igel (jagt Silberfische, rollt sich blitzschnell ein), Krebs und Zebra samt unfruchtbarem Zorse; allein mit Vanilla spielbar."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArElEQVR42mOw8zX8TwlmABGHbqwF4wcXFhDNnnOgCtWAVSd7wZIgDGODaGQ2TB6kuaArAtMAZEXoBiBrvvT4MG4DkDVoSQmAMbJmGMZrAEjTijQrFAwSI8oAbJqxGULQgC9vbvyXEeIBs0E0iE+0AVUuKhi2g8SIMgCbIeiaiTZAT0YIjEkyAKYApAFmALpmnAagK4KlA3RxrAaAUhc2hbgwigEwAVIx3ABKMABly2zs6ByQcQAAAABJRU5ErkJggg==",
     "counts": {
+      "items": 8,
+      "recipes": 4,
       "features": 9
     },
-    "dataHash": "d352f04c7745"
+    "dataHash": "6912a1389da9"
   }
 ];

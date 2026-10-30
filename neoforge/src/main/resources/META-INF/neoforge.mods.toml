@@ -211,6 +211,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.${modId}]]
+modId="simpleanimals"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
 modId="simplemusic"
 type="optional"
 versionRange="[0,)"

@@ -124,6 +124,7 @@ public final class ConfigOptions {
             "enableSimpleEarth",
             "enableSimpleGadgets",
             "enableSimpleChallenges",
+            "enableSimpleAnimals",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",

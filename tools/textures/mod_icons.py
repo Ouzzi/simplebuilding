@@ -619,6 +619,25 @@ ICONS: dict[str, dict] = {
                             "...oooooooooo...",
                             "................",
                             "................"),
+    "simpleanimals": icon("Hirschkopf mit Geweih", {"o": "#2a1a10", "A": "#e0d0a0", "B": "#a8663a", "b": "#7a4424",
+                                                    "K": "#1c120c", "W": "#f4ecd8", "N": "#2e1c12"},
+                          [("Kontur", "o"), ("Geweih", "A"), ("Fell", "Bb"), ("Gesicht", "WKN")],
+                          "................",
+                          "...A..A..A..A...",
+                          "...AA.A..A.AA...",
+                          "....AAA..AAA....",
+                          ".....AAooAA.....",
+                          ".....oBBBBo.....",
+                          "....oBBBBBBo....",
+                          "....oBWKBKWo....",
+                          "....obBBBBbo....",
+                          ".....obBBbo.....",
+                          ".....obNNbo.....",
+                          "......oNNo......",
+                          ".......oo.......",
+                          "................",
+                          "................",
+                          "................"),
 }
 PROCEDURAL = {"simpleblocks": blocks_icon, "simpleoctets": octets_icon, "simplemodels": models_icon}
 
@@ -658,6 +677,7 @@ BG = {
     "simpleearth": "#1e2a52",
     "simplechallenges": "#3a5a3a",
     "simplegadgets": "#c87848",
+    "simpleanimals": "#9cc07a",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 
