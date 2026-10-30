@@ -49,6 +49,11 @@ public final class PipeTests {
         return state;
     }
 
+    /** Places a pipe the way an item does: the arms follow the neighbours that are there already. */
+    private static void place(GameTestHelper h, BlockPos pos, String id, Direction facing) {
+        h.setBlock(pos, ItemPipeBlock.withArms(pipeState(id, facing), h.getLevel(), h.absolutePos(pos)));
+    }
+
     private static ItemPipeBlockEntity entity(GameTestHelper h, BlockPos pos) {
         return h.getBlockEntity(pos, ItemPipeBlockEntity.class);
     }
@@ -96,7 +101,7 @@ public final class PipeTests {
         for (int i = 0; i < ids.length; i++) {
             BlockPos pos = new BlockPos(1 + i, 3, 1);
             h.setBlock(pos.below(), Blocks.CHEST);
-            h.setBlock(pos, pipeState(ids[i], Direction.DOWN));
+            place(h, pos, ids[i], Direction.DOWN);
             ItemPipeBlockEntity pipe = entity(h, pos);
             pipe.setItem(0, new ItemStack(Items.STONE, 20));
             boolean moved = pipe.push(h.getLevel(), h.absolutePos(pos));
@@ -111,7 +116,7 @@ public final class PipeTests {
     /** The pipe carries its items down into the chest at its output, one every eight ticks, all of them in the end. */
     public static void carriesItemsToTheOutputContainer(GameTestHelper h) {
         h.setBlock(PIPE.below(), Blocks.CHEST);
-        h.setBlock(PIPE, pipeState("pipe", Direction.DOWN));
+        place(h, PIPE, "pipe", Direction.DOWN);
         entity(h, PIPE).setItem(0, new ItemStack(Items.STONE, 3));
         h.succeedWhen(() -> {
             int got = container(h, PIPE.below()).countItem(Items.STONE);
@@ -127,7 +132,7 @@ public final class PipeTests {
         h.setBlock(east, Blocks.CHEST);
         container(h, west).setItem(0, new ItemStack(Items.COBBLESTONE, 3));
         container(h, east).setItem(0, new ItemStack(Items.DIRT, 2));
-        h.setBlock(PIPE, pipeState("pipe", Direction.EAST));
+        place(h, PIPE, "pipe", Direction.EAST);
         BlockState state = h.getBlockState(PIPE);
         h.assertTrue(state.getValue(PipeBlock.WEST) && state.getValue(PipeBlock.EAST) && !state.getValue(PipeBlock.NORTH),
                 "arms west (input) and east (output) expected, got " + state);
@@ -156,7 +161,7 @@ public final class PipeTests {
         }
         if (!reinforced.contains(Direction.UP) || reinforced.get(4) != Direction.UP || reinforced.get(5) != Direction.DOWN) problems.add("reinforced order " + reinforced);
         // The real block: turning moves the output arm.
-        h.setBlock(PIPE, pipeState("pipe", Direction.DOWN));
+        place(h, PIPE, "pipe", Direction.DOWN);
         ItemPipeBlock.turnOutput(h.getLevel(), h.absolutePos(PIPE), h.getBlockState(PIPE), null);
         BlockState turned = h.getBlockState(PIPE);
         if (turned.getValue(ItemPipeBlock.FACING) != Direction.NORTH || !turned.getValue(PipeBlock.NORTH) || turned.getValue(PipeBlock.DOWN)) problems.add("turned state " + turned);
@@ -167,9 +172,9 @@ public final class PipeTests {
     /** A neighbour with items grows an arm, a solid block does not; a placed pipe points into the clicked side. */
     public static void connectionsGrowArms(GameTestHelper h) {
         h.setBlock(PIPE.north(), Blocks.CHEST);
-        h.setBlock(PIPE.south(), pipeState("pipe", Direction.DOWN));
+        place(h, PIPE.south(), "pipe", Direction.DOWN);
         h.setBlock(PIPE.east(), Blocks.STONE);
-        h.setBlock(PIPE, pipeState("pipe", Direction.DOWN));
+        place(h, PIPE, "pipe", Direction.DOWN);
         BlockState state = ItemPipeBlock.withArms(h.getBlockState(PIPE), h.getLevel(), h.absolutePos(PIPE));
         List<String> problems = new ArrayList<>();
         if (!state.getValue(PipeBlock.NORTH)) problems.add("no arm to the chest");
@@ -186,7 +191,7 @@ public final class PipeTests {
     /** Filter principle: one real item stays, automation fills only matches and never an empty filter slot, a player may fill it. */
     public static void filterKeepsOneItemAndFollowsThePrinciple(GameTestHelper h) {
         h.setBlock(PIPE.below(), Blocks.CHEST);
-        h.setBlock(PIPE, pipeState("reinforced_pipe", Direction.DOWN));
+        place(h, PIPE, "reinforced_pipe", Direction.DOWN);
         ItemPipeBlockEntity pipe = entity(h, PIPE);
         pipe.setItem(0, new ItemStack(Items.STONE, 5));
         pipe.cycleFilterMode(); // exact
@@ -217,7 +222,7 @@ public final class PipeTests {
 
     /** An empty filter slot takes nothing from automation but anything from a player (that sets the filter). */
     public static void emptyFilterSlotOnlyTakesPlayerItems(GameTestHelper h) {
-        h.setBlock(PIPE, pipeState("pipe", Direction.DOWN));
+        place(h, PIPE, "pipe", Direction.DOWN);
         ItemPipeBlockEntity pipe = entity(h, PIPE);
         pipe.cycleFilterMode();
         List<String> problems = new ArrayList<>();
@@ -239,7 +244,7 @@ public final class PipeTests {
 
     /** Upgrading a pipe in the world keeps its item, filter and output. */
     public static void upgradeKeepsItemFilterAndOutput(GameTestHelper h) {
-        h.setBlock(PIPE, pipeState("pipe", Direction.EAST));
+        place(h, PIPE, "pipe", Direction.EAST);
         ItemPipeBlockEntity pipe = entity(h, PIPE);
         pipe.setItem(0, new ItemStack(Items.STONE, 5));
         pipe.cycleFilterMode();
@@ -265,8 +270,8 @@ public final class PipeTests {
     public static void pipesChain(GameTestHelper h) {
         BlockPos second = PIPE.east();
         h.setBlock(second.below(), Blocks.CHEST);
-        h.setBlock(PIPE, pipeState("enderite_pipe", Direction.EAST));
-        h.setBlock(second, pipeState("enderite_pipe", Direction.DOWN));
+        place(h, PIPE, "enderite_pipe", Direction.EAST);
+        place(h, second, "enderite_pipe", Direction.DOWN);
         entity(h, PIPE).setItem(0, new ItemStack(Items.STONE, 12));
         h.succeedWhen(() -> {
             int got = container(h, second.below()).countItem(Items.STONE);

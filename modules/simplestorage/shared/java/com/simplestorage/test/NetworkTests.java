@@ -58,6 +58,11 @@ public final class NetworkTests {
         return Refs.block(id);
     }
 
+    /** Places a cable the way an item does: the arms follow the neighbours that are there already. */
+    private static void cableAt(GameTestHelper h, BlockPos pos) {
+        h.setBlock(pos, CableBlock.withArms(StorageBlocks.COPPER_CABLE.defaultBlockState(), h.getLevel(), h.absolutePos(pos)));
+    }
+
     private static void interfaceAt(GameTestHelper h, BlockPos pos, Direction toChest) {
         h.setBlock(pos, StorageBlocks.CHEST_INTERFACE.defaultBlockState().setValue(InterfaceBlock.FACING, toChest));
     }
@@ -267,8 +272,8 @@ public final class NetworkTests {
         if (!h.getBlockState(plate).isAir()) problems.add("the interface stayed without its chest");
         // cables: a vertical pillar and a side neighbour
         BlockPos low = new BlockPos(5, 2, 5);
-        h.setBlock(low, StorageBlocks.COPPER_CABLE);
-        h.setBlock(low.above(), StorageBlocks.COPPER_CABLE);
+        cableAt(h, low);
+        cableAt(h, low.above());
         h.setBlock(low.east(), Blocks.STONE);
         BlockState lower = h.getBlockState(low);
         BlockState upper = h.getBlockState(low.above());
