@@ -5,6 +5,7 @@
   "text.autoconfig.simplefun.title": "Simple Fun: Servereinstellungen (Neustart)",
   "text.autoconfig.simplefun.category.default": "Allgemein",
   "text.autoconfig.simplefun.option.fun": "Spaß-Funktionen",
+  "text.autoconfig.simplefun.option.fun.@Tooltip": "Schalter und Werte der Spaß-Funktionen.",
   "text.autoconfig.simplefun.option.fun.enablePiggyEffect": "Schweine-Verwandlung",
   "text.autoconfig.simplefun.option.fun.enablePiggyEffect.@Tooltip": "Das Essen von (gebratenem) Schweinefleisch\nverwandelt den Spieler 5 Minuten lang in ein\nSchwein. Standard: true. Server bestimmt\nWerte; Neustart erforderlich.",
   "text.autoconfig.simplefun.option.fun.enableNoDamage": "Schadlos / Feder",

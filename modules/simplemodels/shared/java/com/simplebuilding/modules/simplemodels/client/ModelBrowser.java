@@ -105,7 +105,7 @@ public final class ModelBrowser extends Screen {
         button("back", x + panelWidth - 76, y + panelHeight - BOTTOM, 70, this::onClose);
         if (tab.equals("help")) {
             button("folder", x + 6, y + panelHeight - BOTTOM, 124, () -> {
-                var folder = com.simplebuilding.modules.simplemodels.Models.root.resolve("catalogue").toAbsolutePath();
+                var folder = com.simplebuilding.modules.simplemodels.Models.root.resolve("catalog").toAbsolutePath();
                 try { java.nio.file.Files.createDirectories(folder); com.mojang.blaze3d.Blaze3D.openPath(folder); }
                 catch (java.io.IOException e) { org.slf4j.LoggerFactory.getLogger("simplemodels").warn("Cannot open import folder", e); }
             });

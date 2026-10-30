@@ -1,6 +1,12 @@
 {
   "values": [
-    "simplebuilding:layered_raw_enderite",
-    "simplebuilding:cracked_diamond"
+    {
+      "id": "simplelib:layered_raw_enderite",
+      "required": false
+    },
+    {
+      "id": "simplelib:cracked_diamond",
+      "required": false
+    }
   ]
 }

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "simplebuilding:netherite_nugget"
+    {
+      "id": "simplelib:netherite_nugget",
+      "required": false
+    }
   ]
 }

@@ -8,7 +8,7 @@
   ],
   "key": {
     "A": "simplebuilding:astralit_dust",
-    "N": "simplebuilding:enderite_nugget",
+    "N": "simplelib:enderite_nugget",
     "E": "minecraft:ender_chest"
   },
   "result": {

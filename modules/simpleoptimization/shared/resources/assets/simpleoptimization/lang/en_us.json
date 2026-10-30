@@ -1,6 +1,9 @@
 {
   "modmenu.nameTranslation.simpleoptimization": "Simple Optimization",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptRender": "Enable Simple Opt Render",
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptRender.@Tooltip": "Turns the Simple Opt Render sub-mod on or off.\nDefault: true.",
   "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory": "Enable Simple Opt Memory",
-  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer": "Enable Simple Opt Server"
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptMemory.@Tooltip": "Turns the Simple Opt Memory sub-mod on or off.\nDefault: true.",
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer": "Enable Simple Opt Server",
+  "text.autoconfig.simpleoptimization.option.enableSimpleOptServer.@Tooltip": "Turns the Simple Opt Server sub-mod on or off.\nDefault: true."
 }

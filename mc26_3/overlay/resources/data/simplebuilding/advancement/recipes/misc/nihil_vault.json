@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:enderite_nugget"
+            "items": "simplelib:enderite_nugget"
           }
         ]
       },

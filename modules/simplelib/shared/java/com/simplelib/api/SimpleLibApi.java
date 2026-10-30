@@ -92,6 +92,12 @@ public final class SimpleLibApi {
         return com.simplelib.warm.Warm.isWarm(stack, level);
     }
 
+    /** Game time until which warm food {@code stack} stays warm; 0 when it has no warmth. */
+    public static long warmUntil(ItemStack stack) {
+        com.simplelib.warm.Warm warm = stack.get(com.simplelib.registry.LibComponents.WARM);
+        return warm == null ? 0 : warm.until();
+    }
+
     /** Warms {@code stack} for the full duration from game time {@code now}. */
     public static void warm(ItemStack stack, long now) {
         com.simplelib.warm.Warm.warm(stack, now);

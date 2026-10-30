@@ -396,6 +396,11 @@ public class CrucibleBucketItem extends BucketItem {
             if (!state.isAir() && !state.canBeReplaced(getContent())) {
                 return hit != null && emptyContents(user, level, hit.getBlockPos().relative(hit.getDirection()), null);
             }
+            // REV2-A-4c: onto a water source the pour adds nothing - it must not turn that source into a flowing block
+            if (state.getFluidState().isSource() && state.getFluidState().is(Fluids.WATER)) {
+                playEmptySound(user, level, pos);
+                return true;
+            }
             if (level.environmentAttributes().getValue(net.minecraft.world.attribute.EnvironmentAttributes.WATER_EVAPORATES, pos)) {
                 level.playSound(user, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F);
                 return true;

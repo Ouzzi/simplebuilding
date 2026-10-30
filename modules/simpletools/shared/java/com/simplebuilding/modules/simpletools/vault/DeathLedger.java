@@ -118,34 +118,16 @@ public final class DeathLedger extends SavedData {
         static final Codec<Death> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.LONG.fieldOf("time").forGetter(d -> d.time),
                 UUIDUtil.CODEC.optionalFieldOf("killer").forGetter(d -> d.killer),
-                lenientList(Entry.CODEC, "entry").fieldOf("entries").forGetter(d -> d.entries)).apply(i, Death::new));
+                com.simplelib.api.SafeCodecs.listLenient(Entry.CODEC, "entry").fieldOf("entries").forGetter(d -> d.entries)).apply(i, Death::new));
     }
 
     private static final org.slf4j.Logger LOGGER = LogUtils.getLogger();
-
-    /**
-     * Like {@code codec.listOf()}, but a broken element is logged and skipped instead of failing the whole list (and with it
-     * the whole ledger, which Vanilla would then replace by an empty one). Encoding is unchanged, so old saves still load.
-     */
-    private static <T> Codec<List<T>> lenientList(Codec<T> element, String what) {
-        return Codec.of(element.listOf(), new Decoder<List<T>>() {
-            @Override
-            public <O> DataResult<Pair<List<T>, O>> decode(DynamicOps<O> ops, O input) {
-                return ops.getStream(input).map(stream -> {
-                    List<T> out = new ArrayList<>();
-                    stream.forEach(item -> element.parse(ops, item).resultOrPartial(
-                            err -> LOGGER.error("Death ledger: skipping broken {}: {}", what, err)).ifPresent(out::add));
-                    return Pair.of(out, input);
-                });
-            }
-        });
-    }
 
     /** Players: a broken player key or death list is logged and skipped, the other players stay. */
     private static final Codec<Map<UUID, List<Death>>> PLAYERS = Codec.of(
             Codec.unboundedMap(UUIDUtil.STRING_CODEC, Death.CODEC.listOf()),
             new Decoder<Map<UUID, List<Death>>>() {
-                private final Codec<List<Death>> deaths = lenientList(Death.CODEC, "death");
+                private final Codec<List<Death>> deaths = com.simplelib.api.SafeCodecs.listLenient(Death.CODEC, "death");
 
                 @Override
                 public <O> DataResult<Pair<Map<UUID, List<Death>>, O>> decode(DynamicOps<O> ops, O input) {

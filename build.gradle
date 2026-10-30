@@ -327,7 +327,7 @@ tasks.named('check') { dependsOn 'testGametestAdapters' }
  'checkItemProperties': 'tools/check_item_properties.py', 'checkMissingTextures': 'tools/check_missing_textures.py',
  'checkTextureLayers': 'tools/textures/layers.py check', 'checkModIcons': 'tools/check_mod_icons.py',
  'checkModuleStyle': 'tools/check_module_style.py', 'checkDupImpl': 'tools/check_dup_impl.py',
- 'checkConfigCommands': 'tools/check_config_commands.py', 'checkGametestAdapters': 'tools/check_gametest_adapters.py'].each { taskName, script ->
+ 'checkConfigCommands': 'tools/check_config_commands.py', 'checkGametestAdapters': 'tools/check_gametest_adapters.py', 'checkCodecLists': 'tools/check_codec_lists.py'].each { taskName, script ->
 	tasks.register(taskName, Exec) {
 		group = 'verification'
 		description = "Runs ${script}."

@@ -11,7 +11,6 @@ import com.simplecrucibles.crucible.Heat;
 import com.simplecrucibles.crucible.HeatLevel;
 import com.simplecrucibles.registry.CrucibleBlockEntities;
 import com.simplecrucibles.registry.CrucibleBlocks;
-import com.simplelib.registry.LibComponents;
 import com.simplelib.api.SimpleLibApi;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -541,15 +540,15 @@ public final class CrucibleTests {
         be.setItem(2, new ItemStack(Items.COOKED_PORKCHOP, 5));
         run(h, be, 210);
         ItemStack warm = be.getItem(2);
-        check(h, warm.getCount() == 5 && warm.has(LibComponents.WARM), "whole stack warmed in its slot");
+        check(h, warm.getCount() == 5 && SimpleLibApi.warmUntil(warm) > 0, "whole stack warmed in its slot");
         check(h, be.isResult(2), "warm food is a result");
         net.minecraft.world.entity.player.Player player = h.makeMockPlayer(GameType.SURVIVAL);
         int cold = new ItemStack(Items.COOKED_PORKCHOP).getUseDuration(player);
         int fast = warm.getUseDuration(player);
         check(h, fast == SimpleLibApi.warmFasterUse(cold) && fast < cold, "warm food is eaten 15 % faster");
-        long until = warm.get(LibComponents.WARM).until();
+        long until = SimpleLibApi.warmUntil(warm);
         run(h, be, 40);
-        check(h, be.getItem(2).get(LibComponents.WARM).until() >= until, "does not cool inside the crucible (owner 39)");
+        check(h, SimpleLibApi.warmUntil(be.getItem(2)) >= until, "does not cool inside the crucible (owner 39)");
         h.succeed();
     }
 

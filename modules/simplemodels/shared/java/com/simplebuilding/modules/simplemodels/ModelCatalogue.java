@@ -41,7 +41,10 @@ public final class ModelCatalogue {
             catch (RuntimeException | IOException e) { policy = new ModelPolicy(); policy.enabled = false; }
         } else Files.writeString(config, GSON.toJson(policy), StandardOpenOption.CREATE_NEW);
         policy.clamp();
-        Path folder = root.resolve("catalogue");
+        Path folder = root.resolve("catalog");
+        // ST-15: the folder was called "catalogue" (British); an old one moves over once, its definitions stay
+        Path legacy = root.resolve("catalogue");
+        if (!Files.exists(folder, LinkOption.NOFOLLOW_LINKS) && Files.isDirectory(legacy, LinkOption.NOFOLLOW_LINKS)) Files.move(legacy, folder);
         Files.createDirectories(folder);
         if (Files.isSymbolicLink(folder)) throw new IOException("Symlinked catalogue");
         var models = new ArrayList<ModelDefinition>();

@@ -1,13 +1,37 @@
 {
   "replace": false,
   "values": [
-    "simplebuilding:backpack",
-    "simplebuilding:reinforced_backpack",
-    "simplebuilding:netherite_backpack",
-    "simplebuilding:enderite_backpack",
-    "simplebuilding:quiver",
-    "simplebuilding:reinforced_quiver",
-    "simplebuilding:netherite_quiver",
-    "simplebuilding:enderite_quiver"
+    {
+      "id": "simplestorage:backpack",
+      "required": false
+    },
+    {
+      "id": "simplestorage:reinforced_backpack",
+      "required": false
+    },
+    {
+      "id": "simplestorage:netherite_backpack",
+      "required": false
+    },
+    {
+      "id": "simplestorage:enderite_backpack",
+      "required": false
+    },
+    {
+      "id": "simplestorage:quiver",
+      "required": false
+    },
+    {
+      "id": "simplestorage:reinforced_quiver",
+      "required": false
+    },
+    {
+      "id": "simplestorage:netherite_quiver",
+      "required": false
+    },
+    {
+      "id": "simplestorage:enderite_quiver",
+      "required": false
+    }
   ]
 }

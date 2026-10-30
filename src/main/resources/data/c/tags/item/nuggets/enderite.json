@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "simplebuilding:enderite_nugget"
+    {
+      "id": "simplelib:enderite_nugget",
+      "required": false
+    }
   ]
 }

@@ -24,7 +24,7 @@ public final class VillageKitchen {
     /** Appends the kitchen to every village houses pool; returns how many pools changed. Called once per server start. */
     public static int inject(RegistryAccess access) {
         int weight = CrucibleConfig.villageKitchenWeight;
-        if (weight <= 0) return 0;
+        if (weight <= 0 || !SimpleCrucibles.on()) return 0; // REV2-A-4b: off with the "Enable Simple Crucibles" switch
         Registry<StructureTemplatePool> pools = access.lookupOrThrow(Registries.TEMPLATE_POOL);
         // 10 % of the campfires become magma blocks (WD25-20); without the list the kitchen still works with plain campfires
         var processors = access.lookupOrThrow(Registries.PROCESSOR_LIST)

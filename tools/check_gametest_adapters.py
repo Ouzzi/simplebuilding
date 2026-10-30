@@ -18,9 +18,9 @@ CORE_CATALOG = ROOT / "common/src/shared/java/com/simplebuilding/gametest/Simple
 CORE_ADAPTERS = ROOT / "src/main/java/com/simplebuilding/gametest"
 SPEC = re.compile(r'GameTestSpec\s*\.\s*named\(\s*"([^"]+)"')
 METHOD = re.compile(r"@GameTest\b(?:\([^)]*\))?\s*(?:public\s+)?void\s+(\w+)\s*\(")
-KEY = re.compile(r'(?:\bALL\.put|(?<![.\w])add)\(\s*"([A-Za-z0-9_]+)"\s*,')
+KEY = re.compile(r'(?:\b(?:ALL|all)\.put|(?<![.\w])add)\(\s*"([A-Za-z0-9_]+)"\s*,')
 GET = re.compile(r'(\w+)\.ALL\.get\(\s*"([^"]+)"\s*\)')
-ALL_DECL = re.compile(r"Map<String,\s*Consumer<GameTestHelper>>\s+ALL\b")
+ALL_DECL = re.compile(r"Map<String,\s*Consumer<GameTestHelper>>\s+(?:ALL|all)\b")
 
 
 def norm(s: str) -> str:

@@ -119,7 +119,7 @@ public final class ModelTests {
     }
     public static void folderScan(GameTestHelper h) {
         try {
-            Path root = Files.createTempDirectory("simplemodels-scan-"); ModelCatalogue.load(root); Path folder = root.resolve("catalogue");
+            Path root = Files.createTempDirectory("simplemodels-scan-"); ModelCatalogue.load(root); Path folder = root.resolve("catalog");
             Files.writeString(folder.resolve("a.json"), ModelCatalogue.GSON.toJson(sample("minecraft:apple")));
             Files.writeString(folder.resolve("b.json"), ModelCatalogue.GSON.toJson(sample("minecraft:apple")));
             Files.writeString(folder.resolve("bad.json"), "not json");
@@ -131,7 +131,7 @@ public final class ModelTests {
             h.assertTrue(ModelCatalogue.load(root).models().getFirst().matches("FOOD"), "Case-insensitive tags");
             Path overflow = Files.createTempDirectory("simplemodels-overflow-");
             ModelCatalogue.load(overflow);
-            for (int i = 0; i < 257; i++) Files.writeString(overflow.resolve("catalogue/" + i + ".json"), "{}");
+            for (int i = 0; i < 257; i++) Files.writeString(overflow.resolve("catalog/" + i + ".json"), "{}");
             boolean refused = false;
             try { ModelCatalogue.load(overflow); } catch (java.io.IOException expected) { refused = true; }
             h.assertTrue(refused, "Too many files refuse the catalogue instead of selecting filesystem-dependent entries");
@@ -146,9 +146,9 @@ public final class ModelTests {
             h.assertTrue(!ModelCatalogue.load(root).policy().enabled, "Null config disables assignment");
             Files.writeString(root.resolve("config.json"), "{\"levelCost\":500,\"maxModels\":-1}");
             var snapshot = ModelCatalogue.load(root); h.assertTrue(snapshot.policy().levelCost == 10 && snapshot.policy().maxModels == 1, "Loaded config clamped");
-            Files.writeString(root.resolve("catalogue/one.json"), ModelCatalogue.GSON.toJson(sample("minecraft:apple")));
+            Files.writeString(root.resolve("catalog/one.json"), ModelCatalogue.GSON.toJson(sample("minecraft:apple")));
             h.assertTrue(ModelCatalogue.load(root).models().size() == 1, "Folder addition visible after reload");
-            Files.move(root.resolve("catalogue/one.json"), root.resolve("one.removed"));
+            Files.move(root.resolve("catalog/one.json"), root.resolve("one.removed"));
             h.assertTrue(ModelCatalogue.load(root).models().isEmpty(), "Folder removal visible after reload");
         } catch (java.io.IOException e) { throw new AssertionError(e); } h.succeed();
     }

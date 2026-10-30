@@ -8,7 +8,7 @@
   ],
   "key": {
     "A": "simplebuilding:nihilith_shard",
-    "N": "simplebuilding:enderite_nugget",
+    "N": "simplelib:enderite_nugget",
     "E": "minecraft:ender_chest"
   },
   "result": {
