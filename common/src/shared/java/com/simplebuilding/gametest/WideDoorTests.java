@@ -189,7 +189,21 @@ public final class WideDoorTests {
             // no ground: nothing is placed
             clear(h);
             h.setBlock(ORIGIN.below(), Blocks.AIR);
-            if (at(h, ORIGIN.below()).isAir() && place(h, player, f, ORIGIN) && at(h, ORIGIN).is(block(f))) problems.add(f + " floats");
+            // IG31-9: the item may now put the door a cell or two lower (tolerance), but never without support under its hinge cell
+            if (at(h, ORIGIN.below()).isAir() && place(h, player, f, ORIGIN)) {
+                for (int x = 0; x <= 7; x++) {
+                    for (int y = 0; y <= 7; y++) {
+                        for (int z = 0; z <= 7; z++) {
+                            BlockPos p = new BlockPos(x, y, z);
+                            BlockState st = at(h, p);
+                            if (st.is(block(f)) && st.getValue(WideDoorBlock.COL) == 0 && st.getValue(WideDoorBlock.ROW) == 0 && !st.getValue(WideDoorBlock.SWING)
+                                    && !at(h, p.below()).isFaceSturdy(h.getLevel(), h.absolutePos(p.below()), Direction.UP)) {
+                                problems.add(f + " floats at " + p);
+                            }
+                        }
+                    }
+                }
+            }
         }
         h.assertTrue(problems.isEmpty(), "placing problems: " + problems);
         h.succeed();
