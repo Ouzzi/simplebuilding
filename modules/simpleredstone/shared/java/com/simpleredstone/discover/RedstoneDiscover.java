@@ -55,6 +55,9 @@ public final class RedstoneDiscover {
             "simpleredstone:config_server",
             "simpleredstone:creative_tab_switch",
             "simpleredstone:double_piston",
+            "simpleredstone:double_piston_arm",
+            "simpleredstone:double_piston_barrel",
+            "simpleredstone:double_piston_head",
             "simpleredstone:guide_book",
             "simpleredstone:signal_dampener");
     static final List<Tip> TIPS = List.of();

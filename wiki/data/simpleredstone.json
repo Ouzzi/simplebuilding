@@ -439,7 +439,18 @@
         "en_us": "Double Piston Arm",
         "de_de": "Doppelkolben-Schaft"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistonArmBlock.java",
+          "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistons.java"
+        ],
+        "en": {
+          "summary": "Arm of the Double Piston (technical block without an item): the rod between barrel and head while the piston is two blocks out."
+        },
+        "de": {
+          "summary": "Schaft des Doppelkolbens (technischer Block ohne Item): die Stange zwischen Lauf und Kopf, solange der Kolben zwei Blöcke weit draußen ist."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -449,7 +460,18 @@
         "en_us": "Double Piston Barrel",
         "de_de": "Doppelkolben-Lauf"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistonBarrelBlock.java",
+          "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistons.java"
+        ],
+        "en": {
+          "summary": "Front cell of the Double Piston (technical block without an item): the barrel the rod runs out of; it appears with the piston and drops nothing of its own."
+        },
+        "de": {
+          "summary": "Vordere Zelle des Doppelkolbens (technischer Block ohne Item): der Lauf, aus dem die Stange kommt; er entsteht mit dem Kolben und gibt nichts für sich ab."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -459,7 +481,18 @@
         "en_us": "Double Piston Head",
         "de_de": "Doppelkolben-Kopf"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistonHeadBlock.java",
+          "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistons.java"
+        ],
+        "en": {
+          "summary": "Head of the Double Piston (technical block without an item): plate and rod at the end of the extension; it pushes with Vanilla's rules and cannot be pushed."
+        },
+        "de": {
+          "summary": "Kopf des Doppelkolbens (technischer Block ohne Item): Platte und Stange am Ende der Ausfahrt; er schiebt nach Vanilla-Regeln und lässt sich nicht schieben."
+        }
+      },
       "texture": "assets/textures/simpleredstone/block/double_piston_head.png",
       "craftedBy": [],
       "usedIn": []
@@ -523,11 +556,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleredstone:double_piston_arm",
-    "simpleredstone:double_piston_barrel",
-    "simpleredstone:double_piston_head"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 5,
@@ -542,7 +571,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 3,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

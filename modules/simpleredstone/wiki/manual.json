@@ -158,6 +158,42 @@
       "de": {
         "summary": "Zieht 0 bis 3 vom Signal ab (Rechtsklick für die Stufe), einen Redstone-Tick später."
       }
+    },
+    "simpleredstone:double_piston_barrel": {
+      "sources": [
+        "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistonBarrelBlock.java",
+        "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistons.java"
+      ],
+      "en": {
+        "summary": "Front cell of the Double Piston (technical block without an item): the barrel the rod runs out of; it appears with the piston and drops nothing of its own."
+      },
+      "de": {
+        "summary": "Vordere Zelle des Doppelkolbens (technischer Block ohne Item): der Lauf, aus dem die Stange kommt; er entsteht mit dem Kolben und gibt nichts für sich ab."
+      }
+    },
+    "simpleredstone:double_piston_head": {
+      "sources": [
+        "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistonHeadBlock.java",
+        "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistons.java"
+      ],
+      "en": {
+        "summary": "Head of the Double Piston (technical block without an item): plate and rod at the end of the extension; it pushes with Vanilla's rules and cannot be pushed."
+      },
+      "de": {
+        "summary": "Kopf des Doppelkolbens (technischer Block ohne Item): Platte und Stange am Ende der Ausfahrt; er schiebt nach Vanilla-Regeln und lässt sich nicht schieben."
+      }
+    },
+    "simpleredstone:double_piston_arm": {
+      "sources": [
+        "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistonArmBlock.java",
+        "modules/simpleredstone/shared/java/com/simpleredstone/piston/DoublePistons.java"
+      ],
+      "en": {
+        "summary": "Arm of the Double Piston (technical block without an item): the rod between barrel and head while the piston is two blocks out."
+      },
+      "de": {
+        "summary": "Schaft des Doppelkolbens (technischer Block ohne Item): die Stange zwischen Lauf und Kopf, solange der Kolben zwei Blöcke weit draußen ist."
+      }
     }
   }
 }
