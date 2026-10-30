@@ -201,5 +201,18 @@
       }
     }
   ],
-  "notes": {}
+  "notes": {
+    "simpleresonance:guide_book": {
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/guide/ResonanceGuide.java",
+        "modules/simpleresonance/shared/resources/data/simpleresonance/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + an echo shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Resonance\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + einer Echo-Scherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Resonance\" eins."
+      }
+    }
+  }
 }
