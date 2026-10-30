@@ -47,6 +47,7 @@
   "simplebeacons.screen.effect.weaving": "Cobwebs spawn when you die",
   "simplebeacons.screen.effect.nausea": "Your view sways",
   "simplebeacons.screen.effect.wind_charged": "A wind burst when you die",
+  "jei.simplebeacons.note.wither_shard": "The Vanilla Wither always drops one Strong Upgrade Shard next to its Nether Star",
   "item.simplebeacons.guide_book": "Simple Beacons Guide",
   "simplebeacons.guide.page.1.title": "Simple Beacons",
   "simplebeacons.guide.page.1": "The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a Strong Conduit with a 7x7x7 frame.",

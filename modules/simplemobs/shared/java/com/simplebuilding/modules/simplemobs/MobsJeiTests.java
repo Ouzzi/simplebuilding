@@ -21,6 +21,9 @@ public final class MobsJeiTests {
                     "Nether Heart from " + wither);
         }
         h.assertTrue(RecipeViewer.special(MobsViewer.OWNER).stream().anyMatch(e -> e.output().is(EndNetherMobs.SHELLKER_EGG)), "Shellker dressing");
+        var info = RecipeViewer.info(MobsViewer.OWNER);
+        h.assertTrue(info.stream().anyMatch(i -> i.items().stream().anyMatch(s -> s.is(DisguiseRegistry.MIRROR))), "Trick Mirror info page");
+        h.assertTrue(info.stream().anyMatch(i -> i.items().stream().anyMatch(s -> s.is(WitherWings.ENDER_HEART)) && !i.lines().isEmpty()), "Ender Heart info page");
         h.succeed();
     }
 }

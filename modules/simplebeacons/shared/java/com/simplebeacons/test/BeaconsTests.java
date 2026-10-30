@@ -63,7 +63,13 @@ public final class BeaconsTests {
 
     static {
         // CMD24: /simplebeacons config set/get/reset through the server's dispatcher, clamp, map group of effect switches.
-        ALL.put("config_command", h -> {
+        ALL.put("jei_wither_shard", h -> {
+            var drops = com.simplebeacons.BeaconsViewer.drops();
+            h.assertTrue(drops.size() == 1 && drops.get(0).victim() == net.minecraft.world.entity.EntityTypes.WITHER
+                    && drops.get(0).results().stream().anyMatch(s -> s.is(BeaconsRegistry.STRONG_UPGRADE_SHARD)), "Wither shard in the mob drop list");
+            h.succeed();
+        });
+ALL.put("config_command", h -> {
             com.simplelib.test.ConfigCommandTests.roundTrip(h, SimpleBeacons.MOD_ID, "upgradeStrikes", "12", "12", "abc");
             var spec = com.simplelib.api.config.ConfigCommands.spec(SimpleBeacons.MOD_ID, false);
             String before = com.simplelib.api.config.ConfigCommands.show(spec.value("upgradeStrikes"));

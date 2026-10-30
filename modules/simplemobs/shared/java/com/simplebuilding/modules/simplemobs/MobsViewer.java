@@ -26,6 +26,15 @@ public final class MobsViewer {
         RecipeViewer.lootDrops(OWNER, MobsViewer.class);
         RecipeViewer.mobDrops(OWNER, MobsViewer::witherDrops);
         RecipeViewer.special(OWNER, MobsViewer::special);
+        RecipeViewer.info(OWNER, MobsViewer::infoPages);
+    }
+
+    /** Items no recipe, loot table or way gives: the Trick Mirror (config-gated recipe) and the Ender Heart / Gem (no source yet). */
+    public static List<RecipeViewer.Info> infoPages() {
+        return List.of(
+                new RecipeViewer.Info(List.of(new ItemStack(DisguiseRegistry.MIRROR)), List.of(Component.translatable("jei.simplemobs.info.trick_mirror"))),
+                new RecipeViewer.Info(List.of(new ItemStack(WitherWings.ENDER_HEART), new ItemStack(WitherWings.ENDER_GEM)),
+                        List.of(Component.translatable("jei.simplemobs.info.ender_parts"))));
     }
 
     /** One entry per Wither stage: what {@code BlightedWither#dropCustomDeathLoot} places, in that order. */

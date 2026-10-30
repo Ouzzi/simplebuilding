@@ -425,6 +425,15 @@ public final class TestCentreTests {
                 }
             }
         }
+        // TZ22-9: the tour - every built section is a stop (tp section/<id>), standing in the aisle in front of it.
+        for (TestCentreLayout.Section section : plan.sections()) {
+            BlockPos stop = plan.anchors().get(TestCentreLayout.SECTION_ANCHOR + section.id());
+            if (stop == null) {
+                problems.add(section.id() + " has no tour stop");
+            } else if (stop.getZ() >= plan.origin().getZ() + section.offset().getZ()) {
+                problems.add(section.id() + " tour stop is not in front of the section");
+            }
+        }
         helper.assertTrue(problems.isEmpty(), problems.size() + " layout problem(s): " + String.join("; ", problems));
         helper.succeed();
     }
