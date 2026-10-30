@@ -7,6 +7,7 @@ import com.simplebuilding.modules.simplemobs.trials.TrialKind;
 import com.simplebuilding.modules.simplemobs.trials.Trials;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -69,7 +70,7 @@ public abstract class BrewingStandSoulMixin implements SoulBrewing {
     }
 
     @Inject(method = "serverTick", at = @At("HEAD"), cancellable = true)
-    private static void simplemobs$evilTick(Level level, BlockPos pos, BlockState state, BrewingStandBlockEntity entity, CallbackInfo ci) {
+    private static void simplemobs$evilTick(ServerLevel level, BlockPos pos, BlockState state, BrewingStandBlockEntity entity, CallbackInfo ci) {
         if (((SoulBrewing) (Object) entity).simplemobs$tick(level, pos, state)) ci.cancel();
     }
 
