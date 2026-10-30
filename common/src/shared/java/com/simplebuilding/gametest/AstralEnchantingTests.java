@@ -705,9 +705,10 @@ public final class AstralEnchantingTests {
             helper.assertTrue(menu.levelPrice(row, 5) > menu.levelPrice(row, 4), "V costs more than IV");
             helper.assertTrue(menu.clickMenuButton(player, row * AstralEnchantingMenu.LEVELS_PER_ROW + 5), "slider click refused");
             eq(helper, menu.chosen(row), 5, "slider at V");
+            // Read the offer before enchanting: the enchanted item draws a new offer.
+            Holder<Enchantment> holder = menu.enchantment(helper.getLevel(), row);
             helper.assertTrue(menu.clickMenuButton(player, AstralEnchantingMenu.BUTTON_ENCHANT), "enchanting refused");
             ItemStack result = menu.getSlot(AstralEnchantingMenu.ITEM_SLOT).getItem();
-            Holder<Enchantment> holder = menu.enchantment(helper.getLevel(), row);
             eq(helper, EnchantmentHelper.getItemEnchantmentLevel(holder, result), 5, "Protection V on the chestplate");
             menu.removed(player);
             // Switch off: the same table offers IV only.
