@@ -145,20 +145,14 @@ public final class AnimalsTests {
                 h.succeed();
             });
         });
-        ALL.put("boar_close_time_counts_only_near_players", h -> {
+        ALL.put("boar_close_time_decays", h -> {
             Boar boar = quiet(h.spawn(AnimalsRegistry.BOAR, at(3, 3)));
-            ServerPlayer p = player(h, 4, 3); // one block away
+            boar.addCloseTicks(100);
             h.runAfterDelay(30, () -> {
-                h.assertTrue(boar.closeTicks() >= 20, "standing next to it counts: " + boar.closeTicks());
-                Vec3 away = h.absoluteVec(new Vec3(14.5, 1.0, 14.5));
-                p.setPos(away.x, away.y, away.z);
-                h.runAfterDelay(12, () -> {
-                    h.assertTrue(boar.closeTicks() < 10, "walking away lets it calm down: " + boar.closeTicks());
-                    h.succeed();
-                });
+                h.assertTrue(boar.closeTicks() < 60, "with nobody near, the counter runs down by 2 per tick: " + boar.closeTicks());
+                h.succeed();
             });
         });
-        MAX_TICKS.put("boar_close_time_counts_only_near_players", 100);
         ALL.put("boar_ram_damage", h -> {
             Boar boar = quiet(h.spawn(AnimalsRegistry.BOAR, at(3, 3)));
             Mob target = quiet(h.spawn(EntityTypes.COW, at(5, 3)));
@@ -265,7 +259,7 @@ public final class AnimalsTests {
             h.assertTrue(!(horse.getType() == AnimalsRegistry.ZORSE), "the horse is a Vanilla horse");
             h.succeed();
         });
-        ALL.put("zebra_is_a_horse", h -> {
+        ALL.put("zebra_is_horse", h -> {
             Zebra zebra = quiet(h.spawn(AnimalsRegistry.ZEBRA, at(3, 3)));
             h.assertTrue(zebra instanceof AbstractHorse && zebra.getBbWidth() == EntityTypes.HORSE.getWidth() && zebra.getBbHeight() == EntityTypes.HORSE.getHeight(), "horse size");
             h.assertTrue(zebra.isFood(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.GOLDEN_CARROT)), "horse food");

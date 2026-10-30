@@ -39,8 +39,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
-    public void boarCloseTimeCountsOnlyNearPlayers(GameTestHelper h) {
-        AnimalsTests.ALL.get("boar_close_time_counts_only_near_players").accept(h);
+    public void boarCloseTimeDecays(GameTestHelper h) {
+        AnimalsTests.ALL.get("boar_close_time_decays").accept(h);
     }
 
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
@@ -79,8 +79,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
-    public void zebraIsAHorse(GameTestHelper h) {
-        AnimalsTests.ALL.get("zebra_is_a_horse").accept(h);
+    public void zebraIsHorse(GameTestHelper h) {
+        AnimalsTests.ALL.get("zebra_is_horse").accept(h);
     }
 
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
