@@ -48,6 +48,7 @@ window.WIKI_MODULES = [
       "simpleshops",
       "simplewanderers",
       "simpleanimals",
+      "simpleores",
       "simplemusic",
       "simpleearth",
       "simplechallenges",
@@ -1406,6 +1407,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleoctets",
       "simplecrucibles",
+      "simpleores",
       "jei"
     ],
     "parent": "simplebuilding",
@@ -1420,11 +1422,11 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA40lEQVR42mMItlL7jw9HRUXhlWcAEY92zcGKQZpBQFNTE0PuwoQEVAOuLyj7/+rsdjANwjDNb968gRsCkwNpnpbhimkANs0wDDLAw1T0f6SHBtginAaga7537x4Yg9jVSab/NeS4iXMBsmYQXr9+/f/6+nqwSwgaADMkOjoarBGbIQQNAGGQn5ENIckAkGaQn9WBfgZpxGYITgOQNYP8C1KMbAheA0Ca29PU4ZphGNkQEMZqAC7NyIaAbMdqAEhzuq8cTs3ohsANAGkkZDM2Q+CxgKwZJEgKhnsBpBmECWVtbBgAwfhqwWiFR/AAAAAASUVORK5CYII=",
     "counts": {
-      "items": 8,
-      "recipes": 11,
+      "items": 10,
+      "recipes": 13,
       "features": 13
     },
-    "dataHash": "10d06da62ef9"
+    "dataHash": "28ab7dbebc7d"
   },
   {
     "id": "simpleoptimization",
@@ -1821,5 +1823,40 @@ window.WIKI_MODULES = [
       "features": 6
     },
     "dataHash": "647d3af3850a"
+  },
+  {
+    "id": "simpleores",
+    "displayName": "Simple Ores",
+    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric",
+      "neoforge",
+      "forge"
+    ],
+    "requires": [],
+    "optional": [
+      "simplebuilding",
+      "simplehammers"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "optional",
+    "intro": {
+      "en": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver, pressed into bundles, smelted in the blast furnace only, with tools and armor of their own.",
+      "de": "Silbererz in der Oberwelt und im End sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen."
+    },
+    "purpose": {
+      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
+      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 26,
+      "blocks": 7,
+      "recipes": 44,
+      "features": 4
+    },
+    "dataHash": "597662143b0c"
   }
 ];
