@@ -68,14 +68,16 @@ GRAVITY = [('suspended_sand', 'sand', 'simplebuilding:nihilith_shard', 'minecraf
 NATURE_SLABS = ['dirt_slab', 'grass_slab', 'sand_slab', 'gravel_slab']
 NATURE_ICE = ['cracked_ice', 'chiseled_packed_ice', 'chiseled_blue_ice']
 NATURE_OTHER = ['nautilus_shell_block', 'scarlet_froglight', 'aqua_froglight', 'azure_froglight']
-MOVED = [g[0] for g in GRAVITY] + NATURE_SLABS + NATURE_ICE + NATURE_OTHER
+# ABN30-7: cracked packed ice (variant A) and cracked blue ice (variant C), new here (not from SimpleBuilding): (block, Vanilla ice they are cut from).
+CRACKED_HARD = [('cracked_packed_ice', 'packed_ice'), ('cracked_blue_ice', 'blue_ice')]
+MOVED = [g[0] for g in GRAVITY] + NATURE_SLABS + NATURE_ICE + NATURE_OTHER + [c[0] for c in CRACKED_HARD]
 MOVED_NAMES = {
     'en_us': ['Suspended Sand', 'Suspended Gravel', 'Levitating Sand', 'Levitating Gravel', 'Dirt Slab', 'Grass Slab', 'Sand Slab',
               'Gravel Slab', 'Cracked Ice', 'Chiseled Packed Ice', 'Chiseled Blue Ice', 'Block of Nautilus Shell', 'Scarlet Froglight',
-              'Aqua Froglight', 'Azure Froglight'],
+              'Aqua Froglight', 'Azure Froglight', 'Cracked Packed Ice', 'Cracked Blue Ice'],
     'de_de': ['Schwebender Sand', 'Schwebender Kies', 'Aufsteigender Sand', 'Aufsteigender Kies', 'Erdstufe', 'Grasstufe', 'Sandstufe',
               'Kiesstufe', 'Rissiges Eis', 'Gemeißeltes Packeis', 'Gemeißeltes Blaueis', 'Nautilusschalenblock', 'Scharlachrotes Froschlicht',
-              'Türkises Froschlicht', 'Azurblaues Froschlicht']}
+              'Türkises Froschlicht', 'Azurblaues Froschlicht', 'Rissiges Packeis', 'Rissiges Blaueis']}
 MOVED_TEXT = {
     'en_us': {'tooltip.simpleblocks.levitating': 'Falls upward instead of down', 'tooltip.simpleblocks.suspended': 'Hangs in mid-air and never falls',
               'entity.simpleblocks.levitating_block': 'Levitating Block'},
@@ -376,7 +378,7 @@ def tags():
     ids = [f'{NS}:{n}' for n in BLOCKS]
     # Moved blocks keep SimpleBuilding's tags: ice like Vanilla ice (pickaxe, #ice), the nautilus shell block with the pickaxe,
     # the nature slabs with the shovel and as slabs; froglights (Vanilla + these) are the dye recipes' ingredient.
-    moved_ice = [f'{NS}:{n}' for n in NATURE_ICE]
+    moved_ice = [f'{NS}:{n}' for n in NATURE_ICE + [c[0] for c in CRACKED_HARD]]
     moved_slabs = [f'{NS}:{n}' for n in NATURE_SLABS]
     tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'])
     # Suspended/levitating sand and gravel dig like their Vanilla block (AUDM24).
@@ -484,8 +486,29 @@ def lang():
     return out
 
 
+def cracked_hard():
+    """Cracked packed/blue ice (ABN30-7): four crack stages like the cracked ice (textures built from the Vanilla ice, vanilla_derived), cut
+    from the stonecutter, loot only with Silk Touch."""
+    for name, base in CRACKED_HARD:
+        put(f'assets/{NS}/blockstates/{name}.json', {'variants': {f'age={a}': {'model': f'{NS}:block/{name}_{a}'} for a in range(4)}})
+        for a in range(4):
+            put(f'assets/{NS}/models/block/{name}_{a}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{name}_{a}'}})
+        put(f'assets/{NS}/items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{name}_0'}})
+        put(f'data/{NS}/loot_table/blocks/{name}.json', {'type': 'minecraft:block', 'pools': [{'condition': 'minecraft:tool/can_silk_touch',
+                                                          'entries': [{'type': 'minecraft:item', 'name': f'{NS}:{name}'}], 'rolls': 1}]})
+        recipe_id = f'{name}_from_{base}_stonecutting'
+        put(f'data/{NS}/recipe/{recipe_id}.json', {'type': 'minecraft:stonecutting', 'ingredient': f'minecraft:{base}', 'result': {'id': f'{NS}:{name}'}})
+        put(f'data/{NS}/advancement/recipes/building_blocks/{recipe_id}.json', {
+            'parent': 'minecraft:recipes/root',
+            'criteria': {f'has_{base}': {'conditions': {'items': [{'items': f'minecraft:{base}'}]}, 'trigger': 'minecraft:inventory_changed'},
+                         'has_the_recipe': {'conditions': {'recipes': f'{NS}:{recipe_id}'}, 'trigger': 'minecraft:recipe_unlocked'}},
+            'requirements': [['has_the_recipe', f'has_{base}']],
+            'rewards': {'recipes': [f'{NS}:{recipe_id}']}})
+
+
 def build():
     files.clear()
+    cracked_hard()
     models_and_states()
     recipes()
     loot()

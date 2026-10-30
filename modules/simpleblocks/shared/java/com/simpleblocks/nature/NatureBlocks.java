@@ -67,10 +67,15 @@ public final class NatureBlocks {
     public static final Block AQUA_FROGLIGHT = froglight("aqua_froglight", MapColor.COLOR_CYAN);
     public static final Block AZURE_FROGLIGHT = froglight("azure_froglight", MapColor.COLOR_BLUE);
 
+    /** ABN30-7: cracked packed and blue ice, graded like the ice ({@link CrackedHardIceBlock}); they are new, not moved from SimpleBuilding. */
+    public static final Block CRACKED_PACKED_ICE = add("cracked_packed_ice", Blocks.PACKED_ICE, s -> new CrackedHardIceBlock(s, CrackedHardIceBlock.PACKED_TICKS));
+    public static final Block CRACKED_BLUE_ICE = add("cracked_blue_ice", Blocks.BLUE_ICE, s -> new CrackedHardIceBlock(s, CrackedHardIceBlock.BLUE_TICKS));
+
     /** Every moved block path in registration (and tab) order. */
     public static final List<String> NAMES = List.copyOf(BLOCKS.keySet());
     /** Groups of the creative tab, in order. */
-    public static final List<List<String>> ROWS = List.of(NAMES.subList(0, 4), NAMES.subList(4, 8), NAMES.subList(8, 12), NAMES.subList(12, 15));
+    public static final List<List<String>> ROWS = List.of(NAMES.subList(0, 4), NAMES.subList(4, 8), NAMES.subList(8, 12), NAMES.subList(12, 15),
+            NAMES.subList(15, 17));
 
     /** Recipe ids that came from SimpleBuilding ({@link NatureIds#MOVED_RECIPES}). */
     public static final Map<String, String> MOVED_RECIPES = NatureIds.MOVED_RECIPES;

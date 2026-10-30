@@ -83,7 +83,7 @@ def icon(lit, palette, sized=False):
     return im
 
 
-def icon_sheet(sized=False):
+def icon_sheet(sized=True):  # ABN30-8: variant B (pyramid grows with the level) is the default
     sheet = Image.new('RGBA', (W * 6, H * 2), (0, 0, 0, 0))
     for row, palette in enumerate((GREEN, RED)):
         for level in range(1, 7):

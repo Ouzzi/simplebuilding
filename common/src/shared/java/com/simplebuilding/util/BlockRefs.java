@@ -30,6 +30,9 @@ public final class BlockRefs {
     public static final String CRACKED_ICE = "cracked_ice";
     public static final String CHISELED_PACKED_ICE = "chiseled_packed_ice";
     public static final String CHISELED_BLUE_ICE = "chiseled_blue_ice";
+    /** Cracked packed and blue ice (ABN30-7): new in Simple Blocks, never in SimpleBuilding. */
+    public static final String CRACKED_PACKED_ICE = "cracked_packed_ice";
+    public static final String CRACKED_BLUE_ICE = "cracked_blue_ice";
     public static final String NAUTILUS_SHELL_BLOCK = "nautilus_shell_block";
     public static final String SCARLET_FROGLIGHT = "scarlet_froglight";
     public static final String AQUA_FROGLIGHT = "aqua_froglight";

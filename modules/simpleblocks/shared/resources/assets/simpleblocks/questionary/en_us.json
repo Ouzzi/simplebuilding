@@ -65,6 +65,28 @@
       "With nobody on it the cracks stay as they are. So you can lay a trap, or repair the road by leaving."
     ]
   },
+  "cracked_packed_ice": {
+    "lore": [
+      "Packed ice that has seen too many footsteps."
+    ],
+    "use": [
+      "Cut one packed ice into one in the stonecutter. A living creature standing on it cracks it one stage every 1.5 seconds; after four stages it breaks away and leaves no water. Drops only with Silk Touch."
+    ],
+    "secret": [
+      "The harder the ice, the longer it holds: ice 1 s, packed ice 1.5 s, blue ice 2 s per stage."
+    ]
+  },
+  "cracked_blue_ice": {
+    "lore": [
+      "Blue ice that has seen too many footsteps."
+    ],
+    "use": [
+      "Cut one blue ice into one in the stonecutter. A living creature standing on it cracks it one stage every 2 seconds; after four stages it breaks away and leaves no water. Drops only with Silk Touch."
+    ],
+    "secret": [
+      "The slab-like floes of the blue ice are the last to give way."
+    ]
+  },
   "nautilus_shell_block": {
     "lore": [
       "The sea's spiral, stacked into a block."

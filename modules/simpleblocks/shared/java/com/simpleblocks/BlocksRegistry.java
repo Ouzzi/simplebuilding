@@ -223,8 +223,8 @@ public final class BlocksRegistry {
             out.add(Placement.after(true, Items.GRAVEL, "gravel_slab", "suspended_gravel", "levitating_gravel"));
             out.add(Placement.after(true, Items.SAND, "sand_slab", "suspended_sand", "levitating_sand"));
             out.add(Placement.after(true, Items.ICE, "cracked_ice"));
-            out.add(Placement.after(true, Items.PACKED_ICE, "chiseled_packed_ice"));
-            out.add(Placement.after(true, Items.BLUE_ICE, "chiseled_blue_ice"));
+            out.add(Placement.after(true, Items.PACKED_ICE, "chiseled_packed_ice", "cracked_packed_ice"));
+            out.add(Placement.after(true, Items.BLUE_ICE, "chiseled_blue_ice", "cracked_blue_ice"));
             out.add(Placement.after(true, Items.BONE_BLOCK, "nautilus_shell_block"));
             out.add(Placement.after(true, Items.PEARLESCENT_FROGLIGHT, "scarlet_froglight", "aqua_froglight", "azure_froglight"));
         }

@@ -146,5 +146,9 @@
   "quests.simpleblocks.start.title": "Welcome to Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Your free guide",
   "quests.simpleblocks.start.welcome.title": "A free guide",
-  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball."
+  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball.",
+  "block.simpleblocks.cracked_packed_ice": "Cracked Packed Ice",
+  "item.simpleblocks.cracked_packed_ice": "Cracked Packed Ice",
+  "block.simpleblocks.cracked_blue_ice": "Cracked Blue Ice",
+  "item.simpleblocks.cracked_blue_ice": "Cracked Blue Ice"
 }

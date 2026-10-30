@@ -176,6 +176,11 @@ public final class ModuleGameTest {
         BlocksTests.ALL.get("cracked_ice_melts_under_an_entity_after_some_seconds").accept(h);
     }
 
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 260)
+    public void crackedHardIceCracksInGradedSteps(GameTestHelper h) {
+        BlocksTests.ALL.get("cracked_hard_ice_cracks_in_graded_steps").accept(h);
+    }
+
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void crackedIceBlocksPlacementOnAllSidesAndBlendsWithIce(GameTestHelper h) {
         BlocksTests.ALL.get("cracked_ice_allows_placement_on_all_sides_and_blends_with_ice").accept(h);

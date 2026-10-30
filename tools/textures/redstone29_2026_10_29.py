@@ -15,6 +15,7 @@ than HARD_STEP) is printed per texture.
 """
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -74,6 +75,15 @@ def hard_share(img):
 
 
 # ------------------------------------------------------------------ palette
+# ABN30-5: the double piston is redrawn after the Endwood process (a-tex29 boards A, PRINZIPIEN A8b): ten ramp tones instead of a
+# flat colour plus +-2 noise, a lit upper/left and a shaded lower/right rim, soft low-frequency mottling and fine brushed rows.
+# Colour is chosen by position in a ramp, never by multiplying one flat colour.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from n41_proposals_2026_10_12 import H, hsh, vnoise  # noqa: E402
+
+STEEL_RAMP = [H(h) for h in ("2f333b", "3d424b", "4c525c", "5d646e", "6f7782", "828a96", "949ca8", "a7afba", "bac2cc", "cdd4dc")]
+STEEL_WARM = [H(h) for h in ("33343a", "424349", "52545b", "63666e", "757982", "888d97", "9ba0ab", "aeb3be")]
+RED_RAMP = [H(h) for h in ("4a1214", "661a1a", "822220", "9c2a26", "b83430", "d2403a", "e8554a")]
 STEEL = (128, 133, 140)
 STEEL_DARK = (78, 82, 90)
 STEEL_LIGHT = (168, 173, 181)
@@ -85,52 +95,103 @@ AMBER_OFF = (84, 66, 44)
 COIL = (176, 112, 70)
 
 
-def panel(base, seed, edge=0.78, top=1.08, bottom=0.9):
-    """Soft vertical gradient with a darker contour; used for every body face."""
+def pick(ramp, t):
+    return ramp[max(0, min(len(ramp) - 1, int(t * len(ramp))))][:3]
+
+
+def tone(ramp, x, y, seed, level=0.5, rim=True, grain=1.0):
+    """One pixel of a rimmed metal plate: ``level`` (0..1) is the base brightness, the rim is lit top-left and shaded bottom-right."""
+    t = level + 0.16 * (1 - y / 15.0) - 0.05
+    t += (vnoise(x, y, 8, seed) - 0.5) * 0.30 * grain + (vnoise(x, y, 4, seed + 5) - 0.5) * 0.14 * grain
+    t += (hsh(0, y, seed + 9) - 0.5) * 0.06 * grain   # brushed rows
+    t += (hsh(x, y, seed + 13) - 0.5) * 0.05 * grain
+    if rim:
+        if x == 0 or y == 0:
+            t += 0.14 if (x + y) % 2 == 0 or y == 0 else 0.10
+        elif x == 15 or y == 15:
+            t -= 0.24
+        elif x == 14 or y == 14:
+            t -= 0.07
+        elif x == 1 or y == 1:
+            t += 0.05
+        if (x, y) in ((0, 0), (15, 0), (0, 15), (15, 15)):
+            t -= 0.12
+    return pick(ramp, t)
+
+
+def panel(ramp, seed, level=0.5):
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, tone(ramp, x, y, seed, level))
+    return img
+
+
+def panel_flat(base, seed, edge=0.78, top=1.08, bottom=0.9):
+    """The earlier flat panel (signal dampener, not part of the redraw)."""
     img = new()
     for y in range(16):
         k = top + (bottom - top) * y / 15.0
         for x in range(16):
             c = shade(base, k)
-            j = noise(x, y, seed)
-            c = tuple(clamp(v + j) for v in c)
+            c = tuple(clamp(v + noise(x, y, seed)) for v in c)
             if x in (0, 15) or y in (0, 15):
                 c = shade(c, edge)
             put(img, x, y, c)
     return img
 
 
+def rivet(img, x, y, ramp=STEEL_RAMP):
+    """A rivet: lit crown, shaded foot, one dark pixel of the seat."""
+    put(img, x, y, pick(ramp, 0.88))
+    put(img, x + 1, y, pick(ramp, 0.62))
+    put(img, x, y + 1, pick(ramp, 0.55))
+    put(img, x + 1, y + 1, pick(ramp, 0.22))
+    put(img, x + 2, y + 2, pick(ramp, 0.34))
+
+
 def side():
-    img = panel(STEEL, 11)
+    img = panel(STEEL_RAMP, 11, 0.5)
     layers.snap(img, "Fläche")
-    for y in range(16):
-        # redstone band across the middle (rows 6-9), softened at its rims
-        t = {6: 0.45, 7: 1.0, 8: 1.0, 9: 0.45}.get(y)
-        if t is None:
+    for y in range(5, 11):
+        # redstone band across the middle (rows 6-9) as a recessed channel: dark rims, a soft lit core, mottled like the plate
+        k = {5: None, 6: 0.30, 7: 0.62, 8: 0.58, 9: 0.28, 10: None}[y] if y in (6, 7, 8, 9) else None
+        if k is None:
+            for x in range(1, 15):   # a lit lip above and a shadow below the channel
+                f = 0.07 if y == 5 else -0.12
+                px_ = img.getpixel((x, y))[:3]
+                put(img, x, y, pick(STEEL_RAMP, min(0.99, max(0.0, _idx(STEEL_RAMP, px_) + f))))
             continue
         for x in range(16):
-            base = img.getpixel((x, y))[:3]
-            band = shade(RED, 1.0 - 0.18 * abs(y - 7.5) / 1.5)
-            put(img, x, y, mix(base, band, t))
-    for x, y in ((2, 2), (13, 2), (2, 13), (13, 13)):  # rivets
-        put(img, x, y, shade(STEEL_LIGHT, 1.0))
-        put(img, x + (1 if x < 8 else -1), y + 1, shade(STEEL_DARK, 1.0))
+            n = (vnoise(x, y, 4, 17) - 0.5) * 0.16
+            put(img, x, y, pick(RED_RAMP, k + n + (0.06 if x in (0, 15) else 0)))
+    layers.snap(img, "Band")
+    for x, y in ((2, 2), (12, 2), (2, 12), (12, 12)):
+        rivet(img, x, y)
     return layers.snap(img, "Details")
 
 
+def _idx(ramp, rgb):
+    """Position (0..1) of the ramp tone closest to ``rgb``."""
+    best = min(range(len(ramp)), key=lambda i: sum((ramp[i][c] - rgb[c]) ** 2 for c in range(3)))
+    return (best + 0.5) / len(ramp)
+
+
 def back():
-    img = panel(shade(STEEL, 0.86), 21, edge=0.74)
+    img = panel(STEEL_RAMP, 21, 0.42)
     layers.snap(img, "Fläche")
     for y in range(16):
         for x in range(16):
             d = ((x - 7.5) ** 2 + (y - 7.5) ** 2) ** 0.5
-            if d < 3.4:
-                f = 1.0 - d / 3.4
-                put(img, x, y, mix(img.getpixel((x, y))[:3], RED, 0.35 + 0.55 * f))
-            elif d < 4.4:
-                put(img, x, y, shade(img.getpixel((x, y))[:3], 0.8))
-    for x, y in ((2, 2), (13, 2), (2, 13), (13, 13)):
-        put(img, x, y, shade(STEEL_LIGHT, 0.95))
+            if d < 3.6:   # a domed redstone core: bright centre, softly falling off
+                f = 1.0 - d / 3.6
+                put(img, x, y, pick(RED_RAMP, 0.28 + 0.62 * f - 0.05 * (y - 7.5) / 3.6 + (hsh(x, y, 3) - 0.5) * 0.06))
+            elif d < 4.6:  # the seat: a dark ring, shaded more at the bottom right
+                base = _idx(STEEL_RAMP, img.getpixel((x, y))[:3])
+                put(img, x, y, pick(STEEL_RAMP, base - 0.22 + (0.10 if (x - 7.5) + (y - 7.5) < 0 else 0)))
+    layers.snap(img, "Kern")
+    for x, y in ((2, 2), (12, 2), (2, 12), (12, 12)):
+        rivet(img, x, y)
     return layers.snap(img, "Details")
 
 
@@ -138,46 +199,43 @@ def barrel_side():
     img = new()
     for y in range(16):
         for x in range(16):
-            k = 1.14 - 0.24 * y / 15.0
-            c = shade(STEEL_LIGHT, k * 0.92)
-            c = tuple(clamp(v + noise(x, y, 31)) for v in c)
-            if x in (0, 15) or y in (0, 15):
-                c = shade(c, 0.78)
-            put(img, x, y, c)
+            # a cylinder seen from the side: the tone follows the height (lit top, shaded bottom) with a bright streak
+            t = 0.74 - 0.40 * (y / 15.0) ** 1.2 + 0.10 * math.exp(-((y - 3) ** 2) / 5.0)
+            t += (vnoise(x, y, 8, 31) - 0.5) * 0.18 + (hsh(x, y, 33) - 0.5) * 0.05
+            if x in (0, 15):
+                t -= 0.10
+            put(img, x, y, pick(STEEL_RAMP, t))
     layers.snap(img, "Fläche")
-    for x in (4, 8, 12):  # three soft ring grooves
+    for x in (4, 8, 12):  # three ring grooves: shadow, dark line, lit edge
         for y in range(16):
-            for dx, f in ((-1, 0.94), (0, 0.8), (1, 1.06)):
-                px = img.getpixel((x + dx, y))
-                put(img, x + dx, y, shade(px[:3], f))
+            for dx, f in ((-1, -0.10), (0, -0.26), (1, 0.12)):
+                v = _idx(STEEL_RAMP, img.getpixel((x + dx, y))[:3])
+                put(img, x + dx, y, pick(STEEL_RAMP, v + f))
     return layers.snap(img, "Details")
 
 
 def head():
-    """The plate seen from the front: iron plate, lighter centre cross, four rivets."""
+    """The plate seen from the front: bevelled iron plate, raised centre cross, four rivets."""
     img = new()
     for y in range(16):
         for x in range(16):
             dist = max(abs(x - 7.5), abs(y - 7.5)) / 7.5
-            c = shade(STEEL_LIGHT, 1.04 - 0.2 * dist)
-            c = tuple(clamp(v + noise(x, y, 41)) for v in c)
-            if x in (0, 15) or y in (0, 15):
-                c = shade(c, 0.84)
-            elif x in (1, 14) or y in (1, 14):
-                c = shade(c, 1.04)
-            put(img, x, y, c)
+            level = 0.56 - 0.12 * dist
+            put(img, x, y, tone(STEEL_RAMP, x, y, 41, level, grain=0.8))
     layers.snap(img, "Fläche")
-    for i in range(5, 11):  # a soft cross
-        for x, y in ((i, 7), (i, 8), (7, i), (8, i)):
-            put(img, x, y, shade(img.getpixel((x, y))[:3], 1.1))
-    for x, y in ((3, 3), (12, 3), (3, 12), (12, 12)):
-        put(img, x, y, shade(STEEL, 0.98))
-        put(img, x + 1, y + 1, shade(STEEL, 0.9))
-    return layers.snap(img, "Details")
+    for i in range(4, 12):  # the cross: a lit upper/left edge, a shaded lower/right edge
+        for x, y, f in ((i, 7, 0.11), (i, 8, -0.03), (7, i, 0.11), (8, i, -0.03)):
+            put(img, x, y, pick(STEEL_RAMP, _idx(STEEL_RAMP, img.getpixel((x, y))[:3]) + f))
+        put(img, i, 9, pick(STEEL_RAMP, _idx(STEEL_RAMP, img.getpixel((i, 9))[:3]) - 0.12)) if i != 8 and i != 7 else None
+        put(img, 9, i, pick(STEEL_RAMP, _idx(STEEL_RAMP, img.getpixel((9, i))[:3]) - 0.12)) if i != 8 and i != 7 else None
+    layers.snap(img, "Kreuz")
+    for x, y in ((2, 2), (12, 2), (2, 12), (12, 12)):
+        rivet(img, x, y)
+    return layers.snap(img, "Nieten")
 
 
 def head_side():
-    img = panel(shade(STEEL, 0.84), 51, edge=0.8, top=1.04, bottom=0.92)
+    img = panel(STEEL_WARM, 51, 0.5)
     return layers.snap(img, "Fläche")
 
 
@@ -185,31 +243,34 @@ def rod():
     img = new()
     for y in range(16):
         for x in range(16):
-            k = 0.78 + 0.5 * (1 - abs(x - 5.5) / 5.5) ** 0.8 if x < 12 else 0.78
-            c = tuple(clamp(v * k + noise(x, y, 61)) for v in STEEL)
+            # a round rod: bright core at x 4-5, falling off to both sides, mottled
+            core = math.exp(-((x - 5.0) ** 2) / 10.0) if x < 12 else 0.0
+            t = 0.30 + 0.52 * core + (vnoise(x, y, 8, 61) - 0.5) * 0.14 + (hsh(x, y, 63) - 0.5) * 0.05
             if x in (0, 15):
-                c = shade(c, 0.84)
-            put(img, x, y, c)
+                t -= 0.10
+            put(img, x, y, pick(STEEL_RAMP, t))
     layers.snap(img, "Fläche")
-    for y in (3, 4, 11, 12):  # two soft collars
+    for y in (3, 4, 11, 12):  # two collars: a dark groove and a lit edge
         for x in range(16):
-            put(img, x, y, shade(img.getpixel((x, y))[:3], 0.9 if y in (3, 11) else 1.06))
+            v = _idx(STEEL_RAMP, img.getpixel((x, y))[:3])
+            put(img, x, y, pick(STEEL_RAMP, v - 0.20 if y in (3, 11) else v + 0.12))
     return layers.snap(img, "Details")
 
 
 def front_open():
-    """Barrel seen from the front while the rod is out: a dark opening in the iron frame."""
+    """Barrel seen from the front while the rod is out: a dark opening in the iron frame, a lit lip below."""
     img = head()
     layers.snap(img, "Platte")
     for y in range(16):
         for x in range(16):
             d = max(abs(x - 7.5), abs(y - 7.5))
             if d < 1.8:
-                put(img, x, y, (46, 48, 54))
+                put(img, x, y, (34 + int(6 * hsh(x, y, 7)), 36 + int(6 * hsh(x, y, 8)), 42))
             elif d < 2.8:
-                put(img, x, y, (84, 87, 94))
+                lit = (x - 7.5) + (y - 7.5) > 0   # the lower right of the lip catches the light, the upper left is in shade
+                put(img, x, y, pick(STEEL_RAMP, 0.62 if lit else 0.20))
             elif d < 3.8:
-                put(img, x, y, shade(img.getpixel((x, y))[:3], 0.8))
+                put(img, x, y, pick(STEEL_RAMP, _idx(STEEL_RAMP, img.getpixel((x, y))[:3]) - 0.14))
     return layers.snap(img, "Öffnung")
 
 
@@ -218,7 +279,7 @@ BASE_TOP = (122, 126, 132)
 
 
 def dampener_base():
-    img = panel(shade(STEEL, 0.9), 71, edge=0.76, top=1.0, bottom=0.92)
+    img = panel_flat(shade(STEEL, 0.9), 71, edge=0.76, top=1.0, bottom=0.92)
     return layers.snap(img, "Fläche")
 
 

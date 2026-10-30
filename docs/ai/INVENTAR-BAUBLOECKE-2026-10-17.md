@@ -55,7 +55,7 @@ nur Vollblock, keine Treppe/Stufe, daher kein Octet (A4). Plan: `docs/ai/PLAN-A-
 
 ## Stand 29.10. (a-redstone29, WP-17 / BS28-2)
 Neue Baublöcke in SimpleBuilding selbst (Besitzer ABN29-3, Konzept D3 „SB“, weil Türen Redstone/Mechanik haben): `simplebuilding:oak_door_2x2`,
-`oak_door_2x3`, `oak_door_half_2`, `oak_door_half_3` (Simple Doors, `com.simplebuilding.doors`), Tab-Zeile `wide_doors` im Tab Maschinen & Lager,
+`oak_door_2x3`, `oak_door_1_5x2`, `oak_door_1_5x3` (ABN30-5), `oak_door_half_2`, `oak_door_half_3` (Simple Doors, `com.simplebuilding.doors`), Tab-Zeile `wide_doors` im Tab Maschinen & Lager,
 Suchtab hinter der Vanilla-Eichentür. Die anderen Holzarten sind vorbereitet (Texturen-Generator), nicht registriert. Spätere Verschiebung
 nach `simpleblocks` bliebe möglich (IdMoves), solange kein Besitzer-Wunsch dagegen steht. Plan: `docs/ai/PLAN-A-WP17-2026-10-29.md`.
 

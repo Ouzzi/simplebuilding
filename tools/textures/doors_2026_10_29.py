@@ -33,8 +33,9 @@ DATA = OVERLAY / "data/simplebuilding"
 NS = "simplebuilding"
 JAR = os.environ.get("SB_CLIENT_JAR") or os.path.expanduser("~/.gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 
-# format id -> (cols, rows, half)
-FORMATS = {"2x2": (2, 2, False), "2x3": (2, 3, False), "half_2": (1, 2, True), "half_3": (1, 3, True)}
+# format id -> (cols, rows, half); the 1.5 wide doors (ABN30-5) are two columns like the 2x2 doors, the second only 8 px of leaf (NARROW)
+FORMATS = {"2x2": (2, 2, False), "2x3": (2, 3, False), "1_5x2": (2, 2, False), "1_5x3": (2, 3, False), "half_2": (1, 2, True), "half_3": (1, 3, True)}
+NARROW = {"1_5x2", "1_5x3"}
 WOODS = ["oak"]  # registered; the prepared woods (spruce ... warped) are derived by derive_wood() only
 PREPARED = ["spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "bamboo", "crimson", "warped"]
 
@@ -61,12 +62,15 @@ def _door_atlas(jar, wood):
 PANEL_A7 = [2, 3, 4, 4, 5, 6, 7]    # left panel, one interior column repeated: 7 wide
 PANEL_B7 = [8, 9, 10, 10, 11, 12, 13]
 COLS_WIDE = [0, 1] + PANEL_A7 + PANEL_A7 + PANEL_A7 + PANEL_B7 + [14, 15]  # 2 + 28 + 2 = 32
+PANEL_A5 = [2, 3, 4, 5, 7]          # four panels of five columns: 2 + 20 + 2 = 24 (the 1.5 wide door)
+PANEL_B5 = [8, 9, 10, 11, 13]
+COLS_15 = [0, 1] + PANEL_A5 * 3 + PANEL_B5 + [14, 15]
 COLS_HALF = [0, 1, 8, 9, 12, 13, 14, 15]                                      # frame, a narrowed panel with the knob, frame = 8
 # Vanilla door rows (0-31): 0-1 top frame, 2-6 and 7-11 the two window panes, 12 divider, 13-18 solid panel with the knob,
 # 19-24 and 25-30 two more solid panels, 31 bottom frame. 3 high (48): two more window rows above, one more solid panel.
 ROWS_2 = list(range(32))
 ROWS_3 = list(range(0, 12)) + list(range(2, 7)) + list(range(2, 7)) + list(range(12, 25)) + list(range(19, 25)) + list(range(25, 32))
-assert len(COLS_WIDE) == 32 and len(COLS_HALF) == 8 and len(ROWS_3) == 48
+assert len(COLS_WIDE) == 32 and len(COLS_15) == 24 and len(COLS_HALF) == 8 and len(ROWS_3) == 48
 
 
 def _build(atlas, cols, rows):
@@ -85,12 +89,14 @@ def derive_wood(jar, wood):
     atlas = _door_atlas(jar, wood)
     out = {}
     for fmt, (cols, rows, half) in FORMATS.items():
-        big = _build(atlas, COLS_HALF if half else COLS_WIDE, ROWS_3 if rows == 3 else ROWS_2)
+        big = _build(atlas, COLS_HALF if half else COLS_15 if fmt in NARROW else COLS_WIDE, ROWS_3 if rows == 3 else ROWS_2)
         for r in range(rows):
             y0 = (rows - 1 - r) * 16
             for c in range(cols):
                 cell = Image.new("RGBA", (16, 16))
-                cell.paste(big.crop((c * (8 if half else 16), y0, c * (8 if half else 16) + (8 if half else 16), y0 + 16)), (0, 0))
+                w = 8 if half or (fmt in NARROW and c == 1) else 16
+                x0 = c * (8 if half else 16)
+                cell.paste(big.crop((x0, y0, x0 + w, y0 + 16)), (0, 0))
                 name = f"{wood}_door_half{rows}_r{r}" if half else f"{wood}_door_{fmt}_c{c}_r{r}"
                 out[f"block/{name}.png"] = cell
     return out
@@ -130,8 +136,8 @@ def closed_model(wood, fmt, c, r, hinge):
     """One cell of a closed door: the slab on the south edge (north-facing frame). South face u=0 at the hinge (LEFT: west)."""
     cols, rows, half = FORMATS[fmt]
     left = hinge == "left"
-    w = 8 if half else 16
-    x0, x1 = (0, w) if left or not half else (16 - w, 16)
+    w = 8 if half or (fmt in NARROW and c == 1) else 16
+    x0, x1 = (0, w) if left or w == 16 else (16 - w, 16)
     south = [0, 0, w, 16] if left else [w, 0, 0, 16]
     north = [w, 0, 0, 16] if left else [0, 0, w, 16]
     side = [0, 0, 3, 16]
@@ -144,7 +150,7 @@ def open_model(wood, fmt, seg, r, hinge):
     """One cell of an open door: the leaf strip along the hinge edge (LEFT: west), segment ``seg`` of the leaf (0 at the hinge cell)."""
     cols, rows, half = FORMATS[fmt]
     left = hinge == "left"
-    length = 8 if half else 16
+    length = 8 if half or (fmt in NARROW and seg == 1) else 16
     x0, x1 = (0, 3) if left else (13, 16)
     z0 = 16 - length
     east = [0, 0, length, 16]
@@ -160,6 +166,8 @@ def item_model(wood, fmt):
     cols, rows, half = FORMATS[fmt]
     u = 16.0 / rows
     width = (cols * u) if not half else u / 2
+    if fmt in NARROW:
+        width = 1.5 * u
     x_start = (16 - width) / 2
     textures = {"particle": "minecraft:block/oak_planks"}
     elements = []
@@ -167,11 +175,12 @@ def item_model(wood, fmt):
         for r in range(rows):
             key = f"c{c}r{r}"
             textures[key] = f"{NS}:block/{tex_name(wood, fmt, c, r)}"
-            ux = u / 2 if half else u
-            x0 = x_start + c * ux
+            narrow = half or (fmt in NARROW and c == 1)
+            ux = u / 2 if narrow else u
+            x0 = x_start + c * u
             # the front of the item is the south face (the side seen when you stand behind a door facing north)
-            south = [0, 0, 8, 16] if half else [0, 0, 16, 16]
-            north = [8, 0, 0, 16] if half else [16, 0, 0, 16]
+            south = [0, 0, 8, 16] if narrow else [0, 0, 16, 16]
+            north = [8, 0, 0, 16] if narrow else [16, 0, 0, 16]
             face = {"south": {"texture": f"#{key}", "uv": south}, "north": {"texture": f"#{key}", "uv": north},
                     "up": {"texture": f"#{key}", "uv": [0, 0, 16, 2]}, "down": {"texture": f"#{key}", "uv": [0, 0, 16, 2]},
                     "east": {"texture": f"#{key}", "uv": [0, 0, 2, 16]}, "west": {"texture": f"#{key}", "uv": [0, 0, 2, 16]}}
@@ -215,6 +224,10 @@ def recipes(wood):
                  "result": {"count": 1, "id": f"{NS}:{wood}_door_2x2"}}, door),
         "2x3": ({"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"#": door}, "pattern": ["##", "##", "##"],
                  "result": {"count": 1, "id": f"{NS}:{wood}_door_2x3"}}, door),
+        "1_5x2": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [door, f"{NS}:{wood}_door_half_2"],
+                   "result": {"count": 1, "id": f"{NS}:{wood}_door_1_5x2"}}, f"{NS}:{wood}_door_half_2"),
+        "1_5x3": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [f"{NS}:{wood}_door_1_5x2", planks],
+                   "result": {"count": 1, "id": f"{NS}:{wood}_door_1_5x3"}}, f"{NS}:{wood}_door_1_5x2"),
         "half_2": ({"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"#": planks, "/": stick}, "pattern": ["#", "#", "/"],
                     "result": {"count": 1, "id": f"{NS}:{wood}_door_half_2"}}, planks),
         "half_3": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [f"{NS}:{wood}_door_half_2", planks],
@@ -263,6 +276,8 @@ def write_atlas(path, jar):
         tiles.append((f"{wood} vanilla", atlas))
         tiles.append((f"{wood} 2x2", _build(atlas, COLS_WIDE, ROWS_2)))
         tiles.append((f"{wood} 2x3", _build(atlas, COLS_WIDE, ROWS_3)))
+        tiles.append((f"{wood} 1.5x2", _build(atlas, COLS_15, ROWS_2)))
+        tiles.append((f"{wood} 1.5x3", _build(atlas, COLS_15, ROWS_3)))
         tiles.append((f"{wood} half 2", _build(atlas, COLS_HALF, ROWS_2)))
         tiles.append((f"{wood} half 3", _build(atlas, COLS_HALF, ROWS_3)))
     s = 6
