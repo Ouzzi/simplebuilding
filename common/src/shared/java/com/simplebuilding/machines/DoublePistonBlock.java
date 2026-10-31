@@ -131,4 +131,12 @@ public class DoublePistonBlock extends DirectionalBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, DoublePistons.EXT);
     }
+
+    private com.mojang.serialization.MapCodec<DoublePistonBlock> codec;
+
+    // Nur 26.2 verlangt codec(); 26.3 kennt es nicht mehr (darum ohne @Override, wie EndRailBlock).
+    protected com.mojang.serialization.MapCodec<? extends DirectionalBlock> codec() {
+        if (codec == null) codec = com.simplebuilding.version.BlockCodecs.simple(p -> new DoublePistonBlock(variant, head, arm, p));
+        return codec;
+    }
 }

@@ -88,7 +88,7 @@ public class SignalDampenerBlock extends DiodeBlock {
         return InteractionResult.SUCCESS;
     }
 
-    @Override
+    // 26.3 hook; 26.2 has no such method (no @Override, compiles on both).
     protected boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
         Direction facing = state.getValue(FACING);
         return facing == direction || facing.getOpposite() == direction;
@@ -97,5 +97,13 @@ public class SignalDampenerBlock extends DiodeBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
         builder.add(FACING, STAGE, SIGNAL, POWERED);
+    }
+
+    private com.mojang.serialization.MapCodec<SignalDampenerBlock> codec;
+
+    // Nur 26.2 verlangt codec(); 26.3 kennt es nicht mehr (darum ohne @Override, wie EndRailBlock).
+    protected com.mojang.serialization.MapCodec<? extends DiodeBlock> codec() {
+        if (codec == null) codec = com.simplebuilding.version.BlockCodecs.simple(SignalDampenerBlock::new);
+        return codec;
     }
 }
