@@ -486,6 +486,8 @@ def check_signature(tag, handler, atype, short, selected, ann, problems):
                 return
             want_args, want_ret = [iargs[index]], iargs[index]
             ok = len(hargs) >= 1 and loose(hargs[0], want_args[0]) and loose(hret, want_ret)
+            # Mixin also accepts the invoked method's whole argument list as handler parameters
+            ok = ok or (len(hargs) >= len(iargs) and all(loose(h, w) for h, w in zip(hargs, iargs)) and loose(hret, want_ret))
         else:
             want_args, want_ret = recv + iargs, iret
             extra = 1 if kind == 1 else 0
