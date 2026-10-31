@@ -514,7 +514,7 @@ public final class TrialsTests {
                 var rot = new net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor(regs.lookupOrThrow(Registries.BLOCK).getOrThrow(tag), 0.89f);
                 var other = new net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor(regs.lookupOrThrow(Registries.BLOCK).getOrThrow(TagKey.<Block>create(Registries.BLOCK, Identifier.withDefaultNamespace("logs"))), 1.0f);
                 BlockPos at = h.absolutePos(BlockPos.ZERO);
-                var copper = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo(at, Blocks.OXIDIZED_CUT_COPPER.defaultBlockState(), null);
+                var copper = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo(at, net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("oxidized_cut_copper")).defaultBlockState(), null);
                 var log = new net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo(at, Blocks.OAK_LOG.defaultBlockState(), null);
                 var settings = new StructurePlaceSettings();
                 MobsConfig.weatheredDecayPercent = 100;
