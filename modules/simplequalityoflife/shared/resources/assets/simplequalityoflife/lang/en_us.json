@@ -215,7 +215,7 @@
   "simplequalityoflife.guide.page.98.title": "Leggings fix",
   "simplequalityoflife.guide.page.98": "The missing underside of the leggings legs is filled when the textures load, so legs are no longer open from below. Own implementation; switch leggingsFix.",
   "simplequalityoflife.guide.page.99.title": "Key binding page",
-  "simplequalityoflife.guide.page.99": "A page for all key bindings of Minecraft and every mod: a list with search and conflict marks, and a keyboard picture in 60, 75 or 100 percent.",
+  "simplequalityoflife.guide.page.99": "A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.",
   "simplequalityoflife.guide.page.100.title": "Settings",
   "simplequalityoflife.guide.page.100": "More settings are in the mod's config screen.",
   "quests.simplequalityoflife.start.title": "Welcome to Simple Quality of Life",

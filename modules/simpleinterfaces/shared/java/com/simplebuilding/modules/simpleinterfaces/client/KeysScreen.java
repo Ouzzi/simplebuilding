@@ -434,7 +434,7 @@ public final class KeysScreen extends Screen {
             boolean folded = id != null && collapsed.contains(id);
             fold = id == null ? null : Button.builder(Component.literal(folded ? "+" : "-"), b -> {
                 if (!collapsed.remove(id)) collapsed.add(id);
-                list.refill();
+                KeysScreen.this.list.refill();
             }).bounds(0, 0, 20, 20).tooltip(Tooltip.create(t(folded ? "unfold" : "fold"))).build();
             reset = id == null ? null : Button.builder(Component.translatable("controls.reset"), b -> resetAll(items)).bounds(0, 0, 50, 20)
                     .tooltip(Tooltip.create(t("reset_group"))).build();
