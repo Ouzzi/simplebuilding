@@ -518,18 +518,18 @@
       "source": "modules/simplehammers/shared/resources/data/simplehammers/recipe/enderite_sledgehammer_smithing.json",
       "ingredients": [
         "simplehammers:netherite_sledgehammer",
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template"
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simplehammers:netherite_sledgehammer"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -548,11 +548,11 @@
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {

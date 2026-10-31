@@ -193,6 +193,60 @@
       }
     },
     {
+      "id": "enderite",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/OresLoot.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_ingot_from_scrap.json"
+      ],
+      "en": {
+        "title": "Enderite",
+        "summary": "The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
+        "details": [
+          "On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.",
+          "Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.",
+          "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them."
+        ]
+      },
+      "de": {
+        "title": "Enderit",
+        "summary": "Die Stufe über Netherit (von SimpleLib hierher umgezogen, IG31-13). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
+        "details": [
+          "Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.",
+          "Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.",
+          "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie."
+        ]
+      }
+    },
+    {
+      "id": "sage_and_scrap",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/item/SageOrbItem.java",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/sage_ore_placed.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/dimensional_scrap_placed.json"
+      ],
+      "en": {
+        "title": "Sage Ore and Dimensional Scrap",
+        "summary": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
+        "details": [
+          "Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.",
+          "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding's pickaxe, Simple Hammers' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. No recipe yet.",
+          "Switches sageOre and dimensionalScrap (server config) stop new veins; existing blocks stay."
+        ]
+      },
+      "de": {
+        "title": "Weisheitserz und Dimensionsschrott",
+        "summary": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
+        "details": [
+          "Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.",
+          "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Noch kein Rezept.",
+          "Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java"
@@ -204,6 +258,7 @@
           "enabled (true): off stops new silver and lead veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
           "silverArrowUndeadBonus (3, range 0 to 6): extra damage of a silver arrow against undead, 0 = off.",
+          "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
         ]
       },
@@ -214,6 +269,7 @@
           "enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
           "silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus.",
+          "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -779,6 +835,239 @@
       }
     },
     {
+      "id": "simpleores:enderite_block",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_block.json",
+      "ingredients": [
+        "simpleores:enderite_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:enderite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:enderite_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_ingot.json",
+      "ingredients": [
+        "simpleores:enderite_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:enderite_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:enderite_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_ingot_from_nugget",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_ingot_from_nugget.json",
+      "ingredients": [
+        "simpleores:enderite_nugget"
+      ],
+      "pattern": [
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "simpleores:enderite_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:enderite_nugget",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_ingot_from_scrap",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_ingot_from_scrap.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:netherite_ingot",
+        "simpleores:enderite_scrap"
+      ],
+      "pattern": [
+        "SDS",
+        "DND",
+        "SDS"
+      ],
+      "key": {
+        "D": [
+          "minecraft:diamond"
+        ],
+        "N": [
+          "minecraft:netherite_ingot"
+        ],
+        "S": [
+          "simpleores:enderite_scrap"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_enderite",
+            "count": 16
+          },
+          {
+            "id": "minecraft:diamond",
+            "count": 4
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_nugget_from_ingot",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_nugget",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_nugget_from_ingot.json",
+      "ingredients": [
+        "simpleores:enderite_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:enderite_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:enderite_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_scrap_from_blasting_layered_raw_enderite",
+      "type": "minecraft:blasting",
+      "category": null,
+      "group": "enderite_scrap",
+      "result": {
+        "id": "simpleores:enderite_scrap",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+      "ingredients": [
+        "simpleores:layered_raw_enderite"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:layered_raw_enderite"
+        ]
+      },
+      "cookingtime": 288000,
+      "experience": 10.0,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_enderite",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enderite_upgrade_template",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:enderite_upgrade_template",
+        "count": 2
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_upgrade_template.json",
+      "ingredients": [
+        "minecraft:diamond",
+        "minecraft:end_stone",
+        "simpleores:enderite_upgrade_template"
+      ],
+      "pattern": [
+        "ATA",
+        "AEA",
+        "AAA"
+      ],
+      "key": {
+        "A": [
+          "minecraft:diamond"
+        ],
+        "E": [
+          "minecraft:end_stone"
+        ],
+        "T": [
+          "simpleores:enderite_upgrade_template"
+        ]
+      }
+    },
+    {
       "id": "simpleores:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -814,6 +1103,43 @@
           {
             "id": "minecraft:raw_gold",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:layered_raw_enderite",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleores:layered_raw_enderite",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/layered_raw_enderite.json",
+      "ingredients": [
+        "simpleores:raw_enderite"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:raw_enderite"
+        ],
+        [
+          "simpleores:raw_enderite"
+        ],
+        [
+          "simpleores:raw_enderite"
+        ],
+        [
+          "simpleores:raw_enderite"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:raw_enderite",
+            "count": 4
           }
         ]
       }
@@ -2343,6 +2669,23 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_lead_ore.json"
     },
     {
+      "id": "simpleores:blocks/deepslate_sage_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:deepslate_sage_ore",
+            "simpleores:sage_orb"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_sage_ore.json"
+    },
+    {
       "id": "simpleores:blocks/deepslate_silver_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2360,6 +2703,38 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/deepslate_silver_ore.json"
     },
     {
+      "id": "simpleores:blocks/dimensional_scrap",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:dimensional_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/dimensional_scrap.json"
+    },
+    {
+      "id": "simpleores:blocks/end_dimensional_scrap",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:end_dimensional_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/end_dimensional_scrap.json"
+    },
+    {
       "id": "simpleores:blocks/end_silver_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2375,6 +2750,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/end_silver_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/enderite_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:enderite_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/enderite_block.json"
     },
     {
       "id": "simpleores:blocks/lead_block",
@@ -2410,6 +2803,22 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/nether_dimensional_scrap",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:nether_dimensional_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/nether_dimensional_scrap.json"
     },
     {
       "id": "simpleores:blocks/raw_lead_block",
@@ -2464,6 +2873,23 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_block.json"
+    },
+    {
+      "id": "simpleores:blocks/sage_ore",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:sage_ore",
+            "simpleores:sage_orb"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/sage_ore.json"
     },
     {
       "id": "simpleores:blocks/silver_block",
@@ -2530,6 +2956,21 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/tags/block/soundproofing.json"
+    },
+    {
+      "id": "simpleores:item/breaks_dimensional_scrap",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:enderite_pickaxe",
+          "required": false
+        },
+        {
+          "id": "simplehammers:enderite_sledgehammer",
+          "required": false
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/tags/item/breaks_dimensional_scrap.json"
     },
     {
       "id": "simpleores:item/repairs_blossom_gold_equipment",
@@ -2849,6 +3290,109 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:enderite_ingot",
+      "name": {
+        "en_us": "Enderite Ingot",
+        "de_de": "Enderitbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "The tier above netherite: the material of every Enderite variant of the Simple mods (they appear only with Simple Ores). Nine make a block."
+        },
+        "de": {
+          "summary": "Die Stufe über Netherit: das Material jeder Enderit-Variante der Simple-Mods (sie erscheinen nur mit Simple Ores). Neun ergeben einen Block."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/enderite_ingot.png",
+      "craftedBy": [
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_ingot_from_nugget",
+        "simpleores:enderite_ingot_from_scrap"
+      ],
+      "usedIn": [
+        "simpleores:enderite_block",
+        "simpleores:enderite_nugget_from_ingot"
+      ]
+    },
+    {
+      "id": "simpleores:enderite_nugget",
+      "name": {
+        "en_us": "Enderite Nugget",
+        "de_de": "Enderitklumpen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine make an Enderite ingot; an ingot gives nine. Found in End city treasure."
+        },
+        "de": {
+          "summary": "Neun ergeben einen Enderitbarren; ein Barren gibt neun. In Endstadt-Truhen zu finden."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/enderite_nugget.png",
+      "craftedBy": [
+        "simpleores:enderite_nugget_from_ingot"
+      ],
+      "usedIn": [
+        "simpleores:enderite_ingot_from_nugget"
+      ]
+    },
+    {
+      "id": "simpleores:enderite_scrap",
+      "name": {
+        "en_us": "Enderite Scrap",
+        "de_de": "Enderitplatten"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Four scrap, four diamonds and a netherite ingot make an Enderite ingot. Also found in End city treasure (15 %)."
+        },
+        "de": {
+          "summary": "Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Auch in Endstadt-Truhen (15 %)."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/enderite_scrap.png",
+      "craftedBy": [
+        "simpleores:enderite_scrap_from_blasting_layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simpleores:enderite_ingot_from_scrap"
+      ]
+    },
+    {
+      "id": "simpleores:enderite_upgrade_template",
+      "name": {
+        "en_us": "Enderite Upgrade",
+        "de_de": "Enderit-Aufwertung"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Smithing template of the Netherite to Enderite upgrades. Found in End city treasure (30 %); 7 diamonds and an End stone copy it (2)."
+        },
+        "de": {
+          "summary": "Schmiedevorlage der Aufwertungen von Netherit zu Enderit. In Endstadt-Truhen (30 %); 7 Diamanten und ein Endstein kopieren sie (2)."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/enderite_upgrade_template.png",
+      "craftedBy": [
+        "simpleores:enderite_upgrade_template"
+      ],
+      "usedIn": [
+        "simpleores:enderite_upgrade_template"
+      ]
+    },
+    {
       "id": "simpleores:guide_book",
       "name": {
         "en_us": "Simple Ores Guide",
@@ -2860,10 +3404,10 @@
           "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
@@ -2871,6 +3415,31 @@
         "simpleores:guide_book"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleores:layered_raw_enderite",
+      "name": {
+        "en_us": "Raw Enderite Scrap",
+        "de_de": "Rohe Enderitplatten"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Four raw Enderite fragments pressed together. Only a blast furnace melts it into Enderite scrap (2 h in a Vanilla blast furnace)."
+        },
+        "de": {
+          "summary": "Vier rohe Enderitfragmente, zusammengepresst. Nur der Hochofen schmilzt sie zu Enderitplatten (2 h im Vanilla-Hochofen)."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/layered_raw_enderite.png",
+      "craftedBy": [
+        "simpleores:layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simpleores:enderite_scrap_from_blasting_layered_raw_enderite"
+      ]
     },
     {
       "id": "simpleores:lead_ingot",
@@ -2928,6 +3497,29 @@
       ],
       "usedIn": [
         "simpleores:lead_ingot_from_nuggets"
+      ]
+    },
+    {
+      "id": "simpleores:raw_enderite",
+      "name": {
+        "en_us": "Raw Enderite Fragment",
+        "de_de": "Rohes Enderitfragment"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A fragment of Enderite from End city treasure (or SimpleBuilding's synthesis). Four make a raw Enderite scrap."
+        },
+        "de": {
+          "summary": "Ein Bruchstück Enderit aus Endstadt-Truhen (oder der Synthese von SimpleBuilding). Vier ergeben rohe Enderitplatten."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/raw_enderite.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleores:layered_raw_enderite"
       ]
     },
     {
@@ -3254,6 +3846,27 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:sage_orb",
+      "name": {
+        "en_us": "Sage Orb",
+        "de_de": "Weisheitskugel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rare drop of sage ore. Right-click charges it for 0.3 seconds, then it gives 50 to 100 experience and is used up."
+        },
+        "de": {
+          "summary": "Seltener Drop des Weisheitserzes. Rechtsklick lädt sie 0,3 Sekunden, dann gibt sie 50 bis 100 Erfahrung und ist verbraucht."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/sage_orb.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:silver_arrow",
       "name": {
         "en_us": "Silver Arrow",
@@ -3395,6 +4008,27 @@
       ]
     },
     {
+      "id": "simpleores:deepslate_sage_ore",
+      "name": {
+        "en_us": "Deepslate Sage Ore",
+        "de_de": "Tiefenschiefer-Weisheitserz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "The deepslate twin of the sage ore. Needs an iron pickaxe. Drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune); Silk Touch keeps the ore."
+        },
+        "de": {
+          "summary": "Der Tiefenschiefer-Zwilling des Weisheitserzes. Braucht eine Eisenspitzhacke. Lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %); Behutsamkeit behält das Erz."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/deepslate_sage_ore.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:deepslate_silver_ore",
       "name": {
         "en_us": "Deepslate Silver Ore",
@@ -3419,6 +4053,46 @@
       ]
     },
     {
+      "id": "simpleores:dimensional_scrap",
+      "name": {
+        "en_us": "Dimensional Scrap",
+        "de_de": "Dimensionsschrott"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Found deep in the deepslate of the Overworld, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+        },
+        "de": {
+          "summary": "Zu finden tief im Tiefenschiefer der Oberwelt, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:end_dimensional_scrap",
+      "name": {
+        "en_us": "End Dimensional Scrap",
+        "de_de": "End-Dimensionsschrott"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Found inside the End islands, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+        },
+        "de": {
+          "summary": "Zu finden im Inneren der End-Inseln, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:end_silver_ore",
       "name": {
         "en_us": "End Silver Ore",
@@ -3440,6 +4114,31 @@
       "usedIn": [
         "simpleores:silver_ingot_from_blasting_end_silver_ore",
         "simpleores:silver_ingot_from_smelting_end_silver_ore"
+      ]
+    },
+    {
+      "id": "simpleores:enderite_block",
+      "name": {
+        "en_us": "Block of Enderite",
+        "de_de": "Enderitblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Nine Enderite ingots; craftable both ways. Needs a diamond pickaxe, a beacon base block."
+        },
+        "de": {
+          "summary": "Neun Enderitbarren; in beide Richtungen herstellbar. Braucht eine Diamantspitzhacke, Leuchtfeuer-Sockelblock."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/enderite_block.png",
+      "craftedBy": [
+        "simpleores:enderite_block"
+      ],
+      "usedIn": [
+        "simpleores:enderite_ingot"
       ]
     },
     {
@@ -3490,6 +4189,26 @@
         "simpleores:lead_ingot_from_blasting_lead_ore",
         "simpleores:lead_ingot_from_smelting_lead_ore"
       ]
+    },
+    {
+      "id": "simpleores:nether_dimensional_scrap",
+      "name": {
+        "en_us": "Nether Dimensional Scrap",
+        "de_de": "Nether-Dimensionsschrott"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Found in the Nether like ancient debris, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+        },
+        "de": {
+          "summary": "Zu finden im Nether wie Antiker Schrott, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simpleores:raw_lead_block",
@@ -3565,6 +4284,27 @@
       "usedIn": [
         "simpleores:rose_bronze_ingot_from_rose_bronze_block"
       ]
+    },
+    {
+      "id": "simpleores:sage_ore",
+      "name": {
+        "en_us": "Sage Ore",
+        "de_de": "Weisheitserz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Generates in the Overworld as rarely as diamond ore (7 tries per chunk, veins of 4). Needs an iron pickaxe. Drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune); Silk Touch keeps the ore."
+        },
+        "de": {
+          "summary": "Entsteht in der Oberwelt so selten wie Diamanterz (7 Versuche je Chunk, Adern zu 4). Braucht eine Eisenspitzhacke. Lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %); Behutsamkeit behält das Erz."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/sage_ore.png",
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simpleores:silver_block",
@@ -3653,14 +4393,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
-    "recipes": 58,
-    "lootTables": 12,
-    "tags": 4,
+    "features": 10,
+    "recipes": 66,
+    "lootTables": 18,
+    "tags": 5,
     "advancements": 0,
     "enchantments": 0,
-    "items": 30,
-    "blocks": 12,
+    "items": 37,
+    "blocks": 18,
     "trades": 0,
     "config": 0,
     "quests": 0,

@@ -676,12 +676,12 @@
       "ingredients": [
         "simplebeacons:strong_beacon",
         "simplebeacons:strong_upgrade_template",
-        "simplebuilding:copper_core",
-        "simplebuilding:diamond_core",
-        "simplebuilding:enderite_core",
-        "simplebuilding:gold_core",
-        "simplebuilding:iron_core",
-        "simplebuilding:netherite_core"
+        "simplelib:copper_core",
+        "simplelib:diamond_core",
+        "simplelib:enderite_core",
+        "simplelib:gold_core",
+        "simplelib:iron_core",
+        "simplelib:netherite_core"
       ],
       "pattern": [
         "cig",
@@ -690,22 +690,22 @@
       ],
       "key": {
         "c": [
-          "simplebuilding:copper_core"
+          "simplelib:copper_core"
         ],
         "i": [
-          "simplebuilding:iron_core"
+          "simplelib:iron_core"
         ],
         "g": [
-          "simplebuilding:gold_core"
+          "simplelib:gold_core"
         ],
         "d": [
-          "simplebuilding:diamond_core"
+          "simplelib:diamond_core"
         ],
         "n": [
-          "simplebuilding:netherite_core"
+          "simplelib:netherite_core"
         ],
         "e": [
-          "simplebuilding:enderite_core"
+          "simplelib:enderite_core"
         ],
         "B": [
           "simplebeacons:strong_beacon"
@@ -742,27 +742,27 @@
             "count": 1
           },
           {
-            "id": "simplebuilding:copper_core",
+            "id": "simplelib:copper_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:diamond_core",
+            "id": "simplelib:diamond_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:enderite_core",
+            "id": "simplelib:enderite_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:gold_core",
+            "id": "simplelib:gold_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:iron_core",
+            "id": "simplelib:iron_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:netherite_core",
+            "id": "simplelib:netherite_core",
             "count": 1
           }
         ]
@@ -882,12 +882,12 @@
       "ingredients": [
         "simplebeacons:strong_conduit",
         "simplebeacons:strong_upgrade_template",
-        "simplebuilding:copper_core",
-        "simplebuilding:diamond_core",
-        "simplebuilding:enderite_core",
-        "simplebuilding:gold_core",
-        "simplebuilding:iron_core",
-        "simplebuilding:netherite_core"
+        "simplelib:copper_core",
+        "simplelib:diamond_core",
+        "simplelib:enderite_core",
+        "simplelib:gold_core",
+        "simplelib:iron_core",
+        "simplelib:netherite_core"
       ],
       "pattern": [
         "cig",
@@ -902,22 +902,22 @@
           "simplebeacons:strong_upgrade_template"
         ],
         "c": [
-          "simplebuilding:copper_core"
+          "simplelib:copper_core"
         ],
         "i": [
-          "simplebuilding:iron_core"
+          "simplelib:iron_core"
         ],
         "g": [
-          "simplebuilding:gold_core"
+          "simplelib:gold_core"
         ],
         "d": [
-          "simplebuilding:diamond_core"
+          "simplelib:diamond_core"
         ],
         "n": [
-          "simplebuilding:netherite_core"
+          "simplelib:netherite_core"
         ],
         "e": [
-          "simplebuilding:enderite_core"
+          "simplelib:enderite_core"
         ]
       },
       "baseMaterials": {
@@ -944,27 +944,27 @@
             "count": 1
           },
           {
-            "id": "simplebuilding:copper_core",
+            "id": "simplelib:copper_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:diamond_core",
+            "id": "simplelib:diamond_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:enderite_core",
+            "id": "simplelib:enderite_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:gold_core",
+            "id": "simplelib:gold_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:iron_core",
+            "id": "simplelib:iron_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:netherite_core",
+            "id": "simplelib:netherite_core",
             "count": 1
           }
         ]
@@ -1080,12 +1080,12 @@
       "ingredients": [
         "simplebeacons:evil_beacon",
         "simplebeacons:strong_upgrade_template",
-        "simplebuilding:copper_core",
-        "simplebuilding:diamond_core",
-        "simplebuilding:enderite_core",
-        "simplebuilding:gold_core",
-        "simplebuilding:iron_core",
-        "simplebuilding:netherite_core"
+        "simplelib:copper_core",
+        "simplelib:diamond_core",
+        "simplelib:enderite_core",
+        "simplelib:gold_core",
+        "simplelib:iron_core",
+        "simplelib:netherite_core"
       ],
       "pattern": [
         "cig",
@@ -1094,22 +1094,22 @@
       ],
       "key": {
         "c": [
-          "simplebuilding:copper_core"
+          "simplelib:copper_core"
         ],
         "i": [
-          "simplebuilding:iron_core"
+          "simplelib:iron_core"
         ],
         "g": [
-          "simplebuilding:gold_core"
+          "simplelib:gold_core"
         ],
         "d": [
-          "simplebuilding:diamond_core"
+          "simplelib:diamond_core"
         ],
         "n": [
-          "simplebuilding:netherite_core"
+          "simplelib:netherite_core"
         ],
         "e": [
-          "simplebuilding:enderite_core"
+          "simplelib:enderite_core"
         ],
         "B": [
           "simplebeacons:evil_beacon"
@@ -1150,27 +1150,27 @@
             "count": 1
           },
           {
-            "id": "simplebuilding:copper_core",
+            "id": "simplelib:copper_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:diamond_core",
+            "id": "simplelib:diamond_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:enderite_core",
+            "id": "simplelib:enderite_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:gold_core",
+            "id": "simplelib:gold_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:iron_core",
+            "id": "simplelib:iron_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:netherite_core",
+            "id": "simplelib:netherite_core",
             "count": 1
           }
         ]
@@ -1294,12 +1294,12 @@
       "ingredients": [
         "simplebeacons:evil_conduit",
         "simplebeacons:strong_upgrade_template",
-        "simplebuilding:copper_core",
-        "simplebuilding:diamond_core",
-        "simplebuilding:enderite_core",
-        "simplebuilding:gold_core",
-        "simplebuilding:iron_core",
-        "simplebuilding:netherite_core"
+        "simplelib:copper_core",
+        "simplelib:diamond_core",
+        "simplelib:enderite_core",
+        "simplelib:gold_core",
+        "simplelib:iron_core",
+        "simplelib:netherite_core"
       ],
       "pattern": [
         "cig",
@@ -1314,22 +1314,22 @@
           "simplebeacons:strong_upgrade_template"
         ],
         "c": [
-          "simplebuilding:copper_core"
+          "simplelib:copper_core"
         ],
         "i": [
-          "simplebuilding:iron_core"
+          "simplelib:iron_core"
         ],
         "g": [
-          "simplebuilding:gold_core"
+          "simplelib:gold_core"
         ],
         "d": [
-          "simplebuilding:diamond_core"
+          "simplelib:diamond_core"
         ],
         "n": [
-          "simplebuilding:netherite_core"
+          "simplelib:netherite_core"
         ],
         "e": [
-          "simplebuilding:enderite_core"
+          "simplelib:enderite_core"
         ]
       },
       "baseMaterials": {
@@ -1360,27 +1360,27 @@
             "count": 1
           },
           {
-            "id": "simplebuilding:copper_core",
+            "id": "simplelib:copper_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:diamond_core",
+            "id": "simplelib:diamond_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:enderite_core",
+            "id": "simplelib:enderite_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:gold_core",
+            "id": "simplelib:gold_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:iron_core",
+            "id": "simplelib:iron_core",
             "count": 1
           },
           {
-            "id": "simplebuilding:netherite_core",
+            "id": "simplelib:netherite_core",
             "count": 1
           }
         ]

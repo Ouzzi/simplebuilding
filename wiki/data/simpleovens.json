@@ -322,19 +322,19 @@
       },
       "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_furnace_minecart_smithing.json",
       "ingredients": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template",
         "simpleovens:netherite_furnace_minecart"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simpleovens:netherite_furnace_minecart"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -345,11 +345,11 @@
             "count": 5
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {

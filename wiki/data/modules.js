@@ -21,7 +21,8 @@ window.WIKI_MODULES = [
       "simplehammers",
       "simplestorage",
       "simplelights",
-      "simplegadgets"
+      "simplegadgets",
+      "simpleores"
     ],
     "optional": [
       "jei",
@@ -48,7 +49,6 @@ window.WIKI_MODULES = [
       "simpleshops",
       "simplewanderers",
       "simpleanimals",
-      "simpleores",
       "simplemusic",
       "simpleearth",
       "simplechallenges",
@@ -148,7 +148,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 74
     },
-    "dataHash": "c85803633ec9"
+    "dataHash": "c9d105f835a4"
   },
   {
     "id": "simpleriding",
@@ -523,7 +523,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplelib",
     "displayName": "SimpleLib",
-    "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
+    "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.",
     "version": "0.3.0",
     "minecraft": "26.3",
     "loaders": [
@@ -548,11 +548,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3klEQVR42mMIC3D4TwlmABHP7x4hGd84sQDVgLsX1v5/++wKmMaG3VUawBjEBmmeM6EY0wBcmkD444v//5fWvvwvw2UMtginAciaQBpAuC/5DgoGGYJiAC5NXy79x9BcHXgSjEGGgA0AaTq/6TdWm0D4eO1/FI0gtSBsp1gMNgRsQK7rDrAgNptgGmA41GAWGGMYADMEXSNMA8g7MI0wDDYARMAMgBmCrBHkBWRNMI3wMAARyIYgOxGbJhDGmg5ghuDThIyxpgNkDdg04TUAlLrwacBrAEyAVAw3gBIMAI2ehfZwc0OFAAAAAElFTkSuQmCC",
     "counts": {
       "items": 10,
-      "blocks": 7,
-      "recipes": 29,
+      "blocks": 6,
+      "recipes": 21,
       "features": 6
     },
-    "dataHash": "5ecc7ae0c097"
+    "dataHash": "2a335816ed87"
   },
   {
     "id": "simpleinterfaces",
@@ -621,7 +621,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 10
     },
-    "dataHash": "c4928359afdc"
+    "dataHash": "a1d02e0c30ff"
   },
   {
     "id": "simpletrims",
@@ -1086,7 +1086,7 @@ window.WIKI_MODULES = [
       "recipes": 17,
       "features": 16
     },
-    "dataHash": "30dbd3ee5c73"
+    "dataHash": "27ad0a75216b"
   },
   {
     "id": "simpleovens",
@@ -1122,7 +1122,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 8
     },
-    "dataHash": "69251a059453"
+    "dataHash": "f9fe788ebd3e"
   },
   {
     "id": "simplemobheads",
@@ -1350,7 +1350,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "a6bef53da80a"
+    "dataHash": "2800848cd3ad"
   },
   {
     "id": "simpleoctets",
@@ -1427,7 +1427,7 @@ window.WIKI_MODULES = [
       "recipes": 13,
       "features": 13
     },
-    "dataHash": "abdafff91f57"
+    "dataHash": "45aade739eb9"
   },
   {
     "id": "simpleoptimization",
@@ -1569,7 +1569,7 @@ window.WIKI_MODULES = [
       "recipes": 184,
       "features": 15
     },
-    "dataHash": "6fd1fe157c5c"
+    "dataHash": "0116f9316fff"
   },
   {
     "id": "simplemusic",
@@ -1668,7 +1668,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 5
     },
-    "dataHash": "d26471cf9f80"
+    "dataHash": "56dc0d996e3f"
   },
   {
     "id": "simpleearth",
@@ -1798,7 +1798,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleores",
     "displayName": "Simple Ores",
-    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla.",
+    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1806,7 +1806,9 @@ window.WIKI_MODULES = [
       "neoforge",
       "forge"
     ],
-    "requires": [],
+    "requires": [
+      "simplelib"
+    ],
     "optional": [
       "simplebuilding",
       "simplehammers"
@@ -1823,12 +1825,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 30,
-      "blocks": 12,
-      "recipes": 58,
-      "features": 8
+      "items": 37,
+      "blocks": 18,
+      "recipes": 66,
+      "features": 10
     },
-    "dataHash": "51b0f9f14340"
+    "dataHash": "81ba111b42f9"
   },
   {
     "id": "simpleresonance",

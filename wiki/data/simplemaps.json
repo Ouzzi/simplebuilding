@@ -338,7 +338,7 @@
         "minecraft:echo_shard",
         "minecraft:gold_ingot",
         "minecraft:map",
-        "simplelib:enderite_scrap"
+        "simpleores:enderite_scrap"
       ],
       "ingredientGroups": [
         [
@@ -366,7 +366,7 @@
           "minecraft:echo_shard"
         ],
         [
-          "simplelib:enderite_scrap"
+          "simpleores:enderite_scrap"
         ]
       ],
       "baseMaterials": {
@@ -393,7 +393,7 @@
             "count": 2
           },
           {
-            "id": "simplelib:enderite_scrap",
+            "id": "simpleores:enderite_scrap",
             "count": 1
           }
         ]
@@ -536,10 +536,10 @@
       "source": "modules/simplemaps/shared/resources/data/simplemaps/recipe/mega_wayfinder_map.json",
       "ingredients": [
         "minecraft:echo_shard",
-        "simplelib:enderite_nugget",
         "simplemaps:end_wayfinder_map",
         "simplemaps:nether_wayfinder_map",
-        "simplemaps:wayfinder_map"
+        "simplemaps:wayfinder_map",
+        "simpleores:enderite_nugget"
       ],
       "pattern": [
         "TTT",
@@ -548,7 +548,7 @@
       ],
       "key": {
         "T": [
-          "simplelib:enderite_nugget"
+          "simpleores:enderite_nugget"
         ],
         "E": [
           "simplemaps:end_wayfinder_map"
@@ -587,7 +587,7 @@
             "count": 6
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simpleores:enderite_nugget",
             "count": 3
           },
           {
@@ -595,7 +595,7 @@
             "count": 1
           },
           {
-            "id": "simplelib:enderite_scrap",
+            "id": "simpleores:enderite_scrap",
             "count": 1
           }
         ]
@@ -676,7 +676,7 @@
             "count": 1
           },
           {
-            "id": "simplelib:enderite_scrap",
+            "id": "simpleores:enderite_scrap",
             "count": 1
           }
         ]

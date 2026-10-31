@@ -12,7 +12,7 @@ import generate as g
 
 # '*_sledgehammer' lives in Simple Hammers' manual since stage 7 (modules/simplehammers/wiki/manual.json).
 # '*backpack' moved to Simple Storage's manual (split stage 8c-2).
-FAMILIES = ['*_chisel', '*_building_wand', '*_core',
+FAMILIES = ['*_chisel', '*_building_wand',  # IG31-13: '*_core' moved to SimpleLib's wiki
             '*elytra_pad', '*flypad', '*spawn_teleporter*', '*chunk_loader', '*launchpad',
             '*potion_pad', '*copper_pressure_plate', '*_quartz_checker', 'chiseled_*_bricks',
             'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',

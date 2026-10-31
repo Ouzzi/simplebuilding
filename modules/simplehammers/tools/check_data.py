@@ -51,7 +51,8 @@ for name, folder in recipes_java.items():
     adv = DATA / f'advancement/recipes/{folder}/{name}.json'
     assert adv.is_file(), ('recipe advancement', name)
     sb_type = recipes[name]['type'].startswith('simplebuilding:')
-    assert sb_type == ('fabric:load_conditions' in recipes[name]), ('SimpleBuilding recipe type needs its condition', name)
+    # IG31-13: the Enderite tier needs Simple Ores (it owns the ingot and the template): conditional as well.
+    assert (sb_type or name.startswith('enderite_')) == ('fabric:load_conditions' in recipes[name]), ('SimpleBuilding recipe type / Enderite needs its condition', name)
 for e in ENCHANTMENTS:
     ench = json.loads((DATA / f'enchantment/{e}.json').read_text(encoding='utf-8'))
     assert ench['description'] == {'translate': f'enchantment.{NS}.{e}'}, e
