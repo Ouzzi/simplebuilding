@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simpleinterfaces.client;
 
 import com.google.gson.Gson;
+import com.simplebuilding.framework.api.ConfigFiles;
 import com.google.gson.GsonBuilder;
 import com.simplebuilding.modules.simpleinterfaces.ContainersConfig;
 import java.io.IOException;
@@ -26,14 +27,17 @@ public final class ContainersClient {
 
     public static void load() {
         loaded = true;
+        ContainersConfig c = null;
         try {
+            // a broken file is moved aside (not overwritten by the next save); too big = ignored
             if (Files.isRegularFile(path()) && Files.size(path()) <= 65536) {
-                ContainersConfig c = new Gson().fromJson(Files.readString(path()), ContainersConfig.class);
-                if (c != null) CONFIG = c;
+                c = ConfigFiles.readOrQuarantine(path(), text -> new Gson().fromJson(text, ContainersConfig.class),
+                        message -> org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn(message));
             }
-        } catch (IOException | RuntimeException ignored) {
-            CONFIG = new ContainersConfig();
+        } catch (IOException ignored) {
+            // unreadable: defaults
         }
+        CONFIG = c != null ? c : new ContainersConfig();
         CONFIG.normalize();
     }
 
@@ -41,7 +45,7 @@ public final class ContainersClient {
         CONFIG.normalize();
         try {
             Files.createDirectories(path().getParent());
-            Files.writeString(path(), new GsonBuilder().setPrettyPrinting().create().toJson(CONFIG));
+            ConfigFiles.writeAtomic(path(), new GsonBuilder().setPrettyPrinting().create().toJson(CONFIG));
         } catch (IOException e) {
             org.slf4j.LoggerFactory.getLogger("simpleinterfaces").warn("Cannot save local container settings", e);
         }

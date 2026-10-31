@@ -85,7 +85,11 @@ public final class PortableContainers {
             if (player.containerMenu != player.inventoryMenu) player.closeContainer();
             ender.setActiveChest(null);
             player.openMenu(new SimpleMenuProvider((id, inventory, p) -> new PortableMenu(MenuType.GENERIC_9x3, id, inventory, ender, 3, slot, stack,
-                    () -> sound(player, false, true)), Component.translatable("container.enderchest")));
+                    () -> {
+                        sound(player, false, true);
+                        // the menu never calls ender.stopOpen: refresh the ender chest tooltip snapshot here (INT-P2-1)
+                        com.simplebuilding.modules.simpleinterfaces.tooltip.ContainerTooltips.send(player);
+                    }), Component.translatable("container.enderchest")));
             sound(player, true, true);
             return true;
         }

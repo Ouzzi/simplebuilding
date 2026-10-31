@@ -8,6 +8,6 @@ public record CataloguePayload(String json) implements CustomPacketPayload {
     public static final StreamCodec<RegistryFriendlyByteBuf, CataloguePayload> CODEC = StreamCodec.of(
             (buf, p) -> buf.writeUtf(p.json, ModelCatalogue.MAX_SNAPSHOT_CHARS),
             buf -> new CataloguePayload(buf.readUtf(ModelCatalogue.MAX_SNAPSHOT_CHARS)));
-    public static CataloguePayload current() { return new CataloguePayload(ModelCatalogue.GSON.toJson(Models.server)); }
+    public static CataloguePayload current() { return new CataloguePayload(new com.google.gson.Gson().toJson(Models.server)) /* compact: the sync limit counts pretty-print indentation otherwise */; }
     public Type<? extends CustomPacketPayload> type() { return ID; }
 }

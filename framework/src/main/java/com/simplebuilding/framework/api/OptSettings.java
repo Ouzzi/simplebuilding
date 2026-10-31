@@ -34,7 +34,7 @@ public final class OptSettings {
         if (path != null) {
             try {
                 Files.createDirectories(dir);
-                Files.writeString(path, GSON.toJson(settings.root));
+                ConfigFiles.writeAtomic(path, GSON.toJson(settings.root));
             } catch (Exception e) {
                 warn.accept("Could not write " + file + ": " + e);
             }

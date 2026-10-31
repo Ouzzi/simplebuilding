@@ -20,7 +20,7 @@ public final class ToolsLoot {
     private ToolsLoot() {}
 
     public static void apply(ResourceKey<LootTable> key, Consumer<LootPool.Builder> add, HolderGetter.Provider registries) {
-        if (!END_CITY.equals(key.identifier().toString()) || !SimpleTools.config().enableSoulbound) return;
+        if (!END_CITY.equals(key.identifier().toString()) || !Soulbound.active()) return;
         double chance = SimpleTools.config().soulboundEndCityChance;
         if (chance <= 0) return;
         var soulbound = registries.lookupOrThrow(Registries.ENCHANTMENT).get(Soulbound.KEY);

@@ -23,5 +23,5 @@
   "command.simplemovement.speed": "Klettertempo gespeichert: %s",
   "key.simplemovement.autowalk": "Automatisch Gehen",
   "key.simplemovement.crawl": "Krabbeln",
-  "key.category.simplemovement.general": "Simple Quality of Life"
+  "key.category.simplemovement.general": "Simple Movement"
 }
