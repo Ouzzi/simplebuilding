@@ -8,3 +8,5 @@ dependencies { include project(':framework') }
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
 // Furnace minecart item textures are Vanilla-derived (built, never committed).
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
+// Sub-mod Simple Foundry (ABN30-13): nested (optional bundle), switched by "enableSimpleFoundry" in simpleovens-server.json.
+dependencies { include project(':modules:simplefoundry:fabric') }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:brick",
+    "S": "minecraft:smooth_stone",
+    "C": "#minecraft:coals"
+  },
+  "pattern": [
+    "BSB",
+    "SCS",
+    "BSB"
+  ],
+  "result": {
+    "id": "simplefoundry:foundry_brick",
+    "count": 4
+  }
+}

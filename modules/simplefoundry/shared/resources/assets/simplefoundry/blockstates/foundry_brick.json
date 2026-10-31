@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplefoundry:block/foundry_brick"
+    }
+  }
+}

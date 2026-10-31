@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplefoundry:casting_tray"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "simplefoundry:blocks/casting_tray"
+}

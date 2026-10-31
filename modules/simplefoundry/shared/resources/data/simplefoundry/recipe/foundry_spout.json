@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplefoundry:foundry_brick",
+    "U": "minecraft:bucket",
+    "H": "minecraft:hopper"
+  },
+  "pattern": [
+    "BBB",
+    " U ",
+    " H "
+  ],
+  "result": {
+    "id": "simplefoundry:foundry_spout",
+    "count": 2
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplefoundry:foundry_brick",
+    "F": "minecraft:blast_furnace",
+    "U": "minecraft:bucket"
+  },
+  "pattern": [
+    "BBB",
+    " F ",
+    "BUB"
+  ],
+  "result": {
+    "id": "simplefoundry:fire_grate"
+  }
+}

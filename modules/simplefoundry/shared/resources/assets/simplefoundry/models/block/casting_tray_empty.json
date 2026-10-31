@@ -1,0 +1,7 @@
+{
+  "parent": "simplefoundry:block/casting_tray_base",
+  "textures": {
+    "top": "simplefoundry:block/casting_tray_empty",
+    "side": "simplefoundry:block/casting_tray_side"
+  }
+}
