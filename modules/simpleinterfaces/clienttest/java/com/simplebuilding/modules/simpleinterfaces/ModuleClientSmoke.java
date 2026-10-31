@@ -256,7 +256,9 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             if (r == null) throw new AssertionError("key page: " + name + " not shown");
             var event = new net.minecraft.client.input.MouseButtonEvent(r[0] + r[2] / 2.0, r[1] + r[3] / 2.0, new net.minecraft.client.input.MouseButtonInfo(0, 0));
             var child = screen.getChildAt(event.x(), event.y()).map(w -> w.getClass().getName() + (w instanceof net.minecraft.client.gui.components.AbstractWidget aw ? " '" + aw.getMessage().getString() + "' active " + aw.active : "")).orElse("none");
+            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys click {} on {}", name, screen.children().size());
             boolean handled = screen.mouseClicked(event, false);
+            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys clicked {} -> {}", name, handled);
             screen.mouseReleased(event);
             return name + " at " + event.x() + "/" + event.y() + " child " + child + " handled " + handled + ", view now " + screen.probeValues().get("view")
                     + ", current screen " + c.gui.screen().getClass().getSimpleName() + (c.gui.screen() == screen ? " (same)" : " (other)");

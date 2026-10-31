@@ -228,7 +228,10 @@ public final class KeysScreen extends Screen {
         for (int i = 0; i < views.length; i++) {
             View v = views[i];
             String id = v.name().toLowerCase(java.util.Locale.ROOT);
-            Button tab = addRenderableWidget(Button.builder(t("tab." + id), b -> switchView(v))
+            Button tab = addRenderableWidget(Button.builder(t("tab." + id), b -> {
+                org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys tab pressed {}", v);
+                switchView(v);
+            })
                     .bounds(cx - (3 * tabW + 8) / 2 + i * (tabW + 4), 20, tabW, 20).build());
             tab.active = view != v;
             probe.put("tab_" + id, tab);
