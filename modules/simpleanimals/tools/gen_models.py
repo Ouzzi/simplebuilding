@@ -197,7 +197,7 @@ def deer_spec(coat, belly, dark, antler, spot=None, dapple=None, name='deer'):
     antler_p = solid(antler, 0.06, 14)
     return dict(name=name, w=64, parts=[
         P('body', [B((-3.5, -9, -7.5), (7, 9, 15), body_c, share='body')], pose=(0, 13, 0)),
-        P('tail', [B((-1, 0, -0.5), (2, 3, 1), fur(belly, None, 1, 0.04, 15), share='tail')], pose=(0, 5, 7), rot=(0.9, 0, 0), parent='body'),
+        P('tail', [B((-1, 0, -0.5), (2, 3, 1), fur(belly, None, 1, 0.04, 15), share='tail')], pose=(0, -8, 7.5), rot=(0.9, 0, 0), parent='body'),
         P('neck', [B((-1.5, -9, -1.5), (3, 9, 3), fur(coat, belly, 0.8, 0.05, 16), share='neck')], pose=(0, 7, -6.5), rot=(0.55, 0, 0)),
         P('head', [B((-2, -2.5, -7), (4, 4, 7), head_p, share='head')], pose=(0, 0.5, -11)),
         P('ear_right', [B((-0.5, -3, -1), (1, 3, 2), fur(coat, None, 1, 0.05, 17), share='ear')], pose=(-1.8, -1.8, -1), rot=(0, 0, -0.55), parent='head'),
@@ -261,7 +261,7 @@ def crab_spec(shell, shell_dark, belly, claw, name='crab'):
     for side, sx in (('right', -1), ('left', 1)):
         for i, z in enumerate((-1.8, 0.0, 1.8)):
             legs.append(P(f'{side}_leg_{i}', [B((-5, -0.5, -0.5) if sx < 0 else (0, -0.5, -0.5), (5, 1, 1), solid(shell_dark, 0.06, 55), share='cleg')],
-                          pose=(3.6 * sx, -1.0, z), rot=(0, 0, 0.9 * sx * -1 if sx < 0 else 0.9), parent='body'))
+                          pose=(3.6 * sx, -1.0, z), rot=(0, 0, -0.9 * sx), parent='body'))
     return dict(name=name, w=64, parts=[
         P('body', [B((-4, -4, -3), (8, 4, 6), fur(shell, belly, 0.7, 0.06, 51, dark_back=shell_dark), share='body')], pose=(0, 21, 0)),
         P('eye_right', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye_p, share='eye')], pose=(-2, -4, -2.4), parent='body'),

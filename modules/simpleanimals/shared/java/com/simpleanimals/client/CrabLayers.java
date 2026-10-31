@@ -24,9 +24,9 @@ final class CrabLayers {
         PartDefinition right_leg_0 = body.addOrReplaceChild("right_leg_0", CubeListBuilder.create().texOffs(0, 10).addBox(-5F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(-3.6F, -1.0F, -1.8F, 0F, 0F, 0.9F));
         PartDefinition right_leg_1 = body.addOrReplaceChild("right_leg_1", CubeListBuilder.create().texOffs(0, 10).addBox(-5F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(-3.6F, -1.0F, 0.0F, 0F, 0F, 0.9F));
         PartDefinition right_leg_2 = body.addOrReplaceChild("right_leg_2", CubeListBuilder.create().texOffs(0, 10).addBox(-5F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(-3.6F, -1.0F, 1.8F, 0F, 0F, 0.9F));
-        PartDefinition left_leg_0 = body.addOrReplaceChild("left_leg_0", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, -1.8F, 0F, 0F, 0.9F));
-        PartDefinition left_leg_1 = body.addOrReplaceChild("left_leg_1", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, 0.0F, 0F, 0F, 0.9F));
-        PartDefinition left_leg_2 = body.addOrReplaceChild("left_leg_2", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, 1.8F, 0F, 0F, 0.9F));
+        PartDefinition left_leg_0 = body.addOrReplaceChild("left_leg_0", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, -1.8F, 0F, 0F, -0.9F));
+        PartDefinition left_leg_1 = body.addOrReplaceChild("left_leg_1", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, 0.0F, 0F, 0F, -0.9F));
+        PartDefinition left_leg_2 = body.addOrReplaceChild("left_leg_2", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, 1.8F, 0F, 0F, -0.9F));
         return LayerDefinition.create(mesh, WIDTH, HEIGHT);
     }
 

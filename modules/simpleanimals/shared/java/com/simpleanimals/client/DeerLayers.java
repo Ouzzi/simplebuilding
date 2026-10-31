@@ -15,7 +15,7 @@ final class DeerLayers {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -9F, -7.5F, 7F, 9F, 15F), PartPose.offset(0F, 13F, 0F));
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(48, 24).addBox(-1F, 0F, -0.5F, 2F, 3F, 1F), PartPose.offsetAndRotation(0F, 5F, 7F, 0.9F, 0F, 0F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(48, 24).addBox(-1F, 0F, -0.5F, 2F, 3F, 1F), PartPose.offsetAndRotation(0F, -8F, 7.5F, 0.9F, 0F, 0F));
         PartDefinition neck = root.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(0, 24).addBox(-1.5F, -9F, -1.5F, 3F, 9F, 3F), PartPose.offsetAndRotation(0F, 7F, -6.5F, 0.55F, 0F, 0F));
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(12, 24).addBox(-2F, -2.5F, -7F, 4F, 4F, 7F), PartPose.offset(0F, 0.5F, -11F));
         PartDefinition ear_right = head.addOrReplaceChild("ear_right", CubeListBuilder.create().texOffs(38, 24).addBox(-0.5F, -3F, -1F, 1F, 3F, 2F), PartPose.offsetAndRotation(-1.8F, -1.8F, -1F, 0F, 0F, -0.55F));
