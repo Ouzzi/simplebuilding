@@ -393,8 +393,12 @@ public final class AnimalsTests {
         });
         ALL.put("boar_truffle_tick_and_switch", h -> {
             // The dig attempt runs in the boar's own tick (every Boar.DIG_INTERVAL ticks); phase 1 switch off, phase 2 on.
-            AnimalsConfig.boarTruffleChance = 1.0;
-            AnimalsConfig.boarTruffles = false;
+            // Other tests reset the shared config while this one runs, so both values are set again on every tick.
+            boolean[] on = {false};
+            h.onEachTick(() -> {
+                AnimalsConfig.boarTruffleChance = 1.0;
+                AnimalsConfig.boarTruffles = on[0];
+            });
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) h.setBlock(new BlockPos(x, 0, z), Blocks.DIRT);
             }
@@ -404,7 +408,7 @@ public final class AnimalsTests {
                     AnimalsConfig.reset();
                     h.fail("switch off: no truffle");
                 }
-                AnimalsConfig.boarTruffles = true;
+                on[0] = true;
             });
             h.runAfterDelay(2 * Boar.DIG_INTERVAL + 40, () -> {
                 int found = truffles(h);
