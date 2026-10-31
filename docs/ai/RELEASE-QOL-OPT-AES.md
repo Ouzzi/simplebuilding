@@ -99,8 +99,8 @@ Stand 31.10. (alle 16 auditiert):
 | simplemobmanners | shipbar | 0/0/3 | grün | modules/simplemobmanners/AUDIT.md |
 | simpleloot | shipbar | 0/1 (fix)/1 | grün | modules/simpleloot/AUDIT.md |
 | simpleweather | shipbar | 0/0/1 | grün | modules/simpleweather/AUDIT.md |
-| simpleoptimization | shipbar | 0/0/1 | Nachlauf (Zeitgrenze bei sb-test-Überlast) | modules/simpleoptimization/AUDIT.md |
-| simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Client-Smoke Nachlauf | modules/simpleoptrender/AUDIT.md |
+| simpleoptimization | shipbar | 0/0/1 | grün (Nachlauf 31.10. auf c3b2b5783: 3/3) | modules/simpleoptimization/AUDIT.md |
+| simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Gametests grün (Nachlauf 31.10. auf c3b2b5783: 12/12); Client-Smoke Nachlauf offen | modules/simpleoptrender/AUDIT.md |
 | simpleoptmemory | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptmemory/AUDIT.md |
 | simpleoptserver | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptserver/AUDIT.md |
 | simpleaesthetics | shipbar | 0/0/3 | grün (3/3 Rerun) | modules/simpleaesthetics/AUDIT.md |
@@ -110,7 +110,13 @@ Stand 31.10. (alle 16 auditiert):
 Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md, aes.md. Simple Sounds enthält keine Audiodatei (nur Vanilla-Sound-Events) → keine Lizenzfrage. Noch für alle offen: echter Client-Start im Bündel, Lauf mit Sodium/Iris/Lithium/JEI/Mod Menu.
 
 ## 6. Weitere Besitzer-Punkte
-*(leer)*
+Besitzer 31.10. (über A). Diese Punkte **blockieren den QoL-Release**, bis sie gelöst und abgenommen sind (Queue IG31-29..31):
+
+| ID | Punkt | Gewünscht | Stand |
+|---|---|---|---|
+| IG31-29 | Free Look verbuggt (beim Join aktiv, falsches Verhalten) | Keybinds „Free Look“ (Halten) + „Free Look umschalten“ (Toggle); Loslassen per Config: Spieler dreht zur Kamera oder Kamera zurück zur Spieler-Blickrichtung (**Default: zurück**); Server-Config mit Default + erzwingbarem Wert; beim Join immer aus | offen |
+| IG31-30 | Trichter-UI (Vanilla-Hopper) | Aussehen wie Mod-UI, unten genug Abstand zum Rand (Padding angleichen) | offen |
+| IG31-31 | Mod-Keypicker | Knöpfe reparieren (Test mit echter Maus), 3. Ansicht nach Funktion wie Vanilla-Keybind-Menü, einheitlicher Vanilla-UI-Stil | offen |
 
 ## Rückfragen an den Besitzer
 - R1 Versionsnummer zum Release: alle 1.0.0? (Empfehlung: ja)
