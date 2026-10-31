@@ -223,6 +223,7 @@ public final class CrossModGameTest {
 
     /** Items kept out of every tab on purpose (see SimpleBuilding's DataIntegrityTests list). */
     private static final Set<String> LEGACY_OR_HIDDEN = Set.of(
+            "oak_door_half_2", "oak_door_half_3", // IG31-9: half doors stay registered for old worlds
             "creative_spacer", "stone_spatula", "copper_spatula", "iron_spatula", "gold_spatula", "diamond_spatula",
             "netherite_spatula", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4", "netherite_flypad",
             "enderite_flypad", "reinforced_elytra_pad", "fine_elytra_pad", "funny_stick",

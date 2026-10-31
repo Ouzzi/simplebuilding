@@ -33,6 +33,9 @@ for locale in ('en_us', 'de_de'):
             assert len(v) <= 40, ('tooltip line too long', locale, k)
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
+for _p in (RES / f'data/{NS}/advancement/recipes/misc').glob('*.json'):  # standalone: an advancement must not reward a recipe a load condition removed
+    if _p.stem in recipes and 'fabric:load_conditions' in recipes[_p.stem]:
+        assert json.loads(_p.read_text(encoding='utf-8')).get('fabric:load_conditions') == recipes[_p.stem]['fabric:load_conditions'], ('advancement needs the recipe conditions', _p.stem)
 assert recipes['strong_beacon_smithing']['base'] == 'minecraft:beacon' and recipes['strong_conduit_smithing']['base'] == 'minecraft:conduit'
 # IG31-1: the Nether Heart (Strong) and the Red Nether Gem (Evil) of Simple Mobs, no nether star
 assert all(recipes[r]['addition'] == 'simplemobs:nether_heart' for r in ('strong_beacon_smithing', 'strong_conduit_smithing'))

@@ -224,6 +224,11 @@ public final class TestCentreLayout {
             excluded.put("simplebuilding:copper_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Kupferbloecken");
             excluded.put("simplebuilding:sulfur_wall_torch", "Wandvariante der Schwefelfackel (N58), gleiches Item");
         }
+        if (com.simplebuilding.version.McVersion.DOORS) {
+            // IG31-9: the half doors stay registered for old worlds, in no tab and no recipe (see DataIntegrityTests).
+            excluded.put("simplebuilding:oak_door_half_2", "Halbtuer nur fuer alte Welten registriert (IG31-9), in keinem Tab");
+            excluded.put("simplebuilding:oak_door_half_3", "Halbtuer nur fuer alte Welten registriert (IG31-9), in keinem Tab");
+        }
         excluded.put("simplebuilding:placed_paint_box", "Abgestellter Farbkasten (W24-2) ohne eigenes Item: entsteht beim Abstellen des Farbkastens, der Farbkasten selbst steht in der Zentrale");
         EXCLUDED = Map.copyOf(excluded);
     }
