@@ -174,7 +174,9 @@ final class BundleStorageTests {
         var level = h.getLevel();
         var manager = level.getServer().getRecipeManager();
         for (String path : SimpleStorage.MOVED_BUNDLE_RECIPES) {
-            if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty()) problems.add("missing " + path);
+            // IG31-13: the Enderite smithing recipes load only with Simple Ores.
+            boolean expected = !path.startsWith("enderite_") || Refs.enderite();
+            if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty() == expected) problems.add((expected ? "missing " : "present without Simple Ores: ") + path);
             if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.old(path))).isPresent()) problems.add("still under simplebuilding: " + path);
         }
         ItemStack string = new ItemStack(Items.STRING);

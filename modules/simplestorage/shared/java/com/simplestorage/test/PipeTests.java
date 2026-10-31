@@ -87,7 +87,8 @@ public final class PipeTests {
         if (StorageMenus.PIPE == null) problems.add("pipe menu type");
         var manager = h.getLevel().getServer().getRecipeManager();
         for (String recipe : ids) {
-            if (manager.byKey(ResourceKey.create(Registries.RECIPE, com.simplestorage.SimpleStorage.id(recipe))).isEmpty()) problems.add("recipe " + recipe);
+            boolean expected = !recipe.startsWith("enderite_") || Refs.enderite(); // IG31-13: only with Simple Ores
+            if (manager.byKey(ResourceKey.create(Registries.RECIPE, com.simplestorage.SimpleStorage.id(recipe))).isEmpty() == expected) problems.add("recipe " + recipe);
         }
         h.assertTrue(problems.isEmpty(), "pipes: " + problems);
         h.succeed();
@@ -289,7 +290,7 @@ public final class PipeTests {
         var next = com.simplelib.api.InWorldUpgrades.entryFor(pipe("reinforced_pipe"));
         if (next == null || next.to() != pipe("netherite_pipe")) problems.add("no entry reinforced -> netherite");
         var last = com.simplelib.api.InWorldUpgrades.entryFor(pipe("netherite_pipe"));
-        if (last == null || last.to() != pipe("enderite_pipe")) problems.add("no entry netherite -> enderite");
+        if (!Refs.enderite() ? last != null : (last == null || last.to() != pipe("enderite_pipe"))) problems.add("entry netherite -> enderite (Simple Ores " + Refs.enderite() + "): " + last); // IG31-13
         h.assertTrue(problems.isEmpty(), "pipe upgrade: " + problems);
         h.succeed();
     }
