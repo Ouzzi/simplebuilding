@@ -69,11 +69,11 @@
       ],
       "en": {
         "title": "Bucket of Frog",
-        "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant, name and age stay on the bucket; releasing it restores them. The bucket shows the frog's colour (temperate, warm, cold) and its tooltip names the frog and its variant. Found in the Tools tab after the tadpole bucket."
+        "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant (shown by the bucket's colour and tooltip), name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
       },
       "de": {
         "title": "Eimer mit Frosch",
-        "summary": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Der Eimer zeigt die Farbe des Froschs (gemäßigt, warm, kalt), der Tooltip nennt Namen und Art. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+        "summary": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante (Eimerfarbe und Tooltip), Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
       }
     },
     {
@@ -198,11 +198,11 @@
       "note": {
         "en": {
           "title": "Bucket of Frog",
-          "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant, name and age stay on the bucket; releasing it restores them. The bucket shows the frog's colour (temperate, warm, cold) and its tooltip names the frog and its variant. Found in the Tools tab after the tadpole bucket."
+          "summary": "A water bucket used on a frog catches it like an axolotl or tadpole. Variant (shown by the bucket's colour and tooltip), name and age stay on the bucket; releasing it restores them. Found in the Tools tab after the tadpole bucket."
         },
         "de": {
           "title": "Eimer mit Frosch",
-          "summary": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Der Eimer zeigt die Farbe des Froschs (gemäßigt, warm, kalt), der Tooltip nennt Namen und Art. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
+          "summary": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante (Eimerfarbe und Tooltip), Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer."
         }
       },
       "texture": "assets/textures/simplemobmanners/item/frog_bucket.png",

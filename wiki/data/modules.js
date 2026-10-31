@@ -875,7 +875,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "472e07277caa"
+    "dataHash": "8bf01a095d8e"
   },
   {
     "id": "simpleloot",
