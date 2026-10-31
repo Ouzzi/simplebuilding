@@ -117,3 +117,17 @@ Server: `make_wave_bundle.sh <checkout> claude-wave1 <github-url> <ordner>` (vom
 solange sich der Branch nicht bewegt) schreibt `wave.bundle` (nur die Commits über dem öffentlichen master, wenige MB) und
 `wave.json`; ausgeliefert als `/setup/wave.bundle|wave.json`, `install.ps1`/`starter.ps1` direkt aus diesem Ordner.
 Tests: `tests/test_setup.py` (Bundle; mit `pwsh` zusätzlich Syntax, PSScriptAnalyzer und der Repo-Abgleich des Starters).
+
+## sb-web-sync (Kopie des Sync-Skripts auf sb-web)
+
+`sb-web-sync` ist die Fassung von `/usr/local/bin/sb-web-sync` auf CT 109 (Timer jede Minute).
+Seit 31.10. räumt sie vorab auf, weil die Platte zweimal durch `tmp_pack_*`-Reste abgebrochener
+Fetches voll lief und der Starter danach alten Stand lieferte:
+- `tmp_*` in `objects/pack` älter als 1 h löschen,
+- täglich (bei ≥ 85 % sofort) `git gc --prune=now` für wiki-dev/wiki-prod und Journal auf 200 MB,
+- alte `dl-*` löschen, außer dem Symlink-Ziel und einem Rückfall-Ordner.
+Danach schreibt sie `web` (`diskPct`, `freeMB`, `devFetchAgeS`) in `status.json`; die Zentrale
+zeigt unter „Handlungsbedarf“ eine Warnung ab 85 % Platte oder wenn der Arbeitsstand > 30 min alt ist.
+
+Einspielen (auf pve, Besitzer): `pct exec 109 -- cp /srv/wiki-dev/tools/zentrale-web/sb-web-sync /usr/local/bin/sb-web-sync`
+(vorher Backup; das Skript liegt nach dem Merge in claude-wave1 automatisch in `/srv/wiki-dev`).

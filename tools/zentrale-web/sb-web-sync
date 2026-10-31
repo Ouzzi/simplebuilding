@@ -1,0 +1,51 @@
+#!/bin/bash
+# Every minute: prod wiki = GitHub master, dev wiki = claude-wave1 from sb-agent hub, zentrale status from sb-test results.
+exec 9>/run/sb-web-sync.lock; flock -n 9 || exit 0
+# housekeeping: the disk ran full twice (22.10., 27.-31.10.) from tmp_pack leftovers of aborted fetches,
+# after which every fetch failed and the starter shipped an old state
+for g in /srv/wiki-dev/.git /srv/wiki-prod/.git; do [ -d $g/objects/pack ] && find $g/objects/pack -maxdepth 1 -name "tmp_*" -mmin +60 -delete; done
+st=/var/lib/sb-web-sync; mkdir -p $st
+pct=$(df --output=pcent / | tail -1 | tr -dc 0-9)
+if [ "${pct:-0}" -ge 85 ] || [ -z "$(find $st/gc.stamp -mmin -1440 2>/dev/null)" ]; then
+  for g in /srv/wiki-dev /srv/wiki-prod; do [ -d $g/.git ] && git -C $g gc -q --prune=now 2>/dev/null; done
+  journalctl -q --vacuum-size=200M >/dev/null 2>&1; touch $st/gc.stamp
+fi
+# old download folders: keep the symlink target and one fallback
+cur=$(readlink /srv/zentrale/downloads 2>/dev/null)
+ls -d /srv/zentrale/dl-* 2>/dev/null | grep -vx "/srv/zentrale/$cur" | head -n -1 | xargs -r rm -rf
+cd /srv/wiki-prod && git fetch -q --depth 50 origin master && git reset -q --hard origin/master
+if [ ! -d /srv/wiki-dev/.git ]; then git clone -q sb-agent:/root/sb.git /srv/wiki-dev -b claude-wave1 || true; fi
+[ -d /srv/wiki-dev/.git ] && cd /srv/wiki-dev && git fetch -q origin claude-wave1 && git reset -q --hard FETCH_HEAD && touch $st/devfetch.ok
+ssh -o BatchMode=yes sb-agent sb-status > /srv/zentrale/status.json.tmp 2>/dev/null && mv /srv/zentrale/status.json.tmp /srv/zentrale/status.json || true
+# gate logs for the dashboard (refs listed in status.json)
+mkdir -p /srv/zentrale/logs
+for r in $(python3 -c "import json;print(\" \".join(json.load(open(\"/srv/zentrale/status.json\")).get(\"logs\",[])))" 2>/dev/null); do
+  [[ "$r" =~ ^[0-9a-f]{7,12}$ ]] || continue
+  ssh -o BatchMode=yes sb-agent "sb-log $r" > /srv/zentrale/logs/$r.log.tmp 2>/dev/null && mv /srv/zentrale/logs/$r.log.tmp /srv/zentrale/logs/$r.log
+done
+find /srv/zentrale/logs -name "*.log" -mmin +2880 -delete
+# jars of the last green gate: pull only when index.json changed, swap the folder atomically (symlink)
+Z=/srv/zentrale
+if idx=$(ssh -o BatchMode=yes sb-agent "sb-dist index" 2>/dev/null) && [ -n "$idx" ] && [ "$idx" != "$(cat $Z/downloads/index.json)" ]; then
+  n=$Z/dl-$(date +%s); mkdir -p $n
+  if ssh -o BatchMode=yes sb-agent "sb-dist tar" | tar -C $n -xf - && [ -s $n/index.json ]; then
+    ln -sfn $(basename $n) $Z/downloads.tmp && mv -T $Z/downloads.tmp $Z/downloads
+    ls -d $Z/dl-* | head -n -2 | xargs -r rm -rf
+  else rm -rf $n; fi
+fi
+# new-PC setup (tools/zentrale-web/starter): installer + starter from the working tree, git bundle of claude-wave1
+# on top of the public master (rebuilt only when the branch moves); fallback copies until the files are in claude-wave1
+ZS=/srv/wiki-dev/tools/zentrale-web
+for f in install.ps1 starter.ps1; do [ -f $ZS/starter/$f ] && ! cmp -s $ZS/starter/$f $Z/setup/$f && cp $ZS/starter/$f $Z/setup/.$f.tmp && mv $Z/setup/.$f.tmp $Z/setup/$f; done
+MB=$ZS/make_wave_bundle.sh; [ -f $MB ] || MB=/usr/local/lib/sb-make-wave-bundle.sh
+bash $MB /srv/wiki-dev claude-wave1 https://github.com/Ouzzi/simplebuilding.git $Z/setup >/dev/null 2>>/var/log/sb-wave-bundle.log || true
+# web health for the Zentrale: disk use and age of the last successful dev fetch
+python3 - <<"PY" 2>/dev/null || true
+import json,os,shutil,time
+p="/srv/zentrale/status.json"
+d=json.load(open(p)); u=shutil.disk_usage("/")
+try: age=int(time.time()-os.path.getmtime("/var/lib/sb-web-sync/devfetch.ok"))
+except OSError: age=None
+d["web"]={"diskPct":round(100*u.used/u.total),"freeMB":u.free//2**20,"devFetchAgeS":age}
+open(p+".w","w").write(json.dumps(d)); os.replace(p+".w",p)
+PY
