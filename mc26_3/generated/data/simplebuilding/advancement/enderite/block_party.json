@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_block"
+            "items": "simpleores:enderite_block"
           }
         ]
       },
@@ -17,7 +17,7 @@
       "translate": "advancements.simplebuilding.enderite.block_party.description"
     },
     "icon": {
-      "id": "simplelib:enderite_block"
+      "id": "simpleores:enderite_block"
     },
     "title": {
       "translate": "advancements.simplebuilding.enderite.block_party.title"

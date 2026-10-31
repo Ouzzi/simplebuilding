@@ -5,5 +5,5 @@
   "base_stage": 1,
   "result": "simplebuilding:reinforced_flypad",
   "result_stage": 2,
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

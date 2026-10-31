@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_ingot"
+            "items": "simpleores:enderite_ingot"
           }
         ]
       },

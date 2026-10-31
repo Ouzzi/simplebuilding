@@ -107,7 +107,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:gold_core"
+          "name": "simplelib:gold_core"
         }
       ],
       "rolls": 1

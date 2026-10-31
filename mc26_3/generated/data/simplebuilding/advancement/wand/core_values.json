@@ -1,0 +1,39 @@
+{
+  "parent": "simplebuilding:building/root",
+  "criteria": {
+    "core": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplelib:copper_core",
+              "simplelib:iron_core",
+              "simplelib:gold_core",
+              "simplelib:diamond_core",
+              "simplelib:netherite_core",
+              "simplelib:enderite_core"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.wand.core_values.description"
+    },
+    "icon": {
+      "id": "simplelib:copper_core"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.wand.core_values.title"
+    }
+  },
+  "requirements": [
+    [
+      "core"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

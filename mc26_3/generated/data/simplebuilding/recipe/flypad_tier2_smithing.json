@@ -5,5 +5,5 @@
   "result": {
     "id": "simplebuilding:reinforced_flypad"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

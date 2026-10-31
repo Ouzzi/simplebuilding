@@ -4,7 +4,7 @@
   "enchanted_item": "minecraft:elytra",
   "enchantment": "minecraft:mending",
   "ingredients": [
-    "simplebuilding:enderite_core",
+    "simplelib:enderite_core",
     "simplebuilding:enderite_pressure_plate",
     "simplemobheads:shulker_head",
     "minecraft:elytra"

@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplelib:enderite_ingot",
+  "addition": "simpleores:enderite_ingot",
   "base": "minecraft:netherite_nautilus_armor",
   "result": {
     "id": "simplebuilding:enderite_nautilus_armor"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

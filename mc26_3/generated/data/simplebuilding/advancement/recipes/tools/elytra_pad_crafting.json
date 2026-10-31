@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:diamond_core"
+            "items": "simplelib:diamond_core"
           }
         ]
       },

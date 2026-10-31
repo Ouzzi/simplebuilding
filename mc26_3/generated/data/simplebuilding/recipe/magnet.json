@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "simplebuilding:iron_core",
+    "C": "simplelib:iron_core",
     "I": "simplebuilding:iron_pole",
     "L": "minecraft:lapis_lazuli",
     "R": "minecraft:redstone"

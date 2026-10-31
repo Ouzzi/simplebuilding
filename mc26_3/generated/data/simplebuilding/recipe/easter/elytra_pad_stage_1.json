@@ -4,5 +4,5 @@
   "base": "simplebuilding:enderite_elytra_pad",
   "result": "simplebuilding:elytra_pad",
   "result_stage": 1,
-  "template": "simplebuilding:diamond_core"
+  "template": "simplelib:diamond_core"
 }

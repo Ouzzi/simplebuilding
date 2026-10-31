@@ -2,8 +2,6 @@
   "values": [
     "simplebuilding:gold_pole",
     "simplebuilding:diamond_pole",
-    "simplebuilding:sage_ore",
-    "simplebuilding:deepslate_sage_ore",
     "simplelib:cracked_diamond_block"
   ]
 }

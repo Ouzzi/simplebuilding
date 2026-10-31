@@ -5,5 +5,5 @@
   "result": {
     "id": "simplebuilding:infused_potion_pad"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

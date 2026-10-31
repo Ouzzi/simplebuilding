@@ -4,5 +4,5 @@
   "base": "simplebuilding:enderite_spawn_teleporter",
   "result": "simplebuilding:spawn_teleporter",
   "result_stage": 1,
-  "template": "simplebuilding:gold_core"
+  "template": "simplelib:gold_core"
 }

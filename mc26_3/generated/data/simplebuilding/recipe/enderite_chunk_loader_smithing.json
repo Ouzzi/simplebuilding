@@ -5,5 +5,5 @@
   "result": {
     "id": "simplebuilding:enderite_chunk_loader"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

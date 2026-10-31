@@ -19,7 +19,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplelib:enderite_scrap"
+          "name": "simpleores:enderite_scrap"
         }
       ],
       "rolls": {
@@ -36,7 +36,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:enderite_core"
+          "name": "simplelib:enderite_core"
         }
       ],
       "rolls": 1
@@ -45,7 +45,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplelib:enderite_upgrade_template"
+          "name": "simpleores:enderite_upgrade_template"
         }
       ],
       "rolls": {
@@ -66,7 +66,7 @@
               "min": 1
             }
           },
-          "name": "simplelib:raw_enderite",
+          "name": "simpleores:raw_enderite",
           "weight": 4
         },
         {
@@ -79,7 +79,7 @@
               "min": 2
             }
           },
-          "name": "simplelib:enderite_nugget",
+          "name": "simpleores:enderite_nugget",
           "weight": 6
         },
         {

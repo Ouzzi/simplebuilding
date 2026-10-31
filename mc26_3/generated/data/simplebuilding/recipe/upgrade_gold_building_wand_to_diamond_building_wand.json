@@ -1,6 +1,6 @@
 {
   "type": "simplebuilding:count_based_smithing",
-  "addition": "simplebuilding:diamond_core",
+  "addition": "simplelib:diamond_core",
   "addition_count": 1,
   "base": "simplebuilding:gold_building_wand",
   "result": {

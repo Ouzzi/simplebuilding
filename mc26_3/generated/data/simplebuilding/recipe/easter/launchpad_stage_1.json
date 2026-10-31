@@ -15,5 +15,5 @@
   "base": "simplebuilding:enderite_launchpad",
   "result": "simplebuilding:launchpad",
   "result_stage": 1,
-  "template": "simplebuilding:iron_core"
+  "template": "simplelib:iron_core"
 }

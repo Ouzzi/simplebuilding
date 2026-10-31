@@ -4,5 +4,5 @@
   "base": "simplebuilding:stellar_flypad",
   "result": "simplebuilding:flypad",
   "result_stage": 1,
-  "template": "simplebuilding:enderite_core"
+  "template": "simplelib:enderite_core"
 }

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_nugget"
+            "items": "simpleores:enderite_nugget"
           }
         ]
       },
@@ -17,7 +17,7 @@
       "translate": "advancements.simplebuilding.enderite.pocket_change.description"
     },
     "icon": {
-      "id": "simplelib:enderite_nugget"
+      "id": "simpleores:enderite_nugget"
     },
     "title": {
       "translate": "advancements.simplebuilding.enderite.pocket_change.title"

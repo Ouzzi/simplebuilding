@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": "minecraft:iron_ingot",
+    "N": "minecraft:nether_star"
+  },
+  "pattern": [
+    " M ",
+    "MNM",
+    " M "
+  ],
+  "result": {
+    "id": "simplelib:iron_core"
+  }
+}

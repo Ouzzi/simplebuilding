@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:gold_core"
+            "items": "simplelib:gold_core"
           }
         ]
       },
