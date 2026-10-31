@@ -91,7 +91,7 @@ def main():
     RUN.mkdir(parents=True, exist_ok=True)
     for f in (STATUS, COMMAND):
         (RUN / f).unlink(missing_ok=True)
-    (RUN / REQUEST).write_text(json.dumps({'width': 1600, 'height': 900, 'guiScale': scales[0]}))
+    (RUN / REQUEST).write_text(json.dumps({'width': 1280, 'height': 720, 'guiScale': scales[0]}))
     started = time.time()
     log = open(out / 'client.log', 'w')
     game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
