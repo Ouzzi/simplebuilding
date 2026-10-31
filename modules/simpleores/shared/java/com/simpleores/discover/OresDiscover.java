@@ -64,9 +64,17 @@ public final class OresDiscover {
             "simpleores:blossom_gold_shovel",
             "simpleores:blossom_gold_sword",
             "simpleores:config_server",
+            "simpleores:deepslate_lead_ore",
             "simpleores:deepslate_silver_ore",
             "simpleores:end_silver_ore",
             "simpleores:guide_book",
+            "simpleores:lead",
+            "simpleores:lead_block",
+            "simpleores:lead_ingot",
+            "simpleores:lead_nugget",
+            "simpleores:lead_ore",
+            "simpleores:raw_lead",
+            "simpleores:raw_lead_block",
             "simpleores:raw_silver",
             "simpleores:raw_silver_block",
             "simpleores:rose_bronze_axe",
@@ -84,10 +92,13 @@ public final class OresDiscover {
             "simpleores:rose_gold",
             "simpleores:rose_gold_gear",
             "simpleores:silver",
+            "simpleores:silver_arrow",
             "simpleores:silver_block",
             "simpleores:silver_ingot",
+            "simpleores:silver_mirror",
             "simpleores:silver_nugget",
-            "simpleores:silver_ore");
+            "simpleores:silver_ore",
+            "simpleores:soundproofing");
     static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {

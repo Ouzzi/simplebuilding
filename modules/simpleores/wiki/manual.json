@@ -78,23 +78,124 @@
       }
     },
     {
+      "id": "lead",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/lead_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/tags/block/soundproofing.json"
+      ],
+      "en": {
+        "title": "Lead",
+        "summary": "A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.",
+        "details": [
+          "Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).",
+          "Items: raw lead, lead ingot, lead nugget, blocks of lead and raw lead. Furnace and blast furnace smelt raw lead and the ores. The leash keeps its name; the ingot is \"Lead Ingot\".",
+          "Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch)."
+        ]
+      },
+      "de": {
+        "title": "Blei",
+        "summary": "Ein stumpfes, schweres Metall aus Stein und Tiefenschiefer. Bleiblöcke halten den Sculk taub, trotzen Explosionen und dämmen Schall - sind aber selbst laut.",
+        "details": [
+          "Oberwelt: Bleierz (und ein Tiefenschiefer-Zwilling), 6 Adern zu 9 je Chunk zwischen Y -64 und 48; häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft).",
+          "Gegenstände: Rohblei, Bleibarren, Bleiklumpen, Blöcke aus Blei und Rohblei. Ofen und Hochofen schmelzen Rohblei und die Erze. Die Leine behält ihren Namen; der Barren heißt „Bleibarren“.",
+          "Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief)."
+        ]
+      }
+    },
+    {
+      "id": "soundproofing",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/sound/Soundproofing.java",
+        "modules/simpleores/shared/java/com/simpleores/mixin/SoundproofMixin.java",
+        "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java"
+      ],
+      "en": {
+        "title": "Soundproofing",
+        "summary": "Lead walls make the world quieter on the other side: a TNT blast behind a few lead blocks is only a dull thud, or not heard at all.",
+        "details": [
+          "Every sound the server sends to a player (blocks, mobs, explosions, ...) from volume 0.3 up is checked: the lead blocks on the straight way from the sound to the player's ear (at most 24 cells, the cells of the sound and of the ear do not count) multiply the volume by soundproofFactor for each block.",
+          "Below soundproofThreshold the sound is not sent at all. Example: a TNT blast (volume 4) behind 3 lead blocks at factor 0.5 is heard at volume 0.5 and only close by; right at a wall of 1 block it is 2.0. Players in the same room, with no lead in the way, hear everything as before.",
+          "Records and music devices are not muffled unless soundproofRecords is on. Voice chat mods and everything the client plays on its own are not touched. The blocks that muffle are the tag simpleores:soundproofing (Standard: the block of lead). Switch off with soundproofing = false."
+        ]
+      },
+      "de": {
+        "title": "Schalldämmung",
+        "summary": "Bleiwände machen die Welt auf der anderen Seite leiser: eine TNT-Explosion hinter ein paar Bleiblöcken ist nur ein dumpfes Poltern oder gar nicht zu hören.",
+        "details": [
+          "Jedes Geräusch, das der Server an einen Spieler schickt (Blöcke, Mobs, Explosionen, ...), wird ab Lautstärke 0,3 geprüft: die Bleiblöcke auf der geraden Strecke vom Geräusch zum Ohr des Spielers (höchstens 24 Zellen; die Zellen von Geräusch und Ohr zählen nicht) multiplizieren die Lautstärke je Block mit soundproofFactor.",
+          "Unter soundproofThreshold wird das Geräusch gar nicht gesendet. Beispiel: eine TNT-Explosion (Lautstärke 4) hinter 3 Bleiblöcken bei Faktor 0,5 kommt mit Lautstärke 0,5 an, nur aus der Nähe; direkt an einer Wand aus 1 Block sind es 2,0. Spieler im selben Raum ohne Blei auf dem Weg hören alles wie vorher.",
+          "Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false."
+        ]
+      }
+    },
+    {
+      "id": "silver_arrow",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/entity/SilverArrow.java",
+        "modules/simpleores/shared/java/com/simpleores/item/SilverArrowItem.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_arrow.json"
+      ],
+      "en": {
+        "title": "Silver arrow",
+        "summary": "An arrow with a silver head that hits the undead harder.",
+        "details": [
+          "Recipe: a silver nugget over a stick over a feather makes 4 silver arrows. Bows, crossbows and dispensers shoot them like arrows; they can be picked up again.",
+          "Against every mob in the tag #minecraft:undead (zombies, skeletons, drowned, the Wither ...) a silver arrow does silverArrowUndeadBonus extra damage (Standard 3, 0 = like a normal arrow, up to 6). Everything else: a normal arrow."
+        ]
+      },
+      "de": {
+        "title": "Silberpfeil",
+        "summary": "Ein Pfeil mit Silberspitze, der Untote härter trifft.",
+        "details": [
+          "Rezept: ein Silberklumpen über einem Stock über einer Feder ergibt 4 Silberpfeile. Bögen, Armbrüste und Werfer schießen sie wie Pfeile; man kann sie wieder aufsammeln.",
+          "Gegen jedes Wesen im Tag #minecraft:undead (Zombies, Skelette, Ertrunkene, den Wither ...) macht ein Silberpfeil silverArrowUndeadBonus Schaden mehr (Standard 3, 0 = wie ein normaler Pfeil, bis 6). Alles andere: ein normaler Pfeil."
+        ]
+      }
+    },
+    {
+      "id": "silver_mirror",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/block/SilverMirrorBlock.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_mirror.json"
+      ],
+      "en": {
+        "title": "Silver mirror",
+        "summary": "A wall decoration of silver and glass.",
+        "details": [
+          "Recipe: 4 silver ingots around a glass pane. The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration."
+        ]
+      },
+      "de": {
+        "title": "Silberspiegel",
+        "summary": "Eine Wanddekoration aus Silber und Glas.",
+        "details": [
+          "Rezept: 4 Silberbarren um eine Glasscheibe. Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java"
       ],
       "en": {
         "title": "Server settings",
-        "summary": "config/simpleores-server.json, read at start.",
+        "summary": "config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.",
         "details": [
-          "enabled (true): off stops new silver veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
+          "enabled (true): off stops new silver and lead veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
+          "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
+          "silverArrowUndeadBonus (3, range 0 to 6): extra damage of a silver arrow against undead, 0 = off.",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
         ]
       },
       "de": {
         "title": "Server-Einstellungen",
-        "summary": "config/simpleores-server.json, beim Start gelesen.",
+        "summary": "config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.",
         "details": [
-          "enabled (true): aus stoppt neue Silberadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
+          "enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
+          "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
+          "silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus.",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -107,10 +208,10 @@
         "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 5 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+        "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 5 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+        "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
       }
     },
     "simpleores:silver_ore": {
@@ -168,6 +269,61 @@
         "summary": "Silberblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
       }
     },
+    "simpleores:lead_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in stone and deepslate, 6 veins of 9 per chunk, Y -64 to 48. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Zu finden in Stein und Tiefenschiefer, 6 Adern zu 9 je Chunk, Y -64 bis 48. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:deepslate_lead_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The deepslate twin of the lead ore. Needs a stone pickaxe. Drops 1 to 2 raw lead (Fortune helps, Silk Touch keeps the ore)."
+      },
+      "de": {
+        "summary": "Der Tiefenschiefer-Zwilling des Bleierzes. Braucht eine Steinspitzhacke. Lässt 1 bis 2 Rohblei fallen (Glück hilft, Behutsamkeit behält das Erz)."
+      }
+    },
+    "simpleores:raw_lead_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine raw lead; craftable both ways. Needs a stone pickaxe."
+      },
+      "de": {
+        "summary": "Neun Rohblei; in beide Richtungen herstellbar. Braucht eine Steinspitzhacke."
+      }
+    },
+    "simpleores:lead_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine lead ingots. Blast resistance 1000 (a little below obsidian), hardness 25, needs an iron pickaxe. Blocks vibrations like wool (Sculk and Warden do not hear through it) but is loud to walk on or mine, and muffles sounds behind it (see Lead)."
+      },
+      "de": {
+        "summary": "Neun Bleibarren. Explosionswiderstand 1000 (etwas unter Obsidian), Härte 25, braucht eine Eisenspitzhacke. Hält Vibrationen wie Wolle auf (Sculk und Wächter hören nicht hindurch), ist aber laut beim Betreten und Abbauen und dämmt Geräusche dahinter (siehe Blei)."
+      }
+    },
+    "simpleores:silver_mirror": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from 4 silver ingots and a glass pane. No mechanic."
+      },
+      "de": {
+        "summary": "Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus 4 Silberbarren und einer Glasscheibe. Keine Mechanik."
+      }
+    },
     "simpleores:rose_bronze_block": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -188,6 +344,50 @@
       },
       "de": {
         "summary": "Blütengoldblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:raw_lead": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Mined from lead ore; smelt it in a furnace or blast furnace for a lead ingot."
+      },
+      "de": {
+        "summary": "Aus Bleierz gewonnen; im Ofen oder Hochofen zum Bleibarren schmelzen."
+      }
+    },
+    "simpleores:lead_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Lead ingot: nine make a block of lead. The leash item keeps its name Lead."
+      },
+      "de": {
+        "summary": "Bleibarren: neun ergeben einen Bleiblock. Die Leine behält ihren Namen Leine."
+      }
+    },
+    "simpleores:lead_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make a lead ingot."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Bleibarren."
+      }
+    },
+    "simpleores:silver_arrow": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "An arrow with a silver head: 3 extra damage against undead (zombies, skeletons, the Wither ...), otherwise like an arrow. Made of a silver nugget, a stick and a feather (4 arrows). Works in bows, crossbows and dispensers."
+      },
+      "de": {
+        "summary": "Ein Pfeil mit Silberspitze: 3 Schaden mehr gegen Untote (Zombies, Skelette, den Wither ...), sonst wie ein Pfeil. Aus Silberklumpen, Stock und Feder (4 Pfeile). Funktioniert in Bögen, Armbrüsten und Werfern."
       }
     },
     "simpleores:raw_silver": {

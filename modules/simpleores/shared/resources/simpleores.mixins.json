@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simpleores.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "SoundproofMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

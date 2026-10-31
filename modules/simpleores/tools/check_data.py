@@ -14,11 +14,12 @@ import vanilla_derived  # noqa: E402
 
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled'], config_keys
-BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'rose_bronze_block', 'blossom_gold_block')
+assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords', 'silverArrowUndeadBonus'], config_keys
+BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block',
+          'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
 ALLOYS = ('rose_bronze', 'blossom_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
-ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR)
+ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget', 'silver_arrow') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR)
 assert not any(i.startswith('silver_') and i.rsplit('_', 1)[-1] in GEAR for i in ITEMS), 'silver is no tool material (ABN30-10)'
 langs = {}
 for locale in ('en_us', 'de_de'):
@@ -43,7 +44,8 @@ for a in ALLOYS:
     assert (RES / f'assets/{NS}/equipment/{a}.json').is_file()
     for layer in ('humanoid', 'humanoid_leggings'):
         assert f'entity/equipment/{layer}/{a}.png' in derived, (a, layer)
-assert len(derived) == len(BLOCKS) + len(ITEMS) + 4, len(derived)
+assert len(derived) == len(BLOCKS) + len(ITEMS) + 4 + 1, len(derived)   # + the silver arrow entity texture
+assert 'entity/projectiles/silver_arrow.png' in derived
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
 # 600 ticks in the blast furnace (the recipe stores the furnace time, which the blast furnace halves), exactly 1 ingot.
@@ -64,6 +66,31 @@ for p in pressings:
     assert any(i.startswith(f'{NS}:silver_') for i in r['ingredients']), p.name
 for p in (RES / f'data/{NS}/recipe').glob('*.json'):
     assert any((RES / f'data/{NS}/advancement/recipes').glob(f'*/{p.name}')), f'no recipe unlock for {p.name}'
+
+# Lead: 6 veins of 9 per chunk between Y -64 and 48 (more than silver, fewer ore blocks than Vanilla copper), explosion-proof block that occludes
+# vibrations (like wool) but does not dampen them, tag of the muffling blocks, the silver arrow is an arrow, the mirror needs no tool to drop.
+lead_placed = json.loads((RES / f'data/{NS}/worldgen/placed_feature/lead_ore.json').read_text(encoding='utf-8'))
+assert next(m for m in lead_placed['placement'] if m['type'] == 'minecraft:count')['count'] == 6
+lead_height = next(m for m in lead_placed['placement'] if m['type'] == 'minecraft:height_range')['height']
+assert lead_height['min_inclusive']['absolute'] == -64 and lead_height['max_inclusive']['absolute'] == 48
+assert json.loads((RES / f'data/{NS}/worldgen/feature/lead_ore.json').read_text(encoding='utf-8'))['size'] == 9
+mc = RES / 'data/minecraft/tags'
+assert f'{NS}:lead_block' in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
+assert not (mc / 'block/dampens_vibrations.json').exists(), 'lead must NOT dampen vibrations'
+assert json.loads((RES / f'data/{NS}/tags/block/soundproofing.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_block']
+assert f'{NS}:silver_arrow' in json.loads((mc / 'item/arrows.json').read_text(encoding='utf-8'))['values']
+assert f'{NS}:silver_arrow' in json.loads((mc / 'entity_type/arrows.json').read_text(encoding='utf-8'))['values']
+arrow = json.loads((RES / f'data/{NS}/recipe/silver_arrow.json').read_text(encoding='utf-8'))
+assert arrow['pattern'] == ['N', 'S', 'F'] and arrow['result'] == {'id': f'{NS}:silver_arrow', 'count': 4}
+for lang in langs.values():
+    for key in config_keys:
+        assert lang.get(f'text.autoconfig.{NS}.option.{key}') and lang.get(f'text.autoconfig.{NS}.option.{key}.@Tooltip'), key
+    for key in config_keys:
+        assert ('Default:' in lang[f'text.autoconfig.{NS}.option.{key}.@Tooltip']) or ('Standard:' in lang[f'text.autoconfig.{NS}.option.{key}.@Tooltip']), key
+mixins = json.loads((RES / 'simpleores.mixins.json').read_text(encoding='utf-8'))
+assert mixins['mixins'] == ['SoundproofMixin'] and (JAVA / 'mixin/SoundproofMixin.java').is_file()
+mod = json.loads((MODULE / 'fabric/src/main/resources/fabric.mod.json').read_text(encoding='utf-8'))
+assert mod['mixins'] == ['simpleores.mixins.json'] and 'client' in mod['entrypoints']
 
 # World generation: silver 1 to 2 veins of 5 per chunk (Overworld, Y -48..16), rarer than gold (4 veins of 9); End silver on the outer islands.
 placed = json.loads((RES / f'data/{NS}/worldgen/placed_feature/silver_ore.json').read_text(encoding='utf-8'))
@@ -97,6 +124,7 @@ for note, entry in manual['notes'].items():
     for src in entry['sources']:
         assert (ROOT / src).is_file(), (note, src)
 assert {f'{NS}:{i}' for i in ITEMS} | {f'{NS}:{b}' for b in BLOCKS} | {f'{NS}:guide_book'} <= set(manual['notes'])
+assert {'lead', 'soundproofing', 'silver_arrow', 'silver_mirror'} <= {f['id'] for f in manual['features']}
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 import subprocess
 subprocess.run([sys.executable, str(MODULE / 'tools/gen_data.py'), '--check'], check=True)

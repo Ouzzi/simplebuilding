@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simpleores:lead_ingot"
+  ],
+  "result": {
+    "id": "simpleores:lead_nugget",
+    "count": 9
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "I": "simpleores:silver_ingot",
+    "G": "minecraft:glass_pane"
+  },
+  "pattern": [
+    " I ",
+    "IGI",
+    " I "
+  ],
+  "result": {
+    "id": "simpleores:silver_mirror"
+  }
+}

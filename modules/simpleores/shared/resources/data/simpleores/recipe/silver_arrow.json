@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "N": "simpleores:silver_nugget",
+    "S": "minecraft:stick",
+    "F": "minecraft:feather"
+  },
+  "pattern": [
+    "N",
+    "S",
+    "F"
+  ],
+  "result": {
+    "id": "simpleores:silver_arrow",
+    "count": 4
+  }
+}
