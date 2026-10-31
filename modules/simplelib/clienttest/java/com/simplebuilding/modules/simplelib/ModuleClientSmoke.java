@@ -116,7 +116,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(2);
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
-                p.kill(p.level());
+                p.kill((net.minecraft.server.level.ServerLevel) p.level());
             });
             world.getConnection().waitForClientboundPackets();
             context.waitTicks(5);
