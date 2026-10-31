@@ -220,4 +220,44 @@ public final class ModuleGameTest {
     public void grassSpreadsOntoAndFromSlabs(GameTestHelper h) {
         BlocksTests.ALL.get("grass_spreads_onto_and_from_slabs").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowloggingPlaceAndLayers(GameTestHelper h) {
+        BlocksTests.ALL.get("snowlogging_place_and_layers").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowloggedFenceConnects(GameTestHelper h) {
+        BlocksTests.ALL.get("snowlogged_fence_connects").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowloggingShovelTakesSnowFirst(GameTestHelper h) {
+        BlocksTests.ALL.get("snowlogging_shovel_takes_snow_first").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowloggingBreakWithoutShovelDropsPlant(GameTestHelper h) {
+        BlocksTests.ALL.get("snowlogging_break_without_shovel_drops_plant").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void frostGrassFreezesWithIceOrCold(GameTestHelper h) {
+        BlocksTests.ALL.get("frost_grass_freezes_with_ice_or_cold").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void frostGrassThawsWithoutSnow(GameTestHelper h) {
+        BlocksTests.ALL.get("frost_grass_thaws_without_snow").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void frostGrassDropsAndTags(GameTestHelper h) {
+        BlocksTests.ALL.get("frost_grass_drops_and_tags").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void configCommand(GameTestHelper h) {
+        BlocksTests.ALL.get("config_command").accept(h);
+    }
 }

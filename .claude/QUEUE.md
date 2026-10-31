@@ -80,8 +80,8 @@ D Umbau/Texturen (danach)
 - [ ] IG31-15 RÜCKFRAGE: Simple Ovens ↔ Simple Crucibles Kopplung – frühere Besitzer-Aussage suchen (Queue-Archiv/Memory/Pläne) und Besitzer berichten.
 
 ## Besitzer 30.10. mittags – Snowlogging + Frostgras (SN30)
-- [ ] SN30-1 Snowlogging wie Bedrock: Schneeschicht/-teppich kann sich den Block mit Zaun(pfosten), Gras, Blumen, Farnen u. ä. teilen (verschneite Pflanzen sehen beschneit aus statt ohne Schnee). Technik prüfen: eigener „verschneit“-Blockzustand per Mixin auf Vanilla-Blöcken ist riskant (Weltdaten/Kompatibilität) – Alternative: Schneeschicht-Block, der die Pflanze als Inhalt trägt und mitrendert; im Plan entscheiden, abschaltbar, A12. Optik exemplarisch mit Vorschau.
-- [ ] SN30-2 Frostgras (neuer Block, + evtl. Variante): Grasblock wird mit Schnee(schicht/-teppich) obendrauf langsam zu Frostgras (Tempo ≈ Graswachstum, etwas schneller), aber nur in kalten Biomen ODER mit Eisblock darunter; ohne Schnee taut es langsam wieder zu Gras. Eigene Textur (Endholz-Prozess, Vanilla-nah, Bezug zum Vanilla-„verschneit“-Zustand des Grasblocks). Abschaltbar.
+- [~] (B, b-snow32, 31.10.) SN30-1 Snowlogging wie Bedrock: Schneeschicht/-teppich kann sich den Block mit Zaun(pfosten), Gras, Blumen, Farnen u. ä. teilen (verschneite Pflanzen sehen beschneit aus statt ohne Schnee). Technik prüfen: eigener „verschneit“-Blockzustand per Mixin auf Vanilla-Blöcken ist riskant (Weltdaten/Kompatibilität) – Alternative: Schneeschicht-Block, der die Pflanze als Inhalt trägt und mitrendert; im Plan entscheiden, abschaltbar, A12. Optik exemplarisch mit Vorschau.
+- [~] (B, b-snow32, 31.10.) SN30-2 Frostgras (neuer Block, + evtl. Variante): Grasblock wird mit Schnee(schicht/-teppich) obendrauf langsam zu Frostgras (Tempo ≈ Graswachstum, etwas schneller), aber nur in kalten Biomen ODER mit Eisblock darunter; ohne Schnee taut es langsam wieder zu Gras. Eigene Textur (Endholz-Prozess, Vanilla-nah, Bezug zum Vanilla-„verschneit“-Zustand des Grasblocks). Abschaltbar.
 Priorität: nach Punkt 4 der Besitzer-Reihenfolge („Rest“), kleines Paket.
 
 ## PRIORITÄT ab 30.10. 13 Uhr (Besitzer)

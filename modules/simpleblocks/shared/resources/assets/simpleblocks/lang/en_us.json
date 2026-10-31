@@ -150,5 +150,18 @@
   "quests.simpleblocks.start.title": "Welcome to Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Your free guide",
   "quests.simpleblocks.start.welcome.title": "A free guide",
-  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball."
+  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball.",
+  "block.simpleblocks.snowlogged": "Snowlogged Block",
+  "block.simpleblocks.frost_grass": "Frost Grass",
+  "item.simpleblocks.frost_grass": "Frost Grass",
+  "text.autoconfig.simpleblocks.title": "Simple Blocks Settings",
+  "text.autoconfig.simpleblocks.category.snow": "Snow",
+  "text.autoconfig.simpleblocks.option.snowlogging": "Snowlogging",
+  "text.autoconfig.simpleblocks.option.snowlogging.@Tooltip": "A snow layer used on a fence, flower or\ngrass shares the block with it. Default:\ntrue. Server setting.",
+  "text.autoconfig.simpleblocks.option.frostGrass": "Frost Grass",
+  "text.autoconfig.simpleblocks.option.frostGrass.@Tooltip": "Grass under snow freezes to frost grass in\ncold biomes or above ice. Default: true.\nServer setting.",
+  "text.autoconfig.simpleblocks.option.freezeOneIn": "Freeze Chance (1 in N)",
+  "text.autoconfig.simpleblocks.option.freezeOneIn.@Tooltip": "Grass under snow freezes with a chance of\n1 in N per random tick (1-100). Default: 3.",
+  "text.autoconfig.simpleblocks.option.thawOneIn": "Thaw Chance (1 in N)",
+  "text.autoconfig.simpleblocks.option.thawOneIn.@Tooltip": "Frost grass without snow thaws with a\nchance of 1 in N per random tick (1-100).\nDefault: 6."
 }

@@ -272,6 +272,7 @@ public final class BlocksTests {
         com.simpleblocks.saw.SawTests.register(ALL);
         // The building blocks that moved here from SimpleBuilding (b-blocksmove).
         NatureTests.register(ALL, MAX_TICKS);
+        SnowTests.register(ALL, MAX_TICKS);
     }
 
     private BlocksTests() {}

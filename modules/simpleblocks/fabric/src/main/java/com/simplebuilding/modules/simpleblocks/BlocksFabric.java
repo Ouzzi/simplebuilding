@@ -17,7 +17,15 @@ public final class BlocksFabric implements ModInitializer {
         // Old simplebuilding: ids of the moved building blocks resolve here (before anything loads a world).
         SimpleBlocks.registerIdMoves();
         SimpleBlocks.simplebuildingLoaded = FabricLoader.getInstance().isModLoaded("simplebuilding");
+        // SN30 (b-snow32): server config snow.* first, the blocks read it while the game runs.
+        com.simpleblocks.snow.SnowConfig.load(FabricLoader.getInstance().getConfigDir());
+        com.simplelib.api.config.ConfigCommands.server(SimpleBlocks.MOD_ID).json(com.simpleblocks.snow.SnowConfig::toJson, com.simpleblocks.snow.SnowConfig::apply)
+                .file(FabricLoader.getInstance().getConfigDir(), com.simpleblocks.snow.SnowConfig.FILE).register();
         BlocksRegistry.registerAll();
+        com.simpleblocks.snow.SnowBlocks.registerBlockEntity(new net.minecraft.world.level.block.entity.BlockEntityType<>(
+                com.simpleblocks.snow.SnowloggedBlockEntity::new, java.util.Set.of(com.simpleblocks.snow.SnowBlocks.SNOWLOGGED)));
+        // SN30-1: a snow layer used on a fence, flower or grass snowlogs it.
+        net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((player, level, hand, hit) -> com.simpleblocks.snow.Snowlogging.use(level, player, hand, hit));
         com.simplelib.api.PlayerState.onStop("simpleblocks:sawing", com.simpleblocks.saw.Sawing::forgetAll);
         // Stonecutter -> Shapecutter in the world: axe alone, hammer with Simple Hammers; 4 iron nuggets.
         com.simpleblocks.saw.SawUpgrade.hammerMode = FabricLoader.getInstance().isModLoaded("simplehammers");

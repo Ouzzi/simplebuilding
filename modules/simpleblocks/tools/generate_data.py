@@ -382,7 +382,8 @@ def tags():
     moved_slabs = [f'{NS}:{n}' for n in NATURE_SLABS]
     tag('data/minecraft/tags/block/mineable/pickaxe.json', ids + [f'{NS}:{SAW}'] + moved_ice + [f'{NS}:nautilus_shell_block'])
     # Suspended/levitating sand and gravel dig like their Vanilla block (AUDM24).
-    tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY])
+    # SN30 (b-snow32): frost grass and the snowlogged cell dig like the grass block and snow (their other tags are hand-written).
+    tag('data/minecraft/tags/block/mineable/shovel.json', moved_slabs + [f'{NS}:{g[0]}' for g in GRAVITY] + [f'{NS}:frost_grass', f'{NS}:snowlogged'])
     tag('data/minecraft/tags/block/ice.json', moved_ice)
     tag(f'data/{NS}/tags/item/froglights.json', ['minecraft:ochre_froglight', 'minecraft:verdant_froglight', 'minecraft:pearlescent_froglight']
         + [f'{NS}:{n}' for n in NATURE_OTHER[1:]])
