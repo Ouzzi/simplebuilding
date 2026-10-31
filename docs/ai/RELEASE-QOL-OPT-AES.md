@@ -88,11 +88,33 @@ Wird aus `docs/ai/release-qoa/*.md` zusammengeführt (pro Mod In-Game-Schritte m
 - [ ] Freigabe „ja“ des Besitzers → erst dann hochladen
 
 ## 5. Berichte je Mod
-*Folgt nach Phase 2: je Mod Zusammenfassung + Link auf `modules/<mod>/AUDIT.md`, Urteil shipbar / nicht shipbar.*
+Stand 31.10. (Aesthetics läuft noch):
+| Mod | Urteil | P1/P2/P3 | Tests | Bericht |
+|---|---|---|---|---|
+| simplequalityoflife | shipbar | 0/0/4 | grün (6+6) | modules/simplequalityoflife/AUDIT.md |
+| simpleinterfaces | shipbar | 0/1 (fix)/8 | grün (41+41) | modules/simpleinterfaces/AUDIT.md |
+| simpletools | shipbar | 0/0/7 | grün | modules/simpletools/AUDIT.md |
+| simplemovement | shipbar | 0/1 (fix)/2 | grün | modules/simplemovement/AUDIT.md |
+| simplefarming | shipbar | 0/2 (fix)/2 | grün | modules/simplefarming/AUDIT.md |
+| simplemobmanners | shipbar | 0/0/3 | grün | modules/simplemobmanners/AUDIT.md |
+| simpleloot | shipbar | 0/1 (fix)/1 | grün | modules/simpleloot/AUDIT.md |
+| simpleweather | shipbar | 0/0/1 | grün | modules/simpleweather/AUDIT.md |
+| simpleoptimization | shipbar | 0/0/1 | Nachlauf (Zeitgrenze bei sb-test-Überlast) | modules/simpleoptimization/AUDIT.md |
+| simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Client-Smoke Nachlauf | modules/simpleoptrender/AUDIT.md |
+| simpleoptmemory | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptmemory/AUDIT.md |
+| simpleoptserver | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptserver/AUDIT.md |
+Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md (aes.md folgt). Noch für alle offen: echter Client-Start im Bündel, Lauf mit Sodium/Iris/Lithium/JEI/Mod Menu.
 
 ## 6. Weitere Besitzer-Punkte
 *(leer)*
 
 ## Rückfragen an den Besitzer
 - R1 Versionsnummer zum Release: alle 1.0.0? (Empfehlung: ja)
-- R2 e3/e5 (Benchmark auf deinem PC, Modpack-Test) vor dem Opt-Release oder Opt als „Beta“ ausliefern?
+- R2 e3/e5 (Benchmark auf deinem PC, Modpack-Test) vor dem Opt-Release oder Opt als „Beta“ ausliefern? (Audit: blockiert 1.0 nicht, wenn die Texte keine Leistungszusagen machen; vorhandene Messungen belegen nur S5b.)
+- R3 Opt: Mod-Menu-Bildschirm vor Release nötig (heute nur JSON + Befehle)?
+- R-INT-1 Zoom-Taste C unbelegt lassen, solange `zoomHotkey` aus ist?
+- Q-B1 Cloth Config ist bei den sechs QoL-Sub-Mods harte Abhängigkeit, obwohl nur der Client-Screen sie braucht – optional machen?
+- Q-B2 Simple Weather dünnt Regen standardmäßig auf 20 % aus – Standard so lassen?
+- Q-B3 Leitern standardmäßig doppelt so schnell (0,4 statt 0,2) – so lassen?
+- Q-B4 Biom-Pinsel-Rezept braucht 3 Nether-Sterne – so lassen?
+- Q-B5 Halb fertigen Death-Vault-Rückkauf in der Release-Beschreibung nennen oder verschweigen/ausblenden?
