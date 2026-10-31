@@ -544,7 +544,18 @@
         "en_us": "Casting Tray",
         "de_de": "Gussschale"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefoundry/shared/java/com/simplefoundry/block/TrayBlock.java",
+          "modules/simplefoundry/shared/java/com/simplefoundry/block/TrayBlockEntity.java"
+        ],
+        "en": {
+          "summary": "Stands in front of a spout and takes up to nine ingots of one metal. An empty hand takes the ingots; breaking it gives them back."
+        },
+        "de": {
+          "summary": "Steht vor einer Gusstülle und nimmt bis zu neun Barren eines Metalls auf. Leere Hand nimmt die Barren; Abbauen gibt sie zurück."
+        }
+      },
       "craftedBy": [
         "simplefoundry:casting_tray"
       ],
@@ -556,7 +567,18 @@
         "en_us": "Fire Grate",
         "de_de": "Feuerrost"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefoundry/shared/java/com/simplefoundry/block/GrateBlock.java",
+          "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java"
+        ],
+        "en": {
+          "summary": "Heater in the hull, next to the tank. A foundry needs at least one; it glows while the foundry burns fuel."
+        },
+        "de": {
+          "summary": "Heizung in der Hülle, neben dem Tank. Eine Hütte braucht mindestens einen; er glüht, solange die Hütte Brennstoff verbrennt."
+        }
+      },
       "texture": "assets/textures/simplefoundry/block/fire_grate.png",
       "craftedBy": [
         "simplefoundry:fire_grate"
@@ -569,7 +591,18 @@
         "en_us": "Foundry Brick",
         "de_de": "Hüttenziegel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefoundry/shared/java/com/simplefoundry/FoundryRegistry.java",
+          "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java"
+        ],
+        "en": {
+          "summary": "Hull block of the foundry (tag simplefoundry:hull). Every neighbour of a melting chamber must be a chamber, the desk or a hull block, so the bricks close the tank on all sides."
+        },
+        "de": {
+          "summary": "Hüllblock der Hütte (Tag simplefoundry:hull). Jeder Nachbar einer Schmelzkammer muss eine Kammer, das Pult oder ein Hüllblock sein; die Ziegel schließen den Tank also rundum."
+        }
+      },
       "texture": "assets/textures/simplefoundry/block/foundry_brick.png",
       "craftedBy": [
         "simplefoundry:foundry_brick"
@@ -588,7 +621,18 @@
         "en_us": "Foundry Desk",
         "de_de": "Hüttenpult"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefoundry/shared/java/com/simplefoundry/block/DeskBlock.java",
+          "modules/simplefoundry/shared/java/com/simplefoundry/block/DeskBlockEntity.java"
+        ],
+        "en": {
+          "summary": "Control block. Right click with fuel or an ore/ingot throws it in, an empty hand shows the status. Checks the structure on use and while it works. Breaking it gives the fuel back."
+        },
+        "de": {
+          "summary": "Steuerblock. Rechtsklick mit Brennstoff oder Erz/Barren wirft es ein, leere Hand zeigt den Zustand. Prüft den Aufbau bei Benutzung und während des Betriebs. Abbauen gibt den Brennstoff zurück."
+        }
+      },
       "craftedBy": [
         "simplefoundry:foundry_desk"
       ],
@@ -600,7 +644,18 @@
         "en_us": "Foundry Spout",
         "de_de": "Gusstülle"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefoundry/shared/java/com/simplefoundry/block/SpoutBlock.java",
+          "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java"
+        ],
+        "en": {
+          "summary": "Hull block in the wall: its back touches a melting chamber, its front points outwards. The height it stands at chooses the layer of melt it pours into a casting tray in front of it."
+        },
+        "de": {
+          "summary": "Hüllblock in der Wand: Rückseite an einer Schmelzkammer, Vorderseite nach außen. Seine Höhe wählt die Schicht der Schmelze, die er in eine Gussschale davor gießt."
+        }
+      },
       "craftedBy": [
         "simplefoundry:foundry_spout"
       ],
@@ -612,7 +667,18 @@
         "en_us": "Melting Chamber",
         "de_de": "Schmelzkammer"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simplefoundry/shared/java/com/simplefoundry/FoundryRegistry.java",
+          "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java"
+        ],
+        "en": {
+          "summary": "Inner block of the tank, any shape. More chambers hold more melt (limit maxChambers, at most 32 blocks per axis); the tank is found by a flood fill from the desk."
+        },
+        "de": {
+          "summary": "Innenblock des Tanks, beliebige Form. Mehr Kammern fassen mehr Schmelze (Grenze maxChambers, höchstens 32 Blöcke je Achse); der Tank wird vom Pult aus per Flutfüllung erkannt."
+        }
+      },
       "texture": "assets/textures/simplefoundry/block/melting_chamber.png",
       "craftedBy": [
         "simplefoundry:melting_chamber"
@@ -631,14 +697,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplefoundry:casting_tray",
-    "simplefoundry:fire_grate",
-    "simplefoundry:foundry_brick",
-    "simplefoundry:foundry_desk",
-    "simplefoundry:foundry_spout",
-    "simplefoundry:melting_chamber"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 2,
@@ -653,7 +712,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 6,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
