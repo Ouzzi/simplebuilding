@@ -103,7 +103,7 @@ public final class AnimalsTests {
             h.assertTrue(AnimalsConfig.enabled && AnimalsConfig.spawnScale == 1.0 && AnimalsConfig.deer && AnimalsConfig.boar && AnimalsConfig.hedgehog
                     && AnimalsConfig.crab && AnimalsConfig.zebra && AnimalsConfig.boarAggression && AnimalsConfig.boarCloseSeconds == 6
                     && AnimalsConfig.hedgehogHuntRadius == 8 && AnimalsConfig.hedgehogHunts && AnimalsConfig.zorse
-                    && AnimalsConfig.boarTruffles && AnimalsConfig.boarTruffleChance == 0.005, "config defaults");
+                    && AnimalsConfig.TRUFFLE_DEFAULT == 0.005, "config defaults");
             h.succeed();
         });
         ALL.put("config_caps", h -> {

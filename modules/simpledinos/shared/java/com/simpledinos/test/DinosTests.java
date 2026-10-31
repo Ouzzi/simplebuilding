@@ -111,7 +111,7 @@ public final class DinosTests {
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleDinos.id("trex_spawn_egg")), "no spawn egg (owner)");
             h.assertTrue(DinosRegistry.FOSSIL_BE != null && DinosRegistry.EGG_BE != null, "block entity types");
             h.assertTrue(DefaultAttributes.hasSupplier(DinosRegistry.TREX), "attributes");
-            h.assertTrue(DinosConfig.enabled && DinosConfig.brushSeconds == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
+            h.assertTrue(DinosConfig.enabled && DinosConfig.BRUSH_DEFAULT == 45 && DinosConfig.incubateSeconds == 300 && DinosConfig.hatchSeconds == 600
                     && DinosConfig.growMinutes == 40 && DinosConfig.trexBiteDamage == 10.0, "config defaults = concept times");
             h.assertTrue(DinoKind.TREX.hatchable() && !DinoKind.TRICERATOPS.hatchable() && DinoKind.hatchableKinds().size() == 1,
                     "stage 1: only the T. rex hatches");

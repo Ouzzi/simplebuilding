@@ -229,6 +229,9 @@ public final class TestCentreLayout {
             excluded.put("simplebuilding:oak_door_half_2", "Halbtuer nur fuer alte Welten registriert (IG31-9), in keinem Tab");
             excluded.put("simplebuilding:oak_door_half_3", "Halbtuer nur fuer alte Welten registriert (IG31-9), in keinem Tab");
         }
+        excluded.put("simplebuilding:double_piston_head", "technischer Block (Kopf des Doppelkolbens, IG31-26), kein Item");
+        excluded.put("simplebuilding:double_piston_arm", "technischer Block (Schaft des Doppelkolbens, IG31-26), kein Item");
+        excluded.put("simpleblocks:snowlogged", "Schneeschicht mit Pflanze (SN30-1) ohne eigenes Item: entsteht beim Setzen der Schneeschicht auf Zaun/Pflanze");
         excluded.put("simplebuilding:placed_paint_box", "Abgestellter Farbkasten (W24-2) ohne eigenes Item: entsteht beim Abstellen des Farbkastens, der Farbkasten selbst steht in der Zentrale");
         EXCLUDED = Map.copyOf(excluded);
     }

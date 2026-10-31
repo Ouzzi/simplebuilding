@@ -48,7 +48,7 @@ public final class ResonanceFabric implements ModInitializer {
         ServerPlayerEvents.LEAVE.register(player -> service.forget(player.getUUID()));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ResonanceCommand.register(dispatcher));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
-            if (!SimpleResonance.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(configDir, SimpleResonance.MOD_ID)) return;
+            if (!SimpleResonance.on()) return;
             var book = java.util.List.of(ResonanceGuide.stack());
             // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.WRITABLE_BOOK))) out.insertBefore(Items.WRITABLE_BOOK, book, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
