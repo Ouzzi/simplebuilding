@@ -52,9 +52,20 @@ final class Refs {
         return out;
     }
 
-    /** A SimpleLib shared material ({@code cracked_diamond}, {@code netherite_nugget}, {@code enderite_nugget}). */
+    /**
+     * A shared material ({@code cracked_diamond}, {@code netherite_nugget}: SimpleLib's; {@code enderite_*}: Simple Ores' since
+     * IG31-13, by id - air without Simple Ores, see {@link #enderite()}).
+     */
     static Item material(String path) {
+        if (path.contains("enderite")) {
+            return net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", path));
+        }
         return com.simplelib.api.SimpleLibApi.materialItem(path);
+    }
+
+    /** IG31-13: whether the Enderite tier is reachable (a mod - Simple Ores - provides Enderite). */
+    static boolean enderite() {
+        return com.simplelib.api.SimpleLibApi.materialPresent("enderite");
     }
 
     /**

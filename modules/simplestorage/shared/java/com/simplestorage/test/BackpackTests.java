@@ -337,7 +337,11 @@ public final class BackpackTests {
                 "contents the netherite backpack kept from the reinforced one");
         assertKeptNameAndFunnel(helper, netherite, "Kit", "the netherite backpack");
 
-        // --- netherite -> enderite, with an item in the netherite column ---
+        // --- netherite -> enderite, with an item in the netherite column (IG31-13: only with Simple Ores) ---
+        if (!Refs.enderite()) {
+            helper.succeed();
+            return;
+        }
         BackpackTier netheriteTier = BackpackTier.NETHERITE;
         BackpackContents withColumn = new BackpackContents(List.of(
                 BackpackContents.Entry.of(0, new ItemStack(Items.COBBLESTONE, 64)),

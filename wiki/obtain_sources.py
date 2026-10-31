@@ -182,6 +182,10 @@ def parse_mod_loot(path: Path, item_ids: set[str], ench_ids: set[str], ns: str,
         shared = f"simplelib:{const.lower()}"
         if identifier not in item_ids and (version_flags or {}).get("MATERIALS_IN_LIB") and shared in item_ids:
             return shared
+        # 26.3 IG31-13: Enderite, Dimensional Scrap and Sage Ore are Simple Ores' (ModItems fields point at them).
+        ores = f"simpleores:{const.lower().removesuffix('_item')}"
+        if identifier not in item_ids and (version_flags or {}).get("MATERIALS_IN_ORES") and ores in item_ids:
+            return ores
         if identifier not in item_ids:
             problems.append(f"{path.name}: {owner}.{const} is no item the wiki knows ({identifier})")
         return identifier

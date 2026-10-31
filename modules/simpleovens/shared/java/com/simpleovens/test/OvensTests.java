@@ -318,7 +318,12 @@ public final class OvensTests {
                 if (toNetherite == null || toNetherite.to() != family.get(OvenTier.NETHERITE) || toNetherite.material() != SimpleLibApi.materialItem("netherite_nugget")) {
                     problems.add("reinforced -> netherite: " + toNetherite);
                 }
-                if (toEnderite == null || toEnderite.to() != family.get(OvenTier.ENDERITE) || toEnderite.material() != SimpleLibApi.materialItem("enderite_nugget")) {
+                // IG31-13: the Enderite nugget is Simple Ores' (by id); without it there is no Enderite step.
+                var nugget = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_nugget"));
+                if (!SimpleLibApi.materialPresent("enderite")) {
+                    if (toEnderite != null) problems.add("netherite -> enderite without Simple Ores: " + toEnderite);
+                } else if (toEnderite == null || toEnderite.to() != family.get(OvenTier.ENDERITE) || toEnderite.material() != nugget) {
                     problems.add("netherite -> enderite: " + toEnderite);
                 }
                 if (InWorldUpgrades.entryFor(family.get(OvenTier.ENDERITE)) != null) problems.add("enderite is the last tier");

@@ -136,7 +136,8 @@ final class VehicleTests {
         if (!netherite.is(StorageItems.CHEST_BOATS.get(ChestTier.NETHERITE)) || !"mangrove".equals(netherite.get(StorageComponents.BOAT_WOOD))) {
             wrong.add("smithing reinforced chest boat (mangrove) gave " + netherite + " wood " + netherite.get(StorageComponents.BOAT_WOOD));
         }
-        ItemStack enderite = smith(helper, new SmithingRecipeInput(new ItemStack(Refs.material("enderite_upgrade_template")),
+        ItemStack enderite = !Refs.enderite() ? new ItemStack(StorageItems.CHEST_MINECARTS.get(ChestTier.ENDERITE)) // IG31-13: only with Simple Ores
+                : smith(helper, new SmithingRecipeInput(new ItemStack(Refs.material("enderite_upgrade_template")),
                 new ItemStack(StorageItems.CHEST_MINECARTS.get(ChestTier.NETHERITE)), new ItemStack(Refs.material("enderite_ingot"))));
         if (!enderite.is(StorageItems.CHEST_MINECARTS.get(ChestTier.ENDERITE))) {
             wrong.add("smithing netherite chest minecart gave " + enderite);

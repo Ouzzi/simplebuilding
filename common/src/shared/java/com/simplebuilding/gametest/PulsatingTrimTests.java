@@ -385,9 +385,11 @@ public final class PulsatingTrimTests {
     /** SimpleBuilding's lang file plus SimpleLib's, which holds the upgrade templates since split 3d. */
     private static JsonObject lang(GameTestHelper helper, String locale) {
         JsonObject lang = new JsonObject();
-        for (String mod : List.of("simplebuilding", "simplelib")) {
+        // IG31-13: the Enderite upgrade template is Simple Ores' on 26.3 (its lang only there; 26.2 has no such mod).
+        for (String mod : List.of("simplebuilding", "simplelib", "simpleores")) {
             String path = "assets/" + mod + "/lang/" + locale + ".json";
             try (InputStream in = PulsatingTrimTests.class.getClassLoader().getResourceAsStream(path)) {
+                if (in == null && mod.equals("simpleores")) continue;
                 helper.assertTrue(in != null, path + " is not on the classpath");
                 JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject().entrySet()
                         .forEach(entry -> { if (!lang.has(entry.getKey())) lang.add(entry.getKey(), entry.getValue()); });

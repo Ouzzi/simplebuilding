@@ -88,8 +88,10 @@ public final class ChestTests {
 
         upgrade(helper, pos, Refs.material("netherite_nugget"), "reinforced -> netherite");
         assertTier(helper, pos, Refs.chestBlock("netherite"), NETHERITE_SLOTS, "reinforced -> netherite");
-        upgrade(helper, pos, Refs.material("enderite_nugget"), "netherite -> enderite");
-        assertTier(helper, pos, Refs.chestBlock("enderite"), ENDERITE_SLOTS, "netherite -> enderite");
+        if (Refs.enderite()) { // IG31-13: the Enderite step only with Simple Ores
+            upgrade(helper, pos, Refs.material("enderite_nugget"), "netherite -> enderite");
+            assertTier(helper, pos, Refs.chestBlock("enderite"), ENDERITE_SLOTS, "netherite -> enderite");
+        }
 
         BaseContainerBlockEntity end = container(helper, pos);
         String contents = describe(end.getItem(0)) + "|" + describe(end.getItem(COPPER_SLOTS - 1));
@@ -470,8 +472,10 @@ public final class ChestTests {
         container(helper, right).setItem(20, new ItemStack(Items.GOLD_INGOT, 7));
         upgrade(helper, left, Refs.material("netherite_nugget"), "trapped -> netherite");
         assertDouble(helper, Refs.trappedChestBlock("netherite"), left, right, "trapped netherite");
-        upgrade(helper, left, Refs.material("enderite_nugget"), "trapped -> enderite");
-        assertDouble(helper, Refs.trappedChestBlock("enderite"), left, right, "trapped enderite");
+        if (Refs.enderite()) { // IG31-13: the Enderite step only with Simple Ores
+            upgrade(helper, left, Refs.material("enderite_nugget"), "trapped -> enderite");
+            assertDouble(helper, Refs.trappedChestBlock("enderite"), left, right, "trapped enderite");
+        }
         helper.assertValueEqual(container(helper, left).getItem(3).getCount(), 12, "first half contents");
         helper.assertValueEqual(container(helper, right).getItem(20).getCount(), 7, "second half contents");
         helper.assertValueEqual(container(helper, left).getName().getString(), "Redstone stock", "custom name");

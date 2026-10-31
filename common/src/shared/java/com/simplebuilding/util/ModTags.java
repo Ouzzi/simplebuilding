@@ -181,7 +181,9 @@ public class ModTags {
                     || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
+                    // IG31-13: the Enderite materials are Simple Ores' (ingot, nugget, block).
+                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }

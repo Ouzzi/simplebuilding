@@ -7288,6 +7288,24 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/chiseled_crimson_blazewood_bookshelf.png",
+      "note": {
+        "en": {
+          "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
+          "details": [
+            "Recipe like the chiseled bookshelf: 6 Crimson Blazewood Planks around 3 Crimson Slabs."
+          ]
+        },
+        "de": {
+          "summary": "Ein gemeißeltes Bücherregal aus Karmesin-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
+          "details": [
+            "Rezept wie das gemeißelte Bücherregal: 6 Karmesin-Lohenholzbretter um 3 Karmesinstufen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json"
+        ]
+      },
       "hasCustomBehaviour": true
     },
     {
@@ -7387,6 +7405,24 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/chiseled_warped_blazewood_bookshelf.png",
+      "note": {
+        "en": {
+          "summary": "A chiseled bookshelf of warped blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
+          "details": [
+            "Recipe like the chiseled bookshelf: 6 Warped Blazewood Planks around 3 Warped Slabs."
+          ]
+        },
+        "de": {
+          "summary": "Ein gemeißeltes Bücherregal aus Wirr-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
+          "details": [
+            "Rezept wie das gemeißelte Bücherregal: 6 Wirr-Lohenholzbretter um 3 Wirrstufen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json"
+        ]
+      },
       "hasCustomBehaviour": true
     },
     {
@@ -32371,6 +32407,24 @@
       "drops": [
         "simplebuilding:chiseled_crimson_blazewood_bookshelf"
       ],
+      "note": {
+        "en": {
+          "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
+          "details": [
+            "Recipe like the chiseled bookshelf: 6 Crimson Blazewood Planks around 3 Crimson Slabs."
+          ]
+        },
+        "de": {
+          "summary": "Ein gemeißeltes Bücherregal aus Karmesin-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
+          "details": [
+            "Rezept wie das gemeißelte Bücherregal: 6 Karmesin-Lohenholzbretter um 3 Karmesinstufen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json"
+        ]
+      },
       "hasCustomBehaviour": true
     },
     {
@@ -32482,6 +32536,24 @@
       "drops": [
         "simplebuilding:chiseled_warped_blazewood_bookshelf"
       ],
+      "note": {
+        "en": {
+          "summary": "A chiseled bookshelf of warped blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
+          "details": [
+            "Recipe like the chiseled bookshelf: 6 Warped Blazewood Planks around 3 Warped Slabs."
+          ]
+        },
+        "de": {
+          "summary": "Ein gemeißeltes Bücherregal aus Wirr-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
+          "details": [
+            "Rezept wie das gemeißelte Bücherregal: 6 Wirr-Lohenholzbretter um 3 Wirrstufen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json"
+        ]
+      },
       "hasCustomBehaviour": true
     },
     {
@@ -131682,12 +131754,9 @@
     "inWorld": 481,
     "advancements": 116,
     "features": 50,
-    "undocumented": 2,
+    "undocumented": 0,
     "incompleteProse": 0
   },
-  "undocumented": [
-    "simplebuilding:chiseled_crimson_blazewood_bookshelf",
-    "simplebuilding:chiseled_warped_blazewood_bookshelf"
-  ],
+  "undocumented": [],
   "incompleteProse": {}
 }
