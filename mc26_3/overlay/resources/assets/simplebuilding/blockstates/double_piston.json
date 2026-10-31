@@ -1,0 +1,73 @@
+{
+  "variants": {
+    "ext=0,facing=north": {
+      "model": "simplebuilding:block/double_piston"
+    },
+    "ext=0,facing=east": {
+      "model": "simplebuilding:block/double_piston",
+      "y": 90
+    },
+    "ext=0,facing=south": {
+      "model": "simplebuilding:block/double_piston",
+      "y": 180
+    },
+    "ext=0,facing=west": {
+      "model": "simplebuilding:block/double_piston",
+      "y": 270
+    },
+    "ext=0,facing=up": {
+      "model": "simplebuilding:block/double_piston",
+      "x": 270
+    },
+    "ext=0,facing=down": {
+      "model": "simplebuilding:block/double_piston",
+      "x": 90
+    },
+    "ext=1,facing=north": {
+      "model": "simplebuilding:block/double_piston_extended"
+    },
+    "ext=1,facing=east": {
+      "model": "simplebuilding:block/double_piston_extended",
+      "y": 90
+    },
+    "ext=1,facing=south": {
+      "model": "simplebuilding:block/double_piston_extended",
+      "y": 180
+    },
+    "ext=1,facing=west": {
+      "model": "simplebuilding:block/double_piston_extended",
+      "y": 270
+    },
+    "ext=1,facing=up": {
+      "model": "simplebuilding:block/double_piston_extended",
+      "x": 270
+    },
+    "ext=1,facing=down": {
+      "model": "simplebuilding:block/double_piston_extended",
+      "x": 90
+    },
+    "ext=2,facing=north": {
+      "model": "simplebuilding:block/double_piston_moved"
+    },
+    "ext=2,facing=east": {
+      "model": "simplebuilding:block/double_piston_moved",
+      "y": 90
+    },
+    "ext=2,facing=south": {
+      "model": "simplebuilding:block/double_piston_moved",
+      "y": 180
+    },
+    "ext=2,facing=west": {
+      "model": "simplebuilding:block/double_piston_moved",
+      "y": 270
+    },
+    "ext=2,facing=up": {
+      "model": "simplebuilding:block/double_piston_moved",
+      "x": 270
+    },
+    "ext=2,facing=down": {
+      "model": "simplebuilding:block/double_piston_moved",
+      "x": 90
+    }
+  }
+}

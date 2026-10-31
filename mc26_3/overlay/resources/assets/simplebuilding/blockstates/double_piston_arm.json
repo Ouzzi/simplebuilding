@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "simplebuilding:block/double_piston_arm"
+    },
+    "facing=east": {
+      "model": "simplebuilding:block/double_piston_arm",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "simplebuilding:block/double_piston_arm",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplebuilding:block/double_piston_arm",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "simplebuilding:block/double_piston_arm",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "simplebuilding:block/double_piston_arm",
+      "x": 90
+    }
+  }
+}

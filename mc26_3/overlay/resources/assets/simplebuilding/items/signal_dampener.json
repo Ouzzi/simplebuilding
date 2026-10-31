@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplebuilding:item/signal_dampener"
+  }
+}

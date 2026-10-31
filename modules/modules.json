@@ -61,7 +61,6 @@
         "simplemusic",
         "simpleearth",
         "simplechallenges",
-        "simpleredstone",
         "simpledinos"
       ],
       "paths": {
@@ -4424,69 +4423,6 @@
         "fabric": ":modules:simpleanimals:fabric",
         "neoforge": ":modules:simpleanimals:neoforge",
         "forge": ":modules:simpleanimals:forge"
-      },
-      "parent": "simplebuilding",
-      "bundle": "optional"
-    },
-    {
-      "id": "simpleredstone",
-      "name": "Simple Redstone",
-      "version": "0.1.0",
-      "minecraft": "26.3",
-      "defaultEnabled": true,
-      "displayName": "Simple Redstone",
-      "description": "Double Piston (1x2: signal 1-7 reaches one block, 8-15 two, pushes with Vanilla rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
-      "loaders": [
-        "fabric"
-      ],
-      "requires": [
-        "simplelib"
-      ],
-      "optional": [
-        "simplebuilding"
-      ],
-      "checks": [
-        "modules/simpleredstone/tools/check_data.py"
-      ],
-      "tests": {
-        "namespace": "simpleredstone",
-        "catalogues": [
-          "modules/simpleredstone/fabric/src/main/java/com/simplebuilding/modules/simpleredstone/ModuleGameTest.java"
-        ],
-        "requires": [
-          "simpleredstone"
-        ],
-        "devMods": [],
-        "loaders": {
-          "fabric": {
-            "task": ":integration:runSimpleredstoneGameTest",
-            "report": "integration/build/simpleredstone-junit.xml"
-          }
-        },
-        "standalone": {
-          "requires": [],
-          "devMods": [],
-          "loaders": {
-            "fabric": {
-              "task": ":integration:runSimpleredstoneStandaloneGameTest",
-              "report": "integration/build/standalone/simpleredstone-junit.xml"
-            }
-          }
-        }
-      },
-      "paths": {
-        "root": "modules/simpleredstone",
-        "shared": "modules/simpleredstone/shared",
-        "fabric": "modules/simpleredstone/fabric",
-        "neoforge": null,
-        "forge": null,
-        "generated": "modules/simpleredstone/generated/resources",
-        "lang": "modules/simpleredstone/shared/resources/assets/simpleredstone/lang",
-        "wikiManual": "modules/simpleredstone/wiki/manual.json",
-        "balanceDir": "balance/simpleredstone"
-      },
-      "projects": {
-        "fabric": ":modules:simpleredstone:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "optional"

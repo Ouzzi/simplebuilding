@@ -1,0 +1,136 @@
+{
+  "textures": {
+    "particle": "minecraft:block/piston_side",
+    "side": "minecraft:block/piston_side",
+    "platform": "minecraft:block/piston_top",
+    "bottom": "minecraft:block/piston_bottom",
+    "inside": "minecraft:block/piston_inner",
+    "side_overlay": "simplebuilding:block/double_piston_side_overlay",
+    "plate_overlay": "simplebuilding:block/double_piston_plate_overlay"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "rotation": 180,
+          "cullface": "down"
+        },
+        "up": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "cullface": "up"
+        },
+        "west": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "rotation": 270,
+          "cullface": "west"
+        },
+        "east": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side",
+          "rotation": 90,
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        8
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side_overlay",
+          "rotation": 180,
+          "cullface": "down"
+        },
+        "up": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side_overlay",
+          "cullface": "up"
+        },
+        "west": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side_overlay",
+          "rotation": 270,
+          "cullface": "west"
+        },
+        "east": {
+          "uv": [
+            0,
+            8,
+            16,
+            16
+          ],
+          "texture": "#side_overlay",
+          "rotation": 90,
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

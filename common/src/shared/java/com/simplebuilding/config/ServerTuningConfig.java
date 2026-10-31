@@ -247,6 +247,12 @@ public class ServerTuningConfig {
         /** Simple Doors (WP-17, 2026-10-29): the 2x2, 2x3 and half doors open by hand and redstone; aus: sie bleiben, wie sie stehen (zu). */
         @ConfigEntry.Gui.Tooltip
         public boolean simpleDoors = true;
+        /** Doppelkolben (IG31-26, 31.10.): faehrt bei Signal 1-7 eine, bei 8-15 zwei Stufen aus; aus: er bleibt stehen, Rezept faellt weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean doublePiston = true;
+        /** Signaldaempfer (IG31-25, 31.10.): zieht 0-3 vom Signal ab; aus: er gibt 0 aus, Rezept faellt weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean signalDampener = true;
     }
 
     public static class ChunkLoaders {

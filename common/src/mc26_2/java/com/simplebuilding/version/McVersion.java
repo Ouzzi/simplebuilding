@@ -111,6 +111,8 @@ public final class McVersion {
     public static final boolean END_RAILS = false;
     /** Simple Doors (WP-17 / BS28-2): the 2x2, 2x3 and half-width oak doors; 26.3 only until the port run. */
     public static final boolean DOORS = false;
+    /** Double Piston and Signal Dampener in the Simple Machines tab (IG31-12/-26, b-mach32 31.10.; formerly Simple Redstone, 26.3 only). */
+    public static final boolean MACHINE_PARTS = false;
     /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
     public static final boolean CRUCIBLE = false;
     /** Trim templates in SimpleBuilding: 26.2 has no modules, the templates stay {@code simplebuilding:*} here (26.3: Simple Trims). */

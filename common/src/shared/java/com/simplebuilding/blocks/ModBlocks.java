@@ -73,6 +73,12 @@ public class ModBlocks {
     public static final Block OAK_DOOR_1_5X3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.WIDE_1_5X3) : null;
     public static final Block OAK_DOOR_HALF_2 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.HALF_2) : null;
     public static final Block OAK_DOOR_HALF_3 = McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerOak(com.simplebuilding.doors.DoorFormat.HALF_3) : null;
+    // IG31-12/-26 (b-mach32, 31.10.): Double Piston (one block, two stages; head and arm are its parts) and Signal Dampener,
+    // moved here from the former module Simple Redstone (com.simplebuilding.machines, old ids via IdMovesHook).
+    public static final Block DOUBLE_PISTON = McVersion.MACHINE_PARTS ? com.simplebuilding.machines.MachineParts.doublePiston() : null;
+    public static final Block DOUBLE_PISTON_HEAD = McVersion.MACHINE_PARTS ? com.simplebuilding.machines.MachineParts.head(DOUBLE_PISTON) : null;
+    public static final Block DOUBLE_PISTON_ARM = McVersion.MACHINE_PARTS ? com.simplebuilding.machines.MachineParts.arm(DOUBLE_PISTON) : null;
+    public static final Block SIGNAL_DAMPENER = McVersion.MACHINE_PARTS ? com.simplebuilding.machines.MachineParts.signalDampener() : null;
 
     // --- 3. GRAVITY BLOCKS ---
 

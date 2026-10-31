@@ -92,13 +92,7 @@ Super-Mod der Familie: Hülle mit Konfig, Mega-Guide, Testzentrale, Baugeräte (
 - Gadgets zeigen keinen Text auf dem Bildschirm (AGENTS.md 3.4): Sounds, Partikel, Blockzustände.
 - Pflicht-Sub-Mods sind gebündelt (`requires` in `modules.json`); alles andere nur als `optional` (Schalter `enableSimpleX`).
 - Schach-Achtel (`checker_octet`) und Schach-Figuren bleiben hier (Plan F3).
-
-### Simple Redstone (`simpleredstone`)
-Doppelkolben (1×2) und Signaldämpfer; nur Vanilla-Zutaten, nur Fabric 26.3 vorerst (WP-17, `docs/ai/KONZEPT-A-WP17-2026-10-29.md`).
-
-- Keine Block-Entities: der Doppelkolben bewegt über Vanillas `moving_piston` und `PistonStructureResolver` (Limit 12, Schleim/Honig, Block-Entities bleiben stehen); der Dämpfer trägt Stufe und Ausgang im Blockstate.
-- Alle vier Kolbenteile `pushReaction IMMOVEABLE`; nur die hintere Zelle hat Beute, Abbau jedes Teils nimmt den ganzen Kolben (updateShape-Kette, im Kreativmodus ohne Drop).
-- Schalter nur als JSON-Config (`features.doublePiston`, `features.signalDampener`, `/simpleredstone config`); aus = Teile bleiben stehen bzw. geben 0 aus (A12: nichts an Vanilla geändert).
+- Doppelkolben und Signaldämpfer (IG31-12, 31.10., aus dem aufgelösten Modul Simple Redstone) gehören zu den Kolben-Upgrades im Tab SimpleMachines (`com.simplebuilding.machines`): keine Block-Entities, Bewegung über Vanillas `moving_piston`/`PistonStructureResolver` (Limit 12, Obsidian hält auf), Kolbenteile unverschiebbar, Schalter `server.features.doublePiston`/`signalDampener`; alte `simpleredstone:`-Ids über `IdMovesHook`. Varianten (Astral/Nihil) nur über `DoublePistonVariant`, erst nach Besitzer-Abnahme.
 
 ### Wiring Example (`wiringexample`)
 Minimales Beispiel-Modul für Lader-/Integrations-Verdrahtung.

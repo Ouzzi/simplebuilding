@@ -166,8 +166,6 @@ MODS = [
          mixin_package="com.simplegadgets.mixin", own_packages=["com.simplegadgets."],
          tips=[("rotator", ["rotator"], "Use on a block to turn it in place",
                 "Auf Block benutzen: dreht ihn an Ort und Stelle")]),
-    dict(id="simpleredstone", ns=["simpleredstone"], cls="RedstoneDiscover", package="com.simpleredstone.discover",
-         own_packages=["com.simpleredstone."]),
     dict(id="simpledimensions", ns=["simpledimension"], cls="DimensionsDiscover",
          package="com.simplebuilding.modules.simpledimensions.discover",
          own_packages=["com.simplebuilding.modules.simpledimensions.", "dev.simpledimension."]),

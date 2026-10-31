@@ -103,6 +103,10 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.AUTONOMOUS_CRAFTER));
         }
+        if (com.simplebuilding.version.McVersion.MACHINE_PARTS) {
+            // IG31-12/-26: the Double Piston and its parts with the pickaxe like Vanilla's piston (the Dampener breaks at once).
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.DOUBLE_PISTON)).add(key(ModBlocks.DOUBLE_PISTON_HEAD)).add(key(ModBlocks.DOUBLE_PISTON_ARM));
+        }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch und Lohen-Obsidian mit der Spitzhacke (Obsidian ab Diamant),
             // Lohenholz und Lohen-Regale mit der Axt; die Regale zaehlen auch am Vanilla-Tisch (als ein Regal).
