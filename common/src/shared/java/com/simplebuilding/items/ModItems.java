@@ -561,6 +561,9 @@ public class ModItems {
     public static final Item OAK_DOOR_1_5X3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_1_5X3, com.simplebuilding.doors.DoorFormat.WIDE_1_5X3) : null;
     public static final Item OAK_DOOR_HALF_2 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_HALF_2, com.simplebuilding.doors.DoorFormat.HALF_2) : null;
     public static final Item OAK_DOOR_HALF_3 = com.simplebuilding.version.McVersion.DOORS ? com.simplebuilding.doors.WideDoors.registerItem(ModBlocks.OAK_DOOR_HALF_3, com.simplebuilding.doors.DoorFormat.HALF_3) : null;
+    // IG31-12/-26 (b-mach32, 31.10.): Double Piston and Signal Dampener (Simple Machines tab), formerly Simple Redstone.
+    public static final Item DOUBLE_PISTON = com.simplebuilding.version.McVersion.MACHINE_PARTS ? com.simplebuilding.machines.MachineParts.item(ModBlocks.DOUBLE_PISTON) : null;
+    public static final Item SIGNAL_DAMPENER = com.simplebuilding.version.McVersion.MACHINE_PARTS ? com.simplebuilding.machines.MachineParts.item(ModBlocks.SIGNAL_DAMPENER) : null;
 
 
 

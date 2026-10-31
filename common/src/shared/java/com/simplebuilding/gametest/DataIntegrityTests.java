@@ -150,6 +150,8 @@ public final class DataIntegrityTests {
 
     private static Set<String> blocksWithoutItem() {
         Set<String> blocks = new java.util.HashSet<>(Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
+                // IG31-26: the Double Piston's head and arm (placed and dropped with the piston)
+                "double_piston_head", "double_piston_arm",
                 "placed_smithing_template", "placed_blueprint", "placed_bundle", "placed_egg", "placed_small_parts", "placed_paint_box",
                 // the ropes of a hammock (end and span), placed and dropped with their hammock
                 "hammock_rope",
@@ -187,6 +189,7 @@ public final class DataIntegrityTests {
 
     /** Blocks registered with {@code noLootTable()}. */
     private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = withMaterialOctets("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
+            "double_piston_head", "double_piston_arm",
             // drops the template stored in its block entity (PlacedTemplateBlock#getDrops)
             "placed_smithing_template", "placed_blueprint",
             // drops the bundle (with its contents) stored in its block entity (PlacedBundleBlock#getDrops)
@@ -2947,6 +2950,10 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("pistons",
                         Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
                         ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON)));
+        if (McVersion.MACHINE_PARTS) {
+            // IG31-12: Doppelkolben und Signaldaempfer direkt hinter den Kolben.
+            expected.add(CreativeTabLayout.Row.of("double_pistons", ModItems.DOUBLE_PISTON, ModItems.SIGNAL_DAMPENER));
+        }
         if (McVersion.AUTO_SMITHER) {
             // Auto-Schmied (2026-10-02) direkt hinter den Kolben.
             // Autonomer Crafter (2026-10-09) in derselben Zeile.

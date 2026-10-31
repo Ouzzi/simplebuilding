@@ -3285,6 +3285,71 @@
           "Schalter: server.features.simpleDoors (Standard an); aus, bleiben die Türen bei Hand und Redstone zu."
         ]
       }
+    },
+    {
+      "id": "double_piston",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistons.java",
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistonHeadBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistonArmBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/MachineParts.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/double_piston.json",
+        "tools/textures/mach32_2026_10_31.py"
+      ],
+      "en": {
+        "title": "Double Piston",
+        "summary": "One block that pushes in two stages: a signal of 1 to 7 brings the head out one block like a Vanilla piston, 8 to 15 moves the body half a block forward and the head a second block - three blocks long in all.",
+        "details": [
+          "Place it like a piston: it faces towards you. It reads the signal like a Vanilla piston (every side except the front, from below and the block above), so Vanilla machines drive it the same way.",
+          "Stage 1 looks like a Vanilla piston that is out. At stage 2 the piston body itself moves half a block forward and the head comes out another block; the back half of the piston's own block is then empty.",
+          "It moves one block per step and looks at the signal again after each one: a falling signal brings it back one stage, a rising one sends it on. Every step pushes with Vanilla's rules (12 blocks at most, slime and honey stick, blocks with a block entity stay, obsidian stops it).",
+          "Its parts cannot be pushed by pistons or machines. Breaking any part takes the whole piston away and drops one Double Piston.",
+          "A strong signal can be weakened with the Signal Dampener: 15, 12, 9, 6 after three stage-3 Dampeners is a signal for stage 1.",
+          "Craft: quartz, a block of redstone, quartz / iron ingot, piston, iron ingot / iron block, piston. Switch: server.features.doublePiston (default on). Until 31.10. it was part of Simple Redstone (1x2); old worlds load it as the new block."
+        ]
+      },
+      "de": {
+        "title": "Doppelkolben",
+        "summary": "Ein Block, der in zwei Stufen schiebt: Ein Signal von 1 bis 7 fährt den Kopf einen Block weit aus wie beim Vanilla-Kolben, 8 bis 15 schiebt den Körper einen halben Block vor und den Kopf einen zweiten Block – zusammen drei Blöcke lang.",
+        "details": [
+          "Er wird wie ein Kolben gesetzt: Er zeigt zu dir. Das Signal liest er wie ein Vanilla-Kolben (jede Seite außer der Front, von unten und der Block darüber), Vanilla-Maschinen steuern ihn also genauso.",
+          "Stufe 1 sieht aus wie ein ausgefahrener Vanilla-Kolben. In Stufe 2 rückt der Kolbenkörper selbst einen halben Block vor und der Kopf fährt einen weiteren Block aus; die hintere Hälfte des eigenen Blocks ist dann leer.",
+          "Er fährt je Schritt einen Block und schaut danach wieder aufs Signal: Ein fallendes Signal holt ihn eine Stufe zurück, ein steigendes schickt ihn weiter. Jeder Schritt schiebt nach den Vanilla-Regeln (höchstens 12 Blöcke, Schleim und Honig kleben, Blöcke mit Block-Entity bleiben, Obsidian hält ihn auf).",
+          "Seine Teile lassen sich von Kolben und Maschinen nicht verschieben. Wer ein Teil abbaut, nimmt den ganzen Kolben mit und bekommt einen Doppelkolben.",
+          "Ein starkes Signal lässt sich mit dem Signaldämpfer schwächen: 15, 12, 9, 6 nach drei Dämpfern der Stufe 3 ist ein Signal für Stufe 1.",
+          "Rezept: Quarz, Redstoneblock, Quarz / Eisenbarren, Kolben, Eisenbarren / Eisenblock, Kolben. Schalter: server.features.doublePiston (Standard an). Bis 31.10. gehörte er zu Simple Redstone (1×2); alte Welten laden ihn als neuen Block."
+        ]
+      }
+    },
+    {
+      "id": "signal_dampener",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/machines/SignalDampenerBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/MachineParts.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/signal_dampener.json",
+        "tools/textures/mach32_2026_10_31.py"
+      ],
+      "en": {
+        "title": "Signal Dampener",
+        "summary": "A flat redstone part like the Repeater that takes 0 to 3 off the signal and passes it on one redstone tick later.",
+        "details": [
+          "Right-click sets the stage 0 to 3; three lamps on top show it (as many lit as the stage), the track glows while a signal comes out. Output = input minus stage, never below 0: 3 minus 3 is 0, 4 minus 2 is 2.",
+          "The input is behind it (the arrow side is the output, like a Repeater); signals from the sides are ignored. Redstone dust and the other redstone lines feed it alike. Stage 0 only delays.",
+          "It is destroyed by pistons like the Repeater and needs a solid block below. Comparators do not read it (it stores nothing).",
+          "Craft: redstone torch, quartz, redstone torch / three stone. Switch: server.features.signalDampener (default on)."
+        ]
+      },
+      "de": {
+        "title": "Signaldämpfer",
+        "summary": "Ein flaches Redstone-Teil wie der Verstärker, das 0 bis 3 vom Signal abzieht und es einen Redstone-Tick später weitergibt.",
+        "details": [
+          "Rechtsklick stellt die Stufe 0 bis 3 ein; drei Lämpchen oben zeigen sie (so viele leuchten wie die Stufe), die Leiterbahn glüht, solange ein Signal herauskommt. Ausgang = Eingang minus Stufe, nie unter 0: 3 minus 3 ist 0, 4 minus 2 ist 2.",
+          "Der Eingang liegt hinten (die Pfeilseite ist der Ausgang wie beim Verstärker); Signale von den Seiten werden ignoriert. Redstone-Staub und die anderen Redstone-Linien speisen ihn gleich. Stufe 0 verzögert nur.",
+          "Kolben zerstören ihn wie den Verstärker, er braucht einen festen Block darunter. Komparatoren lesen ihn nicht (er speichert nichts).",
+          "Rezept: Redstone-Fackel, Quarz, Redstone-Fackel / drei Stein. Schalter: server.features.signalDampener (Standard an)."
+        ]
+      }
     }
   ],
   "notes": {

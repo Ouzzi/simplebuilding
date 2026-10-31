@@ -254,6 +254,12 @@ public class ServerTuningConfig {
          */
         @ConfigEntry.Gui.Tooltip
         public boolean endgameEnchantLevels = true;
+        /** Doppelkolben (IG31-26, 31.10.): faehrt bei Signal 1-7 eine, bei 8-15 zwei Stufen aus; aus: er bleibt stehen, Rezept faellt weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean doublePiston = true;
+        /** Signaldaempfer (IG31-25, 31.10.): zieht 0-3 vom Signal ab; aus: er gibt 0 aus, Rezept faellt weg. */
+        @ConfigEntry.Gui.Tooltip
+        public boolean signalDampener = true;
     }
 
     public static class ChunkLoaders {

@@ -137,10 +137,6 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleRedstone = true;
-
-    @ConfigEntry.Category("modules")
-    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleDinos = true;
 
     @ConfigEntry.Category("modules")
@@ -178,7 +174,6 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simplechallenges", c.enableSimpleChallenges);
         setSubMod("simpleanimals", c.enableSimpleAnimals);
         setSubMod("simpleresonance", c.enableSimpleResonance);
-        setSubMod("simpleredstone", c.enableSimpleRedstone);
         setSubMod("simpledinos", c.enableSimpleDinos);
         setSubMod("simpleores", c.enableSimpleOres);
     }

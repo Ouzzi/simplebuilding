@@ -239,13 +239,6 @@ MODULES = [
                 "Geräte, die man in der Hand hält und benutzt: die Messuhr - ein Tacho, ein Höhenmesser, der vor "
                 "Fallschaden warnt, und automatisches Laufen entlang von Wegen und Schienen - der Transponierer, "
                 "der Blöcke an Ort und Stelle dreht und tauscht, und der Resonanzstab, ein Strahl, der zeigt, schmilzt, zündet und misst.")),
-    dict(module="simpleredstone", ns="simpleredstone", package="com.simpleredstone.guide", cls="RedstoneGuide", kind="item",
-         author="Simple Redstone", recipe="minecraft:redstone",
-         name=("Simple Redstone Guide", "Simple-Redstone-Handbuch"),
-         intro=("The Double Piston - two blocks long, one block out for a weak signal and two for a strong one - and the "
-                "Signal Dampener, a repeater that takes up to 3 off the signal.",
-                "Der Doppelkolben - zwei Blöcke lang, bei schwachem Signal einen Block weit draußen, bei starkem zwei - und der "
-                "Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.")),
     dict(module="simpletrims", ns="simpletrims", package="com.simpletrims.guide", cls="TrimsGuide", kind="item",
          author="Simple Trims", recipe="minecraft:glow_ink_sac",
          name=("Simple Trims Guide", "Simple-Trims-Handbuch"),

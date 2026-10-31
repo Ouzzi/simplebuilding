@@ -29,7 +29,7 @@ public final class RecipeFilter {
     public static boolean anyDisabled() {
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
-        return !f.endSignals || !f.endPistons || !f.endRails || !f.astralVault || !f.nihilVault || !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks
+        return !f.endSignals || !f.endPistons || !f.endRails || !f.astralVault || !f.nihilVault || !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks || !f.doublePiston || !f.signalDampener
                 || !t.pads.enableChunkLoaders || !t.pads.enableElytraPads || !t.pads.enableFlypads
                 || !t.pads.enableSpawnTeleporters || !t.pads.enableLaunchpads || !t.pads.enablePotionPads
                 || !t.laserPointer.enable;
@@ -57,6 +57,8 @@ public final class RecipeFilter {
                 || (!f.blueprint && p.contains("blueprint"))
                 || (!f.oreDetector && p.contains("detector"))
                 || (!f.levitatingBlocks && (p.startsWith("levitating_") || p.startsWith("suspended_")))
+                || (!f.doublePiston && p.equals("double_piston"))
+                || (!f.signalDampener && p.equals("signal_dampener"))
                 || (!t.pads.enableChunkLoaders && p.contains("chunk_loader"))
                 || (!t.pads.enableElytraPads && p.contains("elytra_pad"))
                 || (!t.pads.enableFlypads && p.contains("flypad"))
