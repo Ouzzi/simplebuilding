@@ -161,45 +161,26 @@ def egg_overlay(phase: int):
 
 
 # ---------------------------------------------------------------- items
-SADDLE = ["................",
-          "................",
-          "....oooooooo....",
-          "...oSSSSSSSSo...",
-          "..oSSsSSSSsSSo..",
-          "..oSSSSSSSSSSo..",
-          ".oBBBBBBBBBBBBo.",
-          ".oBbBBBBBBBBbBo.",
-          ".oBBBBBBBBBBBBo.",
-          ".oBBBBBBBBBBBBo.",
-          ".oiBBBBBBBBBBio.",
-          ".oiiBBBBBBBBiio.",
-          "..oiiooooooiio..",
-          "...oo......oo...",
-          "................",
-          "................"]
-SADDLE_COLORS = {'o': '#2a1a0e', 'S': '#8a5a34', 's': '#a8744a', 'B': '#6a4024', 'b': '#8a5a34', 'i': '#a8adb4'}
+# Owner choice 31.10. (IG31-23, preview b-optik32): large saddle = variant C "Hochlehne", T. rex armor = variant C (all three tiers).
+# Drawn by tools/textures/optik32_items.py (Endwood process A8b); one layer source per sprite.
+sys.path.insert(0, str(ROOT / 'tools/textures'))
+import optik32_items as OI  # noqa: E402
 
-GUARD = ["................",
-         "................",
-         "....oooooooo....",
-         "...oPPPPPPPPo...",
-         "..oPPhPPPPhPPo..",
-         "..oPPPPPPPPPPo..",
-         "..oPPPPrPPPPPo..",
-         ".oPPPPPPPPPPPPo.",
-         ".oPPPPPPPPPPPPo.",
-         ".oddPPPPPPPPddo.",
-         "..oddddddddddo..",
-         "...oooooooooo...",
-         "................",
-         "................",
-         "................",
-         "................"]
-GUARD_COLORS = {
-    'leather': {'o': '#2a1a0e', 'P': '#7a5030', 'h': '#9a6a40', 'r': '#c8a070', 'd': '#4e321c'},
-    'iron': {'o': '#22262c', 'P': '#9aa0a8', 'h': '#c4c9d0', 'r': '#e4e8ec', 'd': '#5c6168'},
-    'diamond': {'o': '#0e3c3a', 'P': '#3fd2c6', 'h': '#8ff0e6', 'r': '#e0fffb', 'd': '#1f8a82'},
-}
+ARMOR_TIERS = ('leather', 'iron', 'diamond')
+
+
+def chosen(img, name):
+    """A copy of a chosen proposal with its layer source (the proposal sprite is shared, so it is copied first)."""
+    out = img.copy()
+    return L.snap(out, name)
+
+
+def saddle_image():
+    return chosen(OI.saddle('C'), 'Sattel')
+
+
+def armor_image(tier):
+    return chosen(OI.armor('C', tier), 'Platte')
 
 
 def grid_image(rows, colors, groups, base='Grundfarbe'):
@@ -257,9 +238,9 @@ def outputs():
                 'egg': f'{NS}:block/egg_{kind}', 'overlay': f'{NS}:block/egg_overlay_{p}'}})
         files[bs / f'{kind}_egg.json'] = dumps({'variants': {f'phase={p}': {'model': f'{NS}:block/{kind}_egg_{p}'} for p in range(PHASES)}})
         files[it / f'{kind}_egg.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:block/{kind}_egg_11'}})
-    files[ti / 'large_saddle.png'] = grid_image(SADDLE, SADDLE_COLORS, [('Umriss', 'o'), ('Schnallen', 'i'), ('Licht', 'sb')], 'Leder')
-    for tier, colors in GUARD_COLORS.items():
-        files[ti / f'trex_armor_{tier}.png'] = grid_image(GUARD, colors, [('Umriss', 'o'), ('Kanten', 'd'), ('Licht', 'hr')], 'Platte')
+    files[ti / 'large_saddle.png'] = saddle_image()
+    for tier in ARMOR_TIERS:
+        files[ti / f'trex_armor_{tier}.png'] = armor_image(tier)
     for name in ('large_saddle', 'trex_armor_leather', 'trex_armor_iron', 'trex_armor_diamond'):
         files[mi / f'{name}.json'] = dumps({'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/{name}'}})
         files[it / f'{name}.json'] = dumps({'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{name}'}})
@@ -287,9 +268,9 @@ def preview_images(image_uri):
             im.alpha_composite(egg_overlay(p))
             glow.append(dict(src=uri(im), label=('Brüten ' + str(p + 1) + '/12') if p < 12 else f'Risse {p - 11}/3'))
         cards.append(dict(title='Ei: Brütstufen und Risse (T-Rex-Ei)', text='12 sichtbare Brütstufen (warmer Glanz nimmt zu), danach drei Rissstufen bis zum Schlüpfen.', items=glow))
-        gear = [dict(src=uri(grid_image(SADDLE, SADDLE_COLORS, [])), label='Großer Sattel')]
-        for tier, colors in GUARD_COLORS.items():
-            gear.append(dict(src=uri(grid_image(GUARD, colors, [])), label='T-Rex-Rüstung ' + tier))
+        gear = [dict(src=uri(saddle_image()), label='Großer Sattel')]
+        for tier in ARMOR_TIERS:
+            gear.append(dict(src=uri(armor_image(tier)), label='T-Rex-Rüstung ' + tier))
         cards.append(dict(title='Sattel und Rüstungen', text='Items; am T-Rex erscheinen sie als Sattel bzw. Platten auf Kopf und Rücken.', items=gear))
     return cards
 

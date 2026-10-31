@@ -1,6 +1,34 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "simplemobmanners:item/frog_bucket"
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "minecraft:frog/variant",
+    "cases": [
+      {
+        "when": "minecraft:temperate",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplemobmanners:item/frog_bucket"
+        }
+      },
+      {
+        "when": "minecraft:warm",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplemobmanners:item/frog_bucket_warm"
+        }
+      },
+      {
+        "when": "minecraft:cold",
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplemobmanners:item/frog_bucket_cold"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "simplemobmanners:item/frog_bucket"
+    }
   }
 }

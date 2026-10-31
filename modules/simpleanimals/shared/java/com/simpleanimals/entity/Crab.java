@@ -37,9 +37,18 @@ import org.jspecify.annotations.Nullable;
  * claws, eyes on stalks) that walks sideways. Rare: low spawn weight, single animals, only on beaches and in mangrove
  * swamps, preferably by day. Drops raw crab (the value of raw cod), which cooks to cooked-cod value.
  * It does not breed (a wild resource like fish, A12: no new farm).
+ * <p>Two models (owner choice 31.10.): {@link #MODEL_CRAB} (model A, two pincers, shell colour by biome) and the rarer
+ * {@link #MODEL_FIDDLER} (model B, fiddler crab with one big claw). Like a Vanilla animal variant the model is rolled at spawn
+ * ({@link #rollModel}, 1 fiddler to 3 crabs), synchronised to the client and stored in the NBT ({@code Model}). Crabs have no
+ * bucket and do not breed, so nothing else carries it.
  */
 public class Crab extends PathfinderMob {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> MODEL = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
+    public static final int MODEL_CRAB = 0;
+    public static final int MODEL_FIDDLER = 1;
+    /** One fiddler crab per {@code FIDDLER_ODDS} crabs: 1 in 4, i.e. 1:3. */
+    public static final int FIDDLER_ODDS = 4;
 
     public Crab(EntityType<? extends Crab> type, Level level) {
         super(type, level);
@@ -62,6 +71,7 @@ public class Crab extends PathfinderMob {
     protected void defineSynchedData(SynchedEntityData.Builder data) {
         super.defineSynchedData(data);
         data.define(VARIANT, 0);
+        data.define(MODEL, MODEL_CRAB);
     }
 
     /** 0 = red shell (standard), 1 = coral red; by biome, see {@link AnimalVariants}. */
@@ -73,21 +83,38 @@ public class Crab extends PathfinderMob {
         this.entityData.set(VARIANT, AnimalVariants.clamp(AnimalVariants.CRAB, v));
     }
 
+    /** {@link #MODEL_CRAB} or {@link #MODEL_FIDDLER}. */
+    public int model() {
+        return this.entityData.get(MODEL);
+    }
+
+    public void setModel(int m) {
+        this.entityData.set(MODEL, Math.max(MODEL_CRAB, Math.min(MODEL_FIDDLER, m)));
+    }
+
+    /** The spawn roll: a fiddler crab one time in {@link #FIDDLER_ODDS}. */
+    public static int rollModel(net.minecraft.util.RandomSource random) {
+        return random.nextInt(FIDDLER_ODDS) == 0 ? MODEL_FIDDLER : MODEL_CRAB;
+    }
+
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putInt("Variant", variant());
+        output.putInt("Model", model());
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         setVariant(input.getIntOr("Variant", 0));
+        setModel(input.getIntOr("Model", MODEL_CRAB));
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData group) {
         setVariant(AnimalVariants.pick(AnimalVariants.CRAB, level.getBiome(blockPosition()), this.random));
+        setModel(rollModel(this.random));
         return super.finalizeSpawn(level, difficulty, reason, group);
     }
 

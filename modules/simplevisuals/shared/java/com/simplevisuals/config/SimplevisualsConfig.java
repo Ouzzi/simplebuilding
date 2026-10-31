@@ -64,6 +64,9 @@ public class SimplevisualsConfig {
         /** FR23 (was TZ22-7): pressure plates, carpets, trapdoors and panes lie flat in item frames, seen from above as 3D models. */
         public boolean enableTiltedFrameItems = true;
 
+        /** IG31-21 (owner choice 31.10., variant A): a cauldron on a campfire is drawn on a small stand in its own colour. */
+        public boolean cauldronStand = true;
+
         public SpeedLines speedLines = new SpeedLines();
 
         // Unterkategorie: Pickup Notifier

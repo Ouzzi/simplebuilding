@@ -14,19 +14,29 @@ final class CrabLayers {
     static LayerDefinition create() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -4F, -3F, 8F, 4F, 6F), PartPose.offset(0F, 21F, 0F));
-        PartDefinition eye_right = body.addOrReplaceChild("eye_right", CubeListBuilder.create().texOffs(58, 0).addBox(-0.5F, -2.5F, -0.5F, 1F, 3F, 1F), PartPose.offset(-2F, -4F, -2.4F));
-        PartDefinition eye_left = body.addOrReplaceChild("eye_left", CubeListBuilder.create().texOffs(58, 0).addBox(-0.5F, -2.5F, -0.5F, 1F, 3F, 1F), PartPose.offset(2F, -4F, -2.4F));
-        PartDefinition arm_right = body.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -1F, -5F, 2F, 2F, 5F), PartPose.offset(-3.4F, -2.5F, -3F));
-        PartDefinition claw_right = arm_right.addOrReplaceChild("claw_right", CubeListBuilder.create().texOffs(28, 0).addBox(-2F, -2F, -4F, 4F, 3F, 4F), PartPose.offset(0F, 0F, -5F));
-        PartDefinition arm_left = body.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -1F, -5F, 2F, 2F, 5F), PartPose.offset(3.4F, -2.5F, -3F));
-        PartDefinition claw_left = arm_left.addOrReplaceChild("claw_left", CubeListBuilder.create().texOffs(28, 0).addBox(-2F, -2F, -4F, 4F, 3F, 4F), PartPose.offset(0F, 0F, -5F));
-        PartDefinition right_leg_0 = body.addOrReplaceChild("right_leg_0", CubeListBuilder.create().texOffs(0, 10).addBox(-5F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(-3.6F, -1.0F, -1.8F, 0F, 0F, 0.9F));
-        PartDefinition right_leg_1 = body.addOrReplaceChild("right_leg_1", CubeListBuilder.create().texOffs(0, 10).addBox(-5F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(-3.6F, -1.0F, 0.0F, 0F, 0F, 0.9F));
-        PartDefinition right_leg_2 = body.addOrReplaceChild("right_leg_2", CubeListBuilder.create().texOffs(0, 10).addBox(-5F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(-3.6F, -1.0F, 1.8F, 0F, 0F, 0.9F));
-        PartDefinition left_leg_0 = body.addOrReplaceChild("left_leg_0", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, -1.8F, 0F, 0F, -0.9F));
-        PartDefinition left_leg_1 = body.addOrReplaceChild("left_leg_1", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, 0.0F, 0F, 0F, -0.9F));
-        PartDefinition left_leg_2 = body.addOrReplaceChild("left_leg_2", CubeListBuilder.create().texOffs(0, 10).addBox(0F, -0.5F, -0.5F, 5F, 1F, 1F), PartPose.offsetAndRotation(3.6F, -1.0F, 1.8F, 0F, 0F, -0.9F));
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -3.5F, -3F, 8F, 3F, 6F).texOffs(0, 9).addBox(-3F, -4.5F, -2F, 6F, 1F, 4F), PartPose.offset(0F, 21F, 0F));
+        PartDefinition eye_right = body.addOrReplaceChild("eye_right", CubeListBuilder.create().texOffs(30, 9).addBox(-0.5F, -2.5F, -0.5F, 1F, 3F, 1F), PartPose.offset(-2F, -4F, -2.4F));
+        PartDefinition eye_left = body.addOrReplaceChild("eye_left", CubeListBuilder.create().texOffs(30, 9).addBox(-0.5F, -2.5F, -0.5F, 1F, 3F, 1F), PartPose.offset(2F, -4F, -2.4F));
+        PartDefinition arm_right = body.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -1F, -3.5F, 2F, 2F, 3.5F), PartPose.offsetAndRotation(-3.6F, -2F, -3F, 0F, 0.2F, 0F));
+        PartDefinition palm_right = arm_right.addOrReplaceChild("palm_right", CubeListBuilder.create().texOffs(28, 0).addBox(-1.75F, -1.75F, -3.5F, 3.5F, 3.5F, 3.5F), PartPose.offset(0F, 0F, -3.5F));
+        PartDefinition finger_a_right = palm_right.addOrReplaceChild("finger_a_right", CubeListBuilder.create().texOffs(20, 9).addBox(-0.5F, -0.5F, -3.5F, 1F, 1F, 3.5F), PartPose.offsetAndRotation(-1.0F, 0.6F, -3.5F, 0F, 0.12F, 0F));
+        PartDefinition finger_b_right = palm_right.addOrReplaceChild("finger_b_right", CubeListBuilder.create().texOffs(20, 9).addBox(-0.5F, -0.5F, -3.5F, 1F, 1F, 3.5F), PartPose.offsetAndRotation(1.0F, 0.6F, -3.5F, 0F, -0.12F, 0F));
+        PartDefinition right_thigh_0 = body.addOrReplaceChild("right_thigh_0", CubeListBuilder.create().texOffs(48, 9).addBox(-3F, -0.5F, -0.5F, 3F, 1F, 1F), PartPose.offsetAndRotation(-3.9F, -1.2F, -2.2F, 0F, 0F, 0.45F));
+        PartDefinition right_shin_0 = right_thigh_0.addOrReplaceChild("right_shin_0", CubeListBuilder.create().texOffs(34, 9).addBox(-6F, -0.5F, -0.5F, 6F, 1F, 1F), PartPose.offsetAndRotation(-3F, 0F, 0F, 0F, 0F, -1.7F));
+        PartDefinition right_thigh_1 = body.addOrReplaceChild("right_thigh_1", CubeListBuilder.create().texOffs(48, 9).addBox(-3F, -0.5F, -0.5F, 3F, 1F, 1F), PartPose.offsetAndRotation(-3.9F, -1.2F, 0.0F, 0F, 0F, 0.45F));
+        PartDefinition right_shin_1 = right_thigh_1.addOrReplaceChild("right_shin_1", CubeListBuilder.create().texOffs(34, 9).addBox(-6F, -0.5F, -0.5F, 6F, 1F, 1F), PartPose.offsetAndRotation(-3F, 0F, 0F, 0F, 0F, -1.7F));
+        PartDefinition right_thigh_2 = body.addOrReplaceChild("right_thigh_2", CubeListBuilder.create().texOffs(48, 9).addBox(-3F, -0.5F, -0.5F, 3F, 1F, 1F), PartPose.offsetAndRotation(-3.9F, -1.2F, 2.2F, 0F, 0F, 0.45F));
+        PartDefinition right_shin_2 = right_thigh_2.addOrReplaceChild("right_shin_2", CubeListBuilder.create().texOffs(34, 9).addBox(-6F, -0.5F, -0.5F, 6F, 1F, 1F), PartPose.offsetAndRotation(-3F, 0F, 0F, 0F, 0F, -1.7F));
+        PartDefinition arm_left = body.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(44, 0).addBox(-1F, -1F, -3.5F, 2F, 2F, 3.5F), PartPose.offsetAndRotation(3.6F, -2F, -3F, 0F, -0.2F, 0F));
+        PartDefinition palm_left = arm_left.addOrReplaceChild("palm_left", CubeListBuilder.create().texOffs(28, 0).addBox(-1.75F, -1.75F, -3.5F, 3.5F, 3.5F, 3.5F), PartPose.offset(0F, 0F, -3.5F));
+        PartDefinition finger_a_left = palm_left.addOrReplaceChild("finger_a_left", CubeListBuilder.create().texOffs(20, 9).addBox(-0.5F, -0.5F, -3.5F, 1F, 1F, 3.5F), PartPose.offsetAndRotation(-1.0F, 0.6F, -3.5F, 0F, 0.12F, 0F));
+        PartDefinition finger_b_left = palm_left.addOrReplaceChild("finger_b_left", CubeListBuilder.create().texOffs(20, 9).addBox(-0.5F, -0.5F, -3.5F, 1F, 1F, 3.5F), PartPose.offsetAndRotation(1.0F, 0.6F, -3.5F, 0F, -0.12F, 0F));
+        PartDefinition left_thigh_0 = body.addOrReplaceChild("left_thigh_0", CubeListBuilder.create().texOffs(48, 9).addBox(0F, -0.5F, -0.5F, 3F, 1F, 1F), PartPose.offsetAndRotation(3.9F, -1.2F, -2.2F, 0F, 0F, -0.45F));
+        PartDefinition left_shin_0 = left_thigh_0.addOrReplaceChild("left_shin_0", CubeListBuilder.create().texOffs(34, 9).addBox(0F, -0.5F, -0.5F, 6F, 1F, 1F), PartPose.offsetAndRotation(3F, 0F, 0F, 0F, 0F, 1.7F));
+        PartDefinition left_thigh_1 = body.addOrReplaceChild("left_thigh_1", CubeListBuilder.create().texOffs(48, 9).addBox(0F, -0.5F, -0.5F, 3F, 1F, 1F), PartPose.offsetAndRotation(3.9F, -1.2F, 0.0F, 0F, 0F, -0.45F));
+        PartDefinition left_shin_1 = left_thigh_1.addOrReplaceChild("left_shin_1", CubeListBuilder.create().texOffs(34, 9).addBox(0F, -0.5F, -0.5F, 6F, 1F, 1F), PartPose.offsetAndRotation(3F, 0F, 0F, 0F, 0F, 1.7F));
+        PartDefinition left_thigh_2 = body.addOrReplaceChild("left_thigh_2", CubeListBuilder.create().texOffs(48, 9).addBox(0F, -0.5F, -0.5F, 3F, 1F, 1F), PartPose.offsetAndRotation(3.9F, -1.2F, 2.2F, 0F, 0F, -0.45F));
+        PartDefinition left_shin_2 = left_thigh_2.addOrReplaceChild("left_shin_2", CubeListBuilder.create().texOffs(34, 9).addBox(0F, -0.5F, -0.5F, 6F, 1F, 1F), PartPose.offsetAndRotation(3F, 0F, 0F, 0F, 0F, 1.7F));
         return LayerDefinition.create(mesh, WIDTH, HEIGHT);
     }
 

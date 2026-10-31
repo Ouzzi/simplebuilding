@@ -8,11 +8,14 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.util.Mth;
 
 /**
- * Crab: wide shell, two claws, eyes on stalks, three legs per side. The whole model is turned a quarter circle, so the
- * animal walks sideways along its wide axis like a real crab. Layout: tools/gen_models.py.
+ * Crab: wide shell, claws, eyes on stalks, three jointed legs per side. The whole model is turned a quarter circle, so the
+ * animal walks sideways along its wide axis like a real crab. Two layouts from tools/gen_models.py (owner choice 31.10.):
+ * {@link #LAYER} model A (two open pincers) and {@link #FIDDLER_LAYER} model B, the fiddler crab with one big claw. Both
+ * share the part names the animation needs ({@code arm_right}, {@code arm_left}, {@code <side>_thigh_<i>}).
  */
 public class CrabModel extends EntityModel<CrabRenderer.State> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(SimpleAnimals.id("crab"), "main");
+    public static final ModelLayerLocation FIDDLER_LAYER = new ModelLayerLocation(SimpleAnimals.id("crab_fiddler"), "main");
     private final ModelPart body, armRight, armLeft;
     private final ModelPart[] rightLegs = new ModelPart[3], leftLegs = new ModelPart[3];
 
@@ -22,13 +25,17 @@ public class CrabModel extends EntityModel<CrabRenderer.State> {
         this.armRight = this.body.getChild("arm_right");
         this.armLeft = this.body.getChild("arm_left");
         for (int i = 0; i < 3; i++) {
-            this.rightLegs[i] = this.body.getChild("right_leg_" + i);
-            this.leftLegs[i] = this.body.getChild("left_leg_" + i);
+            this.rightLegs[i] = this.body.getChild("right_thigh_" + i);
+            this.leftLegs[i] = this.body.getChild("left_thigh_" + i);
         }
     }
 
     public static LayerDefinition createBodyLayer() {
         return CrabLayers.create();
+    }
+
+    public static LayerDefinition createFiddlerLayer() {
+        return CrabFiddlerLayers.create();
     }
 
     @Override

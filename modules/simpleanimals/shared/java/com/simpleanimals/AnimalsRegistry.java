@@ -43,7 +43,7 @@ public final class AnimalsRegistry {
             .sized(0.9F, 1.5F).eyeHeight(1.35F).clientTrackingRange(10).build(DEER_KEY);
     /** A little smaller than a Vanilla cow, stocky. */
     public static final EntityType<Boar> BOAR = EntityType.Builder.<Boar>of(Boar::new, MobCategory.CREATURE)
-            .sized(0.9F, 0.9F).eyeHeight(0.7F).clientTrackingRange(10).build(BOAR_KEY);
+            .sized(0.9F, 0.875F).eyeHeight(0.6F).clientTrackingRange(10).build(BOAR_KEY); // shape A (31.10.): back 14 px high, head lower
     public static final EntityType<Hedgehog> HEDGEHOG = EntityType.Builder.<Hedgehog>of(Hedgehog::new, MobCategory.CREATURE)
             .sized(0.5F, 0.4F).eyeHeight(0.25F).clientTrackingRange(8).build(HEDGEHOG_KEY);
     public static final EntityType<Crab> CRAB = EntityType.Builder.<Crab>of(Crab::new, MobCategory.CREATURE)

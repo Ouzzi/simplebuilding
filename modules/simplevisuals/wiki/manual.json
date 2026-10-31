@@ -586,6 +586,30 @@
       }
     },
     {
+      "id": "config_visuals_cauldronStand",
+      "sources": [
+        "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java",
+        "modules/simplevisuals/shared/java/com/simplevisuals/CauldronStand.java",
+        "modules/simplevisuals/fabric/src/main/java/com/simplevisuals/fabric/CauldronStandModel.java"
+      ],
+      "en": {
+        "title": "Stand under a cauldron on a campfire",
+        "summary": "Setting visuals.cauldronStand. A cauldron standing on a campfire (also a soul campfire, lit or not) is drawn on a small stand in the cauldron's own color: four corner posts from the fire to the cauldron and a frame around the top. Default: true.",
+        "details": [
+          "Setting visuals.cauldronStand. A cauldron standing on a campfire (also a soul campfire, lit or not) is drawn on a small stand in the cauldron's own color: four corner posts from the fire to the cauldron and a frame around the top. Default: true.",
+          "Looks only: there is no stand block, no collision, and fire and cauldron work as in Vanilla. Water, lava and powder snow cauldrons get it too. A change of the setting shows once the chunks are rebuilt (F3+A or rejoining)."
+        ]
+      },
+      "de": {
+        "title": "Gerüst unter Kessel auf Lagerfeuer",
+        "summary": "Einstellung visuals.cauldronStand. Ein Kessel auf einem Lagerfeuer (auch Seelenlagerfeuer, an oder aus) bekommt ein kleines Gerüst in Kesselfarbe: vier Eckpfosten vom Feuer bis zum Kessel und oben ein Rahmen. Standard: true.",
+        "details": [
+          "Einstellung visuals.cauldronStand. Ein Kessel auf einem Lagerfeuer (auch Seelenlagerfeuer, an oder aus) bekommt ein kleines Gerüst in Kesselfarbe: vier Eckpfosten vom Feuer bis zum Kessel und oben ein Rahmen. Standard: true.",
+          "Nur Optik: Es gibt keinen Gerüst-Block und keine Kollision, Feuer und Kessel arbeiten wie in Vanilla. Wasser-, Lava- und Pulverschneekessel bekommen es auch. Eine Änderung der Einstellung zeigt sich, sobald die Chunks neu aufgebaut werden (F3+A oder neu betreten)."
+        ]
+      }
+    },
+    {
       "id": "config_visuals_damageIndicators_enable",
       "sources": [
         "modules/simplevisuals/shared/java/com/simplevisuals/config/SimplevisualsConfig.java"

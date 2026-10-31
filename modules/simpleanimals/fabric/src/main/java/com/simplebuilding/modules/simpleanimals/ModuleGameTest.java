@@ -132,4 +132,9 @@ public final class ModuleGameTest {
     public void variantEntities(GameTestHelper h) {
         AnimalsTests.ALL.get("variant_entities").accept(h);
     }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void crabModels(GameTestHelper h) {
+        AnimalsTests.ALL.get("crab_models").accept(h);
+    }
 }
