@@ -58,7 +58,7 @@ Ressourcen/Daten (Zeilen):
 
 ## Test (ein sbt-Lauf fuer alle sechs Mods)
 
-TESTERGEBNIS-PLATZHALTER
+Lauf 31.10.2026 auf sb-test, Branch `b-rel32-qolb` (Commit e4a1919c3; Docs/Lang-Kategorie ff9fdd1fa): `:mc26_3:fabric:compileJava` + Modul-Compile C=0; `module-simplefarming-fabric-263` **13/13 gruen**, `module-simplefarming-standalone-fabric-263` **13/13 gruen** (Standalone-Lauf zunaechst durch Gradle-Daemon-Abbruch der Test-Maschine ohne Tests beendet, Wiederholung nur dieses Targets auf ff9fdd1fa gruen); `check_client_mixins.py` M=0 (660 Mixins, 0 Probleme, alle Mods); `check_lang_keys.py` L=0 (52 Module).
 
 ## Urteil
 

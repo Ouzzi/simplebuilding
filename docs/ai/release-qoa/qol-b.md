@@ -110,7 +110,20 @@ Voraussetzung: Fabric 26.3, Fabric API, Cloth Config; jede Mod einzeln (nur dies
 
 ## 5. Testergebnis (ein sbt-Lauf)
 
-TESTERGEBNIS-QOLB-PLATZHALTER
+Befehl (ein sbt-Lauf, `/root/sbt b-rel32-qolb`): `./gradlew :mc26_3:fabric:compileJava :modules:<6 Mods>:fabric:compileJava -q` -> **C=0**; `tools/testrunner/run.py --targets module-<mod>-fabric-263,module-<mod>-standalone-fabric-263` (12 Targets) -> **T=1 wegen einer Infrastruktur-Stoerung, sonst 201/201 gruen**; `check_client_mixins.py` -> **M=0** (660 Mixins, 0 Probleme); `check_lang_keys.py` -> **L=0**.
+
+| Mod | Integration | Standalone |
+|---|---|---|
+| Simple Weather | 5/5 | 5/5 |
+| Simple Loot | 7/7 | 7/7 |
+| Simple Mob Manners | 12/12 | 12/12 |
+| Simple Farming | 13/13 | 13/13 (Wiederholung, s. u.) |
+| Simple Movement | 19/19 | 19/19 |
+| Simple Tools | 51/51 | 51/51 |
+
+Das Target `module-simplefarming-standalone-fabric-263` endete im ersten Lauf mit 0 Tests: „Gradle build daemon disappeared unexpectedly“ (Daemon auf sb-test verschwunden; zeitgleich war sb-test kurz nicht erreichbar). Kein Testfehler; nur dieses Target wurde auf Commit ff9fdd1fa wiederholt: **13/13 gruen** (`testing/runs/2026-10-31T02-00-05Z-3971.json`). Erster Lauf: `testing/runs/2026-10-31T01-38-47Z-dc4c.json` (auf sb-test unter `/root/wt/t-b-rel32-qolb`).
+
+Nicht getestet: echter Client-Start (`mixinaudit-client-263`, `xvfb-run`), Forge/NeoForge (Auftrag: nur Fabric), Zusammenspiel mit Sodium/Iris/Lithium/JEI/Mod Menu im Spiel, Mehrspieler/Dedicated-Server von Hand (nur die Gametest-Server), die In-Game-Schritte aus Abschnitt 4. Der Mixin-Pruefer (`check_client_mixins`) deckt die Ziele aller Client-Mixins gegen das 26.3-Spiel-Jar ab (Weather-Client-Mixins eingeschlossen).
 
 ## 6. Release-Punkte
 
