@@ -99,8 +99,8 @@ Stand 31.10. (alle 16 auditiert):
 | simplemobmanners | shipbar | 0/0/3 | grün | modules/simplemobmanners/AUDIT.md |
 | simpleloot | shipbar | 0/1 (fix)/1 | grün | modules/simpleloot/AUDIT.md |
 | simpleweather | shipbar | 0/0/1 | grün | modules/simpleweather/AUDIT.md |
-| simpleoptimization | shipbar | 0/0/1 | Nachlauf (Zeitgrenze bei sb-test-Überlast) | modules/simpleoptimization/AUDIT.md |
-| simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Client-Smoke Nachlauf | modules/simpleoptrender/AUDIT.md |
+| simpleoptimization | shipbar | 0/0/1 | grün (Nachlauf 31.10. auf c3b2b5783: 3/3) | modules/simpleoptimization/AUDIT.md |
+| simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Gametests grün (Nachlauf 31.10. auf c3b2b5783: 12/12); Client-Smoke Nachlauf offen | modules/simpleoptrender/AUDIT.md |
 | simpleoptmemory | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptmemory/AUDIT.md |
 | simpleoptserver | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptserver/AUDIT.md |
 | simpleaesthetics | shipbar | 0/0/3 | grün (3/3 Rerun) | modules/simpleaesthetics/AUDIT.md |
