@@ -16,13 +16,18 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.food.Foods;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 
 /**
  * Everything Simple Animals registers: six entity types (the zorse has no spawn egg and no natural spawn), five spawn
- * eggs, raw and cooked crab and the guide book. Loaders call {@link #entityTypes} / {@link #items} inside their matching
+ * eggs, raw and cooked crab, truffle and truffle soup and the guide book. Loaders call {@link #entityTypes} / {@link #items} inside their matching
  * registry event (Fabric: {@link #registerAll}).
  */
 public final class AnimalsRegistry {
@@ -57,6 +62,9 @@ public final class AnimalsRegistry {
     public static final ResourceKey<Item> RAW_CRAB_KEY = itemKey("raw_crab");
     public static final ResourceKey<Item> COOKED_CRAB_KEY = itemKey("cooked_crab");
 
+    public static final ResourceKey<Item> TRUFFLE_KEY = itemKey("truffle");
+    public static final ResourceKey<Item> TRUFFLE_SOUP_KEY = itemKey("truffle_soup");
+
     public static final Item DEER_EGG = egg(DEER, DEER_EGG_KEY);
     public static final Item BOAR_EGG = egg(BOAR, BOAR_EGG_KEY);
     public static final Item HEDGEHOG_EGG = egg(HEDGEHOG, HEDGEHOG_EGG_KEY);
@@ -65,6 +73,15 @@ public final class AnimalsRegistry {
     /** Eats like Vanilla raw cod; cooks to the value of cooked cod, so crabs add no new food level (A12). */
     public static final Item RAW_CRAB = new Item(new Item.Properties().food(Foods.COD).setId(RAW_CRAB_KEY));
     public static final Item COOKED_CRAB = new Item(new Item.Properties().food(Foods.COOKED_COD).setId(COOKED_CRAB_KEY));
+
+    /** 20 seconds. */
+    public static final int TRUFFLE_SOUP_NIGHT_VISION_TICKS = 400;
+    /** Only wild boars root it up (IG31-20); not edible raw, like the Vanilla mushrooms. */
+    public static final Item TRUFFLE = new Item(new Item.Properties().setId(TRUFFLE_KEY));
+    /** Eats like Vanilla mushroom stew (same food value, A12) plus a short, light Night Vision (underground theme); gives the bowl back. */
+    public static final Item TRUFFLE_SOUP = new Item(new Item.Properties().stacksTo(1).food(Foods.MUSHROOM_STEW, Consumables.defaultFood()
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, TRUFFLE_SOUP_NIGHT_VISION_TICKS, 0))).build())
+            .usingConvertsTo(Items.BOWL).setId(TRUFFLE_SOUP_KEY));
 
     private static ResourceKey<EntityType<?>> entityKey(String path) {
         return ResourceKey.create(Registries.ENTITY_TYPE, SimpleAnimals.id(path));
@@ -115,6 +132,8 @@ public final class AnimalsRegistry {
         sink.accept(ZEBRA_EGG_KEY, ZEBRA_EGG);
         sink.accept(RAW_CRAB_KEY, RAW_CRAB);
         sink.accept(COOKED_CRAB_KEY, COOKED_CRAB);
+        sink.accept(TRUFFLE_KEY, TRUFFLE);
+        sink.accept(TRUFFLE_SOUP_KEY, TRUFFLE_SOUP);
         com.simpleanimals.guide.AnimalsGuide.register();
     }
 

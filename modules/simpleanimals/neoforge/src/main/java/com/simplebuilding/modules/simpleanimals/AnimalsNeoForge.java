@@ -43,6 +43,8 @@ public final class AnimalsNeoForge {
             if (event.getTabKey().equals(CreativeModeTabs.FOOD_AND_DRINKS)) {
                 event.accept(new ItemStack(AnimalsRegistry.RAW_CRAB), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 event.accept(new ItemStack(AnimalsRegistry.COOKED_CRAB), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                event.accept(new ItemStack(AnimalsRegistry.TRUFFLE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                event.accept(new ItemStack(AnimalsRegistry.TRUFFLE_SOUP), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
                 event.accept(com.simpleanimals.guide.AnimalsGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

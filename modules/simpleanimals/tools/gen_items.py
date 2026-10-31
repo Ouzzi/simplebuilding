@@ -1,4 +1,4 @@
-"""Simple Animals item textures: the five spawn eggs, raw and cooked crab (16 x 16, own pixel art, layers beside the PNG, A8).
+"""Simple Animals item textures: the five spawn eggs, raw and cooked crab, truffle and truffle soup (16 x 16, own pixel art, layers beside the PNG, A8).
 
     python3 modules/simpleanimals/tools/gen_items.py           write
     python3 modules/simpleanimals/tools/gen_items.py --check   fail when a texture is stale
@@ -68,6 +68,45 @@ LEGS = [('raw_crab', {'o': '#3e1a14', 'P': '#b3523a', 'p': '#8a3a28', 'w': '#f2d
         ('cooked_crab', {'o': '#4a1a0c', 'P': '#e0652a', 'p': '#b04418', 'w': '#fff0d8'})]
 
 
+# Truffle (IG31-20, variant A of the preview MOBS32-TRUFFLE-A): a dark, knobbly lump with pale marbling; o outline, b earth brown, d shade, h light, m marbling
+TRUFFLE = ["................",
+           "................",
+           "......ooo.......",
+           "....oobbbboo....",
+           "...obbhhbbbbo...",
+           "..obbhmbbbbdbo..",
+           "..obbbbbmbbbdo..",
+           "..obhbbmmbbbdo..",
+           "..obbbbbbbhbdo..",
+           "..obbmbbbbbddo..",
+           "...obbbbmbbdo...",
+           "...oddbbbbddo...",
+           "....ooddddoo....",
+           ".....oooooo.....",
+           "................",
+           "................"]
+TRUFFLE_COLORS = {'o': '#1c120c', 'b': '#4a3524', 'd': '#2e2016', 'h': '#6b5038', 'm': '#a8987c'}
+
+# Truffle soup: a wooden bowl (w, shade W) full of dark broth (s) with a slice of truffle (t) and steam (v)
+SOUP = ["................",
+        "......v..v......",
+        ".....v..v.......",
+        "................",
+        "...oooooooooo...",
+        "..osssssssssso..",
+        "..ossttsssmsso..",
+        "..osstttsssmso..",
+        "..ossssssssso...",
+        "..owwwwwwwwwwo..",
+        "..owwwwwwwwwWo..",
+        "...owwwwwwwWo...",
+        "....owwwwWWo....",
+        ".....oooooo.....",
+        "................",
+        "................"]
+SOUP_COLORS = {'o': '#2a1a10', 's': '#3a2a1c', 't': '#6b5038', 'm': '#a8987c', 'w': '#9a6a3a', 'W': '#6e4824', 'v': '#e4dccb'}
+
+
 def image(rows, colors, groups, base='Grundfarbe'):
     img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
     px = img.load()
@@ -86,6 +125,10 @@ def outputs():
     for name, palette in LEGS:
         colors = {k: H(v) for k, v in palette.items()}
         files[OUT / f'{name}.png'] = image(LEG, colors, [('Umriss', 'o'), ('Gelenke', 'p'), ('Fleisch', 'w')], 'Schale')
+    files[OUT / 'truffle.png'] = image(TRUFFLE, {k: H(v) for k, v in TRUFFLE_COLORS.items()},
+                                       [('Umriss', 'o'), ('Schatten', 'd'), ('Licht', 'h'), ('Marmorierung', 'm')])
+    files[OUT / 'truffle_soup.png'] = image(SOUP, {k: H(v) for k, v in SOUP_COLORS.items()},
+                                            [('Umriss', 'o'), ('Brühe', 's'), ('Trüffel', 't'), ('Fett', 'm'), ('Dampf', 'v'), ('Schüsselschatten', 'W')], 'Schüssel')
     return files
 
 

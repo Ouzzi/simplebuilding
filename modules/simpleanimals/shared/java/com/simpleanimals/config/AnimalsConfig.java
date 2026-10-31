@@ -18,10 +18,11 @@ public final class AnimalsConfig {
     public static final String FILE = "simpleanimals-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "spawnScale", "deer", "boar", "hedgehog", "crab", "zebra",
-            "boarAggression", "boarCloseSeconds", "hedgehogHuntRadius", "hedgehogHunts", "hedgehogThorns", "zorse");
+            "boarAggression", "boarCloseSeconds", "hedgehogHuntRadius", "hedgehogHunts", "hedgehogThorns", "zorse", "boarTruffles", "boarTruffleChance");
 
     public static final double SPAWN_DEFAULT = 1.0, SPAWN_MIN = 0.0, SPAWN_MAX = 1.0;
     public static final int CLOSE_DEFAULT = 6, CLOSE_MIN = 2, CLOSE_MAX = 30;
+    public static final double TRUFFLE_DEFAULT = 0.005, TRUFFLE_MIN = 0.0, TRUFFLE_MAX = 1.0;
     public static final int HUNT_DEFAULT = 8, HUNT_MIN = 2, HUNT_MAX = 16;
 
     public static boolean enabled = true;
@@ -39,6 +40,10 @@ public final class AnimalsConfig {
     public static boolean hedgehogThorns = true;
     /** Zebra x horse gives the infertile zorse; off = zebras and horses do not breed with each other. */
     public static boolean zorse = true;
+    /** Easter egg: an adult boar sometimes roots up 1 to 2 truffles (items) from dirt or grass it stands on. */
+    public static boolean boarTruffles = true;
+    /** Chance per dig attempt (every 10 seconds per adult boar on dirt); default about one find per half hour. */
+    public static double boarTruffleChance = TRUFFLE_DEFAULT;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -72,6 +77,8 @@ public final class AnimalsConfig {
         hedgehogHunts = bool(json, "hedgehogHunts", true);
         hedgehogThorns = bool(json, "hedgehogThorns", true);
         zorse = bool(json, "zorse", true);
+        boarTruffles = bool(json, "boarTruffles", true);
+        boarTruffleChance = clamp(number(json, "boarTruffleChance", TRUFFLE_DEFAULT), TRUFFLE_MIN, TRUFFLE_MAX);
     }
 
     public static JsonObject toJson() {
@@ -89,6 +96,8 @@ public final class AnimalsConfig {
         o.addProperty("hedgehogHunts", hedgehogHunts);
         o.addProperty("hedgehogThorns", hedgehogThorns);
         o.addProperty("zorse", zorse);
+        o.addProperty("boarTruffles", boarTruffles);
+        o.addProperty("boarTruffleChance", boarTruffleChance);
         return o;
     }
 

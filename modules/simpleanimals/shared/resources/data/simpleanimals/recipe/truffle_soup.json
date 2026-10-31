@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bowl",
+    "simpleanimals:truffle",
+    "minecraft:brown_mushroom"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleanimals:truffle_soup"
+  }
+}

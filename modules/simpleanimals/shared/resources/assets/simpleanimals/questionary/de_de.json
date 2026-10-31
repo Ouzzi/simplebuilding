@@ -86,5 +86,27 @@
     "secret": [
       "Gegarter Krebs ist eine Strandmahlzeit, keine neue Nahrungsstufe."
     ]
+  },
+  "truffle": {
+    "lore": [
+      "Ein dunkler, knubbeliger Pilz, der tief im Boden wächst."
+    ],
+    "use": [
+      "Roh nicht essbar. Mit einer Schüssel und einem braunen Pilz wird daraus Trüffelsuppe."
+    ],
+    "secret": [
+      "Nur Wildschweine finden ihn: sehr selten gräbt ein ausgewachsenes eins bis zwei aus, wo es auf Erde oder Gras steht."
+    ]
+  },
+  "truffle_soup": {
+    "lore": [
+      "Eine dunkle, duftende Suppe."
+    ],
+    "use": [
+      "Sättigt wie Pilzsuppe und gibt etwa 20 Sekunden Nachtsicht. Die Schüssel bleibt übrig."
+    ],
+    "secret": [
+      "Ein Genuss für Höhlenausflüge, keine neue Nahrungsstufe."
+    ]
   }
 }

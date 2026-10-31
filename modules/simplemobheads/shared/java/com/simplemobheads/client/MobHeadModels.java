@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.object.skull.SkullModel;
 import net.minecraft.client.model.object.skull.SkullModelBase;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -43,6 +44,8 @@ public final class MobHeadModels {
     /** {@code hide} prefix of a part that is drawn at {@value #FREE_SCALE} size and does not count for the head's size (ABN29-6: the Warden's feelers). */
     private static final String FREE = "free:";
     private static final float FREE_SCALE = 0.5F;
+    /** {@code hide} prefix of a part that stays but is stood up straight (IG31-22: the armadillo's head cube is tilted in its own model). */
+    private static final String FLAT = "flat:";
     private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
     /** Per look kind: {native edge of the mob's head, edge inside the skull model} in model pixels. */
     private static final Map<String, float[]> EDGES = new ConcurrentHashMap<>();
@@ -183,7 +186,33 @@ public final class MobHeadModels {
             apply(part, pose);
             passes.add(new MobHeadModel.Pass(new MobHeadModel.Part(wrap(part)), passType(pass.render(), Identifier.parse(pass.texture())), tint(pass.tint())));
         }
+        if (look.layer().contains("nautilus") && hide.contains("shell")) {
+            passes.add(nautilusCaps(models, look, pose));
+        }
         return new MobHeadModel(root, passes);
+    }
+
+    /**
+     * IG31-22: the Nautilus body is a tube whose front and back faces are see-through in the texture (the shell covers one end, the
+     * tentacles the other). Without the shell the head is only a frame, so two flat caps close it, painted with the opaque body patch
+     * the model itself uses for its inner wall (texture 0,76). They sit in the same bone chain (root, body) and get the head's pose.
+     */
+    private static MobHeadModel.Pass nautilusCaps(EntityModelSet models, HeadDef.Look look, PartPose pose) {
+        ModelPart baked = part(models, look.layer(), "", Set.of());
+        ModelPart root = baked.getChild("root");
+        ModelPart body = root.getChild("body");
+        List<ModelPart.Cube> cubes = CubeListBuilder.create().texOffs(0, 76)
+                .addBox(-5.0F, -4.51F, -3.0F, 10.0F, 8.0F, 0.0F).addBox(-5.0F, -4.51F, 11.0F, 10.0F, 8.0F, 0.0F).getCubes()
+                .stream().map(c -> c.bake(128, 128)).toList();
+        ModelPart caps = new ModelPart(cubes, Map.of());
+        caps.setInitialPose(body.getInitialPose());
+        caps.resetPose();
+        ModelPart rootCopy = new ModelPart(List.of(), Map.of("body", caps));
+        rootCopy.setInitialPose(root.getInitialPose());
+        rootCopy.resetPose();
+        ModelPart top = new ModelPart(List.of(), Map.of("root", rootCopy));
+        apply(top, pose);
+        return new MobHeadModel.Pass(new MobHeadModel.Part(wrap(top)), passType("cutout", Identifier.parse(look.texture())), -1);
     }
 
     /**
@@ -211,6 +240,14 @@ public final class MobHeadModels {
             throw new IllegalArgumentException("no part '" + name + "' in " + location);
         }
         for (String hidden : hide) {
+            if (hidden.startsWith(FLAT)) {
+                ModelPart flat = find(part, hidden.substring(FLAT.length()));
+                if (flat != null) {
+                    PartPose p = flat.getInitialPose();
+                    apply(flat, PartPose.offset(p.x(), p.y(), p.z()).withScale(p.xScale()));
+                }
+                continue;
+            }
             if (hidden.startsWith(FREE)) {
                 ModelPart free = find(part, hidden.substring(FREE.length()));
                 if (free != null) {

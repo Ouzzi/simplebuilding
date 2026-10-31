@@ -53,7 +53,8 @@ public final class AnimalsFabric implements ModInitializer {
         });
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(out -> {
             if (!SimpleAnimals.on()) return;
-            var food = java.util.List.of(new net.minecraft.world.item.ItemStack(AnimalsRegistry.RAW_CRAB), new net.minecraft.world.item.ItemStack(AnimalsRegistry.COOKED_CRAB));
+            var food = java.util.List.of(new net.minecraft.world.item.ItemStack(AnimalsRegistry.RAW_CRAB), new net.minecraft.world.item.ItemStack(AnimalsRegistry.COOKED_CRAB),
+                    new net.minecraft.world.item.ItemStack(AnimalsRegistry.TRUFFLE), new net.minecraft.world.item.ItemStack(AnimalsRegistry.TRUFFLE_SOUP));
             if (out.getDisplayStacks().stream().anyMatch(s -> s.is(Items.COOKED_COD))) {
                 out.insertAfter(Items.COOKED_COD, food, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             } else {

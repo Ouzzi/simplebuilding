@@ -150,22 +150,22 @@ public class Deer extends Animal {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.SHEEP_AMBIENT;
+        return SoundEvents.LLAMA_AMBIENT;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SHEEP_HURT;
+        return SoundEvents.LLAMA_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.SHEEP_DEATH;
+        return SoundEvents.LLAMA_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.SHEEP_STEP, 0.15F, 1.1F);
+        this.playSound(SoundEvents.LLAMA_STEP, 0.15F, 1.1F);
     }
 
 }
