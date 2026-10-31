@@ -25,10 +25,46 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(c -> c.setScreenAndShow(new ItemStatsScreen(pick, null)));
             context.waitTicks(5);
             context.takeScreenshot("simplestats-screen");
+            clickScrollbarEnd(context);
             context.runOnClient(c -> c.gui.screen().mouseScrolled(0, 0, 0, -10));
             context.waitTicks(2);
             context.takeScreenshot("simplestats-scrolled");
             context.runOnClient(c -> c.setScreenAndShow(null));
         }
+    }
+
+    /**
+     * IG31-36: a left click with the test mouse (through the game's mouse handler) on the lower end of the scroll bar must
+     * scroll. 26.3 counts mouse buttons from 1 ({@code InputConstants.MOUSE_BUTTON_LEFT}); the screen checked for 0 before.
+     */
+    private static void clickScrollbarEnd(ClientGameTestContext context) {
+        double[] at = context.computeOnClient(c -> {
+            try {
+                Object layout = field(c.gui.screen(), "layout");
+                var bar = (com.simplebuilding.modules.simplestats.data.StatsLayout.Rect) field(layout, "scrollbar");
+                double scale = c.getWindow().getGuiScale();
+                return new double[]{(bar.x() + bar.w() / 2.0) * scale, (bar.y() + bar.h() - 1) * scale};
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError(e);
+            }
+        });
+        context.getInput().setCursorPos(at[0], at[1]);
+        context.waitTicks(2);
+        context.getInput().pressMouse(com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT);
+        context.waitTicks(3);
+        int scroll = context.computeOnClient(c -> {
+            try {
+                return (Integer) field(c.gui.screen(), "scroll");
+            } catch (ReflectiveOperationException e) {
+                throw new AssertionError(e);
+            }
+        });
+        if (scroll <= 0) throw new AssertionError("item stats: left click on the scroll bar end did not scroll (scroll " + scroll + ")");
+    }
+
+    private static Object field(Object owner, String name) throws ReflectiveOperationException {
+        var f = owner.getClass().getDeclaredField(name);
+        f.setAccessible(true);
+        return f.get(owner);
     }
 }
