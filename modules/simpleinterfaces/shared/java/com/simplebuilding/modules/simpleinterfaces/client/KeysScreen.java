@@ -80,6 +80,7 @@ public final class KeysScreen extends Screen {
 
     /** Picks the view and picture size the next opening starts with (client smoke test). */
     public static void preset(View start, KeyboardLayout.Size keyboardSize) {
+        org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys preset {}", start, new Throwable());
         view = start;
         size = keyboardSize;
     }
@@ -169,6 +170,7 @@ public final class KeysScreen extends Screen {
     }
 
     private void switchView(View next) {
+        org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys switchView {} -> {}", view, next, new Throwable());
         view = next;
         listening = null;
         if (next == View.KEYBOARD) pickCode = -1;
@@ -214,6 +216,7 @@ public final class KeysScreen extends Screen {
 
     @Override
     protected void init() {
+        org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys init view {}", view);
         refresh();
         probe.clear();
         list = null;
