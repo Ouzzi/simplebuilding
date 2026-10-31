@@ -20,6 +20,7 @@ public final class KeyPageTests {
         ALL.put("key_page_conflicts", KeyPageTests::conflicts);
         ALL.put("key_page_filter", KeyPageTests::filter);
         ALL.put("key_page_suggest", KeyPageTests::suggest);
+        ALL.put("key_page_key_names", KeyPageTests::keyNames);
     }
 
     private KeyPageTests() {}
@@ -127,6 +128,24 @@ public final class KeyPageTests {
         h.assertTrue(!KeyboardLayout.plain(KeyboardLayout.LEFT_SHIFT) && !KeyboardLayout.plain(KeyboardLayout.ESC) && KeyboardLayout.plain('Q'), "plain keys");
         for (Cell c : cells) if (KeyboardLayout.plain(c.code())) used.add(c.code());
         h.assertTrue(KeyboardLayout.nearestFree(cells, used, 'H').isEmpty(), "none free: empty");
+        h.succeed();
+    }
+
+    /**
+     * IG31-31: every key of the picture has Minecraft's key name (the picture's GLFW codes never go to 26.3's SDL-numbered
+     * InputConstants as numbers): letters, digits, F-keys, keypad, the special keys; names unique.
+     */
+    public static void keyNames(GameTestHelper h) {
+        h.assertTrue("key.keyboard.a".equals(KeyboardLayout.keyName('A')) && "key.keyboard.7".equals(KeyboardLayout.keyName('7'))
+                && "key.keyboard.f9".equals(KeyboardLayout.keyName(KeyboardLayout.F1 + 8)) && "key.keyboard.keypad.3".equals(KeyboardLayout.keyName(KeyboardLayout.KP_0 + 3))
+                && "key.keyboard.left.shift".equals(KeyboardLayout.keyName(KeyboardLayout.LEFT_SHIFT)) && "key.keyboard.space".equals(KeyboardLayout.keyName(KeyboardLayout.SPACE)),
+                "key names");
+        Set<String> names = new HashSet<>();
+        for (Cell c : KeyboardLayout.cells(KeyboardLayout.Size.FULL, false)) {
+            String n = KeyboardLayout.keyName(c.code());
+            h.assertTrue(!com.simplelib.api.client.keys.KeyConflicts.UNBOUND.equals(n), "cell " + c.label() + " (" + c.code() + ") has no key name");
+            h.assertTrue(names.add(n), "two cells with the key name " + n);
+        }
         h.succeed();
     }
 }

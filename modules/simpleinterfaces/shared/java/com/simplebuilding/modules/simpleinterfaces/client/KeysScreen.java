@@ -54,7 +54,6 @@ public final class KeysScreen extends Screen {
     private static View view = View.MOD;
     private static boolean german;
     private static KeyboardLayout.Size size = KeyboardLayout.Size.FULL;
-    private static final Map<Integer, String> NAMES = new HashMap<>();
 
     private record Item(KeyMapping mapping, Binding binding) {}
 
@@ -121,8 +120,14 @@ public final class KeysScreen extends Screen {
         return e == null ? "" : e.mapping.getTranslatedKeyMessage().getString();
     }
 
+    /** Minecraft's key name of a picture code (GLFW numbering, see {@link KeyboardLayout#keyName}). */
     static String nameOf(int code) {
-        return NAMES.computeIfAbsent(code, c -> InputConstants.Type.KEYBOARD.getOrCreate(c).getName());
+        return KeyboardLayout.keyName(code);
+    }
+
+    /** The key of a picture code, by name (26.3 numbers keys by SDL scancodes, not GLFW codes). */
+    static InputConstants.Key keyOf(int code) {
+        return InputConstants.getKey(KeyboardLayout.keyName(code));
     }
 
     /** Group title in the by-mod view: "Minecraft" or the label of the mod's first category (normally the mod's name). */
@@ -468,7 +473,7 @@ public final class KeysScreen extends Screen {
             this.entry = entry;
             change = Button.builder(entry.mapping.getTranslatedKeyMessage(), b -> {
                 if (pickCode >= 0) {
-                    assign(entry.mapping, InputConstants.Type.KEYBOARD.getOrCreate(pickCode));
+                    assign(entry.mapping, keyOf(pickCode));
                     pickCode = -1;
                     switchView(View.KEYBOARD);
                 } else {

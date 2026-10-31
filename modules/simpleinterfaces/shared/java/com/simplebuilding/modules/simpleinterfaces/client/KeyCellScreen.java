@@ -113,7 +113,7 @@ public final class KeyCellScreen extends Screen {
                     .bounds(0, 0, 70, 20).tooltip(Tooltip.create(Component.translatable(K + "remove.tip"))).build();
             Optional<KeyboardLayout.Cell> free = !offerMove || m == null ? Optional.empty()
                     : KeyboardLayout.nearestFree(KeyboardLayout.cells(KeyboardLayout.Size.FULL, KeysScreen.german()), parent.usedCodes(), code);
-            move = free.map(c -> Button.builder(Component.translatable(K + "move", c.label()), b -> assign(m, InputConstants.Type.KEYBOARD.getOrCreate(c.code())))
+            move = free.map(c -> Button.builder(Component.translatable(K + "move", c.label()), b -> assign(m, KeysScreen.keyOf(c.code())))
                     .bounds(0, 0, 70, 20).build()).orElse(null);
         }
 
