@@ -405,7 +405,7 @@ def recipes() -> None:
     dump(DATA / 'recipe/pipe.json', shaped(['III', 'ICI', 'III'], {'I': 'minecraft:iron_ingot', 'C': 'minecraft:chest'}, n('pipe'), 4))  # A31: iron around a chest
     dump(DATA / 'recipe/reinforced_pipe.json', shapeless([n('pipe'), 'simplelib:cracked_diamond', 'simplelib:cracked_diamond'], n('reinforced_pipe')))
     dump(DATA / 'recipe/netherite_pipe.json', shapeless([n('reinforced_pipe'), 'simplelib:netherite_nugget', 'simplelib:netherite_nugget'], n('netherite_pipe')))
-    dump(DATA / 'recipe/enderite_pipe.json', shapeless([n('netherite_pipe'), 'simplelib:enderite_nugget', 'simplelib:enderite_nugget'], n('enderite_pipe')))
+    dump(DATA / 'recipe/enderite_pipe.json', shapeless([n('netherite_pipe'), 'simpleores:enderite_nugget', 'simpleores:enderite_nugget'], n('enderite_pipe')))
     dump(DATA / 'recipe/copper_cable.json', shaped([' W ', 'CCC', ' W '], {'W': '#minecraft:wool', 'C': 'minecraft:copper_ingot'}, n('copper_cable'), 3))
     dump(DATA / 'recipe/chest_interface.json', shaped(['GRQ', 'QPG', 'GCQ'], {
         'G': 'minecraft:gold_ingot', 'Q': 'minecraft:quartz', 'R': 'minecraft:repeater', 'P': 'minecraft:glass_pane', 'C': 'minecraft:comparator'},
@@ -423,7 +423,7 @@ def upgrades() -> None:
     dump(DATA / 'in_world_upgrades/pipes.json', {'upgrades': [
         entry('pipe', 'reinforced_pipe', 'simplelib:cracked_diamond', 'any', 2, 'reinforced'),
         entry('reinforced_pipe', 'netherite_pipe', 'simplelib:netherite_nugget', 'diamond', 4, 'netherite'),
-        entry('netherite_pipe', 'enderite_pipe', 'simplelib:enderite_nugget', 'netherite', 10, 'enderite')]})
+        entry('netherite_pipe', 'enderite_pipe', 'simpleores:enderite_nugget', 'netherite', 10, 'enderite')]})
 
 
 def tags() -> None:

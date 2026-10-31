@@ -97,9 +97,9 @@ class ItemNoteTests(unittest.TestCase):
             self.fail('Missing recipe: ' + name)
 
         for name, ingredients in [
-                ('elytra_pad_crafting', ['simplebuilding:diamond_core',
+                ('elytra_pad_crafting', ['simplelib:diamond_core',
                                          'simplebuilding:diamond_pressure_plate', 'minecraft:elytra']),
-                ('flypad_tier1_crafting', ['simplebuilding:enderite_core',
+                ('flypad_tier1_crafting', ['simplelib:enderite_core',
                                           'simplebuilding:enderite_pressure_plate',
                                           'simplemobheads:shulker_head', 'minecraft:elytra'])]:
             value = recipe(name)
@@ -107,6 +107,6 @@ class ItemNoteTests(unittest.TestCase):
             self.assertEqual(value['enchantment'], 'minecraft:mending')
             self.assertCountEqual(value['ingredients'], ingredients)
         vault = recipe('astral_vault')
-        self.assertEqual(vault['key']['N'], 'simplelib:enderite_nugget')
+        self.assertEqual(vault['key']['N'], 'simpleores:enderite_nugget')
         self.assertEqual(''.join(vault['pattern']).count('N'), 6)
         self.assertEqual(recipe('resin_quartz_checker')['key']['B'], 'minecraft:resin_bricks')

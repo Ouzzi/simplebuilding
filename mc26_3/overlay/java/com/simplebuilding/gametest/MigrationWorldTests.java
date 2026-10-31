@@ -486,6 +486,13 @@ public final class MigrationWorldTests {
                     Identifier.fromNamespaceAndPath(LIB, id.substring(NOW.length())));
             if (!want.getRecipeBook().contains(libKey)) problems.add("the old recipe book lost " + id + " (now " + libKey.identifier() + ")");
         }
+        // IG31-13: the old world's Enderite recipes (stage 3d still SimpleBuilding's ids in the fixture) are known under Simple Ores' ids.
+        for (Tag entry : playerBefore.getCompoundOrEmpty("recipeBook").getListOrEmpty("recipes")) {
+            if (!(entry instanceof StringTag(String id)) || !id.startsWith(NOW) || !SharedMaterials.ORES_RECIPES.containsKey(id.substring(NOW.length()))) continue;
+            ResourceKey<Recipe<?>> oresKey = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    Identifier.fromNamespaceAndPath(SharedMaterials.ORES, id.substring(NOW.length())));
+            if (!want.getRecipeBook().contains(oresKey)) problems.add("the old recipe book lost " + id + " (now " + oresKey.identifier() + ")");
+        }
         // Stage 4: the old world's furnace recipes are known under Simple Ovens' ids.
         int ovenRecipesInBook = 0;
         for (Tag entry : playerBefore.getCompoundOrEmpty("recipeBook").getListOrEmpty("recipes")) {
@@ -539,6 +546,11 @@ public final class MigrationWorldTests {
             for (Identifier id : doneBefore) {
                 if (materialRecipeAdvancement(id) && !resaved.contains(LIB + ":" + id.getPath())) {
                     problems.add("moved recipe advancement " + id + " is not saved as " + LIB + ":" + id.getPath());
+                }
+                String last = id.getPath().substring(id.getPath().lastIndexOf('/') + 1);
+                if (id.getPath().startsWith("recipes/") && SharedMaterials.ORES_RECIPES.containsKey(last)
+                        && !resaved.contains(SharedMaterials.ORES + ":" + id.getPath())) {
+                    problems.add("moved recipe advancement " + id + " is not saved as " + SharedMaterials.ORES + ":" + id.getPath());
                 }
                 if (ovenRecipeAdvancement(id) && !resaved.contains(ovenNamespace() + ":" + id.getPath())) {
                     problems.add("moved recipe advancement " + id + " is not saved as " + ovenNamespace() + ":" + id.getPath());
@@ -633,6 +645,10 @@ public final class MigrationWorldTests {
         List<String> paths = new ArrayList<>(SharedMaterials.ITEMS);
         paths.addAll(SharedMaterials.RECIPES.keySet());
         SharedMaterials.RECIPES.forEach((path, folder) -> paths.add("recipes/" + folder + "/" + path));
+        // IG31-13: Enderite, Dimensional Scrap, Sage Ore and the orb (Simple Ores), their recipes and recipe advancements.
+        paths.addAll(SharedMaterials.ORES_ITEMS);
+        paths.addAll(SharedMaterials.ORES_RECIPES.keySet());
+        SharedMaterials.ORES_RECIPES.forEach((path, folder) -> paths.add("recipes/" + folder + "/" + path));
         if (ovensMoved()) {
             // Stage 4: the furnaces, their carts, block entity types, recipes and recipe advancements.
             paths.addAll(OVEN_BLOCKS);
