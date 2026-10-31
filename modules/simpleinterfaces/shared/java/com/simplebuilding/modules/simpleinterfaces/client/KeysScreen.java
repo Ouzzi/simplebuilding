@@ -56,7 +56,7 @@ public final class KeysScreen extends Screen {
     private static KeyboardLayout.Size size = KeyboardLayout.Size.FULL;
     private static final Map<Integer, String> NAMES = new HashMap<>();
 
-    private record Entry(KeyMapping mapping, Binding binding) {}
+    private record Item(KeyMapping mapping, Binding binding) {}
 
     private final Screen parent;
     private String query = "";
@@ -65,9 +65,9 @@ public final class KeysScreen extends Screen {
     KeyMapping listening;
     /** Key code a list click is going to assign to (chosen on the keyboard picture), or -1. */
     private int pickCode = -1;
-    private List<Entry> entries = List.of();
+    private List<Item> entries = List.of();
     private Map<String, List<Binding>> byKey = Map.of();
-    private final Map<String, Entry> byId = new HashMap<>();
+    private final Map<String, Item> byId = new HashMap<>();
     private KeysList list;
     private EditBox search;
     /** Named widgets for the real-mouse probe and the client test (GUI coordinates). */
@@ -100,7 +100,7 @@ public final class KeysScreen extends Screen {
     // --- data --------------------------------------------------------------------------------------------------------
 
     private void refresh() {
-        List<Entry> out = new ArrayList<>();
+        List<Item> out = new ArrayList<>();
         byId.clear();
         KeyMapping[] all = minecraft.options.keyMappings.clone();
         Arrays.sort(all); // Vanilla's order: category order, then name
@@ -108,16 +108,16 @@ public final class KeysScreen extends Screen {
             KeyMapping.Category category = m.getCategory();
             Binding b = new Binding(m.getName(), Component.translatable(m.getName()).getString(), category.label().getString(),
                     category.id().getNamespace(), m.saveString(), m.getDefaultKey().getName());
-            Entry e = new Entry(m, b);
+            Item e = new Item(m, b);
             out.add(e);
             byId.put(b.id(), e);
         }
         entries = out;
-        byKey = KeyConflicts.byKey(out.stream().map(Entry::binding).toList());
+        byKey = KeyConflicts.byKey(out.stream().map(Item::binding).toList());
     }
 
     private String shown(Binding b) {
-        Entry e = byId.get(b.id());
+        Item e = byId.get(b.id());
         return e == null ? "" : e.mapping.getTranslatedKeyMessage().getString();
     }
 
@@ -128,14 +128,14 @@ public final class KeysScreen extends Screen {
     /** Group title in the by-mod view: "Minecraft" or the label of the mod's first category (normally the mod's name). */
     private String modTitle(String owner) {
         if ("minecraft".equals(owner)) return "Minecraft";
-        for (Entry e : entries) if (e.binding.owner().equals(owner)) return e.binding.group();
+        for (Item e : entries) if (e.binding.owner().equals(owner)) return e.binding.group();
         return owner;
     }
 
     /** The shown groups of the current list view, in order: group id -> entries. */
-    private Map<String, List<Entry>> groups() {
-        List<Binding> shown = KeyConflicts.filter(entries.stream().map(Entry::binding).toList(), query, onlyConflicts, onlyUnbound, this::shown);
-        Map<String, List<Entry>> out = new LinkedHashMap<>();
+    private Map<String, List<Item>> groups() {
+        List<Binding> shown = KeyConflicts.filter(entries.stream().map(Item::binding).toList(), query, onlyConflicts, onlyUnbound, this::shown);
+        Map<String, List<Item>> out = new LinkedHashMap<>();
         if (view == View.MOD) {
             // Vanilla first, then the mods by name; inside a mod Vanilla's category order (stable sort)
             List<Binding> sorted = new ArrayList<>(shown);
@@ -160,8 +160,8 @@ public final class KeysScreen extends Screen {
         if (list != null) list.refill();
     }
 
-    private void resetAll(List<Entry> which) {
-        for (Entry e : which) e.mapping.setKey(e.mapping.getDefaultKey());
+    private void resetAll(List<Item> which) {
+        for (Item e : which) e.mapping.setKey(e.mapping.getDefaultKey());
         KeyMapping.resetMapping();
         minecraft.options.save();
         refresh();
@@ -193,7 +193,7 @@ public final class KeysScreen extends Screen {
     }
 
     KeyMapping mapping(Binding b) {
-        Entry e = byId.get(b.id());
+        Item e = byId.get(b.id());
         return e == null ? null : e.mapping;
     }
 
@@ -378,14 +378,14 @@ public final class KeysScreen extends Screen {
         void refill() {
             double keep = scrollAmount();
             List<Row> rows = new ArrayList<>();
-            Map<String, List<Entry>> groups = groups();
-            for (Map.Entry<String, List<Entry>> gr : groups.entrySet()) {
-                List<Entry> items = gr.getValue();
+            Map<String, List<Item>> groups = groups();
+            for (Map.Entry<String, List<Item>> gr : groups.entrySet()) {
+                List<Item> items = gr.getValue();
                 Binding first = items.get(0).binding;
                 String title = view == View.MOD ? modTitle(first.owner()) : first.group();
                 rows.add(new HeaderRow(gr.getKey(), Component.literal(title), items));
                 if (collapsed.contains(gr.getKey())) continue;
-                for (Entry e : items) rows.add(new KeyRow(e));
+                for (Item e : items) rows.add(new KeyRow(e));
             }
             if (groups.isEmpty()) rows.add(new HeaderRow(null, t("empty"), List.of()));
             replaceEntries(rows);
@@ -420,7 +420,7 @@ public final class KeysScreen extends Screen {
         private final Component title;
         final Button fold, reset;
 
-        HeaderRow(String id, Component title, List<Entry> items) {
+        HeaderRow(String id, Component title, List<Item> items) {
             this.id = id;
             this.title = id == null ? title : title.copy().withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE)
                     .append(Component.literal(" (" + items.size() + ")").withStyle(ChatFormatting.GRAY));
@@ -459,10 +459,10 @@ public final class KeysScreen extends Screen {
 
     /** One action like Vanilla's key rows: name, the key button (click, then press a key or mouse button), reset. */
     final class KeyRow extends Row {
-        final Entry entry;
+        final Item entry;
         final Button change, reset;
 
-        KeyRow(Entry entry) {
+        KeyRow(Item entry) {
             this.entry = entry;
             change = Button.builder(entry.mapping.getTranslatedKeyMessage(), b -> {
                 if (pickCode >= 0) {
@@ -479,7 +479,7 @@ public final class KeysScreen extends Screen {
 
         @Override
         public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
-            Entry now = byId.get(entry.binding.id()); // current state after an assignment
+            Item now = byId.get(entry.binding.id()); // current state after an assignment
             Binding b = now == null ? entry.binding : now.binding;
             List<Binding> others = KeyConflicts.sharedWith(byKey, b);
             Component key = entry.mapping.getTranslatedKeyMessage();

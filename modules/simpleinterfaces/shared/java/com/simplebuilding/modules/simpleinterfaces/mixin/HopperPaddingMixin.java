@@ -14,6 +14,8 @@ import net.minecraft.world.inventory.Slot;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -36,17 +38,21 @@ public abstract class HopperPaddingMixin extends AbstractContainerScreen<HopperM
         super(menu, inventory, title);
     }
 
+    /** Vanilla's image height 133 (final field, set by the super constructor): 6 px more while the hopper style is on. */
+    @ModifyConstant(method = "<init>", constant = @Constant(intValue = 133))
+    private static int simpleinterfaces$height(int height) {
+        return StyledScreens.hopperStyleOn() ? height + SHIFT : height;
+    }
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void simpleinterfaces$shift(HopperMenu menu, Inventory inventory, Component title, CallbackInfo ci) {
-        if (!StyledScreens.hopperStyleOn()) return;
+        if (this.imageHeight != 133 + SHIFT) return;
         for (int index = HopperMenu.CONTAINER_SIZE; index < menu.slots.size(); index++) {
             Slot vanilla = menu.slots.get(index);
             Slot moved = new Slot(vanilla.container, vanilla.getContainerSlot(), vanilla.x, vanilla.y + SHIFT);
             moved.index = vanilla.index;
             menu.slots.set(index, moved);
         }
-        this.imageHeight += SHIFT;
-        this.inventoryLabelY += SHIFT;
         this.simpleinterfaces$shifted = true;
     }
 
