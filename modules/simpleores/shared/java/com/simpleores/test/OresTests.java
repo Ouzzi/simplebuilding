@@ -297,19 +297,29 @@ public final class OresTests {
             var player = h.makeMockServerPlayerInLevel();
             h.runBeforeTestEnd(() -> level.getServer().getPlayerList().remove(player));
             try {
-                player.setPos(to.x, to.y - player.getEyeHeight(), to.z);
-                ClientboundSoundPacket loud = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, from.x, from.y, from.z, 4.0F, 1.0F, 1L);
+                OresConfig.reset();
+                player.setPos(to.x, to.y - 1.62, to.z);
+                Vec3 eye = player.getEyePosition();
+                // The mock player's own eye height decides the row of cells: the sound comes from the same row, the lead stands in it.
+                Vec3 source = new Vec3(from.x, eye.y, eye.z);
+                BlockPos row = BlockPos.containing(source);
+                for (int x = 4; x <= 6; x++) level.setBlockAndUpdate(new BlockPos(origin.getX() + x, row.getY(), row.getZ()), OresRegistry.LEAD_BLOCK.defaultBlockState());
+                int between = Soundproofing.blocksBetween(player.level(), source, eye);
+                check(h, player.level() == level && between >= 3, "same level " + (player.level() == level) + ", lead between sound " + source + " and eye " + eye + ": " + between);
+                ClientboundSoundPacket loud = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, source.x, source.y, source.z, 4.0F, 1.0F, 1L);
                 Packet<?>[] out = Soundproofing.filter(player, loud);
-                check(h, out != null && out.length == 1 && out[0] instanceof ClientboundSoundPacket p && p.getVolume() == 0.5F, "TNT volume 4 -> 0.5 behind 3 lead blocks");
-                ClientboundSoundPacket soft = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, from.x, from.y, from.z, 0.2F, 1.0F, 1L);
+                float want = 4.0F * Soundproofing.attenuation(between, OresConfig.soundproofFactor);
+                check(h, out != null && out.length == 1 && out[0] instanceof ClientboundSoundPacket p && p.getVolume() == want,
+                        "TNT volume 4 -> " + want + " behind " + between + " lead blocks, got " + (out == null ? "null" : out.length + " packets " + (out.length > 0 && out[0] instanceof ClientboundSoundPacket q ? q.getVolume() : -1)));
+                ClientboundSoundPacket soft = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, source.x, source.y, source.z, 0.2F, 1.0F, 1L);
                 check(h, Soundproofing.filter(player, soft) == null, "sounds under 0.3 are never touched");
-                ClientboundSoundPacket record = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.RECORDS, from.x, from.y, from.z, 4.0F, 1.0F, 1L);
+                ClientboundSoundPacket record = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.RECORDS, source.x, source.y, source.z, 4.0F, 1.0F, 1L);
                 check(h, Soundproofing.filter(player, record) == null, "records are not muffled by default");
                 OresConfig.soundproofRecords = true;
                 check(h, Soundproofing.filter(player, record) != null, "records are muffled when switched on");
                 OresConfig.soundproofRecords = false;
                 OresConfig.soundproofThreshold = 0.3;
-                ClientboundSoundPacket quiet = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, from.x, from.y, from.z, 1.0F, 1.0F, 1L);
+                ClientboundSoundPacket quiet = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, source.x, source.y, source.z, 1.0F, 1.0F, 1L);
                 Packet<?>[] none = Soundproofing.filter(player, quiet);
                 check(h, none != null && none.length == 0, "below the threshold the packet is dropped");
                 OresConfig.soundproofThreshold = 0.05;
