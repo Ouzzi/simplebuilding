@@ -254,13 +254,19 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             return new double[]{(r[0] + r[2] / 2.0) * scale, (r[1] + r[3] / 2.0) * scale};
         });
         context.getInput().setCursorPos(at[0], at[1]);
-        context.getInput().pressMouse(0);
         context.waitTicks(2);
+        context.getInput().pressMouse(0);
+        context.waitTicks(3);
+        lastClick = context.computeOnClient(c -> name + " at " + (int) at[0] + "/" + (int) at[1] + ", game mouse " + (int) c.mouseHandler.xpos() + "/"
+                + (int) c.mouseHandler.ypos() + ", scale " + c.getWindow().getGuiScale() + ", window " + c.getWindow().getScreenWidth() + "x" + c.getWindow().getScreenHeight()
+                + ", screen " + (c.gui.screen() == null ? "none" : c.gui.screen().getClass().getSimpleName()));
     }
+
+    private static String lastClick = "";
 
     private static void keysCheck(ClientGameTestContext context, String key, String expected) {
         String value = context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get(key)));
-        if (!expected.equals(value)) throw new AssertionError("key page: " + key + " = " + value + ", expected " + expected);
+        if (!expected.equals(value)) throw new AssertionError("key page: " + key + " = " + value + ", expected " + expected + " (last click " + lastClick + ")");
     }
 
     /** W1 G2: crafting table, the three furnaces (lit, half cooked), brewing stand (brewing), beacon, enchanting table. */
