@@ -48,15 +48,15 @@
       "id": "rose_gold",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
-        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_a.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_c.json",
         "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_ingot_from_blasting_rose_bronze_pressling.json"
       ],
       "en": {
         "title": "Rose gold",
         "summary": "Two alloys of gold, copper and silver: hard Rose Bronze (about 585) and soft Blossom Gold (about 750). Made in two steps: press ingots into pressings, melt them in a blast furnace.",
         "details": [
-          "Pressing (crafting, shapeless, 1 pressing per recipe): Rose Bronze 6 gold + 2 copper + 1 silver, or 5 + 2 + 1, or 4 + 2 + 1 ingots. Blossom Gold 7 gold + 1 copper + 1 silver ingot, or 7 gold + 1 copper + 1 silver nugget.",
-          "Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 9 ingots put in is intended: silver stays the bottleneck.",
+          "Pressing (crafting, shapeless, 1 pressing per recipe): Rose Bronze (copper-rose) 4 gold + 2 copper + 1 silver ingot. Blossom Gold (pale pink) 7 gold + 1 copper + 1 silver ingot. There are no other pressing recipes.",
+          "Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 7 or 9 ingots put in is intended: silver stays the bottleneck.",
           "Rose Bronze is a darker copper-rose, Blossom Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot."
         ]
       },
@@ -64,8 +64,8 @@
         "title": "Roségold",
         "summary": "Zwei Legierungen aus Gold, Kupfer und Silber: das harte Rosenbronze (etwa 585) und das weiche Blütengold (etwa 750). Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.",
         "details": [
-          "Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenbronze 6 Gold + 2 Kupfer + 1 Silber, oder 5 + 2 + 1, oder 4 + 2 + 1 Barren. Blütengold 7 Gold + 1 Kupfer + 1 Silberbarren, oder 7 Gold + 1 Kupfer + 1 Silberklumpen.",
-          "Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.",
+          "Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenbronze (Kupfer-Rosé) 4 Gold + 2 Kupfer + 1 Silberbarren. Blütengold (Zartrosa) 7 Gold + 1 Kupfer + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.",
+          "Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 7 bzw. 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.",
           "Rosenbronze ist ein dunkleres Kupfer-Rosé, Blütengold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren."
         ]
       }
@@ -686,68 +686,6 @@
           {
             "id": "simpleores:silver_ingot",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:blossom_gold_pressling_b",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": "blossom_gold_pressling",
-      "result": {
-        "id": "simpleores:blossom_gold_pressling",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/blossom_gold_pressling_b.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "minecraft:gold_ingot",
-        "simpleores:silver_nugget"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "simpleores:silver_nugget"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 7
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 1
-          },
-          {
-            "id": "simpleores:silver_ingot",
-            "count": 0.111
           }
         ]
       }
@@ -1805,7 +1743,7 @@
         "materials": [
           {
             "id": "minecraft:gold_ingot",
-            "count": 6
+            "count": 4
           },
           {
             "id": "minecraft:copper_ingot",
@@ -1916,127 +1854,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_bronze_pressling_a",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": "rose_bronze_pressling",
-      "result": {
-        "id": "simpleores:rose_bronze_pressling",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_a.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "minecraft:gold_ingot",
-        "simpleores:silver_ingot"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "simpleores:silver_ingot"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 6
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 2
-          },
-          {
-            "id": "simpleores:silver_ingot",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_bronze_pressling_b",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": "rose_bronze_pressling",
-      "result": {
-        "id": "simpleores:rose_bronze_pressling",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_b.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "minecraft:gold_ingot",
-        "simpleores:silver_ingot"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "simpleores:silver_ingot"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 5
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 2
-          },
-          {
-            "id": "simpleores:silver_ingot",
-            "count": 1
           }
         ]
       }
@@ -3236,8 +3053,7 @@
       },
       "texture": "assets/textures/simpleores/item/blossom_gold_pressling.png",
       "craftedBy": [
-        "simpleores:blossom_gold_pressling_a",
-        "simpleores:blossom_gold_pressling_b"
+        "simpleores:blossom_gold_pressling_a"
       ],
       "usedIn": [
         "simpleores:blossom_gold_ingot_from_blasting_blossom_gold_pressling"
@@ -3791,8 +3607,6 @@
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_pressling.png",
       "craftedBy": [
-        "simpleores:rose_bronze_pressling_a",
-        "simpleores:rose_bronze_pressling_b",
         "simpleores:rose_bronze_pressling_c"
       ],
       "usedIn": [
@@ -3921,8 +3735,6 @@
       ],
       "usedIn": [
         "simpleores:blossom_gold_pressling_a",
-        "simpleores:rose_bronze_pressling_a",
-        "simpleores:rose_bronze_pressling_b",
         "simpleores:rose_bronze_pressling_c",
         "simpleores:silver_block",
         "simpleores:silver_mirror",
@@ -3951,7 +3763,6 @@
         "simpleores:silver_nugget"
       ],
       "usedIn": [
-        "simpleores:blossom_gold_pressling_b",
         "simpleores:silver_arrow",
         "simpleores:silver_ingot_from_nuggets"
       ]
@@ -4394,7 +4205,7 @@
   "incompleteProse": {},
   "counts": {
     "features": 10,
-    "recipes": 66,
+    "recipes": 63,
     "lootTables": 18,
     "tags": 5,
     "advancements": 0,
