@@ -495,6 +495,46 @@ public final class AnimalsTests {
             h.assertTrue(seen[0] && seen[1], "a fawn takes the coat of either parent");
             h.succeed();
         });
+        ALL.put("crab_models", h -> {
+            // Owner choice 31.10.: model A (crab) and model B (fiddler crab) spawn as variants, the fiddler 1:3; the model is kept on save.
+            ServerLevel level = h.getLevel();
+            int[] seen = new int[2];
+            for (int i = 0; i < 60; i++) {
+                Crab fresh = AnimalsRegistry.CRAB.create(level, EntitySpawnReason.NATURAL);
+                h.assertTrue(fresh != null && fresh.model() == Crab.MODEL_CRAB, "a new crab starts as model A");
+                fresh.finalizeSpawn(level, level.getCurrentDifficultyAt(h.absolutePos(at(4, 4))), EntitySpawnReason.NATURAL, null);
+                seen[fresh.model()]++;
+                fresh.discard();
+            }
+            h.assertTrue(seen[0] > 0 && seen[1] > 0, "both models spawn (" + seen[0] + " crabs, " + seen[1] + " fiddlers)");
+            RandomSource random = RandomSource.create(3131L);
+            int fiddlers = 0;
+            for (int i = 0; i < 800; i++) fiddlers += Crab.rollModel(random) == Crab.MODEL_FIDDLER ? 1 : 0;
+            h.assertTrue(fiddlers >= 800 * 12 / 100 && fiddlers <= 800 * 38 / 100, "about one fiddler to three crabs, got " + fiddlers + " of 800");
+            Crab crab = quiet(h.spawn(AnimalsRegistry.CRAB, at(6, 6)));
+            crab.setModel(Crab.MODEL_FIDDLER);
+            crab.setVariant(1);
+            net.minecraft.world.level.storage.TagValueOutput out = net.minecraft.world.level.storage.TagValueOutput.createWithContext(
+                    net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess());
+            crab.saveWithoutId(out);
+            net.minecraft.nbt.CompoundTag tag = out.buildResult();
+            h.assertTrue(tag.getIntOr("Model", -1) == Crab.MODEL_FIDDLER, "the model is stored in the NBT");
+            Crab loaded = AnimalsRegistry.CRAB.create(level, EntitySpawnReason.LOAD);
+            loaded.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), tag));
+            h.assertTrue(loaded.model() == Crab.MODEL_FIDDLER && loaded.variant() == 1, "model and colour survive saving and loading");
+            loaded.discard();
+            crab.setModel(7);
+            h.assertTrue(crab.model() == Crab.MODEL_FIDDLER, "too large values are clamped");
+            crab.setModel(-2);
+            h.assertTrue(crab.model() == Crab.MODEL_CRAB, "negative values are clamped");
+            net.minecraft.nbt.CompoundTag old = new net.minecraft.nbt.CompoundTag();
+            old.putInt("Variant", 1);
+            Crab legacy = AnimalsRegistry.CRAB.create(level, EntitySpawnReason.LOAD);
+            legacy.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), old));
+            h.assertTrue(legacy.model() == Crab.MODEL_CRAB, "a crab saved before the two models stays model A");
+            legacy.discard();
+            h.succeed();
+        });
         ALL.put("guide_book", com.simpleanimals.guide.AnimalsGuide::gameTest);
     }
 

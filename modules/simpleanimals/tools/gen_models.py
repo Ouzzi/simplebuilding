@@ -216,6 +216,7 @@ def deer_spec(coat, belly, dark, antler, spot=None, dapple=None, name='deer'):
 
 
 def boar_spec(coat, dark, belly, snout, tusk, young=False, name='boar'):
+    # Shape A "kompakt-tief" (owner choice 31.10., preview b-mobs32): legs 7 -> 5 px, body 2 px and head 3 px lower.
     body_c = striped_boar(coat, mix(coat, belly, 0.55), belly) if young else fur(coat, belly, 0.7, 0.07, 31, dark_back=dark)
     leg = hoofed(mix(coat, dark, 0.35), H('2a2018'), 2, seed=32)
     head_marks = mark_eyes(['front'], [(1, 2), (4, 2)])
@@ -223,18 +224,18 @@ def boar_spec(coat, dark, belly, snout, tusk, young=False, name='boar'):
     snout_marks = {('front', 1, 1): H('1c1410'), ('front', 2, 1): H('1c1410')}
     return dict(name=name, w=64, parts=[
         P('body', [B((-4.5, -8, -8), (9, 8, 16), body_c, share='body'),
-                   B((-1, -9, -6), (2, 1, 12), solid(dark, 0.08, 34), share='mane')], pose=(0, 17, 0)),
+                   B((-1, -9, -6), (2, 1, 12), solid(dark, 0.08, 34), share='mane')], pose=(0, 19, 0)),
         P('tail', [B((-0.5, 0, 0), (1, 1, 3), solid(dark, 0.05, 35), share='tail')], pose=(0, -6, 8), rot=(0.9, 0, 0), parent='body'),
         P('head', [B((-3, -3, -6), (6, 6, 6), head_p, share='head'),
-                   B((-2, 0, -9), (4, 3, 3), with_marks(solid(snout, 0.05, 36), snout_marks), share='snout')], pose=(0, 12, -7.5)),
+                   B((-2, 0, -9), (4, 3, 3), with_marks(solid(snout, 0.05, 36), snout_marks), share='snout')], pose=(0, 15, -7.5)),
         P('tusk_right', [B((-0.5, -2, -0.5), (1, 2, 1), solid(tusk, 0.03, 37), share='tusk')], pose=(-2.2, 2.4, -8.5), parent='head'),
         P('tusk_left', [B((-0.5, -2, -0.5), (1, 2, 1), solid(tusk, 0.03, 37), share='tusk')], pose=(2.2, 2.4, -8.5), parent='head'),
         P('ear_right', [B((-1, -2, -0.5), (2, 2, 1), fur(dark, None, 1, 0.05, 38), share='ear')], pose=(-2.2, -3, -1.5), rot=(0.2, 0, -0.3), parent='head'),
         P('ear_left', [B((-1, -2, -0.5), (2, 2, 1), fur(dark, None, 1, 0.05, 38), share='ear')], pose=(2.2, -3, -1.5), rot=(0.2, 0, 0.3), parent='head'),
-        P('right_hind_leg', [B((-1.5, 0, -1.5), (3, 7, 3), leg, share='leg')], pose=(-3, 17, 6)),
-        P('left_hind_leg', [B((-1.5, 0, -1.5), (3, 7, 3), leg, share='leg')], pose=(3, 17, 6)),
-        P('right_front_leg', [B((-1.5, 0, -1.5), (3, 7, 3), leg, share='leg')], pose=(-3, 17, -5.5)),
-        P('left_front_leg', [B((-1.5, 0, -1.5), (3, 7, 3), leg, share='leg')], pose=(3, 17, -5.5)),
+        P('right_hind_leg', [B((-1.5, 0, -1.5), (3, 5, 3), leg, share='leg')], pose=(-3, 19, 6)),
+        P('left_hind_leg', [B((-1.5, 0, -1.5), (3, 5, 3), leg, share='leg')], pose=(3, 19, 6)),
+        P('right_front_leg', [B((-1.5, 0, -1.5), (3, 5, 3), leg, share='leg')], pose=(-3, 19, -5.5)),
+        P('left_front_leg', [B((-1.5, 0, -1.5), (3, 5, 3), leg, share='leg')], pose=(3, 19, -5.5)),
     ])
 
 
@@ -255,22 +256,54 @@ def hedgehog_spec(spine, tip, skin, belly, band=None, name='hedgehog'):
     ])
 
 
-def crab_spec(shell, shell_dark, belly, claw, name='crab'):
-    eye_p = with_marks(solid(H('e8e4da'), 0.03, 52), {('top', 0, 0): H('1c1410')})
-    legs = []
+def crab_spec(shell=H('b3301d'), dark=H('7e2016'), belly=H('e0a888'), claw=H('c9402a'), name='crab'):
+    """Crab model A "Detail" (owner choice 31.10., b-optik32): two-piece carapace, claws with a fixed and a moving finger (open pincers), three jointed legs per side."""
+    eye = with_marks(solid(H('e8e4da'), 0.03, 52), {('top', 0, 0): H('1c1410')})
+    leg_p = solid(dark, 0.06, 55)
+    parts = [
+        P('body', [B((-4, -3.5, -3), (8, 3, 6), fur(shell, belly, 0.6, 0.06, 51, dark_back=dark), share='body'),
+                   B((-3, -4.5, -2), (6, 1, 4), solid(mix(shell, dark, 0.35), 0.06, 56), share='plate')], pose=(0, 21, 0)),
+        P('eye_right', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye')], pose=(-2, -4, -2.4), parent='body'),
+        P('eye_left', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye')], pose=(2, -4, -2.4), parent='body'),
+    ]
+    for side, sx in (('right', -1), ('left', 1)):
+        parts += [
+            P(f'arm_{side}', [B((-1, -1, -3.5), (2, 2, 3.5), solid(shell, 0.06, 53), share='arm')], pose=(3.6 * sx, -2, -3), rot=(0, -0.2 * sx, 0), parent='body'),
+            P(f'palm_{side}', [B((-1.75, -1.75, -3.5), (3.5, 3.5, 3.5), solid(claw, 0.06, 54), share='palm')], pose=(0, 0, -3.5), parent=f'arm_{side}'),
+            P(f'finger_a_{side}', [B((-0.5, -0.5, -3.5), (1, 1, 3.5), solid(mix(claw, H('f0d8b8'), 0.25), 0.05, 57), share='finger')], pose=(-1.0, 0.6, -3.5), rot=(0, 0.12, 0), parent=f'palm_{side}'),
+            P(f'finger_b_{side}', [B((-0.5, -0.5, -3.5), (1, 1, 3.5), solid(mix(claw, H('f0d8b8'), 0.25), 0.05, 57), share='finger')], pose=(1.0, 0.6, -3.5), rot=(0, -0.12, 0), parent=f'palm_{side}'),
+        ]
+        for i, z in enumerate((-2.2, 0.0, 2.2)):
+            parts += [
+                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3, -0.5, -0.5), (3, 1, 1), leg_p, share='thigh')], pose=(3.9 * sx, -1.2, z), rot=(0, 0, -0.45 * sx), parent='body'),
+                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-6, -0.5, -0.5), (6, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 58), share='shin')], pose=(3 * sx, 0, 0), rot=(0, 0, 1.7 * sx), parent=f'{side}_thigh_{i}'),
+            ]
+    return dict(name=name, w=64, parts=parts)
+
+
+def fiddler_spec(shell=H('c4552a'), dark=H('86301a'), belly=H('ecc8a0'), claw=H('e0762c'), name='crab_fiddler'):
+    """Crab model B "Winkerkrabbe" (owner choice 31.10.: spawns as the rarer second model) (fiddler crab): rounder carapace, ONE oversized claw on the right, a tiny one on the left, three stubby legs per side."""
+    eye = with_marks(solid(H('efe8d8'), 0.03, 62), {('top', 0, 0): H('1c1410')})
+    leg_p = solid(dark, 0.06, 65)
+    parts = [
+        P('body', [B((-4.5, -4, -3.5), (9, 4, 7), fur(shell, belly, 0.6, 0.06, 61, dark_back=dark), share='body'),
+                   B((-3.5, -5, -2.5), (7, 1, 5), solid(mix(shell, claw, 0.3), 0.06, 66), share='plate')], pose=(0, 21, 0)),
+        P('eye_right', [B((-0.5, -3, -0.5), (1, 3, 1), eye, share='eye')], pose=(-2.4, -4.5, -3), parent='body'),
+        P('eye_left', [B((-0.5, -3, -0.5), (1, 3, 1), eye, share='eye')], pose=(2.4, -4.5, -3), parent='body'),
+        P('arm_right', [B((-1.25, -1.25, -3), (2.5, 2.5, 3), solid(shell, 0.06, 63), share='arm_big')], pose=(-4.1, -2, -3.2), rot=(0, 0.35, 0), parent='body'),
+        P('palm_right', [B((-2.75, -2.5, -5), (5.5, 5, 5), solid(claw, 0.06, 64), share='palm_big')], pose=(0, 0, -3), parent='arm_right'),
+        P('finger_a_right', [B((-0.75, -0.75, -5), (1.5, 1.5, 5), solid(mix(claw, H('f4dcc0'), 0.3), 0.05, 67), share='finger_big')], pose=(-1.6, 1.4, -5), rot=(0, 0.15, 0), parent='palm_right'),
+        P('finger_b_right', [B((-0.75, -0.75, -5), (1.5, 1.5, 5), solid(mix(claw, H('f4dcc0'), 0.3), 0.05, 67), share='finger_big')], pose=(1.6, 1.4, -5), rot=(0, -0.15, 0), parent='palm_right'),
+        P('arm_left', [B((-0.5, -0.5, -2), (1, 1, 2), solid(shell, 0.06, 63), share='arm_small')], pose=(4.1, -1.5, -3.2), parent='body'),
+        P('palm_left', [B((-1, -1, -2), (2, 2, 2), solid(claw, 0.06, 64), share='palm_small')], pose=(0, 0, -2), parent='arm_left'),
+    ]
     for side, sx in (('right', -1), ('left', 1)):
         for i, z in enumerate((-1.8, 0.0, 1.8)):
-            legs.append(P(f'{side}_leg_{i}', [B((-5, -0.5, -0.5) if sx < 0 else (0, -0.5, -0.5), (5, 1, 1), solid(shell_dark, 0.06, 55), share='cleg')],
-                          pose=(3.6 * sx, -1.0, z), rot=(0, 0, -0.9 * sx), parent='body'))
-    return dict(name=name, w=64, parts=[
-        P('body', [B((-4, -4, -3), (8, 4, 6), fur(shell, belly, 0.7, 0.06, 51, dark_back=shell_dark), share='body')], pose=(0, 21, 0)),
-        P('eye_right', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye_p, share='eye')], pose=(-2, -4, -2.4), parent='body'),
-        P('eye_left', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye_p, share='eye')], pose=(2, -4, -2.4), parent='body'),
-        P('arm_right', [B((-1, -1, -5), (2, 2, 5), solid(shell, 0.06, 53), share='arm')], pose=(-3.4, -2.5, -3), parent='body'),
-        P('claw_right', [B((-2, -2, -4), (4, 3, 4), solid(claw, 0.06, 54), share='claw')], pose=(0, 0, -5), parent='arm_right'),
-        P('arm_left', [B((-1, -1, -5), (2, 2, 5), solid(shell, 0.06, 53), share='arm')], pose=(3.4, -2.5, -3), parent='body'),
-        P('claw_left', [B((-2, -2, -4), (4, 3, 4), solid(claw, 0.06, 54), share='claw')], pose=(0, 0, -5), parent='arm_left'),
-    ] + legs)
+            parts += [
+                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-2.5, -0.5, -0.5), (2.5, 1, 1), leg_p, share='thigh')], pose=(4.3 * sx, -1.0, z), rot=(0, 0, -0.35 * sx), parent='body'),
+                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-5, -0.5, -0.5), (5, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 68), share='shin')], pose=(2.5 * sx, 0, 0), rot=(0, 0, 1.55 * sx), parent=f'{side}_thigh_{i}'),
+            ]
+    return dict(name=name, w=64, parts=parts)
 
 
 # ---------------------------------------------------------------- packing + painting
@@ -410,8 +443,10 @@ PALETTES = {
     # Crab: red, coral red
     'crab_red': crab_spec(H('b3301d'), H('7e2016'), H('e0a888'), H('c9402a')),
     'crab_coral': crab_spec(H('d24e2c'), H('9a3320'), H('f0c4a0'), H('e46a3a')),
+    # Fiddler crab (model B, one colour as in the preview)
+    'crab_fiddler': fiddler_spec(),
 }
-MODELS = {'deer': 'deer_red', 'boar': 'boar_dark', 'hedgehog': 'hedgehog_brown', 'crab': 'crab_red'}
+MODELS = {'deer': 'deer_red', 'boar': 'boar_dark', 'hedgehog': 'hedgehog_brown', 'crab': 'crab_red', 'crab_fiddler': 'crab_fiddler'}
 
 
 def zebra_tex():
@@ -432,12 +467,17 @@ TEXTURES['zorse'] = lambda: finish(zorse_tex(), TONES)
 OUT_NAMES = {'deer_red': 'deer/red', 'deer_fallow': 'deer/fallow', 'deer_fawn': 'deer/fawn', 'boar_dark': 'boar/dark',
              'boar_sandy': 'boar/sandy', 'boar_frost': 'boar/frost', 'boar_rust': 'boar/rust', 'boar_young': 'boar/young',
              'hedgehog_brown': 'hedgehog/brown', 'hedgehog_desert': 'hedgehog/desert', 'hedgehog_whitebreast': 'hedgehog/whitebreast',
-             'hedgehog_fourtoed': 'hedgehog/fourtoed', 'crab_red': 'crab/red', 'crab_coral': 'crab/coral', 'zebra': 'zebra', 'zorse': 'zorse'}
+             'hedgehog_fourtoed': 'hedgehog/fourtoed', 'crab_red': 'crab/red', 'crab_coral': 'crab/coral', 'crab_fiddler': 'crab/fiddler', 'zebra': 'zebra', 'zorse': 'zorse'}
 
 
 # ---------------------------------------------------------------- Java
 def jname(s):
     return s
+
+
+def jclass(model):
+    """Java class prefix of a model key: crab_fiddler -> CrabFiddler."""
+    return ''.join(p.capitalize() for p in model.split('_'))
 
 
 def java_layers(model, spec):
@@ -450,7 +490,7 @@ def java_layers(model, spec):
              'import net.minecraft.client.model.geom.builders.MeshDefinition;',
              'import net.minecraft.client.model.geom.builders.PartDefinition;', '',
              '/** GENERATED by modules/simpleanimals/tools/gen_models.py from the model spec, do not edit. */',
-             f'final class {model.capitalize()}Layers {{',
+             f'final class {jclass(model)}Layers {{',
              f'    static final int WIDTH = {spec["w"]}, HEIGHT = {height};', '',
              '    static LayerDefinition create() {',
              '        MeshDefinition mesh = new MeshDefinition();',
@@ -471,7 +511,7 @@ def java_layers(model, spec):
         name = part['name']
         lines.append(f'        PartDefinition {name} = {var[part["parent"]]}.addOrReplaceChild("{name}", {cubes}, {pose});')
         var[name] = name
-    lines += ['        return LayerDefinition.create(mesh, WIDTH, HEIGHT);', '    }', '', '    private %sLayers() {}' % model.capitalize(), '}', '']
+    lines += ['        return LayerDefinition.create(mesh, WIDTH, HEIGHT);', '    }', '', '    private %sLayers() {}' % jclass(model), '}', '']
     return '\n'.join(lines)
 
 
@@ -496,7 +536,7 @@ def outputs():
         L.snap(img, 'Grundform')
         files[TEX / (OUT_NAMES[key] + '.png')] = img
     for model, key in MODELS.items():
-        files[JAVA / f'{model.capitalize()}Layers.java'] = java_layers(model, PALETTES[key])
+        files[JAVA / f'{jclass(model)}Layers.java'] = java_layers(model, PALETTES[key])
     return files
 
 

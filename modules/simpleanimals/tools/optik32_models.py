@@ -16,54 +16,9 @@ from gen_models import B, H, P, fur, hoofed, lit, mix, solid, stripes, with_mark
 
 
 # ---------------------------------------------------------------- crab
-def crab_a(shell=H('b3301d'), dark=H('7e2016'), belly=H('e0a888'), claw=H('c9402a')):
-    """A "Detail": two-piece carapace, claws with a fixed and a moving finger (open pincers), three jointed legs per side."""
-    eye = with_marks(solid(H('e8e4da'), 0.03, 52), {('top', 0, 0): H('1c1410')})
-    leg_p = solid(dark, 0.06, 55)
-    parts = [
-        P('body', [B((-4, -3.5, -3), (8, 3, 6), fur(shell, belly, 0.6, 0.06, 51, dark_back=dark), share='body'),
-                   B((-3, -4.5, -2), (6, 1, 4), solid(mix(shell, dark, 0.35), 0.06, 56), share='plate')], pose=(0, 21, 0)),
-        P('eye_right', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye')], pose=(-2, -4, -2.4), parent='body'),
-        P('eye_left', [B((-0.5, -2.5, -0.5), (1, 3, 1), eye, share='eye')], pose=(2, -4, -2.4), parent='body'),
-    ]
-    for side, sx in (('right', -1), ('left', 1)):
-        parts += [
-            P(f'arm_{side}', [B((-1, -1, -3.5), (2, 2, 3.5), solid(shell, 0.06, 53), share='arm')], pose=(3.6 * sx, -2, -3), rot=(0, -0.2 * sx, 0), parent='body'),
-            P(f'palm_{side}', [B((-1.75, -1.75, -3.5), (3.5, 3.5, 3.5), solid(claw, 0.06, 54), share='palm')], pose=(0, 0, -3.5), parent=f'arm_{side}'),
-            P(f'finger_a_{side}', [B((-0.5, -0.5, -3.5), (1, 1, 3.5), solid(mix(claw, H('f0d8b8'), 0.25), 0.05, 57), share='finger')], pose=(-1.0, 0.6, -3.5), rot=(0, 0.12, 0), parent=f'palm_{side}'),
-            P(f'finger_b_{side}', [B((-0.5, -0.5, -3.5), (1, 1, 3.5), solid(mix(claw, H('f0d8b8'), 0.25), 0.05, 57), share='finger')], pose=(1.0, 0.6, -3.5), rot=(0, -0.12, 0), parent=f'palm_{side}'),
-        ]
-        for i, z in enumerate((-2.2, 0.0, 2.2)):
-            parts += [
-                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3, -0.5, -0.5), (3, 1, 1), leg_p, share='thigh')], pose=(3.9 * sx, -1.2, z), rot=(0, 0, -0.45 * sx), parent='body'),
-                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-6, -0.5, -0.5), (6, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 58), share='shin')], pose=(3 * sx, 0, 0), rot=(0, 0, 1.7 * sx), parent=f'{side}_thigh_{i}'),
-            ]
-    return dict(name='crab_a', w=64, parts=parts)
-
-
-def crab_b(shell=H('c4552a'), dark=H('86301a'), belly=H('ecc8a0'), claw=H('e0762c')):
-    """B "Winkerkrabbe" (fiddler crab): rounder carapace, ONE oversized claw on the right, a tiny one on the left, three stubby legs per side."""
-    eye = with_marks(solid(H('efe8d8'), 0.03, 62), {('top', 0, 0): H('1c1410')})
-    leg_p = solid(dark, 0.06, 65)
-    parts = [
-        P('body', [B((-4.5, -4, -3.5), (9, 4, 7), fur(shell, belly, 0.6, 0.06, 61, dark_back=dark), share='body'),
-                   B((-3.5, -5, -2.5), (7, 1, 5), solid(mix(shell, claw, 0.3), 0.06, 66), share='plate')], pose=(0, 21, 0)),
-        P('eye_right', [B((-0.5, -3, -0.5), (1, 3, 1), eye, share='eye')], pose=(-2.4, -4.5, -3), parent='body'),
-        P('eye_left', [B((-0.5, -3, -0.5), (1, 3, 1), eye, share='eye')], pose=(2.4, -4.5, -3), parent='body'),
-        P('arm_right', [B((-1.25, -1.25, -3), (2.5, 2.5, 3), solid(shell, 0.06, 63), share='arm_big')], pose=(-4.1, -2, -3.2), rot=(0, 0.35, 0), parent='body'),
-        P('palm_right', [B((-2.75, -2.5, -5), (5.5, 5, 5), solid(claw, 0.06, 64), share='palm_big')], pose=(0, 0, -3), parent='arm_right'),
-        P('finger_a_right', [B((-0.75, -0.75, -5), (1.5, 1.5, 5), solid(mix(claw, H('f4dcc0'), 0.3), 0.05, 67), share='finger_big')], pose=(-1.6, 1.4, -5), rot=(0, 0.15, 0), parent='palm_right'),
-        P('finger_b_right', [B((-0.75, -0.75, -5), (1.5, 1.5, 5), solid(mix(claw, H('f4dcc0'), 0.3), 0.05, 67), share='finger_big')], pose=(1.6, 1.4, -5), rot=(0, -0.15, 0), parent='palm_right'),
-        P('arm_left', [B((-0.5, -0.5, -2), (1, 1, 2), solid(shell, 0.06, 63), share='arm_small')], pose=(4.1, -1.5, -3.2), parent='body'),
-        P('palm_left', [B((-1, -1, -2), (2, 2, 2), solid(claw, 0.06, 64), share='palm_small')], pose=(0, 0, -2), parent='arm_left'),
-    ]
-    for side, sx in (('right', -1), ('left', 1)):
-        for i, z in enumerate((-1.8, 0.0, 1.8)):
-            parts += [
-                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-2.5, -0.5, -0.5), (2.5, 1, 1), leg_p, share='thigh')], pose=(4.3 * sx, -1.0, z), rot=(0, 0, -0.35 * sx), parent='body'),
-                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-5, -0.5, -0.5), (5, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 68), share='shin')], pose=(2.5 * sx, 0, 0), rot=(0, 0, 1.55 * sx), parent=f'{side}_thigh_{i}'),
-            ]
-    return dict(name='crab_b', w=64, parts=parts)
+# Built into gen_models.py (owner choice 31.10., b-einbau32): model A = crab_spec, model B = fiddler_spec.
+crab_a = G.crab_spec
+crab_b = G.fiddler_spec
 
 
 # ---------------------------------------------------------------- zebra / zorse (own equid model, replaces the Vanilla horse model)

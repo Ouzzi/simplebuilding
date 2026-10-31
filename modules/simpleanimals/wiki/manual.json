@@ -80,6 +80,7 @@
       "sources": [
         "modules/simpleanimals/shared/java/com/simpleanimals/entity/Crab.java",
         "modules/simpleanimals/shared/java/com/simpleanimals/client/CrabModel.java",
+        "modules/simpleanimals/shared/java/com/simpleanimals/client/CrabRenderer.java",
         "modules/simpleanimals/shared/java/com/simpleanimals/AnimalsRegistry.java"
       ],
       "en": {
@@ -87,7 +88,8 @@
         "summary": "A harmless beach animal with a red or sand shell and two big claws; it walks sideways. Rare: single animals on beaches and in mangrove swamps, by day only. Drops raw crab.",
         "details": [
           "Natural spawn: beaches and mangrove swamps, weight 1, one at a time, on sand, mud or dirt in daylight. It does not breed.",
-          "Raw crab eats like raw cod (2 hunger); smelted, smoked or cooked on a campfire it becomes cooked crab with the value of cooked cod (5 hunger), so crabs add no new food level."
+          "Raw crab eats like raw cod (2 hunger); smelted, smoked or cooked on a campfire it becomes cooked crab with the value of cooked cod (5 hunger), so crabs add no new food level.",
+          "Two looks: the common crab with two open pincers, and about one crab in four is a fiddler crab with one big claw (orange shell). The look is chosen when the crab appears and kept when the world is saved; it changes nothing else."
         ]
       },
       "de": {
@@ -95,7 +97,8 @@
         "summary": "Ein harmloses Strandtier mit rotem oder sandfarbenem Panzer und zwei großen Scheren; es läuft seitwärts. Selten: Einzeltiere an Stränden und in Mangrovensümpfen, nur am Tag. Lässt rohen Krebs fallen.",
         "details": [
           "Natürliches Spawnen: Strände und Mangrovensümpfe, Gewicht 1, einzeln, auf Sand, Schlamm oder Erde bei Tageslicht. Er pflanzt sich nicht fort.",
-          "Roher Krebs wird gegessen wie roher Kabeljau (2 Hunger); geschmolzen, im Räucherofen oder am Lagerfeuer gegart wird er zu gegartem Krebs mit dem Wert von gegartem Kabeljau (5 Hunger), Krebse bringen also keine neue Nahrungsstufe."
+          "Roher Krebs wird gegessen wie roher Kabeljau (2 Hunger); geschmolzen, im Räucherofen oder am Lagerfeuer gegart wird er zu gegartem Krebs mit dem Wert von gegartem Kabeljau (5 Hunger), Krebse bringen also keine neue Nahrungsstufe.",
+          "Zwei Formen: der normale Krebs mit zwei offenen Scheren, und etwa jeder vierte ist eine Winkerkrabbe mit einer großen Schere (oranger Panzer). Die Form wird beim Erscheinen gewählt und mit der Welt gespeichert; sonst ändert sie nichts."
         ]
       }
     },

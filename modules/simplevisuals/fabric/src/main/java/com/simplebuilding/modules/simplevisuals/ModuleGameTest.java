@@ -9,6 +9,7 @@ public final class ModuleGameTest {
  @GameTest public void configAndLanguageCompleteness(GameTestHelper h){com.simplevisuals.test.VisualsTests.language(h);}
  @GameTest(maxTicks=100) public void frameChisel(GameTestHelper h){com.simplevisuals.test.VisualsTests.frameChisel(h);}
  @GameTest public void speedLinesMath(GameTestHelper h){com.simplevisuals.test.VisualsTests.speedLinesMath(h);}
+ @GameTest public void cauldronStandRule(GameTestHelper h){com.simplevisuals.test.VisualsTests.cauldronStand(h);}
  @GameTest public void particleFloodSafety(GameTestHelper h){com.simplevisuals.test.VisualsTests.budgets(h);}
  @GameTest public void serverAnvilAndCrossMod(GameTestHelper h){com.simplevisuals.test.VisualsTests.formatting(h);}
  @GameTest public void assetDecompressionBounds(GameTestHelper h){com.simplevisuals.test.VisualsTests.assetBounds(h);}

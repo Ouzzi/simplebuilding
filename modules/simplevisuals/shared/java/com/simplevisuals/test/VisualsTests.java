@@ -66,6 +66,24 @@ public final class VisualsTests {
   c.particles.globalLevel=null;c.particles.overrides.put("unknown",Intensity.MAXIMUM);c.particles.overrides.put("cold_breath",null);ConfigOptions.normalize(c);
   h.assertTrue(c.particles.globalLevel==Intensity.SUBTLE&&c.particles.overrides.isEmpty(),"Corrupt levels and unknown effect ids rejected");h.succeed();
  }
+ /** IG31-21: the cauldron stand rule (cauldron of any fill on any campfire, lit or not), the boxes under the cauldron, option on by default and off = never. */
+ public static void cauldronStand(GameTestHelper h){
+var fire=net.minecraft.world.level.block.Blocks.CAMPFIRE.defaultBlockState();
+  h.assertTrue(new SimplevisualsConfig().visuals.cauldronStand,"Cauldron stand on by default");
+  for(var c:List.of(net.minecraft.world.level.block.Blocks.CAULDRON,net.minecraft.world.level.block.Blocks.WATER_CAULDRON,net.minecraft.world.level.block.Blocks.LAVA_CAULDRON,net.minecraft.world.level.block.Blocks.POWDER_SNOW_CAULDRON))
+   h.assertTrue(com.simplevisuals.CauldronStand.applies(c.defaultBlockState(),fire),"Stand under "+c);
+  var cauldron=net.minecraft.world.level.block.Blocks.CAULDRON.defaultBlockState();
+  h.assertTrue(com.simplevisuals.CauldronStand.applies(cauldron,net.minecraft.world.level.block.Blocks.SOUL_CAMPFIRE.defaultBlockState()),"Soul campfire too");
+  h.assertTrue(com.simplevisuals.CauldronStand.applies(cauldron,fire.setValue(net.minecraft.world.level.block.CampfireBlock.LIT,false)),"Unlit campfire too");
+  h.assertTrue(!com.simplevisuals.CauldronStand.applies(cauldron,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState())&&!com.simplevisuals.CauldronStand.applies(cauldron,net.minecraft.world.level.block.Blocks.MAGMA_BLOCK.defaultBlockState()),"Not on stone or magma");
+  h.assertTrue(!com.simplevisuals.CauldronStand.applies(net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),fire),"Only cauldrons");
+  h.assertTrue(com.simplevisuals.CauldronStand.BOXES.size()==8,"Four posts and four frame bars");
+  for(var b:com.simplevisuals.CauldronStand.BOXES)h.assertTrue(b.x0()>=0&&b.x1()<=16&&b.z0()>=0&&b.z1()<=16&&b.y1()<=0&&b.y0()>=com.simplevisuals.CauldronStand.FIRE_TOP&&b.x0()<b.x1()&&b.y0()<b.y1()&&b.z0()<b.z1(),"Box under the cauldron, above the fire: "+b);
+  boolean old=Visuals.CONFIG.visuals.cauldronStand;
+  try{Visuals.CONFIG.visuals.cauldronStand=false;h.assertTrue(!com.simplevisuals.CauldronStand.enabled(),"Option off: no stand");Visuals.CONFIG.visuals.cauldronStand=true;h.assertTrue(com.simplevisuals.CauldronStand.enabled()==Visuals.on(),"Option on: stand while the super-mod switch is on");}
+  finally{Visuals.CONFIG.visuals.cauldronStand=old;}
+  h.succeed();
+ }
  /** FR23: which framed items lie flat seen from above (shape rule or pane; FLAT also needs a block model), option on by default. */
  static void frameTilt(GameTestHelper h,SimplevisualsConfig c){
   h.assertTrue(c.visuals.enableTiltedFrameItems,"Flat frame items on by default");

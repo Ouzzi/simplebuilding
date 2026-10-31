@@ -59,6 +59,8 @@
   "text.autoconfig.simplevisuals.option.visuals.enableMapTooltips.@Tooltip": "Shows coordinates and biome info when\nhovering over maps in the inventory. Default:\ntrue.",
   "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems": "Flat blocks and panes in item frames from above",
   "text.autoconfig.simplevisuals.option.visuals.enableTiltedFrameItems.@Tooltip": "Pressure plates, carpets, trapdoors, glass panes\nand bars lie flat in item frames as a 3D model\nseen from above. Sneak with a chisel on the\nframe to tilt it in 15° steps up to 90° and\nback (saved per frame). Default: true.",
+  "text.autoconfig.simplevisuals.option.visuals.cauldronStand": "Stand under a cauldron on a campfire",
+  "text.autoconfig.simplevisuals.option.visuals.cauldronStand.@Tooltip": "A cauldron standing on a campfire is drawn\non a small stand in its own color: four\ncorner posts and a frame. Looks only, no\nblock and no collision; takes effect when\nthe chunks are rebuilt (F3+A). Default: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable": "Enable",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.enable.@Tooltip": "Local cosmetic setting; changes do not affect\ngameplay. Default: true.",
   "text.autoconfig.simplevisuals.option.visuals.damageIndicators.scale": "Scale",

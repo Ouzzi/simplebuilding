@@ -20,5 +20,10 @@
   "command.simplemobmanners.cleared": "Suffix list cleared.",
   "command.simplemobmanners.renamed": "/%s is now /%s: Simple Creatures was renamed to Simple Mob Manners.",
   "item.simplemobmanners.frog_bucket": "Bucket of Frog",
-  "jei.simplemobmanners.info.frog_bucket": "No recipe. Use a water bucket on a frog to catch it; its variant, name and age ride along. Using the bucket on the ground releases it."
+  "jei.simplemobmanners.info.frog_bucket": "No recipe. Use a water bucket on a frog to catch it; its variant, name and age ride along. Using the bucket on the ground releases it.",
+  "tooltip.simplemobmanners.frog_bucket.name": "Frog: %s",
+  "tooltip.simplemobmanners.frog_bucket.variant": "Variant: %s",
+  "tooltip.simplemobmanners.frog_bucket.variant.temperate": "Temperate",
+  "tooltip.simplemobmanners.frog_bucket.variant.warm": "Warm",
+  "tooltip.simplemobmanners.frog_bucket.variant.cold": "Cold"
 }

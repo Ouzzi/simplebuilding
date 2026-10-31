@@ -66,6 +66,11 @@ public final class MobMannersTests {
   h.assertTrue(caught.is(FrogBucket.item())&&caught.get(DataComponents.FROG_VARIANT)!=null&&caught.get(DataComponents.FROG_VARIANT).is(net.minecraft.world.entity.animal.frog.FrogVariants.WARM),"bucket carries the variant");
   h.assertTrue(caught.get(DataComponents.CUSTOM_NAME)!=null&&"Ribbit".equals(caught.get(DataComponents.CUSTOM_NAME).getString()),"bucket carries the name");
   h.assertValueEqual(caught.getOrDefault(DataComponents.BUCKET_ENTITY_DATA,net.minecraft.world.item.component.CustomData.EMPTY).copyTag().getIntOr("Age",0),1234,"bucket carries the age");
+  // IG31-23: the tooltip names the frog and its variant (grey lines; the item model selects on the same frog/variant component).
+  var lines=new ArrayList<net.minecraft.network.chat.Component>();FrogBucketItem.tooltip(caught,lines::add);
+  h.assertTrue(lines.size()==2&&lines.get(0).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents name&&"tooltip.simplemobmanners.frog_bucket.name".equals(name.getKey())&&name.getArgs().length==1&&String.valueOf(name.getArgs()[0] instanceof net.minecraft.network.chat.Component c?c.getString():name.getArgs()[0]).equals("Ribbit"),"tooltip line with the frog's name");
+  h.assertTrue(lines.get(1).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents variant&&"tooltip.simplemobmanners.frog_bucket.variant".equals(variant.getKey())&&variant.getArgs().length==1&&variant.getArgs()[0] instanceof net.minecraft.network.chat.Component v&&v.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents vk&&"tooltip.simplemobmanners.frog_bucket.variant.warm".equals(vk.getKey()),"tooltip line with the variant");
+  var plain=new ArrayList<net.minecraft.network.chat.Component>();FrogBucketItem.tooltip(new ItemStack(FrogBucket.item()),plain::add);h.assertTrue(plain.isEmpty(),"an empty frog bucket has no extra lines");
   var again=FrogBucket.release(h.getLevel(),caught,h.absolutePos(new BlockPos(3,2,3)));
   h.assertTrue(again!=null&&again.getVariant().is(net.minecraft.world.entity.animal.frog.FrogVariants.WARM)&&again.getCustomName()!=null&&again.getAge()==1234,"release restores variant, name, age");
  });h.succeed();}
