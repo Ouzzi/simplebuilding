@@ -126,13 +126,13 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerMenu> {
 
     @Override
     public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == 0 && this.menu.status() == ChestNetwork.Status.OK && overBar(event.x(), event.y())) {
+        if (event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT && this.menu.status() == ChestNetwork.Status.OK && overBar(event.x(), event.y())) {
             this.draggingBar = true;
             barTo(event.y());
             return true;
         }
         // A right click on the search field clears it, like the ME terminal.
-        if (event.button() == 1 && this.search != null && this.search.isMouseOver(event.x(), event.y())) {
+        if (event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT && this.search != null && this.search.isMouseOver(event.x(), event.y())) {
             this.search.setValue("");
             return true;
         }
