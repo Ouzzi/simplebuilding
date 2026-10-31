@@ -7,6 +7,8 @@
     "simpleblocks:suspended_sand",
     "simpleblocks:suspended_gravel",
     "simpleblocks:levitating_sand",
-    "simpleblocks:levitating_gravel"
+    "simpleblocks:levitating_gravel",
+    "simpleblocks:frost_grass",
+    "simpleblocks:snowlogged"
   ]
 }

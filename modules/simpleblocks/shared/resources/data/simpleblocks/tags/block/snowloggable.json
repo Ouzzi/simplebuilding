@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#minecraft:fences",
+    "#minecraft:small_flowers",
+    "minecraft:short_grass",
+    "minecraft:fern",
+    "minecraft:bush",
+    "minecraft:dead_bush",
+    "minecraft:short_dry_grass",
+    "minecraft:tall_dry_grass"
+  ]
+}

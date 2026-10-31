@@ -26,6 +26,7 @@ Alles Übrige – reine Bau- und Dekoblöcke ohne Themenmodul – geht nach `sim
 | `nature_slabs` | Erde-, Gras-, Sand-, Kiesstufe | 4 | **simpleblocks** | Block-Varianten (Stufen); Octets siehe Octet-Inventar §C |
 | `nature_ice_and_shells` | rissiges Eis, gemeißeltes Packeis/Blaueis, Nautilusschalen-Block | 4 | **simpleblocks** | fehlende Vanilla-Varianten, genau der Auftrag von Simple Blocks |
 | `froglights` | Scharlach-/Aqua-/Azur-Froschlicht | 3 | **simpleblocks** | Deko-Lichtblöcke, kein Themenmodul |
+| `snow` (SN30, b-snow32) | Frostgras, verschneiter Block (Träger, kein Item) | 2 | **simpleblocks** | Natur-Varianten wie Gras-Stufe/rissiges Eis, kein Themenmodul |
 | `traps` | Sculk-Kiefer | 1 | bleibt SB (später Simple Mobs) | Falle der Howler-Mechanik |
 | `storage_and_light` | rissiger Diamantblock, Enderit-Block, Baulicht | 3 | bleibt | Werkstoff-/Hammerkette bzw. Baugerät (Enderit → Simple Enderite) |
 | `light_panes*` | Lichtscheiben (normal, durchsichtig, Redstone, 16 Farben, Kupfer-Schalter) | 37 | **bleibt SimpleBuilding** (Besitzer 17.10.: Redstone/Licht, kein Simple Blocks; Sub-Mod später prüfen) | Deko-Beleuchtung; Redstone-Schalten ist Eigenschaft, kein Modul. Alternative: bleibt SB, weil Schaltlogik |

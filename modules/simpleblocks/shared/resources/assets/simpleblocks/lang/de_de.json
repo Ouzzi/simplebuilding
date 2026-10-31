@@ -150,5 +150,18 @@
   "quests.simpleblocks.start.title": "Willkommen bei Simple Blocks",
   "quests.simpleblocks.start.subtitle": "Dein Handbuch gratis",
   "quests.simpleblocks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen."
+  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen.",
+  "block.simpleblocks.snowlogged": "Verschneiter Block",
+  "block.simpleblocks.frost_grass": "Frostgras",
+  "item.simpleblocks.frost_grass": "Frostgras",
+  "text.autoconfig.simpleblocks.title": "Simple-Blocks-Einstellungen",
+  "text.autoconfig.simpleblocks.category.snow": "Schnee",
+  "text.autoconfig.simpleblocks.option.snowlogging": "Verschneien",
+  "text.autoconfig.simpleblocks.option.snowlogging.@Tooltip": "Eine Schneeschicht auf Zaun, Blume oder\nGras teilt sich den Block damit.\nStandard: true. Servereinstellung.",
+  "text.autoconfig.simpleblocks.option.frostGrass": "Frostgras",
+  "text.autoconfig.simpleblocks.option.frostGrass.@Tooltip": "Gras unter Schnee gefriert in kalten\nBiomen oder über Eis zu Frostgras.\nStandard: true. Servereinstellung.",
+  "text.autoconfig.simpleblocks.option.freezeOneIn": "Gefrierchance (1 zu N)",
+  "text.autoconfig.simpleblocks.option.freezeOneIn.@Tooltip": "Gras unter Schnee gefriert mit einer Chance\nvon 1 zu N je Zufallstick (1-100).\nStandard: 3.",
+  "text.autoconfig.simpleblocks.option.thawOneIn": "Tauchance (1 zu N)",
+  "text.autoconfig.simpleblocks.option.thawOneIn.@Tooltip": "Frostgras ohne Schnee taut mit einer Chance\nvon 1 zu N je Zufallstick (1-100).\nStandard: 6."
 }
