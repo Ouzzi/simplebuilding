@@ -24,7 +24,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 /**
- * The Simple Earth menu (key O or the dev button): a box at the right edge that leaves the world visible and does not pause -
+ * The Simple Earth menu (key O only, IG31-33): a box at the right edge that leaves the world visible and does not pause -
  * the movement keys keep working while the mouse works the menu (the pattern of the Octant screen). The favourite versions
  * (V5, V13-V24) are direct buttons in one row, V1-V12 sit in a drop-down (E29-6); the scroll list shows the display settings of all versions first, then that version's values.
  *

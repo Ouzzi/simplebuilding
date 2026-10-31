@@ -58,10 +58,10 @@ for a in ALLOYS:
             r = json.loads(p.read_text(encoding='utf-8'))
             assert not (r.get('type') == f'minecraft:{other}' and r.get('ingredient') == f'{NS}:{a}_pressling'), p.name
 pressings = [p for p in (RES / f'data/{NS}/recipe').glob('*_pressling_*.json') if 'blasting' not in p.name]
-assert len(pressings) == 5, pressings
+assert sorted(p.name for p in pressings) == ['blossom_gold_pressling_a.json', 'rose_bronze_pressling_c.json'], pressings  # IG31-35: only these two
 for p in pressings:
     r = json.loads(p.read_text(encoding='utf-8'))
-    assert r['type'] == 'minecraft:crafting_shapeless' and r['result'].get('count', 1) == 1 and len(r['ingredients']) in (7, 8, 9), p.name
+    assert r['type'] == 'minecraft:crafting_shapeless' and r['result'].get('count', 1) == 1 and len(r['ingredients']) in (7, 9), p.name
     assert 'minecraft:copper_ingot' in r['ingredients'] and r['ingredients'].count('minecraft:gold_ingot') >= 4, p.name
     assert any(i.startswith(f'{NS}:silver_') for i in r['ingredients']), p.name
 for p in (RES / f'data/{NS}/recipe').glob('*.json'):

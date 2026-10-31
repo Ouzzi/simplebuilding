@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_oak_door_half_2": {
+    "has_oak_door": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:oak_door_half_2"
+            "items": "minecraft:oak_door"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_oak_door_half_2"
+      "has_oak_door"
     ]
   ],
   "rewards": {

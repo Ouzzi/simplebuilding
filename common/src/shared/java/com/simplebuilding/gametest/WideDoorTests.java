@@ -359,6 +359,77 @@ public final class WideDoorTests {
         h.succeed();
     }
 
+    /**
+     * IG31-34: two 1.5 wide doors side by side make a double door 3 blocks wide. The second door (placed at x=3) mirrors its hinge
+     * (Vanilla's rule) and shares the first door's stub column x=2 ({@code twin}, a full closed leaf of two stubs). A hand opens
+     * only the clicked half's door and leaves the other's stub; closing makes the column shared again; redstone at the middle
+     * opens both; breaking one door leaves the other whole.
+     */
+    public static void wide15DoubleDoor(GameTestHelper h) {
+        if (!McVersion.DOORS) {
+            h.succeed();
+            return;
+        }
+        ServerPlayer player = player(h);
+        List<String> problems = new ArrayList<>();
+        for (DoorFormat f : List.of(DoorFormat.WIDE_1_5X2, DoorFormat.WIDE_1_5X3)) {
+            Block door = block(f);
+            clear(h);
+            BlockPos a = ORIGIN, mid = ORIGIN.east(), b = ORIGIN.east(2);
+            place(h, player, f, a);
+            if (!place(h, player, f, b)) problems.add(f + " second door not placed");
+            BlockState second = at(h, b);
+            if (!(second.is(door) && second.getValue(WideDoorBlock.HINGE) == DoorHingeSide.RIGHT)) problems.add(f + " second door hinge not mirrored: " + second);
+            boolean shared = true;
+            for (int r = 0; r < f.rows; r++) {
+                BlockState m = at(h, mid.above(r));
+                shared &= m.is(door) && m.getValue(WideDoorBlock.TWIN) && m.getValue(WideDoorBlock.COL) == 1 && !m.getValue(WideDoorBlock.OPEN);
+                if (!(at(h, b.above(r)).is(door) && at(h, a.above(r)).is(door))) problems.add(f + " row " + r + " incomplete");
+            }
+            if (!shared) problems.add(f + " middle column not shared: " + at(h, mid));
+            if (b.east().getX() < 8 && at(h, b.east()).is(door)) problems.add(f + " second door took a fourth column");
+            AABB full = at(h, mid).getShape(h.getLevel(), h.absolutePos(mid)).bounds();
+            if (!(near(full.getXsize(), 1.0) && near(full.minZ, 13.0 / 16.0))) problems.add(f + " shared column shape " + full);
+            // a hand on the east half of the middle column opens the second door only
+            Vec3 eastHalf = h.absoluteVec(Vec3.atCenterOf(mid).add(0.25, 0, 0.5));
+            h.useBlock(mid, player, new BlockHitResult(eastHalf, Direction.SOUTH, h.absolutePos(mid), false));
+            if (!(at(h, b).getValue(WideDoorBlock.OPEN) && !at(h, a).getValue(WideDoorBlock.OPEN))) problems.add(f + " east half did not open exactly the second door");
+            BlockState stub = at(h, mid);
+            if (!(stub.is(door) && !stub.getValue(WideDoorBlock.TWIN) && stub.getValue(WideDoorBlock.HINGE) == DoorHingeSide.LEFT && !stub.getValue(WideDoorBlock.OPEN))) {
+                problems.add(f + " first door's stub not left in the middle: " + stub);
+            }
+            h.useBlock(b, player);
+            if (!(at(h, mid).is(door) && at(h, mid).getValue(WideDoorBlock.TWIN) && !at(h, b).getValue(WideDoorBlock.OPEN))) problems.add(f + " closing did not share the column again: " + at(h, mid));
+            // the west half opens the first door
+            Vec3 westHalf = h.absoluteVec(Vec3.atCenterOf(mid).add(-0.25, 0, 0.5));
+            h.useBlock(mid, player, new BlockHitResult(westHalf, Direction.SOUTH, h.absolutePos(mid), false));
+            if (!(at(h, a).getValue(WideDoorBlock.OPEN) && !at(h, b).getValue(WideDoorBlock.OPEN))) problems.add(f + " west half did not open exactly the first door");
+            if (!(at(h, mid).is(door) && at(h, mid).getValue(WideDoorBlock.HINGE) == DoorHingeSide.RIGHT)) problems.add(f + " second door's stub not left: " + at(h, mid));
+            h.useBlock(a, player);
+            if (!(at(h, mid).is(door) && at(h, mid).getValue(WideDoorBlock.TWIN))) problems.add(f + " closing the first door did not share the column: " + at(h, mid));
+            // breaking the second door leaves the first whole (its stubs back in the middle)
+            h.getLevel().destroyBlock(h.absolutePos(b), false);
+            if (!closedAndWhole(h, f)) problems.add(f + " first door not whole after the second broke: " + at(h, mid));
+            for (int r = 0; r < f.rows; r++) if (at(h, b.above(r)).is(door)) problems.add(f + " second door left a cell");
+        }
+        h.assertTrue(problems.isEmpty(), "1.5 double door problems: " + problems);
+        // redstone right in front of the middle column opens both; once it is gone both close again (they poll, the middle is air)
+        DoorFormat f = DoorFormat.WIDE_1_5X2;
+        Block door = block(f);
+        clear(h);
+        BlockPos a = ORIGIN, mid = ORIGIN.east(), b = ORIGIN.east(2);
+        place(h, player, f, a);
+        place(h, player, f, b);
+        h.setBlock(mid.south(), Blocks.REDSTONE_BLOCK);
+        h.assertTrue(at(h, a).getValue(WideDoorBlock.OPEN) && at(h, b).getValue(WideDoorBlock.OPEN), "redstone in the middle did not open both: " + at(h, a) + " / " + at(h, b));
+        h.setBlock(mid.south(), Blocks.AIR);
+        h.runAfterDelay(30, () -> {
+            h.assertTrue(cell(h, a, door, 0, 0, false, false) && at(h, mid).is(door) && at(h, mid).getValue(WideDoorBlock.TWIN) && !at(h, b).getValue(WideDoorBlock.OPEN),
+                    "did not close back into the double door: " + at(h, a) + " / " + at(h, mid) + " / " + at(h, b));
+            h.succeed();
+        });
+    }
+
     /** Redstone next to any cell opens the door on the rising edge and closes it on the falling edge; a hand moves only its own door. */
     public static void followRedstone(GameTestHelper h) {
         if (!McVersion.DOORS) {

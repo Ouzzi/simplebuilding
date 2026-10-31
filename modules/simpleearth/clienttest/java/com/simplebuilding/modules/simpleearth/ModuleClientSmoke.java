@@ -106,8 +106,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.runOnClient(mc -> mc.player.setXRot(35));
             context.waitTicks(40);
             context.takeScreenshot("simpleearth-mid-v6");
-            context.setScreen(EarthScreen::new);
+            pauseHasNoEarthButton(context);
+            // IG31-33: the menu opens with the real key mapping (key O), no button in the pause menu any more
+            context.getInput().pressKey(EarthClient.KEY);
             context.waitTicks(10);
+            check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "key O opens the earth menu");
             context.takeScreenshot("simpleearth-menu");
             menu(context);
             // WF25-2: the owner's window (1920 x 1177, GUI scale auto = 4) and GUI scale 2, clicking while walking forward
@@ -419,6 +422,19 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         });
     }
 
+
+    /** IG31-33 (owner 31.10.): the pause menu carries no Earth button (the menu opens only with key O). */
+    private static void pauseHasNoEarthButton(ClientGameTestContext context) {
+        context.runOnClient(mc -> mc.pauseGame(false));
+        context.waitTicks(5);
+        check(context.computeOnClient(mc -> mc.gui.screen() instanceof net.minecraft.client.gui.screens.PauseScreen
+                && net.fabricmc.fabric.api.client.screen.v1.Screens.getWidgets(mc.gui.screen()).stream()
+                .filter(w -> w instanceof net.minecraft.client.gui.components.AbstractWidget)
+                .map(w -> ((net.minecraft.client.gui.components.AbstractWidget) w).getMessage().getString())
+                .noneMatch(m -> m.equals("Earth") || m.equals("Erde") || m.startsWith("simpleearth."))), "no Earth button in the pause menu");
+        context.runOnClient(mc -> mc.gui.setScreen(null));
+        context.waitTicks(5);
+    }
 
     /** Sets the detail level, waits for the tiles and takes a screenshot (literal names for the runner). */
     private static void detail(ClientGameTestContext context, int level, int ticks, String name) {

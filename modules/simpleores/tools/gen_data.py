@@ -163,12 +163,10 @@ recipe('silver_mirror', 'building_blocks', {'type': 'minecraft:crafting_shaped',
 # Pressings: 1 pressing per recipe from ingots (owner 30.10.: 6 gold + 1 copper + 1 silver make about exactly one rose gold) (owner ABN30-10: yield per pressing is always 1 ingot, the loss is in the recipe),
 # blast furnace only. Recipe cooking time is the furnace time; the 26.3 blast furnace halves it (1200 -> 600 ticks = 30 s).
 GOLD, COPPER, SILVER, NUGGET = 'minecraft:gold_ingot', 'minecraft:copper_ingot', item('silver_ingot'), item('silver_nugget')
+# IG31-35 (owner 31.10., pictures 31-rezept-1/-2): ONLY these two pressings, shapeless like the owner's pictures.
 PRESSINGS = {
-    'rose_bronze_pressling_a': ('rose_bronze_pressling', [GOLD] * 6 + [COPPER] * 2 + [SILVER], '6 gold, 2 copper, 1 silver'),
-    'rose_bronze_pressling_b': ('rose_bronze_pressling', [GOLD] * 5 + [COPPER] * 2 + [SILVER], '5 gold, 2 copper, 1 silver'),
     'rose_bronze_pressling_c': ('rose_bronze_pressling', [GOLD] * 4 + [COPPER] * 2 + [SILVER], '4 gold, 2 copper, 1 silver'),
     'blossom_gold_pressling_a': ('blossom_gold_pressling', [GOLD] * 7 + [COPPER] + [SILVER], '7 gold, 1 copper, 1 silver'),
-    'blossom_gold_pressling_b': ('blossom_gold_pressling', [GOLD] * 7 + [COPPER] + [NUGGET], '7 gold, 1 copper, 1 silver nugget'),
 }
 PRESSING_COUNT = 1
 BLAST_FURNACE_TICKS = 600
@@ -423,14 +421,14 @@ FEATURES = [
              ['Oberwelt: Silbererz (und ein Tiefenschiefer-Zwilling) in 1 bis 2 Adern zu 5 je Chunk zwischen Y -48 und 16. Braucht eine Eisenspitzhacke; lässt Rohsilber fallen (Glück hilft).',
               'End: End-Silbererz auf den äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln), Adern zu 6 im Endstein, je 2 bis 6 Silberklumpen: Silber, das man nach dem Drachen farmen kann, ohne tief zu graben.',
               'Gegenstände: Rohsilber, Silberbarren, Silberklumpen, Blöcke aus Silber und Rohsilber. Ofen und Hochofen schmelzen Rohsilber und jedes Erz.'])),
-    feature('rose_gold', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_pressling_a.json', f'{DATAP}/recipe/rose_bronze_ingot_from_blasting_rose_bronze_pressling.json'],
+    feature('rose_gold', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_pressling_c.json', f'{DATAP}/recipe/rose_bronze_ingot_from_blasting_rose_bronze_pressling.json'],
             ('Rose gold', 'Two alloys of gold, copper and silver: hard Rose Bronze (about 585) and soft Blossom Gold (about 750). Made in two steps: press ingots into pressings, melt them in a blast furnace.',
-             ['Pressing (crafting, shapeless, 1 pressing per recipe): Rose Bronze 6 gold + 2 copper + 1 silver, or 5 + 2 + 1, or 4 + 2 + 1 ingots. Blossom Gold 7 gold + 1 copper + 1 silver ingot, or 7 gold + 1 copper + 1 silver nugget.',
-              'Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 9 ingots put in is intended: silver stays the bottleneck.',
+             ['Pressing (crafting, shapeless, 1 pressing per recipe): Rose Bronze (copper-rose) 4 gold + 2 copper + 1 silver ingot. Blossom Gold (pale pink) 7 gold + 1 copper + 1 silver ingot. There are no other pressing recipes.',
+              'Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 7 or 9 ingots put in is intended: silver stays the bottleneck.',
               'Rose Bronze is a darker copper-rose, Blossom Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot.']),
             ('Roségold', 'Zwei Legierungen aus Gold, Kupfer und Silber: das harte Rosenbronze (etwa 585) und das weiche Blütengold (etwa 750). Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.',
-             ['Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenbronze 6 Gold + 2 Kupfer + 1 Silber, oder 5 + 2 + 1, oder 4 + 2 + 1 Barren. Blütengold 7 Gold + 1 Kupfer + 1 Silberbarren, oder 7 Gold + 1 Kupfer + 1 Silberklumpen.',
-              'Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.',
+             ['Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenbronze (Kupfer-Rosé) 4 Gold + 2 Kupfer + 1 Silberbarren. Blütengold (Zartrosa) 7 Gold + 1 Kupfer + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.',
+              'Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 7 bzw. 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.',
               'Rosenbronze ist ein dunkleres Kupfer-Rosé, Blütengold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren.'])),
     feature('rose_gold_gear', [f'{JAVA}/OresMaterials.java', f'{JAVA}/OresRegistry.java'],
             ('Rose gold tools and armor', 'Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.',

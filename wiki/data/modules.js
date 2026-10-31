@@ -1715,7 +1715,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "559e7ecb2c74"
+    "dataHash": "1f935ac418d7"
   },
   {
     "id": "simplechallenges",
@@ -1845,10 +1845,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 30,
       "blocks": 12,
-      "recipes": 58,
+      "recipes": 55,
       "features": 8
     },
-    "dataHash": "51b0f9f14340"
+    "dataHash": "534e322794a5"
   },
   {
     "id": "simpleresonance",

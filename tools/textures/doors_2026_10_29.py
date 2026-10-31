@@ -159,12 +159,23 @@ def closed_model(wood, fmt, c, r, hinge):
     x0, x1 = (0, w) if left or w == 16 else (16 - w, 16)
     south = [0, 0, w, 16] if left else [w, 0, 0, 16]
     north = [w, 0, 0, 16] if left else [0, 0, w, 16]
-    side = [0, 0, 3, 16]
-    el = slab([x0, 0, 13], [x1, 16, 16], {"south": south, "north": north, "up": [0, 0, w, 3], "down": [0, 0, w, 3], "east": side, "west": side})
+    # IG31-34: each thin edge shows the texture column at its own end (the frame), not always the first three columns;
+    # u = 0 lies at the low x for LEFT, at the high x for RIGHT
+    lo_edge, hi_edge = [0, 0, 3, 16], [w - 3, 0, w, 16]
+    west, east = (lo_edge, hi_edge) if left else (hi_edge, lo_edge)
+    el = slab([x0, 0, 13], [x1, 16, 16], {"south": south, "north": north, "up": [0, 0, w, 3], "down": [0, 13, w, 16], "east": east, "west": west})
     tex = f"{NS}:block/{tex_name(wood, fmt, c, r)}"
     # seen from +z (south) the left edge is the low x; the back (north) is mirrored
     voxel = _voxel(wood, tex_name(wood, fmt, c, r), "x", (x0, x1), (13, 16), ("south", south, True), ("north", north, False))
     return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": voxel or [el]}
+
+
+def twin_model(wood, fmt, r):
+    """IG31-34: the shared middle cell of two 1.5 wide doors (a double door 3 blocks wide): the LEFT door's stub in the west half,
+    the mirrored RIGHT door's stub in the east half (north-facing frame as seen by the blockstate of either door)."""
+    a = closed_model(wood, fmt, 1, r, "left")
+    b = closed_model(wood, fmt, 1, r, "right")
+    return {"textures": a["textures"], "elements": a["elements"] + b["elements"]}
 
 
 def open_model(wood, fmt, seg, r, hinge):
@@ -176,8 +187,9 @@ def open_model(wood, fmt, seg, r, hinge):
     z0 = 16 - length
     east = [0, 0, length, 16]
     west = [length, 0, 0, 16]
+    # IG31-34: u = 0 at the hinge (z 16), the leaf end (north) shows the texture's last columns
     el = slab([x0, 0, z0], [x1, 16, 16], {"east": east, "west": west, "up": [0, 0, 3, length], "down": [0, 0, 3, length],
-                                          "north": [0, 0, 3, 16], "south": [0, 0, 3, 16]})
+                                          "north": [length - 3, 0, length, 16], "south": [0, 0, 3, 16]})
     tex = f"{NS}:block/{tex_name(wood, fmt, seg, r)}"
     # seen from +x (east) the left edge is the high z
     voxel = _voxel(wood, tex_name(wood, fmt, seg, r), "z", (z0, 16), (x0, x1), ("east", east, False), ("west", west, True))
@@ -226,10 +238,17 @@ def blockstate(wood, fmt):
                     cc = min(c, cols - 1)
                     for swing in ("false", "true"):
                         closed = f"{NS}:block/{wood}_door_{fmt}_closed_c{cc}_r{rr}_{hinge}"
-                        variants[f"facing={facing},hinge={hinge},open=false,col={c},row={r},swing={swing}"] = {"model": closed, **rt}
                         s1 = swing == "true" and not half and c == 0 and r < rows
-                        variants[f"facing={facing},hinge={hinge},open=true,col={c},row={r},swing={swing}"] = {
-                            "model": f"{NS}:block/{wood}_door_{fmt}_open_s{1 if s1 else 0}_r{rr}_{hinge}", **rt}
+                        opened = {"model": f"{NS}:block/{wood}_door_{fmt}_open_s{1 if s1 else 0}_r{rr}_{hinge}", **rt}
+                        for twin in ("false", "true"):
+                            # twin (IG31-34, only the stub column of a 1.5 door): both stubs; the shared cell of a RIGHT door is the
+                            # same pair seen from the other side, so the model turns with the LEFT door's frame
+                            model = closed
+                            if twin == "true" and fmt in NARROW and c == 1:
+                                model = f"{NS}:block/{wood}_door_{fmt}_closed_twin_r{rr}"
+                            key = f"facing={facing},hinge={hinge},open=false,col={c},row={r},swing={swing},twin={twin}"
+                            variants[key] = {"model": model, **rt}
+                            variants[f"facing={facing},hinge={hinge},open=true,col={c},row={r},swing={swing},twin={twin}"] = opened
     return {"variants": variants}
 
 
@@ -251,14 +270,13 @@ def recipes(wood):
                  "result": {"count": 1, "id": f"{NS}:{wood}_door_2x2"}}, door),
         "2x3": ({"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"#": door}, "pattern": ["##", "##", "##"],
                  "result": {"count": 1, "id": f"{NS}:{wood}_door_2x3"}}, door),
-        "1_5x2": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [door, f"{NS}:{wood}_door_half_2"],
-                   "result": {"count": 1, "id": f"{NS}:{wood}_door_1_5x2"}}, f"{NS}:{wood}_door_half_2"),
+        # a-ig31c: the half doors are retired (no recipe); the 1.5 door is a door plus two planks and a stick
+        "1_5x2": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [door, planks, planks, stick],
+                   "result": {"count": 1, "id": f"{NS}:{wood}_door_1_5x2"}}, door),
         "1_5x3": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [f"{NS}:{wood}_door_1_5x2", planks],
                    "result": {"count": 1, "id": f"{NS}:{wood}_door_1_5x3"}}, f"{NS}:{wood}_door_1_5x2"),
-        "half_2": ({"type": "minecraft:crafting_shaped", "category": "redstone", "key": {"#": planks, "/": stick}, "pattern": ["#", "#", "/"],
-                    "result": {"count": 1, "id": f"{NS}:{wood}_door_half_2"}}, planks),
-        "half_3": ({"type": "minecraft:crafting_shapeless", "category": "redstone", "ingredients": [f"{NS}:{wood}_door_half_2", planks],
-                    "result": {"count": 1, "id": f"{NS}:{wood}_door_half_3"}}, f"{NS}:{wood}_door_half_2"),
+        "half_2": None,
+        "half_3": None,
     }
 
 
@@ -287,7 +305,11 @@ def files():
                     out[ASSETS / f"models/block/{name}_open_s0_r{r}_{hinge}.json"] = open_model(wood, fmt, 0, r, hinge)
                     if not half:
                         out[ASSETS / f"models/block/{name}_open_s1_r{r}_{hinge}.json"] = open_model(wood, fmt, 1, r, hinge)
+                    if fmt in NARROW:
+                        out[ASSETS / f"models/block/{name}_closed_twin_r{r}.json"] = twin_model(wood, fmt, r)
             out[DATA / f"loot_table/blocks/{name}.json"] = loot(wood, fmt)
+            if recs[fmt] is None:
+                continue
             recipe, ingredient = recs[fmt]
             out[DATA / f"recipe/{name}.json"] = recipe
             out[DATA / f"advancement/recipes/redstone/{name}.json"] = unlock(name, ingredient)
