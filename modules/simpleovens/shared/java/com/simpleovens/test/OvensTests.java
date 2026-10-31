@@ -385,19 +385,16 @@ public final class OvensTests {
             h.succeed();
         });
         ALL.put("enderite_loot_alone", h -> {
+            // IG31-13: Enderite and its End city loot belong to Simple Ores; SimpleLib adds none any more, and the Enderite
+            // tier of Simple Ovens is reachable exactly when a mod provides Enderite.
             List<LootPool.Builder> pools = new ArrayList<>();
             com.simplelib.material.MaterialLoot.apply(BuiltInLootTables.END_CITY_TREASURE, pools::add, h.getLevel().registryAccess());
-            boolean partner = com.simplelib.material.MaterialLoot.isByPartner();
-            h.assertTrue(SimpleLibApi.materialRequested("enderite") && SimpleLibApi.materialRequested("netherite_nugget"),
-                    "Simple Ovens requests its materials");
-            if (partner) {
-                h.assertTrue(pools.isEmpty(), "a partner feeds the Enderite loot, SimpleLib adds none");
-            } else {
-                h.assertTrue(pools.size() >= 2, "End city treasure gets Enderite alone: " + pools.size() + " pools");
-            }
-            List<LootPool.Builder> other = new ArrayList<>();
-            com.simplelib.material.MaterialLoot.apply(BuiltInLootTables.SIMPLE_DUNGEON, other::add, h.getLevel().registryAccess());
-            h.assertTrue(other.isEmpty(), "only End city treasure");
+            h.assertTrue(SimpleLibApi.materialRequested("netherite_nugget"), "Simple Ovens requests its materials");
+            h.assertTrue(pools.isEmpty(), "SimpleLib adds no Enderite loot: " + pools.size() + " pools");
+            boolean ores = SimpleLibApi.materialPresent("enderite");
+            var recipe = h.getLevel().getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(
+                    net.minecraft.core.registries.Registries.RECIPE, SimpleOvens.id("enderite_furnace_minecart_smithing")));
+            h.assertTrue(recipe.isPresent() == ores, "the Enderite cart recipe exists exactly with Simple Ores (" + ores + ")");
             h.succeed();
         });
         MAX_TICKS.put("furnace_carts_run_on_fuel", 200);

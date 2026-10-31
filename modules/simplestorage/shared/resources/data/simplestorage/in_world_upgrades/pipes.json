@@ -19,7 +19,7 @@
     {
       "damage_per_hit": 10,
       "from": "simplestorage:netherite_pipe",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplestorage:enderite_pipe"

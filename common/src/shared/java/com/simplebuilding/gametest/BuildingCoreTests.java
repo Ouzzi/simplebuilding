@@ -389,8 +389,8 @@ public final class BuildingCoreTests {
                 CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE};
         List<Item> cores = cores();
         for (int i = 0; i < ladder.length; i++) {
-            BuildingCoreItem core = (BuildingCoreItem) cores.get(i);
-            helper.assertValueEqual(core.oreChanceOneIn(), ladder[i], BuiltInRegistries.ITEM.getKey(core) + " ore chance (1 in N)");
+            Item core = cores.get(i);
+            helper.assertValueEqual(BuildingCoreItem.oreChanceOf(core), ladder[i], BuiltInRegistries.ITEM.getKey(core) + " ore chance (1 in N)");
             if (i > 0) {
                 helper.assertTrue(ladder[i] < ladder[i - 1], BuiltInRegistries.ITEM.getKey(core) + " is not likelier than the tier below");
             }

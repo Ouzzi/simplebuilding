@@ -61,6 +61,7 @@ public final class InWorldExportTests {
                             .replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "")
                     + "/" + step.get("nugget").getAsString().replace("simplebuilding:", "")
                             .replace(com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE + ":", "")
+                            .replace(com.simplebuilding.version.McVersion.ORES_NAMESPACE + ":", "")
                     + "x" + step.get("nuggetCount").getAsInt()
                     + "/" + step.get("damagePerHit").getAsInt() + "per" + "/" + step.get("totalDamage").getAsInt());
         }

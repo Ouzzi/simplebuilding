@@ -427,7 +427,7 @@ final class RareFindsTests {
         } finally {
             StorageConfig.apply(saved);
         }
-        helper.assertValueEqual(ShulkerShells.steps().size(), 3, "upgrade chain length");
+        helper.assertValueEqual(ShulkerShells.steps().size(), com.simplelib.api.SimpleLibApi.materialPresent("enderite") ? 3 : 2, "upgrade chain length (Enderite step only with Simple Ores)");
         helper.succeed();
     }
 

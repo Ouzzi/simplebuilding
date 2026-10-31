@@ -30,6 +30,8 @@ import net.minecraft.world.item.ItemStack;
  *       {@code modules/modules.json} by {@code tools/modtree/tab_order.py}); inside one mod the registration order. Fabric places the mod tabs
  *       alphabetically by id, so the page, row and column of each mod tab are set again (Fabric only, the Vanilla pages stay).
  * </ol>
+ * IG31-13: without the owner of Enderite (Simple Ores, {@code SimpleLibApi.materialPresent("enderite")}) the Enderite variants of
+ * the other mods (every item whose id path contains {@code enderite}) leave every tab; they stay registered (worlds keep them).
  * The pure parts ({@link #isModItem}, {@link #isPlainVanilla}, {@link #rank}) are static so tests call them without a world.
  */
 public final class CreativeTabPolicy {
@@ -81,8 +83,21 @@ public final class CreativeTabPolicy {
         return index < 0 ? Integer.MAX_VALUE : index;
     }
 
+    /** Whether the stack is a mod item named after Enderite (IG31-13; only asked while no mod provides Enderite). */
+    public static boolean isEnderiteVariant(ItemStack stack) {
+        Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return !isVanilla(id) && id.getPath().contains("enderite");
+    }
+
     /** Rule 1 and 2 on the built tabs (idempotent). */
     public static void filter() {
+        if (!com.simplelib.registry.LibMaterials.provided("enderite")) {
+            for (CreativeModeTab tab : BuiltInRegistries.CREATIVE_MODE_TAB) {
+                if (tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
+                tab.getDisplayItems().removeIf(CreativeTabPolicy::isEnderiteVariant);
+                tab.getSearchTabDisplayItems().removeIf(CreativeTabPolicy::isEnderiteVariant);
+            }
+        }
         Registry<CreativeModeTab> registry = BuiltInRegistries.CREATIVE_MODE_TAB;
         Set<String> homes = new HashSet<>();
         for (CreativeModeTab tab : registry) {

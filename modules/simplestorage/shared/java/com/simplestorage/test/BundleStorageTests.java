@@ -194,10 +194,13 @@ final class BundleStorageTests {
         if (!reinforcedQuiver.is(StorageItems.REINFORCED_QUIVER)) problems.add("reinforced quiver recipe gives " + reinforcedQuiver);
         smith(h, problems, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), StorageItems.REINFORCED_BUNDLE, new ItemStack(Items.NETHERITE_INGOT), StorageItems.NETHERITE_BUNDLE);
         smith(h, problems, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), StorageItems.REINFORCED_QUIVER, new ItemStack(Items.NETHERITE_INGOT), StorageItems.NETHERITE_QUIVER);
-        ItemStack template = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplelib", "enderite_upgrade_template")));
-        ItemStack ingot = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simplelib", "enderite_ingot")));
-        smith(h, problems, template, StorageItems.NETHERITE_BUNDLE, ingot, StorageItems.ENDERITE_BUNDLE);
-        smith(h, problems, template, StorageItems.NETHERITE_QUIVER, ingot, StorageItems.ENDERITE_QUIVER);
+        // IG31-13: the Enderite tier needs Simple Ores (it owns the ingot and the template; the recipes are conditional).
+        if (com.simplelib.api.SimpleLibApi.materialPresent("enderite")) {
+            ItemStack template = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleores", "enderite_upgrade_template")));
+            ItemStack ingot = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot")));
+            smith(h, problems, template, StorageItems.NETHERITE_BUNDLE, ingot, StorageItems.ENDERITE_BUNDLE);
+            smith(h, problems, template, StorageItems.NETHERITE_QUIVER, ingot, StorageItems.ENDERITE_QUIVER);
+        }
         // Dyeing (26.3, like Vanilla's bundles): container + dye = one fixed colour, every component kept.
         ItemStack enchanted = new ItemStack(StorageItems.REINFORCED_QUIVER);
         enchanted.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Arrows"));

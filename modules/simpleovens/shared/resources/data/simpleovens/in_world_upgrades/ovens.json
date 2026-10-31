@@ -11,7 +11,7 @@
     {
       "from": "simpleovens:netherite_furnace",
       "to": "simpleovens:enderite_furnace",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "damage_per_hit": 10,
       "tier": "enderite"
@@ -27,7 +27,7 @@
     {
       "from": "simpleovens:netherite_smoker",
       "to": "simpleovens:enderite_smoker",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "damage_per_hit": 10,
       "tier": "enderite"
@@ -43,7 +43,7 @@
     {
       "from": "simpleovens:netherite_blast_furnace",
       "to": "simpleovens:enderite_blast_furnace",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "damage_per_hit": 10,
       "tier": "enderite"

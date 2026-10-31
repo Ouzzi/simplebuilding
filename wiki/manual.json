@@ -7909,7 +7909,7 @@
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/sage_ore.json",
         "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
       ],
       "items": {
@@ -7944,7 +7944,7 @@
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
+        "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/sage_ore.json",
         "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
       ],
       "items": {

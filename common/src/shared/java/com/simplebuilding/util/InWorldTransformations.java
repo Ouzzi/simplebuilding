@@ -424,10 +424,13 @@ public final class InWorldTransformations {
      */
     public static JsonObject coreOre() {
         JsonArray cores = new JsonArray();
-        for (Item item : modItems(com.simplebuilding.items.custom.BuildingCoreItem.class)) {
+        // IG31-13: by field, not by class - on 26.3 the cores are SimpleLib's items.
+        for (Item item : List.of(com.simplebuilding.items.ModItems.COPPER_CORE, com.simplebuilding.items.ModItems.IRON_CORE,
+                com.simplebuilding.items.ModItems.GOLD_CORE, com.simplebuilding.items.ModItems.DIAMOND_CORE,
+                com.simplebuilding.items.ModItems.NETHERITE_CORE, com.simplebuilding.items.ModItems.ENDERITE_CORE)) {
             JsonObject core = new JsonObject();
             core.addProperty("id", id(item));
-            core.addProperty("oneIn", ((com.simplebuilding.items.custom.BuildingCoreItem) item).oreChanceOneIn());
+            core.addProperty("oneIn", com.simplebuilding.items.custom.BuildingCoreItem.oreChanceOf(item));
             cores.add(core);
         }
         JsonArray hosts = new JsonArray();

@@ -32,7 +32,8 @@ public class ModOreGeneration {
 
         // Weisheitserz in jedem Oberwelt-Biom (Besitzer 2026-10-01), nur auf der Hauptlinie. Der Tag wie bei
         // END_BIOMES: die flache Testwelt meldet ihre Biome nicht ueber foundInOverworld().
-        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+        // IG31-13: on 26.3 Simple Ores places the scrap and the sage ore itself (its own switches).
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD))
                             .and(context -> com.simplebuilding.config.ConfigFlags.scrapEnabled()),
                     GenerationStep.Decoration.UNDERGROUND_ORES, ModWorldGen.SCRAP_OVERWORLD_PLACED_KEY);
@@ -60,7 +61,7 @@ public class ModOreGeneration {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(net.minecraft.world.level.biome.Biomes.DEEP_DARK),
                     GenerationStep.Decoration.UNDERGROUND_DECORATION, ModWorldGen.SCULK_JAW_PLACED_KEY);
         }
-        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+        if (com.simplebuilding.version.McVersion.SAGE_ORE && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             BiomeModifications.addFeature(BiomeSelectors.foundInOverworld().or(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD))
                             .and(context -> com.simplebuilding.config.ConfigFlags.sageOreEnabled()),
                     GenerationStep.Decoration.UNDERGROUND_ORES,

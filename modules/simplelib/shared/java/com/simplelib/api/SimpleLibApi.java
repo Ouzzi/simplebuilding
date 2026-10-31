@@ -112,8 +112,9 @@ public final class SimpleLibApi {
 
     /**
      * Requests a shared material group: {@code "cracked_diamond"} (diamond pebble, cracked diamond and its block, the
-     * anvil crushing), {@code "netherite_nugget"}, {@code "enderite"} (raw enderite, layered raw enderite, scrap, ingot,
-     * nugget, block), {@code "upgrade_templates"} (basic and enderite upgrade). The items are always registered; their
+     * anvil crushing), {@code "netherite_nugget"}, {@code "upgrade_templates"} (basic upgrade), {@code "polished_end_stone"},
+     * {@code "cores"} (the six building cores). {@code "enderite"} belongs to Simple Ores since IG31-13: a request of it
+     * changes nothing, the group counts as requested while its owner provides it ({@link #provideMaterial}). The items are always registered; their
      * recipes (condition {@code simplelib:material_requested}) and the anvil crushing only exist once a loaded mod
      * requested the group. Call it in the mod constructor / initializer, before data packs load.
      */
@@ -123,6 +124,25 @@ public final class SimpleLibApi {
 
     public static boolean materialRequested(String group) {
         return com.simplelib.registry.LibMaterials.requested(group);
+    }
+
+    /**
+     * The owner of a provided material group announces it (IG31-13: Simple Ores provides {@code "enderite"}), in its
+     * constructor / initializer. Then {@link #materialPresent} and the condition {@code simplelib:material_requested}
+     * are true for it, so other mods switch their variants on without naming the owner.
+     */
+    public static void provideMaterial(String group) {
+        com.simplelib.registry.LibMaterials.provide(group);
+    }
+
+    /** Whether a loaded mod provides the group: {@code materialPresent("enderite")} = Simple Ores is there. */
+    public static boolean materialPresent(String group) {
+        return com.simplelib.registry.LibMaterials.provided(group);
+    }
+
+    /** Whether a partner feeds the Enderite loot itself ({@link #materialLootByPartner}); the owner then adds none. */
+    public static boolean materialLootFedByPartner() {
+        return com.simplelib.material.MaterialLoot.isByPartner();
     }
 
     /**
@@ -146,12 +166,12 @@ public final class SimpleLibApi {
         return com.simplelib.registry.LibItems.WARPED_WART;
     }
 
-    /** A shared material item by path ({@code "enderite_ingot"}); registers the materials first if needed (any load order). */
+    /** A shared material item by path ({@code "cracked_diamond"}, {@code "copper_core"}); registers the materials first if needed (any load order). */
     public static net.minecraft.world.item.Item materialItem(String id) {
         return com.simplelib.registry.LibMaterials.item(id);
     }
 
-    /** A shared material block by path ({@code "enderite_block"}, {@code "cracked_diamond_block"}). */
+    /** A shared material block by path ({@code "cracked_diamond_block"}, {@code "polished_end_stone"}). */
     public static Block materialBlock(String id) {
         return com.simplelib.registry.LibMaterials.block(id);
     }

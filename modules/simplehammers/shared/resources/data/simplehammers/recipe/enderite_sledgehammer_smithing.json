@@ -1,9 +1,23 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleores"
+    }
+  ],
   "type": "minecraft:smithing_transform",
-  "addition": "simplelib:enderite_ingot",
+  "addition": "simpleores:enderite_ingot",
   "base": "simplehammers:netherite_sledgehammer",
   "result": {
     "id": "simplehammers:enderite_sledgehammer"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": "minecraft:diamond",
+    "N": "minecraft:netherite_ingot",
+    "S": "simpleores:enderite_scrap"
+  },
+  "pattern": [
+    "SDS",
+    "DND",
+    "SDS"
+  ],
+  "result": {
+    "id": "simpleores:enderite_ingot"
+  }
+}

@@ -15,11 +15,15 @@ import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.util.Unit;
 
 public final class LinkTests {
+    /** IG31-13: rows that need another mod besides their own ("requires" in the price table; the Enderite core needs Simple Ores). */
+    static final Map<String, List<String>> REQUIRES = Map.of("simplelib:enderite_core", List.of("simpleores"));
+
     public static void conditions(GameTestHelper h) {
         var registry = h.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
         for (var p : MoneyLinks.PRICES.values()) {
             String mod = Identifier.parse(p.item()).getNamespace();
-            boolean expected = SimpleMoney.enabled("links:" + mod) && SimpleMoney.enabled(SimpleMoney.merchantFlag(p.merchant()));
+            boolean expected = SimpleMoney.enabled("links:" + mod) && SimpleMoney.enabled(SimpleMoney.merchantFlag(p.merchant()))
+                    && REQUIRES.getOrDefault(p.item(), List.of()).stream().allMatch(MoneyLinks.loaded);
             h.assertValueEqual(registry.containsKey(Identifier.parse("simplemoney:links/" + p.item().replace(':', '/'))), expected, "conditional registry " + p.item());
             if (MoneyLinks.loaded.test(mod)) h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse(p.item())), "public item exists " + p.item());
         }
@@ -79,7 +83,7 @@ public final class LinkTests {
     public static void rarity(GameTestHelper h) {
         int previous = 0;
         for (String material : List.of("copper", "iron", "gold", "diamond", "netherite", "enderite")) {
-            var p = MoneyLinks.PRICES.get("simplebuilding:" + material + "_core"); int price = MoneyLinks.buy(p);
+            var p = MoneyLinks.PRICES.get("simplelib:" + material + "_core"); int price = MoneyLinks.buy(p); // IG31-13: SimpleLib's cores
             h.assertTrue(price >= previous && p.merchant().equals("wandering_trader"), "core progression and no mason cores");
             previous = price;
         }

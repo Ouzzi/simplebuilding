@@ -14,7 +14,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "T": "simplelib:enderite_nugget",
+    "T": "simpleores:enderite_nugget",
     "E": "simplemaps:end_wayfinder_map",
     "N": "simplemaps:nether_wayfinder_map",
     "W": "simplemaps:wayfinder_map",

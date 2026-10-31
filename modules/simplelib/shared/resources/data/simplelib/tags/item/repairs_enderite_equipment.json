@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "simplelib:enderite_ingot"
+    {
+      "id": "#c:ingots/enderite",
+      "required": false
+    }
   ]
 }

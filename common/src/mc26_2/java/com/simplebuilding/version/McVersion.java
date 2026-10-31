@@ -126,6 +126,12 @@ public final class McVersion {
     public static final boolean HEADS_IN_MOBHEADS = false;
     /** Namespace of the mob heads ({@link #HEADS_IN_MOBHEADS}). */
     public static final String HEAD_NAMESPACE = "simplebuilding";
+    /** IG31-13: 26.2 has no modules: Enderite, Dimensional Scrap, Sage Ore and the cores stay {@code simplebuilding:*} (26.3: Simple Ores / SimpleLib). */
+    public static final boolean MATERIALS_IN_ORES = false;
+    /** Namespace of the Enderite materials, Dimensional Scrap and Sage Ore ({@link #MATERIALS_IN_ORES}). */
+    public static final String ORES_NAMESPACE = "simplebuilding";
+    /** Namespace of the building cores ({@link #MATERIALS_IN_ORES}: SimpleLib on 26.3). */
+    public static final String CORE_NAMESPACE = "simplebuilding";
     public static final boolean MATERIALS_IN_LIB = false;
     /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
     public static final String MATERIAL_NAMESPACE = "simplebuilding";

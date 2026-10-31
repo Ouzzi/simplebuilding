@@ -79,6 +79,70 @@ public class BuildingCoreItem extends Item {
         return oreChanceOneIn;
     }
 
+    // IG31-13: on 26.3 the cores are SimpleLib's items (simplelib:*_core, a neutral CoreItem); SimpleBuilding gives them their
+    // show through SimpleLib's CoreHooks (util/LibServices). The helpers below find a core and its numbers by id, on both lines.
+
+    /** Colour and ore chance of each core tier, by id path. */
+    private static final java.util.Map<String, int[]> SPECS = java.util.Map.of(
+            "copper_core", new int[]{0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE},
+            "iron_core", new int[]{0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE},
+            "gold_core", new int[]{0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE},
+            "diamond_core", new int[]{0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE},
+            "netherite_core", new int[]{0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE},
+            "enderite_core", new int[]{0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE});
+
+    private static int[] spec(Item item) {
+        if (item instanceof BuildingCoreItem core) return new int[]{core.color, core.oreChanceOneIn};
+        var id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item);
+        return id != null && com.simplebuilding.version.McVersion.CORE_NAMESPACE.equals(id.getNamespace()) ? SPECS.get(id.getPath()) : null;
+    }
+
+    /** Whether {@code item} is one of the six building cores (SimpleBuilding's on 26.2, SimpleLib's on 26.3). */
+    public static boolean isCore(Item item) {
+        return spec(item) != null;
+    }
+
+    /** Dust colour of a core (0 for any other item). */
+    public static int colorOf(Item item) {
+        int[] spec = spec(item);
+        return spec == null ? 0 : spec[0];
+    }
+
+    /** "1 in N" ore chance of a core (0 = never, for any other item). */
+    public static int oreChanceOf(Item item) {
+        int[] spec = spec(item);
+        return spec == null ? 0 : spec[1];
+    }
+
+    /** Right click in the air with any core: the shared behaviour of {@link #use} (SimpleLib's hook on 26.3). */
+    public static InteractionResult useCore(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (level instanceof ServerLevel server) {
+            activate(server, player, stack, colorOf(stack.getItem()));
+        } else {
+            CoreHandMotion.startRandom(player, hand); // client: the core moves in the hand (Nachtrag 11)
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    /** Right click on a block with any core: the shared behaviour of {@link #useOn} (SimpleLib's hook on 26.3). */
+    public static InteractionResult useCoreOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player == null) {
+            return InteractionResult.PASS;
+        }
+        ItemStack stack = context.getItemInHand();
+        if (context.getLevel() instanceof ServerLevel server) {
+            activate(server, player, stack, colorOf(stack.getItem()));
+            if (transmuteOnClick(server, player, stack, context.getClickedPos(), context.getClickedFace(), oreChanceOf(stack.getItem()))) {
+                forgeMotion(player, stack, context.getHand());
+            }
+        } else {
+            CoreHandMotion.startRandom(player, context.getHand());
+        }
+        return InteractionResult.SUCCESS;
+    }
+
     /** Die Animation zu einem Wurf {@code roll} aus 0..99: 0-69 Leuchten, 70-89 Kreisen, 90-99 Stern. */
     public static Animation fromRoll(int roll) {
         int bound = 0;
@@ -107,13 +171,7 @@ public class BuildingCoreItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        if (level instanceof ServerLevel server) {
-            activate(server, player, stack);
-        } else {
-            CoreHandMotion.startRandom(player, hand); // client: the core moves in the hand (Nachtrag 11)
-        }
-        return InteractionResult.SUCCESS;
+        return useCore(level, player, hand);
     }
 
     /**
@@ -122,20 +180,7 @@ public class BuildingCoreItem extends Item {
      */
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        Player player = context.getPlayer();
-        if (player == null) {
-            return InteractionResult.PASS;
-        }
-        ItemStack stack = context.getItemInHand();
-        if (context.getLevel() instanceof ServerLevel server) {
-            activate(server, player, stack);
-            if (transmuteOnClick(server, player, stack, context.getClickedPos(), context.getClickedFace(), oreChanceOneIn)) {
-                forgeMotion(player, stack, context.getHand());
-            }
-        } else {
-            CoreHandMotion.startRandom(player, context.getHand());
-        }
-        return InteractionResult.SUCCESS;
+        return useCoreOn(context);
     }
 
     /**
@@ -164,7 +209,7 @@ public class BuildingCoreItem extends Item {
         }
     }
 
-    private void activate(ServerLevel level, Player player, ItemStack stack) {
+    private static void activate(ServerLevel level, Player player, ItemStack stack, int color) {
         play(level, player, roll(player.getRandom()), color);
         player.getCooldowns().addCooldown(stack, COOLDOWN_TICKS);
     }

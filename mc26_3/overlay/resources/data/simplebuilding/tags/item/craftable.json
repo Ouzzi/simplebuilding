@@ -61,7 +61,7 @@
     "simplebuilding:construction_light",
     "simplebuilding:copper_building_wand",
     "simplebuilding:copper_chisel",
-    "simplebuilding:copper_core",
+    "simplelib:copper_core",
     "simplebuilding:copper_pressure_plate",
     {
       "id": "simplehammers:copper_sledgehammer",
@@ -78,7 +78,7 @@
     "simplebuilding:detector",
     "simplebuilding:diamond_building_wand",
     "simplebuilding:diamond_chisel",
-    "simplebuilding:diamond_core",
+    "simplelib:diamond_core",
     "simplebuilding:diamond_pressure_plate",
     {
       "id": "simplehammers:diamond_sledgehammer",
@@ -122,7 +122,7 @@
       "required": false
     },
     {
-      "id": "simplelib:enderite_block",
+      "id": "simpleores:enderite_block",
       "required": false
     },
     "simplebuilding:enderite_boots",
@@ -132,27 +132,27 @@
     "simplebuilding:enderite_chestplate",
     "simplebuilding:enderite_chisel",
     "simplebuilding:enderite_chunk_loader",
-    "simplebuilding:enderite_core",
+    "simplelib:enderite_core",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_helmet",
     "simplebuilding:enderite_hoe",
     "simplebuilding:enderite_horse_armor",
     {
-      "id": "simplelib:enderite_ingot",
+      "id": "simpleores:enderite_ingot",
       "required": false
     },
     "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_leggings",
     "simplebuilding:enderite_nautilus_armor",
     {
-      "id": "simplelib:enderite_nugget",
+      "id": "simpleores:enderite_nugget",
       "required": false
     },
     "simplebuilding:enderite_pickaxe",
     "simplebuilding:enderite_pressure_plate",
     "simplestorage:enderite_quiver",
     {
-      "id": "simplelib:enderite_scrap",
+      "id": "simpleores:enderite_scrap",
       "required": false
     },
     "simplebuilding:enderite_shovel",
@@ -168,7 +168,7 @@
     "simplebuilding:enderite_spear",
     "simplebuilding:enderite_sword",
     {
-      "id": "simplelib:enderite_upgrade_template",
+      "id": "simpleores:enderite_upgrade_template",
       "required": false
     },
     "simplebuilding:flypad",
@@ -178,7 +178,7 @@
     },
     "simplebuilding:gold_building_wand",
     "simplebuilding:gold_chisel",
-    "simplebuilding:gold_core",
+    "simplelib:gold_core",
     {
       "id": "simplehammers:gold_sledgehammer",
       "required": false
@@ -187,7 +187,7 @@
     "simplebuilding:infused_potion_pad",
     "simplebuilding:iron_building_wand",
     "simplebuilding:iron_chisel",
-    "simplebuilding:iron_core",
+    "simplelib:iron_core",
     {
       "id": "simplehammers:iron_sledgehammer",
       "required": false
@@ -210,7 +210,7 @@
     "simplebuilding:lapis_quartz_checker_stairs",
     "simplebuilding:launchpad",
     {
-      "id": "simplelib:layered_raw_enderite",
+      "id": "simpleores:layered_raw_enderite",
       "required": false
     },
     "simplebuilding:leather_sheet",
@@ -241,7 +241,7 @@
     "simplebuilding:netherite_carrot",
     "simplebuilding:netherite_chisel",
     "simplebuilding:netherite_chunk_loader",
-    "simplebuilding:netherite_core",
+    "simplelib:netherite_core",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_launchpad",
     {
@@ -399,7 +399,7 @@
     "simplebuilding:quartz_octet",
     "simplestorage:quiver",
     {
-      "id": "simplelib:raw_enderite",
+      "id": "simpleores:raw_enderite",
       "required": false
     },
     "simplebuilding:red_nether_brick_chess_bishop",

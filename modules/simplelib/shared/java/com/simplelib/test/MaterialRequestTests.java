@@ -30,11 +30,8 @@ public final class MaterialRequestTests {
     static final Map<String, String> RECIPES = Map.ofEntries(
             Map.entry("cracked_diamond", "cracked_diamond"), Map.entry("diamond_from_blasting_cracked_diamond", "cracked_diamond"),
             Map.entry("cracked_diamond_block", "cracked_diamond"), Map.entry("cracked_diamond_from_cracked_diamond_block", "cracked_diamond"),
-            Map.entry("basic_upgrade_template", "upgrade_templates"), Map.entry("enderite_upgrade_template", "upgrade_templates"),
+            Map.entry("basic_upgrade_template", "upgrade_templates"),
             Map.entry("netherite_nugget", "netherite_nugget"), Map.entry("netherite_ingot", "netherite_nugget"),
-            Map.entry("enderite_nugget_from_ingot", "enderite"), Map.entry("enderite_ingot_from_nugget", "enderite"),
-            Map.entry("layered_raw_enderite", "enderite"), Map.entry("enderite_scrap_from_blasting_layered_raw_enderite", "enderite"),
-            Map.entry("enderite_ingot_from_scrap", "enderite"), Map.entry("enderite_block", "enderite"), Map.entry("enderite_ingot", "enderite"),
             Map.entry("polished_end_stone", "polished_end_stone"), Map.entry("polished_end_stone_from_end_stone_stonecutting", "polished_end_stone"),
             Map.entry("polished_end_stone_from_end_stone_bricks_stonecutting", "polished_end_stone"),
             Map.entry("polished_end_stone_stairs", "polished_end_stone"), Map.entry("polished_end_stone_slab", "polished_end_stone"),
@@ -59,18 +56,33 @@ public final class MaterialRequestTests {
                 if (item == null || item != SimpleLibApi.materialItem(id)) problems.add("item " + id + " is not registered");
             }
         }
-        for (String block : List.of("cracked_diamond_block", "enderite_block", "polished_end_stone",
+        for (String block : List.of("cracked_diamond_block", "polished_end_stone",
                 "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             if (!(SimpleLibApi.materialItem(block) instanceof BlockItem item) || item.getBlock() != SimpleLibApi.materialBlock(block)
                     || BuiltInRegistries.BLOCK.getValue(SimpleLib.id(block)) != SimpleLibApi.materialBlock(block)) {
                 problems.add("block " + block + " has no matching block item");
             }
         }
-        if (!new ItemStack(SimpleLibApi.materialItem("enderite_ingot")).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)) {
-            problems.add("the enderite ingot is not fire resistant");
+        // IG31-13: the building cores are SimpleLib's (not stackable, Netherite/Enderite fire resistant); Enderite left for Simple Ores.
+        for (String core : LibMaterials.CORES) {
+            ItemStack stack = new ItemStack(SimpleLibApi.materialItem(core));
+            if (!(stack.getItem() instanceof com.simplelib.item.CoreItem) || stack.getMaxStackSize() != 1) problems.add("core " + core + " is no single core item");
+            boolean fire = core.startsWith("netherite") || core.startsWith("enderite");
+            if (stack.has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT) != fire) problems.add("core " + core + " fire resistance");
         }
-        TagKey<Item> ingots = TagKey.create(Registries.ITEM, Identifier.parse("c:ingots/enderite"));
-        if (!new ItemStack(SimpleLibApi.materialItem("enderite_ingot")).is(ingots)) problems.add("c:ingots/enderite misses the ingot");
+        for (String gone : List.of("enderite_ingot", "enderite_block", "raw_enderite", "enderite_upgrade_template")) {
+            if (BuiltInRegistries.ITEM.containsKey(SimpleLib.id(gone)) && !BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simpleores", gone))) {
+                problems.add("simplelib:" + gone + " is still SimpleLib's own");
+            }
+        }
+        boolean ores = BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot"));
+        if (SimpleLibApi.materialPresent("enderite") != ores || SimpleLibApi.materialRequested("enderite") != ores) {
+            problems.add("enderite provided=" + SimpleLibApi.materialPresent("enderite") + " with Simple Ores=" + ores);
+        }
+        TagKey<Item> repairs = TagKey.create(Registries.ITEM, SimpleLib.id("repairs_enderite_equipment"));
+        if (ores && !new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot"))).is(repairs)) {
+            problems.add("simplelib:repairs_enderite_equipment misses the ingot of " + "c:ingots/enderite");
+        }
         TagKey<Item> nuggets = TagKey.create(Registries.ITEM, Identifier.parse("c:nuggets/netherite"));
         if (!new ItemStack(SimpleLibApi.materialItem("netherite_nugget")).is(nuggets)) problems.add("c:nuggets/netherite misses the nugget");
         boolean sb = simplebuilding();

@@ -122,6 +122,12 @@ public final class McVersion {
     public static final boolean HEADS_IN_MOBHEADS = true;
     /** Namespace of the mob heads ({@link #HEADS_IN_MOBHEADS}). */
     public static final String HEAD_NAMESPACE = "simplemobheads";
+    /** IG31-13: on 26.3 the Enderite materials (raw fragment to block, upgrade template), Dimensional Scrap and Sage Ore with its orb belong to the required, bundled sub-mod Simple Ores ({@code simpleores:*}, ids migrate) and the building cores to SimpleLib ({@code simplelib:*_core}); SimpleBuilding keeps its fields, they point at those objects ({@code util/SharedMaterials}). */
+    public static final boolean MATERIALS_IN_ORES = true;
+    /** Namespace of the Enderite materials, Dimensional Scrap and Sage Ore ({@link #MATERIALS_IN_ORES}). */
+    public static final String ORES_NAMESPACE = "simpleores";
+    /** Namespace of the building cores ({@link #MATERIALS_IN_ORES}: SimpleLib on 26.3). */
+    public static final String CORE_NAMESPACE = "simplelib";
     public static final boolean MATERIALS_IN_LIB = true;
     /** Namespace of the shared materials and their recipes ({@link #MATERIALS_IN_LIB}). */
     public static final String MATERIAL_NAMESPACE = "simplelib";

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "simplebuilding:enderite_pickaxe",
+      "required": false
+    },
+    {
+      "id": "simplehammers:enderite_sledgehammer",
+      "required": false
+    }
+  ]
+}

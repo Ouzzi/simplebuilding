@@ -59,6 +59,16 @@ public final class IdMovesHook {
             moveTo(Registries.RECIPE, path, lib, path);
             moveTo(Registries.ADVANCEMENT, "recipes/" + folder + "/" + path, lib, "recipes/" + folder + "/" + path);
         });
+        // IG31-13 (b-ig3113, 31.10.): Enderite (stage 3d went to SimpleLib, now Simple Ores - one edge per old id, straight to the
+        // new owner), Dimensional Scrap, Sage Ore and the sage orb belong to Simple Ores; the cores (in ITEMS above) to SimpleLib.
+        // Simple Ores moves SimpleLib's ids of Enderite itself.
+        String ores = com.simplebuilding.util.SharedMaterials.ORES;
+        for (String path : com.simplebuilding.util.SharedMaterials.ORES_ITEMS) moveTo(Registries.ITEM, path, ores, path);
+        for (String path : com.simplebuilding.util.SharedMaterials.ORES_BLOCKS) moveTo(Registries.BLOCK, path, ores, path);
+        com.simplebuilding.util.SharedMaterials.ORES_RECIPES.forEach((path, folder) -> {
+            moveTo(Registries.RECIPE, path, ores, path);
+            moveTo(Registries.ADVANCEMENT, "recipes/" + folder + "/" + path, ores, "recipes/" + folder + "/" + path);
+        });
         // IG31-12 (b-mach32, 31.10.): the former module Simple Redstone lives in the core now (Simple Machines tab). The 1x2
         // piston's barrel no longer exists and loads as air; the module's guide becomes the Machines handbook.
         for (String path : com.simplebuilding.machines.MachineParts.MOVED_ITEMS) fromRedstone(Registries.ITEM, path, path);

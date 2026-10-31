@@ -234,7 +234,7 @@
 					"id": "70069B7E7E34814D",
 					"type": "item",
 					"item": {
-						"id": "simplebuilding:copper_core",
+						"id": "simplelib:copper_core",
 						"count": 1
 					}
 				}

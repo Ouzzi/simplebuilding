@@ -22,7 +22,7 @@
     "minecraft:gold_ingot",
     "minecraft:echo_shard",
     "minecraft:echo_shard",
-    "simplelib:enderite_scrap"
+    "simpleores:enderite_scrap"
   ],
   "result": {
     "count": 1,

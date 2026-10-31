@@ -110,7 +110,9 @@ public class ModTags {
                     // Split stage 7: the Enderite sledgehammer (Simple Hammers).
                     || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
                     // Split stage 8b: the Enderite chests and shulker box (Simple Storage).
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
+                    // IG31-13: the Enderite materials (Simple Ores, required sub-mod).
+                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace());
             return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
@@ -133,7 +135,7 @@ public class ModTags {
 
         /** Dimensions-Schrott (2026-10-01): unzerstoerbar, im Void geschuetzt, viermal so lange liegend. */
         public static boolean isDimensionalScrap(Identifier id) {
-            return com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && Simplebuilding.MOD_ID.equals(id.getNamespace())
+            return com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
                     && id.getPath().endsWith("dimensional_scrap");
         }
 

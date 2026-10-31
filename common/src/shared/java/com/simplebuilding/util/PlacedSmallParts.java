@@ -134,7 +134,7 @@ public final class PlacedSmallParts {
 
     /** Barren mit eigenem 3D-Modell ({@code simplebuilding:placed_<id>}); andere Barren liegen als flache Platte. */
     public static final java.util.Set<String> MODELLED_INGOTS = java.util.Set.of("minecraft:copper_ingot", "minecraft:iron_ingot",
-            "minecraft:gold_ingot", "minecraft:netherite_ingot", "simplelib:enderite_ingot");
+            "minecraft:gold_ingot", "minecraft:netherite_ingot", "simpleores:enderite_ingot");
 
     /**
      * Der 3D-Ziegel (Queue N55, 2026-10-15): ein Quader 8 x 4 x 3 px, lang entlang x, in der Form {y0, y1, halbe Laenge in x,

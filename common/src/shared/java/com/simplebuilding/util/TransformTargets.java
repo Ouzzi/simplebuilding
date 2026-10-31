@@ -90,7 +90,7 @@ public final class TransformTargets {
         if (blockTakesClick(level, hit.getBlockPos(), state, player)) return true;
         ItemStack main = player.getMainHandItem();
         if (main.isEmpty() || player.getCooldowns().isOnCooldown(main)) return false;
-        if (main.getItem() instanceof BlockItem || main.getItem() instanceof BuildingCoreItem) return true;
+        if (main.getItem() instanceof BlockItem || BuildingCoreItem.isCore(main.getItem())) return true;
         return mayHint(level, hit, player, InteractionHand.MAIN_HAND) && handTransforms(level, hit, player, InteractionHand.MAIN_HAND);
     }
 

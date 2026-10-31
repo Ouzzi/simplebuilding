@@ -41,7 +41,7 @@ public final class SimpleHammers {
             Map.entry("upgrade_iron_sledgehammer_to_gold_sledgehammer", "misc"),
             Map.entry("upgrade_gold_sledgehammer_to_diamond_sledgehammer", "misc"));
     /** SimpleLib materials the hammers are made from, crush into or upgrade with (their recipes and sources go on). */
-    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates");
+    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
     /**
      * Owner rule F3 (PLAN-MODULFAMILIE §5): Enderite tiers of the sub-mods are unlocked only with Simple Enderite. That mod
      * does not exist yet, so the Enderite sledgehammer stays registered and craftable as before.

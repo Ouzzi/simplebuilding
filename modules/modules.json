@@ -30,7 +30,8 @@
         "simplehammers",
         "simplestorage",
         "simplelights",
-        "simplegadgets"
+        "simplegadgets",
+        "simpleores"
       ],
       "optional": [
         "jei",
@@ -57,7 +58,6 @@
         "simpleshops",
         "simplewanderers",
         "simpleanimals",
-        "simpleores",
         "simplemusic",
         "simpleearth",
         "simplechallenges",
@@ -1193,7 +1193,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "SimpleLib",
-      "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.",
+      "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.",
       "loaders": [
         "fabric",
         "neoforge",
@@ -4522,13 +4522,15 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Ores",
-      "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla.",
+      "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
       "loaders": [
         "fabric",
         "neoforge",
         "forge"
       ],
-      "requires": [],
+      "requires": [
+        "simplelib"
+      ],
       "optional": [
         "simplebuilding",
         "simplehammers"

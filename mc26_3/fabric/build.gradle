@@ -157,7 +157,9 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.3.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0", "simplegadgets": ">=0.9.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.3.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0", "simplegadgets": ">=0.9.0", "simpleores": ">=0.1.0"')
+				// IG31-13: Simple Ores is required now (above), not only suggested.
+				.replace('"simpleores": "*",', '')
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
@@ -283,6 +285,11 @@ dependencies {
 dependencies {
     include project(':modules:simplegadgets:fabric')
     implementation project(':modules:simplegadgets:fabric')
+}
+// Simple Ores: required Sub-Mod (IG31-13, Fabric only for now) - Enderite, Dimensional Scrap and Sage Ore moved there
+// (simpleores:*, ids migrate). Nested below with the optional modules; loaded in dev/test runs, SB code never imports it.
+dependencies {
+    implementation project(':modules:simpleores:fabric')
 }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {

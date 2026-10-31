@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "simpleores:nether_dimensional_scrap_placed",
+  "step": "underground_ores"
+}

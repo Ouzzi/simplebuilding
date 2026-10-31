@@ -488,7 +488,7 @@ public class ModItems {
 
     public static final Item ENDERITE_SCRAP = com.simplebuilding.util.SharedMaterials.item("enderite_scrap", () -> registerItem("enderite_scrap", s -> new Item(s.fireResistant())));
 
-    // 26.3: SimpleLib's ingot; the trim material is added by SharedMaterialTrimMixin (SimpleBuilding owns it).
+    // 26.3: Simple Ores' ingot (IG31-13; before SimpleLib's); the trim material is added by SharedMaterialTrimMixin (SimpleBuilding owns it).
     public static final Item ENDERITE_INGOT = com.simplebuilding.util.SharedMaterials.item("enderite_ingot", () -> registerItem("enderite_ingot", s -> new Item(s
             .fireResistant()
             .trimMaterial(ModTrimMaterials.ENDERITE))));
@@ -538,18 +538,18 @@ public class ModItems {
     public static final Item WARDEN_TENDRIL = com.simplebuilding.version.McVersion.BREWING_EFFECTS
             ? registerItem("warden_tendril", s -> new Item(s.rarity(Rarity.RARE))) : null;
     public static final Item SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
-            ? registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("sage_ore", () -> registerItem("sage_ore", s -> new BlockItem(ModBlocks.SAGE_ORE, s))) : null;
     public static final Item DEEPSLATE_SAGE_ORE_ITEM = com.simplebuilding.version.McVersion.SAGE_ORE
-            ? registerItem("deepslate_sage_ore", s -> new BlockItem(ModBlocks.DEEPSLATE_SAGE_ORE, s)) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("deepslate_sage_ore", () -> registerItem("deepslate_sage_ore", s -> new BlockItem(ModBlocks.DEEPSLATE_SAGE_ORE, s))) : null;
     public static final Item DIMENSIONAL_SCRAP_ITEM = com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP
-            ? registerItem("dimensional_scrap", s -> new BlockItem(ModBlocks.DIMENSIONAL_SCRAP, s.fireResistant())) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("dimensional_scrap", () -> registerItem("dimensional_scrap", s -> new BlockItem(ModBlocks.DIMENSIONAL_SCRAP, s.fireResistant()))) : null;
     public static final Item NETHER_DIMENSIONAL_SCRAP_ITEM = com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP
-            ? registerItem("nether_dimensional_scrap", s -> new BlockItem(ModBlocks.NETHER_DIMENSIONAL_SCRAP, s.fireResistant())) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("nether_dimensional_scrap", () -> registerItem("nether_dimensional_scrap", s -> new BlockItem(ModBlocks.NETHER_DIMENSIONAL_SCRAP, s.fireResistant()))) : null;
     public static final Item END_DIMENSIONAL_SCRAP_ITEM = com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP
-            ? registerItem("end_dimensional_scrap", s -> new BlockItem(ModBlocks.END_DIMENSIONAL_SCRAP, s.fireResistant())) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("end_dimensional_scrap", () -> registerItem("end_dimensional_scrap", s -> new BlockItem(ModBlocks.END_DIMENSIONAL_SCRAP, s.fireResistant()))) : null;
     /** Weisheitskugel: seltener Drop des Weisheitserzes, gibt nach kurzem Laden viel Erfahrung. */
     public static final Item SAGE_ORB = com.simplebuilding.version.McVersion.SAGE_ORE
-            ? registerItem("sage_orb", s -> new com.simplebuilding.items.custom.SageOrbItem(s.stacksTo(16))) : null;
+            ? com.simplebuilding.util.SharedMaterials.item("sage_orb", () -> registerItem("sage_orb", s -> new com.simplebuilding.items.custom.SageOrbItem(s.stacksTo(16)))) : null;
 
 
 
@@ -569,19 +569,19 @@ public class ModItems {
 
 
 
-    // Building Cores - nicht stapelbar, Rechtsklick spielt eine Animation (BuildingCoreItem)
+    // Building Cores - nicht stapelbar, Rechtsklick spielt eine Animation (BuildingCoreItem; 26.3: SimpleLib-Items, IG31-13)
 
-    public static final Item COPPER_CORE = registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE));
+    public static final Item COPPER_CORE = com.simplebuilding.util.SharedMaterials.item("copper_core", () -> registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE)));
 
-    public static final Item IRON_CORE = registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE));
+    public static final Item IRON_CORE = com.simplebuilding.util.SharedMaterials.item("iron_core", () -> registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE)));
 
-    public static final Item GOLD_CORE = registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE));
+    public static final Item GOLD_CORE = com.simplebuilding.util.SharedMaterials.item("gold_core", () -> registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE)));
 
-    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE));
+    public static final Item DIAMOND_CORE = com.simplebuilding.util.SharedMaterials.item("diamond_core", () -> registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1).rarity(Rarity.RARE), 0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE)));
 
-    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.RARE), 0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE));
+    public static final Item NETHERITE_CORE = com.simplebuilding.util.SharedMaterials.item("netherite_core", () -> registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.RARE), 0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE)));
 
-    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), 0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE));
+    public static final Item ENDERITE_CORE = com.simplebuilding.util.SharedMaterials.item("enderite_core", () -> registerItem("enderite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), 0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE)));
 
 
 
