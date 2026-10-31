@@ -176,6 +176,7 @@
         "summary": "config/simpleovens-server.json, clamped when loaded; broken files are set aside and replaced by the defaults.",
         "details": [
           "enabled (default true): off makes the machines plain Vanilla-speed furnaces, keeps them registered and hides the tab contents; the super-mod switch \"Enable Simple Ovens\" of SimpleBuilding does the same.",
+          "enableSimpleFoundry (default true): the switch \"Enable Simple Foundry\" of the sub-mod Simple Foundry; off = its foundry stops working, its blocks stay.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (defaults 2, 4, 8; 1 to 8): the speed against the Vanilla machine; the furnace carts' fuel factor follows it.",
           "On the first start the speeds are taken over from SimpleBuilding's config (server.machines.*FurnaceSpeed in config/simplebuilding.json), which stays unchanged."
         ]
@@ -185,6 +186,7 @@
         "summary": "config/simpleovens-server.json, beim Laden begrenzt; kaputte Dateien werden beiseitegelegt und durch die Standardwerte ersetzt.",
         "details": [
           "enabled (Standard true): aus macht die Maschinen zu einfachen Öfen im Vanilla-Tempo, sie bleiben registriert und der Tab leer; der Super-Mod-Schalter \"Simple Ovens aktivieren\" von SimpleBuilding wirkt genauso.",
+          "enableSimpleFoundry (Standard true): der Schalter \"Simple Foundry aktivieren\" des Sub-Mods Simple Foundry; aus = seine Gießerei arbeitet nicht mehr, die Blöcke bleiben.",
           "reinforcedSpeed, netheriteSpeed, enderiteSpeed (Standard 2, 4, 8; 1 bis 8): das Tempo gegenüber der Vanilla-Maschine; der Brennstofffaktor der Antriebsloren folgt ihm.",
           "Beim ersten Start werden die Tempi aus SimpleBuildings Config übernommen (server.machines.*FurnaceSpeed in config/simplebuilding.json), die unverändert bleibt."
         ]

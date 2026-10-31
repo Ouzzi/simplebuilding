@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "simplefoundry:block/foundry_brick",
+    "front": "simplefoundry:block/foundry_spout_front",
+    "side": "simplefoundry:block/foundry_brick"
+  }
+}

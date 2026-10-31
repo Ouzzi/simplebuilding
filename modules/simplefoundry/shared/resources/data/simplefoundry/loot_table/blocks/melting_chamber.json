@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplefoundry:melting_chamber"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "simplefoundry:blocks/melting_chamber"
+}

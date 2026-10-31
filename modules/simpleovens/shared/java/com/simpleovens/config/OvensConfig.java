@@ -22,12 +22,14 @@ public final class OvensConfig {
     /** SimpleBuilding's config the speeds came from (split plan stage 4). */
     public static final String LEGACY_FILE = "simplebuilding.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("enabled", "reinforcedSpeed", "netheriteSpeed", "enderiteSpeed");
+    public static final List<String> KEYS = List.of("enabled", "enableSimpleFoundry", "reinforcedSpeed", "netheriteSpeed", "enderiteSpeed");
     /** Speed of a tier against the Vanilla machine of its family; the most a server may set. */
     public static final int MAX_SPEED = 8;
     public static final int REINFORCED_DEFAULT = 2, NETHERITE_DEFAULT = 4, ENDERITE_DEFAULT = 8;
 
     public static boolean enabled = true;
+    /** Super-mod switch "Enable Simple Foundry" (sub-mod, framework {@code SubMods}); off = the foundry does not work, blocks stay. */
+    public static boolean enableSimpleFoundry = true;
     public static int reinforcedSpeed = REINFORCED_DEFAULT;
     public static int netheriteSpeed = NETHERITE_DEFAULT;
     public static int enderiteSpeed = ENDERITE_DEFAULT;
@@ -74,6 +76,8 @@ public final class OvensConfig {
 
     public static void apply(JsonObject json) {
         enabled = bool(json, "enabled", true);
+        enableSimpleFoundry = bool(json, "enableSimpleFoundry", true);
+        com.simplebuilding.framework.api.SubMods.set("simplefoundry", enableSimpleFoundry);
         reinforcedSpeed = clamp(integer(json, "reinforcedSpeed", REINFORCED_DEFAULT));
         netheriteSpeed = clamp(integer(json, "netheriteSpeed", NETHERITE_DEFAULT));
         enderiteSpeed = clamp(integer(json, "enderiteSpeed", ENDERITE_DEFAULT));
@@ -82,6 +86,7 @@ public final class OvensConfig {
     public static JsonObject toJson() {
         JsonObject o = new JsonObject();
         o.addProperty("enabled", enabled);
+        o.addProperty("enableSimpleFoundry", enableSimpleFoundry);
         o.addProperty("reinforcedSpeed", reinforcedSpeed);
         o.addProperty("netheriteSpeed", netheriteSpeed);
         o.addProperty("enderiteSpeed", enderiteSpeed);

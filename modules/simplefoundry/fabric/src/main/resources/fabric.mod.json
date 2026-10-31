@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "simplefoundry",
+  "version": "${version}",
+  "name": "Simple Foundry",
+  "icon": "assets/simplefoundry/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "A multiblock foundry: build a tank of melting chambers in a brick hull, throw in ore and fuel, and pour the melt by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot. Works on its own with Vanilla; a sub-mod of Simple Ovens.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplefoundry.FoundryFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplefoundry.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simplelib": ">=0.3.0",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simpleovens": "*"
+  }
+}

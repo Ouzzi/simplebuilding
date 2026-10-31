@@ -2789,7 +2789,8 @@
         "simplelib"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "simplefoundry"
       ],
       "checks": [
         "modules/simpleovens/tools/check_data.py"
@@ -4654,6 +4655,67 @@
         "forge": ":modules:simpleores:forge"
       },
       "parent": "simplebuilding",
+      "bundle": "optional"
+    },
+    {
+      "id": "simplefoundry",
+      "name": "Simple Foundry",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Foundry",
+      "description": "A multiblock foundry for Simple Ovens: a tank of melting chambers in a brick hull, fuel on the desk, ore thrown in, the melt poured by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [],
+      "optional": [
+        "simpleovens"
+      ],
+      "checks": [
+        "modules/simplefoundry/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplefoundry",
+        "catalogues": [
+          "modules/simplefoundry/fabric/src/main/java/com/simplebuilding/modules/simplefoundry/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplefoundry"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplefoundryGameTest",
+            "report": "integration/build/simplefoundry-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplefoundryStandaloneGameTest",
+              "report": "integration/build/standalone/simplefoundry-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplefoundry",
+        "shared": "modules/simplefoundry/shared",
+        "fabric": "modules/simplefoundry/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplefoundry/generated/resources",
+        "lang": "modules/simplefoundry/shared/resources/assets/simplefoundry/lang",
+        "wikiManual": "modules/simplefoundry/wiki/manual.json",
+        "balanceDir": "balance/simplefoundry"
+      },
+      "projects": {
+        "fabric": ":modules:simplefoundry:fabric"
+      },
+      "parent": "simpleovens",
       "bundle": "optional"
     }
   ]

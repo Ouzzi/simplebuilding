@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "content=0": {
+      "model": "simplefoundry:block/casting_tray_empty"
+    },
+    "content=1": {
+      "model": "simplefoundry:block/casting_tray_gold"
+    },
+    "content=2": {
+      "model": "simplefoundry:block/casting_tray_copper"
+    },
+    "content=3": {
+      "model": "simplefoundry:block/casting_tray_iron"
+    }
+  }
+}

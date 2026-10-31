@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplefoundry:foundry_brick",
+    "C": "minecraft:cauldron"
+  },
+  "pattern": [
+    "B B",
+    " C ",
+    "B B"
+  ],
+  "result": {
+    "id": "simplefoundry:casting_tray"
+  }
+}

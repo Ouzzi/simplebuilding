@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplefoundry:foundry_brick",
+    "P": "minecraft:glass_pane",
+    "U": "minecraft:bucket"
+  },
+  "pattern": [
+    "BPB",
+    "PUP",
+    "BPB"
+  ],
+  "result": {
+    "id": "simplefoundry:melting_chamber"
+  }
+}

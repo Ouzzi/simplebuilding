@@ -1,0 +1,59 @@
+{
+  "features": [
+    {
+      "id": "foundry",
+      "sources": [
+        "modules/simplefoundry/shared/java/com/simplefoundry/FoundryRegistry.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/FoundryScan.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/block/DeskBlockEntity.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/block/DeskBlock.java"
+      ],
+      "en": {
+        "title": "Foundry (multiblock)",
+        "summary": "Build a tank of melting chambers inside a closed hull, light it with fuel on the desk, throw in ore and pour the melt by layer.",
+        "details": [
+          "Hull: every side of every melting chamber must touch another chamber, the foundry desk, a foundry brick, a fire grate, a spout or Vanilla glass (a window). Any shape works (L, cross, steps); at most 256 chambers (config, hard limit 512) and 32 blocks wide, in loaded chunks only. The desk checks it when you use it and every 5 seconds while the foundry works.",
+          "Desk: right click with fuel (coal, charcoal, logs; coal block, blaze rod, lava bucket burn hot) or with ore, raw metal, ingots, nuggets or blocks of gold, copper and iron. Empty hand shows the state. Iron needs hot fuel (coal block, blaze rod, lava bucket); gold and copper melt with any fuel. At least one fire grate must be part of the hull; it glows while the foundry burns.",
+          "Melting: ore, raw metal and ingots count nine units, nuggets one, blocks 81; the result is always the same amount of ingots (no ore bonus). One chamber holds 27 ingots.",
+          "Layers and pouring: the melts lie by density, gold at the bottom, then copper, iron on top. A spout in the wall pours the layer that lies at its height, nine units at a time, into a casting tray in front of it (up to nine ingots of one metal). Place a spout with its back against a chamber wall. Empty hand on the tray takes the ingots once they have set."
+        ]
+      },
+      "de": {
+        "title": "Gießerei (Mehrblock)",
+        "summary": "Baue einen Tank aus Schmelzkammern in einer geschlossenen Hülle, feuere am Pult an, wirf Erz ein und gieße die Schmelze nach Schicht.",
+        "details": [
+          "Hülle: Jede Seite jeder Schmelzkammer muss an eine weitere Kammer, das Hüttenpult, einen Hüttenziegel, einen Feuerrost, eine Gusstülle oder Vanilla-Glas (Fenster) grenzen. Jede Form geht (L, Kreuz, Stufen); höchstens 256 Kammern (Config, hart 512) und 32 Blöcke breit, nur in geladenen Chunks. Das Pult prüft beim Benutzen und alle 5 Sekunden, solange die Gießerei arbeitet.",
+          "Pult: Rechtsklick mit Brennstoff (Kohle, Holzkohle, Stämme; Kohleblock, Lohenrute, Lava-Eimer brennen heiß) oder mit Erz, Rohmetall, Barren, Klumpen oder Blöcken aus Gold, Kupfer und Eisen. Leere Hand zeigt den Zustand. Eisen braucht heißen Brennstoff (Kohleblock, Lohenrute, Lava-Eimer); Gold und Kupfer schmelzen mit jedem Brennstoff. Mindestens ein Feuerrost gehört zur Hülle; er glüht, solange die Gießerei brennt.",
+          "Schmelzen: Erz, Rohmetall und Barren zählen neun Einheiten, Klumpen eine, Blöcke 81; heraus kommen immer gleich viele Barren (kein Erzbonus). Eine Kammer fasst 27 Barren.",
+          "Schichten und Gießen: Die Schmelzen liegen nach Dichte, Gold unten, dann Kupfer, Eisen oben. Eine Gusstülle in der Wand gießt die Schicht, die auf ihrer Höhe liegt, je neun Einheiten in eine Gussschale vor ihr (bis zu neun Barren eines Metalls). Die Tülle mit dem Rücken an eine Kammerwand setzen. Leere Hand auf der Schale nimmt die Barren, sobald sie erstarrt sind."
+        ]
+      }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simplefoundry/shared/java/com/simplefoundry/config/FoundryConfig.java"
+      ],
+      "en": {
+        "title": "Server Config",
+        "summary": "config/simplefoundry-server.json, clamped when loaded; broken files are set aside and replaced by the defaults. Also /simplefoundry config.",
+        "details": [
+          "enabled (default true): off stops the foundry; the blocks stay. The sub-mod switch \"Enable Simple Foundry\" of Simple Ovens does the same.",
+          "maxChambers (default 256, 1 to 512): most melting chambers of one foundry.",
+          "meltTicksPerUnit (default 4, 1 to 40): ticks to melt one unit.",
+          "castTicks (default 100, 20 to 1200): ticks between two pours and the time an ingot needs to set."
+        ]
+      },
+      "de": {
+        "title": "Server-Config",
+        "summary": "config/simplefoundry-server.json, beim Laden begrenzt; kaputte Dateien werden beiseitegelegt und durch die Standardwerte ersetzt. Auch /simplefoundry config.",
+        "details": [
+          "enabled (Standard true): aus stoppt die Gießerei; die Blöcke bleiben. Der Sub-Mod-Schalter \"Simple Foundry aktivieren\" von Simple Ovens wirkt genauso.",
+          "maxChambers (Standard 256, 1 bis 512): höchstens so viele Schmelzkammern je Gießerei.",
+          "meltTicksPerUnit (Standard 4, 1 bis 40): Ticks, um eine Einheit zu schmelzen.",
+          "castTicks (Standard 100, 20 bis 1200): Ticks zwischen zwei Güssen und Zeit, die ein Barren zum Erstarren braucht."
+        ]
+      }
+    }
+  ]
+}

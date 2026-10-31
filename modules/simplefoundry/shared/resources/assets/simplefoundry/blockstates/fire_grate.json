@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "simplefoundry:block/fire_grate"
+    },
+    "lit=true": {
+      "model": "simplefoundry:block/fire_grate_lit"
+    }
+  }
+}
