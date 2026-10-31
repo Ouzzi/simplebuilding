@@ -632,6 +632,10 @@ public final class KeysScreen extends Screen {
         return out;
     }
 
+    public AbstractWidget probeWidget(String name) {
+        return probe.get(name);
+    }
+
     /** Values the probe and the client test read. */
     public Map<String, Object> probeValues() {
         Map<String, Object> v = new LinkedHashMap<>();

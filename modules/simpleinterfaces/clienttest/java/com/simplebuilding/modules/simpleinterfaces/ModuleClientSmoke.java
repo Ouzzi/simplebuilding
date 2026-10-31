@@ -258,7 +258,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             var child = screen.getChildAt(event.x(), event.y()).map(w -> w.getClass().getName() + (w instanceof net.minecraft.client.gui.components.AbstractWidget aw ? " '" + aw.getMessage().getString() + "' active " + aw.active : "")).orElse("none");
             org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys click {} on {}", name, screen.children().size());
             boolean handled = screen.mouseClicked(event, false);
-            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys clicked {} -> {}", name, handled);
+            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys clicked {} -> {} view {}", name, handled, screen.probeValues().get("view"));
+            var hit = screen.getChildAt(event.x(), event.y()).orElse(null);
+            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys hit {} same as probe {} in children {}", hit, hit == screen.probeWidget(name), screen.children().contains(screen.probeWidget(name)));
+            if (hit instanceof net.minecraft.client.gui.components.Button bt) {
+                bt.onPress(event);
+                org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys direct onPress -> view {}", screen.probeValues().get("view"));
+            }
             screen.mouseReleased(event);
             return name + " at " + event.x() + "/" + event.y() + " child " + child + " handled " + handled + ", view now " + screen.probeValues().get("view")
                     + ", current screen " + c.gui.screen().getClass().getSimpleName() + (c.gui.screen() == screen ? " (same)" : " (other)");
