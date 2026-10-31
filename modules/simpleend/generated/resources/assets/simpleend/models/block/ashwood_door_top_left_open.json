@@ -1,7 +1,9 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "#top"
+    "particle": "#top",
+    "bottom": "simpleend:block/ashwood_door_bottom",
+    "top": "simpleend:block/ashwood_door_top"
   },
   "elements": [
     {

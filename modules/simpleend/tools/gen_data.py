@@ -120,7 +120,9 @@ def voxel_door_tops(jar):
                 if els is None:
                     continue
                 dump(OUT / f'assets/{NS}/models/block/{w["name"]}_door_{variant}.json', {
-                    'ambientocclusion': False, 'textures': {'particle': '#top'}, 'elements': els})
+                    'ambientocclusion': False,
+                    'textures': {'particle': '#top', 'bottom': f'{NS}:block/{w["name"]}_door_bottom', 'top': f'{NS}:block/{w["name"]}_door_top'},
+                    'elements': els})
 
 
 TAG_SKIP = {'overworld_natural_logs', 'pale_oak_logs'}
