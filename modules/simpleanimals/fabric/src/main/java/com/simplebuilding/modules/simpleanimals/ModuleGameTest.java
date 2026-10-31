@@ -94,6 +94,26 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void boarDigsTruffles(GameTestHelper h) {
+        AnimalsTests.ALL.get("boar_digs_truffles").accept(h);
+    }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void boarTruffleLootTable(GameTestHelper h) {
+        AnimalsTests.ALL.get("boar_truffle_loot_table").accept(h);
+    }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 500)
+    public void boarTruffleTickAndSwitch(GameTestHelper h) {
+        AnimalsTests.ALL.get("boar_truffle_tick_and_switch").accept(h);
+    }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
+    public void truffleSoup(GameTestHelper h) {
+        AnimalsTests.ALL.get("truffle_soup").accept(h);
+    }
+
+    @GameTest(structure = "simpleanimals:arena", maxTicks = 100)
     public void naturalSpawnNeverTouchesPlayersOrBlocks(GameTestHelper h) {
         AnimalsTests.ALL.get("natural_spawn_never_touches_players_or_blocks").accept(h);
     }

@@ -12,7 +12,7 @@
         "details": [
           "Natural spawn: forests (weight 4) and taiga (weight 3), herds of 2 to 3, on grass in daylight only. About half of the adults are bucks with antlers; a fawn is spotted and has no antlers.",
           "Breeding: wheat or a carrot in love mode, like a cow. Hurt, it panics and runs. It never breaks blocks.",
-          "Sounds are Vanilla sheep sounds. Spawn egg in the spawn egg tab."
+          "Sounds are Vanilla llama sounds (calm hoofed animal; the sheep bleat did not fit a deer). Spawn egg in the spawn egg tab."
         ]
       },
       "de": {
@@ -21,7 +21,7 @@
         "details": [
           "Natürliches Spawnen: Wälder (Gewicht 4) und Taiga (Gewicht 3), Herden von 2 bis 3, nur auf Gras bei Tageslicht. Etwa die Hälfte der Erwachsenen sind Hirsche mit Geweih; ein Kitz ist gefleckt und hat kein Geweih.",
           "Zucht: Weizen oder eine Karotte im Liebesmodus, wie bei der Kuh. Verletzt gerät er in Panik und rennt. Er zerstört nie Blöcke.",
-          "Die Geräusche sind Vanilla-Schafgeräusche. Spawn-Ei im Spawn-Ei-Reiter."
+          "Die Geräusche sind Vanilla-Lamageräusche (ruhiges Huftier; das Schafblöken passte nicht zu einem Hirsch). Spawn-Ei im Spawn-Ei-Reiter."
         ]
       }
     },
@@ -181,6 +181,7 @@
           "spawnScale (1, 0 to 1): share of natural spawn attempts that go through. deer, boar, hedgehog, crab, zebra (true): one switch per animal.",
           "boarAggression (true): off = boars attack only when hurt. boarCloseSeconds (6, 2 to 30): seconds near an adult boar before it rams.",
           "hedgehogHunts (true) and hedgehogHuntRadius (8, 2 to 16): the silverfish hunt. zorse (true): the zebra x horse cross.",
+          "boarTruffles (true): an adult boar standing on dirt or grass very rarely digs up 1 to 2 truffles (items, no block changes). boarTruffleChance (0.005, 0 to 1): chance per attempt, one attempt every 10 seconds per boar; the default is about one find per half hour. Truffle soup (bowl, truffle, brown mushroom) feeds like mushroom stew and gives 20 seconds of Night Vision.",
           "With SimpleBuilding the switch Enable Simple Animals in its config turns the bundled module on or off."
         ]
       },
@@ -192,6 +193,7 @@
           "spawnScale (1, 0 bis 1): Anteil der natürlichen Spawn-Versuche, die durchgehen. deer, boar, hedgehog, crab, zebra (true): ein Schalter je Tier.",
           "boarAggression (true): aus = Wildschweine greifen nur an, wenn sie verletzt werden. boarCloseSeconds (6, 2 bis 30): Sekunden in der Nähe eines erwachsenen Wildschweins, bevor es rammt.",
           "hedgehogHunts (true) und hedgehogHuntRadius (8, 2 bis 16): die Silberfisch-Jagd. zorse (true): die Kreuzung Zebra x Pferd.",
+          "boarTruffles (true): ein ausgewachsenes Wildschwein auf Erde oder Gras gräbt sehr selten 1 bis 2 Trüffel aus (Items, keine Blockänderung). boarTruffleChance (0,005, 0 bis 1): Chance je Versuch, ein Versuch alle 10 Sekunden pro Wildschwein; Standard etwa ein Fund pro halbe Stunde. Trüffelsuppe (Schüssel, Trüffel, brauner Pilz) sättigt wie Pilzsuppe und gibt 20 Sekunden Nachtsicht.",
           "Mit SimpleBuilding schaltet der Schalter Simple Animals aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }

@@ -86,5 +86,27 @@
     "secret": [
       "Cooked crab is a shore meal, not a new food level."
     ]
+  },
+  "truffle": {
+    "lore": [
+      "A dark, knobbly mushroom that grows deep in the soil."
+    ],
+    "use": [
+      "Not edible raw. Craft it with a bowl and a brown mushroom for truffle soup."
+    ],
+    "secret": [
+      "Only wild boars find it: very rarely an adult digs up one or two where it stands on dirt or grass."
+    ]
+  },
+  "truffle_soup": {
+    "lore": [
+      "A dark, fragrant soup."
+    ],
+    "use": [
+      "Feeds like mushroom stew and gives about 20 seconds of Night Vision. The bowl comes back."
+    ],
+    "secret": [
+      "A treat for cave trips, not a new food level."
+    ]
   }
 }

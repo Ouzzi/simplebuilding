@@ -799,6 +799,11 @@
       "tex": "phantom/phantom_eyes",
       "render": "eyes"
      }
+    ],
+    "rot": [
+     0,
+     0,
+     0
     ]
    }
   },
@@ -952,7 +957,10 @@
    "model": {
     "layer": "minecraft:zombie_nautilus#main",
     "part": "",
-    "tex": "nautilus/zombie_nautilus"
+    "tex": "nautilus/zombie_nautilus",
+    "hide": [
+     "shell"
+    ]
    },
    "variants": {
     "component": "minecraft:zombie_nautilus/variant",
@@ -971,7 +979,10 @@
       "model": {
        "layer": "minecraft:zombie_nautilus_coral#main",
        "part": "",
-       "tex": "nautilus/zombie_nautilus_coral"
+       "tex": "nautilus/zombie_nautilus_coral",
+       "hide": [
+        "shell"
+       ]
       }
      }
     ]
@@ -1165,7 +1176,10 @@
    "model": {
     "layer": "minecraft:armadillo#main",
     "part": "head",
-    "tex": "armadillo/armadillo"
+    "tex": "armadillo/armadillo",
+    "hide": [
+     "flat:head_cube"
+    ]
    }
   },
   {
@@ -1973,7 +1987,12 @@
    "model": {
     "layer": "minecraft:rabbit#main",
     "part": "head",
-    "tex": "rabbit/rabbit_brown"
+    "tex": "rabbit/rabbit_brown",
+    "rot": [
+     0,
+     0,
+     0
+    ]
    },
    "variants": {
     "component": "minecraft:rabbit/variant",
@@ -2254,7 +2273,7 @@
    ],
    "model": {
     "layer": "minecraft:salmon#main",
-    "part": "",
+    "part": "head",
     "tex": "fish/salmon"
    }
   },
@@ -2282,7 +2301,7 @@
    ],
    "model": {
     "layer": "minecraft:tropical_fish_small#main",
-    "part": "",
+    "part": "body",
     "tex": "fish/tropical_a",
     "tint": "variant",
     "layers": [
@@ -2290,7 +2309,7 @@
       "tex": "variant",
       "render": "cutout",
       "layer": "minecraft:tropical_fish_small#pattern",
-      "part": "",
+      "part": "body",
       "tint": "variant2"
      }
     ]
@@ -2549,7 +2568,7 @@
    ],
    "model": {
     "layer": "minecraft:tadpole#main",
-    "part": "",
+    "part": "body",
     "tex": "tadpole/tadpole"
    }
   },

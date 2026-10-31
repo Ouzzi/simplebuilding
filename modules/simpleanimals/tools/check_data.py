@@ -11,10 +11,10 @@ JAVA = MODULE / 'shared/java/com/simpleanimals'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/AnimalsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'spawnScale', 'deer', 'boar', 'hedgehog', 'crab', 'zebra', 'boarAggression', 'boarCloseSeconds',
-                       'hedgehogHuntRadius', 'hedgehogHunts', 'zorse'], config_keys
+                       'hedgehogHuntRadius', 'hedgehogHunts', 'zorse', 'boarTruffles', 'boarTruffleChance'], config_keys
 ANIMALS = ('deer', 'boar', 'hedgehog', 'crab', 'zebra', 'zorse')
 EGGS = ('deer_spawn_egg', 'boar_spawn_egg', 'hedgehog_spawn_egg', 'crab_spawn_egg', 'zebra_spawn_egg')
-ITEMS = EGGS + ('raw_crab', 'cooked_crab', 'guide_book')
+ITEMS = EGGS + ('raw_crab', 'cooked_crab', 'truffle', 'truffle_soup', 'guide_book')
 langs = {}
 for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
@@ -36,6 +36,12 @@ for r in ('smelting', 'smoking', 'campfire_cooking'):
     recipe = json.loads((RES / f'data/{NS}/recipe/{name}.json').read_text(encoding='utf-8'))
     assert recipe['type'] == f'minecraft:{r}' and recipe['ingredient'] == f'{NS}:raw_crab' and recipe['result']['id'] == f'{NS}:cooked_crab', name
     assert (RES / f'data/{NS}/advancement/recipes/food/{name}.json').is_file(), name
+# Truffle (IG31-20): only the boar digs it up (gameplay loot table, 1 to 2), the soup is one shapeless recipe with an advancement.
+dig = json.loads((RES / f'data/{NS}/loot_table/gameplay/boar_truffle.json').read_text(encoding='utf-8'))
+assert dig['pools'][0]['entries'][0]['name'] == f'{NS}:truffle', dig
+soup = json.loads((RES / f'data/{NS}/recipe/truffle_soup.json').read_text(encoding='utf-8'))
+assert soup['type'] == 'minecraft:crafting_shapeless' and f'{NS}:truffle' in soup['ingredients'] and soup['result']['id'] == f'{NS}:truffle_soup', soup
+assert (RES / f'data/{NS}/advancement/recipes/misc/truffle_soup.json').is_file()
 # Spawn lists: Fabric (AnimalsFabric) and NeoForge (biome modifiers) agree on the weights; all low next to Vanilla farm animals (>= 8).
 fabric = (MODULE / 'fabric/src/main/java/com/simplebuilding/modules/simpleanimals/AnimalsFabric.java').read_text(encoding='utf-8')
 weights = re.findall(r'AnimalsRegistry\.([A-Z]+), (\d+), (\d+), (\d+)\)', fabric)

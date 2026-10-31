@@ -3,9 +3,18 @@ package com.simpleanimals.entity;
 import com.simpleanimals.AnimalVariants;
 import com.simpleanimals.AnimalsRegistry;
 import com.simpleanimals.AnimalsSpawn;
+import com.simpleanimals.SimpleAnimals;
 import com.simpleanimals.config.AnimalsConfig;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -56,7 +65,7 @@ import org.jspecify.annotations.Nullable;
  * stays within {@link #CLOSE_RANGE} blocks for longer than the configured time (sneaking players do not count).</li>
  * <li>It rams: a fast charge, a short knockback, 4/6/8 damage by difficulty, with the Vanilla attack cooldown.</li>
  * </ul>
- * Piglets flee when hurt and alert the adults. Drops porkchop. Carrots, potatoes, beetroots (the Vanilla pig food) breed it.
+ * Piglets flee when hurt and alert the adults. Drops porkchop. Very rarely it roots up 1 to 2 truffles ({@link #digTruffles}). Carrots, potatoes, beetroots (the Vanilla pig food) breed it.
  */
 public class Boar extends Animal {
     /** A player this close to a piglet provokes its adults. */
@@ -66,12 +75,17 @@ public class Boar extends Animal {
     public static final double CLOSE_RANGE = 3.0;
     /** Ticks a shove keeps the boar provoked. */
     public static final int SHOVE_TICKS = 100;
+    /** Ticks between two truffle dig attempts (the chance is the config {@code boarTruffleChance} per attempt). */
+    public static final int DIG_INTERVAL = 200;
+    public static final ResourceKey<LootTable> TRUFFLE_TABLE = ResourceKey.create(Registries.LOOT_TABLE, SimpleAnimals.id("gameplay/boar_truffle"));
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Boar.class, EntityDataSerializers.INT);
 
     /** Server: ticks a player has stood within {@link #CLOSE_RANGE}. */
     private int closeTicks;
     private int shoveTicks;
+    /** Server: ticks since the last truffle dig attempt. */
+    private int digTicks;
 
     public Boar(EntityType<? extends Boar> type, Level level) {
         super(type, level);
@@ -185,7 +199,36 @@ public class Boar extends Animal {
             if (near != null && !near.isShiftKeyDown() && !near.isSpectator() && !near.isCreative()) closeTicks++;
             else closeTicks = Math.max(0, closeTicks - 2);
             if (shoveTicks > 0) shoveTicks--;
+            if (AnimalsConfig.boarTruffles && level() instanceof ServerLevel server && ++digTicks >= DIG_INTERVAL) {
+                digTicks = 0;
+                if (getTarget() == null && this.random.nextDouble() < AnimalsConfig.boarTruffleChance) digTruffles(server);
+            }
         }
+    }
+
+    /** True when the boar stands on ground it can dig in (dirt, grass, podzol, mud ... = the Vanilla dirt tag). */
+    public boolean canDig() {
+        return onGround() && !isInWater() && level().getBlockState(blockPosition().below()).is(BlockTags.DIRT);
+    }
+
+    /**
+     * The Easter egg (IG31-20): the boar roots up 1 to 2 truffles ({@code simpleanimals:gameplay/boar_truffle}) from the ground it stands on.
+     * No block changes. Returns the number of truffles dropped (0 when it cannot dig here or the table is empty).
+     */
+    public int digTruffles(ServerLevel server) {
+        if (!canDig()) return 0;
+        BlockState ground = server.getBlockState(blockPosition().below());
+        int dropped = 0;
+        var table = server.getServer().reloadableRegistries().getLootTable(TRUFFLE_TABLE);
+        for (ItemStack stack : table.getRandomItems(new LootParams.Builder(server).create(LootContextParamSets.EMPTY))) {
+            spawnAtLocation(server, stack);
+            dropped += stack.getCount();
+        }
+        if (dropped > 0) {
+            server.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, ground), getX(), getY() + 0.2, getZ() + 0.4, 12, 0.3, 0.1, 0.3, 0.05);
+            playSound(ground.getSoundType().getBreakSound(), 0.6F, 0.8F);
+        }
+        return dropped;
     }
 
     /** A player pushing against an adult boar provokes it (the shove). */

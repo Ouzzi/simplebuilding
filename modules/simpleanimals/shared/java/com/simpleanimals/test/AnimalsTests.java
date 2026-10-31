@@ -54,6 +54,14 @@ public final class AnimalsTests {
         return mob;
     }
 
+    private static int truffles(GameTestHelper h) {
+        int n = 0;
+        for (var item : h.getEntities(net.minecraft.world.entity.EntityTypes.ITEM)) {
+            if (item.getItem().is(AnimalsRegistry.TRUFFLE)) n += item.getItem().getCount();
+        }
+        return n;
+    }
+
     private static ServerPlayer player(GameTestHelper h, int x, int z) {
         ServerPlayer p = h.makeMockServerPlayerInLevel();
         p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
@@ -85,7 +93,7 @@ public final class AnimalsTests {
             for (String id : new String[] {"deer", "boar", "hedgehog", "crab", "zebra", "zorse"}) {
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleAnimals.id(id)), "entity type " + id);
             }
-            for (String id : new String[] {"deer_spawn_egg", "boar_spawn_egg", "hedgehog_spawn_egg", "crab_spawn_egg", "zebra_spawn_egg", "raw_crab", "cooked_crab", "guide_book"}) {
+            for (String id : new String[] {"deer_spawn_egg", "boar_spawn_egg", "hedgehog_spawn_egg", "crab_spawn_egg", "zebra_spawn_egg", "raw_crab", "cooked_crab", "truffle", "truffle_soup", "guide_book"}) {
                 h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleAnimals.id(id)), "item " + id);
             }
             h.assertTrue(!BuiltInRegistries.ITEM.containsKey(SimpleAnimals.id("zorse_spawn_egg")), "the zorse has no egg");
@@ -94,7 +102,8 @@ public final class AnimalsTests {
                     && DefaultAttributes.hasSupplier(AnimalsRegistry.ZEBRA) && DefaultAttributes.hasSupplier(AnimalsRegistry.ZORSE), "attributes");
             h.assertTrue(AnimalsConfig.enabled && AnimalsConfig.spawnScale == 1.0 && AnimalsConfig.deer && AnimalsConfig.boar && AnimalsConfig.hedgehog
                     && AnimalsConfig.crab && AnimalsConfig.zebra && AnimalsConfig.boarAggression && AnimalsConfig.boarCloseSeconds == 6
-                    && AnimalsConfig.hedgehogHuntRadius == 8 && AnimalsConfig.hedgehogHunts && AnimalsConfig.zorse, "config defaults");
+                    && AnimalsConfig.hedgehogHuntRadius == 8 && AnimalsConfig.hedgehogHunts && AnimalsConfig.zorse
+                    && AnimalsConfig.boarTruffles && AnimalsConfig.boarTruffleChance == 0.005, "config defaults");
             h.succeed();
         });
         ALL.put("config_caps", h -> {
@@ -103,6 +112,10 @@ public final class AnimalsTests {
                 h.assertTrue(AnimalsConfig.spawnScale == 1.0 && AnimalsConfig.boarCloseSeconds == 2 && AnimalsConfig.hedgehogHuntRadius == 16 && AnimalsConfig.deer, "clamps, bad bool = default");
                 AnimalsConfig.apply(com.google.gson.JsonParser.parseString("{\"spawnScale\":-3,\"hedgehogHuntRadius\":\"a\",\"boarCloseSeconds\":null}").getAsJsonObject());
                 h.assertTrue(AnimalsConfig.spawnScale == 0.0 && AnimalsConfig.hedgehogHuntRadius == 8 && AnimalsConfig.boarCloseSeconds == 6, "garbage = default");
+                AnimalsConfig.apply(com.google.gson.JsonParser.parseString("{\"boarTruffleChance\":7,\"boarTruffles\":3}").getAsJsonObject());
+                h.assertTrue(AnimalsConfig.boarTruffleChance == 1.0 && AnimalsConfig.boarTruffles, "truffle chance clamps to 1, bad bool = default");
+                AnimalsConfig.apply(com.google.gson.JsonParser.parseString("{\"boarTruffleChance\":-1}").getAsJsonObject());
+                h.assertTrue(AnimalsConfig.boarTruffleChance == 0.0, "truffle chance clamps to 0");
                 h.assertTrue(AnimalsConfig.KEYS.equals(AnimalsConfig.toJson().keySet().stream().toList()), "KEYS lists the file's keys in order");
             } finally {
                 AnimalsConfig.reset();
@@ -309,6 +322,72 @@ public final class AnimalsTests {
             h.assertTrue(raw.get(net.minecraft.core.component.DataComponents.FOOD).nutrition() == cod.get(net.minecraft.core.component.DataComponents.FOOD).nutrition()
                     && cooked.get(net.minecraft.core.component.DataComponents.FOOD).nutrition() == cookedCod.get(net.minecraft.core.component.DataComponents.FOOD).nutrition(),
                     "crab meat has the food value of cod (A12: no new food level)");
+            h.succeed();
+        });
+        ALL.put("boar_digs_truffles", h -> {
+            // IG31-20: a boar on stone cannot dig; on dirt a dig drops 1 to 2 truffles and changes no block.
+            Boar boar = quiet(h.spawn(AnimalsRegistry.BOAR, at(4, 4)));
+            h.assertTrue(boar.digTruffles(h.getLevel()) == 0, "stone: nothing to dig");
+            h.setBlock(new BlockPos(4, 0, 4), Blocks.DIRT);
+            h.runAfterDelay(5, () -> {
+                int dropped = boar.digTruffles(h.getLevel());
+                h.assertTrue(dropped >= 1 && dropped <= 2, "1 to 2 truffles, got " + dropped);
+                h.assertTrue(h.getBlockState(new BlockPos(4, 0, 4)).is(Blocks.DIRT), "the dirt stays");
+                h.assertItemEntityPresent(AnimalsRegistry.TRUFFLE, new BlockPos(4, 1, 4), 3.0);
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("boar_digs_truffles", 100);
+        ALL.put("boar_truffle_loot_table", h -> {
+            var table = h.getLevel().getServer().reloadableRegistries().getLootTable(Boar.TRUFFLE_TABLE);
+            int min = 99, max = 0;
+            for (int i = 0; i < 200; i++) {
+                int n = 0;
+                for (var stack : table.getRandomItems(new net.minecraft.world.level.storage.loot.LootParams.Builder(h.getLevel())
+                        .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.EMPTY))) {
+                    h.assertTrue(stack.is(AnimalsRegistry.TRUFFLE), "only truffles");
+                    n += stack.getCount();
+                }
+                min = Math.min(min, n);
+                max = Math.max(max, n);
+            }
+            h.assertTrue(min == 1 && max == 2, "always 1 to 2 truffles, saw " + min + ".." + max);
+            h.succeed();
+        });
+        ALL.put("boar_truffle_tick_and_switch", h -> {
+            // The dig attempt runs in the boar's own tick (every Boar.DIG_INTERVAL ticks); phase 1 switch off, phase 2 on.
+            AnimalsConfig.boarTruffleChance = 1.0;
+            AnimalsConfig.boarTruffles = false;
+            for (int x = 0; x < 16; x++) {
+                for (int z = 0; z < 16; z++) h.setBlock(new BlockPos(x, 0, z), Blocks.DIRT);
+            }
+            quiet(h.spawn(AnimalsRegistry.BOAR, at(8, 8)));
+            h.runAfterDelay(Boar.DIG_INTERVAL + 20, () -> {
+                if (truffles(h) != 0) {
+                    AnimalsConfig.reset();
+                    h.fail("switch off: no truffle");
+                }
+                AnimalsConfig.boarTruffles = true;
+            });
+            h.runAfterDelay(2 * Boar.DIG_INTERVAL + 40, () -> {
+                int found = truffles(h);
+                AnimalsConfig.reset();
+                h.assertTrue(found >= 1, "switch on, chance 1: the adult boar dug in its own tick");
+                h.succeed();
+            });
+        });
+        MAX_TICKS.put("boar_truffle_tick_and_switch", 2 * Boar.DIG_INTERVAL + 80);
+        ALL.put("truffle_soup", h -> {
+            var soup = new net.minecraft.world.item.ItemStack(AnimalsRegistry.TRUFFLE_SOUP);
+            var stew = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.MUSHROOM_STEW);
+            h.assertTrue(soup.get(net.minecraft.core.component.DataComponents.FOOD).nutrition() == stew.get(net.minecraft.core.component.DataComponents.FOOD).nutrition()
+                    && soup.getMaxStackSize() == 1, "soup feeds like mushroom stew (A12: no new food level)");
+            ServerPlayer p = player(h, 8, 8);
+            p.getFoodData().setFoodLevel(10);
+            var left = soup.finishUsingItem(h.getLevel(), p);
+            h.assertTrue(p.hasEffect(net.minecraft.world.effect.MobEffects.NIGHT_VISION), "short night vision");
+            h.assertTrue(p.getEffect(net.minecraft.world.effect.MobEffects.NIGHT_VISION).getDuration() <= 20 * 20, "at most 20 seconds");
+            h.assertTrue(left.is(net.minecraft.world.item.Items.BOWL), "the bowl comes back");
             h.succeed();
         });
         ALL.put("natural_spawn_never_touches_players_or_blocks", h -> {
