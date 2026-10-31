@@ -18,7 +18,7 @@ public final class AnimalsConfig {
     public static final String FILE = "simpleanimals-server.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("enabled", "spawnScale", "deer", "boar", "hedgehog", "crab", "zebra",
-            "boarAggression", "boarCloseSeconds", "hedgehogHuntRadius", "hedgehogHunts", "zorse");
+            "boarAggression", "boarCloseSeconds", "hedgehogHuntRadius", "hedgehogHunts", "hedgehogThorns", "zorse");
 
     public static final double SPAWN_DEFAULT = 1.0, SPAWN_MIN = 0.0, SPAWN_MAX = 1.0;
     public static final int CLOSE_DEFAULT = 6, CLOSE_MIN = 2, CLOSE_MAX = 30;
@@ -35,6 +35,8 @@ public final class AnimalsConfig {
     /** The hedgehog hunts silverfish within this many blocks. */
     public static int hedgehogHuntRadius = HUNT_DEFAULT;
     public static boolean hedgehogHunts = true;
+    /** A curled hedgehog pricks a melee attacker (50 %, 1 to 4 damage); off = it only takes half damage. */
+    public static boolean hedgehogThorns = true;
     /** Zebra x horse gives the infertile zorse; off = zebras and horses do not breed with each other. */
     public static boolean zorse = true;
 
@@ -68,6 +70,7 @@ public final class AnimalsConfig {
         boarCloseSeconds = (int) clamp(number(json, "boarCloseSeconds", CLOSE_DEFAULT), CLOSE_MIN, CLOSE_MAX);
         hedgehogHuntRadius = (int) clamp(number(json, "hedgehogHuntRadius", HUNT_DEFAULT), HUNT_MIN, HUNT_MAX);
         hedgehogHunts = bool(json, "hedgehogHunts", true);
+        hedgehogThorns = bool(json, "hedgehogThorns", true);
         zorse = bool(json, "zorse", true);
     }
 
@@ -84,6 +87,7 @@ public final class AnimalsConfig {
         o.addProperty("boarCloseSeconds", boarCloseSeconds);
         o.addProperty("hedgehogHuntRadius", hedgehogHuntRadius);
         o.addProperty("hedgehogHunts", hedgehogHunts);
+        o.addProperty("hedgehogThorns", hedgehogThorns);
         o.addProperty("zorse", zorse);
         return o;
     }

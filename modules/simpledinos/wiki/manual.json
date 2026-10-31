@@ -11,7 +11,7 @@
         "title": "Fossil block",
         "summary": "A very rare find in the underground of deserts, badlands and swamps. Mined with Silk Touch it stays a block; without it, it breaks into up to two bones and the find is lost. Brush it with the Vanilla brush: after about a minute of brushing, a dinosaur egg falls out.",
         "details": [
-          "Brushing fills a progress of 60 seconds (setting brushSeconds); ten visible stages show the bones coming out. If you stop for more than a quarter of a second, the progress runs back at twice the speed: a pause of 1 second takes 2 seconds of progress away.",
+          "Brushing fills a progress of 45 seconds (setting brushSeconds); ten visible stages show the bones coming out. If you stop for more than a quarter of a second, the progress runs back at twice the speed: a pause of 1 second takes 2 seconds of progress away.",
           "Which egg is inside follows from the block's position, so stopping and starting again never changes it. Stage 1 only holds T. rex eggs; the other four dinosaurs follow.",
           "Generation: one cluster of up to 3 blocks in roughly every fourth chunk of desert, badlands, swamp and mangrove swamp, height -10 to 50, in stone and sandstone. After brushing, a sandstone block is left, and sometimes a bone."
         ]
@@ -20,7 +20,7 @@
         "title": "Fossilienblock",
         "summary": "Ein sehr seltener Fund im Untergrund von Wüsten, Badlands und Sümpfen. Mit Behutsamkeit abgebaut bleibt er ein Block; ohne bricht er in bis zu zwei Knochen und der Fund geht verloren. Mit dem Vanilla-Pinsel freilegen: nach etwa einer Minute Pinseln fällt ein Dinosaurier-Ei heraus.",
         "details": [
-          "Das Pinseln füllt einen Fortschritt von 60 Sekunden (Einstellung brushSeconds); zehn sichtbare Stufen zeigen, wie die Knochen herauskommen. Hörst du länger als eine Viertelsekunde auf, läuft der Fortschritt doppelt so schnell zurück: 1 Sekunde Pause nimmt 2 Sekunden Fortschritt weg.",
+          "Das Pinseln füllt einen Fortschritt von 45 Sekunden (Einstellung brushSeconds); zehn sichtbare Stufen zeigen, wie die Knochen herauskommen. Hörst du länger als eine Viertelsekunde auf, läuft der Fortschritt doppelt so schnell zurück: 1 Sekunde Pause nimmt 2 Sekunden Fortschritt weg.",
           "Welches Ei drinsteckt, ergibt sich aus der Position des Blocks; Aufhören und Weitermachen ändert es nie. In Stufe 1 stecken nur T-Rex-Eier darin; die anderen vier Dinosaurier folgen.",
           "Generierung: ein Vorkommen von bis zu 3 Blöcken in etwa jedem vierten Chunk von Wüste, Badlands, Sumpf und Mangrovensumpf, Höhe -10 bis 50, in Stein und Sandstein. Nach dem Pinseln bleibt ein Sandsteinblock übrig, manchmal ein Knochen."
         ]
@@ -111,7 +111,7 @@
         "summary": "config/simpledinos-server.json, read at start; every number is clamped to a safe range.",
         "details": [
           "enabled (true): off hides the module's creative entries and its guide; fossil blocks, eggs and dinosaurs that exist keep working.",
-          "brushSeconds (60, 5 to 600): seconds of brushing that free a fossil. incubateSeconds (300, 10 to 3600): seconds of sitting that brood an egg. hatchSeconds (600, 10 to 7200): seconds from a brooded egg to the hatchling.",
+          "brushSeconds (45, 5 to 600): seconds of brushing that free a fossil. incubateSeconds (300, 10 to 3600): seconds of sitting that brood an egg. hatchSeconds (600, 10 to 7200): seconds from a brooded egg to the hatchling.",
           "growMinutes (40, 1 to 600): minutes a hatchling needs to grow up. trexBiteDamage (10, 1 to 40): bite damage of an adult T. rex.",
           "With SimpleBuilding the switch Enable Simple Dinosaurs in its config turns the bundled module on or off."
         ]
@@ -121,7 +121,7 @@
         "summary": "config/simpledinos-server.json, beim Start gelesen; jede Zahl wird auf einen sicheren Bereich begrenzt.",
         "details": [
           "enabled (true): aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Fossilienblöcke, Eier und Dinosaurier funktionieren weiter.",
-          "brushSeconds (60, 5 bis 600): Sekunden Pinseln, die einen Fund freilegen. incubateSeconds (300, 10 bis 3600): Sekunden Sitzen, die ein Ei ausbrüten. hatchSeconds (600, 10 bis 7200): Sekunden vom bebrüteten Ei bis zum Jungtier.",
+          "brushSeconds (45, 5 bis 600): Sekunden Pinseln, die einen Fund freilegen. incubateSeconds (300, 10 bis 3600): Sekunden Sitzen, die ein Ei ausbrüten. hatchSeconds (600, 10 bis 7200): Sekunden vom bebrüteten Ei bis zum Jungtier.",
           "growMinutes (40, 1 bis 600): Minuten, die ein Jungtier zum Erwachsenwerden braucht. trexBiteDamage (10, 1 bis 40): Bissschaden eines erwachsenen T-Rex.",
           "Mit SimpleBuilding schaltet der Schalter Simple Dinosaurs aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]

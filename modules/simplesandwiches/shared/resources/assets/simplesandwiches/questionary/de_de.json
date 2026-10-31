@@ -4,10 +4,10 @@
       "Brot, das ein Eigenleben bekam, und dann eine Füllung."
     ],
     "use": [
-      "Auf dem Schneidebrett gebaut: ein Brot plus bis zu fünf Zutaten, zuerst Butter für +10 %. Hunger und Sättigung addieren sich; Essen dauert 1,6 s plus 0,2 s je Zutat. Gleiche stapeln bis 16."
+      "Auf dem Schneidebrett gebaut: ein Brot plus bis zu fünf Zutaten, zuerst Butter für +10 %. Hunger und Sättigung: beste Zutat voll, die übrigen bringen 10 %, 5 %, 2,5 % ... ihres Werts (Sättigung höchstens 1,2 x Hunger); Essen dauert 1,6 s plus 0,2 s je Zutat. Gleiche stapeln bis 16."
     ],
     "secret": [
-      "Effekte gleicher Zutaten verschmelzen: höchste Stufe, summierte Dauer. Butter verlängert sie, begrenzt auf das Doppelte der längsten."
+      "Effekte gleicher Zutaten verschmelzen: höchste Stufe, längste Dauer (nicht addiert). Butter verlängert sie."
     ]
   },
   "knife": {

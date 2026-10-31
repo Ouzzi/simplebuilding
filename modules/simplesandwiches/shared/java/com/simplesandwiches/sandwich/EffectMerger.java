@@ -17,10 +17,9 @@ import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.consume_effects.RemoveStatusEffectsConsumeEffect;
 
 /**
- * Owner decision F3 = B: the same effect from several ingredients becomes one effect. Strength is
- * the maximum, durations add up (at most {@code effectDurationMultiplierCap} times the longest
- * single duration and at most {@code effectDurationCapTicks}), and the chance is combined
- * {@code 1 - prod(1 - p)}. Butter multiplies the summed duration before the caps. Removal effects
+ * The same effect from several ingredients becomes one effect. Strength is the maximum, the duration
+ * is the longest single one (IG31-28: durations no longer add up; at most {@code effectDurationCapTicks}),
+ * and the chance is combined {@code 1 - prod(1 - p)}. Butter multiplies the duration before the caps. Removal effects
  * are kept once; teleport and sound effects are dropped.
  */
 public final class EffectMerger {
@@ -63,7 +62,7 @@ public final class EffectMerger {
         if (!removals.isEmpty()) out.add(new RemoveStatusEffectsConsumeEffect(HolderSet.direct(List.copyOf(removals))));
         for (var e : merged.entrySet()) {
             Acc acc = e.getValue();
-            int duration = cappedDuration(acc.sum, acc.longest, durationFactor, e.getKey().value().isInstantaneous());
+            int duration = cappedDuration(acc.longest, acc.longest, durationFactor, e.getKey().value().isInstantaneous());
             float probability = (float) Math.max(0.0, Math.min(1.0, 1.0 - acc.miss));
             if (probability <= 0.0F) continue;
             out.add(new ApplyStatusEffectsConsumeEffect(
@@ -72,7 +71,7 @@ public final class EffectMerger {
         return List.copyOf(out);
     }
 
-    /** Sum times the butter factor, capped at multiplier x longest and at the absolute tick cap. */
+    /** Duration times the butter factor, capped at multiplier x longest and at the absolute tick cap. */
     public static int cappedDuration(long sum, int longest, double factor, boolean instant) {
         if (instant) return 1;
         double scaled = sum * Math.max(1.0, factor);

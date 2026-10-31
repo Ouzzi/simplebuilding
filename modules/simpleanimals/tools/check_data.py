@@ -11,7 +11,7 @@ JAVA = MODULE / 'shared/java/com/simpleanimals'
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/AnimalsConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'spawnScale', 'deer', 'boar', 'hedgehog', 'crab', 'zebra', 'boarAggression', 'boarCloseSeconds',
-                       'hedgehogHuntRadius', 'hedgehogHunts', 'zorse'], config_keys
+                       'hedgehogHuntRadius', 'hedgehogHunts', 'hedgehogThorns', 'zorse'], config_keys
 ANIMALS = ('deer', 'boar', 'hedgehog', 'crab', 'zebra', 'zorse')
 EGGS = ('deer_spawn_egg', 'boar_spawn_egg', 'hedgehog_spawn_egg', 'crab_spawn_egg', 'zebra_spawn_egg')
 ITEMS = EGGS + ('raw_crab', 'cooked_crab', 'guide_book')
