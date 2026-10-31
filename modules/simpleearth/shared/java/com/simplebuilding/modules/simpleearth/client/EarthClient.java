@@ -16,11 +16,13 @@ import net.minecraft.client.player.LocalPlayer;
 /**
  * Client side of Simple Earth: the orbit state from the server (centre A fixed, the player flies freely - WG26-1), the
  * chosen version's view and the menu key (IG31-33, owner 31.10.: the menu opens only with the key, no pause-menu button).
- * Key O ("orbit"): free in Vanilla (L/P are the neighbouring menu keys) and in the mod family (H, K, B, I, R taken); none of
- * the big map mods binds it by default (JourneyMap J, Xaero Y/U/B).
+ * Key N (IG31-33 follow-up, 31.10.): O was taken - 26.3 binds Vanilla's friends list (key.friends) to O, and that mapping
+ * won the click, so O never opened the earth. N is free in Vanilla 26.3 (only F3+N, a debug combination) and in the mod
+ * family (A, B, C, H, I, K, R, U taken); the big map mods use other keys (JourneyMap J, Xaero Y/U/B/M). The mapping has a
+ * new name ({@code key.simpleearth.menu}) so options saved with the old O binding do not keep the clash.
  */
 public final class EarthClient {
-    public static final KeyMapping KEY = new KeyMapping("key.simpleearth.open", InputConstants.KEY_O,
+    public static final KeyMapping KEY = new KeyMapping("key.simpleearth.menu", InputConstants.KEY_N,
             KeyMapping.Category.register(SimpleEarth.id("general")));
 
     static boolean enabled, active, parked;

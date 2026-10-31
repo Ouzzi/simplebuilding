@@ -108,10 +108,10 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(40);
             context.takeScreenshot("simpleearth-mid-v6");
             pauseHasNoEarthButton(context);
-            // IG31-33: the menu opens with the real key mapping (key O), no button in the pause menu any more
+            // IG31-33: the menu opens with the real key mapping (key N; O clashed with Vanilla's friends key), no button in the pause menu any more
             context.getInput().pressKey(EarthClient.KEY);
             context.waitTicks(10);
-            check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "key O opens the earth menu");
+            check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "key N opens the earth menu");
             context.takeScreenshot("simpleearth-menu");
             menu(context);
             // WF25-2: the owner's window (1920 x 1177, GUI scale auto = 4) and GUI scale 2, clicking while walking forward
@@ -459,7 +459,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
 
-    /** IG31-33 (owner 31.10.): the pause menu carries no Earth button (the menu opens only with key O). */
+    /** IG31-33 (owner 31.10.): the pause menu carries no Earth button (the menu opens only with key N). */
     private static void pauseHasNoEarthButton(ClientGameTestContext context) {
         context.runOnClient(mc -> mc.pauseGame(false));
         context.waitTicks(5);
