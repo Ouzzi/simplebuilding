@@ -60,9 +60,11 @@ assets/simplebuilding/items/blaze_head.json
 assets/simplebuilding/items/bogged_skull.json
 assets/simplebuilding/items/breeze_head.json
 assets/simplebuilding/items/cave_spider_head.json
+assets/simplebuilding/items/copper_core.json
 assets/simplebuilding/items/copper_sledgehammer.json
 assets/simplebuilding/items/cracked_diamond.json
 assets/simplebuilding/items/cracked_diamond_block.json
+assets/simplebuilding/items/diamond_core.json
 assets/simplebuilding/items/diamond_pebble.json
 assets/simplebuilding/items/diamond_sledgehammer.json
 assets/simplebuilding/items/drowned_head.json
@@ -72,6 +74,7 @@ assets/simplebuilding/items/enderite_blast_furnace.json
 assets/simplebuilding/items/enderite_block.json
 assets/simplebuilding/items/enderite_bundle.json
 assets/simplebuilding/items/enderite_chest.json
+assets/simplebuilding/items/enderite_core.json
 assets/simplebuilding/items/enderite_furnace.json
 assets/simplebuilding/items/enderite_ingot.json
 assets/simplebuilding/items/enderite_nugget.json
@@ -83,6 +86,7 @@ assets/simplebuilding/items/enderite_smoker.json
 assets/simplebuilding/items/enderite_upgrade_template.json
 assets/simplebuilding/items/enderman_head.json
 assets/simplebuilding/items/glowing_trim_template.json
+assets/simplebuilding/items/gold_core.json
 assets/simplebuilding/items/gold_sledgehammer.json
 assets/simplebuilding/items/guide_book_admin.json
 assets/simplebuilding/items/guide_book_building.json
@@ -95,6 +99,7 @@ assets/simplebuilding/items/guide_book_tools.json
 assets/simplebuilding/items/guide_book_trims.json
 assets/simplebuilding/items/guide_book_tweaks.json
 assets/simplebuilding/items/husk_head.json
+assets/simplebuilding/items/iron_core.json
 assets/simplebuilding/items/iron_sledgehammer.json
 assets/simplebuilding/items/layered_raw_enderite.json
 assets/simplebuilding/items/leather_sheet.json
@@ -104,6 +109,7 @@ assets/simplebuilding/items/netherite_backpack.json
 assets/simplebuilding/items/netherite_blast_furnace.json
 assets/simplebuilding/items/netherite_bundle.json
 assets/simplebuilding/items/netherite_chest.json
+assets/simplebuilding/items/netherite_core.json
 assets/simplebuilding/items/netherite_furnace.json
 assets/simplebuilding/items/netherite_nugget.json
 assets/simplebuilding/items/netherite_quiver.json
@@ -189,8 +195,10 @@ assets/simplebuilding/models/item/amethyst_lens_empty.json
 assets/simplebuilding/models/item/backpack.json
 assets/simplebuilding/models/item/backpack_dyed.json
 assets/simplebuilding/models/item/basic_upgrade_template.json
+assets/simplebuilding/models/item/copper_core.json
 assets/simplebuilding/models/item/copper_sledgehammer.json
 assets/simplebuilding/models/item/cracked_diamond.json
+assets/simplebuilding/models/item/diamond_core.json
 assets/simplebuilding/models/item/diamond_pebble.json
 assets/simplebuilding/models/item/diamond_sledgehammer.json
 assets/simplebuilding/models/item/emitting_trim_template.json
@@ -202,6 +210,7 @@ assets/simplebuilding/models/item/enderite_bundle_open_back.json
 assets/simplebuilding/models/item/enderite_bundle_open_back_dyed.json
 assets/simplebuilding/models/item/enderite_bundle_open_front.json
 assets/simplebuilding/models/item/enderite_bundle_open_front_dyed.json
+assets/simplebuilding/models/item/enderite_core.json
 assets/simplebuilding/models/item/enderite_ingot.json
 assets/simplebuilding/models/item/enderite_nugget.json
 assets/simplebuilding/models/item/enderite_quiver.json
@@ -211,6 +220,7 @@ assets/simplebuilding/models/item/enderite_shulker_box.json
 assets/simplebuilding/models/item/enderite_sledgehammer.json
 assets/simplebuilding/models/item/enderite_upgrade_template.json
 assets/simplebuilding/models/item/glowing_trim_template.json
+assets/simplebuilding/models/item/gold_core.json
 assets/simplebuilding/models/item/gold_sledgehammer.json
 assets/simplebuilding/models/item/guide_book_admin.json
 assets/simplebuilding/models/item/guide_book_building.json
@@ -222,6 +232,7 @@ assets/simplebuilding/models/item/guide_book_storage.json
 assets/simplebuilding/models/item/guide_book_tools.json
 assets/simplebuilding/models/item/guide_book_trims.json
 assets/simplebuilding/models/item/guide_book_tweaks.json
+assets/simplebuilding/models/item/iron_core.json
 assets/simplebuilding/models/item/iron_sledgehammer.json
 assets/simplebuilding/models/item/layered_raw_enderite.json
 assets/simplebuilding/models/item/leather_sheet.json
@@ -233,6 +244,7 @@ assets/simplebuilding/models/item/netherite_bundle_open_back.json
 assets/simplebuilding/models/item/netherite_bundle_open_back_dyed.json
 assets/simplebuilding/models/item/netherite_bundle_open_front.json
 assets/simplebuilding/models/item/netherite_bundle_open_front_dyed.json
+assets/simplebuilding/models/item/netherite_core.json
 assets/simplebuilding/models/item/netherite_nugget.json
 assets/simplebuilding/models/item/netherite_quiver.json
 assets/simplebuilding/models/item/netherite_quiver_dyed.json

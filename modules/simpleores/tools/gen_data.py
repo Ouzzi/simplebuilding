@@ -49,6 +49,29 @@ for a, (en, de) in ALLOYS.items():
 TOOL_PARTS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
 ARMOR_PARTS = ('helmet', 'chestplate', 'leggings', 'boots')
 
+# IG31-13 (31.10.): moved here with their hand-made models, textures, loot tables and worldgen (files moved, not generated here);
+# this script only writes their names, tags and wiki notes. Enderite was SimpleLib's, scrap and sage ore SimpleBuilding's.
+MOVED_BLOCKS = {
+    'enderite_block': ('Block of Enderite', 'Enderitblock'),
+    'sage_ore': ('Sage Ore', 'Weisheitserz'), 'deepslate_sage_ore': ('Deepslate Sage Ore', 'Tiefenschiefer-Weisheitserz'),
+    'dimensional_scrap': ('Dimensional Scrap', 'Dimensionsschrott'), 'nether_dimensional_scrap': ('Nether Dimensional Scrap', 'Nether-Dimensionsschrott'),
+    'end_dimensional_scrap': ('End Dimensional Scrap', 'End-Dimensionsschrott'),
+}
+MOVED_ITEMS = {
+    'raw_enderite': ('Raw Enderite Fragment', 'Rohes Enderitfragment'), 'layered_raw_enderite': ('Raw Enderite Scrap', 'Rohe Enderitplatten'),
+    'enderite_scrap': ('Enderite Scrap', 'Enderitplatten'), 'enderite_nugget': ('Enderite Nugget', 'Enderitklumpen'),
+    'enderite_ingot': ('Enderite Ingot', 'Enderitbarren'), 'enderite_upgrade_template': ('Enderite Upgrade', 'Enderit-Aufwertung'),
+    'sage_orb': ('Sage Orb', 'Weisheitskugel'),
+}
+TEMPLATE_TEXTS = {
+    'applies_to': ('Netherite Equipment and Blocks', 'Netherit-Ausrüstung und -Blöcke'),
+    'ingredients': ('Enderite Ingots, Cores or Recipe-Specific Materials', 'Enderitbarren, Kerne oder rezeptabhängige Materialien'),
+    'base_slot_description': ('Add equipment or a block to upgrade', 'Ausrüstung oder Block zum Aufwerten hinzufügen'),
+    'additions_slot_description': ('Add the material required by the recipe', 'Das im Rezept benötigte Material hinzufügen'),
+}
+SCRAPS = ['dimensional_scrap', 'nether_dimensional_scrap', 'end_dimensional_scrap']
+SAGE_ORES = ['sage_ore', 'deepslate_sage_ore']
+
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
     if path == 'silver_mirror':
@@ -230,9 +253,28 @@ for a in ALLOYS:
     tag(f'{NS}/tags/item/repairs_{a}_equipment.json', ids([f'{a}_ingot']))
 tag('c/tags/item/ingots/rosegold.json', ids([f'{a}_ingot' for a in ALLOYS]))
 every = list(BLOCKS)
-tag('minecraft/tags/block/mineable/pickaxe.json', ids(every))
+tag('minecraft/tags/block/mineable/pickaxe.json', ids(every + list(MOVED_BLOCKS)))
 STONE_TIER = ['lead_ore', 'deepslate_lead_ore', 'raw_lead_block']   # like Vanilla iron and copper ore
-tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror']))
+tag('minecraft/tags/block/needs_iron_tool.json', ids([b for b in every if b not in STONE_TIER and b != 'silver_mirror'] + SAGE_ORES))
+# IG31-13: Enderite block like the netherite block (diamond tool, beacon base); the scrap needs a diamond tier and survives the Wither
+# and the dragon (only Enderite tools make progress: simpleores:breaks_dimensional_scrap, partners named with required false).
+tag('minecraft/tags/block/needs_diamond_tool.json', ids(['enderite_block'] + SCRAPS))
+tag('minecraft/tags/block/beacon_base_blocks.json', ids(['enderite_block']))
+tag('minecraft/tags/block/wither_immune.json', ids(SCRAPS))
+tag('minecraft/tags/block/dragon_immune.json', ids(SCRAPS))
+tag(f'{NS}/tags/item/breaks_dimensional_scrap.json', [{'id': 'simplebuilding:enderite_pickaxe', 'required': False},
+                                                     {'id': 'simplehammers:enderite_sledgehammer', 'required': False}])
+for kind in ('block', 'item'):
+    tag(f'c/tags/{kind}/storage_blocks/enderite.json', ids(['enderite_block']))
+    tag(f'c/tags/{kind}/ores/sage.json', ids(SAGE_ORES))
+tag('c/tags/item/ingots/enderite.json', ids(['enderite_ingot']))
+tag('c/tags/item/nuggets/enderite.json', ids(['enderite_nugget']))
+tag('c/tags/item/raw_materials/enderite.json', ids(['raw_enderite']))
+tag('c/tags/item/ingots.json', ['#c:ingots/enderite'])
+tag('c/tags/item/nuggets.json', ['#c:nuggets/enderite'])
+tag('c/tags/item/raw_materials.json', ['#c:raw_materials/enderite'])
+for kind in ('block', 'item'):
+    tag(f'c/tags/{kind}/storage_blocks.json', ['#c:storage_blocks/enderite'])
 tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER))
 # Lead keeps the Sculk and the Warden from hearing through it like wool, but is NOT in dampens_vibrations: steps and mining on it stay loud.
 tag('minecraft/tags/block/occludes_vibration_signals.json', ids(['lead_block']))
@@ -287,7 +329,8 @@ put(DATA / 'neoforge/biome_modifier/end_silver_ore.json', {'type': 'neoforge:add
                                                            'features': item('end_silver_ore'), 'step': 'underground_ores'})
 
 # Config texts (A11: text.autoconfig.<mod>.option.<field> + .@Tooltip, "Default:"/"Standard:" in the tooltip), one row per option of OresConfig.KEYS.
-CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and soundproofing', 'Blei und Schalldämmung'), 'silver': ('Silver', 'Silber')}
+CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and soundproofing', 'Blei und Schalldämmung'), 'silver': ('Silver', 'Silber'),
+                     'materials': ('Sage Ore and Dimensional Scrap', 'Weisheitserz und Dimensionsschrott')}
 CONFIG_OPTIONS = {
     'enabled': ('general', ('Enable Simple Ores', 'Simple Ores aktivieren'),
                 ('Off stops new silver and lead veins and hides the creative entries; existing blocks and items keep working.\nDefault: true.',
@@ -304,6 +347,12 @@ CONFIG_OPTIONS = {
     'soundproofRecords': ('lead', ('Muffle records too', 'Schallplatten mitdämpfen'),
                           ('Records and music devices are muffled by lead walls as well.\nDefault: false.',
                            'Schallplatten und Musikgeräte werden von Bleiwänden ebenfalls gedämpft.\nStandard: false.')),
+    'sageOre': ('materials', ('Sage Ore', 'Weisheitserz'),
+                ('Off: no new Sage Ore in the Overworld. Takes effect at the next world start in newly generated chunks.\nDefault: true.',
+                 'Aus: kein neues Weisheitserz in der Oberwelt. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
+    'dimensionalScrap': ('materials', ('Dimensional Scrap', 'Dimensionsschrott'),
+                         ('Off: no new Dimensional Scrap in any dimension. Takes effect at the next world start in newly generated chunks.\nDefault: true.',
+                          'Aus: kein neuer Dimensionsschrott in allen Dimensionen. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
     'silverArrowUndeadBonus': ('silver', ('Silver arrow bonus against undead', 'Silberpfeil-Bonus gegen Untote'),
                                ('Extra damage of a silver arrow against undead mobs (zombies, skeletons, ...). 0 = like a normal arrow. Range 0 to 6.\nDefault: 3.',
                                 'Zusatzschaden eines Silberpfeils gegen Untote (Zombies, Skelette, ...). 0 = wie ein normaler Pfeil. Bereich 0 bis 6.\nStandard: 3.')),
@@ -314,6 +363,9 @@ def lang(locale):
     i = 0 if locale == 'en_us' else 1
     out = {f'block.{NS}.{p}': n[i] for p, n in BLOCKS.items()}
     out.update({f'item.{NS}.{p}': n[i] for p, n in ITEMS.items()})
+    out.update({f'block.{NS}.{p}': n[i] for p, n in MOVED_BLOCKS.items()})
+    out.update({f'item.{NS}.{p}': n[i] for p, n in MOVED_ITEMS.items()})
+    out.update({f'item.{NS}.enderite_upgrade_template.{k}': t[i] for k, t in TEMPLATE_TEXTS.items()})
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
     out[f'entity.{NS}.silver_arrow'] = ('Silver Arrow', 'Silberpfeil')[i]
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
@@ -364,6 +416,33 @@ def note_summaries():
         else:
             notes[f'block:{p}'] = (f'{en}: nine ingots (or raw pieces) in a block, craftable both ways.',
                                    f'{de}: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar.')
+    # IG31-13: the moved materials (numbers as before the move).
+    notes['block:enderite_block'] = ('Nine Enderite ingots; craftable both ways. Needs a diamond pickaxe, a beacon base block.',
+                                     'Neun Enderitbarren; in beide Richtungen herstellbar. Braucht eine Diamantspitzhacke, Leuchtfeuer-Sockelblock.')
+    for p in SAGE_ORES:
+        twin = p == 'deepslate_sage_ore'
+        notes[f'block:{p}'] = ((('The deepslate twin of the sage ore. ' if twin else 'Generates in the Overworld as rarely as diamond ore (7 tries per chunk, veins of 4). ')
+                                + 'Needs an iron pickaxe. Drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune); Silk Touch keeps the ore.'),
+                               (('Der Tiefenschiefer-Zwilling des Weisheitserzes. ' if twin else 'Entsteht in der Oberwelt so selten wie Diamanterz (7 Versuche je Chunk, Adern zu 4). ')
+                                + 'Braucht eine Eisenspitzhacke. Lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %); Behutsamkeit behält das Erz.'))
+    for p, (where_en, where_de) in (('dimensional_scrap', ('deep in the deepslate of the Overworld', 'tief im Tiefenschiefer der Oberwelt')),
+                                    ('nether_dimensional_scrap', ('in the Nether like ancient debris', 'im Nether wie Antiker Schrott')),
+                                    ('end_dimensional_scrap', ('inside the End islands', 'im Inneren der End-Inseln'))):
+        notes[f'block:{p}'] = (f'Found {where_en}, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet.',
+                               f'Zu finden {where_de}, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen.')
+    notes['item:raw_enderite'] = ('A fragment of Enderite from End city treasure (or SimpleBuilding\'s synthesis). Four make a raw Enderite scrap.',
+                                  'Ein Bruchstück Enderit aus Endstadt-Truhen (oder der Synthese von SimpleBuilding). Vier ergeben rohe Enderitplatten.')
+    notes['item:layered_raw_enderite'] = ('Four raw Enderite fragments pressed together. Only a blast furnace melts it into Enderite scrap (2 h in a Vanilla blast furnace).',
+                                          'Vier rohe Enderitfragmente, zusammengepresst. Nur der Hochofen schmilzt sie zu Enderitplatten (2 h im Vanilla-Hochofen).')
+    notes['item:enderite_scrap'] = ('Four scrap, four diamonds and a netherite ingot make an Enderite ingot. Also found in End city treasure (15 %).',
+                                    'Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Auch in Endstadt-Truhen (15 %).')
+    notes['item:enderite_nugget'] = ('Nine make an Enderite ingot; an ingot gives nine. Found in End city treasure.', 'Neun ergeben einen Enderitbarren; ein Barren gibt neun. In Endstadt-Truhen zu finden.')
+    notes['item:enderite_ingot'] = ('The tier above netherite: the material of every Enderite variant of the Simple mods (they appear only with Simple Ores). Nine make a block.',
+                                    'Die Stufe über Netherit: das Material jeder Enderit-Variante der Simple-Mods (sie erscheinen nur mit Simple Ores). Neun ergeben einen Block.')
+    notes['item:enderite_upgrade_template'] = ('Smithing template of the Netherite to Enderite upgrades. Found in End city treasure (30 %); 7 diamonds and an End stone copy it (2).',
+                                               'Schmiedevorlage der Aufwertungen von Netherit zu Enderit. In Endstadt-Truhen (30 %); 7 Diamanten und ein Endstein kopieren sie (2).')
+    notes['item:sage_orb'] = ('Rare drop of sage ore. Right-click charges it for 0.3 seconds, then it gives 50 to 100 experience and is used up.',
+                              'Seltener Drop des Weisheitserzes. Rechtsklick lädt sie 0,3 Sekunden, dann gibt sie 50 bis 100 Erfahrung und ist verbraucht.')
     notes['item:raw_lead'] = ('Mined from lead ore; smelt it in a furnace or blast furnace for a lead ingot.', 'Aus Bleierz gewonnen; im Ofen oder Hochofen zum Bleibarren schmelzen.')
     notes['item:lead_ingot'] = ('Lead ingot: nine make a block of lead. The leash item keeps its name Lead.', 'Bleibarren: neun ergeben einen Bleiblock. Die Leine behält ihren Namen Leine.')
     notes['item:lead_nugget'] = ('Nine make a lead ingot.', 'Neun ergeben einen Bleibarren.')
@@ -469,16 +548,37 @@ FEATURES = [
              ['Recipe: 4 silver ingots around a glass pane. The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration.']),
             ('Silberspiegel', 'Eine Wanddekoration aus Silber und Glas.',
              ['Rezept: 4 Silberbarren um eine Glasscheibe. Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration.'])),
+    feature('enderite', [f'{JAVA}/OresRegistry.java', f'{JAVA}/OresLoot.java', f'{DATAP}/recipe/enderite_ingot_from_scrap.json'],
+            ('Enderite', 'The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.',
+             ['On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.',
+              'Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.',
+              'Other mods ask for Enderite through SimpleLib (it is "provided" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them.']),
+            ('Enderit', 'Die Stufe über Netherit (von SimpleLib hierher umgezogen, IG31-13). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.',
+             ['Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.',
+              'Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.',
+              'Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie.'])),
+    feature('sage_and_scrap', [f'{JAVA}/OresRegistry.java', f'{JAVA}/block/DimensionalScrapBlock.java', f'{JAVA}/item/SageOrbItem.java',
+                               f'{DATAP}/worldgen/placed_feature/sage_ore_placed.json', f'{DATAP}/worldgen/placed_feature/dimensional_scrap_placed.json'],
+            ('Sage Ore and Dimensional Scrap', 'Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.',
+             ['Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.',
+              'Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding\'s pickaxe, Simple Hammers\' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. No recipe yet.',
+              'Switches sageOre and dimensionalScrap (server config) stop new veins; existing blocks stay.']),
+            ('Weisheitserz und Dimensionsschrott', 'Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.',
+             ['Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.',
+              'Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Noch kein Rezept.',
+              'Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben.'])),
     feature('config_server', [f'{JAVA}/config/OresConfig.java'],
             ('Server settings', 'config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.',
              ['enabled (true): off stops new silver and lead veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
               'silverArrowUndeadBonus (3, range 0 to 6): extra damage of a silver arrow against undead, 0 = off.',
+              'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
              ['enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
               'silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus.',
+              'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),
 ]
 put(MODULE / 'wiki/manual.json', manual())

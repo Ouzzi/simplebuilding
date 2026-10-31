@@ -1,8 +1,5 @@
 {
   "values": [
-    "simplebuilding:dimensional_scrap",
-    "simplebuilding:nether_dimensional_scrap",
-    "simplebuilding:end_dimensional_scrap",
     "simplebuilding:netherite_pole",
     "simplebuilding:enderite_pole",
     "simplebuilding:blazing_obsidian",
@@ -10,6 +7,6 @@
     "simplebuilding:dull_nihilith_ore",
     "simplebuilding:nihilith_ore",
     "simplebuilding:astralit_ore",
-    "simplelib:enderite_block"
+    "simpleores:enderite_block"
   ]
 }

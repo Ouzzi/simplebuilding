@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:iron_core"
+            "items": "simplelib:iron_core"
           }
         ]
       },

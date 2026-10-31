@@ -41,9 +41,11 @@ class RecipeProseTests(unittest.TestCase):
         lib = ROOT / 'modules/simplelib/generated/resources/data/simplelib/recipe'
         for template, block in bases.items():
             filename = template + ('_duplication' if template.endswith('_trim_template') else '') + '.json'
-            namespace = 'simpletrims' if template.endswith('_trim_template') else 'simplelib'
+            # IG31-13: the Enderite upgrade template belongs to Simple Ores.
+            namespace = 'simpletrims' if template.endswith('_trim_template') else 'simpleores' if template.startswith('enderite') else 'simplelib'
             with self.subTest(template=template):
-                path = directory / filename if namespace == 'simpletrims' else lib / filename
+                ores = ROOT / 'modules/simpleores/shared/resources/data/simpleores/recipe'
+                path = directory / filename if namespace == 'simpletrims' else ores / filename if namespace == 'simpleores' else lib / filename
                 recipe = json.loads(path.read_text(encoding='utf-8'))
                 counts = Counter(recipe['key'][symbol] for row in recipe['pattern'] for symbol in row)
                 self.assertEqual(counts, Counter({'minecraft:diamond': 7, 'minecraft:' + block: 1,

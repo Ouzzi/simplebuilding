@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_scrap"
+            "items": "simpleores:enderite_scrap"
           }
         ]
       },
@@ -17,7 +17,7 @@
       "translate": "advancements.simplebuilding.enderite.patience_is_a_virtue.description"
     },
     "icon": {
-      "id": "simplelib:enderite_scrap"
+      "id": "simpleores:enderite_scrap"
     },
     "title": {
       "translate": "advancements.simplebuilding.enderite.patience_is_a_virtue.title"

@@ -17,7 +17,8 @@ import java.util.List;
 public final class OresConfig {
     public static final String FILE = "simpleores-server.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus");
+    public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus",
+            "sageOre", "dimensionalScrap");
 
     public static boolean enabled = true;
     /** Lead walls muffle world sounds (concept ORES31 section 3). */
@@ -30,6 +31,10 @@ public final class OresConfig {
     public static boolean soundproofRecords = false;
     /** Extra damage of a silver arrow against #minecraft:undead, 0 = Vanilla arrow damage (0 to 6). */
     public static int silverArrowUndeadBonus = 3;
+    /** IG31-13: new veins of Sage Ore in the Overworld (moved from SimpleBuilding with its ore). */
+    public static boolean sageOre = true;
+    /** IG31-13: new Dimensional Scrap in all three dimensions (moved from SimpleBuilding). */
+    public static boolean dimensionalScrap = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -56,6 +61,8 @@ public final class OresConfig {
         soundproofThreshold = number(json, "soundproofThreshold", 0.05, 0.01, 0.3);
         soundproofRecords = bool(json, "soundproofRecords", false);
         silverArrowUndeadBonus = (int) Math.round(number(json, "silverArrowUndeadBonus", 3, 0, 6));
+        sageOre = bool(json, "sageOre", true);
+        dimensionalScrap = bool(json, "dimensionalScrap", true);
     }
 
     private static boolean bool(JsonObject json, String key, boolean fallback) {
@@ -77,6 +84,8 @@ public final class OresConfig {
         o.addProperty("soundproofThreshold", soundproofThreshold);
         o.addProperty("soundproofRecords", soundproofRecords);
         o.addProperty("silverArrowUndeadBonus", silverArrowUndeadBonus);
+        o.addProperty("sageOre", sageOre);
+        o.addProperty("dimensionalScrap", dimensionalScrap);
         return o;
     }
 

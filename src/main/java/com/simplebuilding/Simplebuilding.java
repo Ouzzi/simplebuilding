@@ -53,6 +53,9 @@ public class Simplebuilding implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        // IG31-13 (26.3): ModItems/ModBlocks point at Simple Ores' Enderite, scrap and sage ore, so the required sub-mod registers
+        // first. Fabric does not order initializers by dependency; its own later call returns (OresFabric guards). 26.2: no such mod.
+        initializeFirst("simpleores");
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.
@@ -67,6 +70,13 @@ public class Simplebuilding implements ModInitializer {
         }
         LOGGER.info("Starting Simplebuilding initialization...");
         LOGGER.info(SimplebuildingBootstrap.initialize(SimplebuildingLoader.FABRIC, buildStartupPlan()));
+    }
+
+    /** Runs the {@code main} initializers of {@code modId} now (no class import; the sub-mod guards against the loader's second call). */
+    private static void initializeFirst(String modId) {
+        for (var container : FabricLoader.getInstance().getEntrypointContainers("main", net.fabricmc.api.ModInitializer.class)) {
+            if (modId.equals(container.getProvider().getMetadata().getId())) container.getEntrypoint().onInitialize();
+        }
     }
 
     private SimplebuildingStartupPlan buildStartupPlan() {

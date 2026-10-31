@@ -95,8 +95,8 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
-            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus"))
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18 + 6 + 7, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus", "sageOre", "dimensionalScrap"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     && OresConfig.silverArrowUndeadBonus == 3, "config defaults");
             h.succeed();

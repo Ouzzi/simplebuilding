@@ -905,7 +905,10 @@ public final class CrucibleTests {
         check(h, com.simplelib.api.InWorldUpgrades.isLoaded(), "SimpleLib's in-world upgrade table is loaded");
         net.minecraft.world.item.Item cracked = com.simplelib.api.SimpleLibApi.materialItem("cracked_diamond");
         net.minecraft.world.item.Item netherite = com.simplelib.api.SimpleLibApi.materialItem("netherite_nugget");
-        net.minecraft.world.item.Item enderite = com.simplelib.api.SimpleLibApi.materialItem("enderite_nugget");
+        // IG31-13: the Enderite nugget is Simple Ores' (by id); without it the Enderite steps are left out of the table.
+        boolean ores = com.simplelib.api.SimpleLibApi.materialPresent("enderite");
+        net.minecraft.world.item.Item enderite = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_nugget"));
         Object[][] steps = {
                 {Blocks.CAULDRON, CrucibleBlocks.REINFORCED_CAULDRON, cracked},
                 {CrucibleBlocks.IRON_CRUCIBLE, CrucibleBlocks.REINFORCED_CRUCIBLE, cracked},
@@ -916,6 +919,10 @@ public final class CrucibleTests {
                 {CrucibleBlocks.NETHERITE_BARREL, CrucibleBlocks.ENDERITE_BARREL, enderite}};
         for (Object[] step : steps) {
             var entry = com.simplelib.api.InWorldUpgrades.entryFor((net.minecraft.world.level.block.Block) step[0]);
+            if (step[2] == enderite && !ores) {
+                check(h, entry == null, "without Simple Ores no Enderite step from " + step[0] + ": " + entry);
+                continue;
+            }
             check(h, entry != null && entry.to() == step[1] && entry.material() == step[2],
                     "upgrade step from " + step[0] + " (to " + step[1] + " with " + step[2] + "): " + entry);
         }

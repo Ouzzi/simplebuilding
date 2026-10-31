@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_ingot"
+            "items": "simpleores:enderite_ingot"
           }
         ]
       },
@@ -18,7 +18,7 @@
     },
     "frame": "goal",
     "icon": {
-      "id": "simplelib:enderite_ingot"
+      "id": "simpleores:enderite_ingot"
     },
     "title": {
       "translate": "advancements.simplebuilding.enderite.beyond_netherite.title"

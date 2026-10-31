@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "C": "minecraft:carrot",
-    "N": "simplelib:enderite_nugget"
+    "N": "simpleores:enderite_nugget"
   },
   "pattern": [
     " N ",

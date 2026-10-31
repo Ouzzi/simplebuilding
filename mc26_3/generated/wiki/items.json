@@ -56,8 +56,10 @@
     "simplebuilding:cherry_sheet",
     "simplebuilding:chess_pieces",
     "simplebuilding:chiseled_astralit_bricks",
+    "simplebuilding:chiseled_crimson_blazewood_bookshelf",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
+    "simplebuilding:chiseled_warped_blazewood_bookshelf",
     "simplebuilding:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
@@ -71,14 +73,14 @@
     "simplebuilding:cyan_hammock",
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:dark_oak_sheet",
-    "simplebuilding:deepslate_sage_ore",
     "simplebuilding:diamond_pole",
     "simplebuilding:diamond_pressure_plate",
-    "simplebuilding:dimensional_scrap",
+    "simplebuilding:double_piston",
+    "simplebuilding:double_piston_arm",
+    "simplebuilding:double_piston_head",
     "simplebuilding:dull_astralit_ore",
     "simplebuilding:dull_nihilith_ore",
     "simplebuilding:elytra_pad",
-    "simplebuilding:end_dimensional_scrap",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
     "simplebuilding:ender_quartz_brick_stairs",
@@ -152,7 +154,6 @@
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
-    "simplebuilding:nether_dimensional_scrap",
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
@@ -185,6 +186,12 @@
     "simplebuilding:nihilith_quartz_checker_stairs",
     "simplebuilding:note_amplifier",
     "simplebuilding:oak_cauldron",
+    "simplebuilding:oak_door_1_5x2",
+    "simplebuilding:oak_door_1_5x3",
+    "simplebuilding:oak_door_2x2",
+    "simplebuilding:oak_door_2x3",
+    "simplebuilding:oak_door_half_2",
+    "simplebuilding:oak_door_half_3",
     "simplebuilding:oak_sheet",
     "simplebuilding:orange_hammock",
     "simplebuilding:oxidized_copper_pressure_plate",
@@ -237,8 +244,8 @@
     "simplebuilding:resin_quartz_checker",
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
-    "simplebuilding:sage_ore",
     "simplebuilding:sculk_jaw",
+    "simplebuilding:signal_dampener",
     "simplebuilding:silent_dandelion",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
@@ -573,10 +580,16 @@
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {
+      "id": "simplebuilding:chiseled_crimson_blazewood_bookshelf"
+    },
+    {
       "id": "simplebuilding:chiseled_ender_quartz_bricks"
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks"
+    },
+    {
+      "id": "simplebuilding:chiseled_warped_blazewood_bookshelf"
     },
     {
       "id": "simplebuilding:chunk_loader",
@@ -603,10 +616,6 @@
       "durability": 192,
       "enchantability": 18,
       "id": "simplebuilding:copper_chisel",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:copper_core",
       "maxStackSize": 1
     },
     {
@@ -669,9 +678,6 @@
       "id": "simplebuilding:dark_oak_sheet"
     },
     {
-      "id": "simplebuilding:deepslate_sage_ore"
-    },
-    {
       "durability": 1024,
       "enchantability": 15,
       "id": "simplebuilding:detector",
@@ -693,10 +699,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:diamond_core",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:diamond_pole"
     },
     {
@@ -714,7 +716,7 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:dimensional_scrap"
+      "id": "simplebuilding:double_piston"
     },
     {
       "id": "simplebuilding:dull_astralit_dust"
@@ -743,9 +745,6 @@
     },
     {
       "id": "simplebuilding:enchanted_netherite_apple"
-    },
-    {
-      "id": "simplebuilding:end_dimensional_scrap"
     },
     {
       "id": "simplebuilding:ender_quartz"
@@ -878,10 +877,6 @@
     },
     {
       "id": "simplebuilding:enderite_chunk_loader",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_core",
       "maxStackSize": 1
     },
     {
@@ -1020,10 +1015,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:gold_core",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:gold_pole"
     },
     {
@@ -1138,10 +1129,6 @@
       "durability": 256,
       "enchantability": 14,
       "id": "simplebuilding:iron_chisel",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:iron_core",
       "maxStackSize": 1
     },
     {
@@ -1356,9 +1343,6 @@
       "id": "simplebuilding:nether_brick_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:nether_dimensional_scrap"
-    },
-    {
       "id": "simplebuilding:netherite_apple"
     },
     {
@@ -1381,10 +1365,6 @@
     },
     {
       "id": "simplebuilding:netherite_chunk_loader",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_core",
       "maxStackSize": 1
     },
     {
@@ -1547,6 +1527,24 @@
     },
     {
       "id": "simplebuilding:oak_cauldron"
+    },
+    {
+      "id": "simplebuilding:oak_door_1_5x2"
+    },
+    {
+      "id": "simplebuilding:oak_door_1_5x3"
+    },
+    {
+      "id": "simplebuilding:oak_door_2x2"
+    },
+    {
+      "id": "simplebuilding:oak_door_2x3"
+    },
+    {
+      "id": "simplebuilding:oak_door_half_2"
+    },
+    {
+      "id": "simplebuilding:oak_door_half_3"
     },
     {
       "id": "simplebuilding:oak_sheet"
@@ -2173,14 +2171,10 @@
       "id": "simplebuilding:resin_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:sage_orb",
-      "maxStackSize": 16
-    },
-    {
-      "id": "simplebuilding:sage_ore"
-    },
-    {
       "id": "simplebuilding:sculk_jaw"
+    },
+    {
+      "id": "simplebuilding:signal_dampener"
     },
     {
       "id": "simplebuilding:silent_dandelion"

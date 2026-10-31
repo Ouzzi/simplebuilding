@@ -288,8 +288,8 @@ public final class GuideBooks {
             case STORAGE -> List.of("minecraft:chest", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":quiver", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":reinforced_bundle");
             case MACHINES -> List.of("minecraft:piston", "simplebuilding:reinforced_hopper_from_crafting",
                     com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", "simplebuilding:reinforced_piston");
-            // The enderite ingot recipes belong to SimpleLib on 26.3 (shared materials, split stage 3d).
-            case END -> List.of(McVersion.MATERIAL_NAMESPACE + ":enderite_ingot", McVersion.MATERIAL_NAMESPACE + ":enderite_ingot_from_scrap",
+            // The enderite ingot recipes belong to Simple Ores on 26.3 (IG31-13; before SimpleLib's, split stage 3d).
+            case END -> List.of(McVersion.ORES_NAMESPACE + ":enderite_ingot", McVersion.ORES_NAMESPACE + ":enderite_ingot_from_scrap",
                     "simplebuilding:astralit_block_from_end_stone", "simplebuilding:nihilith_block_from_end_stone");
             case PADS -> List.of("minecraft:stone_pressure_plate", "simplebuilding:copper_pressure_plate", "minecraft:oak_pressure_plate",
                     "minecraft:light_weighted_pressure_plate", "minecraft:heavy_weighted_pressure_plate");

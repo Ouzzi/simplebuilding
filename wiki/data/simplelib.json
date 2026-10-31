@@ -46,26 +46,29 @@
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
         "modules/simplelib/shared/java/com/simplelib/material/AnvilCrushing.java",
-        "modules/simplelib/tools/gen_resources.py"
+        "modules/simplelib/tools/gen_resources.py",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
       ],
       "en": {
         "title": "Shared materials",
-        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the enderite materials, the basic and enderite upgrade templates and polished end stone (shared building block of the family).",
+        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the six building cores. Enderite belongs to Simple Ores (IG31-13).",
         "details": [
           "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
           "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
-          "Nuggets and ingots convert 9:1 (netherite and enderite), enderite ingots and blocks 9:1, four raw enderite fragments make raw enderite scrap, which blasts into enderite scrap; four scrap, four diamonds and a netherite ingot make an enderite ingot. Both upgrade templates duplicate like Vanilla templates.",
-          "Other mods use them through the common tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond and c:storage_blocks/enderite and /cracked_diamond. Before SimpleBuilding 2 they were SimpleBuilding items; old worlds load them under their new ids."
+          "Netherite nuggets and ingots convert 9:1; the basic upgrade template duplicates like Vanilla templates.",
+          "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore.",
+          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond and c:storage_blocks/cracked_diamond. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids."
         ]
       },
       "de": {
         "title": "Gemeinsame Materialien",
-        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Enderit-Materialien, die Basis- und Enderit-Aufwertungsvorlage und Polierter Endstein (gemeinsamer Baublock der Familie).",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die sechs Baukerne. Enderit gehört Simple Ores (IG31-13).",
         "details": [
           "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
           "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
-          "Klumpen und Barren tauschen 9:1 (Netherit und Enderit), Enderitbarren und -blöcke 9:1; vier Rohe Enderitfragmente ergeben Rohe Enderitplatten, die im Schmelzofen zu Enderitplatten werden; vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Beide Aufwertungsvorlagen lassen sich wie Vanilla-Vorlagen vervielfältigen.",
-          "Andere Mods nutzen sie über die gemeinsamen Tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond und c:storage_blocks/enderite bzw. /cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter den neuen IDs."
+          "Netheritklumpen und -barren tauschen 9:1; die Basis-Aufwertungsvorlage lässt sich wie Vanilla-Vorlagen vervielfältigen.",
+          "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz.",
+          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond und c:storage_blocks/cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids."
         ]
       }
     },
@@ -133,29 +136,6 @@
           "Ein Wächter-Thread prüft jede Sekunde, ob der Server-Tick weiterläuft. Nach 30 Sekunden ohne Tick (hangWatchdogSeconds, 10 bis 600) schreibt er logs/simplebuilding-hang-<Datum>.txt mit allen Threads des Spiels (zuerst der Server-Thread, dann Render-Thread, Chunk-Worker) samt vollständigen Stacks, gehaltenen Sperren und erkannten Deadlocks; nach der vierfachen Zeit folgt eine zweite Datei.",
           "Ein pausiertes Einzelspielerspiel zählt nicht, das Speichern beim Verlassen schon. Der Wächter liest nur und ändert nichts am Spiel. Schalter: hangWatchdog (Standard an) in simplelib-server.json, /simplelib config oder im Konfig-Bildschirm (Reiter Diagnose).",
           "Wenn das Spiel hängt: eine Minute warten, dann die neueste logs/simplebuilding-hang-*.txt und logs/latest.log schicken."
-        ]
-      }
-    },
-    {
-      "id": "free_look",
-      "sources": [
-        "modules/simplelib/shared/java/com/simplelib/api/client/FreeLook.java",
-        "modules/simplelib/shared/java/com/simplelib/api/FreeLookRules.java",
-        "modules/simplelib/shared/java/com/simplelib/config/LibConfig.java",
-        "modules/simplelib/fabric/src/main/java/com/simplelib/config/LibConfigScreen.java"
-      ],
-      "en": {
-        "title": "Free Look",
-        "summary": "While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal. Two keys: \"Free Look (hold)\" (standard left Alt) and \"Toggle Free Look\" (unbound, set it in the controls). When it ends, the camera turns back to where you look (standard) or you turn to where the camera looked - freeLookRelease in config/simplelib-client.json or the Free Look tab of the SimpleLib settings. A server can enforce its own choice (freeLookRelease + freeLookEnforce in simplelib-server.json, sent on join). Free Look is always off after joining, a world change and a respawn.",
-        "details": [
-          "A key that is already down when the world opens (for example left Alt from Alt+Tab) does not switch Free Look on; release it and press again."
-        ]
-      },
-      "de": {
-        "title": "Free Look",
-        "summary": "Solange Free Look an ist, dreht die Maus nur die Kamera, nicht den Spieler; Laufen und alle anderen Eingaben bleiben normal. Zwei Tasten: „Free Look (halten)“ (Standard linke Alt-Taste) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen). Am Ende dreht die Kamera zurück zur Blickrichtung (Standard) oder der Spieler dreht sich dorthin, wohin die Kamera schaute - freeLookRelease in config/simplelib-client.json oder der Reiter Free Look der SimpleLib-Einstellungen. Ein Server kann seine Wahl erzwingen (freeLookRelease + freeLookEnforce in simplelib-server.json, beim Betreten gesendet). Nach dem Betreten, einem Weltwechsel und einem Respawn ist Free Look immer aus.",
-        "details": [
-          "Eine Taste, die beim Öffnen der Welt schon gedrückt ist (z. B. linke Alt-Taste von Alt+Tab), schaltet Free Look nicht ein; loslassen und erneut drücken."
         ]
       }
     },
@@ -391,276 +371,6 @@
           {
             "id": "simplelib:diamond_pebble",
             "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_block",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplelib:enderite_block",
-        "count": 1
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_block.json",
-      "ingredients": [
-        "simplelib:enderite_ingot"
-      ],
-      "pattern": [
-        "###",
-        "###",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "simplelib:enderite_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_ingot",
-      "type": "minecraft:crafting_shapeless",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplelib:enderite_ingot",
-        "count": 9
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_ingot.json",
-      "ingredients": [
-        "simplelib:enderite_block"
-      ],
-      "ingredientGroups": [
-        [
-          "simplelib:enderite_block"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 9,
-        "materials": [
-          {
-            "id": "simplelib:enderite_block",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_ingot_from_nugget",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplelib:enderite_ingot",
-        "count": 1
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_ingot_from_nugget.json",
-      "ingredients": [
-        "simplelib:enderite_nugget"
-      ],
-      "pattern": [
-        "NNN",
-        "NNN",
-        "NNN"
-      ],
-      "key": {
-        "N": [
-          "simplelib:enderite_nugget"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:enderite_nugget",
-            "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_ingot_from_scrap",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplelib:enderite_ingot",
-        "count": 1
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_ingot_from_scrap.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:netherite_ingot",
-        "simplelib:enderite_scrap"
-      ],
-      "pattern": [
-        "SDS",
-        "DND",
-        "SDS"
-      ],
-      "key": {
-        "D": [
-          "minecraft:diamond"
-        ],
-        "N": [
-          "minecraft:netherite_ingot"
-        ],
-        "S": [
-          "simplelib:enderite_scrap"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:raw_enderite",
-            "count": 16
-          },
-          {
-            "id": "minecraft:diamond",
-            "count": 4
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_nugget_from_ingot",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplelib:enderite_nugget",
-        "count": 9
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_nugget_from_ingot.json",
-      "ingredients": [
-        "simplelib:enderite_ingot"
-      ],
-      "ingredientGroups": [
-        [
-          "simplelib:enderite_ingot"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 9,
-        "materials": [
-          {
-            "id": "simplelib:enderite_ingot",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_scrap_from_blasting_layered_raw_enderite",
-      "type": "minecraft:blasting",
-      "category": null,
-      "group": "enderite_scrap",
-      "result": {
-        "id": "simplelib:enderite_scrap",
-        "count": 1
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
-      "ingredients": [
-        "simplelib:layered_raw_enderite"
-      ],
-      "slots": {
-        "ingredient": [
-          "simplelib:layered_raw_enderite"
-        ]
-      },
-      "cookingtime": 288000,
-      "experience": 10.0,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:raw_enderite",
-            "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplelib:enderite_upgrade_template",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplelib:enderite_upgrade_template",
-        "count": 2
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/enderite_upgrade_template.json",
-      "ingredients": [
-        "minecraft:diamond",
-        "minecraft:end_stone",
-        "simplelib:enderite_upgrade_template"
-      ],
-      "pattern": [
-        "ATA",
-        "AEA",
-        "AAA"
-      ],
-      "key": {
-        "A": [
-          "minecraft:diamond"
-        ],
-        "E": [
-          "minecraft:end_stone"
-        ],
-        "T": [
-          "simplelib:enderite_upgrade_template"
-        ]
-      }
-    },
-    {
-      "id": "simplelib:layered_raw_enderite",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplelib:layered_raw_enderite",
-        "count": 1
-      },
-      "source": "modules/simplelib/generated/resources/data/simplelib/recipe/layered_raw_enderite.json",
-      "ingredients": [
-        "simplelib:raw_enderite"
-      ],
-      "ingredientGroups": [
-        [
-          "simplelib:raw_enderite"
-        ],
-        [
-          "simplelib:raw_enderite"
-        ],
-        [
-          "simplelib:raw_enderite"
-        ],
-        [
-          "simplelib:raw_enderite"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simplelib:raw_enderite",
-            "count": 4
           }
         ]
       }
@@ -1076,24 +786,6 @@
       "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/cracked_diamond_block.json"
     },
     {
-      "id": "simplelib:blocks/enderite_block",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplelib:enderite_block"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplelib/generated/resources/data/simplelib/loot_table/blocks/enderite_block.json"
-    },
-    {
       "id": "simplelib:blocks/polished_end_stone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1213,8 +905,8 @@
       "replace": false,
       "values": [
         {
-          "id": "simplelib:enderite_ingot",
-          "required": true
+          "id": "#c:ingots/enderite",
+          "required": false
         }
       ],
       "source": "modules/simplelib/shared/resources/data/simplelib/tags/item/repairs_enderite_equipment.json"
@@ -1320,6 +1012,28 @@
       ]
     },
     {
+      "id": "simplelib:copper_core",
+      "name": {
+        "en_us": "Copper Core",
+        "de_de": "Kupferkern"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
+        "en": {
+          "summary": "Copper building core: not stackable, an ingredient of wands, beacons and gadgets."
+        },
+        "de": {
+          "summary": "Kupferkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/copper_core.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplelib:cracked_diamond",
       "name": {
         "en_us": "Cracked Diamond",
@@ -1344,6 +1058,28 @@
       ]
     },
     {
+      "id": "simplelib:diamond_core",
+      "name": {
+        "en_us": "Diamond Core",
+        "de_de": "Diamantkern"
+      },
+      "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
+        "en": {
+          "summary": "Diamond building core: not stackable, an ingredient of wands, beacons and gadgets."
+        },
+        "de": {
+          "summary": "Diamantkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+        }
+      },
+      "texture": "assets/textures/simplelib/item/diamond_core.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simplelib:diamond_pebble",
       "name": {
         "en_us": "Diamond Pebble",
@@ -1364,117 +1100,92 @@
       ]
     },
     {
-      "id": "simplelib:enderite_ingot",
+      "id": "simplelib:enderite_core",
       "name": {
-        "en_us": "Enderite Ingot",
-        "de_de": "Enderitbarren"
+        "en_us": "Enderite Core",
+        "de_de": "Enderitkern"
       },
       "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
         "en": {
-          "summary": "The top material tier; nine make a block."
+          "summary": "Enderite building core: not stackable, an ingredient of wands, beacons and gadgets. Only with Simple Ores (its recipe and loot need Enderite)."
         },
         "de": {
-          "summary": "Höchste Materialstufe; neun ergeben einen Block."
+          "summary": "Enderitkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets. Nur mit Simple Ores (Rezept und Beute brauchen Enderit)."
         }
       },
-      "texture": "assets/textures/simplelib/item/enderite_ingot.png",
-      "craftedBy": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_ingot_from_nugget",
-        "simplelib:enderite_ingot_from_scrap"
-      ],
-      "usedIn": [
-        "simplelib:enderite_block",
-        "simplelib:enderite_nugget_from_ingot"
-      ]
+      "texture": "assets/textures/simplelib/item/enderite_core.png",
+      "craftedBy": [],
+      "usedIn": []
     },
     {
-      "id": "simplelib:enderite_nugget",
+      "id": "simplelib:gold_core",
       "name": {
-        "en_us": "Enderite Nugget",
-        "de_de": "Enderitklumpen"
+        "en_us": "Gold Core",
+        "de_de": "Goldkern"
       },
       "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
         "en": {
-          "summary": "A ninth of an enderite ingot."
+          "summary": "Gold building core: not stackable, an ingredient of wands, beacons and gadgets."
         },
         "de": {
-          "summary": "Ein Neuntel eines Enderitbarrens."
+          "summary": "Goldkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
         }
       },
-      "texture": "assets/textures/simplelib/item/enderite_nugget.png",
-      "craftedBy": [
-        "simplelib:enderite_nugget_from_ingot"
-      ],
-      "usedIn": [
-        "simplelib:enderite_ingot_from_nugget"
-      ]
+      "texture": "assets/textures/simplelib/item/gold_core.png",
+      "craftedBy": [],
+      "usedIn": []
     },
     {
-      "id": "simplelib:enderite_scrap",
+      "id": "simplelib:iron_core",
       "name": {
-        "en_us": "Enderite Scrap",
-        "de_de": "Enderitplatten"
+        "en_us": "Iron Core",
+        "de_de": "Eisenkern"
       },
       "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
         "en": {
-          "summary": "Four, with four diamonds and a netherite ingot, make an enderite ingot."
+          "summary": "Iron building core: not stackable, an ingredient of wands, beacons and gadgets."
         },
         "de": {
-          "summary": "Vier ergeben mit vier Diamanten und einem Netheritbarren einen Enderitbarren."
+          "summary": "Eisenkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
         }
       },
-      "texture": "assets/textures/simplelib/item/enderite_scrap.png",
-      "craftedBy": [
-        "simplelib:enderite_scrap_from_blasting_layered_raw_enderite"
-      ],
-      "usedIn": [
-        "simplelib:enderite_ingot_from_scrap"
-      ]
+      "texture": "assets/textures/simplelib/item/iron_core.png",
+      "craftedBy": [],
+      "usedIn": []
     },
     {
-      "id": "simplelib:enderite_upgrade_template",
+      "id": "simplelib:netherite_core",
       "name": {
-        "en_us": "Enderite Upgrade",
-        "de_de": "Enderit-Aufwertung"
+        "en_us": "Netherite Core",
+        "de_de": "Netheritkern"
       },
       "note": {
+        "sources": [
+          "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+          "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+        ],
         "en": {
-          "summary": "Upgrade template for netherite to enderite; duplicates with diamonds and end stone."
+          "summary": "Netherite building core: not stackable, an ingredient of wands, beacons and gadgets."
         },
         "de": {
-          "summary": "Aufwertungsvorlage von Netherit zu Enderit; vervielfältigt mit Diamanten und Endstein."
+          "summary": "Netheritkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
         }
       },
-      "texture": "assets/textures/simplelib/item/enderite_upgrade_template.png",
-      "craftedBy": [
-        "simplelib:enderite_upgrade_template"
-      ],
-      "usedIn": [
-        "simplelib:enderite_upgrade_template"
-      ]
-    },
-    {
-      "id": "simplelib:layered_raw_enderite",
-      "name": {
-        "en_us": "Raw Enderite Scrap",
-        "de_de": "Rohe Enderitplatten"
-      },
-      "note": {
-        "en": {
-          "summary": "Blasts into enderite scrap."
-        },
-        "de": {
-          "summary": "Wird im Schmelzofen zu Enderitplatten."
-        }
-      },
-      "texture": "assets/textures/simplelib/item/layered_raw_enderite.png",
-      "craftedBy": [
-        "simplelib:layered_raw_enderite"
-      ],
-      "usedIn": [
-        "simplelib:enderite_scrap_from_blasting_layered_raw_enderite"
-      ]
+      "texture": "assets/textures/simplelib/item/netherite_core.png",
+      "craftedBy": [],
+      "usedIn": []
     },
     {
       "id": "simplelib:netherite_nugget",
@@ -1496,26 +1207,6 @@
       ],
       "usedIn": [
         "simplelib:netherite_ingot"
-      ]
-    },
-    {
-      "id": "simplelib:raw_enderite",
-      "name": {
-        "en_us": "Raw Enderite Fragment",
-        "de_de": "Rohes Enderitfragment"
-      },
-      "note": {
-        "en": {
-          "summary": "Four make raw enderite scrap."
-        },
-        "de": {
-          "summary": "Vier ergeben Rohe Enderitplatten."
-        }
-      },
-      "texture": "assets/textures/simplelib/item/raw_enderite.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplelib:layered_raw_enderite"
       ]
     }
   ],
@@ -1540,28 +1231,6 @@
       ],
       "usedIn": [
         "simplelib:cracked_diamond_from_cracked_diamond_block"
-      ]
-    },
-    {
-      "id": "simplelib:enderite_block",
-      "name": {
-        "en_us": "Block of Enderite",
-        "de_de": "Enderitblock"
-      },
-      "note": {
-        "en": {
-          "summary": "Storage block of nine enderite ingots (diamond pickaxe, beacon base)."
-        },
-        "de": {
-          "summary": "Speicherblock aus neun Enderitbarren (Diamantspitzhacke, Leuchtfeuer-Sockel)."
-        }
-      },
-      "texture": "assets/textures/simplelib/block/enderite_block.png",
-      "craftedBy": [
-        "simplelib:enderite_block"
-      ],
-      "usedIn": [
-        "simplelib:enderite_ingot"
       ]
     },
     {
@@ -1689,14 +1358,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 7,
-    "recipes": 29,
-    "lootTables": 7,
+    "features": 6,
+    "recipes": 21,
+    "lootTables": 6,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
     "items": 10,
-    "blocks": 7,
+    "blocks": 6,
     "trades": 0,
     "config": 0,
     "quests": 0,

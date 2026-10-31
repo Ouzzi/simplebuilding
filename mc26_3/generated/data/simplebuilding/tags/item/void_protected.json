@@ -1,8 +1,8 @@
 {
   "values": [
     "#simplebuilding:enderite_items",
-    "simplebuilding:dimensional_scrap",
-    "simplebuilding:nether_dimensional_scrap",
-    "simplebuilding:end_dimensional_scrap"
+    "simpleores:dimensional_scrap",
+    "simpleores:nether_dimensional_scrap",
+    "simpleores:end_dimensional_scrap"
   ]
 }

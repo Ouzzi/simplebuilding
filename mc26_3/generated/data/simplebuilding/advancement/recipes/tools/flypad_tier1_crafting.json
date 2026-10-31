@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:enderite_core"
+            "items": "simplelib:enderite_core"
           }
         ]
       },

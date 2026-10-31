@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplelib:enderite_ingot",
+  "addition": "simpleores:enderite_ingot",
   "base": "simplebuilding:netherite_pressure_plate",
   "result": {
     "id": "simplebuilding:enderite_pressure_plate"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

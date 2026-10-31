@@ -43,12 +43,13 @@ def files():
 MATERIAL_GROUPS = {
     "cracked_diamond": ("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
     "netherite_nugget": ("netherite_nugget",),
-    "enderite": ("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_nugget", "enderite_block"),
-    "upgrade_templates": ("basic_upgrade_template", "enderite_upgrade_template"),
+    # IG31-13: Enderite (and its upgrade template) moved to Simple Ores; the building cores came from SimpleBuilding.
+    "upgrade_templates": ("basic_upgrade_template",),
+    "cores": ("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core"),
     # Module family stage 3 (AGENTS rule 16): the shared building block of Blocks, End, Enderite and Octets.
     "polished_end_stone": ("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"),
 }
-MATERIAL_BLOCKS = ("cracked_diamond_block", "enderite_block", "polished_end_stone")
+MATERIAL_BLOCKS = ("cracked_diamond_block", "polished_end_stone")
 # Stairs, slab, wall of the polished end stone (octet rule): cut from the full block with the existing texture.
 SHAPE_BASE = "polished_end_stone"
 SHAPES = {f"{SHAPE_BASE}_{kind}": kind for kind in ("stairs", "slab", "wall")}
@@ -89,23 +90,6 @@ def material_recipes():
          [v("netherite_ingot"), m("netherite_nugget")]),
         ("misc", "netherite_ingot", "netherite_nugget", shaped({"N": m("netherite_nugget")}, nine, v("netherite_ingot")),
          [m("netherite_nugget"), v("netherite_ingot")]),
-        ("misc", "enderite_nugget_from_ingot", "enderite", shapeless([m("enderite_ingot")], m("enderite_nugget"), 9),
-         [m("enderite_ingot"), m("enderite_nugget")]),
-        ("misc", "enderite_ingot_from_nugget", "enderite", shaped({"N": m("enderite_nugget")}, nine, m("enderite_ingot")),
-         [m("enderite_nugget"), m("enderite_ingot")]),
-        ("misc", "layered_raw_enderite", "enderite", shapeless([m("raw_enderite")] * 4, m("layered_raw_enderite")), [m("raw_enderite")]),
-        ("misc", "enderite_scrap_from_blasting_layered_raw_enderite", "enderite",
-         blasting(m("layered_raw_enderite"), m("enderite_scrap"), 288000, 10.0, "enderite_scrap"), [m("layered_raw_enderite")]),
-        ("misc", "enderite_ingot_from_scrap", "enderite",
-         shaped({"D": v("diamond"), "N": v("netherite_ingot"), "S": m("enderite_scrap")}, ["SDS", "DND", "SDS"], m("enderite_ingot")),
-         [m("enderite_scrap")]),
-        ("decorations", "enderite_block", "enderite", shaped({"#": m("enderite_ingot")}, ["###", "###", "###"], m("enderite_block")),
-         [m("enderite_ingot")]),
-        ("building_blocks", "enderite_ingot", "enderite",
-         shapeless([m("enderite_block")], m("enderite_ingot"), 9, category="building"), [m("enderite_block")]),
-        ("misc", "enderite_upgrade_template", "upgrade_templates",
-         shaped({"A": v("diamond"), "E": v("end_stone"), "T": m("enderite_upgrade_template")}, ["ATA", "AEA", "AAA"],
-                m("enderite_upgrade_template"), 2), [m("enderite_upgrade_template")]),
         # Polished end stone (SimpleBuilding's recipes before the move; Vanilla owns 2x2 end stone -> bricks, audit D-01).
         ("building_blocks", "polished_end_stone", "polished_end_stone",
          shaped({"S": v("end_stone_bricks")}, ["SS", "SS"], m("polished_end_stone"), 4, category="building"), [v("end_stone_bricks")]),
@@ -239,22 +223,15 @@ def materials(out):
             "rewards": {"recipes": [f"{NS}:{rid}"]}}
     # Common tags (principle 6: other mods use the tag, never the id).
     c = "data/c/tags"
-    out[f"{c}/item/ingots/enderite.json"] = {"values": [f"{NS}:enderite_ingot"]}
-    out[f"{c}/item/ingots.json"] = {"values": ["#c:ingots/enderite"]}
-    out[f"{c}/item/nuggets/enderite.json"] = {"values": [f"{NS}:enderite_nugget"]}
+    # IG31-13: the Enderite tags (c:ingots/enderite ...) belong to Simple Ores now.
     out[f"{c}/item/nuggets/netherite.json"] = {"values": [f"{NS}:netherite_nugget"]}
-    out[f"{c}/item/nuggets.json"] = {"values": ["#c:nuggets/enderite", "#c:nuggets/netherite"]}
-    out[f"{c}/item/raw_materials/enderite.json"] = {"values": [f"{NS}:raw_enderite"]}
-    out[f"{c}/item/raw_materials.json"] = {"values": ["#c:raw_materials/enderite"]}
+    out[f"{c}/item/nuggets.json"] = {"values": ["#c:nuggets/netherite"]}
     out[f"{c}/item/gems/cracked_diamond.json"] = {"values": [f"{NS}:cracked_diamond"]}
     out[f"{c}/item/gems.json"] = {"values": ["#c:gems/cracked_diamond"]}
     for kind in ("item", "block"):
-        out[f"{c}/{kind}/storage_blocks/enderite.json"] = {"values": [f"{NS}:enderite_block"]}
         out[f"{c}/{kind}/storage_blocks/cracked_diamond.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
-        out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/enderite", "#c:storage_blocks/cracked_diamond"]}
+        out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/cracked_diamond"]}
     out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
-    out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_block"]}
-    out["data/minecraft/tags/block/beacon_base_blocks.json"] = {"values": [f"{NS}:enderite_block"]}
 
 
 def warped_wart(out):

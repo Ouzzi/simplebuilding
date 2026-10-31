@@ -110,8 +110,8 @@ def check():
     assert enderite['forge:conditions'] == [{'type': 'forge:mod_loaded', 'modid': 'simplebuilding'}]
     assert read(resources / 'simpleriding/tags/item/repairs_enderite_horseshoe.json')['values'] == [
         {'id': '#c:ingots/enderite', 'required': False}]
-    # The ingot is SimpleLib's on 26.3 (shared materials, split stage 3d); it publishes the common tag.
-    assert 'simplelib:enderite_ingot' in read(ROOT / 'modules/simplelib/generated/resources/data/c/tags/item/ingots/enderite.json')['values']
+    # The ingot is Simple Ores' on 26.3 (IG31-13; before SimpleLib's, split stage 3d); it publishes the common tag.
+    assert 'simpleores:enderite_ingot' in read(ROOT / 'modules/simpleores/shared/resources/data/c/tags/item/ingots/enderite.json')['values']
     duplicate = read(recipes / 'horseshoe_smithing_template.json')
     assert duplicate['pattern'] == ['#S#', '#C#', '###'] and duplicate['key'] == {'#': 'minecraft:copper_ingot', 'C': 'minecraft:iron_ingot', 'S': template}
     assert duplicate['result'] == {'count': 2, 'id': template}

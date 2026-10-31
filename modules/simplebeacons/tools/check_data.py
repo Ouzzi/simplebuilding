@@ -66,7 +66,7 @@ for name, center in (('mighty_beacon', 'strong_beacon'), ('mighty_evil_beacon', 
         assert r['key']['B'] == f'{NS}:{center}' and r['key']['U'] == f'{NS}:strong_upgrade_template', variant
         assert len(set(r['key'][k] for k in 'cigdne')) == 6, variant
         assert r['result']['id'] == f'{NS}:{name}', variant
-assert all(recipes[r]['key'][k].startswith('simplebuilding:') for r in ('mighty_beacon', 'mighty_evil_beacon') for k in 'cigdne'), 'cores'
+assert all(recipes[r]['key'][k].startswith('simplelib:') for r in ('mighty_beacon', 'mighty_evil_beacon') for k in 'cigdne'), 'cores (SimpleLib since IG31-13)'
 evil = recipes['evil_beacon_smithing']
 assert evil['template'] == f'{NS}:evil_upgrade_template' and evil['base'] == 'minecraft:beacon' and evil['addition'] == 'simplemobs:nether_gem'
 assert sorted(recipes['evil_upgrade_template']['ingredients']) == sorted([f'{NS}:strong_upgrade_template', 'minecraft:crying_obsidian', 'simplemobs:nether_heart', 'simplemobs:nether_gem'])

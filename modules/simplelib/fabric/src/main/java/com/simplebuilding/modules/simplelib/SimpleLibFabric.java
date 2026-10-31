@@ -38,7 +38,7 @@ public final class SimpleLibFabric implements ModInitializer {
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(server -> com.simplelib.config.LibConfig.onSaved = () ->
                 server.execute(() -> server.getPlayerList().getPlayers().forEach(SimpleLibFabric::sendFreeLookRules)));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.config.LibConfig.onSaved = () -> {});
-        // Enderite in End city treasure once a mod requested it and no partner feeds it (MaterialLoot).
+        // Warped wart in bastion chests (MaterialLoot); the Enderite loot moved to Simple Ores (IG31-13).
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) ->
                 com.simplelib.material.MaterialLoot.apply(key, table::withPool, registries));
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.simplelib.api.InWorldStrikes::tick);

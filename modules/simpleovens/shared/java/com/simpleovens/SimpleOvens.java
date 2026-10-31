@@ -39,7 +39,7 @@ public final class SimpleOvens {
             "netherite_furnace_minecart", "transportation", "netherite_furnace_minecart_smithing", "transportation",
             "enderite_furnace_minecart", "transportation", "enderite_furnace_minecart_smithing", "transportation");
     /** SimpleLib materials the furnaces are built and upgraded with (their recipes and sources go on). */
-    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates");
+    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
 
     private static boolean movesRegistered;
 

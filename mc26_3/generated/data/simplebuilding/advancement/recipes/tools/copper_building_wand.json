@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:copper_core"
+            "items": "simplelib:copper_core"
           }
         ]
       },

@@ -7153,74 +7153,6 @@
         ]
       }
     },
-    "*_core": {
-      "en": {
-        "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
-        "details": [
-          "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-          "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Resonance Rod, Attractor, Transposer; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I.",
-          "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-          "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
-          "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
-          "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll: iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, Enderite 0.5 % per end city chest on 26.3 (owner 2026-10-05; 26.2 remains at 0.175 %). The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) contains historical estimates based on assumed search rates, not measured playtime; its 2026-10-05 addendum updates Enderite."
-        ]
-      },
-      "de": {
-        "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
-        "details": [
-          "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-          "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Resonanzstab, Attraktor, Transponierer; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I.",
-          "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-          "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
-          "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilit-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
-          "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf: Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,5 % je Endsiedlungs-Truhe auf 26.3 (Besitzer 2026-10-05; 26.2 bleibt bei 0,175 %). Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) enthält historische Schätzungen aus angenommenen Suchraten, keine gemessene Spielzeit; der Nachtrag 2026-10-05 aktualisiert Enderit."
-        ]
-      },
-      "items": {
-        "simplebuilding:copper_core": {
-          "en": "Copper Core: ore conversion chance is 1 in 10000 per eligible block use.",
-          "de": "Kupferkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 10000.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
-          ]
-        },
-        "simplebuilding:iron_core": {
-          "en": "Iron Core: ore conversion chance is 1 in 7000 per eligible block use.",
-          "de": "Eisenkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 7000.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
-          ]
-        },
-        "simplebuilding:gold_core": {
-          "en": "Gold Core: ore conversion chance is 1 in 5000 per eligible block use.",
-          "de": "Goldkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 5000.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
-          ]
-        },
-        "simplebuilding:diamond_core": {
-          "en": "Diamond Core: ore conversion chance is 1 in 3500 per eligible block use.",
-          "de": "Diamantkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 3500.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
-          ]
-        },
-        "simplebuilding:netherite_core": {
-          "en": "Netherite Core: ore conversion chance is 1 in 2500 per eligible block use.",
-          "de": "Netheritkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 2500.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
-          ]
-        },
-        "simplebuilding:enderite_core": {
-          "en": "Enderite Core: ore conversion chance is 1 in 2000 per eligible block use.",
-          "de": "Enderitkern: Erzumwandlungschance bei Benutzung auf einem geeigneten Block: 1 zu 2000.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/items/custom/CoreOreTransmutation.java"
-          ]
-        }
-      }
-    },
     "placed_blueprint": {
       "en": {
         "summary": "A blueprint laid down with sneak + right-click: flat on the floor, on a wall or under the ceiling. There is no item for it - it holds the blueprint itself.",
@@ -7887,203 +7819,6 @@
           "Die Vanilla-Endertruhen-Blockentity liefert Deckelanimation, Oeffnungs- und Schliesssounds, Partikel und Wasserfuellung. Ein fester Block darüber verhindert das Oeffnen. Abbau droppt das Gewoelbe; der geteilte Inhalt bleibt und erscheint in jedem anderen oder neu gesetzten Gewoelbe. Trichter haben keinen Zugriff, Komparatoren lesen nichts.",
           "server.features.nihilVault sperrt das Oeffnen und bestehende Gewoelbe-Menues; der Inhalt bleibt erhalten. Rezepte verschwinden beim Datenpaket-Neuladen."
         ]
-      }
-    },
-    "sage_ore": {
-      "en": {
-        "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
-        "details": [
-          "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
-          "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
-          "Sage Orb chance without Silk Touch: 2 %, with Fortune I 3 %, II 4 %, III 5 %.",
-          "Server option server.oreGeneration.sageOre (default on) turns the generation off for newly generated chunks."
-        ]
-      },
-      "de": {
-        "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
-        "details": [
-          "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
-          "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
-          "Chance auf eine Weisheitskugel ohne Behutsamkeit: 2 %, mit Glück I 3 %, II 4 %, III 5 %.",
-          "Die Server-Option server.oreGeneration.sageOre (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
-        "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
-      ],
-      "items": {
-        "simplebuilding:sage_ore": {
-          "en": "Sage Ore: the stone variant, replaces stone, granite, diorite and andesite; hardness 3 like diamond ore.",
-          "de": "Weisheitserz: die Steinvariante, ersetzt Stein, Granit, Diorit und Andesit; Härte 3 wie Diamanterz.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-          ]
-        }
-      }
-    },
-    "deepslate_sage_ore": {
-      "en": {
-        "summary": "Sage Ore is an Overworld ore as rare as diamond ore that drops only experience: 3 to 7 points, like diamond ore. Rarely it also drops a Sage Orb.",
-        "details": [
-          "Stone and deepslate variants. Veins of up to 4 blocks, 7 attempts per chunk, triangular height spread from 80 blocks below to 80 blocks above the world bottom, half of the blocks exposed to air are skipped - the numbers of vanilla's small diamond ore vein.",
-          "Needs an iron pickaxe or better. Silk Touch drops the ore block itself and no experience.",
-          "Sage Orb chance without Silk Touch: 2 %, with Fortune I 3 %, II 4 %, III 5 %.",
-          "Server option server.oreGeneration.sageOre (default on) turns the generation off for newly generated chunks."
-        ]
-      },
-      "de": {
-        "summary": "Weisheitserz ist ein Oberwelt-Erz, so selten wie Diamanterz, und droppt nur Erfahrung: 3 bis 7 Punkte wie Diamanterz. Selten fällt zusätzlich eine Weisheitskugel.",
-        "details": [
-          "Stein- und Tiefenschiefer-Variante. Adern bis 4 Blöcke, 7 Versuche je Chunk, dreieckige Höhenverteilung von 80 Blöcken unter bis 80 Blöcke über dem Weltboden, die Hälfte der Blöcke an Luft entfällt - die Werte von Vanillas kleiner Diamanterz-Ader.",
-          "Braucht mindestens eine Eisenspitzhacke. Behutsamkeit liefert den Erzblock selbst und keine Erfahrung.",
-          "Chance auf eine Weisheitskugel ohne Behutsamkeit: 2 %, mit Glück I 3 %, II 4 %, III 5 %.",
-          "Die Server-Option server.oreGeneration.sageOre (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/sage_ore.json",
-        "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
-      ],
-      "items": {
-        "simplebuilding:deepslate_sage_ore": {
-          "en": "Deepslate Sage Ore: the deepslate variant, replaces deepslate and tuff; hardness 4.5 like deepslate diamond ore.",
-          "de": "Tiefenschiefer-Weisheitserz: die Tiefenschiefervariante, ersetzt Tiefenschiefer und Tuffstein; Härte 4,5 wie Tiefenschiefer-Diamanterz.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java"
-          ]
-        }
-      }
-    },
-    "sage_orb": {
-      "en": {
-        "summary": "The Sage Orb stores experience: right-click charges it for 0.3 seconds (6 ticks), then it gives 50 to 100 experience points and is used up.",
-        "details": [
-          "The amount is rolled by the server on use. Stacks to 16.",
-          "Feedback is sound and particles only."
-        ]
-      },
-      "de": {
-        "summary": "Die Weisheitskugel speichert Erfahrung: Rechtsklick lädt sie 0,3 Sekunden (6 Ticks), dann gibt sie 50 bis 100 Erfahrungspunkte und ist verbraucht.",
-        "details": [
-          "Die Menge würfelt der Server beim Benutzen. Stapelt bis 16.",
-          "Rückmeldung nur über Klang und Partikel."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java"
-      ]
-    },
-    "dimensional_scrap": {
-      "en": {
-        "summary": "Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
-        "details": [
-          "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
-          "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
-          "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
-          "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
-        ]
-      },
-      "de": {
-        "summary": "Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
-        "details": [
-          "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
-          "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
-          "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
-          "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
-        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-      ],
-      "items": {
-        "simplebuilding:dimensional_scrap": {
-          "en": "Dimensional Scrap: the Overworld variant, inside deepslate and tuff between Y -64 and -32.",
-          "de": "Dimensionsschrott: die Oberwelt-Variante, in Tiefenschiefer und Tuffstein zwischen Y -64 und -32.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
-            "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-            "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-          ]
-        }
-      }
-    },
-    "nether_dimensional_scrap": {
-      "en": {
-        "summary": "Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
-        "details": [
-          "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
-          "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
-          "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
-          "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
-        ]
-      },
-      "de": {
-        "summary": "Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
-        "details": [
-          "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
-          "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
-          "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
-          "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
-        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-      ],
-      "items": {
-        "simplebuilding:nether_dimensional_scrap": {
-          "en": "Nether Dimensional Scrap: the Nether variant, inside netherrack, basalt and blackstone between Y 8 and 24, like the large ancient debris vein.",
-          "de": "Nether-Dimensionsschrott: die Nether-Variante, in Netherrack, Basalt und Schwarzstein zwischen Y 8 und 24 wie die große Ader des Antiken Schrotts.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
-            "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-            "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-          ]
-        }
-      }
-    },
-    "end_dimensional_scrap": {
-      "en": {
-        "summary": "Dimensional Scrap is a mysterious block found in every dimension, rarer than ancient debris. It has no recipe and no use yet.",
-        "details": [
-          "Only an Enderite Pickaxe or Enderite Sledgehammer makes progress; every other tool, and the hand, does not. An unenchanted Enderite Pickaxe needs 250 seconds, about as long as obsidian by hand; Efficiency V brings it down to about 69 seconds.",
-          "Veins of at most 2 blocks that never touch air, on average in one chunk out of 3.",
-          "As a dropped item it takes no damage from fire, lava, explosions, cacti or anything else, floats instead of falling into the void and despawns only after 20 minutes (four times the vanilla time).",
-          "Server option server.oreGeneration.dimensionalScrap (default on) turns the generation off for newly generated chunks."
-        ]
-      },
-      "de": {
-        "summary": "Dimensionsschrott ist ein geheimnisvoller Block, der in jeder Dimension vorkommt, seltener als Antiker Schrott. Er hat noch kein Rezept und keinen Nutzen.",
-        "details": [
-          "Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran; jedes andere Werkzeug und die Hand nicht. Eine unverzauberte Enderit-Spitzhacke braucht 250 Sekunden, etwa so lange wie Obsidian mit der Hand; Effizienz V verkürzt das auf rund 69 Sekunden.",
-          "Adern aus höchstens 2 Blöcken, die nie an Luft liegen, im Schnitt in einem von 3 Chunks.",
-          "Als fallengelassenes Item nimmt er keinen Schaden durch Feuer, Lava, Explosionen, Kakteen oder anderes, schwebt statt ins Void zu fallen und verschwindet erst nach 20 Minuten (viermal so lange wie in Vanilla).",
-          "Die Server-Option server.oreGeneration.dimensionalScrap (Standard: an) schaltet die Erzeugung für neu erzeugte Chunks ab."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
-        "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-      ],
-      "items": {
-        "simplebuilding:end_dimensional_scrap": {
-          "en": "End Dimensional Scrap: the End variant, inside end stone between Y 10 and 70.",
-          "de": "End-Dimensionsschrott: die End-Variante, in Endstein zwischen Y 10 und 70.",
-          "sources": [
-            "common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java",
-            "mc26_3/overlay/java/com/simplebuilding/util/ModWorldGen.java",
-            "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java"
-          ]
-        }
       }
     },
     "crafted_arrow": {
@@ -9772,6 +9507,42 @@
       "de": {
         "summary": "Große Eichentüren (2x2, 2x3, halbe Breite): das Blatt schwenkt in die Fläche davor, Redstone und Hand öffnen sie; siehe Simple Doors."
       }
+    },
+    "chiseled_crimson_blazewood_bookshelf": {
+      "en": {
+        "summary": "A chiseled bookshelf of crimson blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
+        "details": [
+          "Recipe like the chiseled bookshelf: 6 Crimson Blazewood Planks around 3 Crimson Slabs."
+        ]
+      },
+      "de": {
+        "summary": "Ein gemeißeltes Bücherregal aus Karmesin-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
+        "details": [
+          "Rezept wie das gemeißelte Bücherregal: 6 Karmesin-Lohenholzbretter um 3 Karmesinstufen."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "mc26_3/generated/data/simplebuilding/recipe/chiseled_crimson_blazewood_bookshelf.json"
+      ]
+    },
+    "chiseled_warped_blazewood_bookshelf": {
+      "en": {
+        "summary": "A chiseled bookshelf of warped blazewood: six book slots, used like the Vanilla chiseled bookshelf; no extra use yet.",
+        "details": [
+          "Recipe like the chiseled bookshelf: 6 Warped Blazewood Planks around 3 Warped Slabs."
+        ]
+      },
+      "de": {
+        "summary": "Ein gemeißeltes Bücherregal aus Wirr-Lohenholz: sechs Buchplätze, bedient wie Vanillas gemeißeltes Bücherregal; noch ohne Zusatznutzen.",
+        "details": [
+          "Rezept wie das gemeißelte Bücherregal: 6 Wirr-Lohenholzbretter um 3 Wirrstufen."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "mc26_3/generated/data/simplebuilding/recipe/chiseled_warped_blazewood_bookshelf.json"
+      ]
     }
   },
   "inWorld": {

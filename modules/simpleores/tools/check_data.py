@@ -14,7 +14,8 @@ import vanilla_derived  # noqa: E402
 
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords', 'silverArrowUndeadBonus'], config_keys
+assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords', 'silverArrowUndeadBonus',
+                       'sageOre', 'dimensionalScrap'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block',
           'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
 ALLOYS = ('rose_bronze', 'blossom_gold')
@@ -126,6 +127,27 @@ for note, entry in manual['notes'].items():
 assert {f'{NS}:{i}' for i in ITEMS} | {f'{NS}:{b}' for b in BLOCKS} | {f'{NS}:guide_book'} <= set(manual['notes'])
 assert {'lead', 'soundproofing', 'silver_arrow', 'silver_mirror'} <= {f['id'] for f in manual['features']}
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
+
+# IG31-13: the moved materials (Enderite from SimpleLib, scrap and sage ore from SimpleBuilding) keep their own committed textures.
+MOVED_BLOCKS = ('enderite_block', 'sage_ore', 'deepslate_sage_ore', 'dimensional_scrap', 'nether_dimensional_scrap', 'end_dimensional_scrap')
+MOVED_ITEMS = ('raw_enderite', 'layered_raw_enderite', 'enderite_scrap', 'enderite_nugget', 'enderite_ingot', 'enderite_upgrade_template', 'sage_orb')
+for b in MOVED_BLOCKS:
+    for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/models/block/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json'):
+        assert (RES / rel).is_file(), rel
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(f'block.{NS}.{b}'), (locale, b)
+for i in MOVED_ITEMS:
+    assert (RES / f'assets/{NS}/items/{i}.json').is_file() and (RES / f'assets/{NS}/textures/item/{i}.png').is_file(), i
+    for locale in ('en_us', 'de_de'):
+        assert langs[locale].get(f'item.{NS}.{i}'), (locale, i)
+for r in ('enderite_nugget_from_ingot', 'enderite_ingot_from_nugget', 'layered_raw_enderite', 'enderite_scrap_from_blasting_layered_raw_enderite',
+          'enderite_ingot_from_scrap', 'enderite_block', 'enderite_ingot', 'enderite_upgrade_template'):
+    recipe = json.loads((RES / f'data/{NS}/recipe/{r}.json').read_text(encoding='utf-8'))
+    assert 'fabric:load_conditions' not in recipe and 'simplelib:' not in json.dumps(recipe), r   # Simple Ores owns Enderite: unconditional
+for f in ('sage_ore_placed', 'dimensional_scrap_placed', 'nether_dimensional_scrap_placed', 'end_dimensional_scrap_placed'):
+    assert json.loads((RES / f'data/{NS}/worldgen/placed_feature/{f}.json').read_text(encoding='utf-8'))['feature'].startswith(f'{NS}:'), f
+assert 'SAGE' in fabric and 'END_SCRAP' in fabric and 'OresLoot' in fabric
+assert {f'{NS}:{x}' for x in MOVED_BLOCKS + MOVED_ITEMS} <= set(manual['notes'])
 import subprocess
 subprocess.run([sys.executable, str(MODULE / 'tools/gen_data.py'), '--check'], check=True)
 print('simpleores: bilingual texts, loot, recipes, worldgen numbers, derived textures and wiki data valid')

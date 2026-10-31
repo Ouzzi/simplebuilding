@@ -34,6 +34,11 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
  * Everything Simple Ores registers: silver (three ores, raw silver, ingot, nugget, blocks), lead (two ores, raw lead, ingot, nugget, blocks), the silver arrow and the silver mirror, the two rose gold alloys (ingot,
  * block, pressing each), their tools and armor, and the guide book. Loaders call {@link #blocks}/{@link #items} in their
  * matching registry event (Fabric: {@link #registerAll}). Block properties are copies of the matching gold blocks.
+ *
+ * <p>IG31-13 (31.10.): the Enderite materials (raw fragment, layered raw scrap, scrap, nugget, ingot, block, upgrade template;
+ * formerly SimpleLib's), Dimensional Scrap of the three dimensions, Sage Ore and Deepslate Sage Ore with their drop the Sage
+ * Orb (formerly SimpleBuilding's) live here; their old ids move ({@code SimpleOres#registerIdMoves}, SimpleBuilding's
+ * {@code IdMovesHook}). Same block properties and numbers as before.
  */
 public final class OresRegistry {
     /** The two alloys: path prefix, tool material, armor material, the tool numbers of the concept. */
@@ -89,6 +94,18 @@ public final class OresRegistry {
     public static final Block SILVER_MIRROR = block("silver_mirror", Blocks.GLASS,
             s -> new SilverMirrorBlock(s.strength(0.5F).sound(SoundType.METAL)));
 
+    // IG31-13: moved materials. Enderite block like the netherite block (it was built from the same numbers).
+    public static final Block ENDERITE_BLOCK = block("enderite_block", Blocks.NETHERITE_BLOCK, Block::new);
+    /** Sage Ore (owner 2026-10-01): rare like diamond, drops only experience (3-7) and rarely a sage orb (loot table); iron pickaxe. */
+    public static final Block SAGE_ORE = block("sage_ore", Blocks.DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(3, 7), s));
+    public static final Block DEEPSLATE_SAGE_ORE = block("deepslate_sage_ore", Blocks.DEEPSLATE_DIAMOND_ORE, s -> new DropExperienceBlock(UniformInt.of(3, 7), s));
+    public static final Block DIMENSIONAL_SCRAP = scrap("dimensional_scrap", Blocks.DEEPSLATE);
+    public static final Block NETHER_DIMENSIONAL_SCRAP = scrap("nether_dimensional_scrap", Blocks.ANCIENT_DEBRIS);
+    public static final Block END_DIMENSIONAL_SCRAP = scrap("end_dimensional_scrap", Blocks.END_STONE);
+    /** Block items that survive fire and lava (Enderite, scrap). */
+    private static final java.util.Set<String> FIRE_RESISTANT = java.util.Set.of("enderite_block", "dimensional_scrap", "nether_dimensional_scrap",
+            "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot");
+
     public static final ResourceKey<EntityType<?>> SILVER_ARROW_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleOres.id("silver_arrow"));
     /** Like Vanilla's arrow entity: 0.5 x 0.5, tracked from 4 chunks, updated every 20 ticks. */
     public static final EntityType<SilverArrow> SILVER_ARROW_ENTITY = EntityType.Builder.<SilverArrow>of(SilverArrow::new, MobCategory.MISC)
@@ -97,7 +114,8 @@ public final class OresRegistry {
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
             ResourceKey<Item> key = itemKey(path);
-            ITEMS.put(path, new BlockItem(BLOCKS.get(path), new Item.Properties().useBlockDescriptionPrefix().setId(key)));
+            Item.Properties properties = new Item.Properties().useBlockDescriptionPrefix().setId(key);
+            ITEMS.put(path, new BlockItem(BLOCKS.get(path), FIRE_RESISTANT.contains(path) ? properties.fireResistant() : properties));
         }
         plain("raw_silver");
         plain("silver_ingot");
@@ -106,6 +124,12 @@ public final class OresRegistry {
         plain("lead_ingot");
         plain("lead_nugget");
         ITEMS.put("silver_arrow", new SilverArrowItem(new Item.Properties().setId(itemKey("silver_arrow"))));
+        // IG31-13: the Enderite chain (SimpleBuilding adds the armor trim material to the ingot), the template, the sage orb.
+        for (String path : List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget", "enderite_ingot")) {
+            item(path, p -> FIRE_RESISTANT.contains(path) ? p.fireResistant() : p);
+        }
+        ITEMS.put("enderite_upgrade_template", upgradeTemplate(new Item.Properties().setId(itemKey("enderite_upgrade_template"))));
+        ITEMS.put("sage_orb", new com.simpleores.item.SageOrbItem(new Item.Properties().stacksTo(16).setId(itemKey("sage_orb"))));
         for (Alloy alloy : Alloy.values()) {
             plain(alloy.id + "_ingot");
             plain(alloy.id + "_pressling");
@@ -128,6 +152,26 @@ public final class OresRegistry {
         Block block = factory.apply(BlockBehaviour.Properties.ofFullCopy(base).setId(key));
         BLOCKS.put(path, block);
         return block;
+    }
+
+    /** Dimensional Scrap of one dimension: looks like {@code look}, only Enderite tools break it, never moves (piston). */
+    private static Block scrap(String path, Block look) {
+        return block(path, look, s -> new com.simpleores.block.DimensionalScrapBlock(s.strength(com.simpleores.block.DimensionalScrapBlock.HARDNESS, 3600000.0F)
+                .requiresCorrectToolForDrops().sound(SoundType.ANCIENT_DEBRIS).pushReaction(net.minecraft.world.level.material.PushReaction.IMMOVEABLE)));
+    }
+
+    /** The Enderite upgrade (smithing template of the Netherite -> Enderite upgrades), as SimpleLib had it. */
+    private static net.minecraft.world.item.SmithingTemplateItem upgradeTemplate(Item.Properties properties) {
+        String key = "item." + SimpleOres.MOD_ID + ".enderite_upgrade_template";
+        return new net.minecraft.world.item.SmithingTemplateItem(
+                net.minecraft.network.chat.Component.translatable(key + ".applies_to").withStyle(net.minecraft.ChatFormatting.BLUE),
+                net.minecraft.network.chat.Component.translatable(key + ".ingredients").withStyle(net.minecraft.ChatFormatting.BLUE),
+                net.minecraft.network.chat.Component.translatable(key + ".base_slot_description"),
+                net.minecraft.network.chat.Component.translatable(key + ".additions_slot_description"),
+                List.of(net.minecraft.resources.Identifier.withDefaultNamespace("container/slot/pickaxe"),
+                        net.minecraft.resources.Identifier.withDefaultNamespace("container/slot/chestplate")),
+                List.of(net.minecraft.resources.Identifier.withDefaultNamespace("container/slot/ingot")),
+                properties.stacksTo(64).rarity(net.minecraft.world.item.Rarity.UNCOMMON));
     }
 
     private static ResourceKey<Item> itemKey(String path) {
@@ -179,10 +223,19 @@ public final class OresRegistry {
         return out;
     }
 
-    public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "silver_mirror", "rose_bronze_block", "blossom_gold_block"};
+    public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
+            "sage_ore", "deepslate_sage_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
+    public static final String[] BUILDING = {"silver_block", "lead_block", "silver_mirror", "rose_bronze_block", "blossom_gold_block", "enderite_block"};
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "rose_bronze_pressling",
-            "rose_bronze_ingot", "blossom_gold_pressling", "blossom_gold_ingot"};
+            "rose_bronze_ingot", "blossom_gold_pressling", "blossom_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
+            "enderite_ingot", "enderite_upgrade_template", "sage_orb"};
+    /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
+    public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
+            "enderite_block", "enderite_upgrade_template");
+    /** Recipes SimpleLib had for them -> folder of their recipe advancement (same paths here). */
+    public static final Map<String, String> RECIPES_FROM_SIMPLELIB = Map.of("enderite_nugget_from_ingot", "misc", "enderite_ingot_from_nugget", "misc",
+            "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc", "enderite_ingot_from_scrap", "misc",
+            "enderite_block", "decorations", "enderite_ingot", "building_blocks", "enderite_upgrade_template", "misc");
     public static final String[] TOOLS = {"rose_bronze_shovel", "rose_bronze_pickaxe", "rose_bronze_axe", "rose_bronze_hoe",
             "blossom_gold_shovel", "blossom_gold_pickaxe", "blossom_gold_axe", "blossom_gold_hoe"};
     public static final String[] COMBAT = {"rose_bronze_sword", "rose_bronze_helmet", "rose_bronze_chestplate", "rose_bronze_leggings",

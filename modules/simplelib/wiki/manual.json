@@ -28,26 +28,29 @@
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
         "modules/simplelib/shared/java/com/simplelib/material/AnvilCrushing.java",
-        "modules/simplelib/tools/gen_resources.py"
+        "modules/simplelib/tools/gen_resources.py",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
       ],
       "en": {
         "title": "Shared materials",
-        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the enderite materials, the basic and enderite upgrade templates and polished end stone (shared building block of the family).",
+        "summary": "Base materials several Simple mods use: diamond pebble, cracked diamond and its block, netherite nugget, the basic upgrade template, polished end stone (shared building block of the family) and the six building cores. Enderite belongs to Simple Ores (IG31-13).",
         "details": [
           "SimpleLib always registers them, so worlds keep them whichever mod is missing. Their recipes and the anvil crushing only exist while a loaded mod asks for the material (with SimpleBuilding: all of them).",
           "Anvil crushing: an anvil that falls at least one block onto a diamond block consumes it and drops 72 diamond pebbles; nine pebbles craft a cracked diamond, which blasts into one diamond.",
-          "Nuggets and ingots convert 9:1 (netherite and enderite), enderite ingots and blocks 9:1, four raw enderite fragments make raw enderite scrap, which blasts into enderite scrap; four scrap, four diamonds and a netherite ingot make an enderite ingot. Both upgrade templates duplicate like Vanilla templates.",
-          "Other mods use them through the common tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond and c:storage_blocks/enderite and /cracked_diamond. Before SimpleBuilding 2 they were SimpleBuilding items; old worlds load them under their new ids."
+          "Netherite nuggets and ingots convert 9:1; the basic upgrade template duplicates like Vanilla templates.",
+          "Building cores (copper, iron, gold, diamond, netherite, enderite): not stackable, ingredients of wands, beacons and gadgets; they come from loot and traders of other mods (SimpleBuilding, Simple Money), the Enderite core only with Simple Ores. On their own they do nothing when used; with SimpleBuilding a right click plays their animation and rarely turns a block into ore.",
+          "Enderite (raw fragment to block, its upgrade template) moved to Simple Ores; SimpleLib only keeps a flag (materialPresent(\"enderite\"), condition simplelib:material_requested) so other mods load their Enderite variants only with it. Other mods use the common tags c:nuggets/netherite, c:gems/cracked_diamond and c:storage_blocks/cracked_diamond. Before SimpleBuilding 2 these were SimpleBuilding items; old worlds load them under their new ids."
         ]
       },
       "de": {
         "title": "Gemeinsame Materialien",
-        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Enderit-Materialien, die Basis- und Enderit-Aufwertungsvorlage und Polierter Endstein (gemeinsamer Baublock der Familie).",
+        "summary": "Grundmaterialien, die mehrere Simple-Mods nutzen: Diamantkiesel, Rissiger Diamant und sein Block, Netheritklumpen, die Basis-Aufwertungsvorlage, Polierter Endstein (gemeinsamer Baublock der Familie) und die sechs Baukerne. Enderit gehört Simple Ores (IG31-13).",
         "details": [
           "SimpleLib registriert sie immer, damit Welten sie behalten, egal welche Mod fehlt. Ihre Rezepte und das Amboss-Zerschlagen gibt es nur, solange eine geladene Mod das Material anfordert (mit SimpleBuilding: alle).",
           "Amboss-Zerschlagen: Ein Amboss, der mindestens einen Block tief auf einen Diamantblock fällt, verbraucht ihn und lässt 72 Diamantkiesel fallen; neun Kiesel ergeben einen Rissigen Diamanten, der im Schmelzofen zu einem Diamanten wird.",
-          "Klumpen und Barren tauschen 9:1 (Netherit und Enderit), Enderitbarren und -blöcke 9:1; vier Rohe Enderitfragmente ergeben Rohe Enderitplatten, die im Schmelzofen zu Enderitplatten werden; vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Beide Aufwertungsvorlagen lassen sich wie Vanilla-Vorlagen vervielfältigen.",
-          "Andere Mods nutzen sie über die gemeinsamen Tags c:ingots/enderite, c:nuggets/enderite, c:nuggets/netherite, c:raw_materials/enderite, c:gems/cracked_diamond und c:storage_blocks/enderite bzw. /cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter den neuen IDs."
+          "Netheritklumpen und -barren tauschen 9:1; die Basis-Aufwertungsvorlage lässt sich wie Vanilla-Vorlagen vervielfältigen.",
+          "Baukerne (Kupfer, Eisen, Gold, Diamant, Netherit, Enderit): nicht stapelbar, Zutaten von Baustäben, Leuchtfeuern und Gadgets; sie kommen aus Beute und Händlern anderer Mods (SimpleBuilding, Simple Money), der Enderitkern nur mit Simple Ores. Allein tun sie beim Benutzen nichts; mit SimpleBuilding spielt ein Rechtsklick ihre Animation und macht selten einen Block zu Erz.",
+          "Enderit (Rohfragment bis Block, seine Aufwertungsvorlage) ist zu Simple Ores umgezogen; SimpleLib behält nur einen Schalter (materialPresent(\"enderite\"), Bedingung simplelib:material_requested), damit andere Mods ihre Enderit-Varianten nur damit laden. Andere Mods nutzen die gemeinsamen Tags c:nuggets/netherite, c:gems/cracked_diamond und c:storage_blocks/cracked_diamond. Vor SimpleBuilding 2 waren es SimpleBuilding-Items; alte Welten laden sie unter ihren neuen Ids."
         ]
       }
     },
@@ -196,68 +199,12 @@
         "summary": "Ein Neuntel eines Netheritbarrens."
       }
     },
-    "simplelib:enderite_nugget": {
-      "en": {
-        "summary": "A ninth of an enderite ingot."
-      },
-      "de": {
-        "summary": "Ein Neuntel eines Enderitbarrens."
-      }
-    },
-    "simplelib:raw_enderite": {
-      "en": {
-        "summary": "Four make raw enderite scrap."
-      },
-      "de": {
-        "summary": "Vier ergeben Rohe Enderitplatten."
-      }
-    },
-    "simplelib:layered_raw_enderite": {
-      "en": {
-        "summary": "Blasts into enderite scrap."
-      },
-      "de": {
-        "summary": "Wird im Schmelzofen zu Enderitplatten."
-      }
-    },
-    "simplelib:enderite_scrap": {
-      "en": {
-        "summary": "Four, with four diamonds and a netherite ingot, make an enderite ingot."
-      },
-      "de": {
-        "summary": "Vier ergeben mit vier Diamanten und einem Netheritbarren einen Enderitbarren."
-      }
-    },
-    "simplelib:enderite_ingot": {
-      "en": {
-        "summary": "The top material tier; nine make a block."
-      },
-      "de": {
-        "summary": "Höchste Materialstufe; neun ergeben einen Block."
-      }
-    },
-    "simplelib:enderite_block": {
-      "en": {
-        "summary": "Storage block of nine enderite ingots (diamond pickaxe, beacon base)."
-      },
-      "de": {
-        "summary": "Speicherblock aus neun Enderitbarren (Diamantspitzhacke, Leuchtfeuer-Sockel)."
-      }
-    },
     "simplelib:basic_upgrade_template": {
       "en": {
         "summary": "Upgrade template for wood to gold equipment; duplicates with diamonds and an iron block."
       },
       "de": {
         "summary": "Aufwertungsvorlage für Holz- bis Gold-Ausrüstung; vervielfältigt mit Diamanten und einem Eisenblock."
-      }
-    },
-    "simplelib:enderite_upgrade_template": {
-      "en": {
-        "summary": "Upgrade template for netherite to enderite; duplicates with diamonds and end stone."
-      },
-      "de": {
-        "summary": "Aufwertungsvorlage von Netherit zu Enderit; vervielfältigt mit Diamanten und Endstein."
       }
     },
     "simplelib:warped_wart": {
@@ -298,6 +245,78 @@
       },
       "de": {
         "summary": "Mauer aus poliertem Endstein: wie Vanilla-Mauern gecraftet (6 Blöcke ergeben 6) oder in der Steinsäge 1:1 aus dem Block geschnitten."
+      }
+    },
+    "simplelib:copper_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Copper building core: not stackable, an ingredient of wands, beacons and gadgets."
+      },
+      "de": {
+        "summary": "Kupferkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+      }
+    },
+    "simplelib:iron_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Iron building core: not stackable, an ingredient of wands, beacons and gadgets."
+      },
+      "de": {
+        "summary": "Eisenkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+      }
+    },
+    "simplelib:gold_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Gold building core: not stackable, an ingredient of wands, beacons and gadgets."
+      },
+      "de": {
+        "summary": "Goldkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+      }
+    },
+    "simplelib:diamond_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Diamond building core: not stackable, an ingredient of wands, beacons and gadgets."
+      },
+      "de": {
+        "summary": "Diamantkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+      }
+    },
+    "simplelib:netherite_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Netherite building core: not stackable, an ingredient of wands, beacons and gadgets."
+      },
+      "de": {
+        "summary": "Netheritkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets."
+      }
+    },
+    "simplelib:enderite_core": {
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/registry/LibMaterials.java",
+        "modules/simplelib/shared/java/com/simplelib/item/CoreItem.java"
+      ],
+      "en": {
+        "summary": "Enderite building core: not stackable, an ingredient of wands, beacons and gadgets. Only with Simple Ores (its recipe and loot need Enderite)."
+      },
+      "de": {
+        "summary": "Enderitkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets. Nur mit Simple Ores (Rezept und Beute brauchen Enderit)."
       }
     }
   }

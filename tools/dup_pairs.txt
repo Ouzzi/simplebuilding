@@ -2,6 +2,7 @@
 common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModBlocks.java allow: CheckerShapes/4 EndAlternates/4 EndPalette/14 alternates/0 blocks/0 boards/0 hammockBlockEntityBlocks/0 register/0 registerModBlocks/0 slabs/0 squareChain/0 stairs/0 tieredChests/0 trappedCopperChests/0 walls/0
 common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java allow: canSurvive/3 codec/0 getStateForPlacement/1 onPlace/5 storedStack/1 tick/4 updateShape/8
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
+common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java allow: isEnderiteTool/1
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlock.java allow: codec/0 isQuiver/0 onPlace/5 storedStack/1 tick/4
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java allow: codec/0
@@ -44,6 +45,7 @@ common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
 common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
 common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java allow: publishFacts/0
+common/src/shared/java/com/simplebuilding/items/custom/SageOrbItem.java modules/simpleores/shared/java/com/simpleores/item/SageOrbItem.java
 common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxItem.java allow: appendHoverText/5
 common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java modules/simplegadgets/shared/java/com/simplegadgets/gauge/VelocityGaugeItem.java
 common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTooltipData.java

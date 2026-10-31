@@ -3,7 +3,7 @@
     {
       "damage_per_hit": 35,
       "from": "minecraft:enchanting_table",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "material_count": 8,
       "min_tool": "netherite",
       "strikes_per_material": 2,
@@ -13,7 +13,7 @@
     {
       "damage_per_hit": 10,
       "from": "simplebuilding:netherite_hopper",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_hopper"
@@ -21,7 +21,7 @@
     {
       "damage_per_hit": 10,
       "from": "simplebuilding:netherite_piston",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_piston"

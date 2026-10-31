@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplelib:enderite_ingot",
-  "base": "simplebuilding:netherite_core",
+  "addition": "simpleores:enderite_ingot",
+  "base": "simplelib:netherite_core",
   "result": {
-    "id": "simplebuilding:enderite_core"
+    "id": "simplelib:enderite_core"
   },
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

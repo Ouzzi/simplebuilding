@@ -50,7 +50,7 @@
     {
       "from": "simplecrucibles:netherite_barrel",
       "to": "simplecrucibles:enderite_barrel",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "material_count": 2,
       "duration_factor": 2,
       "min_tool": "netherite",
@@ -60,7 +60,7 @@
     {
       "from": "simplecrucibles:netherite_crucible",
       "to": "simplecrucibles:enderite_crucible",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "material_count": 4,
       "min_tool": "netherite",
       "damage_per_hit": 10,

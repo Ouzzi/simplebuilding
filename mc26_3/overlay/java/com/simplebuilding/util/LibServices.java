@@ -72,6 +72,25 @@ public final class LibServices {
     public static void init() {
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();
+        // IG31-13: the building cores are SimpleLib's items; SimpleBuilding gives them their animation and the ore transmutation,
+        // and the sage orb of Simple Ores its hand motion like the cores (N21).
+        com.simplelib.api.CoreHooks.setCore(new com.simplelib.api.CoreHooks.Core() {
+            @Override
+            public net.minecraft.world.InteractionResult use(net.minecraft.world.level.Level level, net.minecraft.world.entity.player.Player player,
+                                                             net.minecraft.world.InteractionHand hand) {
+                return com.simplebuilding.items.custom.BuildingCoreItem.useCore(level, player, hand);
+            }
+
+            @Override
+            public net.minecraft.world.InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context) {
+                return com.simplebuilding.items.custom.BuildingCoreItem.useCoreOn(context);
+            }
+        });
+        com.simplelib.api.CoreHooks.setHeldMotion((player, hand, kind) -> {
+            if ("orb".equals(kind)) {
+                com.simplebuilding.items.custom.CoreHandMotion.start(player, hand, com.simplebuilding.items.custom.CoreHandMotion.Motion.ORB);
+            }
+        });
         // Simple Mobheads (required sub-mod) asks framework WornHeads for extra worn heads: the extra head slot (N49).
         com.simplebuilding.framework.api.WornHeads.register(Simplebuilding.MOD_ID, entity ->
                 entity instanceof net.minecraft.world.entity.LivingEntity living ? java.util.List.of(ExtraHead.get(living)) : java.util.List.of());

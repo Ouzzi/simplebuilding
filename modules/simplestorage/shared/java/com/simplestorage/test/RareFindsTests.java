@@ -264,7 +264,7 @@ final class RareFindsTests {
         Item[] nuggets = {Items.IRON_NUGGET, netheriteNugget, enderiteNugget};
         ChestTier[] tiers = {ChestTier.REINFORCED, ChestTier.NETHERITE, ChestTier.ENDERITE};
         double[] health = {45.0, 60.0, 90.0};
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < (Refs.enderite() ? 3 : 2); i++) { // IG31-13: the Enderite step only with Simple Ores
             ItemStack nugget = new ItemStack(nuggets[i], 2);
             player.setItemInHand(InteractionHand.MAIN_HAND, nugget);
             // The real click path: Player#interactOn -> Mob#interact -> Mob#mobInteract (mixin).
@@ -427,7 +427,7 @@ final class RareFindsTests {
         } finally {
             StorageConfig.apply(saved);
         }
-        helper.assertValueEqual(ShulkerShells.steps().size(), 3, "upgrade chain length");
+        helper.assertValueEqual(ShulkerShells.steps().size(), com.simplelib.api.SimpleLibApi.materialPresent("enderite") ? 3 : 2, "upgrade chain length (Enderite step only with Simple Ores)");
         helper.succeed();
     }
 

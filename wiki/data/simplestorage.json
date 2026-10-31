@@ -1637,19 +1637,19 @@
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_backpack_smithing.json",
       "ingredients": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template",
         "simplestorage:netherite_backpack"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simplestorage:netherite_backpack"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -1664,11 +1664,11 @@
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -1689,19 +1689,19 @@
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_bundle_smithing.json",
       "ingredients": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template",
         "simplestorage:netherite_bundle"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simplestorage:netherite_bundle"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -1716,11 +1716,11 @@
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -2209,19 +2209,19 @@
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_boat_smithing.json",
       "ingredients": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template",
         "simplestorage:netherite_chest_boat"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simplestorage:netherite_chest_boat"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -2232,11 +2232,11 @@
             "count": 1.25
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -2332,19 +2332,19 @@
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_chest_minecart_smithing.json",
       "ingredients": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template",
         "simplestorage:netherite_chest_minecart"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simplestorage:netherite_chest_minecart"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -2355,11 +2355,11 @@
             "count": 5
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {
@@ -2464,7 +2464,7 @@
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_pipe.json",
       "ingredients": [
-        "simplelib:enderite_nugget",
+        "simpleores:enderite_nugget",
         "simplestorage:netherite_pipe"
       ],
       "ingredientGroups": [
@@ -2472,10 +2472,10 @@
           "simplestorage:netherite_pipe"
         ],
         [
-          "simplelib:enderite_nugget"
+          "simpleores:enderite_nugget"
         ],
         [
-          "simplelib:enderite_nugget"
+          "simpleores:enderite_nugget"
         ]
       ],
       "baseMaterials": {
@@ -2490,11 +2490,11 @@
             "count": 2
           },
           {
-            "id": "simplelib:enderite_nugget",
+            "id": "simplelib:netherite_nugget",
             "count": 2
           },
           {
-            "id": "simplelib:netherite_nugget",
+            "id": "simpleores:enderite_nugget",
             "count": 2
           },
           {
@@ -2515,19 +2515,19 @@
       },
       "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/enderite_quiver_smithing.json",
       "ingredients": [
-        "simplelib:enderite_ingot",
-        "simplelib:enderite_upgrade_template",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template",
         "simplestorage:netherite_quiver"
       ],
       "slots": {
         "template": [
-          "simplelib:enderite_upgrade_template"
+          "simpleores:enderite_upgrade_template"
         ],
         "base": [
           "simplestorage:netherite_quiver"
         ],
         "addition": [
-          "simplelib:enderite_ingot"
+          "simpleores:enderite_ingot"
         ]
       },
       "baseMaterials": {
@@ -2542,11 +2542,11 @@
             "count": 1
           },
           {
-            "id": "simplelib:enderite_ingot",
+            "id": "simpleores:enderite_ingot",
             "count": 1
           },
           {
-            "id": "simplelib:enderite_upgrade_template",
+            "id": "simpleores:enderite_upgrade_template",
             "count": 1
           },
           {

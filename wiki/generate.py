@@ -1719,6 +1719,9 @@ def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: b
     if (version_flags(roots) or {}).get("MATERIALS_IN_LIB"):
         # Split stage 3d: the shared materials SimpleBuilding's loot hands out are SimpleLib items.
         item_ids |= {"simplelib:" + p.stem for p in (REPO / "modules/simplelib/generated/resources/assets/simplelib/items").glob("*.json")}
+    if (version_flags(roots) or {}).get("MATERIALS_IN_ORES"):
+        # IG31-13: the Enderite materials, scrap and sage ore SimpleBuilding's loot hands out are Simple Ores items.
+        item_ids |= {"simpleores:" + p.stem for p in (REPO / "modules/simpleores/shared/resources/assets/simpleores/items").glob("*.json")}
     ench_ids = {e["id"] for e in enchantments}
     if (version_flags(roots) or {}).get("HAMMERS_IN_SB") is False:
         # Split stage 7: SimpleBuilding's loot hands out Simple Hammers' sledgehammers and hammer enchantments.

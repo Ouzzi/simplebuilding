@@ -848,7 +848,7 @@ public class ModModelProvider extends FabricModelProvider {
         ModelGenCompat.trimmableArmorItem(trimModelsOnly, ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS);
 
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM);
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib (IG31-13)
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.RAW_ENDERITE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.LAYERED_RAW_ENDERITE, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
@@ -867,11 +867,13 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
         if (com.simplebuilding.version.McVersion.GADGETS_IN_SB) generateRotator(itemModelGenerator); // 26.3: Simple Gadgets ships the models
 
+        if (!com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) { // 26.3: the cores are SimpleLib's (IG31-13)
         itemModelGenerator.generateFlatItem(ModItems.COPPER_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLD_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CORE, ModelTemplates.FLAT_ITEM);
+        }
 
         if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
             generateDyeableBundle(itemModelGenerator, ModItems.REINFORCED_BUNDLE);

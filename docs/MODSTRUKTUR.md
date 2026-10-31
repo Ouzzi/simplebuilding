@@ -4,15 +4,15 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 ## Gemeinsame Basis
 
-- **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials, id moves, in-world upgrades and UI building blocks.
+- **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
+  - required von: Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
 
 ## SimpleBuilding
 
 - **SimpleBuilding** `simplebuilding` [fertig]: Building tools, storage, machines, and enchantments.
-  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets
-  - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple Mobs, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Ores, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs, Simple Resonance
+  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores
+  - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple Mobs, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs, Simple Resonance
   - **Simple Blocks** `simpleblocks` (required) [fertig]: Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.
     - required: SimpleLib
     - optional: SimpleBuilding, jei
@@ -34,6 +34,9 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple Octets** `simpleoctets` (required) [fertig]: Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple End, jei
+  - **Simple Ores** `simpleores` (required) [neu]: Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.
+    - required: SimpleLib
+    - optional: SimpleBuilding, Simple Hammers
   - **Simple Ovens** `simpleovens` (required) [fertig]: Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Foundry
@@ -75,8 +78,6 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple Music** `simplemusic` (optional) [neu]: Sheet music with a text note code (editor with test listening, .txt/.nbs import), pressed onto blank discs in the Disc Press, and uploaded mono Ogg discs (quota, OP approval), played in the Vanilla jukebox and the Pocket Jukebox. Needs SimpleLib; SimpleBuilding optional.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Mobheads
-  - **Simple Ores** `simpleores` (optional) [neu]: Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla.
-    - optional: SimpleBuilding, Simple Hammers
   - **Simple Questionary** `simplequestionary` (optional) [neu]: The Questionary Table: put any item in and read its lore, its use and a secret in an open book.
     - required: SimpleLib
   - **Simple Resonance** `simpleresonance` (optional) [neu]: Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.

@@ -302,7 +302,9 @@ public final class OvensTests {
             var manager = h.getLevel().getServer().getRecipeManager();
             SimpleOvens.MOVED_RECIPES.keySet().forEach(path -> {
                 var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleOvens.id(path)));
-                if (holder.isEmpty()) problems.add("missing " + path);
+                // IG31-13: Enderite recipes load only with Simple Ores (owner of the material).
+                boolean expected = !(path.contains("enderite") && path.endsWith("_smithing")) || SimpleLibApi.materialPresent("enderite"); // the smithing step needs the Ores ingot
+                if (holder.isEmpty() == expected) problems.add((expected ? "missing " : "present without Simple Ores: ") + path);
             });
             long old = manager.getRecipes().stream().filter(r -> SimpleOvens.MOVED_RECIPES.containsKey(r.id().identifier().getPath())
                     && r.id().identifier().getNamespace().equals(SimpleOvens.OLD_NAMESPACE)).count();
@@ -318,7 +320,12 @@ public final class OvensTests {
                 if (toNetherite == null || toNetherite.to() != family.get(OvenTier.NETHERITE) || toNetherite.material() != SimpleLibApi.materialItem("netherite_nugget")) {
                     problems.add("reinforced -> netherite: " + toNetherite);
                 }
-                if (toEnderite == null || toEnderite.to() != family.get(OvenTier.ENDERITE) || toEnderite.material() != SimpleLibApi.materialItem("enderite_nugget")) {
+                // IG31-13: the Enderite nugget is Simple Ores' (by id); without it there is no Enderite step.
+                var nugget = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_nugget"));
+                if (!SimpleLibApi.materialPresent("enderite")) {
+                    if (toEnderite != null) problems.add("netherite -> enderite without Simple Ores: " + toEnderite);
+                } else if (toEnderite == null || toEnderite.to() != family.get(OvenTier.ENDERITE) || toEnderite.material() != nugget) {
                     problems.add("netherite -> enderite: " + toEnderite);
                 }
                 if (InWorldUpgrades.entryFor(family.get(OvenTier.ENDERITE)) != null) problems.add("enderite is the last tier");
@@ -385,19 +392,16 @@ public final class OvensTests {
             h.succeed();
         });
         ALL.put("enderite_loot_alone", h -> {
+            // IG31-13: Enderite and its End city loot belong to Simple Ores; SimpleLib adds none any more, and the Enderite
+            // tier of Simple Ovens is reachable exactly when a mod provides Enderite.
             List<LootPool.Builder> pools = new ArrayList<>();
             com.simplelib.material.MaterialLoot.apply(BuiltInLootTables.END_CITY_TREASURE, pools::add, h.getLevel().registryAccess());
-            boolean partner = com.simplelib.material.MaterialLoot.isByPartner();
-            h.assertTrue(SimpleLibApi.materialRequested("enderite") && SimpleLibApi.materialRequested("netherite_nugget"),
-                    "Simple Ovens requests its materials");
-            if (partner) {
-                h.assertTrue(pools.isEmpty(), "a partner feeds the Enderite loot, SimpleLib adds none");
-            } else {
-                h.assertTrue(pools.size() >= 2, "End city treasure gets Enderite alone: " + pools.size() + " pools");
-            }
-            List<LootPool.Builder> other = new ArrayList<>();
-            com.simplelib.material.MaterialLoot.apply(BuiltInLootTables.SIMPLE_DUNGEON, other::add, h.getLevel().registryAccess());
-            h.assertTrue(other.isEmpty(), "only End city treasure");
+            h.assertTrue(SimpleLibApi.materialRequested("netherite_nugget"), "Simple Ovens requests its materials");
+            h.assertTrue(pools.isEmpty(), "SimpleLib adds no Enderite loot: " + pools.size() + " pools");
+            boolean ores = SimpleLibApi.materialPresent("enderite");
+            var recipe = h.getLevel().getServer().getRecipeManager().byKey(net.minecraft.resources.ResourceKey.create(
+                    net.minecraft.core.registries.Registries.RECIPE, SimpleOvens.id("enderite_furnace_minecart_smithing")));
+            h.assertTrue(recipe.isPresent() == ores, "the Enderite cart recipe exists exactly with Simple Ores (" + ores + ")");
             h.succeed();
         });
         MAX_TICKS.put("furnace_carts_run_on_fuel", 200);

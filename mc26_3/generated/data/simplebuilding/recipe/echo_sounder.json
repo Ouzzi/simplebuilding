@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "E": "simplebuilding:enderite_core",
-    "N": "simplelib:enderite_nugget",
+    "E": "simplelib:enderite_core",
+    "N": "simpleores:enderite_nugget",
     "R": "minecraft:recovery_compass"
   },
   "pattern": [

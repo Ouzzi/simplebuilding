@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_end",
+  "features": "simpleores:end_dimensional_scrap_placed",
+  "step": "underground_ores"
+}

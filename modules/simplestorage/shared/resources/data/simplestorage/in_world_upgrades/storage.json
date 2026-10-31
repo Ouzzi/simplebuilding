@@ -263,7 +263,7 @@
     {
       "damage_per_hit": 10,
       "from": "simplestorage:netherite_chest",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplestorage:enderite_chest"
@@ -272,7 +272,7 @@
       "damage_per_hit": 10,
       "duration_factor": 2,
       "from": "simplestorage:netherite_shulker_box",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "material_count": 2,
       "min_tool": "netherite",
       "tier": "enderite",
@@ -281,7 +281,7 @@
     {
       "damage_per_hit": 10,
       "from": "simplestorage:netherite_trapped_chest",
-      "material": "simplelib:enderite_nugget",
+      "material": "simpleores:enderite_nugget",
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplestorage:enderite_trapped_chest"

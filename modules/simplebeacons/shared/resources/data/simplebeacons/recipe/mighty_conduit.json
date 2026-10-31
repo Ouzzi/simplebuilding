@@ -22,12 +22,12 @@
   "key": {
     "B": "simplebeacons:strong_conduit",
     "U": "simplebeacons:strong_upgrade_template",
-    "c": "simplebuilding:copper_core",
-    "i": "simplebuilding:iron_core",
-    "g": "simplebuilding:gold_core",
-    "d": "simplebuilding:diamond_core",
-    "n": "simplebuilding:netherite_core",
-    "e": "simplebuilding:enderite_core"
+    "c": "simplelib:copper_core",
+    "i": "simplelib:iron_core",
+    "g": "simplelib:gold_core",
+    "d": "simplelib:diamond_core",
+    "n": "simplelib:netherite_core",
+    "e": "simplelib:enderite_core"
   },
   "pattern": [
     "cig",

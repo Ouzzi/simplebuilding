@@ -108,7 +108,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "simplebuilding:iron_core"
+          "name": "simplelib:iron_core"
         }
       ],
       "rolls": 1

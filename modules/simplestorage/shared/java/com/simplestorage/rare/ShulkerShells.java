@@ -21,12 +21,17 @@ public final class ShulkerShells {
     public record Step(Item shell, Item nugget, Item result) {
     }
 
-    /** The chain, bottom up. */
+    /** The chain, bottom up; the Enderite step only with Simple Ores (IG31-13: it owns the Enderite nugget, found by id). */
     public static List<Step> steps() {
-        return List.of(
+        List<Step> steps = new java.util.ArrayList<>(List.of(
                 new Step(Items.SHULKER_SHELL, Items.IRON_NUGGET, StorageItems.REINFORCED_SHULKER_SHELL),
-                new Step(StorageItems.REINFORCED_SHULKER_SHELL, com.simplelib.api.SimpleLibApi.materialItem("netherite_nugget"), StorageItems.NETHERITE_SHULKER_SHELL),
-                new Step(StorageItems.NETHERITE_SHULKER_SHELL, com.simplelib.api.SimpleLibApi.materialItem("enderite_nugget"), StorageItems.ENDERITE_SHULKER_SHELL));
+                new Step(StorageItems.REINFORCED_SHULKER_SHELL, com.simplelib.api.SimpleLibApi.materialItem("netherite_nugget"), StorageItems.NETHERITE_SHULKER_SHELL)));
+        var nugget = net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_nugget");
+        if (net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(nugget)) {
+            steps.add(new Step(StorageItems.NETHERITE_SHULKER_SHELL, net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(nugget),
+                    StorageItems.ENDERITE_SHULKER_SHELL));
+        }
+        return List.copyOf(steps);
     }
 
     /** The tier shell of a chest/shulker tier. */

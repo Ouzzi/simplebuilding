@@ -66,9 +66,13 @@ public class ModWorldGen {
     public static final float NIHILITH_DULL_CHANCE = 0.194F;
     public static final float NIHILITH_REAL_CHANCE = 0.966F;
 
-    /** Weisheitserz (2026-10-01): Groesse, Haeufigkeit und Hoehe wie Vanillas kleines Diamanterz. */
-    public static final ResourceKey<Feature> SAGE_ORE_KEY = registerConfiguredKey("sage_ore");
-    public static final ResourceKey<PlacedFeature> SAGE_ORE_PLACED_KEY = registerPlacedKey("sage_ore_placed");
+    /**
+     * Weisheitserz (2026-10-01): Groesse, Haeufigkeit und Hoehe wie Vanillas kleines Diamanterz. IG31-13: Feature und
+     * Platzierung gehoeren Simple Ores ({@code simpleores:sage_ore(_placed)}, Daten-JSON dort, gleiche Zahlen); die Schluessel
+     * zeigen dorthin, SimpleBuilding registriert sie nicht mehr. Ebenso der Dimensions-Schrott.
+     */
+    public static final ResourceKey<Feature> SAGE_ORE_KEY = oresConfiguredKey("sage_ore");
+    public static final ResourceKey<PlacedFeature> SAGE_ORE_PLACED_KEY = oresPlacedKey("sage_ore_placed");
     public static final int SAGE_ORE_SIZE = 4;
     public static final float SAGE_ORE_AIR_DISCARD = 0.5F;
     public static final int SAGE_ORE_COUNT = 7;
@@ -79,12 +83,12 @@ public class ModWorldGen {
      */
     public static final int SCRAP_SIZE = 2;
     public static final int SCRAP_RARITY = 3;
-    public static final ResourceKey<Feature> SCRAP_OVERWORLD_KEY = registerConfiguredKey("dimensional_scrap");
-    public static final ResourceKey<Feature> SCRAP_NETHER_KEY = registerConfiguredKey("nether_dimensional_scrap");
-    public static final ResourceKey<Feature> SCRAP_END_KEY = registerConfiguredKey("end_dimensional_scrap");
-    public static final ResourceKey<PlacedFeature> SCRAP_OVERWORLD_PLACED_KEY = registerPlacedKey("dimensional_scrap_placed");
-    public static final ResourceKey<PlacedFeature> SCRAP_NETHER_PLACED_KEY = registerPlacedKey("nether_dimensional_scrap_placed");
-    public static final ResourceKey<PlacedFeature> SCRAP_END_PLACED_KEY = registerPlacedKey("end_dimensional_scrap_placed");
+    public static final ResourceKey<Feature> SCRAP_OVERWORLD_KEY = oresConfiguredKey("dimensional_scrap");
+    public static final ResourceKey<Feature> SCRAP_NETHER_KEY = oresConfiguredKey("nether_dimensional_scrap");
+    public static final ResourceKey<Feature> SCRAP_END_KEY = oresConfiguredKey("end_dimensional_scrap");
+    public static final ResourceKey<PlacedFeature> SCRAP_OVERWORLD_PLACED_KEY = oresPlacedKey("dimensional_scrap_placed");
+    public static final ResourceKey<PlacedFeature> SCRAP_NETHER_PLACED_KEY = oresPlacedKey("nether_dimensional_scrap_placed");
+    public static final ResourceKey<PlacedFeature> SCRAP_END_PLACED_KEY = oresPlacedKey("end_dimensional_scrap_placed");
 
     /** Rissiges Eis (Nachtrag 35): Flecken auf Eisflaechen und vereinzelte 1x1-Stellen, nach freeze_top_layer. */
     public static final ResourceKey<Feature> CRACKED_ICE_PATCH_KEY = registerConfiguredKey("cracked_ice_patch");
@@ -136,16 +140,7 @@ public class ModWorldGen {
                 ModBlocks.ASTRALIT_ORE, ASTRALIT_REAL_CHANCE, ASTRALIT_VEIN_SIZE));
         context.register(NIHILITH_ORE_KEY, endOre(ModBlocks.DULL_NIHILITH_ORE, NIHILITH_DULL_CHANCE,
                 ModBlocks.NIHILITH_ORE, NIHILITH_REAL_CHANCE, NIHILITH_VEIN_SIZE));
-        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
-            context.register(SCRAP_OVERWORLD_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
-                    new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES),
-                    ModBlocks.DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
-            context.register(SCRAP_NETHER_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
-                    new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.BASE_STONE_NETHER),
-                    ModBlocks.NETHER_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
-            context.register(SCRAP_END_KEY, new OreFeature(List.of(net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
-                    new BlockMatchTest(Blocks.END_STONE), ModBlocks.END_DIMENSIONAL_SCRAP.defaultBlockState())), SCRAP_SIZE, 1.0F));
-        }
+        // IG31-13: Dimensional Scrap and Sage Ore are Simple Ores' features (data there), not registered here.
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             // Cracked ice belongs to Simple Blocks since b-blocksmove (by id; datagen loads the required sub-mod).
             context.register(CRACKED_ICE_PATCH_KEY, new OreFeature(new BlockMatchTest(Blocks.ICE),
@@ -157,16 +152,6 @@ public class ModWorldGen {
         if (com.simplebuilding.version.McVersion.NATURE_VARIANTS) {
             context.register(SCULK_JAW_KEY, new net.minecraft.world.level.levelgen.feature.SimpleBlockFeature(
                     new net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider(ModBlocks.SCULK_JAW.defaultBlockState())));
-        }
-        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
-            context.register(SAGE_ORE_KEY, new OreFeature(List.of(
-                    net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
-                            new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES),
-                            ModBlocks.SAGE_ORE.defaultBlockState()),
-                    net.minecraft.world.level.levelgen.feature.BlockReplacement.replace(
-                            new net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest(net.minecraft.tags.BlockTags.DEEPSLATE_ORE_REPLACEABLES),
-                            ModBlocks.DEEPSLATE_SAGE_ORE.defaultBlockState())),
-                    SAGE_ORE_SIZE, SAGE_ORE_AIR_DISCARD));
         }
     }
 
@@ -231,12 +216,6 @@ public class ModWorldGen {
                     BlockPredicateFilter.forPredicate(sculkJawSpot()),
                     BiomeFilter.biome()));
         }
-        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
-            registerSageOre(context, features);
-        }
-        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
-            registerScrap(context, features);
-        }
     }
 
     /**
@@ -267,32 +246,17 @@ public class ModWorldGen {
                 CRACKED_ICE_FIELD_DEPTH);
     }
 
-    /** Placements of the Dimensional Scrap: Overworld deep in deepslate, Nether like ancient debris, End inside the islands. */
-    private static void registerScrap(BootstrapContext<PlacedFeature> context, net.minecraft.core.HolderGetter<Feature> features) {
-        register(context, SCRAP_OVERWORLD_PLACED_KEY, features.getOrThrow(SCRAP_OVERWORLD_KEY), List.of(
-                net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(SCRAP_RARITY), InSquarePlacement.spread(),
-                HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(0), VerticalAnchor.aboveBottom(32)), BiomeFilter.biome()));
-        register(context, SCRAP_NETHER_PLACED_KEY, features.getOrThrow(SCRAP_NETHER_KEY), List.of(
-                net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(SCRAP_RARITY), InSquarePlacement.spread(),
-                HeightRangePlacement.triangle(VerticalAnchor.absolute(8), VerticalAnchor.absolute(24)), BiomeFilter.biome()));
-        register(context, SCRAP_END_PLACED_KEY, features.getOrThrow(SCRAP_END_KEY), List.of(
-                net.minecraft.world.level.levelgen.placement.RarityFilter.onAverageOnceEvery(SCRAP_RARITY), InSquarePlacement.spread(),
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(10), VerticalAnchor.absolute(70)), BiomeFilter.biome()));
-    }
-
-    /** Placement of the Sage Ore; registered from {@link #bootstrapPlacedFeatures}. */
-    private static void registerSageOre(BootstrapContext<PlacedFeature> context, net.minecraft.core.HolderGetter<Feature> features) {
-        register(context, SAGE_ORE_PLACED_KEY, features.getOrThrow(SAGE_ORE_KEY),
-                List.of(
-                        CountPlacement.of(SAGE_ORE_COUNT),
-                        InSquarePlacement.spread(),
-                        HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)),
-                        BiomeFilter.biome()
-                ));
-    }
-
     public static ResourceKey<Feature> registerConfiguredKey(String name) {
         return ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
+    }
+
+    /** IG31-13: a feature key of Simple Ores (Sage Ore, Dimensional Scrap). */
+    private static ResourceKey<Feature> oresConfiguredKey(String name) {
+        return ResourceKey.create(Registries.FEATURE, Identifier.fromNamespaceAndPath("simpleores", name));
+    }
+
+    private static ResourceKey<PlacedFeature> oresPlacedKey(String name) {
+        return ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath("simpleores", name));
     }
 
     public static ResourceKey<PlacedFeature> registerPlacedKey(String name) {

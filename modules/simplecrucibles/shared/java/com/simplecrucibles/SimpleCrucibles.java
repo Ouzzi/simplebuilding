@@ -47,7 +47,7 @@ public final class SimpleCrucibles {
     /** Data components of the buckets (SimpleBuilding's before). */
     public static final List<String> COMPONENTS_FROM_SB = List.of("oxidation", "waxed", "wax_worn", "ceramic_uses");
     /** SimpleLib materials the Enderite stage and the upgrades are built with (their recipes and sources go on). */
-    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates");
+    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
 
     private static boolean movesRegistered;
 

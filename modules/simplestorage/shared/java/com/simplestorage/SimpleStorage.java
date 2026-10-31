@@ -81,7 +81,7 @@ public final class SimpleStorage {
      * SimpleLib materials the upgrades and recipes use (cracked diamond, netherite and enderite nuggets; 8b-2: the
      * Enderite upgrade template for the chest carts and boats).
      */
-    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "enderite", "upgrade_templates");
+    public static final List<String> MATERIALS = List.of("cracked_diamond", "netherite_nugget", "upgrade_templates");
     public static final List<String> TIERS = List.of("reinforced", "netherite", "enderite");
     public static final List<String> COPPER_STAGES = List.of("", "exposed_", "weathered_", "oxidized_");
     public static final List<String> DYES = List.of("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",

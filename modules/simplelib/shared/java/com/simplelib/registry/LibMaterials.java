@@ -36,37 +36,61 @@ import net.minecraft.world.level.material.MapColor;
  * <p>Registration is idempotent: the loader entry and a partner's first {@code SimpleLibApi.materialItem} call both
  * reach {@link #ensureBlocks}/{@link #ensureItems}, so the order of the mods' registration events does not matter
  * (blocks in the block event, items in the item event).
+ *
+ * <p>IG31-13 (31.10.): Enderite left SimpleLib for Simple Ores ({@code simpleores:*}, ids move there). The name stays a
+ * <em>provided</em> group: the mod that owns it calls {@link #provide}, and {@link #requested} (the condition
+ * {@code simplelib:material_requested}) is true while a loaded mod provides it, so recipes of other mods can ask for it
+ * without naming the owner. The six building cores ({@code cores}) moved here from SimpleBuilding: always registered,
+ * a neutral {@link com.simplelib.item.CoreItem} whose right click a partner fills ({@code CoreHooks}).
  */
 public final class LibMaterials {
+    /** The six building cores in tier order (IG31-13). */
+    public static final List<String> CORES = List.of("copper_core", "iron_core", "gold_core", "diamond_core", "netherite_core", "enderite_core");
+
     /** Group -> ids (items; the blocks have block items of the same id). */
     public static final Map<String, List<String>> GROUPS = Map.of(
             "cracked_diamond", List.of("diamond_pebble", "cracked_diamond", "cracked_diamond_block"),
             "netherite_nugget", List.of("netherite_nugget"),
-            "enderite", List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot", "enderite_nugget", "enderite_block"),
-            "upgrade_templates", List.of("basic_upgrade_template", "enderite_upgrade_template"),
+            "upgrade_templates", List.of("basic_upgrade_template"),
+            // IG31-13: the building cores (copper to enderite), formerly SimpleBuilding's; used by Beacons, Gadgets, the wands.
+            "cores", CORES,
             // Module family stage 3 (rule 16): the building block several family mods share (Blocks, End, Enderite, Octets).
             "polished_end_stone", List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall"));
 
+    /** Groups another mod owns and registers itself; it announces them with {@link #provide}. */
+    public static final Set<String> PROVIDED_GROUPS = Set.of("enderite");
+
     private static final Set<String> REQUESTED = ConcurrentHashMap.newKeySet();
+    private static final Set<String> PROVIDED = ConcurrentHashMap.newKeySet();
     private static final Map<String, Block> BLOCKS = new LinkedHashMap<>();
     private static final Map<String, Item> ITEMS = new LinkedHashMap<>();
 
     private LibMaterials() {}
 
     public static void request(String group) {
+        if (PROVIDED_GROUPS.contains(group)) return; // its owner registers it; requests change nothing
         if (!GROUPS.containsKey(group)) throw new IllegalArgumentException("unknown SimpleLib material group " + group + ", known: " + GROUPS.keySet());
         if (REQUESTED.add(group)) SimpleLib.LOG.info("SimpleLib material '{}' requested", group);
     }
 
     public static boolean requested(String group) {
-        return REQUESTED.contains(group);
+        return REQUESTED.contains(group) || PROVIDED.contains(group);
+    }
+
+    /** The owner of a provided group ({@link #PROVIDED_GROUPS}) announces it, in its constructor / initializer. */
+    public static void provide(String group) {
+        if (!PROVIDED_GROUPS.contains(group)) throw new IllegalArgumentException("not a provided SimpleLib material group " + group + ", known: " + PROVIDED_GROUPS);
+        if (PROVIDED.add(group)) SimpleLib.LOG.info("SimpleLib material '{}' provided", group);
+    }
+
+    /** Whether a loaded mod provides the group (Enderite: Simple Ores). */
+    public static boolean provided(String group) {
+        return PROVIDED.contains(group);
     }
 
     public static synchronized void ensureBlocks() {
         if (!BLOCKS.isEmpty()) return;
         block("cracked_diamond_block", BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK).strength(7.0F, 14.0F));
-        block("enderite_block", BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()
-                .strength(50.0f, 1200.0f).sound(SoundType.NETHERITE_BLOCK));
         block("polished_end_stone", BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops()
                 .strength(3.0F, 9.0F).sound(SoundType.STONE));
         // Stairs, slab and wall of it (octet rule, owner 17.10.): the properties copy the full block.
@@ -80,20 +104,18 @@ public final class LibMaterials {
         if (!ITEMS.isEmpty()) return;
         ensureBlocks();
         item("basic_upgrade_template", p -> upgradeTemplate("basic_upgrade_template", p));
-        item("enderite_upgrade_template", p -> upgradeTemplate("enderite_upgrade_template", p));
         item("diamond_pebble", Item::new);
         item("cracked_diamond", Item::new);
         item("cracked_diamond_block", p -> new BlockItem(BLOCKS.get("cracked_diamond_block"), p.useBlockDescriptionPrefix()));
         item("netherite_nugget", p -> new Item(p.fireResistant()));
-        item("enderite_nugget", p -> new Item(p.fireResistant()));
-        item("raw_enderite", Item::new);
-        item("layered_raw_enderite", Item::new);
-        item("enderite_scrap", p -> new Item(p.fireResistant()));
-        // The armor trim material (SimpleBuilding's) is added by that mod when the item's components are built.
-        item("enderite_ingot", p -> new Item(p.fireResistant()));
-        item("enderite_block", p -> new BlockItem(BLOCKS.get("enderite_block"), p.fireResistant().useBlockDescriptionPrefix()));
         for (String name : List.of("polished_end_stone", "polished_end_stone_stairs", "polished_end_stone_slab", "polished_end_stone_wall")) {
             item(name, p -> new BlockItem(BLOCKS.get(name), p.useBlockDescriptionPrefix()));
+        }
+        // IG31-13: the building cores, numbers as SimpleBuilding had them (not stackable, rare; Netherite/Enderite fire resistant, Enderite epic).
+        for (String name : CORES) {
+            boolean fire = name.startsWith("netherite") || name.startsWith("enderite");
+            Rarity rarity = name.startsWith("enderite") ? Rarity.EPIC : Rarity.RARE;
+            item(name, p -> new com.simplelib.item.CoreItem((fire ? p.fireResistant() : p).stacksTo(1).rarity(rarity)));
         }
     }
 

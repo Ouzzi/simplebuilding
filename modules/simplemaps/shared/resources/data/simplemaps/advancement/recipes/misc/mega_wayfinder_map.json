@@ -47,7 +47,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_nugget"
+            "items": "simpleores:enderite_nugget"
           }
         ]
       },

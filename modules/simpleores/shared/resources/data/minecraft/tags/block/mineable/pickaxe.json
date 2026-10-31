@@ -11,6 +11,12 @@
     "simpleores:lead_block",
     "simpleores:silver_mirror",
     "simpleores:rose_bronze_block",
-    "simpleores:blossom_gold_block"
+    "simpleores:blossom_gold_block",
+    "simpleores:enderite_block",
+    "simpleores:sage_ore",
+    "simpleores:deepslate_sage_ore",
+    "simpleores:dimensional_scrap",
+    "simpleores:nether_dimensional_scrap",
+    "simpleores:end_dimensional_scrap"
   ]
 }

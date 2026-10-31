@@ -941,7 +941,9 @@ final class BucketTests {
         if (decoded == null || !decoded.is(CrucibleFluids.SOUL_LAVA_BLOCK)) problems.add("chunk codec loads " + state + " as " + decoded);
         for (String path : SimpleCrucibles.BUCKET_RECIPES_FROM_SB) {
             var key = net.minecraft.resources.ResourceKey.create(Registries.RECIPE, SimpleCrucibles.id(path));
-            if (helper.getLevel().getServer().getRecipeManager().byKey(key).isEmpty()) problems.add("no recipe " + path);
+            // IG31-13: Enderite recipes load only with Simple Ores (owner of the material).
+            boolean expected = !path.contains("enderite") || com.simplelib.api.SimpleLibApi.materialPresent("enderite");
+            if (helper.getLevel().getServer().getRecipeManager().byKey(key).isEmpty() == expected) problems.add((expected ? "no recipe " : "recipe without Simple Ores ") + path);
             if (!SimpleCrucibles.id(path).equals(com.simplelib.api.IdMoves.target(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplebuilding", path)))) problems.add("recipe move " + path);
         }
         helper.assertTrue(problems.isEmpty(), String.join("; ", problems));

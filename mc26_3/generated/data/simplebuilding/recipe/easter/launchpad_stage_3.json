@@ -5,5 +5,5 @@
   "base_stage": 2,
   "result": "simplebuilding:enderite_launchpad",
   "result_stage": 3,
-  "template": "simplelib:enderite_upgrade_template"
+  "template": "simpleores:enderite_upgrade_template"
 }

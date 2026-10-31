@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#simplebuilding:trial_chamber_heads",
+  "base": "minecraft:heavy_weighted_pressure_plate",
+  "result": {
+    "id": "simplebuilding:launchpad"
+  },
+  "template": "simplelib:iron_core"
+}

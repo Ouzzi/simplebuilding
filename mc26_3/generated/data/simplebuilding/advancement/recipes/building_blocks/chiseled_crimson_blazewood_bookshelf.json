@@ -1,12 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_the_recipe": {
-      "conditions": {
-        "recipes": "simplebuilding:chiseled_crimson_blazewood_bookshelf"
-      },
-      "trigger": "minecraft:recipe_unlocked"
-    },
     "has_crimson_blazewood_planks": {
       "conditions": {
         "items": [
@@ -16,6 +10,12 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:chiseled_crimson_blazewood_bookshelf"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [

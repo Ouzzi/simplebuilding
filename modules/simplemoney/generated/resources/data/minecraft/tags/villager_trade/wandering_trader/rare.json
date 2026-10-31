@@ -126,14 +126,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/copper_core",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/diamond_core",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/echo_sounder",
       "required": false
     },
@@ -194,10 +186,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_block",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_boots",
       "required": false
     },
@@ -219,10 +207,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/enderite_chunk_loader",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_core",
       "required": false
     },
     {
@@ -250,10 +234,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_ingot",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_launchpad",
       "required": false
     },
@@ -266,10 +246,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_nugget",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_pickaxe",
       "required": false
     },
@@ -279,10 +255,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/enderite_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_scrap",
       "required": false
     },
     {
@@ -302,10 +274,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_upgrade_template",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/fine_elytra_pad",
       "required": false
     },
@@ -314,19 +282,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/gold_core",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/infused_potion_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/iron_core",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/layered_raw_enderite",
       "required": false
     },
     {
@@ -347,10 +303,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_chunk_loader",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_core",
       "required": false
     },
     {
@@ -490,10 +442,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/raw_enderite",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/reinforced_flypad",
       "required": false
     },
@@ -555,6 +503,30 @@
     },
     {
       "id": "simplemoney:links/simplehammers/netherite_sledgehammer",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplelib/copper_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplelib/diamond_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplelib/enderite_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplelib/gold_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplelib/iron_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplelib/netherite_core",
       "required": false
     },
     {
@@ -847,6 +819,34 @@
     },
     {
       "id": "simplemoney:links/simplemobheads/dragonmite_head",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/enderite_block",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/enderite_ingot",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/enderite_nugget",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/enderite_scrap",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/enderite_upgrade_template",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/layered_raw_enderite",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simpleores/raw_enderite",
       "required": false
     },
     {

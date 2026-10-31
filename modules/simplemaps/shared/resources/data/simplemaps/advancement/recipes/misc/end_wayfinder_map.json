@@ -57,7 +57,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplelib:enderite_scrap"
+            "items": "simpleores:enderite_scrap"
           }
         ]
       },

@@ -77,7 +77,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                     .forceAddTag(ModTags.Blocks.PISTON_BREACHABLE_EXTRA);
         }
         // Dimensions-Schrott: Spitzhacke (Enderit prueft der Block selbst), immun gegen Wither und Drache.
-        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP) {
+        // IG31-13: on 26.3 these tags of the scrap and the sage ore are Simple Ores' (its data), not SimpleBuilding's.
+        if (com.simplebuilding.version.McVersion.DIMENSIONAL_SCRAP && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             for (var scrap : java.util.List.of(ModBlocks.DIMENSIONAL_SCRAP, ModBlocks.NETHER_DIMENSIONAL_SCRAP, ModBlocks.END_DIMENSIONAL_SCRAP)) {
                 builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(scrap));
                 builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(scrap));
@@ -125,7 +126,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
             // Lautsprecher wie Notenblock und Plattenspieler: Axt.
             builder(BlockTags.MINEABLE_WITH_AXE).add(key(ModBlocks.JUKEBOX_AMPLIFIER)).add(key(ModBlocks.NOTE_AMPLIFIER));
         }
-        if (com.simplebuilding.version.McVersion.SAGE_ORE) {
+        if (com.simplebuilding.version.McVersion.SAGE_ORE && !com.simplebuilding.version.McVersion.MATERIALS_IN_ORES) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
             builder(BlockTags.NEEDS_IRON_TOOL).add(key(ModBlocks.SAGE_ORE)).add(key(ModBlocks.DEEPSLATE_SAGE_ORE));
         }

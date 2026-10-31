@@ -388,17 +388,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:copper_core",
-      "tier": 0,
-      "hours": 4.0,
-      "craft": 5,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:copper_pressure_plate",
       "tier": 0,
       "hours": 4.0,
@@ -474,17 +463,6 @@
       "level": 4,
       "stock": 1,
       "chance": 1
-    },
-    {
-      "item": "simplebuilding:diamond_core",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 5,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 4,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplebuilding:diamond_pebble",
@@ -696,17 +674,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_block",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_boots",
       "tier": 5,
       "hours": 38.1,
@@ -771,17 +738,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_core",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.01
     },
     {
       "item": "simplebuilding:enderite_elytra_pad",
@@ -850,17 +806,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_ingot",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_launchpad",
       "tier": 5,
       "hours": 38.1,
@@ -894,17 +839,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_nugget",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 1,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_pickaxe",
       "tier": 5,
       "hours": 38.1,
@@ -931,17 +865,6 @@
       "tier": 5,
       "hours": 38.1,
       "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_scrap",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 1,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -986,17 +909,6 @@
       "tier": 5,
       "hours": 38.1,
       "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:enderite_upgrade_template",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 9,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1070,17 +982,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:gold_core",
-      "tier": 2,
-      "hours": 12.5,
-      "craft": 5,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 3,
-      "stock": 2,
-      "chance": 0.25
-    },
-    {
       "item": "simplebuilding:gold_spatula",
       "tier": 2,
       "hours": 12.5,
@@ -1136,17 +1037,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:iron_core",
-      "tier": 1,
-      "hours": 6.7,
-      "craft": 5,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 2,
-      "stock": 2,
-      "chance": 0.5
-    },
-    {
       "item": "simplebuilding:iron_spatula",
       "tier": 1,
       "hours": 6.7,
@@ -1178,17 +1068,6 @@
       "level": 2,
       "stock": 2,
       "chance": 1
-    },
-    {
-      "item": "simplebuilding:layered_raw_enderite",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplebuilding:magnet",
@@ -1255,17 +1134,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_core",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 3,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.05
     },
     {
       "item": "simplebuilding:netherite_elytra_pad",
@@ -1860,17 +1728,6 @@
       "level": 1,
       "stock": 2,
       "chance": 1
-    },
-    {
-      "item": "simplebuilding:raw_enderite",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
     },
     {
       "item": "simplebuilding:reinforced_elytra_pad",

@@ -175,6 +175,60 @@
       }
     },
     {
+      "id": "enderite",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/OresLoot.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/enderite_ingot_from_scrap.json"
+      ],
+      "en": {
+        "title": "Enderite",
+        "summary": "The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.",
+        "details": [
+          "On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.",
+          "Chain: 4 raw fragments -> raw Enderite scrap (crafting), that melts only in a blast furnace into Enderite scrap; 4 scrap + 4 diamonds + 1 netherite ingot -> Enderite ingot; 9 ingots <-> block, 9 nuggets <-> ingot.",
+          "Other mods ask for Enderite through SimpleLib (it is \"provided\" by Simple Ores) and load their Enderite recipes only with Simple Ores; their items stay registered, so worlds keep them."
+        ]
+      },
+      "de": {
+        "title": "Enderit",
+        "summary": "Die Stufe über Netherit (von SimpleLib hierher umgezogen, IG31-13). Die Enderit-Varianten der anderen Simple-Mods - Truhen, Öfen, Tiegel, Hämmer, Rucksäcke - erscheinen nur, solange Simple Ores installiert ist.",
+        "details": [
+          "Allein: Endstadt-Truhen enthalten Enderitplatten (15 %), die Enderit-Aufwertung (30 %) und rohe Enderitfragmente oder -klumpen; mit SimpleBuilding füllt dieses die Truhen selbst.",
+          "Kette: 4 rohe Fragmente -> rohe Enderitplatten (Werkbank), die nur im Hochofen zu Enderitplatten schmelzen; 4 Platten + 4 Diamanten + 1 Netheritbarren -> Enderitbarren; 9 Barren <-> Block, 9 Klumpen <-> Barren.",
+          "Andere Mods fragen über SimpleLib nach Enderit (Simple Ores „stellt es bereit“) und laden ihre Enderit-Rezepte nur mit Simple Ores; ihre Gegenstände bleiben registriert, Welten behalten sie."
+        ]
+      }
+    },
+    {
+      "id": "sage_and_scrap",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java",
+        "modules/simpleores/shared/java/com/simpleores/item/SageOrbItem.java",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/sage_ore_placed.json",
+        "modules/simpleores/shared/resources/data/simpleores/worldgen/placed_feature/dimensional_scrap_placed.json"
+      ],
+      "en": {
+        "title": "Sage Ore and Dimensional Scrap",
+        "summary": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
+        "details": [
+          "Sage ore (and a deepslate twin): as rare as diamond ore, iron pickaxe, drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune). The orb charges 0.3 s and gives 50 to 100 experience.",
+          "Dimensional scrap: Overworld deepslate, Nether like ancient debris, End islands; rarer than ancient debris. Only Enderite tools (SimpleBuilding's pickaxe, Simple Hammers' sledgehammer: tag simpleores:breaks_dimensional_scrap) break it; on its own it is unbreakable. No recipe yet.",
+          "Switches sageOre and dimensionalScrap (server config) stop new veins; existing blocks stay."
+        ]
+      },
+      "de": {
+        "title": "Weisheitserz und Dimensionsschrott",
+        "summary": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
+        "details": [
+          "Weisheitserz (und ein Tiefenschiefer-Zwilling): so selten wie Diamanterz, Eisenspitzhacke, lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %). Die Kugel lädt 0,3 s und gibt 50 bis 100 Erfahrung.",
+          "Dimensionsschrott: Tiefenschiefer der Oberwelt, Nether wie Antiker Schrott, End-Inseln; seltener als Antiker Schrott. Nur Enderit-Werkzeuge (Spitzhacke von SimpleBuilding, Vorschlaghammer von Simple Hammers: Tag simpleores:breaks_dimensional_scrap) bauen ihn ab; allein ist er unzerstörbar. Noch kein Rezept.",
+          "Die Schalter sageOre und dimensionalScrap (Server-Config) stoppen neue Adern; vorhandene Blöcke bleiben."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/config/OresConfig.java"
@@ -186,6 +240,7 @@
           "enabled (true): off stops new silver and lead veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
           "silverArrowUndeadBonus (3, range 0 to 6): extra damage of a silver arrow against undead, 0 = off.",
+          "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
         ]
       },
@@ -196,6 +251,7 @@
           "enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
           "silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus.",
+          "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
       }
@@ -208,10 +264,10 @@
         "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+        "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+        "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
       }
     },
     "simpleores:silver_ore": {
@@ -344,6 +400,149 @@
       },
       "de": {
         "summary": "Blütengoldblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+      }
+    },
+    "simpleores:enderite_block": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine Enderite ingots; craftable both ways. Needs a diamond pickaxe, a beacon base block."
+      },
+      "de": {
+        "summary": "Neun Enderitbarren; in beide Richtungen herstellbar. Braucht eine Diamantspitzhacke, Leuchtfeuer-Sockelblock."
+      }
+    },
+    "simpleores:sage_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Generates in the Overworld as rarely as diamond ore (7 tries per chunk, veins of 4). Needs an iron pickaxe. Drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune); Silk Touch keeps the ore."
+      },
+      "de": {
+        "summary": "Entsteht in der Oberwelt so selten wie Diamanterz (7 Versuche je Chunk, Adern zu 4). Braucht eine Eisenspitzhacke. Lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %); Behutsamkeit behält das Erz."
+      }
+    },
+    "simpleores:deepslate_sage_ore": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The deepslate twin of the sage ore. Needs an iron pickaxe. Drops 3 to 7 experience and rarely a sage orb (2 %, up to 5 % with Fortune); Silk Touch keeps the ore."
+      },
+      "de": {
+        "summary": "Der Tiefenschiefer-Zwilling des Weisheitserzes. Braucht eine Eisenspitzhacke. Lässt 3 bis 7 Erfahrung und selten eine Weisheitskugel fallen (2 %, mit Glück bis 5 %); Behutsamkeit behält das Erz."
+      }
+    },
+    "simpleores:dimensional_scrap": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found deep in the deepslate of the Overworld, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+      },
+      "de": {
+        "summary": "Zu finden tief im Tiefenschiefer der Oberwelt, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+      }
+    },
+    "simpleores:nether_dimensional_scrap": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found in the Nether like ancient debris, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+      },
+      "de": {
+        "summary": "Zu finden im Nether wie Antiker Schrott, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+      }
+    },
+    "simpleores:end_dimensional_scrap": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Found inside the End islands, rarer than ancient debris (one vein of up to 2 in every 3rd chunk, never at air). Only an Enderite pickaxe or sledgehammer makes progress (250 s unenchanted); survives the Wither and the dragon, never moved by pistons. No use yet."
+      },
+      "de": {
+        "summary": "Zu finden im Inneren der End-Inseln, seltener als Antiker Schrott (eine Ader von höchstens 2 in jedem 3. Chunk, nie an Luft). Nur eine Enderit-Spitzhacke oder ein Enderit-Vorschlaghammer kommt voran (250 s unverzaubert); übersteht Wither und Drache, kein Kolben bewegt ihn. Noch ohne Nutzen."
+      }
+    },
+    "simpleores:raw_enderite": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "A fragment of Enderite from End city treasure (or SimpleBuilding's synthesis). Four make a raw Enderite scrap."
+      },
+      "de": {
+        "summary": "Ein Bruchstück Enderit aus Endstadt-Truhen (oder der Synthese von SimpleBuilding). Vier ergeben rohe Enderitplatten."
+      }
+    },
+    "simpleores:layered_raw_enderite": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Four raw Enderite fragments pressed together. Only a blast furnace melts it into Enderite scrap (2 h in a Vanilla blast furnace)."
+      },
+      "de": {
+        "summary": "Vier rohe Enderitfragmente, zusammengepresst. Nur der Hochofen schmilzt sie zu Enderitplatten (2 h im Vanilla-Hochofen)."
+      }
+    },
+    "simpleores:enderite_scrap": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Four scrap, four diamonds and a netherite ingot make an Enderite ingot. Also found in End city treasure (15 %)."
+      },
+      "de": {
+        "summary": "Vier Platten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren. Auch in Endstadt-Truhen (15 %)."
+      }
+    },
+    "simpleores:enderite_nugget": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Nine make an Enderite ingot; an ingot gives nine. Found in End city treasure."
+      },
+      "de": {
+        "summary": "Neun ergeben einen Enderitbarren; ein Barren gibt neun. In Endstadt-Truhen zu finden."
+      }
+    },
+    "simpleores:enderite_ingot": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "The tier above netherite: the material of every Enderite variant of the Simple mods (they appear only with Simple Ores). Nine make a block."
+      },
+      "de": {
+        "summary": "Die Stufe über Netherit: das Material jeder Enderit-Variante der Simple-Mods (sie erscheinen nur mit Simple Ores). Neun ergeben einen Block."
+      }
+    },
+    "simpleores:enderite_upgrade_template": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Smithing template of the Netherite to Enderite upgrades. Found in End city treasure (30 %); 7 diamonds and an End stone copy it (2)."
+      },
+      "de": {
+        "summary": "Schmiedevorlage der Aufwertungen von Netherit zu Enderit. In Endstadt-Truhen (30 %); 7 Diamanten und ein Endstein kopieren sie (2)."
+      }
+    },
+    "simpleores:sage_orb": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+      ],
+      "en": {
+        "summary": "Rare drop of sage ore. Right-click charges it for 0.3 seconds, then it gives 50 to 100 experience and is used up."
+      },
+      "de": {
+        "summary": "Seltener Drop des Weisheitserzes. Rechtsklick lädt sie 0,3 Sekunden, dann gibt sie 50 bis 100 Erfahrung und ist verbraucht."
       }
     },
     "simpleores:raw_lead": {

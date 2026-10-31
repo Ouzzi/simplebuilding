@@ -93,7 +93,7 @@ public final class ShulkerBoxTests {
 
         upgrade(helper, pos, Refs.material("cracked_diamond"), Refs.shulkerBoxBlock("reinforced"), REINFORCED_SLOTS, "vanilla -> reinforced");
         upgrade(helper, pos, Refs.material("netherite_nugget"), Refs.shulkerBoxBlock("netherite"), NETHERITE_SLOTS, "reinforced -> netherite");
-        upgrade(helper, pos, Refs.material("enderite_nugget"), Refs.shulkerBoxBlock("enderite"), ENDERITE_SLOTS, "netherite -> enderite");
+        if (Refs.enderite()) upgrade(helper, pos, Refs.material("enderite_nugget"), Refs.shulkerBoxBlock("enderite"), ENDERITE_SLOTS, "netherite -> enderite");
 
         BaseContainerBlockEntity end = anyBox(helper, pos);
         String contents = describe(end.getItem(0)) + "|" + describe(end.getItem(VANILLA_SLOTS - 1));

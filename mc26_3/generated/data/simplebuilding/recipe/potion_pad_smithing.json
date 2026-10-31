@@ -5,5 +5,5 @@
   "result": {
     "id": "simplebuilding:potion_pad"
   },
-  "template": "simplebuilding:netherite_core"
+  "template": "simplelib:netherite_core"
 }

@@ -68,7 +68,7 @@ public final class PlacedSolids {
             slabs.add("minecraft:" + trim + "_armor_trim_smithing_template");
         }
         slabs.add("minecraft:netherite_upgrade_smithing_template");
-        slabs.add("simplelib:enderite_upgrade_template");
+        slabs.add("simpleores:enderite_upgrade_template");
         slabs.add("simplelib:basic_upgrade_template");
         for (String sherd : SHERDS) {
             slabs.add("minecraft:" + sherd + "_pottery_sherd");
