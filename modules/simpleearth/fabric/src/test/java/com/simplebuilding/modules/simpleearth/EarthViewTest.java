@@ -315,6 +315,66 @@ class EarthViewTest {
         }
     }
 
+    /** Anchor relative to the contact point, only while its tile is the current one or an edge neighbour (IG31-36). */
+    static V3 nearRelative(EarthView view, Scene s, double wx, double wz) {
+        int tx = view.tileOf(wx) - s.curTx, tz = view.tileOf(wz) - s.curTz;
+        return Math.abs(tx) + Math.abs(tz) > 1 ? null : relative(view, s, wx, wz);
+    }
+
+    /** Worst per-step anchor shift beyond the flight itself while walking 100 fine steps (cross-fades are NOT excused). */
+    static double borderJump(int ver, ViewParams p, double x0, double z0, double dx, double dz, double[][] anchors) {
+        EarthView view = EarthView.create(ver);
+        for (int i = 0; i < 120; i++) view.step(x0, z0, DT, p);
+        V3[] last = new V3[anchors.length];
+        double worst = 0, x = x0, z = z0, move = Math.hypot(dx, dz) / H * 1.6;
+        for (int i = 0; i < 100; i++) {
+            x += dx;
+            z += dz;
+            Scene s = view.step(x, z, DT, p);
+            for (int k = 0; k < anchors.length; k++) {
+                V3 r = nearRelative(view, s, anchors[k][0], anchors[k][1]);
+                if (r != null && last[k] != null) worst = Math.max(worst, r.distance(last[k]) - move);
+                last[k] = r;
+            }
+        }
+        return worst;
+    }
+
+    @Test
+    void noTurnAcrossAnyBorder() {
+        // IG31-36 (owner 31.10., V26 in orbit): crossing a tile border turned the earth with a jerk (V25-V27 for one frame by a
+        // whole tile, V21-V27 then a turn about the vertical / a re-tilt hidden by the cross-fade). The ground round the player
+        // (current tile and its edge neighbours) must move steadily over every edge, straight and skewed, near corners too,
+        // flat, half and fully folded. V1-V3 (cube jump, WA24-6) and V10-V12 (tip) jump/tip on purpose and keep their own tests.
+        double st = 0.004 * H;
+        double[][] heights = {{64, 0.05}, {900, 0.4}, {99999, 1}};
+        int[] versions = {4, 5, 6, 7, 8, 9, 13, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27};
+        for (int ver : versions) {
+            for (double[] h : heights) {
+                ViewParams p = params().set("aboveSwitch", h[0]).set("fadeBand", 128).set("heightFraction", h[1]);
+                for (int d = 0; d < 4; d++) {
+                    int ax = d < 2 ? (d == 0 ? 1 : -1) : 0, az = d >= 2 ? (d == 2 ? 1 : -1) : 0;
+                    for (double c : new double[]{0, 0.4, -0.6}) {
+                        double cx = ax * H + (az != 0 ? c * H : 0), cz = az * H + (ax != 0 ? c * H : 0);
+                        double[][] an = {{cx - ax * 0.3 * H - az * 0.2 * H, cz - az * 0.3 * H - ax * 0.2 * H},
+                                {cx + ax * 0.3 * H + az * 0.2 * H, cz + az * 0.3 * H + ax * 0.2 * H}, {cx + ax * 0.1 * H, cz + az * 0.1 * H}};
+                        double jump = borderJump(ver, p, cx - ax * 0.2 * H, cz - az * 0.2 * H, ax * st, az * st, an);
+                        assertTrue(jump < 0.02, "V" + ver + " above " + h[0] + " edge " + d + " at " + c + ": jump " + jump);
+                    }
+                }
+                // past a corner: two edges a few steps apart; anchors on the path
+                for (int sx = -1; sx <= 1; sx += 2) {
+                    for (int sz = -1; sz <= 1; sz += 2) {
+                        double dx = sx * st, dz = sz * st * 1.03, x0 = sx * 0.8 * H, z0 = sz * 0.8 * H;
+                        double[][] an = {{x0 + dx * 20, z0 + dz * 20}, {x0 + dx * 35, z0 + dz * 35}, {x0 + dx * 65, z0 + dz * 65}, {x0 + dx * 80, z0 + dz * 80}};
+                        double jump = borderJump(ver, p, x0, z0, dx, dz, an);
+                        assertTrue(jump < 0.02, "V" + ver + " above " + h[0] + " corner " + sx + "/" + sz + ": jump " + jump);
+                    }
+                }
+            }
+        }
+    }
+
     @Test
     void foldedWorldStaysACube() {
         // E31-3: after the fold every visible piece lies on the cube (the diagonal tiles and the extra outer tiles used to fold
