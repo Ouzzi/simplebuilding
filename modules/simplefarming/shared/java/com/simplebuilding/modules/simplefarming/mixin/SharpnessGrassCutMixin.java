@@ -57,10 +57,10 @@ public class SharpnessGrassCutMixin {
         int checked = 0;
         for (BlockPos pos : BlockPos.betweenClosed(center.offset(-radius, 0, -radius), center.offset(radius, 1, radius))) {
             if (++checked > limit) break;
-            if (!com.simplebuilding.modules.simplefarming.InteractionGuard.mayChange(player, pos)) continue;
             BlockState state = player.level().getBlockState(pos);
 
-            if (VegetationUtil.isCuttable(state)) {
+            // Cheap state test first: the claim probe fires the loader's break events (up to ~900 positions with Sweeping Edge).
+            if (VegetationUtil.isCuttable(state) && com.simplebuilding.modules.simplefarming.InteractionGuard.mayChange(player, pos)) {
                 // Block abbauen und Drops fallen lassen (true)
                 player.level().destroyBlock(pos, true, player, 512);
             }
