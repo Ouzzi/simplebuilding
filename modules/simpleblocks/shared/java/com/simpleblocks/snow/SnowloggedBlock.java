@@ -194,8 +194,8 @@ public class SnowloggedBlock extends Block implements EntityBlock {
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         List<ItemStack> out = new ArrayList<>();
         BlockEntity be = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-        ItemStack tool = params.getOptionalParameter(LootContextParams.TOOL);
-        boolean shovel = tool != null && tool.isCorrectToolForDrops(Blocks.SNOW.defaultBlockState());
+        boolean shovel = params.getOptionalParameter(LootContextParams.TOOL) instanceof ItemStack tool
+                && tool.isCorrectToolForDrops(Blocks.SNOW.defaultBlockState());
         if (shovel) {
             out.addAll(snow(state).getDrops(params));
         }

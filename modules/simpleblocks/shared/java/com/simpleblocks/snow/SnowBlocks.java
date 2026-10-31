@@ -41,7 +41,7 @@ public final class SnowBlocks {
         // "requires the correct tool" (the held block drops with any tool); dynamic shape: snow plus the held block.
         SNOWLOGGED = Registry.register(BuiltInRegistries.BLOCK, cell, new SnowloggedBlock(BlockBehaviour.Properties.of().setId(cell)
                 .mapColor(MapColor.SNOW).forceSolidOff().randomTicks().strength(0.1F).sound(SoundType.SNOW)
-                .pushReaction(PushReaction.DESTROY).dynamicShape().noLootTable()));
+                .pushReaction(PushReaction.POPPED).dynamicShape().noLootTable()));
         ResourceKey<Block> frost = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(FROST_GRASS_NAME));
         FROST_GRASS = Registry.register(BuiltInRegistries.BLOCK, frost,
                 new FrostGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).setId(frost).mapColor(MapColor.ICE)));
