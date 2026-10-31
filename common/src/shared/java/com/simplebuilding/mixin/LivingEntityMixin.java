@@ -61,6 +61,8 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float simplebuilding$modifyDamageAmount(float amount, ServerLevel world, DamageSource source) {
         LivingEntity entity = (LivingEntity) (Object) this;
+        // MOB27-3: Simple Mobs applies the trim abilities when it is loaded and on; the core is the fallback.
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return amount;
         // Ruft die große Logic-Methode in TrimEffectUtil auf
         return TrimEffectUtil.modifyDamage(entity, amount, source);
     }
@@ -71,6 +73,7 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
     @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$modifyAir(int air, CallbackInfoReturnable<Integer> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
 
         float chance = TrimEffectUtil.getAirSaveChance(entity);
 
@@ -92,6 +95,9 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
             DynamicLightHandler.tickGlowMotes(entity, () -> DynamicLightHandler.wornEmission(entity));
             return;
         }
+        DynamicLightHandler.tickWearer(entity);
+        // Besatz-Effekte: bei geladenem Simple Mobs dort (MOB27-3), sonst hier.
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
         // --- RIB TRIM ---
         if (entity.tickCount % 20 == 0 && entity.hasEffect(MobEffects.WITHER)) {
             int reduction = TrimEffectUtil.getWitherReductionAmount(entity);
@@ -115,7 +121,6 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
                 entity.heal(1.0f);
             }
         }
-        DynamicLightHandler.tickWearer(entity);
         TrimAttributeHandler.tick(entity);
     }
 
@@ -157,6 +162,7 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
     // Nur der Callback, keine Zielparameter: 26.3 hat getVisibilityPercent um ein ServerLevel erweitert.
     private void simplebuilding$modifyVisibility(CallbackInfoReturnable<Double> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
         float mult = TrimEffectUtil.getStealthMultiplier(entity);
 
         // Wenn Stealth aktiv ist (Multiplikator < 1.0), verringern wir den Faktor weiter

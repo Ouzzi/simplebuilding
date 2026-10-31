@@ -23,7 +23,7 @@ ordering="AFTER"
 side="BOTH"
 [[dependencies.simplemobs]]
 modId="simpleresonance"
-type="optional"
+type="required"
 versionRange="[0,)"
 ordering="NONE"
 side="BOTH"

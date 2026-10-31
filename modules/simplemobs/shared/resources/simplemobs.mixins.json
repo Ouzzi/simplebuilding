@@ -23,7 +23,9 @@
     "DisplayWitherCrownMixin",
     "WitherBossAccessor",
     "FireworkRocketWingsMixin",
-    "PrimedTntStrongMixin"
+    "PrimedTntStrongMixin",
+    "TrimAbilityLivingMixin",
+    "TrimAbilityPlayerMixin"
   ],
   "client": [
     "DeceiverLookMixin",
