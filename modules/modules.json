@@ -4597,7 +4597,7 @@
         "forge": ":modules:simpleores:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "required"
     },
     {
       "id": "simpleresonance",

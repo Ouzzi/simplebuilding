@@ -302,7 +302,9 @@ public final class OvensTests {
             var manager = h.getLevel().getServer().getRecipeManager();
             SimpleOvens.MOVED_RECIPES.keySet().forEach(path -> {
                 var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleOvens.id(path)));
-                if (holder.isEmpty()) problems.add("missing " + path);
+                // IG31-13: Enderite recipes load only with Simple Ores (owner of the material).
+                boolean expected = !path.contains("enderite") || SimpleLibApi.materialPresent("enderite");
+                if (holder.isEmpty() == expected) problems.add((expected ? "missing " : "present without Simple Ores: ") + path);
             });
             long old = manager.getRecipes().stream().filter(r -> SimpleOvens.MOVED_RECIPES.containsKey(r.id().identifier().getPath())
                     && r.id().identifier().getNamespace().equals(SimpleOvens.OLD_NAMESPACE)).count();
