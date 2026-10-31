@@ -46,4 +46,5 @@ public final class ModuleGameTest {
     @GameTest public void keyPageConflicts(GameTestHelper h) { KeyPageTests.conflicts(h); }
     @GameTest public void keyPageFilter(GameTestHelper h) { KeyPageTests.filter(h); }
     @GameTest public void keyPageSuggest(GameTestHelper h) { KeyPageTests.suggest(h); }
+    @GameTest public void keyPageKeyNames(GameTestHelper h) { KeyPageTests.keyNames(h); }
 }

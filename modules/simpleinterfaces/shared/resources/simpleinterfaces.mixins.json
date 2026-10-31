@@ -13,6 +13,7 @@
     "KeyBindsScreenMixin",
     "StyleToggleMixin",
     "StorageBackgroundMixin",
+    "HopperPaddingMixin",
     "CrafterBackgroundMixin",
     "MountBackgroundMixin",
     "StationBackgroundMixin",

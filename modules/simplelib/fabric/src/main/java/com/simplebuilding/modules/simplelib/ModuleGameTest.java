@@ -224,4 +224,9 @@ public final class ModuleGameTest {
     public void creativeTabPolicy(GameTestHelper h) {
         LibTests.ALL.get("creative_tab_policy").accept(h);
     }
+
+    @GameTest
+    public void freeLookReleaseRules(GameTestHelper h) {
+        LibTests.ALL.get("free_look_release_rules").accept(h);
+    }
 }

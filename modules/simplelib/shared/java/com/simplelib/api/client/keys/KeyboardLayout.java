@@ -173,6 +173,35 @@ public final class KeyboardLayout {
         return Optional.ofNullable(best);
     }
 
+    /**
+     * Minecraft's key name ({@code key.keyboard.*}, as in options.txt) of a GLFW key code of this picture. IG31-31: 26.3 numbers
+     * keys by SDL scancodes, so the picture's GLFW codes must never go to {@code InputConstants} as numbers - the names are the
+     * same on every line (26.3 cell "A" = code 65 used to mean scancode 65 = F8). Unknown codes give {@link KeyConflicts#UNBOUND}.
+     */
+    public static String keyName(int code) {
+        if (code >= 'A' && code <= 'Z') return "key.keyboard." + (char) (code + 32);
+        if (code >= '0' && code <= '9') return "key.keyboard." + (char) code;
+        if (code >= F1 && code < F1 + 25) return "key.keyboard.f" + (code - F1 + 1);
+        if (code >= KP_0 && code <= KP_0 + 9) return "key.keyboard.keypad." + (code - KP_0);
+        String n = NAMES.get(code);
+        return n == null ? KeyConflicts.UNBOUND : "key.keyboard." + n;
+    }
+
+    private static final Map<Integer, String> NAMES = Map.ofEntries(
+            Map.entry(ESC, "escape"), Map.entry(ENTER, "enter"), Map.entry(TAB, "tab"), Map.entry(BACKSPACE, "backspace"),
+            Map.entry(INSERT, "insert"), Map.entry(DELETE, "delete"), Map.entry(RIGHT, "right"), Map.entry(LEFT, "left"),
+            Map.entry(DOWN, "down"), Map.entry(UP, "up"), Map.entry(PAGE_UP, "page.up"), Map.entry(PAGE_DOWN, "page.down"),
+            Map.entry(HOME, "home"), Map.entry(END, "end"), Map.entry(CAPS_LOCK, "caps.lock"), Map.entry(SCROLL_LOCK, "scroll.lock"),
+            Map.entry(NUM_LOCK, "num.lock"), Map.entry(PRINT_SCREEN, "print.screen"), Map.entry(PAUSE, "pause"),
+            Map.entry(KP_DECIMAL, "keypad.decimal"), Map.entry(KP_DIVIDE, "keypad.divide"), Map.entry(KP_MULTIPLY, "keypad.multiply"),
+            Map.entry(KP_SUBTRACT, "keypad.subtract"), Map.entry(KP_ADD, "keypad.add"), Map.entry(KP_ENTER, "keypad.enter"),
+            Map.entry(LEFT_SHIFT, "left.shift"), Map.entry(RIGHT_SHIFT, "right.shift"), Map.entry(LEFT_CONTROL, "left.control"),
+            Map.entry(RIGHT_CONTROL, "right.control"), Map.entry(LEFT_ALT, "left.alt"), Map.entry(RIGHT_ALT, "right.alt"),
+            Map.entry(LEFT_SUPER, "left.win"), Map.entry(RIGHT_SUPER, "right.win"), Map.entry(MENU, "menu"), Map.entry(SPACE, "space"),
+            Map.entry(APOSTROPHE, "apostrophe"), Map.entry(COMMA, "comma"), Map.entry(MINUS, "minus"), Map.entry(PERIOD, "period"),
+            Map.entry(SLASH, "slash"), Map.entry(SEMICOLON, "semicolon"), Map.entry(EQUAL, "equal"), Map.entry(LEFT_BRACKET, "left.bracket"),
+            Map.entry(BACKSLASH, "backslash"), Map.entry(RIGHT_BRACKET, "right.bracket"), Map.entry(GRAVE, "grave.accent"));
+
     /** The caption of a key; {@code german} swaps Y and Z. */
     public static String label(int code, boolean german) {
         if (code >= 'A' && code <= 'Z') {
