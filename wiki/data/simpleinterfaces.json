@@ -1183,7 +1183,7 @@
       ],
       "en": {
         "title": "Key binding page",
-        "summary": "A page for all key bindings of Minecraft and every mod in three views: by mod, by function (Vanilla's categories, as on the Vanilla controls page) and a keyboard picture in 60, 75 or 100 percent; search and conflict marks in the lists.",
+        "summary": "A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.",
         "details": [
           "Open it with the Simple Keys button on the Vanilla controls page or with its own key (unbound by default). It uses Vanilla's buttons and list: click a key button, then press the new key or a mouse button (Esc = no key); Reset restores the default. Each group can be folded and reset; Reset all asks once more first.",
           "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key opens its page: remove an action, move it to the nearest free key, or assign an action here (then click the action in the list). Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt."
@@ -1191,7 +1191,7 @@
       },
       "de": {
         "title": "Tastenbelegungs-Seite",
-        "summary": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod in drei Ansichten: nach Mod, nach Funktion (Vanillas Kategorien wie auf der Vanilla-Steuerungsseite) und ein Tastaturbild in 60, 75 oder 100 Prozent; in den Listen Suche und Konfliktmarken.",
+        "summary": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod nach Mod, nach Funktion oder als Tastatur 60/75/100 %, mit Suche und Konfliktmarken.",
         "details": [
           "Öffnen mit dem Knopf Simple Keys auf der Vanilla-Steuerungsseite oder mit einer eigenen Taste (standardmäßig unbelegt). Die Seite nutzt Vanillas Knöpfe und Liste: Tastenknopf anklicken, dann die neue Taste oder Maustaste drücken (Esc = keine Taste); Zurücksetzen stellt den Standard her. Jede Gruppe lässt sich einklappen und zurücksetzen; Alle zurücksetzen fragt vorher noch einmal.",
           "Die Tastatur färbt Tasten grün (eine Aktion), rot (von mehreren Aktionen geteilt) oder grau (frei), zusätzlich mit Haken, Ausrufezeichen oder Strich. Darüberfahren zeigt die Aktionen; ein Klick öffnet die Seite der Taste: Aktion entfernen, auf die nächste freie Taste verschieben oder eine Aktion hierher legen (dann die Aktion in der Liste anklicken). Konflikte werden nur angezeigt, nie automatisch geändert. Gespeichert wird wie in Vanilla in der options.txt."
