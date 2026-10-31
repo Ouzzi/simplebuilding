@@ -1,5 +1,5 @@
 {
-  "required": true,
+  "required": false,
   "minVersion": "0.8",
   "package": "com.simplebuilding.modules.simpleoptserver.mixin",
   "plugin": "com.simplebuilding.modules.simpleoptserver.fabric.ServerOptMixinPlugin",
@@ -10,6 +10,6 @@
   "client": [],
   "server": [],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }
