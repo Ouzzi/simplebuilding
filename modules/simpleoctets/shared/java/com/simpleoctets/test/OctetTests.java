@@ -108,7 +108,8 @@ public final class OctetTests {
         Item netherite = BuiltInRegistries.ITEM.getValue(SimpleOctets.id("netherite_block_octet"));
         if (!new ItemStack(netherite).has(net.minecraft.core.component.DataComponents.DAMAGE_RESISTANT)) problems.add("netherite octet not fire resistant");
         h.assertTrue(problems.isEmpty(), "registration: " + problems);
-        h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1, "tab: every octet item and the melon slice");
+        h.assertTrue(OctetRegistry.tabStacks().size() == items.size() + 1 + OctetRegistry.polishedEndStoneShapes().size(),
+                "tab: every octet item, the melon slice and the polished end stone shapes");
         h.succeed();
     }
 

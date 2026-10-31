@@ -209,6 +209,20 @@ public final class OctetRegistry {
                 out.add(new ItemStack(BuiltInRegistries.ITEM.getValue(BuiltInRegistries.BLOCK.getKey(cell))));
             }
         }
+        out.addAll(polishedEndStoneShapes());
+        return out;
+    }
+
+    /**
+     * SimpleLib's stairs, slab and wall of the polished end stone (octet rule): SimpleLib has no tab and IG31-3 took them out of the Vanilla
+     * tabs, so they stand next to the octet of that material. Found by id (no SimpleLib class); empty where SimpleLib's shapes do not exist.
+     */
+    public static List<ItemStack> polishedEndStoneShapes() {
+        List<ItemStack> out = new ArrayList<>();
+        for (String kind : List.of("stairs", "slab", "wall")) {
+            BuiltInRegistries.ITEM.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "polished_end_stone_" + kind))
+                    .ifPresent(item -> out.add(new ItemStack(item)));
+        }
         return out;
     }
 
