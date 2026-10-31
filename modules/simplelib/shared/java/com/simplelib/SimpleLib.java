@@ -23,7 +23,7 @@ public final class SimpleLib {
         com.simplelib.api.DevVariants.load(configDir); // ABN30-9: dev variant choices, plain file
         // CMD24: /simplelib config for the own keys of simplelib-server.json (the file keeps keys of other owners).
         com.simplelib.api.config.ConfigCommands.server(MOD_ID).json(com.simplelib.config.LibConfig::toJson, com.simplelib.config.LibConfig::apply)
-                .keys(com.simplelib.config.LibConfig.KEYS).save(com.simplelib.config.LibConfig::save).register();
+                .keys(com.simplelib.config.LibConfig.KEYS).choices("freeLookRelease", "camera", "player").save(com.simplelib.config.LibConfig::save).register();
         com.simplelib.test.IdMovesTests.registerTestMoves();
     }
 

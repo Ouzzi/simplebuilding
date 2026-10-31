@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Server config {@code config/simplelib-server.json} (the warm food options, legendary moments, hang watchdog). Every value is clamped to its hard bounds when
+ * Server config {@code config/simplelib-server.json} (the warm food options, legendary moments, hang watchdog, free look rules). Every value is clamped to its hard bounds when
  * loaded (plan section 13), so an edited file can never exceed them; missing keys use the defaults
  * and the file is rewritten with the clamped values.
  */
@@ -35,12 +35,17 @@ public final class LibConfig {
     public static final int HANG_SECONDS_DEFAULT = 30, HANG_SECONDS_MIN = 10, HANG_SECONDS_MAX = 600;
     public static volatile boolean hangWatchdog = true;
     public static volatile int hangWatchdogSeconds = HANG_SECONDS_DEFAULT;
+    /** IG31-29 free look: release mode the server offers ("camera" = camera eases back, "player" = player turns to the camera) and whether it enforces it. */
+    public static String freeLookRelease = "camera";
+    public static boolean freeLookEnforce = false;
+    /** Called after every save (the loader entry sends the free look rules to the players again). */
+    public static volatile Runnable onSaved = () -> {};
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String FILE = "simplelib-server.json";
     /** The keys this class owns (the config command lists only these, CMD24). */
     public static final java.util.List<String> KEYS = java.util.List.of("warmBaseTicks", "warmDurationTicks", "warmBundleDurationTicks",
             "eatSpeedBonus", "legendaryEffects", "legendaryAllChallenges", "legendaryMuteToast", "legendaryAdvancements", "legendaryEnchantments",
-            "hangWatchdog", "hangWatchdogSeconds");
+            "hangWatchdog", "hangWatchdogSeconds", "freeLookRelease", "freeLookEnforce");
     /** Keys this class does not own (the crucible options before split stage 5): written back unchanged so Simple Crucibles can still take them over. */
     private static JsonObject kept = new JsonObject();
     private static Path file;
@@ -65,6 +70,7 @@ public final class LibConfig {
                 SimpleLib.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
         }
+        onSaved.run();
     }
 
     /** Reads and clamps every value. Public for the config bounds GameTest. */
@@ -80,6 +86,17 @@ public final class LibConfig {
         legendaryEnchantments = getIds(json, "legendaryEnchantments");
         hangWatchdog = getBool(json, "hangWatchdog", true);
         hangWatchdogSeconds = clamp(getInt(json, "hangWatchdogSeconds", HANG_SECONDS_DEFAULT), HANG_SECONDS_MIN, HANG_SECONDS_MAX);
+        freeLookRelease = freeLookPlayerTurns(getString(json, "freeLookRelease")) ? "player" : "camera";
+        freeLookEnforce = getBool(json, "freeLookEnforce", false);
+    }
+
+    /** {@code "player"} (case-insensitive) = the player turns to the camera; anything else = the camera eases back. */
+    public static boolean freeLookPlayerTurns(String mode) {
+        return com.simplelib.api.FreeLookRules.Release.parse(mode) == com.simplelib.api.FreeLookRules.Release.PLAYER;
+    }
+
+    private static String getString(JsonObject o, String k) {
+        try { return o.has(k) ? o.get(k).getAsString() : null; } catch (Exception e) { return null; }
     }
 
     /** Valid ids only, no duplicates, at most {@value #LEGENDARY_LIST_MAX}. Public for the config screen. */
@@ -121,6 +138,8 @@ public final class LibConfig {
         o.add("legendaryEnchantments", toArray(legendaryEnchantments));
         o.addProperty("hangWatchdog", hangWatchdog);
         o.addProperty("hangWatchdogSeconds", hangWatchdogSeconds);
+        o.addProperty("freeLookRelease", freeLookRelease);
+        o.addProperty("freeLookEnforce", freeLookEnforce);
         return o;
     }
 

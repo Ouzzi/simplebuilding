@@ -14,6 +14,8 @@ public final class ContainersFabricClient implements ClientModInitializer {
         KeyMappingHelper.registerKeyMapping(StyleToggleClient.KEY);
         KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.KeysClient.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(StyleToggleClient::tick);
+        // IG31-31: real-mouse probe of the key binding page (inert without simpleinterfaces-keys-probe.json in the game folder).
+        ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.KeysProbe::tick);
         KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.ZoomState::tick);
         // Server values (linked containers, Easy Shulkers) and the linked panel (formerly Simple QoL).

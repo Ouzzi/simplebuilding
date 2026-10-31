@@ -73,11 +73,21 @@
   "jei.simplelib.grade.diamond": "diamond tier",
   "jei.simplelib.grade.netherite": "Netherite tier",
   "jei.simplelib.grade.enderite": "Enderite tier",
-  "key.simplelib.freelook": "Free look (hold)",
+  "key.simplelib.freelook": "Free Look (hold)",
   "key.category.simplelib.general": "Simple Lib",
   "simplelib.tab.diagnosis": "Diagnosis",
   "text.autoconfig.simplelib.option.hangWatchdog": "Hang Watchdog",
   "text.autoconfig.simplelib.option.hangWatchdog.@Tooltip": "When the server tick stands still (also while\nsaving on quit), a list of all threads is\nwritten to logs/simplebuilding-hang-*.txt.\nOnly reads, never changes the game.\nDefault: true.",
   "text.autoconfig.simplelib.option.hangWatchdogSeconds": "Hang Watchdog Limit (Seconds)",
-  "text.autoconfig.simplelib.option.hangWatchdogSeconds.@Tooltip": "How long the tick may stand before the dump\nis written (10 to 600). A paused singleplayer\ngame does not count.\nDefault: 30."
+  "text.autoconfig.simplelib.option.hangWatchdogSeconds.@Tooltip": "How long the tick may stand before the dump\nis written (10 to 600). A paused singleplayer\ngame does not count.\nDefault: 30.",
+  "key.simplelib.freelook_toggle": "Toggle Free Look",
+  "simplelib.tab.freelook": "Free Look",
+  "simplelib.freelook.release.camera": "Camera turns back",
+  "simplelib.freelook.release.player": "Player turns to camera",
+  "text.autoconfig.simplelib.option.freeLookRelease": "When Free Look Ends (this client)",
+  "text.autoconfig.simplelib.option.freeLookRelease.@Tooltip": "Camera turns back: the view eases back to\nwhere you look. Player turns to camera: you\nnow look where the camera looked.\nA server can enforce its own choice.\nDefault: Camera turns back.",
+  "text.autoconfig.simplelib.option.freeLookServerRelease": "When Free Look Ends (server)",
+  "text.autoconfig.simplelib.option.freeLookServerRelease.@Tooltip": "The server's choice; it only counts for\nplayers while \"Enforce on Clients\" is on.\nDefault: Camera turns back.",
+  "text.autoconfig.simplelib.option.freeLookEnforce": "Enforce on Clients",
+  "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "On: every player uses the server's choice\nabove; the client setting is ignored.\nSent when a player joins.\nDefault: false."
 }

@@ -122,12 +122,14 @@ Modulaufteilung: `IdMoves` (ID-Umzüge), Datentyp `in_world_upgrades` mit Überg
 Enderit-Grundmaterial (Fragment, Platten, Barren, Klumpen, Block), Basis-/Enderit-Aufwertungsvorlage, Polierter Endstein (Modulfamilie Stufe 3, gemeinsamer End-Baublock), `c:`-Tags;
 Rezepte/Zerschlagen nur, wenn eine Mod sie anfordert (`requestMaterial`, Condition `simplelib:material_requested`; SB fordert alle an).
 Version 0.3.0 (Stufe 9 Teil 2, `b-s9b`): alle 16 SimpleLib-Nutzer und SimpleBuilding 26.3 verlangen `simplelib >=0.3.0`.
+Free Look (E29-4, überarbeitet IG31-29 31.10.): Tasten „Free Look (halten)“ (linke Alt) und „Free Look umschalten“ (unbelegt); beim Ende dreht die Kamera zurück (Standard) oder der Spieler zur Kamera (Client `freeLookRelease`), Server kann seine Wahl erzwingen (`freeLookRelease` + `freeLookEnforce`, Payload beim Join); nach Join/Weltwechsel/Respawn immer aus.
 
 ### Simple Interfaces (früher Simple Containers, Sub-Mod von QoL, clientseitige Optik)
 Simple-Stil für Truhen, Fässer, Shulker, Trichter, Werfer/Spender, Crafter, Reittier-Inventare, Arbeitsblöcke
 (Werkbank, Öfen, Braustand, Leuchtfeuer, Zaubertisch), Amboss/Schleifstein/Steinsäge/Webstuhl/Kartentisch/
 Schmiedetisch, Handel, Spieler-Inventar; Mod-Bildschirme im gleichen Stil; Vergleichsschalter Simple/Vanilla;
 Inventar-Helligkeit Hell/Dämmerung/Dunkel (Einstellung, wirkt über SimpleLib auf alle Mod-Kästen).
+Tastenbelegungs-Seite „Simple Keys“ (IG31-31): Vanilla-Widgets, Ansichten nach Mod / nach Funktion (Vanilla-Kategorien) / Tastatur; Vanilla-Trichter im Stil mit 6 px Luft unter der Reihe wie die Mod-Trichter (IG31-30).
 Tooltips (19.10.): Shulkerkisten-Inhalt als 9x3-Raster mit Umschalt (Färbung nach Kiste), Endertruhen-Item zeigt
 die eigene Endertruhe (Snapshot Server→Client bei Login und Schließen, Server-Teil optional); Schalter lokal + Server.
 Bündel (19.10.): Tooltip zeigt alle Einträge statt 12 (bis 6 Reihen, darüber Seiten mit "+n", folgen der Mausrad-Auswahl),

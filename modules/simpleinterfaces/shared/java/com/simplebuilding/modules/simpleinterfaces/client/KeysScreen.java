@@ -4,106 +4,116 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplelib.api.client.keys.KeyConflicts;
 import com.simplelib.api.client.keys.KeyConflicts.Binding;
 import com.simplelib.api.client.keys.KeyboardLayout;
-import com.simplelib.api.client.ui.UiBoxes;
-import com.simplelib.api.client.ui.UiContrast;
 import com.simplelib.api.client.ui.UiKeyboard;
-import com.simplelib.api.client.ui.UiPalette;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 
 /**
- * The key binding page (UI28-1 / WP-25): every key mapping of Vanilla and all mods in the SimpleLib box style - a list with search,
- * categories, conflict marks and reset, and a keyboard picture (60 / 75 / 100 %). The Vanilla controls page stays; it gets a button
- * to this page ({@code KeyBindsScreenMixin}). Saving is Vanilla's own ({@code KeyMapping.setKey}, {@code Options.save}), so
- * {@code options.txt} stays the one place. The logic lives in SimpleLib ({@link KeyConflicts}, {@link KeyboardLayout}).
- * Conflicts are only shown and offered a free key nearby, never changed on their own (owner's K5 default).
+ * The key binding page (UI28-1 / WP-25, rebuilt IG31-31 on 31.10.): every key mapping of Vanilla and all mods in three views -
+ * "by mod" (one group per mod), "by function" (Vanilla's categories in Vanilla's order, like the Vanilla controls page) and a
+ * keyboard picture (60 / 75 / 100 %). Everything is a real Vanilla widget (buttons, edit box, the Vanilla scroll list, a
+ * widget for the picture), so clicks take the same path as on any Vanilla screen - the self-drawn buttons with their own hit
+ * test before did not react to the real mouse everywhere (IG31-31). The look is Vanilla's: menu background, list, buttons.
+ * Saving is Vanilla's own ({@code KeyMapping.setKey}, {@code Options.save}), so {@code options.txt} stays the one place; the
+ * Vanilla controls page gets a button to this page ({@code KeyBindsScreenMixin}). Conflicts are only shown and offered a
+ * free key nearby, never changed on their own (owner's K5 default). The logic lives in SimpleLib ({@link KeyConflicts},
+ * {@link KeyboardLayout}).
  */
 public final class KeysScreen extends Screen {
-    static final UiPalette PALETTE = UiPalette.derived(0xFF55606E);
-    private static final int ROW = 14, KEY_W = 74, SMALL = 14;
+    /** The three views. */
+    public enum View { MOD, FUNCTION, KEYBOARD }
+
     private static final String K = "simpleinterfaces.keys.";
+    private static final int ROW = 20, TOP = 68;
     /** Remembered between openings. */
-    private static boolean listTab = true, german;
+    private static View view = View.MOD;
+    private static boolean german;
     private static KeyboardLayout.Size size = KeyboardLayout.Size.FULL;
     private static final Map<Integer, String> NAMES = new HashMap<>();
 
     private record Entry(KeyMapping mapping, Binding binding) {}
 
-    private record Group(String name, String owner, List<Entry> items, boolean collapsed) {}
-
-    private record Hit(int x, int y, int w, int h, Runnable run) {
-        boolean contains(double mx, double my) {
-            return mx >= x && mx < x + w && my >= y && my < y + h;
-        }
-    }
-
     private final Screen parent;
-    private EditBox search;
     private String query = "";
     private boolean onlyConflicts, onlyUnbound, armedReset;
     private final Set<String> collapsed = new HashSet<>();
-    private KeyMapping listening;
-    /** Key code a list click is going to assign to (set from the keyboard popup), or -1. */
+    KeyMapping listening;
+    /** Key code a list click is going to assign to (chosen on the keyboard picture), or -1. */
     private int pickCode = -1;
-    private boolean inPopup;
-    private int popupCode = -1;
-    private int scroll;
-    private int x, y, w, h;
     private List<Entry> entries = List.of();
     private Map<String, List<Binding>> byKey = Map.of();
     private final Map<String, Entry> byId = new HashMap<>();
-    private final List<Hit> hits = new ArrayList<>(), popupHits = new ArrayList<>();
+    private KeysList list;
+    private EditBox search;
+    /** Named widgets for the real-mouse probe and the client test (GUI coordinates). */
+    final Map<String, AbstractWidget> probe = new LinkedHashMap<>();
 
     public KeysScreen(Screen parent) {
         super(Component.translatable(K + "title"));
         this.parent = parent;
     }
 
-    /** Picks the tab and picture size the next opening starts with (client smoke test). */
-    public static void preset(boolean list, KeyboardLayout.Size keyboardSize) {
-        listTab = list;
+    /** Picks the view and picture size the next opening starts with (client smoke test). */
+    public static void preset(View start, KeyboardLayout.Size keyboardSize) {
+        view = start;
         size = keyboardSize;
     }
 
-    private static String t(String key, Object... args) {
-        return Component.translatable(K + key, args).getString();
+    /** Old form: {@code list} = the by-mod view, else the keyboard. */
+    public static void preset(boolean list, KeyboardLayout.Size keyboardSize) {
+        preset(list ? View.MOD : View.KEYBOARD, keyboardSize);
+    }
+
+    public static View view() {
+        return view;
+    }
+
+    private static MutableComponent t(String key, Object... args) {
+        return Component.translatable(K + key, args);
     }
 
     // --- data --------------------------------------------------------------------------------------------------------
 
     private void refresh() {
-        List<Entry> list = new ArrayList<>();
+        List<Entry> out = new ArrayList<>();
         byId.clear();
-        for (KeyMapping m : minecraft.options.keyMappings) {
+        KeyMapping[] all = minecraft.options.keyMappings.clone();
+        Arrays.sort(all); // Vanilla's order: category order, then name
+        for (KeyMapping m : all) {
             KeyMapping.Category category = m.getCategory();
             Binding b = new Binding(m.getName(), Component.translatable(m.getName()).getString(), category.label().getString(),
                     category.id().getNamespace(), m.saveString(), m.getDefaultKey().getName());
             Entry e = new Entry(m, b);
-            list.add(e);
+            out.add(e);
             byId.put(b.id(), e);
         }
-        list.sort((a, b) -> {
-            int vanilla = Boolean.compare(!"minecraft".equals(a.binding.owner()), !"minecraft".equals(b.binding.owner()));
-            if (vanilla != 0) return vanilla;
-            int g = a.binding.group().compareToIgnoreCase(b.binding.group());
-            return g != 0 ? g : a.binding.action().compareToIgnoreCase(b.binding.action());
-        });
-        entries = list;
-        byKey = KeyConflicts.byKey(list.stream().map(Entry::binding).toList());
+        entries = out;
+        byKey = KeyConflicts.byKey(out.stream().map(Entry::binding).toList());
     }
 
     private String shown(Binding b) {
@@ -111,316 +121,88 @@ public final class KeysScreen extends Screen {
         return e == null ? "" : e.mapping.getTranslatedKeyMessage().getString();
     }
 
-    private static String nameOf(int code) {
+    static String nameOf(int code) {
         return NAMES.computeIfAbsent(code, c -> InputConstants.Type.KEYBOARD.getOrCreate(c).getName());
     }
 
-    private List<Group> groups() {
+    /** Group title in the by-mod view: "Minecraft" or the label of the mod's first category (normally the mod's name). */
+    private String modTitle(String owner) {
+        if ("minecraft".equals(owner)) return "Minecraft";
+        for (Entry e : entries) if (e.binding.owner().equals(owner)) return e.binding.group();
+        return owner;
+    }
+
+    /** The shown groups of the current list view, in order: group id -> entries. */
+    private Map<String, List<Entry>> groups() {
         List<Binding> shown = KeyConflicts.filter(entries.stream().map(Entry::binding).toList(), query, onlyConflicts, onlyUnbound, this::shown);
-        Map<String, List<Entry>> byGroup = new LinkedHashMap<>();
-        for (Binding b : shown) byGroup.computeIfAbsent(b.owner() + "/" + b.group(), k -> new ArrayList<>()).add(byId.get(b.id()));
-        List<Group> out = new ArrayList<>();
-        for (List<Entry> items : byGroup.values()) {
-            Binding first = items.get(0).binding;
-            out.add(new Group(first.group(), first.owner(), items, collapsed.contains(first.owner() + "/" + first.group())));
+        Map<String, List<Entry>> out = new LinkedHashMap<>();
+        if (view == View.MOD) {
+            // Vanilla first, then the mods by name; inside a mod Vanilla's category order (stable sort)
+            List<Binding> sorted = new ArrayList<>(shown);
+            sorted.sort((a, b) -> {
+                int vanilla = Boolean.compare(!"minecraft".equals(a.owner()), !"minecraft".equals(b.owner()));
+                return vanilla != 0 ? vanilla : modTitle(a.owner()).compareToIgnoreCase(modTitle(b.owner()));
+            });
+            for (Binding b : sorted) out.computeIfAbsent("mod/" + b.owner(), k -> new ArrayList<>()).add(byId.get(b.id()));
+        } else {
+            for (Binding b : shown) out.computeIfAbsent("fn/" + b.owner() + "/" + b.group(), k -> new ArrayList<>()).add(byId.get(b.id()));
         }
         return out;
     }
 
     // --- actions -----------------------------------------------------------------------------------------------------
 
-    private void assign(KeyMapping m, InputConstants.Key key) {
+    void assign(KeyMapping m, InputConstants.Key key) {
         m.setKey(key);
         KeyMapping.resetMapping();
         minecraft.options.save();
         refresh();
+        if (list != null) list.refill();
     }
 
-    private void resetAll(Iterable<Entry> which) {
+    private void resetAll(List<Entry> which) {
         for (Entry e : which) e.mapping.setKey(e.mapping.getDefaultKey());
         KeyMapping.resetMapping();
         minecraft.options.save();
         refresh();
+        if (list != null) list.refill();
     }
 
-    // --- screen ------------------------------------------------------------------------------------------------------
-
-    @Override
-    protected void init() {
-        w = Math.min(width - 12, 430);
-        h = Math.min(height - 12, 292);
-        x = (width - w) / 2;
-        y = (height - h) / 2;
-        refresh();
-        search = new EditBox(font, x + 8, y + 42, w - 16 - 150, 16, Component.translatable(K + "search")) {
-            @Override
-            public void setFocused(boolean focused) {
-                super.setFocused(focused);
-                Minecraft.getInstance().onTextInputFocusChange(this, focused);
-            }
-        };
-        search.setMaxLength(64);
-        search.setHint(Component.translatable(K + "search"));
-        search.setValue(query);
-        search.setResponder(q -> {
-            query = q;
-            scroll = 0;
-        });
-        addRenderableWidget(search);
-    }
-
-    @Override
-    public void onClose() {
-        minecraft.setScreenAndShow(parent);
-    }
-
-    @Override
-    public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
-        super.extractBackground(g, mx, my, delta);
-        UiBoxes.box(g, x, y, w, h, PALETTE);
-    }
-
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
-        hits.clear();
-        popupHits.clear();
-        refresh();
-        g.text(font, title, x + 8, y + 7, PALETTE.label(), false);
-        // tabs
-        button(g, mx, my, x + 8, y + 20, 64, 16, t("tab.list"), listTab, true, () -> switchTab(true));
-        button(g, mx, my, x + 74, y + 20, 74, 16, t("tab.keyboard"), !listTab, true, () -> switchTab(false));
-        search.visible = listTab;
-        search.active = listTab;
-        int contentY = y + 64, contentH = h - 64 - 28;
-        if (listTab) {
-            int fx = x + w - 8;
-            fx -= 70;
-            button(g, mx, my, fx, y + 42, 70, 16, t("only_unbound"), onlyUnbound, true, () -> onlyUnbound = !onlyUnbound);
-            fx -= 76;
-            button(g, mx, my, fx, y + 42, 74, 16, t("only_conflicts"), onlyConflicts, true, () -> onlyConflicts = !onlyConflicts);
-            drawList(g, mx, my, x + 8, contentY, w - 16, contentH);
-        } else {
-            int bx = x + 8;
-            for (KeyboardLayout.Size s : KeyboardLayout.Size.values()) {
-                button(g, mx, my, bx, y + 42, 44, 16, s.percent, size == s, true, () -> size = s);
-                bx += 46;
-            }
-            button(g, mx, my, bx + 6, y + 42, 56, 16, t("layout.german"), german, true, () -> german = !german);
-            drawKeyboard(g, mx, my, x + 8, contentY, w - 16, contentH);
-        }
-        // footer
-        int fy = y + h - 22;
-        g.text(font, t("footer", KeyConflicts.sharedKeys(byKey), size.percent), x + 8, fy + 4, PALETTE.label(), false);
-        int rx = x + w - 8 - 60;
-        button(g, mx, my, rx, fy, 60, 16, t("done"), false, true, this::onClose);
-        rx -= 100;
-        String reset = armedReset ? t("reset_all_confirm") : t("reset_all");
-        button(g, mx, my, rx, fy, 96, 16, reset, armedReset, true, () -> {
-            if (armedReset) resetAll(entries);
-            armedReset = !armedReset;
-        });
-        super.extractRenderState(g, mx, my, delta);
-        if (popupCode >= 0 && !listTab) drawPopup(g, mx, my);
-    }
-
-    private void switchTab(boolean list) {
-        listTab = list;
-        popupCode = -1;
-        pickCode = -1;
+    private void switchView(View next) {
+        view = next;
         listening = null;
+        if (next == View.KEYBOARD) pickCode = -1;
+        rebuildWidgets();
     }
 
-    private int ink(int face) {
-        return UiContrast.ensure(PALETTE.label(), face);
+    /** Keyboard picture: a key was clicked - its own page lists the actions on it (remove, move, assign). */
+    private void openKey(int code) {
+        minecraft.gui.setScreen(new KeyCellScreen(this, code));
     }
 
-    private void button(GuiGraphicsExtractor g, int mx, int my, int bx, int by, int bw, int bh, String text, boolean on, boolean enabled, Runnable run) {
-        boolean hover = enabled && new Hit(bx, by, bw, bh, run).contains(mx, my);
-        int face = on ? PALETTE.slot() : UiPalette.mix(PALETTE.fill(), 0xFFFFFFFF, hover ? 0.34 : 0.2);
-        if (on) UiBoxes.sunkRect(g, bx, by, bw, bh, PALETTE);
-        else UiBoxes.raised(g, bx, by, bw, bh, face);
-        int color = enabled ? ink(face) : UiContrast.ensure(0xFF9A9A9A, face);
-        g.text(font, fit(text, bw - 4), bx + (bw - Math.min(font.width(text), bw - 4)) / 2, by + (bh - 8) / 2 + 1, color, false);
-        if (enabled) (inPopup ? popupHits : hits).add(new Hit(bx, by, bw, bh, run));
+    /** From {@link KeyCellScreen}: pick the action for {@code code} in the list. */
+    void startPick(int code) {
+        pickCode = code;
+        view = View.FUNCTION;
+        minecraft.gui.setScreen(this);
     }
 
-    private String fit(String text, int max) {
-        if (font.width(text) <= max) return text;
-        String s = text;
-        while (!s.isEmpty() && font.width(s + "...") > max) s = s.substring(0, s.length() - 1);
-        return s + "...";
+    Map<String, List<Binding>> byKey() {
+        refresh();
+        return byKey;
     }
 
-    // --- list --------------------------------------------------------------------------------------------------------
-
-    private void drawList(GuiGraphicsExtractor g, int mx, int my, int lx, int ly, int lw, int lh) {
-        UiBoxes.inset(g, lx, ly, lw, lh, PALETTE);
-        int top = ly;
-        if (pickCode >= 0) {
-            g.text(font, fit(t("pick", KeyboardLayout.label(pickCode, german)), lw - 80), lx + 6, ly + 3, ink(PALETTE.slot()), false);
-            button(g, mx, my, lx + lw - 70, ly + 1, 66, 12, t("cancel"), false, true, () -> pickCode = -1);
-            top += ROW;
-        }
-        List<Group> groups = groups();
-        int total = 0;
-        for (Group gr : groups) total += ROW + (gr.collapsed ? 0 : gr.items.size() * ROW);
-        int view = lh - (top - ly) - 2;
-        scroll = Math.max(0, Math.min(scroll, total - view));
-        if (groups.isEmpty()) g.text(font, t("empty"), lx + 8, top + 6, ink(PALETTE.slot()), false);
-        g.enableScissor(lx + 1, top, lx + lw - 1, top + view);
-        int ry = top - scroll;
-        List<Hit> list = new ArrayList<>();
-        for (Group gr : groups) {
-            drawHeader(g, mx, my, gr, lx, ry, lw, top, top + view, list);
-            ry += ROW;
-            if (gr.collapsed) continue;
-            for (Entry e : gr.items) {
-                if (ry + ROW > top && ry < top + view) drawRow(g, mx, my, e, lx, ry, lw, top, top + view, list);
-                ry += ROW;
-            }
-        }
-        g.disableScissor();
-        // scroll bar
-        if (total > view) {
-            int bh = Math.max(12, view * view / total), by = top + (view - bh) * scroll / Math.max(1, total - view);
-            g.fill(lx + lw - 4, top, lx + lw - 2, top + view, UiPalette.scale(PALETTE.fill(), 0.5));
-            g.fill(lx + lw - 4, by, lx + lw - 2, by + bh, PALETTE.light());
-        }
-        // list hits come after the scissor; clip them to the visible band
-        int clipTop = top, clipBottom = top + view;
-        for (Hit hit : list) {
-            if (hit.y + hit.h > clipTop && hit.y < clipBottom) hits.add(hit);
-        }
+    KeyMapping mapping(Binding b) {
+        Entry e = byId.get(b.id());
+        return e == null ? null : e.mapping;
     }
 
-    private void drawHeader(GuiGraphicsExtractor g, int mx, int my, Group gr, int lx, int ry, int lw, int top, int bottom, List<Hit> list) {
-        if (ry + ROW <= top || ry >= bottom) return;
-        int face = UiPalette.mix(PALETTE.fill(), 0xFF000000, 0.12);
-        g.fill(lx + 2, ry, lx + lw - 6, ry + ROW - 1, face);
-        String id = gr.owner + "/" + gr.name;
-        g.text(font, (gr.collapsed ? "+ " : "- ") + fit(gr.name + " (" + gr.items.size() + ")", lw - 130)
-                + ("minecraft".equals(gr.owner) ? "" : "  " + gr.owner), lx + 6, ry + 3, ink(face), false);
-        list.add(new Hit(lx + 2, ry, lw - 28, ROW - 1, () -> {
-            if (!collapsed.remove(id)) collapsed.add(id);
-        }));
-        boolean any = gr.items.stream().anyMatch(e -> !e.binding.isDefault());
-        small(g, mx, my, lx + lw - 6 - SMALL - 1, ry, "↺", any, () -> resetAll(gr.items), list);
+    static boolean german() {
+        return german;
     }
 
-    private void small(GuiGraphicsExtractor g, int mx, int my, int sx, int sy, String text, boolean enabled, Runnable run, List<Hit> list) {
-        boolean hover = enabled && mx >= sx && mx < sx + SMALL && my >= sy && my < sy + ROW - 1;
-        int face = UiPalette.mix(PALETTE.fill(), 0xFFFFFFFF, hover ? 0.34 : 0.2);
-        UiBoxes.raised(g, sx, sy, SMALL, ROW - 1, face);
-        g.text(font, text, sx + (SMALL - font.width(text)) / 2, sy + 3, enabled ? ink(face) : UiContrast.ensure(0xFF8A8A8A, face), false);
-        if (enabled) list.add(new Hit(sx, sy, SMALL, ROW - 1, run));
-    }
-
-    private void drawRow(GuiGraphicsExtractor g, int mx, int my, Entry e, int lx, int ry, int lw, int top, int bottom, List<Hit> list) {
-        Binding b = e.binding;
-        boolean conflict = KeyConflicts.conflicts(byKey, b);
-        boolean rowHover = mx >= lx + 2 && mx < lx + lw - 6 && my >= Math.max(ry, top) && my < Math.min(ry + ROW, bottom);
-        int rowFace = UiPalette.mix(UiPalette.mix(PALETTE.slot(), PALETTE.fill(), 0.35), 0xFFFFFFFF, rowHover ? 0.1 : 0);
-        g.fill(lx + 2, ry, lx + lw - 6, ry + ROW - 1, rowFace);
-        if (conflict) {
-            g.fill(lx + 4, ry + 2, lx + 8, ry + ROW - 3, UiKeyboard.SHARED);
-        }
-        int right = lx + lw - 6;
-        int resetX = right - SMALL - 1, keyX = resetX - KEY_W - 2;
-        g.text(font, fit(b.action(), keyX - (lx + 12) - 4), lx + 12, ry + 3, ink(rowFace), false);
-        boolean waiting = listening == e.mapping;
-        String keyText = waiting ? t("press") : b.unbound() ? t("none") : shown(b);
-        int keyFace = waiting ? PALETTE.fill() : conflict ? UiPalette.mix(UiKeyboard.SHARED, 0xFF000000, 0.1) : UiPalette.mix(PALETTE.fill(), 0xFFFFFFFF, 0.2);
-        UiBoxes.raised(g, keyX, ry, KEY_W, ROW - 1, keyFace);
-        g.text(font, fit(keyText, KEY_W - 4), keyX + (KEY_W - Math.min(font.width(keyText), KEY_W - 4)) / 2, ry + 3,
-                UiContrast.ensure(0xFFFFFFFF, keyFace), false);
-        list.add(new Hit(keyX, ry, KEY_W, ROW - 1, () -> {
-            if (pickCode >= 0) {
-                assign(e.mapping, InputConstants.Type.KEYBOARD.getOrCreate(pickCode));
-                pickCode = -1;
-                listTab = false;
-            } else {
-                listening = waiting ? null : e.mapping;
-            }
-        }));
-        small(g, mx, my, resetX, ry, "↺", !b.isDefault(), () -> assign(e.mapping, e.mapping.getDefaultKey()), list);
-        if (rowHover && !(mx >= keyX)) {
-            List<Binding> others = KeyConflicts.sharedWith(byKey, b);
-            if (!others.isEmpty()) {
-                List<FormattedCharSequence> lines = new ArrayList<>();
-                lines.addAll(font.split(Component.literal(t("tip.shares")), 220));
-                for (Binding o : others) lines.addAll(font.split(Component.literal(o.action() + " (" + o.group() + ")"), 220));
-                g.setTooltipForNextFrame(font, lines, mx, my);
-            }
-        }
-    }
-
-    // --- keyboard ----------------------------------------------------------------------------------------------------
-
-    private List<KeyboardLayout.Cell> cells() {
-        return KeyboardLayout.cells(size, german);
-    }
-
-    private void drawKeyboard(GuiGraphicsExtractor g, int mx, int my, int kx, int ky, int kw, int kh) {
-        List<KeyboardLayout.Cell> cells = cells();
-        int scale = KeyboardLayout.scale(cells, kw - 8, kh - 8);
-        int pw = KeyboardLayout.width(cells) * scale, ph = KeyboardLayout.height(cells) * scale;
-        int ox = kx + (kw - pw) / 2, oy = ky + (kh - ph) / 2;
-        UiBoxes.inset(g, kx, ky, kw, kh, PALETTE);
-        var hover = popupCode >= 0 ? java.util.Optional.<KeyboardLayout.Cell>empty() : KeyboardLayout.at(cells, ox, oy, scale, mx, my);
-        UiKeyboard.draw(g, font, cells, ox, oy, scale, c -> KeyConflicts.state(byKey, nameOf(c.code())), hover.map(KeyboardLayout.Cell::code).orElse(-1), popupCode);
-        hover.ifPresent(c -> {
-            List<FormattedCharSequence> lines = new ArrayList<>();
-            List<Binding> on = byKey.getOrDefault(nameOf(c.code()), List.of());
-            lines.addAll(font.split(Component.literal(c.label()), 220));
-            if (on.isEmpty()) lines.addAll(font.split(Component.literal(t("tip.free")), 220));
-            if (on.size() > 1) lines.addAll(font.split(Component.literal(t("tip.shared")), 220));
-            for (int i = 0; i < Math.min(on.size(), 4); i++) lines.addAll(font.split(Component.literal(on.get(i).action()), 220));
-            if (on.size() > 4) lines.addAll(font.split(Component.literal("+" + (on.size() - 4)), 220));
-            lines.addAll(font.split(Component.literal(t("tip.click")), 220));
-            g.setTooltipForNextFrame(font, lines, mx, my);
-        });
-        hits.add(new Hit(ox, oy, pw, ph, () -> KeyboardLayout.at(cells, ox, oy, scale, lastX, lastY).ifPresent(c -> popupCode = c.code())));
-    }
-
-    private double lastX, lastY;
-
-    private void drawPopup(GuiGraphicsExtractor g, int mx, int my) {
-        String name = nameOf(popupCode);
-        List<Binding> on = byKey.getOrDefault(name, List.of());
-        inPopup = true;
-        int pw = 230, ph = 38 + on.size() * ROW + 22;
-        int px = x + (w - pw) / 2, py = y + (h - ph) / 2;
-        g.fill(0, 0, width, height, 0x88000000);
-        UiBoxes.box(g, px, py, pw, ph, PALETTE);
-        KeyboardLayout.Cell cell = cells().stream().filter(c -> c.code() == popupCode).findFirst().orElse(null);
-        String label = cell == null ? name : cell.label();
-        g.text(font, label, px + 8, py + 7, PALETTE.label(), false);
-        int ry = py + 22;
-        for (int i = 0; i < on.size(); i++) {
-            Binding b = on.get(i);
-            Entry e = byId.get(b.id());
-            g.text(font, fit(b.action(), pw - 16 - 90), px + 8, ry + 3, PALETTE.label(), false);
-            int bx = px + pw - 8 - SMALL;
-            button(g, mx, my, bx, ry, SMALL, ROW - 1, "x", false, true, () -> assign(e.mapping, InputConstants.UNKNOWN));
-            if (on.size() > 1 && i > 0) {
-                var free = KeyboardLayout.nearestFree(KeyboardLayout.cells(KeyboardLayout.Size.FULL, german), usedCodes(), popupCode);
-                if (free.isPresent()) {
-                    KeyboardLayout.Cell target = free.get();
-                    button(g, mx, my, bx - 62, ry, 60, ROW - 1, t("move", target.label()), false, true,
-                            () -> assign(e.mapping, InputConstants.Type.KEYBOARD.getOrCreate(target.code())));
-                }
-            }
-            ry += ROW;
-        }
-        button(g, mx, my, px + 8, ry + 4, pw - 16, 16, t("popup.assign"), false, true, () -> {
-            pickCode = popupCode;
-            popupCode = -1;
-            listTab = true;
-        });
-        inPopup = false;
-    }
-
-    private Set<Integer> usedCodes() {
+    /** The key codes already bound (for "move to a free key"). */
+    Set<Integer> usedCodes() {
         Set<Integer> used = new HashSet<>();
         for (KeyboardLayout.Cell c : KeyboardLayout.cells(KeyboardLayout.Size.FULL, false)) {
             if (byKey.containsKey(nameOf(c.code()))) used.add(c.code());
@@ -428,19 +210,138 @@ public final class KeysScreen extends Screen {
         return used;
     }
 
-    // --- input -------------------------------------------------------------------------------------------------------
+    // --- screen ------------------------------------------------------------------------------------------------------
+
+    @Override
+    protected void init() {
+        refresh();
+        probe.clear();
+        list = null;
+        search = null;
+        int cx = width / 2;
+        // row 1: the three views
+        int tabW = Math.min(110, (width - 24) / 3);
+        View[] views = View.values();
+        for (int i = 0; i < views.length; i++) {
+            View v = views[i];
+            String id = v.name().toLowerCase(java.util.Locale.ROOT);
+            Button tab = addRenderableWidget(Button.builder(t("tab." + id), b -> switchView(v))
+                    .bounds(cx - (3 * tabW + 8) / 2 + i * (tabW + 4), 20, tabW, 20).build());
+            tab.active = view != v;
+            probe.put("tab_" + id, tab);
+        }
+        // row 2: search and filters, or the picture's size and layout
+        int rowY = 44;
+        if (view == View.KEYBOARD) {
+            int bx = cx - (3 * 52 + 102) / 2;
+            for (KeyboardLayout.Size s : KeyboardLayout.Size.values()) {
+                Button b = addRenderableWidget(Button.builder(Component.literal(s.percent), x -> {
+                    size = s;
+                    rebuildWidgets();
+                }).bounds(bx, rowY, 50, 20).build());
+                b.active = size != s;
+                probe.put("size_" + s.percent.replace("%", ""), b);
+                bx += 52;
+            }
+            probe.put("german", addRenderableWidget(Button.builder(filterLabel("layout.german", german), b -> {
+                german = !german;
+                rebuildWidgets();
+            }).bounds(bx, rowY, 102, 20).build()));
+            int top = TOP, bottom = height - 33;
+            probe.put("keyboard", addRenderableWidget(new KeyboardWidget(8, top, width - 16, bottom - top)));
+        } else {
+            if (pickCode >= 0) {
+                probe.put("cancel_pick", addRenderableWidget(Button.builder(t("cancel"), b -> {
+                    pickCode = -1;
+                    rebuildWidgets();
+                }).bounds(cx + 104, rowY, 100, 20).build()));
+            } else {
+                int sw = Math.max(60, Math.min(200, width - 24 - 2 * 104));
+                int sx = cx - (sw + 2 * 104) / 2;
+                search = new EditBox(font, sx, rowY, sw, 20, t("search")) {
+                    @Override
+                    public void setFocused(boolean focused) {
+                        super.setFocused(focused);
+                        Minecraft.getInstance().onTextInputFocusChange(this, focused);
+                    }
+                };
+                search.setMaxLength(64);
+                search.setHint(t("search"));
+                search.setValue(query);
+                search.setResponder(q -> {
+                    query = q;
+                    if (list != null) {
+                        list.refill();
+                        list.setScrollAmount(0);
+                    }
+                });
+                probe.put("search", addRenderableWidget(search));
+                probe.put("only_conflicts", addRenderableWidget(Button.builder(filterLabel("only_conflicts", onlyConflicts), b -> {
+                    onlyConflicts = !onlyConflicts;
+                    b.setMessage(filterLabel("only_conflicts", onlyConflicts));
+                    list.refill();
+                }).bounds(sx + sw + 4, rowY, 100, 20).build()));
+                probe.put("only_unbound", addRenderableWidget(Button.builder(filterLabel("only_unbound", onlyUnbound), b -> {
+                    onlyUnbound = !onlyUnbound;
+                    b.setMessage(filterLabel("only_unbound", onlyUnbound));
+                    list.refill();
+                }).bounds(sx + sw + 108, rowY, 100, 20).build()));
+            }
+            list = addRenderableWidget(new KeysList(minecraft, width, height - 33 - TOP, TOP));
+            list.refill();
+        }
+        // footer
+        int fy = height - 27;
+        probe.put("reset_all", addRenderableWidget(Button.builder(resetLabel(), b -> {
+            if (armedReset) resetAll(entries);
+            armedReset = !armedReset;
+            b.setMessage(resetLabel());
+        }).bounds(cx - 154, fy, 150, 20).build()));
+        probe.put("done", addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(cx + 4, fy, 150, 20).build()));
+    }
+
+    private Component resetLabel() {
+        return armedReset ? t("reset_all_confirm").withStyle(ChatFormatting.YELLOW) : t("reset_all");
+    }
+
+    private static Component filterLabel(String key, boolean on) {
+        return CommonComponents.optionNameValue(t(key), CommonComponents.optionStatus(on));
+    }
+
+    @Override
+    public void onClose() {
+        minecraft.gui.setScreen(parent);
+    }
+
+    @Override
+    public void removed() {
+        minecraft.options.save();
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
+        super.extractRenderState(g, mx, my, delta);
+        g.centeredText(font, title, width / 2, 7, 0xFFFFFFFF);
+        if (view != View.KEYBOARD && pickCode >= 0) {
+            g.centeredText(font, t("pick", KeyboardLayout.label(pickCode, german)), width / 2 - 52, 50, 0xFFFFFF55);
+        }
+        Component info = t("footer", KeyConflicts.sharedKeys(byKey), size.percent);
+        if (font.width(info) < width / 2 - 170) g.text(font, info, 8, height - 21, 0xFFA0A0A0);
+    }
+
+    // --- input: assigning a key, like Vanilla's controls page --------------------------------------------------------
 
     @Override
     public boolean keyPressed(KeyEvent event) {
         if (listening != null) {
             KeyMapping m = listening;
             listening = null;
-            if (event.key() != InputConstants.KEY_ESCAPE) assign(m, InputConstants.Type.KEYBOARD.getOrCreate(event.key()));
+            assign(m, event.isEscape() ? InputConstants.UNKNOWN : InputConstants.getKey(event));
             return true;
         }
-        if (event.key() == InputConstants.KEY_ESCAPE && (popupCode >= 0 || pickCode >= 0)) {
-            popupCode = -1;
+        if (event.isEscape() && pickCode >= 0) {
             pickCode = -1;
+            rebuildWidgets();
             return true;
         }
         return super.keyPressed(event);
@@ -448,46 +349,301 @@ public final class KeysScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        double mx = event.x(), my = event.y();
-        lastX = mx;
-        lastY = my;
         if (listening != null) {
             KeyMapping m = listening;
             listening = null;
             assign(m, InputConstants.Type.MOUSE.getOrCreate(event.button()));
             return true;
         }
-        if (event.button() == 0) {
-            if (popupCode >= 0 && !listTab) {
-                for (Hit hit : new ArrayList<>(popupHits)) {
-                    if (hit.contains(mx, my)) {
-                        hit.run.run();
-                        return true;
-                    }
-                }
-                popupCode = -1; // a click outside closes it
-                return true;
-            }
-            boolean wasArmed = armedReset;
-            for (int i = hits.size() - 1; i >= 0; i--) {
-                Hit hit = hits.get(i);
-                if (hit.contains(mx, my)) {
-                    hit.run.run();
-                    if (wasArmed && armedReset) armedReset = false; // any other button cancels the question
-                    return true;
-                }
-            }
-            armedReset = false;
+        AbstractWidget reset = probe.get("reset_all");
+        if (armedReset && reset != null && !reset.isMouseOver(event.x(), event.y())) {
+            armedReset = false; // any other click cancels the question
+            if (reset instanceof Button b) b.setMessage(resetLabel());
         }
         return super.mouseClicked(event, doubleClick);
     }
 
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (listTab) {
-            scroll = Math.max(0, scroll - (int) (scrollY * ROW * 2));
+    // --- the list (Vanilla scroll list, Vanilla rows) ---------------------------------------------------------------
+
+    final class KeysList extends ContainerObjectSelectionList<Row> {
+        KeysList(Minecraft mc, int width, int height, int y) {
+            super(mc, width, height, y, ROW);
+        }
+
+        @Override
+        public int getRowWidth() {
+            return Math.min(360, width - 20);
+        }
+
+        void refill() {
+            double keep = scrollAmount();
+            List<Row> rows = new ArrayList<>();
+            Map<String, List<Entry>> groups = groups();
+            for (Map.Entry<String, List<Entry>> gr : groups.entrySet()) {
+                List<Entry> items = gr.getValue();
+                Binding first = items.get(0).binding;
+                String title = view == View.MOD ? modTitle(first.owner()) : first.group();
+                rows.add(new HeaderRow(gr.getKey(), Component.literal(title), items));
+                if (collapsed.contains(gr.getKey())) continue;
+                for (Entry e : items) rows.add(new KeyRow(e));
+            }
+            if (groups.isEmpty()) rows.add(new HeaderRow(null, t("empty"), List.of()));
+            replaceEntries(rows);
+            setScrollAmount(keep);
+        }
+
+        /** Scrolls the row of {@code id} into view (probe/test); false when it is not shown. */
+        boolean show(String id) {
+            KeyRow r = row(id);
+            if (r == null) return false;
+            scrollToEntry(r);
             return true;
         }
-        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+
+        KeyRow row(String id) {
+            for (Row r : children()) if (r instanceof KeyRow k && k.entry.binding.id().equals(id)) return k;
+            return null;
+        }
+
+        HeaderRow header(int index) {
+            int i = 0;
+            for (Row r : children()) if (r instanceof HeaderRow h && h.id != null && i++ == index) return h;
+            return null;
+        }
+    }
+
+    abstract static class Row extends ContainerObjectSelectionList.Entry<Row> {}
+
+    /** A group heading like Vanilla's category rows (bold, underlined, centred), with fold and group reset buttons. */
+    final class HeaderRow extends Row {
+        final String id;
+        private final Component title;
+        final Button fold, reset;
+
+        HeaderRow(String id, Component title, List<Entry> items) {
+            this.id = id;
+            this.title = id == null ? title : title.copy().withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE)
+                    .append(Component.literal(" (" + items.size() + ")").withStyle(ChatFormatting.GRAY));
+            boolean folded = id != null && collapsed.contains(id);
+            fold = id == null ? null : Button.builder(Component.literal(folded ? "+" : "-"), b -> {
+                if (!collapsed.remove(id)) collapsed.add(id);
+                list.refill();
+            }).bounds(0, 0, 20, 20).tooltip(Tooltip.create(t(folded ? "unfold" : "fold"))).build();
+            reset = id == null ? null : Button.builder(Component.translatable("controls.reset"), b -> resetAll(items)).bounds(0, 0, 50, 20)
+                    .tooltip(Tooltip.create(t("reset_group"))).build();
+            if (reset != null) reset.active = items.stream().anyMatch(e -> !e.binding.isDefault());
+        }
+
+        @Override
+        public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
+            var font = Minecraft.getInstance().font;
+            g.centeredText(font, title, getContentX() + getContentWidth() / 2, getContentYMiddle() - 4, 0xFFFFFFFF);
+            if (fold != null) {
+                fold.setPosition(getContentX(), getContentY() - 2);
+                fold.extractRenderState(g, mouseX, mouseY, delta);
+                reset.setPosition(getContentX() + getContentWidth() - reset.getWidth(), getContentY() - 2);
+                reset.extractRenderState(g, mouseX, mouseY, delta);
+            }
+        }
+
+        @Override
+        public List<? extends GuiEventListener> children() {
+            return fold == null ? List.of() : List.of(fold, reset);
+        }
+
+        @Override
+        public List<? extends NarratableEntry> narratables() {
+            return fold == null ? List.of() : List.of(fold, reset);
+        }
+    }
+
+    /** One action like Vanilla's key rows: name, the key button (click, then press a key or mouse button), reset. */
+    final class KeyRow extends Row {
+        final Entry entry;
+        final Button change, reset;
+
+        KeyRow(Entry entry) {
+            this.entry = entry;
+            change = Button.builder(entry.mapping.getTranslatedKeyMessage(), b -> {
+                if (pickCode >= 0) {
+                    assign(entry.mapping, InputConstants.Type.KEYBOARD.getOrCreate(pickCode));
+                    pickCode = -1;
+                    switchView(View.KEYBOARD);
+                } else {
+                    listening = listening == entry.mapping ? null : entry.mapping;
+                }
+            }).bounds(0, 0, 75, 20).build();
+            reset = Button.builder(Component.translatable("controls.reset"), b -> assign(entry.mapping, entry.mapping.getDefaultKey()))
+                    .bounds(0, 0, 50, 20).build();
+        }
+
+        @Override
+        public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
+            Entry now = byId.get(entry.binding.id()); // current state after an assignment
+            Binding b = now == null ? entry.binding : now.binding;
+            List<Binding> others = KeyConflicts.sharedWith(byKey, b);
+            Component key = entry.mapping.getTranslatedKeyMessage();
+            if (!others.isEmpty()) key = Component.literal("[ ").append(key.copy().withStyle(ChatFormatting.WHITE)).append(" ]").withStyle(ChatFormatting.YELLOW);
+            if (listening == entry.mapping) {
+                key = Component.literal("> ").append(key.copy().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE)).append(" <")
+                        .withStyle(ChatFormatting.YELLOW);
+            } else if (pickCode >= 0) {
+                key = Component.literal("-> " + KeyboardLayout.label(pickCode, german)).withStyle(ChatFormatting.YELLOW);
+            }
+            change.setMessage(key);
+            if (others.isEmpty()) {
+                change.setTooltip(null);
+            } else {
+                MutableComponent names = Component.empty();
+                for (int i = 0; i < others.size(); i++) names.append(i == 0 ? "" : ", ").append(others.get(i).action());
+                change.setTooltip(Tooltip.create(Component.translatable("controls.keybinds.duplicateKeybinds", names)));
+            }
+            reset.active = !b.isDefault();
+            int right = getContentX() + getContentWidth();
+            reset.setPosition(right - reset.getWidth(), getContentY() - 2);
+            change.setPosition(reset.getX() - 5 - change.getWidth(), getContentY() - 2);
+            reset.extractRenderState(g, mouseX, mouseY, delta);
+            change.extractRenderState(g, mouseX, mouseY, delta);
+            var font = Minecraft.getInstance().font;
+            g.text(font, fit(font, b.action(), change.getX() - getContentX() - 8), getContentX(), getContentYMiddle() - 4, 0xFFFFFFFF);
+            if (!others.isEmpty()) g.fill(change.getX() - 6, getContentY() - 1, change.getX() - 3, getContentBottom(), 0xFFFFFF00);
+            if (view == View.MOD && hovered && mouseX < change.getX()) {
+                g.setTooltipForNextFrame(font, List.of(Component.literal(b.group()).getVisualOrderText()), mouseX, mouseY);
+            }
+        }
+
+        @Override
+        public List<? extends GuiEventListener> children() {
+            return List.of(change, reset);
+        }
+
+        @Override
+        public List<? extends NarratableEntry> narratables() {
+            return List.of(change, reset);
+        }
+    }
+
+    static String fit(net.minecraft.client.gui.Font font, String text, int max) {
+        if (font.width(text) <= max) return text;
+        String s = text;
+        while (!s.isEmpty() && font.width(s + "...") > max) s = s.substring(0, s.length() - 1);
+        return s + "...";
+    }
+
+    // --- the keyboard picture (one widget; a click opens the key's page) ---------------------------------------------
+
+    final class KeyboardWidget extends AbstractWidget {
+        KeyboardWidget(int x, int y, int w, int h) {
+            super(x, y, w, h, t("tab.keyboard"));
+        }
+
+        private List<KeyboardLayout.Cell> cells() {
+            return KeyboardLayout.cells(size, german);
+        }
+
+        int scale() {
+            return KeyboardLayout.scale(cells(), getWidth() - 8, getHeight() - 8);
+        }
+
+        int originX() {
+            return getX() + (getWidth() - KeyboardLayout.width(cells()) * scale()) / 2;
+        }
+
+        int originY() {
+            return getY() + (getHeight() - KeyboardLayout.height(cells()) * scale()) / 2;
+        }
+
+        /** The cell of {@code code} as x, y, w, h in GUI coordinates (probe), or null. */
+        int[] cellRect(int code) {
+            int s = scale();
+            for (KeyboardLayout.Cell c : cells()) {
+                if (c.code() == code) return new int[]{originX() + c.x() * s, originY() + c.y() * s, c.w() * s - 1, c.h() * s - 1};
+            }
+            return null;
+        }
+
+        @Override
+        protected void extractWidgetRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
+            List<KeyboardLayout.Cell> cells = cells();
+            int scale = scale(), ox = originX(), oy = originY();
+            var hover = isHovered() ? KeyboardLayout.at(cells, ox, oy, scale, mx, my) : java.util.Optional.<KeyboardLayout.Cell>empty();
+            UiKeyboard.draw(g, font, cells, ox, oy, scale, c -> KeyConflicts.state(byKey, nameOf(c.code())), hover.map(KeyboardLayout.Cell::code).orElse(-1), -1);
+            hover.ifPresent(c -> {
+                List<FormattedCharSequence> lines = new ArrayList<>();
+                List<Binding> on = byKey.getOrDefault(nameOf(c.code()), List.of());
+                lines.add(Component.literal(c.label()).getVisualOrderText());
+                if (on.isEmpty()) lines.add(t("tip.free").getVisualOrderText());
+                if (on.size() > 1) lines.add(t("tip.shared").getVisualOrderText());
+                for (int i = 0; i < Math.min(on.size(), 4); i++) lines.add(Component.literal(on.get(i).action()).getVisualOrderText());
+                if (on.size() > 4) lines.add(Component.literal("+" + (on.size() - 4)).getVisualOrderText());
+                lines.add(t("tip.click").getVisualOrderText());
+                g.setTooltipForNextFrame(font, lines, mx, my);
+            });
+        }
+
+        @Override
+        public void onClick(MouseButtonEvent event, boolean doubleClick) {
+            KeyboardLayout.at(cells(), originX(), originY(), scale(), event.x(), event.y()).ifPresent(c -> openKey(c.code()));
+        }
+
+        @Override
+        protected void updateWidgetNarration(NarrationElementOutput output) {
+            defaultButtonNarrationText(output);
+        }
+    }
+
+    // --- probe / client test ------------------------------------------------------------------------------------------
+
+    /** Scrolls the action {@code id} into view (list views); false when it is not in the list. */
+    public boolean probeShow(String id) {
+        return list != null && list.show(id);
+    }
+
+    /**
+     * Rectangles (x, y, w, h, GUI coordinates) of the named widgets, the key and reset button of {@code rowId} when its row
+     * is in view, the first group's fold/reset buttons and the keyboard cell of {@code keyCode}.
+     */
+    public Map<String, int[]> probeRects(String rowId, int keyCode) {
+        Map<String, int[]> out = new LinkedHashMap<>();
+        probe.forEach((name, w) -> out.put(name, rect(w)));
+        if (list != null) {
+            out.put("list", rect(list));
+            KeyRow row = rowId == null ? null : list.row(rowId);
+            if (row != null && row.change.getY() >= list.getY() && row.change.getBottom() <= list.getBottom()) {
+                out.put("key_button", rect(row.change));
+                out.put("reset_button", rect(row.reset));
+            }
+            HeaderRow head = list.header(0);
+            if (head != null && head.fold.getY() >= list.getY() && head.fold.getBottom() <= list.getBottom()) {
+                out.put("fold_first", rect(head.fold));
+                out.put("reset_first_group", rect(head.reset));
+            }
+        }
+        if (probe.get("keyboard") instanceof KeyboardWidget kw && keyCode >= 0) {
+            int[] r = kw.cellRect(keyCode);
+            if (r != null) out.put("cell", r);
+        }
+        return out;
+    }
+
+    /** Values the probe and the client test read. */
+    public Map<String, Object> probeValues() {
+        Map<String, Object> v = new LinkedHashMap<>();
+        v.put("view", view.name());
+        v.put("onlyConflicts", onlyConflicts);
+        v.put("onlyUnbound", onlyUnbound);
+        v.put("armedReset", armedReset);
+        v.put("listening", listening == null ? "" : listening.getName());
+        v.put("pickCode", pickCode);
+        v.put("size", size.percent);
+        v.put("german", german);
+        v.put("collapsed", collapsed.size());
+        v.put("rows", list == null ? 0 : list.children().size());
+        v.put("query", query);
+        return v;
+    }
+
+    static int[] rect(AbstractWidget w) {
+        return new int[]{w.getX(), w.getY(), w.getWidth(), w.getHeight()};
     }
 }

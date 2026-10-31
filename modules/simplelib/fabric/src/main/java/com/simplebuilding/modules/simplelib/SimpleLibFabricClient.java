@@ -17,8 +17,17 @@ public final class SimpleLibFabricClient implements ClientModInitializer {
                     @Override public void changed(net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource s, net.minecraft.network.chat.Component t) { s.sendFeedback(t); }
                     @Override public void fail(net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource s, net.minecraft.network.chat.Component t) { s.sendError(t); }
                 }));
-        // E29-4: free look (hold, standard left Alt) - Simple Earth and the zoom module use it.
+        // E29-4/IG31-29: free look (hold, standard left Alt; toggle unbound) - Simple Earth and the zoom module use it.
         net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper.registerKeyMapping(com.simplelib.api.client.FreeLook.KEY);
+        net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper.registerKeyMapping(com.simplelib.api.client.FreeLook.TOGGLE_KEY);
+        // IG31-29: the server's release rules (kept until leaving); always off on join/world change/respawn (FreeLook.tick).
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplelib.net.FreeLookRulesPayload.TYPE,
+                (payload, context) -> com.simplelib.api.FreeLookRules.setServer(payload.playerTurns()
+                        ? com.simplelib.api.FreeLookRules.Release.PLAYER : com.simplelib.api.FreeLookRules.Release.CAMERA, payload.enforce()));
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            com.simplelib.api.FreeLookRules.clearServer();
+            com.simplelib.api.client.FreeLook.reset();
+        });
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplelib.api.client.FreeLook::tick);
         // ABN30-9: dev variants panel beside the inventory (a development environment shows it by default).
         com.simplelib.api.DevVariants.setDevEnvironment(net.fabricmc.loader.api.FabricLoader.getInstance().isDevelopmentEnvironment());

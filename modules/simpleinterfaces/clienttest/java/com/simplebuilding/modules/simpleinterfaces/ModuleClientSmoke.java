@@ -188,18 +188,25 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         UiStyleToggle.setEnabled(true);
     }
 
-    /** W1 G2: crafting table, the three furnaces (lit, half cooked), brewing stand (brewing), beacon, enchanting table. */
-    /** WP-25: the key binding page opens in the list and in the keyboard view (60 / 75 / 100 %), nothing throws while drawing. */
+    /**
+     * WP-25 / IG31-31: the key binding page opens in the by-mod view, the by-function view (Vanilla's categories) and the
+     * keyboard view (60 / 75 / 100 %), nothing throws while drawing; then its Vanilla buttons are clicked through the game's
+     * mouse handler (tabs, a filter, a key button + a key, reset). The real OS mouse is driven by tools/keys_probe.py.
+     */
     private static void keysPage(ClientGameTestContext context) {
         var keysClass = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.class;
-        record Shot(String name, boolean list, com.simplelib.api.client.keys.KeyboardLayout.Size size) {}
+        var mod = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.MOD;
+        var function = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.FUNCTION;
+        var keyboard = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.KEYBOARD;
+        record Shot(String name, com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View view, com.simplelib.api.client.keys.KeyboardLayout.Size size) {}
         for (Shot shot : java.util.List.of(
-                new Shot("simpleinterfaces-keys-list", true, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL),
-                new Shot("simpleinterfaces-keys-60", false, com.simplelib.api.client.keys.KeyboardLayout.Size.COMPACT),
-                new Shot("simpleinterfaces-keys-75", false, com.simplelib.api.client.keys.KeyboardLayout.Size.TENKEYLESS),
-                new Shot("simpleinterfaces-keys-100", false, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL))) {
+                new Shot("simpleinterfaces-keys-list", mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL),
+                new Shot("simpleinterfaces-keys-function", function, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL),
+                new Shot("simpleinterfaces-keys-60", keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.COMPACT),
+                new Shot("simpleinterfaces-keys-75", keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.TENKEYLESS),
+                new Shot("simpleinterfaces-keys-100", keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL))) {
             context.runOnClient(c -> {
-                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(shot.list(), shot.size());
+                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(shot.view(), shot.size());
                 c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
             });
             context.waitTicks(3);
@@ -208,8 +215,55 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.takeScreenshot(shot.name());
         }
+        // clicks through the game's mouse handler
+        String row = "key.simpleinterfaces.open_keys";
+        context.runOnClient(c -> {
+            com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL);
+            c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
+        });
+        context.waitTicks(3);
+        clickKeys(context, "tab_function", null);
+        keysCheck(context, "view", "FUNCTION");
+        clickKeys(context, "tab_mod", null);
+        keysCheck(context, "view", "MOD");
+        clickKeys(context, "only_unbound", null);
+        keysCheck(context, "onlyUnbound", "true");
+        clickKeys(context, "only_unbound", null);
+        keysCheck(context, "onlyUnbound", "false");
+        context.runOnClient(c -> ((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeShow(row));
+        context.waitTicks(2);
+        clickKeys(context, "key_button", row);
+        keysCheck(context, "listening", row);
+        context.getInput().pressKey(com.mojang.blaze3d.platform.InputConstants.KEY_F8);
+        context.waitTicks(2);
+        String bound = context.computeOnClient(c -> net.minecraft.client.KeyMapping.get(row).saveString());
+        if (!"key.keyboard.f8".equals(bound)) throw new AssertionError("key page: F8 not assigned (" + bound + ")");
+        clickKeys(context, "reset_button", row);
+        bound = context.computeOnClient(c -> net.minecraft.client.KeyMapping.get(row).saveString());
+        if (!"key.keyboard.unknown".equals(bound)) throw new AssertionError("key page: reset did not unbind (" + bound + ")");
+        context.setScreen(() -> null);
     }
 
+    /** Clicks the named widget of the open key page (row buttons of {@code row}) with the test mouse. */
+    private static void clickKeys(ClientGameTestContext context, String name, String row) {
+        double[] at = context.computeOnClient(c -> {
+            var screen = (com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen();
+            int[] r = screen.probeRects(row, -1).get(name);
+            if (r == null) throw new AssertionError("key page: " + name + " not shown");
+            double scale = c.getWindow().getGuiScale();
+            return new double[]{(r[0] + r[2] / 2.0) * scale, (r[1] + r[3] / 2.0) * scale};
+        });
+        context.getInput().setCursorPos(at[0], at[1]);
+        context.getInput().pressMouse(0);
+        context.waitTicks(2);
+    }
+
+    private static void keysCheck(ClientGameTestContext context, String key, String expected) {
+        String value = context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get(key)));
+        if (!expected.equals(value)) throw new AssertionError("key page: " + key + " = " + value + ", expected " + expected);
+    }
+
+    /** W1 G2: crafting table, the three furnaces (lit, half cooked), brewing stand (brewing), beacon, enchanting table. */
     private static void showWork(ClientGameTestContext context) {
         show(context, "simpleinterfaces-crafting", c -> {
             var menu = new net.minecraft.world.inventory.CraftingMenu(0, c.player.getInventory());

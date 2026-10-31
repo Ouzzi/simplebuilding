@@ -6,9 +6,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
         if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplelib")) throw new AssertionError("Module did not boot");
         context.takeScreenshot("simplelib-title");
+        // IG31-29: the free look key is already down when the world opens (Alt+Tab, or held through the loading screen) -
+        // Vanilla copies that state into the mapping on focus, free look must still be off after the join.
+        context.getInput().holdKey(com.simplelib.api.client.FreeLook.KEY);
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets();
             world.getConnection().waitForChunksRender();
+            freeLook(context, world);
             // N71: the four growth stages of the warped wart on soul sand, in a row, seen from the front.
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
@@ -35,5 +39,99 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             if (!com.simplelib.api.DevVariants.select("simplelib:smoke_frame", "b") || !com.simplelib.api.DevVariants.is("simplelib:smoke_frame", "b")) throw new AssertionError("dev variant select");
             context.setScreen(() -> null);
         }
+    }
+
+    private static void check(boolean ok, String message) {
+        if (!ok) throw new AssertionError(message);
+    }
+
+    /**
+     * IG31-29 free look: off after the join although the key was down; hold (real key mapping) turns only the camera, release
+     * eases it back (standard) or - client mode "player" - turns the player to the camera; the toggle key switches it on and
+     * off; an enforcing server overrides the client's mode; a respawn switches it off.
+     */
+    private static void freeLook(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+        context.waitTicks(5);
+        check(!context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "free look is on right after the join");
+        context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
+        context.waitTicks(2);
+        // hold: the mouse turn (Entity.turn, as the mouse handler calls it) goes to the camera only
+        float yaw0 = context.computeOnClient(mc -> mc.player.getYRot());
+        context.getInput().holdKey(com.simplelib.api.client.FreeLook.KEY);
+        context.waitTicks(2);
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "holding the key does not switch free look on");
+        context.runOnClient(mc -> mc.player.turn(300, 0));
+        context.waitTicks(1);
+        float[] r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
+        check(Math.abs(r[0] - yaw0) < 0.01 && Math.abs(r[1]) > 5, "hold: camera offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);
+        context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
+        context.waitTicks(30);
+        r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
+        check(Math.abs(r[1]) < 1 && Math.abs(r[0] - yaw0) < 0.01, "release (camera mode): offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);
+        // client mode "player": the player turns to the camera on release
+        var before = com.simplelib.api.FreeLookRules.client();
+        try {
+            com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.PLAYER);
+            context.getInput().holdKey(com.simplelib.api.client.FreeLook.KEY);
+            context.waitTicks(2);
+            context.runOnClient(mc -> mc.player.turn(200, 0));
+            float offset = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.yawOffset());
+            context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
+            context.waitTicks(3);
+            r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
+            check(Math.abs(offset) > 5 && Math.abs(r[0] - (yaw0 + offset)) < 0.5 && r[1] == 0,
+                    "release (player mode): player yaw " + yaw0 + " + " + offset + " -> " + r[0] + ", offset " + r[1]);
+            // an enforcing server wins over the client's choice
+            com.simplelib.api.FreeLookRules.setServer(com.simplelib.api.FreeLookRules.Release.CAMERA, true);
+            float yaw1 = r[0];
+            context.getInput().holdKey(com.simplelib.api.client.FreeLook.KEY);
+            context.waitTicks(2);
+            context.runOnClient(mc -> mc.player.turn(200, 0));
+            context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
+            context.waitTicks(2);
+            float yaw2 = context.computeOnClient(mc -> mc.player.getYRot());
+            check(Math.abs(yaw2 - yaw1) < 0.01, "enforced camera mode: the player turned " + yaw1 + " -> " + yaw2);
+        } finally {
+            com.simplelib.api.FreeLookRules.clearServer();
+            com.simplelib.api.FreeLookRules.setClient(before);
+        }
+        context.waitTicks(30);
+        // toggle: bound for the test to F7, one press on, one press off
+        var toggle = com.simplelib.api.client.FreeLook.TOGGLE_KEY;
+        context.runOnClient(mc -> {
+            toggle.setKey(com.mojang.blaze3d.platform.InputConstants.Type.KEYBOARD.getOrCreate(com.mojang.blaze3d.platform.InputConstants.KEY_F7));
+            net.minecraft.client.KeyMapping.resetMapping();
+        });
+        try {
+            context.getInput().pressKey(toggle);
+            context.waitTicks(2);
+            check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "the toggle key does not switch free look on");
+            context.waitTicks(5);
+            check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "toggled free look went off by itself");
+            context.getInput().pressKey(toggle);
+            context.waitTicks(2);
+            check(!context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "the toggle key does not switch free look off");
+            // a respawn (new local player) switches it off
+            context.getInput().pressKey(toggle);
+            context.waitTicks(2);
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.kill(p.level());
+            });
+            world.getConnection().waitForClientboundPackets();
+            context.waitTicks(5);
+            context.runOnClient(mc -> mc.player.respawn());
+            world.getConnection().waitForClientboundPackets();
+            context.waitTicks(10);
+            context.setScreen(() -> null);
+            context.waitTicks(2);
+            check(!context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.active()), "free look survived a respawn");
+        } finally {
+            context.runOnClient(mc -> {
+                toggle.setKey(toggle.getDefaultKey());
+                net.minecraft.client.KeyMapping.resetMapping();
+            });
+        }
+        world.getConnection().waitForChunksRender();
     }
 }
