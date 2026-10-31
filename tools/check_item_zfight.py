@@ -40,7 +40,7 @@ def check(path):
                 continue
             w = min(ra[1], rb[1]) - max(ra[0], rb[0])
             h = min(ra[3], rb[3]) - max(ra[2], rb[2])
-            if w > EPS and h > EPS and ra != rb:  # identical rects (dye overlays) pass the depth test the same way
+            if w > EPS and h > EPS and ra != rb and ta != tb:  # identical rects (dye overlays) and equal textures (auto UV = same texel) do not flicker
                 bad.append(f'elements {i}+{j} face {na} plane {pa:g} overlap {w:g}x{h:g} ({ta} / {tb})')
     return bad
 
