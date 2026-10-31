@@ -108,4 +108,10 @@ Durchgesehene Dateien (76 Dateien, 4644 Zeilen; PNG/Binaerdateien nur auf Herkun
 **shipbar** (0 P1, 1 P2 als Rueckfrage, 5 P3; 1 gefixt). Offen vor Veroeffentlichung: echter Client-Lauf (Smoke + `mixinaudit-client-263`) und ein Sichtlauf mit Sodium und Iris.
 
 ## Testergebnis
-@@TEST@@
+Lauf 31.10. auf sb-test (Commit ea41423fb, 1 sbt-Aufruf, Rerun fuer ein Ziel):
+- C=0: Compile `:mc26_3:fabric` + vier Modul-Compiles gruen.
+- T: Gametests 129/129 gruen (0 rot): Models integration 21/21, standalone 21/21; Visuals 22/22, 22/22; Sounds 20/20, 20/20; Aesthetics standalone 3/3. `Aesthetics integration` brach im ersten Lauf nach 9 s mit einem Gradle-Abbruch ab, ohne Tests zu starten (kein Testfehler, vermutlich Gradle-Konflikt in der geteilten Schlange); der Einzel-Rerun `:integration:runSimpleaestheticsGameTest` lief gruen (3/3, "All 3 required tests passed", BUILD SUCCESSFUL).
+- K=0: Client-Smokes unter `xvfb-run -a`: Models 10/10, Visuals 6/6, Sounds 3/3, Aesthetics 1/1 (echter Client, Welt betreten, Screens fotografiert). Hinweis des Laufs: je 1659 "Fehlende Textur/Modell"-Meldungen im Client-Log, in allen vier Logs gleich (stammt vermutlich aus dem gemeinsamen Spiel/Vanilla-Umfeld; nicht ausgewertet).
+- M=0: `check_client_mixins.py`: 660 Mixins geprueft, 0 Probleme (inkl. aller 17 Visuals-, 7 Models-, 1 Sounds-Mixins).
+- L=0: `check_lang_keys.py`: 52 Module, jeder Key EN und DE.
+Nicht getestet: Sodium/Iris, Forge/NeoForge, ein Lauf von `mixinaudit-client-263` (Hauptsitzung nach Merge).
