@@ -8,7 +8,7 @@ displayName="Simple Farming"
 iconFile="assets/simplefarming/icon.png"
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-description="Farming switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
+description="Feather Falling protects farmland, Sharpness cuts grass, a hoe harvests and replants ripe crops; a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simplefarming]]
 modId="minecraft"
 type="required"
