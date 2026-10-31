@@ -51,7 +51,7 @@ public final class VisualsTests {
    Visuals.CONFIG=new SimplevisualsConfig();
    h.assertTrue(com.simplebuilding.framework.api.CosmeticIntensity.current("simplevisuals")==com.simplebuilding.framework.api.CosmeticIntensity.Level.SUBTLE,"Provider follows replaced config without saving");
   } finally { Visuals.CONFIG=saved; }
-  var c=new SimplevisualsConfig();h.assertTrue(ConfigOptions.all(c).size()==51,"All original config fields plus global level and tilted frame items");
+  var c=new SimplevisualsConfig();h.assertTrue(ConfigOptions.all(c).size()==52,"All original config fields plus global level, tilted frame items and cauldron stand");
   frameTilt(h,c);
   for(var o:ConfigOptions.all(c))if(o.get() instanceof Number){
    boolean integer=o.field().getType()==int.class;
