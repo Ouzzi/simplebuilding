@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rohre ROHR33</title>
+<style>
+:root{--bg:#f6f6f3;--card:#ffffff;--ink:#1d1f22;--mute:#5a5f66;--line:#d9dbd6;--acc:#2d6a8a;--accbg:#e3eef4;--stage:#c9d2db}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17191c;--card:#202328;--ink:#e8e9ea;--mute:#a3a8ae;--line:#33373d;--acc:#7cb8d6;--accbg:#22323b;--stage:#2a2f36}}
+:root[data-theme="dark"]{--bg:#17191c;--card:#202328;--ink:#e8e9ea;--mute:#a3a8ae;--line:#33373d;--acc:#7cb8d6;--accbg:#22323b;--stage:#2a2f36}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.5rem;margin:0 0 4px}
+h2{font-size:1.15rem;margin:28px 0 8px}
+h3{font-size:.95rem;margin:14px 0 6px;color:var(--mute);font-weight:600}
+p,li{max-width:72ch}
+.sub{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.concept li{margin:4px 0}
+code{background:var(--accbg);padding:1px 5px;border-radius:4px;font-size:.92em;overflow-wrap:anywhere}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:2}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+figure{margin:10px 0}
+figure img{display:block;max-width:100%;height:auto;background:var(--stage);border-radius:8px}
+figcaption{color:var(--mute);font-size:.88rem;margin-top:4px}
+.flat img{image-rendering:pixelated;background:repeating-conic-gradient(#8884 0 25%,#0000 0 50%) 0 0/16px 16px}
+table{border-collapse:collapse;font-size:.9rem;margin-top:6px}
+td,th{border-bottom:1px solid var(--line);padding:4px 10px 4px 0;text-align:left}
+.ok{color:#3b8a4a}.warn{color:#b0701c}
+fieldset{border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:8px 12px}
+legend{color:var(--mute);font-size:.9rem}
+label{margin-right:14px;white-space:nowrap;display:inline-block;padding:3px 0}
+textarea{width:100%;min-height:60px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px;font:inherit}
+.code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.code output{font-family:ui-monospace,monospace;background:var(--accbg);padding:6px 10px;border-radius:6px;overflow-wrap:anywhere;flex:1 1 260px}
+.code button{border:0;background:var(--acc);color:var(--bg);border-radius:6px;padding:8px 14px;font:inherit;cursor:pointer}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 16px;font-size:.88rem;color:var(--mute)}
+</style>
+</head>
+<body>
+<main>
+<h1>Rohre: Pfeil im Material (ROHR33)</h1>
+<p class="sub">Queue IG31-32 · nur Konzept und Vorschau, im Spiel ist nichts geändert · Plan <code>docs/ai/PLAN-B-ROHR33-2026-10-31.md</code> · Branch <code>b-rohr33</code></p>
+
+<div class="card concept">
+<strong>Konzept</strong>
+<ul>
+<li><b>Ist:</b> Rohrform B (deine Wahl 31.10.: Ausgang 6x6-Körper, dann ein 3x3-Hals). Der Pfeil ist ein goldener Fleck auf nur 6x3 Pixeln: wirkt wie ein Aufkleber und ist kaum als Pfeil lesbar.</li>
+<li><b>Pfeil im Material:</b> der Pfeil wird nur aus den Tönen des Rohrs gebildet, keine fremde Farbe: <b>A</b> eingravierte Rille, <b>B</b> erhabene Prägung, <b>C</b> zwei Blechnähte als Doppel-Chevron.</li>
+<li><b>Größerer Pfeil:</b> der Mittelteil dreht sich mit dem Ausgang mit. Kern und Ausgangskörper tragen dann zusammen einen 6x9-Streifen mit Spitze und Schaft, auf allen vier Seiten.</li>
+<li><b>Dünner am Ausfluss:</b> Rohrform B bleibt. Mit <code>duenn=ja</code> bekommt jeder Eingang eine Muffe 8x8 an der Blockkante, sodass der Einfluss sichtbar dicker ist. Der 3x3-Hals des vorigen Rohres steckt dann in der Muffe des nächsten (gezeigt in B).</li>
+<li><b>Blockstates:</b> keine neuen Eigenschaften. Der Kern bekommt 6 Einträge (je <code>facing</code> gedreht), die Muffe ist ein zusätzliches Element im Arm-Modell. Es gibt keine Weltdaten-Änderung, und Auswahl- und Kollisionsbox bleiben gleich.</li>
+<li><b>Aufwand nach Wahl:</b> etwa 1 h (Pixel und Modelle in den Storage-Generatoren, Ebenen, Wiki-Kopien), Gate nur Fabric. <b>Risiko:</b> Flächen-Drehungen an den Seiten sind erst nach dem Einbau im Client geprüft.</li>
+<li><b>Vanilla-Nutzen (A12):</b> nur Optik. Die Flussrichtung ist ohne Fenster lesbar, wie beim Trichter-Hals. Am Spielgeschehen ändert sich nichts.</li>
+<li>Farben: die vorhandenen Stufen-Rampen (Eisen, Verstärkt, Netherit, Enderit), keine neuen Farben. Truhe und Trichter in den Bildern sind Vanilla und dienen nur zum Vergleich.</li>
+</ul>
+</div>
+
+<div class="tabs" role="tablist" id="tabs"></div>
+<section id="view"></section>
+
+<h2>Deine Wahl</h2>
+<div class="card">
+<fieldset><legend>Form / Gesamtpaket</legend>
+<label><input type="radio" name="form" value="A" checked> A Rille</label>
+<label><input type="radio" name="form" value="B"> B Prägung + Muffe</label>
+<label><input type="radio" name="form" value="C"> C Blechnaht</label>
+<label><input type="radio" name="form" value="ist"> Ist lassen</label>
+</fieldset>
+<fieldset><legend>Pfeil-Stil (frei kombinierbar)</legend>
+<label><input type="radio" name="pfeil" value="A" checked> A Rille</label>
+<label><input type="radio" name="pfeil" value="B"> B Prägung</label>
+<label><input type="radio" name="pfeil" value="C"> C Naht</label>
+</fieldset>
+<fieldset><legend>Einfluss dicker (Muffe 8x8 an den Eingängen)?</legend>
+<label><input type="radio" name="duenn" value="ja"> ja</label>
+<label><input type="radio" name="duenn" value="nein" checked> nein (nur Hals 3x3 wie Form B)</label>
+</fieldset>
+<label for="note" style="white-space:normal">Freitext</label>
+<textarea id="note" placeholder="z. B. Pfeil kräftiger, Muffe nur an Truhen ..."></textarea>
+<div class="code"><output id="code"></output><button type="button" id="copy">Kopieren</button></div>
+</div>
+</main>
+<script>
+const DATA = /*DATA*/null;
+const NAMES = {ist: 'Ist', A: 'A Rille', B: 'B Prägung + Muffe', C: 'C Blechnaht'};
+const INFO = {
+  ist: 'Eingebaut: Rohrform B, goldener Chevron auf 6x3 (Aufsatz-Wirkung), Kern ungedreht.',
+  A: 'Pfeil (Spitze + Schaft) eingraviert: dunkle Rille, darunter eine Lichtkante. Geometrie genau Rohrform B.',
+  B: 'Pfeil erhaben geprägt: helle Oberkante, Schatten unten rechts. Eingänge mit Muffe 8x8 (Einfluss dicker, duenn=ja).',
+  C: 'Zwei Blechhälften stoßen in V-Nähten zusammen (Doppel-Chevron), die Fläche in Flussrichtung ist eine Spur heller. Geometrie Rohrform B.'
+};
+const STEPS = ['Eisen', 'Verstärkt', 'Netherit', 'Enderit'];
+const KEYS = ['pipe', 'reinforced_pipe', 'netherite_pipe', 'enderite_pipe'];
+const tabs = document.getElementById('tabs');
+const view = document.getElementById('view');
+function el(tag, attrs, text) {
+  const e = document.createElement(tag);
+  Object.entries(attrs || {}).forEach(([k, v]) => e.setAttribute(k, v));
+  if (text) e.textContent = text;
+  return e;
+}
+function show(key) {
+  [...tabs.children].forEach(b => b.setAttribute('aria-selected', b.dataset.k === key ? 'true' : 'false'));
+  try { localStorage.setItem('rohr33-tab', key); } catch (e) { /* storage blocked */ }
+  view.replaceChildren();
+  const d = DATA[key];
+  view.append(el('h2', {}, NAMES[key]), el('p', {}, INFO[key]));
+  d.renders.forEach(([title, src]) => {
+    const f = el('figure');
+    f.append(el('img', {src: src, alt: NAMES[key] + ': ' + title, loading: 'lazy'}), el('figcaption', {}, title));
+    view.append(f);
+  });
+  view.append(el('h3', {}, 'Texturen flach, 16-fach (Eisen, Verstärkt, Netherit, Enderit)'));
+  const ff = el('figure', {class: 'flat'});
+  ff.append(el('img', {src: d.flat, alt: 'Texturblätter ' + NAMES[key]}));
+  ff.append(el('figcaption', {}, key === 'ist' ? 'Raster Ist: Platte, Endring, Pfeil hoch, Pfeil rechts' : 'Raster neu: P Platte, R Endring, N/H Hals, F Fluss-Streifen 6x9 mit Pfeil, M/E Muffe'));
+  view.append(ff);
+  const t = el('table');
+  const hr = el('tr'); hr.append(el('th', {}, 'Stufe'), el('th', {}, 'harte Übergänge (A8b, Ziel ~7 %, >12 % zu hart)'));
+  t.append(hr);
+  KEYS.forEach((k, i) => {
+    const v = d.hard[k] * 100;
+    const r = el('tr');
+    r.append(el('td', {}, STEPS[i]), el('td', {class: v > 12 ? 'warn' : 'ok'}, v.toFixed(1) + ' %'));
+    t.append(r);
+  });
+  view.append(t);
+}
+['ist', 'A', 'B', 'C'].forEach(k => {
+  const b = el('button', {role: 'tab', type: 'button'}, NAMES[k]);
+  b.dataset.k = k;
+  b.addEventListener('click', () => show(k));
+  tabs.append(b);
+});
+let start = 'A';
+try { start = localStorage.getItem('rohr33-tab') || 'A'; } catch (e) { /* storage blocked */ }
+show(DATA[start] ? start : 'A');
+
+function val(n) { return (document.querySelector('input[name="' + n + '"]:checked') || {}).value; }
+function update() {
+  const note = document.getElementById('note').value.trim().replace(/\|/g, '/');
+  document.getElementById('code').textContent =
+    'ROHR33|form=' + val('form') + '|pfeil=' + val('pfeil') + '|duenn=' + val('duenn') + (note ? '|note=' + note : '');
+}
+document.querySelectorAll('input[type=radio]').forEach(i => i.addEventListener('change', e => {
+  if (e.target.name === 'form' && e.target.value !== 'ist') {
+    document.querySelector('input[name="pfeil"][value="' + e.target.value + '"]').checked = true;
+    document.querySelector('input[name="duenn"][value="' + (e.target.value === 'B' ? 'ja' : 'nein') + '"]').checked = true;
+  }
+  update();
+}));
+document.getElementById('note').addEventListener('input', update);
+document.getElementById('copy').addEventListener('click', () => {
+  const txt = document.getElementById('code').textContent;
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(() => {});
+});
+update();
+</script>
+</body>
+</html>
