@@ -119,15 +119,15 @@ public final class StartAreaEditorScreen extends Screen {
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         if (inMap(event.x(), event.y())) {
             int b = event.button();
-            if (b == 0 || b == 1) {
+            if (b == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT || b == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT) {
                 dragging = true;
-                erasing = b == 1;
+                erasing = b == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT;
                 fromX = toX = cellX(event.x());
                 fromZ = toZ = cellZ(event.y());
                 tooMany = false;
                 return true;
             }
-            if (b == 2) {
+            if (b == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_MIDDLE) {
                 panning = true;
                 return true;
             }

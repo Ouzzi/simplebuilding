@@ -436,7 +436,7 @@ public final class DeedMapScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == 0) {
+        if (event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT) {
             for (int i = 0; i < tabRects.size(); i++) {
                 if (!tabRects.get(i).contains(event.x(), event.y())) continue;
                 String d = tabList.get(tabOffset + i).dimension();
@@ -446,7 +446,7 @@ public final class DeedMapScreen extends Screen {
             if (layout.showHint && layout.hintClose().contains(event.x(), event.y())) { DeedHint.hide(); rebuildWidgets(); return true; }
         }
         if (super.mouseClicked(event, doubleClick)) return true;
-        if (event.button() == 0 && !confirming && shownDetail() == null && layout.sheet.contains(event.x(), event.y())) {
+        if (event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT && !confirming && shownDetail() == null && layout.sheet.contains(event.x(), event.y())) {
             dragFrom = new double[]{event.x(), event.y(), scrollX, scrollY};
             dragged = false;
             return true;

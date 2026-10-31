@@ -284,8 +284,8 @@ public class SheetMusicScreen extends Screen {
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         int[] cell = cellAt(event.x(), event.y());
-        if (cell != null && !readOnly && (event.button() == 0 || event.button() == 1)) {
-            boolean changed = event.button() == 0 ? grid.toggle(instrument, cell[0], cell[1]) != NoteGrid.Toggle.REFUSED
+        if (cell != null && !readOnly && (event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT || event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT)) {
+            boolean changed = event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT ? grid.toggle(instrument, cell[0], cell[1]) != NoteGrid.Toggle.REFUSED
                     : grid.remove(instrument, cell[0], cell[1]);
             if (changed) area.replaceAll(grid.toCode());
             return true;

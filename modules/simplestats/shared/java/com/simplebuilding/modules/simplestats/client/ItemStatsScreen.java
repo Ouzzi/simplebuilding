@@ -187,7 +187,7 @@ public final class ItemStatsScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == 0 && layout.scrollbar.contains(event.x(), event.y())) {
+        if (event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT && layout.scrollbar.contains(event.x(), event.y())) {
             dragging = true;
             dragTo(event.y());
             return true;
