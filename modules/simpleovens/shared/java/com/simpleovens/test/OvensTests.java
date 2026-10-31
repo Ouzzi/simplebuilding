@@ -303,7 +303,7 @@ public final class OvensTests {
             SimpleOvens.MOVED_RECIPES.keySet().forEach(path -> {
                 var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleOvens.id(path)));
                 // IG31-13: Enderite recipes load only with Simple Ores (owner of the material).
-                boolean expected = !path.contains("enderite") || SimpleLibApi.materialPresent("enderite");
+                boolean expected = !(path.contains("enderite") && path.endsWith("_smithing")) || SimpleLibApi.materialPresent("enderite"); // the smithing step needs the Ores ingot
                 if (holder.isEmpty() == expected) problems.add((expected ? "missing " : "present without Simple Ores: ") + path);
             });
             long old = manager.getRecipes().stream().filter(r -> SimpleOvens.MOVED_RECIPES.containsKey(r.id().identifier().getPath())
