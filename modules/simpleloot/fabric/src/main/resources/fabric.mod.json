@@ -12,7 +12,7 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Loot switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone.",
+  "description": "Vault cooldown in days instead of once per player; a sub-mod of Simple QoL, also playable alone.",
   "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {

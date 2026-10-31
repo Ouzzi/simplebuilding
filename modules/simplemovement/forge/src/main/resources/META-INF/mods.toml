@@ -9,7 +9,7 @@ logoFile="assets/simplemovement/icon_128.png"
 logoBlur=false
 authors="Ouzzi"
 displayURL="https://azarfane.de/"
-description="Movement switch (server) and rain density (client); a sub-mod of Simple QoL, also playable alone."
+description="Manual crawling, server-allowed autowalk, faster ladders and Frost Walker on powder snow; a sub-mod of Simple QoL, also playable alone."
 [[dependencies.simplemovement]]
 modId="forge"
 mandatory=true

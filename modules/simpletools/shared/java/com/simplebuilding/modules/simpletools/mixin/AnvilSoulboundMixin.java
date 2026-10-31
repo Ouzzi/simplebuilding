@@ -30,7 +30,7 @@ public abstract class AnvilSoulboundMixin extends ItemCombinerMenu {
     @Inject(method = "createResult", at = @At("RETURN"))
     private void simpletools$soulboundCost(CallbackInfo ci) {
         ItemStack result = this.resultSlots.getItem(0);
-        if (result.isEmpty() || !Soulbound.carries(this.inputSlots.getItem(1)) || !Soulbound.has(result) && !Soulbound.carries(result)) return;
+        if (!Soulbound.active() || result.isEmpty() || !Soulbound.carries(this.inputSlots.getItem(1)) || !Soulbound.has(result) && !Soulbound.carries(result)) return;
         this.cost.set(SimpleTools.config().soulboundAnvilCost);
     }
 }

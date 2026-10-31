@@ -23,5 +23,5 @@
   "command.simplemovement.speed": "Climbing speed saved: %s",
   "key.simplemovement.autowalk": "Auto Walk",
   "key.simplemovement.crawl": "Crawl",
-  "key.category.simplemovement.general": "Simple Quality of Life"
+  "key.category.simplemovement.general": "Simple Movement"
 }
