@@ -135,7 +135,7 @@ public final class LivemapRuntime {
 
     /** One player: chunks around them (on a chunk change) and a held Vanilla map; never spectators. */
     public static void record(ServerPlayer p) {
-        if (p.isSpectator()) return;
+        if (spectator(p)) return;
         String dim = p.level().dimension().identifier().toString();
         int cx = Mth.floor(p.getX()) >> 4, cz = Mth.floor(p.getZ()) >> 4;
         long here = TileStore.chunkKey(cx, cz) ^ dim.hashCode() * 0x9E3779B97F4A7C15L;
@@ -144,6 +144,11 @@ public final class LivemapRuntime {
         if (LivemapConfig.maps) {
             for (InteractionHand hand : InteractionHand.values()) recordMap(p, p.getItemInHand(hand));
         }
+    }
+
+    /** Spectators never explore or show (also asks the game mode itself: test mock players report isSpectator false). */
+    public static boolean spectator(ServerPlayer p) {
+        return p.isSpectator() || p.gameMode.getGameModeForPlayer() == net.minecraft.world.level.GameType.SPECTATOR;
     }
 
     /** Marks the square of chunks around {@code (cx, cz)} and queues new or outdated ones for drawing. */
@@ -259,7 +264,7 @@ public final class LivemapRuntime {
         JsonArray out = new JsonArray();
         if (!LivemapConfig.showPlayers) return out;
         for (ServerPlayer p : s.getPlayerList().getPlayers()) {
-            if (p.isSpectator() || store.hidden(p.getUUID())) continue;
+            if (spectator(p) || store.hidden(p.getUUID())) continue;
             JsonObject e = new JsonObject();
             e.addProperty("name", p.getGameProfile().name());
             e.addProperty("dimension", p.level().dimension().identifier().toString());

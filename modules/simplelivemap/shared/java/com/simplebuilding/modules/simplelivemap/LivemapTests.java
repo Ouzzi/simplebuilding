@@ -93,6 +93,7 @@ public final class LivemapTests {
         h.assertTrue(LivemapRuntime.recordAround(TEST_DIM, c, 1000, 1000, 2) == 0, "revisit adds nothing");
         ServerPlayer spectator = h.makeMockServerPlayerInLevel();
         spectator.setGameMode(net.minecraft.world.level.GameType.SPECTATOR);
+        h.assertTrue(LivemapRuntime.spectator(spectator), "spectator mode set");
         spectator.setPos(5000.5, 100, 5000.5);
         LivemapRuntime.record(spectator);
         h.assertTrue(!live.exploredBy(spectator.level().dimension().identifier().toString(), spectator.getUUID(), 312, 312), "spectators do not explore");
@@ -354,23 +355,33 @@ public final class LivemapTests {
         boolean before = LivemapConfig.showPlayers;
         try {
             LivemapConfig.showPlayers = false;
-            h.assertTrue(!LivemapRuntime.buildLive(srv).contains("\"" + name + "\""), "players off by default");
+            h.assertTrue(named(srv, name) == 0, "players off by default");
             LivemapConfig.showPlayers = true;
             JsonObject live = JsonParser.parseString(LivemapRuntime.buildLive(srv)).getAsJsonObject();
-            JsonObject me = null;
-            for (JsonElement e : live.getAsJsonArray("players")) if (name.equals(e.getAsJsonObject().get("name").getAsString())) me = e.getAsJsonObject();
-            h.assertTrue(me != null && me.keySet().equals(Set.of("name", "dimension", "x", "z")), "only name, dimension, x, z: " + me);
-            h.assertTrue(!live.toString().contains(player.getUUID().toString()), "no UUID");
+            for (JsonElement e : live.getAsJsonArray("players")) {
+                h.assertTrue(e.getAsJsonObject().keySet().equals(Set.of("name", "dimension", "x", "z")), "only name, dimension, x, z: " + e);
+            }
+            // Mock players share one name: count entries with it instead of looking for the name.
+            int shown = named(srv, name);
+            h.assertTrue(shown >= 1 && !live.toString().contains(player.getUUID().toString()), "shown without UUID");
             LivemapRuntime.store().setHidden(player.getUUID(), true);
-            h.assertTrue(!LivemapRuntime.buildLive(srv).contains("\"" + name + "\""), "/simplelivemap hide works");
+            h.assertTrue(named(srv, name) == shown - 1, "/simplelivemap hide works");
             LivemapRuntime.store().setHidden(player.getUUID(), false);
             player.setGameMode(net.minecraft.world.level.GameType.SPECTATOR);
-            h.assertTrue(!LivemapRuntime.buildLive(srv).contains("\"" + name + "\""), "spectators never");
+            h.assertTrue(named(srv, name) == shown - 1, "spectators never");
         } finally {
             LivemapConfig.showPlayers = before;
             LivemapRuntime.store().setHidden(player.getUUID(), false);
         }
         h.succeed();
+    }
+
+    private static int named(net.minecraft.server.MinecraftServer srv, String name) {
+        int n = 0;
+        for (JsonElement e : JsonParser.parseString(LivemapRuntime.buildLive(srv)).getAsJsonObject().getAsJsonArray("players")) {
+            if (name.equals(e.getAsJsonObject().get("name").getAsString())) n++;
+        }
+        return n;
     }
 
     /** Requests per address and minute: over the budget = 429 before the request is read. */

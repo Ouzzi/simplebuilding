@@ -1522,9 +1522,7 @@
       },
       "projects": {
         "fabric": ":modules:simplelivemap:fabric"
-      },
-      "parent": "simplebuilding",
-      "bundle": "optional"
+      }
     },
     {
       "id": "simpletrims",

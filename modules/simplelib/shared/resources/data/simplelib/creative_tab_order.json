@@ -20,7 +20,6 @@
     "simpleend",
     "simpleenddragonfight",
     "simplefun",
-    "simplelivemap",
     "simplemaps",
     "simplemobs",
     "simplemoney",
@@ -51,6 +50,7 @@
     "simpleoptmemory",
     "simpleoptrender",
     "simpleoptserver",
+    "simplelivemap",
     "simplestats",
     "wiringexample",
     "simplelib"
