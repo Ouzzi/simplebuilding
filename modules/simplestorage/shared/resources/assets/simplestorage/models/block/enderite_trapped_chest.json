@@ -1,5 +1,5 @@
 {
   "textures": {
-    "particle": "simpleores:block/enderite_block"
+    "particle": "simplestorage:block/enderite_chest_particle"
   }
 }

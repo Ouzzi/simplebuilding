@@ -24,7 +24,7 @@
     ]
   },
   "depends": {
-    "simplelib": ">=0.3.0",
+    "simplelib": ">=0.4.0",
     "fabric-api": "*",
     "fabricloader": ">=0.19.5",
     "minecraft": "~26.3",

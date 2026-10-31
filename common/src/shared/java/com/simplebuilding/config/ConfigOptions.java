@@ -165,11 +165,20 @@ public final class ConfigOptions {
             "server.loot.enderiteShulkerPercent",
             "server.loot.endermitesPerRareShulker");
 
+    /**
+     * IG31-13: world generation of Sage Ore and Dimensional Scrap lives in Simple Ores on 26.3
+     * ({@code McVersion.MATERIALS_IN_ORES}, inverted flag: hidden when true); Simple Ores has its own switches.
+     */
+    public static final Set<String> MOVED_TO_ORES = Set.of(
+            "server.oreGeneration.sageOre",
+            "server.oreGeneration.dimensionalScrap");
+
     /** True if {@code path} belongs to a sub-mod on this line (see {@link #MOVED_TO_OVENS}). */
     public static boolean hidden(String path) {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
                 || !com.simplebuilding.version.McVersion.HAMMERS_IN_SB && MOVED_TO_HAMMERS.contains(path)
-                || !com.simplebuilding.version.McVersion.STORAGE_IN_SB && MOVED_TO_STORAGE.contains(path);
+                || !com.simplebuilding.version.McVersion.STORAGE_IN_SB && MOVED_TO_STORAGE.contains(path)
+                || com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && MOVED_TO_ORES.contains(path);
     }
 
     private static final List<Option> ALL;

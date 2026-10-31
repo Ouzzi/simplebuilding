@@ -74,6 +74,7 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         runtime = jeiRuntime;
+        hideEnderiteVariants(jeiRuntime);
         if (!listening) {
             listening = true;
             InWorldUpgrades.onApply(() -> net.minecraft.client.Minecraft.getInstance().execute(SimpleLibJeiPlugin::addTableLate));
@@ -84,6 +85,14 @@ public final class SimpleLibJeiPlugin implements IModPlugin {
     @Override
     public void onRuntimeUnavailable() {
         runtime = null;
+    }
+
+    /** IG31-13: without Simple Ores (owner of Enderite) the Enderite variants of the other mods are not offered (same rule as the creative tabs). */
+    private static void hideEnderiteVariants(IJeiRuntime jeiRuntime) {
+        if (com.simplelib.registry.LibMaterials.provided("enderite")) return;
+        List<net.minecraft.world.item.ItemStack> hidden = jeiRuntime.getIngredientManager().getAllItemStacks().stream()
+                .filter(com.simplelib.api.CreativeTabPolicy::isEnderiteVariant).toList();
+        if (!hidden.isEmpty()) jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(mezz.jei.api.constants.VanillaTypes.ITEM_STACK, hidden);
     }
 
     private static void addTableLate() {
