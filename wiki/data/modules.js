@@ -1757,7 +1757,7 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 9
     },
-    "dataHash": "6db8efe1ae77"
+    "dataHash": "9176c8428581"
   },
   {
     "id": "simpledinos",
