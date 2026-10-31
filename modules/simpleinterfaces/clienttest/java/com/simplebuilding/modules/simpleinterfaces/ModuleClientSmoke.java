@@ -191,7 +191,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     /**
      * WP-25 / IG31-31: the key binding page opens in the by-mod view, the by-function view (Vanilla's categories) and the
      * keyboard view (60 / 75 / 100 %), nothing throws while drawing; then its Vanilla buttons are clicked through the game's
-     * screen dispatch (tabs, a filter, a key button + a key, reset). The real OS mouse is driven by tools/keys_probe.py.
+     * test mouse (tabs, a filter, a key button + a key, reset). The real OS mouse is driven by tools/keys_probe.py.
      */
     private static void keysPage(ClientGameTestContext context) {
         var keysClass = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.class;
@@ -234,7 +234,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(2);
         clickKeys(context, "key_button", row);
         keysCheck(context, "listening", row);
-        context.runOnClient(c -> c.gui.screen().keyPressed(new net.minecraft.client.input.KeyEvent(com.mojang.blaze3d.platform.InputConstants.KEY_F8, 0, 0)));
+        context.getInput().pressKey(com.mojang.blaze3d.platform.InputConstants.KEY_F8);
         context.waitTicks(2);
         String bound = context.computeOnClient(c -> net.minecraft.client.KeyMapping.get(row).saveString());
         if (!"key.keyboard.f8".equals(bound)) throw new AssertionError("key page: F8 not assigned (" + bound + ")");
@@ -245,31 +245,23 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
     /**
-     * Clicks the named widget of the open key page (row buttons of {@code row}) through Vanilla's screen dispatch
-     * ({@code mouseClicked}/{@code mouseReleased} at its centre, GUI coordinates). The Fabric test mouse did not reach this screen
-     * on 26.3 (31.10., cursor at the right spot, no click); the real OS mouse path is checked by tools/keys_probe.py.
+     * Clicks the named widget of the open key page (row buttons of {@code row}) with the test mouse through the game's mouse
+     * handler. 26.3 counts mouse buttons from 1 (SDL: {@code InputConstants.MOUSE_BUTTON_LEFT} = 1); the old page only
+     * reacted to button 0 - the cause of IG31-31. The real OS mouse path is checked by tools/keys_probe.py.
      */
     private static void clickKeys(ClientGameTestContext context, String name, String row) {
-        lastClick = context.computeOnClient(c -> {
+        double[] at = context.computeOnClient(c -> {
             var screen = (com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen();
             int[] r = screen.probeRects(row, -1).get(name);
             if (r == null) throw new AssertionError("key page: " + name + " not shown");
-            var event = new net.minecraft.client.input.MouseButtonEvent(r[0] + r[2] / 2.0, r[1] + r[3] / 2.0, new net.minecraft.client.input.MouseButtonInfo(0, 0));
-            var child = screen.getChildAt(event.x(), event.y()).map(w -> w.getClass().getName() + (w instanceof net.minecraft.client.gui.components.AbstractWidget aw ? " '" + aw.getMessage().getString() + "' active " + aw.active : "")).orElse("none");
-            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys click {} on {}", name, screen.children().size());
-            boolean handled = screen.mouseClicked(event, false);
-            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys clicked {} -> {} view {}", name, handled, screen.probeValues().get("view"));
-            var hit = screen.getChildAt(event.x(), event.y()).orElse(null);
-            org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys hit {} same as probe {} in children {}", hit, hit == screen.probeWidget(name), screen.children().contains(screen.probeWidget(name)));
-            if (hit instanceof net.minecraft.client.gui.components.Button bt) {
-                bt.onPress(event);
-                org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys direct onPress -> view {}", screen.probeValues().get("view"));
-            }
-            screen.mouseReleased(event);
-            return name + " at " + event.x() + "/" + event.y() + " child " + child + " handled " + handled + ", view now " + screen.probeValues().get("view")
-                    + ", current screen " + c.gui.screen().getClass().getSimpleName() + (c.gui.screen() == screen ? " (same)" : " (other)");
+            double scale = c.getWindow().getGuiScale();
+            return new double[]{(r[0] + r[2] / 2.0) * scale, (r[1] + r[3] / 2.0) * scale};
         });
+        context.getInput().setCursorPos(at[0], at[1]);
         context.waitTicks(2);
+        context.getInput().pressMouse(com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT);
+        context.waitTicks(3);
+        lastClick = name + " at " + (int) at[0] + "/" + (int) at[1];
     }
 
     private static String lastClick = "";

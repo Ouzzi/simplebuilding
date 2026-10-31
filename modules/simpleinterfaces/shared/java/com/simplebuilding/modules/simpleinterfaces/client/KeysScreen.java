@@ -80,7 +80,6 @@ public final class KeysScreen extends Screen {
 
     /** Picks the view and picture size the next opening starts with (client smoke test). */
     public static void preset(View start, KeyboardLayout.Size keyboardSize) {
-        org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys preset {}", start, new Throwable());
         view = start;
         size = keyboardSize;
     }
@@ -170,7 +169,6 @@ public final class KeysScreen extends Screen {
     }
 
     private void switchView(View next) {
-        org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys switchView {} -> {}", view, next, new Throwable());
         view = next;
         listening = null;
         if (next == View.KEYBOARD) pickCode = -1;
@@ -216,7 +214,6 @@ public final class KeysScreen extends Screen {
 
     @Override
     protected void init() {
-        org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys init view {}", view);
         refresh();
         probe.clear();
         list = null;
@@ -229,7 +226,6 @@ public final class KeysScreen extends Screen {
             View v = views[i];
             String id = v.name().toLowerCase(java.util.Locale.ROOT);
             Button tab = addRenderableWidget(Button.builder(t("tab." + id), b -> {
-                org.slf4j.LoggerFactory.getLogger("simpleinterfaces").info("DEBUG keys tab pressed {}", v);
                 switchView(v);
             })
                     .bounds(cx - (3 * tabW + 8) / 2 + i * (tabW + 4), 20, tabW, 20).build());
@@ -630,10 +626,6 @@ public final class KeysScreen extends Screen {
             if (r != null) out.put("cell", r);
         }
         return out;
-    }
-
-    public AbstractWidget probeWidget(String name) {
-        return probe.get(name);
     }
 
     /** Values the probe and the client test read. */
