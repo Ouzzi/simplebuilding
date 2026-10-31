@@ -110,7 +110,13 @@ Stand 31.10. (alle 16 auditiert):
 Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md, aes.md. Simple Sounds enthält keine Audiodatei (nur Vanilla-Sound-Events) → keine Lizenzfrage. Noch für alle offen: echter Client-Start im Bündel, Lauf mit Sodium/Iris/Lithium/JEI/Mod Menu.
 
 ## 6. Weitere Besitzer-Punkte
-*(leer)*
+Besitzer 31.10. (über A). Diese Punkte **blockieren den QoL-Release**, bis sie gelöst und abgenommen sind (Queue IG31-29..31):
+
+| ID | Punkt | Gewünscht | Stand |
+|---|---|---|---|
+| IG31-29 | Free Look verbuggt (beim Join aktiv, falsches Verhalten) | Keybinds „Free Look“ (Halten) + „Free Look umschalten“ (Toggle); Loslassen per Config: Spieler dreht zur Kamera oder Kamera zurück zur Spieler-Blickrichtung (**Default: zurück**); Server-Config mit Default + erzwingbarem Wert; beim Join immer aus | offen |
+| IG31-30 | Trichter-UI (Vanilla-Hopper) | Aussehen wie Mod-UI, unten genug Abstand zum Rand (Padding angleichen) | offen |
+| IG31-31 | Mod-Keypicker | Knöpfe reparieren (Test mit echter Maus), 3. Ansicht nach Funktion wie Vanilla-Keybind-Menü, einheitlicher Vanilla-UI-Stil | offen |
 
 ## Rückfragen an den Besitzer
 - R1 Versionsnummer zum Release: alle 1.0.0? (Empfehlung: ja)
