@@ -396,6 +396,14 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("storage_and_light",
                         ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, CreativeTabLayout.GAP,
                         ModItems.CONSTRUCTION_LIGHT)));
+        // SimpleLib's stairs, slab and wall of the polished end stone (octet rule) stood in the Vanilla tab only (IG31-3 removed that placement); 26.2 has none.
+        ItemLike[] polishedEndStoneShapes = java.util.stream.Stream.of("stairs", "slab", "wall")
+                .map(kind -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "polished_end_stone_" + kind)))
+                .flatMap(java.util.Optional::stream).toArray(ItemLike[]::new);
+        if (polishedEndStoneShapes.length > 0) {
+            rows.add(1, CreativeTabLayout.Row.of("polished_end_stone", polishedEndStoneShapes));
+        }
         if (com.simplebuilding.version.McVersion.BLOCKS_IN_SB) {
             // 26.2: die Schwerkraftbloecke (schwebend | levitierend) vor Lager und Licht; 26.3: in Simple Blocks (b-blocksmove).
             rows.add(rows.size() - 1, CreativeTabLayout.Row.of("gravity_blocks",

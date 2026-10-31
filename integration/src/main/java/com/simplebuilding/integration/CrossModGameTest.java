@@ -123,7 +123,8 @@ public final class CrossModGameTest {
             }
         }
         for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
-            if (!"minecraft".equals(tabId.getNamespace())) {
+            // The search tab lists every item of every tab by design; the rule is about the Vanilla category tabs.
+            if (!"minecraft".equals(tabId.getNamespace()) || BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId).getType() != CreativeModeTab.Type.CATEGORY) {
                 continue;
             }
             for (ItemStack stack : BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId).getDisplayItems()) {
