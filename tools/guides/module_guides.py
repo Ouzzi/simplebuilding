@@ -147,6 +147,15 @@ MODULES = [
                 "bundles, smelted in the blast furnace only, with tools and armor of their own.",
                 "Silbererz in der Oberwelt und im End sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu "
                 "Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen.")),
+    dict(module="simpleresonance", ns="simpleresonance", package="com.simpleresonance.guide", cls="ResonanceGuide", kind="item",
+         author="Simple Resonance", recipe="minecraft:echo_shard",
+         name=("Simple Resonance Guide", "Simple-Resonance-Handbuch"),
+         intro=("How experienced you are and how dangerous the land is: your player value grows with playing time and bosses and falls only "
+                "by a part when you die, danger zones rise softly with the distance from the world spawn, every monster spawn belongs to "
+                "one player nearby, and a newcomer protection keeps the first hours gentle. Other mods ask it through an API.",
+                "Wie erfahren du bist und wie gefährlich das Land ist: dein Spielerwert wächst mit Spielzeit und Bossen und sinkt beim Tod nur "
+                "um einen Teil, Gefahrenzonen steigen weich mit der Entfernung vom Welt-Spawn, jeder Monster-Spawn gehört einem Spieler in der "
+                "Nähe, und ein Anfängerschutz hält die ersten Stunden mild. Andere Mods fragen es über eine Schnittstelle ab.")),
     dict(module="simpleblocks", ns="simpleblocks", package="com.simpleblocks.guide", cls="BlocksGuide", kind="item",
          author="Simple Blocks", recipe="minecraft:clay_ball",
          name=("Simple Blocks Guide", "Simple-Blocks-Handbuch"),
@@ -311,6 +320,7 @@ RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the que
     "minecraft:lead": ("a lead", "einer Leine"),
     "minecraft:raw_gold": ("raw gold", "rohem Gold"),
     "minecraft:sweet_berries": ("sweet berries", "Süßbeeren"),
+    "minecraft:echo_shard": ("an echo shard", "einer Echo-Scherbe"),
     "minecraft:brick": ("a brick", "einem Ziegel"),
     "minecraft:clay_ball": ("a clay ball", "einem Tonklumpen"),
     "minecraft:gold_nugget": ("a gold nugget", "einem Goldklumpen"),
@@ -619,6 +629,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:lead": ("lead", "Leine"),
     "minecraft:raw_gold": ("raw gold", "Rohgold"),
     "minecraft:sweet_berries": ("sweet berries", "Süßbeeren"),
+    "minecraft:echo_shard": ("an echo shard", "einer Echo-Scherbe"),
     "minecraft:note_block": ("note block", "Notenblock"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),

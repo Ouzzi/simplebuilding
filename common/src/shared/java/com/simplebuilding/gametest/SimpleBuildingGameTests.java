@@ -963,6 +963,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("astral_enchanting_game_test_stock_stays_in_the_table", AstralEnchantingTests::stockStaysInTheTable).build(),
             GameTestSpec.named("astral_enchanting_game_test_enchanting_uses_up_what_the_rules_say", AstralEnchantingTests::enchantingUsesUpWhatTheRulesSay).build(),
             GameTestSpec.named("astral_enchanting_game_test_recipes_are_loaded", AstralEnchantingTests::recipesAreLoaded).build(),
+            GameTestSpec.named("astral_enchanting_game_test_endgame_level_rules", AstralEnchantingTests::endgameLevelRules).build(),
+            GameTestSpec.named("astral_enchanting_game_test_endgame_levels_at_the_table", AstralEnchantingTests::endgameLevelsAtTheTable).build(),
             GameTestSpec.named("astral_enchanting_game_test_blazing_obsidian_keeps_fire_burning", AstralEnchantingTests::blazingObsidianKeepsFireBurning).build(),
             GameTestSpec.named("astral_enchanting_game_test_chiseled_bookshelves_store_books", AstralEnchantingTests::chiseledBookshelvesStoreBooks).build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)

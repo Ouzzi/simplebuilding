@@ -83,6 +83,8 @@ public class Simplebuilding implements ModInitializer {
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
         SimplebuildingConfig.applySubModSwitches(CONFIG);
+        // MOB27-3: the core feeds Simple Mobs' trim abilities (tracker, strengths, player switch) and stays their fallback.
+        com.simplebuilding.util.TrimHost.install();
     }
 
     private void registerContent() {

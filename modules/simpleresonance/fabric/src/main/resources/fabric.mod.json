@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleresonance",
+  "version": "${version}",
+  "name": "Simple Resonance",
+  "icon": "assets/simpleresonance/icon.png",
+  "description": "How experienced a player is and how dangerous the land is: a player value from playing time and survival, danger zones that grow softly with the distance from the spawn, the owner of a monster spawn and a newcomer protection. An API for other mods; allows Simple Mobs to give new monsters status effects instead of more health.",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleresonance.ResonanceFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleresonance.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simplelib": ">=0.3.0",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simplemobs": "*"
+  },
+  "mixins": [
+    "simpleresonance.mixins.json"
+  ]
+}

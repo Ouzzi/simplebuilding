@@ -165,6 +165,38 @@
       }
     },
     {
+      "id": "zone_effects",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneEffects.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneSpawns.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/MobZoneSpawnMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/ResonanceContracts.java"
+      ],
+      "en": {
+        "title": "Danger zones: effects on new monsters",
+        "summary": "With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. Off by default until the client check.",
+        "details": [
+          "Which spawns: natural spawns, patrols and chunk generation of monsters (zoneSpawnReasons). Never spawners, eggs, commands, raids, summoned, named monsters or bosses.",
+          "Pools and chance at level 5: Strength 35 % (up to III), Speed 25 % (II), Extra Hearts 30 % (II), Oozing 20 % (I), Infested 20 % (I), Deflection 25 % (V), Volatile 15 % (V), Mirror 10 % (V). The chance grows as chance x (level / 5)^1.3; the pools are drawn in random order, at most zoneMaxEffects (3) per monster.",
+          "The level of an effect follows the spawn level around a bell curve (level 1: I 61 %, II 33 %, III 5 %; level 5: V 61 %, IV 33 %), limited by the pool's levelCap. Effects last for good and are saved with the monster.",
+          "zoneMobsEnabled (false), zoneMaxEffects (3, 0 to 8), zoneSpawnReasons (natural, patrol, chunk_generation) and zoneEffects.<pool>.chance / levelCap are in simplemobs-server.json and /simplemobs config.",
+          "Killing a Hollow Howler, Hollow Watcher or Blighted / Abyssal Wither gives the killer 5 resonance points (once per 24 played hours each)."
+        ]
+      },
+      "de": {
+        "title": "Gefahrenzonen: Effekte für neue Monster",
+        "summary": "Mit installiertem Simple Resonance und eingeschaltetem zoneMobsEnabled bekommen neue Monster je nach Gefahrenstufe ihres Spawn-Ortes Statuseffekte (nie mehr Leben): je weiter vom Welt-Spawn und je erfahrener der nächste Spieler, desto wahrscheinlicher und stärker. Standardmäßig aus bis zur Client-Abnahme.",
+        "details": [
+          "Welche Spawns: natürliche Spawns, Patrouillen und Chunk-Erzeugung von Monstern (zoneSpawnReasons). Nie Spawner, Eier, Befehle, Raids, beschworene, benannte Monster oder Bosse.",
+          "Töpfe und Chance bei Stufe 5: Stärke 35 % (bis III), Geschwindigkeit 25 % (II), Extraherzen 30 % (II), Oozing 20 % (I), Infested 20 % (I), Ablenkung 25 % (V), Flüchtig 15 % (V), Spiegel 10 % (V). Die Chance wächst wie Chance x (Stufe / 5)^1,3; die Töpfe werden in zufälliger Reihenfolge gewürfelt, höchstens zoneMaxEffects (3) je Monster.",
+          "Die Stufe eines Effekts folgt der Spawn-Stufe um eine Glockenkurve (Stufe 1: I 61 %, II 33 %, III 5 %; Stufe 5: V 61 %, IV 33 %), begrenzt durch das levelCap des Topfs. Effekte halten für immer und werden mit dem Monster gespeichert.",
+          "zoneMobsEnabled (false), zoneMaxEffects (3, 0 bis 8), zoneSpawnReasons (natural, patrol, chunk_generation) und zoneEffects.<Topf>.chance / levelCap stehen in simplemobs-server.json und /simplemobs config.",
+          "Wer einen Hollow Howler, Hollow Watcher oder Blighted / Abyssal Wither besiegt, bekommt 5 Resonanzpunkte (je einmal pro 24 gespielte Stunden)."
+        ]
+      }
+    },
+    {
       "id": "soulfire_blaze",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulfireBlaze.java",
@@ -424,16 +456,16 @@
       ],
       "en": {
         "title": "Creative tabs",
-        "summary": "The module's items sit in its own creative tab only (no Vanilla tabs).",
+        "summary": "The module's items sit in its own creative tab and are also sorted into the fitting Vanilla tabs and the search tab.",
         "details": [
-          "Since 30.10. the Simple mods no longer sort their items into Vanilla tabs; the search tab finds them through the module's own tab."
+          "The shared switch simplemobs.addItemsToVanillaTabs in config/simple-creative-tabs.properties (default true, read when a world is joined) keeps the Vanilla tabs unchanged; the module's own tab stays. Guide books always stay in Tools & Utilities."
         ]
       },
       "de": {
         "title": "Kreativ-Tabs",
-        "summary": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
+        "summary": "Die Items des Moduls stehen im eigenen Kreativ-Tab und zusätzlich in den passenden Vanilla-Tabs und im Suchtab.",
         "details": [
-          "Seit 30.10. sortieren die Simple-Mods ihre Items nicht mehr in Vanilla-Tabs; der Suchtab findet sie über den eigenen Tab des Moduls."
+          "Der gemeinsame Schalter simplemobs.addItemsToVanillaTabs in config/simple-creative-tabs.properties (Standard true, wird beim Betreten einer Welt gelesen) lässt die Vanilla-Tabs unverändert; der eigene Tab des Moduls bleibt. Handbücher bleiben immer in Werkzeuge & Hilfsmittel."
         ]
       }
     },
@@ -483,7 +515,7 @@
       ],
       "en": {
         "title": "Strong Gunpowder, Strong Rocket, Strong TNT",
-        "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 1) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
+        "summary": "Strong Gunpowder (3 gunpowder + 1 blaze powder -> 2) makes strong rockets (paper + 1 Strong Gunpowder -> 3, flight duration 4) and Strong TNT (like TNT with Strong Gunpowder, explosion power 6 instead of 4). Vanilla gunpowder, TNT and rockets stay untouched.",
         "details": [
           "Why: a strong rocket is what the Wither/Nether/End/Void Wings need to fly above the Vanilla top speed; Strong TNT is a bigger blast for mining and tunnels. Both are own items you craft on purpose - no Vanilla recipe or behaviour changes.",
           "The strong rocket is a Vanilla firework rocket with flight duration 4, so it also works with the Elytra (longer burn, Vanilla speed) and in dispensers. Its tooltip shows the flight duration.",
@@ -493,7 +525,7 @@
       },
       "de": {
         "title": "Starkes Schwarzpulver, Starke Rakete, Starkes TNT",
-        "summary": "Starkes Schwarzpulver (3 Schwarzpulver + 1 Lohenstaub -> 1) macht starke Raketen (Papier + 1 Starkes Schwarzpulver -> 3, Flugdauer 4) und Starkes TNT (wie TNT mit Starkem Schwarzpulver, Sprengkraft 6 statt 4). Vanilla-Schwarzpulver, -TNT und -Raketen bleiben unberührt.",
+        "summary": "Starkes Schwarzpulver (3 Schwarzpulver + 1 Lohenstaub -> 2) macht starke Raketen (Papier + 1 Starkes Schwarzpulver -> 3, Flugdauer 4) und Starkes TNT (wie TNT mit Starkem Schwarzpulver, Sprengkraft 6 statt 4). Vanilla-Schwarzpulver, -TNT und -Raketen bleiben unberührt.",
         "details": [
           "Wozu: eine starke Rakete brauchen Wither-/Nether-/End-/Leeren-Schwingen, um über dem Vanilla-Höchsttempo zu fliegen; Starkes TNT ist die größere Sprengung für Bergbau und Tunnel. Beides sind eigene Items, die man gezielt herstellt - kein Vanilla-Rezept und kein Vanilla-Verhalten ändert sich.",
           "Die starke Rakete ist eine Vanilla-Feuerwerksrakete mit Flugdauer 4, sie geht also auch mit den Elytren (längere Brenndauer, Vanilla-Tempo) und im Werfer. Ihr Tooltip zeigt die Flugdauer.",
@@ -521,124 +553,6 @@
           "Beispiel: /simplemobs config get <Option> zeigt Wert, Standard und Typ; /simplemobs config reset <Option> stellt den Standard wieder her; ein falscher Typ wird abgelehnt und nichts gespeichert."
         ]
       }
-    },
-    {
-      "id": "weathered_trials",
-      "sources": [
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/WeatheredTrialSpawnerBlock.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialVaultBlock.java",
-        "tools/structures/generate_weathered_trials.py",
-        "tools/textures/trials_2026_10_30.py",
-        "modules/simplemobs/shared/resources/data/simplemobs/worldgen/structure/weathered_trial.json"
-      ],
-      "en": {
-        "title": "Weathered Trials",
-        "summary": "Rare dungeon-like rooms underground with a Weathered Trial Spawner and Weathered Vaults - the Trial Chambers loop in verdigris copper, with their own loot.",
-        "details": [
-          "Where: a separate structure (not the Vanilla Trial Chambers) from y -48 to 20 in land biomes, about one in 28 chunk squares, never near Trial Chambers. 86 % are the normal room (9x9 inside, 1 spawner, 1 vault), 10 % (1 in 10) the large room (13x13, 2-4 spawners, 1 ominous and 3 normal vaults behind a grate door), 4 % (1 in 25) the giant cross (19x19, 6-8 spawners, 2 ominous and 6 normal vaults). Free spawner places are fully weathered chiseled copper. 11 % of the wall blocks have crumbled, plus moss, cracks and fallen spots; spawners and vaults are always intact.",
-          "The Weathered Trial Spawner is the Vanilla Trial Spawner in verdigris copper (corner broken open): waiting, active, reward, cooldown; with Bad Omen the trial turns ominous exactly like the Vanilla one. Mobs by theme: undead, spiders, creepers and silverfish, wind (bogged; breeze when ominous). Its reward is a Trial Key or an Ominous Trial Key, as in Vanilla.",
-          "The Weathered Vault is a Vanilla vault with its own loot: normal (2 draws, iron, emerald, copper, gold, diamond, enchanted books, golden apple, wind charges, an Ominous Bottle, rarely a totem) and ominous (3 draws, more diamonds and golden apples, netherite scrap, heavy core, totem). Never hearts, never nether stars. Once per player, as in Vanilla. The keys are the Vanilla keys, so they also fit Vanilla vaults and the other way round.",
-          "Spawners and vaults cannot be broken in survival (as in Vanilla); you find them only in the rooms or in Creative. Server config simplemobs-server.json: evilOmen (master switch for everything below)."
-        ]
-      },
-      "de": {
-        "title": "Verwitterte Prüfungen",
-        "summary": "Seltene dungeonartige Räume unter der Erde mit Verwittertem Prüfungs-Spawner und Verwitterten Tresoren – die Trial-Chambers-Schleife in grünspanigem Kupfer, mit eigener Beute.",
-        "details": [
-          "Wo: eine eigene Struktur (nicht die Vanilla-Trial-Chambers) von Höhe -48 bis 20 in Land-Biomen, etwa jedes 28. Chunk-Feld, nie bei Trial Chambers. 86 % sind der normale Raum (9x9 innen, 1 Spawner, 1 Tresor), 10 % (jeder 10.) der große Raum (13x13, 2–4 Spawner, 1 unheilvoller und 3 normale Tresore hinter einer Gittertür), 4 % (jeder 25.) das riesige Kreuz (19x19, 6–8 Spawner, 2 unheilvolle und 6 normale Tresore). Freie Spawner-Plätze sind komplett verwittertes gemeißeltes Kupfer. 11 % der Wandblöcke sind zerfallen, dazu Moos, Risse und eingestürzte Stellen; Spawner und Tresore sind immer heil.",
-          "Der Verwitterte Prüfungs-Spawner ist der Vanilla-Trial-Spawner in grünspanigem Kupfer (Ecke aufgebrochen): wartend, aktiv, Belohnung, Abklingzeit; mit Unheilvollem Omen wird die Prüfung unheilvoll wie in Vanilla. Mobs nach Thema: Untote, Spinnen, Creeper und Silberfische, Wind (Morast-Skelett; unheilvoll Breeze). Belohnung ist ein Prüfungsschlüssel oder ein Unheilvoller Prüfungsschlüssel wie in Vanilla.",
-          "Der Verwitterte Tresor ist ein Vanilla-Tresor mit eigener Beute: normal (2 Züge: Eisen, Smaragd, Kupfer, Gold, Diamant, verzauberte Bücher, Goldener Apfel, Windkugeln, eine Unheilvolle Flasche, selten ein Totem) und unheilvoll (3 Züge: mehr Diamanten und Goldäpfel, Netherit-Schrott, Schwerer Kern, Totem). Nie Herzen, nie Netherstern. Einmal pro Spieler wie in Vanilla. Die Schlüssel sind die Vanilla-Schlüssel, passen also auch an Vanilla-Tresore und umgekehrt.",
-          "Spawner und Tresore sind im Überleben nicht abbaubar (wie in Vanilla); es gibt sie nur in den Räumen oder im Kreativmodus. Server-Konfiguration simplemobs-server.json: evilOmen (Hauptschalter für alles Folgende)."
-        ]
-      },
-      "related": [
-        "simplemobs:weathered_trial_spawner",
-        "simplemobs:weathered_vault"
-      ]
-    },
-    {
-      "id": "evil_omen",
-      "sources": [
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/BrewingStandSoulMixin.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrialSpawnerEvilMixin.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrialVaultKeysMixin.java",
-        "modules/simplemobs/shared/resources/data/simplemobs/in_world_upgrades/trials.json"
-      ],
-      "en": {
-        "title": "Evil Omen",
-        "summary": "A stronger Bad Omen for Netherite-age players: brew the Evil Potion with a Nether Heart, drink it, turn a Weathered Trial or a village raid evil, win Evil Trial Keys and open an Evil Vault.",
-        "details": [
-          "Evil Potion I-V: put 1-3 Ominous Bottles into the lower slots of a Brewing Stand and a Nether Heart into the top slot. The stand must be fuelled with Soulfire Powder (the fuel slot accepts it; 1 powder = 20 soul charges, every Evil brew takes one). Each bottle keeps its stage, one heart serves all bottles, so up to 3 potions per heart. Normal brewing and blaze powder stay as they are.",
-          "Drinking it gives Evil Omen I-V for 100 minutes and replaces Bad Omen. Walking into a Weathered Trial Spawner with it turns that trial evil (red particles): mobs get +10 % life per stage and effects - I Strength, II Speed, III Strength II and Resistance, IV Regeneration (and sometimes Volatile), V Strength III, Speed II, Resistance II, Regeneration II and Deflection or Mirror. The omen is used up. Evil Omen in a village starts a Vanilla raid of that stage whose raiders get the same buffs (30 minutes).",
-          "Reward: the Evil Trial Key of the stage (always) plus golden apple, diamonds, emeralds and an Ominous Bottle by chance. Evil Trial Keys fit only an Evil Vault and also not Vanilla vaults.",
-          "Evil Vault: hold a diamond block in the off hand and strike a Weathered Vault 5 times with a hammer (with no hammer mod an axe does it); it turns into an Evil Vault for good. Only Weathered Vaults - never Vanilla vaults. It opens with an Evil Trial Key of any stage, once per player, and pays by the key stage: 3 draws (4 from stage 4) from diamonds, emeralds, golden apples, enchanted books, netherite scrap and ingots, enchanted golden apple, totem, heavy core; higher stages shift towards netherite and totems.",
-          "Not built: the 10 % Wither hit of stage 2, slowing arrows of stage 3, the extra raid wave and the raider chest. Config: evilOmen (default true) switches the whole chain."
-        ]
-      },
-      "de": {
-        "title": "Böses Omen",
-        "summary": "Ein stärkeres Unheilvolles Omen für Spieler im Netherit-Zeitalter: Böser Trank mit Netherherz brauen, trinken, eine Verwitterte Prüfung oder einen Dorf-Überfall böse machen, Böse Prüfungsschlüssel gewinnen und einen Bösen Tresor öffnen.",
-        "details": [
-          "Böser Trank I–V: 1–3 Unheilvolle Flaschen in die unteren Plätze eines Braustands, ein Netherherz in den oberen. Der Braustand muss mit Seelenfeuer-Lohenstaub befeuert sein (der Brennstoffplatz nimmt ihn an; 1 Staub = 20 Seelenladungen, jeder Böse Brauvorgang kostet eine). Jede Flasche behält ihre Stufe, ein Herz reicht für alle Flaschen, also bis zu 3 Tränke je Herz. Normales Brauen und Lohenstaub bleiben unverändert.",
-          "Trinken gibt Böses Omen I–V für 100 Minuten und ersetzt das Unheilvolle Omen. Damit in einen Verwitterten Prüfungs-Spawner gehen macht die Prüfung böse (rote Partikel): Mobs bekommen +10 % Leben je Stufe und Effekte – I Stärke, II Tempo, III Stärke II und Resistenz, IV Regeneration (manchmal Flüchtig), V Stärke III, Tempo II, Resistenz II, Regeneration II und Ablenkung oder Spiegel. Das Omen wird verbraucht. Böses Omen im Dorf startet einen Vanilla-Überfall der Stufe, dessen Plünderer dieselben Verstärkungen bekommen (30 Minuten).",
-          "Belohnung: der Böse Prüfungsschlüssel der Stufe (immer) und je nach Zufall Goldener Apfel, Diamanten, Smaragde und eine Unheilvolle Flasche. Böse Prüfungsschlüssel passen nur an einen Bösen Tresor, auch nicht an Vanilla-Tresore.",
-          "Böser Tresor: Diamantblock in die Nebenhand und 5-mal mit einem Hammer auf einen Verwitterten Tresor schlagen (ohne Hammer-Mod geht eine Axt); er wird dauerhaft zum Bösen Tresor. Nur Verwitterte Tresore – nie Vanilla-Tresore. Er öffnet mit einem Bösen Prüfungsschlüssel jeder Stufe, einmal pro Spieler, und zahlt nach der Schlüsselstufe: 3 Züge (ab Stufe 4 vier) aus Diamanten, Smaragden, Goldäpfeln, verzauberten Büchern, Netherit-Schrott und -Barren, Verzaubertem Goldenen Apfel, Totem, Schwerem Kern; höhere Stufen verschieben zu Netherit und Totems.",
-          "Nicht gebaut: der 10-%-Wither-Treffer der Stufe 2, bremsende Pfeile der Stufe 3, die Extra-Welle und die Plünderer-Truhe. Config: evilOmen (Standard an) schaltet die ganze Kette."
-        ]
-      },
-      "related": [
-        "simplemobs:evil_vault",
-        "simplemobs:evil_potion_1",
-        "simplemobs:evil_trial_key_1",
-        "simplemobs:evil_potion_2",
-        "simplemobs:evil_trial_key_2",
-        "simplemobs:evil_potion_3",
-        "simplemobs:evil_trial_key_3",
-        "simplemobs:evil_potion_4",
-        "simplemobs:evil_trial_key_4",
-        "simplemobs:evil_potion_5",
-        "simplemobs:evil_trial_key_5"
-      ]
-    },
-    {
-      "id": "void_chain",
-      "sources": [
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialsHooks.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
-      ],
-      "en": {
-        "title": "Void chain",
-        "summary": "The Evil chain one tier up - Void Potion, Void Omen, Void Trial, Void Vault - switched off by default until the Ender Heart has a source.",
-        "details": [
-          "Same steps as the Evil Omen: Ominous Bottle + Ender Heart in the soul-fuelled Brewing Stand = Void Potion I-V, Void Omen, a Weathered Trial or raid turns void (violet particles; life +60 to +100 %, every effect one step higher), the reward is the Void Trial Key of the stage, and a Void Vault is made from an Evil Vault with a netherite block in the off hand and 5 strikes. It pays 3 to 5 draws of netherite, enchanted golden apples, totems, echo shards, heavy cores, phantom membrane and stage V ominous bottles.",
-          "The Ender Heart has no source in the game yet, so the whole chain is off: config voidChain (default false, needs evilOmen). The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Not built: the darkness aura and the teleporting archers of Void mobs."
-        ]
-      },
-      "de": {
-        "title": "Leere-Kette",
-        "summary": "Die Böse Kette eine Stufe höher – Leere-Trank, Leere-Omen, Leere-Prüfung, Leere-Tresor –, standardmäßig aus, bis das Enderherz eine Quelle hat.",
-        "details": [
-          "Dieselben Schritte wie beim Bösen Omen: Unheilvolle Flasche + Enderherz im seelenbefeuerten Braustand = Leere-Trank I–V, Leere-Omen, eine Verwitterte Prüfung oder ein Überfall wird zur Leere (violette Partikel; Leben +60 bis +100 %, jeder Effekt eine Stufe höher), Belohnung ist der Leere-Prüfungsschlüssel der Stufe, und ein Leere-Tresor entsteht aus einem Bösen Tresor mit einem Netheritblock in der Nebenhand und 5 Schlägen. Er zahlt 3 bis 5 Züge aus Netherit, Verzauberten Goldäpfeln, Totems, Echosplittern, Schweren Kernen, Phantommembranen und Unheilvollen Flaschen der Stufe V.",
-          "Das Enderherz hat im Spiel noch keine Quelle, deshalb ist die ganze Kette aus: Config voidChain (Standard false, braucht evilOmen). Die Gegenstände bleiben im Kreativ-Tab, die Rezepte erscheinen im Rezeptbetrachter nur bei eingeschalteter Kette. Nicht gebaut: Dunkelheits-Aura und teleportierende Bogenschützen der Leere-Mobs."
-        ]
-      },
-      "related": [
-        "simplemobs:void_vault",
-        "simplemobs:void_potion_1",
-        "simplemobs:void_trial_key_1",
-        "simplemobs:void_potion_2",
-        "simplemobs:void_trial_key_2",
-        "simplemobs:void_potion_3",
-        "simplemobs:void_trial_key_3",
-        "simplemobs:void_potion_4",
-        "simplemobs:void_trial_key_4",
-        "simplemobs:void_potion_5",
-        "simplemobs:void_trial_key_5"
-      ]
     }
   ],
   "recipes": [
@@ -2186,7 +2100,7 @@
         "materials": [
           {
             "id": "minecraft:gunpowder",
-            "count": 3
+            "count": 1.5
           },
           {
             "id": "minecraft:sugar_cane",
@@ -2194,7 +2108,7 @@
           },
           {
             "id": "minecraft:blaze_rod",
-            "count": 0.5
+            "count": 0.25
           }
         ]
       }
@@ -2206,7 +2120,7 @@
       "group": null,
       "result": {
         "id": "simplemobs:strong_gunpowder",
-        "count": 1
+        "count": 2
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/strong_gunpowder.json",
       "ingredients": [
@@ -2228,7 +2142,7 @@
         ]
       ],
       "baseMaterials": {
-        "yield": 1,
+        "yield": 2,
         "materials": [
           {
             "id": "minecraft:gunpowder",
@@ -2273,7 +2187,7 @@
         "materials": [
           {
             "id": "minecraft:gunpowder",
-            "count": 15
+            "count": 7.5
           },
           {
             "id": "minecraft:sand",
@@ -2281,7 +2195,7 @@
           },
           {
             "id": "minecraft:blaze_rod",
-            "count": 2.5
+            "count": 1.25
           }
         ],
         "tagExamples": [
@@ -2703,807 +2617,6 @@
       "type": "minecraft:entity",
       "pools": [],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/entities/summoned.json"
-    },
-    {
-      "id": "simplemobs:spawners/evil_1",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:evil_trial_key_1"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:emerald"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/evil_1.json"
-    },
-    {
-      "id": "simplemobs:spawners/evil_2",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:evil_trial_key_2"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:emerald"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/evil_2.json"
-    },
-    {
-      "id": "simplemobs:spawners/evil_3",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:evil_trial_key_3"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:emerald"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/evil_3.json"
-    },
-    {
-      "id": "simplemobs:spawners/evil_4",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:evil_trial_key_4"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:emerald"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/evil_4.json"
-    },
-    {
-      "id": "simplemobs:spawners/evil_5",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:evil_trial_key_5"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:emerald"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/evil_5.json"
-    },
-    {
-      "id": "simplemobs:spawners/void_1",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:void_trial_key_1"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanted_golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:netherite_scrap"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/void_1.json"
-    },
-    {
-      "id": "simplemobs:spawners/void_2",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:void_trial_key_2"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanted_golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:netherite_scrap"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/void_2.json"
-    },
-    {
-      "id": "simplemobs:spawners/void_3",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:void_trial_key_3"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanted_golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:netherite_scrap"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/void_3.json"
-    },
-    {
-      "id": "simplemobs:spawners/void_4",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:void_trial_key_4"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanted_golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:netherite_scrap"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/void_4.json"
-    },
-    {
-      "id": "simplemobs:spawners/void_5",
-      "kind": "spawners",
-      "type": "minecraft:chest",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplemobs:void_trial_key_5"
-          ],
-          "conditions": [],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanted_golden_apple"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:diamond"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:netherite_scrap"
-          ],
-          "conditions": [
-            "minecraft:random_chance"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/spawners/void_5.json"
-    },
-    {
-      "id": "simplemobs:vault/evil_1",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 3,
-          "items": [
-            "minecraft:diamond",
-            "minecraft:emerald",
-            "minecraft:golden_apple",
-            "minecraft:book",
-            "minecraft:netherite_scrap",
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:heavy_core"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/evil_1.json"
-    },
-    {
-      "id": "simplemobs:vault/evil_2",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 3,
-          "items": [
-            "minecraft:diamond",
-            "minecraft:emerald",
-            "minecraft:golden_apple",
-            "minecraft:book",
-            "minecraft:netherite_scrap",
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:heavy_core"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/evil_2.json"
-    },
-    {
-      "id": "simplemobs:vault/evil_3",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 3,
-          "items": [
-            "minecraft:diamond",
-            "minecraft:emerald",
-            "minecraft:golden_apple",
-            "minecraft:book",
-            "minecraft:netherite_scrap",
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:heavy_core"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/evil_3.json"
-    },
-    {
-      "id": "simplemobs:vault/evil_4",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 4,
-          "items": [
-            "minecraft:diamond",
-            "minecraft:emerald",
-            "minecraft:golden_apple",
-            "minecraft:book",
-            "minecraft:netherite_scrap",
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:heavy_core",
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/evil_4.json"
-    },
-    {
-      "id": "simplemobs:vault/evil_5",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 4,
-          "items": [
-            "minecraft:diamond",
-            "minecraft:emerald",
-            "minecraft:golden_apple",
-            "minecraft:book",
-            "minecraft:netherite_scrap",
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:heavy_core",
-            "minecraft:ominous_bottle"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/evil_5.json"
-    },
-    {
-      "id": "simplemobs:vault/void_1",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 3,
-          "items": [
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:echo_shard",
-            "minecraft:heavy_core",
-            "minecraft:netherite_scrap",
-            "minecraft:phantom_membrane",
-            "minecraft:ominous_bottle",
-            "minecraft:book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/void_1.json"
-    },
-    {
-      "id": "simplemobs:vault/void_2",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 3,
-          "items": [
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:echo_shard",
-            "minecraft:heavy_core",
-            "minecraft:netherite_scrap",
-            "minecraft:phantom_membrane",
-            "minecraft:ominous_bottle",
-            "minecraft:book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/void_2.json"
-    },
-    {
-      "id": "simplemobs:vault/void_3",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 4,
-          "items": [
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:echo_shard",
-            "minecraft:heavy_core",
-            "minecraft:netherite_scrap",
-            "minecraft:phantom_membrane",
-            "minecraft:ominous_bottle",
-            "minecraft:book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/void_3.json"
-    },
-    {
-      "id": "simplemobs:vault/void_4",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 4,
-          "items": [
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:echo_shard",
-            "minecraft:heavy_core",
-            "minecraft:netherite_scrap",
-            "minecraft:phantom_membrane",
-            "minecraft:ominous_bottle",
-            "minecraft:book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/void_4.json"
-    },
-    {
-      "id": "simplemobs:vault/void_5",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 5,
-          "items": [
-            "minecraft:netherite_ingot",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:totem_of_undying",
-            "minecraft:echo_shard",
-            "minecraft:heavy_core",
-            "minecraft:netherite_scrap",
-            "minecraft:phantom_membrane",
-            "minecraft:ominous_bottle",
-            "minecraft:book"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/void_5.json"
-    },
-    {
-      "id": "simplemobs:vault/weathered",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 2,
-          "items": [
-            "minecraft:iron_ingot",
-            "minecraft:emerald",
-            "minecraft:copper_ingot",
-            "minecraft:gold_ingot",
-            "minecraft:diamond",
-            "minecraft:book",
-            "minecraft:golden_apple",
-            "minecraft:wind_charge",
-            "minecraft:ominous_bottle",
-            "minecraft:totem_of_undying"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/weathered.json"
-    },
-    {
-      "id": "simplemobs:vault/weathered_ominous",
-      "kind": "vault",
-      "type": "minecraft:vault",
-      "pools": [
-        {
-          "rolls": 3,
-          "items": [
-            "minecraft:diamond",
-            "minecraft:emerald",
-            "minecraft:golden_apple",
-            "minecraft:enchanted_golden_apple",
-            "minecraft:ominous_bottle",
-            "minecraft:book",
-            "minecraft:netherite_scrap",
-            "minecraft:heavy_core",
-            "minecraft:totem_of_undying"
-          ],
-          "conditions": [],
-          "functions": []
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/loot_table/vault/weathered_ominous.json"
     }
   ],
   "tags": [
@@ -3564,33 +2677,6 @@
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/block/howler_replaceable.json"
-    },
-    {
-      "id": "simplemobs:block/weathered_rottable",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:oxidized_cut_copper",
-          "required": true
-        },
-        {
-          "id": "minecraft:oxidized_copper",
-          "required": true
-        },
-        {
-          "id": "minecraft:tuff_bricks",
-          "required": true
-        },
-        {
-          "id": "minecraft:cracked_deepslate_bricks",
-          "required": true
-        },
-        {
-          "id": "minecraft:moss_block",
-          "required": true
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/block/weathered_rottable.json"
     },
     {
       "id": "simplemobs:damage_type/wither_loot_resistant",
@@ -3670,173 +2756,6 @@
         }
       ],
       "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/item/repairs_shellker_helmet.json"
-    },
-    {
-      "id": "simplemobs:worldgen/biome/has_structure/weathered_trials",
-      "replace": false,
-      "values": [
-        {
-          "id": "minecraft:mushroom_fields",
-          "required": true
-        },
-        {
-          "id": "minecraft:stony_shore",
-          "required": true
-        },
-        {
-          "id": "minecraft:swamp",
-          "required": true
-        },
-        {
-          "id": "minecraft:mangrove_swamp",
-          "required": true
-        },
-        {
-          "id": "minecraft:snowy_slopes",
-          "required": true
-        },
-        {
-          "id": "minecraft:snowy_plains",
-          "required": true
-        },
-        {
-          "id": "minecraft:windswept_gravelly_hills",
-          "required": true
-        },
-        {
-          "id": "minecraft:grove",
-          "required": true
-        },
-        {
-          "id": "minecraft:windswept_hills",
-          "required": true
-        },
-        {
-          "id": "minecraft:snowy_taiga",
-          "required": true
-        },
-        {
-          "id": "minecraft:windswept_forest",
-          "required": true
-        },
-        {
-          "id": "minecraft:taiga",
-          "required": true
-        },
-        {
-          "id": "minecraft:plains",
-          "required": true
-        },
-        {
-          "id": "minecraft:meadow",
-          "required": true
-        },
-        {
-          "id": "minecraft:forest",
-          "required": true
-        },
-        {
-          "id": "minecraft:old_growth_spruce_taiga",
-          "required": true
-        },
-        {
-          "id": "minecraft:flower_forest",
-          "required": true
-        },
-        {
-          "id": "minecraft:birch_forest",
-          "required": true
-        },
-        {
-          "id": "minecraft:dark_forest",
-          "required": true
-        },
-        {
-          "id": "minecraft:pale_garden",
-          "required": true
-        },
-        {
-          "id": "minecraft:savanna_plateau",
-          "required": true
-        },
-        {
-          "id": "minecraft:savanna",
-          "required": true
-        },
-        {
-          "id": "minecraft:jungle",
-          "required": true
-        },
-        {
-          "id": "minecraft:badlands",
-          "required": true
-        },
-        {
-          "id": "minecraft:desert",
-          "required": true
-        },
-        {
-          "id": "minecraft:wooded_badlands",
-          "required": true
-        },
-        {
-          "id": "minecraft:jagged_peaks",
-          "required": true
-        },
-        {
-          "id": "minecraft:stony_peaks",
-          "required": true
-        },
-        {
-          "id": "minecraft:ice_spikes",
-          "required": true
-        },
-        {
-          "id": "minecraft:old_growth_pine_taiga",
-          "required": true
-        },
-        {
-          "id": "minecraft:sunflower_plains",
-          "required": true
-        },
-        {
-          "id": "minecraft:old_growth_birch_forest",
-          "required": true
-        },
-        {
-          "id": "minecraft:sparse_jungle",
-          "required": true
-        },
-        {
-          "id": "minecraft:bamboo_jungle",
-          "required": true
-        },
-        {
-          "id": "minecraft:eroded_badlands",
-          "required": true
-        },
-        {
-          "id": "minecraft:windswept_savanna",
-          "required": true
-        },
-        {
-          "id": "minecraft:cherry_grove",
-          "required": true
-        },
-        {
-          "id": "minecraft:frozen_peaks",
-          "required": true
-        },
-        {
-          "id": "minecraft:dripstone_caves",
-          "required": true
-        },
-        {
-          "id": "minecraft:lush_caves",
-          "required": true
-        }
-      ],
-      "source": "modules/simplemobs/shared/resources/data/simplemobs/tags/worldgen/biome/has_structure/weathered_trials.json"
     }
   ],
   "advancements": [],
@@ -4211,226 +3130,6 @@
       ]
     },
     {
-      "id": "simplemobs:evil_potion_1",
-      "name": {
-        "en_us": "Evil Potion I",
-        "de_de": "Böser Trank I"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Evil Potion I: brewed from an Ominous Bottle (stage I) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen I."
-        },
-        "de": {
-          "summary": "Böser Trank I: gebraut aus einer Unheilvollen Flasche (Stufe I) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen I."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_potion_1.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_potion_2",
-      "name": {
-        "en_us": "Evil Potion II",
-        "de_de": "Böser Trank II"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Evil Potion II: brewed from an Ominous Bottle (stage II) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen II."
-        },
-        "de": {
-          "summary": "Böser Trank II: gebraut aus einer Unheilvollen Flasche (Stufe II) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen II."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_potion_2.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_potion_3",
-      "name": {
-        "en_us": "Evil Potion III",
-        "de_de": "Böser Trank III"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Evil Potion III: brewed from an Ominous Bottle (stage III) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen III."
-        },
-        "de": {
-          "summary": "Böser Trank III: gebraut aus einer Unheilvollen Flasche (Stufe III) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen III."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_potion_3.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_potion_4",
-      "name": {
-        "en_us": "Evil Potion IV",
-        "de_de": "Böser Trank IV"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Evil Potion IV: brewed from an Ominous Bottle (stage IV) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen IV."
-        },
-        "de": {
-          "summary": "Böser Trank IV: gebraut aus einer Unheilvollen Flasche (Stufe IV) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen IV."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_potion_4.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_potion_5",
-      "name": {
-        "en_us": "Evil Potion V",
-        "de_de": "Böser Trank V"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Evil Potion V: brewed from an Ominous Bottle (stage V) and a Nether Heart in a Brewing Stand fuelled with Soulfire Powder. Drink it for Evil Omen V."
-        },
-        "de": {
-          "summary": "Böser Trank V: gebraut aus einer Unheilvollen Flasche (Stufe V) und einem Netherherz im Braustand mit Seelenfeuer-Lohenstaub. Trinken gibt Böses Omen V."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_potion_5.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_trial_key_1",
-      "name": {
-        "en_us": "Evil Trial Key I",
-        "de_de": "Böser Prüfungsschlüssel I"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Evil Trial Key I: the reward of an Evil Trial of stage I. Opens an Evil Vault (the loot follows the stage)."
-        },
-        "de": {
-          "summary": "Böser Prüfungsschlüssel I: Belohnung einer Bösen Prüfung der Stufe I. Öffnet einen Bösen Tresor (die Beute folgt der Stufe)."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_trial_key_1.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_trial_key_2",
-      "name": {
-        "en_us": "Evil Trial Key II",
-        "de_de": "Böser Prüfungsschlüssel II"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Evil Trial Key II: the reward of an Evil Trial of stage II. Opens an Evil Vault (the loot follows the stage)."
-        },
-        "de": {
-          "summary": "Böser Prüfungsschlüssel II: Belohnung einer Bösen Prüfung der Stufe II. Öffnet einen Bösen Tresor (die Beute folgt der Stufe)."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_trial_key_2.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_trial_key_3",
-      "name": {
-        "en_us": "Evil Trial Key III",
-        "de_de": "Böser Prüfungsschlüssel III"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Evil Trial Key III: the reward of an Evil Trial of stage III. Opens an Evil Vault (the loot follows the stage)."
-        },
-        "de": {
-          "summary": "Böser Prüfungsschlüssel III: Belohnung einer Bösen Prüfung der Stufe III. Öffnet einen Bösen Tresor (die Beute folgt der Stufe)."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_trial_key_3.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_trial_key_4",
-      "name": {
-        "en_us": "Evil Trial Key IV",
-        "de_de": "Böser Prüfungsschlüssel IV"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Evil Trial Key IV: the reward of an Evil Trial of stage IV. Opens an Evil Vault (the loot follows the stage)."
-        },
-        "de": {
-          "summary": "Böser Prüfungsschlüssel IV: Belohnung einer Bösen Prüfung der Stufe IV. Öffnet einen Bösen Tresor (die Beute folgt der Stufe)."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_trial_key_4.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:evil_trial_key_5",
-      "name": {
-        "en_us": "Evil Trial Key V",
-        "de_de": "Böser Prüfungsschlüssel V"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Evil Trial Key V: the reward of an Evil Trial of stage V. Opens an Evil Vault (the loot follows the stage)."
-        },
-        "de": {
-          "summary": "Böser Prüfungsschlüssel V: Belohnung einer Bösen Prüfung der Stufe V. Öffnet einen Bösen Tresor (die Beute folgt der Stufe)."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/evil_trial_key_5.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplemobs:forbidden_fire",
       "name": {
         "en_us": "Fire",
@@ -4459,10 +3158,10 @@
           "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 30 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+          "summary": "Guide to this mod: 28 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 30 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+          "summary": "Handbuch zu dieser Mod: 28 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
         }
       },
       "texture": "assets/textures/simplemobs/item/guide_book.png",
@@ -4947,10 +3646,10 @@
       },
       "note": {
         "en": {
-          "summary": "3 gunpowder + 1 blaze powder -> 1 (shapeless). Makes strong rockets and Strong TNT. Placeholder look: Vanilla gunpowder, tinted."
+          "summary": "3 gunpowder + 1 blaze powder -> 2 (shapeless). Makes strong rockets and Strong TNT. Placeholder look: Vanilla gunpowder, tinted."
         },
         "de": {
-          "summary": "3 Schwarzpulver + 1 Lohenstaub -> 1 (formlos). Macht starke Raketen und Starkes TNT. Platzhalter-Optik: Vanilla-Schwarzpulver, getönt."
+          "summary": "3 Schwarzpulver + 1 Lohenstaub -> 2 (formlos). Macht starke Raketen und Starkes TNT. Platzhalter-Optik: Vanilla-Schwarzpulver, getönt."
         }
       },
       "texture": "assets/textures/simplemobs/item/strong_gunpowder.png",
@@ -5001,226 +3700,6 @@
           ]
         }
       },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_potion_1",
-      "name": {
-        "en_us": "Void Potion I",
-        "de_de": "Leere-Trank I"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Void Potion I: an Ominous Bottle (stage I) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen I. Void chain: off by default."
-        },
-        "de": {
-          "summary": "Leere-Trank I: Unheilvolle Flasche (Stufe I) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen I. Leere-Kette: standardmäßig aus."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_potion_1.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_potion_2",
-      "name": {
-        "en_us": "Void Potion II",
-        "de_de": "Leere-Trank II"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Void Potion II: an Ominous Bottle (stage II) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen II. Void chain: off by default."
-        },
-        "de": {
-          "summary": "Leere-Trank II: Unheilvolle Flasche (Stufe II) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen II. Leere-Kette: standardmäßig aus."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_potion_2.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_potion_3",
-      "name": {
-        "en_us": "Void Potion III",
-        "de_de": "Leere-Trank III"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Void Potion III: an Ominous Bottle (stage III) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen III. Void chain: off by default."
-        },
-        "de": {
-          "summary": "Leere-Trank III: Unheilvolle Flasche (Stufe III) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen III. Leere-Kette: standardmäßig aus."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_potion_3.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_potion_4",
-      "name": {
-        "en_us": "Void Potion IV",
-        "de_de": "Leere-Trank IV"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Void Potion IV: an Ominous Bottle (stage IV) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen IV. Void chain: off by default."
-        },
-        "de": {
-          "summary": "Leere-Trank IV: Unheilvolle Flasche (Stufe IV) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen IV. Leere-Kette: standardmäßig aus."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_potion_4.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_potion_5",
-      "name": {
-        "en_us": "Void Potion V",
-        "de_de": "Leere-Trank V"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilBrewing.java"
-        ],
-        "en": {
-          "summary": "Void Potion V: an Ominous Bottle (stage V) and an Ender Heart in the soul-fuelled Brewing Stand. Drink it for Void Omen V. Void chain: off by default."
-        },
-        "de": {
-          "summary": "Leere-Trank V: Unheilvolle Flasche (Stufe V) und Enderherz im seelenbefeuerten Braustand. Trinken gibt Leere-Omen V. Leere-Kette: standardmäßig aus."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_potion_5.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_trial_key_1",
-      "name": {
-        "en_us": "Void Trial Key I",
-        "de_de": "Leere-Prüfungsschlüssel I"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Void Trial Key I: the reward of a Void Trial of stage I. Opens a Void Vault."
-        },
-        "de": {
-          "summary": "Leere-Prüfungsschlüssel I: Belohnung einer Leere-Prüfung der Stufe I. Öffnet einen Leere-Tresor."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_trial_key_1.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_trial_key_2",
-      "name": {
-        "en_us": "Void Trial Key II",
-        "de_de": "Leere-Prüfungsschlüssel II"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Void Trial Key II: the reward of a Void Trial of stage II. Opens a Void Vault."
-        },
-        "de": {
-          "summary": "Leere-Prüfungsschlüssel II: Belohnung einer Leere-Prüfung der Stufe II. Öffnet einen Leere-Tresor."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_trial_key_2.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_trial_key_3",
-      "name": {
-        "en_us": "Void Trial Key III",
-        "de_de": "Leere-Prüfungsschlüssel III"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Void Trial Key III: the reward of a Void Trial of stage III. Opens a Void Vault."
-        },
-        "de": {
-          "summary": "Leere-Prüfungsschlüssel III: Belohnung einer Leere-Prüfung der Stufe III. Öffnet einen Leere-Tresor."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_trial_key_3.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_trial_key_4",
-      "name": {
-        "en_us": "Void Trial Key IV",
-        "de_de": "Leere-Prüfungsschlüssel IV"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Void Trial Key IV: the reward of a Void Trial of stage IV. Opens a Void Vault."
-        },
-        "de": {
-          "summary": "Leere-Prüfungsschlüssel IV: Belohnung einer Leere-Prüfung der Stufe IV. Öffnet einen Leere-Tresor."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_trial_key_4.png",
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_trial_key_5",
-      "name": {
-        "en_us": "Void Trial Key V",
-        "de_de": "Leere-Prüfungsschlüssel V"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java"
-        ],
-        "en": {
-          "summary": "Void Trial Key V: the reward of a Void Trial of stage V. Opens a Void Vault."
-        },
-        "de": {
-          "summary": "Leere-Prüfungsschlüssel V: Belohnung einer Leere-Prüfung der Stufe V. Öffnet einen Leere-Tresor."
-        }
-      },
-      "texture": "assets/textures/simplemobs/item/void_trial_key_5.png",
       "craftedBy": [],
       "usedIn": []
     },
@@ -5338,27 +3817,6 @@
   ],
   "blocks": [
     {
-      "id": "simplemobs:evil_vault",
-      "name": {
-        "en_us": "Evil Vault",
-        "de_de": "Böser Tresor"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialVaultBlock.java"
-        ],
-        "en": {
-          "summary": "Vault for Evil Trial Keys of any stage; the loot follows the stage. Made from a Weathered Vault (diamond block, 5 strikes), for good. Strike it with a netherite block in the off hand to make a Void Vault (Void chain on)."
-        },
-        "de": {
-          "summary": "Tresor für Böse Prüfungsschlüssel jeder Stufe; die Beute folgt der Stufe. Entsteht aus einem Verwitterten Tresor (Diamantblock, 5 Schläge), endgültig. Mit Netheritblock in der Nebenhand schlagen: Leere-Tresor (Leere-Kette an)."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
       "id": "simplemobs:nether_gem",
       "name": {
         "en_us": "Red Nether Gem",
@@ -5466,69 +3924,6 @@
         "simplemobs:strong_tnt"
       ],
       "usedIn": []
-    },
-    {
-      "id": "simplemobs:void_vault",
-      "name": {
-        "en_us": "Void Vault",
-        "de_de": "Leere-Tresor"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialVaultBlock.java"
-        ],
-        "en": {
-          "summary": "Vault for Void Trial Keys of any stage, made from an Evil Vault (netherite block, 5 strikes). The Void chain is off by default (config voidChain)."
-        },
-        "de": {
-          "summary": "Tresor für Leere-Prüfungsschlüssel jeder Stufe, entsteht aus einem Bösen Tresor (Netheritblock, 5 Schläge). Die Leere-Kette ist standardmäßig aus (Config voidChain)."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:weathered_trial_spawner",
-      "name": {
-        "en_us": "Weathered Trial Spawner",
-        "de_de": "Verwitterter Prüfungs-Spawner"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/WeatheredTrialSpawnerBlock.java"
-        ],
-        "en": {
-          "summary": "Trial Spawner in verdigris copper with a broken corner. Works like the Vanilla one; only found in Weathered Trials (Creative otherwise). With Evil or Void Omen the trial turns evil."
-        },
-        "de": {
-          "summary": "Trial-Spawner in grünspanigem Kupfer mit aufgebrochener Ecke. Funktioniert wie der Vanilla-Spawner; nur in Verwitterten Prüfungen (sonst Kreativ). Mit Bösem oder Leere-Omen wird die Prüfung böse."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
-    },
-    {
-      "id": "simplemobs:weathered_vault",
-      "name": {
-        "en_us": "Weathered Vault",
-        "de_de": "Verwitterter Tresor"
-      },
-      "note": {
-        "sources": [
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/Trials.java",
-          "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialVaultBlock.java"
-        ],
-        "en": {
-          "summary": "Vault with its own loot, opened with a Trial Key (normal) or an Ominous Trial Key. Strike it 5 times with a hammer or axe while holding a diamond block in the off hand to make an Evil Vault."
-        },
-        "de": {
-          "summary": "Tresor mit eigener Beute, geöffnet mit Prüfungsschlüssel (normal) oder Unheilvollem Prüfungsschlüssel. 5-mal mit Hammer oder Axt schlagen, mit Diamantblock in der Nebenhand: Böser Tresor."
-        }
-      },
-      "craftedBy": [],
-      "usedIn": []
     }
   ],
   "trades": [],
@@ -5545,14 +3940,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 19,
+    "features": 17,
     "recipes": 73,
-    "lootTables": 33,
-    "tags": 9,
+    "lootTables": 11,
+    "tags": 7,
     "advancements": 0,
     "enchantments": 0,
-    "items": 48,
-    "blocks": 7,
+    "items": 28,
+    "blocks": 3,
     "trades": 0,
     "config": 0,
     "quests": 0,

@@ -212,6 +212,12 @@ side="BOTH"
 
 [[dependencies.${modId}]]
 modId="simpleanimals"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
 modId="simpledinos"
 type="optional"
 versionRange="[0,)"
@@ -220,6 +226,13 @@ side="BOTH"
 
 [[dependencies.${modId}]]
 modId="simpleores"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="simpleresonance"
 type="optional"
 versionRange="[0,)"
 ordering="NONE"

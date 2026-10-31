@@ -48,12 +48,12 @@ window.WIKI_MODULES = [
       "simpleshops",
       "simplewanderers",
       "simpleanimals",
-      "simpleores",
       "simplemusic",
       "simpleearth",
       "simplechallenges",
       "simpleredstone",
-      "simpledinos"
+      "simpledinos",
+      "simpleresonance"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -73,10 +73,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 506,
+      "items": 507,
       "blocks": 290,
-      "recipes": 826,
-      "config": 235,
+      "recipes": 827,
+      "config": 236,
       "features": 48
     }
   },
@@ -148,7 +148,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 74
     },
-    "dataHash": "c85803633ec9"
+    "dataHash": "115419313a33"
   },
   {
     "id": "simpleriding",
@@ -184,7 +184,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 36
     },
-    "dataHash": "3322bc54382c"
+    "dataHash": "9686d23d310e"
   },
   {
     "id": "simplemodels",
@@ -258,7 +258,7 @@ window.WIKI_MODULES = [
       "recipes": 2,
       "features": 38
     },
-    "dataHash": "adec094ab477"
+    "dataHash": "6ee78ecaa18a"
   },
   {
     "id": "simplevisuals",
@@ -441,7 +441,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 42
     },
-    "dataHash": "6333b292d217"
+    "dataHash": "b4d3490e3b7f"
   },
   {
     "id": "simpledimensions",
@@ -514,11 +514,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoElEQVR42mNwCov5TwlmABEnnn0gGS+79gzVgE13Xv2//vYLmCaEQZorZi3DNACEvbQE8GKQZpBFWA0AKZgTpYQXwwzBMACm+dGOQrwYZghWAwhphmEMA0ACMXuM/uvXyoBpZDYuMZAeDBd8OmFEFMbphQspWWD8oqsfzsYmRv0wQI4FYjBWA4hJRMiJCcMAUOoCSRCLUQyACZCK4QZQggG7vYVNITlFHQAAAABJRU5ErkJggg==",
     "counts": {
       "items": 6,
-      "blocks": 21,
+      "blocks": 20,
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "ed66b7bbd64f"
+    "dataHash": "602f46a6cd88"
   },
   {
     "id": "simplelib",
@@ -581,9 +581,9 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mPQsgj4TwlmABGLd9wlGWf1nEA1gIGBgSTskzoBYQBIgBRw7NgxsB4MA0ASxODQ0FDcBpibm8MxTAO6GEEDvG48QHERSKy7uxsuRtAAZL9iE8NrwOAIA2T/DqEwgEkQi1EMAGUMivICJRgA0mVXKrPxqV4AAAAASUVORK5CYII=",
     "counts": {
-      "features": 55
+      "features": 54
     },
-    "dataHash": "fc829bfdbcdd"
+    "dataHash": "ba87fdc02399"
   },
   {
     "id": "simplemaps",
@@ -621,7 +621,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 10
     },
-    "dataHash": "c4928359afdc"
+    "dataHash": "d798810b7b3d"
   },
   {
     "id": "simpletrims",
@@ -658,7 +658,7 @@ window.WIKI_MODULES = [
       "recipes": 10,
       "features": 7
     },
-    "dataHash": "5b83c468ac68"
+    "dataHash": "189baf8adad2"
   },
   {
     "id": "simplemobs",
@@ -674,7 +674,9 @@ window.WIKI_MODULES = [
     "requires": [
       "simplelib"
     ],
-    "optional": [],
+    "optional": [
+      "simpleresonance"
+    ],
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -687,12 +689,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 48,
-      "blocks": 7,
+      "items": 28,
+      "blocks": 3,
       "recipes": 73,
-      "features": 19
+      "features": 17
     },
-    "dataHash": "5592ec3797bf"
+    "dataHash": "fb622c03ab1b"
   },
   {
     "id": "simpleweather",
@@ -855,7 +857,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 11
     },
-    "dataHash": "bfdf831b96e8"
+    "dataHash": "a5f287b56d5b"
   },
   {
     "id": "simpleloot",
@@ -1081,11 +1083,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAwUlEQVR42mPQDQ77TwlmABHLHj0HYz5OMaIwSG3BhRuoBoAk4lxa/jvpJoFpEIZpwCYeOG0OpgEgRXpybnDcEiMDxshicsJ6uA0Amb7vzy8MA5ANJmgASBFMw7lFVmCMLIbXAGSbQOxvd2rAGFkMrwEwJ4NsBWn8/+saGIPYMDkQJtkAEJ8oA0BORPYGyBCQZrIDETkaiQpEmAEwDejpwO3EJeJjAd0FsPRB0AUgBYQwhgGgjAESIDYzgdSiGEAJBgB92uqn9eW6TwAAAABJRU5ErkJggg==",
     "counts": {
       "items": 4,
-      "blocks": 8,
-      "recipes": 17,
-      "features": 16
+      "blocks": 5,
+      "recipes": 12,
+      "features": 13
     },
-    "dataHash": "30dbd3ee5c73"
+    "dataHash": "4bc6987750c8"
   },
   {
     "id": "simpleovens",
@@ -1121,7 +1123,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 8
     },
-    "dataHash": "69251a059453"
+    "dataHash": "49e4e83b9c36"
   },
   {
     "id": "simplemobheads",
@@ -1167,7 +1169,7 @@ window.WIKI_MODULES = [
       "recipes": 1,
       "features": 16
     },
-    "dataHash": "93db46d12052"
+    "dataHash": "c3c4259fcfc1"
   },
   {
     "id": "simpleshops",
@@ -1208,7 +1210,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 12
     },
-    "dataHash": "361c1e359084"
+    "dataHash": "e88cb51860e8"
   },
   {
     "id": "simplewanderers",
@@ -1307,11 +1309,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 56,
-      "recipes": 286,
+      "blocks": 54,
+      "recipes": 284,
       "features": 9
     },
-    "dataHash": "9adc7c29db8a"
+    "dataHash": "3042d3c350e4"
   },
   {
     "id": "simplecrucibles",
@@ -1349,7 +1351,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "a6bef53da80a"
+    "dataHash": "d3c4fc219e2d"
   },
   {
     "id": "simpleoctets",
@@ -1407,7 +1409,6 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleoctets",
       "simplecrucibles",
-      "simpleores",
       "jei"
     ],
     "parent": "simplebuilding",
@@ -1422,11 +1423,11 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA40lEQVR42mMItlL7jw9HRUXhlWcAEY92zcGKQZpBQFNTE0PuwoQEVAOuLyj7/+rsdjANwjDNb968gRsCkwNpnpbhimkANs0wDDLAw1T0f6SHBtginAaga7537x4Yg9jVSab/NeS4iXMBsmYQXr9+/f/6+nqwSwgaADMkOjoarBGbIQQNAGGQn5ENIckAkGaQn9WBfgZpxGYITgOQNYP8C1KMbAheA0Ca29PU4ZphGNkQEMZqAC7NyIaAbMdqAEhzuq8cTs3ohsANAGkkZDM2Q+CxgKwZJEgKhnsBpBmECWVtbBgAwfhqwWiFR/AAAAAASUVORK5CYII=",
     "counts": {
-      "items": 10,
-      "recipes": 13,
+      "items": 8,
+      "recipes": 11,
       "features": 13
     },
-    "dataHash": "abdafff91f57"
+    "dataHash": "10d06da62ef9"
   },
   {
     "id": "simpleoptimization",
@@ -1561,14 +1562,14 @@ window.WIKI_MODULES = [
       "en": "Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).",
       "de": "Pflicht-Sub-Mod von SB: Kisten aller Hölzer, Lager-Werkbank, gestufte/Fallen-Truhen, Shulkerkisten-Stufen, Truhenloren/-boote, Bündel, Köcher, Rucksäcke und die Lager-Verzauberungen (IDs migrieren)."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoUlEQVR42mOw8nL4TwlmABG7Lh8hGU/YsQDVgAWH1v4/e/8KmIZhV3EuMEYWA2GQ5oyWYkwD0DVjY4M0gyzCMABmG7EYxQCQwPVsZ5IwSA+GAcdiTInCO8KMKDNgnqcWpgEgQZDJyPjBgwdgjC6O1YBsNcH/ndaqKLijowOM0cVBajEMADkNJIFuGzoGqcHqgmFgAHpAEcIoBsAMIQXD9AEARSUc8fQdSmQAAAAASUVORK5CYII=",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABw0lEQVR42qWTV0tDQRCF/RW+2LAhKGpM7BoSu8YWo9gQG4pdYu9YsSESFERRISgidg32XmJ78Enf/SnHzMgNmqxPPpw7e3fmfDu77DpEatT4jxzoc/5uFmoxX84S5Qynxt8A4/0O3j4/OLZEeXC0HUsic/VIiz2ApPVxZBNF27FkpoWEACp6nSzAy0Q+nsfy8DSai8eRHJiHs/EwpLOChB1QgoruB7NwN6DFbX8mbvsycNObjuueNFx1p2IuR4biQCeuFQKo6LJLg4tODc47UnDWnozTtiSctCbiuDkBhkx/BlCkejvAeIovFx41xeNQH8f7NzXE4KBezblJjR8DKP4C0A+ZqEgSmaXxoQXao/Zmc12Ym/0WaIJWmskOgkEngyFLBvONCdPaAExlBMCkT0CXygubawuoCfkDsFerwk61ks+BNDXWx3G1JAz7jXHoUHpyB1XBrmLAdlU0NiujYCwKsdNufSxao78BlQoXMWCjIhLr5RFYKpDbSIGt2hg0W86EAOVyZzFgrSyc2/15kKSF3CBs1Kigj3BHqcxZfJFoghIrxaHc8nKhgh/RvMVMl2dWF2i9hWSUZAVIkopE+us5fwF7/ihD39cG0AAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 18,
+      "items": 17,
       "blocks": 47,
-      "recipes": 184,
+      "recipes": 187,
       "features": 15
     },
-    "dataHash": "6fd1fe157c5c"
+    "dataHash": "8daecba71925"
   },
   {
     "id": "simplemusic",
@@ -1608,7 +1609,7 @@ window.WIKI_MODULES = [
       "recipes": 37,
       "features": 16
     },
-    "dataHash": "f974bbe42b93"
+    "dataHash": "90a1b9ebe7da"
   },
   {
     "id": "simplelights",
@@ -1638,7 +1639,7 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 3
     },
-    "dataHash": "aa2472256343"
+    "dataHash": "04d87eebe8c0"
   },
   {
     "id": "simplegadgets",
@@ -1667,7 +1668,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 5
     },
-    "dataHash": "d26471cf9f80"
+    "dataHash": "8b43d8728c80"
   },
   {
     "id": "simpleearth",
@@ -1756,7 +1757,7 @@ window.WIKI_MODULES = [
       "recipes": 4,
       "features": 9
     },
-    "dataHash": "92e83f382233"
+    "dataHash": "6912a1389da9"
   },
   {
     "id": "simpleredstone",
@@ -1786,7 +1787,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 5
     },
-    "dataHash": "96b935aa8392"
+    "dataHash": "3ce18e63948b"
   },
   {
     "id": "simpledinos",
@@ -1825,9 +1826,9 @@ window.WIKI_MODULES = [
     "dataHash": "647d3af3850a"
   },
   {
-    "id": "simpleores",
-    "displayName": "Simple Ores",
-    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Works on its own with Vanilla.",
+    "id": "simpleresonance",
+    "displayName": "Simple Resonance",
+    "description": "Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1838,25 +1839,24 @@ window.WIKI_MODULES = [
     "requires": [],
     "optional": [
       "simplebuilding",
-      "simplehammers"
+      "simplemobs"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
-      "en": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver, pressed into bundles, smelted in the blast furnace only, with tools and armor of their own.",
-      "de": "Silbererz in der Oberwelt und im End sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen."
+      "en": "How experienced you are and how dangerous the land is: your player value grows with playing time and bosses and falls only by a part when you die, danger zones rise softly with the distance from the world spawn, every monster spawn belongs to one player nearby, and a newcomer protection keeps the first hours gentle. Other mods ask it through an API.",
+      "de": "Wie erfahren du bist und wie gefährlich das Land ist: dein Spielerwert wächst mit Spielzeit und Bossen und sinkt beim Tod nur um einen Teil, Gefahrenzonen steigen weich mit der Entfernung vom Welt-Spawn, jeder Monster-Spawn gehört einem Spieler in der Nähe, und ein Anfängerschutz hält die ersten Stunden mild. Andere Mods fragen es über eine Schnittstelle ab."
     },
     "purpose": {
-      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
-      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
+      "en": "Spielerwert (Spielzeit, Überleben, Bosse, Teilverlust beim Tod), Gefahrenzonen nach Entfernung vom Spawn, Spawn-Besitzer-Wahl und Anfängerschutz als Schnittstelle für andere Mods (Simple Mobs vergibt danach Statuseffekte an neue Monster); allein mit Vanilla spielbar.",
+      "de": "Spielerwert (Spielzeit, Überleben, Bosse, Teilverlust beim Tod), Gefahrenzonen nach Entfernung vom Spawn, Spawn-Besitzer-Wahl und Anfängerschutz als Schnittstelle für andere Mods (Simple Mobs vergibt danach Statuseffekte an neue Monster); allein mit Vanilla spielbar."
     },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42mPQUnb7TwlmABGLp5/DiqWEDMAYm1xWxAZUA+rzd//fs+U2mIZpPLHhAxjD+CA5EAZp9rGvxzQAphmmER2D5ECaQRZhNQCmGWbYrLoHYAzjIxuCYQCyZphGdAzSCDOEoAEgGgQ+vPgP1ojXAGR/w2yDaYZhmDhyeOA1AFkzQQOweQHkXJhmgl6gSiAiRyNIIcxWmEZkzTgTEkiCmISE1QBQ6oJJ4krKMHkMA2AC6BimEZscigGUYAAdGmaSr7d4OgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 26,
-      "blocks": 7,
-      "recipes": 44,
-      "features": 4
+      "items": 1,
+      "recipes": 1,
+      "features": 8
     },
-    "dataHash": "1cd21e2c078d"
+    "dataHash": "bffdf6de3be9"
   }
 ];

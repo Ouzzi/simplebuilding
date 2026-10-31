@@ -2838,6 +2838,8 @@
   "text.autoconfig.simplebuilding.option.server.features.armorStandSwap.@Tooltip": "Sneak + right-click with an empty\nhand, or right-click a powered armor\nstand: swaps all its armor with\nyours. Server-side. Default: on.",
   "text.autoconfig.simplebuilding.option.server.features.simpleDoors": "Simple Doors",
   "text.autoconfig.simplebuilding.option.server.features.simpleDoors.@Tooltip": "The 2x2, 2x3 and half-width doors\nopen by hand and redstone. Off: they\nstay closed. Default: true.",
+  "text.autoconfig.simplebuilding.option.server.features.endgameEnchantLevels": "Endgame enchantment levels",
+  "text.autoconfig.simplebuilding.option.server.features.endgameEnchantLevels.@Tooltip": "At the top stage of the Astral Enchanter\n(tier 50) Protection and Feather Falling\nreach level V. Off: Vanilla maximum.\nDefault: true.",
   "block.simplebuilding.oak_door_2x2": "Oak Door 2x2",
   "item.simplebuilding.oak_door_2x2": "Oak Door 2x2",
   "block.simplebuilding.oak_door_2x3": "Oak Door 2x3",

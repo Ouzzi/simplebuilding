@@ -59,6 +59,16 @@ public final class MobsConfig {
     public static float mirrorReflectChance = 0.5f;
     /** Wither/Nether/End/Void Wings (EL24-1, WA24-2, WB24-2): how many times Vanilla's top rocket speed they reach (1 = Vanilla, at most 8). */
     public static float witherWingsSpeedFactor = 2.0f, netherWingsSpeedFactor = 4.0f, endWingsSpeedFactor = 6.0f, voidWingsSpeedFactor = 8.0f;
+    /**
+     * Danger zones (WP-22, MOB27-2): new monsters get status effects by the level Simple Resonance gives their spawn place. Off by default
+     * (owner question Q1, recommendation: off until the client check), per-pool chance at level 5 and level cap, at most {@code zoneMaxEffects}
+     * per monster, only for the listed spawn reasons. Needs Simple Resonance; without it nothing happens.
+     */
+    public static boolean zoneMobsEnabled = false;
+    public static int zoneMaxEffects = 3;
+    public static List<String> zoneSpawnReasons = new ArrayList<>(List.of("natural", "patrol", "chunk_generation"));
+    public static double[] zoneChance = defaultZoneChances();
+    public static int[] zoneLevelCap = defaultZoneCaps();
     /** Strong TNT (BS25-21): explosion power (Vanilla TNT 4, charged Creeper 6); 4 to 16. */
     public static float strongTntPower = StrongExplosives.DEFAULT_POWER;
     /** Evil Omen (BS27-3): the master switch of Evil Potion brewing, Evil Omen, Evil Trials / Raids and the Evil Vault; the Weathered Trials themselves stay. */
@@ -199,6 +209,56 @@ public final class MobsConfig {
         strongTntPower = Math.max(4.0f, Math.min(16.0f, num(json, "strongTntPower", StrongExplosives.DEFAULT_POWER)));
         evilOmen = bool(json, "evilOmen", true);
         voidChain = bool(json, "voidChain", false);
+        applyZones(json);
+    }
+
+    private static double[] defaultZoneChances() {
+        double[] c = new double[ZoneEffects.Pool.values().length];
+        for (ZoneEffects.Pool p : ZoneEffects.Pool.values()) c[p.ordinal()] = p.defaultChance;
+        return c;
+    }
+
+    private static int[] defaultZoneCaps() {
+        int[] c = new int[ZoneEffects.Pool.values().length];
+        for (ZoneEffects.Pool p : ZoneEffects.Pool.values()) c[p.ordinal()] = p.defaultCap;
+        return c;
+    }
+
+    private static void applyZones(JsonObject json) {
+        zoneMobsEnabled = bool(json, "zoneMobsEnabled", false);
+        zoneMaxEffects = Math.max(0, Math.min(8, integer(json, "zoneMaxEffects", 3)));
+        List<String> reasons = new ArrayList<>();
+        try {
+            if (json.has("zoneSpawnReasons")) for (JsonElement e : json.getAsJsonArray("zoneSpawnReasons")) reasons.add(e.getAsString().toLowerCase(java.util.Locale.ROOT));
+            else reasons.addAll(List.of("natural", "patrol", "chunk_generation"));
+        } catch (Exception e) {
+            reasons = new ArrayList<>(List.of("natural", "patrol", "chunk_generation"));
+        }
+        zoneSpawnReasons = reasons;
+        zoneChance = defaultZoneChances();
+        zoneLevelCap = defaultZoneCaps();
+        JsonObject pools = json.has("zoneEffects") && json.get("zoneEffects").isJsonObject() ? json.getAsJsonObject("zoneEffects") : new JsonObject();
+        for (ZoneEffects.Pool p : ZoneEffects.Pool.values()) {
+            JsonObject o = pools.has(p.id) && pools.get(p.id).isJsonObject() ? pools.getAsJsonObject(p.id) : new JsonObject();
+            zoneChance[p.ordinal()] = Math.max(0.0, Math.min(1.0, dbl(o, "chance", p.defaultChance)));
+            zoneLevelCap[p.ordinal()] = Math.max(0, Math.min(5, integer(o, "levelCap", p.defaultCap)));
+        }
+    }
+
+    private static void zonesToJson(JsonObject o) {
+        o.addProperty("zoneMobsEnabled", zoneMobsEnabled);
+        o.addProperty("zoneMaxEffects", zoneMaxEffects);
+        JsonArray reasons = new JsonArray();
+        zoneSpawnReasons.forEach(reasons::add);
+        o.add("zoneSpawnReasons", reasons);
+        JsonObject pools = new JsonObject();
+        for (ZoneEffects.Pool p : ZoneEffects.Pool.values()) {
+            JsonObject one = new JsonObject();
+            one.addProperty("chance", zoneChance[p.ordinal()]);
+            one.addProperty("levelCap", zoneLevelCap[p.ordinal()]);
+            pools.add(p.id, one);
+        }
+        o.add("zoneEffects", pools);
     }
 
     public static JsonObject toJson() {
@@ -249,6 +309,7 @@ public final class MobsConfig {
         o.addProperty("strongTntPower", strongTntPower);
         o.addProperty("evilOmen", evilOmen);
         o.addProperty("voidChain", voidChain);
+        zonesToJson(o);
         return o;
     }
 
@@ -258,6 +319,15 @@ public final class MobsConfig {
 
     private static float num(JsonObject json, String key, float fallback) {
         try { return json.has(key) ? json.get(key).getAsFloat() : fallback; } catch (Exception e) { return fallback; }
+    }
+
+    private static double dbl(JsonObject json, String key, double fallback) {
+        try {
+            double d = json.has(key) ? json.get(key).getAsDouble() : fallback;
+            return Double.isFinite(d) ? d : fallback;
+        } catch (Exception e) {
+            return fallback;
+        }
     }
 
     private static int integer(JsonObject json, String key, int fallback) {

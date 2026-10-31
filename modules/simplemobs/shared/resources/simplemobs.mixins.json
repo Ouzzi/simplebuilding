@@ -13,6 +13,7 @@
     "TargetingConditionsCloakMixin",
     "LivingEntityGravityMixin",
     "CombatEffectsMixin",
+    "MobZoneSpawnMixin",
     "EndGatewayFeatureMixin",
     "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin",
@@ -27,7 +28,9 @@
     "BrewingStandSoulMixin",
     "TrialSpawnerDetectMixin",
     "TrialSpawnerEvilMixin",
-    "TrialVaultKeysMixin"
+    "TrialVaultKeysMixin",
+    "TrimAbilityLivingMixin",
+    "TrimAbilityPlayerMixin"
   ],
   "client": [
     "DeceiverLookMixin",

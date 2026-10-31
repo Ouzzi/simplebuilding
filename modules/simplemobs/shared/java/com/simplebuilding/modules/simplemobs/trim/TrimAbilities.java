@@ -1,0 +1,502 @@
+package com.simplebuilding.modules.simplemobs.trim;
+
+import com.simplebuilding.framework.api.ResonanceContracts;
+import com.simplebuilding.framework.api.TrimContracts;
+import com.simplebuilding.modules.simplemobs.MobsRegistry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
+import net.minecraft.world.phys.Vec3;
+
+/**
+ * The armour trim abilities (pattern and material bonuses) of Simple Mobs (MOB27-3, docs/ai/PLAN-B-MOB32-2026-10-31.md). The rules
+ * are the SimpleBuilding core's {@code TrimEffectUtil} one to one (same rates, caps and keys, docs/TRIM-BALANCE.md); only the inputs
+ * come through {@link #resonance}, {@link #strength} and {@link #enabled}: from the host (SimpleBuilding core, framework
+ * {@code TrimContracts.Host}) when there is one, otherwise from Simple Resonance ({@code ResonanceContracts.trimMultiplier}) and the
+ * designed strengths. Simple Mobs {@link #install claims} the abilities, the core then keeps its own hooks quiet.
+ */
+public final class TrimAbilities {
+    private TrimAbilities() {}
+
+    // --- MUSTER-GEWICHT JE BESATZMATERIAL (getTrimCount) ---
+    public static final float PATTERN_WEIGHT_DEFAULT = 1.0f;
+    public static final float PATTERN_WEIGHT_NETHERITE = 1.75f;
+    /** War 3,5 - ein Enderit-Satz zaehlte als 14 Teile und trug jeden Musterbonus an seinen Deckel. */
+    public static final float PATTERN_WEIGHT_ENDERITE = 2.0f;
+
+    // --- MUSTER-RATEN (je Teil, Resonanz 1,0) ---
+    public static final float SENTRY_PROJECTILE = 0.05f;
+    public static final float VEX_MAGIC = 0.06f;
+    public static final float WILD_THORNS = 0.10f;
+    public static final float DUNE_BLAST = 0.08f;
+    public static final float COAST_DROWN = 0.10f;
+    /** War 0,20 - der 75-%-Deckel war schon bei Resonanz 0,94 erreicht. */
+    public static final float COAST_AIR_SAVE = 0.10f;
+    public static final float WARD_ALL = 0.03f;
+    public static final float SILENCE_SONIC = 0.20f;
+    /** War 0,15 - der 50-%-Deckel war schon bei Resonanz 0,83 erreicht. */
+    public static final float SILENCE_STEALTH = 0.08f;
+    public static final float SNOUT_FIRE = 0.05f;
+    public static final float RIB_WITHER = 0.10f;
+    public static final int RIB_WITHER_TICKS = 40;
+    public static final float EYE_DRAGON_BREATH = 0.10f;
+    public static final float SPIRE_FALL = 0.08f;
+    public static final float FLOW_WIND_CHARGE = 0.10f;
+    public static final float BOLT_LIGHTNING = 0.25f;
+    public static final float BOLT_SPEED = 0.05f;
+    public static final float TIDE_SWIM = 0.10f;
+    public static final float WAYFINDER_SPRINT_HUNGER = 0.10f;
+    public static final float RAISER_XP = 0.10f;
+    /** War 1,0 - der +3-Deckel war schon bei Resonanz 0,75 erreicht. */
+    public static final float HOST_LUCK = 0.5f;
+    /** Blockreichweite (Vanilla-Attribut block_interaction_range) in Bloecken. */
+    public static final float SHAPER_REACH = 0.25f;
+
+    // --- MATERIAL-RATEN (je Teil, Resonanz 1,0) ---
+    public static final float DIAMOND_PHYSICAL = 0.03f;
+    public static final float GOLD_MAGIC = 0.06f;
+    public static final float LAPIS_MAGIC = 0.04f;
+    public static final float LAPIS_XP = 0.05f;
+    public static final float IRON_PROJECTILE = 0.05f;
+    public static final float EMERALD_ILLAGER = 0.08f;
+    public static final float EMERALD_LUCK = 0.5f;
+    public static final float NETHERITE_WITHER_PIERCING = 0.05f;
+    public static final float QUARTZ_FIRE = 0.05f;
+    public static final float QUARTZ_XP = 0.05f;
+    public static final float ENDERITE_ALL = 0.05f;
+    public static final float ASTRALIT_PHYSICAL = 0.02f;
+    public static final float NIHILITH_PHYSICAL = 0.02f;
+    public static final float REDSTONE_SPEED = 0.03f;
+    public static final float AMETHYST_HEAL_CHANCE = 0.25f;
+    /** Billiges Gegenstueck zum Bolt-Muster. */
+    public static final float COPPER_LIGHTNING = 0.10f;
+    /** Rueckstossresistenz (Vanilla-Attribut knockback_resistance, 1,0 = keiner). */
+    public static final float RESIN_KNOCKBACK_RESISTANCE = 0.025f;
+
+    // --- DECKEL (gelten nach Resonanz und Teilezahl) ---
+    /** Hoechstens 80 % weniger Schaden je Treffer - so weit reicht auch Vanillas Schutz-Deckel. War 90 %. */
+    public static final float DAMAGE_FLOOR = 0.2f;
+    /** Die Boni gegen JEDEN Schaden (Ward, Diamant, Enderit, Astralit, Nihilith) zusammen hoechstens 25 %. */
+    public static final float GENERIC_REDUCTION_CAP = 0.25f;
+    /** Hoechstens halbe Sichtbarkeit, so viel wie ein getragener Mob-Kopf. War 100 % (unsichtbar). */
+    public static final float MAX_STEALTH_REDUCTION = 0.5f;
+    /** Wie Atmung III. War unbegrenzt (ab 100 % nie mehr Luft verlieren). */
+    public static final float MAX_AIR_SAVE_CHANCE = 0.75f;
+    /** War 100 % - Sprinten ganz ohne Hunger. */
+    public static final float MAX_SPRINT_HUNGER_REDUCTION = 0.5f;
+    /** Wie Gluecksbringer III beim Angeln. War unbegrenzt. */
+    public static final float MAX_LUCK_BONUS = 3.0f;
+    public static final float MAX_XP_BONUS = 0.5f;
+    /** Wie Schnelligkeit I. War unbegrenzt. */
+    public static final float MAX_LAND_SPEED_BONUS = 0.2f;
+    /** Wassertritt-Effizienz (water_movement_efficiency): 0,5 liegt zwischen Wassertritt I und II. */
+    public static final float MAX_SWIM_SPEED_BONUS = 0.5f;
+    /** So viel wie vier normale Shaper-Teile bei voller Resonanz. */
+    public static final float MAX_REACH_BONUS = 2.0f;
+    /** 5 s. War unbegrenzt - ein voller Satz loeschte jede Wither-Wirkung unter 16 s sofort. */
+    public static final int MAX_WITHER_REDUCTION_TICKS = 100;
+    public static final float MAX_HEAL_CHANCE = 1.0f;
+
+    /** Resonanz fuer Traeger, die keine Spieler sind (Mobs, Ruestungsstaender). */
+    public static final float NON_PLAYER_MULTIPLIER = 0.2f;
+
+    // --- INPUTS (MOB27-3) ---
+
+    private static volatile boolean installed;
+
+    /** Simple Mobs applies the abilities (Fabric entry point): from now on the core's trim hooks stay quiet while {@link #active}. */
+    public static void install() {
+        installed = true;
+        TrimContracts.claim(TrimAbilities::active);
+    }
+
+    /** Whether a loader entry point installed the abilities (Fabric; plan E4). */
+    public static boolean installed() {
+        return installed;
+    }
+
+    /** Whether Simple Mobs applies the trim abilities now: installed (Fabric) and the sub-mod switch on. */
+    public static boolean active() {
+        return installed && MobsRegistry.on();
+    }
+
+    /**
+     * The resonance of the wearer: the host's value (SimpleBuilding core tracker, players only), otherwise Simple Resonance's trim
+     * multiplier (server side, players), otherwise the fixed value for non-players ({@link #NON_PLAYER_MULTIPLIER}).
+     */
+    public static double resonance(LivingEntity entity) {
+        TrimContracts.Host host = TrimContracts.host();
+        if (host != null) {
+            double m = host.multiplier(entity);
+            if (!Double.isNaN(m)) return m;
+        }
+        if (entity instanceof Player player && !entity.level().isClientSide()) {
+            ResonanceContracts.Service service = ResonanceContracts.get();
+            if (service != null && service.enabled()) return service.trimMultiplier(player.getUUID());
+        }
+        return NON_PLAYER_MULTIPLIER;
+    }
+
+    public static float getGlobalMultiplier(LivingEntity entity) {
+        return (float) resonance(entity);
+    }
+
+    /** Strength of one bonus (catalogue key): the host's server tuning, otherwise 1.0 (as designed). */
+    public static float strength(String bonusKey) {
+        TrimContracts.Host host = TrimContracts.host();
+        return host == null ? 1.0f : host.strength(bonusKey);
+    }
+
+    /** The wearer's own switch (host), true without a host. */
+    public static boolean enabled(LivingEntity entity) {
+        TrimContracts.Host host = TrimContracts.host();
+        return host == null || host.enabled(entity);
+    }
+
+    /**
+     * Exakter Vergleich (REV24-F-10): Pfad gleich {@code name} und Namensraum Vanilla oder ein Simple-Mod
+     * (simplebuilding, simpletrims ...). Fremde Muster/Materialien mit aehnlichem Namen (oddeye, smoky_quartz) zaehlen nicht.
+     */
+    public static boolean isOwn(Identifier id, String name) {
+        String ns = id.getNamespace();
+        return id.getPath().equals(name) && (ns.equals("minecraft") || ns.startsWith("simple"));
+    }
+
+    /** Gewicht eines Besatzteils fuer sein Muster, abhaengig vom Besatzmaterial. */
+    public static float patternWeight(String materialName) {
+        if (materialName.equals("enderite")) return PATTERN_WEIGHT_ENDERITE;
+        if (materialName.equals("netherite")) return PATTERN_WEIGHT_NETHERITE;
+        return PATTERN_WEIGHT_DEFAULT;
+    }
+
+    /**
+     * Zählt, wie viele Teile den Trim haben, gewichtet nach Besatzmaterial
+     * (Netherit 1,75, Enderit 2,0, sonst 1,0).
+     */
+    public static float getTrimCount(LivingEntity entity, String patternPath) {
+        if (!enabled(entity)) {
+            return 0f;
+        }
+
+        float score = 0f;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+                ItemStack stack = entity.getItemBySlot(slot);
+                var optionalTrim = stack.get(DataComponents.TRIM);
+
+                if (optionalTrim != null) {
+                    if (isOwn(optionalTrim.pattern().value().assetId(), patternPath)) {
+                        String materialName = optionalTrim.material().unwrapKey()
+                                .map(key -> isOwn(key.identifier(), key.identifier().getPath()) ? key.identifier().getPath() : "").orElse("");
+                        score += patternWeight(materialName);
+                    }
+                }
+            }
+        }
+        return score;
+    }
+
+    /**
+     * Zählt, wie viele Teile ein bestimmtes Material haben (unabhängig vom Pattern).
+     */
+    public static int getMaterialCount(LivingEntity entity, String materialPath) {
+        if (!enabled(entity)) {
+            return 0;
+        }
+        int count = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+                ItemStack stack = entity.getItemBySlot(slot);
+                var optionalTrim = stack.get(DataComponents.TRIM);
+                if (optionalTrim != null) {
+                    if (optionalTrim.material().unwrapKey().map(key -> isOwn(key.identifier(), materialPath)).orElse(false)) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    // --- TICK LOGIC (Server-Side Effects) ---
+
+    private static final Identifier ENDERSCAPE_STASIS_PATTERN = Identifier.fromNamespaceAndPath("enderscape", "stasis");
+
+    public static void tick(Player player) {
+        // Nur Server-Logik für Status-Effekte
+        if (!player.level().isClientSide()) {
+            double multiplier = resonance(player);
+
+            // 1. Stasis Trim Check
+            int stasisPieces = countTrimById(player, ENDERSCAPE_STASIS_PATTERN);
+            if (stasisPieces > 0) {
+                applyStasisEffect(player, multiplier, stasisPieces);
+            }
+
+            // 2. Astralit (Jump Boost)
+            int astralitPieces = getMaterialCount(player, "astralit");
+            if (astralitPieces > 0) {
+                // Je nach Anzahl und Multiplikator Jump Boost I oder II
+                double jumpScore = astralitPieces * multiplier;
+                int amplifier = -1;
+
+                if (jumpScore >= 8.0) amplifier = 1; // Jump Boost II
+                else if (jumpScore >= 2.0) amplifier = 0; // Jump Boost I
+
+                if (amplifier >= 0) {
+                     player.addEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 40, amplifier, true, false, true));
+                }
+            }
+        }
+    }
+
+    // --- MOVEMENT LOGIC (Nihilith) ---
+    // Wird vom PlayerEntityMixin aufgerufen (Client & Server für flüssige Bewegung)
+    public static void handleNihilithGravity(Player player) {
+        int nihilithPieces = getMaterialCount(player, "nihilith");
+
+        if (nihilithPieces > 0 && player.isShiftKeyDown() && !player.onGround() && !player.getAbilities().flying) {
+            Vec3 velocity = player.getDeltaMovement();
+            double downwardForce = 0.08 * nihilithPieces;
+
+            if (velocity.y > -2.0) {
+                // addVelocity setzt intern 'velocityModified = true', daher brauchen wir es hier nicht manuell.
+                player.push(0, -downwardForce, 0);
+            }
+        }
+    }
+
+    /** N24 "faster Elytra": gliding in Astralit trims adds a gentle push along the look direction per piece (flat, no progress scaling), up to {@link #ASTRALIT_GLIDE_MAX_SPEED}. */
+    public static final double ASTRALIT_GLIDE_PUSH = 0.012;
+    public static final double ASTRALIT_GLIDE_MAX_SPEED = 1.8;
+
+    public static void handleAstralitGlide(Player player) {
+        if (!player.isFallFlying()) return;
+        int pieces = getMaterialCount(player, "astralit");
+        if (pieces <= 0) return;
+        Vec3 velocity = player.getDeltaMovement();
+        if (velocity.length() >= ASTRALIT_GLIDE_MAX_SPEED) return;
+        player.push(player.getLookAngle().scale(ASTRALIT_GLIDE_PUSH * pieces));
+    }
+
+    private static int countTrimById(Player player, Identifier patternId) {
+        int count = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+                ItemStack stack = player.getItemBySlot(slot);
+                if (stack.isEmpty()) continue;
+                ArmorTrim trim = stack.get(DataComponents.TRIM);
+                if (trim != null && trim.pattern().is(patternId)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * Resistenz-Stufe des Enderscape-Stasis-Musters: ab Punktzahl 2 Resistenz I, ab 8 Resistenz II,
+     * hoechstens II (vorher III ab 15, erreichbar mit hochgesetzter Basis); -1 = keine.
+     */
+    public static int stasisAmplifier(double multiplier, int pieces) {
+        double powerScore = multiplier * pieces;
+        if (powerScore >= 8.0) return 1;
+        if (powerScore >= 2.0) return 0;
+        return -1;
+    }
+
+    private static void applyStasisEffect(Player player, double multiplier, int pieces) {
+        int amplifier = stasisAmplifier(multiplier, pieces);
+
+        if (amplifier >= 0) {
+            player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 80, amplifier, true, false, true));
+        }
+    }
+
+    // --- HAUPTLOGIK: Schaden Modifizieren ---
+
+    public static float modifyDamage(LivingEntity entity, float amount, DamageSource source) {
+        if (amount <= 0) return 0;
+
+        float multiplier = 1.0f;
+        // Boni gegen JEDEN Schaden sammeln sich hier und werden gemeinsam gedeckelt.
+        float generic = 0f;
+        float progressMult = getGlobalMultiplier(entity);
+
+        // A. TRIM PATTERNS
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) multiplier -= calculateReduction(entity, "sentry", SENTRY_PROJECTILE * s("projectile_protection"), progressMult);
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC) || (source.getDirectEntity() instanceof net.minecraft.world.entity.monster.Vex)) multiplier -= calculateReduction(entity, "vex", VEX_MAGIC * s("magic_protection"), progressMult);
+        if (source.getMsgId().equals("cactus") || source.getMsgId().equals("sweetBerryBush") || source.getMsgId().equals("stalagmite")) multiplier -= calculateReduction(entity, "wild", WILD_THORNS * s("thorn_protection"), progressMult);
+        if (source.is(DamageTypeTags.IS_EXPLOSION)) multiplier -= calculateReduction(entity, "dune", DUNE_BLAST * s("blast_protection"), progressMult);
+        if (source.is(DamageTypes.DROWN)) multiplier -= calculateReduction(entity, "coast", COAST_DROWN * s("drowning_protection"), progressMult);
+        generic += calculateReduction(entity, "ward", WARD_ALL * s("all_protection"), progressMult);
+        if (source.getMsgId().equals("sonic_boom")) multiplier -= calculateReduction(entity, "silence", SILENCE_SONIC * s("sonic_protection"), progressMult);
+        if (source.is(DamageTypeTags.IS_FIRE)) multiplier -= calculateReduction(entity, "snout", SNOUT_FIRE * s("fire_protection"), progressMult);
+        if (source.is(DamageTypes.WITHER)) multiplier -= calculateReduction(entity, "rib", RIB_WITHER * s("wither_protection"), progressMult);
+        if (source.is(DamageTypes.DRAGON_BREATH)) multiplier -= calculateReduction(entity, "eye", EYE_DRAGON_BREATH * s("dragon_breath_protection"), progressMult);
+        if (source.is(DamageTypeTags.IS_FALL)) multiplier -= calculateReduction(entity, "spire", SPIRE_FALL * s("fall_protection"), progressMult);
+        if (source.getDirectEntity() != null && source.getDirectEntity().getType().toString().contains("wind_charge")) multiplier -= calculateReduction(entity, "flow", FLOW_WIND_CHARGE * s("wind_charge_protection"), progressMult);
+        if (source.is(DamageTypes.LIGHTNING_BOLT)) {
+            multiplier -= calculateReduction(entity, "bolt", BOLT_LIGHTNING * s("lightning_protection"), progressMult);
+            int copperParts = getMaterialCount(entity, "copper");
+            if (copperParts > 0) multiplier -= (copperParts * COPPER_LIGHTNING * s("lightning_protection") * progressMult);
+        }
+
+        // B. TRIM MATERIALS
+        // --- Vanilla Materials ---
+        if (!source.is(DamageTypeTags.BYPASSES_ARMOR)) {
+            int diamondParts = getMaterialCount(entity, "diamond");
+            if (diamondParts > 0) generic += (diamondParts * DIAMOND_PHYSICAL * s("physical_protection") * progressMult);
+        }
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)) {
+            int goldParts = getMaterialCount(entity, "gold");
+            int lapisParts = getMaterialCount(entity, "lapis");
+            if (goldParts > 0) multiplier -= (goldParts * GOLD_MAGIC * s("magic_protection") * progressMult);
+            if (lapisParts > 0) multiplier -= (lapisParts * LAPIS_MAGIC * s("magic_protection") * progressMult);
+        }
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+            int ironParts = getMaterialCount(entity, "iron");
+            if (ironParts > 0) multiplier -= (ironParts * IRON_PROJECTILE * s("projectile_protection") * progressMult);
+        }
+        if (source.getEntity() instanceof AbstractIllager) {
+            int emeraldParts = getMaterialCount(entity, "emerald");
+            if (emeraldParts > 0) multiplier -= (emeraldParts * EMERALD_ILLAGER * s("illager_protection") * progressMult);
+        }
+        if (source.is(DamageTypeTags.BYPASSES_ENCHANTMENTS) || source.getEntity() instanceof net.minecraft.world.entity.boss.wither.WitherBoss) {
+            int netheriteParts = getMaterialCount(entity, "netherite");
+            if (netheriteParts > 0) multiplier -= (netheriteParts * NETHERITE_WITHER_PIERCING * s("wither_piercing_protection") * progressMult);
+        }
+        if(source.is(DamageTypeTags.IS_FIRE)) {
+            int quartzParts = getMaterialCount(entity, "quartz");
+            if(quartzParts > 0) multiplier -= (quartzParts * QUARTZ_FIRE * s("fire_protection") * progressMult);
+        }
+
+        // --- NEUE MATERIALIEN ---
+
+        // Enderite: All-Round-Schutz (wie das Ward-Muster, aber als Material) gegen jeden Schaden,
+        // ausser dem, der die Unverwundbarkeit umgeht (/kill, die Leere).
+        int enderiteParts = source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) ? 0 : getMaterialCount(entity, "enderite");
+        if (enderiteParts > 0) {
+            generic += (enderiteParts * ENDERITE_ALL * s("all_protection") * progressMult);
+        }
+
+        // Astralit & Nihilith haben Movement Effekte, aber wir geben ihnen
+        // auch eine kleine physische Resistenz (wie Diamant aber schwächer), damit sie nicht nutzlos im Kampf sind.
+        if (!source.is(DamageTypeTags.BYPASSES_ARMOR)) {
+            int astralParts = getMaterialCount(entity, "astralit");
+            int nihilParts = getMaterialCount(entity, "nihilith");
+            if (astralParts > 0) generic += (astralParts * ASTRALIT_PHYSICAL * s("physical_protection") * progressMult);
+            if (nihilParts > 0) generic += (nihilParts * NIHILITH_PHYSICAL * s("physical_protection") * progressMult);
+        }
+
+        multiplier -= Math.min(generic, GENERIC_REDUCTION_CAP);
+
+        if (multiplier < DAMAGE_FLOOR) multiplier = DAMAGE_FLOOR;
+
+        return amount * multiplier;
+    }
+
+    private static float s(String bonusKey) {
+        return strength(bonusKey);
+    }
+
+    private static float calculateReduction(LivingEntity entity, String pattern, float baseReductionProzent, float progressMult) {
+        float count = getTrimCount(entity, pattern);
+        if (count <= 0) return 0f;
+        return count * baseReductionProzent * progressMult;
+    }
+
+    // --- UTIL GETTER (alle mit Deckel, siehe oben) ---
+
+    public static float getSwimSpeedMultiplier(LivingEntity entity) {
+        float progressMult = getGlobalMultiplier(entity);
+        float tideCount = getTrimCount(entity, "tide");
+        if (tideCount <= 0) return 1.0f;
+        return 1.0f + Math.min(tideCount * TIDE_SWIM * s("swimming_speed") * progressMult, MAX_SWIM_SPEED_BONUS);
+    }
+    public static float getLandSpeedMultiplier(LivingEntity entity) {
+        float progressMult = getGlobalMultiplier(entity);
+        float boltCount = getTrimCount(entity, "bolt");
+        int redstoneCount = getMaterialCount(entity, "redstone");
+        float bonus = 0f;
+        if (boltCount > 0) bonus += (boltCount * BOLT_SPEED * s("walking_speed"));
+        if (redstoneCount > 0) bonus += (redstoneCount * REDSTONE_SPEED * s("walking_speed"));
+        return 1.0f + Math.min(bonus * progressMult, MAX_LAND_SPEED_BONUS);
+    }
+    public static float getExhaustionReduction(Player player) {
+        float progressMult = getGlobalMultiplier(player);
+        float wayfinderCount = getTrimCount(player, "wayfinder");
+        if (wayfinderCount <= 0) return 0f;
+        float reduction = wayfinderCount * WAYFINDER_SPRINT_HUNGER * s("sprint_hunger") * progressMult;
+        return Math.min(reduction, MAX_SPRINT_HUNGER_REDUCTION);
+    }
+    public static float getXPMultiplier(Player player) {
+        float progressMult = getGlobalMultiplier(player);
+        float raiserCount = getTrimCount(player, "raiser");
+        int lapisCount = getMaterialCount(player, "lapis");
+        int quartzCount = getMaterialCount(player, "quartz");
+        float baseBonus = 0f;
+        baseBonus += (raiserCount * RAISER_XP * s("experience"));
+        baseBonus += (lapisCount * LAPIS_XP * s("experience"));
+        baseBonus += (quartzCount * QUARTZ_XP * s("experience"));
+        return 1.0f + Math.min(baseBonus * progressMult, MAX_XP_BONUS);
+    }
+    public static float getLuckBonus(LivingEntity player) {
+        float progressMult = getGlobalMultiplier(player);
+        float hostCount = getTrimCount(player, "host");
+        int emeraldCount = getMaterialCount(player, "emerald");
+        float bonus = 0f;
+        if (hostCount > 0) bonus += (hostCount * HOST_LUCK * s("luck"));
+        if (emeraldCount > 0) bonus += (emeraldCount * EMERALD_LUCK * s("luck"));
+        return Math.min(bonus * progressMult, MAX_LUCK_BONUS);
+    }
+    public static float getStealthMultiplier(LivingEntity entity) {
+        float progressMult = getGlobalMultiplier(entity);
+        float silenceCount = getTrimCount(entity, "silence");
+        if (silenceCount <= 0) return 1.0f;
+        float reduction = silenceCount * SILENCE_STEALTH * s("stealth") * progressMult;
+        return 1.0f - Math.min(reduction, MAX_STEALTH_REDUCTION);
+    }
+    public static float getAirSaveChance(LivingEntity entity) {
+        float progressMult = getGlobalMultiplier(entity);
+        float coastCount = getTrimCount(entity, "coast");
+        if (coastCount <= 0) return 0f;
+        return Math.min(coastCount * COAST_AIR_SAVE * s("breath_saving") * progressMult, MAX_AIR_SAVE_CHANCE);
+    }
+    public static int getWitherReductionAmount(LivingEntity entity) {
+        float progressMult = getGlobalMultiplier(entity);
+        float ribCount = getTrimCount(entity, "rib");
+        if (ribCount <= 0) return 0;
+        return Math.min((int) (ribCount * RIB_WITHER_TICKS * s("wither_shortening") * progressMult), MAX_WITHER_REDUCTION_TICKS);
+    }
+    public static float getAmethystHealChance(LivingEntity entity) {
+        float progressMult = getGlobalMultiplier(entity);
+        int amethystCount = getMaterialCount(entity, "amethyst");
+        if (amethystCount <= 0) return 0f;
+        return Math.min(amethystCount * AMETHYST_HEAL_CHANCE * s("healing_chance") * progressMult, MAX_HEAL_CHANCE);
+    }
+
+    /** Rueckstossresistenz aus Harz-Besatz (Material, je Teil). */
+    public static float getKnockbackResistanceBonus(LivingEntity entity) {
+        int resinCount = getMaterialCount(entity, "resin");
+        if (resinCount <= 0) return 0f;
+        return resinCount * RESIN_KNOCKBACK_RESISTANCE * s("knockback_resistance") * getGlobalMultiplier(entity);
+    }
+
+    /** Zusaetzliche Blockreichweite aus dem Shaper-Muster, in Bloecken. */
+    public static float getReachBonus(LivingEntity entity) {
+        float shaperCount = getTrimCount(entity, "shaper");
+        if (shaperCount <= 0) return 0f;
+        return Math.min(shaperCount * SHAPER_REACH * s("block_reach") * getGlobalMultiplier(entity), MAX_REACH_BONUS);
+    }
+}

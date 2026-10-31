@@ -4,12 +4,15 @@ import com.simplebuilding.blocks.ModBlocks;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.ItemStack;
@@ -76,7 +79,49 @@ public final class AstralEnchanting {
     /** Lapis lazuli and blaze powder the apple conversion takes. */
     public static final int APPLE_LAPIS = 3, APPLE_BLAZE = 3;
 
+    /**
+     * Endgame levels (WP-22 / MOB27-4, docs/ai/PLAN-A-ZONES31-2026-10-30.md): at tier {@value #ENDGAME_MIN_TIER} (the top stage: fifteen
+     * blazewood shelves and the blazing obsidian floor) the sliders of the enchantments in {@link #endgameLevels} reach their endgame level above
+     * Vanilla's maximum. Vanilla's own {@code max_level} stays untouched: the anvil cannot make Protection V out of two Protection IV
+     * books, only this table can. Each level above the Vanilla maximum costs {@value #ENDGAME_SURCHARGE} more levels. Switch
+     * {@code server.features.endgameEnchantLevels}.
+     */
+    public static final int ENDGAME_MIN_TIER = TIER_MAX;
+    public static final int ENDGAME_SURCHARGE = 6;
+    /** Hard ceiling of any endgame level: Protection VI would add nothing to a full set (24 > the cap of 20 protection points). */
+    public static final int ENDGAME_MAX_LEVEL = 5;
+    private static final Map<String, Integer> ENDGAME = new ConcurrentHashMap<>(Map.of("minecraft:protection", 5, "minecraft:feather_falling", 5));
+
     private AstralEnchanting() {
+    }
+
+    /**
+     * Hook for the enchanter rework (BS25-20: Dark and End Enchanter): a stage or another mod names an enchantment whose slider may
+     * exceed its Vanilla maximum at the top stage. Levels are limited to {@value #ENDGAME_MAX_LEVEL}. Nothing else changes.
+     */
+    public static void registerEndgame(Identifier enchantment, int level) {
+        ENDGAME.put(enchantment.toString(), Math.clamp(level, 1, ENDGAME_MAX_LEVEL));
+    }
+
+    /** The endgame levels by enchantment id (read-only copy). */
+    public static Map<String, Integer> endgameLevels() {
+        return Map.copyOf(ENDGAME);
+    }
+
+    /**
+     * Highest slider level of an enchantment at a table tier: its Vanilla maximum, or at {@link #ENDGAME_MIN_TIER} and with the
+     * switch on its endgame level (never lower than the Vanilla maximum, never above {@value #ENDGAME_MAX_LEVEL}).
+     */
+    public static int levelCap(String enchantmentId, int vanillaMax, int tier, boolean enabled) {
+        if (!enabled || tier < ENDGAME_MIN_TIER) return vanillaMax;
+        Integer endgame = ENDGAME.get(enchantmentId);
+        return endgame == null ? vanillaMax : Math.max(vanillaMax, Math.min(endgame, ENDGAME_MAX_LEVEL));
+    }
+
+    /** {@link #levelCap(String, int, int, boolean)} for a holder, with the server's switch. */
+    public static int levelCap(Holder<Enchantment> holder, int tier) {
+        String id = holder.unwrapKey().map(key -> key.identifier().toString()).orElse("");
+        return levelCap(id, holder.value().getMaxLevel(), tier, com.simplebuilding.config.ServerTuning.get().features.endgameEnchantLevels);
     }
 
     // ------------------------------------------------------------------ pure rules
@@ -144,14 +189,29 @@ public final class AstralEnchanting {
 
     /** Price of one slider before the tax: its share of the value, {@code ceil(value x level / max)}. */
     public static int levelPrice(int level, int maxLevel, int value) {
+        return levelPrice(level, maxLevel, maxLevel, value);
+    }
+
+    /**
+     * Price of one slider whose top is {@code maxLevel} but whose value was set at the Vanilla maximum {@code baseMax}: the share
+     * {@code ceil(value x level / baseMax)} and {@value #ENDGAME_SURCHARGE} more for each level above {@code baseMax} (endgame levels).
+     * Equal to the plain price when {@code baseMax == maxLevel}.
+     */
+    public static int levelPrice(int level, int maxLevel, int baseMax, int value) {
         if (level <= 0 || maxLevel <= 0) return 0;
-        return Math.ceilDiv(value * Math.min(level, maxLevel), maxLevel);
+        int base = Math.max(1, baseMax);
+        int clamped = Math.min(level, maxLevel);
+        return Math.ceilDiv(value * clamped, base) + ENDGAME_SURCHARGE * Math.max(0, clamped - base);
     }
 
     /** Sum of the slider prices before the tax. */
     public static int basePrice(int[] levels, int[] maxLevels, int[] values) {
+        return basePrice(levels, maxLevels, maxLevels, values);
+    }
+
+    public static int basePrice(int[] levels, int[] maxLevels, int[] baseMaxes, int[] values) {
         int sum = 0;
-        for (int i = 0; i < levels.length; i++) sum += levelPrice(levels[i], maxLevels[i], values[i]);
+        for (int i = 0; i < levels.length; i++) sum += levelPrice(levels[i], maxLevels[i], baseMaxes[i], values[i]);
         return sum;
     }
 
@@ -164,9 +224,13 @@ public final class AstralEnchanting {
 
     /** The price before the scaling: the sum plus a quarter of it per further enchantment. */
     public static int rawPrice(int[] levels, int[] maxLevels, int[] values) {
+        return rawPrice(levels, maxLevels, maxLevels, values);
+    }
+
+    public static int rawPrice(int[] levels, int[] maxLevels, int[] baseMaxes, int[] values) {
         int n = chosenCount(levels);
         if (n == 0) return 0;
-        return Math.ceilDiv(basePrice(levels, maxLevels, values) * (3 + n), 4);
+        return Math.ceilDiv(basePrice(levels, maxLevels, baseMaxes, values) * (3 + n), 4);
     }
 
     /**
@@ -177,8 +241,12 @@ public final class AstralEnchanting {
      * levels - never above the raw price. Both terms drop with every level taken away, so the price falls strictly.
      */
     public static int price(int[] levels, int[] maxLevels, int[] values) {
-        int raw = rawPrice(levels, maxLevels, values);
-        int full = rawPrice(maxLevels, maxLevels, values);
+        return price(levels, maxLevels, maxLevels, values);
+    }
+
+    public static int price(int[] levels, int[] maxLevels, int[] baseMaxes, int[] values) {
+        int raw = rawPrice(levels, maxLevels, baseMaxes, values);
+        int full = rawPrice(maxLevels, maxLevels, baseMaxes, values);
         if (raw == 0 || full <= MAX_PRICE) return raw;
         int chosen = 0, all = 0;
         for (int i = 0; i < levels.length; i++) {
@@ -191,10 +259,14 @@ public final class AstralEnchanting {
 
     /** The highest level slider {@code row} may take with the others as they are, within its maximum and the budget. */
     public static int maxAffordable(int row, int[] levels, int[] maxLevels, int[] values, int budget) {
+        return maxAffordable(row, levels, maxLevels, maxLevels, values, budget);
+    }
+
+    public static int maxAffordable(int row, int[] levels, int[] maxLevels, int[] baseMaxes, int[] values, int budget) {
         int[] test = levels.clone();
         for (int level = maxLevels[row]; level > 0; level--) {
             test[row] = level;
-            if (price(test, maxLevels, values) <= budget) return level;
+            if (price(test, maxLevels, baseMaxes, values) <= budget) return level;
         }
         return 0;
     }

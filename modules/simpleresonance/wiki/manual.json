@@ -1,0 +1,218 @@
+{
+  "features": [
+    {
+      "id": "player_value",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceMath.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceService.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/PlayerRecord.java"
+      ],
+      "en": {
+        "title": "Player value",
+        "summary": "A number from 0 to 1 for how experienced a player is: W = 0.7 x long-term value + 0.3 x the share since the last death. Level P = 5 x W. It rises with active playing time and bosses and falls only by a part when you die.",
+        "details": [
+          "Long-term value: points V give W_long = 1 - e^(-V/30). One point per 30 active minutes (moved within the last minute), 0.1 per hostile kill (at most 2 points per played hour, against farms), bosses once per 24 played hours each: Wither 5, Ender Dragon 10, Warden 8, Simple Mobs bosses 5. 5 active hours are worth 0.28, 15 hours 0.63, 30 hours 0.86.",
+          "Share since the last death (F): the old trim resonance of SimpleBuilding (experience, survival, combat since the last death, 0 to 1). A death resets it to 0 and keeps 75 % of the points V.",
+          "The value is cached per player and recomputed once a second. It only decides chances, never health or damage."
+        ]
+      },
+      "de": {
+        "title": "Spielerwert",
+        "summary": "Eine Zahl von 0 bis 1 dafür, wie erfahren ein Spieler ist: W = 0,7 x Langzeitwert + 0,3 x Anteil seit dem letzten Tod. Stufe P = 5 x W. Er steigt mit aktiver Spielzeit und Bossen und sinkt beim Tod nur um einen Teil.",
+        "details": [
+          "Langzeitwert: Punkte V ergeben W_lang = 1 - e^(-V/30). Ein Punkt je 30 aktive Minuten (in der letzten Minute bewegt), 0,1 je feindlichem Kill (höchstens 2 Punkte je gespielter Stunde, gegen Farmen), Bosse einmal je 24 gespielte Stunden: Wither 5, Enderdrache 10, Warden 8, Bosse aus Simple Mobs 5. 5 aktive Stunden sind 0,28 wert, 15 Stunden 0,63, 30 Stunden 0,86.",
+          "Anteil seit dem letzten Tod (F): die alte Besatz-Resonanz von SimpleBuilding (Erfahrung, Überleben, Kampf seit dem letzten Tod, 0 bis 1). Ein Tod setzt ihn auf 0 und behält 75 % der Punkte V.",
+          "Der Wert wird je Spieler zwischengespeichert und einmal pro Sekunde neu berechnet. Er entscheidet nur über Chancen, nie über Leben oder Schaden."
+        ]
+      }
+    },
+    {
+      "id": "zones",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceMath.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java"
+      ],
+      "en": {
+        "title": "Danger zones",
+        "summary": "The land gets more dangerous the farther it is from the world spawn: level 0.5 up to 512 blocks, rising softly to 5 at 6000 blocks (smoothstep, no hard edges). The level only steers chances for status effects on new monsters.",
+        "details": [
+          "Z(d) = 0.5 + 4.5 x smoothstep((d - 512) / 5488). 1000 blocks: 0.6, 2000: 1.3, 3000: 2.4, 4000: 3.6, from 6000: 5.",
+          "Nether: blocks count eightfold, never below level 2. End: counted from 0,0, never below 3, outer islands (beyond 1000 blocks) add 1. Other dimensions use the Overworld curve. Each dimension can be switched off.",
+          "The centre is the world spawn by default; center can also be 0,0 or fixed coordinates x,z."
+        ]
+      },
+      "de": {
+        "title": "Gefahrenzonen",
+        "summary": "Das Land wird gefährlicher, je weiter es vom Welt-Spawn entfernt ist: Stufe 0,5 bis 512 Blöcke, dann weich steigend bis 5 bei 6000 Blöcken (Smoothstep, keine harten Kanten). Die Stufe steuert nur Chancen auf Statuseffekte bei neuen Monstern.",
+        "details": [
+          "Z(d) = 0,5 + 4,5 x smoothstep((d - 512) / 5488). 1000 Blöcke: 0,6, 2000: 1,3, 3000: 2,4, 4000: 3,6, ab 6000: 5.",
+          "Nether: Blöcke zählen achtfach, nie unter Stufe 2. Ende: ab 0,0 gezählt, nie unter 3, äußere Inseln (über 1000 Blöcke) +1. Andere Dimensionen nutzen die Oberwelt-Kurve. Jede Dimension lässt sich abschalten.",
+          "Mittelpunkt ist standardmäßig der Welt-Spawn; center kann auch 0,0 oder feste Koordinaten x,z sein."
+        ]
+      }
+    },
+    {
+      "id": "spawn_owner",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceMath.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceService.java"
+      ],
+      "en": {
+        "title": "Spawn owner and spawn level",
+        "summary": "Every monster spawn attempt belongs to exactly one player nearby, chosen with weight 1/distance (no average). The spawn level is the zone level plus up to 2 levels for a strong owner, limited by the newcomer protection.",
+        "details": [
+          "Candidates: players in the same dimension within 128 blocks, no spectators, nobody idle for more than 5 minutes. Example: an attempt 75 % of the way to a newcomer A belongs to A with 75 % and to B with 25 %.",
+          "If the nearest player is less than a third as far away as the second nearest (inside the nearest quarter), he owns the attempt at 100 %. snapRatio 0 switches this off, softSnap makes the step smooth.",
+          "Nobody near (chunk generation): the spawn counts as ownerless, at most level 2.",
+          "Level S = zone + 2 x W of the owner, then limited by the caps of the newcomer protection, plus noise of up to 0.4 so zone edges do not show."
+        ]
+      },
+      "de": {
+        "title": "Spawn-Besitzer und Spawn-Stufe",
+        "summary": "Jeder Monster-Spawn-Versuch gehört genau einem Spieler in der Nähe, gewählt mit Gewicht 1/Abstand (kein Mittelwert). Die Spawn-Stufe ist die Zonenstufe plus bis zu 2 Stufen für einen starken Besitzer, begrenzt durch den Anfängerschutz.",
+        "details": [
+          "Kandidaten: Spieler in derselben Dimension im Umkreis von 128 Blöcken, keine Zuschauer, niemand, der länger als 5 Minuten untätig ist. Beispiel: ein Versuch auf 75 % des Weges zum Anfänger A gehört A zu 75 % und B zu 25 %.",
+          "Ist der nächste Spieler weniger als ein Drittel so weit weg wie der zweitnächste (im nächsten Viertel), gehört der Versuch ihm zu 100 %. snapRatio 0 schaltet das ab, softSnap macht den Sprung weich.",
+          "Niemand in der Nähe (Chunk-Erzeugung): der Spawn gilt als besitzerlos, höchstens Stufe 2.",
+          "Stufe S = Zone + 2 x W des Besitzers, dann durch die Deckel des Anfängerschutzes begrenzt, plus Rauschen bis 0,4, damit Zonenränder nicht auffallen."
+        ]
+      }
+    },
+    {
+      "id": "newcomer_protection",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceMath.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java"
+      ],
+      "en": {
+        "title": "Newcomer protection",
+        "summary": "A spawn is at most one level above the level of its owner, and in the first 6 played hours monsters stay at level 1. Players standing within 40 blocks of the spawn limit it as well.",
+        "details": [
+          "Cap of a player: min(own level P + 1, grace cap). Grace cap: 1 for the first 6 played hours (Vanilla statistic play_time), then rising softly to 5 over the next 6 hours.",
+          "Nearby cap: every other player within 40 blocks limits the spawn with his own cap, so a veteran's monster does not hit a newcomer standing next to him. nearbyCap switches it off.",
+          "The 5 minutes of Simple Tweaks' new-player shield only protect from other players and stay as they are."
+        ]
+      },
+      "de": {
+        "title": "Anfängerschutz",
+        "summary": "Ein Spawn liegt höchstens eine Stufe über der Stufe seines Besitzers, und in den ersten 6 gespielten Stunden bleiben Monster auf Stufe 1. Spieler im Umkreis von 40 Blöcken begrenzen den Spawn ebenfalls.",
+        "details": [
+          "Deckel eines Spielers: min(eigene Stufe P + 1, Schonfrist-Deckel). Schonfrist-Deckel: 1 in den ersten 6 gespielten Stunden (Vanilla-Statistik play_time), danach weich steigend auf 5 in den nächsten 6 Stunden.",
+          "Nähe-Deckel: jeder andere Spieler im Umkreis von 40 Blöcken begrenzt den Spawn mit seinem eigenen Deckel, damit das Monster eines Profis keinen Anfänger neben ihm trifft. nearbyCap schaltet das ab.",
+          "Die 5 Minuten des Neue-Spieler-Schutzes von Simple Tweaks schützen nur vor anderen Spielern und bleiben, wie sie sind."
+        ]
+      }
+    },
+    {
+      "id": "api",
+      "sources": [
+        "framework/src/main/java/com/simplebuilding/framework/api/ResonanceContracts.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceService.java"
+      ],
+      "en": {
+        "title": "Interface for other mods",
+        "summary": "Other mods ask Simple Resonance through the framework contract ResonanceContracts (pure Java, no class import): player value, level, zone level, spawn owner, spawn level, award points, newcomer flag. Without Simple Resonance the contract is empty and nothing changes.",
+        "details": [
+          "Simple Mobs uses it: with zoneMobsEnabled new monsters get status effects (Strength, Speed, Extra Hearts, Oozing, Infested, Deflection, Volatile, Mirror) by the spawn level. No extra health.",
+          "award(player, source, points) gives long-term points (boss kills); the same source gives points once per 24 played hours."
+        ]
+      },
+      "de": {
+        "title": "Schnittstelle für andere Mods",
+        "summary": "Andere Mods fragen Simple Resonance über den Framework-Vertrag ResonanceContracts (reines Java, kein Klassenimport): Spielerwert, Stufe, Zonenstufe, Spawn-Besitzer, Spawn-Stufe, Punkte vergeben, Anfänger-Kennzeichen. Ohne Simple Resonance ist der Vertrag leer und nichts ändert sich.",
+        "details": [
+          "Simple Mobs nutzt ihn: mit zoneMobsEnabled bekommen neue Monster je nach Spawn-Stufe Statuseffekte (Stärke, Geschwindigkeit, Extraherzen, Sickern, Befall, Ablenkung, Flüchtig, Spiegel). Kein zusätzliches Leben.",
+          "award(player, source, points) vergibt Langzeitpunkte (Boss-Kills); dieselbe Quelle gibt nur einmal je 24 gespielte Stunden Punkte."
+        ]
+      }
+    },
+    {
+      "id": "migration",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/LegacyImport.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/mixin/ServerPlayerLegacyMixin.java",
+        "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java"
+      ],
+      "en": {
+        "title": "Takeover from SimpleBuilding",
+        "summary": "Nothing is lost: on a player's first tick Simple Resonance reads the old tracker block SimpleBuildingData (baselines since the last death, active time, kill totals) and starts the long-term points at 1 per 30 old active minutes. The base multiplier of the trim resonance is taken over from config/simplebuilding.json on the first start.",
+        "details": [
+          "SimpleBuilding keeps its own tracker and trim bonuses unchanged; the move of the trim abilities to Simple Mobs follows in a later step."
+        ]
+      },
+      "de": {
+        "title": "Übernahme aus SimpleBuilding",
+        "summary": "Nichts geht verloren: beim ersten Tick eines Spielers liest Simple Resonance den alten Tracker-Block SimpleBuildingData (Basiswerte seit dem letzten Tod, aktive Zeit, Kill-Summen) und startet die Langzeitpunkte bei 1 je 30 alten aktiven Minuten. Der Basis-Multiplikator der Besatz-Resonanz wird beim ersten Start aus config/simplebuilding.json übernommen.",
+        "details": [
+          "SimpleBuilding behält seinen eigenen Tracker und die Besatz-Boni unverändert; der Umzug der Besatz-Fähigkeiten nach Simple Mobs folgt in einem späteren Schritt."
+        ]
+      }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/config/ResonanceConfig.java"
+      ],
+      "en": {
+        "title": "Server settings",
+        "summary": "config/simpleresonance-server.json, read at start; every number is clamped to a safe range. /simpleresonance config changes them in game.",
+        "details": [
+          "enabled (true): off = no values, no levels, every spawn stays Vanilla. center (world_spawn, 0,0 or x,z) with z0 (0.5), d1 (512), d2 (6000), zmax (5): the zone curve.",
+          "overworld, nether, end (true) and otherDimensions (true): which dimensions have zones; netherFactor (8), netherZ0 (2), endZ0 (3), endOuterBonus (1).",
+          "ownerRadius (128), snapRatio (3, 0 = off), softSnap (false), ownerlessCap (2), ignoreAfkMinutes (5): the spawn owner.",
+          "lifeWeight (0.7), tau (30), deathKeep (0.75), killPoints (0.1), killPointsPerHour (2), bossCooldownHours (24): the player value.",
+          "bmax (2), ahead (1), graceHours (6), nearbyCap (true), nearbyRadius (40), noise (0.4): the spawn level and the newcomer protection.",
+          "trimBenefitBaseMultiplier (2.0): base of the old trim resonance, taken over from the SimpleBuilding config.",
+          "With SimpleBuilding the switch Enable Simple Resonance in its config turns the bundled module on or off."
+        ]
+      },
+      "de": {
+        "title": "Server-Einstellungen",
+        "summary": "config/simpleresonance-server.json, beim Start gelesen; jede Zahl wird auf einen sicheren Bereich begrenzt. /simpleresonance config ändert sie im Spiel.",
+        "details": [
+          "enabled (true): aus = keine Werte, keine Stufen, jeder Spawn bleibt Vanilla. center (world_spawn, 0,0 oder x,z) mit z0 (0,5), d1 (512), d2 (6000), zmax (5): die Zonenkurve.",
+          "overworld, nether, end (true) und otherDimensions (true): welche Dimensionen Zonen haben; netherFactor (8), netherZ0 (2), endZ0 (3), endOuterBonus (1).",
+          "ownerRadius (128), snapRatio (3, 0 = aus), softSnap (false), ownerlessCap (2), ignoreAfkMinutes (5): der Spawn-Besitzer.",
+          "lifeWeight (0,7), tau (30), deathKeep (0,75), killPoints (0,1), killPointsPerHour (2), bossCooldownHours (24): der Spielerwert.",
+          "bmax (2), ahead (1), graceHours (6), nearbyCap (true), nearbyRadius (40), noise (0,4): die Spawn-Stufe und der Anfängerschutz.",
+          "trimBenefitBaseMultiplier (2,0): Basis der alten Besatz-Resonanz, aus der SimpleBuilding-Config übernommen.",
+          "Mit SimpleBuilding schaltet der Schalter Simple Resonance aktivieren in dessen Config das gebündelte Modul ein oder aus."
+        ]
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/ResonanceCommand.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/resonance shows your value, the level of the land where you stand and your newcomer protection. /resonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
+        "details": [
+          "/simpleresonance config get|set|reset <option> (game masters): every setting of the server config."
+        ]
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/resonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /resonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
+        "details": [
+          "/simpleresonance config get|set|reset <Option> (Spielleiter): jede Einstellung der Server-Config."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "simpleresonance:guide_book": {
+      "sources": [
+        "modules/simpleresonance/shared/java/com/simpleresonance/guide/ResonanceGuide.java",
+        "modules/simpleresonance/shared/resources/data/simpleresonance/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + an echo shard. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Resonance\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + einer Echo-Scherbe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Resonance\" eins."
+      }
+    }
+  }
+}

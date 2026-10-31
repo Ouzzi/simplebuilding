@@ -123,6 +123,20 @@ public final class ModuleGameTest {
     }
     @GameTest(structure = "simplemobs:empty") public void combatRegistered(GameTestHelper helper) { MobsTests.ALL.get("combat_registered").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void combatRules(GameTestHelper helper) { MobsTests.ALL.get("combat_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void zoneEffectRules(GameTestHelper helper) { MobsTests.ALL.get("zone_effect_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void zoneEffectRoll(GameTestHelper helper) { MobsTests.ALL.get("zone_effect_roll").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void zoneSpawnHook(GameTestHelper helper) { MobsTests.ALL.get("zone_spawn_hook").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void zoneSwitches(GameTestHelper helper) { MobsTests.ALL.get("zone_switches").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void zoneEffectKinds(GameTestHelper helper) { MobsTests.ALL.get("zone_effect_kinds").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void zoneBossAward(GameTestHelper helper) { MobsTests.ALL.get("zone_boss_award").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityTable(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_table").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityDamage(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_damage").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityInputs(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_inputs").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilitySwitch(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_switch").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityHit(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_hit").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityAttributes(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_attributes").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityPlayer(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_player").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trimAbilityFallback(GameTestHelper helper) { MobsTests.ALL.get("trim_ability_fallback").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void deflectionRoll(GameTestHelper helper) { MobsTests.ALL.get("deflection_roll").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void mirrorReflect(GameTestHelper helper) { MobsTests.ALL.get("mirror_reflect").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void mirrorBearer(GameTestHelper helper) { MobsTests.ALL.get("mirror_bearer").accept(helper); }

@@ -19,6 +19,10 @@ public final class MobsFabric implements ModInitializer {
         FabricDefaultAttributeRegistry.register(MobsRegistry.DECEIVER, DeceiverEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes());
         ServerTickEvents.END_SERVER_TICK.register(MobsServer::tick);
+        // WP-22: Simple Mobs' own boss kills count for the killer's resonance value (the spawn hook itself is a mixin).
+        net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.AFTER_DEATH.register(ZoneSpawns::onDeath);
+        // MOB27-3: Simple Mobs applies the armour trim abilities (the SimpleBuilding core stays their fallback and feeds the inputs).
+        com.simplebuilding.modules.simplemobs.trim.TrimAbilities.install();
         EndNetherMobs.registerAll();
         FabricDefaultAttributeRegistry.register(EndNetherMobs.SHELLKER, ShellkerEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(EndNetherMobs.SOULFIRE_BLAZE, net.minecraft.world.entity.monster.Blaze.createAttributes());

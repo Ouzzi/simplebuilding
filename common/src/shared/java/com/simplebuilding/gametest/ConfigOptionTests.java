@@ -579,6 +579,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleGadgets boolean=true",
             "root.enableSimpleChallenges boolean=true",
             "root.enableSimpleAnimals boolean=true",
+            "root.enableSimpleResonance boolean=true",
             "root.enableSimpleRedstone boolean=true",
             "root.enableSimpleDinos boolean=true",
             "root.enableSimpleOres boolean=true",
@@ -743,6 +744,7 @@ public final class ConfigOptionTests {
             "server.features.armorStandArms boolean=true",
             "server.features.armorStandSwap boolean=true",
             "server.features.simpleDoors boolean=true",
+            "server.features.endgameEnchantLevels boolean=true",
             "server.chunkLoaders.requireOwnerOnline boolean=true",
             "server.dimensionLocks.chunkLoaderBlockedDimensions String=",
             "server.dimensionLocks.flypadBlockedDimensions String=",
@@ -1200,7 +1202,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
                 {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"},
-                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleChallenges", "simplechallenges"}, {"enableSimpleAnimals", "simpleanimals"}, {"enableSimpleRedstone", "simpleredstone"}, {"enableSimpleDinos", "simpledinos"}, {"enableSimpleOres", "simpleores"}};
+                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleChallenges", "simplechallenges"}, {"enableSimpleAnimals", "simpleanimals"}, {"enableSimpleRedstone", "simpleredstone"}, {"enableSimpleResonance", "simpleresonance"}, {"enableSimpleDinos", "simpledinos"}, {"enableSimpleOres", "simpleores"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {

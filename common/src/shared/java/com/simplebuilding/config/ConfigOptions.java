@@ -124,6 +124,7 @@ public final class ConfigOptions {
             "enableSimpleGadgets",
             "enableSimpleChallenges",
             "enableSimpleAnimals",
+            "enableSimpleResonance",
             "enableSimpleRedstone",
             "enableSimpleDinos",
             "enableSimpleOres",

@@ -321,6 +321,7 @@ dependencies {
     include project(':modules:simpleshops:fabric')
     include project(':modules:simplewanderers:fabric')
     include project(':modules:simpleanimals:fabric')
+    include project(':modules:simpleresonance:fabric')
     include project(':modules:simpledinos:fabric')
     include project(':modules:simpleores:fabric')
     include project(':modules:simplemusic:fabric')

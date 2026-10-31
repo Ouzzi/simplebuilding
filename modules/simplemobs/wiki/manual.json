@@ -147,6 +147,68 @@
       }
     },
     {
+      "id": "zone_effects",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneEffects.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneSpawns.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/MobZoneSpawnMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/ResonanceContracts.java"
+      ],
+      "en": {
+        "title": "Danger zones: effects on new monsters",
+        "summary": "With Simple Resonance installed and zoneMobsEnabled on, new monsters get status effects (never more health) by the danger level of their spawn place: the farther from the world spawn and the more experienced the nearest player, the more likely and the stronger. Off by default until the client check.",
+        "details": [
+          "Which spawns: natural spawns, patrols and chunk generation of monsters (zoneSpawnReasons). Never spawners, eggs, commands, raids, summoned, named monsters or bosses.",
+          "Pools and chance at level 5: Strength 35 % (up to III), Speed 25 % (II), Extra Hearts 30 % (II), Oozing 20 % (I), Infested 20 % (I), Deflection 25 % (V), Volatile 15 % (V), Mirror 10 % (V). The chance grows as chance x (level / 5)^1.3; the pools are drawn in random order, at most zoneMaxEffects (3) per monster.",
+          "The level of an effect follows the spawn level around a bell curve (level 1: I 61 %, II 33 %, III 5 %; level 5: V 61 %, IV 33 %), limited by the pool's levelCap. Effects last for good and are saved with the monster.",
+          "zoneMobsEnabled (false), zoneMaxEffects (3, 0 to 8), zoneSpawnReasons (natural, patrol, chunk_generation) and zoneEffects.<pool>.chance / levelCap are in simplemobs-server.json and /simplemobs config.",
+          "Killing a Hollow Howler, Hollow Watcher or Blighted / Abyssal Wither gives the killer 5 resonance points (once per 24 played hours each)."
+        ]
+      },
+      "de": {
+        "title": "Gefahrenzonen: Effekte für neue Monster",
+        "summary": "Mit installiertem Simple Resonance und eingeschaltetem zoneMobsEnabled bekommen neue Monster je nach Gefahrenstufe ihres Spawn-Ortes Statuseffekte (nie mehr Leben): je weiter vom Welt-Spawn und je erfahrener der nächste Spieler, desto wahrscheinlicher und stärker. Standardmäßig aus bis zur Client-Abnahme.",
+        "details": [
+          "Welche Spawns: natürliche Spawns, Patrouillen und Chunk-Erzeugung von Monstern (zoneSpawnReasons). Nie Spawner, Eier, Befehle, Raids, beschworene, benannte Monster oder Bosse.",
+          "Töpfe und Chance bei Stufe 5: Stärke 35 % (bis III), Geschwindigkeit 25 % (II), Extraherzen 30 % (II), Oozing 20 % (I), Infested 20 % (I), Ablenkung 25 % (V), Flüchtig 15 % (V), Spiegel 10 % (V). Die Chance wächst wie Chance x (Stufe / 5)^1,3; die Töpfe werden in zufälliger Reihenfolge gewürfelt, höchstens zoneMaxEffects (3) je Monster.",
+          "Die Stufe eines Effekts folgt der Spawn-Stufe um eine Glockenkurve (Stufe 1: I 61 %, II 33 %, III 5 %; Stufe 5: V 61 %, IV 33 %), begrenzt durch das levelCap des Topfs. Effekte halten für immer und werden mit dem Monster gespeichert.",
+          "zoneMobsEnabled (false), zoneMaxEffects (3, 0 bis 8), zoneSpawnReasons (natural, patrol, chunk_generation) und zoneEffects.<Topf>.chance / levelCap stehen in simplemobs-server.json und /simplemobs config.",
+          "Wer einen Hollow Howler, Hollow Watcher oder Blighted / Abyssal Wither besiegt, bekommt 5 Resonanzpunkte (je einmal pro 24 gespielte Stunden)."
+        ]
+      }
+    },
+    {
+      "id": "trim_abilities",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trim/TrimAbilities.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trim/TrimAbilityAttributes.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrimAbilityLivingMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrimAbilityPlayerMixin.java",
+        "framework/src/main/java/com/simplebuilding/framework/api/TrimContracts.java"
+      ],
+      "en": {
+        "title": "Armour trim abilities",
+        "summary": "Armour trims do more than look good: every trim pattern and trim material gives its wearer a small ability (less damage of one kind, speed, luck, reach, air, experience). Simple Mobs applies them; they grow with the wearer's resonance from Simple Resonance (required). Cosmetic trim effects (glowing, placed templates) stay in Simple Trims.",
+        "details": [
+          "Per piece at resonance 1.0, for example: Ward 3 % less of every damage, Sentry 5 % less projectile damage, Spire 8 % less fall damage, Bolt 5 % faster walking, Raiser 10 % more experience, Shaper 0.25 blocks reach; materials: Diamond 3 % less physical damage, Enderite 5 % less of every damage, Resin knockback resistance, Amethyst a chance to heal. Netherite pieces count 1.75 and Enderite pieces 2 for their pattern.",
+          "Caps: never more than 80 % less damage per hit, the bonuses against every damage together at most 25 %, walking +20 %, experience +50 %, air saving 75 %, half visibility.",
+          "Resonance: with SimpleBuilding its own trim resonance (experience, survival and combat since the last death, 0.2 to 2.0); without it Simple Resonance's trim multiplier; monsters and armour stands always 0.2.",
+          "With SimpleBuilding the server's trim strengths and each player's own trim switch apply; without Simple Mobs (or with it switched off) SimpleBuilding keeps applying the same abilities itself."
+        ]
+      },
+      "de": {
+        "title": "Fähigkeiten der Rüstungsbesätze",
+        "summary": "Rüstungsbesätze sehen nicht nur gut aus: jedes Besatzmuster und jedes Besatzmaterial gibt seinem Träger eine kleine Fähigkeit (weniger Schaden einer Art, Tempo, Glück, Reichweite, Luft, Erfahrung). Simple Mobs wendet sie an; sie wachsen mit der Resonanz des Trägers aus Simple Resonance (Pflicht). Kosmetische Besatz-Effekte (Glühen, platzierte Vorlagen) bleiben in Simple Trims.",
+        "details": [
+          "Je Teil bei Resonanz 1,0 zum Beispiel: Ward 3 % weniger von jedem Schaden, Sentry 5 % weniger Geschossschaden, Spire 8 % weniger Fallschaden, Bolt 5 % schneller laufen, Raiser 10 % mehr Erfahrung, Shaper 0,25 Blöcke Reichweite; Materialien: Diamant 3 % weniger körperlicher Schaden, Enderit 5 % weniger von jedem Schaden, Harz Rückstoßresistenz, Amethyst eine Heil-Chance. Netherit-Teile zählen 1,75 und Enderit-Teile 2 für ihr Muster.",
+          "Deckel: nie mehr als 80 % weniger Schaden je Treffer, die Boni gegen jeden Schaden zusammen höchstens 25 %, Laufen +20 %, Erfahrung +50 %, Luft sparen 75 %, halbe Sichtbarkeit.",
+          "Resonanz: mit SimpleBuilding dessen eigene Besatz-Resonanz (Erfahrung, Überleben und Kampf seit dem letzten Tod, 0,2 bis 2,0); ohne den Besatz-Multiplikator von Simple Resonance; Monster und Rüstungsständer immer 0,2.",
+          "Mit SimpleBuilding gelten die Besatz-Stärken des Servers und der eigene Besatz-Schalter jedes Spielers; ohne Simple Mobs (oder ausgeschaltet) wendet SimpleBuilding dieselben Fähigkeiten selbst an."
+        ]
+      }
+    },
+    {
       "id": "soulfire_blaze",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/SoulfireBlaze.java",

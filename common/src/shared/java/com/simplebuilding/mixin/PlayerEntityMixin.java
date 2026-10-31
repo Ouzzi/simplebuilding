@@ -49,6 +49,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickLogic(CallbackInfo ci) {
         Player player = (Player) (Object) this;
+        // MOB27-3: Simple Mobs applies the trim abilities when it is loaded and on; the core is the fallback.
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
 
         // 1. Trim Effekte (Stasis, Astralit Jump Boost)
         TrimEffectUtil.tick(player);
@@ -67,6 +69,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     @ModifyVariable(method = "causeFoodExhaustion", at = @At("HEAD"), argsOnly = true)
     private float simplebuilding$reduceExhaustion(float exhaustion) {
         Player player = (Player) (Object) this;
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return exhaustion;
         if (player.isSprinting()) {
             // Nutzt jetzt den zentralen Rechner mit Multiplikator
             float reductionPct = TrimEffectUtil.getExhaustionReduction(player);
@@ -82,6 +85,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     private int simplebuilding$modifyXpGain(int experience) {
         Player player = (Player) (Object) this;
         if (experience <= 0) return experience;
+        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return experience;
 
         float multiplier = TrimEffectUtil.getXPMultiplier(player);
         if (multiplier > 1.0f) {

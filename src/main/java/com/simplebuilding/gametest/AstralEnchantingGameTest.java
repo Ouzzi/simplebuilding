@@ -50,6 +50,16 @@ public final class AstralEnchantingGameTest {
     }
 
     @GameTest
+    public void endgameLevelRules(GameTestHelper helper) {
+        AstralEnchantingTests.endgameLevelRules(helper);
+    }
+
+    @GameTest
+    public void endgameLevelsAtTheTable(GameTestHelper helper) {
+        AstralEnchantingTests.endgameLevelsAtTheTable(helper);
+    }
+
+    @GameTest
     public void blazingObsidianKeepsFireBurning(GameTestHelper helper) {
         AstralEnchantingTests.blazingObsidianKeepsFireBurning(helper);
     }

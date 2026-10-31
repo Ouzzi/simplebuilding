@@ -65,9 +65,13 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     private final DataSlot tier = DataSlot.standalone();
     /** Shelf points * 2 + 1 with the floor (for the tooltip: what the next stage lacks). */
     private final DataSlot setup = DataSlot.standalone();
-    /** Per row: enchantment id (holder id map, -1 none), max level, chosen level, value at the max level. */
+    /**
+     * Per row: enchantment id (holder id map, -1 none), top level of the slider (Vanilla maximum, or the endgame level at the top tier,
+     * {@link AstralEnchanting#levelCap}), chosen level, value at the Vanilla maximum, and that Vanilla maximum.
+     */
     private final int[] enchant = {-1, -1, -1};
     private final int[] maxLevel = new int[3];
+    private final int[] baseMax = new int[3];
     private final int[] chosen = new int[3];
     private final int[] value = new int[3];
 
@@ -114,7 +118,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         this.addStandardInventorySlots(inventory, 8, INVENTORY_Y);
         this.addDataSlot(this.tier);
         this.addDataSlot(this.setup);
-        for (int[] array : new int[][] {this.enchant, this.maxLevel, this.chosen, this.value}) {
+        for (int[] array : new int[][] {this.enchant, this.maxLevel, this.chosen, this.value, this.baseMax}) {
             for (int i = 0; i < 3; i++) this.addDataSlot(DataSlot.shared(array, i));
         }
         refresh();
@@ -125,14 +129,16 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
     /** Server: reads the table's tier and draws the three enchantments for the item from the player's seed. */
     private void refresh() {
         this.access.execute((level, pos) -> {
-            this.tier.set(readTier(level, pos));
+            int currentTier = readTier(level, pos);
+            this.tier.set(currentTier);
             ItemStack stack = this.itemSlot.getItem(0);
             List<Holder<Enchantment>> choices = AstralEnchanting.choices(level.registryAccess(), stack, this.player.getEnchantmentSeed());
             IdMap<Holder<Enchantment>> ids = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).asHolderIdMap();
             for (int i = 0; i < 3; i++) {
                 Holder<Enchantment> holder = i < choices.size() ? choices.get(i) : null;
                 this.enchant[i] = holder == null ? -1 : ids.getId(holder);
-                this.maxLevel[i] = holder == null ? 0 : holder.value().getMaxLevel();
+                this.baseMax[i] = holder == null ? 0 : holder.value().getMaxLevel();
+                this.maxLevel[i] = holder == null ? 0 : AstralEnchanting.levelCap(holder, currentTier);
                 this.value[i] = holder == null ? 0 : AstralEnchanting.value(holder.value());
                 this.chosen[i] = 0;
             }
@@ -184,6 +190,11 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         return this.enchant[row] < 0 ? 0 : this.maxLevel[row];
     }
 
+    /** The Vanilla maximum of the row's enchantment: the slider levels above it are endgame levels (dearer, {@link AstralEnchanting#ENDGAME_SURCHARGE} each). */
+    public int baseMax(int row) {
+        return this.enchant[row] < 0 ? 0 : this.baseMax[row];
+    }
+
     public int chosen(int row) {
         return this.chosen[row];
     }
@@ -195,7 +206,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
 
     /** Levels the row's slider would cost alone at {@code level} (before the tax). */
     public int levelPrice(int row, int level) {
-        return AstralEnchanting.levelPrice(level, maxLevel(row), this.value[row]);
+        return AstralEnchanting.levelPrice(level, maxLevel(row), baseMax(row), this.value[row]);
     }
 
     public int[] chosenLevels() {
@@ -206,9 +217,13 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
         return new int[] {maxLevel(0), maxLevel(1), maxLevel(2)};
     }
 
+    private int[] baseMaxes() {
+        return new int[] {baseMax(0), baseMax(1), baseMax(2)};
+    }
+
     /** Sum of the slider prices before the tax. */
     public int basePrice() {
-        return AstralEnchanting.basePrice(this.chosen, maxLevels(), this.value);
+        return AstralEnchanting.basePrice(this.chosen, maxLevels(), baseMaxes(), this.value);
     }
 
     /** Whether the item slot holds a golden apple (BS25-22): the table then offers the Enchanted Golden Apple instead of sliders. */
@@ -218,7 +233,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
 
     /** The price in levels (tax included, at most 50): used up on enchanting, and the player needs it. A golden apple: {@link AstralEnchanting#APPLE_LEVELS}. */
     public int price() {
-        return isApple() ? AstralEnchanting.APPLE_LEVELS : AstralEnchanting.price(this.chosen, maxLevels(), this.value);
+        return isApple() ? AstralEnchanting.APPLE_LEVELS : AstralEnchanting.price(this.chosen, maxLevels(), baseMaxes(), this.value);
     }
 
     /** Levels the click takes off the player: the apple's whole price, else 1-5 like Vanilla's table. */
@@ -236,7 +251,7 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
 
     /** Highest level the slider in {@code row} may reach now (the rest greyed out). */
     public int affordable(int row) {
-        return AstralEnchanting.maxAffordable(row, this.chosen, maxLevels(), this.value, budget());
+        return AstralEnchanting.maxAffordable(row, this.chosen, maxLevels(), baseMaxes(), this.value, budget());
     }
 
     public int lapis() {
@@ -305,7 +320,10 @@ public class AstralEnchantingMenu extends AbstractContainerMenu {
             ItemStack result = stack.is(Items.BOOK) ? stack.transmuteCopy(Items.ENCHANTED_BOOK, 1) : stack.copy();
             for (int row = 0; row < 3; row++) {
                 Holder<Enchantment> holder = enchantment(level, row);
-                if (holder != null && this.chosen[row] > 0) result.enchant(holder, Math.min(this.chosen[row], holder.value().getMaxLevel()));
+                if (holder == null || this.chosen[row] <= 0) continue;
+                // The table may have lost its top stage since the offer was drawn: an endgame level then is refused, never cut quietly.
+                if (this.chosen[row] > AstralEnchanting.levelCap(holder, tier)) return false;
+                result.enchant(holder, this.chosen[row]);
             }
             // N37 (owner): the price is the level needed; like Vanilla only a few levels are used up (1-5).
             player.onEnchantmentPerformed(result, AstralEnchanting.levelCost(levels));
