@@ -65,6 +65,8 @@ public final class AnimalsDiscover {
             "simpleanimals:hedgehog_spawn_egg",
             "simpleanimals:raw_crab",
             "simpleanimals:spawning",
+            "simpleanimals:truffle",
+            "simpleanimals:truffle_soup",
             "simpleanimals:zebra",
             "simpleanimals:zebra_spawn_egg",
             "simpleanimals:zorse");

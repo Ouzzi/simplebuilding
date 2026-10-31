@@ -1312,7 +1312,7 @@ window.WIKI_MODULES = [
       "recipes": 286,
       "features": 12
     },
-    "dataHash": "7c20efb08a37"
+    "dataHash": "30b662190a51"
   },
   {
     "id": "simplecrucibles",
@@ -1757,7 +1757,7 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 9
     },
-    "dataHash": "9176c8428581"
+    "dataHash": "1a5d00f23922"
   },
   {
     "id": "simpledinos",

@@ -863,7 +863,19 @@
         "en_us": "Truffle",
         "de_de": "Trüffel"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleanimals/shared/java/com/simpleanimals/AnimalsRegistry.java",
+          "modules/simpleanimals/shared/java/com/simpleanimals/entity/Boar.java",
+          "modules/simpleanimals/shared/resources/data/simpleanimals/loot_table/gameplay/boar_truffle.json"
+        ],
+        "en": {
+          "summary": "Very rarely dug up by an adult wild boar standing on dirt or grass (1 to 2, boarTruffles / boarTruffleChance). Ingredient of truffle soup."
+        },
+        "de": {
+          "summary": "Wird sehr selten von einem ausgewachsenen Wildschwein auf Erde oder Gras ausgegraben (1 bis 2, boarTruffles / boarTruffleChance). Zutat der Trüffelsuppe."
+        }
+      },
       "texture": "assets/textures/simpleanimals/item/truffle.png",
       "questionary": {
         "en": {
@@ -900,7 +912,18 @@
         "en_us": "Truffle Soup",
         "de_de": "Trüffelsuppe"
       },
-      "note": null,
+      "note": {
+        "sources": [
+          "modules/simpleanimals/shared/java/com/simpleanimals/AnimalsRegistry.java",
+          "modules/simpleanimals/shared/resources/data/simpleanimals/recipe/truffle_soup.json"
+        ],
+        "en": {
+          "summary": "Bowl, truffle and brown mushroom. Eats like mushroom stew and gives 20 seconds of Night Vision; the bowl stays."
+        },
+        "de": {
+          "summary": "Schüssel, Trüffel und brauner Pilz. Sättigt wie Pilzsuppe und gibt 20 Sekunden Nachtsicht; die Schüssel bleibt."
+        }
+      },
       "texture": "assets/textures/simpleanimals/item/truffle_soup.png",
       "questionary": {
         "en": {
@@ -989,10 +1012,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleanimals:truffle",
-    "simpleanimals:truffle_soup"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 9,
@@ -1007,7 +1027,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 2,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
