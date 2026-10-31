@@ -21,7 +21,7 @@ public final class Melts {
         add(Metal.GOLD, 81, Items.GOLD_BLOCK, Items.RAW_GOLD_BLOCK);
         add(Metal.COPPER, 9, Items.RAW_COPPER, Items.COPPER_ORE, Items.DEEPSLATE_COPPER_ORE, Items.COPPER_INGOT);
         add(Metal.COPPER, 1, Items.COPPER_NUGGET);
-        add(Metal.COPPER, 81, Items.COPPER_BLOCK, Items.RAW_COPPER_BLOCK);
+        add(Metal.COPPER, 81, Items.COPPER_BLOCK.weathering().unaffected(), Items.RAW_COPPER_BLOCK);
     }
 
     private static void add(Metal metal, int units, Item... items) {

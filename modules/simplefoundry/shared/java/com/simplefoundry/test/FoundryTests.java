@@ -142,7 +142,7 @@ public final class FoundryTests {
         ALL.put("tables", h -> {
             Melts.Melt rawIron = Melts.of(new ItemStack(Items.RAW_IRON));
             check(h, rawIron != null && rawIron.metal() == Metal.IRON && rawIron.units() == Metal.INGOT, "raw iron = one ingot (1:1, no ore bonus)");
-            check(h, Melts.of(new ItemStack(Items.GOLD_NUGGET)).units() == 1 && Melts.of(new ItemStack(Items.COPPER_BLOCK)).units() == 9 * Metal.INGOT, "nugget 1, block 81");
+            check(h, Melts.of(new ItemStack(Items.GOLD_NUGGET)).units() == 1 && Melts.of(new ItemStack(Items.COPPER_BLOCK.weathering().unaffected())).units() == 9 * Metal.INGOT, "nugget 1, block 81");
             check(h, Melts.of(new ItemStack(Items.STONE)) == null && Melts.of(ItemStack.EMPTY) == null, "stone does not melt");
             check(h, Metal.IRON.heat == Heat.HIGH && Metal.COPPER.heat == Heat.MEDIUM && Metal.GOLD.heat == Heat.MEDIUM, "heat per metal");
             check(h, Fuels.of(new ItemStack(Items.COAL)).heat() == Heat.MEDIUM && Fuels.of(new ItemStack(Items.COAL_BLOCK)).heat() == Heat.HIGH
