@@ -376,6 +376,9 @@ function render(d){
  if(lastDone&&lastDone.verdict==='bad'){const t=Object.entries(lastDone.fails).map(([k,a])=>`${esc(k)} (${a.length})`).join(', ');probs.push(`<li><b>Gate ${esc(lastDone.ref)} ROT</b>${t?': '+t:''} · <a href="#status" data-open="${esc(lastDone.ref)}">Details</a></li>`);}
  if(redTests.length)probs.push(`<li><b>${redTests.length} Testziele rot</b>: ${redTests.slice(0,5).map(x=>esc(x.target)).join(', ')}${redTests.length>5?' …':''} · <a href="#tests">Tests</a></li>`);
  badJobs.forEach(j=>probs.push(`<li><b>Job ${esc(j.job)}</b> meldet einen Fehler</li>`));
+ const web=d.web||{};
+ if(web.diskPct>=85)probs.push(`<li><b>sb-web Platte ${web.diskPct} % voll</b> (${Math.round((web.freeMB||0)/1024*10)/10} GB frei) · Sync und Starter können alten Stand liefern</li>`);
+ if(web.devFetchAgeS>1800)probs.push(`<li><b>Arbeitsstand auf sb-web seit ${Math.round(web.devFetchAgeS/60)} min nicht aktualisiert</b> · Starter lädt alten Stand</li>`);
  $('problems').innerHTML=probs.length?`<div class="card alert" style="margin-top:var(--gap)"><h3>Handlungsbedarf</h3><ul>${probs.join('')}</ul></div>`:'';
  /* gates: running, red, rest; open state survives the 30 s refresh */
  const was=state.openGates;const rank=g=>g.verdict==='run'?0:g.verdict==='bad'?1:2;
