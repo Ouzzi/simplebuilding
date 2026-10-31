@@ -105,7 +105,9 @@ public final class MobsDiscover {
             "simplemobs:strong_explosives",
             "simplemobs:strong_gunpowder",
             "simplemobs:strong_tnt",
+            "simplemobs:trials_extras",
             "simplemobs:trick_mirror",
+            "simplemobs:trim_abilities",
             "simplemobs:void_chain",
             "simplemobs:void_potion_1",
             "simplemobs:void_potion_2",
@@ -123,7 +125,8 @@ public final class MobsDiscover {
             "simplemobs:weathered_trial_spawner",
             "simplemobs:weathered_trials",
             "simplemobs:weathered_vault",
-            "simplemobs:wither_wings");
+            "simplemobs:wither_wings",
+            "simplemobs:zone_effects");
     static final List<Tip> TIPS = List.of(
             new Tip("trick_mirror", List.of("trick_mirror")),
             new Tip("deceiver_cloak", List.of("deceiver_cloak")),

@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 549,
+      "count": 548,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -1974,7 +1974,7 @@
           "The check runs on the server only, on every tick of the item entity.",
           "Protection is keyed to the item tag, not to the display name; it therefore works in every language, and a foreign item renamed to \"Enderite\" in an anvil is not protected (a gametest pins both directions).",
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
-          "Sink damper: sneaking while falling with Enderite armor lowers gravity by 25/45/65/80 % for 1/2/3/4 pieces worn, so the fall speeds up more slowly instead of being stopped, and the fall distance that counts for fall damage shrinks by the same share. Off on the ground, with elytra, while flying, in water or lava and while rising. Movement runs the same on client and server; no effect is given. Sprint brake: sprinting while falling or gliding with elytra takes 2/3.5/5/6.5 % of the downward speed per tick for 1/2/3/4 pieces - only the vertical speed, the forward speed stays; not while sneaking.",
+          "Sink damper: sneaking while falling with Enderite armor lowers gravity by 25 % with 1 to 4 pieces worn (capped at one piece, the full set is not stronger), so the fall speeds up more slowly instead of being stopped, and the fall distance that counts for fall damage shrinks by the same share. Off on the ground, with elytra, while flying, in water or lava and while rising. Movement runs the same on client and server; no effect is given. Sprint brake: sprinting while falling or gliding with elytra takes 2/3.5/5/6.5 % of the downward speed per tick for 1/2/3/4 pieces - only the vertical speed, the forward speed stays; not while sneaking.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
           "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle, Quiver and Backpack.",
           "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - Raw Enderite Fragments and Raw Enderite Scrap, Enderite Scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
@@ -1990,7 +1990,7 @@
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
           "Der Schutz hängt am Item-Tag, nicht am Anzeigenamen; er funktioniert daher in jeder Sprache, und ein im Amboss auf „Enderite“ umbenanntes Fremditem ist nicht geschützt (ein Gametest sichert beide Richtungen ab).",
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
-          "Sinkdämpfer: Wer mit Enderit-Rüstung im Fall schleicht, hat bei 1/2/3/4 getragenen Teilen 25/45/65/80 % weniger Schwerkraft - der Fall beschleunigt langsamer, statt gebremst zu werden -, und der für den Fallschaden zählende Fallweg schrumpft um denselben Anteil. Aus am Boden, mit Elytren, beim Fliegen, in Wasser oder Lava und beim Steigen. Die Bewegung läuft auf Client und Server gleich; es wird kein Effekt vergeben. Sprint-Bremse: Wer im Fall oder im Elytra-Gleitflug sprintet, verliert bei 1/2/3/4 Teilen pro Tick 2/3,5/5/6,5 % seiner Sinkgeschwindigkeit - nur die senkrechte, die Vorwärtsfahrt bleibt; nicht beim Schleichen.",
+          "Sinkdämpfer: Wer mit Enderit-Rüstung im Fall schleicht, hat bei 1 bis 4 getragenen Teilen 25 % weniger Schwerkraft (auf ein Teil gedeckelt, das volle Set ist nicht stärker) - der Fall beschleunigt langsamer, statt gebremst zu werden -, und der für den Fallschaden zählende Fallweg schrumpft um denselben Anteil. Aus am Boden, mit Elytren, beim Fliegen, in Wasser oder Lava und beim Steigen. Die Bewegung läuft auf Client und Server gleich; es wird kein Effekt vergeben. Sprint-Bremse: Wer im Fall oder im Elytra-Gleitflug sprintet, verliert bei 1/2/3/4 Teilen pro Tick 2/3,5/5/6,5 % seiner Sinkgeschwindigkeit - nur die senkrechte, die Vorwärtsfahrt bleibt; nicht beim Schleichen.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
           "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel, Netheritköcher und Netherit-Rucksack.",
           "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohe Enderitfragmente, Rohe Enderitplatten, Enderitplatten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
@@ -3290,28 +3290,93 @@
       ],
       "en": {
         "title": "Simple Doors",
-        "summary": "Large oak doors: 2x2, 2x3 and half-width doors (2 and 3 high), built from the Vanilla oak door, with a swing area in front and redstone like Vanilla.",
+        "summary": "Large oak doors: 2x2, 2x3, 1.5-wide and half-width doors (2 and 3 high), built from the Vanilla oak door, with a swing area in front and redstone like Vanilla.",
         "details": [
-          "Four oak doors: 2x2 (2 wide, 2 high), 2x3 (2 wide, 3 high) and the half-width door in 2 and 3 high (one block wide, the leaf 8 px). A door is a set of cells of one block (no block entity); the texture is the Vanilla oak door widened and lengthened, with its windows, hinges and knob.",
+          "Six oak doors: 2x2 (2 wide, 2 high), 2x3 (2 wide, 3 high), the 1.5-wide door in 2 and 3 high (two blocks of space, the leaf ends in the middle of the second block) and the half-width door in 2 and 3 high (one block wide, the leaf 8 px). A door is a set of cells of one block (no block entity); the texture is the Vanilla oak door widened and lengthened, with its windows, hinges and knob.",
           "Placing: like a Vanilla door, the hinge goes to a wall on one side, else to the half of the block you click. All cells of the door plane must be free; the ground below the hinge column must be solid.",
-          "Opening a 2-wide door swings its 2 block long leaf 90 degrees into the area in front of it: the whole width x height area there must be free (2x2 = 4 blocks, 2x3 = 6), else the door stays shut with a low door sound and a little smoke. Open, the leaf lies along the hinge edge and the free column is an opening you can walk through; closing needs the opening free again.",
+          "Opening a 2-wide door swings its 2 block long leaf 90 degrees into the area in front of it: the whole width x height area there must be free (2x2 = 4 blocks, 2x3 = 6), else the door stays shut with a low door sound and a little smoke. Open, the leaf lies along the hinge edge and the free column is an opening you can walk through; closing needs the opening free again. The 1.5-wide door works the same way, with the same swing area, but its leaf is only 24 px long: the second column and the swing cell hold a half-length piece, so the door ends in the middle of a block.",
           "A half door needs no space: its 8 px leaf swings inside its own block. Two half doors next to a normal door make a 1.5 block wide double door; redstone between them opens both, a hand opens only the door you click.",
           "Redstone next to any cell of a door opens it on the rising edge and closes it on the falling edge. Breaking any cell takes the whole door and drops one. Pistons cannot push a door.",
-          "Craft: 2x2 = four oak doors in a square, 2x3 = six oak doors (2 wide, 3 high), half door 2 high = oak plank, oak plank, stick (in a column), half door 3 high = a half door 2 high and an oak plank. Only oak for now; the other woods follow after the owner's approval.",
+          "Craft: 2x2 = four oak doors in a square, 2x3 = six oak doors (2 wide, 3 high), half door 2 high = oak plank, oak plank, stick (in a column), half door 3 high = a half door 2 high and an oak plank, 1.5-wide door 2 high = an oak door and a half door 2 high, 1.5-wide 3 high = a 1.5-wide door 2 high and an oak plank. Only oak for now; the other woods follow after the owner's approval.",
           "Switch: server.features.simpleDoors (default true); off, the doors stay shut under hand and redstone."
         ]
       },
       "de": {
         "title": "Simple Doors",
-        "summary": "Große Eichentüren: 2x2, 2x3 und Halbtüren (2 und 3 hoch), aus der Vanilla-Eichentür gebaut, mit Schwenkfläche davor und Redstone wie in Vanilla.",
+        "summary": "Große Eichentüren: 2x2, 2x3, 1,5 breite Türen und Halbtüren (2 und 3 hoch), aus der Vanilla-Eichentür gebaut, mit Schwenkfläche davor und Redstone wie in Vanilla.",
         "details": [
-          "Vier Eichentüren: 2x2 (2 breit, 2 hoch), 2x3 (2 breit, 3 hoch) und die Halbtür in 2 und 3 Höhe (einen Block breit, das Blatt 8 px). Eine Tür besteht aus Zellen eines Blocks (keine Block-Entity); die Textur ist die Vanilla-Eichentür, breiter und länger gemacht, mit Fenstern, Angeln und Knauf.",
+          "Sechs Eichentüren: 2x2 (2 breit, 2 hoch), 2x3 (2 breit, 3 hoch), die 1,5 breite Tür in 2 und 3 Höhe (zwei Blöcke Platz, das Blatt endet in der Mitte des zweiten Blocks) und die Halbtür in 2 und 3 Höhe (einen Block breit, das Blatt 8 px). Eine Tür besteht aus Zellen eines Blocks (keine Block-Entity); die Textur ist die Vanilla-Eichentür, breiter und länger gemacht, mit Fenstern, Angeln und Knauf.",
           "Setzen: wie eine Vanilla-Tür, die Angel kommt an eine Wand auf einer Seite, sonst an die angeklickte Blockhälfte. Alle Zellen der Türebene müssen frei sein, der Boden unter der Angelspalte muss fest sein.",
-          "Beim Öffnen schwenkt eine 2 breite Tür ihr 2 Blöcke langes Blatt um 90 Grad in die Fläche vor ihr: die ganze Fläche Breite x Höhe dort muss frei sein (2x2 = 4 Blöcke, 2x3 = 6), sonst bleibt die Tür zu, mit leisem Türton und etwas Rauch. Offen liegt das Blatt an der Angelkante, die freie Spalte ist eine Öffnung zum Durchgehen; zum Schließen muss die Öffnung wieder frei sein.",
+          "Beim Öffnen schwenkt eine 2 breite Tür ihr 2 Blöcke langes Blatt um 90 Grad in die Fläche vor ihr: die ganze Fläche Breite x Höhe dort muss frei sein (2x2 = 4 Blöcke, 2x3 = 6), sonst bleibt die Tür zu, mit leisem Türton und etwas Rauch. Offen liegt das Blatt an der Angelkante, die freie Spalte ist eine Öffnung zum Durchgehen; zum Schließen muss die Öffnung wieder frei sein. Die 1,5 breite Tür funktioniert genauso, mit derselben Schwenkfläche, ihr Blatt ist aber nur 24 px lang: die zweite Spalte und die Schwenkzelle tragen ein halblanges Stück, die Tür endet also in der Blockmitte.",
           "Eine Halbtür braucht keinen Platz: ihr 8-px-Blatt schwenkt im eigenen Block. Zwei Halbtüren neben einer normalen Tür ergeben eine 1,5 Blöcke breite Doppeltür; Redstone dazwischen öffnet beide, eine Hand nur die angeklickte.",
           "Redstone neben einer Zelle der Tür öffnet sie bei steigender und schließt sie bei fallender Flanke. Wer eine Zelle abbaut, nimmt die ganze Tür mit und bekommt eine. Kolben können eine Tür nicht schieben.",
-          "Rezept: 2x2 = vier Eichentüren im Quadrat, 2x3 = sechs Eichentüren (2 breit, 3 hoch), Halbtür 2 hoch = Eichenbrett, Eichenbrett, Stock (in einer Spalte), Halbtür 3 hoch = eine Halbtür 2 hoch und ein Eichenbrett. Zunächst nur Eiche; die anderen Hölzer folgen nach der Abnahme.",
+          "Rezept: 2x2 = vier Eichentüren im Quadrat, 2x3 = sechs Eichentüren (2 breit, 3 hoch), Halbtür 2 hoch = Eichenbrett, Eichenbrett, Stock (in einer Spalte), Halbtür 3 hoch = eine Halbtür 2 hoch und ein Eichenbrett, 1,5 breite Tür 2 hoch = eine Eichentür und eine Halbtür 2 hoch, 1,5 breit 3 hoch = eine 1,5 breite Tür 2 hoch und ein Eichenbrett. Zunächst nur Eiche; die anderen Hölzer folgen nach der Abnahme.",
           "Schalter: server.features.simpleDoors (Standard an); aus, bleiben die Türen bei Hand und Redstone zu."
+        ]
+      }
+    },
+    {
+      "id": "double_piston",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistons.java",
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistonHeadBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/DoublePistonArmBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/MachineParts.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/double_piston.json",
+        "tools/textures/mach32_2026_10_31.py"
+      ],
+      "en": {
+        "title": "Double Piston",
+        "summary": "One block that pushes in two stages: a signal of 1 to 7 brings the head out one block like a Vanilla piston, 8 to 15 moves the body half a block forward and the head a second block - three blocks long in all.",
+        "details": [
+          "Place it like a piston: it faces towards you. It reads the signal like a Vanilla piston (every side except the front, from below and the block above), so Vanilla machines drive it the same way.",
+          "Stage 1 looks like a Vanilla piston that is out. At stage 2 the piston body itself moves half a block forward and the head comes out another block; the back half of the piston's own block is then empty.",
+          "It moves one block per step and looks at the signal again after each one: a falling signal brings it back one stage, a rising one sends it on. Every step pushes with Vanilla's rules (12 blocks at most, slime and honey stick, blocks with a block entity stay, obsidian stops it).",
+          "Its parts cannot be pushed by pistons or machines. Breaking any part takes the whole piston away and drops one Double Piston.",
+          "A strong signal can be weakened with the Signal Dampener: 15, 12, 9, 6 after three stage-3 Dampeners is a signal for stage 1.",
+          "Craft: quartz, a block of redstone, quartz / iron ingot, piston, iron ingot / iron block, piston. Switch: server.features.doublePiston (default on). Until 31.10. it was part of Simple Redstone (1x2); old worlds load it as the new block."
+        ]
+      },
+      "de": {
+        "title": "Doppelkolben",
+        "summary": "Ein Block, der in zwei Stufen schiebt: Ein Signal von 1 bis 7 fährt den Kopf einen Block weit aus wie beim Vanilla-Kolben, 8 bis 15 schiebt den Körper einen halben Block vor und den Kopf einen zweiten Block – zusammen drei Blöcke lang.",
+        "details": [
+          "Er wird wie ein Kolben gesetzt: Er zeigt zu dir. Das Signal liest er wie ein Vanilla-Kolben (jede Seite außer der Front, von unten und der Block darüber), Vanilla-Maschinen steuern ihn also genauso.",
+          "Stufe 1 sieht aus wie ein ausgefahrener Vanilla-Kolben. In Stufe 2 rückt der Kolbenkörper selbst einen halben Block vor und der Kopf fährt einen weiteren Block aus; die hintere Hälfte des eigenen Blocks ist dann leer.",
+          "Er fährt je Schritt einen Block und schaut danach wieder aufs Signal: Ein fallendes Signal holt ihn eine Stufe zurück, ein steigendes schickt ihn weiter. Jeder Schritt schiebt nach den Vanilla-Regeln (höchstens 12 Blöcke, Schleim und Honig kleben, Blöcke mit Block-Entity bleiben, Obsidian hält ihn auf).",
+          "Seine Teile lassen sich von Kolben und Maschinen nicht verschieben. Wer ein Teil abbaut, nimmt den ganzen Kolben mit und bekommt einen Doppelkolben.",
+          "Ein starkes Signal lässt sich mit dem Signaldämpfer schwächen: 15, 12, 9, 6 nach drei Dämpfern der Stufe 3 ist ein Signal für Stufe 1.",
+          "Rezept: Quarz, Redstoneblock, Quarz / Eisenbarren, Kolben, Eisenbarren / Eisenblock, Kolben. Schalter: server.features.doublePiston (Standard an). Bis 31.10. gehörte er zu Simple Redstone (1×2); alte Welten laden ihn als neuen Block."
+        ]
+      }
+    },
+    {
+      "id": "signal_dampener",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/machines/SignalDampenerBlock.java",
+        "common/src/shared/java/com/simplebuilding/machines/MachineParts.java",
+        "mc26_3/overlay/resources/data/simplebuilding/recipe/signal_dampener.json",
+        "tools/textures/mach32_2026_10_31.py"
+      ],
+      "en": {
+        "title": "Signal Dampener",
+        "summary": "A flat redstone part like the Repeater that takes 0 to 3 off the signal and passes it on one redstone tick later.",
+        "details": [
+          "Right-click sets the stage 0 to 3; three lamps on top show it (as many lit as the stage), the track glows while a signal comes out. Output = input minus stage, never below 0: 3 minus 3 is 0, 4 minus 2 is 2.",
+          "The input is behind it (the arrow side is the output, like a Repeater); signals from the sides are ignored. Redstone dust and the other redstone lines feed it alike. Stage 0 only delays.",
+          "It is destroyed by pistons like the Repeater and needs a solid block below. Comparators do not read it (it stores nothing).",
+          "Craft: redstone torch, quartz, redstone torch / three stone. Switch: server.features.signalDampener (default on)."
+        ]
+      },
+      "de": {
+        "title": "Signaldämpfer",
+        "summary": "Ein flaches Redstone-Teil wie der Verstärker, das 0 bis 3 vom Signal abzieht und es einen Redstone-Tick später weitergibt.",
+        "details": [
+          "Rechtsklick stellt die Stufe 0 bis 3 ein; drei Lämpchen oben zeigen sie (so viele leuchten wie die Stufe), die Leiterbahn glüht, solange ein Signal herauskommt. Ausgang = Eingang minus Stufe, nie unter 0: 3 minus 3 ist 0, 4 minus 2 ist 2.",
+          "Der Eingang liegt hinten (die Pfeilseite ist der Ausgang wie beim Verstärker); Signale von den Seiten werden ignoriert. Redstone-Staub und die anderen Redstone-Linien speisen ihn gleich. Stufe 0 verzögert nur.",
+          "Kolben zerstören ihn wie den Verstärker, er braucht einen festen Block darunter. Komparatoren lesen ihn nicht (er speichert nichts).",
+          "Rezept: Redstone-Fackel, Quarz, Redstone-Fackel / drei Stein. Schalter: server.features.signalDampener (Standard an)."
         ]
       }
     }
@@ -16336,77 +16401,6 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/layered_astralit.png",
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:leather_sheet",
-      "name": {
-        "en_us": "Leather Sheet",
-        "de_de": "Lederplatte"
-      },
-      "texture": "assets/textures/item/leather_sheet.png",
-      "craftedBy": [
-        "simplebuilding:leather_sheet"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "Nine hides pressed flat, until the leather forgot it was ever a cow."
-          ],
-          "use": [
-            "Nine leather in the crafting grid make one sheet. It goes into the Reinforced Bundle (below the bundle) and the Backpack (three in the bottom row)."
-          ],
-          "secret": [
-            "It is a crafting material only; the next tier of bundle, the Reinforced one, needs diamond pebbles on top of it."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Neun Häute, flachgepresst, bis das Leder vergaß, dass es je eine Kuh war."
-          ],
-          "use": [
-            "Neun Leder im Handwerksraster ergeben eine Platte. Sie kommt ins Verstärkte Bündel (unter das Bündel) und in den Rucksack (dreimal in die untere Reihe)."
-          ],
-          "secret": [
-            "Sie ist nur ein Handwerksmaterial; die nächste Bündelstufe, die Verstärkte, braucht zusätzlich Diamantkiesel."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Leather Sheet is a crafting material: nine leather pressed into one sheet, used for the Reinforced Bundle and the Reinforced Quiver.",
-          "details": [
-            "Crafting table recipe (shaped, 3x3): nine Leather (minecraft:leather) filling the whole grid give one Leather Sheet. The recipe unlocks as soon as you own leather.",
-            "There is no way back: no recipe turns a Leather Sheet into leather again.",
-            "Used in two recipes: the Reinforced Bundle (bundle, string, Diamond Pebble, Leather Sheet) and the Reinforced Quiver (Quiver, string, Diamond Pebble, Leather Sheet, copper nugget).",
-            "A plain item without behavior of its own; stacks to 64.",
-            "The mod's creative tab: first entry of the resources section, before the Diamond Pebble."
-          ]
-        },
-        "de": {
-          "summary": "Die Lederplatte ist ein Handwerksmaterial: neun Leder zu einer Platte gepresst, gebraucht für das Verstärkte Bündel und den Verstärkten Köcher.",
-          "details": [
-            "Rezept an der Werkbank (geformt, 3x3): neun Leder (minecraft:leather), die das ganze Raster füllen, ergeben eine Lederplatte. Das Rezept wird freigeschaltet, sobald man Leder besitzt.",
-            "Es gibt keinen Rückweg: Kein Rezept macht aus einer Lederplatte wieder Leder.",
-            "Zutat in zwei Rezepten: Verstärktes Bündel (Bündel, Faden, Diamantkiesel, Lederplatte) und Verstärkter Köcher (Köcher, Faden, Diamantkiesel, Lederplatte, Kupferklumpen).",
-            "Ein einfacher Gegenstand ohne eigenes Verhalten; Stapelgröße 64.",
-            "Kreativ-Tab der Mod: erster Eintrag im Abschnitt Ressourcen, vor dem Diamantkiesel."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
-          "src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
-          "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
-          "src/main/generated/wiki/items.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -53132,6 +53126,74 @@
       }
     },
     {
+      "id": "simplebuilding:double_piston",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:double_piston",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/double_piston.json",
+      "ingredients": [
+        "minecraft:iron_block",
+        "minecraft:iron_ingot",
+        "minecraft:piston",
+        "minecraft:quartz",
+        "minecraft:redstone_block"
+      ],
+      "pattern": [
+        "QRQ",
+        "IPI",
+        "BP "
+      ],
+      "key": {
+        "Q": [
+          "minecraft:quartz"
+        ],
+        "R": [
+          "minecraft:redstone_block"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "P": [
+          "minecraft:piston"
+        ],
+        "B": [
+          "minecraft:iron_block"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 13
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 11
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:duskwood_cauldron",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -57579,15 +57641,15 @@
             "count": 4
           },
           {
-            "id": "minecraft:beetroot",
-            "count": 1
+            "id": "minecraft:oak_log",
+            "count": 3
           },
           {
-            "id": "minecraft:dandelion",
-            "count": 1
+            "id": "simplestorage:leather_sheet",
+            "count": 2
           },
           {
-            "id": "minecraft:lapis_lazuli",
+            "id": "minecraft:leather",
             "count": 1
           },
           {
@@ -57599,16 +57661,16 @@
             "count": 1
           },
           {
+            "id": "minecraft:string",
+            "count": 1
+          },
+          {
             "id": "simplelib:enderite_ingot",
             "count": 1
           },
           {
             "id": "simplelib:enderite_upgrade_template",
             "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.75
           },
           {
             "id": "minecraft:gold_ingot",
@@ -62033,44 +62095,6 @@
       }
     },
     {
-      "id": "simplebuilding:leather_sheet",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:leather_sheet",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
-      "ingredients": [
-        "minecraft:leather"
-      ],
-      "pattern": [
-        "LLL",
-        "LLL",
-        "LLL"
-      ],
-      "key": {
-        "L": [
-          "minecraft:leather"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:leather",
-            "count": 9
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:light_blue_hammock",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -64114,15 +64138,15 @@
             "count": 4
           },
           {
-            "id": "minecraft:beetroot",
-            "count": 1
+            "id": "minecraft:oak_log",
+            "count": 3
           },
           {
-            "id": "minecraft:dandelion",
-            "count": 1
+            "id": "simplestorage:leather_sheet",
+            "count": 2
           },
           {
-            "id": "minecraft:lapis_lazuli",
+            "id": "minecraft:leather",
             "count": 1
           },
           {
@@ -64134,8 +64158,8 @@
             "count": 1
           },
           {
-            "id": "minecraft:oak_log",
-            "count": 0.75
+            "id": "minecraft:string",
+            "count": 1
           },
           {
             "id": "minecraft:gold_ingot",
@@ -66778,6 +66802,83 @@
       }
     },
     {
+      "id": "simplebuilding:oak_door_1_5x2",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:oak_door_1_5x2",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/oak_door_1_5x2.json",
+      "ingredients": [
+        "minecraft:oak_door",
+        "minecraft:oak_planks",
+        "minecraft:stick"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:oak_door"
+        ],
+        [
+          "minecraft:oak_planks"
+        ],
+        [
+          "minecraft:oak_planks"
+        ],
+        [
+          "minecraft:stick"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:oak_door_1_5x3",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:oak_door_1_5x3",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/oak_door_1_5x3.json",
+      "ingredients": [
+        "minecraft:oak_planks",
+        "simplebuilding:oak_door_1_5x2"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oak_door_1_5x2"
+        ],
+        [
+          "minecraft:oak_planks"
+        ]
+      ],
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.375
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:oak_door_2x2",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -66844,81 +66945,6 @@
           {
             "id": "minecraft:oak_log",
             "count": 3
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:oak_door_half_2",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:oak_door_half_2",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/oak_door_half_2.json",
-      "ingredients": [
-        "minecraft:oak_planks",
-        "minecraft:stick"
-      ],
-      "pattern": [
-        "#",
-        "#",
-        "/"
-      ],
-      "key": {
-        "#": [
-          "minecraft:oak_planks"
-        ],
-        "/": [
-          "minecraft:stick"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.625
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:oak_door_half_3",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:oak_door_half_3",
-        "count": 1
-      },
-      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/oak_door_half_3.json",
-      "ingredients": [
-        "minecraft:oak_planks",
-        "simplebuilding:oak_door_half_2"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:oak_door_half_2"
-        ],
-        [
-          "minecraft:oak_planks"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.875
           }
         ]
       }
@@ -68215,29 +68241,74 @@
       },
       "source": "mc26_3/generated/data/simplebuilding/recipe/paint_box.json",
       "ingredients": [
-        "#minecraft:planks",
-        "minecraft:blue_dye",
-        "minecraft:red_dye",
-        "minecraft:yellow_dye"
+        "#minecraft:wooden_pressure_plates",
+        "minecraft:bundle",
+        "simplestorage:leather_sheet"
       ],
       "pattern": [
-        "RYB",
+        "PPP",
+        "LBL",
         "PPP"
       ],
       "key": {
         "B": [
-          "minecraft:blue_dye"
+          "minecraft:bundle"
+        ],
+        "L": [
+          "simplestorage:leather_sheet"
         ],
         "P": [
-          "#minecraft:planks"
-        ],
-        "R": [
-          "minecraft:red_dye"
-        ],
-        "Y": [
-          "minecraft:yellow_dye"
+          "#minecraft:wooden_pressure_plates"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "#minecraft:wooden_pressure_plates",
+                "minecraft:bundle",
+                "simplestorage:leather_sheet"
+              ],
+              "other": [
+                "#minecraft:wooden_pressure_plates",
+                "minecraft:bundle",
+                "simplebuilding:leather_sheet"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "B": [
+                  "minecraft:bundle"
+                ],
+                "L": [
+                  "simplestorage:leather_sheet"
+                ],
+                "P": [
+                  "#minecraft:wooden_pressure_plates"
+                ]
+              },
+              "other": {
+                "B": [
+                  "minecraft:bundle"
+                ],
+                "L": [
+                  "simplebuilding:leather_sheet"
+                ],
+                "P": [
+                  "#minecraft:wooden_pressure_plates"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/paint_box.json"
+        }
+      ],
       "lines": [
         "26.3"
       ],
@@ -68245,24 +68316,24 @@
         "yield": 1,
         "materials": [
           {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 0.75
+            "count": 3
+          },
+          {
+            "id": "simplestorage:leather_sheet",
+            "count": 2
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:string",
+            "count": 1
           }
         ],
         "tagExamples": [
-          "#minecraft:planks"
+          "#minecraft:wooden_pressure_plates"
         ]
       }
     },
@@ -74970,20 +75041,20 @@
             "count": 4
           },
           {
-            "id": "minecraft:beetroot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:dandelion",
-            "count": 1
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
             "id": "minecraft:oak_log",
-            "count": 0.75
+            "count": 3
+          },
+          {
+            "id": "simplestorage:leather_sheet",
+            "count": 2
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:string",
+            "count": 1
           },
           {
             "id": "minecraft:gold_ingot",
@@ -76022,6 +76093,61 @@
           {
             "id": "minecraft:echo_shard",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:signal_dampener",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:signal_dampener",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/signal_dampener.json",
+      "ingredients": [
+        "minecraft:quartz",
+        "minecraft:redstone_torch",
+        "minecraft:stone"
+      ],
+      "pattern": [
+        "TQT",
+        "SSS"
+      ],
+      "key": {
+        "T": [
+          "minecraft:redstone_torch"
+        ],
+        "Q": [
+          "minecraft:quartz"
+        ],
+        "S": [
+          "minecraft:stone"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:redstone",
+            "count": 2
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
           }
         ]
       }
@@ -84763,6 +84889,34 @@
       ]
     },
     {
+      "id": "simplebuilding:leather_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:leather_sheet",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+      "ingredients": [
+        "minecraft:leather"
+      ],
+      "pattern": [
+        "LLL",
+        "LLL",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:leather"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:levitating_gravel",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -85731,6 +85885,41 @@
       ]
     },
     {
+      "id": "simplebuilding:paint_box",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:paint_box",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/paint_box.json",
+      "ingredients": [
+        "#minecraft:wooden_pressure_plates",
+        "minecraft:bundle",
+        "simplebuilding:leather_sheet"
+      ],
+      "pattern": [
+        "PPP",
+        "LBL",
+        "PPP"
+      ],
+      "key": {
+        "B": [
+          "minecraft:bundle"
+        ],
+        "L": [
+          "simplebuilding:leather_sheet"
+        ],
+        "P": [
+          "#minecraft:wooden_pressure_plates"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:pink_enderite_shulker_box",
       "type": "minecraft:crafting_transmute",
       "category": null,
@@ -86190,7 +86379,45 @@
         ]
       },
       "lines": [
-        "1.21.11",
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:quiver",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/quiver.json",
+      "ingredients": [
+        "minecraft:bundle",
+        "minecraft:copper_nugget",
+        "minecraft:string",
+        "simplebuilding:leather_sheet"
+      ],
+      "pattern": [
+        " SL",
+        "SLN",
+        "B  "
+      ],
+      "key": {
+        "B": [
+          "minecraft:bundle"
+        ],
+        "L": [
+          "simplebuilding:leather_sheet"
+        ],
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "S": [
+          "minecraft:string"
+        ]
+      },
+      "lines": [
         "26.2"
       ]
     },
@@ -90351,6 +90578,24 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/dimensional_scrap.json"
     },
     {
+      "id": "simplebuilding:blocks/double_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:double_piston"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/double_piston.json"
+    },
+    {
       "id": "simplebuilding:blocks/dull_astralit_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -92329,6 +92574,42 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/oak_cauldron.json"
     },
     {
+      "id": "simplebuilding:blocks/oak_door_1_5x2",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:oak_door_1_5x2"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/oak_door_1_5x2.json"
+    },
+    {
+      "id": "simplebuilding:blocks/oak_door_1_5x3",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:oak_door_1_5x3"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/oak_door_1_5x3.json"
+    },
+    {
       "id": "simplebuilding:blocks/oak_door_2x2",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -93254,6 +93535,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/sculk_jaw.json"
+    },
+    {
+      "id": "simplebuilding:blocks/signal_dampener",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:signal_dampener"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/signal_dampener.json"
     },
     {
       "id": "simplebuilding:blocks/silent_dandelion",
@@ -101834,26 +102133,6 @@
       "reload": "restart",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleRedstone",
-      "shortName": "enableSimpleRedstone",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Simple Mods",
-      "categoryDe": "Simple Mods",
-      "group": null,
-      "groupDe": null,
-      "label": "Enable Simple Redstone",
-      "labelDe": "Simple Redstone aktivieren",
-      "tooltip": "Turns the bundled Simple Redstone module on or off: the Double Piston (1x2, signal 1-7 one block, 8-15 two) and the Signal Dampener. Off hides its creative tab entries and its guide and stops both parts from working; placed blocks stay. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Redstone ein oder aus: den Doppelkolben (1x2, Signal 1-7 ein Block, 8-15 zwei) und den Signaldämpfer. Aus blendet seine Kreativtab-Einträge und sein Handbuch aus und lässt beide Teile nicht mehr arbeiten; gesetzte Blöcke bleiben. Gilt nach einem Neustart. Standard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableSimpleDinos",
       "shortName": "enableSimpleDinos",
       "type": "boolean",
@@ -101867,6 +102146,26 @@
       "labelDe": "Simple Dinosaurs aktivieren",
       "tooltip": "Turns the bundled Simple Dinosaurs module on or off: fossil block, dinosaur eggs and the T. rex. Off hides the module's creative entries and its guide; blocks, eggs and dinosaurs that already exist keep working. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Dinosaurs an oder aus: Fossilienblock, Dinosaurier-Eier und der T-Rex. Aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Blöcke, Eier und Dinosaurier funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleOres",
+      "shortName": "enableSimpleOres",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Ores",
+      "labelDe": "Simple Ores aktivieren",
+      "tooltip": "Turns the bundled Simple Ores module on or off: silver ore in the Overworld and the End, and rose gold (Rose Bronze and Blossom Gold) with its tools and armor. Off stops new silver veins and hides the module's creative entries and its guide; blocks and items that already exist keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Ores an oder aus: Silbererz in der Oberwelt und im End sowie Roségold (Rosenbronze und Blütengold) mit Werkzeugen und Rüstung. Aus stoppt neue Silberadern und blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -103747,46 +104046,6 @@
       "reload": "no",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "showDevEnchantedTab",
-      "shortName": "showDevEnchantedTab",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "category": "Compatibility & Advanced",
-      "categoryDe": "Kompatibilität & Erweitert",
-      "group": null,
-      "groupDe": null,
-      "label": "Show \"SimpleEnchants (Dev)\" Creative Tab",
-      "labelDe": "Kreativ-Tab „SimpleEnchants (Dev)“ zeigen",
-      "tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\"\noutside development environments too: the\nbest tier of every enchantable item,\npre-enchanted at max level. Takes effect when\nthe creative tabs are rebuilt (at the latest\nafter rejoining). Default: off.",
-      "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“\nauch außerhalb von Entwicklungsumgebungen:\ndie beste Stufe jedes verzauberbaren\nGegenstands, vorverzaubert auf Höchststufe.\nWirkt beim Neuaufbau der Kreativ-Tabs\n(spätestens nach erneutem Betreten).\nStandard: aus."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "addItemsToVanillaTabs",
-      "shortName": "addItemsToVanillaTabs",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Compatibility & Advanced",
-      "categoryDe": "Kompatibilität & Erweitert",
-      "group": null,
-      "groupDe": null,
-      "label": "Add Items to Vanilla Creative Tabs",
-      "labelDe": "Gegenstände in Vanilla-Kreativ-Tabs einsortieren",
-      "tooltip": "Adds this mod's items next to their Vanilla\ncounterparts in Vanilla creative tabs and the\nsearch tab. Off: Vanilla tabs stay unchanged;\nthe mod's own creative tabs remain available.\nApplies when joining a world. Default: on.",
-      "tooltipDe": "Sortiert die Gegenstände dieser Mod neben ihre\nVanilla-Gegenstücke in Vanilla-Kreativ-Tabs und\nden Suchtab ein. Aus: Vanilla-Tabs bleiben\nunverändert; die eigenen Kreativ-Tabs der Mod\nbleiben erhalten. Wirkt beim Betreten einer Welt.\nStandard: an."
-    },
-    {
-      "range": null,
-      "side": "client",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "creativeTabSpacers",
       "shortName": "creativeTabSpacers",
       "type": "boolean",
@@ -104223,6 +104482,46 @@
       "labelDe": "Endgame-Verzauberungsstufen",
       "tooltip": "At the top stage of the Astral Enchanter\n(tier 50) Protection and Feather Falling\nreach level V. Off: Vanilla maximum.\nDefault: true.",
       "tooltipDe": "Auf der höchsten Stufe des Astral-Verzauberers\n(Tier 50) erreichen Schutz und Federfall\nStufe V. Aus: Vanilla-Maximum.\nStandard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.doublePiston",
+      "shortName": "doublePiston",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Double Piston",
+      "labelDe": "Doppelkolben",
+      "tooltip": "The Double Piston moves one stage\nfor signal 1-7, two for 8-15. Off: it\nstays where it is; the recipe goes\nwith the next datapack reload.\nDefault: true.",
+      "tooltipDe": "Der Doppelkolben fährt bei Signal\n1-7 eine Stufe, bei 8-15 zwei aus.\nAus: Er bleibt stehen; das Rezept\nfällt beim nächsten Datenpaket-\nNeuladen weg. Standard: true."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "recipes",
+      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "server.features.signalDampener",
+      "shortName": "signalDampener",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Server & Modpack Tuning",
+      "categoryDe": "Server & Modpack-Tuning",
+      "group": "Features: On/Off",
+      "groupDe": "Funktionen: an/aus",
+      "label": "Signal Dampener",
+      "labelDe": "Signaldämpfer",
+      "tooltip": "The Signal Dampener takes 0-3 off\nthe signal. Off: it outputs nothing;\nthe recipe goes with the next\ndatapack reload. Default: true.",
+      "tooltipDe": "Der Signaldämpfer zieht 0-3 vom\nSignal ab. Aus: Er gibt nichts aus;\ndas Rezept fällt beim nächsten\nDatenpaket-Neuladen weg.\nStandard: true."
     },
     {
       "range": null,
@@ -127998,7 +128297,7 @@
       },
       "description": {
         "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
-        "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+        "de_de": "Mit Diamantkieseln und einem Ledertuch fasst ein Bündel die Hälfte mehr"
       },
       "criteria": [
         {
@@ -128191,7 +128490,7 @@
     {
       "id": "simplebuilding:storage/sheet_happens",
       "parent": "simplebuilding:root",
-      "icon": "simplebuilding:leather_sheet",
+      "icon": "simplestorage:leather_sheet",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -128200,19 +128499,19 @@
       },
       "description": {
         "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it",
-        "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten"
+        "de_de": "Neun Leder ergeben ein Ledertuch - daraus werden Rucksäcke, Bündel und Köcher geschnitten"
       },
       "criteria": [
         {
           "name": "leather_sheet",
           "trigger": "minecraft:inventory_changed",
           "items": [
-            "simplebuilding:leather_sheet"
+            "simplestorage:leather_sheet"
           ]
         }
       ],
       "needs": "any",
-      "source": "src/main/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
+      "source": "mc26_3/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
     },
     {
       "id": "simplebuilding:storage/splash_of_color",
@@ -128874,11 +129173,11 @@
           },
           "title": {
             "en_us": "Leather Sheet",
-            "de_de": "Lederplatte"
+            "de_de": "Ledertuch"
           },
           "description": {
             "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it.",
-            "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten."
+            "de_de": "Neun Leder ergeben ein Ledertuch - daraus werden Rucksäcke, Bündel und Köcher geschnitten."
           },
           "dependencies": [
             "stage_1.welcome"
@@ -130468,7 +130767,7 @@
           },
           "description": {
             "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
-            "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+            "de_de": "Mit Diamantkieseln und einem Ledertuch fasst ein Bündel die Hälfte mehr"
           },
           "dependencies": [
             "storage.bundle",
@@ -130487,7 +130786,7 @@
           },
           "description": {
             "en_us": "Diamond Pebbles, a Leather Sheet and string reinforce a backpack: more room for your things.",
-            "de_de": "Diamantkiesel, eine Lederplatte und Faden verstärken einen Rucksack: mehr Platz für deine Sachen."
+            "de_de": "Diamantkiesel, ein Ledertuch und Faden verstärken einen Rucksack: mehr Platz für deine Sachen."
           },
           "dependencies": [
             "stage_2.pebbles"
@@ -130505,7 +130804,7 @@
           },
           "description": {
             "en_us": "Diamond Pebbles and a Leather Sheet reinforce a quiver, just like a bundle.",
-            "de_de": "Diamantkiesel und eine Lederplatte verstärken einen Köcher, genau wie ein Bündel."
+            "de_de": "Diamantkiesel und ein Ledertuch verstärken einen Köcher, genau wie ein Bündel."
           },
           "dependencies": [
             "storage.quiver",
@@ -131061,17 +131360,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 507,
+    "items": 506,
     "blocks": 290,
-    "recipes": 827,
-    "lootTables": 312,
+    "recipes": 828,
+    "lootTables": 316,
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
     "config": 238,
     "inWorld": 481,
     "advancements": 116,
-    "features": 48,
+    "features": 50,
     "undocumented": 0,
     "incompleteProse": 0
   },

@@ -373,6 +373,93 @@
           "Aus SimpleBuilding umgezogen (26.3): alte simplebuilding:-Ids laden als diese Blöcke, Gegenstände und die aufsteigende Entity."
         ]
       }
+    },
+    {
+      "id": "snowlogging",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowloggedBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowloggedBlockEntity.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/Snowlogging.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/client/SnowloggedRenderer.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/FenceConnectsSnowloggedMixin.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/tags/block/snowloggable.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/SnowTests.java"
+      ],
+      "related": [
+        "simpleblocks:snowlogged"
+      ],
+      "en": {
+        "title": "Snowlogging",
+        "summary": "Use a snow layer on a fence, a small flower, grass, a fern or a bush and the snow shares the block with it, like in Bedrock Edition: the plant or fence stays visible in the snow.",
+        "details": [
+          "More snow layers on the same block add layers (up to 7). A snow layer needs a full block below, like Vanilla snow.",
+          "A shovel takes the snow first (snowballs per layer like Vanilla) and leaves the plant or fence standing; breaking it with anything else drops the plant or fence, the snow drops nothing without a shovel.",
+          "Fences next to a snowlogged fence still connect to it (wood to wood, nether brick to nether brick). Bright light (above 11) melts the snow, the plant stays.",
+          "Only placed by hand: falling snow does not snowlog plants. Switch: snow.snowlogging in /simpleblocks config (default on)."
+        ]
+      },
+      "de": {
+        "title": "Verschneien (Snowlogging)",
+        "summary": "Eine Schneeschicht auf Zaun, kleiner Blume, Gras, Farn oder Busch teilt sich den Block damit wie in der Bedrock Edition: Pflanze oder Zaun bleiben im Schnee sichtbar.",
+        "details": [
+          "Weitere Schneeschichten auf demselben Block erhöhen die Schicht (bis 7). Eine Schneeschicht braucht wie in Vanilla einen vollen Block darunter.",
+          "Eine Schaufel nimmt zuerst den Schnee (Schneebälle je Schicht wie Vanilla) und lässt Pflanze oder Zaun stehen; mit allem anderen abgebaut fällt Pflanze oder Zaun ab, der Schnee gibt ohne Schaufel nichts.",
+          "Zäune neben einem verschneiten Zaun verbinden sich weiter mit ihm (Holz mit Holz, Netherziegel mit Netherziegel). Helles Licht (über 11) schmilzt den Schnee, die Pflanze bleibt.",
+          "Nur von Hand: fallender Schnee verschneit keine Pflanzen. Schalter: snow.snowlogging in /simpleblocks config (Standard an)."
+        ]
+      }
+    },
+    {
+      "id": "frost_grass",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/FrostGrassBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/GrassFreezesMixin.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/frost_grass.json",
+        "tools/textures/snow32_frost_grass_2026_10_31.py",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/SnowTests.java"
+      ],
+      "related": [
+        "simpleblocks:frost_grass"
+      ],
+      "en": {
+        "title": "Frost Grass",
+        "summary": "A grass block with snow on top slowly freezes to Frost Grass in cold biomes or with ice below it; without snow it slowly thaws back to grass.",
+        "details": [
+          "Freezing: chance 1 in 3 per random tick (snow.freezeOneIn), a little faster than grass spreads; thawing: 1 in 6 (snow.thawOneIn). Covered by a solid block it turns to dirt like grass.",
+          "It does not spread. Plants, animals, hoe and shovel treat it like a grass block; without Silk Touch it drops dirt.",
+          "Switch: snow.frostGrass in /simpleblocks config (default on); off stops freezing, existing Frost Grass still thaws."
+        ]
+      },
+      "de": {
+        "title": "Frostgras",
+        "summary": "Ein Grasblock mit Schnee darauf gefriert in kalten Biomen oder mit Eis darunter langsam zu Frostgras; ohne Schnee taut es langsam wieder zu Gras.",
+        "details": [
+          "Gefrieren: Chance 1 zu 3 je Zufallstick (snow.freezeOneIn), etwas schneller als Gras wächst; Tauen: 1 zu 6 (snow.thawOneIn). Von einem festen Block bedeckt wird es wie Gras zu Erde.",
+          "Es breitet sich nicht aus. Pflanzen, Tiere, Hacke und Schaufel behandeln es wie einen Grasblock; ohne Behutsamkeit gibt es Erde.",
+          "Schalter: snow.frostGrass in /simpleblocks config (Standard an); aus stoppt das Gefrieren, vorhandenes Frostgras taut weiter."
+        ]
+      }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowConfig.java",
+        "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java"
+      ],
+      "en": {
+        "title": "Settings",
+        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100).",
+        "details": [
+          "/simpleblocks config shows and changes every option (list, get, set, reset, help); values are bounded like in the file, saved and active at once. Permission level 2."
+        ]
+      },
+      "de": {
+        "title": "Einstellungen",
+        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100).",
+        "details": [
+          "/simpleblocks config zeigt und ändert jede Option (list, get, set, reset, help); Werte werden wie in der Datei begrenzt, sofort gespeichert und wirksam. Berechtigung 2."
+        ]
+      }
     }
   ],
   "recipes": [
@@ -7506,6 +7593,23 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dirt_slab.json"
     },
     {
+      "id": "simpleblocks:blocks/frost_grass",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:frost_grass",
+            "minecraft:dirt"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/frost_grass.json"
+    },
+    {
       "id": "simpleblocks:blocks/grass_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8064,6 +8168,45 @@
   ],
   "tags": [
     {
+      "id": "simpleblocks:block/snowloggable",
+      "replace": false,
+      "values": [
+        {
+          "id": "#minecraft:fences",
+          "required": true
+        },
+        {
+          "id": "#minecraft:small_flowers",
+          "required": true
+        },
+        {
+          "id": "minecraft:short_grass",
+          "required": true
+        },
+        {
+          "id": "minecraft:fern",
+          "required": true
+        },
+        {
+          "id": "minecraft:bush",
+          "required": true
+        },
+        {
+          "id": "minecraft:dead_bush",
+          "required": true
+        },
+        {
+          "id": "minecraft:short_dry_grass",
+          "required": true
+        },
+        {
+          "id": "minecraft:tall_dry_grass",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/tags/block/snowloggable.json"
+    },
+    {
       "id": "simpleblocks:item/froglights",
       "replace": false,
       "values": [
@@ -8110,10 +8253,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -8851,6 +8994,35 @@
         "simpleblocks:dirt_slab",
         "simpleblocks:sawing/dirt_slab_from_dirt"
       ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:frost_grass",
+      "name": {
+        "en_us": "Frost Grass",
+        "de_de": "Frostgras"
+      },
+      "note": {
+        "en": {
+          "title": "Frost Grass",
+          "summary": "A grass block with snow on top slowly freezes to Frost Grass in cold biomes or with ice below it; without snow it slowly thaws back to grass.",
+          "details": [
+            "Freezing: chance 1 in 3 per random tick (snow.freezeOneIn), a little faster than grass spreads; thawing: 1 in 6 (snow.thawOneIn). Covered by a solid block it turns to dirt like grass.",
+            "It does not spread. Plants, animals, hoe and shovel treat it like a grass block; without Silk Touch it drops dirt.",
+            "Switch: snow.frostGrass in /simpleblocks config (default on); off stops freezing, existing Frost Grass still thaws."
+          ]
+        },
+        "de": {
+          "title": "Frostgras",
+          "summary": "Ein Grasblock mit Schnee darauf gefriert in kalten Biomen oder mit Eis darunter langsam zu Frostgras; ohne Schnee taut es langsam wieder zu Gras.",
+          "details": [
+            "Gefrieren: Chance 1 zu 3 je Zufallstick (snow.freezeOneIn), etwas schneller als Gras wächst; Tauen: 1 zu 6 (snow.thawOneIn). Von einem festen Block bedeckt wird es wie Gras zu Erde.",
+            "Es breitet sich nicht aus. Pflanzen, Tiere, Hacke und Schaufel behandeln es wie einen Grasblock; ohne Behutsamkeit gibt es Erde.",
+            "Schalter: snow.frostGrass in /simpleblocks config (Standard an); aus stoppt das Gefrieren, vorhandenes Frostgras taut weiter."
+          ]
+        }
+      },
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -9687,6 +9859,16 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:snowlogged",
+      "name": {
+        "en_us": "Snowlogged Block",
+        "de_de": "Verschneiter Block"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:suspended_gravel",
       "name": {
         "en_us": "Suspended Gravel",
@@ -9746,22 +9928,24 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleblocks:snowlogged"
+  ],
   "incompleteProse": {},
   "counts": {
-    "features": 9,
+    "features": 12,
     "recipes": 286,
-    "lootTables": 56,
-    "tags": 1,
+    "lootTables": 57,
+    "tags": 2,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 56,
+    "blocks": 58,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }
