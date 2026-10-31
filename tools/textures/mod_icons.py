@@ -788,10 +788,10 @@ def item_motif(entry: dict, refresh: bool) -> bytes:
     later change of the item texture elsewhere does not break `check`; rerun this script to take it over)."""
     base = asset_dir(entry)
     # IG31-13: SimpleLib's icon keeps its Enderite ingot motif, whose texture moved to Simple Ores (no icon change).
-    if entry["id"] in MOTIF_FROM:
-        base = ROOT / "modules" / MOTIF_FROM[entry["id"]] / "shared/resources/assets" / MOTIF_FROM[entry["id"]]
+    owner = MOTIF_FROM.get(entry["id"])
+    textures = (ROOT / "modules" / owner / "shared/resources/assets" / owner) if owner else base
     if refresh:
-        w, h, px = L.png_read((base / "textures/item" / (ITEM_MOTIFS[entry["id"]] + ".png")).read_bytes())
+        w, h, px = L.png_read((textures / "textures/item" / (ITEM_MOTIFS[entry["id"]] + ".png")).read_bytes())
         if w != 16:
             raise ValueError(f"{entry['id']}: item motif must be 16 px wide")
         return bytes(px[:16 * 16 * 4])

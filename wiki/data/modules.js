@@ -1814,7 +1814,7 @@ window.WIKI_MODULES = [
       "simplehammers"
     ],
     "parent": "simplebuilding",
-    "bundle": "optional",
+    "bundle": "required",
     "intro": {
       "en": "Silver ore in the Overworld and the End with the silver arrow against the undead and the silver mirror, lead whose blocks muffle sound and stop the Sculk, and rose gold: two alloys of gold, copper and silver, pressed into bundles, smelted in the blast furnace only, with tools and armor of their own.",
       "de": "Silbererz in der Oberwelt und im End mit Silberpfeil gegen Untote und Silberspiegel, Blei, dessen Blöcke Geräusche dämmen und den Sculk taub halten, sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen."

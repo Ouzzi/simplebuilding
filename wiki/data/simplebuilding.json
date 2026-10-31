@@ -100511,6 +100511,18 @@
           "required": true
         },
         {
+          "id": "simpleores:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_ingot",
+          "required": true
+        },
+        {
+          "id": "simpleores:enderite_nugget",
+          "required": true
+        },
+        {
           "id": "simpleovens:enderite_blast_furnace",
           "required": true
         },
@@ -121686,7 +121698,7 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:enderite_scrap",
+        "item": "simpleores:enderite_scrap",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -121746,7 +121758,7 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:enderite_upgrade_template",
+        "item": "simpleores:enderite_upgrade_template",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -121776,7 +121788,7 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:raw_enderite",
+        "item": "simpleores:raw_enderite",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -121801,7 +121813,7 @@
       },
       {
         "type": "chest",
-        "item": "simplebuilding:enderite_nugget",
+        "item": "simpleores:enderite_nugget",
         "table": "minecraft:chests/end_city_treasure",
         "label": {
           "en": "End city",
@@ -125156,61 +125168,6 @@
         ]
       },
       {
-        "item": "simplebuilding:enderite_nugget",
-        "table": "minecraft:chests/end_city_treasure",
-        "type": "chest",
-        "label": {
-          "en": "End city",
-          "de": "Endsiedlung"
-        },
-        "gated": true,
-        "requires": [
-          "end"
-        ],
-        "pmf": [
-          0.833333333333,
-          0.0,
-          0.041666666667,
-          0.041666666667,
-          0.041666666667,
-          0.041666666667
-        ]
-      },
-      {
-        "item": "simplebuilding:enderite_scrap",
-        "table": "minecraft:chests/end_city_treasure",
-        "type": "chest",
-        "label": {
-          "en": "End city",
-          "de": "Endsiedlung"
-        },
-        "gated": true,
-        "requires": [
-          "end"
-        ],
-        "pmf": [
-          0.85,
-          0.15
-        ]
-      },
-      {
-        "item": "simplebuilding:enderite_upgrade_template",
-        "table": "minecraft:chests/end_city_treasure",
-        "type": "chest",
-        "label": {
-          "en": "End city",
-          "de": "Endsiedlung"
-        },
-        "gated": true,
-        "requires": [
-          "end"
-        ],
-        "pmf": [
-          0.7,
-          0.3
-        ]
-      },
-      {
         "item": "simplebuilding:gold_chisel",
         "table": "minecraft:chests/buried_treasure",
         "type": "chest",
@@ -125499,24 +125456,6 @@
           0.964710884354,
           0.034863945578,
           0.000425170068
-        ]
-      },
-      {
-        "item": "simplebuilding:raw_enderite",
-        "table": "minecraft:chests/end_city_treasure",
-        "type": "chest",
-        "label": {
-          "en": "End city",
-          "de": "Endsiedlung"
-        },
-        "gated": true,
-        "requires": [
-          "end"
-        ],
-        "pmf": [
-          0.888888888889,
-          0.055555555556,
-          0.055555555556
         ]
       },
       {
@@ -126005,6 +125944,79 @@
           0.925,
           0.0375,
           0.0375
+        ]
+      },
+      {
+        "item": "simpleores:enderite_nugget",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.833333333333,
+          0.0,
+          0.041666666667,
+          0.041666666667,
+          0.041666666667,
+          0.041666666667
+        ]
+      },
+      {
+        "item": "simpleores:enderite_scrap",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.85,
+          0.15
+        ]
+      },
+      {
+        "item": "simpleores:enderite_upgrade_template",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.7,
+          0.3
+        ]
+      },
+      {
+        "item": "simpleores:raw_enderite",
+        "table": "minecraft:chests/end_city_treasure",
+        "type": "chest",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "gated": true,
+        "requires": [
+          "end"
+        ],
+        "pmf": [
+          0.888888888889,
+          0.055555555556,
+          0.055555555556
         ]
       },
       {
