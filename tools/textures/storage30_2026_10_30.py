@@ -240,6 +240,19 @@ def face(uv, tex='#pipe', **extra):
     return out
 
 
+def PIPE_OUT_ELEMENTS(z0: int) -> list:
+    """The output arm toward north at z0..z0+5: body 6x6 over z0+2..z0+5, neck 3x3 over z0..z0+2 (one narrowing, 6 -> 3)."""
+    return [
+        {'from': [5, 5, z0 + 2], 'to': [11, 11, z0 + 5], 'faces': {
+            'north': face((6, 0, 12, 6)),
+            'up': face((0, 6, 6, 9)), 'down': face((0, 9, 6, 6)),
+            'east': face((6, 6, 9, 12)), 'west': face((9, 6, 6, 12))}},
+        {'from': [6.5, 6.5, z0], 'to': [9.5, 9.5, z0 + 2], 'faces': {
+            'north': face((7, 1, 10, 4)),
+            'up': face((0, 6, 3, 8)), 'down': face((0, 8, 3, 6)),
+            'east': face((6, 6, 8, 9)), 'west': face((8, 6, 6, 9))}}]
+
+
 def pipe_templates() -> None:
     # the middle piece 6x6x6: every face the core plate
     cube = {d: face((0, 0, 6, 6)) for d in ('down', 'up', 'north', 'south', 'west', 'east')}
@@ -253,23 +266,19 @@ def pipe_templates() -> None:
             'north': face((6, 0, 12, 6)),
             'up': face((0, 0, 6, 5)), 'down': face((0, 0, 6, 5)),
             'east': face((0, 0, 5, 6)), 'west': face((0, 0, 5, 6))}}]})
-    # output arm (toward north): the chevrons point out of the pipe (up face: tip up = north; down face flipped; east: tip right = north;
-    # west: tip left = north)
+    # output arm (toward north), IG31-5 owner pick 31.10. (pipe B): ONE narrowing 6 -> 3 pixels: a 6x6 body (z 2..5), then a 3x3 neck
+    # (z 0..2) with the end ring. Chevrons on the body point out of the pipe (up face: tip up = north; down face flipped; east: tip
+    # right = north; west: tip left = north).
     dump(ASSETS / 'models/block/template_pipe_out.json', {
         'textures': {'particle': '#pipe'},
-        'elements': [{'from': [5, 5, 0], 'to': [11, 11, 5], 'faces': {
-            'north': face((6, 0, 12, 6)),
-            'up': face((0, 6, 6, 11)), 'down': face((0, 11, 6, 6)),
-            'east': face((6, 6, 11, 12)), 'west': face((11, 6, 6, 12))}}]})
+        'elements': PIPE_OUT_ELEMENTS(0)})
     # the item model: a straight pipe along z (arrow arm north, input arm south)
     dump(ASSETS / 'models/block/template_pipe_item.json', {
         'parent': 'minecraft:block/block',
         'textures': {'particle': '#pipe'},
         'elements': [
             {'from': [5, 5, 5], 'to': [11, 11, 11], 'faces': cube},
-            {'from': [5, 5, 0], 'to': [11, 11, 5], 'faces': {
-                'north': face((6, 0, 12, 6)), 'up': face((0, 6, 6, 11)), 'down': face((0, 11, 6, 6)),
-                'east': face((6, 6, 11, 12)), 'west': face((11, 6, 6, 12))}},
+            *PIPE_OUT_ELEMENTS(0),
             {'from': [5, 5, 11], 'to': [11, 11, 16], 'faces': {
                 'south': face((6, 0, 12, 6)), 'up': face((0, 0, 6, 5)), 'down': face((0, 0, 6, 5)),
                 'east': face((0, 0, 5, 6)), 'west': face((0, 0, 5, 6))}}]})

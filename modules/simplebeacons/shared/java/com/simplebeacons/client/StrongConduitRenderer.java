@@ -25,7 +25,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * The conduits of Simple Beacons: Vanilla's conduit geometry and textures (shell, cage, wind, eye) with a tint per kind (Strong star-blue,
- * Mighty gold, Evil violet, Mighty Evil red) on shell, cage and wind, so it reads apart from a Vanilla conduit at a glance (concept §4). Vanilla's {@link ConduitRenderer#submit} has
+ * Mighty purple, Evil red, Mighty Evil dark red) on shell, cage and wind, so it reads apart from a Vanilla conduit at a glance (concept §4). Vanilla's {@link ConduitRenderer#submit} has
  * no tint hook, so its drawing is repeated here with the tint as the colour argument; the textures stay Vanilla's.
  */
 public class StrongConduitRenderer implements BlockEntityRenderer<StrongConduitBlockEntity, StrongConduitRenderer.State> {

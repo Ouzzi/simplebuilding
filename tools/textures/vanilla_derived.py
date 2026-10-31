@@ -184,7 +184,6 @@ MODULE_OUTPUTS = {
                    'item/soul_fire_charge.png': ((16, 16), 'mobs2_textures.derived() - Vanilla fire_charge (N49)'),
                    'item/soulfire_powder.png': ((16, 16), 'mobs2_textures.derived() - Vanilla blaze_powder (N49)'),
                    'item/soulfire_rod.png': ((16, 16), 'abn29_2026_10_29.derived_mobs() - Vanilla blaze rod / gunpowder / TNT recoloured (a-abn29t)'),
-                   'item/strong_gunpowder.png': ((16, 16), 'abn29_2026_10_29.derived_mobs() - Vanilla blaze rod / gunpowder / TNT recoloured (a-abn29t)'),
                    'block/strong_tnt_side.png': ((16, 16), 'abn29_2026_10_29.derived_mobs() - Vanilla blaze rod / gunpowder / TNT recoloured (a-abn29t)'),
                    'block/strong_tnt_top.png': ((16, 16), 'abn29_2026_10_29.derived_mobs() - Vanilla blaze rod / gunpowder / TNT recoloured (a-abn29t)'),
                    'block/strong_tnt_bottom.png': ((16, 16), 'abn29_2026_10_29.derived_mobs() - Vanilla blaze rod / gunpowder / TNT recoloured (a-abn29t)'),
