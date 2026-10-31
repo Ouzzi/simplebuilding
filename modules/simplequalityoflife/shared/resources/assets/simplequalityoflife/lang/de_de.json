@@ -71,7 +71,7 @@
   "simplequalityoflife.guide.page.26.title": "Goldausrüstung für Piglins",
   "simplequalityoflife.guide.page.26": "Goldbesatz oder goldene Waffe und Werkzeuge in einer Hand gelten als sichere Ausrüstung. Beide Schalter standardmäßig true. Angriff oder Behälter öffnen macht sie weiter wütend.",
   "simplequalityoflife.guide.page.27.title": "Eimer mit Frosch",
-  "simplequalityoflife.guide.page.27": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante, Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer.",
+  "simplequalityoflife.guide.page.27": "Ein Wassereimer auf einem Frosch fängt ihn wie einen Axolotl oder eine Kaulquappe. Variante (Eimerfarbe und Tooltip), Name und Alter bleiben am Eimer; beim Aussetzen kehren sie zurück. Im Reiter Werkzeuge nach dem Kaulquappen-Eimer.",
   "simplequalityoflife.guide.page.28.title": "Federfall schützt Ackerland",
   "simplequalityoflife.guide.page.28": "Federfallstiefel verhindern Zertrampeln. Dies ergänzt den Breezekopf-Schutz aus SimpleBuilding. preventFarmlandTrampleWithFeatherFalling ist standardmäßig true.",
   "simplequalityoflife.guide.page.29.title": "Mit Hacke ernten und nachpflanzen",
