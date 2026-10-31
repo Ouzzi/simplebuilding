@@ -612,6 +612,18 @@
       "de": {
         "summary": "Nautilusschalenblock: vier Nautilusschalen im Quadrat, wieder in vier zerlegbar; wird wie der Knochenblock entlang einer Achse gesetzt."
       }
+    },
+    "simpleblocks:snowlogged": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowloggedBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/Snowlogging.java"
+      ],
+      "en": {
+        "summary": "The block a snow layer on a fence, small flower, grass, fern or bush turns into: plant or fence and snow share the block (see Snowlogging). Not an item of its own."
+      },
+      "de": {
+        "summary": "Der Block, zu dem eine Schneeschicht auf Zaun, kleiner Blume, Gras, Farn oder Busch wird: Pflanze oder Zaun und Schnee teilen sich den Block (siehe Verschneien). Kein eigenes Item."
+      }
     }
   }
 }
