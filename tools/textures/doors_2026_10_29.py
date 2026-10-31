@@ -26,6 +26,9 @@ import sys
 import zipfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import door_voxel  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
 OVERLAY = ROOT / "mc26_3/overlay/resources"
 ASSETS = OVERLAY / "assets/simplebuilding"
@@ -132,6 +135,22 @@ EDGE_TB = [0, 0, 16, 3]  # top / bottom of a thin leaf
 EDGE_SIDE = [0, 0, 3, 16]
 
 
+_IMAGES = {}
+
+
+def _cell_image(wood, name):
+    """The derived 16 x 16 texture of a door cell (needs the Vanilla jar; None without it, the models then keep the plain slab)."""
+    if wood not in _IMAGES:
+        _IMAGES[wood] = derive_wood(JAR, wood) if os.path.exists(JAR) else {}
+    return _IMAGES[wood].get(f"block/{name}.png")
+
+
+def _voxel(wood, name, run_axis, run, depth, front, back):
+    """IG31-9 (owner 31.10., variant B): a leaf with see-through texels becomes boxes with an inner wall (tools/door_voxel.py)."""
+    img = _cell_image(wood, name)
+    return None if img is None else door_voxel.slab_elements(img, run_axis, run, depth, front, back, "#t")
+
+
 def closed_model(wood, fmt, c, r, hinge):
     """One cell of a closed door: the slab on the south edge (north-facing frame). South face u=0 at the hinge (LEFT: west)."""
     cols, rows, half = FORMATS[fmt]
@@ -143,7 +162,9 @@ def closed_model(wood, fmt, c, r, hinge):
     side = [0, 0, 3, 16]
     el = slab([x0, 0, 13], [x1, 16, 16], {"south": south, "north": north, "up": [0, 0, w, 3], "down": [0, 0, w, 3], "east": side, "west": side})
     tex = f"{NS}:block/{tex_name(wood, fmt, c, r)}"
-    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": [el]}
+    # seen from +z (south) the left edge is the low x; the back (north) is mirrored
+    voxel = _voxel(wood, tex_name(wood, fmt, c, r), "x", (x0, x1), (13, 16), ("south", south, True), ("north", north, False))
+    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": voxel or [el]}
 
 
 def open_model(wood, fmt, seg, r, hinge):
@@ -158,7 +179,9 @@ def open_model(wood, fmt, seg, r, hinge):
     el = slab([x0, 0, z0], [x1, 16, 16], {"east": east, "west": west, "up": [0, 0, 3, length], "down": [0, 0, 3, length],
                                           "north": [0, 0, 3, 16], "south": [0, 0, 3, 16]})
     tex = f"{NS}:block/{tex_name(wood, fmt, seg, r)}"
-    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": [el]}
+    # seen from +x (east) the left edge is the high z
+    voxel = _voxel(wood, tex_name(wood, fmt, seg, r), "z", (z0, 16), (x0, x1), ("east", east, False), ("west", west, True))
+    return {"textures": {"t": tex, "particle": "minecraft:block/oak_planks"}, "elements": voxel or [el]}
 
 
 def item_model(wood, fmt):
@@ -189,20 +212,24 @@ def item_model(wood, fmt):
 
 
 def blockstate(wood, fmt):
+    """Every state of the block (col 0-1, row 0-2, swing) gets a model: the block's state definition has all combinations, and
+    the ones a door never reaches (MIXCHECK31-5: open with col 1, rows above the door, closed swing cells) fall back to the
+    nearest real cell, so the client does not log 'Missing model for variant'."""
     cols, rows, half = FORMATS[fmt]
     rot = {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}}
     variants = {}
     for facing, rt in rot.items():
         for hinge in ("left", "right"):
-            for r in range(rows):
-                for c in range(cols):
-                    key = f"facing={facing},hinge={hinge},open=false,col={c},row={r},swing=false"
-                    variants[key] = {"model": f"{NS}:block/{wood}_door_{fmt}_closed_c{c}_r{r}_{hinge}", **rt}
-                variants[f"facing={facing},hinge={hinge},open=true,col=0,row={r},swing=false"] = {
-                    "model": f"{NS}:block/{wood}_door_{fmt}_open_s0_r{r}_{hinge}", **rt}
-                if not half:
-                    variants[f"facing={facing},hinge={hinge},open=true,col=0,row={r},swing=true"] = {
-                        "model": f"{NS}:block/{wood}_door_{fmt}_open_s1_r{r}_{hinge}", **rt}
+            for r in range(3):
+                rr = min(r, rows - 1)
+                for c in range(2):
+                    cc = min(c, cols - 1)
+                    for swing in ("false", "true"):
+                        closed = f"{NS}:block/{wood}_door_{fmt}_closed_c{cc}_r{rr}_{hinge}"
+                        variants[f"facing={facing},hinge={hinge},open=false,col={c},row={r},swing={swing}"] = {"model": closed, **rt}
+                        s1 = swing == "true" and not half and c == 0 and r < rows
+                        variants[f"facing={facing},hinge={hinge},open=true,col={c},row={r},swing={swing}"] = {
+                            "model": f"{NS}:block/{wood}_door_{fmt}_open_s{1 if s1 else 0}_r{rr}_{hinge}", **rt}
     return {"variants": variants}
 
 

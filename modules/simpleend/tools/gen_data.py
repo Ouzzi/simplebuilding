@@ -101,6 +101,30 @@ def templates(jar):
     return count, loot, tags
 
 
+def voxel_door_tops(jar):
+    """IG31-9 (owner 31.10., variant B): the top door halves have see-through texels; their slab becomes boxes with an inner wall
+    (tools/door_voxel.py), so the leaf no longer looks missing at a hole. Bottom halves are opaque and stay Vanilla models."""
+    sys.path.insert(0, str(MODULE.parents[1] / 'tools'))
+    import door_voxel
+    from PIL import Image
+    tex = MODULE / 'shared/resources/assets' / NS / 'textures/block'
+    with zipfile.ZipFile(jar) as z:
+        for variant in ('top_left', 'top_left_open', 'top_right', 'top_right_open'):
+            base = json.loads(z.read(f'assets/minecraft/models/block/door_{variant}.json'))
+            faces = base['elements'][0]['faces']
+            for w in WOODS:
+                img = Image.open(tex / f"{w['name']}_door_top.png")
+                els = door_voxel.slab_elements(
+                    img, 'z', (0, 16), (0, 3), ('west', faces['west']['uv'], True), ('east', faces['east']['uv'], True), '#top',
+                    {'west': 'west', 'up': 'up', 'north': 'north', 'south': 'south'})
+                if els is None:
+                    continue
+                dump(OUT / f'assets/{NS}/models/block/{w["name"]}_door_{variant}.json', {
+                    'ambientocclusion': False,
+                    'textures': {'particle': '#top', 'bottom': f'{NS}:block/{w["name"]}_door_bottom', 'top': f'{NS}:block/{w["name"]}_door_top'},
+                    'elements': els})
+
+
 TAG_SKIP = {'overworld_natural_logs', 'pale_oak_logs'}
 
 
@@ -407,6 +431,7 @@ def main(argv=None):
     if OUT.exists():
         shutil.rmtree(OUT)
     n, loot, tags = templates(args.jar)
+    voxel_door_tops(args.jar)
     vanilla_tags(tags)
     own_tags()
     plants(loot)

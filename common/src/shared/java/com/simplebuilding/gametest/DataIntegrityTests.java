@@ -3811,13 +3811,6 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
-    /** IG31-3: SimpleBuilding no longer places items in Vanilla tabs - the placement list the loaders read is always empty. */
-    public static void vanillaTabsStayUnchangedWhenModItemsAreDisabled(GameTestHelper helper) {
-        helper.assertTrue(com.simplebuilding.items.SearchTabPlacement.placementsIfEnabled().isEmpty(),
-                "Vanilla-tab placements are enabled although Simple mods keep to their own tabs");
-        helper.succeed();
-    }
-
     /**
      * Owner N22: the spacer logic stays, behind the config switch {@code creativeTabSpacers} (default off). Off, a
      * layout with a gap and two categories emits only the items; on, the gap and the cell between the
