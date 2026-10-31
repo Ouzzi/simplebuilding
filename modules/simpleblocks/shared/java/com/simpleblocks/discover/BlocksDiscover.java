@@ -68,6 +68,7 @@ public final class BlocksDiscover {
             "simpleblocks:chiseled_*_ice",
             "simpleblocks:chiseled_blue_ice",
             "simpleblocks:chiseled_packed_ice",
+            "simpleblocks:config_server",
             "simpleblocks:cracked_*",
             "simpleblocks:cracked_and_mossy_bricks",
             "simpleblocks:cracked_blue_ice",
@@ -84,6 +85,7 @@ public final class BlocksDiscover {
             "simpleblocks:cut_sandstone_stairs",
             "simpleblocks:cut_sandstone_wall",
             "simpleblocks:dirt_slab",
+            "simpleblocks:frost_grass",
             "simpleblocks:grass_slab",
             "simpleblocks:gravel_slab",
             "simpleblocks:gravity_blocks",
@@ -118,6 +120,8 @@ public final class BlocksDiscover {
             "simpleblocks:smooth_basalt_wall",
             "simpleblocks:smooth_red_sandstone_wall",
             "simpleblocks:smooth_sandstone_wall",
+            "simpleblocks:snowlogged",
+            "simpleblocks:snowlogging",
             "simpleblocks:suspended_gravel",
             "simpleblocks:suspended_sand");
     static final List<Tip> TIPS = List.of(
