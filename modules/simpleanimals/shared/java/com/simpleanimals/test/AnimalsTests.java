@@ -212,16 +212,17 @@ public final class AnimalsTests {
             float before = hedgehog.getHealth(), attackerBefore = attacker.getHealth();
             hedgehog.hurtServer(level, level.damageSources().mobAttack(attacker), 4.0F);
             h.assertTrue(Math.abs((before - hedgehog.getHealth()) - 2.0F) < 0.01F, "curled: half of 4 = 2 damage, got " + (before - hedgehog.getHealth()));
-            hedgehog.invulnerableTime = 0;
-            hedgehog.setHealth(hedgehog.getMaxHealth());
-            float tiny = hedgehog.getHealth();
-            hedgehog.hurtServer(level, level.damageSources().generic(), 1.0F);
-            h.assertTrue(Math.abs((tiny - hedgehog.getHealth()) - 0.5F) < 0.01F, "curled: 1 damage is 0.5, not zero");
+            Hedgehog small = quiet(h.spawn(AnimalsRegistry.HEDGEHOG, at(6, 3)));
+            small.setCurled(true);
+            float tiny = small.getHealth();
+            small.hurtServer(level, level.damageSources().generic(), 1.0F);
+            h.assertTrue(Math.abs((tiny - small.getHealth()) - 0.5F) < 0.01F, "curled: 1 damage is 0.5, not zero");
             // 50 % chance: over 40 hits at least one prick lands (2^-40 to miss); 1..4 damage each
             for (int i = 0; i < 40 && attacker.getHealth() >= attackerBefore; i++) {
-                hedgehog.invulnerableTime = 0;
-                hedgehog.setHealth(hedgehog.getMaxHealth());
-                hedgehog.hurtServer(level, level.damageSources().mobAttack(attacker), 0.5F);
+                Hedgehog target = quiet(h.spawn(AnimalsRegistry.HEDGEHOG, at(7, 3)));
+                target.setCurled(true);
+                target.hurtServer(level, level.damageSources().mobAttack(attacker), 0.5F);
+                target.discard();
             }
             h.assertTrue(attacker.getHealth() < attackerBefore, "the melee attacker is pricked");
             h.assertTrue(attackerBefore - attacker.getHealth() <= Hedgehog.PRICK_MAX + 0.01F, "a prick is at most 4");
@@ -240,9 +241,10 @@ public final class AnimalsTests {
             try {
                 float calmBefore = calm.getHealth();
                 for (int i = 0; i < 40; i++) {
-                    hedgehog.invulnerableTime = 0;
-                    hedgehog.setHealth(hedgehog.getMaxHealth());
-                    hedgehog.hurtServer(level, level.damageSources().mobAttack(calm), 0.5F);
+                    Hedgehog target = quiet(h.spawn(AnimalsRegistry.HEDGEHOG, at(7, 3)));
+                    target.setCurled(true);
+                    target.hurtServer(level, level.damageSources().mobAttack(calm), 0.5F);
+                    target.discard();
                 }
                 h.assertTrue(calm.getHealth() == calmBefore, "switch off: no prick");
             } finally {
