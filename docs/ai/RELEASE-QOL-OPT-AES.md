@@ -88,7 +88,7 @@ Wird aus `docs/ai/release-qoa/*.md` zusammengeführt (pro Mod In-Game-Schritte m
 - [ ] Freigabe „ja“ des Besitzers → erst dann hochladen
 
 ## 5. Berichte je Mod
-Stand 31.10. (Aesthetics läuft noch):
+Stand 31.10. (alle 16 auditiert):
 | Mod | Urteil | P1/P2/P3 | Tests | Bericht |
 |---|---|---|---|---|
 | simplequalityoflife | shipbar | 0/0/4 | grün (6+6) | modules/simplequalityoflife/AUDIT.md |
@@ -103,7 +103,11 @@ Stand 31.10. (Aesthetics läuft noch):
 | simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Client-Smoke Nachlauf | modules/simpleoptrender/AUDIT.md |
 | simpleoptmemory | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptmemory/AUDIT.md |
 | simpleoptserver | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptserver/AUDIT.md |
-Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md (aes.md folgt). Noch für alle offen: echter Client-Start im Bündel, Lauf mit Sodium/Iris/Lithium/JEI/Mod Menu.
+| simpleaesthetics | shipbar | 0/0/3 | grün (3/3 Rerun) | modules/simpleaesthetics/AUDIT.md |
+| simplesounds | shipbar | 0/1 (Rückfrage Q-B1)/5 (2 fix) | grün, Client-Smoke 3 | modules/simplesounds/AUDIT.md |
+| simplemodels | shipbar | 0/1 (fix: Katalog-Paket kompakt, sonst Kick > 28000 Zeichen)/5 | grün, Client-Smoke 10 | modules/simplemodels/AUDIT.md |
+| simplevisuals | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/1 (Rückfrage R-AES-2)/5 (1 fix) | grün, Client-Smoke 6 | modules/simplevisuals/AUDIT.md |
+Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md, aes.md. Simple Sounds enthält keine Audiodatei (nur Vanilla-Sound-Events) → keine Lizenzfrage. Noch für alle offen: echter Client-Start im Bündel, Lauf mit Sodium/Iris/Lithium/JEI/Mod Menu.
 
 ## 6. Weitere Besitzer-Punkte
 *(leer)*
@@ -113,7 +117,8 @@ Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md (aes.md f
 - R2 e3/e5 (Benchmark auf deinem PC, Modpack-Test) vor dem Opt-Release oder Opt als „Beta“ ausliefern? (Audit: blockiert 1.0 nicht, wenn die Texte keine Leistungszusagen machen; vorhandene Messungen belegen nur S5b.)
 - R3 Opt: Mod-Menu-Bildschirm vor Release nötig (heute nur JSON + Befehle)?
 - R-INT-1 Zoom-Taste C unbelegt lassen, solange `zoomHotkey` aus ist?
-- Q-B1 Cloth Config ist bei den sechs QoL-Sub-Mods harte Abhängigkeit, obwohl nur der Client-Screen sie braucht – optional machen?
+- Q-B1 Cloth Config ist bei den sechs QoL-Sub-Mods und bei Simple Visuals/Sounds harte Abhängigkeit (Dedicated Server muss sie mitinstallieren), obwohl nur der Client-Screen sie braucht – optional machen?
+- R-AES-2 Simple Visuals: Mixins `required:true` → ein Mojang-Patch beendet den Start. Auf „Bereich aus statt Absturz“ umstellen wie bei den Opt-Mods? (Empfehlung: ja)
 - Q-B2 Simple Weather dünnt Regen standardmäßig auf 20 % aus – Standard so lassen?
 - Q-B3 Leitern standardmäßig doppelt so schnell (0,4 statt 0,2) – so lassen?
 - Q-B4 Biom-Pinsel-Rezept braucht 3 Nether-Sterne – so lassen?
