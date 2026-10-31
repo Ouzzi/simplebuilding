@@ -659,7 +659,7 @@
         "summary": "The Evil chain one tier up - Void Potion, Void Omen, Void Trial, Void Vault - switched off by default until the Ender Heart has a source.",
         "details": [
           "Same steps as the Evil Omen: Ominous Bottle + Ender Heart in the soul-fuelled Brewing Stand = Void Potion I-V, Void Omen, a Weathered Trial or raid turns void (violet particles; life +60 to +100 %, every effect one step higher), the reward is the Void Trial Key of the stage, and a Void Vault is made from an Evil Vault with a netherite block in the off hand and 5 strikes. It pays 3 to 5 draws of netherite, enchanted golden apples, totems, echo shards, heavy cores, phantom membrane and stage V ominous bottles.",
-          "The Ender Heart has no source in the game yet, so the whole chain is off: config voidChain (default false, needs evilOmen). The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Not built: the darkness aura and the teleporting archers of Void mobs."
+          "The Ender Heart has no source in the game yet, so the whole chain is off: config voidChain (default false, needs evilOmen). The items stay in the Creative tab and the recipes are shown in the recipe viewer only while it is on. Void mobs darken the air 6 blocks around them (Darkness for players) and Void archers blink away when hit (config voidMobTricks)."
         ]
       },
       "de": {
@@ -667,7 +667,7 @@
         "summary": "Die Böse Kette eine Stufe höher – Leere-Trank, Leere-Omen, Leere-Prüfung, Leere-Tresor –, standardmäßig aus, bis das Enderherz eine Quelle hat.",
         "details": [
           "Dieselben Schritte wie beim Bösen Omen: Unheilvolle Flasche + Enderherz im seelenbefeuerten Braustand = Leere-Trank I–V, Leere-Omen, eine Verwitterte Prüfung oder ein Überfall wird zur Leere (violette Partikel; Leben +60 bis +100 %, jeder Effekt eine Stufe höher), Belohnung ist der Leere-Prüfungsschlüssel der Stufe, und ein Leere-Tresor entsteht aus einem Bösen Tresor mit einem Netheritblock in der Nebenhand und 5 Schlägen. Er zahlt 3 bis 5 Züge aus Netherit, Verzauberten Goldäpfeln, Totems, Echosplittern, Schweren Kernen, Phantommembranen und Unheilvollen Flaschen der Stufe V.",
-          "Das Enderherz hat im Spiel noch keine Quelle, deshalb ist die ganze Kette aus: Config voidChain (Standard false, braucht evilOmen). Die Gegenstände bleiben im Kreativ-Tab, die Rezepte erscheinen im Rezeptbetrachter nur bei eingeschalteter Kette. Nicht gebaut: Dunkelheits-Aura und teleportierende Bogenschützen der Leere-Mobs."
+          "Das Enderherz hat im Spiel noch keine Quelle, deshalb ist die ganze Kette aus: Config voidChain (Standard false, braucht evilOmen). Die Gegenstände bleiben im Kreativ-Tab, die Rezepte erscheinen im Rezeptbetrachter nur bei eingeschalteter Kette. Leere-Mobs verdunkeln die Luft 6 Blöcke um sich (Dunkelheit für Spieler), und Leere-Bogenschützen springen bei Treffern weg (Config voidMobTricks)."
         ]
       },
       "related": [
@@ -683,6 +683,43 @@
         "simplemobs:void_potion_5",
         "simplemobs:void_trial_key_5"
       ]
+    },
+    {
+      "id": "trials_extras",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/TrialsExtras.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trials/EvilOmen.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Trials: limits, hits and switches",
+        "summary": "What the Weathered Trials and the Evil Omen add on top of Vanilla, and every switch that turns it off.",
+        "details": [
+          "Spawners: at most 3 Weathered Trial Spawners of one structure are active at once (a fourth waits until one finishes; config trialSpawnerCap, 0 = no limit). Vanilla spawners are never limited.",
+          "Evil mobs: from stage 2 a hit has a 10 % chance of Wither I (5 s), from stage 3 their arrows slow (Slowness II), at stage 5 every hit gives Darkness; a Void mob counts one stage higher (config evilHitEffects). Only mobs a trial or raid spawned under the omen have this.",
+          "Vaults: the Evil and Void Vaults draw every item at most once per opening (a repeated draw is rolled again, up to 12 times; config trialLootNoRepeat). The recipe viewer lists every vault table with its weights and shares.",
+          "Evil Raid: one more wave than Vanilla's raid would have, and after the victory a chest with the loot of the stage stands near the village bell (config evilRaidExtras). The omen only counts for a raid that starts after you got it.",
+          "Vanilla Trial Spawners: the Evil Omen can also turn them evil (config evilOnVanillaSpawners, default off - it changes Vanilla chambers). Their stage is kept in memory only and is forgotten when the server restarts.",
+          "New structures: config weatheredStructures turns the generation of Weathered Trials off (existing ones stay), weatheredDecayPercent sets how much of their copper and tuff is missing (default 11)."
+        ]
+      },
+      "de": {
+        "title": "Prüfungen: Grenzen, Treffer und Schalter",
+        "summary": "Was die Verwitterten Prüfungen und das Böse Omen zusätzlich zu Vanilla bringen, und jeder Schalter, der es abstellt.",
+        "details": [
+          "Spawner: höchstens 3 Verwitterte Trial-Spawner einer Struktur sind gleichzeitig aktiv (ein vierter wartet, bis einer fertig ist; Config trialSpawnerCap, 0 = keine Grenze). Vanilla-Spawner werden nie begrenzt.",
+          "Böse Mobs: ab Stufe 2 hat ein Treffer 10 % Chance auf Wither I (5 s), ab Stufe 3 bremsen ihre Pfeile (Langsamkeit II), auf Stufe 5 gibt jeder Treffer Dunkelheit; ein Leere-Mob zählt eine Stufe höher (Config evilHitEffects). Das haben nur Mobs, die eine Prüfung oder ein Überfall unter dem Omen gespawnt hat.",
+          "Tresore: Böser und Leere-Tresor ziehen jeden Gegenstand höchstens einmal je Öffnung (eine doppelte Ziehung wird neu gewürfelt, bis zu 12-mal; Config trialLootNoRepeat). Der Rezeptbetrachter zeigt jede Tresor-Tabelle mit Gewichten und Anteilen.",
+          "Böser Überfall: eine Welle mehr, als der Vanilla-Überfall hätte, und nach dem Sieg steht eine Truhe mit der Beute der Stufe nahe der Dorfglocke (Config evilRaidExtras). Das Omen zählt nur für einen Überfall, der nach dem Erhalt beginnt.",
+          "Vanilla-Trial-Spawner: das Böse Omen kann auch sie böse machen (Config evilOnVanillaSpawners, Standard aus – es verändert Vanilla-Kammern). Ihre Stufe liegt nur im Speicher und ist nach einem Server-Neustart vergessen.",
+          "Neue Strukturen: Config weatheredStructures schaltet die Erzeugung der Verwitterten Prüfungen ab (bestehende bleiben), weatheredDecayPercent bestimmt, wie viel Kupfer und Tuff fehlt (Standard 11)."
+        ]
+      },
+      "related": [
+        "simplemobs:weathered_trial_spawner",
+        "simplemobs:weathered_vault",
+        "simplemobs:evil_vault"
+      ]
     }
   ],
   "notes": {
@@ -692,10 +729,10 @@
         "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 30 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+        "summary": "Guide to this mod: 31 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 30 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+        "summary": "Handbuch zu dieser Mod: 31 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
       }
     },
     "simplemobs:deceiver_cloth": {

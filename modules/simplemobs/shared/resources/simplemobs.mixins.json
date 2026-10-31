@@ -30,7 +30,11 @@
     "TrialSpawnerEvilMixin",
     "TrialVaultKeysMixin",
     "TrimAbilityLivingMixin",
-    "TrimAbilityPlayerMixin"
+    "TrimAbilityPlayerMixin",
+    "RaidEvilMixin",
+    "RaidsEvilMixin",
+    "BlockRotProcessorMixin",
+    "StructureWeatheredMixin"
   ],
   "client": [
     "DeceiverLookMixin",

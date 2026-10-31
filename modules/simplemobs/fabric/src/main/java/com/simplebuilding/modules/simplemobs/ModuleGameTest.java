@@ -152,4 +152,12 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void trialsEvilTurn(GameTestHelper helper) { TrialsTests.ALL.get("trials_evil_turn").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsBuffs(GameTestHelper helper) { TrialsTests.ALL.get("trials_buffs").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsConfigVoidOff(GameTestHelper helper) { TrialsTests.ALL.get("trials_config_void_off").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsSpawnerCap(GameTestHelper helper) { TrialsTests.ALL.get("trials_spawner_cap").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsLootDistinct(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot_distinct").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsHitEffects(GameTestHelper helper) { TrialsTests.ALL.get("trials_hit_effects").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 200) public void trialsVoidTricks(GameTestHelper helper) { TrialsTests.ALL.get("trials_void_tricks").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsVanillaSpawner(GameTestHelper helper) { TrialsTests.ALL.get("trials_vanilla_spawner").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsRaidExtras(GameTestHelper helper) { TrialsTests.ALL.get("trials_raid_extras").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsStructureSwitch(GameTestHelper helper) { TrialsTests.ALL.get("trials_structure_switch").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trialsLootPages(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot_pages").accept(helper); }
 }
