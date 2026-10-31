@@ -242,7 +242,7 @@ public final class KeysScreen extends Screen {
                     rebuildWidgets();
                 }).bounds(bx, rowY, 50, 20).build());
                 b.active = size != s;
-                probe.put("size_" + s.percent.replace("%", ""), b);
+                probe.put("size_" + s.percent.replace("%", "").trim(), b);
                 bx += 52;
             }
             probe.put("german", addRenderableWidget(Button.builder(filterLabel("layout.german", german), b -> {

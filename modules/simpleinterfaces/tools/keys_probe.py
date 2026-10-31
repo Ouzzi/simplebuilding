@@ -130,7 +130,14 @@ def main():
                 if name not in st['rects']:
                     check(f'{tag}: {name} visible', False, 'not in rects: ' + ', '.join(st['rects']))
                     return st
-                io.click(*centre(st, name))
+                x, y = centre(st, name)
+                io.move(x, y)
+                time.sleep(0.4)
+                seen = fresh()
+                gx, gy = seen['windowX'] + seen['mouseX'], seen['windowY'] + seen['mouseY']
+                if abs(gx - x) > 3 or abs(gy - y) > 3:
+                    print(f'  pointer {name}: root {x:.0f}/{y:.0f}, game sees {gx:.0f}/{gy:.0f} (window {seen["windowX"]}/{seen["windowY"]})', flush=True)
+                io.click(x, y)
                 return fresh()
 
             # views
@@ -172,10 +179,10 @@ def main():
             st = click('tab_keyboard')
             check(f'{tag}: tab keyboard', st['values'].get('view') == 'KEYBOARD', st['values'].get('view'))
             st = click('size_60')
-            check(f'{tag}: size 60 %', st['values'].get('size') == '60%', st['values'].get('size'))
+            check(f'{tag}: size 60 %', st['values'].get('size').replace(' ', '') == '60%', st['values'].get('size'))
             command('shot')
             st = click('size_100')
-            check(f'{tag}: size 100 %', st['values'].get('size') == '100%', st['values'].get('size'))
+            check(f'{tag}: size 100 %', st['values'].get('size').replace(' ', '') == '100%', st['values'].get('size'))
             st = click('german')
             g1 = st['values'].get('german')
             st = click('german')
