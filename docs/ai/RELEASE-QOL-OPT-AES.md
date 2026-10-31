@@ -72,7 +72,7 @@ Für jede Mod abzuhaken (Ergebnis im jeweiligen `AUDIT.md`):
 - **C9 Offen:** Queue-Zeilen, Memory-Einträge, `TODO`/`FIXME` im Code der Mod.
 
 ## 3. Abnahmeplan für den Besitzer
-Wird aus `docs/ai/release-qoa/*.md` zusammengeführt (pro Mod In-Game-Schritte mit erwartetem Ergebnis). Klickbare Seite: `/root/sb-tools-b/previews/release-qoa-abnahme.html` (Artifact B-Konto, Antwortcode je Punkt ok/nicht ok). *Folgt nach Phase 2.*
+Wird aus `docs/ai/release-qoa/*.md` zusammengeführt (pro Mod In-Game-Schritte mit erwartetem Ergebnis). Klickbare Seite: `/root/sb-tools-b/previews/release-qoa-abnahme.html` (Artifact B-Konto, Antwortcode je Punkt ok/nicht ok). Stand 31.10.: online https://claude.ai/artifact/R6FvgFjdxT5DaN7NrRLsV1 (146 Schritte, 16 Mods, 10 Release-Fragen; Antwortcode `RELQOA|ok=…|offen=…|nok=ID:Notiz;…|skip=…|fragen=ID=Antwort;…`). Generator: /root/sb-tools-b/hub31/gen/build_release_abnahme.py <worktree> <out.html>.
 
 ## 4. Release-Checkliste
 - [ ] Version je Mod festlegen (Vorschlag: 1.0.0 für alle 16 Jars) + Changelog je Mod
