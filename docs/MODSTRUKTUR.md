@@ -149,6 +149,8 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 ## Eigenstaendige Mods
 
+- **Simple Livemap** `simplelivemap` [neu]: Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and an optional built-in web server (off by default, local only, private with a key).
+  - optional: Simple Maps
 - **Simple Stats** `simplestats` [neu]: Every tool, weapon and piece of armor keeps its own statistics (blocks mined, kills by mob and variant, damage absorbed, distances, catches) with an item-specific statistics screen.
   - optional: SimpleBuilding
 - **Wiring Example** `wiringexample` [neu]: Minimal module used to verify loader and integration wiring.

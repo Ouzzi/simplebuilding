@@ -169,6 +169,13 @@ Wegweiser-Karten, Wegpunkte, gerahmte Ansichten, Kartentisch-Upgrades.
 
 - keine eigenen Regeln bisher
 
+### Simple Livemap (`simplelivemap`)
+Live-Webkarte der wirklich erkundeten Welt (Besitzer ABN30-12: eigener Mod parallel zu Simple Maps, kein Sub-Mod).
+
+- „Erkundet“ = besuchte Chunks (je Spieler) + gehaltene Vanilla-Karten; nie Pregen, nie Seed-/Biom-Abfragen, nie Chunks laden.
+- Webserver Standard aus, Bind 127.0.0.1, privat mit Schlüssel (nur im URL-Fragment/Bearer, nie in Query oder Log); öffentlich nur ausdrücklich.
+- Spielerdaten nur Name/Dimension/x/z, Standard aus, jeder kann sich ausblenden; keine Klassen aus Simple Maps (Regel 3).
+
 ### Simple Trims (`simpletrims`)
 Leuchtende/Emittierende/Pulsierende Besatzvorlagen, platzierbare Vorlagen, Besatz-Upgrades.
 

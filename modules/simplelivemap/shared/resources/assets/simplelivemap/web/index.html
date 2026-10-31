@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Simple Livemap</title>
+<style>
+  :root { --bg: #0f1418; --panel: rgba(16, 22, 28, 0.88); --text: #eef2f4; --muted: #b4bec6; --line: #3a4652; --accent: #7cc4ff; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; cursor: grab; touch-action: none; image-rendering: pixelated; }
+  canvas.drag { cursor: grabbing; }
+  .bar { position: fixed; left: 12px; top: 12px; right: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; pointer-events: none; }
+  .bar > * { pointer-events: auto; }
+  .box { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; }
+  select, button { background: #1c252e; color: var(--text); border: 1px solid var(--line); border-radius: 4px; font: inherit; padding: 4px 8px; }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); }
+  #info { position: fixed; left: 12px; bottom: 12px; color: var(--muted); }
+  #msg { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 80vw; text-align: center; display: none; }
+  .title { font-weight: 600; }
+</style>
+</head>
+<body>
+<canvas id="map"></canvas>
+<div class="bar">
+  <span class="box title">Simple Livemap</span>
+  <span class="box"><label>Dimension <select id="dim"></select></label></span>
+  <span class="box"><button id="zin" aria-label="Zoom in">+</button> <button id="zout" aria-label="Zoom out">&minus;</button> <button id="home">0 / 0</button></span>
+  <span class="box" id="players" hidden></span>
+</div>
+<div id="info" class="box">x 0, z 0</div>
+<div id="msg" class="box"></div>
+<script>
+"use strict";
+// Viewer of Simple Livemap: tiles /tiles/<dim>/<z>/<x>/<y>.png (128 px; zoom 4 = 1 block per pixel), /live.json (players).
+// A private map needs its key: the link carries it in the fragment (#t=...), which the browser never sends to a server;
+// it goes out only as an Authorization header. Names are drawn on the canvas (no HTML from the server is ever shown).
+const canvas = document.getElementById("map"), ctx = canvas.getContext("2d");
+const dimSel = document.getElementById("dim"), info = document.getElementById("info"), msg = document.getElementById("msg");
+const playersBox = document.getElementById("players");
+const token = new URLSearchParams(location.hash.slice(1)).get("t") || "";
+const headers = token ? { Authorization: "Bearer " + token } : {};
+const TILE = 128, MAX_Z = 4, CACHE = 400;
+let view = { x: 0, z: 0, s: 1 };            // centre in blocks, s = screen pixels per block
+let dims = [], players = [], folder = "minecraft_overworld";
+const tiles = new Map();                      // key -> { img, t } (img null = empty or failed)
+let pending = 0, dirty = true, denied = false;
+
+function resize() {
+  const r = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(innerWidth * r); canvas.height = Math.round(innerHeight * r);
+  ctx.setTransform(r, 0, 0, r, 0, 0); dirty = true;
+}
+function level() { return Math.max(0, Math.min(MAX_Z, Math.round(MAX_Z + Math.log2(view.s)))); }
+
+function tile(z, x, y) {
+  const key = folder + "/" + z + "/" + x + "/" + y, now = performance.now();
+  let t = tiles.get(key);
+  if (t) {
+    t.t = now;
+    if (!t.loading && now - t.at > 30000 && pending < 8) load(key, t);   // tiles change while players explore
+    return t.img;
+  }
+  if (pending >= 8) return null;
+  t = { img: null, t: now, at: now, loading: false };
+  tiles.set(key, t);
+  load(key, t);
+  if (tiles.size > CACHE) {
+    const old = [...tiles.entries()].sort((a, b) => a[1].t - b[1].t).slice(0, tiles.size - CACHE);
+    for (const [k, v] of old) { if (v.img && v.img.close) v.img.close(); tiles.delete(k); }
+  }
+  return null;
+}
+
+function load(key, t) {
+  t.loading = true; t.at = performance.now(); pending++;
+  fetch("tiles/" + key + ".png", { headers, cache: "no-cache" }).then(r => {
+    if (r.status === 401) { denied = true; throw 0; }
+    return r.status === 200 ? r.blob() : null;
+  }).then(b => b ? createImageBitmap(b) : null).then(img => {
+    if (t.img && t.img.close && t.img !== img) t.img.close();
+    t.img = img;
+  }).catch(() => {}).finally(() => { t.loading = false; pending--; dirty = true; });
+}
+
+function draw() {
+  requestAnimationFrame(draw);
+  if (!dirty) return;
+  dirty = false;
+  const w = innerWidth, h = innerHeight, z = level(), span = TILE * (1 << (MAX_Z - z));
+  ctx.fillStyle = "#0f1418"; ctx.fillRect(0, 0, w, h);
+  ctx.imageSmoothingEnabled = false;
+  const left = view.x - w / 2 / view.s, top = view.z - h / 2 / view.s;
+  const tx0 = Math.floor(left / span), tz0 = Math.floor(top / span);
+  const tx1 = Math.floor((left + w / view.s) / span), tz1 = Math.floor((top + h / view.s) / span);
+  for (let ty = tz0; ty <= tz1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
+    const img = tile(z, tx, ty);
+    if (img) ctx.drawImage(img, (tx * span - left) * view.s, (ty * span - top) * view.s, span * view.s, span * view.s);
+  }
+  const dimId = (dims.find(d => d.folder === folder) || {}).id;
+  ctx.font = "13px system-ui, sans-serif"; ctx.textBaseline = "middle";
+  for (const p of players) {
+    if (p.dimension !== dimId) continue;
+    const px = (p.x + 0.5 - left) * view.s, pz = (p.z + 0.5 - top) * view.s;
+    ctx.fillStyle = "#ff5a4e"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(px, pz, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    const label = String(p.name).slice(0, 32), tw = ctx.measureText(label).width;
+    ctx.fillStyle = "rgba(16,22,28,0.85)"; ctx.fillRect(px + 9, pz - 9, tw + 8, 18);
+    ctx.fillStyle = "#eef2f4"; ctx.fillText(label, px + 13, pz);
+  }
+  if (denied) show("This map is private. Open it with the link from /simplelivemap link.");
+}
+
+function show(text) { msg.textContent = text; msg.style.display = text ? "block" : "none"; }
+
+async function poll() {
+  if (document.hidden) return;
+  try {
+    const r = await fetch("live.json", { headers, cache: "no-store" });
+    if (r.status === 401) { denied = true; dirty = true; return; }
+    if (!r.ok) return;
+    const live = await r.json();
+    denied = false; show("");
+    players = Array.isArray(live.players) ? live.players : [];
+    const list = Array.isArray(live.dimensions) ? live.dimensions : [];
+    if (JSON.stringify(list) !== JSON.stringify(dims)) {
+      dims = list; dimSel.textContent = "";
+      for (const d of dims) { const o = document.createElement("option"); o.value = d.folder; o.textContent = d.id; dimSel.appendChild(o); }
+      if (dims.length && !dims.some(d => d.folder === folder)) folder = dims[0].folder;
+      dimSel.value = folder;
+      if (!dims.length) show("Nothing explored yet.");
+    }
+    playersBox.hidden = players.length === 0;
+    playersBox.textContent = players.length + (players.length === 1 ? " player" : " players");
+    dirty = true;
+  } catch (e) { /* server away: keep the last picture */ }
+}
+
+function zoom(f, cx, cy) {
+  const s = Math.max(1 / 16, Math.min(8, view.s * f));
+  const wx = view.x + (cx - innerWidth / 2) / view.s, wz = view.z + (cy - innerHeight / 2) / view.s;
+  view.x = wx - (cx - innerWidth / 2) / s; view.z = wz - (cy - innerHeight / 2) / s; view.s = s; dirty = true;
+}
+
+let drag = null;
+const pointers = new Map();
+canvas.addEventListener("pointerdown", e => { canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId, e); drag = { x: e.clientX, y: e.clientY }; canvas.classList.add("drag"); });
+canvas.addEventListener("pointermove", e => {
+  const wx = Math.floor(view.x + (e.clientX - innerWidth / 2) / view.s), wz = Math.floor(view.z + (e.clientY - innerHeight / 2) / view.s);
+  info.textContent = "x " + wx + ", z " + wz;
+  if (pointers.size === 2 && pointers.has(e.pointerId)) {
+    const [a, b] = [...pointers.values()], before = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+    pointers.set(e.pointerId, e);
+    const [c, d] = [...pointers.values()], after = Math.hypot(c.clientX - d.clientX, c.clientY - d.clientY);
+    if (before > 0) zoom(after / before, (c.clientX + d.clientX) / 2, (c.clientY + d.clientY) / 2);
+    return;
+  }
+  if (!drag) return;
+  pointers.set(e.pointerId, e);
+  view.x -= (e.clientX - drag.x) / view.s; view.z -= (e.clientY - drag.y) / view.s;
+  drag = { x: e.clientX, y: e.clientY }; dirty = true;
+});
+for (const ev of ["pointerup", "pointercancel"]) canvas.addEventListener(ev, e => { pointers.delete(e.pointerId); if (!pointers.size) { drag = null; canvas.classList.remove("drag"); } });
+canvas.addEventListener("wheel", e => { e.preventDefault(); zoom(e.deltaY < 0 ? 1.25 : 0.8, e.clientX, e.clientY); }, { passive: false });
+document.getElementById("zin").onclick = () => zoom(2, innerWidth / 2, innerHeight / 2);
+document.getElementById("zout").onclick = () => zoom(0.5, innerWidth / 2, innerHeight / 2);
+document.getElementById("home").onclick = () => { view = { x: 0, z: 0, s: 1 }; dirty = true; };
+dimSel.onchange = () => { folder = dimSel.value; dirty = true; };
+addEventListener("resize", resize);
+document.addEventListener("visibilitychange", poll);
+resize(); poll(); setInterval(poll, 2000); requestAnimationFrame(draw);
+</script>
+</body>
+</html>

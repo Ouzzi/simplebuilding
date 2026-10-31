@@ -1,0 +1,7 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+ext.moduleVersion = '0.1.0'
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// framework (SubMods switch, ConfigFiles) nested per principle 3: the mod plays alone.
+dependencies { include project(':framework') }
+// SimpleLib nested per principle 6a and compiled against: /simplelivemap config (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }

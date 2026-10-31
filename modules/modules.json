@@ -1466,6 +1466,65 @@
       "bundle": "optional"
     },
     {
+      "id": "simplelivemap",
+      "name": "Simple Livemap",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Livemap",
+      "description": "Live web map of the world as the players really explored it (visited chunks and held maps), with map relief, optional player positions and an optional built-in web server (off by default, local only, private with a key).",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [],
+      "optional": [
+        "simplemaps"
+      ],
+      "checks": [
+        "modules/simplelivemap/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplelivemap",
+        "catalogues": [
+          "modules/simplelivemap/fabric/src/main/java/com/simplebuilding/modules/simplelivemap/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplelivemap"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplelivemapGameTest",
+            "report": "integration/build/simplelivemap-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplelivemapStandaloneGameTest",
+              "report": "integration/build/standalone/simplelivemap-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplelivemap",
+        "shared": "modules/simplelivemap/shared",
+        "fabric": "modules/simplelivemap/fabric",
+        "neoforge": "modules/simplelivemap/neoforge",
+        "forge": "modules/simplelivemap/forge",
+        "generated": "modules/simplelivemap/generated/resources",
+        "lang": "modules/simplelivemap/shared/resources/assets/simplelivemap/lang",
+        "wikiManual": "modules/simplelivemap/wiki/manual.json",
+        "balanceDir": "balance/simplelivemap"
+      },
+      "projects": {
+        "fabric": ":modules:simplelivemap:fabric"
+      }
+    },
+    {
       "id": "simpletrims",
       "name": "Simple Trims",
       "version": "0.1.0",

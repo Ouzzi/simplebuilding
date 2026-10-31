@@ -51,6 +51,7 @@
     "simpleoptmemory",
     "simpleoptrender",
     "simpleoptserver",
+    "simplelivemap",
     "simplestats",
     "wiringexample",
     "simplelib"

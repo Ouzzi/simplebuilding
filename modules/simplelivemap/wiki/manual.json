@@ -1,0 +1,65 @@
+{
+  "features": [
+    {
+      "id": "explored_chunks",
+      "sources": [
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/VisitedStore.java",
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/LivemapRuntime.java"
+      ],
+      "en": {
+        "title": "Explored chunks",
+        "summary": "The map only shows what players really explored: every chunk a player (not a spectator) walked into, plus record.radius chunks around it (default 2 = 5 x 5), and the drawn area of a filled Vanilla map held in a hand (record.maps, default on). Pre-generated or never visited land stays dark, so the map gives away no seed. The server keeps this per player in the world folder (simplelivemap/visited.bin) and saves it every 5 minutes and on stop."
+      },
+      "de": {
+        "title": "Erkundete Chunks",
+        "summary": "Die Karte zeigt nur, was Spieler wirklich erkundet haben: jeden Chunk, den ein Spieler (kein Zuschauer) betreten hat, plus record.radius Chunks drumherum (Standard 2 = 5 × 5), und den gezeichneten Bereich einer gefüllten Vanilla-Karte in der Hand (record.maps, Standard an). Vorgenerierte oder nie besuchte Gebiete bleiben dunkel, die Karte verrät also keinen Seed. Der Server speichert das je Spieler im Weltordner (simplelivemap/visited.bin), alle 5 Minuten und beim Stopp."
+      }
+    },
+    {
+      "id": "tiles",
+      "sources": [
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/ChunkSampler.java",
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/TileStore.java"
+      ],
+      "en": {
+        "title": "Map tiles",
+        "summary": "Explored chunks are drawn from above with the Vanilla map colours of their blocks and the Vanilla map relief (higher ground brighter, lower darker, water by depth; render.shading, default on) – the 2.5D look. Only loaded chunks are read, at most render.chunksPerTick per tick (default 2); a revisited chunk is redrawn after render.refreshMinutes (default 10). Pictures are 128 x 128 block tiles in five zoom levels under simplelivemap/tiles, written by one background thread."
+      },
+      "de": {
+        "title": "Kartenkacheln",
+        "summary": "Erkundete Chunks werden von oben mit den Vanilla-Kartenfarben ihrer Blöcke und dem Vanilla-Kartenrelief gezeichnet (höher heller, tiefer dunkler, Wasser nach Tiefe; render.shading, Standard an) – die 2,5D-Optik. Gelesen werden nur geladene Chunks, höchstens render.chunksPerTick je Tick (Standard 2); ein erneut besuchter Chunk wird nach render.refreshMinutes (Standard 10) neu gezeichnet. Die Bilder sind Kacheln zu 128 × 128 Blöcken in fünf Zoomstufen unter simplelivemap/tiles, geschrieben von einem Hintergrund-Thread."
+      }
+    },
+    {
+      "id": "web_server",
+      "sources": [
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/web/LivemapWeb.java",
+        "modules/simplelivemap/shared/resources/assets/simplelivemap/web/index.html"
+      ],
+      "en": {
+        "title": "Web map",
+        "summary": "An optional built-in web server shows the map in the browser (drag, zoom, dimensions). It is off by default (web.enabled) and listens on 127.0.0.1:8125 (web.bind, web.port), so only the server machine reaches it unless the owner changes that. It only reads: three fixed routes, no file names from outside, a request budget per address (web.requestsPerMinute, default 1200), 4 worker threads; it stops with the server."
+      },
+      "de": {
+        "title": "Webkarte",
+        "summary": "Ein optionaler eingebauter Webserver zeigt die Karte im Browser (Ziehen, Zoomen, Dimensionen). Er ist standardmäßig aus (web.enabled) und lauscht auf 127.0.0.1:8125 (web.bind, web.port), erreichbar also nur vom Server-Rechner, bis der Betreiber das ändert. Er liest nur: drei feste Routen, keine Dateinamen von außen, ein Anfragebudget je Adresse (web.requestsPerMinute, Standard 1200), 4 Arbeits-Threads; er stoppt mit dem Server."
+      }
+    },
+    {
+      "id": "visibility",
+      "sources": [
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/LivemapCommands.java",
+        "modules/simplelivemap/shared/java/com/simplebuilding/modules/simplelivemap/LivemapConfig.java"
+      ],
+      "en": {
+        "title": "Private or public",
+        "summary": "A map is private by default (web.visibility): the page needs the link from /simplelivemap link, which carries a random key after # (browsers never send that part, so it stays out of logs). /simplelivemap visibility public opens it for everyone who reaches the port. Players only appear with web.showPlayers (default off), with name and position only; everyone can leave the map with /simplelivemap hide and come back with /simplelivemap show. /simplelivemap status shows the counts and the address."
+      },
+      "de": {
+        "title": "Privat oder öffentlich",
+        "summary": "Eine Karte ist standardmäßig privat (web.visibility): die Seite braucht den Link aus /simplelivemap link, der hinter # einen zufälligen Schlüssel trägt (diesen Teil schicken Browser nie mit, er landet also in keinem Log). /simplelivemap visibility public öffnet sie für alle, die den Port erreichen. Spieler erscheinen nur mit web.showPlayers (Standard aus), nur mit Name und Position; jeder kann sich mit /simplelivemap hide ausblenden und mit /simplelivemap show zurückholen. /simplelivemap status zeigt Zählwerte und Adresse."
+      }
+    }
+  ],
+  "notes": {}
+}

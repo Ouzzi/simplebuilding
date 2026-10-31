@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "simplelivemap",
+  "version": "${version}",
+  "name": "Simple Livemap",
+  "icon": "assets/simplelivemap/icon.png",
+  "description": "Live web map of the world as the players really explored it (visited chunks and held maps): top-down tiles with map relief, player positions on request, optional built-in web server (off by default, local only, private with a key).",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplelivemap.fabric.LivemapFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplelivemap.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "simplelib": ">=0.3.0",
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "simplemaps": "*"
+  }
+}
