@@ -31,6 +31,13 @@ public final class SimpleLibFabric implements ModInitializer {
                 net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
             }
         });
+        // IG31-29: the server's free look rules on join and after every save of simplelib-server.json.
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(
+                com.simplelib.net.FreeLookRulesPayload.TYPE, com.simplelib.net.FreeLookRulesPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> sendFreeLookRules(handler.getPlayer()));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTED.register(server -> com.simplelib.config.LibConfig.onSaved = () ->
+                server.execute(() -> server.getPlayerList().getPlayers().forEach(SimpleLibFabric::sendFreeLookRules)));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplelib.config.LibConfig.onSaved = () -> {});
         // Enderite in End city treasure once a mod requested it and no partner feeds it (MaterialLoot).
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) ->
                 com.simplelib.material.MaterialLoot.apply(key, table::withPool, registries));
@@ -56,5 +63,11 @@ public final class SimpleLibFabric implements ModInitializer {
                 com.simplelib.api.config.ConfigCommands.registerAll(dispatcher, false,
                         net.minecraft.commands.Commands.hasPermission(net.minecraft.commands.Commands.LEVEL_GAMEMASTERS),
                         com.simplelib.api.config.ConfigCommands.SERVER_IO));
+    }
+
+    private static void sendFreeLookRules(net.minecraft.server.level.ServerPlayer player) {
+        if (net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(player, com.simplelib.net.FreeLookRulesPayload.TYPE)) {
+            net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, com.simplelib.net.FreeLookRulesPayload.current());
+        }
     }
 }

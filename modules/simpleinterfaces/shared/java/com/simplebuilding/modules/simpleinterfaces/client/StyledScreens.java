@@ -85,6 +85,11 @@ public final class StyledScreens {
         return style != null && ContainersClient.config().isOn(style.id()) ? style : null;
     }
 
+    /** IG31-30: whether the Vanilla hopper is drawn in the style right now (its screen then moves the player's slots down). */
+    public static boolean hopperStyleOn() {
+        return ContainersConfig.on() && UiStyleToggle.isEnabled() && ContainersClient.config().isOn("hopper");
+    }
+
     /** The menu type of {@code screen}, or {@code null} (mount inventories and the player inventory have none). */
     static @Nullable MenuType<?> menuType(AbstractContainerScreen<?> screen) {
         try {

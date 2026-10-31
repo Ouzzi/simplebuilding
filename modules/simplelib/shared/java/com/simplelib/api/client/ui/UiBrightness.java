@@ -64,10 +64,11 @@ public enum UiBrightness {
         return UiPalette.LIGHT_LABEL;
     }
 
-    /** Reads {@code config/simplelib-client.json} ({@code {"inventoryBrightness": "dark"}}); missing or broken = light. */
+    /** Reads {@code config/simplelib-client.json} ({@code {"inventoryBrightness": "dark", "freeLookRelease": "camera"}}); missing or broken = defaults. */
     public static void load(Path dir) {
         configDir = dir;
         set(LIGHT);
+        com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.CAMERA);
         if (dir == null) {
             return;
         }
@@ -75,24 +76,35 @@ public enum UiBrightness {
             Path file = dir.resolve(FILE);
             if (Files.isRegularFile(file) && Files.size(file) <= 4096) {
                 com.google.gson.JsonObject json = com.google.gson.JsonParser.parseString(Files.readString(file)).getAsJsonObject();
-                if (json.has("inventoryBrightness")) {
-                    set(parse(json.get("inventoryBrightness").getAsString()));
-                }
+                applyJson(json);
             }
         } catch (Exception ignored) {
             set(LIGHT);
+            com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.CAMERA);
         }
     }
 
     /** CMD24: {@code /simpleclient simplelib set inventoryBrightness light|dawn|dark} (called by the client entry). */
     public static void registerConfigCommand() {
         com.simplelib.api.config.ConfigCommands.client(com.simplelib.SimpleLib.MOD_ID)
-                .json(() -> {
-                    com.google.gson.JsonObject json = new com.google.gson.JsonObject();
-                    json.addProperty("inventoryBrightness", current.id());
-                    return json;
-                }, json -> set(json.has("inventoryBrightness") ? parse(json.get("inventoryBrightness").getAsString()) : LIGHT))
-                .choices("inventoryBrightness", "light", "dawn", "dark").save(UiBrightness::save).register();
+                .json(UiBrightness::toJson, UiBrightness::applyJson)
+                .choices("inventoryBrightness", "light", "dawn", "dark").choices("freeLookRelease", "camera", "player")
+                .save(UiBrightness::save).register();
+    }
+
+    /** The whole client file: this brightness and the free look release mode (IG31-29, {@link com.simplelib.api.FreeLookRules}). */
+    public static com.google.gson.JsonObject toJson() {
+        com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+        json.addProperty("inventoryBrightness", current.id());
+        json.addProperty("freeLookRelease", com.simplelib.api.FreeLookRules.client().id());
+        return json;
+    }
+
+    /** Applies the client file; missing keys take their defaults (light, camera). */
+    public static void applyJson(com.google.gson.JsonObject json) {
+        set(json.has("inventoryBrightness") ? parse(json.get("inventoryBrightness").getAsString()) : LIGHT);
+        com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.parse(
+                json.has("freeLookRelease") ? json.get("freeLookRelease").getAsString() : null));
     }
 
     /** Writes the current brightness next to the other configs (no-op before {@link #load}). */
@@ -103,9 +115,7 @@ public enum UiBrightness {
         }
         try {
             Files.createDirectories(dir);
-            com.google.gson.JsonObject json = new com.google.gson.JsonObject();
-            json.addProperty("inventoryBrightness", current.id());
-            Files.writeString(dir.resolve(FILE), new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json));
+            Files.writeString(dir.resolve(FILE), new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(toJson()));
         } catch (Exception e) {
             com.simplelib.SimpleLib.LOG.warn("Cannot save the inventory brightness: {}", e.toString());
         }

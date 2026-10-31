@@ -66,6 +66,7 @@ public final class LibTests {
         ALL.put("owned_lights_sweep_deferred", HangTests::ownedLightsSweepDeferred);
         ALL.put("hang_watchdog_dump", HangTests::hangWatchdogDump);
         ALL.put("dev_variants_registry_persistence", DevVariantTests::registryAndPersistence);
+        ALL.put("free_look_release_rules", LibTests::freeLookReleaseRules);
     }
 
     // ------------------------------------------------------------ helpers
@@ -237,6 +238,50 @@ public final class LibTests {
         check(h, LibConfig.warmBaseTicks == LibConfig.WARM_BASE_MAX, "warm base not clamped");
         LibConfig.reset();
         check(h, LibConfig.warmBaseTicks == LibConfig.WARM_BASE_DEFAULT && LibConfig.eatSpeedBonus == LibConfig.EAT_BONUS_DEFAULT, "defaults wrong");
+        h.succeed();
+    }
+
+    /**
+     * IG31-29: free look release rules - the server file's mode and enforce flag (payload values), the client file's choice and
+     * which one counts: the client's unless the server enforces its own; defaults camera / not enforced.
+     */
+    private static void freeLookReleaseRules(GameTestHelper h) {
+        var camera = com.simplelib.api.FreeLookRules.Release.CAMERA;
+        var player = com.simplelib.api.FreeLookRules.Release.PLAYER;
+        LibConfig.reset();
+        var defaults = com.simplelib.net.FreeLookRulesPayload.current();
+        check(h, !defaults.playerTurns() && !defaults.enforce() && "camera".equals(LibConfig.freeLookRelease), "server defaults not camera / not enforced");
+        JsonObject json = new JsonObject();
+        json.addProperty("freeLookRelease", "PLAYER");
+        json.addProperty("freeLookEnforce", true);
+        LibConfig.apply(json);
+        var sent = com.simplelib.net.FreeLookRulesPayload.current();
+        check(h, sent.playerTurns() && sent.enforce() && "player".equals(LibConfig.toJson().get("freeLookRelease").getAsString()), "server file not read: " + sent);
+        json.addProperty("freeLookRelease", "sideways");
+        LibConfig.apply(json);
+        check(h, "camera".equals(LibConfig.freeLookRelease), "an unknown mode must fall back to camera");
+        LibConfig.reset();
+        var brightness = com.simplelib.api.client.ui.UiBrightness.current();
+        var before = com.simplelib.api.FreeLookRules.client();
+        try {
+            JsonObject client = new JsonObject();
+            com.simplelib.api.client.ui.UiBrightness.applyJson(client);
+            check(h, com.simplelib.api.FreeLookRules.client() == camera, "client default must be camera");
+            client.addProperty("freeLookRelease", "player");
+            com.simplelib.api.client.ui.UiBrightness.applyJson(client);
+            check(h, com.simplelib.api.FreeLookRules.client() == player
+                    && "player".equals(com.simplelib.api.client.ui.UiBrightness.toJson().get("freeLookRelease").getAsString()), "client file not read/written");
+            com.simplelib.api.FreeLookRules.setServer(camera, false);
+            check(h, com.simplelib.api.FreeLookRules.effective() == player, "without enforcing, the client's choice counts");
+            com.simplelib.api.FreeLookRules.setServer(camera, true);
+            check(h, com.simplelib.api.FreeLookRules.effective() == camera, "an enforcing server must win over the client");
+            com.simplelib.api.FreeLookRules.clearServer();
+            check(h, com.simplelib.api.FreeLookRules.effective() == player && !com.simplelib.api.FreeLookRules.enforced(), "leaving must drop the server rules");
+        } finally {
+            com.simplelib.api.FreeLookRules.clearServer();
+            com.simplelib.api.FreeLookRules.setClient(before);
+            com.simplelib.api.client.ui.UiBrightness.set(brightness);
+        }
         h.succeed();
     }
 

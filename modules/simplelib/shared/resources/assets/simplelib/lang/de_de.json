@@ -73,11 +73,21 @@
   "jei.simplelib.grade.diamond": "Diamantstufe",
   "jei.simplelib.grade.netherite": "Netheritstufe",
   "jei.simplelib.grade.enderite": "Enderitstufe",
-  "key.simplelib.freelook": "Freie Sicht (halten)",
+  "key.simplelib.freelook": "Free Look (halten)",
   "key.category.simplelib.general": "Simple Lib",
   "simplelib.tab.diagnosis": "Diagnose",
   "text.autoconfig.simplelib.option.hangWatchdog": "Hänger-Wächter",
   "text.autoconfig.simplelib.option.hangWatchdog.@Tooltip": "Steht der Server-Tick still (auch beim\nSpeichern und Verlassen), wird eine Liste\naller Threads nach logs/simplebuilding-hang-*.txt\ngeschrieben. Liest nur, ändert nichts am Spiel.\nStandard: an.",
   "text.autoconfig.simplelib.option.hangWatchdogSeconds": "Hänger-Wächter Grenze (Sekunden)",
-  "text.autoconfig.simplelib.option.hangWatchdogSeconds.@Tooltip": "So lange darf der Tick stehen, bevor die\nListe geschrieben wird (10 bis 600). Ein\npausiertes Einzelspielerspiel zählt nicht.\nStandard: 30."
+  "text.autoconfig.simplelib.option.hangWatchdogSeconds.@Tooltip": "So lange darf der Tick stehen, bevor die\nListe geschrieben wird (10 bis 600). Ein\npausiertes Einzelspielerspiel zählt nicht.\nStandard: 30.",
+  "key.simplelib.freelook_toggle": "Free Look umschalten",
+  "simplelib.tab.freelook": "Free Look",
+  "simplelib.freelook.release.camera": "Kamera dreht zurück",
+  "simplelib.freelook.release.player": "Spieler dreht zur Kamera",
+  "text.autoconfig.simplelib.option.freeLookRelease": "Ende von Free Look (dieser Client)",
+  "text.autoconfig.simplelib.option.freeLookRelease.@Tooltip": "Kamera dreht zurück: die Sicht gleitet zur\nBlickrichtung des Spielers zurück. Spieler\ndreht zur Kamera: du schaust danach dorthin,\nwohin die Kamera schaute. Ein Server kann\nseine Wahl erzwingen.\nStandard: Kamera dreht zurück.",
+  "text.autoconfig.simplelib.option.freeLookServerRelease": "Ende von Free Look (Server)",
+  "text.autoconfig.simplelib.option.freeLookServerRelease.@Tooltip": "Die Wahl des Servers; sie gilt für die\nSpieler nur, solange „Bei Clients\nerzwingen“ an ist.\nStandard: Kamera dreht zurück.",
+  "text.autoconfig.simplelib.option.freeLookEnforce": "Bei Clients erzwingen",
+  "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "An: alle Spieler nutzen die Server-Wahl\noben; die Client-Einstellung wird\nignoriert. Wird beim Betreten gesendet.\nStandard: aus."
 }
