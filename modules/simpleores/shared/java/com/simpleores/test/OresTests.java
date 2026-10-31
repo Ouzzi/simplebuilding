@@ -163,16 +163,19 @@ public final class OresTests {
             h.succeed();
         });
         ALL.put("pressing_recipes", h -> {
-            // Hard: 6/5/4 gold + 2 copper + 1 silver ingot. Soft: 7 gold + 1 copper + 1 silver ingot or nugget. Always 1 pressing.
-            int[][] hard = {{6, 2, 1, 0}, {5, 2, 1, 0}, {4, 2, 1, 0}};
+            // IG31-35 (owner 31.10.): only two pressings. Hard: 4 gold + 2 copper + 1 silver ingot. Soft: 7 gold + 1 copper + 1 silver ingot.
+            int[][] hard = {{4, 2, 1, 0}};
             for (int[] r : hard) {
                 ItemStack out = craft(h, grid(r[0], r[1], r[2], r[3]));
                 check(h, out.is(item("rose_bronze_pressling")) && out.getCount() == 1, "hard " + r[0] + "/" + r[1] + "/" + r[2] + " -> " + out);
             }
-            int[][] soft = {{7, 1, 1, 0}, {7, 1, 0, 1}};
+            int[][] soft = {{7, 1, 1, 0}};
             for (int[] r : soft) {
                 ItemStack out = craft(h, grid(r[0], r[1], r[2], r[3]));
                 check(h, out.is(item("blossom_gold_pressling")) && out.getCount() == 1, "soft " + r[0] + "/" + r[1] + "/" + r[2] + "/" + r[3] + " -> " + out);
+            }
+            for (int[] gone : new int[][] {{6, 2, 1, 0}, {5, 2, 1, 0}, {7, 1, 0, 1}}) {
+                check(h, craft(h, grid(gone[0], gone[1], gone[2], gone[3])).isEmpty(), "removed mix " + gone[0] + "/" + gone[1] + "/" + gone[2] + "/" + gone[3] + " gives nothing");
             }
             check(h, craft(h, grid(6, 3, 0, 0)).isEmpty(), "no silver: no pressing");
             check(h, craft(h, grid(3, 2, 1, 0)).isEmpty(), "too little gold: no pressing");

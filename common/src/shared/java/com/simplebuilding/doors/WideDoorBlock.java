@@ -57,6 +57,11 @@ import org.jspecify.annotations.Nullable;
  *       whole {@code cols x rows} area in front free (concept D1 A); closing needs the free column free again.</li>
  *   <li><b>1.5 wide doors</b> ({@link DoorFormat#narrow}) behave exactly like the two-wide ones (same cells, same swing area), only
  *       their leaf is 24 px: the second column and the swing cell hold a half-length (8 px) piece.</li>
+ *   <li><b>Double 1.5 door</b> (IG31-34): a second 1.5 wide door placed with its stub column on the stub column of a mirrored
+ *       one shares that column ({@link #TWIN}: the cell holds both 8 px stubs) - two 1.5 doors make a double door 3 blocks wide.
+ *       Opening one door turns the shared cells back into the other door's stubs, closing it against them makes them shared again;
+ *       a hand opens the door whose half was clicked, redstone at the middle column opens both; breaking one door leaves the
+ *       other's stub, breaking the shared column takes both doors (both drop).</li>
  *   <li><b>Half doors</b> are one block wide, the leaf 8 px: it sits on the hinge half of the cell and swings inside the cell, so
  *       nothing needs to be free and no cell changes but its {@code open} state.</li>
  *   <li><b>Redstone</b> on any cell opens the door (rising edge) and closes it (falling edge), like Vanilla; a hand opens only
@@ -75,6 +80,8 @@ public final class WideDoorBlock extends Block {
     public static final IntegerProperty ROW = IntegerProperty.create("row", 0, 2);
     /** The leaf's second block in front of an open two-wide door. */
     public static final BooleanProperty SWING = BooleanProperty.create("swing");
+    /** IG31-34: a closed stub cell of a 1.5 door that also holds the stub of the mirrored 1.5 door next to it (double door). */
+    public static final BooleanProperty TWIN = BooleanProperty.create("twin");
 
     /** Write flags for the cells of one door: clients, no shape updates (the door is mid-change). */
     private static final int CELL_FLAGS = Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
@@ -95,7 +102,7 @@ public final class WideDoorBlock extends Block {
         this.format = format;
         this.type = type;
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HINGE, DoorHingeSide.LEFT).setValue(OPEN, false)
-                .setValue(POWERED, false).setValue(COL, 0).setValue(ROW, 0).setValue(SWING, false));
+                .setValue(POWERED, false).setValue(COL, 0).setValue(ROW, 0).setValue(SWING, false).setValue(TWIN, false));
     }
 
     public DoorFormat format() {
@@ -127,12 +134,30 @@ public final class WideDoorBlock extends Block {
 
     /** The state of the cell ({@code col}, {@code row}, {@code swing}) of the same door, in the given open state. */
     private BlockState cellState(BlockState any, int col, int row, boolean swing, boolean open) {
-        return any.setValue(COL, col).setValue(ROW, row).setValue(SWING, swing).setValue(OPEN, open);
+        return any.setValue(COL, col).setValue(ROW, row).setValue(SWING, swing).setValue(OPEN, open).setValue(TWIN, false);
     }
 
     private boolean isPartner(BlockState state, BlockState other, int col, int row, boolean swing) {
-        return other.is(this) && other.getValue(FACING) == state.getValue(FACING) && other.getValue(HINGE) == state.getValue(HINGE)
+        // a shared stub cell (TWIN) belongs to both doors whatever hinge it stores
+        boolean hinge = other.is(this) && (other.getValue(HINGE) == state.getValue(HINGE) || col == 1 && other.getValue(TWIN));
+        return hinge && other.getValue(FACING) == state.getValue(FACING)
                 && other.getValue(OPEN) == state.getValue(OPEN) && other.getValue(COL) == col && other.getValue(ROW) == row && other.getValue(SWING) == swing;
+    }
+
+    private static DoorHingeSide flip(DoorHingeSide hinge) {
+        return hinge == DoorHingeSide.LEFT ? DoorHingeSide.RIGHT : DoorHingeSide.LEFT;
+    }
+
+    /** A shared stub cell seen as a cell of the other of its two doors. */
+    private static BlockState otherView(BlockState twin) {
+        return twin.setValue(HINGE, flip(twin.getValue(HINGE)));
+    }
+
+    /** True when {@code other} is a closed, unshared stub cell (row {@code row}) of a 1.5 door mirrored to {@code state}'s door. */
+    private boolean isMirroredStub(BlockState state, BlockState other, int row) {
+        return format.narrow && other.is(this) && !other.getValue(TWIN) && !other.getValue(OPEN) && !other.getValue(SWING)
+                && other.getValue(COL) == 1 && other.getValue(ROW) == row && other.getValue(FACING) == state.getValue(FACING)
+                && other.getValue(HINGE) != state.getValue(HINGE);
     }
 
     /** Positions and expected (col, row, swing) of the cells of {@code state}'s door in its current open state. */
@@ -157,6 +182,7 @@ public final class WideDoorBlock extends Block {
         Map<Direction, VoxelShape> shapes;
         // 1.5 wide: the second column's leaf (closed) and the swing cell's leaf (open) are 8 px long, on the hinge side / next to the hinge cell
         boolean stub = format.narrow && (open ? state.getValue(SWING) : state.getValue(COL) == 1);
+        if (stub && !open && state.getValue(TWIN)) return CLOSED_FULL.get(state.getValue(FACING)); // both stubs
         if (format.half || stub) {
             shapes = open ? (left ? OPEN_HALF_LEFT : OPEN_HALF_RIGHT) : (left ? CLOSED_HALF_LEFT : CLOSED_HALF_RIGHT);
         } else {
@@ -173,22 +199,30 @@ public final class WideDoorBlock extends Block {
         BlockPos pos = context.getClickedPos();
         Direction f = context.getHorizontalDirection();
         DoorHingeSide first = hinge(context, f);
-        for (DoorHingeSide hinge : new DoorHingeSide[] {first, first == DoorHingeSide.LEFT ? DoorHingeSide.RIGHT : DoorHingeSide.LEFT}) {
+        DoorHingeSide[] order = {first, flip(first)};
+        // IG31-34, like Vanilla's double doors: a mirrored 1.5 door next to the click decides the hinge, the stub column is shared
+        if (format.narrow) {
+            for (DoorHingeSide hinge : order) {
+                BlockState state = defaultBlockState().setValue(FACING, f).setValue(HINGE, hinge);
+                if (footprintFree(context, pos, state, true)) return state;
+            }
+        }
+        for (DoorHingeSide hinge : order) {
             BlockState state = defaultBlockState().setValue(FACING, f).setValue(HINGE, hinge);
-            if (footprintFree(context, pos, state)) return state;
+            if (footprintFree(context, pos, state, false)) return state;
         }
         return null;
     }
 
-    private boolean footprintFree(BlockPlaceContext context, BlockPos origin, BlockState state) {
+    /** All cells free; with {@code pairing} the stub column must instead be the closed stub column of a mirrored 1.5 door. */
+    private boolean footprintFree(BlockPlaceContext context, BlockPos origin, BlockState state, boolean pairing) {
         Level level = context.getLevel();
         for (int c = 0; c < format.cols; c++) {
             for (int r = 0; r < format.rows; r++) {
                 BlockPos p = cell(origin, state, c, r, false);
-                if (p.getY() > level.getMaxY() || p.getY() < level.getMinY() || !level.getWorldBorder().isWithinBounds(p)
-                        || !level.getBlockState(p).canBeReplaced(context)) {
-                    return false;
-                }
+                if (p.getY() > level.getMaxY() || p.getY() < level.getMinY() || !level.getWorldBorder().isWithinBounds(p)) return false;
+                BlockState there = level.getBlockState(p);
+                if (pairing && c == 1 ? !isMirroredStub(state, there, r) : !there.canBeReplaced(context)) return false;
             }
         }
         return true;
@@ -220,7 +254,10 @@ public final class WideDoorBlock extends Block {
         for (int c = 0; c < format.cols; c++) {
             for (int r = 0; r < format.rows; r++) {
                 if (c == 0 && r == 0) continue;
-                level.setBlock(cell(pos, state, c, r, false), cellState(state, c, r, false, false), Block.UPDATE_ALL);
+                BlockPos p = cell(pos, state, c, r, false);
+                BlockState cell = cellState(state, c, r, false, false);
+                if (c == 1 && isMirroredStub(state, level.getBlockState(p), r)) cell = cell.setValue(TWIN, true);
+                level.setBlock(p, cell, Block.UPDATE_ALL);
             }
         }
         if (!level.isClientSide()) updatePower(level, state, pos, null);
@@ -242,14 +279,27 @@ public final class WideDoorBlock extends Block {
                 && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
+        if (state.getValue(TWIN)) {
+            // a shared stub column: when one of the two doors breaks, the cell stays as the other door's stub
+            boolean mine = !brokenBy(state, pos, neighbourPos, neighbourState);
+            boolean other = !brokenBy(otherView(state), pos, neighbourPos, neighbourState);
+            if (!mine && !other) return Blocks.AIR.defaultBlockState();
+            if (!mine) return otherView(state).setValue(TWIN, false);
+            if (!other) return state.setValue(TWIN, false);
+        } else if (brokenBy(state, pos, neighbourPos, neighbourState)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+        return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+    }
+
+    /** True when the changed neighbour is a cell of {@code state}'s door and no longer the expected part of it. */
+    private boolean brokenBy(BlockState state, BlockPos pos, BlockPos neighbourPos, BlockState neighbourState) {
         BlockPos origin = origin(pos, state);
         for (int[] cell : cellsOf(state)) {
             BlockPos p = cell(origin, state, cell[0], cell[1], cell[2] == 1);
-            if (p.equals(neighbourPos) && !p.equals(pos) && !isPartner(state, neighbourState, cell[0], cell[1], cell[2] == 1)) {
-                return Blocks.AIR.defaultBlockState();
-            }
+            if (p.equals(neighbourPos) && !p.equals(pos) && !isPartner(state, neighbourState, cell[0], cell[1], cell[2] == 1)) return true;
         }
-        return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+        return false;
     }
 
     @Override
@@ -258,6 +308,10 @@ public final class WideDoorBlock extends Block {
             // Creative: take the cell with the loot away first, without drops (the others follow through updateShape, loot-less).
             BlockPos origin = origin(pos, state);
             if (!origin.equals(pos)) level.setBlock(origin, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+            if (state.getValue(TWIN)) {
+                BlockPos second = origin(pos, otherView(state));
+                if (level.getBlockState(second).is(this)) level.setBlock(second, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+            }
         }
         return super.playerWillDestroy(level, pos, state, player);
     }
@@ -271,7 +325,14 @@ public final class WideDoorBlock extends Block {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!type.canOpenByHand() || !on()) return InteractionResult.PASS;
-        if (!level.isClientSide()) setOpen(player, level, pos, state, !state.getValue(OPEN));
+        BlockState door = state;
+        if (state.getValue(TWIN)) {
+            // the shared column: the clicked half picks the door (the stored door's stub lies on its hinge side)
+            Direction along = along(state);
+            Vec3 hit = hitResult.getLocation().subtract(Vec3.atCenterOf(pos));
+            if (hit.x * along.getStepX() + hit.z * along.getStepZ() > 0) door = otherView(state);
+        }
+        if (!level.isClientSide()) setOpen(player, level, pos, door, !door.getValue(OPEN));
         return InteractionResult.SUCCESS;
     }
 
@@ -312,9 +373,12 @@ public final class WideDoorBlock extends Block {
                 BlockPos hinge = cell(origin, state, 0, r, false);
                 BlockPos swing = cell(origin, state, 0, r, true);
                 BlockPos free = cell(origin, state, 1, r, false);
+                BlockState shared = level.getBlockState(free);
                 level.setBlock(hinge, cellState(state, 0, r, false, true), CELL_FLAGS);
                 level.setBlock(swing, cellState(state, 0, r, true, true), CELL_FLAGS);
-                level.setBlock(free, Blocks.AIR.defaultBlockState(), CELL_FLAGS);
+                // a shared stub column stays as the other door's stub
+                level.setBlock(free, shared.is(this) && shared.getValue(TWIN) ? cellState(otherView(state), 1, r, false, false)
+                        : Blocks.AIR.defaultBlockState(), CELL_FLAGS);
                 touched.add(hinge);
                 touched.add(swing);
                 touched.add(free);
@@ -322,7 +386,7 @@ public final class WideDoorBlock extends Block {
         } else {
             for (int r = 0; r < format.rows; r++) {
                 BlockPos free = cell(origin, state, 1, r, false);
-                if (!isFree(level.getBlockState(free))) {
+                if (!isFree(level.getBlockState(free)) && !isMirroredStub(state, level.getBlockState(free), r)) {
                     blocked(source, level, free);
                     return false;
                 }
@@ -331,9 +395,10 @@ public final class WideDoorBlock extends Block {
                 BlockPos hinge = cell(origin, state, 0, r, false);
                 BlockPos swing = cell(origin, state, 0, r, true);
                 BlockPos free = cell(origin, state, 1, r, false);
+                boolean twin = isMirroredStub(state, level.getBlockState(free), r);
                 level.setBlock(swing, Blocks.AIR.defaultBlockState(), CELL_FLAGS);
                 level.setBlock(hinge, cellState(state, 0, r, false, false), CELL_FLAGS);
-                level.setBlock(free, cellState(state, 1, r, false, false), CELL_FLAGS);
+                level.setBlock(free, cellState(state, 1, r, false, false).setValue(TWIN, twin), CELL_FLAGS);
                 touched.add(hinge);
                 touched.add(swing);
                 touched.add(free);
@@ -388,20 +453,27 @@ public final class WideDoorBlock extends Block {
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
         if (level.isClientSide() || block == this) return;
         updatePower(level, state, pos, null);
+        if (state.getValue(TWIN)) updatePower(level, otherView(state), pos, null);
     }
 
+    /**
+     * Follows the redstone signal of {@code state}'s door. The door's powered flag is read from its lowest hinge cell, and the door
+     * is moved from there: a shared stub cell (IG31-34) carries two doors and cannot speak for either.
+     */
     private void updatePower(Level level, BlockState state, BlockPos pos, @Nullable Entity source) {
         if (!on()) return;
-        boolean signal = receivesSignal(level, state, pos);
-        if (signal == state.getValue(POWERED)) return;
         BlockPos origin = origin(pos, state);
-        for (int[] cell : cellsOf(state)) {
-            BlockPos p = cell(origin, state, cell[0], cell[1], cell[2] == 1);
+        BlockState door = level.getBlockState(origin);
+        if (!door.is(this) || door.getValue(FACING) != state.getValue(FACING) || door.getValue(HINGE) != state.getValue(HINGE)) return;
+        boolean signal = receivesSignal(level, door, origin);
+        if (signal == door.getValue(POWERED)) return;
+        for (int[] cell : cellsOf(door)) {
+            BlockPos p = cell(origin, door, cell[0], cell[1], cell[2] == 1);
             BlockState s = level.getBlockState(p);
             if (s.is(this)) level.setBlock(p, s.setValue(POWERED, signal), CELL_FLAGS);
         }
-        BlockState now = level.getBlockState(pos);
-        if (now.is(this)) setOpen(source, level, pos, now, signal);
+        BlockState now = level.getBlockState(origin);
+        if (now.is(this)) setOpen(source, level, origin, now, signal);
         if (signal && !format.half) level.scheduleTick(origin, this, 8);
     }
 
@@ -428,6 +500,6 @@ public final class WideDoorBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HINGE, OPEN, POWERED, COL, ROW, SWING);
+        builder.add(FACING, HINGE, OPEN, POWERED, COL, ROW, SWING, TWIN);
     }
 }

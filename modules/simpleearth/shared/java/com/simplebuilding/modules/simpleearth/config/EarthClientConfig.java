@@ -19,11 +19,8 @@ import java.util.Map;
  */
 public final class EarthClientConfig {
     public static final String FILE = "simpleearth-client.json";
-    public enum DevButton { AUTO, ON, OFF }
 
     public static int version = EarthSettings.DEFAULT_VERSION;
-    /** Dev button in the pause menu: AUTO = only in a development environment. */
-    public static DevButton devButton = DevButton.AUTO;
     private static final Map<Integer, Map<String, Double>> VALUES = new LinkedHashMap<>();
     private static final Map<String, Double> RENDER = new LinkedHashMap<>();
     /**
@@ -67,11 +64,6 @@ public final class EarthClientConfig {
         } catch (RuntimeException ignored) {
         }
         version = v >= 1 && v <= EarthSettings.VERSIONS ? v : EarthSettings.DEFAULT_VERSION;
-        try {
-            devButton = json.has("devButton") ? DevButton.valueOf(json.get("devButton").getAsString().toUpperCase(java.util.Locale.ROOT)) : DevButton.AUTO;
-        } catch (RuntimeException e) {
-            devButton = DevButton.AUTO;
-        }
         JsonObject render = json.has("render") && json.get("render").isJsonObject() ? json.getAsJsonObject("render") : new JsonObject();
         RENDER.clear();
         for (EarthSettings.Setting s : EarthSettings.RENDER) RENDER.put(s.key(), read(s, render.get(s.key())));
@@ -110,7 +102,6 @@ public final class EarthClientConfig {
     public static JsonObject toJson() {
         JsonObject o = new JsonObject();
         o.addProperty("version", version);
-        o.addProperty("devButton", devButton.name().toLowerCase(java.util.Locale.ROOT));
         JsonObject render = new JsonObject();
         RENDER.forEach((k, val) -> write(render, EarthSettings.findRender(k), k, val));
         o.add("render", render);
