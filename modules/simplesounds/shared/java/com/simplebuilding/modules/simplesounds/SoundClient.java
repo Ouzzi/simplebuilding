@@ -14,7 +14,7 @@ public final class SoundClient {
  public static final SoundBudget BUDGET=new SoundBudget();
  private static Object world, observedPlayer; private static long tick; private static float health; private static boolean initialized;
  private static Path path(){return Minecraft.getInstance().gameDirectory.toPath().resolve("config/simplesounds.json");}
- public static void load(){try{if(Files.isRegularFile(path())&&Files.size(path())<=65536){var c=new Gson().fromJson(Files.readString(path()),SoundConfig.class);if(c!=null)CONFIG=c;}}catch(java.io.IOException|RuntimeException ignored){}CONFIG.normalize();}
+ public static void load(){try{if(Files.isRegularFile(path())&&Files.size(path())<=65536){var c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(path(),text->new Gson().fromJson(text,SoundConfig.class),org.slf4j.LoggerFactory.getLogger("simplesounds")::warn);if(c!=null)CONFIG=c;}}catch(java.io.IOException|RuntimeException ignored){}CONFIG.normalize();}
  public static void save(){CONFIG.normalize();try{Files.createDirectories(path().getParent());com.simplebuilding.framework.api.ConfigFiles.writeAtomic(path(),new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(CONFIG));}catch(java.io.IOException e){org.slf4j.LoggerFactory.getLogger("simplesounds").warn("Cannot save local sound settings",e);}}
  public static void tick(Minecraft mc){
   if(!initialized){load();initialized=true;}
@@ -43,8 +43,9 @@ public final class SoundClient {
     case "healing_feedback"->healing;
     default->false;
    };
+   if(!active)continue; // volume() normalizes the config (allocates): only for effects that are actually due
    float volume=CONFIG.volume(e);
-   if(active&&SoundsRegistry.plays(volume)&&BUDGET.claim(p.getId(),e.id(),tick,CONFIG,e.interval())){
+   if(SoundsRegistry.plays(volume)&&BUDGET.claim(p.getId(),e.id(),tick,CONFIG,e.interval())){
     var sound=BuiltInRegistries.SOUND_EVENT.getValue(Identifier.parse(e.sound()));
     if(sound!=null)mc.level.playLocalSound(p.getX(),p.getY(),p.getZ(),sound,SoundSource.AMBIENT,volume,Math.clamp(e.pitch()+(mc.level.getRandom().nextFloat()-.5f)*.1f,.5f,2f),false);
    }

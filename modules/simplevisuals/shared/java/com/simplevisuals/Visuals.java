@@ -14,7 +14,7 @@ public final class Visuals {
  /** Called by the authorized server command, never by the cosmetic config screen. */
  public static void setServerFormatting(boolean value){serverFormatting=value;}
  public static void initialize(){
-  try{if(Files.exists(CONFIG_PATH)){try(var r=Files.newBufferedReader(CONFIG_PATH)){var c=GSON.fromJson(r,SimplevisualsConfig.class);if(c!=null)CONFIG=c;}}ConfigOptions.normalize(CONFIG);}
+  try{var log=org.slf4j.LoggerFactory.getLogger(MOD_ID);var c=com.simplebuilding.framework.api.ConfigFiles.readOrQuarantine(CONFIG_PATH,text->GSON.fromJson(text,SimplevisualsConfig.class),log::warn);if(c!=null)CONFIG=c;ConfigOptions.normalize(CONFIG);}
   catch(Exception e){org.slf4j.LoggerFactory.getLogger(MOD_ID).warn("Invalid Simple Visuals config; using safe defaults",e);CONFIG=new SimplevisualsConfig();}
   serverFormatting=CONFIG.visuals.enableAnvilFormatting;
   com.simplebuilding.framework.api.CosmeticIntensity.register(MOD_ID,()->
