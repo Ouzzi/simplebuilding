@@ -1,0 +1,13 @@
+{
+  "module": "simplefoundry",
+  "derivation": "Simple Foundry sells nothing for money: the foundry is a multiblock built from crafted parts; metal comes from mining and smelting, not from trade.",
+  "excluded": {
+    "simplefoundry:casting_tray": "Crafted foundry part; the multiblock is built, not bought.",
+    "simplefoundry:fire_grate": "Crafted foundry part; the multiblock is built, not bought.",
+    "simplefoundry:foundry_brick": "Crafted foundry part; the multiblock is built, not bought.",
+    "simplefoundry:foundry_desk": "Crafted foundry part; the multiblock is built, not bought.",
+    "simplefoundry:foundry_spout": "Crafted foundry part; the multiblock is built, not bought.",
+    "simplefoundry:melting_chamber": "Crafted foundry part; the multiblock is built, not bought."
+  },
+  "prices": []
+}
