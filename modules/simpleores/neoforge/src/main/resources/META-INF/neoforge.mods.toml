@@ -15,6 +15,13 @@ type="required"
 versionRange="[26.3,26.4)"
 
 [[dependencies.simpleores]]
+modId="simplelib"
+type="required"
+versionRange="[0.3.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.simpleores]]
 modId="simplebuilding"
 type="optional"
 versionRange="[0,)"
