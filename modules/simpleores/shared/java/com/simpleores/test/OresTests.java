@@ -326,7 +326,7 @@ public final class OresTests {
             check(h, out.is(item("silver_arrow")) && out.getCount() == 4, "nugget / stick / feather -> 4 silver arrows: " + out);
             check(h, craft(h, CraftingInput.of(1, 3, List.of(new ItemStack(Items.FEATHER), new ItemStack(Items.STICK), stack("silver_nugget")))).isEmpty(), "upside down: nothing");
             check(h, stack("silver_arrow").is(ItemTags.ARROWS), "a bow takes it as an arrow");
-            check(h, OresRegistry.SILVER_ARROW_ENTITY.is(net.minecraft.tags.EntityTypeTags.ARROWS), "an arrow entity");
+            check(h, BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(OresRegistry.SILVER_ARROW_ENTITY).is(net.minecraft.tags.EntityTypeTags.ARROWS), "an arrow entity");
             check(h, BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleOres.id("silver_arrow")), "entity type registered");
             List<ItemStack> mirror = new ArrayList<>(List.of(ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), new ItemStack(Items.GLASS_PANE),
                     stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY));

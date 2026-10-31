@@ -202,6 +202,18 @@
     }
   ],
   "notes": {
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 10 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 10 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+      }
+    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -651,18 +663,6 @@
       },
       "de": {
         "summary": "Blütengoldstiefel: Schutz 1, Haltbarkeitsfaktor 13, Verzauberbarkeit 25."
-      }
-    },
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
-      ],
-      "en": {
-        "summary": "Guide to this mod: 5 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
-      },
-      "de": {
-        "summary": "Handbuch zu dieser Mod: 5 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
       }
     }
   }
