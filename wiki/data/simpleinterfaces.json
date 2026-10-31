@@ -46,7 +46,8 @@
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/style/StorageStyles.java",
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/style/BoxLayout.java",
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/StyledScreens.java",
-        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/StorageBackgroundMixin.java"
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/StorageBackgroundMixin.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/HopperPaddingMixin.java"
       ],
       "en": {
         "title": "Simple container style",
@@ -54,7 +55,8 @@
         "details": [
           "Chest, barrel, ender chest, shulker box, hopper, dispenser/dropper and crafter screens and the mount inventories (horse, donkey, mule, llama, camel, nautilus) get a box in the block's color around the container slots and a light box around your inventory, with sunk rounded slots. Client only; the server needs nothing.",
           "The color comes from the screen title (chest, barrel, ender chest ...) and the block you looked at when opening it: copper chests show their weathering stage, shulker boxes their dye color. Unknown or custom-named containers use oak.",
-          "The boxes are computed from the slot positions; the title is drawn in the box's label color, the inventory label is left out (it would sit on the divider). Screens of other mods and screens without enough room stay Vanilla."
+          "The boxes are computed from the slot positions; the title is drawn in the box's label color, the inventory label is left out (it would sit on the divider). Screens of other mods and screens without enough room stay Vanilla.",
+          "The hopper screen moves your inventory 6 px down while it is styled, so its box keeps room under the five slots like SimpleBuilding's hoppers."
         ]
       },
       "de": {
@@ -63,7 +65,8 @@
         "details": [
           "Truhen-, Fass-, Endertruhen-, Shulkerkisten-, Trichter-, Werfer/Spender- und Crafter-Bildschirme sowie die Reittier-Inventare (Pferd, Esel, Maultier, Lama, Kamel, Nautilus) bekommen einen Kasten in der Farbe des Blocks um die Container-Slots und einen hellen Kasten um das Inventar, mit eingelassenen, abgerundeten Slots. Nur clientseitig; der Server braucht nichts.",
           "Die Farbe kommt aus dem Bildschirmtitel (Truhe, Fass, Endertruhe ...) und dem Block, den du beim Öffnen angeschaut hast: Kupfertruhen zeigen ihre Verwitterungsstufe, Shulkerkisten ihre Farbe. Unbekannte oder umbenannte Container nehmen Eiche.",
-          "Die Kästen werden aus den Slot-Positionen berechnet; der Titel steht in der Label-Farbe des Kastens, das Inventar-Label entfällt (es läge auf der Fuge). Bildschirme anderer Mods und Bildschirme ohne genug Platz bleiben Vanilla."
+          "Die Kästen werden aus den Slot-Positionen berechnet; der Titel steht in der Label-Farbe des Kastens, das Inventar-Label entfällt (es läge auf der Fuge). Bildschirme anderer Mods und Bildschirme ohne genug Platz bleiben Vanilla.",
+          "Der Trichter-Bildschirm rückt das Inventar im Stil um 6 px nach unten, damit sein Kasten unter den fünf Slots Luft hat wie die Trichter von SimpleBuilding."
         ]
       }
     },
@@ -1175,22 +1178,23 @@
         "modules/simplelib/shared/java/com/simplelib/api/client/keys/KeyboardLayout.java",
         "modules/simplelib/shared/java/com/simplelib/api/client/keys/KeyConflicts.java",
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeysScreen.java",
-        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/KeyBindsScreenMixin.java"
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/KeyBindsScreenMixin.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeyCellScreen.java"
       ],
       "en": {
         "title": "Key binding page",
-        "summary": "A page for all key bindings of Minecraft and every mod: a list with search and conflict marks, and a keyboard picture in 60, 75 or 100 percent.",
+        "summary": "A page for all key bindings of Minecraft and every mod in three views: by mod, by function (Vanilla's categories, as on the Vanilla controls page) and a keyboard picture in 60, 75 or 100 percent; search and conflict marks in the lists.",
         "details": [
-          "Open it with the Simple Keys button on the Vanilla controls page or with its own key (unbound by default). Click a key button, press the new key to bind; the reset arrow restores the default.",
-          "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key lets you view, free or move them. Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt."
+          "Open it with the Simple Keys button on the Vanilla controls page or with its own key (unbound by default). It uses Vanilla's buttons and list: click a key button, then press the new key or a mouse button (Esc = no key); Reset restores the default. Each group can be folded and reset; Reset all asks once more first.",
+          "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key opens its page: remove an action, move it to the nearest free key, or assign an action here (then click the action in the list). Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt."
         ]
       },
       "de": {
         "title": "Tastenbelegungs-Seite",
-        "summary": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod: Liste mit Suche und Konfliktmarken sowie ein Tastaturbild in 60, 75 oder 100 Prozent.",
+        "summary": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod in drei Ansichten: nach Mod, nach Funktion (Vanillas Kategorien wie auf der Vanilla-Steuerungsseite) und ein Tastaturbild in 60, 75 oder 100 Prozent; in den Listen Suche und Konfliktmarken.",
         "details": [
-          "Öffnen mit dem Knopf Simple Keys auf der Vanilla-Steuerungsseite oder mit einer eigenen Taste (standardmäßig unbelegt). Auf den Tastenknopf klicken und die neue Taste drücken; der Pfeil setzt auf den Standard zurück.",
-          "Die Tastatur färbt Tasten grün (eine Aktion), rot (von mehreren Aktionen geteilt) oder grau (frei), zusätzlich mit Haken, Ausrufezeichen oder Strich. Darüberfahren zeigt die Aktionen; ein Klick lässt sie ansehen, freimachen oder verschieben. Konflikte werden nur angezeigt, nie automatisch geändert. Gespeichert wird wie in Vanilla in der options.txt."
+          "Öffnen mit dem Knopf Simple Keys auf der Vanilla-Steuerungsseite oder mit einer eigenen Taste (standardmäßig unbelegt). Die Seite nutzt Vanillas Knöpfe und Liste: Tastenknopf anklicken, dann die neue Taste oder Maustaste drücken (Esc = keine Taste); Zurücksetzen stellt den Standard her. Jede Gruppe lässt sich einklappen und zurücksetzen; Alle zurücksetzen fragt vorher noch einmal.",
+          "Die Tastatur färbt Tasten grün (eine Aktion), rot (von mehreren Aktionen geteilt) oder grau (frei), zusätzlich mit Haken, Ausrufezeichen oder Strich. Darüberfahren zeigt die Aktionen; ein Klick öffnet die Seite der Taste: Aktion entfernen, auf die nächste freie Taste verschieben oder eine Aktion hierher legen (dann die Aktion in der Liste anklicken). Konflikte werden nur angezeigt, nie automatisch geändert. Gespeichert wird wie in Vanilla in der options.txt."
         ]
       }
     }

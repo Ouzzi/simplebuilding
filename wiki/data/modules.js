@@ -550,9 +550,9 @@ window.WIKI_MODULES = [
       "items": 10,
       "blocks": 7,
       "recipes": 29,
-      "features": 6
+      "features": 7
     },
-    "dataHash": "5ecc7ae0c097"
+    "dataHash": "40107a6d796d"
   },
   {
     "id": "simpleinterfaces",
@@ -583,7 +583,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 55
     },
-    "dataHash": "fc829bfdbcdd"
+    "dataHash": "5f332efd9263"
   },
   {
     "id": "simplemaps",
