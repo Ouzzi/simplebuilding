@@ -708,6 +708,8 @@ def spec(mod_id: str) -> dict | None:
 # hintergruende geben". Mods with a typical own item show that item's real texture (first animation frame); the
 # others keep their drawn motif above. Every icon sits on a full 16x16 tile like the owner's four images (which keep
 # their own background): 1 px frame, Vanilla-button bevel, two-tone fill and three sparkles, one colour per mod.
+# Motifs whose item texture lives in another module (module id -> owner of the texture).
+MOTIF_FROM = {"simplelib": "simpleores"}
 ITEM_MOTIFS = {
     "simplehammers": "iron_sledgehammer", "simplemusic": "custom_disc", "simplestorage": "backpack",
     "simplemobs": "nether_heart", "simplebeacons": "strong_upgrade_template", "simpletools": "biome_brush",
@@ -785,6 +787,9 @@ def item_motif(entry: dict, refresh: bool) -> bytes:
     """RGBA of the item motif: read from the item texture when writing, from the layer source when checking (so a
     later change of the item texture elsewhere does not break `check`; rerun this script to take it over)."""
     base = asset_dir(entry)
+    # IG31-13: SimpleLib's icon keeps its Enderite ingot motif, whose texture moved to Simple Ores (no icon change).
+    if entry["id"] in MOTIF_FROM:
+        base = ROOT / "modules" / MOTIF_FROM[entry["id"]] / "shared/resources/assets" / MOTIF_FROM[entry["id"]]
     if refresh:
         w, h, px = L.png_read((base / "textures/item" / (ITEM_MOTIFS[entry["id"]] + ".png")).read_bytes())
         if w != 16:
