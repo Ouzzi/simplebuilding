@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
  * cauldron into the crucible's base (a cauldron with water, lava or powder snow must be emptied first, nothing is lost). Strikes 1-8 raise the four side plates (north, east, south, west; each first a
  * half plate, then the full one), strikes 9-12 the two handles (east, west; half, then full), strikes 13-16 the four
  * rim pieces; the 16th sets the iron crucible. Plates and rim take tag {@code simplelib:crucible_walls}, handles tag
- * {@code simplelib:crucible_handles} (iron ingot; SimpleBuilding adds its iron pole). This block is the half-built
+ * {@code simplelib:crucible_handles} (iron ingot only). This block is the half-built
  * blank (stage 1-15 = strikes done, one model per stage); breaking it returns the cauldron and one iron ingot
  * per strike (loot table {@code simplelib:blocks/crucible_blank}, conditions on {@code stage} and {@code cauldron}).
  * Without SimpleBuilding the tool is an axe (principle 5a); a partner with its own way switches the axe way off through {@link SimpleLibApi#disableAxeWays()} and calls {@link #strike} itself.

@@ -138,7 +138,7 @@ public final class CrucibleTests {
         helper.assertTrue(build.inputs().get(0).items().equals(java.util.List.of(Items.CAULDRON)) && build.inputs().get(0).count() == 1, "an empty cauldron (N51)");
         helper.assertTrue(build.inputs().get(1).count() == 12 && build.inputs().get(1).items().contains(Items.IRON_INGOT), "12 ingots for plates and rim (N51)");
         helper.assertTrue(build.inputs().get(2).count() == 4 && build.inputs().get(2).items().contains(Items.IRON_INGOT)
-                && build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot or iron rod");
+                && !build.inputs().get(2).items().contains(ModItems.IRON_POLE), "4 handle strikes: iron ingot only, no iron rod (WE25-6)");
         helper.assertTrue(build.output().items().equals(java.util.List.of(item("simplecrucibles:iron_crucible"))), "the iron crucible");
         helper.assertTrue(build.tools().contains(com.simplebuilding.util.HammerRefs.item("iron")) && build.tools().contains(com.simplebuilding.util.HammerRefs.item("enderite")), "every sledgehammer");
         helper.assertTrue(noteArgs(build, 0).equals(java.util.List.of(16)) && noteArgs(build, 1).equals(java.util.List.of(12, 4)), "notes name 16 strikes, 12 plate/rim and 4 handle ingots");
@@ -280,7 +280,7 @@ public final class CrucibleTests {
 
     /**
      * Owner N51: sledgehammer on an empty Vanilla cauldron, 16 strikes with one iron ingot each - 8 for the side plates (half, then
-     * full), 4 for the handles (iron poles count), 4 for the rim; each strike is its own blank stage; 2 durability each.
+     * full), 4 for the handles (iron ingots), 4 for the rim; each strike is its own blank stage; 2 durability each.
      */
     public static void sledgehammerBuildsTheIronCrucible(GameTestHelper helper) {
         if (!McVersion.CRUCIBLE) { helper.succeed(); return; }
@@ -290,14 +290,14 @@ public final class CrucibleTests {
         ServerPlayer player = player(helper, hammer, new ItemStack(Items.IRON_INGOT, 8));
         helper.assertTrue(player.getOffhandItem().is(TagKey.create(Registries.ITEM,
                 Identifier.fromNamespaceAndPath("simplecrucibles", "crucible_walls"))), "SimpleLib plate material (iron ingot) loaded");
-        helper.assertTrue(new ItemStack(ModItems.IRON_POLE).is(TagKey.create(Registries.ITEM,
-                Identifier.fromNamespaceAndPath("simplecrucibles", "crucible_handles"))), "SimpleBuilding handle materials loaded");
+        helper.assertTrue(!new ItemStack(ModItems.IRON_POLE).is(TagKey.create(Registries.ITEM,
+                Identifier.fromNamespaceAndPath("simplecrucibles", "crucible_handles"))), "iron rod is no crucible handle (WE25-6)");
         Block blank = lib("crucible_blank");
         var stage = (net.minecraft.world.level.block.state.properties.IntegerProperty) blank.getStateDefinition().getProperty("stage");
         int strikes = CrucibleCompat.buildStrikes();
         helper.assertTrue(strikes == 16 && CrucibleCompat.buildWallStrikes() == 12, "16 strikes, 12 of them plates and rim: " + strikes);
         for (int strike = 1; strike <= strikes; strike++) {
-            if (strike == 9) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.IRON_POLE, 4));
+            if (strike == 9) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 4));
             if (strike == 13) player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.IRON_INGOT, 4));
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(hammer));
             helper.assertTrue(hammer.getItem().useOn(click(helper, player, pos)).consumesAction(), "strike " + strike + " not taken");

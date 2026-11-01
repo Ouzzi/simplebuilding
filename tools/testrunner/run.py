@@ -1655,6 +1655,20 @@ def select_targets(spec: str) -> list[Target]:
     return chosen
 
 
+def filter_hint(selected, test_filter: str | None) -> str | None:
+    """Warns when --filter names a namespace none of the selected targets runs (e.g. a module id on fabric-263)."""
+    if not test_filter or ":" not in test_filter:
+        return None
+    namespace = test_filter.split(":", 1)[0]
+    if "*" in namespace or any(t.namespace == namespace for t in selected):
+        return None
+    owners = [t.id for t in ALL_TARGETS if t.namespace == namespace and t.kind == "server"]
+    if not owners:
+        return None
+    return (f"Hinweis: die Auswahl '{test_filter}' passt auf keines der gewaehlten Ziele (0 Tests). "
+            f"Der Namensraum '{namespace}' gehoert zu: {', '.join(owners)} - dafuer --targets so setzen.")
+
+
 def main(argv: list[str] | None = None) -> int:
     force_utf8_stdout()
     args = parse_args(argv)
@@ -1678,6 +1692,9 @@ def main(argv: list[str] | None = None) -> int:
 
     selected = list(TARGETS) if args.release_gate else select_targets(args.targets)
     trigger = "release-gate" if args.release_gate else args.trigger
+    hint = filter_hint(selected, args.filter)
+    if hint:
+        print(f"  {hint}", file=sys.stderr)
 
     record = execute(selected, args.filter, trigger, args.timeout,
                      on_line=None if args.json else lambda line: print(f"  {line}"))

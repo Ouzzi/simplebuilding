@@ -19,9 +19,8 @@ CRLF, LF = b"\r\n", b"\n"
 
 def files():
     out = {}
-    # Simple Crucibles' tags (extreme-heat recipes, iron rod as crucible handle).
+    # Simple Crucibles' tags (extreme-heat recipes).
     out["data/simplecrucibles/tags/item/needs_extreme_heat.json"] = {"values": [f"{NS}:layered_raw_enderite", f"{NS}:cracked_diamond"]}
-    out["data/simplecrucibles/tags/item/crucible_handles.json"] = {"values": [f"{NS}:iron_pole"]}
     return out
 
 
