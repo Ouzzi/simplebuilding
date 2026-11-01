@@ -38,6 +38,7 @@
   },
   "suggests": {
     "simplebuilding": "*",
-    "simplefoundry": "*"
+    "simplefoundry": "*",
+    "simplecrucibles": "*"
   }
 }

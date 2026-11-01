@@ -32,7 +32,9 @@
         "simplelights",
         "simplegadgets",
         "simpleores",
-        "simplemachines"
+        "simplemachines",
+        "simplemobs",
+        "simpleresonance"
       ],
       "optional": [
         "jei",
@@ -52,7 +54,6 @@
         "simplefun",
         "simpledimensions",
         "simpletrims",
-        "simplemobs",
         "simpleend",
         "simplerespawn",
         "simplebeacons",
@@ -62,8 +63,7 @@
         "simplemusic",
         "simpleearth",
         "simplechallenges",
-        "simpledinos",
-        "simpleresonance"
+        "simpledinos"
       ],
       "paths": {
         "root": ".",
@@ -1711,7 +1711,7 @@
         "forge": ":modules:simplemobs:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "required"
     },
     {
       "id": "simpleweather",
@@ -2854,7 +2854,8 @@
       ],
       "optional": [
         "simplebuilding",
-        "simplefoundry"
+        "simplefoundry",
+        "simplecrucibles"
       ],
       "checks": [
         "modules/simpleovens/tools/check_data.py"
@@ -3499,7 +3500,7 @@
         "neoforge": ":modules:simplecrucibles:neoforge",
         "forge": ":modules:simplecrucibles:forge"
       },
-      "parent": "simplebuilding",
+      "parent": "simpleovens",
       "bundle": "required"
     },
     {
@@ -4805,7 +4806,7 @@
         "forge": ":modules:simpleresonance:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "required"
     },
     {
       "id": "simplefoundry",

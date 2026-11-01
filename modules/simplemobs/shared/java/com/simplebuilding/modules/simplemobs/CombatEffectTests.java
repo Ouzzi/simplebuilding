@@ -45,6 +45,19 @@ final class CombatEffectTests {
                 h.assertTrue(BuiltInRegistries.MOB_EFFECT.containsKey(key.identifier()), "effect " + key.identifier());
             h.succeed();
         });
+        add.accept("combat_potions", h -> {
+            for (String effect : java.util.List.of("volatile", "deflection", "mirror")) {
+                for (String id : CombatEffects.potionIds(effect)) {
+                    var key = net.minecraft.resources.Identifier.fromNamespaceAndPath(CombatEffects.ID, id);
+                    h.assertTrue(BuiltInRegistries.POTION.containsKey(key), "potion " + key);
+                    var potion = BuiltInRegistries.POTION.getValue(key);
+                    h.assertTrue(potion.name().equals(effect) && potion.getEffects().size() == 1, "potion " + key + " has one effect and the shared name");
+                }
+                h.assertTrue(BuiltInRegistries.POTION.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(CombatEffects.ID, "strong_" + effect))
+                        .getEffects().get(0).getAmplifier() == 1, "strong " + effect + " is level II");
+            }
+            h.succeed();
+        });
         add.accept("combat_rules", h -> {
             close(h, CombatEffects.deflectChance(0), 0.1, "deflection I");
             close(h, CombatEffects.deflectChance(4), 0.5, "deflection V");
