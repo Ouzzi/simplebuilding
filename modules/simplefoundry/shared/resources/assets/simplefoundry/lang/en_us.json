@@ -22,6 +22,9 @@
   "simplefoundry.desk.metal": "%s: %s units melted, %s waiting",
   "simplefoundry.desk.capacity": "Filled %s of %s units, fire %s s, fuel: %s",
   "simplefoundry.desk.no_fuel": "none",
+  "simplefoundry.desk.tier": "Desk with %s input slots",
+  "simplefoundry.desk.layer": "Layer %s: %s",
+  "simplefoundry.desk.layer_empty": "empty",
   "simplefoundry.desk.refused": "Nothing taken (%s, or the tank is full)",
   "simplefoundry.desk.fuel_full": "The fuel slot is full or holds another fuel (%s)",
   "simplefoundry.tray.hot": "The ingots are still setting"

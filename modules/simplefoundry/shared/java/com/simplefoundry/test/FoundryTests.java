@@ -4,7 +4,9 @@ import com.simplefoundry.FoundryRegistry;
 import com.simplefoundry.FoundryScan;
 import com.simplefoundry.Fuels;
 import com.simplefoundry.Heat;
+import com.simplefoundry.CastTarget;
 import com.simplefoundry.Layers;
+import com.simplefoundry.Tier;
 import com.simplefoundry.Melts;
 import com.simplefoundry.Metal;
 import com.simplefoundry.SimpleFoundry;
@@ -218,6 +220,75 @@ public final class FoundryTests {
                 check(h, lowTray.count() == 0, "drop empties the tray");
             } finally {
                 FoundryConfig.reset();
+                clear(h);
+            }
+            h.succeed();
+        });
+        ALL.put("tiers", h -> {
+            try {
+                fast();
+                check(h, Tier.STONE.slots == 3 && Tier.IRON.slots == 6 && Tier.DIAMOND.slots == 9 && Tier.NETHERITE.slots == 12, "SA3: 3/6/9/12 slots");
+                check(h, Tier.STONE.next() == Tier.IRON && Tier.NETHERITE.next() == null && Tier.byIndex(99) == Tier.NETHERITE && Tier.byIndex(-1) == Tier.STONE, "tier order and clamping");
+                BlockPos desk = build(h, 2);
+                DeskBlockEntity be = (DeskBlockEntity) h.getLevel().getBlockEntity(desk);
+                check(h, be.tier() == Tier.STONE, "a new desk is the first tier");
+                ItemStack wrong = new ItemStack(Items.DIAMOND_BLOCK);
+                check(h, !be.upgrade(wrong) && be.tier() == Tier.STONE && wrong.getCount() == 1, "a tier cannot be skipped");
+                check(h, be.upgrade(new ItemStack(Items.IRON_BLOCK)) && be.tier() == Tier.IRON, "iron block lifts to tier 2");
+                // parallel lanes: tier 1 melts 1 unit per interval, tier 2 two
+                be.insert(new ItemStack(Items.GOLD_INGOT, 2));
+                be.addFuel(new ItemStack(Items.COAL, 2));
+                run(h, desk, 2);
+                check(h, be.melt(Metal.GOLD) == 4 && be.pending(Metal.GOLD) == 14, "tier 2 melts two units per interval: " + be.melt(Metal.GOLD));
+                var tag = be.saveWithoutMetadata(h.getLevel().registryAccess());
+                check(h, tag.getIntOr("Tier", -1) == Tier.IRON.ordinal(), "tier is saved");
+                check(h, be.upgrade(new ItemStack(Items.DIAMOND_BLOCK)) && be.upgrade(new ItemStack(Items.NETHERITE_INGOT)) && be.tier() == Tier.NETHERITE && !be.upgrade(new ItemStack(Items.NETHERITE_INGOT)), "up to tier 4, no further");
+            } finally {
+                FoundryConfig.reset();
+                clear(h);
+            }
+            h.succeed();
+        });
+        ALL.put("layer_select", h -> {
+            try {
+                BlockPos desk = build(h, 3);
+                DeskBlockEntity be = (DeskBlockEntity) h.getLevel().getBlockEntity(desk);
+                be.revalidate();
+                check(h, be.structure().levels() == 3 && be.selectedLevel() == 0, "three levels, bottom selected");
+                check(h, be.cycleLevel() == 2 && be.cycleLevel() == 1 && be.cycleLevel() == 0 && be.cycleLevel() == 2, "SA4: the arrow goes down and wraps from the bottom to the top");
+                check(h, be.selectedMetal() == null, "nothing melted: empty layer");
+                be.insert(new ItemStack(Items.GOLD_BLOCK, 1));
+                be.addFuel(new ItemStack(Items.COAL, 2));
+                fast();
+                run(h, desk, 100);
+                while (be.selectedLevel() != 0) be.cycleLevel();
+                check(h, be.selectedMetal() == Metal.GOLD, "the lowest layer shows the gold, got " + be.selectedMetal());
+            } finally {
+                FoundryConfig.reset();
+                clear(h);
+            }
+            h.succeed();
+        });
+        ALL.put("gear_and_target", h -> {
+            try {
+                ItemStack pick = new ItemStack(Items.IRON_PICKAXE);
+                Melts.Melt whole = Melts.of(pick);
+                check(h, whole != null && whole.metal() == Metal.IRON && whole.units() == 3 * Metal.INGOT, "SA7: an iron pickaxe is three ingots");
+                pick.setDamageValue(pick.getMaxDamage() / 2);
+                Melts.Melt worn = Melts.of(pick);
+                check(h, worn != null && worn.units() < whole.units() && worn.units() > 0, "worn gear gives less");
+                pick.setDamageValue(pick.getMaxDamage());
+                check(h, Melts.of(pick) == null, "a broken piece gives nothing");
+                check(h, Melts.of(new ItemStack(Items.GOLDEN_CHESTPLATE)).units() == 8 * Metal.INGOT && Melts.of(new ItemStack(Items.GOLDEN_CHESTPLATE)).metal() == Metal.GOLD, "golden chestplate = eight gold ingots");
+                check(h, Melts.of(new ItemStack(Items.DIAMOND_PICKAXE)) == null && Melts.of(new ItemStack(Items.NETHERITE_SWORD)) == null, "no melting of diamond or netherite gear yet");
+                // the yield of every piece is at most its cost: a fresh piece gives exactly the ingots, never more
+                for (var item : List.of(Items.IRON_SWORD, Items.IRON_HELMET, Items.GOLDEN_BOOTS, Items.GOLDEN_HOE, Items.IRON_LEGGINGS)) {
+                    Melts.Melt m = Melts.of(new ItemStack(item));
+                    check(h, m != null && m.units() % Metal.INGOT == 0, "whole ingots for " + item);
+                }
+                // SA5 = C: a spout pours into anything that is a cast target
+                check(h, CastTarget.class.isAssignableFrom(TrayBlockEntity.class), "the tray is a cast target");
+            } finally {
                 clear(h);
             }
             h.succeed();

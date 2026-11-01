@@ -61,6 +61,12 @@ public class DeskBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.getBlockEntity(pos) instanceof DeskBlockEntity upgradable && upgradable.tier().next() != null && stack.is(upgradable.tier().next().upgradeItem())) {
+            if (level.isClientSide()) return InteractionResult.SUCCESS;
+            if (upgradable.upgrade(stack) && !player.hasInfiniteMaterials()) stack.shrink(1);
+            player.sendSystemMessage(Component.translatable("simplefoundry.desk.tier", upgradable.tier().slots));
+            return InteractionResult.SUCCESS;
+        }
         boolean fuel = Fuels.of(stack) != null;
         if (!fuel && Melts.of(stack) == null) return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
@@ -76,7 +82,15 @@ public class DeskBlock extends BaseEntityBlock {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (level.getBlockEntity(pos) instanceof DeskBlockEntity desk) {
             desk.revalidate();
+            if (player.isShiftKeyDown()) {
+                // owner SA4: the arrow of the desk moves the selected layer one down
+                int level = desk.cycleLevel();
+                Metal metal = desk.selectedMetal();
+                player.sendSystemMessage(Component.translatable("simplefoundry.desk.layer", level + 1, metal == null ? Component.translatable("simplefoundry.desk.layer_empty") : Component.translatable("simplefoundry.metal." + metal.id)));
+                return InteractionResult.SUCCESS;
+            }
             player.sendSystemMessage(Component.translatable("simplefoundry.desk.status", status(desk)));
+            player.sendSystemMessage(Component.translatable("simplefoundry.desk.tier", desk.tier().slots));
             for (Metal m : Metal.values()) {
                 int melt = desk.melt(m), waiting = desk.pending(m);
                 if (melt + waiting > 0) {
