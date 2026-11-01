@@ -327,7 +327,7 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [x] KEYS31-BP Blaupausen-Editor als Simple-Kasten – ok (nur Abnahme-Haken, nichts zu bauen) → QW
 - [x] DEVUI31-PANEL Dev-Config im Inventar – Panel gut (nur Abnahme-Haken, nichts zu bauen) → QW
 - [x] DEVUI31-RAHMEN Fernrohr-Rahmen Standard – A (eingebaut) (nur Abnahme-Haken, nichts zu bauen) → QW
-- [ ] MACH32-MOD Sub-Mod Simple Machines – mod: alle Blöcke aus dem Tab Simple Machines (Kolben-Upgrades, Doppelkolben, Dämpfer ...) ins Sub-Mod Simple Machines → PRIO
+- [~] (B, b-machines01, 01.11.; Stufe 1 gebaut: Modul modules/simplemachines (Fabric 26.3, Pflicht-Sub-Mod SB) mit Doppelkolben + Signaldämpfer, IdMoves simplebuilding:/simpleredstone: → simplemachines:, eigene Config simplemachines-server.json; offen Stufen 2–5 (Kolben-Upgrades, Trichter, Auto-Schmied, End-Systeme) laut docs/ai/PLAN-B-MACHINES01-2026-11-01.md, Rückfrage MACH32-ENDSYS) MACH32-MOD Sub-Mod Simple Machines – mod: alle Blöcke aus dem Tab Simple Machines (Kolben-Upgrades, Doppelkolben, Dämpfer ...) ins Sub-Mod Simple Machines → PRIO
 - [ ] SNOW32-FALL Schneefall verschneit Pflanzen/Zäune – ja: bei Schneefall genau EINE Schneeschicht oben drauf, auch auf Zäunen usw., abbaubar (weiße Textur oben, wegmachbar) → PRIO
 - [ ] ZFIGHT32 Flackerndes Item (Z-Fighting) – einige noch; Besitzer listet sie spätestens in Phase 2 auf → PRIO
 - [ ] TROMP-3 Trompete: Samples über 2 Oktaven – zwei Samples (tief/hoch) → PRIO

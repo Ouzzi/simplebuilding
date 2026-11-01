@@ -2954,7 +2954,7 @@ public final class DataIntegrityTests {
                         ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON)));
         if (McVersion.MACHINE_PARTS) {
             // IG31-12: Doppelkolben und Signaldaempfer direkt hinter den Kolben.
-            expected.add(CreativeTabLayout.Row.of("double_pistons", ModItems.DOUBLE_PISTON, ModItems.SIGNAL_DAMPENER));
+            expected.add(CreativeTabLayout.Row.of("double_pistons", com.simplebuilding.util.MachineRefs.item("double_piston"), com.simplebuilding.util.MachineRefs.item("signal_dampener")));
         }
         if (McVersion.AUTO_SMITHER) {
             // Auto-Schmied (2026-10-02) direkt hinter den Kolben.

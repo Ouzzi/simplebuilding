@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "simplemachines:block/double_piston_arm"
+    },
+    "facing=east": {
+      "model": "simplemachines:block/double_piston_arm",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "simplemachines:block/double_piston_arm",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplemachines:block/double_piston_arm",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "simplemachines:block/double_piston_arm",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "simplemachines:block/double_piston_arm",
+      "x": 90
+    }
+  }
+}

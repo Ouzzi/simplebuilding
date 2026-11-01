@@ -54,6 +54,7 @@ BOOKS = {
     # 2026-10-29 (a-animals29)
     "simpleanimals": ("simpleanimals", ("#1e2a12", "#324420", "#8aa860", "#688a44", "#4e6c32"), "#e0d0a0", "Waldgruen, Geweih-Elfenbein"),
     # 2026-10-30 (a-dino30)
+    "simplemachines": ("simplemachines", ("#2a0c0c", "#481414", "#c0463c", "#9c3028", "#7a2420"), "#ffd24a", "Redstone-Rot, Lampen-Bernstein"),
     "simpleores": ("simpleores", ("#161c28", "#242e42", "#8a9ab4", "#66789a", "#4a5a78"), "#e69a73", "Silberblau, Roségold-Akzent"),
     "simpledinos": ("simpledinos", ("#1c2a12", "#2e4420", "#8a9a50", "#6a7e3a", "#4c5e2a"), "#e8e0b8", "Urwaldgruen, Fossil-Elfenbein"),
     # 2026-10-30 (a-zones31)

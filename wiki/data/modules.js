@@ -22,7 +22,8 @@ window.WIKI_MODULES = [
       "simplestorage",
       "simplelights",
       "simplegadgets",
-      "simpleores"
+      "simpleores",
+      "simplemachines"
     ],
     "optional": [
       "jei",
@@ -73,11 +74,11 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 504,
-      "blocks": 297,
-      "recipes": 828,
-      "config": 236,
-      "features": 50
+      "items": 502,
+      "blocks": 293,
+      "recipes": 826,
+      "config": 235,
+      "features": 48
     }
   },
   {
@@ -712,7 +713,7 @@ window.WIKI_MODULES = [
       "recipes": 75,
       "features": 22
     },
-    "dataHash": "62d0d3e07f6f"
+    "dataHash": "c6058319211d"
   },
   {
     "id": "simpleweather",
@@ -1852,6 +1853,36 @@ window.WIKI_MODULES = [
       "features": 11
     },
     "dataHash": "f094d472b862"
+  },
+  {
+    "id": "simplemachines",
+    "displayName": "Simple Machines",
+    "description": "The machine parts of the Simple Machines tab. Stage 1: Double Piston (one block, two stages: head one block out, then body and head move on; Vanilla push rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "The machine parts of the Simple Machines tab: the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
+      "de": "Die Maschinenteile des Tabs Simple Machines: der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 1,
+      "blocks": 4,
+      "recipes": 3,
+      "features": 5
+    },
+    "dataHash": "552d0ab146e0"
   },
   {
     "id": "simpleresonance",

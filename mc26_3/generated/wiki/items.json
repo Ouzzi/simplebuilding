@@ -75,9 +75,6 @@
     "simplebuilding:dark_oak_sheet",
     "simplebuilding:diamond_pole",
     "simplebuilding:diamond_pressure_plate",
-    "simplebuilding:double_piston",
-    "simplebuilding:double_piston_arm",
-    "simplebuilding:double_piston_head",
     "simplebuilding:dull_astralit_ore",
     "simplebuilding:dull_nihilith_ore",
     "simplebuilding:elytra_pad",
@@ -245,7 +242,6 @@
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
     "simplebuilding:sculk_jaw",
-    "simplebuilding:signal_dampener",
     "simplebuilding:silent_dandelion",
     "simplebuilding:spawn_teleporter",
     "simplebuilding:spawn_teleporter_tier_2",
@@ -714,9 +710,6 @@
       "enchantability": 10,
       "id": "simplebuilding:diamond_spatula",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:double_piston"
     },
     {
       "id": "simplebuilding:dull_astralit_dust"
@@ -2172,9 +2165,6 @@
     },
     {
       "id": "simplebuilding:sculk_jaw"
-    },
-    {
-      "id": "simplebuilding:signal_dampener"
     },
     {
       "id": "simplebuilding:silent_dandelion"

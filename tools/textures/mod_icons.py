@@ -754,7 +754,7 @@ ITEM_MOTIFS = {
     "simplemaps": "wayfinder_map", "simpletweaks": "claim_deed", "simplelib": "enderite_ingot",
     "simplecrucibles": "ceramic_lava_bucket", "simpleend": "drift_fruit", "simpleenddragonfight": "dragon_chitin",
     "simplemobmanners": "frog_bucket", "simpletrims": "glowing_trim_template",
-    "simplelights": "light_pane", "simplegadgets": "velocity_gauge",
+    "simplelights": "light_pane", "simplegadgets": "velocity_gauge", "simplemachines": "signal_dampener",
 }
 BG = {
     "wiringexample": "#8a9098", "simplemodels": "#34406a", "simplefun": "#8cc4e8", "simplesounds": "#f0d8a0",
@@ -776,6 +776,7 @@ BG = {
     "simpleanimals": "#9cc07a",
     "simpledinos": "#d8b878",
     "simpleores": "#9aa8bc",
+    "simplemachines": "#b85a50",
     "simpleresonance": "#6a58b0",
     "simplefoundry": "#c88a68",
 }

@@ -69,22 +69,8 @@ public final class IdMovesHook {
             moveTo(Registries.RECIPE, path, ores, path);
             moveTo(Registries.ADVANCEMENT, "recipes/" + folder + "/" + path, ores, "recipes/" + folder + "/" + path);
         });
-        // IG31-12 (b-mach32, 31.10.): the former module Simple Redstone lives in the core now (Simple Machines tab). The 1x2
-        // piston's barrel no longer exists and loads as air; the module's guide becomes the Machines handbook.
-        for (String path : com.simplebuilding.machines.MachineParts.MOVED_ITEMS) fromRedstone(Registries.ITEM, path, path);
-        fromRedstone(Registries.ITEM, "guide_book", "guide_book_machines");
-        for (String path : com.simplebuilding.machines.MachineParts.MOVED_BLOCKS) fromRedstone(Registries.BLOCK, path, path);
-        IdMoves.move(Registries.BLOCK, Identifier.fromNamespaceAndPath(com.simplebuilding.machines.MachineParts.OLD_NAMESPACE, "double_piston_barrel"),
-                Identifier.withDefaultNamespace("air"));
-        for (String path : com.simplebuilding.machines.MachineParts.MOVED_ITEMS) {
-            fromRedstone(Registries.RECIPE, path, path);
-            fromRedstone(Registries.ADVANCEMENT, "recipes/redstone/" + path, "recipes/redstone/" + path);
-        }
-    }
-
-    private static void fromRedstone(ResourceKey<? extends Registry<?>> registry, String oldPath, String newPath) {
-        IdMoves.move(registry, Identifier.fromNamespaceAndPath(com.simplebuilding.machines.MachineParts.OLD_NAMESPACE, oldPath),
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, newPath));
+        // MACH32-MOD (b-machines01, 01.11.): the Double Piston and the Signal Dampener (simpleredstone: before 31.10., simplebuilding:
+        // until now) are Simple Machines'; it registers all their id moves itself (SimpleMachines#registerIdMoves).
     }
 
     private static void moveTo(ResourceKey<? extends Registry<?>> registry, String oldPath, String namespace, String newPath) {

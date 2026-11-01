@@ -107,7 +107,7 @@ public final class McVersion {
     public static final boolean END_RAILS = true;
     /** Simple Doors (WP-17 / BS28-2): the 2x2, 2x3 and half-width oak doors; 26.3 only until the port run. */
     public static final boolean DOORS = true;
-    /** Double Piston and Signal Dampener in the Simple Machines tab (IG31-12/-26, b-mach32 31.10.; formerly Simple Redstone, 26.3 only). */
+    /** Double Piston and Signal Dampener: Simple Machines' parts (MACH32-MOD 01.11., simplemachines:*, bundled sub-mod, 26.3 only); the flag only gates SB's tab row and tests. */
     public static final boolean MACHINE_PARTS = true;
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;

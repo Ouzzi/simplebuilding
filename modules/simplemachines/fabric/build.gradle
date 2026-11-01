@@ -1,0 +1,7 @@
+plugins { id 'net.fabricmc.fabric-loom' }
+// 0.1.0: new module (WP-17); modules stay 0.x until the owner's approval, then 1.0.0.
+apply from: rootProject.file('gradle/module-fabric.gradle')
+// Bundles the shared framework API (sub-mod switch, config files, creative tab setting, test centre station) for standalone runs.
+dependencies { include project(':framework') }
+// SimpleLib nested per principle 6a and compiled against: /<modid> config (ConfigCommands, CMD24).
+dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
