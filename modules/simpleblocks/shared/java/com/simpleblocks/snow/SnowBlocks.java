@@ -47,7 +47,7 @@ public final class SnowBlocks {
         // SNOW32-FALL: the one snow layer falling snow leaves on top of fences, walls, stairs and slabs (no item, no collision).
         ResourceKey<Block> capKey = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(SNOW_CAP_NAME));
         SNOW_CAP = Registry.register(BuiltInRegistries.BLOCK, capKey, new SnowCapBlock(BlockBehaviour.Properties.of().setId(capKey)
-                .mapColor(MapColor.SNOW).noCollision().randomTicks().strength(0.1F).sound(SoundType.SNOW)
+                .mapColor(MapColor.SNOW).noCollision().replaceable().randomTicks().strength(0.1F).sound(SoundType.SNOW)
                 .pushReaction(PushReaction.POPPED).noLootTable()));
         ResourceKey<Block> frost = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(FROST_GRASS_NAME));
         FROST_GRASS = Registry.register(BuiltInRegistries.BLOCK, frost,

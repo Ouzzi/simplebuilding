@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
@@ -90,11 +89,6 @@ public class SnowCapBlock extends Block {
                                      BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
         return direction == Direction.DOWN && !canSurvive(state, level, pos) ? Blocks.AIR.defaultBlockState()
                 : super.updateShape(state, level, ticks, pos, direction, neighbourPos, neighbourState, random);
-    }
-
-    @Override
-    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        return true;
     }
 
     @Override
