@@ -96,6 +96,33 @@
       }
     },
     {
+      "id": "rose_gold_apples",
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/OresFood.java",
+        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_apple.json",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_blossom_gold_apple.json"
+      ],
+      "en": {
+        "title": "Rose gold apples",
+        "summary": "A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.",
+        "details": [
+          "Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30. Blossom Gold apple: 6 hunger, Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30.",
+          "Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:25, Resistance I and Fire Resistance 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:32, the same and Strength I 1:00.",
+          "For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Fire Resistance 4:00, Resistance I 1:00. They appear in the Food and Drinks tab behind the enchanted golden apple."
+        ]
+      },
+      "de": {
+        "title": "Roségold-Äpfel",
+        "summary": "Je Legierung ein normaler und ein verzauberter Apfel, zwischen Goldapfel und Netherit-Apfel. Immer essbar, ohne Abklingzeit.",
+        "details": [
+          "Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30.",
+          "Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:25, Resistenz I und Feuerresistenz 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:32, dasselbe und Stärke I 1:00.",
+          "Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Feuerresistenz 4:00, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel."
+        ]
+      }
+    },
+    {
       "id": "lead",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java",
@@ -276,6 +303,47 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simpleores:blossom_gold_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:blossom_gold_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/blossom_gold_apple.json",
+      "ingredients": [
+        "minecraft:apple",
+        "simpleores:blossom_gold_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:blossom_gold_ingot"
+        ],
+        "A": [
+          "minecraft:apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:blossom_gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
     {
       "id": "simpleores:blossom_gold_axe",
       "type": "minecraft:crafting_shaped",
@@ -768,6 +836,88 @@
           {
             "id": "minecraft:oak_log",
             "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enchanted_blossom_gold_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:enchanted_blossom_gold_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_blossom_gold_apple.json",
+      "ingredients": [
+        "minecraft:apple",
+        "simpleores:blossom_gold_block"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:blossom_gold_block"
+        ],
+        "A": [
+          "minecraft:apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:blossom_gold_ingot",
+            "count": 72
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:enchanted_rose_bronze_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:enchanted_rose_bronze_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_rose_bronze_apple.json",
+      "ingredients": [
+        "minecraft:apple",
+        "simpleores:rose_bronze_block"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_block"
+        ],
+        "A": [
+          "minecraft:apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 72
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
           }
         ]
       }
@@ -1507,6 +1657,47 @@
       }
     },
     {
+      "id": "simpleores:rose_bronze_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_bronze_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_apple.json",
+      "ingredients": [
+        "minecraft:apple",
+        "simpleores:rose_bronze_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_bronze_ingot"
+        ],
+        "A": [
+          "minecraft:apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:rose_bronze_axe",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -1778,8 +1969,8 @@
         "yield": 9,
         "materials": [
           {
-            "id": "simpleores:rose_bronze_block",
-            "count": 1
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 9
           }
         ]
       }
@@ -2839,6 +3030,29 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simpleores:blossom_gold_apple",
+      "name": {
+        "en_us": "Blossom Gold Apple",
+        "de_de": "Blütengold-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Blossom Gold apple, a step between the golden and the Netherite apple: 6 hunger, always edible. Gives Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30. 8 blossom gold ingots round an apple."
+        },
+        "de": {
+          "summary": "Blütengold-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 6 Hunger, immer essbar. Gibt Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30. 8 Blütengoldbarren um einen Apfel."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/blossom_gold_apple.png",
+      "craftedBy": [
+        "simpleores:blossom_gold_apple"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:blossom_gold_axe",
       "name": {
         "en_us": "Blossom Gold Axe",
@@ -2976,6 +3190,7 @@
         "simpleores:blossom_gold_ingot_from_blossom_gold_block"
       ],
       "usedIn": [
+        "simpleores:blossom_gold_apple",
         "simpleores:blossom_gold_axe",
         "simpleores:blossom_gold_block",
         "simpleores:blossom_gold_boots",
@@ -3106,6 +3321,50 @@
       "usedIn": []
     },
     {
+      "id": "simpleores:enchanted_blossom_gold_apple",
+      "name": {
+        "en_us": "Enchanted Blossom Gold Apple",
+        "de_de": "Verzauberter Blütengold-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Enchanted Blossom Gold apple (glint): 6 hunger, always edible. Gives Regeneration II 0:32, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00, Strength I 1:00. 8 blocks of blossom gold round an apple."
+        },
+        "de": {
+          "summary": "Verzauberter Blütengold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:32, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00, Stärke I 1:00. 8 Blütengoldblöcke um einen Apfel."
+        }
+      },
+      "craftedBy": [
+        "simpleores:enchanted_blossom_gold_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:enchanted_rose_bronze_apple",
+      "name": {
+        "en_us": "Enchanted Rose Bronze Apple",
+        "de_de": "Verzauberter Rosenbronze-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Enchanted Rose Bronze apple (glint): 5 hunger, always edible. Gives Regeneration II 0:25, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. 8 blocks of rose bronze round an apple."
+        },
+        "de": {
+          "summary": "Verzauberter Rosenbronze-Apfel (Schimmer): 5 Hunger, immer essbar. Gibt Regeneration II 0:25, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Rosenbronzeblöcke um einen Apfel."
+        }
+      },
+      "craftedBy": [
+        "simpleores:enchanted_rose_bronze_apple"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:enderite_ingot",
       "name": {
         "en_us": "Enderite Ingot",
@@ -3220,10 +3479,10 @@
           "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
@@ -3393,6 +3652,29 @@
       ]
     },
     {
+      "id": "simpleores:rose_bronze_apple",
+      "name": {
+        "en_us": "Rose Bronze Apple",
+        "de_de": "Rosenbronze-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Bronze apple, a step between the golden and the Netherite apple: 5 hunger, always edible. Gives Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30. 8 rose bronze ingots round an apple."
+        },
+        "de": {
+          "summary": "Rosenbronze-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 5 Hunger, immer essbar. Gibt Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30. 8 Rosenbronzebarren um einen Apfel."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_bronze_apple.png",
+      "craftedBy": [
+        "simpleores:rose_bronze_apple"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:rose_bronze_axe",
       "name": {
         "en_us": "Rose Bronze Axe",
@@ -3530,6 +3812,7 @@
         "simpleores:rose_bronze_ingot_from_rose_bronze_block"
       ],
       "usedIn": [
+        "simpleores:rose_bronze_apple",
         "simpleores:rose_bronze_axe",
         "simpleores:rose_bronze_block",
         "simpleores:rose_bronze_boots",
@@ -3791,7 +4074,8 @@
         "simpleores:blossom_gold_block"
       ],
       "usedIn": [
-        "simpleores:blossom_gold_ingot_from_blossom_gold_block"
+        "simpleores:blossom_gold_ingot_from_blossom_gold_block",
+        "simpleores:enchanted_blossom_gold_apple"
       ]
     },
     {
@@ -4093,6 +4377,7 @@
         "simpleores:rose_bronze_block"
       ],
       "usedIn": [
+        "simpleores:enchanted_rose_bronze_apple",
         "simpleores:rose_bronze_ingot_from_rose_bronze_block"
       ]
     },
@@ -4204,13 +4489,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 10,
-    "recipes": 63,
+    "features": 11,
+    "recipes": 67,
     "lootTables": 18,
     "tags": 5,
     "advancements": 0,
     "enchantments": 0,
-    "items": 37,
+    "items": 41,
     "blocks": 18,
     "trades": 0,
     "config": 0,
