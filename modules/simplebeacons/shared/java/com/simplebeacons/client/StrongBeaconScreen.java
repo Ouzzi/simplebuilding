@@ -54,7 +54,19 @@ public class StrongBeaconScreen extends BeaconScreen {
     /** Row of the sheet where the part below the fields starts (Vanilla's row 97 + the sheet's 50 extra rows). */
     private static final int SHEET_BOTTOM = 147, SPLIT = 97;
     /** The level marker icons: one 21 x 20 icon per level 1-6 (row 0 green, row 1 red for Evil), see tools/textures/beacon_pyramid_icons_2026_10_29.py. */
-    private static final Identifier ICONS = Identifier.fromNamespaceAndPath("simplebeacons", "textures/gui/container/pyramid_icons.png");
+    private static final Identifier ICONS_B = Identifier.fromNamespaceAndPath("simplebeacons", "textures/gui/container/pyramid_icons.png");
+    private static final Identifier ICONS_A = Identifier.fromNamespaceAndPath("simplebeacons", "textures/gui/container/pyramid_icons_a.png");
+    /** Dev variants panel entry (ABN30-9): marker icon set A (all six tiers, the reached ones lit) / B (the pyramid grows with the level, default). */
+    public static final String ICON_VARIANT = "simplebeacons:pyramid_icons";
+
+    public static void registerVariants() {
+        com.simplelib.api.DevVariants.register(ICON_VARIANT, "Simple Beacons", "Leuchtfeuer-Pyramiden-Icons", "b",
+                new com.simplelib.api.DevVariants.Option("a", "A"), new com.simplelib.api.DevVariants.Option("b", "B"));
+    }
+
+    private static Identifier icons() {
+        return com.simplelib.api.DevVariants.is(ICON_VARIANT, "a") ? ICONS_A : ICONS_B;
+    }
     private static final int ICON_W = 21, ICON_H = 20, ICON_SHEET_W = 126, ICON_SHEET_H = 40;
     /** Where the marker of the row {@code r} sits (Vanilla's string x = 27 centre, top y = 22 + 25 r) and the secondary one. */
     private static final int MARKER_X = 17, MARKER_Y = 22, SECONDARY_MARKER_X = 157;
@@ -259,10 +271,10 @@ public class StrongBeaconScreen extends BeaconScreen {
         BeaconKind kind = this.shownKind;
         float v = kind.evil() ? ICON_H : 0;
         for (int tier = 1; tier <= kind.primaryLevels(); tier++) {
-            graphics.blit(RenderPipelines.GUI_TEXTURED, ICONS, this.leftPos + MARKER_X, this.topPos + MARKER_Y + (tier - 1) * ROW_STEP,
+            graphics.blit(RenderPipelines.GUI_TEXTURED, icons(), this.leftPos + MARKER_X, this.topPos + MARKER_Y + (tier - 1) * ROW_STEP,
                     (float) ((tier - 1) * ICON_W), v, ICON_W, ICON_H, ICON_SHEET_W, ICON_SHEET_H);
         }
-        graphics.blit(RenderPipelines.GUI_TEXTURED, ICONS, this.leftPos + SECONDARY_MARKER_X, this.topPos + MARKER_Y,
+        graphics.blit(RenderPipelines.GUI_TEXTURED, icons(), this.leftPos + SECONDARY_MARKER_X, this.topPos + MARKER_Y,
                 (float) ((kind.secondaryLevel() - 1) * ICON_W), v, ICON_W, ICON_H, ICON_SHEET_W, ICON_SHEET_H);
     }
 

@@ -38,35 +38,11 @@ public final class OctetsForge {
         // Once every mod registered its blocks: cells of other mods' blocks for the carving tools.
         net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent.getBus(context.getModBusGroup()).addListener(event -> SimpleOctets.registerCells());
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
-            boolean vanillaTabs = SimpleOctets.on() && com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleOctets.MOD_ID);
-            if (vanillaTabs && OctetRegistry.VANILLA_TABS.contains(event.getTabKey())) {
-                for (Map.Entry<Item, List<ItemStack>> entry : OctetRegistry.vanillaPlacements(event.getTabKey()).entrySet()) {
-                    insertAfter(event, entry.getKey(), entry.getValue());
-                }
-            }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && SimpleOctets.on()) {
                 event.getEntries().put(com.simpleoctets.guide.OctetsGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             }
         });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simpleoctets.guide.OctetsGuide.installQuests(FMLPaths.CONFIGDIR.get());
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) OctetsForgeClient.init();
-    }
-
-    /** Behind {@code anchor} in this order; never twice; at the end when the anchor is missing. */
-    private static void insertAfter(net.minecraftforge.event.BuildCreativeModeTabContentsEvent event, Item anchorItem, List<ItemStack> stacks) {
-        var entries = event.getEntries();
-        var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-        var anchor = new ItemStack(anchorItem);
-        boolean anchored = entries.contains(anchor);
-        var previous = anchor;
-        for (var stack : stacks) {
-            if (entries.contains(stack)) continue;
-            if (anchored) {
-                entries.putAfter(previous, stack, visibility);
-                previous = stack;
-            } else {
-                entries.put(stack, visibility);
-            }
-        }
     }
 }

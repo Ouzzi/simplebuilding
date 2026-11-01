@@ -28,12 +28,6 @@ public final class OctetsFabric implements ModInitializer {
         OctetRegistry.registerBlockEntity(new BlockEntityType<>(MixedOctetBlockEntity::new, Set.of(OctetRegistry.MIXED_OCTET)));
         SimpleOctets.registerCells();
         OctetRegistry.registerTab();
-        for (var tab : OctetRegistry.VANILLA_TABS) {
-            CreativeModeTabEvents.modifyOutputEvent(tab).register(out -> {
-                if (!SimpleOctets.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(loader.getConfigDir(), SimpleOctets.MOD_ID)) return;
-                for (Map.Entry<Item, List<ItemStack>> entry : OctetRegistry.vanillaPlacements(tab).entrySet()) insertAfter(out, entry.getKey(), entry.getValue());
-            });
-        }
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!SimpleOctets.on()) return;
             var book = List.of(com.simpleoctets.guide.OctetsGuide.stack());
@@ -44,13 +38,5 @@ public final class OctetsFabric implements ModInitializer {
         // Once every mod registered its blocks: cells of other mods' blocks for the carving tools.
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(server -> SimpleOctets.registerCells());
         if (loader.isModLoaded("ftbquests")) com.simpleoctets.guide.OctetsGuide.installQuests(loader.getConfigDir());
-    }
-
-    private static void insertAfter(FabricCreativeModeTabOutput out, Item anchor, List<ItemStack> stacks) {
-        // Never twice (another mod may have placed them already).
-        stacks = stacks.stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
-        if (stacks.isEmpty()) return;
-        if (out.getDisplayStacks().stream().anyMatch(s -> s.is(anchor))) out.insertAfter(anchor, stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        else stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
     }
 }

@@ -11,6 +11,9 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 
 public final class FabricClientExample implements ClientModInitializer {
     @Override public void onInitializeClient() {
+        com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.registerVariants();
+        net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties.ID_MAPPER.put(
+                com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.ID, com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.CODEC);
         MobsConfig.loadClient(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         FearNet.toServer = payload -> { if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload); };
         ModelLayerRegistry.registerModelLayer(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
