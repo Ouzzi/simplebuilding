@@ -2,7 +2,10 @@ package com.simplestorage.network;
 
 import com.simplestorage.chest.ChestTier;
 import com.simplestorage.chest.TieredChestBlock;
+import com.simplestorage.chest.TieredShulkerBoxBlock;
+import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.Blocks;
 
@@ -62,10 +65,16 @@ public enum ControllerLevel {
         };
     }
 
-    /** Rank of a chest block a network may hold, or -1 for everything else (barrels, controllers, boxes). */
+    /** Whether an interface may sit on this block (IG31-37): every chest (controllers too), barrel and shulker box. */
+    public static boolean mountable(Block block) {
+        return block instanceof ChestBlock || block instanceof BarrelBlock || block instanceof ShulkerBoxBlock;
+    }
+
+    /** Rank of a storage block a network may hold (chest, barrel, shulker box), or -1 for everything else (controllers, other blocks). */
     public static int rankOf(Block block) {
-        if (!(block instanceof ChestBlock) || block instanceof ControllerChestBlock) return -1;
+        if (!mountable(block) || block instanceof ControllerChestBlock) return -1;
         if (block instanceof TieredChestBlock tiered) return tiered.tier().ordinal() + 1;
+        if (block instanceof TieredShulkerBoxBlock tiered) return tiered.tier().ordinal() + 1;
         return 0;
     }
 }

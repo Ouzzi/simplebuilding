@@ -711,6 +711,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void networkBarrelsAndShulkerBoxesJoin(GameTestHelper h) {
+        StorageTests.ALL.get("network_barrels_and_shulker_boxes_join").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void networkWindowListsTakesAndStores(GameTestHelper h) {
         StorageTests.ALL.get("network_window_lists_takes_and_stores").accept(h);
     }

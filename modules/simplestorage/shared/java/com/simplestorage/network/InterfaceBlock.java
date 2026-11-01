@@ -15,7 +15,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -89,13 +88,13 @@ public class InterfaceBlock extends Block {
         if (!NetworkSubstitutes.enabled()) return null;
         Direction facing = context.getClickedFace().getOpposite();
         BlockPos pos = context.getClickedPos();
-        if (!(context.getLevel().getBlockState(pos.relative(facing)).getBlock() instanceof ChestBlock)) return null;
+        if (!ControllerLevel.mountable(context.getLevel().getBlockState(pos.relative(facing)).getBlock())) return null;
         return withArms(this.defaultBlockState().setValue(FACING, facing), context.getLevel(), pos);
     }
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.relative(state.getValue(FACING))).getBlock() instanceof ChestBlock;
+        return ControllerLevel.mountable(level.getBlockState(pos.relative(state.getValue(FACING))).getBlock());
     }
 
     public static BlockState withArms(BlockState state, LevelReader level, BlockPos pos) {
@@ -151,7 +150,7 @@ public class InterfaceBlock extends Block {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction direction,
                                      BlockPos neighborPos, BlockState neighborState, RandomSource random) {
-        if (direction == state.getValue(FACING) && !(neighborState.getBlock() instanceof ChestBlock)) return Blocks.AIR.defaultBlockState();
+        if (direction == state.getValue(FACING) && !ControllerLevel.mountable(neighborState.getBlock())) return Blocks.AIR.defaultBlockState();
         boolean arm = direction != state.getValue(FACING) && ChestNetwork.conducts(neighborState, direction.getOpposite());
         state = state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction), arm);
         Direction[] sides = localSides(state.getValue(FACING));
