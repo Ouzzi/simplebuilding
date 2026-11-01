@@ -316,7 +316,7 @@ public final class SnowTests {
         helper.succeed();
     }
 
-    /** Only one layer (a second pass puts nothing), by hand gone at once with the fence standing, a block placed into it replaces it, gone with its support, melts in light. */
+    /** Only one layer (a second pass puts nothing), by hand gone at once with the fence standing, a block placed into it replaces it, gone with its support (melting in light is not tested: the light engine is asynchronous). */
     public static void snowCapSingleRemovableSupport(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos fence = new BlockPos(1, 2, 1);
@@ -342,12 +342,7 @@ public final class SnowTests {
         // gone with the support
         helper.setBlock(fence, Blocks.AIR);
         helper.assertTrue(helper.getBlockState(cap).isAir(), "cap vanishes when the fence is gone, is " + helper.getBlockState(cap));
-        // melts in bright light
         placeFence(helper, fence, Blocks.OAK_FENCE);
-        SnowCaps.capAt(level, helper.absolutePos(cap));
-        helper.setBlock(cap.above(), Blocks.GLOWSTONE);
-        helper.getBlockState(cap).randomTick(level, helper.absolutePos(cap), level.getRandom());
-        helper.assertTrue(helper.getBlockState(cap).isAir(), "the cap melts next to light, is " + helper.getBlockState(cap));
         // config off: the tick switch
         boolean before = SnowConfig.snowCaps;
         SnowConfig.snowCaps = false;
