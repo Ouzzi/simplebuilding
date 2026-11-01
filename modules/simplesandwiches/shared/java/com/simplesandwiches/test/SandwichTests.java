@@ -1144,20 +1144,21 @@ public final class SandwichTests {
     }
 
     /**
-     * Split stage 3d: Simple Sandwiches requests no shared material, so alone it brings no Enderite into the world - the
-     * items exist (SimpleLib registers them, worlds stay loadable) but no recipe makes them (checked by id, no SimpleLib import). With SimpleBuilding (which
-     * requests every material) or Simple Crucibles (split stage 5: bundled in the jar, requests them for its Enderite stage) they are there.
+     * Split stage 3d / IG31-13: Simple Sandwiches requests no shared material, so alone it brings no Enderite into the world. The Enderite
+     * recipes moved from simplelib to Simple Ores (IG31-13); they exist exactly when Simple Ores is loaded (SimpleBuilding requires it,
+     * standalone Sandwiches does not). The old simplelib recipe ids must be gone either way. Checked by id, no Ores/SimpleLib import.
      */
     static void noEnderiteWithoutRequester(GameTestHelper h) {
-        boolean sb = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplehammers", "iron_sledgehammer"))
-                || net.minecraft.core.registries.BuiltInRegistries.BLOCK.containsKey(
-                net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "enderite_crucible"));
+        boolean ores = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot"));
         var recipes = h.getLevel().getServer().getRecipeManager();
         for (String id : java.util.List.of("enderite_ingot_from_scrap", "enderite_scrap_from_blasting_layered_raw_enderite", "enderite_block")) {
-            boolean present = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+            boolean old = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
                     net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", id))).isPresent();
-            h.assertTrue(present == sb, "simplelib:" + id + " present=" + present + " with a requester (SimpleBuilding or Simple Crucibles)=" + sb);
+            h.assertFalse(old, "simplelib:" + id + " must be gone (moved to simpleores, IG31-13)");
+            boolean present = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", id))).isPresent();
+            h.assertTrue(present == ores, "simpleores:" + id + " present=" + present + " with Simple Ores loaded=" + ores);
         }
         h.succeed();
     }
