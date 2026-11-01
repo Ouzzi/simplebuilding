@@ -81,6 +81,7 @@ public final class HeadSlotFitClientTest implements FabricClientGameTest {
                     throw new AssertionError("Simple Mob Heads tab cannot be selected");
                 }
             });
+            context.runOnClient(client -> client.gui.toastManager().clear());
             context.waitTicks(5);
             context.takeScreenshot("simplemobheads-creative-tab");
             List<ItemStack> stacks = context.computeOnClient(client -> {
@@ -104,7 +105,11 @@ public final class HeadSlotFitClientTest implements FabricClientGameTest {
             int perPage = columns * rows;
             for (int page = 0; page * perPage < stacks.size(); page++) {
                 List<ItemStack> slice = stacks.subList(page * perPage, Math.min(stacks.size(), (page + 1) * perPage));
-                context.runOnClient(client -> client.gui.setScreen(new Grid(slice, columns)));
+                // advancement/recipe toasts would lie over the top right slots
+                context.runOnClient(client -> {
+                    client.gui.toastManager().clear();
+                    client.gui.setScreen(new Grid(slice, columns));
+                });
                 context.waitTicks(3);
                 Path shot = context.takeScreenshot(String.format("simplemobheads-slotfit-%02d", page));
                 try (InputStream in = Files.newInputStream(shot); NativeImage image = NativeImage.read(in)) {

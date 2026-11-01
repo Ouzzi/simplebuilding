@@ -12,8 +12,9 @@ import org.joml.Matrix4f;
  */
 public final class HeadSlotFit {
     public static final float TARGET = 0.74F;
-    public static final float MIN_SCALE = 0.3F;
-    public static final float MAX_SCALE = 1.25F;
+    /** Guards only: every head, tadpole to giant, is brought to {@value #TARGET} (IG31-39: "all heads like Vanilla heads"). */
+    public static final float MIN_SCALE = 0.05F;
+    public static final float MAX_SCALE = 8.0F;
 
     private HeadSlotFit() {
     }

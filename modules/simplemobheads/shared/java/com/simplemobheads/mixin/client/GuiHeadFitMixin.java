@@ -48,11 +48,11 @@ public abstract class GuiHeadFitMixin {
     @Inject(method = "applyTransform", at = @At("HEAD"))
     private void simplemobheads$fitInSlot(PoseStack.Pose pose, CallbackInfo ci) {
         if (!((Object) specialRenderer instanceof SkullSpecialRenderer skull)
-                || !(((SkullSpecialRendererAccessor) skull).simplemobheads$model() instanceof MobHeadModel)
+                || !(((SkullSpecialRendererAccessor) skull).simplemobheads$model() instanceof MobHeadModel model)
                 || ((ItemStackRenderStateAccessor) this$0).simplemobheads$displayContext() != ItemDisplayContext.GUI) {
             return;
         }
-        float[] fit = FITS.computeIfAbsent(skull, k -> GuiHeadFit.compute(skull, itemTransform, (Matrix4fc) localTransform));
+        float[] fit = FITS.computeIfAbsent(skull, k -> GuiHeadFit.compute(model, itemTransform, (Matrix4fc) localTransform));
         pose.mulPose(HeadSlotFit.matrix(fit));
     }
 }
