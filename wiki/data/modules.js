@@ -524,7 +524,7 @@ window.WIKI_MODULES = [
     "id": "simplelib",
     "displayName": "SimpleLib",
     "description": "Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "minecraft": "26.3",
     "loaders": [
       "fabric",
@@ -552,7 +552,7 @@ window.WIKI_MODULES = [
       "recipes": 21,
       "features": 7
     },
-    "dataHash": "f40b99ae3691"
+    "dataHash": "ef4ce3521444"
   },
   {
     "id": "simpleinterfaces",
