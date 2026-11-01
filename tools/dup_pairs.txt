@@ -58,19 +58,6 @@ common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java m
 common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java modules/simplemusic/shared/java/com/simplemusic/mixin/CartographyTableMenuMixin.java allow: broadcastChanges/0
 common/src/shared/java/com/simplebuilding/mixin/CarvedStairMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/CarvedStairMixin.java
 common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/CrossbowItemMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplebeacons/shared/java/com/simplebeacons/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleblocks/shared/java/com/simpleblocks/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplecrucibles/shared/java/com/simplecrucibles/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplegadgets/shared/java/com/simplegadgets/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplelib/shared/java/com/simplelib/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplemusic/shared/java/com/simplemusic/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleoctets/shared/java/com/simpleoctets/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpleovens/shared/java/com/simpleovens/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplesandwiches/shared/java/com/simplesandwiches/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simplestorage/shared/java/com/simplestorage/mixin/DiscoverTipMixin.java
-common/src/shared/java/com/simplebuilding/mixin/DiscoverTipMixin.java modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/mixin/DiscoverTipMixin.java
 common/src/shared/java/com/simplebuilding/mixin/DisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/DisplayStrikeAccessor.java
 common/src/shared/java/com/simplebuilding/mixin/ItemDisplayStrikeAccessor.java modules/simplelib/shared/java/com/simplelib/mixin/ItemDisplayStrikeAccessor.java
 common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/ItemEntityMixin.java allow: getItem/0
