@@ -2940,7 +2940,7 @@
   "jukebox_song.simplebuilding.voidline_track_3": "SimpleBuilding - Iron Sonata",
   "item.simplebuilding.music_disc_voidline_track_3": "Schallplatte",
   "book.simplebuilding.machines.9.title": "Schmelztiegel und Seelen-Lava",
-  "book.simplebuilding.machines.9.text": "16 Schläge mit dem Vorschlaghammer auf einen leeren Kessel, Eisenbarren in der Nebenhand: ein Schmelztiegel. Aufwerten zum doppelten Ofenpreis, bis Enderit.\nSeelen-Lava gibt extreme Hitze.",
+  "book.simplebuilding.machines.9.text": "Leeren Kessel 16-mal mit dem Hammer schlagen, Eisenbarren in der Nebenhand: Schmelztiegel. Aufwerten zum doppelten Ofenpreis, bis Enderit.\nSeelen-Lava gibt extreme Hitze.",
   "book.simplebuilding.machines.10.title": "Eimer",
   "book.simplebuilding.machines.10.text": "Kupfer: Wasser, Lava. Oxidiert beim Tragen; Wachs (Wabe, Nebenhand) stoppt es, Axt schabt. Bricht bei Lava.\nEisen: Seelen-Lava, bricht.\nEnderit: alles, bricht nie, fasst 2.",
   "advancements.simplebuilding.machines.hot_pot.title": "Heißer Topf",
