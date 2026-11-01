@@ -1,0 +1,10 @@
+{
+  "module": "simplemachines",
+  "derivation": "Simple Machines sells nothing for money: its redstone parts are crafted from Vanilla materials, as they were before the move out of the core (no prices then either).",
+  "excluded": {
+    "simplemachines:double_piston": "Crafted redstone part; built, not bought.",
+    "simplemachines:signal_dampener": "Crafted redstone part; built, not bought.",
+    "simplemachines:guide_book": "Free guide book."
+  },
+  "prices": []
+}
