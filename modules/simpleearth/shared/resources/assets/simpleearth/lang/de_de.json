@@ -1,5 +1,5 @@
 {
-  "key.simpleearth.open": "Simple-Earth-Menü",
+  "key.simpleearth.menu": "Simple-Earth-Menü",
   "simpleearth.screen.render": "Darstellung (alle Versionen)",
   "key.category.simpleearth.general": "Simple Earth",
   "simpleearth.screen.title": "Simple Earth",
@@ -239,7 +239,7 @@
   "simpleearth.guide.page.26.title": "Himmel",
   "simpleearth.guide.page.26": "leuchtet auf der Tagseite blau, nachts indigo und an der Lichtgrenze orange. Die Erde blendet über die Einblendstrecke über der Umschalthöhe ein.",
   "simpleearth.guide.page.27.title": "Menü",
-  "simpleearth.guide.page.27": "Taste O (in der Steuerung änderbar; einen Knopf im Pausenmenü gibt es nicht) öffnet einen Kasten am rechten Rand: die Welt bleibt sichtbar, die Bewegungstasten funktionieren weiter, die Maus bedient das Menü.",
+  "simpleearth.guide.page.27": "Taste N (in der Steuerung änderbar; einen Knopf im Pausenmenü gibt es nicht) öffnet einen Kasten am rechten Rand: die Welt bleibt sichtbar, die Bewegungstasten funktionieren weiter, die Maus bedient das Menü.",
   "simpleearth.guide.page.28.title": "Menü",
   "simpleearth.guide.page.28": "V1 bis V12 wählen (zwei Reihen);",
   "simpleearth.guide.page.29.title": "Menü",

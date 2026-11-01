@@ -50,6 +50,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             glide(context);
             elytraGlide(context, world);
             toTheEdge(context, world);
+            orbitBorderV26(context, world);
             newVersions(context, world);
             phases(context, world);
             round31(context, world);
@@ -107,10 +108,10 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(40);
             context.takeScreenshot("simpleearth-mid-v6");
             pauseHasNoEarthButton(context);
-            // IG31-33: the menu opens with the real key mapping (key O), no button in the pause menu any more
+            // IG31-33: the menu opens with the real key mapping (key N; O clashed with Vanilla's friends key), no button in the pause menu any more
             context.getInput().pressKey(EarthClient.KEY);
             context.waitTicks(10);
-            check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "key O opens the earth menu");
+            check(context.computeOnClient(mc -> mc.gui.screen() instanceof EarthScreen), "key N opens the earth menu");
             context.takeScreenshot("simpleearth-menu");
             menu(context);
             // WF25-2: the owner's window (1920 x 1177, GUI scale auto = 4) and GUI scale 2, clicking while walking forward
@@ -381,6 +382,41 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(40);
     }
 
+    /**
+     * IG31-36 (owner 31.10.): V26 in orbit, a few blocks either side of a tile border - the earth must not turn (before the
+     * fix it turned by about 90 degrees for a frame and then stood twisted about the vertical).
+     */
+    private static void orbitBorderV26(ClientGameTestContext context, TestSingleplayerContext world) {
+        double ax = context.computeOnClient(mc -> com.simplebuilding.modules.simpleearth.client.EarthClient.ax());
+        int edge = context.computeOnClient(mc -> com.simplebuilding.modules.simpleearth.client.EarthClient.edge());
+        version(context, 26);
+        double[] xs = {ax + edge / 2.0 - 30, ax + edge / 2.0 - 3};
+        for (double x : xs) {
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.teleportTo(p.level(), x, 5000, p.getZ() + 400, java.util.Set.of(), 0, 60, false);
+            });
+            context.waitTicks(40);
+        }
+        int before = context.computeOnClient(mc -> EarthClient.view().currentTileX());
+        context.takeScreenshot("simpleearth-v26-border-before");
+        // glide over the border in small steps, as a flight does
+        for (int k = 1; k <= 6; k++) {
+            double x = ax + edge / 2.0 - 3 + k;
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.teleportTo(p.level(), x, 5000, p.getZ(), java.util.Set.of(), 0, 60, false);
+            });
+            context.waitTicks(2);
+        }
+        context.waitTicks(30);
+        int after = context.computeOnClient(mc -> EarthClient.view().currentTileX());
+        context.takeScreenshot("simpleearth-v26-border-after");
+        check(before == 0 && after == 1, "V26 orbit border: tile " + before + " -> " + after);
+        version(context, 6);
+        teleport(context, world, 1700, 40);
+    }
+
     /** WF25-3: third person looking straight down at oneself below the old threshold (y 2778): the earth stays behind the player. */
     private static void topViewF5(ClientGameTestContext context, TestSingleplayerContext world) {
         teleport(context, world, 2700, 60);
@@ -423,7 +459,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
     }
 
 
-    /** IG31-33 (owner 31.10.): the pause menu carries no Earth button (the menu opens only with key O). */
+    /** IG31-33 (owner 31.10.): the pause menu carries no Earth button (the menu opens only with key N). */
     private static void pauseHasNoEarthButton(ClientGameTestContext context) {
         context.runOnClient(mc -> mc.pauseGame(false));
         context.waitTicks(5);

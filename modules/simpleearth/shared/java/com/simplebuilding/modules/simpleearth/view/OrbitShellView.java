@@ -16,6 +16,8 @@ final class OrbitShellView extends EarthView {
     enum Fold { POSITION, FIXED, HEIGHT, CUBE }
 
     private final Fold fold;
+    /** IG31-36: the turn carried over tile borders. */
+    private final TurnCarry carry = new TurnCarry();
 
     OrbitShellView(Fold fold) {
         this.fold = fold;
@@ -23,6 +25,7 @@ final class OrbitShellView extends EarthView {
 
     @Override
     protected void reset(double u, double v, ViewParams p) {
+        carry.reset();
     }
 
     /** Node positions (along, drop) at the tile borders -5..5 of one axis for fold angles {@code plus}/{@code minus} (FoldShellView.profile). */
@@ -42,6 +45,7 @@ final class OrbitShellView extends EarthView {
         Scene s = new Scene();
         s.closedBody = fold == Fold.CUBE;
         int tx = tileOf(px), tz = tileOf(pz);
+        int dx = tx - curTx, dz = tz - curTz;
         if (tx != curTx || tz != curTz) {
             s.event = tx != curTx && tz != curTz ? "corner" : "edge";
             // a fixed fold re-centres the shell on the new tile: blend the change over
@@ -50,23 +54,19 @@ final class OrbitShellView extends EarthView {
             curTz = tz;
         }
         double u = u(px), v = v(pz);
-        double[][] nx, nz;
-        if (fold == Fold.POSITION) {
-            double start = p.get("foldStart", 0.1);
-            nx = profile(FoldingNetView.fold(u, start), FoldingNetView.fold(-u, start));
-            nz = profile(FoldingNetView.fold(v, start), FoldingNetView.fold(-v, start));
-        } else {
-            double angle = switch (fold) {
-                case FIXED -> Math.toRadians(p.get("foldAngle", 45));
-                case HEIGHT -> Math.toRadians(p.get("foldAngle", 15) + (90 - p.get("foldAngle", 15)) * Meshes.smooth(0, 1, p.get("heightFraction", 0)));
-                default -> Math.PI / 2;
-            };
-            nx = profile(angle, angle);
-            nz = profile(angle, angle);
-        }
+        double[][] nx = profiles(u, p), nz = profiles(v, p);
         // the orbit turn: the point under the player towards the eye, the rest of the way as a sideways shift
         V3 under = new V3(u, 1, v);
-        Quat q = Quat.IDENTITY.slerp(Quat.fromUnitVectors(under.normalize(), V3.UP), Meshes.clamp(p.get("rotation", fold == Fold.POSITION ? 0.6 : 1), 0, 1));
+        double rotation = Meshes.clamp(p.get("rotation", fold == Fold.POSITION ? 0.6 : 1), 0, 1);
+        if (dx != 0 || dz != 0) {
+            // IG31-36: the shell round the player stays put over the border (the turn is carried on, not recomputed)
+            double uo = u + 2 * dx, vo = v + 2 * dz;
+            double[][] ox = profiles(uo, p), oz = profiles(vo, p);
+            carry.rename((a, b) -> shell(ox, oz, a, b), uo, vo, FoldWorldView.swing(uo, vo, rotation),
+                    (a, b) -> shell(nx, nz, a, b), u, v, FoldWorldView.swing(u, v, rotation));
+        }
+        carry.settleTilt(dt, p.get("tiltSettle", 1));
+        Quat q = carry.turn(FoldWorldView.swing(u, v, rotation));
         V3 below = q.rotate(under);
         V3 offset = new V3(-below.x(), 0, -below.z());
         for (int j = -2; j <= 2; j++) {
@@ -91,6 +91,25 @@ final class OrbitShellView extends EarthView {
         s.bodyOffset = offset;
         s.contact = new V3(0, below.y(), 0);
         return s;
+    }
+
+    /** Node profile of one axis for the player at face coordinate s (V21 folds by the position, the others by angle). */
+    private double[][] profiles(double s, ViewParams p) {
+        if (fold == Fold.POSITION) {
+            double start = p.get("foldStart", 0.1);
+            return profile(FoldingNetView.fold(s, start), FoldingNetView.fold(-s, start));
+        }
+        double angle = switch (fold) {
+            case FIXED -> Math.toRadians(p.get("foldAngle", 45));
+            case HEIGHT -> Math.toRadians(p.get("foldAngle", 15) + (90 - p.get("foldAngle", 15)) * Meshes.smooth(0, 1, p.get("heightFraction", 0)));
+            default -> Math.PI / 2;
+        };
+        return profile(angle, angle);
+    }
+
+    /** The shell at face coordinates u, v (beyond +-1 on the neighbours). */
+    private static V3 shell(double[][] nx, double[][] nz, double u, double v) {
+        return FoldWorldView.point(nx, nz, 2 + (u + 1) / 2, 2 + (v + 1) / 2);
     }
 
     private static V3 point(double[] x, double[] z) {

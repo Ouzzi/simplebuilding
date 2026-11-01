@@ -1715,7 +1715,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "1f935ac418d7"
+    "dataHash": "bff7093d39b0"
   },
   {
     "id": "simplechallenges",

@@ -21,6 +21,9 @@ final class FoldWorldView extends EarthView {
     /** The last phase values (client test: the measured curve). */
     double lastBlend, lastFold;
     private String lastBottom = "";
+    /** IG31-36: the turn carried over tile borders, and the fold it was carried at (it unwinds as the map flattens). */
+    private final TurnCarry carry = new TurnCarry();
+    private double carryFold;
 
     FoldWorldView(double roundness, double exponent) {
         this.defaultRoundness = roundness;
@@ -35,12 +38,27 @@ final class FoldWorldView extends EarthView {
 
     @Override
     protected void reset(double u, double v, ViewParams p) {
+        carry.reset();
+        carryFold = 0;
+        lastBottom = "";
+    }
+
+    /** The orbit turn on the current tile: the point under the player towards the eye, by {@code amount}. */
+    static Quat swing(double u, double v, double amount) {
+        return Quat.IDENTITY.slerp(Quat.fromUnitVectors(new V3(u, 1, v).normalize(), V3.UP), amount);
     }
 
     @Override
     protected Scene frame(double px, double pz, double dt, ViewParams p) {
         Scene s = new Scene();
         int tx = tileOf(px), tz = tileOf(pz);
+        // IG31-36: rename first, then the face coordinates (they were taken on the old tile for the crossing frame)
+        int dx = tx - curTx, dz = tz - curTz;
+        if (dx != 0 || dz != 0) {
+            s.event = dx != 0 && dz != 0 ? "corner" : "edge";
+            curTx = tx;
+            curTz = tz;
+        }
         double u = u(px), v = v(pz);
         // phase values from the height above the render height (blocks)
         double above = p.get("aboveSwitch", 1e9), band = Math.max(1, p.get("fadeBand", 128));
@@ -51,22 +69,28 @@ final class FoldWorldView extends EarthView {
         double fold = ease((above - band) / foldBand, Math.max(1, easing));
         lastBlend = blend;
         lastFold = fold;
-        if (tx != curTx || tz != curTz) {
-            s.event = tx != curTx && tz != curTz ? "corner" : "edge";
-            if (fold > 0.01) s.fadeStart = true;
-            curTx = tx;
-            curTz = tz;
-        }
+        if ((dx != 0 || dz != 0) && fold > 0.01) s.fadeStart = true;
         double angle = fold * Math.PI / 2;
         // E31-1: the flat map reaches renderDistance rings; folded, only the cube's six faces stay (see alpha)
         int reach = Math.max(2, Math.min(5, (int) Math.round(p.get("renderDistance", 2))));
         double[][] nx = profile(angle, reach), nz = profile(angle, reach);
         double rotation = Meshes.clamp(p.get("rotation", 1), 0, 1) * fold;
-        V3 under = new V3(u, 1, v);
-        Quat q = Quat.IDENTITY.slerp(Quat.fromUnitVectors(under.normalize(), V3.UP), rotation);
         double round = Meshes.clamp(p.get("roundness", defaultRoundness), 0, 1) * Meshes.smooth(0.6, 1, fold);
-        double exponent = Math.max(2, p.get("exponent", defaultExponent));
-        V3 below = q.rotate(shape(point(nx, nz, reach + (u + 1) / 2, reach + (v + 1) / 2), round, exponent));
+        double fullExponent = Math.max(2, p.get("exponent", defaultExponent));
+        double bodyR = 1 / Math.tan(Math.max(0.1, angle) / 2);
+        // IG31-36: half folded, the body is a ball (turns with the shell without a seam); its corners grow as the cube closes
+        double exponent = 2 + (fullExponent - 2) * Meshes.smooth(0.9, 1, fold);
+        // IG31-36: the turn runs on over a border (carry) and unwinds with the fold, so the flat map lies north-up again
+        if (fold < carryFold) carry.fix = Quat.IDENTITY.slerp(carry.fix, carryFold <= 1e-9 ? 0 : fold / carryFold);
+        carryFold = fold;
+        if (dx != 0 || dz != 0) {
+            TurnCarry.Shell shell = (a, b) -> shape(point(nx, nz, reach + (a + 1) / 2, reach + (b + 1) / 2), round, exponent, bodyR);
+            double uo = u + 2 * dx, vo = v + 2 * dz;
+            carry.rename(shell, uo, vo, swing(uo, vo, rotation), shell, u, v, swing(u, v, rotation));
+        }
+        carry.settleTilt(dt, p.get("tiltSettle", 1));
+        Quat q = carry.turn(swing(u, v, rotation));
+        V3 below = q.rotate(shape(point(nx, nz, reach + (u + 1) / 2, reach + (v + 1) / 2), round, exponent, bodyR));
         V3 offset = new V3(-below.x(), 0, -below.z());
         int su = Meshes.sg(u), sv = Meshes.sg(v);
         int[] bottom = Math.abs(u) >= Math.abs(v) ? new int[]{2 * su, 0} : new int[]{0, 2 * sv};
@@ -82,7 +106,7 @@ final class FoldWorldView extends EarthView {
                 for (int b = 0; b <= GRID; b++) {
                     for (int a = 0; a <= GRID; a++) {
                         double fa = a / (double) GRID, fb = b / (double) GRID;
-                        V3 at = shape(point(nx, nz, i + reach + fa, j + reach + fb), round, exponent);
+                        V3 at = shape(point(nx, nz, i + reach + fa, j + reach + fb), round, exponent, bodyR);
                         patch.set(a, b, q.rotate(at).add(offset), fa, fb);
                     }
                 }
@@ -149,10 +173,13 @@ final class FoldWorldView extends EarthView {
         return new double[]{n[k][0] + (n[k + 1][0] - n[k][0]) * f, n[k][1] + (n[k + 1][1] - n[k][1]) * f};
     }
 
-    /** V26/V27: the folded cube pulled towards V5's rounded body (superellipsoid). */
-    static V3 shape(V3 p, double round, double exponent) {
+    /** V26/V27: the folded cube pulled towards V5's rounded body (superellipsoid of radius {@code bodyR}). */
+    static V3 shape(V3 p, double round, double exponent, double bodyR) {
         if (round <= 1e-4) return p;
-        return V3.lerp(p, Meshes.seProject(p, exponent), round);
+        // IG31-36: the body round the half-folded shell's own centre (radius 1/tan(angle/2), 1 = the closed cube) - the same
+        // for every tile, so the rounding does not move when the tile under the player changes
+        V3 c = new V3(0, 1 - bodyR, 0);
+        return V3.lerp(p, Meshes.seProject(p.sub(c), exponent).mul(bodyR).add(c), round);
     }
 
     /** Phase values of the last frame: blend, fold (client test). */
