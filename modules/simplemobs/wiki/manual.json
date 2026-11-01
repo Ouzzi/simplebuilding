@@ -1258,6 +1258,22 @@
       "de": {
         "summary": "Herstellung: 9 Spawner-Fragmente ergeben 1 Spawner-Brocken, 9 Brocken 1 Behelfsmäßigen Spawner. Ein Vanilla-Spawner, mit der Spitzhacke abgebaut (nicht mit Behutsamkeit), hinterlässt mit 30 % Chance ein Fragment (spawnerFragmentChance in simplemobs-server.json, 0 = aus). Der Behelfsmäßige Spawner ist leer, bis man ein Spawn-Ei darauf benutzt, und arbeitet 3-mal langsamer als ein Vanilla-Spawner (makeshiftSpawnerSlowdown, 1 bis 10)."
       }
+    },
+    "simplemobs:spawner_fragment": {
+      "en": {
+        "summary": "Spawner Fragment: a Vanilla spawner mined with a pickaxe (not Silk Touch) leaves one with 30 % chance (spawnerFragmentChance, 0 = off). 9 Fragments make 1 Spawner Chunk."
+      },
+      "de": {
+        "summary": "Spawner-Fragment: Ein Vanilla-Spawner, mit der Spitzhacke abgebaut (nicht mit Behutsamkeit), hinterlässt mit 30 % Chance eines (spawnerFragmentChance, 0 = aus). 9 Fragmente ergeben 1 Spawner-Brocken."
+      }
+    },
+    "simplemobs:spawner_chunk": {
+      "en": {
+        "summary": "Spawner Chunk: made from 9 Spawner Fragments. 9 Chunks make 1 Makeshift Spawner."
+      },
+      "de": {
+        "summary": "Spawner-Brocken: aus 9 Spawner-Fragmenten. 9 Brocken ergeben 1 Behelfsmäßigen Spawner."
+      }
     }
   }
 }
