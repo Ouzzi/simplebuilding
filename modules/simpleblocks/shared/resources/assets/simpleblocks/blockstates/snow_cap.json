@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lowered=false": { "model": "minecraft:block/snow_height2" },
+    "lowered=true": { "model": "simpleblocks:block/snow_cap_lowered" }
+  }
+}

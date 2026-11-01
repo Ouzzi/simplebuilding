@@ -252,6 +252,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowCapOnFenceStairsSlab(GameTestHelper h) {
+        BlocksTests.ALL.get("snow_cap_on_fence_stairs_slab").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowCapSingleRemovableSupport(GameTestHelper h) {
+        BlocksTests.ALL.get("snow_cap_single_removable_support").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void frostGrassDropsAndTags(GameTestHelper h) {
         BlocksTests.ALL.get("frost_grass_drops_and_tags").accept(h);
     }

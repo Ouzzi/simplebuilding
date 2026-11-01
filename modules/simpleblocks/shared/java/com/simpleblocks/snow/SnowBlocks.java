@@ -24,11 +24,13 @@ import net.minecraft.world.level.material.PushReaction;
  */
 public final class SnowBlocks {
     public static final String SNOWLOGGED_NAME = "snowlogged";
+    public static final String SNOW_CAP_NAME = "snow_cap";
     public static final String FROST_GRASS_NAME = "frost_grass";
     /** Blocks a snow layer can share its cell with (fences, small flowers, grass, ferns, bushes). */
     public static final TagKey<Block> SNOWLOGGABLE = TagKey.create(Registries.BLOCK, SimpleBlocks.id("snowloggable"));
 
     public static Block SNOWLOGGED;
+    public static Block SNOW_CAP;
     public static Block FROST_GRASS;
     public static Item FROST_GRASS_ITEM;
     public static BlockEntityType<SnowloggedBlockEntity> SNOWLOGGED_BE;
@@ -42,6 +44,11 @@ public final class SnowBlocks {
         SNOWLOGGED = Registry.register(BuiltInRegistries.BLOCK, cell, new SnowloggedBlock(BlockBehaviour.Properties.of().setId(cell)
                 .mapColor(MapColor.SNOW).forceSolidOff().randomTicks().strength(0.1F).sound(SoundType.SNOW)
                 .pushReaction(PushReaction.POPPED).dynamicShape().noLootTable()));
+        // SNOW32-FALL: the one snow layer falling snow leaves on top of fences, walls, stairs and slabs (no item, no collision).
+        ResourceKey<Block> capKey = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(SNOW_CAP_NAME));
+        SNOW_CAP = Registry.register(BuiltInRegistries.BLOCK, capKey, new SnowCapBlock(BlockBehaviour.Properties.of().setId(capKey)
+                .mapColor(MapColor.SNOW).noCollision().randomTicks().strength(0.1F).sound(SoundType.SNOW)
+                .pushReaction(PushReaction.DESTROY).noLootTable()));
         ResourceKey<Block> frost = ResourceKey.create(Registries.BLOCK, SimpleBlocks.id(FROST_GRASS_NAME));
         FROST_GRASS = Registry.register(BuiltInRegistries.BLOCK, frost,
                 new FrostGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).setId(frost).mapColor(MapColor.ICE)));

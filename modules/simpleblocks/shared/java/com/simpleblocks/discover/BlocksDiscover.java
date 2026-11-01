@@ -120,6 +120,7 @@ public final class BlocksDiscover {
             "simpleblocks:smooth_basalt_wall",
             "simpleblocks:smooth_red_sandstone_wall",
             "simpleblocks:smooth_sandstone_wall",
+            "simpleblocks:snow_cap",
             "simpleblocks:snowlogged",
             "simpleblocks:snowlogging",
             "simpleblocks:suspended_gravel",
