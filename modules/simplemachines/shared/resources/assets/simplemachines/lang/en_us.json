@@ -7,7 +7,7 @@
   "item.simplemachines.signal_dampener": "Signal Dampener",
   "simplemachines.testcentre.station": "Simple Machines",
   "itemgroup.simplemachines.machines": "Simple Machines",
-  "tooltip.simplemachines.double_piston": "Signal 1-7: head one block out; 8-15: body and head move on",
+  "tooltip.simplemachines.double_piston": "Signal 1-7: head extends; 8-15: body follows",
   "tooltip.simplemachines.signal_dampener": "Takes 0-3 off the signal; right-click: stage",
   "item.simplemachines.guide_book": "Simple Machines Guide",
   "simplemachines.guide.page.1.title": "Simple Machines",
