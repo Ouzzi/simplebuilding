@@ -154,6 +154,10 @@
   "jei.simplemobs.trials.convert.2": "Hold a netherite block in the off hand and strike an Evil Vault 5 times: it becomes a Void Vault (Void chain on).",
   "jei.simplemobs.trials.convert.3": "Only Weathered Vaults can be converted, never Vanilla vaults. The conversion cannot be undone.",
   "jei.simplemobs.trials.convert.4": "The Evil Vault takes only Evil Trial Keys (any stage, the loot follows the stage); the Void Vault only Void Trial Keys.",
+  "item.simplemobs.spawner_fragment": "Spawner Fragment",
+  "item.simplemobs.spawner_chunk": "Spawner Chunk",
+  "block.simplemobs.makeshift_spawner": "Makeshift Spawner",
+  "jei.simplemobs.info.spawner_parts": "Mining a Vanilla spawner with a pickaxe (not with Silk Touch) leaves a Spawner Fragment with a 30 % chance (config spawnerFragmentChance). 9 Fragments make 1 Spawner Chunk, 9 Chunks make 1 Makeshift Spawner. It is empty until you use a spawn egg on it, and it works 3 times slower than a Vanilla spawner (config makeshiftSpawnerSlowdown).",
   "item.simplemobs.guide_book": "Simple Mobs Guide",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
@@ -199,8 +203,8 @@
   "simplemobs.guide.page.21": "armor 8, three phases, and every special attack is announced before it",
   "simplemobs.guide.page.22.title": "Blighted Wither, Nether Heart and Red Nether Gem",
   "simplemobs.guide.page.22": "hits. An Enderite Helmet calls the even stronger Abyssal Wither. Both drop a Nether Heart, the Abyssal Wither also a Red Nether Gem.",
-  "simplemobs.guide.page.23.title": "First pickup tips",
-  "simplemobs.guide.page.23": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
+  "simplemobs.guide.page.23.title": "Recipe book",
+  "simplemobs.guide.page.23": "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe.",
   "simplemobs.guide.page.24.title": "Creative tabs",
   "simplemobs.guide.page.24": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simplemobs.guide.page.25.title": "Wither Wings",
@@ -228,9 +232,5 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
-  "item.simplemobs.spawner_fragment": "Spawner Fragment",
-  "item.simplemobs.spawner_chunk": "Spawner Chunk",
-  "block.simplemobs.makeshift_spawner": "Makeshift Spawner",
-  "jei.simplemobs.info.spawner_parts": "Mining a Vanilla spawner with a pickaxe (not with Silk Touch) leaves a Spawner Fragment with a 30 % chance (config spawnerFragmentChance). 9 Fragments make 1 Spawner Chunk, 9 Chunks make 1 Makeshift Spawner. It is empty until you use a spawn egg on it, and it works 3 times slower than a Vanilla spawner (config makeshiftSpawnerSlowdown)."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
 }

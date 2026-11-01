@@ -6869,6 +6869,102 @@
       }
     },
     {
+      "id": "simpleoctets:lead_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_block",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lead_block_from_octets.json",
+      "ingredients": [
+        "simpleoctets:lead_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ],
+        [
+          "simpleoctets:lead_block_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:lead_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:lead_block_octet_from_lead_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:lead_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lead_block_octet_from_lead_block_sawing.json",
+      "ingredients": [
+        "simpleores:lead_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:lead_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:lead_block_octet_from_lead_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:lead_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/lead_block_octet_from_lead_block_stonecutting.json",
+      "ingredients": [
+        "simpleores:lead_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:lead_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simpleores:lead_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:light_blue_concrete_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -19140,6 +19236,35 @@
       ]
     },
     {
+      "id": "simpleoctets:lead_block_octet",
+      "name": {
+        "en_us": "Block of Lead Octet Cell",
+        "de_de": "Bleiblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:lead_block_octet_from_lead_block_sawing",
+        "simpleoctets:lead_block_octet_from_lead_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:lead_block_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:light_blue_concrete_octet",
       "name": {
         "en_us": "Light Blue Concrete Octet Cell",
@@ -22266,13 +22391,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 521,
+    "recipes": 524,
     "lootTables": 0,
     "tags": 0,
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 176,
+    "blocks": 177,
     "trades": 0,
     "config": 0,
     "quests": 0,

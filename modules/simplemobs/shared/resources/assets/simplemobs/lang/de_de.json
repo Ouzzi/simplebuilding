@@ -154,6 +154,10 @@
   "jei.simplemobs.trials.convert.2": "Halte einen Netheritblock in der Nebenhand und schlage 5-mal auf einen Bösen Tresor: er wird zum Leere-Tresor (Leere-Kette an).",
   "jei.simplemobs.trials.convert.3": "Nur Verwitterte Tresore lassen sich umwandeln, nie Vanilla-Tresore. Die Umwandlung ist endgültig.",
   "jei.simplemobs.trials.convert.4": "Der Böse Tresor nimmt nur Böse Prüfungsschlüssel (jede Stufe, die Beute folgt der Stufe); der Leere-Tresor nur Leere-Prüfungsschlüssel.",
+  "item.simplemobs.spawner_fragment": "Spawner-Fragment",
+  "item.simplemobs.spawner_chunk": "Spawner-Brocken",
+  "block.simplemobs.makeshift_spawner": "Behelfsmäßiger Spawner",
+  "jei.simplemobs.info.spawner_parts": "Wer einen Vanilla-Spawner mit einer Spitzhacke abbaut (nicht mit Behutsamkeit), erhält mit 30 % Chance ein Spawner-Fragment (Config spawnerFragmentChance). 9 Fragmente ergeben 1 Spawner-Brocken, 9 Brocken 1 Behelfsmäßigen Spawner. Er ist leer, bis man ein Spawn-Ei darauf benutzt, und arbeitet 3-mal langsamer als ein Vanilla-Spawner (Config makeshiftSpawnerSlowdown).",
   "item.simplemobs.guide_book": "Simple-Mobs-Handbuch",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der Biom-Pinsel.",
@@ -199,8 +203,8 @@
   "simplemobs.guide.page.21": "jeder Spezialangriff wird angekündigt, bevor er trifft. Ein Enderithelm ruft den noch stärkeren Abgrund-Wither.",
   "simplemobs.guide.page.22.title": "Verdorrter Wither, Netherherz und Rotes Nether-Juwel",
   "simplemobs.guide.page.22": "Beide lassen ein Netherherz fallen, der Abgrund-Wither zusätzlich ein Rotes Nether-Juwel.",
-  "simplemobs.guide.page.23.title": "Tipps beim ersten Aufheben",
-  "simplemobs.guide.page.23": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
+  "simplemobs.guide.page.23.title": "Rezeptbuch",
+  "simplemobs.guide.page.23": "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei.",
   "simplemobs.guide.page.24.title": "Kreativ-Tabs",
   "simplemobs.guide.page.24": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simplemobs.guide.page.25.title": "Wither-Schwingen",
@@ -228,9 +232,5 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
-  "item.simplemobs.spawner_fragment": "Spawner-Fragment",
-  "item.simplemobs.spawner_chunk": "Spawner-Brocken",
-  "block.simplemobs.makeshift_spawner": "Behelfsmäßiger Spawner",
-  "jei.simplemobs.info.spawner_parts": "Wer einen Vanilla-Spawner mit einer Spitzhacke abbaut (nicht mit Behutsamkeit), erhält mit 30 % Chance ein Spawner-Fragment (Config spawnerFragmentChance). 9 Fragmente ergeben 1 Spawner-Brocken, 9 Brocken 1 Behelfsmäßigen Spawner. Er ist leer, bis man ein Spawn-Ei darauf benutzt, und arbeitet 3-mal langsamer als ein Vanilla-Spawner (Config makeshiftSpawnerSlowdown)."
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
 }

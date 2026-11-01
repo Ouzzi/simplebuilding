@@ -518,7 +518,7 @@ window.WIKI_MODULES = [
       "recipes": 17,
       "features": 7
     },
-    "dataHash": "2a4a93614f1a"
+    "dataHash": "7467dd3df537"
   },
   {
     "id": "simplelib",
@@ -707,12 +707,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 48,
-      "blocks": 7,
-      "recipes": 73,
+      "items": 50,
+      "blocks": 8,
+      "recipes": 75,
       "features": 22
     },
-    "dataHash": "ab567a8ccf45"
+    "dataHash": "62d0d3e07f6f"
   },
   {
     "id": "simpleweather",
@@ -1370,7 +1370,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 8
     },
-    "dataHash": "2800848cd3ad"
+    "dataHash": "d0a69056f101"
   },
   {
     "id": "simpleoctets",
@@ -1389,6 +1389,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding",
       "simpleend",
+      "simpleores",
       "jei"
     ],
     "parent": "simplebuilding",
@@ -1404,11 +1405,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 176,
-      "recipes": 521,
+      "blocks": 177,
+      "recipes": 524,
       "features": 6
     },
-    "dataHash": "a02e3b5d5517"
+    "dataHash": "1164488a0ec9"
   },
   {
     "id": "simplehammers",
@@ -1846,11 +1847,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
       "items": 41,
-      "blocks": 18,
-      "recipes": 67,
+      "blocks": 19,
+      "recipes": 68,
       "features": 11
     },
-    "dataHash": "454289472c9e"
+    "dataHash": "f094d472b862"
   },
   {
     "id": "simpleresonance",

@@ -135,7 +135,8 @@
         "details": [
           "Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).",
           "Items: raw lead, lead ingot, lead nugget, blocks of lead and raw lead. Furnace and blast furnace smelt raw lead and the ores. The leash keeps its name; the ingot is \"Lead Ingot\".",
-          "Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch)."
+          "Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch).",
+          "Lead plate: 3 lead ingots in a row make 6 plates, 2 pixels thick, like a carpet but laid on any of the six sides of a cell (flat or upright, it faces the side you click). Same hardness, blast resistance and sound as the block; it muffles half as much as a block of lead and is no vibration blocker."
         ]
       },
       "de": {
@@ -144,7 +145,8 @@
         "details": [
           "Oberwelt: Bleierz (und ein Tiefenschiefer-Zwilling), 6 Adern zu 9 je Chunk zwischen Y -64 und 48; häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft).",
           "Gegenstände: Rohblei, Bleibarren, Bleiklumpen, Blöcke aus Blei und Rohblei. Ofen und Hochofen schmelzen Rohblei und die Erze. Die Leine behält ihren Namen; der Barren heißt „Bleibarren“.",
-          "Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief)."
+          "Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief).",
+          "Bleiplatte: 3 Bleibarren in einer Reihe ergeben 6 Platten, 2 Pixel dick, wie ein Teppich, aber auf jeder der sechs Zellseiten platzierbar (liegend oder stehend, sie zeigt zu der Seite, die du anklickst). Härte, Explosionswiderstand und Klang wie der Block; sie dämmt halb so stark wie ein Bleiblock und hält keine Vibrationen auf."
         ]
       }
     },
@@ -161,7 +163,8 @@
         "details": [
           "Every sound the server sends to a player (blocks, mobs, explosions, ...) from volume 0.3 up is checked: the lead blocks on the straight way from the sound to the player's ear (at most 24 cells, the cells of the sound and of the ear do not count) multiply the volume by soundproofFactor for each block.",
           "Below soundproofThreshold the sound is not sent at all. Example: a TNT blast (volume 4) behind 3 lead blocks at factor 0.5 is heard at volume 0.5 and only close by; right at a wall of 1 block it is 2.0. Players in the same room, with no lead in the way, hear everything as before.",
-          "Records and music devices are not muffled unless soundproofRecords is on. Voice chat mods and everything the client plays on its own are not touched. The blocks that muffle are the tag simpleores:soundproofing (Standard: the block of lead). Switch off with soundproofing = false."
+          "Records and music devices are not muffled unless soundproofRecords is on. Voice chat mods and everything the client plays on its own are not touched. The blocks that muffle are the tag simpleores:soundproofing (Standard: the block of lead). Switch off with soundproofing = false.",
+          "Weights: a block of lead counts 1, a lead plate 0.5 (tag simpleores:soundproofing_half), so two plates in a row equal one block. Lead octets of Simple Octets (only with that mod) are in the first tag and count a whole block however little of the cell they fill; they also stop vibrations like wool."
         ]
       },
       "de": {
@@ -170,7 +173,8 @@
         "details": [
           "Jedes Geräusch, das der Server an einen Spieler schickt (Blöcke, Mobs, Explosionen, ...), wird ab Lautstärke 0,3 geprüft: die Bleiblöcke auf der geraden Strecke vom Geräusch zum Ohr des Spielers (höchstens 24 Zellen; die Zellen von Geräusch und Ohr zählen nicht) multiplizieren die Lautstärke je Block mit soundproofFactor.",
           "Unter soundproofThreshold wird das Geräusch gar nicht gesendet. Beispiel: eine TNT-Explosion (Lautstärke 4) hinter 3 Bleiblöcken bei Faktor 0,5 kommt mit Lautstärke 0,5 an, nur aus der Nähe; direkt an einer Wand aus 1 Block sind es 2,0. Spieler im selben Raum ohne Blei auf dem Weg hören alles wie vorher.",
-          "Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false."
+          "Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false.",
+          "Gewichte: ein Bleiblock zählt 1, eine Bleiplatte 0,5 (Tag simpleores:soundproofing_half), zwei Platten hintereinander entsprechen also einem Block. Blei-Octets aus Simple Octets (nur mit dieser Mod) stehen im ersten Tag und zählen einen ganzen Block, egal wie wenig sie von der Zelle füllen; sie halten auch Vibrationen wie Wolle auf."
         ]
       }
     },
@@ -1535,6 +1539,37 @@
       }
     },
     {
+      "id": "simpleores:lead_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:lead_plate",
+        "count": 6
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/lead_plate.json",
+      "ingredients": [
+        "simpleores:lead_ingot"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:lead_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simpleores:lead_ingot",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleores:raw_lead_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2813,6 +2848,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_ore.json"
     },
     {
+      "id": "simpleores:blocks/lead_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:lead_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/lead_plate.json"
+    },
+    {
       "id": "simpleores:blocks/nether_dimensional_scrap",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2961,9 +3014,24 @@
         {
           "id": "simpleores:lead_block",
           "required": true
+        },
+        {
+          "id": "simpleoctets:lead_block_octet",
+          "required": false
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/tags/block/soundproofing.json"
+    },
+    {
+      "id": "simpleores:block/soundproofing_half",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleores:lead_plate",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/tags/block/soundproofing_half.json"
     },
     {
       "id": "simpleores:item/breaks_dimensional_scrap",
@@ -3546,7 +3614,8 @@
       ],
       "usedIn": [
         "simpleores:lead_block",
-        "simpleores:lead_nugget"
+        "simpleores:lead_nugget",
+        "simpleores:lead_plate"
       ]
     },
     {
@@ -4286,6 +4355,28 @@
       ]
     },
     {
+      "id": "simpleores:lead_plate",
+      "name": {
+        "en_us": "Lead Plate",
+        "de_de": "Bleiplatte"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Lead Plate: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Bleiplatte: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "craftedBy": [
+        "simpleores:lead_plate"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleores:nether_dimensional_scrap",
       "name": {
         "en_us": "Nether Dimensional Scrap",
@@ -4490,13 +4581,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 11,
-    "recipes": 67,
-    "lootTables": 18,
-    "tags": 5,
+    "recipes": 68,
+    "lootTables": 19,
+    "tags": 6,
     "advancements": 0,
     "enchantments": 0,
     "items": 41,
-    "blocks": 18,
+    "blocks": 19,
     "trades": 0,
     "config": 0,
     "quests": 0,
