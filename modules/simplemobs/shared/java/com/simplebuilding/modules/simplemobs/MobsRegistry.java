@@ -143,7 +143,7 @@ public final class MobsRegistry {
             "soul_fire_charge",
             "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
             "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem",
-            "strong_gunpowder", "strong_tnt",
+            "strong_gunpowder", "strong_tnt", "spawner_fragment", "spawner_chunk", "makeshift_spawner",
             "deceiver_spawn_egg", "dread_spawn_egg", "hollow_howler_spawn_egg", "hollow_watcher_spawn_egg",
             "shellker_spawn_egg", "soulfire_blaze_spawn_egg"),
             // weathered trials, evil omen, void chain (a-trials31)

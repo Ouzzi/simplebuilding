@@ -101,6 +101,10 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void strongRecipes(GameTestHelper helper) { MobsTests.ALL.get("strong_recipes").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void strongTntPower(GameTestHelper helper) { MobsTests.ALL.get("strong_tnt_power").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void strongTntLighting(GameTestHelper helper) { MobsTests.ALL.get("strong_tnt_lighting").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void spawnerPartsRegistered(GameTestHelper helper) { MobsTests.ALL.get("spawner_parts_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void spawnerMakeshiftPlace(GameTestHelper helper) { MobsTests.ALL.get("spawner_makeshift_place").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void spawnerFragmentRoll(GameTestHelper helper) { MobsTests.ALL.get("spawner_fragment_roll").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void spawnerFragmentBreak(GameTestHelper helper) { MobsTests.ALL.get("spawner_fragment_break").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherAttacks(GameTestHelper helper) { MobsTests.ALL.get("wither_attacks").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherWilt(GameTestHelper helper) { MobsTests.ALL.get("wither_wilt").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void witherOrder(GameTestHelper helper) { MobsTests.ALL.get("wither_order").accept(helper); }

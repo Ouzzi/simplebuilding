@@ -92,6 +92,11 @@ public final class MobsConfig {
     /** Trials (TR31-R): an Evil / Void Raid has one more wave and leaves a Looter Chest after the victory. */
     public static boolean evilRaidExtras = true;
 
+    /** WF25-6: chance that a Vanilla spawner mined with a pickaxe (no Silk Touch) drops a Spawner Fragment (0 = never, 1 = always). */
+    public static float spawnerFragmentChance = 0.3f;
+    /** WF25-6: a Makeshift Spawner works this many times slower than a Vanilla spawner (1 = as fast, 1-10). */
+    public static int makeshiftSpawnerSlowdown = 3;
+
     /** Hollow Howler rage pulse (like the Warden): Darkness for hunted players nearby, on a heartbeat, only in the rage phase. */
     public static boolean howlerRagePulse = true;
     public static int howlerPulseInterval = HowlerLogic.PULSE_INTERVAL_TICKS, howlerPulseTicks = HowlerLogic.PULSE_DARKNESS_TICKS, howlerPulseRadius = HowlerLogic.PULSE_RADIUS;
@@ -225,6 +230,8 @@ public final class MobsConfig {
         strongTntPower = Math.max(4.0f, Math.min(16.0f, num(json, "strongTntPower", StrongExplosives.DEFAULT_POWER)));
         evilOmen = bool(json, "evilOmen", true);
         voidChain = bool(json, "voidChain", false);
+        spawnerFragmentChance = Math.max(0.0f, Math.min(1.0f, num(json, "spawnerFragmentChance", 0.3f)));
+        makeshiftSpawnerSlowdown = Math.max(1, Math.min(10, integer(json, "makeshiftSpawnerSlowdown", 3)));
         trialSpawnerCap = Math.max(0, Math.min(8, integer(json, "trialSpawnerCap", 3)));
         trialLootNoRepeat = bool(json, "trialLootNoRepeat", true);
         evilHitEffects = bool(json, "evilHitEffects", true);
@@ -333,6 +340,8 @@ public final class MobsConfig {
         o.addProperty("strongTntPower", strongTntPower);
         o.addProperty("evilOmen", evilOmen);
         o.addProperty("voidChain", voidChain);
+        o.addProperty("spawnerFragmentChance", spawnerFragmentChance);
+        o.addProperty("makeshiftSpawnerSlowdown", makeshiftSpawnerSlowdown);
         o.addProperty("trialSpawnerCap", trialSpawnerCap);
         o.addProperty("trialLootNoRepeat", trialLootNoRepeat);
         o.addProperty("evilHitEffects", evilHitEffects);

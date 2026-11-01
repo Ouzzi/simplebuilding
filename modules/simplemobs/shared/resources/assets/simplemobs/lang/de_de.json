@@ -235,5 +235,9 @@
   "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
   "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
   "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
+  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen.",
+  "item.simplemobs.spawner_fragment": "Spawner-Fragment",
+  "item.simplemobs.spawner_chunk": "Spawner-Brocken",
+  "block.simplemobs.makeshift_spawner": "Behelfsmäßiger Spawner",
+  "jei.simplemobs.info.spawner_parts": "Wer einen Vanilla-Spawner mit einer Spitzhacke abbaut (nicht mit Behutsamkeit), erhält mit 30 % Chance ein Spawner-Fragment (Config spawnerFragmentChance). 9 Fragmente ergeben 1 Spawner-Brocken, 9 Brocken 1 Behelfsmäßigen Spawner. Er ist leer, bis man ein Spawn-Ei darauf benutzt, und arbeitet 3-mal langsamer als ein Vanilla-Spawner (Config makeshiftSpawnerSlowdown)."
 }

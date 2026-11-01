@@ -34,7 +34,9 @@ public final class MobsViewer {
         List<RecipeViewer.Info> pages = new ArrayList<>(List.of(
                 new RecipeViewer.Info(List.of(new ItemStack(DisguiseRegistry.MIRROR)), List.of(Component.translatable("jei.simplemobs.info.trick_mirror"))),
                 new RecipeViewer.Info(List.of(new ItemStack(WitherWings.ENDER_HEART), new ItemStack(WitherWings.ENDER_GEM)),
-                        List.of(Component.translatable("jei.simplemobs.info.ender_parts")))));
+                        List.of(Component.translatable("jei.simplemobs.info.ender_parts"))),
+                new RecipeViewer.Info(List.of(new ItemStack(SpawnerParts.FRAGMENT), new ItemStack(SpawnerParts.CHUNK), new ItemStack(SpawnerParts.MAKESHIFT_SPAWNER_ITEM)),
+                        List.of(Component.translatable("jei.simplemobs.info.spawner_parts")))));
         pages.addAll(com.simplebuilding.modules.simplemobs.trials.TrialsViewer.infoPages());   // a-trials31: Weathered Trials, Evil Omen, Void chain
         return pages;
     }

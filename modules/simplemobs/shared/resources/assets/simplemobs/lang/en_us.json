@@ -235,5 +235,9 @@
   "quests.simplemobs.start.title": "Welcome to Simple Mobs",
   "quests.simplemobs.start.subtitle": "Your free guide",
   "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone.",
+  "item.simplemobs.spawner_fragment": "Spawner Fragment",
+  "item.simplemobs.spawner_chunk": "Spawner Chunk",
+  "block.simplemobs.makeshift_spawner": "Makeshift Spawner",
+  "jei.simplemobs.info.spawner_parts": "Mining a Vanilla spawner with a pickaxe (not with Silk Touch) leaves a Spawner Fragment with a 30 % chance (config spawnerFragmentChance). 9 Fragments make 1 Spawner Chunk, 9 Chunks make 1 Makeshift Spawner. It is empty until you use a spawn egg on it, and it works 3 times slower than a Vanilla spawner (config makeshiftSpawnerSlowdown)."
 }

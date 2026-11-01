@@ -194,6 +194,7 @@ public final class MobsTests {
         WitherTests.addAll(MobsTests::add);
         WingsTests.addAll(MobsTests::add);
         StrongExplosivesTests.addAll(MobsTests::add);
+        SpawnerPartsTests.addAll(MobsTests::add);
         CombatEffectTests.addAll(MobsTests::add);
         ZoneEffectTests.addAll(MobsTests::add);
         TrimAbilityTests.addAll(MobsTests::add);
