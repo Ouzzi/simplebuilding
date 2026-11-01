@@ -1,7 +1,10 @@
 package com.simplefoundry;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,13 +27,50 @@ public final class Melts {
         add(Metal.COPPER, 81, Items.COPPER_BLOCK.weathering().unaffected(), Items.RAW_COPPER_BLOCK);
     }
 
+    /** Ingots a piece of gear costs to make (owner SA7 = A: gear melts down). */
+    private static final Map<String, Integer> GEAR_INGOTS = new LinkedHashMap<>();
+    private static final Map<Item, Melt> GEAR = new HashMap<>();
+
+    static {
+        GEAR_INGOTS.put("pickaxe", 3);
+        GEAR_INGOTS.put("axe", 3);
+        GEAR_INGOTS.put("shovel", 1);
+        GEAR_INGOTS.put("hoe", 2);
+        GEAR_INGOTS.put("sword", 2);
+        GEAR_INGOTS.put("helmet", 5);
+        GEAR_INGOTS.put("chestplate", 8);
+        GEAR_INGOTS.put("leggings", 7);
+        GEAR_INGOTS.put("boots", 4);
+        String[][] materials = {{"iron", "IRON"}, {"golden", "GOLD"}, {"copper", "COPPER"}};
+        for (String[] material : materials) {
+            GEAR_INGOTS.forEach((kind, ingots) -> {
+                Identifier id = Identifier.withDefaultNamespace(material[0] + "_" + kind);
+                // looked up by name: not every Minecraft version has every piece (copper gear came late)
+                if (BuiltInRegistries.ITEM.containsKey(id)) GEAR.put(BuiltInRegistries.ITEM.getValue(id), new Melt(Metal.valueOf(material[1]), ingots * Metal.INGOT));
+            });
+        }
+    }
+
     private static void add(Metal metal, int units, Item... items) {
         for (Item item : items) TABLE.put(item, new Melt(metal, units));
     }
 
     /** The melt of the stack's item, or null when it does not melt here. */
     public static Melt of(ItemStack stack) {
-        return stack.isEmpty() ? null : TABLE.get(stack.getItem());
+        if (stack.isEmpty()) return null;
+        Melt plain = TABLE.get(stack.getItem());
+        if (plain != null) return plain;
+        Melt gear = GEAR.get(stack.getItem());
+        if (gear == null) return null;
+        // worn gear gives less (rounded down, so a melt never yields more than the gear cost): a broken piece gives nothing
+        int max = stack.getMaxDamage();
+        int units = max <= 0 ? gear.units() : gear.units() * Math.max(0, max - stack.getDamageValue()) / max;
+        return units <= 0 ? null : new Melt(gear.metal(), units);
+    }
+
+    /** Whether the item is a piece of gear that melts down (Melts.of then depends on its wear). */
+    public static boolean isGear(Item item) {
+        return GEAR.containsKey(item);
     }
 
     private Melts() {}

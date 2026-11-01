@@ -31,4 +31,13 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
     public void capacityAndSave(GameTestHelper h) { FoundryTests.ALL.get("capacity_and_save").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void tiers(GameTestHelper h) { FoundryTests.ALL.get("tiers").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void layerSelect(GameTestHelper h) { FoundryTests.ALL.get("layer_select").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void gearAndTarget(GameTestHelper h) { FoundryTests.ALL.get("gear_and_target").accept(h); }
 }

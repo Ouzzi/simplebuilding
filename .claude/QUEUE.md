@@ -338,11 +338,11 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [ ] Luef Hut-Lüftung als Belohnung – ja → PRIO
 - [ ] Brut Brutaltar Konzept – K1 In-World-Ritual → PRIO
 - [x] SA2 Schmelzanlage (Simple Foundry): Name – A Hütte (Hüttenpult, Hüttenziegel) (schon gebaut: Hüttenpult/Hütte-Namen im Bestand (simplefoundry de_de)) → PRIO
-- [ ] SA3 Schmelzanlage (Simple Foundry): Stufen – A 4 Stufen 3/6/9/12 → PRIO
-- [ ] SA4 Schmelzanlage (Simple Foundry): Klick nach unten im Steuerblock – A Pfeil wechselt Schicht → PRIO
-- [ ] SA5 Schmelzanlage (Simple Foundry): Gießziel – C beides (Gefäß und verstärkter Kessel) → PRIO
+- [~] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA3 Schmelzanlage (Simple Foundry): Stufen – A 4 Stufen 3/6/9/12 → PRIO
+- [~] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA4 Schmelzanlage (Simple Foundry): Klick nach unten im Steuerblock – A Pfeil wechselt Schicht → PRIO
+- [~] (B, b-foundry02, 01.11.: CastTarget + Schale fertig, Kessel Content.MELT offen) SA5 Schmelzanlage (Simple Foundry): Gießziel – C beides (Gefäß und verstärkter Kessel) → PRIO
 - [ ] SA6 Schmelzanlage (Simple Foundry): Twist – A Schichtschmelze → PRIO
-- [ ] SA7 Schmelzanlage (Simple Foundry): Einschmelzbare Stoffe – A Geräte einschmelzen: ja → PRIO
+- [~] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA7 Schmelzanlage (Simple Foundry): Einschmelzbare Stoffe – A Geräte einschmelzen: ja → PRIO
 - [ ] SA8 Schmelzanlage (Simple Foundry): Tankfassung – A 27 Barren → PRIO
 - [ ] SA9 Schmelzanlage (Simple Foundry): Hülle – A Dach Pflicht → PRIO
 - [ ] SA10 Schmelzanlage (Simple Foundry): Erz-Bonus – A aus → PRIO

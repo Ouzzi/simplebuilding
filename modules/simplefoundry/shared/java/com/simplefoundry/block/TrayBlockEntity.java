@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 /** Up to {@value #MAX} ingots of one metal. All ingots set together: the batch is ready when the last one has cooled ({@code readyAt}). */
-public class TrayBlockEntity extends BlockEntity {
+public class TrayBlockEntity extends BlockEntity implements com.simplefoundry.CastTarget {
     public static final int MAX = 9;
     private int metal = -1;
     private int count;
@@ -34,11 +34,13 @@ public class TrayBlockEntity extends BlockEntity {
         return readyAt;
     }
 
+    @Override
     public boolean accepts(Metal m) {
         return count < MAX && (count == 0 || metal == m.ordinal());
     }
 
     /** One more ingot; sets the tray's visible content and the time it needs to cool. */
+    @Override
     public void add(Metal m, long now, int castTicks) {
         if (!accepts(m)) return;
         metal = m.ordinal();

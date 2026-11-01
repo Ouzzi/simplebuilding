@@ -22,6 +22,9 @@
   "simplefoundry.desk.metal": "%s: %s Einheiten geschmolzen, %s warten",
   "simplefoundry.desk.capacity": "Gefüllt %s von %s Einheiten, Feuer %s s, Brennstoff: %s",
   "simplefoundry.desk.no_fuel": "keiner",
+  "simplefoundry.desk.tier": "Pult mit %s Eingabeplätzen",
+  "simplefoundry.desk.layer": "Schicht %s: %s",
+  "simplefoundry.desk.layer_empty": "leer",
   "simplefoundry.desk.refused": "Nichts genommen (%s, oder der Tank ist voll)",
   "simplefoundry.desk.fuel_full": "Der Brennstoffplatz ist voll oder hält einen anderen Brennstoff (%s)",
   "simplefoundry.tray.hot": "Die Barren erstarren noch"

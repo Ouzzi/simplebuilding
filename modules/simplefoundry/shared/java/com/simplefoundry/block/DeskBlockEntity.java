@@ -1,5 +1,6 @@
 package com.simplefoundry.block;
 
+import com.simplefoundry.CastTarget;
 import com.simplefoundry.Fuels;
 import com.simplefoundry.FoundryRegistry;
 import com.simplefoundry.FoundryScan;
@@ -7,6 +8,7 @@ import com.simplefoundry.Heat;
 import com.simplefoundry.Layers;
 import com.simplefoundry.Melts;
 import com.simplefoundry.Metal;
+import com.simplefoundry.Tier;
 import com.simplefoundry.config.FoundryConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -32,6 +34,8 @@ public class DeskBlockEntity extends BlockEntity {
     private int burn;
     private int burnHeat = Heat.MEDIUM.ordinal();
     private boolean lit;
+    private Tier tier = Tier.STONE;
+    private int selected;
     private FoundryScan.Result structure;
     private long checkedAt = Long.MIN_VALUE;
 
@@ -61,6 +65,38 @@ public class DeskBlockEntity extends BlockEntity {
 
     public boolean lit() {
         return lit;
+    }
+
+    public Tier tier() {
+        return tier;
+    }
+
+    /** Lifts the desk by one tier when {@code stack} is the next upgrade item; returns whether it was taken (one piece). */
+    public boolean upgrade(ItemStack stack) {
+        Tier next = tier.next();
+        if (next == null || stack.isEmpty() || !stack.is(next.upgradeItem())) return false;
+        tier = next;
+        setChanged();
+        return true;
+    }
+
+    /** The tank level the arrow of the desk has selected (0 = lowest), kept inside the structure. */
+    public int selectedLevel() {
+        int levels = structure != null && structure.valid() ? structure.levels() : 1;
+        return Math.max(0, Math.min(levels - 1, selected));
+    }
+
+    /** Owner SA4: one click down moves the selection one layer lower, from the bottom back to the top. */
+    public int cycleLevel() {
+        int levels = structure != null && structure.valid() ? structure.levels() : 1;
+        selected = selectedLevel() <= 0 ? levels - 1 : selectedLevel() - 1;
+        setChanged();
+        return selected;
+    }
+
+    /** The metal that lies at the selected level, or null. */
+    public Metal selectedMetal() {
+        return structure == null || !structure.valid() ? null : Layers.at(melt, capacity(), structure.levels(), selectedLevel());
     }
 
     public FoundryScan.Result structure() {
@@ -151,15 +187,16 @@ public class DeskBlockEntity extends BlockEntity {
         Heat heat = Heat.values()[burnHeat];
         boolean melting = false;
         if (burn > 0) {
+            // all lanes of the tier work in parallel: every waiting metal melts up to `lanes` units per interval
             for (Metal m : Metal.values()) {
                 if (pending[m.ordinal()] > 0 && heat.atLeast(m.heat)) {
                     melting = true;
                     if (now % FoundryConfig.meltTicksPerUnit == 0) {
-                        pending[m.ordinal()]--;
-                        melt[m.ordinal()]++;
+                        int n = Math.min(tier.lanes, pending[m.ordinal()]);
+                        pending[m.ordinal()] -= n;
+                        melt[m.ordinal()] += n;
                         setChanged();
                     }
-                    break;
                 }
             }
             if (melting) burn--;
@@ -172,7 +209,7 @@ public class DeskBlockEntity extends BlockEntity {
     private void pour(ServerLevel level, long now) {
         int capacity = capacity();
         for (FoundryScan.Spout spout : structure.spouts()) {
-            if (!(level.getBlockEntity(spout.pos().relative(spout.facing())) instanceof TrayBlockEntity tray)) continue;
+            if (!(level.getBlockEntity(spout.pos().relative(spout.facing())) instanceof CastTarget tray)) continue;
             Metal metal = Layers.at(melt, capacity, structure.levels(), spout.level());
             if (metal == null || melt[metal.ordinal()] < Metal.INGOT || !tray.accepts(metal)) continue;
             melt[metal.ordinal()] -= Metal.INGOT;
@@ -205,6 +242,8 @@ public class DeskBlockEntity extends BlockEntity {
             melt[m.ordinal()] = Math.max(0, input.getIntOr("Melt_" + m.id, 0));
             pending[m.ordinal()] = Math.max(0, input.getIntOr("Pending_" + m.id, 0));
         }
+        tier = Tier.byIndex(input.getIntOr("Tier", 0));
+        selected = Math.max(0, input.getIntOr("Selected", 0));
         burn = Math.max(0, input.getIntOr("Burn", 0));
         burnHeat = Math.max(0, Math.min(Heat.values().length - 1, input.getIntOr("BurnHeat", 0)));
         lit = input.getBooleanOr("Lit", false);
@@ -218,6 +257,8 @@ public class DeskBlockEntity extends BlockEntity {
             output.putInt("Melt_" + m.id, melt[m.ordinal()]);
             output.putInt("Pending_" + m.id, pending[m.ordinal()]);
         }
+        output.putInt("Tier", tier.ordinal());
+        output.putInt("Selected", selected);
         output.putInt("Burn", burn);
         output.putInt("BurnHeat", burnHeat);
         output.putBoolean("Lit", lit);
