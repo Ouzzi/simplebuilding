@@ -79,6 +79,4 @@ public final class HammerRegistry {
         out.add(com.simplehammers.guide.HammersGuide.stack());
         return out;
     }
-        return out;
-    }
 }
