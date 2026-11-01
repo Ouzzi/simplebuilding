@@ -166,6 +166,44 @@ def rivets(im: Image.Image, ramp: str) -> Image.Image:
     return out
 
 
+def lead_grid(iron: Image.Image, ramp: str) -> Image.Image:
+    """Iron block recoloured dark; the dark pixels of the iron block turned by 90 degrees are laid over it: lines in both directions, a grid."""
+    base = recolor(iron, ramp, shift=0.3, squeeze=1.2)
+    turned = iron.rotate(90)
+    cut = sorted(lum(turned.getpixel((x, y))) for y in range(16) for x in range(16))[len(range(256)) // 4]   # darkest quarter
+    for y in range(16):
+        for x in range(16):
+            q = turned.getpixel((x, y))
+            if q[3] and lum(q) <= cut:
+                base.putpixel((x, y), tone(base.getpixel((x, y)), ramp, shift=0.12))
+    return base
+
+
+def split_clumps(im: Image.Image, ramp: str, block: bool) -> Image.Image:
+    """Raw lead looks like Vanilla raw iron, but is split down the middle into two clumps: a dark seam and a notched silhouette (ores must stay tellable apart by shape)."""
+    out = im.copy()
+    dark, lite = hexrgb(RAMPS[ramp][8]), hexrgb(RAMPS[ramp][2])
+    w = im.width
+    for y in range(im.height):
+        for x in (w // 2 - 1, w // 2):
+            p = out.getpixel((x, y))
+            if p[3]:
+                if block:
+                    out.putpixel((x, y), (dark if x == w // 2 else lite) + (255,))
+                elif x == w // 2 and y % 3 != 2:
+                    out.putpixel((x, y), dark + (255,))
+    if block:   # staggered cross seam: the clumps read as four lumps
+        for x in range(w):
+            if x % 5 != 2:
+                out.putpixel((x, w // 2 - 1 + (x // 4) % 2), dark + (255,))
+    else:       # notch the top of the silhouette between the two lumps
+        for y in range(im.height):
+            if out.getpixel((w // 2, y))[3]:
+                out.putpixel((w // 2, y), (0, 0, 0, 0))
+                break
+    return out
+
+
 def lead_images(j: 'Jar', v: str) -> dict:
     """assets/simpleores/textures/<key> of the lead set in variant v (a, b, c)."""
     ramp = f'lead_{"b" if v == "b" else "a" if v == "a" else "c"}'
@@ -173,14 +211,14 @@ def lead_images(j: 'Jar', v: str) -> dict:
     out = {
         'block/lead_ore.png': recolor(ore, ramp, fleck),
         'block/deepslate_lead_ore.png': recolor(deep, ramp, fleck),
-        'block/raw_lead_block.png': recolor(j.img('block/raw_iron_block'), ramp, shift=0.08),
-        'item/raw_lead.png': recolor(j.img('item/raw_iron'), ramp, shift=0.1),
+        'block/raw_lead_block.png': split_clumps(recolor(j.img('block/raw_iron_block'), ramp, shift=0.08), ramp, block=True),
+        'item/raw_lead.png': split_clumps(recolor(j.img('item/raw_iron'), ramp, shift=0.1), ramp, block=False),
         'item/lead_ingot.png': recolor(j.img('item/iron_ingot'), ramp, shift=0.18),
         'item/lead_nugget.png': recolor(j.img('item/iron_nugget'), ramp, shift=0.18),
     }
     # the Vanilla iron block is almost white: pushed well into the dark half of the ramp so lead looks heavy
-    block = recolor(j.img('block/iron_block'), ramp, shift=0.3, squeeze=1.2)
-    out['block/lead_block.png'] = rivets(block, ramp) if v == 'c' else (recolor(j.img('block/iron_block'), ramp, shift=0.36, squeeze=0.9) if v == 'b' else block)
+    # owner 31.10. (ORES32-BLEI): the iron block texture with its dark pixels turned by 90 degrees laid over it -> a grid
+    out['block/lead_block.png'] = lead_grid(j.img('block/iron_block'), ramp)
     return out
 
 
