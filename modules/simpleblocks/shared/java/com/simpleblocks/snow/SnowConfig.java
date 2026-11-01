@@ -12,18 +12,20 @@ import java.util.List;
 
 /**
  * Server config {@code config/simpleblocks-server.json}, group {@code snow} (b-snow32, docs/ai/PLAN-B-SNOW32-2026-10-31.md):
- * {@code snowlogging} and {@code frostGrass} (both default on) and the chances of frost grass, 1 in N per random tick. Missing
+ * {@code snowlogging}, {@code snowCaps} and {@code frostGrass} (both default on) and the chances of frost grass, 1 in N per random tick. Missing
  * or broken keys use the defaults and the file is rewritten complete; numbers are clamped to 1-100.
  */
 public final class SnowConfig {
     public static final String FILE = "simpleblocks-server.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("snow.snowlogging", "snow.frostGrass", "snow.freezeOneIn", "snow.thawOneIn");
+    public static final List<String> KEYS = List.of("snow.snowlogging", "snow.snowCaps", "snow.frostGrass", "snow.freezeOneIn", "snow.thawOneIn");
 
     public static final int FREEZE_DEFAULT = 3, THAW_DEFAULT = 6, ONE_IN_MIN = 1, ONE_IN_MAX = 100;
 
     /** Snow layers placed on a fence, flower or grass share the block with it. */
     public static boolean snowlogging = true;
+    /** Falling snow leaves one snow layer on top of fences, walls, stairs and slabs (SNOW32-FALL). */
+    public static boolean snowCaps = true;
     /** Grass blocks under snow freeze to frost grass (cold biome or ice below). */
     public static boolean frostGrass = true;
     /** A grass block under snow freezes with a chance of 1 in this per random tick (about 68 s per tick at randomTickSpeed 3). */
@@ -53,6 +55,7 @@ public final class SnowConfig {
         JsonElement group = json.get("snow");
         JsonObject s = group != null && group.isJsonObject() ? group.getAsJsonObject() : new JsonObject();
         snowlogging = bool(s, "snowlogging", true);
+        snowCaps = bool(s, "snowCaps", true);
         frostGrass = bool(s, "frostGrass", true);
         freezeOneIn = number(s, "freezeOneIn", FREEZE_DEFAULT);
         thawOneIn = number(s, "thawOneIn", THAW_DEFAULT);
@@ -61,6 +64,7 @@ public final class SnowConfig {
     public static JsonObject toJson() {
         JsonObject s = new JsonObject();
         s.addProperty("snowlogging", snowlogging);
+        s.addProperty("snowCaps", snowCaps);
         s.addProperty("frostGrass", frostGrass);
         s.addProperty("freezeOneIn", freezeOneIn);
         s.addProperty("thawOneIn", thawOneIn);

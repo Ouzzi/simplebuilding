@@ -232,6 +232,7 @@ public final class TestCentreLayout {
         excluded.put("simplebuilding:double_piston_head", "technischer Block (Kopf des Doppelkolbens, IG31-26), kein Item");
         excluded.put("simplebuilding:double_piston_arm", "technischer Block (Schaft des Doppelkolbens, IG31-26), kein Item");
         excluded.put("simpleblocks:snowlogged", "Schneeschicht mit Pflanze (SN30-1) ohne eigenes Item: entsteht beim Setzen der Schneeschicht auf Zaun/Pflanze");
+        excluded.put("simpleblocks:snow_cap", "Schneeschicht obenauf (SNOW32-FALL) ohne eigenes Item: entsteht bei Schneefall auf Zaun, Mauer, Treppe, Stufe");
         excluded.put("simplebuilding:placed_paint_box", "Abgestellter Farbkasten (W24-2) ohne eigenes Item: entsteht beim Abstellen des Farbkastens, der Farbkasten selbst steht in der Zentrale");
         EXCLUDED = Map.copyOf(excluded);
     }

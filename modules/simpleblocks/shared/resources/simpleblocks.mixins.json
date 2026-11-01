@@ -6,7 +6,8 @@
   "mixins": [
     "CrackedIceFacesMixin",
     "FenceConnectsSnowloggedMixin",
-    "GrassFreezesMixin"
+    "GrassFreezesMixin",
+    "SnowCapsMixin"
   ],
   "client": [],
   "server": [],

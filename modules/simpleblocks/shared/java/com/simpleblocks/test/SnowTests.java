@@ -2,6 +2,8 @@ package com.simpleblocks.test;
 
 import com.simpleblocks.snow.FrostGrassBlock;
 import com.simpleblocks.snow.SnowBlocks;
+import com.simpleblocks.snow.SnowCapBlock;
+import com.simpleblocks.snow.SnowCaps;
 import com.simpleblocks.snow.SnowConfig;
 import com.simpleblocks.snow.SnowloggedBlock;
 import com.simpleblocks.snow.SnowloggedBlockEntity;
@@ -51,6 +53,8 @@ public final class SnowTests {
         all.put("frost_grass_freezes_with_ice_or_cold", SnowTests::frostGrassFreezes);
         all.put("frost_grass_thaws_without_snow", SnowTests::frostGrassThaws);
         all.put("frost_grass_drops_and_tags", SnowTests::frostGrassDropsAndTags);
+        all.put("snow_cap_on_fence_stairs_slab", SnowTests::snowCapOnFenceStairsSlab);
+        all.put("snow_cap_single_removable_support", SnowTests::snowCapSingleRemovableSupport);
         all.put("config_command", h -> com.simplelib.test.ConfigCommandTests.module(h, "simpleblocks", false));
     }
 
@@ -277,6 +281,77 @@ public final class SnowTests {
         helper.assertTrue(SnowBlocks.SNOWLOGGED.defaultBlockState().is(BlockTags.SNOW) && SnowBlocks.SNOWLOGGED.defaultBlockState().is(BlockTags.MINEABLE_WITH_SHOVEL),
                 "the snowlogged cell counts as snow and digs with a shovel");
         helper.assertTrue(com.simpleblocks.BlocksRegistry.tabStacks().stream().anyMatch(s -> s.is(SnowBlocks.FROST_GRASS_ITEM)), "frost grass in the Simple Blocks tab");
+        helper.succeed();
+    }
+
+    /** SNOW32-FALL: the cap forms on a fence, a wall, stairs (flush) and a bottom slab (lowered), not on stone or a top slab (Vanilla's), and leaves the support unchanged. */
+    public static void snowCapOnFenceStairsSlab(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        record Case(Block block, SnowCapBlock.Support expected) {}
+        List<Case> cases = List.of(new Case(Blocks.OAK_FENCE, SnowCapBlock.Support.FLUSH), new Case(Blocks.COBBLESTONE_WALL, SnowCapBlock.Support.FLUSH),
+                new Case(Blocks.OAK_STAIRS, SnowCapBlock.Support.FLUSH), new Case(Blocks.OAK_SLAB, SnowCapBlock.Support.HALF),
+                new Case(Blocks.STONE, SnowCapBlock.Support.NONE));
+        int x = 0;
+        for (Case c : cases) {
+            BlockPos support = new BlockPos(x++, 2, 1);
+            helper.setBlock(support.below(), Blocks.STONE);
+            BlockState before = c.block() == Blocks.OAK_FENCE || c.block() == Blocks.COBBLESTONE_WALL
+                    ? Block.updateFromNeighbourShapes(c.block().defaultBlockState(), level, helper.absolutePos(support)) : c.block().defaultBlockState();
+            helper.setBlock(support, before);
+            boolean placed = SnowCaps.capAt(level, helper.absolutePos(support.above()));
+            helper.assertValueEqual(placed, c.expected() != SnowCapBlock.Support.NONE, "cap placed on " + c.block());
+            if (placed) {
+                BlockState cap = helper.getBlockState(support.above());
+                helper.assertTrue(cap.is(SnowBlocks.SNOW_CAP) && cap.getValue(SnowCapBlock.LOWERED) == (c.expected() == SnowCapBlock.Support.HALF),
+                        "cap state on " + c.block() + " is " + cap);
+            }
+            helper.assertTrue(helper.getBlockState(support) == before, "the support " + c.block() + " is unchanged");
+        }
+        BlockPos top = new BlockPos(6, 2, 1);
+        helper.setBlock(top.below(), Blocks.STONE);
+        helper.setBlock(top, Blocks.STONE_SLAB.defaultBlockState().setValue(net.minecraft.world.level.block.SlabBlock.TYPE, net.minecraft.world.level.block.state.properties.SlabType.TOP));
+        helper.assertTrue(!SnowCaps.capAt(level, helper.absolutePos(top.above())), "a top slab has a full face: no cap (Vanilla snow stands there)");
+        // not raining here: the tick itself does nothing
+        SnowCaps.tick(level, helper.absolutePos(new BlockPos(0, 2, 1)));
+        helper.succeed();
+    }
+
+    /** Only one layer (a second pass puts nothing), by hand gone at once with the fence standing, a block placed into it replaces it, gone with its support (melting in light is not tested: the light engine is asynchronous). */
+    public static void snowCapSingleRemovableSupport(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos fence = new BlockPos(1, 2, 1);
+        BlockPos cap = fence.above();
+        helper.setBlock(fence.below(), Blocks.STONE);
+        placeFence(helper, fence, Blocks.OAK_FENCE);
+        BlockPos east = new BlockPos(2, 2, 1);
+        helper.setBlock(east.below(), Blocks.STONE);
+        placeFence(helper, east, Blocks.OAK_FENCE);
+        placeFence(helper, fence, Blocks.OAK_FENCE);
+        BlockState fenceState = helper.getBlockState(fence);
+        helper.assertTrue(SnowCaps.capAt(level, helper.absolutePos(cap)), "first cap");
+        helper.assertTrue(!SnowCaps.capAt(level, helper.absolutePos(cap)) && !SnowCaps.capAt(level, helper.absolutePos(cap.above())),
+                "no second layer, neither in the cap cell nor above it");
+        helper.assertTrue(helper.getBlockState(cap.above()).isAir(), "nothing stacked above the cap");
+        helper.assertTrue(helper.getBlockState(fence) == fenceState, "fence connections stay (state unchanged)");
+        // by hand
+        level.destroyBlock(helper.absolutePos(cap), true);
+        helper.assertTrue(helper.getBlockState(cap).isAir() && helper.getBlockState(fence) == fenceState, "removed by hand, the fence stands");
+        // placing a block into the cap cell replaces it
+        SnowCaps.capAt(level, helper.absolutePos(cap));
+        helper.assertTrue(helper.getBlockState(cap).canBeReplaced(), "a cap is replaceable");
+        // gone with the support
+        helper.setBlock(fence, Blocks.AIR);
+        helper.assertTrue(helper.getBlockState(cap).isAir(), "cap vanishes when the fence is gone, is " + helper.getBlockState(cap));
+        placeFence(helper, fence, Blocks.OAK_FENCE);
+        // config off: the tick switch
+        boolean before = SnowConfig.snowCaps;
+        SnowConfig.snowCaps = false;
+        try {
+            SnowCaps.tick(level, helper.absolutePos(fence));
+            helper.assertTrue(helper.getBlockState(cap).isAir(), "config off: no cap");
+        } finally {
+            SnowConfig.snowCaps = before;
+        }
         helper.succeed();
     }
 
