@@ -1117,3 +1117,12 @@ modules/simplemobs/shared/resources/assets/simplemobs/textures/mob_effect/evil_o
 wiki/assets/textures/simplemobs/mob_effect/evil_omen.png
 modules/simplemobs/shared/resources/assets/simplemobs/textures/mob_effect/void_omen.png
 wiki/assets/textures/simplemobs/mob_effect/void_omen.png
+# IG31-41 rose gold apples (Vanilla-derived, built)
+modules/simpleores/shared/resources/assets/simpleores/textures/item/rose_bronze_apple.png
+wiki/assets/textures/simpleores/item/rose_bronze_apple.png
+wiki/assets/textures/sheets/simplebuilding/simpleores/item/rose_bronze_apple.png
+wiki/assets/textures/sheets/simpleores/simpleores/item/rose_bronze_apple.png
+modules/simpleores/shared/resources/assets/simpleores/textures/item/blossom_gold_apple.png
+wiki/assets/textures/simpleores/item/blossom_gold_apple.png
+wiki/assets/textures/sheets/simplebuilding/simpleores/item/blossom_gold_apple.png
+wiki/assets/textures/sheets/simpleores/simpleores/item/blossom_gold_apple.png

@@ -95,7 +95,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18 + 6 + 7, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18 + 6 + 7 + 4, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus", "sageOre", "dimensionalScrap"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     && OresConfig.silverArrowUndeadBonus == 3, "config defaults");
@@ -334,6 +334,52 @@ public final class OresTests {
                 check(h, Soundproofing.filter(player, loud) == null, "switched off: nothing is changed");
             } finally {
                 OresConfig.reset();
+            }
+            h.succeed();
+        });
+        ALL.put("apples_eat_effects", h -> {
+            // IG31-41: eating gives the effects of docs/ai/PLAN-B-APPLE41-2026-11-01.md (a step between the golden and the Netherite apple).
+            Map<String, int[][]> table = new LinkedHashMap<>();   // {effect index, ticks, amplifier}
+            table.put("rose_bronze_apple", new int[][] {{0, 140, 1}, {1, 2400, 0}, {2, 1800, 0}});
+            table.put("blossom_gold_apple", new int[][] {{0, 180, 1}, {1, 3600, 0}, {2, 3000, 0}, {3, 600, 0}});
+            table.put("enchanted_rose_bronze_apple", new int[][] {{0, 500, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
+            table.put("enchanted_blossom_gold_apple", new int[][] {{0, 640, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}, {4, 1200, 0}});
+            @SuppressWarnings("unchecked")
+            net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>[] effects = new net.minecraft.core.Holder[] {net.minecraft.world.effect.MobEffects.REGENERATION,
+                    net.minecraft.world.effect.MobEffects.ABSORPTION, net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, net.minecraft.world.effect.MobEffects.RESISTANCE,
+                    net.minecraft.world.effect.MobEffects.STRENGTH};
+            for (Map.Entry<String, int[][]> row : table.entrySet()) {
+                var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+                ItemStack apple = stack(row.getKey());
+                var food = apple.get(net.minecraft.core.component.DataComponents.FOOD);
+                boolean soft = row.getKey().contains("blossom");
+                check(h, food != null && food.nutrition() == (soft ? 6 : 5) && food.canAlwaysEat(), row.getKey() + " food: " + food);
+                boolean enchanted = row.getKey().startsWith("enchanted_");
+                check(h, Boolean.TRUE.equals(apple.get(net.minecraft.core.component.DataComponents.ENCHANTMENT_GLINT_OVERRIDE)) == enchanted, row.getKey() + " glint");
+                check(h, apple.getRarity() == (enchanted ? net.minecraft.world.item.Rarity.RARE : net.minecraft.world.item.Rarity.COMMON), row.getKey() + " rarity");
+                apple.finishUsingItem(h.getLevel(), player);
+                check(h, player.getActiveEffects().size() == row.getValue().length, row.getKey() + " effect count " + player.getActiveEffects());
+                for (int[] e : row.getValue()) {
+                    var instance = player.getEffect(effects[e[0]]);
+                    check(h, instance != null && instance.getDuration() == e[1] && instance.getAmplifier() == e[2], row.getKey() + " effect " + e[0] + ": " + instance);
+                }
+            }
+            // The step: more hunger and a longer Regeneration II than the golden apple, less than the Netherite apple (8 hunger, Regeneration II 0:10 / 0:40 enchanted).
+            check(h, 4 < 5 && 5 < 6 && 6 < 8 && 100 < 140 && 140 < 180 && 180 < 200 && 400 < 500 && 500 < 640 && 640 < 800, "ladder gold < rose < blossom < netherite");
+            h.succeed();
+        });
+        ALL.put("apple_recipes", h -> {
+            for (String alloy : List.of("rose_bronze", "blossom_gold")) {
+                for (boolean enchanted : new boolean[] {false, true}) {
+                    ItemStack ring = stack(enchanted ? alloy + "_block" : alloy + "_ingot");
+                    List<ItemStack> slots = new ArrayList<>();
+                    for (int i = 0; i < 9; i++) slots.add(i == 4 ? new ItemStack(Items.APPLE) : ring.copy());
+                    ItemStack out = craft(h, CraftingInput.of(3, 3, slots));
+                    check(h, out.is(item((enchanted ? "enchanted_" : "") + alloy + "_apple")) && out.getCount() == 1, alloy + (enchanted ? " blocks" : " ingots") + " round an apple: " + out);
+                    slots.set(4, new ItemStack(Items.GOLDEN_APPLE));
+                    check(h, craft(h, CraftingInput.of(3, 3, slots)).isEmpty(), "no golden apple in the middle");
+                }
+                check(h, stack(alloy + "_apple").is(ItemTags.create(Identifier.parse("c:foods/golden"))), "tagged golden food");
             }
             h.succeed();
         });

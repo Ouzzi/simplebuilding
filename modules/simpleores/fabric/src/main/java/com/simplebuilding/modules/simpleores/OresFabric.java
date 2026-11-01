@@ -65,6 +65,7 @@ public final class OresFabric implements ModInitializer {
         tab(CreativeModeTabs.INGREDIENTS, Items.GOLD_INGOT, OresRegistry.INGREDIENTS);
         tab(CreativeModeTabs.TOOLS_AND_UTILITIES, Items.GOLDEN_HOE, OresRegistry.TOOLS);
         tab(CreativeModeTabs.COMBAT, Items.GOLDEN_BOOTS, OresRegistry.COMBAT);
+        tab(CreativeModeTabs.FOOD_AND_DRINKS, Items.ENCHANTED_GOLDEN_APPLE, OresRegistry.FOOD);
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (!SimpleOres.on()) return;
             var book = java.util.List.of(com.simpleores.guide.OresGuide.stack());

@@ -9,6 +9,7 @@ distribution stay, so the soft transitions of PRINZIPIEN A8b are kept):
   - lead (b-ores32, 31.10.): Vanilla iron sprites onto a dull blue-grey ramp (ores keep the stone, only the iron flecks turn lead); the block gets
     rivets (variant c) or stays plain; variants a/b/c are shown in the preview, LEAD_VARIANT is the one built
   - silver arrow: the Vanilla arrow with its head recoloured silver (item 16 x 16 and entity 32 x 32); silver mirror: silver block frame + glass pane
+  - rose gold apples (IG31-41): the Vanilla golden apple on the alloy ramp (variant a), or with a leaf (b); the enchanted apple shares the texture (glint)
   - hammers (simplehammers, optional): the committed gold sledgehammer recoloured like the tools (iron sledgehammer as mask)
 
 vanilla_derived.py lists the outputs (MODULE_OUTPUTS['simpleores'] / ['simplehammers']) and calls derived(jar) / derived_hammers(jar).
@@ -54,6 +55,8 @@ ALLOYS = {'rose_bronze': 'hard', 'blossom_gold': 'soft'}
 LEAD_VARIANT = 'a'      # ramp of lead_<v>; block rivets for 'c'
 ARROW_VARIANT = 'a'
 MIRROR_VARIANT = 'a'
+APPLE_VARIANT = {'rose_bronze': 'a', 'blossom_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
+LEAF = ('#a3c75a', '#6f9a3c', '#466f2a')
 
 
 def hexrgb(h: str) -> tuple[int, int, int]:
@@ -229,6 +232,15 @@ def mirror_image(j: 'Jar', v: str) -> Image.Image:
     return out
 
 
+def apple_image(j: 'Jar', ramp: str, v: str) -> Image.Image:
+    """The Vanilla golden apple on the alloy ramp (IG31-41); b adds a three pixel leaf right of the stem."""
+    out = recolor(j.img('item/golden_apple'), ramp)
+    if v == 'b':
+        for (x, y), colour in zip(((10, 2), (11, 2), (10, 3)), LEAF):
+            out.putpixel((x, y), hexrgb(colour) + (255,))
+    return out
+
+
 def hard_share(im: Image.Image) -> float:
     """Share of neighbouring opaque pixel pairs with a luminance jump of 40 or more (PRINZIPIEN A8b: about 7 %, over 12 % is too hard)."""
     px = im.load()
@@ -269,6 +281,8 @@ def derived(jar) -> dict:
         for layer in ('humanoid', 'humanoid_leggings'):
             src = j.first(f'entity/equipment/{layer}/gold', f'entity/equipment/{layer}/golden')
             out[f'entity/equipment/{layer}/{alloy}.png'] = recolor(src, ramp)
+    for alloy, ramp in ALLOYS.items():
+        out[f'item/{alloy}_apple.png'] = apple_image(j, ramp, APPLE_VARIANT[alloy])
     out.update(lead_images(j, LEAD_VARIANT))
     out.update(arrow_images(j, ARROW_VARIANT))
     out['block/silver_mirror.png'] = mirror_image(j, MIRROR_VARIANT)

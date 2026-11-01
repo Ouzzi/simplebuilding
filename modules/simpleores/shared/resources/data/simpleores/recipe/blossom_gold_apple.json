@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:blossom_gold_ingot",
+    "A": "minecraft:apple"
+  },
+  "pattern": [
+    "###",
+    "#A#",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:blossom_gold_apple"
+  }
+}

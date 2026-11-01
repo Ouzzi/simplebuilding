@@ -107,4 +107,14 @@ public final class ModuleGameTest {
     public void leadWorldgen(GameTestHelper h) {
         OresTests.ALL.get("lead_worldgen").accept(h);
     }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void applesEatEffects(GameTestHelper h) {
+        OresTests.ALL.get("apples_eat_effects").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void appleRecipes(GameTestHelper h) {
+        OresTests.ALL.get("apple_recipes").accept(h);
+    }
 }

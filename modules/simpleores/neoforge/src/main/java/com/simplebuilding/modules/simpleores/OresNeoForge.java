@@ -36,6 +36,7 @@ public final class OresNeoForge {
                 event.accept(com.simpleores.guide.OresGuide.stack(), vis);
             }
             if (tab.equals(CreativeModeTabs.COMBAT)) OresRegistry.stacks(OresRegistry.COMBAT).forEach(s -> event.accept(s, vis));
+            if (tab.equals(CreativeModeTabs.FOOD_AND_DRINKS)) OresRegistry.stacks(OresRegistry.FOOD).forEach(s -> event.accept(s, vis));
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simpleores.guide.OresGuide.installQuests(FMLPaths.CONFIGDIR.get());
     }

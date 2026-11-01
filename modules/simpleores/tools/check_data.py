@@ -20,7 +20,8 @@ BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_bl
           'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
 ALLOYS = ('rose_bronze', 'blossom_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
-ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget', 'silver_arrow') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR)
+ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget', 'silver_arrow') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR) \
+    + tuple(f'{e}{a}_apple' for a in ALLOYS for e in ('', 'enchanted_'))   # IG31-41: the enchanted apple shares the plain texture
 assert not any(i.startswith('silver_') and i.rsplit('_', 1)[-1] in GEAR for i in ITEMS), 'silver is no tool material (ABN30-10)'
 langs = {}
 for locale in ('en_us', 'de_de'):
@@ -40,12 +41,12 @@ for b in BLOCKS:
 for i in ITEMS:
     for rel in (f'assets/{NS}/models/item/{i}.json', f'assets/{NS}/items/{i}.json'):
         assert (RES / rel).is_file(), rel
-    assert f'item/{i}.png' in derived, i
+    assert f'item/{i.replace("enchanted_", "")}.png' in derived, i
 for a in ALLOYS:
     assert (RES / f'assets/{NS}/equipment/{a}.json').is_file()
     for layer in ('humanoid', 'humanoid_leggings'):
         assert f'entity/equipment/{layer}/{a}.png' in derived, (a, layer)
-assert len(derived) == len(BLOCKS) + len(ITEMS) + 4 + 1, len(derived)   # + the silver arrow entity texture
+assert len(derived) == len(BLOCKS) + len(ITEMS) - 2 + 4 + 1, len(derived)   # - the 2 enchanted apples (shared texture) + the silver arrow entity texture
 assert 'entity/projectiles/silver_arrow.png' in derived
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
