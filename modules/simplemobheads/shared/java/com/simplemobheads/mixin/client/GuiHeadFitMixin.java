@@ -1,6 +1,7 @@
 package com.simplemobheads.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simplemobheads.HeadSlotFit;
 import com.simplemobheads.client.GuiHeadFit;
 import com.simplemobheads.client.MobHeadModel;
 import java.util.Map;
@@ -21,9 +22,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * IG31-10: a Mobheads head in the inventory (GUI) is fitted into its slot like a Vanilla item: after the item's own transform a
- * uniform scale and a shift in screen space, computed from the model's bounding box ({@link GuiHeadFit}), so that no head is cut
+ * IG31-10: a Mobheads head in the inventory (GUI: creative tab, inventory, hotbar, head slot) is fitted into its slot like a
+ * Vanilla item: a uniform scale and a shift in slot units, computed from the model ({@link GuiHeadFit}), so that no head is cut
  * off or sits off-centre, whatever its size or pose. Hand, ground, frames and the rest keep their Vanilla transform.
+ * IG31-39: applied at HEAD, on the right of the incoming slot pose (slot centre, 16 px), i.e. before the item's own transform.
+ * Multiplied on the left (as before) it also scaled the slot's position in the GUI item atlas: heads landed in other slots or
+ * nowhere and most slots of the creative tab stayed empty.
  */
 @Mixin(ItemStackRenderState.LayerRenderState.class)
 public abstract class GuiHeadFitMixin {
@@ -41,7 +45,7 @@ public abstract class GuiHeadFitMixin {
     @org.spongepowered.asm.mixin.Unique
     private static final Map<SpecialModelRenderer<?>, float[]> FITS = new WeakHashMap<>();
 
-    @Inject(method = "applyTransform", at = @At("TAIL"))
+    @Inject(method = "applyTransform", at = @At("HEAD"))
     private void simplemobheads$fitInSlot(PoseStack.Pose pose, CallbackInfo ci) {
         if (!((Object) specialRenderer instanceof SkullSpecialRenderer skull)
                 || !(((SkullSpecialRendererAccessor) skull).simplemobheads$model() instanceof MobHeadModel)
@@ -49,6 +53,6 @@ public abstract class GuiHeadFitMixin {
             return;
         }
         float[] fit = FITS.computeIfAbsent(skull, k -> GuiHeadFit.compute(skull, itemTransform, (Matrix4fc) localTransform));
-        pose.pose().mulLocal(new Matrix4f().translation(fit[1], fit[2], 0.0F).scale(fit[0]));
+        pose.mulPose(HeadSlotFit.matrix(fit));
     }
 }

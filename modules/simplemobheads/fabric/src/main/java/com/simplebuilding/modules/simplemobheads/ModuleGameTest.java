@@ -255,4 +255,9 @@ public final class ModuleGameTest {
     public void wornHeadDeath(GameTestHelper helper) {
         MobHeadTests.ALL.get("worn_head_death").accept(helper);
     }
+
+    @GameTest(structure = "simplemobheads:empty", maxTicks = 400)
+    public void guiFitStaysInSlot(GameTestHelper helper) {
+        MobHeadTests.ALL.get("gui_fit_stays_in_slot").accept(helper);
+    }
 }

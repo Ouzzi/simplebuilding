@@ -2,6 +2,7 @@ package com.simplemobheads.test;
 
 import com.google.gson.Gson;
 import com.simplelib.api.IdMoves;
+import com.simplemobheads.HeadSlotFit;
 import com.simplemobheads.MobHeadType;
 import com.simplemobheads.MobHeads;
 import com.simplemobheads.SimpleMobHeads;
@@ -1570,5 +1571,46 @@ public final class MobHeadTests {
     // JEI24: recipe viewer data against its sources.
     static {
         put("jei_charged_creeper_heads", HeadJeiTests::chargedCreeperHeads);
+    }
+
+    // IG31-39: the slot fit lands in its own slot (the real pixels are checked by the client test HeadSlotFitClientTest).
+    static {
+        put("gui_fit_stays_in_slot", MobHeadTests::guiFitStaysInSlot);
+    }
+
+    /**
+     * IG31-39: GUI items are drawn into an atlas, the slot pose is translate(slot centre) * scale(16, -16, 16). The fit, multiplied
+     * on the right of that pose, puts small, big and off-centre heads centred and wholly into their own 16 x 16 slot; multiplied
+     * on the left (the old order) the same fit moves a head out of a slot far from the atlas origin.
+     */
+    private static void guiFitStaysInSlot(GameTestHelper h) {
+        float[][] boxes = {{-0.25F, -0.25F, 0.25F, 0.25F}, {-0.9F, -0.3F, 1.1F, 0.8F}, {0.1F, -0.6F, 0.35F, 0.05F}, {-0.5F, -0.5F, 0.5F, 0.5F}};
+        float[][] slots = {{8.0F, 8.0F}, {200.0F, 104.0F}, {1016.0F, 1000.0F}};
+        for (float[] b : boxes) {
+            float[] fit = HeadSlotFit.fit(b[0], b[1], b[2], b[3]);
+            float extent = Math.max(b[2] - b[0], b[3] - b[1]) * fit[0];
+            h.assertTrue(fit[0] > 0.0F && extent <= 1.0F, "fit " + java.util.Arrays.toString(b) + " -> " + java.util.Arrays.toString(fit));
+            for (float[] slot : slots) {
+                org.joml.Matrix4f pose = new org.joml.Matrix4f().translation(slot[0], slot[1], 0.0F).scale(16.0F, -16.0F, 16.0F);
+                org.joml.Matrix4f right = new org.joml.Matrix4f(pose).mul(HeadSlotFit.matrix(fit));
+                float minX = Float.MAX_VALUE, minY = Float.MAX_VALUE, maxX = -Float.MAX_VALUE, maxY = -Float.MAX_VALUE;
+                org.joml.Vector3f p = new org.joml.Vector3f();
+                for (int c = 0; c < 4; c++) {
+                    right.transformPosition((c & 1) == 0 ? b[0] : b[2], (c & 2) == 0 ? b[1] : b[3], 0.0F, p);
+                    minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x); minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+                }
+                String where = java.util.Arrays.toString(b) + " in slot " + java.util.Arrays.toString(slot);
+                h.assertTrue(minX >= slot[0] - 8.01F && maxX <= slot[0] + 8.01F && minY >= slot[1] - 8.01F && maxY <= slot[1] + 8.01F,
+                        "head leaves its slot: " + where + " x " + minX + ".." + maxX + " y " + minY + ".." + maxY);
+                h.assertTrue(Math.abs((minX + maxX) / 2.0F - slot[0]) < 0.01F && Math.abs((minY + maxY) / 2.0F - slot[1]) < 0.01F,
+                        "head off centre: " + where);
+                h.assertTrue(Math.max(maxX - minX, maxY - minY) >= 16.0F * Math.min(HeadSlotFit.TARGET, extent) - 0.01F, "head shrunk: " + where);
+            }
+            org.joml.Matrix4f far = new org.joml.Matrix4f().translation(1016.0F, 1000.0F, 0.0F).scale(16.0F, -16.0F, 16.0F);
+            org.joml.Vector3f centre = HeadSlotFit.matrix(fit).mul(far, new org.joml.Matrix4f())
+                    .transformPosition((b[0] + b[2]) / 2.0F, (b[1] + b[3]) / 2.0F, 0.0F, new org.joml.Vector3f());
+            h.assertTrue(fit[0] == 1.0F || Math.abs(centre.x - 1016.0F) > 8.0F, "the old left-hand order should leave the slot: " + centre);
+        }
+        h.succeed();
     }
 }
