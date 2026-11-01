@@ -1273,7 +1273,8 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     hidden = set()
     if option_sets is not None:
         for flag, paths in option_sets.get('MOVED', {}).items():
-            if flags.get(flag) is False:
+            # MATERIALS_IN_ORES is inverted: the options are hidden where it is true.
+            if flags.get(flag) is (flag == 'MATERIALS_IN_ORES'):
                 hidden |= paths
 
     def resolve(type_name: str, from_file: Path):
