@@ -9868,7 +9868,14 @@
         "en_us": "Snow Cap",
         "de_de": "Schneeauflage"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Snow Cap: while it snows, fences, walls, panes, stairs and bottom slabs get one thin layer of snow on top (never more than one). The block below stays unchanged. Break it by hand, a shovel drops a snowball; it melts in bright light and vanishes without support. Config snow.snowCaps (default on)."
+        },
+        "de": {
+          "summary": "Schneehaube: Bei Schneefall bekommen Zäune, Mauern, Scheiben, Treppen und untere Stufen eine dünne Schneeschicht oben drauf (nie mehr als eine). Der Block darunter bleibt unverändert. Von Hand abbaubar, mit der Schaufel gibt es einen Schneeball; schmilzt bei hellem Licht und verschwindet ohne Träger. Config snow.snowCaps (Standard an)."
+        }
+      },
       "craftedBy": [],
       "usedIn": []
     },
@@ -9953,9 +9960,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simpleblocks:snow_cap"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 12,
@@ -9970,7 +9975,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 1,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }
