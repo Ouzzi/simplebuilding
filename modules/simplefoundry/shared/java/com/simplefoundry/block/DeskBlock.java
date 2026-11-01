@@ -84,9 +84,9 @@ public class DeskBlock extends BaseEntityBlock {
             desk.revalidate();
             if (player.isShiftKeyDown()) {
                 // owner SA4: the arrow of the desk moves the selected layer one down
-                int level = desk.cycleLevel();
+                int layer = desk.cycleLevel();
                 Metal metal = desk.selectedMetal();
-                player.sendSystemMessage(Component.translatable("simplefoundry.desk.layer", level + 1, metal == null ? Component.translatable("simplefoundry.desk.layer_empty") : Component.translatable("simplefoundry.metal." + metal.id)));
+                player.sendSystemMessage(Component.translatable("simplefoundry.desk.layer", layer + 1, metal == null ? Component.translatable("simplefoundry.desk.layer_empty") : Component.translatable("simplefoundry.metal." + metal.id)));
                 return InteractionResult.SUCCESS;
             }
             player.sendSystemMessage(Component.translatable("simplefoundry.desk.status", status(desk)));
