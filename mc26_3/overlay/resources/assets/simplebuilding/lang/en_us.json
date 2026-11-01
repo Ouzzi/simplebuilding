@@ -2940,7 +2940,7 @@
   "jukebox_song.simplebuilding.voidline_track_3": "SimpleBuilding - Iron Sonata",
   "item.simplebuilding.music_disc_voidline_track_3": "Music Disc",
   "book.simplebuilding.machines.9.title": "Crucibles and Soul Lava",
-  "book.simplebuilding.machines.9.text": "Hammer + 4 heavy plates, then 2 iron poles on an iron block: an iron crucible. Upgrade it at twice a furnace's cost, up to Enderite.\nSoul lava gives extreme heat.",
+  "book.simplebuilding.machines.9.text": "Strike an empty cauldron 16 times with a sledgehammer, an iron ingot in the off hand each time: plates, handles, rim - an iron crucible. Upgrade it at twice a furnace's cost, up to Enderite.\nSoul lava gives extreme heat.",
   "book.simplebuilding.machines.10.title": "Buckets",
   "book.simplebuilding.machines.10.text": "Copper: water and lava. Oxidizes while carried; wax (honeycomb, off hand) stops it, axe scrapes. Breaks on lava.\nIron: soul lava, breaks.\nEnderite: all, never breaks, holds 2.",
   "advancements.simplebuilding.machines.hot_pot.title": "Hot Pot",
