@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 final class ForgeClientExample {
     static void init() {
         MobsConfig.loadClient(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
+        com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.registerVariants();
         EntityRenderersEvent.RegisterLayerDefinitions.BUS.addListener(event -> {
             event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
             event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);

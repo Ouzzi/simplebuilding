@@ -156,7 +156,7 @@
   "direction.simplestorage.south": "South",
   "direction.simplestorage.east": "East",
   "direction.simplestorage.west": "West",
-  "tooltip.simplestorage.controller.limit": "Connects up to %s chests, barrels or shulker boxes",
+  "tooltip.simplestorage.controller.limit": "Connects up to %s chests, barrels, shulkers",
   "tooltip.simplestorage.controller.rank": "Only containers of its step or lower",
   "tooltip.simplestorage.controller.total": "Total: %s",
   "tooltip.simplestorage.controller.sort": "Sort: amount or name",

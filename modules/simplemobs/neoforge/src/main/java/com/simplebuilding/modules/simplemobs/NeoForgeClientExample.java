@@ -12,6 +12,9 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 final class NeoForgeClientExample {
     static void init(IEventBus bus) {
         MobsConfig.loadClient(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
+        com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.registerVariants();
+        bus.addListener((net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent event) -> event.register(
+                com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.ID, com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.CODEC));
         bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> {
             event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
             event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);

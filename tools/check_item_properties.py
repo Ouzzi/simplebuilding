@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_missing_textures import ROOT, layer_roots  # noqa: E402
 
 LOADERS = {'Fabric': 'src/main/java', 'NeoForge': 'neoforge/src', 'Forge': 'forge/src'}
+MODULE_LOADERS = {'Fabric': 'fabric', 'NeoForge': 'neoforge', 'Forge': 'forge'}
 # Item-model properties of the loader itself, registered by Forge/NeoForge/Fabric API under their own namespace.
 FOREIGN_NS = {'minecraft', 'c', 'neoforge', 'forge', 'fabric'}
 
@@ -66,8 +67,14 @@ def main() -> int:
         # The declaring class: names the id literal next to a Identifier/ResourceLocation factory, or is the property record.
         literal = re.compile(rf'"{re.escape(path)}"')
         decl = [p for p, t in common.items() if '/client/property/' in p.as_posix() and literal.search(t)]
+        scope = loaders
+        if (ROOT / 'modules' / ns).is_dir():
+            # A module's own property: declared in its shared client code, registered by its own loader entry points.
+            mod = ROOT / 'modules' / ns
+            decl = [p for p, t in java_files(f'modules/{ns}/shared').items() if '/client/' in p.as_posix() and literal.search(t)]
+            scope = {name: java_files(f'modules/{ns}/{sub}') for name, sub in MODULE_LOADERS.items() if (mod / sub).is_dir()}
         names = [p.stem for p in decl]
-        for loader, files in loaders.items():
+        for loader, files in scope.items():
             ok = any(literal.search(t) or any(n in t for n in names) for t in files.values()
                      if 'ID_MAPPER' in t or 'register' in t.lower())
             if not ok:

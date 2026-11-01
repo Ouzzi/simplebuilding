@@ -6,6 +6,9 @@
   "mixins": [
     "RegistryLoadTaskMixin"
   ],
+  "client": [
+    "WingsLookPropertyMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

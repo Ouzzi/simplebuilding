@@ -379,7 +379,7 @@ public final class OresTests {
                     slots.set(4, new ItemStack(Items.GOLDEN_APPLE));
                     check(h, craft(h, CraftingInput.of(3, 3, slots)).isEmpty(), "no golden apple in the middle");
                 }
-                check(h, stack(alloy + "_apple").is(ItemTags.create(Identifier.parse("c:foods/golden"))), "tagged golden food");
+                check(h, stack(alloy + "_apple").is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, Identifier.parse("c:foods/golden"))), "tagged golden food");
             }
             h.succeed();
         });

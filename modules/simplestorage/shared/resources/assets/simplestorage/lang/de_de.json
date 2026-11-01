@@ -156,7 +156,7 @@
   "direction.simplestorage.south": "Süden",
   "direction.simplestorage.east": "Osten",
   "direction.simplestorage.west": "Westen",
-  "tooltip.simplestorage.controller.limit": "Verbindet bis zu %s Truhen, Fässer oder Shulkerkisten",
+  "tooltip.simplestorage.controller.limit": "Verbindet bis zu %s Truhen, Fässer, Shulker",
   "tooltip.simplestorage.controller.rank": "Nur Behälter seiner Stufe oder niedriger",
   "tooltip.simplestorage.controller.total": "Gesamt: %s",
   "tooltip.simplestorage.controller.sort": "Sortieren: Menge oder Name",
