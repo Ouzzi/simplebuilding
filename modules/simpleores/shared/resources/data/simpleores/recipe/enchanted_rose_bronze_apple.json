@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "simpleores:rose_bronze_block",
+    "A": "minecraft:apple"
+  },
+  "pattern": [
+    "###",
+    "#A#",
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:enchanted_rose_bronze_apple"
+  }
+}

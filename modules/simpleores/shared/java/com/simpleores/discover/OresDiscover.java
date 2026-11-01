@@ -51,6 +51,7 @@ public final class OresDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
+            "simpleores:blossom_gold_apple",
             "simpleores:blossom_gold_axe",
             "simpleores:blossom_gold_block",
             "simpleores:blossom_gold_boots",
@@ -68,6 +69,8 @@ public final class OresDiscover {
             "simpleores:deepslate_sage_ore",
             "simpleores:deepslate_silver_ore",
             "simpleores:dimensional_scrap",
+            "simpleores:enchanted_blossom_gold_apple",
+            "simpleores:enchanted_rose_bronze_apple",
             "simpleores:end_dimensional_scrap",
             "simpleores:end_silver_ore",
             "simpleores:enderite",
@@ -89,6 +92,7 @@ public final class OresDiscover {
             "simpleores:raw_lead_block",
             "simpleores:raw_silver",
             "simpleores:raw_silver_block",
+            "simpleores:rose_bronze_apple",
             "simpleores:rose_bronze_axe",
             "simpleores:rose_bronze_block",
             "simpleores:rose_bronze_boots",
@@ -102,6 +106,7 @@ public final class OresDiscover {
             "simpleores:rose_bronze_shovel",
             "simpleores:rose_bronze_sword",
             "simpleores:rose_gold",
+            "simpleores:rose_gold_apples",
             "simpleores:rose_gold_gear",
             "simpleores:sage_and_scrap",
             "simpleores:sage_orb",

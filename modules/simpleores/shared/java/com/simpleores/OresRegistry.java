@@ -10,6 +10,7 @@ import com.simpleores.block.SilverMirrorBlock;
 import com.simpleores.entity.SilverArrow;
 import com.simpleores.item.SilverArrowItem;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
@@ -145,6 +147,13 @@ public final class OresRegistry {
             item(alloy.id + "_leggings", p -> p.humanoidArmor(alloy.armor, ArmorType.LEGGINGS));
             item(alloy.id + "_boots", p -> p.humanoidArmor(alloy.armor, ArmorType.BOOTS));
         }
+        // IG31-41: the rose gold apples between the golden and the Netherite apple (numbers: OresFood).
+        item("rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ROSE_BRONZE_APPLE));
+        item("enchanted_rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ENCHANTED_ROSE_BRONZE_APPLE)
+                .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
+        item("blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.BLOSSOM_GOLD_APPLE));
+        item("enchanted_blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.ENCHANTED_BLOSSOM_GOLD_APPLE)
+                .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     }
 
     private static Block block(String path, Block base, Function<BlockBehaviour.Properties, Block> factory) {
@@ -240,6 +249,9 @@ public final class OresRegistry {
             "blossom_gold_shovel", "blossom_gold_pickaxe", "blossom_gold_axe", "blossom_gold_hoe"};
     public static final String[] COMBAT = {"rose_bronze_sword", "rose_bronze_helmet", "rose_bronze_chestplate", "rose_bronze_leggings",
             "rose_bronze_boots", "blossom_gold_sword", "blossom_gold_helmet", "blossom_gold_chestplate", "blossom_gold_leggings", "blossom_gold_boots", "silver_arrow"};
+
+    /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
+    public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "blossom_gold_apple", "enchanted_blossom_gold_apple"};
 
     private OresRegistry() {}
 }

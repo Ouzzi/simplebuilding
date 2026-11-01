@@ -46,6 +46,10 @@ for a, (en, de) in ALLOYS.items():
 for a, (en, de) in ALLOYS.items():
     for part, (pen, pde) in PARTS.items():
         ITEMS[f'{a}_{part}'] = (f'{en} {pen}', f'{de}{pde}')
+# IG31-41: the rose gold apples (plain: 8 ingots round an apple, enchanted: 8 blocks round an apple); the enchanted one shares the plain texture.
+for a, (en, de) in ALLOYS.items():
+    ITEMS[f'{a}_apple'] = (f'{en} Apple', f'{de}-Apfel')
+    ITEMS[f'enchanted_{a}_apple'] = (f'Enchanted {en} Apple', f'Verzauberter {de}-Apfel')
 TOOL_PARTS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
 ARMOR_PARTS = ('helmet', 'chestplate', 'leggings', 'boots')
 
@@ -94,7 +98,7 @@ put(ASSETS / 'items/silver_mirror.json', {'model': {'type': 'minecraft:model', '
 for path in ITEMS:
     handheld = path.rsplit('_', 1)[-1] in TOOL_PARTS
     put(ASSETS / f'models/item/{path}.json', {'parent': 'minecraft:item/handheld' if handheld else 'minecraft:item/generated',
-                                              'textures': {'layer0': f'{NS}:item/{path}'}})
+                                              'textures': {'layer0': f'{NS}:item/{path.replace("enchanted_", "")}'}})
     put(ASSETS / f'items/{path}.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/{path}'}})
 for a in ALLOYS:
     put(ASSETS / f'equipment/{a}.json', {'layers': {'humanoid': [{'texture': f'{NS}:{a}'}], 'humanoid_leggings': [{'texture': f'{NS}:{a}'}]}})
@@ -200,6 +204,13 @@ for a in ALLOYS:
     recipe(f'{a}_ingot_from_blasting_{a}_pressling', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': BLAST_FURNACE_TICKS * 2,
            'experience': 0.5, 'ingredient': item(f'{a}_pressling'), 'result': result(f'{a}_ingot')}, item(f'{a}_pressling'))
 
+# IG31-41: like the Vanilla golden apple (8 ingots round an apple); the enchanted one takes 8 blocks, the old Vanilla form.
+for a in ALLOYS:
+    recipe(f'{a}_apple', 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_ingot'), 'A': 'minecraft:apple'},
+                                  'pattern': ['###', '#A#', '###'], 'result': result(f'{a}_apple')}, item(f'{a}_ingot'))
+    recipe(f'enchanted_{a}_apple', 'food', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item(f'{a}_block'), 'A': 'minecraft:apple'},
+                                            'pattern': ['###', '#A#', '###'], 'result': result(f'enchanted_{a}_apple')}, item(f'{a}_block'))
+
 SHAPES = {
     'sword': (['X', 'X', 'S'], 'combat'), 'pickaxe': (['XXX', ' S ', ' S '], 'tools'), 'axe': (['XX', 'XS', ' S'], 'tools'),
     'shovel': (['X', 'S', 'S'], 'tools'), 'hoe': (['XX', ' S', ' S'], 'tools'), 'helmet': (['XXX', 'X X'], 'combat'),
@@ -251,6 +262,7 @@ tag('c/tags/item/raw_materials/silver.json', ids(['raw_silver']))
 for a in ALLOYS:
     tag(f'c/tags/item/ingots/{a}.json', ids([f'{a}_ingot']))
     tag(f'{NS}/tags/item/repairs_{a}_equipment.json', ids([f'{a}_ingot']))
+tag('c/tags/item/foods/golden.json', ids([p for a in ALLOYS for p in (f'{a}_apple', f'enchanted_{a}_apple')]))
 tag('c/tags/item/ingots/rosegold.json', ids([f'{a}_ingot' for a in ALLOYS]))
 every = list(BLOCKS)
 tag('minecraft/tags/block/mineable/pickaxe.json', ids(every + list(MOVED_BLOCKS)))
@@ -467,6 +479,17 @@ def note_summaries():
                                              f'{de}{pde}: Schutz {prot}, Haltbarkeitsfaktor {15 if not soft else 13}, Verzauberbarkeit {22 if not soft else 25}.')
             else:
                 notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: {stats_en}. Mines like iron.', f'{de}{pde}: {stats_de}. Baut ab wie Eisen.')
+    for a, (en, de) in ALLOYS.items():
+        soft = a == 'blossom_gold'
+        eff_en, eff_de = (('Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30', 'Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30') if soft
+                          else ('Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30', 'Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30'))
+        enc_en, enc_de = (('Regeneration II 0:32, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00, Strength I 1:00', 'Regeneration II 0:32, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00, Stärke I 1:00') if soft
+                          else ('Regeneration II 0:25, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00', 'Regeneration II 0:25, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00'))
+        hunger = 6 if soft else 5
+        notes[f'item:{a}_apple'] = (f'{en} apple, a step between the golden and the Netherite apple: {hunger} hunger, always edible. Gives {eff_en}. 8 {en.lower()} ingots round an apple.',
+                                    f'{de}-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: {hunger} Hunger, immer essbar. Gibt {eff_de}. 8 {de}barren um einen Apfel.')
+        notes[f'item:enchanted_{a}_apple'] = (f'Enchanted {en} apple (glint): {hunger} hunger, always edible. Gives {enc_en}. 8 blocks of {en.lower()} round an apple.',
+                                              f'Verzauberter {de}-Apfel (Schimmer): {hunger} Hunger, immer essbar. Gibt {enc_de}. 8 {de}blöcke um einen Apfel.')
     return notes
 
 
@@ -518,6 +541,15 @@ FEATURES = [
              ['Rosenbronze (hart): Haltbarkeit 250 wie Eisen, Tempo 11, Verzauberbarkeit 20; Rüstung 2/4/3/1, Haltbarkeitsfaktor 15, Verzauberbarkeit 22.',
               'Blütengold (weich): Haltbarkeit 225, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 13, Verzauberbarkeit 25.',
               'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).'])),
+    feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_blossom_gold_apple.json'],
+            ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
+             ['Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30. Blossom Gold apple: 6 hunger, Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30.',
+              'Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:25, Resistance I and Fire Resistance 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:32, the same and Strength I 1:00.',
+              'For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Fire Resistance 4:00, Resistance I 1:00. They appear in the Food and Drinks tab behind the enchanted golden apple.']),
+            ('Roségold-Äpfel', 'Je Legierung ein normaler und ein verzauberter Apfel, zwischen Goldapfel und Netherit-Apfel. Immer essbar, ohne Abklingzeit.',
+             ['Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30.',
+              'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:25, Resistenz I und Feuerresistenz 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:32, dasselbe und Stärke I 1:00.',
+              'Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Feuerresistenz 4:00, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel.'])),
     feature('lead', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/lead_ore.json', f'{DATAP}/tags/block/soundproofing.json'],
             ('Lead', 'A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',
              ['Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).',
