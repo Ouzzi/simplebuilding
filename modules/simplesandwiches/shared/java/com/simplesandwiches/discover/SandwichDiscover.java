@@ -63,15 +63,14 @@ public final class SandwichDiscover {
             "simplesandwiches:commands",
             "simplesandwiches:cutting_board",
             "simplesandwiches:eating_from_bundles",
-            "simplesandwiches:first_pickup_tips",
             "simplesandwiches:guide_book",
             "simplesandwiches:knife",
             "simplesandwiches:milk_cauldron",
+            "simplesandwiches:recipe_book_unlocks",
             "simplesandwiches:sandwich",
             "simplesandwiches:sandwiches",
             "simplesandwiches:slice_stack");
-    static final List<Tip> TIPS = List.of(
-            new Tip("cutting_board", List.of("*_cutting_board")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

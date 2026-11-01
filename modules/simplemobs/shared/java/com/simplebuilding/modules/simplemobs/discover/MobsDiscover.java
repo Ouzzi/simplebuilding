@@ -79,7 +79,6 @@ public final class MobsDiscover {
             "simplemobs:evil_trial_key_4",
             "simplemobs:evil_trial_key_5",
             "simplemobs:evil_vault",
-            "simplemobs:first_pickup_tips",
             "simplemobs:forbidden_fire",
             "simplemobs:guide_book",
             "simplemobs:high_gravity",
@@ -93,6 +92,7 @@ public final class MobsDiscover {
             "simplemobs:nether_heart",
             "simplemobs:nether_wings",
             "simplemobs:potion_of_silence",
+            "simplemobs:recipe_book_unlocks",
             "simplemobs:shellker",
             "simplemobs:shellker_helmet",
             "simplemobs:shellker_shell",
@@ -128,10 +128,7 @@ public final class MobsDiscover {
             "simplemobs:weathered_vault",
             "simplemobs:wither_wings",
             "simplemobs:zone_effects");
-    static final List<Tip> TIPS = List.of(
-            new Tip("trick_mirror", List.of("trick_mirror")),
-            new Tip("deceiver_cloak", List.of("deceiver_cloak")),
-            new Tip("shellker_shell", List.of("shellker_shell")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

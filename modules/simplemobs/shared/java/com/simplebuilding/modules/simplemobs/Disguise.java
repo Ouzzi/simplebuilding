@@ -147,7 +147,6 @@ public final class Disguise {
         p.getItemBySlot(CLOAK_SLOT).hurtAndBreak(CloakLogic.MORPH_COST, p, CLOAK_SLOT);
         level.sendParticles(ParticleTypes.WITCH, p.getX(), p.getY() + p.getBbHeight() / 2, p.getZ(), 24, 0.4, 0.6, 0.4, 0.05);
         level.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 1.0f, 1.4f);
-        tell(p, Component.translatable("message.simplemobs.disguise.morph", target.getDisplayName()));
         return true;
     }
 
@@ -174,7 +173,9 @@ public final class Disguise {
         spotted.put(victim.getUUID(), now + CloakLogic.SPOTTED_TICKS);
         if (holder(p).simplemobs$revealedUntil() < now) {
             p.getItemBySlot(CLOAK_SLOT).hurtAndBreak(CloakLogic.REVEAL_COST, p, CLOAK_SLOT);
-            tell(p, Component.translatable("message.simplemobs.disguise.revealed"));
+            // GADGET (owner 01.11.): the cloak breaking is a sound and a puff, not an action bar text
+            level.sendParticles(ParticleTypes.CRIT, p.getX(), p.getY() + p.getBbHeight() / 2, p.getZ(), 10, 0.3, 0.5, 0.3, 0.1);
+            level.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.AMETHYST_BLOCK_BREAK, SoundSource.PLAYERS, 1.0f, 0.7f);
         }
         holder(p).simplemobs$setRevealedUntil(now + CloakLogic.REVEAL_TICKS);
     }

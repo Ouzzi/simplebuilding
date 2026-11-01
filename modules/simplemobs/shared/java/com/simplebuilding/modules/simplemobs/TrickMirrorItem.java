@@ -44,7 +44,14 @@ public class TrickMirrorItem extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
         if (level instanceof ServerLevel server && user instanceof Player player) {
             int found = reveal(server, player);
-            player.sendOverlayMessage(Component.translatable("message.simplemobs.mirror.found", found));
+            // GADGET (owner 01.11.): sound and particles instead of an action bar text; nothing found = a dull puff in front of the viewer
+            if (found == 0) {
+                var front = player.getEyePosition().add(player.getViewVector(1.0f).scale(1.5));
+                server.sendParticles(ParticleTypes.SMOKE, front.x, front.y, front.z, 8, 0.2, 0.2, 0.2, 0.01);
+                server.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.PLAYERS, 0.8f, 0.6f);
+            } else {
+                server.sendParticles(ParticleTypes.ENCHANT, player.getX(), player.getEyeY(), player.getZ(), 16, 0.4, 0.3, 0.4, 0.5);
+            }
             player.getCooldowns().addCooldown(stack, COOLDOWN_TICKS);
             stack.hurtAndBreak(1, player, player.getUsedItemHand());
             server.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ILLUSIONER_CAST_SPELL, SoundSource.PLAYERS, 0.8f, 1.6f);

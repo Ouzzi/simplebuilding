@@ -124,8 +124,7 @@ public final class BlocksDiscover {
             "simpleblocks:snowlogging",
             "simpleblocks:suspended_gravel",
             "simpleblocks:suspended_sand");
-    static final List<Tip> TIPS = List.of(
-            new Tip("shapecutter", List.of("shapecutter")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

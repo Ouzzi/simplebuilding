@@ -7,12 +7,9 @@ import com.simplemobheads.command.MobHeadsCommands;
 import com.simplemobheads.drop.HeadDrops;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 
 /** Fabric entry: registries are open during init, so everything registers here in order. */
 public final class MobHeadsFabric implements ModInitializer {
@@ -35,15 +32,5 @@ public final class MobHeadsFabric implements ModInitializer {
         com.simplelib.api.PlayerState.onStop("simplemobheads:haunt", com.simplemobheads.ritual.HerobrineHaunt::stopAll);
         com.simplelib.api.PlayerState.onStop("simplemobheads:abilities", com.simplemobheads.ability.HeadAbilities::forgetAll);
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> MobHeadsCommands.register(dispatcher));
-        // Behind the dragon head (the last Vanilla head) in Functional Blocks, so the search tab lists them beside the Vanilla heads.
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
-            if (!SimpleMobHeads.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(
-                    FabricLoader.getInstance().getConfigDir(), SimpleMobHeads.MOD_ID)) {
-                return;
-            }
-            if (entries.getDisplayStacks().stream().anyMatch(s -> s.is(MobHeads.HEAD_ANCHOR))) {
-                entries.insertAfter(MobHeads.HEAD_ANCHOR, MobHeads.baseStacks(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            }
-        });
     }
 }

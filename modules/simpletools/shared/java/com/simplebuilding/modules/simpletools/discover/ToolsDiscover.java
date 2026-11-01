@@ -84,9 +84,7 @@ public final class ToolsDiscover {
             "simpletools:soulbound",
             "simpletools:submod",
             "simpletools:thrift");
-    static final List<Tip> TIPS = List.of(
-            new Tip("frame_shears", List.of("minecraft:shears")),
-            new Tip("frame_honeycomb", List.of("minecraft:honeycomb", "minecraft:glass_pane")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

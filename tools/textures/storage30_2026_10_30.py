@@ -241,16 +241,17 @@ def face(uv, tex='#pipe', **extra):
 
 
 def PIPE_OUT_ELEMENTS(z0: int) -> list:
-    """The output arm toward north at z0..z0+5: body 6x6 over z0+2..z0+5, neck 3x3 over z0..z0+2 (one narrowing, 6 -> 3)."""
+    """The output arm toward north at z0..z0+5: body 6x6 over z0+1..z0+5, neck 3x3 over z0..z0+1 (ST31-pipe, owner 01.11.: the
+    narrowing only very narrow, one pixel along the arrow direction)."""
     return [
-        {'from': [5, 5, z0 + 2], 'to': [11, 11, z0 + 5], 'faces': {
+        {'from': [5, 5, z0 + 1], 'to': [11, 11, z0 + 5], 'faces': {
             'north': face((6, 0, 12, 6)),
-            'up': face((0, 6, 6, 9)), 'down': face((0, 9, 6, 6)),
-            'east': face((6, 6, 9, 12)), 'west': face((9, 6, 6, 12))}},
-        {'from': [6.5, 6.5, z0], 'to': [9.5, 9.5, z0 + 2], 'faces': {
+            'up': face((0, 6, 6, 10)), 'down': face((0, 10, 6, 6)),
+            'east': face((6, 6, 10, 12)), 'west': face((10, 6, 6, 12))}},
+        {'from': [6.5, 6.5, z0], 'to': [9.5, 9.5, z0 + 1], 'faces': {
             'north': face((7, 1, 10, 4)),
-            'up': face((0, 6, 3, 8)), 'down': face((0, 8, 3, 6)),
-            'east': face((6, 6, 8, 9)), 'west': face((8, 6, 6, 9))}}]
+            'up': face((0, 6, 3, 7)), 'down': face((0, 7, 3, 6)),
+            'east': face((6, 6, 7, 9)), 'west': face((7, 6, 6, 9))}}]
 
 
 def pipe_templates() -> None:

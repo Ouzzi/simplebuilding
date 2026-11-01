@@ -78,8 +78,7 @@ public final class HammersDiscover {
             "simplehammers:stone_crush",
             "simplehammers:stone_sledgehammer",
             "simplehammers:strike_tempo");
-    static final List<Tip> TIPS = List.of(
-            new Tip("sledgehammer", List.of("*_sledgehammer")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

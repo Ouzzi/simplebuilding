@@ -100,8 +100,7 @@
     "ItemCraftRemainderAccessor",
     "AstralStorageMixin",
     "AstralBlockEntityTypeMixin",
-    "EnderChestOpenerMixin",
-    "DiscoverTipMixin"
+    "EnderChestOpenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -8,7 +8,6 @@
     "ChestUpgradeClickMixin",
     "FireBlockInvoker",
     "ShulkerBoxUpgradeClickMixin",
-    "DiscoverTipMixin",
     "AbstractArrowPickupMixin",
     "BowItemMixin",
     "BundleDepositMixin",

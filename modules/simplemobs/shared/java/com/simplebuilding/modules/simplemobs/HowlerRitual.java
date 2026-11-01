@@ -69,7 +69,9 @@ public final class HowlerRitual {
         ritual.setup(m.center(), sensor, ticks, forcedLight);
         level.addFreshEntity(ritual);
         level.playSound(null, m.center(), SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.HOSTILE, 2.0f, 0.6f);
-        tell(level, m.center(), "awakens");
+        // GADGET (owner 01.11.): the awakening is sound (above) and particles, no action bar text
+        var c = Vec3.atCenterOf(m.center());
+        level.sendParticles(ParticleTypes.SCULK_SOUL, c.x, c.y + 0.5, c.z, 24, 0.6, 1.2, 0.6, 0.03);
         return Result.STARTED;
     }
 

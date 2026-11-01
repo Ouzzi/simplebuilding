@@ -88,6 +88,9 @@ final class CombatEffectTests {
             bearer5.addEffect(new MobEffectInstance(CombatEffects.mirror(), 600, 4));
             rolled(0.0, () -> hit(h, bearer5, attacker5, 10f));
             close(h, attacker5.getHealth(), 90.0, "attacker takes 100 % at level V");
+            // MOB-MIRROR: the chance rises with the level (I 20 %, V 50 %)
+            h.assertTrue(Math.abs(CombatEffects.reflectChance(0) - 0.2f) < 1e-4 && Math.abs(CombatEffects.reflectChance(4) - 0.5f) < 1e-4
+                    && CombatEffects.reflectChance(2) > CombatEffects.reflectChance(1), "reflect chance rises with the level");
             h.succeed();
         });
         add.accept("mirror_bearer", h -> {

@@ -6,7 +6,6 @@
   "mixins": [
     "JukeboxBlockMixin",
     "JukeboxBlockEntityMixin",
-    "DiscoverTipMixin",
     "CartographyTableMenuMixin"
   ],
   "client": [
