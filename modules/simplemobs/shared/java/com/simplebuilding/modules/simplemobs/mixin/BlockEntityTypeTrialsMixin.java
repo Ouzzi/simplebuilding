@@ -20,7 +20,8 @@ public abstract class BlockEntityTypeTrialsMixin {
     @Inject(method = "isValid", at = @At("HEAD"), cancellable = true)
     private void simplemobs$trialBlocks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (((Object) this == BlockEntityTypes.TRIAL_SPAWNER && state.getBlock() instanceof WeatheredTrialSpawnerBlock)
-                || ((Object) this == BlockEntityTypes.VAULT && state.getBlock() instanceof TrialVaultBlock)) {
+                || ((Object) this == BlockEntityTypes.VAULT && state.getBlock() instanceof TrialVaultBlock)
+                || ((Object) this == BlockEntityTypes.MOB_SPAWNER && state.getBlock() instanceof com.simplebuilding.modules.simplemobs.MakeshiftSpawnerBlock)) {
             cir.setReturnValue(true);
         }
     }

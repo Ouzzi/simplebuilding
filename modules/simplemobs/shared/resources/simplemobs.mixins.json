@@ -25,6 +25,7 @@
     "FireworkRocketWingsMixin",
     "PrimedTntStrongMixin",
     "BlockEntityTypeTrialsMixin",
+    "SpawnerFragmentMixin",
     "BrewingStandSoulMixin",
     "TrialSpawnerDetectMixin",
     "TrialSpawnerEvilMixin",

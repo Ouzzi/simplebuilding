@@ -85,6 +85,7 @@ public final class MobsDiscover {
             "simplemobs:high_gravity",
             "simplemobs:hollow_howler",
             "simplemobs:hollow_howler_spawn_egg",
+            "simplemobs:makeshift_spawner",
             "simplemobs:hollow_watcher",
             "simplemobs:hollow_watcher_spawn_egg",
             "simplemobs:illusion_shard",

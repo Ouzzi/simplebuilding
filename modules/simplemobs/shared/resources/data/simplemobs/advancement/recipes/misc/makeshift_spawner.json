@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spawner_chunk": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplemobs:spawner_chunk"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplemobs:makeshift_spawner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spawner_chunk"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplemobs:makeshift_spawner"
+    ]
+  }
+}

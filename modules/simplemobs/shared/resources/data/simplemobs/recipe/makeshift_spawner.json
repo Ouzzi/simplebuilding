@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk",
+    "simplemobs:spawner_chunk"
+  ],
+  "result": {
+    "id": "simplemobs:makeshift_spawner",
+    "count": 1
+  }
+}

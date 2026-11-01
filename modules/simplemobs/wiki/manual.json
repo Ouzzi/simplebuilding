@@ -1262,6 +1262,14 @@
       "de": {
         "summary": "Leere-Prüfungsschlüssel V: Belohnung einer Leere-Prüfung der Stufe V. Öffnet einen Leere-Tresor."
       }
+    },
+    "simplemobs:makeshift_spawner": {
+      "en": {
+        "summary": "Craft: 9 Spawner Fragments make 1 Spawner Chunk, 9 Chunks make 1 Makeshift Spawner. A Vanilla spawner mined with a pickaxe (not Silk Touch) leaves a Fragment with 30 % chance (spawnerFragmentChance in simplemobs-server.json, 0 = off). The Makeshift Spawner is empty until you use a spawn egg on it and works 3 times slower than a Vanilla spawner (makeshiftSpawnerSlowdown, 1 to 10)."
+      },
+      "de": {
+        "summary": "Herstellung: 9 Spawner-Fragmente ergeben 1 Spawner-Brocken, 9 Brocken 1 Behelfsmäßigen Spawner. Ein Vanilla-Spawner, mit der Spitzhacke abgebaut (nicht mit Behutsamkeit), hinterlässt mit 30 % Chance ein Fragment (spawnerFragmentChance in simplemobs-server.json, 0 = aus). Der Behelfsmäßige Spawner ist leer, bis man ein Spawn-Ei darauf benutzt, und arbeitet 3-mal langsamer als ein Vanilla-Spawner (makeshiftSpawnerSlowdown, 1 bis 10)."
+      }
     }
   }
 }

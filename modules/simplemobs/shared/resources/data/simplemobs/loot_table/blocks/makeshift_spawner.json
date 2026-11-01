@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplemobs:makeshift_spawner"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplemobs:blocks/makeshift_spawner"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment",
+    "simplemobs:spawner_fragment"
+  ],
+  "result": {
+    "id": "simplemobs:spawner_chunk",
+    "count": 1
+  }
+}
