@@ -311,10 +311,10 @@ public final class OresTests {
                 check(h, player.level() == level && between >= 3, "same level " + (player.level() == level) + ", lead between sound " + source + " and eye " + eye + ": " + between);
                 ClientboundSoundPacket loud = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, source.x, source.y, source.z, 4.0F, 1.0F, 1L);
                 Packet<?>[] out = Soundproofing.filter(player, loud);
-                // The packet stores the position in 1/8 cells (truncated), and the filter walks from that rounded point: count from it, not from the exact one.
+                // The packet position is a float, far from the origin (x/z in the millions) it is rounded to whole cells, and the filter walks from that rounded point: count from it, not from the exact one.
                 Vec3 wire = new Vec3(loud.getX(), loud.getY(), loud.getZ());
                 int wireBetween = Soundproofing.blocksBetween(player.level(), wire, eye);
-                check(h, wireBetween >= 3 && Math.abs(wire.y - source.y) < 0.13 && Math.abs(wire.z - source.z) < 0.13, "packet position " + wire + " vs " + source + ": " + wireBetween + " blocks");
+                check(h, wireBetween >= 3, "packet position " + wire + " vs " + source + ": " + wireBetween + " blocks");
                 float want = 4.0F * Soundproofing.attenuation(wireBetween, OresConfig.soundproofFactor);
                 check(h, out != null && out.length == 1 && out[0] instanceof ClientboundSoundPacket p && p.getVolume() == want,
                         "TNT volume 4 -> " + want + " behind " + wireBetween + " lead blocks, got " + (out == null ? "null" : out.length + " packets " + (out.length > 0 && out[0] instanceof ClientboundSoundPacket q ? q.getVolume() : -1)));
