@@ -28,7 +28,8 @@ import net.minecraft.world.level.block.AbstractSkullBlock;
 /**
  * IG31-39: every head of the "Simple Mob Heads" creative tab, drawn as a GUI item, sits in its own 16 x 16 slot. The heads are
  * drawn by a plain screen on a magenta ground in a grid with 8 px gaps (plus three Vanilla heads as the reference that the check
- * itself works) and the screenshot is read back: per slot enough head pixels inside, at least half the slot wide or high,
+ * itself works) and the screenshot is read back: per slot enough head pixels inside, at least 40 % of the slot wide or high (the
+ * large tropical fish is 0.74 by its geometry, but its thin fins are mostly cut-out texture, so its pixels span ~41 %),
  * centred within 3 px, and nothing in the 4 px ring around the slot. Also photographs the creative tab, the hotbar and the head
  * slot for the eye. Client mixins (GuiHeadFitMixin) do not run in server game tests - only this shows the bug.
  */
@@ -160,7 +161,7 @@ public final class HeadSlotFitClientTest implements FabricClientGameTest {
         if (inside < size * size / 12) {
             return "slot nearly empty (" + inside + " px)";
         }
-        if (Math.max(maxX - minX + 1, maxY - minY + 1) < size / 2) {
+        if (Math.max(maxX - minX + 1, maxY - minY + 1) < size * 0.4) {
             return "head too small (" + (maxX - minX + 1) + "x" + (maxY - minY + 1) + " px of " + size + ")";
         }
         double offX = (minX + maxX + 1) / 2.0 - (x0 + size / 2.0), offY = (minY + maxY + 1) / 2.0 - (y0 + size / 2.0);
