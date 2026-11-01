@@ -70,7 +70,7 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [x] WE25-10 Code-Review: alle offenen REV24/REV2-Funde mit Stand auflisten (Status 01.11.: prod – Queue-Abschnitte REV24/REV2/AUDM24 (Zeilen ~538–652) mit Haken; Beleg: Queue-Abschnitte REV24/REV2/AUDM24 (Zeilen ~538–652) mit Haken)
 - [ ] WF25-4 Riesen-/Klein-Mobkopf: echte Effekte (Giant/Small), beim Ausziehen entfernen (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
 - [ ] WF25-5 Rucksack-UI Braun heller; Rezept Verstärkter Rucksack in JEI; alle Rezepte JEI-auffindbar (Status 01.11.: offen – UI-Farbe + JEI-Prüfung; Beleg: IG31-8 legt Ledertuch-Rezepte an; JEI-Auffindbarkeit nicht belegt)
-- [ ] WF25-6 Spawner-Fragment/-Brocken, behelfsmäßiger Spawner, ~30 % Fragment beim Abbau (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
+- [~] (B, b-spawn01, 01.11.) WF25-6 Spawner-Fragment/-Brocken, behelfsmäßiger Spawner, ~30 % Fragment beim Abbau: gebaut in simplemobs (SpawnerParts, Mixin SpawnerFragmentMixin, 9→1→1 Rezepte, leer ohne Ei, n-mal langsamer; Plan docs/ai/PLAN-B-SPAWN01-2026-11-01.md; Vorschau b-spawn01-preview.html, Code SPAWN01|frag=A|…); offen: Textur-Wahl, Client-Sicht, Spawner-Nutzung (Besitzer: später)
 - [ ] WF25-7 Vanilla-Notenblock mit gleicher Textur wie Jukebox-/Noten-Verstärker (Status 01.11.: offen – prüfen; Beleg: nicht belegt)
 - [~] WF25-8 Pads-Kerne (Cores) im Kreativ-Tab zu Simple Gadgets (Status 01.11.: abnahme – Tab-Zuordnung Gadgets prüfen; Beleg: IG31-13: Kerne -> simplelib (b-ig3113, Merge 3791a1e62))
 - [ ] WF25-9 Neuer Sub-Mod „Simple Building Tools“: Baustäbe, Blaupausen, Oktanten (Status 01.11.: offen – komplett offen; Beleg: kein Modul in modules/)
