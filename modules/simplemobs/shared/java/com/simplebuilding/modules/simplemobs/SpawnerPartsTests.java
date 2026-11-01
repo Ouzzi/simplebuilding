@@ -60,6 +60,16 @@ final class SpawnerPartsTests {
             check(spawner.is(SpawnerParts.MAKESHIFT_SPAWNER_ITEM) && spawner.getCount() == 1, "9 chunks make 1 makeshift spawner");
             h.succeed();
         });
+        add.accept("spawner_makeshift_drops_itself", h -> {
+            var level = h.getLevel();
+            BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+            level.setBlock(pos, SpawnerParts.MAKESHIFT_SPAWNER.defaultBlockState(), 3);
+            var drops = net.minecraft.world.level.block.Block.getDrops(level.getBlockState(pos), level, pos, level.getBlockEntity(pos), null, new ItemStack(Items.IRON_PICKAXE));
+            int n = 0;
+            for (ItemStack d : drops) if (d.is(SpawnerParts.MAKESHIFT_SPAWNER_ITEM)) n += d.getCount();
+            check(n == 1, "breaking the makeshift spawner drops exactly itself (loot table in 26 format), got " + n);
+            h.succeed();
+        });
         add.accept("spawner_makeshift_place", h -> {
             var level = h.getLevel();
             BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));

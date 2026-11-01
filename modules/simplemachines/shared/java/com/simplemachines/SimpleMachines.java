@@ -51,6 +51,9 @@ public final class SimpleMachines {
     public static void init(Path configDir) {
         MachinesConfig.load(configDir);
         registerIdMoves();
+        // Switch off = the recipe goes with it (SimpleLib RecipeFilters, read live; /reload applies a changed config).
+        com.simplelib.api.RecipeFilters.register(MOD_ID, p -> (!MachinesConfig.doublePiston && p.equals("double_piston"))
+                || (!MachinesConfig.signalDampener && p.equals("signal_dampener")));
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "machines", "simplemachines.testcentre.station",
                 List.of(MOD_ID + ":double_piston", MOD_ID + ":signal_dampener", MOD_ID + ":guide_book"));

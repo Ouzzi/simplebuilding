@@ -15,6 +15,7 @@
     "IdMovesAdvancementsMixin",
     "IdMovesRecipeBookMixin",
     "IdMovesRegistryMixin",
+    "RecipeMapFilterMixin",
     "WarmBundleMixin",
     "WarmClockMixin",
     "WarmSteamMixin",
