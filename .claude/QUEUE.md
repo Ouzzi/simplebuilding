@@ -284,6 +284,91 @@ Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP)
 - [ ] ABN29-7 Schwingen: Feder-Look A gut; Knochenschwingen (B) als gerenderte Live-Vorschau (3D, getragen am Spieler) zeigen, nicht nur Textur. (Status 01.11.: offen – Knochenschwingen (B) als gerenderte Live-Vorschau fehlt)
 - [x] ABN29-8 Bereits früher beantwortet (nicht erneut fragen!): Display-Tönung C „beide sanft“, inverser Besatz (3 Stufen WA24-1), Butter-Teppich (WA24-3), Köcher (WA24-4), Nether-Juwel-Animation (wie jetzt im Spiel). Abnahme-Seiten vorher gegen Queue/Memory abgleichen. (Status 01.11.: prod – keine Code-Spur (Konzept/Vorschau))
 
+## BESITZER-ABNAHME 01.11. (c) → umsetzen (b-abn01)
+Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken.
+- [ ] IG31-4 Text beim ersten Aufheben (First-Pickup-Tipps, simpleblocks.firstPickupTips / BlocksDiscover) – weg: Tipps entfernen; Idee als Eintrag in docs/ai/IDEEN-PHASE4.md (erst Phase 4 prüfen) → QW
+- [ ] IG31-15 Simple Ovens und Simple Crucibles Kopplung – B: Simple Crucibles wird Sub-Mod von Simple Ovens (IdMoves, Weltmigration) → PRIO
+- [ ] MOB-MIRROR Spiegel-Effekt (Simple Mobs, MobsConfig.mirrorReflectChance heute fix 0,5) – stufe: Rückschlagchance steigt mit der Effektstufe (Werte pro Stufe festlegen, Config) → QW
+- [ ] DINO-REST Restliche Dinos (Triceratops, Stegosaurus, Utahraptor, Parasaurolophus) – nach: erst nach der T-Rex-Abnahme bauen → PRIO
+- [ ] AUTO-CLIENT Automatischer Client-Start je Bündel – client: nur bei Client-Code/Mixins/Render, aber erst nach einer Weile bzw. bei geringer Last (Belastung klein halten) → PRIO
+- [x] BRANCH-G GitHub-Branch a-konz29g (Konzept WP-22 Zonen) – behalten (Zonen ZO1-ZO10 sind jetzt beantwortet, Branch ist die Umsetzungsbasis) (nur Abnahme-Haken, nichts zu bauen) → PRIO
+- [x] ORES31-BRES Blei: Explosionswiderstand – 1000 (schon gebaut: OresRegistry.LEAD_RESISTANCE = 1000, OresTests lead_blast_resistance) → QW
+- [x] ORES31-BDAMP Blei: Dämpfung je Block – x0,5 je Block (schon gebaut: OresTests (Soundproofing.attenuation(3, 0.5))) → QW
+- [x] ORES31-BTHR Blei: Schwelle – 0,05 (schon gebaut: OresTests (audible ... 0.05)) → QW
+- [x] ORES31-BNAME Blei: englischer Name – lead (Lead Ingot / Block of Lead) (schon gebaut: lead_block, lead_ore im Bestand (simpleores)) → QW
+- [ ] ORES31-BEXTRA Blei: weitere Bauteile – Platten: wie Teppich, aber vertikal UND horizontal platzierbar; Blei-Octets dämmen wie ein voller Bleiblock (Wolle-Logik); Platten Dämmung ca. 0,5 → PRIO
+- [ ] ORES31-PFEIL Silberpfeil: wohin – ores, aber als Erweiterung in Simple Arrows (neues Sub-Mod; Silberpfeil liegt heute fertig in Simple Ores) → PRIO
+- [x] ORES31-SPIEGEL Silberspiegel – nur Deko (schon gebaut: silver_mirror (Rezept, Loot, Tag) in simpleores gebaut) → QW
+- [ ] ORES31-BAU Jetzt bauen – Pfeil und Spiegel jetzt bauen (Spiegel schon gebaut, Pfeil siehe ORES31-PFEIL) → PRIO
+- [x] ORES31-ZINK Zusatz-Nutzen Zink – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW
+- [x] ORES31-NICKEL Zusatz-Nutzen Nickel – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW
+- [x] ORES31-PLATIN Zusatz-Nutzen Platin – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW
+- [x] ORES31-SILBER Zusatz-Nutzen Silber – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW
+- [ ] ST31-pipe Rohr-Textur/Form (Simple Storage) – Textur ok; Verengung nur ganz schmal, in Pfeilrichtung (Rohr) → QW
+- [x] ST31-reinforced_pipe Simple Storage Textur reinforced_pipe – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-netherite_pipe Simple Storage Textur netherite_pipe – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-enderite_pipe Simple Storage Textur enderite_pipe – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-cable Simple Storage Textur cable – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-interface Simple Storage Textur interface – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-ctrl_wooden Simple Storage Textur ctrl_wooden – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-ctrl_reinforced Simple Storage Textur ctrl_reinforced – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-ctrl_netherite Simple Storage Textur ctrl_netherite – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST31-ctrl_enderite Simple Storage Textur ctrl_enderite – ok (neu übernehmen) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] MISC31-DOOR 1,5 breite Tür – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] MISC31-PISTON Doppelkolben-Textur – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] MISC31-SHOPS Shops-Texturen – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] MISC31-ICE Rissiges Eis/Packeis/Blaueis – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] MISC31-BEACON Leuchtfeuer-Pyramiden-Icon – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] TR31-Sp Trials-Textur Trial Spawner – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] TR31-Va Trials-Textur Tresor – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] TR31-Ke Trials-Textur Schlüssel – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] TR31-Tr Trials-Textur Tränke/Omen – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] KEYS31-KEYS Tastenbelegungs-Seite – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] KEYS31-BP Blaupausen-Editor als Simple-Kasten – ok (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] DEVUI31-PANEL Dev-Config im Inventar – Panel gut (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] DEVUI31-RAHMEN Fernrohr-Rahmen Standard – A (eingebaut) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [ ] MACH32-MOD Sub-Mod Simple Machines – mod: alle Blöcke aus dem Tab Simple Machines (Kolben-Upgrades, Doppelkolben, Dämpfer ...) ins Sub-Mod Simple Machines → PRIO
+- [ ] SNOW32-FALL Schneefall verschneit Pflanzen/Zäune – ja: bei Schneefall genau EINE Schneeschicht oben drauf, auch auf Zäunen usw., abbaubar (weiße Textur oben, wegmachbar) → PRIO
+- [ ] ZFIGHT32 Flackerndes Item (Z-Fighting) – einige noch; Besitzer listet sie spätestens in Phase 2 auf → PRIO
+- [ ] TROMP-3 Trompete: Samples über 2 Oktaven – zwei Samples (tief/hoch) → PRIO
+- [x] BE-2 Evil-Effektliste (Leuchtfeuer) – ok (nur Abnahme-Haken, nichts zu bauen) → PRIO
+- [ ] Loot Boss-Tresor Loot-Menge – wie gezeigt → PRIO
+- [ ] Lauf Leerenläufer Untervariante – A1 Fechter, Klingenarme → PRIO
+- [ ] Hut Schirmling Hut-Geometrie – M mittel → PRIO
+- [ ] Luef Hut-Lüftung als Belohnung – ja → PRIO
+- [ ] Brut Brutaltar Konzept – K1 In-World-Ritual → PRIO
+- [x] SA2 Schmelzanlage (Simple Foundry): Name – A Hütte (Hüttenpult, Hüttenziegel) (schon gebaut: Hüttenpult/Hütte-Namen im Bestand (simplefoundry de_de)) → PRIO
+- [ ] SA3 Schmelzanlage (Simple Foundry): Stufen – A 4 Stufen 3/6/9/12 → PRIO
+- [ ] SA4 Schmelzanlage (Simple Foundry): Klick nach unten im Steuerblock – A Pfeil wechselt Schicht → PRIO
+- [ ] SA5 Schmelzanlage (Simple Foundry): Gießziel – C beides (Gefäß und verstärkter Kessel) → PRIO
+- [ ] SA6 Schmelzanlage (Simple Foundry): Twist – A Schichtschmelze → PRIO
+- [ ] SA7 Schmelzanlage (Simple Foundry): Einschmelzbare Stoffe – A Geräte einschmelzen: ja → PRIO
+- [ ] SA8 Schmelzanlage (Simple Foundry): Tankfassung – A 27 Barren → PRIO
+- [ ] SA9 Schmelzanlage (Simple Foundry): Hülle – A Dach Pflicht → PRIO
+- [ ] SA10 Schmelzanlage (Simple Foundry): Erz-Bonus – A aus → PRIO
+- [ ] ZO1 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Zonen-Effekte standardmäßig – A (Zonen-Effekte standardmäßig: aus bis Client-Abnahme, dann an) → PRIO
+- [ ] ZO2 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Wert-Formel 0,7 x W_lang + 0,3 x F, Tod -25 % auf V – A (Wert-Formel 0,7 x W_lang + 0,3 x F, Tod -25 % auf V) → PRIO
+- [ ] ZO3 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): API-Weg – A (API-Weg: Vertrag in framework/) → PRIO
+- [ ] ZO4 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Besitzer-Sprung 75 % auf 100 % – A (Besitzer-Sprung 75 % auf 100 %: harte Regel) → PRIO
+- [ ] ZO5 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Anfängerschutz Vorsprung +1, Schonfrist 6 h, Nähe-Decke 40 – A (Anfängerschutz Vorsprung +1, Schonfrist 6 h, Nähe-Decke 40: ja) → PRIO
+- [ ] ZO6 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Zonen Z0 0,5 bis 512, voll ab 6000, Nether x8 – A (Zonen Z0 0,5 bis 512, voll ab 6000, Nether x8: ja) → PRIO
+- [ ] ZO7 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Enchanter – A (Enchanter: Astral-Tisch wird Dark Enchanter, End-Enchanter neu) → PRIO
+- [ ] ZO8 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Schutz VI weglassen – A (Schutz VI weglassen) → PRIO
+- [ ] ZO9 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Besatz-Fähigkeiten nach Simple Mobs (Pflicht-Sub-Mod) – A (Besatz-Fähigkeiten nach Simple Mobs (Pflicht-Sub-Mod)) → PRIO
+- [ ] ZO10 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Spieler-Tränke erst nach Stufe Z2 – A (Spieler-Tränke erst nach Stufe Z2: ja) → PRIO
+- [ ] FX-1 Simple Mobs: weitere Effekte – schwach: nur die fünf schwachen (Blutsauger, Frostbiss, Magnetisch, Leuchtspur, Zerfall) → PRIO
+- [ ] FX-2 Volatile-Icon – A Explosionsstern → QW
+- [ ] HOW-1 Hollow Howler: Klang je Ereignis – empf: Empfehlung übernehmen (ElevenLabs-Kandidaten gemäß Seite howler23-preview) → QW
+- [ ] HOW-2 Hollow Howler: leuchtendes Herz – A Hinter den Rippen → PRIO
+- [ ] HOW-3 Hollow Howler: Visual- und Animationsteil – ja: starten, zuerst nur der Howler mit Vorschau → PRIO
+- [x] ST-10 Mod-Icons (16x16) aller 47 Module – ok, alle abgenommen (nur Abnahme-Haken, nichts zu bauen) → QW
+- [x] ST-13 Mod-ID Simple Dimensions – behalten (Ausnahme dokumentiert, simpledimension) (nur Abnahme-Haken, nichts zu bauen) → QW
+- [ ] VW Alte Verwaist-Ideen (VW-1 Offline-Testlauf, VW-2 Tweaks-Ideenliste, VW-3 Tragezeit) – alle verwerfen → QW
+- [x] WIKI Wiki: Kacheln Vanilla-abgeleiteter Items – text: Text-Kachel behalten (nur Abnahme-Haken, nichts zu bauen) → QW
+- [ ] GADGET 8 Gadget-Meldungen in der Aktionsleiste – umstellen: auf Klang und Partikel statt Text über der Hotbar → QW
+- [ ] FLETCH Befiederungstisch: Freiraum oben im Menü – gravur: Pfeil-/Feder-Gravur oben im Menü (erst exemplarisch vorlegen) → PRIO
+- Offen geblieben (nicht beantwortet): optik, KESSEL32-DORF, MOBS32-BOAR/-TRUFFLE, MACH32-DAEMPFER/-KOLBEN/-PUSH, SNOW32-FROST, ORES32-PFEIL/-SPIEGEL (nur Optik), ABN32 (Code fehlt, Vorschau jetzt lokal), IG3114, ROHR33, QOL33, FOUNDRY32-UI/-NAME, LIVE32-ICON, RELQOA, TROMP-1/2.
+
 ## Offen – Überblick (Stand 2026-10-23, a-queue23)
 
 Jeder offene Punkt steht genau einmal als Zeile in einem Abschnitt unten (ID fett); hier nur die Arbeitsströme. Maßgeblich bleibt der Haken in der Zeile.
