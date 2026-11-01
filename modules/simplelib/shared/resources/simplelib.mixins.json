@@ -20,7 +20,6 @@
     "WarmSteamMixin",
     "WarmStackingMixin",
     "WarmUseDurationMixin",
-    "DiscoverTipMixin",
     "SimpleRarityNameMixin",
     "CreativeModeTabPosition",
     "CreativeModeTabsPolicyMixin",

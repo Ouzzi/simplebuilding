@@ -213,6 +213,9 @@ for _mod in MODS:
     _mod.setdefault("tips", [])
     _mod.setdefault("tip_overrides", {})
 for _mod in MODS:
+    # IG31-4 (owner 01.11.): first pickup tips abolished; the tip data above stays for a possible Phase 4 mod
+    # (docs/ai/IDEEN-PHASE4.md). Empty tips = no mixin, no tip lang keys, no tip code path.
+    _mod["tips"] = []
     _mod.setdefault("secret", [])
     _mod.setdefault("grouped", {})
 

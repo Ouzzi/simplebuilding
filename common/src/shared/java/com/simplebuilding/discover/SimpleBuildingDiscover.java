@@ -230,7 +230,6 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:fast_chiseling",
             "simplebuilding:fine_elytra_pad",
             "simplebuilding:fire_chip",
-            "simplebuilding:first_pickup_tips",
             "simplebuilding:flint_chip",
             "simplebuilding:flypad",
             "simplebuilding:frosted_nihilith",
@@ -365,6 +364,7 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:quivers",
             "simplebuilding:range",
             "simplebuilding:raw_enderite",
+            "simplebuilding:recipe_book_unlocks",
             "simplebuilding:recipe_viewer_jei",
             "simplebuilding:reinforced_backpack",
             "simplebuilding:reinforced_bundle",
@@ -461,18 +461,7 @@ public final class SimpleBuildingDiscover {
             "simplestorage:reinforced_bundle",
             "simplestorage:reinforced_quiver",
             "simplestorage:storage_enchantments");
-    static final List<Tip> TIPS = List.of(
-            new Tip("chisel", List.of("*_chisel")),
-            new Tip("building_wand", List.of("*_building_wand")),
-            new Tip("blueprint", List.of("blueprint")),
-            new Tip("magnet", List.of("magnet")),
-            new Tip("autonomous_crafter", List.of("autonomous_crafter")),
-            new Tip("auto_smither", List.of("auto_smither")),
-            new Tip("detector", List.of("detector")),
-            new Tip("echo_sounder", List.of("echo_sounder")),
-            new Tip("silent_dandelion", List.of("silent_dandelion")),
-            new Tip("hopper_filter", List.of("reinforced_hopper", "netherite_hopper", "enderite_hopper")),
-            new Tip("fletching", List.of("minecraft:fletching_table")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

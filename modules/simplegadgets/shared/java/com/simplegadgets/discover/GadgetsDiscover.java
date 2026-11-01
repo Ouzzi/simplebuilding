@@ -59,8 +59,7 @@ public final class GadgetsDiscover {
             "simplegadgets:migration",
             "simplegadgets:rotator",
             "simplegadgets:velocity_gauge");
-    static final List<Tip> TIPS = List.of(
-            new Tip("rotator", List.of("rotator")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

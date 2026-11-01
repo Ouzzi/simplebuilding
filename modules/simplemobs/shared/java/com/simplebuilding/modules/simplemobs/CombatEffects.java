@@ -73,6 +73,11 @@ public final class CombatEffects {
     public static float bearerFactor(int amplifier) { return 1.2f + 0.2f * Math.min(amplifier, 4); }
     /** Mirror, attacker side: 20 % (I) ... 100 % (V) of the original damage. */
     public static float reflectFactor(int amplifier) { return 0.2f + 0.2f * Math.min(amplifier, 4); }
+    /** Mirror coin (MOB-MIRROR): chance of the reflection, linear from the config minimum at level I to the config value at level V. */
+    public static float reflectChance(int amplifier) {
+        float t = Math.min(Math.max(amplifier, 0), 4) / 4f;
+        return MobsConfig.mirrorReflectChanceMin + (MobsConfig.mirrorReflectChance - MobsConfig.mirrorReflectChanceMin) * t;
+    }
     public static float volatileRadius(int amplifier) { return VOLATILE_RADIUS + VOLATILE_RADIUS_PER_LEVEL * Math.min(amplifier, 4); }
     /** Volatile damage at a distance: linear falloff from the centre damage to 0 at the radius. */
     public static float volatileDamage(int amplifier, double distance) {
@@ -113,7 +118,7 @@ public final class CombatEffects {
         boolean reflect = false;
         float dealt = damage;
         if (mirror >= 0) {
-            reflect = roll(self) < MobsConfig.mirrorReflectChance;
+            reflect = roll(self) < reflectChance(mirror);
             if (!reflect) dealt = damage * bearerFactor(mirror);
         }
         boolean hit = original.apply(dealt);

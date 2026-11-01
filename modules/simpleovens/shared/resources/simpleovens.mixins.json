@@ -4,8 +4,7 @@
   "package": "com.simpleovens.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "AbstractFurnaceMenuMixin",
-    "DiscoverTipMixin"
+    "AbstractFurnaceMenuMixin"
   ],
   "client": [],
   "server": [],

@@ -132,7 +132,7 @@
           "Applied with the command /effect give <target> simplemobs:volatile|deflection|mirror <seconds> <level-1>. No mob carries them yet and there are no potions yet.",
           "Volatile: every hit on the bearer sets off a small explosion at the bearer: about 3 hearts at melee distance on level I, falling off to nothing at 4 blocks (+0.5 blocks and +1 heart per level). The bearer is immune to it, no blocks are destroyed. Bystanders are hurt like in any explosion.",
           "Deflection: 10 % per level (50 % at level V) that a hit is negated completely. Fall, fire, void and other damage without an attacker are never deflected.",
-          "Mirror: every hit is a coin flip (Server-Config simplemobs-server.json: mirrorReflectChance, default 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart."
+          "Mirror: every hit is a coin flip whose chance of reflecting rises with the level, 20 % (I) to 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0.2 and mirrorReflectChance 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart."
         ]
       },
       "de": {
@@ -142,7 +142,7 @@
           "Anwenden mit dem Befehl /effect give <Ziel> simplemobs:volatile|deflection|mirror <Sekunden> <Stufe-1>. Noch trägt kein Mob sie, und es gibt noch keine Tränke.",
           "Explosiv: jeder Treffer auf den Träger löst am Träger eine kleine Explosion aus: auf Stufe I etwa 3 Herzen auf Nahkampf-Abstand, nach außen abnehmend bis 0 bei 4 Blöcken (je Stufe +0,5 Blöcke und +1 Herz). Der Träger ist immun, es werden keine Blöcke zerstört. Umstehende werden wie bei jeder Explosion verletzt.",
           "Abwehr: 10 % je Stufe (50 % auf Stufe V), dass ein Treffer komplett negiert wird. Fall-, Feuer-, Void- und anderer Schaden ohne Angreifer wird nie abgewehrt.",
-          "Spiegel: jeder Treffer ist ein Münzwurf (Server-Config simplemobs-server.json: mirrorReflectChance, Standard 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz."
+          "Spiegel: jeder Treffer ist ein Münzwurf, dessen Rückschlag-Chance mit der Stufe steigt, 20 % (I) bis 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0,2 und mirrorReflectChance 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz."
         ]
       }
     },
@@ -433,32 +433,20 @@
       }
     },
     {
-      "id": "first_pickup_tips",
+      "id": "recipe_book_unlocks",
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/discover/MobsDiscover.java",
-        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/DiscoverTipMixin.java",
-        "framework/src/main/java/com/simplebuilding/framework/api/FirstUseTips.java",
         "tools/discover/discover.py"
       ],
       "en": {
-        "title": "First pickup tips",
-        "summary": "The first time you pick up a machine or tool whose use is not obvious, one short tip shows in the action bar - once per player and world.",
-        "details": [
-          "Tips exist for the Trick Mirror, the Deceiver Cloak and the Shellker Shell.",
-          "A tip counts as seen through an entity tag on the player (simplemobs.tip.<group>); removing the tag with /tag shows it again.",
-          "Switch: config/simple-tips.properties, key simplemobs.firstPickupTips=false turns the tips of this mod off. The file is read at every tip, so no restart is needed; every Simple mod with tips has its own key there.",
-          "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe."
-        ]
+        "title": "Recipe book",
+        "summary": "Every craftable item of the mod is in the recipe book: picking up one of its ingredients unlocks the recipe.",
+        "details": []
       },
       "de": {
-        "title": "Tipps beim ersten Aufheben",
-        "summary": "Hebst du zum ersten Mal eine Maschine oder ein Werkzeug auf, dessen Bedienung nicht offensichtlich ist, zeigt die Aktionsleiste einen kurzen Tipp - einmal je Spieler und Welt.",
-        "details": [
-          "Tipps gibt es für den Trickspiegel, den Täuschermantel und die Shellker-Schale.",
-          "Ein Tipp gilt über ein Entity-Tag am Spieler (simplemobs.tip.<gruppe>) als gesehen; entfernt man das Tag mit /tag, erscheint er wieder.",
-          "Schalter: config/simple-tips.properties, Schlüssel simplemobs.firstPickupTips=false schaltet die Tipps dieser Mod ab. Die Datei wird bei jedem Tipp gelesen, ein Neustart ist nicht nötig; jede Simple-Mod mit Tipps hat dort ihren eigenen Schlüssel.",
-          "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei."
-        ]
+        "title": "Rezeptbuch",
+        "summary": "Jedes herstellbare Item der Mod steht im Rezeptbuch: Das Aufheben einer seiner Zutaten schaltet das Rezept frei.",
+        "details": []
       }
     },
     {

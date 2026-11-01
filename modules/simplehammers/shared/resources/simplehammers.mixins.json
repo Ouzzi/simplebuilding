@@ -7,7 +7,6 @@
     "CarvedStairMixin",
     "HammerMiningSpeedMixin",
     "ShapelessRecipeMixin",
-    "DiscoverTipMixin",
     "HammerAnvilMixin"
   ],
   "client": [

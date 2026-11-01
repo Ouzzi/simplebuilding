@@ -61,8 +61,7 @@ public final class OctetsDiscover {
             "simpleoctets:octets",
             "simpleoctets:partners",
             "simpleoctets:recipes");
-    static final List<Tip> TIPS = List.of(
-            new Tip("octet", List.of("*_octet")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

@@ -18,7 +18,6 @@
     "ItemHelmetDreadMixin",
     "ServerPunchDisguiseMixin",
     "WitherSkullBlightedMixin",
-    "DiscoverTipMixin",
     "ItemHelmetWitherMixin",
     "DisplayWitherCrownMixin",
     "WitherBossAccessor",

@@ -39,21 +39,6 @@ public final class BlocksFabric implements ModInitializer {
             }
         });
         net.fabricmc.fabric.api.loot.v3.LootTableEvents.MODIFY.register((key, table, source, registries) -> BlocksLoot.apply(key, table::withPool));
-        for (boolean natural : new boolean[]{false, true}) {
-            CreativeModeTabEvents.modifyOutputEvent(natural ? CreativeModeTabs.NATURAL_BLOCKS : CreativeModeTabs.BUILDING_BLOCKS).register(out -> {
-                if (!SimpleBlocks.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleBlocks.MOD_ID)) return;
-                for (BlocksRegistry.Placement placement : BlocksRegistry.placements()) {
-                    if (placement.natural() != natural) continue;
-                    // Never twice (another mod may have placed them already); at the end when the Vanilla item is missing.
-                    var stacks = placement.stacks().stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
-                    if (stacks.isEmpty()) continue;
-                    boolean anchored = out.getDisplayStacks().stream().anyMatch(s -> s.is(placement.before()));
-                    if (anchored && placement.after()) out.insertAfter(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                    else if (anchored) out.insertBefore(placement.before(), stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                    else stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-                }
-            });
-        }
         // The saw stands behind the Vanilla stonecutter in the functional blocks tab.
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out -> {
             if (!SimpleBlocks.on()) return;

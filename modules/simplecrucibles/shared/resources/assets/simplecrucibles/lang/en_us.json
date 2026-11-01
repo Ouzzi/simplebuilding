@@ -29,8 +29,6 @@
   "gui.simplecrucibles.crucible.heat.extreme": "extreme",
   "gui.simplecrucibles.crucible.afterglow": "Afterglow: %s s",
   "gui.simplecrucibles.crucible.two_below": "Heat source two blocks below: 10% slower",
-  "tip.simplecrucibles.crucible": "Heated by the block below; cooks every slot at once",
-  "tip.simplecrucibles.barrel": "Next to a crucible, axe strikes attach it",
   "block.simplecrucibles.enderite_crucible": "Enderite Crucible",
   "block.simplecrucibles.enderite_barrel": "Enderite Barrel",
   "simplecrucibles.testcentre.station": "Simple Crucibles",

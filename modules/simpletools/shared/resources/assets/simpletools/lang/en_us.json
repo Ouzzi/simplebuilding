@@ -85,8 +85,6 @@
   "simpletools.option.enableItemFrameLock.tooltip": "Sneak + honeycomb or glass pane locks a\nframe with an item: no turning, no taking out, no\nbreaking. Sneak + axe unlocks it.\nDefault: true.",
   "simpletools.option.enableItemFrameReverseRotate": "Turn Framed Items Backwards",
   "simpletools.option.enableItemFrameReverseRotate.tooltip": "Sneak + right-click turns the item in a\nframe backwards. Default: true.",
-  "tip.simpletools.frame_shears": "Sneak + use on a framed item: hide or show the frame",
-  "tip.simpletools.frame_honeycomb": "Sneak + use on a framed item: lock it; an axe unlocks",
   "item.simpletools.biome_brush": "Biome Brush",
   "item.simpletools.biome_brush.tooltip": "Biome material in off hand; sneak: one spot",
   "item.simpletools.guide_book": "Simple Tools Guide",

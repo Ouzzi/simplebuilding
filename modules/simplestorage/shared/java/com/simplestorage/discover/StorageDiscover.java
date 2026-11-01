@@ -133,11 +133,7 @@ public final class StorageDiscover {
             "simplestorage:waxed_weathered_trapped_copper_chest",
             "simplestorage:weathered_trapped_copper_chest",
             "simplestorage:wooden_controller_chest");
-    static final List<Tip> TIPS = List.of(
-            new Tip("chest_upgrade", List.of("reinforced_chest", "reinforced_trapped_chest", "reinforced_shulker_box", "netherite_chest", "netherite_trapped_chest", "netherite_shulker_box")),
-            new Tip("backpack", List.of("backpack", "*_backpack")),
-            new Tip("pipe", List.of("pipe", "*_pipe")),
-            new Tip("chest_network", List.of("chest_interface", "*_controller_chest")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

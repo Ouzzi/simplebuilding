@@ -74,8 +74,7 @@ public final class OvensDiscover {
             "simpleovens:reinforced_furnace",
             "simpleovens:reinforced_furnace_minecart",
             "simpleovens:reinforced_smoker");
-    static final List<Tip> TIPS = List.of(
-            new Tip("oven_upgrade", List.of("reinforced_*", "netherite_furnace", "netherite_smoker", "netherite_blast_furnace")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

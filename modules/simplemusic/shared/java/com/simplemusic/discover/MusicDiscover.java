@@ -70,10 +70,7 @@ public final class MusicDiscover {
             "simplemusic:sheet_import",
             "simplemusic:sheet_music",
             "simplemusic:upload_check");
-    static final List<Tip> TIPS = List.of(
-            new Tip("sheet_music", List.of("sheet_music")),
-            new Tip("pocket_jukebox", List.of("*pocket_jukebox")),
-            new Tip("disc_press", List.of("disc_press")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {

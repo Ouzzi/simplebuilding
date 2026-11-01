@@ -65,7 +65,7 @@ Besitzer-Auftrag: Ebenen B (Rezeptbuch-Freischaltung) und H (einmaliger Tipp) f�
    wird von einem geladenen Advancement freigeschaltet; `behaviour_hints` – jedes Item, dessen Item-/Blockklasse aus dem
    eigenen Paket stammt (Logik wie `behavioural_ids` in `wiki/generate.py`), hat einen Tooltip-Schlüssel oder einen
    Wiki-/Guide-Eintrag (`manual.json` Notiz/Feature, ins Java übernommen); bei Mods mit Tipps `first_pickup_tips`.
-3. **Einmaliger Tipp (H):** Mixin auf `InventoryChangeTrigger.trigger` (Vanilla-Auslöser beim Aufnehmen): Item mit Tipp und
+3. **Einmaliger Tipp (H) - ABGESCHAFFT 01.11. (IG31-4, Besitzer):** im Spiel entfernt (Generator `tips=[]`, kein Mixin, keine Lang-Keys); Idee in docs/ai/IDEEN-PHASE4.md. Beschreibung des frueheren Verhaltens: Mixin auf `InventoryChangeTrigger.trigger` (Vanilla-Auslöser beim Aufnehmen): Item mit Tipp und
    Spieler ohne Markierung → Aktionsleiste mit kurzem Text (EN/DE, ≤ 48 Zeichen), Markierung als Entity-Tag
    `<ns>.tip.<gruppe>` (einmal je Spieler und Welt). Abschaltbar je Mod in `config/simple-tips.properties`
    (`<modid>.firstPickupTips=false`, framework `FirstUseTips`, gleiches Muster wie `simple-creative-tabs.properties`).

@@ -66,21 +66,19 @@ public final class CruciblesDiscover {
             "simplecrucibles:enderite_bucket",
             "simplecrucibles:enderite_crucible",
             "simplecrucibles:enderite_milk_bucket",
-            "simplecrucibles:first_pickup_tips",
             "simplecrucibles:guide_book",
             "simplecrucibles:iron_crucible",
             "simplecrucibles:netherite_barrel",
             "simplecrucibles:netherite_crucible",
             "simplecrucibles:raw_ceramic_bucket",
+            "simplecrucibles:recipe_book_unlocks",
             "simplecrucibles:reinforced_barrel",
             "simplecrucibles:reinforced_cauldron",
             "simplecrucibles:reinforced_crucible",
             "simplecrucibles:soul_lava",
             "simplecrucibles:soul_lava_bucket",
             "simplecrucibles:village_kitchen");
-    static final List<Tip> TIPS = List.of(
-            new Tip("crucible", List.of("*_crucible")),
-            new Tip("barrel", List.of("*_barrel")));
+    static final List<Tip> TIPS = List.of();
 
     record Tip(String group, List<String> patterns) {
         String key() {
