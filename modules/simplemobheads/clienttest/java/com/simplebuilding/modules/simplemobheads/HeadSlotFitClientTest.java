@@ -43,12 +43,6 @@ public final class HeadSlotFitClientTest implements FabricClientGameTest {
 
     @Override
     public void runTest(ClientGameTestContext context) {
-        List<ItemStack> hotbar = new ArrayList<>();
-        for (HeadDef head : HeadTable.HEADS) {
-            if (hotbar.size() < 9) {
-                hotbar.add(MobHeads.stack(head, null));
-            }
-        }
         List<String> faults = new ArrayList<>();
         int checked = 0;
         try (var world = context.worldBuilder().create()) {
@@ -56,6 +50,11 @@ public final class HeadSlotFitClientTest implements FabricClientGameTest {
             world.getConnection().waitForChunksRender();
             // hotbar and head slot (survival inventory)
             world.getServer().runOnServer(server -> {
+                // stacks only once a world has bound the item components
+                List<ItemStack> hotbar = new ArrayList<>();
+                for (HeadDef head : HeadTable.HEADS.subList(0, 9)) {
+                    hotbar.add(MobHeads.stack(head, null));
+                }
                 var player = server.getPlayerList().getPlayers().getFirst();
                 for (int slot = 0; slot < 9; slot++) {
                     player.getInventory().setItem(slot, hotbar.get(slot).copy());
