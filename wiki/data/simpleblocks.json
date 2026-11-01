@@ -380,13 +380,17 @@
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowloggedBlock.java",
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowloggedBlockEntity.java",
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/Snowlogging.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowCapBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowCaps.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/SnowCapsMixin.java",
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/client/SnowloggedRenderer.java",
         "modules/simpleblocks/shared/java/com/simpleblocks/mixin/FenceConnectsSnowloggedMixin.java",
         "modules/simpleblocks/shared/resources/data/simpleblocks/tags/block/snowloggable.json",
         "modules/simpleblocks/shared/java/com/simpleblocks/test/SnowTests.java"
       ],
       "related": [
-        "simpleblocks:snowlogged"
+        "simpleblocks:snowlogged",
+        "simpleblocks:snow_cap"
       ],
       "en": {
         "title": "Snowlogging",
@@ -395,7 +399,7 @@
           "More snow layers on the same block add layers (up to 7). A snow layer needs a full block below, like Vanilla snow.",
           "A shovel takes the snow first (snowballs per layer like Vanilla) and leaves the plant or fence standing; breaking it with anything else drops the plant or fence, the snow drops nothing without a shovel.",
           "Fences next to a snowlogged fence still connect to it (wood to wood, nether brick to nether brick). Bright light (above 11) melts the snow, the plant stays.",
-          "Only placed by hand: falling snow does not snowlog plants. Switch: snow.snowlogging in /simpleblocks config (default on)."
+          "Snowlogging is placed by hand; falling snow does not snowlog plants but leaves one snow cap on top of fences, walls, stairs and slabs: a thin snow layer, never stacked, nothing of the block below changes. Break it by hand at once; a shovel gives a snowball, bright light melts it. Switches: snow.snowlogging and snow.snowCaps in /simpleblocks config (default on)."
         ]
       },
       "de": {
@@ -405,7 +409,7 @@
           "Weitere Schneeschichten auf demselben Block erhöhen die Schicht (bis 7). Eine Schneeschicht braucht wie in Vanilla einen vollen Block darunter.",
           "Eine Schaufel nimmt zuerst den Schnee (Schneebälle je Schicht wie Vanilla) und lässt Pflanze oder Zaun stehen; mit allem anderen abgebaut fällt Pflanze oder Zaun ab, der Schnee gibt ohne Schaufel nichts.",
           "Zäune neben einem verschneiten Zaun verbinden sich weiter mit ihm (Holz mit Holz, Netherziegel mit Netherziegel). Helles Licht (über 11) schmilzt den Schnee, die Pflanze bleibt.",
-          "Nur von Hand: fallender Schnee verschneit keine Pflanzen. Schalter: snow.snowlogging in /simpleblocks config (Standard an)."
+          "Verschneien setzt du von Hand; fallender Schnee verschneit keine Pflanzen, legt aber auf Zäune, Mauern, Treppen und Stufen eine dünne Schneeauflage (nie gestapelt, der Block darunter bleibt unverändert). Von Hand sofort abbaubar, die Schaufel gibt einen Schneeball, helles Licht schmilzt sie. Schalter: snow.snowlogging und snow.snowCaps in /simpleblocks config (Standard an)."
         ]
       }
     },
@@ -9859,6 +9863,16 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:snow_cap",
+      "name": {
+        "en_us": "Snow Cap",
+        "de_de": "Schneeauflage"
+      },
+      "note": null,
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:snowlogged",
       "name": {
         "en_us": "Snowlogged Block",
@@ -9939,7 +9953,9 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [],
+  "undocumented": [
+    "simpleblocks:snow_cap"
+  ],
   "incompleteProse": {},
   "counts": {
     "features": 12,
@@ -9949,12 +9965,12 @@
     "advancements": 0,
     "enchantments": 0,
     "items": 1,
-    "blocks": 58,
+    "blocks": 59,
     "trades": 0,
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 0,
+    "undocumented": 1,
     "inWorld": 0,
     "incompleteProse": 0
   }
