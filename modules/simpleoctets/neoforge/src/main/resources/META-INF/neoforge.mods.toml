@@ -33,6 +33,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.simpleoctets]]
+modId="simpleores"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simpleoctets]]
 modId="jei"
 type="optional"
 versionRange="[0,)"

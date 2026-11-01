@@ -33,7 +33,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
     - optional: SimpleBuilding, Simple Mobs, Simple End, Simple End Dragon Fight, jei, modmenu
   - **Simple Octets** `simpleoctets` (required) [fertig]: Octets: half-block cubes (0.5 x 0.5 x 0.5) of every wood, every block with stairs and slabs and the melon, which mix in one cell, moved from SimpleBuilding (ids migrate). Cut in the stonecutter, crafted back into the block; the sledgehammer of Simple Hammers carves them. Octets of SimpleBuilding's and Simple End's blocks only with that mod.
     - required: SimpleLib
-    - optional: SimpleBuilding, Simple End, jei
+    - optional: SimpleBuilding, Simple End, Simple Ores, jei
   - **Simple Ores** `simpleores` (required) [neu]: Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Hammers

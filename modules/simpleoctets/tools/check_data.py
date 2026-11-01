@@ -41,7 +41,7 @@ assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 
 # Octets of another mod's block keep item definition + self-contained item model in that mod's jar (generator PARTNER_RES:
 # the 26.3 client bakes every items/*.json, a missing partner would leave missing textures in the client log).
-PARTNER_RES = {'simpleend': ROOT / 'modules/simpleend/shared/resources', 'simpleblocks': ROOT / 'modules/simpleblocks/shared/resources',
+PARTNER_RES = {'simpleores': ROOT / 'modules/simpleores/shared/resources', 'simpleend': ROOT / 'modules/simpleend/shared/resources', 'simpleblocks': ROOT / 'modules/simpleblocks/shared/resources',
                'simplebuilding': ROOT / 'mc26_3/overlay/resources'}
 cell_ns = {w + '_octet': 'simpleend' if w in ('ashwood', 'duskwood') else 'minecraft' for w in woods}
 cell_ns.update({m['key'] + '_octet': m['ns'] for m in materials})
@@ -116,7 +116,7 @@ assert len(recipes) == 3 * len(cells) - sum(1 for _, ns, _ in pairs if ns == 'si
 # Other mods' ids only behind load conditions or as optional tag entries.
 for path in (RES / 'data').rglob('*.json'):
     text = path.read_text(encoding='utf-8')
-    for ns in ('simplebuilding', 'simpleend', 'simpleblocks'):
+    for ns in ('simplebuilding', 'simpleend', 'simpleblocks', 'simpleores'):
         if f'"{ns}:' in text:
             data = json.loads(text)
             ok = 'fabric:load_conditions' in data or all(isinstance(v, dict) and v.get('required') is False

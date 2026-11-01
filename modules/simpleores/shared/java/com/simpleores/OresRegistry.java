@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import com.simpleores.block.SilverMirrorBlock;
+import com.simpleores.block.LeadPlateBlock;
 import com.simpleores.entity.SilverArrow;
 import com.simpleores.item.SilverArrowItem;
 import net.minecraft.core.Registry;
@@ -92,6 +93,9 @@ public final class OresRegistry {
     public static final Block RAW_LEAD_BLOCK = block("raw_lead_block", Blocks.RAW_IRON_BLOCK, Block::new);
     public static final Block LEAD_BLOCK = block("lead_block", Blocks.IRON_BLOCK,
             s -> new Block(s.strength(LEAD_HARDNESS, LEAD_RESISTANCE).sound(LEAD_SOUND)));
+    /** Owner ORES31-BEXTRA: a carpet-like plate that lies on any side of its cell; half the muffling of a lead block. */
+    public static final Block LEAD_PLATE = block("lead_plate", Blocks.IRON_BLOCK,
+            s -> new LeadPlateBlock(s.strength(LEAD_HARDNESS, LEAD_RESISTANCE).sound(LEAD_SOUND).noOcclusion()));
     /** Wall decoration of silver and glass: thin, no mechanic. */
     public static final Block SILVER_MIRROR = block("silver_mirror", Blocks.GLASS,
             s -> new SilverMirrorBlock(s.strength(0.5F).sound(SoundType.METAL)));
@@ -234,7 +238,7 @@ public final class OresRegistry {
 
     public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
             "sage_ore", "deepslate_sage_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "silver_mirror", "rose_bronze_block", "blossom_gold_block", "enderite_block"};
+    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_mirror", "rose_bronze_block", "blossom_gold_block", "enderite_block"};
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "rose_bronze_pressling",
             "rose_bronze_ingot", "blossom_gold_pressling", "blossom_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "sage_orb"};

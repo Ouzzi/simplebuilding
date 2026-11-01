@@ -20,12 +20,16 @@ import org.jspecify.annotations.Nullable;
 /**
  * Lead walls muffle world sounds (concept ORES31 section 3). The mixin {@code SoundproofMixin} hands every sound packet that goes to a
  * player to {@link #filter}: the blocks of the tag {@code simpleores:soundproofing} (Standard: the lead block) on the straight way from the
- * sound to the ear scale the volume by {@code factor ^ count}; a result below the threshold is not sent at all. Only sounds from 0.3 up are
+ * sound to the ear scale the volume by {@code factor ^ count} (the tag {@code simpleores:soundproofing_half}, the lead plate, counts 0.5; the lead octets of Simple Octets are in the first tag and count a whole block however little they fill); a result below the threshold is not sent at all. Only sounds from 0.3 up are
  * looked at, the way is at most 24 cells long and unloaded chunks count as air. The cells of the sound and of the ear do not count: whoever
  * mines or walks on lead is loud.
  */
 public final class Soundproofing {
     public static final TagKey<Block> BLOCKS = TagKey.create(Registries.BLOCK, SimpleOres.id("soundproofing"));
+    /** Thin muffling blocks (the lead plate): they count {@link #HALF} of a block. */
+    public static final TagKey<Block> HALF_BLOCKS = TagKey.create(Registries.BLOCK, SimpleOres.id("soundproofing_half"));
+    /** Weight of a block of {@link #HALF_BLOCKS}. */
+    public static final float HALF = 0.5F;
     /** Quieter sounds are never looked at. */
     public static final float MIN_VOLUME = 0.3F;
     /** Longest way (cells) that is searched for muffling blocks. */
@@ -40,8 +44,8 @@ public final class Soundproofing {
 
     // ---------------------------------------------------------------- pure maths
 
-    /** Volume factor of {@code blocks} muffling blocks: {@code factor ^ blocks}. */
-    public static float attenuation(int blocks, double factor) {
+    /** Volume factor of {@code blocks} muffling blocks (a half block counts 0.5): {@code factor ^ blocks}. */
+    public static float attenuation(double blocks, double factor) {
         return (float) Math.pow(factor, Math.max(0, blocks));
     }
 
@@ -52,8 +56,8 @@ public final class Soundproofing {
 
     // ---------------------------------------------------------------- world
 
-    /** Muffling blocks strictly between the two points (3D DDA, at most {@link #MAX_STEPS} cells). */
-    public static int blocksBetween(Level level, Vec3 from, Vec3 to) {
+    /** Muffling weight strictly between the two points: whole blocks count 1, plates 0.5 (3D DDA, at most {@link #MAX_STEPS} cells). */
+    public static float blocksBetween(Level level, Vec3 from, Vec3 to) {
         int x = floor(from.x), y = floor(from.y), z = floor(from.z);
         int ex = floor(to.x), ey = floor(to.y), ez = floor(to.z);
         double dx = to.x - from.x, dy = to.y - from.y, dz = to.z - from.z;
@@ -64,7 +68,7 @@ public final class Soundproofing {
         double tx = dx == 0 ? Double.POSITIVE_INFINITY : (dx > 0 ? x + 1 - from.x : from.x - x) * tdx;
         double ty = dy == 0 ? Double.POSITIVE_INFINITY : (dy > 0 ? y + 1 - from.y : from.y - y) * tdy;
         double tz = dz == 0 ? Double.POSITIVE_INFINITY : (dz > 0 ? z + 1 - from.z : from.z - z) * tdz;
-        int count = 0;
+        float count = 0;
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
         for (int step = 0; step < MAX_STEPS && !(x == ex && y == ey && z == ez); step++) {
             if (tx <= ty && tx <= tz) {
@@ -79,9 +83,14 @@ public final class Soundproofing {
             }
             if (x == ex && y == ey && z == ez) break;
             pos.set(x, y, z);
-            if (level.hasChunkAt(pos) && level.getBlockState(pos).is(BLOCKS)) count++;
+            if (level.hasChunkAt(pos)) count += weight(level.getBlockState(pos));
         }
         return count;
+    }
+
+    /** Muffling weight of one block: 1 (tag soundproofing, also lead octets), 0.5 (tag soundproofing_half), else 0. */
+    public static float weight(net.minecraft.world.level.block.state.BlockState state) {
+        return state.is(BLOCKS) ? 1.0F : state.is(HALF_BLOCKS) ? HALF : 0.0F;
     }
 
     private static int floor(double v) {
@@ -90,7 +99,7 @@ public final class Soundproofing {
 
     /** Muffling factor of the way from a sound to the player's ear (1 = nothing in the way). */
     public static float wayFactor(ServerPlayer player, Vec3 source) {
-        int blocks = blocksBetween(player.level(), source, player.getEyePosition());
+        float blocks = blocksBetween(player.level(), source, player.getEyePosition());
         return blocks == 0 ? 1.0F : attenuation(blocks, OresConfig.soundproofFactor);
     }
 

@@ -104,6 +104,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void leadPlateSoundproofing(GameTestHelper h) {
+        OresTests.ALL.get("lead_plate_soundproofing").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void leadPlateRecipe(GameTestHelper h) {
+        OresTests.ALL.get("lead_plate_recipe").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void leadWorldgen(GameTestHelper h) {
         OresTests.ALL.get("lead_worldgen").accept(h);
     }

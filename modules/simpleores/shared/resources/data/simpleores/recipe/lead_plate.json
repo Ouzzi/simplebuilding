@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "simpleores:lead_ingot"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "id": "simpleores:lead_plate",
+    "count": 6
+  }
+}

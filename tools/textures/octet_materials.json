@@ -760,6 +760,17 @@
   "de": "Netheritblock"
  },
  {
+  "ns": "simpleores",
+  "base": "lead_block",
+  "key": "lead_block",
+  "group": "metal",
+  "tex": {
+   "all": "simpleores:block/lead_block"
+  },
+  "en": "Block of Lead",
+  "de": "Bleiblock"
+ },
+ {
   "ns": "minecraft",
   "base": "acacia_log",
   "key": "acacia_log",

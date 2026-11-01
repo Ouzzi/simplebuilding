@@ -55,6 +55,7 @@ END_WOODS = ('ashwood', 'duskwood')
 # only exist together with the textures. Blockstates/corner models stay here (only loaded for registered blocks).
 PARTNER_RES = {'simpleend': os.path.join(REPO, 'modules', 'simpleend', 'shared', 'resources'),
                'simpleblocks': os.path.join(REPO, 'modules', 'simpleblocks', 'shared', 'resources'),
+               'simpleores': os.path.join(REPO, 'modules', 'simpleores', 'shared', 'resources'),
                'simplebuilding': os.path.join(REPO, 'mc26_3', 'overlay', 'resources')}
 
 
@@ -297,6 +298,8 @@ def scan():
     out[last_log + 1:last_log + 1] = END_LOGS
     last_mod = max(i for i, m in enumerate(out) if m['group'] == 'mod')
     out[last_mod + 1:last_mod + 1] = BLOCKS_EXTRAS
+    last_metal = max(i for i, m in enumerate(out) if m['group'] == 'metal')
+    out[last_metal + 1:last_metal + 1] = ORES_EXTRAS
     with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
         f.write(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
     print(f'scanned {len(out)} materials')
@@ -321,6 +324,12 @@ BLOCKS_EXTRAS = [{'ns': 'simpleblocks', 'base': b, 'key': b, 'group': 'mod', 'te
 # the block is always registered.
 LIB_EXTRAS = [{'ns': 'simplelib', 'base': 'polished_end_stone', 'key': 'polished_end_stone', 'group': 'stone',
                'tex': {'all': 'simplelib:block/polished_end_stone'}, 'en': 'Polished End Stone', 'de': 'Polierter Endstein'}]
+
+
+# Simple Ores (b-lead02, owner ORES31-BEXTRA): the block of lead, behind the Vanilla metals; the game registers its cell only while
+# Simple Ores is loaded (OctetRegistry#materialCell). The lead octet mutes like a whole block of lead (simpleores:soundproofing).
+ORES_EXTRAS = [{'ns': 'simpleores', 'base': 'lead_block', 'key': 'lead_block', 'group': 'metal', 'tex': {'all': 'simpleores:block/lead_block'},
+                'en': 'Block of Lead', 'de': 'Bleiblock'}]
 
 
 def materials():

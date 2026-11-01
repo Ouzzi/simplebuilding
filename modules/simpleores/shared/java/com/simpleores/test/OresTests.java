@@ -27,6 +27,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import com.simpleores.block.LeadPlateBlock;
 import com.simpleores.block.SilverMirrorBlock;
 import com.simpleores.entity.SilverArrow;
 import com.simpleores.sound.Soundproofing;
@@ -95,7 +96,7 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18 + 6 + 7 + 4, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18 + 6 + 7 + 4 + 1, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
             check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus", "sageOre", "dimensionalScrap"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
                     && OresConfig.silverArrowUndeadBonus == 3, "config defaults");
@@ -307,13 +308,13 @@ public final class OresTests {
                 Vec3 source = new Vec3(from.x, eye.y, eye.z);
                 BlockPos row = BlockPos.containing(source);
                 for (int x = 4; x <= 6; x++) level.setBlockAndUpdate(new BlockPos(origin.getX() + x, row.getY(), row.getZ()), OresRegistry.LEAD_BLOCK.defaultBlockState());
-                int between = Soundproofing.blocksBetween(player.level(), source, eye);
+                float between = Soundproofing.blocksBetween(player.level(), source, eye);
                 check(h, player.level() == level && between >= 3, "same level " + (player.level() == level) + ", lead between sound " + source + " and eye " + eye + ": " + between);
                 ClientboundSoundPacket loud = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, source.x, source.y, source.z, 4.0F, 1.0F, 1L);
                 Packet<?>[] out = Soundproofing.filter(player, loud);
                 // The packet position is a float, far from the origin (x/z in the millions) it is rounded to whole cells, and the filter walks from that rounded point: count from it, not from the exact one.
                 Vec3 wire = new Vec3(loud.getX(), loud.getY(), loud.getZ());
-                int wireBetween = Soundproofing.blocksBetween(player.level(), wire, eye);
+                float wireBetween = Soundproofing.blocksBetween(player.level(), wire, eye);
                 check(h, wireBetween >= 3, "packet position " + wire + " vs " + source + ": " + wireBetween + " blocks");
                 float want = 4.0F * Soundproofing.attenuation(wireBetween, OresConfig.soundproofFactor);
                 check(h, out != null && out.length == 1 && out[0] instanceof ClientboundSoundPacket p && p.getVolume() == want,
@@ -435,6 +436,41 @@ public final class OresTests {
             level.setBlockAndUpdate(wall, Blocks.AIR.defaultBlockState());
             check(h, level.getBlockState(at).isAir(), "the mirror falls off when its wall goes");
             check(h, new ItemStack(item("silver_mirror")).getItem() instanceof net.minecraft.world.item.BlockItem, "has a block item");
+            h.succeed();
+        });
+        ALL.put("lead_plate_soundproofing", h -> {
+            BlockState plate = OresRegistry.LEAD_PLATE.defaultBlockState();
+            check(h, plate.is(Soundproofing.HALF_BLOCKS) && !plate.is(Soundproofing.BLOCKS), "plate is in soundproofing_half only");
+            check(h, Soundproofing.weight(plate) == 0.5F && Soundproofing.weight(OresRegistry.LEAD_BLOCK.defaultBlockState()) == 1.0F
+                    && Soundproofing.weight(Blocks.STONE.defaultBlockState()) == 0.0F, "weights: plate 0.5, lead block 1, stone 0");
+            check(h, !plate.is(BlockTags.OCCLUDES_VIBRATION_SIGNALS) && !plate.is(BlockTags.DAMPENS_VIBRATIONS), "the thin plate is no vibration blocker (like a carpet) and steps stay loud");
+            check(h, Soundproofing.attenuation(0.5, 0.5) > 0.70F && Soundproofing.attenuation(0.5, 0.5) < 0.71F && Soundproofing.attenuation(2.0, 0.5) == 0.25F, "factor ^ weight");
+            ServerLevel level = h.getLevel();
+            BlockPos origin = h.absolutePos(new BlockPos(0, 2, 2));
+            Vec3 from = Vec3.atCenterOf(origin).add(1.0, 0.0, 0.0), to = Vec3.atCenterOf(origin).add(10.0, 0.0, 0.0);
+            level.setBlockAndUpdate(origin.east(4), plate);
+            check(h, Soundproofing.blocksBetween(level, from, to) == 0.5F, "one plate: 0.5 of a block");
+            level.setBlockAndUpdate(origin.east(5), plate.setValue(LeadPlateBlock.FACING, Direction.NORTH));
+            check(h, Soundproofing.blocksBetween(level, from, to) == 1.0F, "two plates (any facing): one block");
+            level.setBlockAndUpdate(origin.east(6), OresRegistry.LEAD_BLOCK.defaultBlockState());
+            check(h, Soundproofing.blocksBetween(level, from, to) == 2.0F, "two plates and a block: two blocks");
+            // Lead octets of Simple Octets (when it is loaded) muffle like a whole block of lead, however little they fill.
+            var octet = BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleoctets", "lead_block_octet"));
+            if (octet.isPresent()) {
+                level.setBlockAndUpdate(origin.east(6), octet.get().defaultBlockState());
+                check(h, Soundproofing.blocksBetween(level, from, to) == 2.0F, "a lead octet counts a whole block");
+            }
+            for (Direction d : Direction.values()) {
+                var shape = plate.setValue(LeadPlateBlock.FACING, d).getShape(level, origin.east(4));
+                double thickness = shape.max(d.getAxis()) - shape.min(d.getAxis());
+                check(h, Math.abs(thickness - 2.0 / 16.0) < 1.0E-9, d + ": two pixels thick, was " + thickness);
+            }
+            check(h, new ItemStack(item("lead_plate")).getItem() instanceof net.minecraft.world.item.BlockItem, "has a block item");
+            h.succeed();
+        });
+        ALL.put("lead_plate_recipe", h -> {
+            var input = CraftingInput.of(3, 1, List.of(stack("lead_ingot"), stack("lead_ingot"), stack("lead_ingot")));
+            check(h, craft(h, input).is(item("lead_plate")) && craft(h, input).getCount() == 6, "3 lead ingots in a row -> 6 lead plates");
             h.succeed();
         });
         ALL.put("lead_worldgen", h -> {

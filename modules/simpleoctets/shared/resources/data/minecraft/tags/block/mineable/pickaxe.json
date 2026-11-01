@@ -70,6 +70,10 @@
     "simpleoctets:iron_block_octet",
     "simpleoctets:lapis_block_octet",
     "simpleoctets:netherite_block_octet",
+    {
+      "id": "simpleoctets:lead_block_octet",
+      "required": false
+    },
     "simpleoctets:white_concrete_octet",
     "simpleoctets:light_gray_concrete_octet",
     "simpleoctets:gray_concrete_octet",

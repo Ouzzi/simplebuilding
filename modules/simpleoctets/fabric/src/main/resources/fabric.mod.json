@@ -34,6 +34,7 @@
   "suggests": {
     "simplebuilding": "*",
     "simpleend": "*",
+    "simpleores": "*",
     "jei": "*"
   }
 }

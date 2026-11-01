@@ -16,7 +16,7 @@ keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords', 'silverArrowUndeadBonus',
                        'sageOre', 'dimensionalScrap'], config_keys
-BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block',
+BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
 ALLOYS = ('rose_bronze', 'blossom_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
@@ -36,7 +36,8 @@ derived = vanilla_derived.MODULE_OUTPUTS[NS]
 for b in BLOCKS:
     for rel in (f'assets/{NS}/blockstates/{b}.json', f'assets/{NS}/models/block/{b}.json', f'assets/{NS}/items/{b}.json', f'data/{NS}/loot_table/blocks/{b}.json'):
         assert (RES / rel).is_file(), rel
-    assert f'block/{b}.png' in derived, b
+    if b != 'lead_plate':   # the plate uses the texture of the lead block
+        assert f'block/{b}.png' in derived, b
     assert not (RES / f'assets/{NS}/textures/block/{b}.png').exists(), f'{b} texture is Vanilla-derived, not committed'
 for i in ITEMS:
     for rel in (f'assets/{NS}/models/item/{i}.json', f'assets/{NS}/items/{i}.json'):
@@ -46,7 +47,7 @@ for a in ALLOYS:
     assert (RES / f'assets/{NS}/equipment/{a}.json').is_file()
     for layer in ('humanoid', 'humanoid_leggings'):
         assert f'entity/equipment/{layer}/{a}.png' in derived, (a, layer)
-assert len(derived) == len(BLOCKS) + len(ITEMS) - 2 + 4 + 1, len(derived)   # - the 2 enchanted apples (shared texture) + the silver arrow entity texture
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 4 + 1, len(derived)   # - the 2 enchanted apples (shared texture) + the silver arrow entity texture
 assert 'entity/projectiles/silver_arrow.png' in derived
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
@@ -78,8 +79,12 @@ assert lead_height['min_inclusive']['absolute'] == -64 and lead_height['max_incl
 assert json.loads((RES / f'data/{NS}/worldgen/feature/lead_ore.json').read_text(encoding='utf-8'))['size'] == 9
 mc = RES / 'data/minecraft/tags'
 assert f'{NS}:lead_block' in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
+assert {'id': 'simpleoctets:lead_block_octet', 'required': False} in json.loads((mc / 'block/occludes_vibration_signals.json').read_text(encoding='utf-8'))['values']
 assert not (mc / 'block/dampens_vibrations.json').exists(), 'lead must NOT dampen vibrations'
-assert json.loads((RES / f'data/{NS}/tags/block/soundproofing.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_block']
+assert json.loads((RES / f'data/{NS}/tags/block/soundproofing.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_block', {'id': 'simpleoctets:lead_block_octet', 'required': False}]
+assert json.loads((RES / f'data/{NS}/tags/block/soundproofing_half.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_plate']
+plate = json.loads((RES / f'data/{NS}/recipe/lead_plate.json').read_text(encoding='utf-8'))
+assert plate['pattern'] == ['###'] and plate['result'] == {'id': f'{NS}:lead_plate', 'count': 6}
 assert f'{NS}:silver_arrow' in json.loads((mc / 'item/arrows.json').read_text(encoding='utf-8'))['values']
 assert f'{NS}:silver_arrow' in json.loads((mc / 'entity_type/arrows.json').read_text(encoding='utf-8'))['values']
 arrow = json.loads((RES / f'data/{NS}/recipe/silver_arrow.json').read_text(encoding='utf-8'))
