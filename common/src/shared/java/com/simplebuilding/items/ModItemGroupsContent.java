@@ -543,9 +543,9 @@ public final class ModItemGroupsContent {
             rows.add(pistons + 1, autoSmitherRow());
         }
         if (com.simplebuilding.version.McVersion.MACHINE_PARTS) {
-            // IG31-12 (b-mach32, 31.10.): Doppelkolben und Signaldaempfer direkt hinter den Kolben-Upgrades (vor dem Auto-Schmied).
+            // IG31-12 / MACH32-MOD: Doppelkolben und Signaldaempfer (seit 01.11. Simple Machines', per Id) direkt hinter den Kolben-Upgrades (vor dem Auto-Schmied).
             int pistons = rows.indexOf(rows.stream().filter(row -> row.name().equals("pistons")).findFirst().orElseThrow());
-            rows.add(pistons + 1, CreativeTabLayout.Row.of("double_pistons", ModItems.DOUBLE_PISTON, ModItems.SIGNAL_DAMPENER));
+            rows.add(pistons + 1, CreativeTabLayout.Row.of("double_pistons", com.simplebuilding.util.MachineRefs.item("double_piston"), com.simplebuilding.util.MachineRefs.item("signal_dampener")));
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {
             // Endertruhe und Astral-Lager nach einer Luecke neben den Truhen (Audit 2026-10-02).

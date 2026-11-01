@@ -224,6 +224,13 @@ MODULES = [
                 "auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr "
                 "Plätzen und größeren Stapeln, und Bündel und Köcher in drei Stufen mit den Lager-Verzauberungen "
                 "Schublade, Tiefe Taschen und Trichter.")),
+    dict(module="simplemachines", ns="simplemachines", package="com.simplemachines.guide", cls="MachinesGuide", kind="item",
+         author="Simple Machines", recipe="minecraft:redstone",
+         name=("Simple Machines Guide", "Simple-Machines-Handbuch"),
+         intro=("The machine parts of the Simple Machines tab: the Double Piston, which reaches further than any Vanilla piston, "
+                "and the Signal Dampener, a repeater that takes up to 3 off the signal.",
+                "Die Maschinenteile des Tabs Simple Machines: der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, "
+                "und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),

@@ -149,7 +149,6 @@
       "com.simplebuilding.gametest.Mech23GameTest",
       "com.simplebuilding.gametest.Mech24GameTest",
       "com.simplebuilding.gametest.WideDoorGameTest",
-      "com.simplebuilding.gametest.MachinePartGameTest",
       "com.simplebuilding.gametest.EndStructureGameTest"
     ]
   },
@@ -200,6 +199,7 @@
     "simpleanimals": "*",
     "simpledinos": "*",
     "simpleores": "*",
+    "simplemachines": "*",
     "simpleresonance": "*"
   }
 }

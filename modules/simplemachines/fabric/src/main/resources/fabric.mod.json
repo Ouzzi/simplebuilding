@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "simplemachines",
+  "version": "${version}",
+  "name": "Simple Machines",
+  "icon": "assets/simplemachines/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "The machine parts of the Simple Machines tab. Stage 1: Double Piston (one block, two stages: the head reaches one cell, then body and head move on; pushes with Vanilla rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only; works on its own.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplemachines.MachinesFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplemachines.ModuleGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "suggests": {
+    "simplebuilding": "*"
+  }
+}

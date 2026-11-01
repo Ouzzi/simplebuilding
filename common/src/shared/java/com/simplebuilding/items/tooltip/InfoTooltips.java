@@ -69,13 +69,7 @@ public final class InfoTooltips {
             out.add(gray("tooltip.simplebuilding.sledgehammer.corner"));
         }
         // Material-Achtel und Melonenscheibe: Tooltips von Simple Octets (Stufe 6); essbare Glitzermelone bleibt hier.
-        // IG31-25/-26 (b-mach32, 31.10.): how the Double Piston and the Signal Dampener are used.
-        if (com.simplebuilding.version.McVersion.MACHINE_PARTS && item == ModItems.DOUBLE_PISTON) {
-            out.add(gray("tooltip.simplebuilding.double_piston"));
-        }
-        if (com.simplebuilding.version.McVersion.MACHINE_PARTS && item == ModItems.SIGNAL_DAMPENER) {
-            out.add(gray("tooltip.simplebuilding.signal_dampener"));
-        }
+        // Doppelkolben und Signaldaempfer: Tooltips von Simple Machines (MACH32-MOD).
         if (item == net.minecraft.world.item.Items.GLISTERING_MELON_SLICE) {
             out.add(gray("tooltip.simplebuilding.glistering_melon_slice.food"));
         }

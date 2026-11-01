@@ -143,6 +143,11 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleOres = true;
 
+    /** Simple Machines (MACH32-MOD, 01.11.): Double Piston and Signal Dampener. */
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleMachines = true;
+
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
      * bundled optional sub-mods to framework SubMods (only the mod id string is shared, no class import). Called once
@@ -176,6 +181,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpleresonance", c.enableSimpleResonance);
         setSubMod("simpledinos", c.enableSimpleDinos);
         setSubMod("simpleores", c.enableSimpleOres);
+        setSubMod("simplemachines", c.enableSimpleMachines);
     }
 
     /**

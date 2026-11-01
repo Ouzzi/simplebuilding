@@ -31,7 +31,8 @@
         "simplestorage",
         "simplelights",
         "simplegadgets",
-        "simpleores"
+        "simpleores",
+        "simplemachines"
       ],
       "optional": [
         "jei",
@@ -4657,6 +4658,69 @@
         "fabric": ":modules:simpleores:fabric",
         "neoforge": ":modules:simpleores:neoforge",
         "forge": ":modules:simpleores:forge"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
+    },
+    {
+      "id": "simplemachines",
+      "name": "Simple Machines",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Machines",
+      "description": "The machine parts of the Simple Machines tab. Stage 1: Double Piston (one block, two stages: head one block out, then body and head move on; Vanilla push rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding"
+      ],
+      "checks": [
+        "modules/simplemachines/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplemachines",
+        "catalogues": [
+          "modules/simplemachines/fabric/src/main/java/com/simplebuilding/modules/simplemachines/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplemachines"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplemachinesGameTest",
+            "report": "integration/build/simplemachines-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplemachinesStandaloneGameTest",
+              "report": "integration/build/standalone/simplemachines-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplemachines",
+        "shared": "modules/simplemachines/shared",
+        "fabric": "modules/simplemachines/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplemachines/generated/resources",
+        "lang": "modules/simplemachines/shared/resources/assets/simplemachines/lang",
+        "wikiManual": "modules/simplemachines/wiki/manual.json",
+        "balanceDir": "balance/simplemachines"
+      },
+      "projects": {
+        "fabric": ":modules:simplemachines:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "required"

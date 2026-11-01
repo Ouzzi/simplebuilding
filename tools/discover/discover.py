@@ -135,6 +135,8 @@ MODS = [
          own_packages=["com.simpleresonance."]),
     dict(id="simpledinos", ns=["simpledinos"], cls="DinosDiscover", package="com.simpledinos.discover",
          own_packages=["com.simpledinos."]),
+    dict(id="simplemachines", ns=["simplemachines"], cls="MachinesDiscover", package="com.simplemachines.discover",
+         own_packages=["com.simplemachines."]),
     dict(id="simpleores", ns=["simpleores"], cls="OresDiscover", package="com.simpleores.discover",
          own_packages=["com.simpleores."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",
