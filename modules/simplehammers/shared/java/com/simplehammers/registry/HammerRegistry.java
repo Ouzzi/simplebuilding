@@ -26,11 +26,6 @@ import net.minecraft.core.component.DataComponents;
  */
 public final class HammerRegistry {
     public static final Map<HammerTiers, SledgehammerItem> HAMMERS = new EnumMap<>(HammerTiers.class);
-    /** Vanilla hoe of each tier: the hammer sits behind it in the tools tab (SimpleBuilding's order without SimpleBuilding). */
-    public static final Map<HammerTiers, Item> VANILLA_ANCHORS = new EnumMap<>(Map.of(
-            HammerTiers.STONE, Items.STONE_HOE, HammerTiers.COPPER, Items.COPPER_HOE, HammerTiers.IRON, Items.IRON_HOE,
-            HammerTiers.GOLD, Items.GOLDEN_HOE, HammerTiers.DIAMOND, Items.DIAMOND_HOE, HammerTiers.NETHERITE, Items.NETHERITE_HOE,
-            HammerTiers.ENDERITE, Items.NETHERITE_HOE, HammerTiers.ROSE_BRONZE, Items.GOLDEN_HOE, HammerTiers.BLOSSOM_GOLD, Items.GOLDEN_HOE));
     public static CreativeModeTab TAB;
 
     private HammerRegistry() {}
@@ -82,20 +77,6 @@ public final class HammerRegistry {
         if (!SimpleHammers.on()) return out;
         HAMMERS.values().forEach(item -> out.add(new ItemStack(item)));
         out.add(com.simplehammers.guide.HammersGuide.stack());
-        return out;
-    }
-
-    /**
-     * Vanilla tools tab: each hammer behind the hoe of its tier, the Enderite one behind the Netherite one - only without
-     * SimpleBuilding, whose search-tab chains place them between its chisels and wands.
-     */
-    public static Map<Item, List<ItemStack>> vanillaPlacements() {
-        Map<Item, List<ItemStack>> out = new java.util.LinkedHashMap<>();
-        if (!SimpleHammers.on() || SimpleHammers.isLoaded("simplebuilding")) return out;
-        for (HammerTiers tier : HammerTiers.values()) {
-            if (!tier.enabled()) continue;
-            out.computeIfAbsent(VANILLA_ANCHORS.get(tier), k -> new ArrayList<>()).add(new ItemStack(HAMMERS.get(tier)));
-        }
         return out;
     }
 }

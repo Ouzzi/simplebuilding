@@ -226,47 +226,6 @@ public final class OctetRegistry {
         return out;
     }
 
-    /** Vanilla tabs that get octets: wool, concrete and terracotta to the colored blocks, the rest to the building blocks. */
-    public static final List<ResourceKey<CreativeModeTab>> VANILLA_TABS = List.of(CreativeModeTabs.BUILDING_BLOCKS, CreativeModeTabs.COLORED_BLOCKS);
-    private static final Set<String> COLORED = Set.of("wool", "concrete", "terracotta");
-
-    /**
-     * Vanilla tab placement (per-mod switch "add items to Vanilla tabs"): each octet item of {@code tab} right after the
-     * slab of its material, else after its full block; anchor -> octet items in tab order.
-     */
-    public static Map<Item, List<ItemStack>> vanillaPlacements(ResourceKey<CreativeModeTab> tab) {
-        Map<Item, List<ItemStack>> out = new java.util.LinkedHashMap<>();
-        // With SimpleBuilding its search-tab chains order the octets next to its palettes; a second placement here would
-        // win the race on NeoForge/Forge (event order) and break that order.
-        if (!SimpleOctets.on() || SimpleOctets.isLoaded(SimpleOctets.SB_NAMESPACE)) return out;
-        List<Item> octets = new ArrayList<>(WOOD_OCTET_ITEMS);
-        octets.addAll(MATERIAL_OCTET_ITEMS);
-        for (Item octet : octets) {
-            if (!(octet instanceof MaterialOctetItem item) || !(item.cell() instanceof MaterialOctetBlock cell)) continue;
-            String group = GROUPS.get(cell); // null for woods; Set.of(...).contains(null) throws
-            boolean colored = group != null && COLORED.contains(group);
-            if (!tab.equals(colored ? CreativeModeTabs.COLORED_BLOCKS : CreativeModeTabs.BUILDING_BLOCKS)) continue;
-            Block full = cell.source();
-            if (full == null || full == Blocks.AIR) continue;
-            Item anchor = slab(BuiltInRegistries.BLOCK.getKey(full));
-            out.computeIfAbsent(anchor != null ? anchor : full.asItem(), k -> new ArrayList<>()).add(new ItemStack(octet));
-        }
-        return out;
-    }
-
-    private static @Nullable Item slab(Identifier full) {
-        String path = full.getPath();
-        List<String> candidates = new ArrayList<>(List.of(path + "_slab"));
-        if (path.endsWith("_planks")) candidates.add(path.substring(0, path.length() - 7) + "_slab");
-        if (path.endsWith("_block")) candidates.add(path.substring(0, path.length() - 6) + "_slab");
-        if (path.endsWith("s")) candidates.add(path.substring(0, path.length() - 1) + "_slab");
-        for (String candidate : candidates) {
-            Identifier id = Identifier.fromNamespaceAndPath(full.getNamespace(), candidate);
-            if (BuiltInRegistries.ITEM.containsKey(id)) return BuiltInRegistries.ITEM.getValue(id);
-        }
-        return null;
-    }
-
     private static Supplier<Item> piece(String name) {
         Identifier id = SimpleOctets.id(name);
         return () -> BuiltInRegistries.ITEM.getValue(id);

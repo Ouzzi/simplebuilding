@@ -2,13 +2,29 @@
   "model": {
     "type": "minecraft:condition",
     "on_false": {
-      "type": "minecraft:model",
-      "model": "simplemobs:item/end_wings"
+      "type": "minecraft:condition",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "simplemobs:item/end_wings"
+      },
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "simplemobs:item/end_wings_broken"
+      },
+      "property": "minecraft:broken"
     },
     "on_true": {
-      "type": "minecraft:model",
-      "model": "simplemobs:item/end_wings_broken"
+      "type": "minecraft:condition",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "simplemobs:item/end_wings_v2"
+      },
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "simplemobs:item/end_wings_v2_broken"
+      },
+      "property": "minecraft:broken"
     },
-    "property": "minecraft:broken"
+    "property": "simplemobs:wings_look_v2"
   }
 }

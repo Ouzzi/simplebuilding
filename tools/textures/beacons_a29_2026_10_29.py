@@ -105,11 +105,18 @@ def main(check=False):
             continue
         (tint_png if kind == 'png' else tint_layers)(src, dst, spec)
     gui = TEX / 'gui/container/pyramid_icons.png'
+    gui_a = TEX / 'gui/container/pyramid_icons_a.png'  # ABN30-9: variant A (all six tiers, the reached ones lit) for the dev variants panel
     if check:
         assert gui.is_file(), gui
+        assert gui_a.is_file(), gui_a
         return
     gui.parent.mkdir(parents=True, exist_ok=True)
     icon_sheet().save(gui)
+    sheet_a = icon_sheet(sized=False)
+    sheet_a.save(gui_a)
+    sys.path.insert(0, str(Path(__file__).parent))
+    import layers
+    layers.write_beside(gui_a, layers.from_rgba(sheet_a.width, sheet_a.height, sheet_a.tobytes()))
 
 
 if __name__ == '__main__':

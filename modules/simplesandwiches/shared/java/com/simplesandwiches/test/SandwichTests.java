@@ -1125,10 +1125,13 @@ public final class SandwichTests {
             boolean plainVanilla = "minecraft".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace()) && stack.getComponentsPatch().isEmpty();
             h.assertTrue(!plainVanilla, "plain Vanilla item in the own tab: " + stack.getItem());
         }
-        for (var tabKey : SandwichRegistry.VANILLA_TABS) {
-            for (var stack : net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(tabKey).getDisplayItems()) {
+        var tabs = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
+        for (var tab : tabs) {
+            var tabId = tabs.getKey(tab);
+            if (tabId == null || !"minecraft".equals(tabId.getNamespace()) || tab.getType() != net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) continue;
+            for (var stack : tab.getDisplayItems()) {
                 h.assertTrue(own.stream().noneMatch(o -> o.is(stack.getItem()) && !"minecraft".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())),
-                        "mod item of the own tab in the Vanilla tab " + tabKey.identifier() + ": " + stack.getItem());
+                        "mod item of the own tab in the Vanilla tab " + tabId + ": " + stack.getItem());
             }
         }
         h.succeed();

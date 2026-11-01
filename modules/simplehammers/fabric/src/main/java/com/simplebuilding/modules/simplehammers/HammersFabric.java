@@ -33,9 +33,6 @@ public final class HammersFabric implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(SledgehammerProgress::tick);
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> SledgehammerUpgrades.onDisconnect(handler.player));
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
-            if (com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(loader.getConfigDir(), SimpleHammers.MOD_ID)) {
-                for (Map.Entry<Item, List<ItemStack>> entry : HammerRegistry.vanillaPlacements().entrySet()) insertAfter(out, entry.getKey(), entry.getValue());
-            }
             if (!SimpleHammers.on()) return;
             var book = List.of(com.simplehammers.guide.HammersGuide.stack());
             // Before the writable book: a tail append clashes with other mods' insertAfter at the tail.
@@ -43,13 +40,5 @@ public final class HammersFabric implements ModInitializer {
             else book.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         });
         if (loader.isModLoaded("ftbquests")) com.simplehammers.guide.HammersGuide.installQuests(loader.getConfigDir());
-    }
-
-    private static void insertAfter(FabricCreativeModeTabOutput out, Item anchor, List<ItemStack> stacks) {
-        // Never twice (another mod may have placed them already).
-        stacks = stacks.stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();
-        if (stacks.isEmpty()) return;
-        if (out.getDisplayStacks().stream().anyMatch(s -> s.is(anchor))) out.insertAfter(anchor, stacks, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        else stacks.forEach(s -> out.accept(s, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
     }
 }

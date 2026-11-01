@@ -33,9 +33,6 @@ public final class HammersForge {
         });
         net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
             if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;
-            if (com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleHammers.MOD_ID)) {
-                for (Map.Entry<Item, List<ItemStack>> entry : HammerRegistry.vanillaPlacements().entrySet()) insertAfter(event, entry.getKey(), entry.getValue());
-            }
             if (SimpleHammers.on()) event.getEntries().put(com.simplehammers.guide.HammersGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         net.minecraftforge.event.level.BlockEvent.BreakEvent.BUS.addListener(event -> {
@@ -50,23 +47,5 @@ public final class HammersForge {
             if (event.getEntity() instanceof ServerPlayer player) SledgehammerUpgrades.onDisconnect(player);
         });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplehammers.guide.HammersGuide.installQuests(FMLPaths.CONFIGDIR.get());
-    }
-
-    /** Behind {@code anchor} in this order; never twice; at the end when the anchor is missing. */
-    private static void insertAfter(net.minecraftforge.event.BuildCreativeModeTabContentsEvent event, Item anchorItem, List<ItemStack> stacks) {
-        var entries = event.getEntries();
-        var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-        var anchor = new ItemStack(anchorItem);
-        boolean anchored = entries.contains(anchor);
-        var previous = anchor;
-        for (var stack : stacks) {
-            if (entries.contains(stack)) continue;
-            if (anchored) {
-                entries.putAfter(previous, stack, visibility);
-                previous = stack;
-            } else {
-                entries.put(stack, visibility);
-            }
-        }
     }
 }

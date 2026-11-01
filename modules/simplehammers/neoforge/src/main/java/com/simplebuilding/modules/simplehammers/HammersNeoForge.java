@@ -40,9 +40,6 @@ public final class HammersNeoForge {
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;
-            if (com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleHammers.MOD_ID)) {
-                for (Map.Entry<Item, List<ItemStack>> entry : HammerRegistry.vanillaPlacements().entrySet()) insertAfter(event, entry.getKey(), entry.getValue());
-            }
             if (SimpleHammers.on()) event.accept(com.simplehammers.guide.HammersGuide.stack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
         NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, (BreakBlockEvent event) -> {
@@ -57,22 +54,5 @@ public final class HammersNeoForge {
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplehammers.guide.HammersGuide.installQuests(FMLPaths.CONFIGDIR.get());
         if (dist == Dist.CLIENT) HammersNeoClient.init();
-    }
-
-    /** Behind {@code anchor} in this order; never twice; at the end when the anchor is missing. */
-    private static void insertAfter(BuildCreativeModeTabContentsEvent event, Item anchorItem, List<ItemStack> stacks) {
-        var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-        var anchor = new ItemStack(anchorItem);
-        boolean anchored = event.getParentEntries().contains(anchor) && event.getSearchEntries().contains(anchor);
-        var previous = anchor;
-        for (var stack : stacks) {
-            if (event.getParentEntries().contains(stack) || event.getSearchEntries().contains(stack)) continue;
-            if (anchored) {
-                event.insertAfter(previous, stack, visibility);
-                previous = stack;
-            } else {
-                event.accept(stack, visibility);
-            }
-        }
     }
 }
