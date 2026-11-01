@@ -5396,7 +5396,14 @@
         "en_us": "Spawner Chunk",
         "de_de": "Spawner-Brocken"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Spawner Chunk: made from 9 Spawner Fragments. 9 Chunks make 1 Makeshift Spawner."
+        },
+        "de": {
+          "summary": "Spawner-Brocken: aus 9 Spawner-Fragmenten. 9 Brocken ergeben 1 Behelfsmäßigen Spawner."
+        }
+      },
       "texture": "assets/textures/simplemobs/item/spawner_chunk.png",
       "craftedBy": [
         "simplemobs:spawner_chunk"
@@ -5411,7 +5418,14 @@
         "en_us": "Spawner Fragment",
         "de_de": "Spawner-Fragment"
       },
-      "note": null,
+      "note": {
+        "en": {
+          "summary": "Spawner Fragment: a Vanilla spawner mined with a pickaxe (not Silk Touch) leaves one with 30 % chance (spawnerFragmentChance, 0 = off). 9 Fragments make 1 Spawner Chunk."
+        },
+        "de": {
+          "summary": "Spawner-Fragment: Ein Vanilla-Spawner, mit der Spitzhacke abgebaut (nicht mit Behutsamkeit), hinterlässt mit 30 % Chance eines (spawnerFragmentChance, 0 = aus). 9 Fragmente ergeben 1 Spawner-Brocken."
+        }
+      },
       "texture": "assets/textures/simplemobs/item/spawner_fragment.png",
       "craftedBy": [],
       "usedIn": [
@@ -6041,10 +6055,7 @@
   "obtain": {
     "sources": []
   },
-  "undocumented": [
-    "simplemobs:spawner_chunk",
-    "simplemobs:spawner_fragment"
-  ],
+  "undocumented": [],
   "incompleteProse": {},
   "counts": {
     "features": 22,
@@ -6059,7 +6070,7 @@
     "config": 0,
     "quests": 0,
     "recipesOtherLines": 0,
-    "undocumented": 2,
+    "undocumented": 0,
     "inWorld": 0,
     "incompleteProse": 0
   }

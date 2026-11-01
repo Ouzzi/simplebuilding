@@ -103,6 +103,8 @@ public final class MobsDiscover {
             "simplemobs:soulfire_blaze_spawn_egg",
             "simplemobs:soulfire_powder",
             "simplemobs:soulfire_rod",
+            "simplemobs:spawner_chunk",
+            "simplemobs:spawner_fragment",
             "simplemobs:strong_explosives",
             "simplemobs:strong_gunpowder",
             "simplemobs:strong_tnt",
