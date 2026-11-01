@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
-import net.fabricmc.fabric.api.client.itemgroup.v1.FabricCreativeInventoryScreen;
+import net.fabricmc.fabric.api.client.creativetab.v1.FabricCreativeModeInventoryScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -78,7 +78,7 @@ public final class HeadSlotFitClientTest implements FabricClientGameTest {
             context.waitTicks(3);
             context.runOnClient(client -> {
                 var tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(MobHeads.TAB);
-                if (!((FabricCreativeInventoryScreen) client.gui.screen()).setSelectedItemGroup(tab)) {
+                if (!((FabricCreativeModeInventoryScreen) client.gui.screen()).setSelectedTab(tab)) {
                     throw new AssertionError("Simple Mob Heads tab cannot be selected");
                 }
             });
