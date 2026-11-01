@@ -296,10 +296,10 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [x] ORES31-BDAMP Blei: Dämpfung je Block – x0,5 je Block (schon gebaut: OresTests (Soundproofing.attenuation(3, 0.5))) → QW
 - [x] ORES31-BTHR Blei: Schwelle – 0,05 (schon gebaut: OresTests (audible ... 0.05)) → QW
 - [x] ORES31-BNAME Blei: englischer Name – lead (Lead Ingot / Block of Lead) (schon gebaut: lead_block, lead_ore im Bestand (simpleores)) → QW
-- [ ] ORES31-BEXTRA Blei: weitere Bauteile – Platten: wie Teppich, aber vertikal UND horizontal platzierbar; Blei-Octets dämmen wie ein voller Bleiblock (Wolle-Logik); Platten Dämmung ca. 0,5 → PRIO
-- [ ] ORES31-PFEIL Silberpfeil: wohin – ores, aber als Erweiterung in Simple Arrows (neues Sub-Mod; Silberpfeil liegt heute fertig in Simple Ores) → PRIO
+- [~] (B, b-lead02, 01.11.) GEBAUT: lead_plate (6 Richtungen, 2 px, 3 Barren -> 6, Gewicht 0,5 in soundproofing_half), Blei-Octets lead_block_octet (nur mit Ores, zaehlen einen ganzen Block, occludes_vibration), Tests lead_plate_*; offen Client-Sicht/Gate - ORES31-BEXTRA Blei: weitere Bauteile – Platten: wie Teppich, aber vertikal UND horizontal platzierbar; Blei-Octets dämmen wie ein voller Bleiblock (Wolle-Logik); Platten Dämmung ca. 0,5 → PRIO
+- [~] (B, b-lead02, 01.11.; Plan docs/ai/PLAN-B-LEAD02-2026-11-01.md) ORES31-PFEIL Silberpfeil: wohin – ores, aber als Erweiterung in Simple Arrows (neues Sub-Mod; Silberpfeil liegt heute fertig in Simple Ores) → PRIO | Stand: Pfeil gebaut+aktiv in simpleores; Umzug in neues Modul Simple Arrows (modules/simplearrows, IdMoves simpleores:silver_arrow, Silber-Rezept nur mit Ores) OFFEN, Schnittliste im Memory
 - [x] ORES31-SPIEGEL Silberspiegel – nur Deko (schon gebaut: silver_mirror (Rezept, Loot, Tag) in simpleores gebaut) → QW
-- [ ] ORES31-BAU Jetzt bauen – Pfeil und Spiegel jetzt bauen (Spiegel schon gebaut, Pfeil siehe ORES31-PFEIL) → PRIO
+- [x] (B, b-lead02, 01.11.) Beleg: Silberspiegel + Silberpfeil sind gebaut und aktiv in simpleores (OresRegistry, Tests silver_mirror_placement/silver_arrow_*) - ORES31-BAU Jetzt bauen – Pfeil und Spiegel jetzt bauen (Spiegel schon gebaut, Pfeil siehe ORES31-PFEIL) → PRIO
 - [x] ORES31-ZINK Zusatz-Nutzen Zink – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW
 - [x] ORES31-NICKEL Zusatz-Nutzen Nickel – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW
 - [x] ORES31-PLATIN Zusatz-Nutzen Platin – - (vorerst keine Extras) (schon gebaut: nichts zu bauen) → QW

@@ -173,6 +173,8 @@
   "block.simpleoctets.lapis_block_octet": "Block of Lapis Lazuli Octet Cell",
   "item.simpleoctets.netherite_block_octet": "Block of Netherite Octet",
   "block.simpleoctets.netherite_block_octet": "Block of Netherite Octet Cell",
+  "item.simpleoctets.lead_block_octet": "Block of Lead Octet",
+  "block.simpleoctets.lead_block_octet": "Block of Lead Octet Cell",
   "item.simpleoctets.acacia_log_octet": "Acacia Log Octet",
   "block.simpleoctets.acacia_log_octet": "Acacia Log Octet Cell",
   "item.simpleoctets.birch_log_octet": "Birch Log Octet",

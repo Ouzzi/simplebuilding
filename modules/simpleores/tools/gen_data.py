@@ -33,6 +33,7 @@ BLOCKS = {
     'silver_block': ('Block of Silver', 'Silberblock'),
     'lead_ore': ('Lead Ore', 'Bleierz'), 'deepslate_lead_ore': ('Deepslate Lead Ore', 'Tiefenschiefer-Bleierz'),
     'raw_lead_block': ('Block of Raw Lead', 'Rohbleiblock'), 'lead_block': ('Block of Lead', 'Bleiblock'),
+    'lead_plate': ('Lead Plate', 'Bleiplatte'),
     'silver_mirror': ('Silver Mirror', 'Silberspiegel'),
     'rose_bronze_block': ('Block of Rose Bronze', 'Rosenbronzeblock'), 'blossom_gold_block': ('Block of Blossom Gold', 'Blütengoldblock'),
 }
@@ -78,7 +79,7 @@ SAGE_ORES = ['sage_ore', 'deepslate_sage_ore']
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
-    if path == 'silver_mirror':
+    if path in ('silver_mirror', 'lead_plate'):
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
     put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
@@ -95,6 +96,16 @@ put(ASSETS / 'models/block/silver_mirror.json', {
                             'up': {'uv': [0, 0, 16, 1], 'texture': '#mirror'}, 'down': {'uv': [0, 0, 16, 1], 'texture': '#mirror'}}}]})
 put(ASSETS / 'models/item/silver_mirror.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:block/silver_mirror'}})
 put(ASSETS / 'items/silver_mirror.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/silver_mirror'}})
+# Lead plate (owner ORES31-BEXTRA): a 2 pixel plate with the lead block texture (no texture of its own), facing = the side it was placed on.
+PLATE_ROT = {'up': (0, 0), 'down': (180, 0), 'north': (90, 0), 'east': (90, 90), 'south': (90, 180), 'west': (90, 270)}
+put(ASSETS / 'blockstates/lead_plate.json', {'variants': {f'facing={d}': {'model': f'{NS}:block/lead_plate', 'x': x, 'y': y} for d, (x, y) in PLATE_ROT.items()}})
+put(ASSETS / 'models/block/lead_plate.json', {
+    'textures': {'plate': f'{NS}:block/lead_block', 'particle': f'{NS}:block/lead_block'},
+    'elements': [{'from': [0, 0, 0], 'to': [16, 2, 16],
+                  'faces': {'down': {'uv': [0, 0, 16, 16], 'texture': '#plate', 'cullface': 'down'}, 'up': {'uv': [0, 0, 16, 16], 'texture': '#plate'},
+                            'north': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'north'}, 'south': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'south'},
+                            'west': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'west'}, 'east': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'east'}}}]})
+put(ASSETS / 'items/lead_plate.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/lead_plate'}})
 for path in ITEMS:
     handheld = path.rsplit('_', 1)[-1] in TOOL_PARTS
     put(ASSETS / f'models/item/{path}.json', {'parent': 'minecraft:item/handheld' if handheld else 'minecraft:item/generated',
@@ -126,7 +137,7 @@ ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
 ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
-for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'silver_mirror', 'rose_bronze_block', 'blossom_gold_block'):
+for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_mirror', 'rose_bronze_block', 'blossom_gold_block'):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -178,6 +189,10 @@ for source in ('raw_lead', 'lead_ore', 'deepslate_lead_ore'):
            'experience': 0.7, 'group': 'lead_ingot', 'ingredient': item(source), 'result': result('lead_ingot')}, item(source))
     recipe(f'lead_ingot_from_blasting_{source}', 'misc', {'type': 'minecraft:blasting', 'category': 'misc', 'cookingtime': 100,
            'experience': 0.7, 'group': 'lead_ingot', 'ingredient': item(source), 'result': result('lead_ingot')}, item(source))
+
+# Lead plate (owner ORES31-BEXTRA): three ingots in a row make six plates (a block of 9 ingots is worth 1, 18 plates worth 9 half blocks).
+recipe('lead_plate', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': item('lead_ingot')},
+                                         'pattern': ['###'], 'result': result('lead_plate', 6)}, item('lead_ingot'))
 
 # Silver arrow: silver nugget over stick over feather makes 4 (like the Vanilla arrow). Silver mirror: a silver frame round a glass pane.
 recipe('silver_arrow', 'combat', {'type': 'minecraft:crafting_shaped', 'category': 'equipment',
@@ -289,8 +304,11 @@ for kind in ('block', 'item'):
     tag(f'c/tags/{kind}/storage_blocks.json', ['#c:storage_blocks/enderite'])
 tag('minecraft/tags/block/needs_stone_tool.json', ids(STONE_TIER))
 # Lead keeps the Sculk and the Warden from hearing through it like wool, but is NOT in dampens_vibrations: steps and mining on it stay loud.
-tag('minecraft/tags/block/occludes_vibration_signals.json', ids(['lead_block']))
-tag(f'{NS}/tags/block/soundproofing.json', ids(['lead_block']))
+tag('minecraft/tags/block/occludes_vibration_signals.json', ids(['lead_block']) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
+# Whole blocks of lead count 1; the lead octets of Simple Octets (optional, only with that mod) count a whole block too, however little they fill
+# (owner ORES31-BEXTRA, like the wool logic: the cell is what counts). The plate counts half.
+tag(f'{NS}/tags/block/soundproofing.json', ids(['lead_block']) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
+tag(f'{NS}/tags/block/soundproofing_half.json', ids(['lead_plate']))
 # The silver arrow is an arrow: bows and crossbows take it as ammo, enchantments and the dispenser treat it like one.
 tag('minecraft/tags/item/arrows.json', ids(['silver_arrow']))
 tag('minecraft/tags/entity_type/arrows.json', [item('silver_arrow')])
@@ -554,20 +572,24 @@ FEATURES = [
             ('Lead', 'A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',
              ['Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).',
               'Items: raw lead, lead ingot, lead nugget, blocks of lead and raw lead. Furnace and blast furnace smelt raw lead and the ores. The leash keeps its name; the ingot is "Lead Ingot".',
-              'Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch).']),
+              'Block of lead: blast resistance 1000 (obsidian 1200), hardness 25, an iron pickaxe mines it. It is in the tag occludes_vibration_signals like wool (Sculk sensors and the Warden do not hear through a lead wall) but NOT in dampens_vibrations: whoever walks on it or mines it makes noise. Its own heavy sound (netherite and anvil sounds, low pitch).',
+              'Lead plate: 3 lead ingots in a row make 6 plates, 2 pixels thick, like a carpet but laid on any of the six sides of a cell (flat or upright, it faces the side you click). Same hardness, blast resistance and sound as the block; it muffles half as much as a block of lead and is no vibration blocker.']),
             ('Blei', 'Ein stumpfes, schweres Metall aus Stein und Tiefenschiefer. Bleiblöcke halten den Sculk taub, trotzen Explosionen und dämmen Schall - sind aber selbst laut.',
              ['Oberwelt: Bleierz (und ein Tiefenschiefer-Zwilling), 6 Adern zu 9 je Chunk zwischen Y -64 und 48; häufiger als Silber, seltener als Kupfer. Braucht eine Steinspitzhacke; lässt 1 bis 2 Rohblei fallen (Glück hilft).',
               'Gegenstände: Rohblei, Bleibarren, Bleiklumpen, Blöcke aus Blei und Rohblei. Ofen und Hochofen schmelzen Rohblei und die Erze. Die Leine behält ihren Namen; der Barren heißt „Bleibarren“.',
-              'Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief).'])),
+              'Bleiblock: Explosionswiderstand 1000 (Obsidian 1200), Härte 25, eine Eisenspitzhacke baut ihn ab. Er steht wie Wolle im Tag occludes_vibration_signals (Sculk-Sensoren und der Wächter hören nicht durch eine Bleiwand), aber NICHT in dampens_vibrations: wer darauf läuft oder ihn abbaut, macht Lärm. Eigener schwerer Klang (Netherit- und Amboss-Töne, tief).',
+              'Bleiplatte: 3 Bleibarren in einer Reihe ergeben 6 Platten, 2 Pixel dick, wie ein Teppich, aber auf jeder der sechs Zellseiten platzierbar (liegend oder stehend, sie zeigt zu der Seite, die du anklickst). Härte, Explosionswiderstand und Klang wie der Block; sie dämmt halb so stark wie ein Bleiblock und hält keine Vibrationen auf.'])),
     feature('soundproofing', [f'{JAVA}/sound/Soundproofing.java', f'{JAVA}/mixin/SoundproofMixin.java', f'{JAVA}/config/OresConfig.java'],
             ('Soundproofing', 'Lead walls make the world quieter on the other side: a TNT blast behind a few lead blocks is only a dull thud, or not heard at all.',
              ['Every sound the server sends to a player (blocks, mobs, explosions, ...) from volume 0.3 up is checked: the lead blocks on the straight way from the sound to the player\'s ear (at most 24 cells, the cells of the sound and of the ear do not count) multiply the volume by soundproofFactor for each block.',
               'Below soundproofThreshold the sound is not sent at all. Example: a TNT blast (volume 4) behind 3 lead blocks at factor 0.5 is heard at volume 0.5 and only close by; right at a wall of 1 block it is 2.0. Players in the same room, with no lead in the way, hear everything as before.',
-              'Records and music devices are not muffled unless soundproofRecords is on. Voice chat mods and everything the client plays on its own are not touched. The blocks that muffle are the tag simpleores:soundproofing (Standard: the block of lead). Switch off with soundproofing = false.']),
+              'Records and music devices are not muffled unless soundproofRecords is on. Voice chat mods and everything the client plays on its own are not touched. The blocks that muffle are the tag simpleores:soundproofing (Standard: the block of lead). Switch off with soundproofing = false.',
+              'Weights: a block of lead counts 1, a lead plate 0.5 (tag simpleores:soundproofing_half), so two plates in a row equal one block. Lead octets of Simple Octets (only with that mod) are in the first tag and count a whole block however little of the cell they fill; they also stop vibrations like wool.']),
             ('Schalldämmung', 'Bleiwände machen die Welt auf der anderen Seite leiser: eine TNT-Explosion hinter ein paar Bleiblöcken ist nur ein dumpfes Poltern oder gar nicht zu hören.',
              ['Jedes Geräusch, das der Server an einen Spieler schickt (Blöcke, Mobs, Explosionen, ...), wird ab Lautstärke 0,3 geprüft: die Bleiblöcke auf der geraden Strecke vom Geräusch zum Ohr des Spielers (höchstens 24 Zellen; die Zellen von Geräusch und Ohr zählen nicht) multiplizieren die Lautstärke je Block mit soundproofFactor.',
               'Unter soundproofThreshold wird das Geräusch gar nicht gesendet. Beispiel: eine TNT-Explosion (Lautstärke 4) hinter 3 Bleiblöcken bei Faktor 0,5 kommt mit Lautstärke 0,5 an, nur aus der Nähe; direkt an einer Wand aus 1 Block sind es 2,0. Spieler im selben Raum ohne Blei auf dem Weg hören alles wie vorher.',
-              'Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false.'])),
+              'Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false.',
+              'Gewichte: ein Bleiblock zählt 1, eine Bleiplatte 0,5 (Tag simpleores:soundproofing_half), zwei Platten hintereinander entsprechen also einem Block. Blei-Octets aus Simple Octets (nur mit dieser Mod) stehen im ersten Tag und zählen einen ganzen Block, egal wie wenig sie von der Zelle füllen; sie halten auch Vibrationen wie Wolle auf.'])),
     feature('silver_arrow', [f'{JAVA}/entity/SilverArrow.java', f'{JAVA}/item/SilverArrowItem.java', f'{DATAP}/recipe/silver_arrow.json'],
             ('Silver arrow', 'An arrow with a silver head that hits the undead harder.',
              ['Recipe: a silver nugget over a stick over a feather makes 4 silver arrows. Bows, crossbows and dispensers shoot them like arrows; they can be picked up again.',

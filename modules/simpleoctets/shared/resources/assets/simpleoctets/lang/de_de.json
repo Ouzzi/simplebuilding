@@ -173,6 +173,8 @@
   "block.simpleoctets.lapis_block_octet": "Lapislazuliblock-Achtelzelle",
   "item.simpleoctets.netherite_block_octet": "Netheritblock-Achtelblock",
   "block.simpleoctets.netherite_block_octet": "Netheritblock-Achtelzelle",
+  "item.simpleoctets.lead_block_octet": "Bleiblock-Achtelblock",
+  "block.simpleoctets.lead_block_octet": "Bleiblock-Achtelzelle",
   "item.simpleoctets.acacia_log_octet": "Akazienstamm-Achtelblock",
   "block.simpleoctets.acacia_log_octet": "Akazienstamm-Achtelzelle",
   "item.simpleoctets.birch_log_octet": "Birkenstamm-Achtelblock",

@@ -86,6 +86,7 @@ public final class OresDiscover {
             "simpleores:lead_ingot",
             "simpleores:lead_nugget",
             "simpleores:lead_ore",
+            "simpleores:lead_plate",
             "simpleores:nether_dimensional_scrap",
             "simpleores:raw_enderite",
             "simpleores:raw_lead",

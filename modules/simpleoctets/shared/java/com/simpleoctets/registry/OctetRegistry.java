@@ -119,6 +119,10 @@ public final class OctetRegistry {
                 return block(name, stripped ? Blocks.STRIPPED_OAK_LOG : Blocks.OAK_LOG, s -> new MaterialOctetBlock(source, piece(name),
                         properties(s.mapColor(color).lightLevel(state -> 0))));
             }
+            if ("simpleores".equals(material.namespace())) {
+                // Block of lead (owner ORES31-BEXTRA): iron-like cell as sturdy as the lead block; it muffles sound like a whole block (simpleores:soundproofing).
+                return block(name, Blocks.IRON_BLOCK, s -> new MaterialOctetBlock(source, piece(name), properties(s.strength(25.0F, 1000.0F), Blocks.IRON_BLOCK)));
+            }
             Block template = TEMPLATES.get(material.base());
             if (template != null) {
                 // Simple Blocks (blue nether bricks, hushed deepslate tiles): the Vanilla block it copies itself.

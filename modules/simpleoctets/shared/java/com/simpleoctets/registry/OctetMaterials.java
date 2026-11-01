@@ -84,6 +84,7 @@ public final class OctetMaterials {
             new Material("minecraft", "iron_block", "iron_block", "metal"),
             new Material("minecraft", "lapis_block", "lapis_block", "metal"),
             new Material("minecraft", "netherite_block", "netherite_block", "metal"),
+            new Material("simpleores", "lead_block", "lead_block", "metal"),
             new Material("minecraft", "acacia_log", "acacia_log", "log"),
             new Material("minecraft", "birch_log", "birch_log", "log"),
             new Material("minecraft", "cherry_log", "cherry_log", "log"),
