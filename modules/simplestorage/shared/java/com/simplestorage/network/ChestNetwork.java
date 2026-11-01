@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -111,10 +112,10 @@ public final class ChestNetwork {
                 front = state.getValue(InterfaceBlock.FACING);
                 BlockPos mounted = pos.relative(front);
                 if (!mounted.equals(controller)) {
-                    Object block = level.getBlockState(mounted).getBlock();
+                    Block block = level.getBlockState(mounted).getBlock();
                     if (block instanceof ControllerChestBlock) {
                         if (status == Status.OK) status = Status.CONFLICT;
-                    } else if (block instanceof ChestBlock) {
+                    } else if (ControllerLevel.mountable(block)) {
                         interfaces.add(pos);
                     }
                 }
@@ -282,6 +283,13 @@ public final class ChestNetwork {
             return out.isEmpty() ? ItemStack.EMPTY : out;
         }
 
+        /** Vanilla's rule for a shulker box (no shulker box inside, whatever the colour or tier), on top of the container's own. */
+        private static boolean accepts(Container container, ItemStack stack) {
+            boolean box = container instanceof net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity
+                    || container instanceof com.simplestorage.chest.TieredShulkerBoxBlockEntity;
+            return !box || com.simplestorage.chest.TieredShulkerBoxBlockEntity.canHold(stack);
+        }
+
         /** Puts {@code stack} into the chests (onto the same kind first, then empty slots, controller first); returns the rest. */
         public ItemStack insert(ItemStack stack) {
             ItemStack rest = stack.copy();
@@ -291,6 +299,7 @@ public final class ChestNetwork {
                     boolean touched = false;
                     for (int slot = 0; slot < container.getContainerSize() && !rest.isEmpty(); slot++) {
                         ItemStack here = container.getItem(slot);
+                        if (!accepts(container, rest)) break;
                         if (pass == 0 && !here.isEmpty() && ItemStack.isSameItemSameComponents(here, rest)) {
                             int room = container.getMaxStackSize(here) - here.getCount();
                             int move = Math.min(room, rest.getCount());

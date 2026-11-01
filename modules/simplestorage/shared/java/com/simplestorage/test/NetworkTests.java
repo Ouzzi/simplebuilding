@@ -157,7 +157,7 @@ public final class NetworkTests {
         }
         if (StorageMenus.CONTROLLER == null) problems.add("controller menu type");
         if (ControllerLevel.rankOf(Blocks.CHEST) != 0 || ControllerLevel.rankOf(block("reinforced_chest")) != 1
-                || ControllerLevel.rankOf(block("enderite_chest")) != 3 || ControllerLevel.rankOf(Blocks.BARREL) != -1
+                || ControllerLevel.rankOf(block("enderite_chest")) != 3 || ControllerLevel.rankOf(Blocks.BARREL) != 0 || ControllerLevel.rankOf(Blocks.SHULKER_BOX) != 0
                 || ControllerLevel.rankOf(block("wooden_controller_chest")) != -1) problems.add("chest ranks");
         h.assertTrue(problems.isEmpty(), "chest network registrations: " + problems);
         h.succeed();
@@ -299,6 +299,46 @@ public final class NetworkTests {
         ItemStack moved = menu.quickMoveStack(player, ControllerMenu.CELLS);
         if (moved.isEmpty() || !player.getInventory().getItem(9).isEmpty()) problems.add("shift-click in the inventory did not store");
         h.assertTrue(problems.isEmpty(), "window clicks: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * IG31-37: barrels and shulker boxes (vanilla and tiered) take an interface like a chest, the terminal counts their contents,
+     * take and store work through the Container interface, and no shulker box goes into a shulker box.
+     */
+    public static void barrelsAndShulkerBoxesJoinTheNetwork(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.BARREL, Blocks.SHULKER_BOX);
+        List<String> problems = new ArrayList<>();
+        ServerPlayer player = player(h);
+        if (!h.getBlockState(HUB.above()).canSurvive(h.getLevel(), h.absolutePos(HUB.above())) || h.getBlockState(HUB.above()).isAir()) problems.add("interface on a barrel");
+        if (h.getBlockState(HUB.south()).isAir()) problems.add("interface on a shulker box");
+        container(h, UP_CHEST).setItem(0, new ItemStack(Items.STONE, 3));
+        container(h, SOUTH_CHEST).setItem(0, new ItemStack(Items.STONE, 5));
+        ChestNetwork.Members members = ChestNetwork.members(h.getLevel(), 0, controller.scan());
+        if (members.chests().size() != 2) problems.add("members " + members);
+        ChestNetwork.Storage storage = new ChestNetwork.Storage(h.getLevel(), controller, members, player);
+        long stone = 0;
+        for (var entry : storage.entries(ChestNetwork.Sort.COUNT)) if (entry.kind().is(Items.STONE)) stone += entry.count();
+        if (stone != 8) problems.add("terminal counts " + stone + " stone");
+        ItemStack taken = storage.take(new ItemStack(Items.STONE), 64);
+        if (taken.getCount() != 8 || container(h, SOUTH_CHEST).countItem(Items.STONE) != 0) problems.add("take got " + taken);
+        // fill the controller and the barrel: only the shulker box has room left
+        for (int i = 0; i < controller.getContainerSize(); i++) controller.setItem(i, new ItemStack(Items.DIRT, 1));
+        Container barrel = container(h, UP_CHEST);
+        for (int i = 0; i < barrel.getContainerSize(); i++) barrel.setItem(i, new ItemStack(Items.DIRT, 1));
+        ItemStack shulkerItem = new ItemStack(Items.SHULKER_BOX);
+        if (new ChestNetwork.Storage(h.getLevel(), controller, members, player).insert(shulkerItem).getCount() != 1) problems.add("a shulker box went into a shulker box");
+        ItemStack rest = new ChestNetwork.Storage(h.getLevel(), controller, members, player).insert(new ItemStack(Items.GOLD_INGOT, 5));
+        if (!rest.isEmpty() || container(h, SOUTH_CHEST).countItem(Items.GOLD_INGOT) != 5) problems.add("store into the shulker box: rest " + rest);
+        // a tiered shulker box behind an interface, a double-rank controller takes it
+        h.setBlock(SOUTH_CHEST, block("reinforced_shulker_box"));
+        if (ControllerLevel.rankOf(block("reinforced_shulker_box")) != 1 || ControllerLevel.rankOf(Blocks.SHULKER_BOX) != 0
+                || ControllerLevel.rankOf(Blocks.BARREL) != 0) problems.add("ranks of barrel/shulker boxes");
+        if (ChestNetwork.members(h.getLevel(), 0, controller.scan()).rejected() != 1) problems.add("a reinforced shulker box is above a wooden controller");
+        if (ChestNetwork.members(h.getLevel(), 1, controller.scan()).chests().size() != 2) problems.add("a reinforced controller takes it");
+        Container tiered = container(h, SOUTH_CHEST);
+        if (tiered.canPlaceItem(0, shulkerItem)) problems.add("tiered shulker box accepts a shulker box");
+        h.assertTrue(problems.isEmpty(), "barrels and shulker boxes: " + problems);
         h.succeed();
     }
 
