@@ -157,7 +157,7 @@ public final class NetworkTests {
         }
         if (StorageMenus.CONTROLLER == null) problems.add("controller menu type");
         if (ControllerLevel.rankOf(Blocks.CHEST) != 0 || ControllerLevel.rankOf(block("reinforced_chest")) != 1
-                || ControllerLevel.rankOf(block("enderite_chest")) != 3 || ControllerLevel.rankOf(Blocks.BARREL) != -1
+                || ControllerLevel.rankOf(block("enderite_chest")) != 3 || ControllerLevel.rankOf(Blocks.BARREL) != 0 || ControllerLevel.rankOf(Blocks.SHULKER_BOX) != 0
                 || ControllerLevel.rankOf(block("wooden_controller_chest")) != -1) problems.add("chest ranks");
         h.assertTrue(problems.isEmpty(), "chest network registrations: " + problems);
         h.succeed();
