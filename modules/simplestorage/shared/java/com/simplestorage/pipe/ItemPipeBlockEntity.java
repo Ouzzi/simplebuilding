@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  * slot only with a match and never an empty filter slot; a player sets the filter by putting an item in.
  */
 public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
-    public static final int FILTER_MODE = 0, OUTPUT = 1, TIER = 2;
+    public static final int FILTER_MODE = 0, OUTPUT = 1, TIER = 2, SIDES = 3;
     private static final int[] SLOTS = {0};
 
     private NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -40,6 +40,10 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
     private int cooldown;
     /** Index in {@link Direction#values()} the next pull starts at. */
     private int pullFrom;
+    /** Round robin over the outputs (ROHR33): index in {@link Direction#values()} the next push starts at. */
+    private int pushTo;
+    /** The state of each side ({@link Pipes#IN}/{@link Pipes#OUT}/{@link Pipes#OFF}); null = an old pipe or a fresh one: taken from the block state's one output. */
+    private int[] sides;
 
     /** Menu data: filter mode, output side, tier (all read from the state, the mode is the only writable one). */
     private final ContainerData data = new ContainerData() {
@@ -49,6 +53,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
                 case FILTER_MODE -> ItemPipeBlockEntity.this.filterMode;
                 case OUTPUT -> ItemPipeBlockEntity.this.output().ordinal();
                 case TIER -> ItemPipeBlockEntity.this.tier().ordinal();
+                case SIDES -> Pipes.pack(ItemPipeBlockEntity.this.sideModes());
                 default -> 0;
             };
         }
@@ -60,7 +65,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
     };
 
@@ -74,6 +79,42 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
 
     public Direction output() {
         return getBlockState().hasProperty(ItemPipeBlock.FACING) ? getBlockState().getValue(ItemPipeBlock.FACING) : Direction.DOWN;
+    }
+
+    /** A copy of the six side states (in {@link Direction#values()} order); an old pipe gets them from its one output (migration, ROHR33). */
+    public int[] sideModes() {
+        if (this.sides == null) this.sides = Pipes.fromSingleOutput(output());
+        return this.sides.clone();
+    }
+
+    public int sideMode(Direction side) {
+        return sideModes()[side.ordinal()];
+    }
+
+    /** Sets all six states; the block state follows (the arrow shows the first output, the arms follow the states). */
+    public void setSideModes(int[] modes) {
+        int[] fixed = new int[6];
+        for (Direction d : Direction.values()) {
+            int m = Math.floorMod(modes[d.ordinal()], 3);
+            fixed[d.ordinal()] = m == Pipes.OUT && !Pipes.allowed(tier(), d) ? Pipes.OFF : m;
+        }
+        this.sides = fixed;
+        setChanged();
+        if (this.level != null && !this.level.isClientSide()) ItemPipeBlock.refresh(this.level, this.worldPosition, getBlockState(), fixed);
+    }
+
+    /** One click on a side: in - out - off - in. */
+    public void cycleSide(Direction side) {
+        int[] modes = sideModes();
+        modes[side.ordinal()] = Pipes.nextMode(tier(), side, modes[side.ordinal()]);
+        setSideModes(modes);
+    }
+
+    /** The legacy "turn the output" way: exactly this side is the output, the others take in (sides that are off stay off). */
+    public void setOnlyOutput(Direction out) {
+        int[] modes = sideModes();
+        for (int i = 0; i < 6; i++) modes[i] = i == out.ordinal() ? Pipes.OUT : modes[i] == Pipes.OUT ? Pipes.IN : modes[i];
+        setSideModes(modes);
     }
 
     public int filterMode() {
@@ -119,33 +160,40 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
         if (moved) pipe.setChanged();
     }
 
-    /** One transfer step to the output container; true if something moved. */
+    /** One transfer step: the next output (round robin, ROHR33) that takes something; true if something moved. */
     public boolean push(Level level, BlockPos pos) {
         ItemStack held = this.items.get(0);
         int count = Math.min(tier().amount(), ItemFilterRules.movable(mode(), held));
         if (held.isEmpty() || count <= 0) return false;
-        Direction out = output();
-        Container target = HopperBlockEntity.getContainerAt(level, pos.relative(out));
-        if (target == null) return false;
-        ItemStack moving = held.copyWithCount(count);
-        ItemStack rest = HopperBlockEntity.addItem(this, target, moving, out.getOpposite());
-        int moved = count - rest.getCount();
-        if (moved <= 0) return false;
-        held.shrink(moved);
-        if (held.isEmpty()) this.items.set(0, ItemStack.EMPTY);
-        return true;
+        int[] modes = sideModes();
+        Direction[] all = Direction.values();
+        for (int i = 0; i < all.length; i++) {
+            int index = (this.pushTo + i) % all.length;
+            if (modes[index] != Pipes.OUT) continue;
+            Direction out = all[index];
+            Container target = HopperBlockEntity.getContainerAt(level, pos.relative(out));
+            if (target == null) continue;
+            ItemStack rest = HopperBlockEntity.addItem(this, target, held.copyWithCount(count), out.getOpposite());
+            int moved = count - rest.getCount();
+            if (moved <= 0) continue;
+            held.shrink(moved);
+            if (held.isEmpty()) this.items.set(0, ItemStack.EMPTY);
+            this.pushTo = (index + 1) % all.length;
+            return true;
+        }
+        return false;
     }
 
-    /** One pull step from a container beside the pipe (not at the output); true if something moved. */
+    /** One pull step from a container beside the pipe on an input side (not an output, not off); true if something moved. */
     public boolean pull(Level level, BlockPos pos) {
         ItemStack held = this.items.get(0);
         if (!held.isEmpty() && held.getCount() >= Math.min(getMaxStackSize(), held.getMaxStackSize())) return false;
-        Direction out = output();
+        int[] modes = sideModes();
         Direction[] all = Direction.values();
         for (int i = 0; i < all.length; i++) {
             int index = (this.pullFrom + i) % all.length;
             Direction side = all[index];
-            if (side == out) continue;
+            if (modes[index] != Pipes.IN) continue;
             Container source = HopperBlockEntity.getContainerAt(level, pos.relative(side));
             if (source == null || source instanceof ItemPipeBlockEntity) continue;
             if (takeFrom(source, side.getOpposite())) {
@@ -229,12 +277,12 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
-        return canPlaceItem(slot, stack);
+        return (direction == null || sideMode(direction) != Pipes.OFF) && canPlaceItem(slot, stack);
     }
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
-        return ItemFilterRules.movable(mode(), this.items.get(0)) > 0;
+        return sideMode(direction) != Pipes.OFF && ItemFilterRules.movable(mode(), this.items.get(0)) > 0;
     }
 
     // ------------------------------------------------------------------ saving
@@ -246,6 +294,9 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
         ContainerHelper.loadAllItems(input, this.items);
         this.filterMode = ItemFilterRules.clamp(input.getIntOr("FilterMode", 0));
         this.pullFrom = Math.floorMod(input.getIntOr("PullFrom", 0), 6);
+        this.pushTo = Math.floorMod(input.getIntOr("PushTo", 0), 6);
+        // Old worlds have no "Sides": the one output of the block state becomes the new states (ROHR33 migration).
+        this.sides = input.getInt("Sides").map(Pipes::unpack).orElse(null);
     }
 
     @Override
@@ -254,5 +305,7 @@ public class ItemPipeBlockEntity extends BaseContainerBlockEntity implements Wor
         ContainerHelper.saveAllItems(output, this.items);
         output.putInt("FilterMode", this.filterMode);
         output.putInt("PullFrom", this.pullFrom);
+        output.putInt("PushTo", this.pushTo);
+        output.putInt("Sides", Pipes.pack(sideModes()));
     }
 }

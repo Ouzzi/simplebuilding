@@ -87,7 +87,7 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction direction,
                                      BlockPos neighborPos, BlockState neighborState, RandomSource random) {
-        boolean arm = direction == state.getValue(FACING) || connectsTo(level, neighborPos, neighborState);
+        boolean arm = arm(level, pos, state, direction, connectsTo(level, neighborPos, neighborState));
         return state.setValue(PROPERTY_BY_DIRECTION.get(direction), arm);
     }
 
@@ -95,10 +95,38 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     public static BlockState withArms(BlockState state, LevelReader level, BlockPos pos) {
         for (Direction direction : Direction.values()) {
             BlockPos neighborPos = pos.relative(direction);
-            boolean arm = direction == state.getValue(FACING) || connectsTo(level, neighborPos, level.getBlockState(neighborPos));
+            boolean arm = arm(level, pos, state, direction, connectsTo(level, neighborPos, level.getBlockState(neighborPos)));
             state = state.setValue(PROPERTY_BY_DIRECTION.get(direction), arm);
         }
         return state;
+    }
+
+    /** An arm shows on an output side and on an input side with a container; a side that is off (ROHR33) has none. */
+    private static boolean arm(LevelReader level, BlockPos pos, BlockState state, Direction direction, boolean connects) {
+        if (level.getBlockEntity(pos) instanceof ItemPipeBlockEntity pipe) {
+            int mode = pipe.sideMode(direction);
+            return mode == Pipes.OUT || (mode == Pipes.IN && connects);
+        }
+        return direction == state.getValue(FACING) || connects;
+    }
+
+    /** The block state after the side states changed: the arrow points at the first output, the arms follow. */
+    public static void refresh(Level level, BlockPos pos, BlockState state, int[] modes) {
+        if (!(state.getBlock() instanceof ItemPipeBlock)) return;
+        Direction facing = state.getValue(FACING);
+        if (modes[facing.ordinal()] != Pipes.OUT) {
+            for (Direction d : Pipes.ORDER) {
+                if (modes[d.ordinal()] == Pipes.OUT) {
+                    facing = d;
+                    break;
+                }
+            }
+        }
+        BlockState next = withArms(state.setValue(FACING, facing), level, pos);
+        if (next != state) {
+            level.setBlock(pos, next, Block.UPDATE_ALL);
+            level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.6F, 1.4F);
+        }
     }
 
     private static boolean connectsTo(LevelReader level, BlockPos neighborPos, BlockState neighborState) {
@@ -126,11 +154,15 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
         setOutput(level, pos, state, Pipes.next(pipe.tier, state.getValue(FACING)), player);
     }
 
-    /** Exactly this side is the output (all others take items in); the actionbar names it when a player did it. */
+    /** Exactly this side is the output (the other outputs turn to inputs); the actionbar names it when a player did it. */
     public static void setOutput(Level level, BlockPos pos, BlockState state, Direction next, @Nullable Player player) {
-        if (!(state.getBlock() instanceof ItemPipeBlock pipe) || !Pipes.allowed(pipe.tier, next) || state.getValue(FACING) == next) return;
-        level.setBlock(pos, withArms(state.setValue(FACING, next), level, pos), Block.UPDATE_ALL);
-        level.playSound(null, pos, state.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 0.6F, 1.4F);
+        if (!(state.getBlock() instanceof ItemPipeBlock pipe) || !Pipes.allowed(pipe.tier, next)
+                || !(level.getBlockEntity(pos) instanceof ItemPipeBlockEntity entity)) return;
+        int[] now = entity.sideModes();
+        boolean already = true;
+        for (Direction d : Direction.values()) already &= (now[d.ordinal()] == Pipes.OUT) == (d == next);
+        if (already) return;
+        entity.setOnlyOutput(next);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         if (player != null) player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.simplestorage.pipe.output", Pipes.directionName(next)));
     }
