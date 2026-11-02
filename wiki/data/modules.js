@@ -1356,7 +1356,7 @@ window.WIKI_MODULES = [
       "jade"
     ],
     "parent": "simpleovens",
-    "bundle": "required",
+    "bundle": "optional",
     "intro": {
       "en": "Iron, Reinforced, Netherite and Enderite crucibles that cook every slot at once without fuel, barrels that dock onto them, the reinforced cauldron and village field kitchens.",
       "de": "Eisen-, verstärkte, Netherit- und Enderit-Schmelztiegel, die ohne Brennstoff alle Plätze zugleich garen, Fässer, die an sie andocken, der verstärkte Kessel und Dorf-Feldküchen."
