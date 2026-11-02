@@ -4,9 +4,12 @@ package com.simpletrims;
  * The Inverting upgrade as pure pixel maths (no client classes, so tests can run it): the trim layer of an armor piece
  * is a texture in armor UV layout whose pattern pixels are opaque and everything else transparent. Inverted, the
  * pattern is cut out and every other pixel takes the trim colour - the same pattern, its mask flipped over the armor.
- * Three stages (owner WA24-1, one smithing round each), no transition (WC24-2): the border around the cut-out is
- * 1, 2 or 3 pixels wide ({@link Mode#W1}..{@link Mode#W3}), so the higher the stage, the less trim colour is left outside.
- * The border is a subtraction (WB24-1): the fill colour minus {@link #RIM_SUBTRACT} per channel, no colour of its own.
+ * Three stages (owner WA24-1, one smithing round each): the transition to the fill is always a single outline pixel
+ * (owner 02.11., IG3114), the fill colour minus {@link #RIM_SUBTRACT} per channel (WB24-1, no colour of its own). Stage 1
+ * is the pattern plus that outline; every further stage makes the cut-out one pixel thicker ({@link Mode#W2},
+ * {@link Mode#W3}: the armor shows through 1 / 2 pixels more) and the outline moves out with it, so the higher the stage,
+ * the less trim colour is left outside. With the armor texture and the material palette the fill follows the armor's
+ * brightness (a palette tone per pixel) instead of one flat colour, and only lies where the armor itself has pixels.
  */
 public final class TrimInversion {
     public enum Mode { W1, W2, W3 }
@@ -49,19 +52,50 @@ public final class TrimInversion {
         return new int[] {fill, subtract(fill, RIM_SUBTRACT)};
     }
 
-    /** The inverted layer of {@code pattern} (w*h ARGB, row-major) in the given mode. */
+    /** The inverted layer of {@code pattern} (w*h ARGB, row-major) in the given mode, one flat fill colour. */
     public static int[] invert(int[] pattern, int w, int h, int fill, int rim, Mode mode) {
+        return invert(pattern, w, h, fill, rim, mode, null, null);
+    }
+
+    /**
+     * As above; with {@code armor} (same size, ARGB) and {@code palette} (the material's colours) the fill of each pixel is the
+     * palette tone that matches the armor pixel's brightness and its outline that tone minus {@link #RIM_SUBTRACT};
+     * pixels the armor does not have stay empty. Without them {@code fill} and {@code rim} are used everywhere.
+     */
+    public static int[] invert(int[] pattern, int w, int h, int fill, int rim, Mode mode, int[] armor, int[] palette) {
         int border = BORDER[mode.ordinal()];
+        boolean shade = armor != null && armor.length == pattern.length && palette != null && palette.length > 2;
+        int[] tones = shade ? byBrightness(palette) : null;
         int[] out = new int[pattern.length];
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 int i = y * w + x;
                 if ((pattern[i] >>> 24) != 0) continue;
+                if (shade && (armor[i] >>> 24) == 0) continue;
                 int d = distance(pattern, w, h, x, y, border);
-                out[i] = d == 0 ? fill : rim;
+                if (d != 0 && d != border) continue; // the cut-out: the armor shows through
+                int f = shade ? shaded(armor[i], tones) : fill;
+                out[i] = d == 0 ? f : shade ? subtract(f, RIM_SUBTRACT) : rim;
             }
         }
         return out;
+    }
+
+    /** The palette's colours, brightest first, opaque. */
+    private static int[] byBrightness(int[] palette) {
+        Integer[] order = new Integer[palette.length];
+        for (int i = 0; i < order.length; i++) order[i] = i;
+        java.util.Arrays.sort(order, java.util.Comparator.comparingDouble(i -> -luma(palette[i])));
+        int[] out = new int[palette.length];
+        for (int i = 0; i < out.length; i++) out[i] = 0xFF000000 | palette[order[i]];
+        return out;
+    }
+
+    /** A tone that follows the armor's brightness: light armor, light tone (the second to the second-last of the sorted palette). */
+    private static int shaded(int armorArgb, int[] tones) {
+        double t = Math.min(1.0, Math.max(0.0, (luma(armorArgb) - 60) / 170));
+        int idx = 6 - (int) Math.round(t * 5);
+        return tones[Math.max(1, Math.min(Math.min(6, tones.length - 2), idx))];
     }
 
     /** Steps (up/down/left/right) from (x, y) to the nearest pattern pixel, 0 if none within {@code max}. */

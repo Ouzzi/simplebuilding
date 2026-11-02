@@ -230,9 +230,16 @@ public final class TrimsTests {
             int[] hard = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W1);
             h.assertTrue(hard[1 * w + 1] == 0 && hard[1 * w + 2] == 0 && hard[1 * w] == rim && hard[1 * w + 3] == rim && hard[2 * w + 1] == rim && hard[0] == fill && hard[1 * w + 4] == fill, "stage 1: 1 px border");
             int[] withRim = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W2);
-            h.assertTrue(withRim[1 * w + 4] == rim && withRim[1 * w + 5] == fill, "stage 2: 2 px border");
+            h.assertTrue(withRim[1 * w + 3] == 0 && withRim[1 * w] == 0 && withRim[1 * w + 4] == rim && withRim[1 * w + 5] == fill, "stage 2: cut-out 1 px thicker, one outline pixel");
             int[] soft = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W3);
-            h.assertTrue(soft[1 * w + 5] == rim && soft[1 * w + 6] == fill && soft[1 * w + 1] == 0, "stage 3: 3 px border, no transition");
+            h.assertTrue(soft[1 * w + 4] == 0 && soft[1 * w + 5] == rim && soft[1 * w + 6] == fill && soft[1 * w + 1] == 0, "stage 3: cut-out 2 px thicker, one outline pixel");
+            int[] armor = new int[w * hgt];
+            java.util.Arrays.fill(armor, 0xFFE0E0E0);
+            armor[0] = 0; // the armor has no pixel here
+            int[] palette = {0xFFFFFFFF, 0xFFC0C0C0, 0xFF808080, 0xFF404040, 0xFF202020, 0xFF101010, 0xFF080808, 0xFF000000};
+            int[] shaded = com.simpletrims.TrimInversion.invert(pattern, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W1, armor, palette);
+            h.assertTrue(shaded[0] == 0 && shaded[1 * w + 1] == 0 && shaded[w * 2 + 9] == 0xFFC0C0C0 && shaded[1 * w + 3] == com.simpletrims.TrimInversion.subtract(0xFFC0C0C0, 80),
+                    "armor-shaded fill: light armor -> light tone, outline = tone minus 80, no pixel where the armor has none");
             h.assertTrue(com.simpletrims.TrimInversion.mode(1) == com.simpletrims.TrimInversion.Mode.W1 && com.simpletrims.TrimInversion.mode(2) == com.simpletrims.TrimInversion.Mode.W2
                     && com.simpletrims.TrimInversion.mode(3) == com.simpletrims.TrimInversion.Mode.W3, "stage -> mode");
             int[] twice = com.simpletrims.TrimInversion.invert(hard, w, hgt, fill, rim, com.simpletrims.TrimInversion.Mode.W1);

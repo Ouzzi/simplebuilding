@@ -4,7 +4,7 @@
   "width": 16,
   "height": 64,
   "digits": 2,
-  "palette": ["#18161aff", "#3c3a42ff", "#e8e0c8ff", "#808086ff"],
+  "palette": ["#242128ff", "#46434cff", "#e2dac4ff", "#84848cff"],
   "layers": [
     {"name": "platte", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..00000000......................",

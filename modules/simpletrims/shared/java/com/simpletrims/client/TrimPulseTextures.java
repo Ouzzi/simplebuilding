@@ -41,7 +41,7 @@ public final class TrimPulseTextures {
     private TrimPulseTextures() {
     }
 
-    private record Key(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int inverted) {
+    private record Key(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int inverted, @Nullable Identifier armor) {
     }
 
     private static final class Entry {
@@ -62,14 +62,16 @@ public final class TrimPulseTextures {
      *
      * @param inverted Inverting stage (0 = none, 1-3): the layer is the negative of the pattern ({@link com.simpletrims.TrimInversion}); then
      *                 step 0 (full colour) is a texture of its own, too
+     * @param armor the armor texture of the same piece (PNG path, same layout): the inverted fill follows its brightness and
+     *              lies only where it has pixels; {@code null} or a different size: one flat fill colour
      * @return die Textur, oder {@code null} bei Stufe 0 ohne Invertierung (volle Farbe - Vanilla zeichnen) und wenn eine Datei fehlt
      */
-    public static @Nullable Identifier texture(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int step, int inverted) {
+    public static @Nullable Identifier texture(Identifier base, Identifier keyPalette, @Nullable Identifier palette, int step, int inverted, @Nullable Identifier armor) {
         if (step < (inverted > 0 ? 0 : 1) || step >= TrimGlow.DESATURATION_STEPS) {
             return null;
         }
         dropIfReloaded();
-        Entry entry = CACHE.computeIfAbsent(new Key(base, keyPalette, palette, inverted), TrimPulseTextures::load);
+        Entry entry = CACHE.computeIfAbsent(new Key(base, keyPalette, palette, inverted, inverted > 0 ? armor : null), TrimPulseTextures::load);
         if (entry.colored == null) {
             return null;
         }
@@ -147,13 +149,33 @@ public final class TrimPulseTextures {
             }
         }
         int[] colours = TrimInversion.colours(palette, pattern);
-        int[] out = TrimInversion.invert(pattern, w, h, colours[0], colours[1], TrimInversion.mode(key.inverted()));
+        int[] armor = key.armor() == null ? null : armorPixels(key.armor(), w, h);
+        int[] out = TrimInversion.invert(pattern, w, h, colours[0], colours[1], TrimInversion.mode(key.inverted()), armor, palette);
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 colored.setPixel(x, y, out[y * w + x]);
             }
         }
         return colored;
+    }
+
+    /** The armor texture as ARGB, or {@code null} if it is missing or not {@code w} x {@code h} (then the fill stays flat). */
+    private static int @Nullable [] armorPixels(Identifier id, int w, int h) {
+        try (NativeImage image = read(Minecraft.getInstance().getResourceManager(), id)) {
+            if (image.getWidth() != w || image.getHeight() != h) {
+                return null;
+            }
+            int[] out = new int[w * h];
+            for (int y = 0; y < h; y++) {
+                for (int x = 0; x < w; x++) {
+                    out[y * w + x] = image.getPixel(x, y);
+                }
+            }
+            return out;
+        } catch (IOException | RuntimeException e) {
+            LOGGER.debug("No armor texture {} for the inverted trim: {}", id, e.toString());
+            return null;
+        }
     }
 
     private static NativeImage read(ResourceManager resources, Identifier id) throws IOException {

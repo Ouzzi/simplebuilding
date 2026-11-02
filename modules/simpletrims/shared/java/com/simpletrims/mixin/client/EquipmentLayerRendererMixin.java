@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simpletrims.client.TrimPulseTextures;
 import com.simpletrims.TrimGlow;
+import java.util.List;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.OrderedSubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
@@ -100,10 +101,12 @@ public class EquipmentLayerRendererMixin {
             }
         }
         String prefix = layerType.trimAssetPrefix();
+        List<EquipmentClientInfo.Layer> layers = equipmentInfo.getLayers(layerType);
+        Identifier armor = layers.isEmpty() ? null : layers.get(0).getTextureLocation(layerType);
         return TrimPulseTextures.texture(
                 textureId.withPath(path -> "textures/" + prefix + "/" + path + ".png"),
                 Identifier.withDefaultNamespace("textures/palettes/trim_base.png"),
                 paletteId == null ? null : paletteId.withPath(path -> "textures/palettes/" + path + ".png"),
-                step, inverted);
+                step, inverted, armor);
     }
 }

@@ -16,6 +16,9 @@ Pocket Jukebox (17 colours: the case is the tint layer; closed, open back/front;
 colour + one parts sheet), disc press side/top, the placed records' round top views (written into SimpleBuilding's assets).
 Variants (owner choice MU21 R=B P=A D=B, 21.10.): blank/custom disc A round like Vanilla's discs / B oval like the
 reference; Pocket Jukebox A flat record case / B chunky player box; disc press A iron / B iron with copper.
+b-music03 (owner 02.11., IG3114): the disc ITEMS (blank, custom, composed, the six music discs) are drawn in Vanilla's
+disc form now (15 x 10, caps of 5, 5 x 3 label ring round the hole, two shadow rows; own grooves and label shapes);
+the round form A (placed records) is unchanged. Sheet music: softer staff lines; Pocket Jukebox: softer record tones.
 """
 import json
 import math
@@ -26,7 +29,7 @@ MODULE = Path(__file__).resolve().parents[1]
 TEX = MODULE / 'shared/resources/assets/simplemusic/textures'
 LAYERS = Path(__file__).resolve().parent / 'layers'
 SB_TEX = MODULE.parents[1] / 'mc26_3/overlay/resources/assets/simplebuilding/textures/block'
-CHOSEN = {'disc': 'B', 'pocket': 'A', 'press': 'B'}  # MU21 (owner 21.10.): R=B, P=A, D=B; the round form A lies placed
+CHOSEN = {'pocket': 'A', 'press': 'B'}  # MU21 (owner 21.10.): P=A, D=B (R: see VDISC, b-music03); the round form A lies placed
 
 
 class Tex:
@@ -114,8 +117,10 @@ SHEET_MASK = [
     'OOOOOOOOO#####O.',
     '.......OOOOOOOO.',
 ]
+# b-music03 (owner 02.11.): "nur die Hintergrundlinien Vanilla-artiger bzw. weicher" - the staff lines were (140,128,110), a
+# hard step from the paper; now the paper's own shade tone (208,198,170), like Vanilla's soft paper and map lines.
 SHEET_PALETTE = {'o': (92, 80, 62), 'O': (60, 50, 38), 'p': (232, 224, 200), 's': (208, 198, 170),
-                 'w': (246, 240, 222), 'l': (140, 128, 110), 'n': (40, 34, 30)}
+                 'w': (246, 240, 222), 'l': (208, 198, 170), 'n': (40, 34, 30)}
 SHEET_LINES = (3, 5, 7, 9, 11)
 # a quarter note and two beamed eighths; (x, y) one pixel lower than TEX21 A
 SHEET_NOTES = tuple((x, y + 1) for x, y in (
@@ -216,6 +221,81 @@ def disc(form, palette, scale=1.0):
     return Tex(palette, split(rows, [('grundform', 'ob'), ('rillen', 'g'), ('glanz', 'hH'), ('etikett', 'lL'), ('loch', 'x')]))
 
 
+# b-music03 (owner 02.11., IG3114 answers): the disc items in Vanilla's disc form - 15 x 10 left aligned (x 0..14, rows 3..12),
+# caps of 5 px, the label as a ring of 10 px round the hole at (7, 7), two shadow rows below; our own groove arcs and label
+# shapes (every disc its own, complete ring, also readable without colour). Zones: O outline, B body, G groove, R rim,
+# K bottom outline, L label field, H hole. Source of the shapes: tools/textures/music03_2026_11_02.py (preview, before/after).
+VDISC = [
+    '................',
+    '................',
+    '................',
+    '.....OOOOO......',
+    '..OOOBBBBBOOO...',
+    '.OBBGGBBBGGBBO..',
+    'OBGBBBLLLBBBGBO.',
+    'OBGBBLLHLLBBGBO.',
+    'OBBGBBLLLBBGBBO.',
+    'ORBBGGBBBGGBBRO.',
+    '.KRRRBBBBBRRRK..',
+    '..KKKRRRRRKKK...',
+    '.....KKKKK......',
+    '................',
+    '................',
+    '................',
+]
+VBLACK = (62, 61, 66)
+VHOLE = (16, 14, 18)
+# label shapes: (x, y) -> m(ain) / d(ark) / l(ight); all ten label pixels are painted
+VLABELS = {
+    'ring': {(6, 6): 'l', (7, 6): 'm', (8, 6): 'm', (5, 7): 'd', (6, 7): 'm', (8, 7): 'm', (9, 7): 'd', (6, 8): 'm', (7, 8): 'm', (8, 8): 'd'},
+    'flame': {(6, 6): 'm', (7, 6): 'l', (8, 6): 'm', (5, 7): 'd', (6, 7): 'm', (8, 7): 'm', (9, 7): 'd', (6, 8): 'd', (7, 8): 'm', (8, 8): 'd'},
+    'crescent': {(6, 6): 'l', (7, 6): 'm', (8, 6): 'd', (5, 7): 'l', (6, 7): 'm', (8, 7): 'd', (9, 7): 'd', (6, 8): 'l', (7, 8): 'm', (8, 8): 'd'},
+    'battlement': {(6, 6): 'm', (7, 6): 'd', (8, 6): 'm', (5, 7): 'm', (6, 7): 'l', (8, 7): 'l', (9, 7): 'm', (6, 8): 'm', (7, 8): 'm', (8, 8): 'm'},
+    'crown': {(6, 6): 'l', (7, 6): 'd', (8, 6): 'l', (5, 7): 'm', (6, 7): 'm', (8, 7): 'm', (9, 7): 'm', (6, 8): 'd', (7, 8): 'd', (8, 8): 'd'},
+    'cross': {(6, 6): 'd', (7, 6): 'l', (8, 6): 'd', (5, 7): 'm', (6, 7): 'm', (8, 7): 'm', (9, 7): 'm', (6, 8): 'd', (7, 8): 'm', (8, 8): 'd'},
+    'full': {(6, 6): 'l', (7, 6): 'm', (8, 6): 'm', (5, 7): 'm', (6, 7): 'm', (8, 7): 'm', (9, 7): 'm', (6, 8): 'm', (7, 8): 'm', (8, 8): 'd'},
+    'note': {(6, 6): 'm', (7, 6): 'm', (8, 6): 'd', (5, 7): 'm', (6, 7): 'm', (8, 7): 'd', (9, 7): 'm', (6, 8): 'd', (7, 8): 'd', (8, 8): 'm'},
+    'paper': {(6, 6): 'l', (7, 6): 'm', (8, 6): 'm', (5, 7): 'm', (6, 7): 'm', (8, 7): 'm', (9, 7): 'm', (6, 8): 'm', (7, 8): 'm', (8, 8): 'd'},
+}
+# name -> (label shape, (main, dark, light), body tint); 'blank_disc' is the grey blank with grooves and a paper label (owner: variant C)
+VDISCS = {
+    'music_disc_deep_pulse': ('ring', ((44, 176, 186), (22, 100, 112), (160, 238, 236)), (34, 62, 68)),
+    'music_disc_ember_forge': ('flame', ((232, 112, 32), (168, 52, 22), (255, 216, 92)), (94, 46, 36)),
+    'music_disc_end_departure': ('crescent', ((164, 104, 204), (104, 62, 144), (234, 230, 172)), (56, 44, 72)),
+    'music_disc_fortress_march': ('battlement', ((196, 54, 52), (124, 30, 32), (242, 144, 112)), (66, 36, 40)),
+    'music_disc_obsidian_throne': ('crown', ((224, 174, 52), (98, 56, 148), (255, 238, 142)), (40, 30, 56)),
+    'music_disc_sky_forge': ('cross', ((112, 172, 232), (62, 104, 172), (236, 246, 255)), (58, 72, 94)),
+    'custom_disc': ('full', ((152, 98, 204), (102, 62, 152), (222, 194, 242)), (62, 54, 72)),
+    'custom_disc_composed': ('note', ((234, 224, 198), (62, 52, 46), (252, 248, 234)), (68, 64, 60)),
+    'blank_disc': ('paper', ((236, 232, 220), (206, 200, 186), (252, 250, 242)), (142, 142, 148)),
+}
+
+
+def _lum(c):
+    return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+
+
+def _scale(c, f):
+    return tuple(max(0, min(255, round(v * f))) for v in c[:3])
+
+
+def vdisc_ramp(body):
+    """Vanilla's disc steps on any body colour; on light bodies the steps stay about as large in luminance instead of growing."""
+    L = max(1.0, _lum(body))
+    return {'O': _scale(body, max(0.56, 1 - 36 / L)), 'B': body, 'G': _scale(body, min(1.30, 1 + 20 / L)),
+            'R': _scale(body, max(0.64, 1 - 30 / L)), 'K': _scale(body, max(0.30, 1 - 62 / L)), 'H': VHOLE}
+
+
+def vdisc(shape, colors, body):
+    ramp = vdisc_ramp(body)
+    tone = {'m': colors[0], 'd': colors[1], 'l': colors[2]}
+    rows = [list(r) for r in VDISC]
+    for (x, y), role in VLABELS[shape].items():
+        rows[y][x] = role
+    rows = [''.join(r).replace('L', 'B') for r in rows]  # no unpainted label pixel is left, but be safe
+    return Tex(dict(ramp, **tone), split(rows, [('grundform', 'OB'), ('rillen', 'G'), ('schattenrand', 'RK'), ('etikett', 'mdl'), ('loch', 'H')]))
+
+
 # Owner 21.10. (MU21): "die runden platten als platzierbare platten nutzen" - the placed record (Shift + right click, the
 # SimpleBuilding feature of Vanilla's discs) is the round form A as a 12 px top view; the item sprite stays the oval B.
 # The files go into SimpleBuilding's assets (its placed_<item> models read simplebuilding:block/placed_disc_<item>).
@@ -238,8 +318,10 @@ POCKET_DYES = {
     'yellow': 0xF2C705, 'lime': 0x9BDF39, 'pink': 0xF8A6BD, 'gray': 0x6C7B83, 'light_gray': 0xB1ACA3, 'cyan': 0x14B4B4,
     'purple': 0x942ACA, 'blue': 0x4573C7, 'brown': 0xD18A59, 'green': 0x77A119, 'red': 0xD2382E, 'black': 0x38364F,
 }
-POCKET_FIXED = {'k': (140, 74, 46), 'c': (198, 116, 76), 'C': (232, 160, 112), 'r': (24, 22, 26), 'g': (60, 58, 66),
-                'l': (232, 224, 200), 'w': (224, 224, 228), 'a': (128, 128, 134),
+# b-music03 (owner 02.11.: keep today's look, only carefully rework): the record's near-black and the tone arm's white were
+# the hardest steps of the sprite; softened by a few levels, shapes and colours stay.
+POCKET_FIXED = {'k': (140, 74, 46), 'c': (198, 116, 76), 'C': (232, 160, 112), 'r': (36, 33, 40), 'g': (70, 67, 76),
+                'l': (226, 218, 196), 'w': (212, 212, 218), 'a': (132, 132, 140),
                 # W24-2: the line contacts, grey - the block tint (PocketLinkTint) multiplies the line's colour in
                 'L': (255, 255, 255), 'M': (196, 196, 196)}
 TINT_KEYS = ['f', 'h', 's', 'o', 'x']
@@ -612,12 +694,9 @@ def press_texs(variant):
 def textures(choice=None):
     """{texture path without .png: Tex} for the chosen variants (choice overrides CHOSEN)."""
     c = dict(CHOSEN, **(choice or {}))
-    out = {'item/sheet_music': sheet(),
-           'item/blank_disc': disc(c['disc'], BLANK),
-           'item/custom_disc': disc(c['disc'], dict(VINYL, **LABEL_TRACK)),
-           'item/custom_disc_composed': disc(c['disc'], dict(VINYL, **LABEL_SHEET))}
-    for name, (vinyl, label) in MUSIC_DISCS.items():
-        out['item/music_disc_' + name] = disc(c['disc'], dict(vinyl, **label))
+    out = {'item/sheet_music': sheet()}
+    for name, (shape, colors, body) in VDISCS.items():
+        out['item/' + name] = vdisc(shape, colors, body)
     for suffix, tex in pocket_texs(c['pocket']).items():
         out['item/pocket_jukebox' + suffix] = tex
     for name, tex in press_texs(c['press']).items():
@@ -721,7 +800,7 @@ def main(argv):
     if '--variants' in argv:
         out = Path(argv[argv.index('--variants') + 1])
         out.mkdir(parents=True, exist_ok=True)
-        for key in ('disc', 'pocket', 'press'):
+        for key in ('pocket', 'press'):
             for v in 'AB':
                 for path, px in images(textures({key: v})).items():
                     if key in path.replace('pocket_jukebox', 'pocket').replace('disc_press', 'press'):

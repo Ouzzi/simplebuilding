@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#18161aff", "#3c3a42ff", "#e8e0c8ff", "#e0e0e4ff", "#808086ff", "#e8a070ff", "#8c4a2eff", "#c6744cff", "#ffffffff", "#c4c4c4ff"],
+  "palette": ["#242128ff", "#46434cff", "#e2dac4ff", "#d4d4daff", "#84848cff", "#e8a070ff", "#8c4a2eff", "#c6744cff", "#ffffffff", "#c4c4c4ff"],
   "layers": [
     {"name": "platte", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "..00000000......................",
