@@ -63,6 +63,31 @@ public final class CombatEffects {
         volatileHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, VOLATILE_KEY, VOLATILE);
         deflectionHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, DEFLECTION_KEY, DEFLECTION);
         mirrorHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, MIRROR_KEY, MIRROR);
+        registerPotions();
+    }
+
+    /** ZO10 player potions per effect: base (3:00, level I), long (8:00, redstone), strong (1:30, level II, glowstone). Brewing recipes are data (recipe/brewing). */
+    public static final int POTION_TICKS = 3600, LONG_POTION_TICKS = 9600, STRONG_POTION_TICKS = 1800;
+
+    /** The potion ids registered for an effect path ({@code volatile}, {@code deflection}, {@code mirror}): base, long_, strong_. */
+    public static java.util.List<String> potionIds(String effect) {
+        return java.util.List.of(effect, "long_" + effect, "strong_" + effect);
+    }
+
+    /** Fabric: direct registration of the nine player potions (needs the effect holders). */
+    private static void registerPotions() {
+        potion("volatile", volatileEffect());
+        potion("deflection", deflection());
+        potion("mirror", mirror());
+    }
+
+    private static void potion(String effect, Holder<MobEffect> holder) {
+        for (String id : potionIds(effect)) {
+            int ticks = id.startsWith("long_") ? LONG_POTION_TICKS : id.startsWith("strong_") ? STRONG_POTION_TICKS : POTION_TICKS;
+            int amplifier = id.startsWith("strong_") ? 1 : 0;
+            Registry.register(BuiltInRegistries.POTION, ResourceKey.create(Registries.POTION, Identifier.fromNamespaceAndPath(ID, id)),
+                    new net.minecraft.world.item.alchemy.Potion(effect, new net.minecraft.world.effect.MobEffectInstance(holder, ticks, amplifier)));
+        }
     }
 
     // --- pure rules (unit-tested) ---

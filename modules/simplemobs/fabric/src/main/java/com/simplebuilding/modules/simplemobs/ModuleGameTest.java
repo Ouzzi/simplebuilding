@@ -127,6 +127,7 @@ public final class ModuleGameTest {
         MobsTests.ALL.get("jei_mob_drops").accept(h);
     }
     @GameTest(structure = "simplemobs:empty") public void combatRegistered(GameTestHelper helper) { MobsTests.ALL.get("combat_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void combatPotions(GameTestHelper helper) { MobsTests.ALL.get("combat_potions").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void combatRules(GameTestHelper helper) { MobsTests.ALL.get("combat_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void zoneEffectRules(GameTestHelper helper) { MobsTests.ALL.get("zone_effect_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void zoneEffectRoll(GameTestHelper helper) { MobsTests.ALL.get("zone_effect_roll").accept(helper); }

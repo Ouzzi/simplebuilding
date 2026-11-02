@@ -23,7 +23,9 @@ window.WIKI_MODULES = [
       "simplelights",
       "simplegadgets",
       "simpleores",
-      "simplemachines"
+      "simplemachines",
+      "simplemobs",
+      "simpleresonance"
     ],
     "optional": [
       "jei",
@@ -43,7 +45,6 @@ window.WIKI_MODULES = [
       "simplefun",
       "simpledimensions",
       "simpletrims",
-      "simplemobs",
       "simpleend",
       "simplerespawn",
       "simplebeacons",
@@ -53,8 +54,7 @@ window.WIKI_MODULES = [
       "simplemusic",
       "simpleearth",
       "simplechallenges",
-      "simpledinos",
-      "simpleresonance"
+      "simpledinos"
     ],
     "overview": {
       "status": "in Arbeit",
@@ -697,7 +697,7 @@ window.WIKI_MODULES = [
     ],
     "optional": [],
     "parent": "simplebuilding",
-    "bundle": "optional",
+    "bundle": "required",
     "intro": {
       "en": "New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
       "de": "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der Biom-Pinsel."
@@ -710,10 +710,10 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 50,
       "blocks": 8,
-      "recipes": 75,
+      "recipes": 120,
       "features": 22
     },
-    "dataHash": "c6058319211d"
+    "dataHash": "daa8e7320f48"
   },
   {
     "id": "simpleweather",
@@ -1124,7 +1124,8 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "simplefoundry"
+      "simplefoundry",
+      "simplecrucibles"
     ],
     "parent": "simplebuilding",
     "bundle": "required",
@@ -1134,7 +1135,7 @@ window.WIKI_MODULES = [
     },
     "purpose": {
       "en": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces (2x/4x/8x speed, double experience from Netherite) and furnace minecarts, moved from SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
-      "de": "Pflicht-Sub-Mod von SB: Verstärkte/Netherit-/Enderit-Öfen, -Räucheröfen, -Schmelzöfen (2×/4×/8×) und Antriebsloren (IDs aus SB migrieren); Axt allein, Vorschlaghammer mit Simple Hammers."
+      "de": "Pflicht-Sub-Mod von SB und Super-Mod von Simple Crucibles (IG31-15) und Simple Foundry: Verstärkte/Netherit-/Enderit-Öfen, -Räucheröfen, -Schmelzöfen (2×/4×/8×) und Antriebsloren (IDs aus SB migrieren); Axt allein, Vorschlaghammer mit Simple Hammers."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
@@ -1143,7 +1144,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 8
     },
-    "dataHash": "f10150881ca7"
+    "dataHash": "c52c43af3ac0"
   },
   {
     "id": "simplemobheads",
@@ -1354,7 +1355,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
-    "parent": "simplebuilding",
+    "parent": "simpleovens",
     "bundle": "required",
     "intro": {
       "en": "Iron, Reinforced, Netherite and Enderite crucibles that cook every slot at once without fuel, barrels that dock onto them, the reinforced cauldron and village field kitchens.",
@@ -1362,7 +1363,7 @@ window.WIKI_MODULES = [
     },
     "purpose": {
       "en": "Iron, Reinforced, Netherite and Enderite crucibles and barrels (a cooking station without fuel), the reinforced cauldron and village field kitchens, moved from SimpleLib and SimpleBuilding (ids migrate). In-world upgrades with the axe on its own, with the sledgehammer of Simple Hammers.",
-      "de": "Pflicht-Sub-Mod von SB: Eisen-/Verstärkter/Netherit-/Enderit-Tiegel und -Fässer (Kochstation ohne Brennstoff), Verstärkter Kessel, Feldküchen im Dorf, Eimer-Familie und Seelenlava (IDs migrieren)."
+      "de": "Pflicht-Sub-Mod von Simple Ovens (und SB; Schalter enableSimpleCrucibles): Eisen-/Verstärkter/Netherit-/Enderit-Tiegel und -Fässer (Kochstation ohne Brennstoff), Verstärkter Kessel, Feldküchen im Dorf, Eimer-Familie und Seelenlava (IDs migrieren)."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9klEQVR42qWTIQvCQBiG91NMYlCjUZdsBrEuiXZBhIHCisFwzWRyIIhFm1YNFsU0TFb9HyfvwTvu2B0XFp7tbt/3Pncbt6DRCmUZAlz257tBs1qxovdMVqkpWG6OeeNXdOQ2ieVFzBWvbk3BOsL94dQUoIAQGn9ZpIAIcIwahOi1CtCgB3SRLnEKUjGTSbtuiPQdYSzikVuQ3Xa5RIfCqBf6BTqQAYQggQBzr+DzPBUECHsF8XggD+tFDuYAQe4Ac6cADb4dOL8BDxKCWB13rAYBw8B5kChAiBKGuQOubhVcH29V4HngK9jCBQEfENfPpPcYgjL8AfeqMA6tHhHIAAAAAElFTkSuQmCC",
     "counts": {
@@ -1901,7 +1902,7 @@ window.WIKI_MODULES = [
       "simplemobs"
     ],
     "parent": "simplebuilding",
-    "bundle": "optional",
+    "bundle": "required",
     "intro": {
       "en": "How experienced you are and how dangerous the land is: your player value grows with playing time and bosses and falls only by a part when you die, danger zones rise softly with the distance from the world spawn, every monster spawn belongs to one player nearby, and a newcomer protection keeps the first hours gentle. Other mods ask it through an API.",
       "de": "Wie erfahren du bist und wie gefährlich das Land ist: dein Spielerwert wächst mit Spielzeit und Bossen und sinkt beim Tod nur um einen Teil, Gefahrenzonen steigen weich mit der Entfernung vom Welt-Spawn, jeder Monster-Spawn gehört einem Spieler in der Nähe, und ein Anfängerschutz hält die ersten Stunden mild. Andere Mods fragen es über eine Schnittstelle ab."

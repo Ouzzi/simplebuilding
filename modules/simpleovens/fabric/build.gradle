@@ -10,3 +10,5 @@ dependencies { include project(':modules:simplelib:fabric'); implementation proj
 apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
 // Sub-mod Simple Foundry (ABN30-13): nested (optional bundle), switched by "enableSimpleFoundry" in simpleovens-server.json.
 dependencies { include project(':modules:simplefoundry:fabric') }
+// Sub-mod Simple Crucibles (IG31-15 B): nested (required bundle, stays its own mod with its own ids), switched by "enableSimpleCrucibles" in simpleovens-server.json.
+dependencies { include project(':modules:simplecrucibles:fabric') }

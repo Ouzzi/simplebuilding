@@ -197,9 +197,9 @@
     "simpleearth": "*",
     "simplechallenges": "*",
     "simpleanimals": "*",
-    "simpledinos": "*",
     "simpleores": "*",
     "simplemachines": "*",
-    "simpleresonance": "*"
+    "simpleresonance": "*",
+    "simpledinos": "*"
   }
 }
