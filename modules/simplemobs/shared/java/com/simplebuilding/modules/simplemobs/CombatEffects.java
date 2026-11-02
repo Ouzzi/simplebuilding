@@ -90,7 +90,7 @@ public final class CombatEffects {
             double len = d.length();
             if (len < 0.6 || len > radius) return;
             e.setDeltaMovement(e.getDeltaMovement().scale(0.8).add(d.scale(0.14 / len)));
-            e.hurtMarked = true;
+            e.needsSync = true;
         }
     }
 
