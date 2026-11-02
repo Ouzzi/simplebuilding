@@ -47,23 +47,6 @@ event.register(Registries.ENTITY_TYPE, h -> {
             event.put(MobsRegistry.DECEIVER, DeceiverEntity.createAttributes().build());
             event.put(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes().build());
         });
-        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            if (!MobsRegistry.on()) return;
-            if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-                event.accept(MobsRegistry.EGG);
-                insertAfter(event, new ItemStack(Items.HOGLIN_SPAWN_EGG), new ItemStack(MobsRegistry.HOWLER_EGG));
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
-                event.accept(DisguiseRegistry.CLOAK);
-                if (MobsConfig.trickMirrorEnabled) event.accept(DisguiseRegistry.MIRROR);
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-                event.accept(MobsRegistry.CLOTH);
-                event.accept(DisguiseRegistry.SHARD);
-                insertAfter(event, new ItemStack(Items.ECHO_SHARD), new ItemStack(MobsRegistry.ECHO_CORE));
-            }
-        });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> MobsServer.tick(event.getServer()));
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> EndNetherMobs.entityTypes(h::register));
@@ -74,22 +57,6 @@ event.register(Registries.ENTITY_TYPE, h -> {
         bus.addListener((EntityAttributeCreationEvent event) -> {
             event.put(EndNetherMobs.SHELLKER, ShellkerEntity.createAttributes().build());
             event.put(EndNetherMobs.SOULFIRE_BLAZE, net.minecraft.world.entity.monster.Blaze.createAttributes().build());
-        });
-        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-                insertAfter(event, new ItemStack(Items.SHULKER_SPAWN_EGG), new ItemStack(EndNetherMobs.SHELLKER_EGG));
-                insertAfter(event, new ItemStack(Items.BLAZE_SPAWN_EGG), new ItemStack(EndNetherMobs.SOULFIRE_EGG));
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-                insertAfter(event, new ItemStack(Items.SHULKER_SHELL), new ItemStack(EndNetherMobs.SHELL));
-                insertAfter(event, new ItemStack(Items.BLAZE_ROD), new ItemStack(EndNetherMobs.ROD));
-                insertAfter(event, new ItemStack(Items.BLAZE_POWDER), new ItemStack(EndNetherMobs.POWDER));
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
-                insertAfter(event, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
-                insertAfter(event, new ItemStack(Items.FIRE_CHARGE), new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE));
-            }
         });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> EndNetherServer.tick(event.getServer()));
         bus.addListener((RegisterEvent event) -> {
@@ -109,18 +76,6 @@ event.register(Registries.ENTITY_TYPE, h -> {
             event.put(BossMobs.VOID_RUNNER, VoidRunnerEntity.createAttributes().build());
             event.put(BossMobs.BRIMGUARD, BrimguardEntity.createAttributes().build());
         });
-        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-                insertAfter(event, new ItemStack(Items.WITHER_SKELETON_SPAWN_EGG), new ItemStack(FearMobs.DREAD_EGG));
-                insertAfter(event, new ItemStack(Items.ENDERMAN_SPAWN_EGG), new ItemStack(FearMobs.WATCHER_EGG));
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-                insertAfter(event, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.EYE));
-                insertAfter(event, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.LINK));
-            }
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) event.accept(FearMobs.AMULET);
-        });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> FearServer.tick(event.getServer()));
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> WitherMobs.entityTypes(h::register));
@@ -132,7 +87,6 @@ event.register(Registries.ENTITY_TYPE, h -> {
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         bus.addListener((EntityAttributeCreationEvent event) -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) { insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.GEM)); insertAfter(event, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); } }
             if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) event.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());

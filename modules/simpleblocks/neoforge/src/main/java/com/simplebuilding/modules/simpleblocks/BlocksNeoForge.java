@@ -68,25 +68,6 @@ public final class BlocksNeoForge {
                 }
                 return;
             }
-            boolean natural = event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS);
-            if (!natural && !event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)) return;
-            if (!SimpleBlocks.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleBlocks.MOD_ID)) return;
-            var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-            for (BlocksRegistry.Placement placement : BlocksRegistry.placements()) {
-                if (placement.natural() != natural) continue;
-                var before = new ItemStack(placement.before());
-                boolean anchored = event.getParentEntries().contains(before) && event.getSearchEntries().contains(before);
-                ItemStack previous = before;
-                for (ItemStack stack : placement.stacks()) {
-                    if (event.getParentEntries().contains(stack) || event.getSearchEntries().contains(stack)) continue;
-                    if (anchored && placement.after()) {
-                        // Behind the anchor in order: each one behind the one before it.
-                        event.insertAfter(previous, stack, visibility);
-                        previous = stack;
-                    } else if (anchored) event.insertBefore(before, stack, visibility);
-                    else event.accept(stack, visibility);
-                }
-            }
         });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simpleblocks.guide.BlocksGuide.installQuests(FMLPaths.CONFIGDIR.get());
     }
