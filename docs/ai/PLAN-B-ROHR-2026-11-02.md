@@ -27,3 +27,6 @@ Mit 0 Ausgaengen bleibt FACING (und damit die Pfeil-Modellvariante) auf der zule
 
 ## Verifikation
 Gametests (Zyklus, Round-Robin, AUS nimmt nichts, Migration + Persistenz + Upgrade), Compile, Modul-Gametests + standalone, check_client_mixins, echte-Maus-Test im Fenster mit Screenshots (vorher/nachher), Vorschau-HTML.
+
+## Zusatz 02.11. (Teil 3): Verengung am Ausgang
+Besitzer: die Verengung zum Ziel ist zu klein, soll kleiner als das Rohr bleiben, aber groesser als jetzt. Stand b-qw03: Hals 3x3 Pixel, 1 px lang, Koerper 6x6. Neu: Hals 4x4 (from/to 6..10), Laenge weiterhin 1 px. Begruendung: 4 von 6 Pixeln (Flaeche 16 statt 9 = +78 %, aber 44 % unter dem Rohr 36), bleibt klar als Verengung lesbar; 5x5 waere von 6x6 kaum zu unterscheiden (Pixelraster, nur ganze/halbe Pixel sinnvoll). Laenge bleibt 1 px, damit die Chevron-Pfeile auf dem Koerper nicht beschnitten werden. UVs des Halses auf 4 Pixel Breite angepasst. Geaendert: Generator `tools/textures/storage30_2026_10_30.py` (PIPE_OUT_ELEMENTS) und die zwei Modelle `template_pipe_out.json`, `template_pipe_item.json` (nur diese per Hand uebernommen, der Generator schreibt sonst unbeteiligte Texturen neu). Nicht im sbt-Lauf pixelgenau getestet (Lauf war schon gestartet); Vorschau zeigt Querschnitt alt/neu.
