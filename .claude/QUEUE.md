@@ -382,6 +382,7 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [ ] SA8 Schmelzanlage (Simple Foundry): Tankfassung – A 27 Barren → PRIO
 - [ ] SA9 Schmelzanlage (Simple Foundry): Hülle – A Dach Pflicht → PRIO
 - [ ] SA10 Schmelzanlage (Simple Foundry): Erz-Bonus – A aus → PRIO
+- [~] (B, b-foundry03, 02.11., Beleg docs/ai/PLAN-B-FOUNDRY03-2026-11-02.md; Tests siehe Memory) Simple Foundry 02.11.: Rohmaterialien als Schichten sichtbar (Kammerfenster, Variante A), Brennstofftank mit Füllstand (Pultfront + Fenster), Nachfüllen mit Lava-Eimer (Hauptweg) oder Kohle, Pult-Fenster FOUNDRY32-UI = A (Plätze links, Schnitt Mitte, Stapel rechts) → offen Besitzer-Abnahme der Optik (Vorschau abnahme-b/b-foundry03-preview.html), Gate/Production
 - [~] (B, b-zones02, 01.11.) ZO1 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Zonen-Effekte standardmäßig – A (Zonen-Effekte standardmäßig: aus bis Client-Abnahme, dann an) – gebaut (zoneMobsEnabled aus bis Client-Abnahme), Umschalten nach Abnahme (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
 - [~] (B, b-zones02, 01.11.) ZO2 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Wert-Formel 0,7 x W_lang + 0,3 x F, Tod -25 % auf V – A (Wert-Formel 0,7 x W_lang + 0,3 x F, Tod -25 % auf V) – gebaut (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
 - [~] (B, b-zones02, 01.11.) ZO3 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): API-Weg – A (API-Weg: Vertrag in framework/) – gebaut (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO

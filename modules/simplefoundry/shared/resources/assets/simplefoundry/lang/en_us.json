@@ -26,6 +26,15 @@
   "simplefoundry.desk.layer": "Layer %s: %s",
   "simplefoundry.desk.layer_empty": "empty",
   "simplefoundry.desk.refused": "Nothing taken (%s, or the tank is full)",
-  "simplefoundry.desk.fuel_full": "The fuel slot is full or holds another fuel (%s)",
-  "simplefoundry.tray.hot": "The ingots are still setting"
+  "simplefoundry.desk.fuel_full": "The fuel tank is full or cannot take that (%s)",
+  "simplefoundry.tray.hot": "The ingots are still setting",
+  "gui.simplefoundry.fuel_hint": "Fuel slot: coal or lava",
+  "gui.simplefoundry.locked": "Locked: needs a desk with %s places",
+  "gui.simplefoundry.locked_item": "Lift the desk with: %s",
+  "gui.simplefoundry.level": "Level %s: %s",
+  "gui.simplefoundry.filled": "Tank: %s of %s ingots",
+  "gui.simplefoundry.arrow": "Next layer down (back to the top)",
+  "gui.simplefoundry.fuel": "Fuel tank: %s of %s ticks",
+  "gui.simplefoundry.fuel_ways": "Lava bucket (empty one comes back) or coal",
+  "gui.simplefoundry.metal": "%s: %s ingots melted, %s waiting"
 }

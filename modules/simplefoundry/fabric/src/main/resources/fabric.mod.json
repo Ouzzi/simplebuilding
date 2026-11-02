@@ -19,6 +19,9 @@
     "main": [
       "com.simplebuilding.modules.simplefoundry.FoundryFabric"
     ],
+    "client": [
+      "com.simplebuilding.modules.simplefoundry.FoundryFabricClient"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.modules.simplefoundry.ModuleGameTest"
     ]

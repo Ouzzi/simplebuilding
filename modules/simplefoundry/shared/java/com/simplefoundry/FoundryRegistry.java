@@ -1,7 +1,9 @@
 package com.simplefoundry;
 
+import com.simplefoundry.block.ChamberBlock;
 import com.simplefoundry.block.DeskBlock;
 import com.simplefoundry.block.DeskBlockEntity;
+import com.simplefoundry.block.FoundryMenu;
 import com.simplefoundry.block.GrateBlock;
 import com.simplefoundry.block.SpoutBlock;
 import com.simplefoundry.block.TrayBlock;
@@ -17,6 +19,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -36,7 +40,7 @@ public final class FoundryRegistry {
     public static final TagKey<Block> HULL = TagKey.create(Registries.BLOCK, SimpleFoundry.id("hull"));
 
     public static final Block FOUNDRY_BRICK = block("foundry_brick", Blocks.BRICKS, Block::new);
-    public static final Block MELTING_CHAMBER = block("melting_chamber", Blocks.BRICKS, Block::new);
+    public static final Block MELTING_CHAMBER = block("melting_chamber", Blocks.BRICKS, ChamberBlock::new);
     public static final Block DESK = block("foundry_desk", Blocks.BRICKS, DeskBlock::new);
     public static final Block FIRE_GRATE = block("fire_grate", Blocks.BRICKS, GrateBlock::new);
     public static final Block FOUNDRY_SPOUT = block("foundry_spout", Blocks.BRICKS, SpoutBlock::new);
@@ -77,6 +81,7 @@ public final class FoundryRegistry {
         ITEMS.forEach((path, item) -> Registry.register(BuiltInRegistries.ITEM, SimpleFoundry.id(path), item));
         DESK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleFoundry.id("foundry_desk"), new BlockEntityType<>(DeskBlockEntity::new, java.util.Set.of(DESK)));
         TRAY_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, SimpleFoundry.id("casting_tray"), new BlockEntityType<>(TrayBlockEntity::new, java.util.Set.of(CASTING_TRAY)));
+        FoundryMenu.TYPE = Registry.register(BuiltInRegistries.MENU, SimpleFoundry.id("foundry_desk"), new MenuType<>(FoundryMenu::client, FeatureFlags.VANILLA_SET));
         // IG31-3: the items stand in the module's own tab only (CreativeTabPolicy); tab order by the mod tree
         TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, SimpleFoundry.id("foundry"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                 .title(Component.translatable("itemgroup.simplefoundry.foundry"))

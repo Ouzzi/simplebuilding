@@ -26,6 +26,15 @@
   "simplefoundry.desk.layer": "Schicht %s: %s",
   "simplefoundry.desk.layer_empty": "leer",
   "simplefoundry.desk.refused": "Nichts genommen (%s, oder der Tank ist voll)",
-  "simplefoundry.desk.fuel_full": "Der Brennstoffplatz ist voll oder hält einen anderen Brennstoff (%s)",
-  "simplefoundry.tray.hot": "Die Barren erstarren noch"
+  "simplefoundry.desk.fuel_full": "Der Brennstofftank ist voll oder nimmt das nicht (%s)",
+  "simplefoundry.tray.hot": "Die Barren erstarren noch",
+  "gui.simplefoundry.fuel_hint": "Brennstoffplatz: Kohle oder Lava",
+  "gui.simplefoundry.locked": "Gesperrt: braucht ein Pult mit %s Plätzen",
+  "gui.simplefoundry.locked_item": "Pult aufwerten mit: %s",
+  "gui.simplefoundry.level": "Ebene %s: %s",
+  "gui.simplefoundry.filled": "Tank: %s von %s Barren",
+  "gui.simplefoundry.arrow": "Nächste Schicht nach unten (zurück nach oben)",
+  "gui.simplefoundry.fuel": "Brennstofftank: %s von %s Ticks",
+  "gui.simplefoundry.fuel_ways": "Lava-Eimer (leerer kommt zurück) oder Kohle",
+  "gui.simplefoundry.metal": "%s: %s Barren geschmolzen, %s warten"
 }

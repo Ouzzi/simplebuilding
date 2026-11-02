@@ -1,7 +1,105 @@
 {
-  "variants": {
-    "": {
-      "model": "simplefoundry:block/melting_chamber"
+  "multipart": [
+    {
+      "apply": {
+        "model": "simplefoundry:block/melting_chamber"
+      }
+    },
+    {
+      "when": {
+        "s0": "gold"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_gold_0"
+      }
+    },
+    {
+      "when": {
+        "s1": "gold"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_gold_1"
+      }
+    },
+    {
+      "when": {
+        "s2": "gold"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_gold_2"
+      }
+    },
+    {
+      "when": {
+        "s3": "gold"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_gold_3"
+      }
+    },
+    {
+      "when": {
+        "s0": "copper"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_copper_0"
+      }
+    },
+    {
+      "when": {
+        "s1": "copper"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_copper_1"
+      }
+    },
+    {
+      "when": {
+        "s2": "copper"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_copper_2"
+      }
+    },
+    {
+      "when": {
+        "s3": "copper"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_copper_3"
+      }
+    },
+    {
+      "when": {
+        "s0": "iron"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_iron_0"
+      }
+    },
+    {
+      "when": {
+        "s1": "iron"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_iron_1"
+      }
+    },
+    {
+      "when": {
+        "s2": "iron"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_iron_2"
+      }
+    },
+    {
+      "when": {
+        "s3": "iron"
+      },
+      "apply": {
+        "model": "simplefoundry:block/chamber_melt_iron_3"
+      }
     }
-  }
+  ]
 }

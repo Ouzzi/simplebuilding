@@ -20,5 +20,24 @@ public final class Layers {
         return found;
     }
 
+    /** Metal that lies at {@code unit} (0 = bottom of the tank) when the melts are stacked bottom to top, or null above the melt. */
+    public static Metal atUnit(int[] units, long unit) {
+        long start = 0;
+        for (Metal metal : Metal.values()) {
+            long end = start + units[metal.ordinal()];
+            if (unit >= start && unit < end) return metal;
+            start = end;
+        }
+        return null;
+    }
+
+    /** What window part {@code part} (0 = lowest) of {@code parts} in tank level {@code level} shows: the metal at the middle of that part (Variant A, layers drawn on top of each other). */
+    public static Metal windowPart(int[] units, int capacity, int levels, int level, int part, int parts) {
+        if (levels <= 0 || capacity <= 0 || level < 0 || level >= levels || part < 0 || part >= parts) return null;
+        long lo = (long) level * capacity / levels;
+        long hi = (long) (level + 1) * capacity / levels;
+        return atUnit(units, lo + (hi - lo) * (2L * part + 1) / (2L * parts));
+    }
+
     private Layers() {}
 }
