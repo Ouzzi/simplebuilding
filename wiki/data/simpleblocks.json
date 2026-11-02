@@ -419,7 +419,6 @@
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/FrostGrassBlock.java",
         "modules/simpleblocks/shared/java/com/simpleblocks/mixin/GrassFreezesMixin.java",
         "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/frost_grass.json",
-        "tools/textures/snow32_frost_grass_2026_10_31.py",
         "modules/simpleblocks/shared/java/com/simpleblocks/test/SnowTests.java"
       ],
       "related": [

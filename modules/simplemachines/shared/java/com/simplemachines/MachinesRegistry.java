@@ -87,12 +87,12 @@ public final class MachinesRegistry {
     private static Block doublePiston(DoublePistonVariant variant) {
         DoublePistonHeadBlock head = (DoublePistonHeadBlock) part(variant.headId(), p -> new DoublePistonHeadBlock(variant, p.noLootTable()));
         DoublePistonArmBlock arm = (DoublePistonArmBlock) part(variant.armId(), p -> new DoublePistonArmBlock(variant, p.noLootTable()));
-        return part(variant.id(), p -> new DoublePistonBlock(variant, head, arm, p));
+        return part(variant.id(), p -> new DoublePistonBlock(variant, head, arm, p.pushReaction(PushReaction.PUSH_PULL)));
     }
 
     /**
      * A piston part like Vanilla's piston (strength 1.5, stone sound, no conductor); immovable for pistons and machines
-     * (a part torn off would leave a broken piston) and without occlusion (parts are partial blocks). Head and arm have no
+     * (a part torn off would leave a broken piston; only the base is movable again, at stage 0, see DoublePistonPushableMixin) and without occlusion (parts are partial blocks). Head and arm have no
      * loot table, like Vanilla's piston head: the base drops the piston.
      */
     private static Block part(String path, Function<BlockBehaviour.Properties, Block> factory) {

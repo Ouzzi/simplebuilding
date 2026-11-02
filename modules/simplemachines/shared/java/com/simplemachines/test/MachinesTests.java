@@ -5,6 +5,7 @@ import com.simplemachines.SimpleMachines;
 import com.simplemachines.block.SignalDampenerBlock;
 import com.simplemachines.config.MachinesConfig;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.material.PushReaction;
 import com.simplemachines.piston.DoublePistons;
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public final class MachinesTests {
         ALL.put("double_piston_push_limit", MachinesTests::doublePistonPushLimit);
         ALL.put("double_piston_stopped_by_obsidian", MachinesTests::doublePistonStoppedByObsidian);
         ALL.put("double_piston_cannot_be_pushed", MachinesTests::doublePistonCannotBePushed);
+        ALL.put("double_piston_pushed_by_vanilla_piston", MachinesTests::doublePistonPushedByVanillaPiston);
         ALL.put("double_piston_falls_as_unit", MachinesTests::doublePistonFallsAsUnit);
         ALL.put("double_piston_switch_off_keeps_it_still", MachinesTests::doublePistonSwitchOffKeepsItStill);
         ALL.put("discover_recipe_unlocks", com.simplemachines.discover.MachinesDiscover::recipeUnlocks);
@@ -157,7 +159,7 @@ public final class MachinesTests {
             if (!BuiltInRegistries.ITEM.containsKey(SimpleMachines.id(name))) problems.add("item " + name);
         }
         if (MachinesRegistry.TAB == null) problems.add("creative tab");
-        for (Block part : pistonParts()) {
+        for (Block part : List.of(MachinesRegistry.head(), MachinesRegistry.arm())) {
             BlockState state = part.defaultBlockState();
             if (state.getPistonPushReaction() != PushReaction.IMMOVEABLE) problems.add("push reaction " + state);
             if (PistonBaseBlock.isPushable(state, h.getLevel(), BlockPos.ZERO.above(70), Direction.EAST, false, Direction.EAST)) problems.add("pushable " + state);
@@ -482,20 +484,43 @@ public final class MachinesTests {
         });
     }
 
-    /** Vanilla's resolver refuses all three parts (pushReaction McVersion.PUSH_BLOCKED): a Vanilla piston next to the base stays in. */
+    /**
+     * MACH32-PUSH: head and arm stay immovable (Vanilla's piston head), the base is movable only while it is in (stage 0), like
+     * Vanilla's retracted piston; out (stage 1, 2) the resolver refuses it like an extended Vanilla piston.
+     */
     public static void doublePistonCannotBePushed(GameTestHelper h) {
         clear(h);
         BlockPos base = new BlockPos(3, 2, 3);
         doublePiston(h, base);
-        for (Block part : pistonParts()) {
+        for (Block part : List.of(MachinesRegistry.head(), MachinesRegistry.arm())) {
             h.assertTrue(part.defaultBlockState().getPistonPushReaction() == PushReaction.IMMOVEABLE, part + " is movable");
         }
+        BlockState in = MachinesRegistry.DOUBLE_PISTON.defaultBlockState().setValue(DirectionalBlock.FACING, Direction.EAST);
+        BlockPos abs = h.absolutePos(base);
+        h.assertTrue(PistonBaseBlock.isPushable(in, h.getLevel(), abs, Direction.EAST, false, Direction.EAST), "stage 0 is not pushable");
+        for (int ext = 1; ext <= 2; ext++) {
+            BlockState out = in.setValue(DoublePistons.EXT, ext);
+            h.assertTrue(!PistonBaseBlock.isPushable(out, h.getLevel(), abs, Direction.EAST, false, Direction.EAST), "stage " + ext + " is pushable");
+            h.setBlock(base, out);
+            h.assertTrue(!new PistonStructureResolver(h.getLevel(), abs.west(), Direction.EAST, true).resolve(), "a piston resolves a push of stage " + ext);
+        }
+        h.succeed();
+    }
+
+    /** MACH32-PUSH: a powered Vanilla piston next to a Double Piston at stage 0 pushes it one cell, still stage 0 and facing the same way. */
+    public static void doublePistonPushedByVanillaPiston(GameTestHelper h) {
+        clear(h);
+        BlockPos base = new BlockPos(3, 2, 3);
+        doublePiston(h, base);
+        h.setBlock(base.east().below(), Blocks.STONE);
         h.setBlock(base.west().below(), Blocks.STONE);
         h.setBlock(base.west(), Blocks.PISTON.defaultBlockState().setValue(DirectionalBlock.FACING, Direction.EAST));
         h.setBlock(base.west().north(), Blocks.REDSTONE_BLOCK);
-        h.runAfterDelay(10, () -> {
-            h.assertTrue(at(h, base).is(MachinesRegistry.DOUBLE_PISTON), "base moved: " + at(h, base));
-            h.assertTrue(at(h, base.west()).is(Blocks.PISTON) && !at(h, base.west()).getValue(PistonBaseBlock.EXTENDED), "the Vanilla piston extended against the base");
+        h.runAfterDelay(20, () -> {
+            BlockState moved = at(h, base.east());
+            h.assertTrue(moved.is(MachinesRegistry.DOUBLE_PISTON) && moved.getValue(DirectionalBlock.FACING) == Direction.EAST && moved.getValue(DoublePistons.EXT) == 0,
+                    "the Double Piston was not pushed one cell east: " + moved + " / " + at(h, base));
+            h.assertTrue(at(h, base.west()).is(Blocks.PISTON) && at(h, base.west()).getValue(PistonBaseBlock.EXTENDED), "the Vanilla piston did not extend");
             h.succeed();
         });
     }
