@@ -68,9 +68,18 @@ public class PipeMenu extends AbstractContainerMenu {
         return Direction.values()[Math.floorMod(this.data.get(ItemPipeBlockEntity.OUTPUT), 6)];
     }
 
+    public int sideModesPacked() {
+        return this.data.get(ItemPipeBlockEntity.SIDES);
+    }
+
     /** The state of one side: {@link Pipes#IN}, {@link Pipes#OUT} or {@link Pipes#OFF}. */
     public int sideMode(Direction side) {
         return Pipes.unpack(this.data.get(ItemPipeBlockEntity.SIDES))[side.ordinal()];
+    }
+
+    /** Only for the real-mouse probe (a menu without a server): sets one data slot by hand. */
+    public void probeData(int id, int value) {
+        this.data.set(id, value);
     }
 
     public PipeTier tier() {

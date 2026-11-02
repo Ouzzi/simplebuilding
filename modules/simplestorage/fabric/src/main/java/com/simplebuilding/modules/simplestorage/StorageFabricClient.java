@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 public final class StorageFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(com.simplestorage.client.PipeProbe::tick);
         BlockEntityRendererRegistry.register(StorageBlockEntities.CRATE, CrateRenderer::new);
         BlockEntityRendererRegistry.register(StorageBlockEntities.STORAGE_CRAFTING_TABLE, StorageCraftingTableRenderer::new);
         MenuScreens.register(StorageMenus.STORAGE_CRAFTING_TABLE, StorageCraftingScreen::new);

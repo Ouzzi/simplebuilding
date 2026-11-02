@@ -30,6 +30,7 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     static final int OUT_FACE = 0xFFFF9A8F, OUT_INK = 0xFF3A0804, OFF_FACE = 0xFFA0A0A0, OFF_INK = 0xFF262626;
 
     private UiFilterButton filterButton;
+    private Direction hoveredSide;
 
     public PipeScreen(PipeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, 133);
@@ -61,7 +62,17 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
         }
     }
 
-    private void press(int id) {
+    int probeMode(Direction side) {
+        return this.menu.sideMode(side);
+    }
+
+    /** The tooltip lines of the side key under the pointer, if any (the real-mouse probe reads them). */
+    java.util.List<Component> probeTooltip() {
+        return this.hoveredSide == null ? java.util.List.of() : sideTooltipLines(this.menu.tier(), this.hoveredSide, this.menu.sideMode(this.hoveredSide));
+    }
+
+    /** Sends a button press to the server (the probe overrides this to answer locally). */
+    protected void press(int id) {
         if (this.minecraft != null && this.minecraft.gameMode != null) this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, id);
     }
 
@@ -100,10 +111,12 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     protected void extractTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         super.extractTooltip(graphics, mouseX, mouseY);
         int x = mouseX - this.leftPos, y = mouseY - this.topPos;
+        this.hoveredSide = null;
         for (Direction side : Direction.values()) {
             int[] at = hexOffset(side);
             int left = HEX_X + at[0] - SIDE_SIZE / 2, top = HEX_Y + at[1] - SIDE_SIZE / 2;
             if (x >= left && x < left + SIDE_SIZE && y >= top && y < top + SIDE_SIZE) {
+                this.hoveredSide = side;
                 graphics.setTooltipForNextFrame(this.font, sideTooltipLines(this.menu.tier(), side, this.menu.sideMode(side)), java.util.Optional.empty(), mouseX, mouseY);
                 return;
             }
@@ -160,7 +173,7 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     }
 
     /** One of the six side keys: a raised key (input), a light red sunken key (output) or a greyed-out sunken key (off); a letter for the compass sides, an arrow for up and down. */
-    private static final class SideButton extends Button {
+    static final class SideButton extends Button {
         private final PipeMenu menu;
         private final Direction side;
         private final Supplier<UiPalette> palette;
@@ -170,6 +183,10 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
             this.menu = menu;
             this.side = side;
             this.palette = palette;
+        }
+
+        Direction side() {
+            return this.side;
         }
 
         @Override
