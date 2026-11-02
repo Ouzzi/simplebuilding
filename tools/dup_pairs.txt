@@ -66,7 +66,6 @@ common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java modules/s
 common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/mixin/LivingEntityMixin.java allow: getItemBlockingWith/0 isFallFlying/0
 common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/simplefun/fabric/src/main/java/com/simplefun/mixin/fabric/PlayerEntityMixin.java allow: getInventory/0
 common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/simplefun/forge/src/main/java/com/simplebuilding/modules/simplefun/forge/mixin/PlayerEntityMixin.java allow: getInventory/0
-common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java modules/simplelib/shared/java/com/simplelib/mixin/RecipeMapFilterMixin.java
 common/src/shared/java/com/simplebuilding/mixin/ShapelessRecipeMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/ShapelessRecipeMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java modules/simplefun/shared/java/com/simplefun/mixin/ItemMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/MultiPlayerGameModeHammerProgressMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/client/MultiPlayerGameModeHammerProgressMixin.java

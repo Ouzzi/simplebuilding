@@ -65,25 +65,6 @@ public final class BlocksForge {
                 else event.getEntries().put(saw, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                 return;
             }
-            boolean natural = event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS);
-            if (!natural && !event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)) return;
-            if (!SimpleBlocks.on() || !com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FMLPaths.CONFIGDIR.get(), SimpleBlocks.MOD_ID)) return;
-            var entries = event.getEntries();
-            var visibility = CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS;
-            for (BlocksRegistry.Placement placement : BlocksRegistry.placements()) {
-                if (placement.natural() != natural) continue;
-                var before = new ItemStack(placement.before());
-                boolean anchored = entries.contains(before);
-                ItemStack previous = before;
-                for (ItemStack stack : placement.stacks()) {
-                    if (entries.contains(stack)) continue;
-                    if (anchored && placement.after()) {
-                        entries.putAfter(previous, stack, visibility);
-                        previous = stack;
-                    } else if (anchored) entries.putBefore(before, stack, visibility);
-                    else entries.put(stack, visibility);
-                }
-            }
         });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simpleblocks.guide.BlocksGuide.installQuests(FMLPaths.CONFIGDIR.get());
     }

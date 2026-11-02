@@ -45,23 +45,6 @@ public final class MobsForge {
             event.put(MobsRegistry.DECEIVER, DeceiverEntity.createAttributes().build());
             event.put(MobsRegistry.HOLLOW_HOWLER, HowlerEntity.createAttributes().build());
         });
-        BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            if (!MobsRegistry.on()) return;
-            if (e.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-                e.accept(MobsRegistry.EGG);
-                putAfter(e, new ItemStack(Items.HOGLIN_SPAWN_EGG), new ItemStack(MobsRegistry.HOWLER_EGG));
-            }
-            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
-                e.accept(DisguiseRegistry.CLOAK);
-                if (MobsConfig.trickMirrorEnabled) e.accept(DisguiseRegistry.MIRROR);
-            }
-            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-                e.accept(MobsRegistry.CLOTH);
-                e.accept(DisguiseRegistry.SHARD);
-                putAfter(e, new ItemStack(Items.ECHO_SHARD), new ItemStack(MobsRegistry.ECHO_CORE));
-            }
-        });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> MobsServer.tick(e.server()));
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> EndNetherMobs.entityTypes(r::register));
@@ -72,22 +55,6 @@ public final class MobsForge {
         EntityAttributeCreationEvent.BUS.addListener(event -> {
             event.put(EndNetherMobs.SHELLKER, ShellkerEntity.createAttributes().build());
             event.put(EndNetherMobs.SOULFIRE_BLAZE, net.minecraft.world.entity.monster.Blaze.createAttributes().build());
-        });
-        BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            if (e.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-                putAfter(e, new ItemStack(Items.SHULKER_SPAWN_EGG), new ItemStack(EndNetherMobs.SHELLKER_EGG));
-                putAfter(e, new ItemStack(Items.BLAZE_SPAWN_EGG), new ItemStack(EndNetherMobs.SOULFIRE_EGG));
-            }
-            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-                putAfter(e, new ItemStack(Items.SHULKER_SHELL), new ItemStack(EndNetherMobs.SHELL));
-                putAfter(e, new ItemStack(Items.BLAZE_ROD), new ItemStack(EndNetherMobs.ROD));
-                putAfter(e, new ItemStack(Items.BLAZE_POWDER), new ItemStack(EndNetherMobs.POWDER));
-            }
-            if (e.getTabKey().equals(CreativeModeTabs.COMBAT)) {
-                putAfter(e, new ItemStack(Items.TURTLE_HELMET), new ItemStack(EndNetherMobs.HELMET));
-                putAfter(e, new ItemStack(Items.FIRE_CHARGE), new ItemStack(EndNetherMobs.SOUL_FIRE_CHARGE));
-            }
         });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> EndNetherServer.tick(e.server()));
         RegisterEvent.getBus(bus).addListener(event -> {
@@ -107,18 +74,6 @@ public final class MobsForge {
             event.put(BossMobs.VOID_RUNNER, VoidRunnerEntity.createAttributes().build());
             event.put(BossMobs.BRIMGUARD, BrimguardEntity.createAttributes().build());
         });
-        BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
-            if (!MobsConfig.vanillaTabs()) return;
-            if (e.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-                putAfter(e, new ItemStack(Items.WITHER_SKELETON_SPAWN_EGG), new ItemStack(FearMobs.DREAD_EGG));
-                putAfter(e, new ItemStack(Items.ENDERMAN_SPAWN_EGG), new ItemStack(FearMobs.WATCHER_EGG));
-            }
-            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-                putAfter(e, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.EYE));
-                putAfter(e, new ItemStack(Items.ENDER_EYE), new ItemStack(FearMobs.LINK));
-            }
-            if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(FearMobs.AMULET);
-        });
         net.minecraftforge.event.TickEvent.ServerTickEvent.Post.BUS.addListener(e -> FearServer.tick(e.server()));
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> WitherMobs.entityTypes(r::register));
@@ -130,7 +85,6 @@ public final class MobsForge {
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.BLIGHTED_WITHER, BlightedWither.createAttributes().build()));
         EntityAttributeCreationEvent.BUS.addListener(event -> event.put(WitherMobs.ABYSSAL_WITHER, BlightedWither.createAttributes(WitherLogic.ENDERITE).build()));
         BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
-            if (e.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) { if (MobsConfig.vanillaTabs()) { putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.GEM)); putAfter(e, new ItemStack(Items.NETHER_STAR), new ItemStack(WitherMobs.HEART)); } }
             if (e.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simplemobs.guide.MobsGuide.stack());
         });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simplemobs.guide.MobsGuide.installQuests(FMLPaths.CONFIGDIR.get());
