@@ -168,7 +168,13 @@ for stage, base, add in (('wither_wings', 'minecraft:elytra', 'simplemobs:nether
         assert r['result']['id'] == f'simplemobs:{stage}', (stage, suffix)
     assert (MODULE / f'shared/resources/assets/simplemobs/equipment/{stage}.json').is_file()
     assert (MODULE / f'shared/resources/assets/simplemobs/textures/entity/equipment/wings/{stage}.png').is_file()
-# WB24-2 Ender Heart / Ender Gem: no loot yet (source = a later End boss, WA24-7), only commands, creative tab and test centre
+# WB24-2 Ender Heart / Ender Gem: only the End bosses (b-boss01, WA24-7) drop them - Void Runner the heart, Brimguard the gem;
+# the wings themselves never drop.
+_BOSS_LOOT = {'void_runner.json': 'ender_heart', 'brimguard.json': 'ender_gem'}
 for _p in (MODULE / 'shared/resources/data/simplemobs/loot_table').rglob('*.json'):
     _t = _p.read_text(encoding='utf-8')
-    assert 'ender_heart' not in _t and 'ender_gem' not in _t and 'end_wings' not in _t and 'void_wings' not in _t, f'{_p.name}: no End material loot yet'
+    assert 'end_wings' not in _t and 'void_wings' not in _t, f'{_p.name}: wings never drop'
+    for _m in ('ender_heart', 'ender_gem'):
+        assert _m not in _t or _BOSS_LOOT.get(_p.name) == _m, f'{_p.name}: {_m} only from its End boss'
+for _f, _m in _BOSS_LOOT.items():
+    assert any(_m in q.read_text(encoding='utf-8') for q in (MODULE / 'shared/resources/data/simplemobs/loot_table').rglob(_f)), f'{_f} must drop {_m}'
