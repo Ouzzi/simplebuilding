@@ -4,7 +4,7 @@
   "width": 16,
   "height": 64,
   "digits": 2,
-  "palette": ["#1e2a41ff", "#7496d5ff", "#4573c7ff", "#18161aff", "#808086ff", "#3c3a42ff", "#e0e0e4ff", "#e8e0c8ff", "#8c4a2eff", "#e8a070ff", "#32538fff", "#223a64ff", "#c6744cff", "#261e2eff", "#ecf0ffff"],
+  "palette": ["#1e2a41ff", "#7496d5ff", "#4573c7ff", "#242128ff", "#84848cff", "#46434cff", "#d4d4daff", "#e2dac4ff", "#8c4a2eff", "#e8a070ff", "#32538fff", "#223a64ff", "#c6744cff", "#261e2eff", "#ecf0ffff"],
   "layers": [
     {"name": "jukebox", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "................................",

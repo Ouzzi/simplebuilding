@@ -4,7 +4,7 @@
   "width": 16,
   "height": 16,
   "digits": 2,
-  "palette": ["#491813ff", "#dd6a62ff", "#d2382eff", "#972821ff", "#691c17ff", "#8c4a2eff", "#e8a070ff", "#c6744cff", "#18161aff", "#3c3a42ff", "#e8e0c8ff", "#808086ff", "#e0e0e4ff"],
+  "palette": ["#491813ff", "#dd6a62ff", "#d2382eff", "#972821ff", "#691c17ff", "#8c4a2eff", "#e8a070ff", "#c6744cff", "#242128ff", "#46434cff", "#e2dac4ff", "#84848cff", "#d4d4daff"],
   "layers": [
     {"name": "farbe", "visible": true, "opacity": 100, "blend": "normal", "rows": [
       "................................",
