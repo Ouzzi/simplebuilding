@@ -321,7 +321,7 @@ public final class ImmersionTests {
      */
     public static void armorAndFoodTooltipsExplainWhatTheyDo(GameTestHelper helper) {
         expectLines(helper, ModItems.ENDERITE_BOOTS, "Sneak in a fall: slower, less damage.");
-        expectLines(helper, ModItems.NETHERITE_APPLE, "When eaten:", " Fire Resistance (4:00)", " Absorption II (0:30)",
+        expectLines(helper, ModItems.NETHERITE_APPLE, "When eaten:", " Absorption II (0:30)",
                 " Regeneration II (0:10)");
         expectLines(helper, ModItems.ENDERITE_CARROT, "When eaten:", " Night Vision (5:00)", " Speed II (1:00)");
         helper.assertValueEqual(InfoTooltips.clock(20 * 75), "1:15", "clock format of 75 s");

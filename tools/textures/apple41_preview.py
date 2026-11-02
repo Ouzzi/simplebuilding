@@ -21,12 +21,12 @@ ROWS = [  # name, hunger, effects
     ('Goldapfel (Vanilla)', 4, 'Regeneration II 0:05, Absorption I 2:00'),
     ('Rosenbronze-Apfel', 5, 'Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30'),
     ('Blütengold-Apfel', 6, 'Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50'),
-    ('Netherit-Apfel', 8, 'Regeneration II 0:10, Absorption II 0:30, Feuerresistenz 4:00, Resistenz I 1:00'),
+    ('Netherit-Apfel', 8, 'Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00'),
 ]
 ENCHANTED = [
     ('Verz. Goldapfel (Vanilla)', 'Regeneration II 0:20, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
-    ('Verz. Rosenbronze-Apfel', 'Regeneration II 0:30, Resistenz I 5:00, Absorption IV 2:00'),
-    ('Verz. Blütengold-Apfel', 'Regeneration II 0:35, Resistenz I 5:00, Absorption IV 2:00'),
+    ('Verz. Rosenbronze-Apfel', 'Regeneration II 0:30, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
+    ('Verz. Blütengold-Apfel', 'Regeneration II 0:35, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
     ('Verz. Netherit-Apfel', 'Regeneration II 0:40, + Stärke II 2:00'),
 ]
 

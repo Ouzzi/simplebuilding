@@ -343,8 +343,8 @@ public final class OresTests {
             Map<String, int[][]> table = new LinkedHashMap<>();   // {effect index, ticks, amplifier}
             table.put("rose_bronze_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 600, 0}});
             table.put("blossom_gold_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 1000, 0}});
-            table.put("enchanted_rose_bronze_apple", new int[][] {{0, 600, 1}, {3, 6000, 0}, {1, 2400, 3}});
-            table.put("enchanted_blossom_gold_apple", new int[][] {{0, 700, 1}, {3, 6000, 0}, {1, 2400, 3}});
+            table.put("enchanted_rose_bronze_apple", new int[][] {{0, 600, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
+            table.put("enchanted_blossom_gold_apple", new int[][] {{0, 700, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
             @SuppressWarnings("unchecked")
             net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>[] effects = new net.minecraft.core.Holder[] {net.minecraft.world.effect.MobEffects.REGENERATION,
                     net.minecraft.world.effect.MobEffects.ABSORPTION, net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, net.minecraft.world.effect.MobEffects.RESISTANCE,
@@ -364,7 +364,7 @@ public final class OresTests {
                     var instance = player.getEffect(effects[e[0]]);
                     check(h, instance != null && instance.getDuration() == e[1] && instance.getAmplifier() == e[2], row.getKey() + " effect " + e[0] + ": " + instance);
                 }
-                check(h, player.getEffect(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE) == null, row.getKey() + " gives no Fire Resistance");
+                check(h, enchanted || player.getEffect(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE) == null, row.getKey() + " plain: no Fire Resistance");
             }
             // The step: more hunger than the golden apple (4), less than the Netherite apple (8); Resistance lasts longer than the golden apple's none.
             check(h, 4 < 5 && 5 < 6 && 6 < 8 && 600 < 1000, "ladder gold < rose < blossom < netherite");

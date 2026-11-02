@@ -1569,7 +1569,7 @@
       "{name}: A golden apple that went through the Nether and came back harder."
     ],
     "use": [
-      "Restores 8 hunger points and can always be eaten. Gives Fire Resistance (4:00), Resistance I (1:00), Absorption II (0:30) and Regeneration II (0:10). Craft: an apple ringed by 8 Netherite Nuggets."
+      "Restores 8 hunger points and can always be eaten. Gives Resistance I (1:00), Absorption II (0:30) and Regeneration II (0:10). Craft: an apple ringed by 8 Netherite Nuggets."
     ],
     "secret": [
       "It is fire resistant as an item, so a drop into lava does not destroy it."
@@ -1580,7 +1580,7 @@
       "{name}: An apple with the End's patience in its skin."
     ],
     "use": [
-      "Restores 14 hunger points and can always be eaten. Gives Regeneration II (0:20), Resistance I (2:30), Fire Resistance (2:30), Absorption IV (2:00) and Health Boost III (2:00). Craft: an apple ringed by 8 Enderite Nuggets."
+      "Restores 14 hunger points and can always be eaten. Gives Regeneration II (0:20), Resistance I (2:30), Absorption IV (2:00) and Health Boost III (2:00). Craft: an apple ringed by 8 Enderite Nuggets."
     ],
     "secret": [
       "Epic rarity, fire resistant and void-proof if dropped, like every Enderite item."

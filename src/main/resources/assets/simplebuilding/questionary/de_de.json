@@ -1569,7 +1569,7 @@
       "{name}: Ein goldener Apfel, der durch den Nether ging und härter zurückkam."
     ],
     "use": [
-      "Stellt 8 Hungerpunkte her und lässt sich immer essen. Gibt Feuerresistenz (4:00), Resistenz I (1:00), Absorption II (0:30) und Regeneration II (0:10). Herstellung: ein Apfel, umringt von 8 Netheritklumpen."
+      "Stellt 8 Hungerpunkte her und lässt sich immer essen. Gibt Resistenz I (1:00), Absorption II (0:30) und Regeneration II (0:10). Herstellung: ein Apfel, umringt von 8 Netheritklumpen."
     ],
     "secret": [
       "Als Gegenstand ist er feuerfest, ein Sturz in Lava zerstört ihn also nicht."
@@ -1580,7 +1580,7 @@
       "{name}: Ein Apfel mit der Geduld des Endes in der Schale."
     ],
     "use": [
-      "Stellt 14 Hungerpunkte her und lässt sich immer essen. Gibt Regeneration II (0:20), Resistenz I (2:30), Feuerresistenz (2:30), Absorption IV (2:00) und Extraenergie III (2:00). Herstellung: ein Apfel, umringt von 8 Enderitklumpen."
+      "Stellt 14 Hungerpunkte her und lässt sich immer essen. Gibt Regeneration II (0:20), Resistenz I (2:30), Absorption IV (2:00) und Extraenergie III (2:00). Herstellung: ein Apfel, umringt von 8 Enderitklumpen."
     ],
     "secret": [
       "Seltenheit episch, feuerfest und leeresicher beim Fallenlassen, wie jeder Enderit-Gegenstand."
