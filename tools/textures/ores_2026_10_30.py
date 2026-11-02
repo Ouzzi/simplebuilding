@@ -41,7 +41,7 @@ RAMPS = {
 }
 RAMPS.update({
     # lead: dull and heavy, clearly darker than silver. a = blue-grey, b = violet-grey, c = graphite
-    'lead_a': ['#d4dbe3', '#b7c1cc', '#9aa7b5', '#808e9d', '#677583', '#515e6b', '#3e4954', '#2d363f', '#1f262d', '#14191f'],
+    'lead_a': ['#cdd8e8', '#aebfd8', '#91a5c2', '#768ba9', '#5f7493', '#4b5f7c', '#3a4c66', '#2b3a4f', '#1d2938', '#121a25'],   # b-tex03: bluer (owner 02.11.: blue-grey)
     'lead_b': ['#dcd9e3', '#c0bccd', '#a5a0b4', '#8a8499', '#716b80', '#5a5568', '#454153', '#332f3d', '#24212c', '#16141c'],
     'lead_c': ['#b9c0bd', '#9ea6a3', '#848c89', '#6b7371', '#555c5a', '#434948', '#333837', '#262a29', '#191c1c', '#0f1111'],
 })
@@ -76,10 +76,20 @@ def ramp_at(ramp: list[str], t: float) -> tuple[int, int, int]:
     return tuple(int(round(a[c] * (1 - f) + b[c] * f)) for c in range(3))
 
 
-def tone(p, ramp: str, shift: float = 0.0, squeeze: float = 1.0) -> tuple:
-    """The pixel recoloured onto the ramp; shift > 0 darkens, squeeze < 1 flattens the contrast (matte)."""
+def calm(t: float, x: int, y: int) -> float:
+    """Less gloss at the top left (b-tex03, owner 02.11.): bright tones (t < 0.34) are pulled towards 0.34, strongest in the top-left corner."""
+    if t >= 0.34:
+        return t
+    k = 0.85 - 0.5 * min(1.0, (x + y) / 20.0)
+    return t + (0.34 - t) * k
+
+
+def tone(p, ramp: str, shift: float = 0.0, squeeze: float = 1.0, at=None) -> tuple:
+    """The pixel recoloured onto the ramp; shift > 0 darkens, squeeze < 1 flattens the contrast (matte). at = (x, y): lead dims its gloss."""
     t = (LUM_HI - lum(p)) / (LUM_HI - LUM_LO)
     t = 0.5 + (t - 0.5) * squeeze + shift
+    if at and ramp.startswith('lead'):
+        t = calm(t, *at)
     return ramp_at(RAMPS[ramp], t) + (p[3],)
 
 
@@ -109,7 +119,7 @@ def recolor(im: Image.Image, ramp: str, mask=None, **kw) -> Image.Image:
         for x in range(im.width):
             p = im.getpixel((x, y))
             if p[3] and (mask is None or mask(x, y, p)):
-                out.putpixel((x, y), tone(p, ramp, **kw))
+                out.putpixel((x, y), tone(p, ramp, at=(x, y), **kw))
     return out
 
 
@@ -149,80 +159,36 @@ def fleck(_x, _y, p) -> bool:
     return p[0] - p[2] >= 25
 
 
-def rivets(im: Image.Image, ramp: str) -> Image.Image:
-    """Four rivets in the corners and a darker frame line: the block of lead as a heavy plate."""
-    out = im.copy()
-    hi, lo, mid = hexrgb(RAMPS[ramp][1]), hexrgb(RAMPS[ramp][7]), hexrgb(RAMPS[ramp][4])
-    for x in range(16):
-        for y in (0, 15):
-            out.putpixel((x, y), lo + (255,))
-        for y in (1, 14):
-            out.putpixel((x, y), tone(out.getpixel((x, y)), ramp, shift=0.08))
-    for y in range(16):
-        for x in (0, 15):
-            out.putpixel((x, y), lo + (255,))
-    for cx, cy in ((3, 3), (12, 3), (3, 12), (12, 12)):
-        out.putpixel((cx, cy), hi + (255,))
-        out.putpixel((cx + 1, cy + 1), lo + (255,))
-        out.putpixel((cx + 1, cy), mid + (255,))
-        out.putpixel((cx, cy + 1), mid + (255,))
-    return out
-
-
-def lead_grid(iron: Image.Image, ramp: str) -> Image.Image:
-    """Iron block recoloured dark; the dark pixels of the iron block turned by 90 degrees are laid over it: lines in both directions, a grid."""
-    base = recolor(iron, ramp, shift=0.3, squeeze=1.2)
-    turned = iron.rotate(90)
-    cut = sorted(lum(turned.getpixel((x, y))) for y in range(16) for x in range(16))[len(range(256)) // 4]   # darkest quarter
+def lead_block(j: 'Jar', ramp: str, v: str = 'B') -> Image.Image:
+    """The iron block luminance L and L turned by 90 degrees (owner 31.10.). v = 'B' Karo leise (owner 02.11.): the turned lines only half as
+    dark, the original lines stay leading; 'A' = both fully dark. At most 12 tones (A8b), no dithering; the gloss at the top left is dimmed."""
+    iron = j.img('block/iron_block')
+    rot = iron.rotate(-90)
+    out = Image.new('RGBA', (16, 16))
     for y in range(16):
         for x in range(16):
-            q = turned.getpixel((x, y))
-            if q[3] and lum(q) <= cut:
-                base.putpixel((x, y), tone(base.getpixel((x, y)), ramp, shift=0.12))
-    return base
+            a, b = lum(iron.getpixel((x, y))), lum(rot.getpixel((x, y)))
+            l = (a if b >= a else a + (b - a) * 0.5) if v == 'B' else min(a, b)
+            t = (LUM_HI - l) / (LUM_HI - LUM_LO)
+            t = calm(0.5 + (t - 0.5) * 1.2 + 0.3, x, y)
+            out.putpixel((x, y), ramp_at(RAMPS[ramp], t) + (255,))
+    return out.convert('RGB').quantize(colors=12, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGBA')
 
 
-def split_clumps(im: Image.Image, ramp: str, block: bool) -> Image.Image:
-    """Raw lead looks like Vanilla raw iron, but is split down the middle into two clumps: a dark seam and a notched silhouette (ores must stay tellable apart by shape)."""
-    out = im.copy()
-    dark, lite = hexrgb(RAMPS[ramp][8]), hexrgb(RAMPS[ramp][2])
-    w = im.width
-    for y in range(im.height):
-        for x in (w // 2 - 1, w // 2):
-            p = out.getpixel((x, y))
-            if p[3]:
-                if block:
-                    out.putpixel((x, y), (dark if x == w // 2 else lite) + (255,))
-                elif x == w // 2 and y % 3 != 2:
-                    out.putpixel((x, y), dark + (255,))
-    if block:   # staggered cross seam: the clumps read as four lumps
-        for x in range(w):
-            if x % 5 != 2:
-                out.putpixel((x, w // 2 - 1 + (x // 4) % 2), dark + (255,))
-    else:       # notch the top of the silhouette between the two lumps
-        for y in range(im.height):
-            if out.getpixel((w // 2, y))[3]:
-                out.putpixel((w // 2, y), (0, 0, 0, 0))
-                break
-    return out
-
-
-def lead_images(j: 'Jar', v: str) -> dict:
-    """assets/simpleores/textures/<key> of the lead set in variant v (a, b, c)."""
-    ramp = f'lead_{"b" if v == "b" else "a" if v == "a" else "c"}'
+def lead_images(j: 'Jar', v: str = 'a') -> dict:
+    """assets/simpleores/textures/<key> of the lead set (ramp lead_a). Raw lead and raw lead block are own pixels (Kieselhaufen, lead_shapes.py)."""
+    import lead_shapes
+    ramp = f'lead_{v}'
     ore, deep = j.img('block/iron_ore'), j.img('block/deepslate_iron_ore')
-    out = {
+    return {
         'block/lead_ore.png': recolor(ore, ramp, fleck),
         'block/deepslate_lead_ore.png': recolor(deep, ramp, fleck),
-        'block/raw_lead_block.png': split_clumps(recolor(j.img('block/raw_iron_block'), ramp, shift=0.08), ramp, block=True),
-        'item/raw_lead.png': split_clumps(recolor(j.img('item/raw_iron'), ramp, shift=0.1), ramp, block=False),
+        'block/raw_lead_block.png': lead_shapes.raw_block(RAMPS[ramp]),
+        'item/raw_lead.png': lead_shapes.raw_item(RAMPS[ramp]),
         'item/lead_ingot.png': recolor(j.img('item/iron_ingot'), ramp, shift=0.18),
         'item/lead_nugget.png': recolor(j.img('item/iron_nugget'), ramp, shift=0.18),
+        'block/lead_block.png': lead_block(j, ramp, 'B'),
     }
-    # the Vanilla iron block is almost white: pushed well into the dark half of the ramp so lead looks heavy
-    # owner 31.10. (ORES32-BLEI): the iron block texture with its dark pixels turned by 90 degrees laid over it -> a grid
-    out['block/lead_block.png'] = lead_grid(j.img('block/iron_block'), ramp)
-    return out
 
 
 def arrow_images(j: 'Jar', v: str) -> dict:
