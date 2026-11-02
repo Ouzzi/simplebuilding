@@ -57,7 +57,7 @@ public final class DinosRegistry {
 
     /** Same size as the Vanilla horse's passenger point scaled up: the rider sits on the T. rex's back (3.6 m). */
     public static final EntityType<Trex> TREX = EntityType.Builder.<Trex>of(Trex::new, MobCategory.CREATURE)
-            .sized(3.0F, 4.0F).eyeHeight(3.6F).passengerAttachments(3.55F).clientTrackingRange(12).build(TREX_KEY);
+            .sized(3.6F, 3.5F).eyeHeight(2.7F).passengerAttachments(2.66F).clientTrackingRange(12).build(TREX_KEY);
 
     public static final ResourceKey<Item> FOSSIL_ITEM_KEY = itemKey("fossil_block");
     public static final ResourceKey<Item> LARGE_SADDLE_KEY = itemKey("large_saddle");

@@ -21,6 +21,8 @@ public class TrexRenderer extends MobRenderer<Trex, TrexRenderer.State, TrexMode
             .map(c -> java.util.Arrays.stream(TIERS).map(t -> SimpleDinos.id("textures/entity/trex/" + c.name() + "/" + t + ".png")).toArray(Identifier[]::new))
             .toArray(Identifier[][]::new);
 
+    static final float MODEL_SCALE = 0.75F;
+
     public static class State extends LivingEntityRenderState {
         public boolean saddled;
         public int armorTier;
@@ -28,7 +30,7 @@ public class TrexRenderer extends MobRenderer<Trex, TrexRenderer.State, TrexMode
     }
 
     public TrexRenderer(EntityRendererProvider.Context context) {
-        super(context, new TrexModel(context.bakeLayer(TrexModel.LAYER)), 2.2F);
+        super(context, new TrexModel(context.bakeLayer(TrexModel.LAYER)), 1.65F);
     }
 
     @Override
@@ -47,6 +49,8 @@ public class TrexRenderer extends MobRenderer<Trex, TrexRenderer.State, TrexMode
         state.saddled = entity.isSaddled();
         state.armorTier = entity.armorTier();
         state.coat = entity.coat();
+        // TREX32 T1 (owner 01.11.): model drawn 25 % smaller so the turning head stays near the 3.6 x 3.5 hitbox.
+        state.scale *= MODEL_SCALE;
     }
 
     @Override
