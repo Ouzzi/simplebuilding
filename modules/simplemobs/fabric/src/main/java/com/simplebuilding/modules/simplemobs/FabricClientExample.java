@@ -31,6 +31,11 @@ public final class FabricClientExample implements ClientModInitializer {
         EntityRendererRegistry.register(WitherMobs.BLIGHTED_WITHER, com.simplebuilding.modules.simplemobs.client.BlightedWitherRenderer::new);
         EntityRendererRegistry.register(WitherMobs.ABYSSAL_WITHER, com.simplebuilding.modules.simplemobs.client.BlightedWitherRenderer::abyssal);
         EntityRendererRegistry.register(FearMobs.WATCHER, com.simplebuilding.modules.simplemobs.client.WatcherRenderer::new);
+        ModelLayerRegistry.registerModelLayer(com.simplebuilding.modules.simplemobs.client.VoidRunnerModel.LAYER, com.simplebuilding.modules.simplemobs.client.VoidRunnerModel::createBodyLayer);
+        ModelLayerRegistry.registerModelLayer(com.simplebuilding.modules.simplemobs.client.BrimguardModel.LAYER, com.simplebuilding.modules.simplemobs.client.BrimguardModel::createBodyLayer);
+        EntityRendererRegistry.register(BossMobs.VOID_RUNNER, com.simplebuilding.modules.simplemobs.client.VoidRunnerRenderer::new);
+        EntityRendererRegistry.register(BossMobs.BRIMGUARD, com.simplebuilding.modules.simplemobs.client.BrimguardRenderer::new);
+        EntityRendererRegistry.register(BossMobs.BROOD_RITUAL, NoopRenderer::new);
         EntityRendererRegistry.register(EndNetherMobs.SOUL_FIREBALL, ctx -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(ctx, 0.75F, true));
         // REV2-B: the disguise caches hold entities of the client level; leaving must not keep that world in memory.
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> client.execute(() -> {

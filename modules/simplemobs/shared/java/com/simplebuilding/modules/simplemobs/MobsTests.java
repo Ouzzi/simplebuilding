@@ -191,6 +191,7 @@ public final class MobsTests {
         DisguiseTests.addAll(MobsTests::add);
         EndNetherTests.addAll(MobsTests::add);
         FearTests.addAll(MobsTests::add);
+        BossTests.addAll(MobsTests::add);
         WitherTests.addAll(MobsTests::add);
         WingsTests.addAll(MobsTests::add);
         StrongExplosivesTests.addAll(MobsTests::add);

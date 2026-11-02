@@ -93,6 +93,8 @@ public final class MobsForge {
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.ENTITY_TYPE, r -> FearMobs.entityTypes(r::register));
             event.register(Registries.ITEM, r -> FearMobs.items(r::register));
+            event.register(Registries.ENTITY_TYPE, r -> BossMobs.entityTypes(r::register));
+            event.register(Registries.ITEM, r -> BossMobs.items(r::register));
             event.register(Registries.MOB_EFFECT, r -> {
                 FearMobs.simplebuildingPresent = net.minecraftforge.fml.ModList.isLoaded("simplebuilding");
                 FearMobs.effects(r::register);
@@ -102,6 +104,8 @@ public final class MobsForge {
         EntityAttributeCreationEvent.BUS.addListener(event -> {
             event.put(FearMobs.DREAD, DreadEntity.createAttributes().build());
             event.put(FearMobs.WATCHER, HollowWatcherEntity.createAttributes().build());
+            event.put(BossMobs.VOID_RUNNER, VoidRunnerEntity.createAttributes().build());
+            event.put(BossMobs.BRIMGUARD, BrimguardEntity.createAttributes().build());
         });
         BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
             if (!MobsConfig.vanillaTabs()) return;

@@ -39,6 +39,11 @@ public final class MobsConfig {
     public static float soulfireBlazeChance = EndNetherLogic.SOUL_CHANCE;
     /** Dread: the summoning figure on/off (the mob and its spawn egg stay registered). */
     public static boolean dreadSummonEnabled = true;
+    /** WP-19 End bosses: the Void Runner column and the Brimguard platform on/off, and whether they only work in the End. */
+    public static boolean voidRunnerSummonEnabled = true, brimguardSummonEnabled = true, bossRitualsEndOnly = true;
+    /** Brood hollow (K1): spawn eggs from mob essence on/off, and the essence chance of a monster kill (others 40 % of it). */
+    public static boolean eggRitualEnabled = true;
+    public static float essenceChance = 0.05f;
     /** Hollow Watcher: natural spawning on the outer End islands and its chance per 30 s roll. */
     public static boolean hollowWatcherSpawns = true;
     public static float hollowWatcherChance = FearLogic.WATCHER_CHANCE;
@@ -209,6 +214,11 @@ public final class MobsConfig {
         try { chance = json.has("soulfireBlazeChance") ? json.get("soulfireBlazeChance").getAsFloat() : EndNetherLogic.SOUL_CHANCE; } catch (Exception e) { chance = EndNetherLogic.SOUL_CHANCE; }
         soulfireBlazeChance = Math.max(0.0f, Math.min(1.0f, chance));
         dreadSummonEnabled = bool(json, "dreadSummonEnabled", true);
+        voidRunnerSummonEnabled = bool(json, "voidRunnerSummonEnabled", true);
+        brimguardSummonEnabled = bool(json, "brimguardSummonEnabled", true);
+        bossRitualsEndOnly = bool(json, "bossRitualsEndOnly", true);
+        eggRitualEnabled = bool(json, "eggRitualEnabled", true);
+        essenceChance = Math.max(0.0f, Math.min(1.0f, num(json, "essenceChance", 0.05f)));
         hollowWatcherSpawns = bool(json, "hollowWatcherSpawns", true);
         float watcher;
         try { watcher = json.has("hollowWatcherChance") ? json.get("hollowWatcherChance").getAsFloat() : FearLogic.WATCHER_CHANCE; } catch (Exception e) { watcher = FearLogic.WATCHER_CHANCE; }
@@ -323,6 +333,11 @@ public final class MobsConfig {
         o.addProperty("soulfireBlazeSpawns", soulfireBlazeSpawns);
         o.addProperty("soulfireBlazeChance", soulfireBlazeChance);
         o.addProperty("dreadSummonEnabled", dreadSummonEnabled);
+        o.addProperty("voidRunnerSummonEnabled", voidRunnerSummonEnabled);
+        o.addProperty("brimguardSummonEnabled", brimguardSummonEnabled);
+        o.addProperty("bossRitualsEndOnly", bossRitualsEndOnly);
+        o.addProperty("eggRitualEnabled", eggRitualEnabled);
+        o.addProperty("essenceChance", essenceChance);
         o.addProperty("hollowWatcherSpawns", hollowWatcherSpawns);
         o.addProperty("hollowWatcherChance", hollowWatcherChance);
         o.addProperty("hollowWatcherForestSeconds", hollowWatcherForestSeconds);

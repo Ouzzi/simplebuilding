@@ -142,10 +142,10 @@ public final class MobsRegistry {
             "calm_amulet", "deceiver_cloak", "shellker_helmet", "wither_wings", "nether_wings", "end_wings", "void_wings",
             "soul_fire_charge",
             "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
-            "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem",
+            "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem", "egg_blank",
             "strong_gunpowder", "strong_tnt", "spawner_fragment", "spawner_chunk", "makeshift_spawner",
             "deceiver_spawn_egg", "dread_spawn_egg", "hollow_howler_spawn_egg", "hollow_watcher_spawn_egg",
-            "shellker_spawn_egg", "soulfire_blaze_spawn_egg"),
+            "shellker_spawn_egg", "soulfire_blaze_spawn_egg", "void_runner_spawn_egg", "brimguard_spawn_egg"),
             // weathered trials, evil omen, void chain (a-trials31)
             java.util.stream.Stream.concat(java.util.stream.Stream.of("weathered_trial_spawner", "weathered_vault", "evil_vault", "void_vault"),
                     java.util.stream.IntStream.rangeClosed(1, 5).boxed().flatMap(n -> java.util.stream.Stream.of(

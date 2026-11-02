@@ -712,6 +712,107 @@
         "simplemobs:weathered_vault",
         "simplemobs:evil_vault"
       ]
+    },
+    {
+      "id": "void_runner",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/VoidRunnerEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BossLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BossRituals.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemBossRitualMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Void Runner",
+        "summary": "An End boss you summon: a slim 1.9 block fencer with blades along its forearms and a long scarf. No magic - it is very fast, steps aside and is hard to hit. Drops the Ender Heart.",
+        "details": [
+          "Summoning, only in the End and not on Peaceful: three Purpur Blocks or Purpur Pillars stacked on End Stone. Throw an Eye of Ender and 4 Chorus Fruit onto the top, then right-click the top block with Dragon's Breath. Column, offerings and breath are used up (you keep the bottle). A wrong figure: smoke, the breath stays. Server config simplemobs-server.json: voidRunnerSummonEnabled, bossRitualsEndOnly. It never spawns naturally.",
+          "900 health, armor 10, toughness 4, 14 damage per blade hit, no knockback. It circles you at about 5 blocks and sprints in for a hit.",
+          "Hard to hit: after every hit it takes it dashes 2.5 blocks aside (then 2 s pause), and it sidesteps 60 % of arrows and tridents.",
+          "Phase 2 (below 66 %): faster, and the lunge - 0.4 s low crouch, then a jump of up to 6 blocks, 18 damage. Block it with a shield: it staggers for 1.5 s and cannot step aside.",
+          "Phase 3 (below 33 %): rage - it steps aside twice as often and hits 1.25 times as hard. Cobwebs and water slow it like any mob.",
+          "Drops 1 Ender Heart (always) and 8-12 Ender Pearls (Looting +1). 500 XP."
+        ]
+      },
+      "de": {
+        "title": "Leerenläufer",
+        "summary": "Ein End-Boss, den du beschwörst: ein schlanker Fechter, 1,9 Blöcke groß, Klingen an den Unterarmen und ein langer Schal. Keine Magie - er ist sehr schnell, weicht aus und ist schwer zu treffen. Lässt das Ender-Herz fallen.",
+        "details": [
+          "Beschwörung nur im End und nicht auf Friedlich: drei Purpurblöcke oder Purpursäulen übereinander auf Endstein. Ein Enderauge und 4 Chorusfrüchte oben drauf werfen, dann mit Drachenatem auf den obersten Block rechtsklicken. Säule, Gaben und Atem werden verbraucht (die Flasche bleibt). Falsche Figur: Rauch, der Atem bleibt. Server-Config simplemobs-server.json: voidRunnerSummonEnabled, bossRitualsEndOnly. Er erscheint nie von selbst.",
+          "900 Leben, Rüstung 10, Härte 4, 14 Schaden je Klingentreffer, kein Rückstoß. Er umkreist dich in etwa 5 Blöcken Abstand und sprintet für einen Schlag heran.",
+          "Schwer zu treffen: Nach jedem Treffer springt er 2,5 Blöcke zur Seite (danach 2 s Pause), und er weicht 60 % der Pfeile und Dreizacke aus.",
+          "Phase 2 (unter 66 %): schneller, dazu der Sprungstoß - 0,4 s tief geduckt, dann ein Sprung bis 6 Blöcke, 18 Schaden. Mit dem Schild abgeblockt taumelt er 1,5 s und kann nicht ausweichen.",
+          "Phase 3 (unter 33 %): Raserei - er weicht doppelt so oft aus und trifft 1,25-mal so hart. Spinnweben und Wasser bremsen ihn wie jeden Mob.",
+          "Lässt 1 Ender-Herz (immer) und 8-12 Enderperlen fallen (Plünderung +1). 500 EP."
+        ]
+      }
+    },
+    {
+      "id": "brimguard",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BrimguardEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BossLogic.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BossRituals.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/ItemBossRitualMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Brimguard",
+        "summary": "An End boss you summon: a squat 1.5 block figure under a wide bedrock sombrero. It cannot be hit from above - the brim catches everything that comes in too steeply. Drops the Ender Gem.",
+        "details": [
+          "Summoning, only in the End and not on Peaceful: a 3 x 3 platform of Obsidian or Crying Obsidian. Throw 3 Shellker Shells onto the middle, then right-click the middle with a Nether Star. Star and shells are used up, the platform stays. Server config: brimguardSummonEnabled, bossRitualsEndOnly.",
+          "The hat: brim edge 0.8 blocks above its feet, 2.2 blocks wide. A hit counts only where the brim does not cover the body: level shots reach everything below the brim, a shot from 15 degrees above only the lower half, from 45 degrees or steeper nothing. A caught hit makes sparks and rings like an anvil. Falling anvils and blocks bounce off too.",
+          "It ducks to 1.0 block when shot at steeply or when you keep away: then the brim covers even more - crouch yourself and keep the right distance.",
+          "700 health, armor 14, toughness 6, slow. Hat slam: 0.6 s wind-up, radius 3, 16 damage. Phase 2 (below 65 %): charge over 6 blocks, 20 damage, and venting - after every second slam the hat lifts for 2.5 s: then it can be hit from above and takes 1.5 times the damage.",
+          "Phase 3 (below 30 %): the hat cracks - the brim rises 0.1 for every 10 % below 30 % - and it walks faster but ducks shorter.",
+          "Drops 1 Ender Gem (always). 400 XP."
+        ]
+      },
+      "de": {
+        "title": "Schirmling",
+        "summary": "Ein End-Boss, den du beschwörst: eine gedrungene Gestalt, 1,5 Blöcke hoch, unter einem breiten Sombrero aus Grundgestein. Von oben ist er nicht zu treffen - die Krempe fängt alles ab, was zu steil kommt. Lässt das Ender-Juwel fallen.",
+        "details": [
+          "Beschwörung nur im End und nicht auf Friedlich: eine 3 x 3 Fläche aus Obsidian oder weinendem Obsidian. 3 Shellker-Schalen auf die Mitte werfen, dann mit einem Netherstern auf die Mitte rechtsklicken. Stern und Schalen werden verbraucht, die Fläche bleibt. Server-Config: brimguardSummonEnabled, bossRitualsEndOnly.",
+          "Der Hut: Krempe 0,8 Blöcke über den Füßen, 2,2 Blöcke breit. Ein Treffer zählt nur dort, wo die Krempe den Körper nicht verdeckt: Waagerechte Schüsse erreichen alles unter der Krempe, ein Schuss aus 15 Grad von oben nur die untere Hälfte, ab 45 Grad nichts mehr. Ein abgefangener Treffer sprüht Funken und klingt wie ein Amboss. Fallende Ambosse und Blöcke prallen ebenfalls ab.",
+          "Er duckt sich auf 1,0 Block, wenn steil auf ihn geschossen wird oder du auf Abstand bleibst: Dann deckt die Krempe noch mehr ab - schleiche selbst und halte den richtigen Abstand.",
+          "700 Leben, Rüstung 14, Härte 6, langsam. Hutschlag: 0,6 s Ausholen, Radius 3, 16 Schaden. Phase 2 (unter 65 %): Rammen über 6 Blöcke, 20 Schaden, und Lüftung - nach jedem zweiten Hutschlag hebt sich der Hut 2,5 s: Dann ist er von oben treffbar und nimmt 1,5-fachen Schaden.",
+          "Phase 3 (unter 30 %): Der Hut bekommt Risse - die Krempe steigt um 0,1 je 10 % unter 30 % - und er läuft schneller, duckt sich aber kürzer.",
+          "Lässt 1 Ender-Juwel fallen (immer). 400 EP."
+        ]
+      }
+    },
+    {
+      "id": "brood_hollow",
+      "sources": [
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BroodRitual.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/BroodRitualEntity.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobEssenceItem.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/FlintAndSteelBroodMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/ZoneSpawns.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/MobsConfig.java"
+      ],
+      "en": {
+        "title": "Brood hollow",
+        "summary": "Spawn eggs from mob essence, in the world: no block, no screen. A ring of soul sand, a purpur hollow, soul torches - throw in the offerings and light it.",
+        "details": [
+          "Mob Essence: when you kill a mob, 5 % chance (monsters; other mobs 2 %), Looting +1 % per level, for one essence of its kind. Never from mobs out of a spawner, trial spawner, spawn egg, dispenser or command. Config: eggRitualEnabled, essenceChance.",
+          "The hollow: a Purpur Block in the middle of a 3 x 3 ring of Soul Sand, a Soul Torch on each of the 4 corner blocks.",
+          "Throw onto the Purpur Block: 1 Blank Egg (Egg + Ender Pearl + Amethyst Shard), the essence of ONE kind and the catalyst, then light it with Flint and Steel. Missing something: smoke and a hint, nothing is used.",
+          "Classes: I small animals 4 essence + Wheat, 30 s. II strong animals, villagers, golems, Endermen 12 + Emerald, 2 min. III monsters 16 + Soul Sand + Lapis Lazuli, 3 min. IV elite (Wither Skeleton, Ravager, Ghast, Shellker, ...) 32 + Netherite Scrap + Eye of Ender, 6 min. V minibosses (Deceiver, Howler, Elder Guardian, Dread, Watcher) 64 + Nether Star, 12 min.",
+          "When it is done the Vanilla spawn egg pops out. If a torch goes out or the hollow breaks, the brood stops and everything comes back. Bosses (Wither, Ender Dragon, Warden, Void Runner, Brimguard) never."
+        ]
+      },
+      "de": {
+        "title": "Brutmulde",
+        "summary": "Spawn-Eier aus Mob-Essenz, direkt in der Welt: kein Block, keine Oberfläche. Ein Ring aus Seelensand, eine Purpurmulde, Seelenfackeln - Gaben hineinwerfen und anzünden.",
+        "details": [
+          "Mob-Essenz: Wenn du einen Mob tötest, 5 % Chance (Monster; andere Mobs 2 %), Plünderung +1 % je Stufe, auf eine Essenz seiner Art. Nie von Mobs aus Spawner, Prüfungs-Spawner, Spawn-Ei, Werfer oder Befehl. Config: eggRitualEnabled, essenceChance.",
+          "Die Mulde: ein Purpurblock in der Mitte eines 3 x 3 Rings aus Seelensand, auf jedem der 4 Eckblöcke eine Seelenfackel.",
+          "Auf den Purpurblock werfen: 1 Eirohling (Ei + Enderperle + Amethystscherbe), die Essenz EINER Art und den Katalysator, dann mit dem Feuerzeug anzünden. Fehlt etwas: Rauch und ein Hinweis, nichts wird verbraucht.",
+          "Klassen: I kleine Tiere 4 Essenz + Weizen, 30 s. II starke Tiere, Dorfbewohner, Golems, Enderman 12 + Smaragd, 2 min. III Monster 16 + Seelensand + Lapislazuli, 3 min. IV Elite (Witherskelett, Verwüster, Ghast, Shellker, ...) 32 + Netheritplatten-Schrott + Enderauge, 6 min. V Minibosse (Täuscher, Hohler Heuler, Großer Wächter, Schreckensritter, Hohler Wächter) 64 + Netherstern, 12 min.",
+          "Ist die Brut fertig, springt das Vanilla-Spawn-Ei heraus. Geht eine Fackel aus oder bricht die Mulde, endet die Brut und alles kommt zurück. Bosse (Wither, Enderdrache, Warden, Leerenläufer, Schirmling) nie."
+        ]
+      }
     }
   ],
   "notes": {
@@ -721,10 +822,10 @@
         "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 35 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+        "summary": "Guide to this mod: 38 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 35 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+        "summary": "Handbuch zu dieser Mod: 38 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
       }
     },
     "simplemobs:deceiver_cloth": {
@@ -937,18 +1038,18 @@
     },
     "simplemobs:ender_heart": {
       "en": {
-        "summary": "Material of the End Wings (stage 3, with the Nether Wings at the smithing table). No loot yet: it will drop from a later End boss; until then commands, creative tab and test centre only. Provisional look."
+        "summary": "Material of the End Wings (stage 3, with the Nether Wings at the smithing table). Dropped by the Void Runner (always one). Provisional look."
       },
       "de": {
-        "summary": "Material der End-Schwingen (Stufe 3, mit den Nether-Schwingen am Schmiedetisch). Noch keine Beute: es fällt später von einem neuen End-Boss; bis dahin nur Befehl, Kreativ-Reiter und Testzentrale. Vorläufige Optik."
+        "summary": "Material der End-Schwingen (Stufe 3, mit den Nether-Schwingen am Schmiedetisch). Lässt der Leerenläufer fallen (immer eines). Vorläufige Optik."
       }
     },
     "simplemobs:ender_gem": {
       "en": {
-        "summary": "Mythic material of the Void Wings (stage 4, with the End Wings at the smithing table). No loot yet: it will drop from a later End boss; until then commands, creative tab and test centre only. Provisional look."
+        "summary": "Mythic material of the Void Wings (stage 4, with the End Wings at the smithing table). Dropped by the Brimguard (always one). Provisional look."
       },
       "de": {
-        "summary": "Mythisches Material der Leeren-Schwingen (Stufe 4, mit den End-Schwingen am Schmiedetisch). Noch keine Beute: es fällt später von einem neuen End-Boss; bis dahin nur Befehl, Kreativ-Reiter und Testzentrale. Vorläufige Optik."
+        "summary": "Mythisches Material der Leeren-Schwingen (Stufe 4, mit den End-Schwingen am Schmiedetisch). Lässt der Schirmling fallen (immer eines). Vorläufige Optik."
       }
     },
     "simplemobs:strong_gunpowder": {
@@ -1277,6 +1378,38 @@
       },
       "de": {
         "summary": "Spawner-Brocken: aus 9 Spawner-Fragmenten. 9 Brocken ergeben 1 Behelfsmäßigen Spawner."
+      }
+    },
+    "simplemobs:void_runner_spawn_egg": {
+      "en": {
+        "summary": "Creative only. In survival the Void Runner is summoned in the End: purpur column on End Stone, an Eye of Ender and 4 Chorus Fruit on top, then Dragon's Breath."
+      },
+      "de": {
+        "summary": "Nur kreativ. Im Überleben wird der Leerenläufer im End beschworen: Purpursäule auf Endstein, Enderauge und 4 Chorusfrüchte oben drauf, dann Drachenatem."
+      }
+    },
+    "simplemobs:brimguard_spawn_egg": {
+      "en": {
+        "summary": "Creative only. In survival the Brimguard is summoned in the End: 3 Shellker Shells on a 3 x 3 obsidian platform, then a Nether Star on the middle."
+      },
+      "de": {
+        "summary": "Nur kreativ. Im Überleben wird der Schirmling im End beschworen: 3 Shellker-Schalen auf eine 3 x 3 Obsidianfläche, dann einen Netherstern auf die Mitte."
+      }
+    },
+    "simplemobs:mob_essence": {
+      "en": {
+        "summary": "Rare extra drop of a mob a player kills (5 % monsters, 2 % others, Looting +1 %), one kind per stack. Bred into spawn eggs in the brood hollow."
+      },
+      "de": {
+        "summary": "Seltener Zusatzdrop eines Mobs, den ein Spieler tötet (5 % Monster, 2 % andere, Plünderung +1 %), eine Art je Stapel. Wird in der Brutmulde zu Spawn-Eiern."
+      }
+    },
+    "simplemobs:egg_blank": {
+      "en": {
+        "summary": "Egg + Ender Pearl + Amethyst Shard (shapeless). The base of every spawn egg bred in the brood hollow."
+      },
+      "de": {
+        "summary": "Ei + Enderperle + Amethystscherbe (formlos). Grundlage jedes Spawn-Eis aus der Brutmulde."
       }
     }
   }

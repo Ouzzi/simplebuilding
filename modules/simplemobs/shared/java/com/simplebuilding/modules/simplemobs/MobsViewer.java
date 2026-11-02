@@ -29,14 +29,19 @@ public final class MobsViewer {
         RecipeViewer.info(OWNER, MobsViewer::infoPages);
     }
 
-    /** Items no recipe, loot table or way gives: the Trick Mirror (config-gated recipe) and the Ender Heart / Gem (no source yet). */
+    /** Items no recipe, loot table or way gives: the Trick Mirror (config-gated recipe) and the Ender Heart / Gem (boss drops, info page). */
     public static List<RecipeViewer.Info> infoPages() {
         List<RecipeViewer.Info> pages = new ArrayList<>(List.of(
                 new RecipeViewer.Info(List.of(new ItemStack(DisguiseRegistry.MIRROR)), List.of(Component.translatable("jei.simplemobs.info.trick_mirror"))),
                 new RecipeViewer.Info(List.of(new ItemStack(WitherWings.ENDER_HEART), new ItemStack(WitherWings.ENDER_GEM)),
                         List.of(Component.translatable("jei.simplemobs.info.ender_parts"))),
                 new RecipeViewer.Info(List.of(new ItemStack(SpawnerParts.FRAGMENT), new ItemStack(SpawnerParts.CHUNK), new ItemStack(SpawnerParts.MAKESHIFT_SPAWNER_ITEM)),
-                        List.of(Component.translatable("jei.simplemobs.info.spawner_parts")))));
+                        List.of(Component.translatable("jei.simplemobs.info.spawner_parts"))),
+                // WP-19: boss summonings and the brood hollow (in-world, no recipe type)
+                new RecipeViewer.Info(List.of(new ItemStack(BossMobs.RUNNER_EGG), new ItemStack(BossMobs.BRIMGUARD_EGG)),
+                        List.of(Component.translatable("jei.simplemobs.info.boss_summons"))),
+                new RecipeViewer.Info(List.of(new ItemStack(BossMobs.ESSENCE), new ItemStack(BossMobs.EGG_BLANK)),
+                        List.of(Component.translatable("jei.simplemobs.info.brood")))));
         pages.addAll(com.simplebuilding.modules.simplemobs.trials.TrialsViewer.infoPages());   // a-trials31: Weathered Trials, Evil Omen, Void chain
         return pages;
     }

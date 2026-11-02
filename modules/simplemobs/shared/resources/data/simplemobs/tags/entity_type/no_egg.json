@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:wither",
+    "minecraft:ender_dragon",
+    "minecraft:warden",
+    "minecraft:player",
+    "simplemobs:void_runner",
+    "simplemobs:brimguard",
+    {"id": "simplemobs:blighted_wither", "required": false},
+    {"id": "simplemobs:abyssal_wither", "required": false}
+  ]
+}

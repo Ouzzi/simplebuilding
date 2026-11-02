@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplemobs:ender_gem"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "simplemobs:entities/brimguard"
+}

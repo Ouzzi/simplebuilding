@@ -95,6 +95,8 @@ event.register(Registries.ENTITY_TYPE, h -> {
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.ENTITY_TYPE, h -> FearMobs.entityTypes(h::register));
             event.register(Registries.ITEM, h -> FearMobs.items(h::register));
+            event.register(Registries.ENTITY_TYPE, h -> BossMobs.entityTypes(h::register));
+            event.register(Registries.ITEM, h -> BossMobs.items(h::register));
             event.register(Registries.MOB_EFFECT, h -> {
                 FearMobs.simplebuildingPresent = net.neoforged.fml.ModList.get().isLoaded("simplebuilding");
                 FearMobs.effects(h::register);
@@ -104,6 +106,8 @@ event.register(Registries.ENTITY_TYPE, h -> {
         bus.addListener((EntityAttributeCreationEvent event) -> {
             event.put(FearMobs.DREAD, DreadEntity.createAttributes().build());
             event.put(FearMobs.WATCHER, HollowWatcherEntity.createAttributes().build());
+            event.put(BossMobs.VOID_RUNNER, VoidRunnerEntity.createAttributes().build());
+            event.put(BossMobs.BRIMGUARD, BrimguardEntity.createAttributes().build());
         });
         bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
             if (!MobsConfig.vanillaTabs()) return;
