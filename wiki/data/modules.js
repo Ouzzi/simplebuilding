@@ -1149,7 +1149,7 @@ window.WIKI_MODULES = [
       "recipes": 19,
       "features": 9
     },
-    "dataHash": "d867023bc13c"
+    "dataHash": "f9c04af4cbf7"
   },
   {
     "id": "simplemobheads",
