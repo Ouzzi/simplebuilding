@@ -41,7 +41,7 @@ public final class MachinesRegistry {
         DOUBLE_PISTON = doublePiston(DoublePistonVariant.BASE);
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleMachines.id("signal_dampener"));
         SIGNAL_DAMPENER = Registry.register(BuiltInRegistries.BLOCK, key, new SignalDampenerBlock(BlockBehaviour.Properties.of()
-                .setId(key).instabreak().sound(SoundType.STONE)))); // default push reaction: a piston moves it like a block;
+                .setId(key).instabreak().sound(SoundType.STONE))); // default push reaction: a piston moves it like a block
     }
 
     public static void registerItems() {
