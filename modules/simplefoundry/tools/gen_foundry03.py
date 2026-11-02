@@ -108,7 +108,7 @@ def models() -> None:
 
 
 EN = {
-    'gui.simplefoundry.fuel_hint': 'Coal or lava',
+    'gui.simplefoundry.fuel_hint': 'Fuel slot: coal or lava',
     'gui.simplefoundry.locked': 'Locked: needs a desk with %s places',
     'gui.simplefoundry.locked_item': 'Lift the desk with: %s',
     'gui.simplefoundry.level': 'Level %s: %s',
@@ -120,7 +120,7 @@ EN = {
     'simplefoundry.desk.fuel_full': 'The fuel tank is full or cannot take that (%s)',
 }
 DE = {
-    'gui.simplefoundry.fuel_hint': 'Kohle oder Lava',
+    'gui.simplefoundry.fuel_hint': 'Brennstoffplatz: Kohle oder Lava',
     'gui.simplefoundry.locked': 'Gesperrt: braucht ein Pult mit %s Plätzen',
     'gui.simplefoundry.locked_item': 'Pult aufwerten mit: %s',
     'gui.simplefoundry.level': 'Ebene %s: %s',

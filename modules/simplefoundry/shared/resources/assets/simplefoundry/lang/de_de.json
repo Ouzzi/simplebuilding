@@ -28,7 +28,7 @@
   "simplefoundry.desk.refused": "Nichts genommen (%s, oder der Tank ist voll)",
   "simplefoundry.desk.fuel_full": "Der Brennstofftank ist voll oder nimmt das nicht (%s)",
   "simplefoundry.tray.hot": "Die Barren erstarren noch",
-  "gui.simplefoundry.fuel_hint": "Kohle oder Lava",
+  "gui.simplefoundry.fuel_hint": "Brennstoffplatz: Kohle oder Lava",
   "gui.simplefoundry.locked": "Gesperrt: braucht ein Pult mit %s Plätzen",
   "gui.simplefoundry.locked_item": "Pult aufwerten mit: %s",
   "gui.simplefoundry.level": "Ebene %s: %s",

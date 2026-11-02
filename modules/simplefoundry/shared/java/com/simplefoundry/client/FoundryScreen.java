@@ -75,6 +75,11 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
         UiBoxes.box(g, x0, y0, FoundryMenu.WIDTH, 108, FOUNDRY);
         UiBoxes.box(g, x0, y0 + 110, FoundryMenu.WIDTH, FoundryMenu.HEIGHT - 110, INVENTORY);
         int mx = mouseX - x0, my = mouseY - y0;
+        // the player's inventory slots sit sunk in the lower box
+        for (int i = DeskBlockEntity.INPUT_SLOTS + 1; i < menu.slots.size(); i++) {
+            net.minecraft.world.inventory.Slot slot = menu.slots.get(i);
+            UiBoxes.slot(g, x0 + slot.x, y0 + slot.y, INVENTORY);
+        }
         // places on the left: active ones are sunk slots, the rest locked
         Tier tier = menu.tier();
         for (int i = 0; i < DeskBlockEntity.INPUT_SLOTS; i++) {
@@ -157,14 +162,19 @@ public class FoundryScreen extends AbstractContainerScreen<FoundryMenu> {
     @Override
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         g.text(font, title, titleLabelX, titleLabelY, FOUNDRY.label(), false);
-        g.text(font, Component.translatable("gui.simplefoundry.fuel_hint"), FoundryMenu.FUEL_X + 20, FoundryMenu.FUEL_Y + 4, FOUNDRY.label(), false);
         g.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, INVENTORY.label(), false);
     }
 
     @Override
     protected void extractTooltip(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         super.extractTooltip(g, mouseX, mouseY);
-        if (hoveredSlot != null) return;
+        if (hoveredSlot != null) {
+            // the empty fuel slot says what it takes (the item tooltip shows once something lies in it)
+            if (hoveredSlot.index == DeskBlockEntity.FUEL_SLOT && !hoveredSlot.hasItem()) {
+                g.setTooltipForNextFrame(font, List.of(Component.translatable("gui.simplefoundry.fuel_hint"), Component.translatable("gui.simplefoundry.fuel_ways")), Optional.empty(), mouseX, mouseY);
+            }
+            return;
+        }
         int mx = mouseX - leftPos, my = mouseY - topPos;
         List<Component> lines = new ArrayList<>();
         Tier tier = menu.tier();

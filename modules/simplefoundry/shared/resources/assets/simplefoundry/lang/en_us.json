@@ -28,7 +28,7 @@
   "simplefoundry.desk.refused": "Nothing taken (%s, or the tank is full)",
   "simplefoundry.desk.fuel_full": "The fuel tank is full or cannot take that (%s)",
   "simplefoundry.tray.hot": "The ingots are still setting",
-  "gui.simplefoundry.fuel_hint": "Coal or lava",
+  "gui.simplefoundry.fuel_hint": "Fuel slot: coal or lava",
   "gui.simplefoundry.locked": "Locked: needs a desk with %s places",
   "gui.simplefoundry.locked_item": "Lift the desk with: %s",
   "gui.simplefoundry.level": "Level %s: %s",

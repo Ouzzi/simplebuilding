@@ -25,8 +25,8 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             server.runCommand("time set noon");
             server.runCommand("gamerule advance_time false");
             server.runCommand("weather clear");
-            server.runCommand("execute at @a run fill ~-8 ~-1 ~-2 ~8 ~-1 ~10 minecraft:smooth_stone");
-            server.runCommand("execute at @a run fill ~-8 ~ ~-2 ~8 ~6 ~10 minecraft:air");
+            server.runCommand("execute at @a run fill ~-8 ~-1 ~-8 ~8 ~-1 ~10 minecraft:smooth_stone");
+            server.runCommand("execute at @a run fill ~-8 ~ ~-8 ~8 ~6 ~10 minecraft:air");
             // tank: three chambers high at ~0 ~ ~6, hull of bricks, glass front (south, towards the player), desk on the west side, grate on the east
             server.runCommand("execute at @a run fill ~-1 ~ ~5 ~1 ~4 ~7 simplefoundry:foundry_brick");
             server.runCommand("execute at @a run fill ~0 ~1 ~6 ~0 ~3 ~6 simplefoundry:melting_chamber");
@@ -36,13 +36,13 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             server.runCommand("execute at @a run data merge block ~-1 ~1 ~6 {Melt_gold:81,Melt_copper:162,Melt_iron:100,FuelMedium:18000,Tier:2}");
             // five desks with the gauge steps
             for (int level = 0; level <= 4; level++) {
-                server.runCommand("execute at @a run setblock ~" + (-6 + 3 * level) + " ~ ~1 simplefoundry:foundry_desk[facing=south,fuel=" + level + "]");
+                server.runCommand("execute at @a run setblock ~" + (-4 + 2 * level) + " ~ ~-6 simplefoundry:foundry_desk[facing=south,fuel=" + level + "]");
             }
             context.waitTicks(40);
             server.runCommand("execute as @a at @s run tp @s ~ ~ ~-1 0 5");
             context.waitTicks(40);
             context.takeScreenshot("simplefoundry-tank-front");
-            server.runCommand("execute as @a at @s run tp @s ~-4 ~1 ~-1 0 15");
+            server.runCommand("execute as @a at @s run tp @s ~ ~0.5 ~ 180 20");
             context.waitTicks(40);
             context.takeScreenshot("simplefoundry-desk-gauges");
             window(context, "simplefoundry-window-stone", 0);
