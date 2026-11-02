@@ -479,6 +479,18 @@ public final class ModpackTests {
             }
             if (crucibleSteps != 7) problems.add("Simple Crucibles' file should load 7 crucible, barrel and cauldron upgrade steps, loaded " + crucibleSteps);
         }
+        // ZO9: Simple Mobs is a required sub-mod on 26.3 now and loaded in the test run; its own file
+        // (data/simplemobs/in_world_upgrades/trials.json) adds the 2 vault steps (weathered -> evil -> void).
+        if (BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "evil_vault"))) {
+            int mobSteps = 0;
+            for (var it = loaded.values().iterator(); it.hasNext(); ) {
+                if ("simplemobs".equals(BuiltInRegistries.BLOCK.getKey(it.next().to()).getNamespace())) {
+                    it.remove();
+                    mobSteps++;
+                }
+            }
+            if (mobSteps != 2) problems.add("Simple Mobs' file should load 2 vault upgrade steps, loaded " + mobSteps);
+        }
         if (!loaded.equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
                     + loaded.size() + " against " + SledgehammerUpgrades.builtInTable().size());
