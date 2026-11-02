@@ -48,6 +48,7 @@ public final class MachinesTests {
         ALL.put("old_ids_move", MachinesTests::oldIdsMove);
         ALL.put("sub_mod_switch", MachinesTests::subModSwitch);
         ALL.put("recipes_craft", MachinesTests::recipesCraft);
+        ALL.put("switch_off_removes_recipe", MachinesTests::switchOffRemovesRecipe);
         ALL.put("dampener_subtracts_the_stage", MachinesTests::dampenerSubtractsTheStage);
         ALL.put("dampener_waits_one_redstone_tick", MachinesTests::dampenerWaitsOneRedstoneTick);
         ALL.put("dampener_stage_cycles_on_right_click", MachinesTests::dampenerStageCyclesOnRightClick);
@@ -293,6 +294,23 @@ public final class MachinesTests {
             h.assertFalse(h.getLevel().getBlockTicks().hasScheduledTick(h.absolutePos(d), MachinesRegistry.SIGNAL_DAMPENER), "a tick for a side input");
             h.succeed();
         });
+    }
+
+    /** A switched-off feature takes its recipe out of the table (SimpleLib RecipeFilters), the other recipes stay. */
+    public static void switchOffRemovesRecipe(GameTestHelper h) {
+        var dp = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemachines", "double_piston");
+        var sd = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemachines", "signal_dampener");
+        boolean before = MachinesConfig.doublePiston;
+        h.assertTrue(!com.simplelib.api.RecipeFilters.removes(dp) && !com.simplelib.api.RecipeFilters.removes(sd), "switches on: recipes stay");
+        MachinesConfig.doublePiston = false;
+        try {
+            h.assertTrue(com.simplelib.api.RecipeFilters.removes(dp), "double piston off: its recipe goes");
+            h.assertTrue(!com.simplelib.api.RecipeFilters.removes(sd), "double piston off: dampener recipe stays");
+            h.assertTrue(!com.simplelib.api.RecipeFilters.removes(net.minecraft.resources.Identifier.fromNamespaceAndPath("other", "double_piston")), "other namespaces stay");
+        } finally {
+            MachinesConfig.doublePiston = before;
+        }
+        h.succeed();
     }
 
     /** server.features.signalDampener off: the next tick drops the output to 0 although the input is 15. Synchronous (global switch). */

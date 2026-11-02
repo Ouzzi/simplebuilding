@@ -12,6 +12,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemachines:empty")
+    public void switchOffRemovesRecipe(GameTestHelper h) {
+        MachinesTests.ALL.get("switch_off_removes_recipe").accept(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
     public void oldIdsMove(GameTestHelper h) {
         MachinesTests.ALL.get("old_ids_move").accept(h);
     }
