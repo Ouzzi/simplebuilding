@@ -21,6 +21,8 @@ public class HowlerRenderState extends LivingEntityRenderState {
     public boolean charging;
     /** Ticks since it hit the wall (stagger), -1 when not staggered. */
     public float staggerAge = -1.0f;
+    /** 1 right after a hit, easing to 0 over the hurt time (HOW-3 hit flinch: head and chest recoil, arms swing out). */
+    public float flinch;
     /** 0 .. 1 over the 2 s death animation. */
     public float death;
 }

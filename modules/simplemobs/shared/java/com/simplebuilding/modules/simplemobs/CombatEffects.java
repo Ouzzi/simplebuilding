@@ -14,6 +14,11 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -33,6 +38,18 @@ public final class CombatEffects {
     public static final MobEffect MIRROR = new Effect(MobEffectCategory.NEUTRAL, 0xC9D3DC);
     private static @Nullable Holder<MobEffect> volatileHolder, deflectionHolder, mirrorHolder;
 
+    /** FX-1 (owner 01.11.: only the five weak ones). Leech, Frostbite, Tracer and Decay act on hits of the bearer; Magnetic ticks. */
+    public static final ResourceKey<MobEffect> LEECH_KEY = key("leech"), FROSTBITE_KEY = key("frostbite"), MAGNETIC_KEY = key("magnetic"),
+            TRACER_KEY = key("tracer"), DECAY_KEY = key("decay");
+    public static final MobEffect LEECH = new Effect(MobEffectCategory.BENEFICIAL, 0x9E1B2A);
+    public static final MobEffect FROSTBITE = new Effect(MobEffectCategory.BENEFICIAL, 0x9CD8F0);
+    public static final MobEffect MAGNETIC = new MagneticEffect();
+    public static final MobEffect TRACER = new Effect(MobEffectCategory.BENEFICIAL, 0xF2D95A);
+    public static final MobEffect DECAY = new Effect(MobEffectCategory.BENEFICIAL, 0x6B7A2E);
+    private static @Nullable Holder<MobEffect> leechHolder, frostbiteHolder, magneticHolder, tracerHolder, decayHolder;
+    /** Frostbite freezes the target this long (140 ticks = fully frozen, the Powder Snow screen frost). */
+    public static final int FROSTBITE_TICKS = 140, FROSTBITE_SLOW_TICKS = 60, TRACER_TICKS = 100;
+
     /** Volatile: centre damage (half hearts) and radius. Level I deals ~3 hearts to an attacker at melee distance (1.5 blocks). */
     public static final float VOLATILE_DAMAGE = 10.0f, VOLATILE_DAMAGE_PER_LEVEL = 2.0f;
     public static final float VOLATILE_RADIUS = 4.0f, VOLATILE_RADIUS_PER_LEVEL = 0.5f;
@@ -50,6 +67,33 @@ public final class CombatEffects {
         Effect(MobEffectCategory category, int color) { super(category, color); }
     }
 
+    /** Magnetic: pulls item entities and experience orbs towards the bearer, radius 3 blocks per level. */
+    private static final class MagneticEffect extends MobEffect {
+        MagneticEffect() { super(MobEffectCategory.BENEFICIAL, 0xB8403A); }
+
+        @Override
+        public boolean shouldApplyEffectTickThisTick(int tickCount, int amplification) { return tickCount % 2 == 0; }
+
+        @Override
+        public boolean applyEffectTick(ServerLevel level, LivingEntity bearer, int amplification) {
+            if (!MobsRegistry.on()) return true;
+            double r = magnetRadius(amplification);
+            Vec3 c = bearer.position().add(0, bearer.getBbHeight() * 0.5, 0);
+            AABB box = new AABB(c, c).inflate(r);
+            for (ItemEntity it : level.getEntitiesOfClass(ItemEntity.class, box, i -> i.isAlive() && !i.hasPickUpDelay())) pull(it, c, r);
+            for (ExperienceOrb xp : level.getEntitiesOfClass(ExperienceOrb.class, box, Entity::isAlive)) pull(xp, c, r);
+            return true;
+        }
+
+        private static void pull(Entity e, Vec3 to, double radius) {
+            Vec3 d = to.subtract(e.position());
+            double len = d.length();
+            if (len < 0.6 || len > radius) return;
+            e.setDeltaMovement(e.getDeltaMovement().scale(0.8).add(d.scale(0.14 / len)));
+            e.hurtMarked = true;
+        }
+    }
+
     private static ResourceKey<MobEffect> key(String path) {
         return ResourceKey.create(Registries.MOB_EFFECT, Identifier.fromNamespaceAndPath(ID, path));
     }
@@ -58,8 +102,19 @@ public final class CombatEffects {
     public static Holder<MobEffect> deflection() { if (deflectionHolder == null) deflectionHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(DEFLECTION); return deflectionHolder; }
     public static Holder<MobEffect> mirror() { if (mirrorHolder == null) mirrorHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(MIRROR); return mirrorHolder; }
 
+    public static Holder<MobEffect> leech() { if (leechHolder == null) leechHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(LEECH); return leechHolder; }
+    public static Holder<MobEffect> frostbite() { if (frostbiteHolder == null) frostbiteHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(FROSTBITE); return frostbiteHolder; }
+    public static Holder<MobEffect> magnetic() { if (magneticHolder == null) magneticHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(MAGNETIC); return magneticHolder; }
+    public static Holder<MobEffect> tracer() { if (tracerHolder == null) tracerHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(TRACER); return tracerHolder; }
+    public static Holder<MobEffect> decay() { if (decayHolder == null) decayHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(DECAY); return decayHolder; }
+
     /** Fabric: direct registration. */
     public static void registerAll() {
+        leechHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, LEECH_KEY, LEECH);
+        frostbiteHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, FROSTBITE_KEY, FROSTBITE);
+        magneticHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, MAGNETIC_KEY, MAGNETIC);
+        tracerHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, TRACER_KEY, TRACER);
+        decayHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, DECAY_KEY, DECAY);
         volatileHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, VOLATILE_KEY, VOLATILE);
         deflectionHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, DEFLECTION_KEY, DEFLECTION);
         mirrorHolder = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, MIRROR_KEY, MIRROR);
@@ -103,6 +158,14 @@ public final class CombatEffects {
         float t = Math.min(Math.max(amplifier, 0), 4) / 4f;
         return MobsConfig.mirrorReflectChanceMin + (MobsConfig.mirrorReflectChance - MobsConfig.mirrorReflectChanceMin) * t;
     }
+    /** Leech: the bearer heals 5 % of the damage dealt per level, at most 25 %. */
+    public static float leechFraction(int amplifier) { return Math.min(0.25f, 0.05f * (amplifier + 1)); }
+    /** Frostbite: Slowness I up to level II, Slowness II from level III. */
+    public static int frostbiteSlowAmplifier(int amplifier) { return amplifier >= 2 ? 1 : 0; }
+    /** Decay: Poison ticks on living targets (60 + 40 per level); undead are immune to Poison and get Wither for half as long. */
+    public static int decayTicks(int amplifier, boolean undead) { int t = 60 + 40 * Math.min(amplifier, 4); return undead ? t / 2 : t; }
+    /** Magnetic: 3 blocks per level, at most 12. */
+    public static double magnetRadius(int amplifier) { return Math.min(12.0, 3.0 * (amplifier + 1)); }
     public static float volatileRadius(int amplifier) { return VOLATILE_RADIUS + VOLATILE_RADIUS_PER_LEVEL * Math.min(amplifier, 4); }
     /** Volatile damage at a distance: linear falloff from the centre damage to 0 at the radius. */
     public static float volatileDamage(int amplifier, double distance) {
@@ -131,8 +194,9 @@ public final class CombatEffects {
      * Mirror coin (bearer damage scaled now, reflection after a landed hit) -> the hit -> Volatile explosion.
      */
     public static boolean hurt(LivingEntity self, ServerLevel level, DamageSource source, float damage, java.util.function.Function<Float, Boolean> original) {
+        LivingEntity striker = source.getEntity() instanceof LivingEntity a && a != self ? a : null;
         if (busy || damage <= 0f || !MobsRegistry.on() || !isHit(source)
-                || !(self.hasEffect(deflection()) || self.hasEffect(mirror()) || self.hasEffect(volatileEffect()))) return original.apply(damage);
+                || !(self.hasEffect(deflection()) || self.hasEffect(mirror()) || self.hasEffect(volatileEffect()) || hasStrikerEffect(striker))) return original.apply(damage);
         int deflect = amp(self, deflection());
         if (deflect >= 0 && roll(self) < deflectChance(deflect)) {
             level.sendParticles(ParticleTypes.CRIT, self.getX(), self.getY(0.5), self.getZ(), 8, 0.3, 0.4, 0.3, 0.1);
@@ -153,10 +217,36 @@ public final class CombatEffects {
             if (reflect) reflect(self, level, source, damage * reflectFactor(mirror));
             int vol = amp(self, volatileEffect());
             if (vol >= 0) explode(self, level, vol);
+            if (striker != null) strike(striker, self, level, dealt);
         } finally {
             busy = false;
         }
         return true;
+    }
+
+    private static boolean hasStrikerEffect(@Nullable LivingEntity striker) {
+        return striker != null && (striker.hasEffect(leech()) || striker.hasEffect(frostbite()) || striker.hasEffect(tracer()) || striker.hasEffect(decay()));
+    }
+
+    /** Hit effects of the attacker (FX-1): Leech, Frostbite, Tracer, Decay. Called after the hit landed. */
+    static void strike(LivingEntity striker, LivingEntity target, ServerLevel level, float dealt) {
+        int leech = amp(striker, leech());
+        if (leech >= 0 && striker.isAlive()) {
+            striker.heal(dealt * leechFraction(leech));
+            level.sendParticles(ParticleTypes.DAMAGE_INDICATOR, striker.getX(), striker.getY(0.7), striker.getZ(), 2, 0.2, 0.2, 0.2, 0.0);
+        }
+        int frost = amp(striker, frostbite());
+        if (frost >= 0 && target.isAlive()) {
+            target.setTicksFrozen(Math.max(target.getTicksFrozen(), FROSTBITE_TICKS));
+            target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, FROSTBITE_SLOW_TICKS, frostbiteSlowAmplifier(frost)));
+            level.sendParticles(ParticleTypes.SNOWFLAKE, target.getX(), target.getY(0.5), target.getZ(), 8, 0.3, 0.4, 0.3, 0.02);
+        }
+        if (amp(striker, tracer()) >= 0 && target.isAlive()) target.addEffect(new MobEffectInstance(MobEffects.GLOWING, TRACER_TICKS, 0));
+        int decay = amp(striker, decay());
+        if (decay >= 0 && target.isAlive()) {
+            boolean undead = target.is(net.minecraft.tags.EntityTypeTags.UNDEAD);
+            target.addEffect(new MobEffectInstance(undead ? MobEffects.WITHER : MobEffects.POISON, decayTicks(decay, undead), 0));
+        }
     }
 
     private static void reflect(LivingEntity bearer, ServerLevel level, DamageSource source, float damage) {
