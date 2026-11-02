@@ -357,7 +357,7 @@ public final class DinosTests {
         ALL.put("trex_core_hitbox_and_stats", h -> {
             ServerPlayer owner = player(h, 3, 3);
             Trex trex = adult(h, owner, 8, 8);
-            h.assertTrue(trex.getBbWidth() == 3.0F && trex.getBbHeight() == 4.0F, "core hitbox 3 x 4");
+            h.assertTrue(trex.getBbWidth() == 3.6F && trex.getBbHeight() == 3.5F, "core hitbox 3.6 x 3.5 (TREX32 T1)");
             h.assertTrue(trex.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE) == 10.0, "bite 10");
             h.assertTrue(!trex.canMate(trex) && trex.getBreedOffspring(h.getLevel(), trex) == null, "dinosaurs do not breed");
             h.succeed();
