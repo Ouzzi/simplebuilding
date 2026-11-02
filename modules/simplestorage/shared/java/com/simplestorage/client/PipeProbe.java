@@ -11,14 +11,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.LevelSettings;
+import net.minecraft.world.level.WorldDataConfiguration;
+import net.minecraft.world.level.levelgen.WorldOptions;
+import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 /**
  * Probe for the pipe window with the REAL operating-system mouse (ROHR33, pattern of Simple Keys' KeysProbe): inert unless the game
- * folder holds {@code simplestorage-pipe-probe.json}. Then, on the title screen, it sizes the window, sets the GUI scale and opens
- * the pipe window on a menu without a server (the side keys answer locally with the same cycle the server uses), writes
+ * folder holds {@code simplestorage-pipe-probe.json}. Then, on the title screen, it creates a world, then sizes the window, sets the GUI scale and opens
+ * the pipe window (the container screen needs a player: the probe first opens a flat singleplayer world) on a menu without a server block (the side keys answer locally with the same cycle the server uses), writes
  * {@code simplestorage-pipe-status.json} each tick (window position, key rectangles in window pixels, the six states, the tooltip lines
  * of the side under the pointer) and follows commands from {@code simplestorage-pipe-command.json}. The driver
  * ({@code modules/simplestorage/tools/pipe_probe.py}) moves and clicks the X11 pointer through XTest.
@@ -27,7 +34,7 @@ public final class PipeProbe {
     private static final Gson GSON = new Gson();
     private static final String REQUEST = "simplestorage-pipe-probe.json", STATUS = "simplestorage-pipe-status.json", COMMAND = "simplestorage-pipe-command.json";
     private static Boolean active;
-    private static boolean opened;
+    private static boolean opened, worldRequested;
     private static int ticks;
     private static PipeTier tier = PipeTier.REINFORCED;
 
@@ -42,11 +49,6 @@ public final class PipeProbe {
             this.probeMenu = menu;
         }
 
-        /** The container screen's tick asks the player (there is none on the title screen). */
-        @Override
-        public void tick() {
-        }
-
         @Override
         protected void press(int id) {
             if (id < PipeMenu.BUTTON_SIDE || id >= PipeMenu.BUTTON_SIDE + 6) return;
@@ -58,8 +60,7 @@ public final class PipeProbe {
     }
 
     private static ProbeScreen open(Minecraft mc, int sides) {
-        // an inventory without a player: only its slots are drawn
-        Inventory inventory = new Inventory(null, new net.minecraft.world.entity.EntityEquipment());
+        Inventory inventory = mc.player.getInventory();
         PipeMenu menu = new PipeMenu(0, inventory);
         menu.probeData(ItemPipeBlockEntity.TIER, tier.ordinal());
         menu.probeData(ItemPipeBlockEntity.SIDES, sides);
@@ -75,7 +76,19 @@ public final class PipeProbe {
         ticks++;
         try {
             if (!opened) {
-                if (mc.level != null || mc.gui.overlay() != null || mc.gui.screen() == null || ticks < 60) return;
+                if (!worldRequested) {
+                    if (mc.level != null || mc.gui.overlay() != null || mc.gui.screen() == null || ticks < 60) return;
+                    worldRequested = true;
+                    String name = "sb-pipe-probe-" + System.nanoTime();
+                    LevelSettings settings = new LevelSettings(name, GameType.CREATIVE,
+                            new LevelSettings.DifficultySettings(Difficulty.PEACEFUL, false, true), true, WorldDataConfiguration.DEFAULT);
+                    mc.createWorldOpenFlows().createFreshLevel(name, settings, new WorldOptions(0L, false, false),
+                            provider -> provider.lookupOrThrow(Registries.WORLD_PRESET).getOrThrow(WorldPresets.FLAT).value().createWorldDimensions(),
+                            mc.gui.screen());
+                    return;
+                }
+                var server = mc.getSingleplayerServer();
+                if (mc.level == null || mc.player == null || mc.gameMode == null || server == null || !server.isReady() || mc.gui.screen() != null) return;
                 JsonObject req = GSON.fromJson(Files.readString(dir.resolve(REQUEST)), JsonObject.class);
                 mc.getWindow().setWindowed(req.get("width").getAsInt(), req.get("height").getAsInt());
                 mc.options.guiScale().set(req.get("guiScale").getAsInt());
