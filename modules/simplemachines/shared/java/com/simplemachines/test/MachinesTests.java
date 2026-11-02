@@ -53,6 +53,7 @@ public final class MachinesTests {
         ALL.put("dampener_waits_one_redstone_tick", MachinesTests::dampenerWaitsOneRedstoneTick);
         ALL.put("dampener_stage_cycles_on_right_click", MachinesTests::dampenerStageCyclesOnRightClick);
         ALL.put("dampener_ignores_side_inputs", MachinesTests::dampenerIgnoresSideInputs);
+        ALL.put("dampener_is_pushable", MachinesTests::dampenerIsPushable);
         ALL.put("dampener_switch_off_outputs_nothing", MachinesTests::dampenerSwitchOffOutputsNothing);
         ALL.put("double_piston_places_one_cell", MachinesTests::doublePistonPlacesOneCell);
         ALL.put("double_piston_stage_one_for_weak_signal", MachinesTests::doublePistonStageOneForWeakSignal);
@@ -292,6 +293,21 @@ public final class MachinesTests {
         h.runAfterDelay(8, () -> {
             h.assertTrue(at(h, d).getValue(SignalDampenerBlock.SIGNAL) == 0, "side sources moved the output: " + at(h, d));
             h.assertFalse(h.getLevel().getBlockTicks().hasScheduledTick(h.absolutePos(d), MachinesRegistry.SIGNAL_DAMPENER), "a tick for a side input");
+            h.succeed();
+        });
+    }
+
+    /** IG: the Dampener is a plain movable block (no lever): a Vanilla piston pushes it one cell and it keeps its state. */
+    public static void dampenerIsPushable(GameTestHelper h) {
+        clear(h);
+        BlockPos d = new BlockPos(3, 2, 3);
+        for (int x = 0; x <= 6; x++) h.setBlock(new BlockPos(x, 1, 3), Blocks.STONE);
+        h.setBlock(d, dampener(2, Direction.WEST));
+        h.setBlock(d.west(), Blocks.PISTON.defaultBlockState().setValue(DirectionalBlock.FACING, Direction.EAST));
+        h.setBlock(d.west().north(), Blocks.REDSTONE_BLOCK);
+        h.runAfterDelay(14, () -> {
+            h.assertTrue(at(h, d.east()).is(MachinesRegistry.SIGNAL_DAMPENER) && at(h, d.east()).getValue(SignalDampenerBlock.STAGE) == 2,
+                    "dampener not pushed: " + at(h, d.east()) + " / " + at(h, d));
             h.succeed();
         });
     }

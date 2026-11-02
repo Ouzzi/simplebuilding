@@ -189,8 +189,15 @@ def damper_boxes(v, stage, power, j):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--report', action='store_true')
+    ap.add_argument('--write', action='store_true', help='b-mech03: write the Fugenpaar A side overlay + plate overlay B into simplemachines')
     ap.add_argument('--jar', default=JAR)
     a = ap.parse_args()
+    if a.write:
+        import layers
+        out = Path(__file__).resolve().parents[2] / 'modules/simplemachines/shared/resources/assets/simplemachines/textures/block'
+        layers.save(side_overlay('A'), out / 'double_piston_side_overlay.png')
+        layers.save(M.plate_overlay('B'), out / 'double_piston_plate_overlay.png')
+        return
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import ores_2026_10_30 as O
     j = O.Jar(a.jar)
