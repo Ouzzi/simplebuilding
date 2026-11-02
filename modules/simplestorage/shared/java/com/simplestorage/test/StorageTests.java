@@ -369,7 +369,10 @@ public final class StorageTests {
         MAX_TICKS.put("pipe_pulls_from_beside_and_pushes_to_the_output", PipeTests.MOVE_MAX_TICKS);
         ALL.put("pipe_pulls_from_beside_and_pushes_to_the_output", PipeTests::pullsFromBesideAndPushesToTheOutput);
         ALL.put("pipe_output_turns_and_the_first_step_never_points_up", PipeTests::outputTurnsAndTheFirstStepNeverPointsUp);
-        ALL.put("pipe_side_keys_choose_the_output", PipeTests::sideKeysChooseTheOutput);
+        ALL.put("pipe_side_keys_cycle_in_out_off", PipeTests::sideKeysCycleInOutOff);
+        ALL.put("pipe_several_outputs_share_round_robin", PipeTests::severalOutputsShareRoundRobin);
+        ALL.put("pipe_off_side_takes_and_gives_nothing", PipeTests::offSideTakesAndGivesNothing);
+        ALL.put("pipe_old_single_output_migrates_and_new_states_persist", PipeTests::oldSingleOutputMigratesAndNewStatesPersist);
         ALL.put("pipe_connections_grow_arms", PipeTests::connectionsGrowArms);
         MAX_TICKS.put("pipe_filter_keeps_one_item_and_follows_the_principle", PipeTests.MOVE_MAX_TICKS);
         ALL.put("pipe_filter_keeps_one_item_and_follows_the_principle", PipeTests::filterKeepsOneItemAndFollowsThePrinciple);

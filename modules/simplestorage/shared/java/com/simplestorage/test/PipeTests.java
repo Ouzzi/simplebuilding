@@ -244,30 +244,149 @@ public final class PipeTests {
         h.succeed();
     }
 
+    private static int mode(PipeMenu menu, Direction side) {
+        return menu.sideMode(side);
+    }
+
     /**
-     * IG31-5: the six side keys of the window point the output at exactly that side (all other sides stay inputs), a key for a side
-     * the step may not point to (up on the first step) does nothing, a key for the current output changes nothing.
+     * ROHR33: a click on a side key cycles in - out - off - in. Several outputs can stand at once, the other sides stay as they are,
+     * a side the step may not point to (up on the first step) skips out, a seventh key does not exist, an off side shows no arm.
      */
-    public static void sideKeysChooseTheOutput(GameTestHelper h) {
+    public static void sideKeysCycleInOutOff(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);
+        h.setBlock(PIPE.north(), Blocks.CHEST);
         place(h, PIPE, "reinforced_pipe", Direction.DOWN);
         PipeMenu menu = PipeMenu.server(1, player.getInventory(), entity(h, PIPE));
-        for (Direction side : Direction.values()) {
-            if (!menu.clickMenuButton(player, PipeMenu.BUTTON_SIDE + side.ordinal()) && side != menu.output()) problems.add("key " + side + " refused on a reinforced pipe");
+        int north = PipeMenu.BUTTON_SIDE + Direction.NORTH.ordinal();
+        if (mode(menu, Direction.DOWN) != Pipes.OUT || mode(menu, Direction.NORTH) != Pipes.IN) problems.add("start " + entity(h, PIPE).sideModes()[0] + "/" + mode(menu, Direction.NORTH));
+        int[] expected = {Pipes.OUT, Pipes.OFF, Pipes.IN, Pipes.OUT};
+        for (int i = 0; i < expected.length; i++) {
+            if (!menu.clickMenuButton(player, north)) problems.add("click " + i + " refused");
+            if (mode(menu, Direction.NORTH) != expected[i]) problems.add("click " + i + " gave " + mode(menu, Direction.NORTH) + " expected " + expected[i]);
+            if (mode(menu, Direction.DOWN) != Pipes.OUT) problems.add("click " + i + " changed the down output");
             BlockState state = h.getBlockState(PIPE);
-            if (state.getValue(ItemPipeBlock.FACING) != side) problems.add("key " + side + " gave output " + state.getValue(ItemPipeBlock.FACING));
-            if (menu.output() != side) problems.add("menu shows " + menu.output() + " for " + side);
-            if (!state.getValue(PipeBlock.PROPERTY_BY_DIRECTION.get(side))) problems.add("no arm on the chosen output " + side);
+            boolean arm = state.getValue(PipeBlock.NORTH);
+            if (arm != (expected[i] != Pipes.OFF)) problems.add("arm north " + arm + " in state " + expected[i]);
+            if (!state.getValue(PipeBlock.DOWN)) problems.add("the down output lost its arm");
         }
-        place(h, PIPE, "pipe", Direction.NORTH);
+        if (menu.clickMenuButton(player, PipeMenu.BUTTON_SIDE + 6)) problems.add("a seventh key exists");
+        // the first step never points up: in - off - in
+        place(h, PIPE, "pipe", Direction.DOWN);
         PipeMenu basic = PipeMenu.server(2, player.getInventory(), entity(h, PIPE));
-        if (basic.clickMenuButton(player, PipeMenu.BUTTON_SIDE + Direction.UP.ordinal())) problems.add("the first step took up as output");
-        if (h.getBlockState(PIPE).getValue(ItemPipeBlock.FACING) != Direction.NORTH) problems.add("the first step moved its output up");
-        if (!basic.clickMenuButton(player, PipeMenu.BUTTON_SIDE + Direction.WEST.ordinal()) || h.getBlockState(PIPE).getValue(ItemPipeBlock.FACING) != Direction.WEST) problems.add("west key on the first step");
-        if (basic.clickMenuButton(player, PipeMenu.BUTTON_SIDE + 6)) problems.add("a seventh key exists");
+        int up = PipeMenu.BUTTON_SIDE + Direction.UP.ordinal();
+        int[] upExpected = {Pipes.OFF, Pipes.IN, Pipes.OFF};
+        for (int i = 0; i < upExpected.length; i++) {
+            basic.clickMenuButton(player, up);
+            if (mode(basic, Direction.UP) != upExpected[i]) problems.add("basic up click " + i + " gave " + mode(basic, Direction.UP));
+        }
+        // packing the six states for the data slot
+        int[] all = {Pipes.IN, Pipes.OUT, Pipes.OFF, Pipes.OUT, Pipes.IN, Pipes.OFF};
+        if (!java.util.Arrays.equals(Pipes.unpack(Pipes.pack(all)), all)) problems.add("pack/unpack");
         h.assertTrue(problems.isEmpty(), "side keys: " + problems);
+        h.succeed();
+    }
+
+    /** ROHR33: several outputs share the items round robin; an output that cannot take them is skipped. */
+    public static void severalOutputsShareRoundRobin(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        BlockPos west = PIPE.west(), east = PIPE.east();
+        h.setBlock(west, Blocks.CHEST);
+        h.setBlock(east, Blocks.CHEST);
+        place(h, PIPE, "pipe", Direction.EAST);
+        ItemPipeBlockEntity pipe = entity(h, PIPE);
+        pipe.cycleSide(Direction.WEST); // in -> out
+        pipe.setItem(0, new ItemStack(Items.STONE, 8));
+        BlockPos abs = h.absolutePos(PIPE);
+        int lastW = 0, lastE = 0;
+        for (int i = 1; i <= 6; i++) {
+            if (!pipe.push(h.getLevel(), abs)) problems.add("push " + i + " moved nothing");
+            int w = container(h, west).countItem(Items.STONE), e = container(h, east).countItem(Items.STONE);
+            if ((w - lastW) + (e - lastE) != 1) problems.add("push " + i + " moved " + (w - lastW) + "/" + (e - lastE));
+            if (Math.abs(w - e) > 1) problems.add("not alternating after push " + i + ": " + w + "/" + e);
+            lastW = w;
+            lastE = e;
+        }
+        if (lastW != 3 || lastE != 3) problems.add("after six pushes " + lastW + "/" + lastE);
+        // a full west chest is skipped, the east one takes everything
+        Container chest = container(h, west);
+        for (int i = 0; i < chest.getContainerSize(); i++) chest.setItem(i, new ItemStack(Items.DIRT, 64));
+        int before = container(h, east).countItem(Items.STONE);
+        for (int i = 0; i < 2; i++) pipe.push(h.getLevel(), abs);
+        if (container(h, east).countItem(Items.STONE) != before + 2) problems.add("a full output was not skipped");
+        h.assertTrue(problems.isEmpty(), "round robin: " + problems);
+        h.succeed();
+    }
+
+    /** ROHR33: an off side takes nothing in (pull, hopper insert) and gives nothing out; an output side is no input either. */
+    public static void offSideTakesAndGivesNothing(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        BlockPos west = PIPE.west(), east = PIPE.east(), north = PIPE.north();
+        h.setBlock(west, Blocks.CHEST);
+        h.setBlock(east, Blocks.CHEST);
+        h.setBlock(north, Blocks.CHEST);
+        container(h, west).setItem(0, new ItemStack(Items.COBBLESTONE, 3));
+        container(h, north).setItem(0, new ItemStack(Items.DIRT, 3));
+        place(h, PIPE, "pipe", Direction.EAST);
+        ItemPipeBlockEntity pipe = entity(h, PIPE);
+        pipe.cycleSide(Direction.WEST);
+        pipe.cycleSide(Direction.WEST); // west: off
+        BlockPos abs = h.absolutePos(PIPE);
+        if (pipe.sideMode(Direction.WEST) != Pipes.OFF) problems.add("west is not off");
+        if (pipe.canPlaceItemThroughFace(0, new ItemStack(Items.STONE), Direction.WEST)) problems.add("an off side let an item in");
+        if (pipe.canTakeItemThroughFace(0, new ItemStack(Items.STONE), Direction.WEST)) problems.add("an off side let an item out");
+        if (!pipe.canPlaceItemThroughFace(0, new ItemStack(Items.STONE), Direction.NORTH)) problems.add("an input side refused an item");
+        pipe.pull(h.getLevel(), abs);
+        if (!pipe.getItem(0).is(Items.DIRT)) problems.add("the pipe pulled " + pipe.getItem(0) + " (only the north input may feed it)");
+        if (container(h, west).countItem(Items.COBBLESTONE) != 3) problems.add("the off side was emptied");
+        pipe.pull(h.getLevel(), abs);
+        pipe.pull(h.getLevel(), abs);
+        if (pipe.getItem(0).getCount() != 3 || container(h, west).countItem(Items.COBBLESTONE) != 3) problems.add("further pulls touched the off side: " + pipe.getItem(0));
+        // the output side east is no input: its chest keeps its own items
+        container(h, east).setItem(0, new ItemStack(Items.GOLD_INGOT, 2));
+        pipe.setItem(0, ItemStack.EMPTY);
+        container(h, north).clearContent();
+        pipe.pull(h.getLevel(), abs);
+        if (!pipe.getItem(0).isEmpty()) problems.add("pulled from an output or off side: " + pipe.getItem(0));
+        // an off side is no output
+        pipe.cycleSide(Direction.EAST); // out -> off
+        pipe.setItem(0, new ItemStack(Items.STONE, 2));
+        if (pipe.push(h.getLevel(), abs)) problems.add("pushed into an off side");
+        h.assertTrue(problems.isEmpty(), "off side: " + problems);
+        h.succeed();
+    }
+
+    /** ROHR33 migration: an old pipe (no "Sides" in its data) gets its one output from the block state and all other sides as inputs; the new data survives a save. */
+    public static void oldSingleOutputMigratesAndNewStatesPersist(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        var registries = h.getLevel().registryAccess();
+        place(h, PIPE, "reinforced_pipe", Direction.EAST);
+        ItemPipeBlockEntity pipe = entity(h, PIPE);
+        pipe.setItem(0, new ItemStack(Items.STONE, 4));
+        net.minecraft.nbt.CompoundTag tag = pipe.saveWithoutMetadata(registries);
+        if (!tag.contains("Sides")) problems.add("the new format writes no Sides");
+        tag.remove("Sides"); // what a pipe saved before ROHR33 looks like
+        ItemPipeBlockEntity old = new ItemPipeBlockEntity(h.absolutePos(PIPE), pipeState("reinforced_pipe", Direction.EAST));
+        old.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, registries, tag));
+        for (Direction d : Direction.values()) {
+            int want = d == Direction.EAST ? Pipes.OUT : Pipes.IN;
+            if (old.sideMode(d) != want) problems.add("migrated " + d + " = " + old.sideMode(d) + " expected " + want);
+        }
+        if (old.getItem(0).getCount() != 4) problems.add("the item was lost in the migration");
+        // new states: save, load into a fresh entity
+        pipe.cycleSide(Direction.NORTH); // out
+        pipe.cycleSide(Direction.WEST);
+        pipe.cycleSide(Direction.WEST); // off
+        net.minecraft.nbt.CompoundTag saved = pipe.saveWithoutMetadata(registries);
+        ItemPipeBlockEntity loaded = new ItemPipeBlockEntity(h.absolutePos(PIPE), h.getBlockState(PIPE));
+        loaded.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, registries, saved));
+        if (!java.util.Arrays.equals(loaded.sideModes(), pipe.sideModes())) problems.add("after saving " + java.util.Arrays.toString(loaded.sideModes()) + " vs " + java.util.Arrays.toString(pipe.sideModes()));
+        if (loaded.sideMode(Direction.NORTH) != Pipes.OUT || loaded.sideMode(Direction.WEST) != Pipes.OFF || loaded.sideMode(Direction.EAST) != Pipes.OUT) problems.add("saved states lost");
+        // the in-world upgrade keeps all states
+        Pipes.upgradeInPlace(h.getLevel(), h.absolutePos(PIPE), pipe("netherite_pipe"));
+        if (!java.util.Arrays.equals(entity(h, PIPE).sideModes(), pipe.sideModes())) problems.add("the upgrade lost the side states");
+        h.assertTrue(problems.isEmpty(), "migration: " + problems);
         h.succeed();
     }
 

@@ -14,11 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The window of the pipe (ST27-1): laid out like the Vanilla hopper window (slot row at y 20, inventory at y 51, height 133) with its one slot, the filter key (button 0) and the six side keys (buttons 2..7, one output at a time), above the inventory.
+ * The window of the pipe (ST27-1): laid out like the Vanilla hopper window (slot row at y 20, inventory at y 51, height 133) with its one slot, the filter key (button 0) and the six side keys (buttons 2..7: a click cycles in - out - off, several outputs allowed, ROHR33), above the inventory.
  * The server menu is wired to the block entity; filter mode, output side and tier reach the client as three data slots.
  */
 public class PipeMenu extends AbstractContainerMenu {
-    /** Buttons: filter, turn the output on (sneak-click equivalent), and {@code BUTTON_SIDE + direction ordinal} = point the output at exactly that side (IG31-5). */
+    /** Buttons: filter, turn the output on (sneak-click equivalent), and {@code BUTTON_SIDE + direction ordinal} = cycle that side: in, out, off (ROHR33). */
     public static final int BUTTON_FILTER = 0, BUTTON_OUTPUT = 1, BUTTON_SIDE = 2;
     /** Window size and the place of the pipe's slot (the screen and the menu use the same numbers). */
     public static final int IMAGE_WIDTH = 176, SLOT_X = 80, SLOT_Y = 20, INVENTORY_Y = 51;
@@ -29,7 +29,7 @@ public class PipeMenu extends AbstractContainerMenu {
 
     /** Client. */
     public PipeMenu(int containerId, Inventory inventory) {
-        this(containerId, inventory, new SimpleContainer(1), new SimpleContainerData(3), null);
+        this(containerId, inventory, new SimpleContainer(1), new SimpleContainerData(4), null);
     }
 
     public static PipeMenu server(int containerId, Inventory inventory, ItemPipeBlockEntity pipe) {
@@ -39,7 +39,7 @@ public class PipeMenu extends AbstractContainerMenu {
     private PipeMenu(int containerId, Inventory inventory, Container container, ContainerData data, @Nullable ItemPipeBlockEntity pipe) {
         super(StorageMenus.PIPE, containerId);
         checkContainerSize(container, 1);
-        checkContainerDataCount(data, 3);
+        checkContainerDataCount(data, 4);
         this.container = container;
         this.data = data;
         this.pipe = pipe;
@@ -68,6 +68,11 @@ public class PipeMenu extends AbstractContainerMenu {
         return Direction.values()[Math.floorMod(this.data.get(ItemPipeBlockEntity.OUTPUT), 6)];
     }
 
+    /** The state of one side: {@link Pipes#IN}, {@link Pipes#OUT} or {@link Pipes#OFF}. */
+    public int sideMode(Direction side) {
+        return Pipes.unpack(this.data.get(ItemPipeBlockEntity.SIDES))[side.ordinal()];
+    }
+
     public PipeTier tier() {
         return PipeTier.values()[Math.floorMod(this.data.get(ItemPipeBlockEntity.TIER), PipeTier.values().length)];
     }
@@ -84,9 +89,7 @@ public class PipeMenu extends AbstractContainerMenu {
             return true;
         }
         if (id >= BUTTON_SIDE && id < BUTTON_SIDE + 6 && this.pipe.getLevel() != null) {
-            Direction side = Direction.values()[id - BUTTON_SIDE];
-            if (!Pipes.allowed(this.pipe.tier(), side)) return false;
-            ItemPipeBlock.setOutput(this.pipe.getLevel(), this.pipe.getBlockPos(), this.pipe.getBlockState(), side, null);
+            this.pipe.cycleSide(Direction.values()[id - BUTTON_SIDE]);
             return true;
         }
         return false;
