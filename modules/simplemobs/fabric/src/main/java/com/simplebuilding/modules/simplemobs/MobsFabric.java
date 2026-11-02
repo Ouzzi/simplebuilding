@@ -28,6 +28,9 @@ public final class MobsFabric implements ModInitializer {
         FearMobs.registerAll();
         FabricDefaultAttributeRegistry.register(FearMobs.DREAD, DreadEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(FearMobs.WATCHER, HollowWatcherEntity.createAttributes());
+        BossMobs.registerAll(); // WP-19: Void Runner, Brimguard, brood hollow
+        FabricDefaultAttributeRegistry.register(BossMobs.VOID_RUNNER, VoidRunnerEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(BossMobs.BRIMGUARD, BrimguardEntity.createAttributes());
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(FearNet.FovPayload.TYPE, FearNet.FovPayload.CODEC);
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(FearNet.FovPayload.TYPE,
                 (payload, context) -> context.server().execute(() -> FearNet.handle(payload, context.player())));

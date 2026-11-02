@@ -19,6 +19,8 @@ final class NeoForgeClientExample {
             event.registerLayerDefinition(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
             event.registerLayerDefinition(HowlerModel.LAYER, HowlerModel::createBodyLayer);
             event.registerLayerDefinition(com.simplebuilding.modules.simplemobs.client.DreadModel.LAYER, com.simplebuilding.modules.simplemobs.client.DreadModel::createBodyLayer);
+            event.registerLayerDefinition(com.simplebuilding.modules.simplemobs.client.VoidRunnerModel.LAYER, com.simplebuilding.modules.simplemobs.client.VoidRunnerModel::createBodyLayer);
+            event.registerLayerDefinition(com.simplebuilding.modules.simplemobs.client.BrimguardModel.LAYER, com.simplebuilding.modules.simplemobs.client.BrimguardModel::createBodyLayer);
             event.registerLayerDefinition(com.simplebuilding.modules.simplemobs.client.WatcherModel.LAYER, com.simplebuilding.modules.simplemobs.client.WatcherModel::createBodyLayer);
         });
         bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> {
@@ -33,6 +35,9 @@ final class NeoForgeClientExample {
             event.registerEntityRenderer(WitherMobs.ABYSSAL_WITHER, com.simplebuilding.modules.simplemobs.client.BlightedWitherRenderer::abyssal);
             event.registerEntityRenderer(FearMobs.DREAD, com.simplebuilding.modules.simplemobs.client.DreadRenderer::new);
             event.registerEntityRenderer(FearMobs.WATCHER, com.simplebuilding.modules.simplemobs.client.WatcherRenderer::new);
+            event.registerEntityRenderer(BossMobs.VOID_RUNNER, com.simplebuilding.modules.simplemobs.client.VoidRunnerRenderer::new);
+            event.registerEntityRenderer(BossMobs.BRIMGUARD, com.simplebuilding.modules.simplemobs.client.BrimguardRenderer::new);
+            event.registerEntityRenderer(BossMobs.BROOD_RITUAL, net.minecraft.client.renderer.entity.NoopRenderer::new);
             event.registerEntityRenderer(EndNetherMobs.SOUL_FIREBALL, ctx -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(ctx, 0.75F, true));
         });
     }

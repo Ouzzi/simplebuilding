@@ -1,16 +1,20 @@
 {
   "derivation": "Simple Mobs drops and spawn eggs are not sold by merchants (boss loot, creative-only eggs).",
   "excluded": {
+    "simplemobs:brimguard_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:calm_amulet": "Crafted from Dread boss drops; not for sale.",
     "simplemobs:deceiver_cloth": "Endgame mob drop only; not for sale.",
     "simplemobs:deceiver_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:dread_link": "Dread boss drop only; not for sale.",
     "simplemobs:dread_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:echo_core": "Hollow Howler boss drop only; not for sale.",
+    "simplemobs:egg_blank": "Brood hollow base, crafted from an egg, an ender pearl and an amethyst shard; not for sale.",
     "simplemobs:hollow_howler_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:hollow_watcher_spawn_egg": "Creative-only spawn egg.",
+    "simplemobs:mob_essence": "Rare kill drop for the brood hollow; not for sale.",
     "simplemobs:nether_gem": "Abyssal Wither boss drop only (one per kill); not for sale.",
     "simplemobs:nether_heart": "Blighted and Abyssal Wither boss drop only (one per kill); not for sale.",
+    "simplemobs:void_runner_spawn_egg": "Creative-only spawn egg.",
     "simplemobs:watcher_eye": "Hollow Watcher drop only; not for sale."
   },
   "module": "simplemobs",

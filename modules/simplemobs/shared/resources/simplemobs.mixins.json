@@ -34,7 +34,9 @@
     "RaidEvilMixin",
     "RaidsEvilMixin",
     "BlockRotProcessorMixin",
-    "StructureWeatheredMixin"
+    "StructureWeatheredMixin",
+    "ItemBossRitualMixin",
+    "FlintAndSteelBroodMixin"
   ],
   "client": [
     "DeceiverLookMixin",

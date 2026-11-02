@@ -40,6 +40,7 @@ public final class ZoneSpawns {
 
     /** The hook ({@code Mob.finalizeSpawn} return): draws and applies the effects; returns what was applied. */
     public static List<ZoneEffects.Rolled> onSpawn(Mob mob, EntitySpawnReason reason) {
+        BroodRitual.onSpawn(mob, reason); // WP-19 K1: spawner/egg mobs never drop essence
         if (!eligible(mob, reason)) return List.of();
         ResonanceContracts.Service service = ResonanceContracts.get();
         if (service == null || !service.enabled() || !(mob.level() instanceof ServerLevel level)) return List.of();
@@ -55,8 +56,10 @@ public final class ZoneSpawns {
     /** Boss kills of Simple Mobs count for the killer's resonance value (+5 each, the service limits repeats). */
     public static void onDeath(LivingEntity entity, DamageSource source) {
         if (!(source.getEntity() instanceof ServerPlayer killer)) return;
+        BroodRitual.onDeath(entity, killer); // WP-19 K1: rare mob essence
         EntityType<?> type = entity.getType();
-        if (type != MobsRegistry.HOLLOW_HOWLER && type != WitherMobs.BLIGHTED_WITHER && type != WitherMobs.ABYSSAL_WITHER && type != FearMobs.WATCHER) return;
+        if (type != MobsRegistry.HOLLOW_HOWLER && type != WitherMobs.BLIGHTED_WITHER && type != WitherMobs.ABYSSAL_WITHER && type != FearMobs.WATCHER
+                && type != BossMobs.VOID_RUNNER && type != BossMobs.BRIMGUARD) return;
         ResonanceContracts.Service service = ResonanceContracts.get();
         if (service != null && service.enabled()) service.award(killer.getUUID(), String.valueOf(BuiltInRegistries.ENTITY_TYPE.getKey(type)), 5.0);
     }

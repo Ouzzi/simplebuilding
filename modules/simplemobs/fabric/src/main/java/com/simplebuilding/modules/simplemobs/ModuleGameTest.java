@@ -171,4 +171,15 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void trialsRaidExtras(GameTestHelper helper) { TrialsTests.ALL.get("trials_raid_extras").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsStructureSwitch(GameTestHelper helper) { TrialsTests.ALL.get("trials_structure_switch").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trialsLootPages(GameTestHelper helper) { TrialsTests.ALL.get("trials_loot_pages").accept(helper); }
+    // WP-19 bosses + brood hollow (b-boss01)
+    @GameTest(structure = "simplemobs:empty") public void bossRegistered(GameTestHelper helper) { MobsTests.ALL.get("boss_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossHatRule(GameTestHelper helper) { MobsTests.ALL.get("boss_hat_rule").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossHatArrow(GameTestHelper helper) { MobsTests.ALL.get("boss_hat_arrow").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossVentDuck(GameTestHelper helper) { MobsTests.ALL.get("boss_vent_duck").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossRunnerRules(GameTestHelper helper) { MobsTests.ALL.get("boss_runner_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossSummonRunner(GameTestHelper helper) { MobsTests.ALL.get("boss_summon_runner").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossSummonBrimguard(GameTestHelper helper) { MobsTests.ALL.get("boss_summon_brimguard").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void bossLoot(GameTestHelper helper) { MobsTests.ALL.get("boss_loot").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void broodRules(GameTestHelper helper) { MobsTests.ALL.get("brood_rules").accept(helper); }
+    @GameTest(structure = "simplemobs:empty", maxTicks = 100) public void broodRitual(GameTestHelper helper) { MobsTests.ALL.get("brood_ritual").accept(helper); }
 }
