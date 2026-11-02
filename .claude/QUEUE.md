@@ -1013,3 +1013,5 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [~] (B, b-boat02, 02.11.) BOAT40 Ofen-Boot in Simple Ovens: Code, Rezepte, Lang, Wiki, Tests, Vorschau fertig auf b-boat02; sbt-Lauf/Client-Sicht ausstehend (siehe Memory-Abschnitt b-boat02)
 - [~] (B, b-rohr02, 02.11.; Plan docs/ai/PLAN-B-ROHR-2026-11-02.md) ROHR33 Rohr-Fenster: Kompass N/W/O/S + Spalte Oben/Unten, 3 Zustaende je Seite (Eingang -> Ausgang hellrot -> Aus), mehrere Ausgaenge reihum, NBT-Migration, Ausgangs-Hals 3x3 -> 4x4; 4 neue Gametests + Modul-Tests gruen, Echte-Maus-Probe pipe_probe.py; offen Gate/Produktion, Besitzer-Abnahme
 - [x] MECH03 (b-mech03, 02.11.): Dämpfer schiebbar/kein Hebel, Doppelkolben Fugenpaar A, Silberspiegel A (schon drin), Zebra/Zorse Modell B (ZebraModel), Krebs-Beine nach unten; Vorschau abnahme-b/b-mech03-preview.html; offen Client-Sicht, Prod via Sitzung B.
+
+- [~] (B, b-ench01, 02.11.) ZO7/BS25-20/WI26-1 Konzept + Vorschau Dark/End-Enchanter fertig (docs/ai/KONZEPT-B-ENCH01-2026-11-02.md, abnahme-b/b-ench01-preview.html, Code ENCH01|...); Bau erst nach Besitzer-Antwort (End-Stoffe).
