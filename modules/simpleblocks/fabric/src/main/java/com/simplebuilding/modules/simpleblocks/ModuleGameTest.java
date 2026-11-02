@@ -267,6 +267,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void frostGrassLooksLikeSnowyGrass(GameTestHelper h) {
+        BlocksTests.ALL.get("frost_grass_looks_like_snowy_grass").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void configCommand(GameTestHelper h) {
         BlocksTests.ALL.get("config_command").accept(h);
     }

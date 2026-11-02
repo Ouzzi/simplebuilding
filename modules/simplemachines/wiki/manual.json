@@ -18,7 +18,7 @@
           "Place it like a piston: it faces towards you. It reads the signal like a Vanilla piston (every side except the front, from below and the block above), so Vanilla machines drive it the same way.",
           "Stage 1 looks like a Vanilla piston that is out. At stage 2 the piston body itself moves half a block forward and the head comes out another block; the back half of the piston's own block is then empty.",
           "It moves one block per step and looks at the signal again after each one: a falling signal brings it back one stage, a rising one sends it on. Every step pushes with Vanilla's rules (12 blocks at most, slime and honey stick, blocks with a block entity stay, obsidian stops it).",
-          "Its parts cannot be pushed by pistons or machines. Breaking any part takes the whole piston away and drops one Double Piston.",
+          "Other pistons can push it while it is in (stage 0), like a retracted Vanilla piston; out (stage 1 or 2) and its head and arm it stays put. Breaking any part takes the whole piston away and drops one Double Piston.",
           "A strong signal can be weakened with the Signal Dampener: 15, 12, 9, 6 after three stage-3 Dampeners is a signal for stage 1.",
           "Craft: quartz, a block of redstone, quartz / iron ingot, piston, iron ingot / iron block, piston. Switch: features.doublePiston (config/simplemachines-server.json) (default on). Until 31.10. it was part of Simple Redstone (1x2), until 01.11. of SimpleBuilding; old worlds load it as the new block."
         ]
@@ -30,7 +30,7 @@
           "Er wird wie ein Kolben gesetzt: Er zeigt zu dir. Das Signal liest er wie ein Vanilla-Kolben (jede Seite außer der Front, von unten und der Block darüber), Vanilla-Maschinen steuern ihn also genauso.",
           "Stufe 1 sieht aus wie ein ausgefahrener Vanilla-Kolben. In Stufe 2 rückt der Kolbenkörper selbst einen halben Block vor und der Kopf fährt einen weiteren Block aus; die hintere Hälfte des eigenen Blocks ist dann leer.",
           "Er fährt je Schritt einen Block und schaut danach wieder aufs Signal: Ein fallendes Signal holt ihn eine Stufe zurück, ein steigendes schickt ihn weiter. Jeder Schritt schiebt nach den Vanilla-Regeln (höchstens 12 Blöcke, Schleim und Honig kleben, Blöcke mit Block-Entity bleiben, Obsidian hält ihn auf).",
-          "Seine Teile lassen sich von Kolben und Maschinen nicht verschieben. Wer ein Teil abbaut, nimmt den ganzen Kolben mit und bekommt einen Doppelkolben.",
+          "Andere Kolben können ihn schieben, solange er eingefahren ist (Stufe 0), wie einen eingefahrenen Vanilla-Kolben; ausgefahren (Stufe 1 oder 2) sowie Kopf und Arm bleiben stehen. Wer ein Teil abbaut, nimmt den ganzen Kolben mit und bekommt einen Doppelkolben.",
           "Ein starkes Signal lässt sich mit dem Signaldämpfer schwächen: 15, 12, 9, 6 nach drei Dämpfern der Stufe 3 ist ein Signal für Stufe 1.",
           "Rezept: Quarz, Redstoneblock, Quarz / Eisenbarren, Kolben, Eisenbarren / Eisenblock, Kolben. Schalter: features.doublePiston (config/simplemachines-server.json) (Standard an). Bis 31.10. gehörte er zu Simple Redstone (1×2), bis 01.11. zu SimpleBuilding; alte Welten laden ihn als neuen Block."
         ]

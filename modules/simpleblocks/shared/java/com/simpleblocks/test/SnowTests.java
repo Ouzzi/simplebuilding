@@ -53,6 +53,7 @@ public final class SnowTests {
         all.put("frost_grass_freezes_with_ice_or_cold", SnowTests::frostGrassFreezes);
         all.put("frost_grass_thaws_without_snow", SnowTests::frostGrassThaws);
         all.put("frost_grass_drops_and_tags", SnowTests::frostGrassDropsAndTags);
+        all.put("frost_grass_looks_like_snowy_grass", SnowTests::frostGrassLooksLikeSnowyGrass);
         all.put("snow_cap_on_fence_stairs_slab", SnowTests::snowCapOnFenceStairsSlab);
         all.put("snow_cap_single_removable_support", SnowTests::snowCapSingleRemovableSupport);
         all.put("config_command", h -> com.simplelib.test.ConfigCommandTests.module(h, "simpleblocks", false));
@@ -282,6 +283,29 @@ public final class SnowTests {
                 "the snowlogged cell counts as snow and digs with a shovel");
         helper.assertTrue(com.simpleblocks.BlocksRegistry.tabStacks().stream().anyMatch(s -> s.is(SnowBlocks.FROST_GRASS_ITEM)), "frost grass in the Simple Blocks tab");
         helper.succeed();
+    }
+
+    /**
+     * SNOW32-FROST (owner: "exactly like snowy grass"): the frost grass model uses only Vanilla's snowy grass textures (snow
+     * on top, snowy grass side, dirt below) and the mod ships no frost grass texture of its own.
+     */
+    public static void frostGrassLooksLikeSnowyGrass(GameTestHelper helper) {
+        String base = "assets/simpleblocks/";
+        String model = resource(base + "models/block/frost_grass.json");
+        helper.assertTrue(model != null && model.contains("\"minecraft:block/cube_bottom_top\"") && model.contains("\"minecraft:block/snow\"")
+                && model.contains("\"minecraft:block/grass_block_snow\"") && model.contains("\"minecraft:block/dirt\"") && !model.contains("simpleblocks:"),
+                "frost grass model is Vanilla's snowy grass block: " + model);
+        helper.assertTrue(resource(base + "textures/block/frost_grass_top.png") == null && resource(base + "textures/block/frost_grass_side_overlay.png") == null,
+                "no own frost grass textures");
+        helper.succeed();
+    }
+
+    private static String resource(String path) {
+        try (java.io.InputStream in = SnowTests.class.getClassLoader().getResourceAsStream(path)) {
+            return in == null ? null : new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            return null;
+        }
     }
 
     /** SNOW32-FALL: the cap forms on a fence, a wall, stairs (flush) and a bottom slab (lowered), not on stone or a top slab (Vanilla's), and leaves the support unchanged. */

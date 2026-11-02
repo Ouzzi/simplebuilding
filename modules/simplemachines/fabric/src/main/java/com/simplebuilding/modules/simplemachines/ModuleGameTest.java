@@ -101,6 +101,11 @@ public final class ModuleGameTest {
         MachinesTests.ALL.get("double_piston_cannot_be_pushed").accept(h);
     }
 
+    @GameTest(structure = "simplemachines:empty", maxTicks = 60)
+    public void doublePistonPushedByVanillaPiston(GameTestHelper h) {
+        MachinesTests.ALL.get("double_piston_pushed_by_vanilla_piston").accept(h);
+    }
+
     @GameTest(structure = "simplemachines:empty", maxTicks = 120)
     public void doublePistonFallsAsUnit(GameTestHelper h) {
         MachinesTests.ALL.get("double_piston_falls_as_unit").accept(h);

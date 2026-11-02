@@ -1,24 +1,10 @@
 {
   "variants": {
-    "snowy=false": [
-      {
-        "model": "simpleblocks:block/frost_grass"
-      },
-      {
-        "model": "simpleblocks:block/frost_grass",
-        "y": 90
-      },
-      {
-        "model": "simpleblocks:block/frost_grass",
-        "y": 180
-      },
-      {
-        "model": "simpleblocks:block/frost_grass",
-        "y": 270
-      }
-    ],
+    "snowy=false": {
+      "model": "simpleblocks:block/frost_grass"
+    },
     "snowy=true": {
-      "model": "simpleblocks:block/frost_grass_snow"
+      "model": "simpleblocks:block/frost_grass"
     }
   }
 }

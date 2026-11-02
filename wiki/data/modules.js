@@ -1339,7 +1339,7 @@ window.WIKI_MODULES = [
       "recipes": 286,
       "features": 12
     },
-    "dataHash": "027b7b2253dc"
+    "dataHash": "c184000d9483"
   },
   {
     "id": "simplecrucibles",
@@ -1890,7 +1890,7 @@ window.WIKI_MODULES = [
       "recipes": 3,
       "features": 5
     },
-    "dataHash": "552d0ab146e0"
+    "dataHash": "84f8fcad7db8"
   },
   {
     "id": "simpleresonance",

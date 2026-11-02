@@ -15,6 +15,9 @@
   "description": "The machine parts of the Simple Machines tab. Stage 1: Double Piston (one block, two stages: the head reaches one cell, then body and head move on; pushes with Vanilla rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only; works on its own.",
   "license": "CC0-1.0",
   "environment": "*",
+  "mixins": [
+    "simplemachines.mixins.json"
+  ],
   "entrypoints": {
     "main": [
       "com.simplebuilding.modules.simplemachines.MachinesFabric"
