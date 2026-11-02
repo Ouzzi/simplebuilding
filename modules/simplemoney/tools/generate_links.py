@@ -35,7 +35,10 @@ def outputs():
                      "fabric:load_conditions": [{"condition": "simplemoney:config", "flag": f"links:{mod}"}, {"condition": "simplemoney:config", "flag": flag}],
                      "neoforge:conditions": [{"type": "simplemoney:config", "flag": f"links:{mod}"}, {"type": "simplemoney:config", "flag": flag}]}
             # IG31-13: a row can need another mod besides its own (the Enderite core of SimpleLib needs Simple Ores).
-            requires = row.get("requires", [])
+            requires = list(row.get("requires", []))
+            # MACH32-ENDSYS: every Enderite variant is only offered when Enderite exists (Simple Ores loaded).
+            if "enderite" in row["item"].split(":", 1)[1] and mod != "simpleores" and "simpleores" not in requires:
+                requires.append("simpleores")
             if requires:
                 trade["fabric:load_conditions"].append({"condition": "fabric:all_mods_loaded", "values": requires})
                 trade["neoforge:conditions"] += [{"type": "neoforge:mod_loaded", "modid": m} for m in requires]

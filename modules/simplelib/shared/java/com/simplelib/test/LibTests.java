@@ -67,6 +67,7 @@ public final class LibTests {
         ALL.put("hang_watchdog_dump", HangTests::hangWatchdogDump);
         ALL.put("dev_variants_registry_persistence", DevVariantTests::registryAndPersistence);
         ALL.put("free_look_release_rules", LibTests::freeLookReleaseRules);
+        ALL.put("enderite_only_with_ores", LibTests::enderiteOnlyWithOres);
     }
 
     // ------------------------------------------------------------ helpers
@@ -446,6 +447,37 @@ public final class LibTests {
      * stack rules and, on the rebuilt tabs of whatever is loaded: no mod item that a mod tab offers stands in a Vanilla tab, and no
      * plain Vanilla item stands in a mod tab.
      */
+    /**
+     * MACH32-ENDSYS: Enderite variants of any loaded mod exist only while Simple Ores (owner of Enderite) is loaded. Without it
+     * no recipe with "enderite" in its id and no creative tab entry named after Enderite; with it the known recipes of the
+     * loaded modules are there. Runs in every module target and standalone target, so each combination is covered.
+     */
+    private static void enderiteOnlyWithOres(GameTestHelper h) {
+        boolean ores = com.simplelib.api.SimpleLibApi.materialPresent("enderite");
+        java.util.List<String> problems = new java.util.ArrayList<>();
+        var recipes = h.getLevel().getServer().getRecipeManager();
+        long enderiteRecipes = recipes.getRecipes().stream().map(r -> r.id().identifier())
+                .filter(id -> !id.getNamespace().equals("minecraft") && !id.getNamespace().equals("simpleores") && id.getPath().contains("enderite")).count();
+        if (!ores && enderiteRecipes > 0) problems.add(enderiteRecipes + " Enderite recipes without Simple Ores");
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+        for (var tab : net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB) {
+            if (tab.getType() != net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) continue;
+            boolean shown = !ores && (tab.getDisplayItems().stream().anyMatch(com.simplelib.api.CreativeTabPolicy::isEnderiteVariant)
+                    || tab.getSearchTabDisplayItems().stream().anyMatch(com.simplelib.api.CreativeTabPolicy::isEnderiteVariant));
+            if (shown) problems.add("Enderite variant in the creative tab " + net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.getKey(tab));
+        }
+        if (ores) {
+            for (String[] known : new String[][]{{"simplestorage", "enderite_chest_minecart"}, {"simpleovens", "enderite_furnace_minecart"}, {"simplestorage", "enderite_pipe"}}) {
+                boolean loaded = net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath(known[0], known[1]));
+                boolean present = recipes.byKey(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath(known[0], known[1]))).isPresent();
+                if (loaded && !present) problems.add("missing recipe " + known[0] + ":" + known[1] + " although Simple Ores is loaded");
+            }
+        }
+        check(h, problems.isEmpty(), "Enderite only with Simple Ores (ores=" + ores + "): " + problems);
+        h.succeed();
+    }
+
     private static void creativeTabPolicy(GameTestHelper h) {
         var order = com.simplelib.api.CreativeTabPolicy.order();
         check(h, !order.isEmpty() && order.getLast().equals("simplelib"), "SimpleLib is last in the mod tree order: " + order);

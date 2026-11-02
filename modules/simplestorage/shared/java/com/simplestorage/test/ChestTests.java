@@ -375,7 +375,7 @@ public final class ChestTests {
     public static void trappedRecipesUseTheMatchingChestAndHook(GameTestHelper helper) {
         Item[] normal = {Refs.chest("reinforced"), Refs.chest("netherite"), Refs.chest("enderite")};
         Block[] trapped = trappedChests();
-        for (int i = 0; i < normal.length; i++) {
+        for (int i = 0; i < (Refs.enderite() ? normal.length : normal.length - 1); i++) { // MACH32-ENDSYS: the Enderite trapped chest recipe only with Simple Ores
             for (boolean reverse : new boolean[]{false, true}) {
                 var grid = net.minecraft.world.item.crafting.CraftingInput.of(2, 2, reverse
                         ? List.of(new ItemStack(Items.TRIPWIRE_HOOK), ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(normal[i]))

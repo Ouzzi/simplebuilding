@@ -18,12 +18,20 @@ public final class LinkTests {
     /** IG31-13: rows that need another mod besides their own ("requires" in the price table; the Enderite core needs Simple Ores). */
     static final Map<String, List<String>> REQUIRES = Map.of("simplelib:enderite_core", List.of("simpleores"));
 
+    /** MACH32-ENDSYS: every Enderite variant of another mod (path contains "enderite") also needs Simple Ores. */
+    static List<String> requires(String item) {
+        List<String> r = new java.util.ArrayList<>(REQUIRES.getOrDefault(item, List.of()));
+        Identifier id = Identifier.parse(item);
+        if (id.getPath().contains("enderite") && !id.getNamespace().equals("simpleores") && !r.contains("simpleores")) r.add("simpleores");
+        return r;
+    }
+
     public static void conditions(GameTestHelper h) {
         var registry = h.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
         for (var p : MoneyLinks.PRICES.values()) {
             String mod = Identifier.parse(p.item()).getNamespace();
             boolean expected = SimpleMoney.enabled("links:" + mod) && SimpleMoney.enabled(SimpleMoney.merchantFlag(p.merchant()))
-                    && REQUIRES.getOrDefault(p.item(), List.of()).stream().allMatch(MoneyLinks.loaded);
+                    && requires(p.item()).stream().allMatch(MoneyLinks.loaded);
             h.assertValueEqual(registry.containsKey(Identifier.parse("simplemoney:links/" + p.item().replace(':', '/'))), expected, "conditional registry " + p.item());
             if (MoneyLinks.loaded.test(mod)) h.assertTrue(BuiltInRegistries.ITEM.containsKey(Identifier.parse(p.item())), "public item exists " + p.item());
         }

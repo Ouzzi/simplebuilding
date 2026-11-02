@@ -145,7 +145,8 @@
         "simplesounds",
         "simpletweaks",
         "simplevisuals",
-        "wiringexample"
+        "wiringexample",
+        "simpleores"
       ],
       "paths": {
         "root": "modules/simplemoney",
@@ -260,7 +261,8 @@
       ],
       "optional": [
         "simplebuilding",
-        "modmenu"
+        "modmenu",
+        "simpleores"
       ],
       "paths": {
         "root": "modules/simpleriding",
@@ -1383,7 +1385,8 @@
         "simplelib"
       ],
       "optional": [
-        "simplemoney"
+        "simplemoney",
+        "simpleores"
       ],
       "checks": [
         "modules/simplemaps/tools/check_data.py"
@@ -2762,7 +2765,8 @@
         "simplelib"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "simpleores"
       ],
       "checks": [
         "modules/simplebeacons/tools/check_data.py"
@@ -2855,7 +2859,8 @@
       "optional": [
         "simplebuilding",
         "simplefoundry",
-        "simplecrucibles"
+        "simplecrucibles",
+        "simpleores"
       ],
       "checks": [
         "modules/simpleovens/tools/check_data.py"
@@ -3415,7 +3420,8 @@
       "optional": [
         "simplebuilding",
         "jei",
-        "jade"
+        "jade",
+        "simpleores"
       ],
       "checks": [
         "modules/simplecrucibles/tools/check_data.py"
@@ -3979,7 +3985,8 @@
         "simplebuilding",
         "simpleend",
         "trinkets_updated",
-        "curios"
+        "curios",
+        "simpleores"
       ],
       "checks": [
         "modules/simplestorage/tools/check_data.py"

@@ -317,7 +317,9 @@ public final class StorageTests {
             List<String> problems = new ArrayList<>();
             var manager = h.getLevel().getServer().getRecipeManager();
             for (String path : SimpleStorage.movedChestRecipes().keySet()) {
-                if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty()) problems.add("missing " + path);
+                // MACH32-ENDSYS: every Enderite recipe exists exactly when Simple Ores is loaded.
+                boolean expected = !path.contains("enderite") || com.simplelib.api.SimpleLibApi.materialPresent("enderite");
+                if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty() == expected) problems.add((expected ? "missing " : "present without Simple Ores: ") + path);
                 if (manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.old(path))).isPresent()) problems.add("still under simplebuilding: " + path);
             }
             List<String> chestBlocks = SimpleStorage.movedChests();
