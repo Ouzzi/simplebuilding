@@ -91,13 +91,17 @@ final class CombatEffectTests {
         add.accept("fx_magnetic", h -> {
             var bearer = cow(h, 2, 2);
             bearer.addEffect(new MobEffectInstance(CombatEffects.magnetic(), 600, 0));
-            var item = h.spawnItem(net.minecraft.world.item.Items.STICK, 7.5f, 2.0f, 2.5f);
-            item.setPickUpDelay(0);
-            double before = item.position().distanceTo(bearer.position());
-            h.runAfterDelay(20, () -> {
-                h.assertTrue(item.position().distanceTo(bearer.position()) < before - 0.3, "the item moved towards the bearer");
-                h.succeed();
-            });
+            var near = h.spawnItem(net.minecraft.world.item.Items.STICK, 4.5f, 2.0f, 2.5f);
+            near.setPickUpDelay(0);
+            var far = h.spawnItem(net.minecraft.world.item.Items.STICK, 9.5f, 2.0f, 2.5f);   // outside the level I radius (3)
+            far.setPickUpDelay(0);
+            near.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+            far.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+            h.assertTrue(CombatEffects.MAGNETIC.applyEffectTick(h.getLevel(), bearer, 0), "the effect keeps ticking");
+            var toBearer = bearer.position().subtract(near.position()).normalize();
+            h.assertTrue(near.getDeltaMovement().dot(toBearer) > 0.05, "the item near the bearer is pulled towards it");
+            h.assertTrue(far.getDeltaMovement().lengthSqr() < 1.0E-6, "an item outside the radius is left alone");
+            h.succeed();
         });
         add.accept("combat_potions", h -> {
             for (String effect : java.util.List.of("volatile", "deflection", "mirror")) {
