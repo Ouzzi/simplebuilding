@@ -300,6 +300,9 @@ dependencies {
 // (simplemachines:*, ids migrate). Nested below with the optional modules; loaded in dev/test runs, SB code never imports it.
 dependencies {
     implementation project(':modules:simplemachines:fabric')
+    // ZO9: required sub-mods now, loaded in dev/test runs.
+    implementation project(':modules:simplemobs:fabric')
+    implementation project(':modules:simpleresonance:fabric')
 }
 // Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
 dependencies {

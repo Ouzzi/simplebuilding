@@ -147,7 +147,8 @@
         "title": "Combat effects: Volatile, Deflection, Mirror",
         "summary": "Three status effects, levels I-V, for mobs and players: Volatile answers hits with a small explosion, Deflection negates hits, Mirror flips a coin between more damage for the bearer and damage back to the attacker.",
         "details": [
-          "Applied with the command /effect give <target> simplemobs:volatile|deflection|mirror <seconds> <level-1>. No mob carries them yet and there are no potions yet.",
+          "Applied with the command /effect give <target> simplemobs:volatile|deflection|mirror <seconds> <level-1>. Zone mobs of Simple Resonance can carry them (switch zoneMobsEnabled).",
+          "Potions (ZO10): Warped Potion (brewed with Simple Lib) + Fire Charge = Potion of Volatility, + Armadillo Scute = Potion of Deflection, + Amethyst Shard = Potion of the Mirror. 3:00 at level I; redstone 8:00, glowstone 1:30 at level II; gunpowder and dragon breath as usual for splash and lingering potions.",
           "Volatile: every hit on the bearer sets off a small explosion at the bearer: about 3 hearts at melee distance on level I, falling off to nothing at 4 blocks (+0.5 blocks and +1 heart per level). The bearer is immune to it, no blocks are destroyed. Bystanders are hurt like in any explosion.",
           "Deflection: 10 % per level (50 % at level V) that a hit is negated completely. Fall, fire, void and other damage without an attacker are never deflected.",
           "Mirror: every hit is a coin flip whose chance of reflecting rises with the level, 20 % (I) to 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0.2 and mirrorReflectChance 0.5): either the bearer takes 120 % (I) to 200 % (V) damage, or the attacker takes 20 % (I) to 100 % (V) of the hit back. Reflected damage never kills: the attacker is left at half a heart."
@@ -157,7 +158,8 @@
         "title": "Kampfeffekte: Explosiv, Abwehr, Spiegel",
         "summary": "Drei Statuseffekte, Stufe I-V, für Mobs und Spieler: Explosiv antwortet auf Treffer mit einer kleinen Explosion, Abwehr negiert Treffer, Spiegel würfelt zwischen mehr Schaden für den Träger und Schaden zurück an den Schläger.",
         "details": [
-          "Anwenden mit dem Befehl /effect give <Ziel> simplemobs:volatile|deflection|mirror <Sekunden> <Stufe-1>. Noch trägt kein Mob sie, und es gibt noch keine Tränke.",
+          "Anwenden mit dem Befehl /effect give <Ziel> simplemobs:volatile|deflection|mirror <Sekunden> <Stufe-1>. Zonen-Mobs von Simple Resonance können sie tragen (Schalter zoneMobsEnabled).",
+          "Tränke (ZO10): Wirrer Trank (mit Simple Lib gebraut) + Feuerkugel = Trank der Explosivität, + Gürteltier-Panzerplatte = Trank der Abwehr, + Amethystsplitter = Trank des Spiegels. 3:00 auf Stufe I; Redstone 8:00, Glowstone 1:30 auf Stufe II; Schwarzpulver und Drachenatem wie üblich für Wurf- und Verweiltränke.",
           "Explosiv: jeder Treffer auf den Träger löst am Träger eine kleine Explosion aus: auf Stufe I etwa 3 Herzen auf Nahkampf-Abstand, nach außen abnehmend bis 0 bei 4 Blöcken (je Stufe +0,5 Blöcke und +1 Herz). Der Träger ist immun, es werden keine Blöcke zerstört. Umstehende werden wie bei jeder Explosion verletzt.",
           "Abwehr: 10 % je Stufe (50 % auf Stufe V), dass ein Treffer komplett negiert wird. Fall-, Feuer-, Void- und anderer Schaden ohne Angreifer wird nie abgewehrt.",
           "Spiegel: jeder Treffer ist ein Münzwurf, dessen Rückschlag-Chance mit der Stufe steigt, 20 % (I) bis 50 % (V) (Server-Config simplemobs-server.json: mirrorReflectChanceMin 0,2 und mirrorReflectChance 0,5): entweder erleidet der Träger 120 % (I) bis 200 % (V) Schaden, oder der Schläger bekommt 20 % (I) bis 100 % (V) des Treffers zurück. Rückschaden tötet nie: der Schläger bleibt bei einem halben Herz."
@@ -806,6 +808,44 @@
       }
     },
     {
+      "id": "simplemobs:brewing/lingering_potion_deflection_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_deflection_glowstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_deflection_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_deflection_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/lingering_potion_focus_redstone",
       "type": "minecraft:brewing",
       "category": null,
@@ -882,6 +922,44 @@
       }
     },
     {
+      "id": "simplemobs:brewing/lingering_potion_mirror_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_mirror_glowstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_mirror_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_mirror_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/lingering_potion_silence_redstone",
       "type": "minecraft:brewing",
       "category": null,
@@ -920,6 +998,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/lingering_potion_volatile_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_volatile_glowstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_volatile_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_volatile_redstone.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_warped_deflection",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_deflection.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/lingering_potion_warped_echo_core",
       "type": "minecraft:brewing",
       "category": null,
@@ -939,6 +1074,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/lingering_potion_warped_mirror",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_mirror.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/lingering_potion_warped_shellker_shell",
       "type": "minecraft:brewing",
       "category": null,
@@ -948,6 +1102,25 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_shellker_shell.json",
+      "ingredients": [
+        "minecraft:lingering_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:lingering_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/lingering_potion_warped_volatile",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/lingering_potion_warped_volatile.json",
       "ingredients": [
         "minecraft:lingering_potion"
       ],
@@ -1053,6 +1226,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/potion_deflection_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_deflection_glowstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_deflection_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_deflection_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_deflection_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_deflection_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_focus_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -1148,6 +1378,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/potion_long_deflection_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_deflection_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_long_focus_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -1205,6 +1454,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/potion_long_mirror_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_mirror_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_long_silence_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -1233,6 +1501,82 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_veiled_invisibility_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_long_volatile_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_long_volatile_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_mirror_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_mirror_glowstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_mirror_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_mirror_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_mirror_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_mirror_redstone.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -1281,6 +1625,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/potion_strong_deflection_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_strong_deflection_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_strong_mirror_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_strong_mirror_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_strong_volatile_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_strong_volatile_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_veiled_invisibility_gunpowder",
       "type": "minecraft:brewing",
       "category": null,
@@ -1309,6 +1710,82 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_veiled_invisibility_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_volatile_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_volatile_glowstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_volatile_gunpowder",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_volatile_gunpowder.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_volatile_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_volatile_redstone.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_warped_deflection",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_deflection.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -1357,6 +1834,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/potion_warped_mirror",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_mirror.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/potion_warped_shellker_shell",
       "type": "minecraft:brewing",
       "category": null,
@@ -1366,6 +1862,25 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_shellker_shell.json",
+      "ingredients": [
+        "minecraft:potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/potion_warped_volatile",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/potion_warped_volatile.json",
       "ingredients": [
         "minecraft:potion"
       ],
@@ -1471,6 +1986,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_deflection_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_deflection_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_deflection_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_deflection_glowstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_deflection_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_deflection_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_focus_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -1566,6 +2138,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_long_deflection_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_deflection_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_long_focus_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -1623,6 +2214,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_long_mirror_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_mirror_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_long_silence_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -1651,6 +2261,82 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_veiled_invisibility_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_long_volatile_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_long_volatile_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_mirror_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_mirror_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_mirror_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_mirror_glowstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_mirror_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_mirror_redstone.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -1699,6 +2385,63 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_strong_deflection_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_strong_deflection_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_strong_mirror_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_strong_mirror_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_strong_volatile_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_strong_volatile_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_veiled_invisibility_dragon_breath",
       "type": "minecraft:brewing",
       "category": null,
@@ -1737,6 +2480,82 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_volatile_dragon_breath",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_volatile_dragon_breath.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_volatile_glowstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_volatile_glowstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_volatile_redstone",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_volatile_redstone.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_warped_deflection",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_deflection.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_warped_echo_core",
       "type": "minecraft:brewing",
       "category": null,
@@ -1756,6 +2575,25 @@
       }
     },
     {
+      "id": "simplemobs:brewing/splash_potion_warped_mirror",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_mirror.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
       "id": "simplemobs:brewing/splash_potion_warped_shellker_shell",
       "type": "minecraft:brewing",
       "category": null,
@@ -1765,6 +2603,25 @@
         "count": 1
       },
       "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_shellker_shell.json",
+      "ingredients": [
+        "minecraft:splash_potion"
+      ],
+      "slots": {
+        "input": [
+          "minecraft:splash_potion"
+        ]
+      }
+    },
+    {
+      "id": "simplemobs:brewing/splash_potion_warped_volatile",
+      "type": "minecraft:brewing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/brewing/splash_potion_warped_volatile.json",
       "ingredients": [
         "minecraft:splash_potion"
       ],
@@ -6059,7 +6916,7 @@
   "incompleteProse": {},
   "counts": {
     "features": 22,
-    "recipes": 75,
+    "recipes": 120,
     "lootTables": 44,
     "tags": 9,
     "advancements": 0,
