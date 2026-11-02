@@ -37,6 +37,9 @@
   ],
   "license": "CC0-1.0",
   "icon": "assets/simplemoney/icon.png",
+  "recommends": {
+    "simpleores": "*"
+  },
   "suggests": {
     "jei": "*",
     "modmenu": "*",

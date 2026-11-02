@@ -67,6 +67,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest
+    public void enderiteOnlyWithOres(GameTestHelper h) {
+        LibTests.ALL.get("enderite_only_with_ores").accept(h);
+    }
+
+    @GameTest
     public void materialRequestsRegistered(GameTestHelper h) {
         LibTests.ALL.get("material_requests_registered").accept(h);
     }

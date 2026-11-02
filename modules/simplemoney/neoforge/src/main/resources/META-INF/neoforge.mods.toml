@@ -21,6 +21,13 @@ versionRange="[26.3,)"
 ordering="AFTER"
 side="BOTH"
 
+[[dependencies.simplemoney]]
+modId="simpleores"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
 [[mixins]]
 config="simplemoney.links.mixins.json"
 

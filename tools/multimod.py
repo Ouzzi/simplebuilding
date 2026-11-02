@@ -85,7 +85,7 @@ def validate_optional_metadata(entry, modules, root):
         if loader == 'fabric':
             path = resources / 'fabric.mod.json'
             data = read(path)
-            actual = set(data.get('suggests', {}))
+            actual = set(data.get('suggests', {})) | set(data.get('recommends', {}))  # MACH32-ENDSYS: Enderite users list simpleores as recommends
             required = set(data.get('depends', {}))
         else:
             path = resources / 'META-INF' / ('neoforge.mods.toml' if loader == 'neoforge' else 'mods.toml')
