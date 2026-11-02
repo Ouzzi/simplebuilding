@@ -57,6 +57,8 @@ public class HowlerRenderer extends MobRenderer<HowlerEntity, HowlerRenderState,
         state.charging = attack == HowlerLogic.Attack.CHARGE && state.walkAnimationSpeed > 0.3f;
         int stagger = entity.staggerLeft();
         state.staggerAge = stagger > 0 ? HowlerLogic.STAGGER_TICKS - stagger + partialTicks : -1.0f;
+        float hurt = entity.hurtTime > 0 && !entity.isDeadOrDying() ? Math.max(0.0f, (entity.hurtTime - partialTicks) / Math.max(1, entity.hurtDuration)) : 0.0f;
+        state.flinch = hurt * hurt * (3.0f - 2.0f * hurt);   // smoothstep: sharp hit, soft recovery
         state.death = entity.isDeadOrDying() ? Math.min(1.0f, (entity.deathTime + partialTicks) / HowlerLogic.DEATH_TICKS) : 0.0f;
         if (state.death > 0.0f) state.jawOpen = Math.max(state.jawOpen, Mth.sin(state.death * Mth.HALF_PI));
         int cycle = HowlerLogic.heartbeatCycle(entity.tickCount, entity.getId(), entity.phase());

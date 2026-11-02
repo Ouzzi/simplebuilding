@@ -127,6 +127,11 @@ public final class ModuleGameTest {
         MobsTests.ALL.get("jei_mob_drops").accept(h);
     }
     @GameTest(structure = "simplemobs:empty") public void combatRegistered(GameTestHelper helper) { MobsTests.ALL.get("combat_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fxRegistered(GameTestHelper helper) { MobsTests.ALL.get("fx_registered").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fxLeech(GameTestHelper helper) { MobsTests.ALL.get("fx_leech").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fxFrostbiteTracer(GameTestHelper helper) { MobsTests.ALL.get("fx_frostbite_tracer").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fxDecay(GameTestHelper helper) { MobsTests.ALL.get("fx_decay").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void fxMagnetic(GameTestHelper helper) { MobsTests.ALL.get("fx_magnetic").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void combatPotions(GameTestHelper helper) { MobsTests.ALL.get("combat_potions").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void combatRules(GameTestHelper helper) { MobsTests.ALL.get("combat_rules").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void zoneEffectRules(GameTestHelper helper) { MobsTests.ALL.get("zone_effect_rules").accept(helper); }
