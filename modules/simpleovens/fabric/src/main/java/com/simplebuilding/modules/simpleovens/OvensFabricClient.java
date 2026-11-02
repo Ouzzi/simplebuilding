@@ -11,5 +11,6 @@ public final class OvensFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         OvensRegistry.CARTS.values().forEach(type -> EntityRendererRegistry.register(type, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART)));
+        OvensRegistry.BOATS.forEach((wood, type) -> EntityRendererRegistry.register(type, c -> new com.simpleovens.client.OvenBoatRenderer(c, wood)));
     }
 }

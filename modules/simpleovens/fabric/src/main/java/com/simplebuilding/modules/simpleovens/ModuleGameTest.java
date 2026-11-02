@@ -95,4 +95,24 @@ public final class ModuleGameTest {
     public void discoverFirstPickupTips(GameTestHelper h) {
         OvensTests.ALL.get("discover_first_pickup_tips").accept(h);
     }
+
+    @GameTest(structure = "simpleovens:empty")
+    public void furnaceBoatsRegisteredAndCrafted(GameTestHelper h) {
+        OvensTests.ALL.get("furnace_boats_registered_and_crafted").accept(h);
+    }
+
+    @GameTest(structure = "simpleovens:empty")
+    public void furnaceBoatFuel(GameTestHelper h) {
+        OvensTests.ALL.get("furnace_boat_fuel").accept(h);
+    }
+
+    @GameTest(structure = "simpleovens:empty", maxTicks = 100)
+    public void furnaceBoatPushesOnlyWithFuel(GameTestHelper h) {
+        OvensTests.ALL.get("furnace_boat_pushes_only_with_fuel").accept(h);
+    }
+
+    @GameTest(structure = "simpleovens:empty")
+    public void furnaceBoatDropsItsItem(GameTestHelper h) {
+        OvensTests.ALL.get("furnace_boat_drops_its_item").accept(h);
+    }
 }

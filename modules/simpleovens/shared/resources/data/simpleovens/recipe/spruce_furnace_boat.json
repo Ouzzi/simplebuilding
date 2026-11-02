@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "furnace_boat",
+  "ingredients": [
+    "minecraft:spruce_boat",
+    "minecraft:furnace"
+  ],
+  "result": {
+    "id": "simpleovens:spruce_furnace_boat"
+  }
+}

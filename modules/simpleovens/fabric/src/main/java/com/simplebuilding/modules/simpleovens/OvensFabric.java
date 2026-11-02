@@ -37,6 +37,7 @@ public final class OvensFabric implements ModInitializer {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(out -> {
             if (com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleOvens.MOD_ID)) {
                 insertAfter(out, Items.FURNACE_MINECART, OvensRegistry.cartStacks());
+                insertAfter(out, Items.BAMBOO_CHEST_RAFT, OvensRegistry.boatStacks());
             }
             if (!SimpleOvens.on()) return;
             var book = java.util.List.of(com.simpleovens.guide.OvensGuide.stack());
