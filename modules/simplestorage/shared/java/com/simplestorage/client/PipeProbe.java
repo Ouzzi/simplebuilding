@@ -42,6 +42,11 @@ public final class PipeProbe {
             this.probeMenu = menu;
         }
 
+        /** The container screen's tick asks the player (there is none on the title screen). */
+        @Override
+        public void tick() {
+        }
+
         @Override
         protected void press(int id) {
             if (id < PipeMenu.BUTTON_SIDE || id >= PipeMenu.BUTTON_SIDE + 6) return;
