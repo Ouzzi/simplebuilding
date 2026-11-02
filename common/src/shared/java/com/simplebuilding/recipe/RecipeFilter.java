@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 /**
  * Welche Rezepte der Mod ein abgeschalteter Funktionsschalter mitnimmt (Besitzer 2026-09-28: "samt
  * Rezept", auf allen Loadern gleich). Gefiltert wird beim Aufbau der Rezepttabelle
- * ({@code RecipeMapFilterMixin}), also beim Laden der Datenpakete ({@code /reload}, Weltstart) - fuer
+ * (SimpleLib {@code RecipeFilters}/{@code RecipeMapFilterMixin}), also beim Laden der Datenpakete ({@code /reload}, Weltstart) - fuer
  * Fabric, NeoForge und Forge derselbe Weg, ohne Bedingungen in jeder Rezept-JSON.
  *
  * <p>Erkannt werden die Rezepte an ihrer ID im Namensraum {@code simplebuilding} (auch Faerbe- und
@@ -25,22 +25,18 @@ public final class RecipeFilter {
     private RecipeFilter() {
     }
 
-    /** Ob ueberhaupt ein Schalter aus ist (sonst bleibt die Tabelle unangetastet). */
-    public static boolean anyDisabled() {
-        ServerTuningConfig.Features f = ServerTuning.get().features;
-        TweaksConfig t = SimpleTweaks.config();
-        return !f.endSignals || !f.endPistons || !f.endRails || !f.astralVault || !f.nihilVault || !f.backpack || !f.attractor || !f.echoSounder || !f.blueprint || !f.oreDetector || !f.levitatingBlocks
-                || !t.pads.enableChunkLoaders || !t.pads.enableElytraPads || !t.pads.enableFlypads
-                || !t.pads.enableSpawnTeleporters || !t.pads.enableLaunchpads || !t.pads.enablePotionPads
-                || !t.laserPointer.enable;
+    /** Meldet die Regel bei der SimpleLib-Rezeptfilter-API an (einmal beim Start, Schalter werden live gelesen). */
+    public static void register() {
+        com.simplelib.api.RecipeFilters.register("simplebuilding", RecipeFilter::removesPath);
     }
 
     /** Ob das Rezept mit dieser ID wegen eines abgeschalteten Schalters fehlt. */
     public static boolean removes(Identifier recipe) {
-        if (!"simplebuilding".equals(recipe.getNamespace())) {
-            return false;
-        }
-        String p = recipe.getPath();
+        return "simplebuilding".equals(recipe.getNamespace()) && removesPath(recipe.getPath());
+    }
+
+    /** Wie {@link #removes}, fuer einen Pfad im Namensraum {@code simplebuilding}. */
+    public static boolean removesPath(String p) {
         ServerTuningConfig.Features f = ServerTuning.get().features;
         TweaksConfig t = SimpleTweaks.config();
         return (!f.astralVault && p.equals("astral_vault"))

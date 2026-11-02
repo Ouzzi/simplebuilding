@@ -2802,7 +2802,6 @@
         "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
         "common/src/shared/java/com/simplebuilding/tweaks/command/ChunkLoaderCommand.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-        "common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java",
         "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java"
       ],
       "en": {
