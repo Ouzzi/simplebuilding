@@ -298,6 +298,28 @@ Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [~] (B, b-frost02, 02.11.) KESSEL32-DORF Kessel über Lagerfeuer – nur Gerüst bauen, Treppe egal (kein Seed/Dorf nötig) → QW
 - Weiter offen (nicht beantwortet, NICHT archiviert): blei, spiegel, optik, zfight, boar, truffle, daempfer, dkolben, abn32, ig3114, rohr33-Variante, qol33, farben, rel, TROMP-1/2. Beantwortet am 01.11. per Anmerkung (bleibt): MACH32-MOD, SNOW32-FALL.
 
+## BESITZER-ABNAHME 02.11. (Teil 3) → umsetzen (b-abn03)
+Quelle: /root/b-antworten-20261102b.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md (Vorgehen). Grundregel Besitzer: ohne Einwand = abgenommen. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken. Archiv (archiv.json 02.11.): IG3114, QOL33-TEILE, ORES32-BLEI, ORES01, ORES32-SPIEGEL, MACH32-DAEMPFER, MACH32-KOLBEN, ABN32, OPTIK32, FARBEN32, APPLE41, SPAWN01, HEADS39.
+- [~] (B, b-apple02, 02.11.) APPLE41 Äpfel – Rosenbronze/Blütengold/Netherit/Enderit keine Feuerresistenz; Rosenbronze Resistenz I 30 s; Blütengold Resistenz I 50 s; verzauberter Rosenbronze Regeneration II 30 s (statt 25); verzauberter Blütengold Regeneration II 35 s; Rest wie Vanilla-Gold-/Zauberapfel (Absorption, Resistenz, Feuerresistenz analog); verzauberter Netherit- und Enderit-Apfel Effekte vollständig prüfen, Tooltip/JEI/Wiki zeigen alle; Texturen reine Umfärbung von Vanilla-Apfel/Goldapfel → PRIO
+- [~] (B, b-tex03, 02.11.) ORES32-BLEI/ORES01 Blei – Bleiblock Karo leise (B), weniger Glanz oben links bei allen; Blei Blau-Grau; Rohblei-Item im Kieselhaufen-Stil, Rohbleiblock ebenfalls → PRIO
+- [~] (B, b-tex03, 02.11.) SPAWN01 Spawner-Fragment/-Brocken – Aussehen eisenartig/Vanilla-nah, etwas kleiner; Inspiration aus anderen Mods → PRIO
+- [~] (B, b-music03, 02.11.) IG3114-PLATTEN Schallplatten Vanilla-Form – Ember Forge (mittlerer Ring), Ant(?) Departure, Fortress Marsh überarbeiten; Obsidian Throne/Skyforge verbessern; Deep Pulse, Etikett, Composed bleiben; Rolling Variante C → PRIO
+- [~] (B, b-music03, 02.11.) IG3114-NOTEN Notenblatt – Hintergrundlinien Vanilla-artiger/weicher; Taschen-Jukebox beim jetzigen Aussehen, nur behutsam überarbeiten → QW
+- [~] (B, b-music03, 02.11.) IG3114-DAEMMER Dämmerholz-Stamm Ist-Zustand behalten (Rindenunregelmäßigkeit + Lila Stirnmitte), nur weniger hart; Schilder Variante B + Lila in den Hängeschildern → PRIO
+- [~] (B, b-music03, 02.11.) IG3114-BESATZ Inverser Besatz Variante A (1 px Übergang dunkellila Außenlinie; Stufe 2 Trim 1 px dicker, teils silber; Stufe 3 meist silber; Coast/Amethyst Farben invertiert prüfen/korrigieren) → PRIO
+- [~] (B, b-mech03, 02.11.) MACH32-DAEMPFER Signaldämpfer schiebbar wie ein Kolben-Block, KEIN Hebel → PRIO
+- [~] (B, b-mech03, 02.11.) MACH32-KOLBEN Doppelkolben Fugenpaar A; ORES32-SPIEGEL Silberspiegel Variante A (Haken, gebaut) → QW
+- [~] (B, b-mech03, 02.11.) OPTIK32-PFERDE Zebra/Zorse Variante B kompakt; Krebs Beine kaputt (links oben/rechts unten) – beide Seiten nach unten fixen → QW
+- [x] FARBEN32 Fellfarben je Biom – vorerst ok, später Upgrade (Abnahme-Haken) → QW
+- [x] HEADS39 Mob-Köpfe-Tab – abgenommen bis Spielprüfung durch Besitzer (Beleg: b-heads39) → QW
+- [x] QOL33 (Trichter, Keypicker inkl. Collapsibles) abgenommen; Free Look noch NICHT getestet, bleibt offen (IG31-29) → PRIO
+- [~] (B, b-rohr02, 02.11.) ROHR33 Verengung zum Ziel größer als jetzt, aber kleiner als das Rohr; UI-Wünsche aus Teil 2 (Kompass, 3 Zustände) gelten → PRIO
+- [~] (B, b-foundry03, 02.11.) FOUNDRY32 Rohstoffe übereinander gestapelt wie Variante A; Füllstand des Brennstofftanks sichtbar; nachfüllbar mit Kohle oder Lava (Lava Hauptweg); Endkonzept kommt noch vom Besitzer → PRIO
+- [x] BOAT40 Ofen-Boot: Optik beantwortet (bereits unter Teil 2, b-boat02)
+- [x] IDEEN-PHASE4 „Geteilter Klumpen“ (anderes Erz) und „Fladen C“ vorgemerkt (docs/ai/IDEEN-PHASE4.md)
+- [x] TROMP-HOERPROBE Hörproben der Trompeten-Seite repariert: fetch(data:)-Dekodierung durch atob ersetzt, init einmalig, resume(); headless geprüft (7 Töne dekodiert, Start/Stop). TROMP-1/-2 bleiben offen bis zur Hörabnahme → QW
+- Weiter offen: Free Look, TROMP-1/2, Foundry-Endkonzept, ROHR33-Variante.
+
 ## BESITZER-ABNAHME 01.11. (c) → umsetzen (b-abn01)
 Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken.
 - [x] (B, b-qw03, 01.11.) IG31-4 Text beim ersten Aufheben (First-Pickup-Tipps, simpleblocks.firstPickupTips / BlocksDiscover) – weg: Tipps entfernen; Idee als Eintrag in docs/ai/IDEEN-PHASE4.md (erst Phase 4 prüfen) → QW [Beleg: Generator tips=[] (tools/discover/discover.py), 14 DiscoverTipMixin + mixins.json + Lang tip.* entfernt, Handbuch first_pickup_tips -> recipe_book_unlocks; Idee in docs/ai/IDEEN-PHASE4.md; sbt gruen (Compile + Modul-Gametests 434/434); Gate/Client-Sicht steht aus]
