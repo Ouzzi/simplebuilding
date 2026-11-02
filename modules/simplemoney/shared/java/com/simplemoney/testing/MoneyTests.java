@@ -170,7 +170,15 @@ public final class MoneyTests {
  }
  public static void config(GameTestHelper h) {
   h.assertTrue(new SimpleMoney.Config().trades.enableVillagerTrades && new SimpleMoney.Config().trades.enableWanderingTrades && new SimpleMoney.Config().trades.enableWandererTrades,"source defaults");
-  var original=SimpleMoney.config;try {SimpleMoney.config=new SimpleMoney.Config();SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades") && SimpleMoney.enabled("enableWandererTrades"),"wandering switch");SimpleMoney.config.trades.enableWandererTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWandererTrades"),"village wanderer switch");h.assertValueEqual(SimpleMoney.merchantFlag("village_wanderer"),"enableWandererTrades","village wanderer flag");h.assertValueEqual(SimpleMoney.merchantFlag("mason"),"enableVillagerTrades","profession flag");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");}finally{SimpleMoney.config=original;}h.succeed();
+  // Hermetic: the shared switches are swapped in a private config dir while holding the class lock `enabled` takes, so neither a
+  // rewrite of the live simplemoney.json (mtime reload) nor a resource-condition check on another thread can replace them mid-test.
+  var original=SimpleMoney.config;var liveDir=SimpleMoney.configDir();
+  synchronized(SimpleMoney.class) {try {
+   SimpleMoney.loadConfig(java.nio.file.Files.createTempDirectory("simplemoney-config"));SimpleMoney.config=new SimpleMoney.Config();
+   SimpleMoney.config.trades.enableVillagerTrades=false;h.assertTrue(!SimpleMoney.enabled("enableVillagerTrades") && SimpleMoney.enabled("enableWanderingTrades"),"independent villager switch");SimpleMoney.config.trades.enableWanderingTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWanderingTrades") && SimpleMoney.enabled("enableWandererTrades"),"wandering switch");SimpleMoney.config.trades.enableWandererTrades=false;h.assertTrue(!SimpleMoney.enabled("enableWandererTrades"),"village wanderer switch");h.assertValueEqual(SimpleMoney.merchantFlag("village_wanderer"),"enableWandererTrades","village wanderer flag");h.assertValueEqual(SimpleMoney.merchantFlag("mason"),"enableVillagerTrades","profession flag");h.assertTrue(!SimpleMoney.enabled("unknown"),"unknown flag denied");
+  }catch(IOException e){throw new IllegalStateException(e);}
+  finally{if(liveDir!=null)SimpleMoney.loadConfig(liveDir);SimpleMoney.config=original;}}
+  h.succeed();
  }
  /** REV2-B: the config file deleted while the server runs: /reload and world load keep the loaded switches, nothing throws. */
  public static void configFileGone(GameTestHelper h) {
