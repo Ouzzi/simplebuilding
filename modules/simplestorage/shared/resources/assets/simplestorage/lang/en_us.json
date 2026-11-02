@@ -247,7 +247,7 @@
   "simplestorage.guide.page.32.title": "Commands",
   "simplestorage.guide.page.32": "options read only at start say so. Permission level 2.",
   "simplestorage.guide.page.33.title": "Pipes",
-  "simplestorage.guide.page.33": "A pipe is a hopper with one slot that looks like a cable. It moves items from the containers beside it into the containers at its outputs (a click on a side key: input, red output, off):",
+  "simplestorage.guide.page.33": "A pipe is a hopper with one slot that looks like a cable. It moves items from the containers beside it into the container at its one output, which ends in an arrow:",
   "simplestorage.guide.page.34.title": "Pipes",
   "simplestorage.guide.page.34": "1 item every 8 ticks, Reinforced every 6, Netherite 2 items every 4, Enderite 4 items every 2. The first step points down or sideways only; from Reinforced on the output may also point up.",
   "simplestorage.guide.page.35.title": "Chest network (prototype)",

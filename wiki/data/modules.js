@@ -131,7 +131,8 @@ window.WIKI_MODULES = [
       "simplesounds",
       "simpletweaks",
       "simplevisuals",
-      "wiringexample"
+      "wiringexample",
+      "simpleores"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -167,7 +168,8 @@ window.WIKI_MODULES = [
     ],
     "optional": [
       "simplebuilding",
-      "modmenu"
+      "modmenu",
+      "simpleores"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -601,7 +603,8 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [
-      "simplemoney"
+      "simplemoney",
+      "simpleores"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -1087,7 +1090,8 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [
-      "simplebuilding"
+      "simplebuilding",
+      "simpleores"
     ],
     "parent": "simplebuilding",
     "bundle": "optional",
@@ -1125,7 +1129,8 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding",
       "simplefoundry",
-      "simplecrucibles"
+      "simplecrucibles",
+      "simpleores"
     ],
     "parent": "simplebuilding",
     "bundle": "required",
@@ -1353,7 +1358,8 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding",
       "jei",
-      "jade"
+      "jade",
+      "simpleores"
     ],
     "parent": "simpleovens",
     "bundle": "optional",
@@ -1573,7 +1579,8 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend",
       "trinkets_updated",
-      "curios"
+      "curios",
+      "simpleores"
     ],
     "parent": "simplebuilding",
     "bundle": "required",
@@ -1816,7 +1823,7 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 6
     },
-    "dataHash": "869612f84bde"
+    "dataHash": "cd8e671c388d"
   },
   {
     "id": "simpleores",

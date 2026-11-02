@@ -247,7 +247,7 @@
   "simplestorage.guide.page.32.title": "Befehle",
   "simplestorage.guide.page.32": "Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simplestorage.guide.page.33.title": "Rohre",
-  "simplestorage.guide.page.33": "Ein Rohr ist ein Trichter mit einem Platz, der wie ein Kabel aussieht. Es schiebt Items aus den Behältern neben sich in die Behälter an seinen Ausgängen (Klick auf eine Seite: Eingang, roter Ausgang, aus):",
+  "simplestorage.guide.page.33": "Ein Rohr ist ein Trichter mit einem Platz, der wie ein Kabel aussieht. Es schiebt Items aus den Behältern neben sich in den Behälter an seinem einen Ausgang, der in einem Pfeil endet:",
   "simplestorage.guide.page.34.title": "Rohre",
   "simplestorage.guide.page.34": "1 Item alle 8 Ticks, Verstärkt alle 6, Netherit 2 Items alle 4, Enderit 4 Items alle 2. Die erste Stufe zeigt nur nach unten oder zur Seite; ab Verstärkt darf der Ausgang auch nach oben zeigen.",
   "simplestorage.guide.page.35.title": "Truhen-Netzwerk (Prototyp)",
