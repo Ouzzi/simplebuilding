@@ -1144,12 +1144,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 4,
+      "items": 14,
       "blocks": 9,
-      "recipes": 9,
-      "features": 8
+      "recipes": 19,
+      "features": 9
     },
-    "dataHash": "c52c43af3ac0"
+    "dataHash": "d867023bc13c"
   },
   {
     "id": "simplemobheads",

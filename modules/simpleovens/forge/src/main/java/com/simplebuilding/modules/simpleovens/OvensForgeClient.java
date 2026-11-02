@@ -10,6 +10,8 @@ final class OvensForgeClient {
     static void init() {
         EntityRenderersEvent.RegisterRenderers.BUS.addListener(event ->
                 OvensRegistry.CARTS.values().forEach(type -> event.registerEntityRenderer(type, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART))));
+        EntityRenderersEvent.RegisterRenderers.BUS.addListener(event ->
+                OvensRegistry.BOATS.forEach((wood, type) -> event.registerEntityRenderer(type, c -> new com.simpleovens.client.OvenBoatRenderer(c, wood))));
     }
 
     private OvensForgeClient() {}

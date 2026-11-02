@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "furnace_boat",
+  "ingredients": [
+    "minecraft:cherry_boat",
+    "minecraft:furnace"
+  ],
+  "result": {
+    "id": "simpleovens:cherry_furnace_boat"
+  }
+}

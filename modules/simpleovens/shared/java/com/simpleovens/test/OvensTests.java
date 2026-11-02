@@ -430,6 +430,98 @@ public final class OvensTests {
         });
     }
 
+    /** BOAT40: the furnace boats. */
+    static {
+        ALL.put("furnace_boats_registered_and_crafted", h -> {
+            List<String> problems = new ArrayList<>();
+            var manager = h.getLevel().getServer().getRecipeManager();
+            for (String wood : OvensRegistry.BOAT_WOODS) {
+                String name = OvensRegistry.boatName(wood);
+                Item item = OvensRegistry.BOAT_ITEMS.get(wood);
+                if (item == null || BuiltInRegistries.ITEM.getValue(SimpleOvens.id(name)) != item) problems.add("item " + name);
+                if (BuiltInRegistries.ENTITY_TYPE.getValue(SimpleOvens.id(name)) != OvensRegistry.boatType(wood)) problems.add("entity " + name);
+                var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleOvens.id(name)));
+                Item vanilla = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(wood + (wood.equals("bamboo") ? "_raft" : "_boat")));
+                if (holder.isEmpty() || !(holder.get().value() instanceof net.minecraft.world.item.crafting.CraftingRecipe recipe)) {
+                    problems.add("recipe " + name);
+                    continue;
+                }
+                var input = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(Items.FURNACE), new ItemStack(vanilla)));
+                if (!recipe.matches(input, h.getLevel()) || recipe.assemble(input).getItem() != item) problems.add("boat + furnace gives " + name + "? " + wood);
+                var wrong = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(Items.CHEST), new ItemStack(vanilla)));
+                if (recipe.matches(wrong, h.getLevel())) problems.add("a chest also crafts " + name);
+            }
+            h.assertTrue(problems.isEmpty(), "furnace boats: " + problems);
+            h.succeed();
+        });
+        ALL.put("furnace_boat_fuel", h -> {
+            List<String> problems = new ArrayList<>();
+            var boat = OvensRegistry.boatType("oak").create(h.getLevel(), EntitySpawnReason.TRIGGERED);
+            if (boat == null) throw h.assertionException("no furnace boat");
+            if (boat.isLit() || boat.fuel() != 0 || boat.thrust() != 0.0) problems.add("starts with fuel");
+            if (boat.addFuel(new ItemStack(Items.STICK))) problems.add("a stick is no fuel");
+            if (!boat.addFuel(new ItemStack(Items.COAL)) || boat.fuel() != com.simpleovens.boat.OvenBoat.FUEL_PER_ITEM || !boat.isLit()) problems.add("coal: " + boat.fuel());
+            boat.burn(false);
+            if (boat.fuel() != com.simpleovens.boat.OvenBoat.FUEL_PER_ITEM) problems.add("burns while empty of passengers");
+            boat.burn(true);
+            if (boat.fuel() != com.simpleovens.boat.OvenBoat.FUEL_PER_ITEM - 1) problems.add("does not burn with a passenger");
+            if (!boat.addFuel(new ItemStack(Items.CHARCOAL)) || boat.fuel() != 2 * com.simpleovens.boat.OvenBoat.FUEL_PER_ITEM - 1) problems.add("charcoal adds on top: " + boat.fuel());
+            int added = 2;
+            while (boat.addFuel(new ItemStack(Items.COAL))) added++;
+            if (boat.fuel() > com.simpleovens.boat.OvenBoat.MAX_FUEL || added != 8) problems.add("max fuel: " + boat.fuel() + " after " + added);
+            // saved and read back
+            var out = net.minecraft.world.level.storage.TagValueOutput.createWithContext(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess());
+            boat.saveWithoutId(out);
+            var copy = OvensRegistry.boatType("oak").create(h.getLevel(), EntitySpawnReason.TRIGGERED);
+            copy.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), out.buildResult()));
+            if (copy.fuel() != boat.fuel() || !copy.isLit()) problems.add("fuel not saved: " + copy.fuel());
+            while (boat.fuel() > 0) boat.burn(true);
+            if (boat.isLit() || boat.thrust() != 0.0) problems.add("lit without fuel");
+            h.assertTrue(problems.isEmpty(), "furnace boat fuel: " + problems);
+            h.succeed();
+        });
+        MAX_TICKS.put("furnace_boat_pushes_only_with_fuel", 100);
+        ALL.put("furnace_boat_pushes_only_with_fuel", h -> {
+            for (int x = 0; x <= 4; x++) for (int z = 0; z <= 4; z++) h.setBlock(new BlockPos(x, 1, z), Blocks.WATER);
+            var boat = OvensRegistry.boatType("oak").create(h.getLevel(), EntitySpawnReason.TRIGGERED);
+            if (boat == null) throw h.assertionException("no furnace boat");
+            boat.setInitialPos(h.absoluteVec(new Vec3(2.5, 1.2, 2.5)).x, h.absoluteVec(new Vec3(2.5, 1.2, 2.5)).y, h.absoluteVec(new Vec3(2.5, 1.2, 2.5)).z);
+            boat.setYRot(0.0F);
+            h.getLevel().addFreshEntity(boat);
+            h.runAfterDelay(10, () -> {
+                h.assertTrue(boat.isInWater(), "the boat floats in the water");
+                Vec3 before = boat.getDeltaMovement();
+                h.assertFalse(boat.applyThrust() || !boat.getDeltaMovement().equals(before), "no push without fuel");
+                boat.addFuel(new ItemStack(Items.COAL));
+                before = boat.getDeltaMovement();
+                h.assertTrue(boat.applyThrust(), "a push with fuel");
+                // heading 0 = +z (like Vanilla: sin(-yaw), cos(yaw))
+                h.assertTrue(boat.getDeltaMovement().z - before.z > 0.01 && Math.abs(boat.getDeltaMovement().x - before.x) < 1.0E-6, "pushes forward: " + boat.getDeltaMovement());
+                boat.setDeltaMovement(new Vec3(0.0, 0.0, com.simpleovens.boat.OvenBoat.THRUST_SPEED_CAP + 0.01));
+                h.assertFalse(boat.applyThrust(), "no push over the speed cap");
+                while (boat.fuel() > 0) boat.burn(true);
+                boat.setDeltaMovement(Vec3.ZERO);
+                h.assertFalse(boat.applyThrust(), "no push once the fuel is gone");
+                boat.discard();
+                h.succeed();
+            });
+        });
+        ALL.put("furnace_boat_drops_its_item", h -> {
+            var boat = OvensRegistry.boatType("bamboo").create(h.getLevel(), EntitySpawnReason.TRIGGERED);
+            if (boat == null) throw h.assertionException("no furnace raft");
+            Vec3 at = h.absoluteVec(new Vec3(2.5, 1, 2.5));
+            boat.setInitialPos(at.x, at.y, at.z);
+            h.getLevel().addFreshEntity(boat);
+            h.assertTrue(boat.getPickResult().getItem() == OvensRegistry.BOAT_ITEMS.get("bamboo"), "pick result");
+            boat.hurtServer(h.getLevel(), h.getLevel().damageSources().generic(), 5.0F);
+            h.assertTrue(boat.isRemoved(), "destroyed by damage");
+            var drops = h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, net.minecraft.world.phys.AABB.ofSize(at, 4, 4, 4));
+            h.assertTrue(drops.stream().anyMatch(d -> d.getItem().is(OvensRegistry.BOAT_ITEMS.get("bamboo"))), "drops the furnace raft item: " + drops);
+            drops.forEach(net.minecraft.world.entity.Entity::discard);
+            h.succeed();
+        });
+    }
+
     static {
         ALL.put("discover_recipe_unlocks", com.simpleovens.discover.OvensDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleovens.discover.OvensDiscover::behaviourHints);

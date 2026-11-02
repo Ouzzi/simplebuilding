@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oak_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:oak_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleovens:oak_furnace_boat"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_oak_boat",
+      "has_furnace"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleovens:oak_furnace_boat"
+    ]
+  }
+}

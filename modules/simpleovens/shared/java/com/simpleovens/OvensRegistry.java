@@ -7,10 +7,12 @@ import com.simpleovens.block.TierFurnaceBlock;
 import com.simpleovens.block.TierFurnaceBlockEntity;
 import com.simpleovens.block.TierSmokerBlock;
 import com.simpleovens.block.TierSmokerBlockEntity;
+import com.simpleovens.boat.OvenBoat;
 import com.simpleovens.cart.FurnaceMinecartItem;
 import com.simpleovens.cart.TieredFurnaceMinecart;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -22,6 +24,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +45,10 @@ public final class OvensRegistry {
     public static final Map<OvenTier, Block> BLAST_FURNACES = new EnumMap<>(OvenTier.class);
     public static final Map<OvenTier, Item> CART_ITEMS = new EnumMap<>(OvenTier.class);
     public static final Map<OvenTier, EntityType<TieredFurnaceMinecart>> CARTS = new EnumMap<>(OvenTier.class);
+    /** BOAT40: the Vanilla wood types a furnace boat exists in (the bamboo one is a raft). */
+    public static final List<String> BOAT_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "bamboo");
+    public static final Map<String, Item> BOAT_ITEMS = new LinkedHashMap<>();
+    public static final Map<String, EntityType<OvenBoat>> BOATS = new LinkedHashMap<>();
     public static BlockEntityType<TierFurnaceBlockEntity> FURNACE_BE;
     public static BlockEntityType<TierSmokerBlockEntity> SMOKER_BE;
     public static BlockEntityType<TierBlastFurnaceBlockEntity> BLAST_FURNACE_BE;
@@ -64,7 +71,24 @@ public final class OvensRegistry {
             }
             CART_ITEMS.put(tier, item(tier.prefix() + "_furnace_minecart", tier, p -> new FurnaceMinecartItem(p.stacksTo(1), () -> CARTS.get(tier))));
         }
+        for (String wood : BOAT_WOODS) {
+            String name = boatName(wood);
+            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleOvens.id(name));
+            BOAT_ITEMS.put(wood, Registry.register(BuiltInRegistries.ITEM, key, new BoatItem(boatType(wood), new Item.Properties().setId(key).stacksTo(1))));
+        }
         com.simpleovens.guide.OvensGuide.register();
+    }
+
+    /** {@code oak_furnace_boat}, {@code bamboo_furnace_raft}. */
+    public static String boatName(String wood) {
+        return wood + (wood.equals("bamboo") ? "_furnace_raft" : "_furnace_boat");
+    }
+
+    /** The furnace boat type of a wood; built on first use (the item needs it before the types are registered). */
+    public static EntityType<OvenBoat> boatType(String wood) {
+        return BOATS.computeIfAbsent(wood, w -> EntityType.Builder.<OvenBoat>of((t, level) -> new OvenBoat(t, level, () -> BOAT_ITEMS.get(w), w.equals("bamboo")), MobCategory.MISC)
+                .noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, SimpleOvens.id(boatName(w)))));
     }
 
     /** The three block entity types (built by the loader: NeoForge/Forge take an extra constructor argument). */
@@ -95,6 +119,7 @@ public final class OvensRegistry {
                     .noLootTable().sized(0.98F, 0.7F).passengerAttachments(0.1875F).clientTrackingRange(8).build(key);
             CARTS.put(tier, Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type));
         }
+        for (String wood : BOAT_WOODS) Registry.register(BuiltInRegistries.ENTITY_TYPE, SimpleOvens.id(boatName(wood)), boatType(wood));
     }
 
     public static void registerTab() {
@@ -113,6 +138,7 @@ public final class OvensRegistry {
             family.values().forEach(block -> out.add(new ItemStack(block)));
         }
         CART_ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
+        BOAT_ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         out.add(com.simpleovens.guide.OvensGuide.stack());
         return out;
     }
@@ -137,6 +163,12 @@ public final class OvensRegistry {
     public static List<ItemStack> cartStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (SimpleOvens.on()) CART_ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
+        return out;
+    }
+
+    public static List<ItemStack> boatStacks() {
+        List<ItemStack> out = new ArrayList<>();
+        if (SimpleOvens.on()) BOAT_ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         return out;
     }
 

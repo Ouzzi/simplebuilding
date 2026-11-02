@@ -13,6 +13,7 @@ TIERS = ('reinforced', 'netherite', 'enderite')
 KINDS = ('furnace', 'smoker', 'blast_furnace')
 BLOCKS = [f'{t}_{k}' for t in TIERS for k in KINDS]
 CARTS = [f'{t}_furnace_minecart' for t in TIERS]
+BOATS = [w + ('_furnace_raft' if w == 'bamboo' else '_furnace_boat') for w in ('oak', 'spruce', 'birch', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry', 'pale_oak', 'bamboo')]
 
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OvensConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
@@ -26,7 +27,7 @@ for locale in ('en_us', 'de_de'):
     data = json.loads((RES / f'assets/{NS}/lang/{locale}.json').read_text(encoding='utf-8'))
     langs[locale] = data
     need = sorted(used) + [f'{p}.{NS}.{b}' for b in BLOCKS for p in ('block', 'item', 'container')]
-    need += [f'{p}.{NS}.{c}' for c in CARTS for p in ('item', 'entity')] + [f'itemgroup.{NS}.ovens', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
+    need += [f'{p}.{NS}.{c}' for c in CARTS + BOATS for p in ('item', 'entity')] + [f'itemgroup.{NS}.ovens', f'{NS}.testcentre.station', f'item.{NS}.guide_book']
     for k in need:
         assert data.get(k), (locale, k)
     for k in (f'tooltip.{NS}.speed', f'tooltip.{NS}.experience'):
@@ -36,8 +37,10 @@ for b in BLOCKS:
     for kind in ('blockstates', 'items'):
         assert (RES / f'assets/{NS}/{kind}/{b}.json').is_file(), (kind, b)
     assert (RES / f'data/{NS}/loot_table/blocks/{b}.json').is_file(), b
-for c in CARTS:
+for c in CARTS + BOATS:
     assert (RES / f'assets/{NS}/items/{c}.json').is_file(), c
+for b in BOATS:
+    assert (RES / f'data/{NS}/recipe/{b}.json').is_file() and (RES / f'assets/{NS}/models/item/{b}.json').is_file(), b
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (RES / f'data/{NS}/recipe').glob('*.json')}
 moved = re.findall(r'"([a-z_]+)", "(?:redstone|transportation)"', (JAVA / 'SimpleOvens.java').read_text(encoding='utf-8'))
 assert len(moved) == 8 and set(moved) <= set(recipes), (moved, sorted(recipes))

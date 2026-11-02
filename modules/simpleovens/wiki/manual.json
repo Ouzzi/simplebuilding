@@ -144,6 +144,47 @@
       ]
     },
     {
+      "id": "furnace_boats",
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java",
+        "modules/simpleovens/shared/resources/data/simpleovens/recipe/oak_furnace_boat.json",
+        "modules/simpleovens/shared/java/com/simpleovens/OvensRegistry.java"
+      ],
+      "en": {
+        "title": "Furnace Boats",
+        "summary": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood, plus a bamboo raft.",
+        "details": [
+          "Shapeless: a boat (or the bamboo raft) of the wood and a furnace give the furnace boat of that wood.",
+          "Right-click with coal or charcoal fills the furnace (3600 ticks each, at most 32000, like the furnace minecart); with an empty hand or a full furnace you get in. One seat.",
+          "While fuel lasts and a player sits in it, the boat gets a gentle forward push on water (up to about 6 blocks per second, never over an ice boat); steering and W work as in any boat. Fuel only burns while somebody sits in it. The furnace glows and smokes while it burns.",
+          "Breaking it drops the furnace boat item; the fuel is lost."
+        ]
+      },
+      "de": {
+        "title": "Ofenboote",
+        "summary": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart, dazu ein Bambusfloß.",
+        "details": [
+          "Formlos: ein Boot (bzw. das Bambusfloß) der Holzart und ein Ofen ergeben das Ofenboot dieser Holzart.",
+          "Rechtsklick mit Kohle oder Holzkohle füllt den Ofen (je 3600 Ticks, höchstens 32000, wie bei der Antriebslore); mit leerer Hand oder vollem Ofen steigst du ein. Ein Sitz.",
+          "Solange Brennstoff da ist und ein Spieler drinsitzt, schiebt das Boot auf dem Wasser sanft nach vorn (bis etwa 6 Blöcke pro Sekunde, nie über einem Eisboot); Lenken und W wirken wie in jedem Boot. Brennstoff brennt nur, solange jemand drinsitzt. Der Ofen glüht und raucht beim Brennen.",
+          "Zerstören lässt das Ofenboot-Item fallen; der Brennstoff geht verloren."
+        ]
+      },
+      "related": [
+        "simpleovens:oak_furnace_boat",
+        "simpleovens:spruce_furnace_boat",
+        "simpleovens:birch_furnace_boat",
+        "simpleovens:jungle_furnace_boat",
+        "simpleovens:acacia_furnace_boat",
+        "simpleovens:dark_oak_furnace_boat",
+        "simpleovens:mangrove_furnace_boat",
+        "simpleovens:cherry_furnace_boat",
+        "simpleovens:pale_oak_furnace_boat",
+        "simpleovens:bamboo_furnace_raft"
+      ]
+    },
+    {
       "id": "long_cook_times",
       "sources": [
         "modules/simpleovens/shared/java/com/simpleovens/mixin/AbstractFurnaceMenuMixin.java",
@@ -415,6 +456,126 @@
       },
       "de": {
         "summary": "Antriebslore der Stufe Enderit: ein Brennstoff brennt 8-mal so lange wie in Vanillas Antriebslore, und sie fährt schneller (siehe Antriebsloren)."
+      }
+    },
+    "simpleovens:oak_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Oak boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Eichenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:spruce_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Spruce boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Fichtenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:birch_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Birch boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Birkenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:jungle_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Jungle boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Dschungelholzboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:acacia_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Acacia boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Akazienboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:dark_oak_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Dark Oak boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Schwarzeichenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:mangrove_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Mangrove boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Mangrovenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:cherry_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Cherry boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Kirschholzboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:pale_oak_furnace_boat": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Pale Oak boat with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the boat and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Blasseichenboot mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Boot und ein Ofen, formlos."
+      }
+    },
+    "simpleovens:bamboo_furnace_raft": {
+      "sources": [
+        "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+        "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+      ],
+      "en": {
+        "summary": "Bamboo raft with a furnace instead of the chest: you steer, coal or charcoal in the furnace pushes it forward on water (see Furnace Boats). Crafted: the raft and a furnace, shapeless."
+      },
+      "de": {
+        "summary": "Bambusfloß mit Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle im Ofen schiebt es auf dem Wasser vorwärts (siehe Ofenboote). Gecraftet: das Floß und ein Ofen, formlos."
       }
     }
   }
