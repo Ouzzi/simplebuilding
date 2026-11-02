@@ -18,7 +18,9 @@
  "simpleanimals:crab": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
  "simpleanimals:zebra": "head comes later (Simple Animals, concept WP-18 2026-10-29; antlers as a head are a later step)",
  "simpleanimals:zorse": "head comes later (Simple Animals, concept WP-18 2026-10-29)",
-  "simpledinos:trex": "head comes later (Simple Dinosaurs, concept WP-18 2026-10-30)"
+  "simpledinos:trex": "head comes later (Simple Dinosaurs, concept WP-18 2026-10-30)",
+  "simplemobs:void_runner": "boss: own trophy drop Ender Heart instead of a head (b-boss01 2026-11-02; head comes later)",
+  "simplemobs:brimguard": "boss: own trophy drop Ender Gem instead of a head (b-boss01 2026-11-02; head comes later)"
  },
  "heads": [
   {

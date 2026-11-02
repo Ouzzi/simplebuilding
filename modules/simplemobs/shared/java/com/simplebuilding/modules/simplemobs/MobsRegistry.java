@@ -142,7 +142,7 @@ public final class MobsRegistry {
             "calm_amulet", "deceiver_cloak", "shellker_helmet", "wither_wings", "nether_wings", "end_wings", "void_wings",
             "soul_fire_charge",
             "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
-            "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem", "egg_blank",
+            "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem", "mob_essence", "egg_blank",
             "strong_gunpowder", "strong_tnt", "spawner_fragment", "spawner_chunk", "makeshift_spawner",
             "deceiver_spawn_egg", "dread_spawn_egg", "hollow_howler_spawn_egg", "hollow_watcher_spawn_egg",
             "shellker_spawn_egg", "soulfire_blaze_spawn_egg", "void_runner_spawn_egg", "brimguard_spawn_egg"),
