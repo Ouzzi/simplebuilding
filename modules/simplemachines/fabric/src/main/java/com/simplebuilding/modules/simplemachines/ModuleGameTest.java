@@ -52,6 +52,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemachines:empty")
+    public void dampenerIsPushable(GameTestHelper h) {
+        MachinesTests.ALL.get("dampener_is_pushable").accept(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
     public void dampenerSwitchOffOutputsNothing(GameTestHelper h) {
         MachinesTests.ALL.get("dampener_switch_off_outputs_nothing").accept(h);
     }

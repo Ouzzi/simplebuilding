@@ -59,6 +59,31 @@ for tex in [f'entity/{t}' for t in ('deer/red', 'deer/fallow', 'deer/fawn', 'boa
                                     'zebra', 'zorse')] + [f'item/{i}' for i in ITEMS]:
     assert (RES / f'assets/{NS}/textures/{tex}.png').is_file(), tex
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
+# Model data (b-mech03): crab legs mirror each other and point down on both sides; zebra/zorse model B drives the Vanilla horse animation.
+import math
+import sys
+sys.path.insert(0, str(MODULE / 'tools'))
+import gen_models as G
+G.register_horses()
+for key in ('crab_red', 'crab_coral', 'crab_fiddler'):
+    parts = {p['name']: p for p in G.PALETTES[key]['parts']}
+    for i in range(3):
+        for kind in ('thigh', 'shin'):
+            r, l = parts[f'right_{kind}_{i}'], parts[f'left_{kind}_{i}']
+            assert abs(r['rot'][2] + l['rot'][2]) < 1e-9 and abs(r['pose'][0] + l['pose'][0]) < 1e-9, (key, kind, i, 'not mirrored')
+        # leg direction per side: outward axis rotated by thigh then shin; for sx = +-1 a positive angle * sx turns it down (+y is down)
+        for side, sx in (('right', -1), ('left', 1)):
+            th, sh = parts[f'{side}_thigh_{i}'], parts[f'{side}_shin_{i}']
+            ang = (th['rot'][2] + sh['rot'][2]) * sx                    # rotation seen from the leg's own outward axis
+            assert 0.5 < ang < math.pi / 2 + 0.2 and th['rot'][2] * sx > 0, (key, side, i, 'leg does not point down')
+for key in ('zebra', 'zorse'):
+    parts = {p['name']: p for p in G.PALETTES[key]['parts']}
+    for need in ('body', 'head_parts', 'tail', 'left_hind_leg', 'right_hind_leg', 'left_front_leg', 'right_front_leg'):
+        assert need in parts, (key, need)
+    assert parts['head_parts']['pose'] == (0, 4, -12) and abs(parts['head_parts']['rot'][0] - math.pi / 6) < 1e-9, key
+    assert parts['tail']['parent'] == 'body' and parts['left_hind_leg']['parent'] is None, key
+    assert G.pack(G.PALETTES[key])[1] == 128, key
+assert (JAVA / 'client/ZebraLayers.java').is_file() and 'ZebraModel.LAYER' in (JAVA / 'client/AnimalsClient.java').read_text(encoding='utf-8')
 manual = json.loads((MODULE / 'wiki/manual.json').read_text(encoding='utf-8'))
 config = next(f for f in manual['features'] if f['id'] == 'config_server')
 for locale in ('en', 'de'):

@@ -275,8 +275,8 @@ def crab_spec(shell=H('b3301d'), dark=H('7e2016'), belly=H('e0a888'), claw=H('c9
         ]
         for i, z in enumerate((-2.2, 0.0, 2.2)):
             parts += [
-                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3, -0.5, -0.5), (3, 1, 1), leg_p, share='thigh')], pose=(3.9 * sx, -1.2, z), rot=(0, 0, -0.45 * sx), parent='body'),
-                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-6, -0.5, -0.5), (6, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 58), share='shin')], pose=(3 * sx, 0, 0), rot=(0, 0, 1.7 * sx), parent=f'{side}_thigh_{i}'),
+                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3, -0.5, -0.5), (3, 1, 1), leg_p, share='thigh')], pose=(3.9 * sx, -1.2, z), rot=(0, 0, 0.2 * sx), parent='body'),
+                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-4.2, -0.5, -0.5), (4.2, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 58), share='shin')], pose=(3 * sx, 0, 0), rot=(0, 0, 1.0 * sx), parent=f'{side}_thigh_{i}'),
             ]
     return dict(name=name, w=64, parts=parts)
 
@@ -300,8 +300,8 @@ def fiddler_spec(shell=H('c4552a'), dark=H('86301a'), belly=H('ecc8a0'), claw=H(
     for side, sx in (('right', -1), ('left', 1)):
         for i, z in enumerate((-1.8, 0.0, 1.8)):
             parts += [
-                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-2.5, -0.5, -0.5), (2.5, 1, 1), leg_p, share='thigh')], pose=(4.3 * sx, -1.0, z), rot=(0, 0, -0.35 * sx), parent='body'),
-                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-5, -0.5, -0.5), (5, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 68), share='shin')], pose=(2.5 * sx, 0, 0), rot=(0, 0, 1.55 * sx), parent=f'{side}_thigh_{i}'),
+                P(f'{side}_thigh_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-2.5, -0.5, -0.5), (2.5, 1, 1), leg_p, share='thigh')], pose=(4.3 * sx, -1.0, z), rot=(0, 0, 0.2 * sx), parent='body'),
+                P(f'{side}_shin_{i}', [B((0, -0.5, -0.5) if sx > 0 else (-3.8, -0.5, -0.5), (3.8, 1, 1), solid(mix(dark, shell, 0.25), 0.06, 68), share='shin')], pose=(2.5 * sx, 0, 0), rot=(0, 0, 1.0 * sx), parent=f'{side}_thigh_{i}'),
             ]
     return dict(name=name, w=64, parts=parts)
 
@@ -462,8 +462,18 @@ def zorse_tex():
 
 TONES = 14
 TEXTURES = {k: (lambda spec=v: finish(render_model(spec)[0], TONES)) for k, v in PALETTES.items()}
-TEXTURES['zebra'] = lambda: finish(zebra_tex(), 10)
-TEXTURES['zorse'] = lambda: finish(zorse_tex(), TONES)
+
+
+def register_horses():
+    """Zebra and zorse: own compact horse model B (owner choice 02.11., b-mech03), painted by abn32_models. Lazy because that module
+    imports this one; idempotent. zebra_tex/zorse_tex above are the painters of the old Vanilla-UV layout (kept for the record)."""
+    if 'zebra' in MODELS:
+        return
+    import abn32_models as am
+    for coat, tones in (('zebra', 10), ('zorse', TONES)):
+        PALETTES[coat] = am.equid('B', coat)
+        TEXTURES[coat] = lambda c=coat, t=tones: finish(render_model(PALETTES[c])[0], t)
+    MODELS['zebra'] = 'zebra'
 OUT_NAMES = {'deer_red': 'deer/red', 'deer_fallow': 'deer/fallow', 'deer_fawn': 'deer/fawn', 'boar_dark': 'boar/dark',
              'boar_sandy': 'boar/sandy', 'boar_frost': 'boar/frost', 'boar_rust': 'boar/rust', 'boar_young': 'boar/young',
              'hedgehog_brown': 'hedgehog/brown', 'hedgehog_desert': 'hedgehog/desert', 'hedgehog_whitebreast': 'hedgehog/whitebreast',
@@ -530,6 +540,7 @@ def preview_data(spec):
 # ---------------------------------------------------------------- main
 def outputs():
     """{path: bytes|str} of everything this script owns."""
+    register_horses()
     files = {}
     for key, fn in TEXTURES.items():
         img = fn()
@@ -545,6 +556,7 @@ def main(argv):
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--preview')
     args = ap.parse_args(argv)
+    register_horses()
     files = outputs()
     stale = []
     for path, content in files.items():

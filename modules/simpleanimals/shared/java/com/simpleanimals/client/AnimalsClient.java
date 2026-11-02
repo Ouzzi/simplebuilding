@@ -14,6 +14,7 @@ public final class AnimalsClient {
         sink.accept(HedgehogModel.LAYER, HedgehogModel::createBodyLayer);
         sink.accept(CrabModel.LAYER, CrabModel::createBodyLayer);
         sink.accept(CrabModel.FIDDLER_LAYER, CrabModel::createFiddlerLayer);
+        sink.accept(ZebraModel.LAYER, ZebraModel::createBodyLayer);
     }
 
     private AnimalsClient() {}

@@ -249,6 +249,7 @@ def scene(model, tex_path, tweaks=None, scale=1.0, root_rot=(0, 0, 0), rel=None,
 
 
 def build(out_html):
+    G.register_horses()
     tex = G.TEX
     cards = []
 
@@ -298,9 +299,9 @@ def build(out_html):
         variant('Korallenrot', pct('crab_coral', 'Strand, Ozean, Fluss'), scene('crab_coral', tex / 'crab/coral.png', root_rot=(0, math.pi / 2, 0), rel=turtle_rel, spacing=14, zoom=6.5)),
     ])
     horse_rel = (1.4, 1.6, 1.8)
-    card('zebra', 'Zebra und Zorse', 'Zebra klassisch schwarz-weiß, Streifen bewusst hart, der Rest weich. Vanilla-Pferdemodell. Grau = Hitbox des Vanilla-Pferds (1,4 x 1,6 m).', [
-        variant('Zebra (schwarz-weiß)', pct('zebra'), scene('horse', tex / 'zebra.png', rel=horse_rel, spacing=30, zoom=3.0)),
-        variant('Zorse (braun, Streifen an Beinen/Hinterteil)', pct('zorse'), scene('horse', tex / 'zorse.png', rel=horse_rel, spacing=30, zoom=3.0)),
+    card('zebra', 'Zebra und Zorse', 'Zebra klassisch schwarz-weiß, Streifen bewusst hart, der Rest weich. Eigenes kompaktes Pferdemodell B (gleiche Kopfhaltung wie Vanilla). Grau = Hitbox des Vanilla-Pferds (1,4 x 1,6 m).', [
+        variant('Zebra (schwarz-weiß)', pct('zebra'), scene('zebra', tex / 'zebra.png', rel=horse_rel, spacing=30, zoom=3.0)),
+        variant('Zorse (braun, Streifen an Beinen/Hinterteil)', pct('zorse'), scene('zorse', tex / 'zorse.png', rel=horse_rel, spacing=30, zoom=3.0)),
     ])
     html = (PAGE.replace('__DATA__', json.dumps(cards)).replace('__CODE__', 'ANIMALS31').replace('__TITLE__', 'Simple Animals: Fellvarianten nach Biom')
             .replace('__INTRO__', 'Hirsch, Wildschwein, Igel, Krebs und Zebra mit Varianten nach Biom (Heimat 8 : 1, daher etwas Mischung); Texturen nach A8b (weiche Töne, Zebra-Streifen bewusst hart). Die Standardfassung steckt bereits im Code.'))
