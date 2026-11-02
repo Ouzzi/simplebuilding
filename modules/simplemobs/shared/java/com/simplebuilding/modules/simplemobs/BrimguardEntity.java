@@ -49,7 +49,7 @@ import net.minecraft.world.phys.Vec3;
 public class BrimguardEntity extends Monster {
     public static final int ACT_NONE = 0, ACT_SLAM = 1, ACT_CHARGE_WINDUP = 2, ACT_CHARGE = 3;
     private static final EntityDataAccessor<Integer> DATA_ACTION = SynchedEntityData.defineId(BrimguardEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_DUCK = SynchedEntityData.defineId(BrimguardEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_DUCK = SynchedEntityData.defineId(BrimguardEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_VENT = SynchedEntityData.defineId(BrimguardEntity.class, EntityDataSerializers.INT);
     private static final Identifier SPEED_ID = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "brimguard_phase");
     private static final Identifier DUCK_ID = Identifier.fromNamespaceAndPath(MobsRegistry.ID, "brimguard_duck");
@@ -57,7 +57,7 @@ public class BrimguardEntity extends Monster {
     private final ServerBossEvent bossEvent = new ServerBossEvent(Mth.createInsecureUUID(this.random), this.getDisplayName(),
             BossEvent.BossBarColor.WHITE, BossBars.overlayFor(BossLogic.BRIM_PHASE2, BossLogic.BRIM_PHASE3));
 
-    private int actionTicks, slamCooldown = 40, chargeCooldown = 60, duckCooldown, slams;
+    private int actionTicks, slamCooldown = 40, chargeCooldown = 60, duckCooldown, duckTicks, slams;
     private Vec3 chargeDir = Vec3.ZERO;
     /** Client: ticks the current action has run (for the renderer). */
     private int clientActionAge;
@@ -84,7 +84,7 @@ public class BrimguardEntity extends Monster {
 
     public int phase() { return BossLogic.brimPhase(this.getHealth() / this.getMaxHealth()); }
     public int action() { return this.entityData.get(DATA_ACTION); }
-    public boolean ducking() { return this.entityData.get(DATA_DUCK) > 0; }
+    public boolean ducking() { return this.entityData.get(DATA_DUCK); }
     public boolean venting() { return this.entityData.get(DATA_VENT) > 0; }
     public int ventTicks() { return this.entityData.get(DATA_VENT); }
     public int slams() { return slams; }
@@ -99,7 +99,7 @@ public class BrimguardEntity extends Monster {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_ACTION, ACT_NONE);
-        builder.define(DATA_DUCK, 0);
+        builder.define(DATA_DUCK, false);
         builder.define(DATA_VENT, 0);
     }
 
@@ -134,7 +134,8 @@ public class BrimguardEntity extends Monster {
 
     /** Duck for the given ticks (speed halved meanwhile). */
     public void duck(int ticks) {
-        this.entityData.set(DATA_DUCK, ticks);
+        duckTicks = ticks;
+        this.entityData.set(DATA_DUCK, true);
         duckCooldown = BossLogic.DUCK_COOLDOWN + ticks;
         this.playSound(SoundEvents.SHULKER_CLOSE, 1.0f, 0.6f);
     }
@@ -260,8 +261,7 @@ public class BrimguardEntity extends Monster {
         super.customServerAiStep(level);
         int phase = phase();
         syncBossBar(level, phase);
-        int duck = this.entityData.get(DATA_DUCK);
-        if (duck > 0) this.entityData.set(DATA_DUCK, duck - 1);
+        if (duckTicks > 0 && --duckTicks == 0) this.entityData.set(DATA_DUCK, false);
         int vent = this.entityData.get(DATA_VENT);
         if (vent > 0) this.entityData.set(DATA_VENT, vent - 1);
         AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
