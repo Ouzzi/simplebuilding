@@ -284,6 +284,20 @@ Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP)
 - [ ] ABN29-7 Schwingen: Feder-Look A gut; Knochenschwingen (B) als gerenderte Live-Vorschau (3D, getragen am Spieler) zeigen, nicht nur Textur. (Status 01.11.: offen – Knochenschwingen (B) als gerenderte Live-Vorschau fehlt)
 - [x] ABN29-8 Bereits früher beantwortet (nicht erneut fragen!): Display-Tönung C „beide sanft“, inverser Besatz (3 Stufen WA24-1), Butter-Teppich (WA24-3), Köcher (WA24-4), Nether-Juwel-Animation (wie jetzt im Spiel). Abnahme-Seiten vorher gegen Queue/Memory abgleichen. (Status 01.11.: prod – keine Code-Spur (Konzept/Vorschau))
 
+## BESITZER-ABNAHME 02.11. (Teil 2) → umsetzen (b-abn02)
+Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md (Vorgehen). Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken. Archiv: ORES32-PFEIL, KESSEL32-DORF, MACH32-PUSH, SNOW32-FROST, FOUNDRY32-UI/-NAME, LIVE32-ICON, MACH32-ENDSYS, BOAT40, ROHR33-UI.
+- [x] ORES32-PFEIL Silberpfeil Optik – A (helle Silberspitze) (schon gebaut: Variante A „gebaut“ in der Abnahme, silver_arrow in OresRegistry; nur Abnahme-Haken, Umzug nach Simple Arrows läuft separat unter ORES31-PFEIL) → QW
+- [x] LIVE32-ICON Simple Livemap Mod-Icon – A (erkundetes Land im Nebel) (schon gebaut: modules/simplelivemap/shared/resources/assets/simplelivemap/icon.png + icon_128.png) → QW
+- [x] FOUNDRY32-NAME Simple Foundry Block-Namen – A Hütte (schon gebaut: Lang block.simplefoundry.foundry_brick „Hüttenziegel“, foundry_desk „Hüttenpult“) → QW
+- [ ] FOUNDRY32-UI Simple Foundry Hüttenpult-Oberfläche – A (Plätze links, Schnitt Mitte, Stapel rechts) = Pult-Screen bauen (heute Rechtsklick + Chat); UI-Regeln: erst exemplarisch, Kontrast >= 4,5:1, echte Maus testen → PRIO
+- [~] (B, b-rohr02, 02.11.) ROHR33-UI Rohr-Fenster Umbau – Kompass-Anordnung (oben N, links W, rechts O, unten S, daneben Spalte Oben/Unten); 3 Zustände je Seite per Klick: Ausgang (hellrot) -> aus -> Eingang -> Ausgang; mehrere Ausgänge erlaubt (Round-Robin), Tooltip mit Zustand, echte Maus testen. Die Rohr-Varianten-Frage (ROHR33 Form/Pfeil/Muffe) bleibt OFFEN beim Besitzer → PRIO
+- [~] (B, b-boat02, 02.11.) BOAT40 Ofen-Boot – wie das Vanilla-Chest-Boat, nur mit Ofen statt Truhe (Modell, Item, Rezept analog; Optik damit beantwortet; Konzeptfragen mit Empfehlung angenommen) → PRIO
+- [~] (B, b-endsys01, 02.11.) MACH32-ENDSYS End-Systeme – Enderit-Teile nur verfügbar, wenn Enderit existiert (Simple Ores geladen); überall, wo Enderit optional ist, Simple Ores in fabric.mod.json als „recommends“ listen → PRIO
+- [~] (B, b-frost02, 02.11.) SNOW32-FROST Frostgras – Textur C (Bereift), aber GENAU wie Vanilla Snowy Grass aussehen (Anmerkung); Gerüst-Fortsetzung von b-snow32 → QW
+- [~] (B, b-frost02, 02.11.) MACH32-PUSH Eingefahrener Doppelkolben schiebbar wie Vanilla-Kolben – ja (wie Vanilla: eingefahren schiebbar, ausgefahren nicht) → QW
+- [~] (B, b-frost02, 02.11.) KESSEL32-DORF Kessel über Lagerfeuer – nur Gerüst bauen, Treppe egal (kein Seed/Dorf nötig) → QW
+- Weiter offen (nicht beantwortet, NICHT archiviert): blei, spiegel, optik, zfight, boar, truffle, daempfer, dkolben, abn32, ig3114, rohr33-Variante, qol33, farben, rel, TROMP-1/2. Beantwortet am 01.11. per Anmerkung (bleibt): MACH32-MOD, SNOW32-FALL.
+
 ## BESITZER-ABNAHME 01.11. (c) → umsetzen (b-abn01)
 Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken.
 - [x] (B, b-qw03, 01.11.) IG31-4 Text beim ersten Aufheben (First-Pickup-Tipps, simpleblocks.firstPickupTips / BlocksDiscover) – weg: Tipps entfernen; Idee als Eintrag in docs/ai/IDEEN-PHASE4.md (erst Phase 4 prüfen) → QW [Beleg: Generator tips=[] (tools/discover/discover.py), 14 DiscoverTipMixin + mixins.json + Lang tip.* entfernt, Handbuch first_pickup_tips -> recipe_book_unlocks; Idee in docs/ai/IDEEN-PHASE4.md; sbt gruen (Compile + Modul-Gametests 434/434); Gate/Client-Sicht steht aus]
