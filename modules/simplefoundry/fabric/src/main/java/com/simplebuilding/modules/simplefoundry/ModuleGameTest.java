@@ -40,4 +40,16 @@ public final class ModuleGameTest {
 
     @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
     public void gearAndTarget(GameTestHelper h) { FoundryTests.ALL.get("gear_and_target").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void fuelTank(GameTestHelper h) { FoundryTests.ALL.get("fuel_tank").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void fuelBurn(GameTestHelper h) { FoundryTests.ALL.get("fuel_burn").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void layerView(GameTestHelper h) { FoundryTests.ALL.get("layer_view").accept(h); }
+
+    @GameTest(structure = "simplefoundry:arena", maxTicks = 100)
+    public void windowSlots(GameTestHelper h) { FoundryTests.ALL.get("window_slots").accept(h); }
 }

@@ -8,6 +8,9 @@ import com.simplefoundry.Metal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
@@ -32,15 +36,17 @@ import org.jspecify.annotations.Nullable;
  */
 public class DeskBlock extends BaseEntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    /** Fuel gauge on the front: 0 empty to 4 full (owner 02.11.). */
+    public static final IntegerProperty FUEL = IntegerProperty.create("fuel", 0, 4);
 
     public DeskBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FUEL, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, FUEL);
     }
 
     @Override
@@ -72,6 +78,11 @@ public class DeskBlock extends BaseEntityBlock {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (!(level.getBlockEntity(pos) instanceof DeskBlockEntity desk)) return InteractionResult.PASS;
         int taken = fuel ? desk.addFuel(stack) : desk.insert(stack);
+        if (taken > 0 && fuel && stack.is(Items.LAVA_BUCKET)) {
+            // lava is the main fuel: the bucket pours into the tank and comes back empty
+            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.BUCKET)));
+            return InteractionResult.SUCCESS;
+        }
         if (taken > 0 && !player.hasInfiniteMaterials()) stack.shrink(taken);
         if (taken == 0) player.sendSystemMessage(Component.translatable(fuel ? "simplefoundry.desk.fuel_full" : "simplefoundry.desk.refused", status(desk)));
         return InteractionResult.SUCCESS;
@@ -89,16 +100,8 @@ public class DeskBlock extends BaseEntityBlock {
                 player.sendSystemMessage(Component.translatable("simplefoundry.desk.layer", layer + 1, metal == null ? Component.translatable("simplefoundry.desk.layer_empty") : Component.translatable("simplefoundry.metal." + metal.id)));
                 return InteractionResult.SUCCESS;
             }
-            player.sendSystemMessage(Component.translatable("simplefoundry.desk.status", status(desk)));
-            player.sendSystemMessage(Component.translatable("simplefoundry.desk.tier", desk.tier().slots));
-            for (Metal m : Metal.values()) {
-                int melt = desk.melt(m), waiting = desk.pending(m);
-                if (melt + waiting > 0) {
-                    player.sendSystemMessage(Component.translatable("simplefoundry.desk.metal", Component.translatable("simplefoundry.metal." + m.id), melt, waiting));
-                }
-            }
-            player.sendSystemMessage(Component.translatable("simplefoundry.desk.capacity", desk.used(), desk.capacity(), desk.burnTicks() / 20,
-                    desk.fuel().isEmpty() ? Component.translatable("simplefoundry.desk.no_fuel") : desk.fuel().getHoverName()));
+            // FOUNDRY32-UI = A: the desk window (slots left, section in the middle, stack right)
+            player.openMenu(new SimpleMenuProvider((id, inventory, p) -> new FoundryMenu(id, inventory, desk), Component.translatable("block.simplefoundry.foundry_desk")));
         }
         return InteractionResult.SUCCESS;
     }

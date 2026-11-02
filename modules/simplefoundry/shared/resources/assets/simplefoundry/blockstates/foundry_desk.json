@@ -1,18 +1,78 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,fuel=0": {
       "model": "simplefoundry:block/foundry_desk"
     },
-    "facing=east": {
+    "facing=east,fuel=0": {
       "model": "simplefoundry:block/foundry_desk",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,fuel=0": {
       "model": "simplefoundry:block/foundry_desk",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,fuel=0": {
       "model": "simplefoundry:block/foundry_desk",
+      "y": 270
+    },
+    "facing=north,fuel=1": {
+      "model": "simplefoundry:block/foundry_desk_f1"
+    },
+    "facing=east,fuel=1": {
+      "model": "simplefoundry:block/foundry_desk_f1",
+      "y": 90
+    },
+    "facing=south,fuel=1": {
+      "model": "simplefoundry:block/foundry_desk_f1",
+      "y": 180
+    },
+    "facing=west,fuel=1": {
+      "model": "simplefoundry:block/foundry_desk_f1",
+      "y": 270
+    },
+    "facing=north,fuel=2": {
+      "model": "simplefoundry:block/foundry_desk_f2"
+    },
+    "facing=east,fuel=2": {
+      "model": "simplefoundry:block/foundry_desk_f2",
+      "y": 90
+    },
+    "facing=south,fuel=2": {
+      "model": "simplefoundry:block/foundry_desk_f2",
+      "y": 180
+    },
+    "facing=west,fuel=2": {
+      "model": "simplefoundry:block/foundry_desk_f2",
+      "y": 270
+    },
+    "facing=north,fuel=3": {
+      "model": "simplefoundry:block/foundry_desk_f3"
+    },
+    "facing=east,fuel=3": {
+      "model": "simplefoundry:block/foundry_desk_f3",
+      "y": 90
+    },
+    "facing=south,fuel=3": {
+      "model": "simplefoundry:block/foundry_desk_f3",
+      "y": 180
+    },
+    "facing=west,fuel=3": {
+      "model": "simplefoundry:block/foundry_desk_f3",
+      "y": 270
+    },
+    "facing=north,fuel=4": {
+      "model": "simplefoundry:block/foundry_desk_f4"
+    },
+    "facing=east,fuel=4": {
+      "model": "simplefoundry:block/foundry_desk_f4",
+      "y": 90
+    },
+    "facing=south,fuel=4": {
+      "model": "simplefoundry:block/foundry_desk_f4",
+      "y": 180
+    },
+    "facing=west,fuel=4": {
+      "model": "simplefoundry:block/foundry_desk_f4",
       "y": 270
     }
   }

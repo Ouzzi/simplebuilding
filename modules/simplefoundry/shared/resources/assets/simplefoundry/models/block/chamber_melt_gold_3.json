@@ -1,0 +1,62 @@
+{
+  "textures": {
+    "melt": "simplefoundry:block/chamber_melt_gold",
+    "particle": "simplefoundry:block/melting_chamber"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.01,
+        11,
+        -0.01
+      ],
+      "to": [
+        16.01,
+        14,
+        16.01
+      ],
+      "faces": {
+        "north": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            2,
+            16,
+            5
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            2,
+            16,
+            5
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            2,
+            16,
+            5
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            2,
+            16,
+            5
+          ],
+          "cullface": "west"
+        }
+      }
+    }
+  ]
+}

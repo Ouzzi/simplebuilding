@@ -1,0 +1,62 @@
+{
+  "textures": {
+    "melt": "simplefoundry:block/chamber_melt_iron",
+    "particle": "simplefoundry:block/melting_chamber"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.01,
+        5,
+        -0.01
+      ],
+      "to": [
+        16.01,
+        8,
+        16.01
+      ],
+      "faces": {
+        "north": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            8,
+            16,
+            11
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            8,
+            16,
+            11
+          ],
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            8,
+            16,
+            11
+          ],
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#melt",
+          "uv": [
+            0,
+            8,
+            16,
+            11
+          ],
+          "cullface": "west"
+        }
+      }
+    }
+  ]
+}

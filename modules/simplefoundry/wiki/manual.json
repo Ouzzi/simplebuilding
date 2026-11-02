@@ -8,18 +8,24 @@
         "modules/simplefoundry/shared/java/com/simplefoundry/block/DeskBlockEntity.java",
         "modules/simplefoundry/shared/java/com/simplefoundry/block/DeskBlock.java",
         "modules/simplefoundry/shared/java/com/simplefoundry/Tier.java",
-        "modules/simplefoundry/shared/java/com/simplefoundry/Melts.java"
+        "modules/simplefoundry/shared/java/com/simplefoundry/Melts.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/block/FoundryMenu.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/block/ChamberBlock.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/client/FoundryScreen.java",
+        "modules/simplefoundry/shared/java/com/simplefoundry/Fuels.java"
       ],
       "en": {
         "title": "Foundry (multiblock)",
         "summary": "Build a tank of melting chambers inside a closed hull, light it with fuel on the desk, throw in ore and pour the melt by layer.",
         "details": [
           "Hull: every side of every melting chamber must touch another chamber, the foundry desk, a foundry brick, a fire grate, a spout or Vanilla glass (a window). Any shape works (L, cross, steps); at most 256 chambers (config, hard limit 512) and 32 blocks wide, in loaded chunks only. The desk checks it when you use it and every 5 seconds while the foundry works.",
-          "Desk: right click with fuel (coal, charcoal, logs; coal block, blaze rod, lava bucket burn hot) or with ore, raw metal, ingots, nuggets or blocks of gold, copper and iron. Empty hand shows the state. Iron needs hot fuel (coal block, blaze rod, lava bucket); gold and copper melt with any fuel. At least one fire grate must be part of the hull; it glows while the foundry burns.",
+          "Desk: right click with an empty hand opens the desk window (places on the left, the section of the tank in the middle, the stack of melts on the right). Right click with fuel or with ore, raw metal, ingots, nuggets or blocks of gold, copper and iron throws it in at once. Iron needs hot fuel (coal block, blaze rod, lava bucket); gold and copper melt with any fuel. At least one fire grate must be part of the hull; it glows while the foundry burns.",
+          "Fuel tank: the desk holds fuel as burn time (40 000 ticks). Pour in a lava bucket (main way, 20 000 ticks, hot; the empty bucket comes back) or coal (1 600 ticks each, medium heat), by right click or through the fuel slot of the window. The gauge on the desk front and in the window shows how full it is.",
           "Melting: ore, raw metal and ingots count nine units, nuggets one, blocks 81; the result is always the same amount of ingots (no ore bonus). One chamber holds 27 ingots.",
           "Layers and pouring: the melts lie by density, gold at the bottom, then copper, iron on top. A spout in the wall pours the layer that lies at its height, nine units at a time, into a casting tray in front of it (up to nine ingots of one metal). Place a spout with its back against a chamber wall. Empty hand on the tray takes the ingots once they have set.",
-          "Tiers: the desk has four tiers with 3, 6, 9 and 12 input slots. Right click the desk with an iron block (tier 2), then a diamond block (tier 3), then a netherite ingot (tier 4); each tier melts more units at once. Until the desk screen exists the slots show as parallel melt lanes.",
-          "Layer arrow: sneak with an empty hand on the desk to move the selected layer one down (from the bottom back to the top); the chat shows which metal lies there.",
+          "Windows: with glass in the hull you see the layers: the melts lie on top of each other in the melting chambers, gold at the bottom, then copper, then iron.",
+          "Tiers: the desk has four tiers with 3, 6, 9 and 12 places in the window. Right click the desk with an iron block (tier 2), then a diamond block (tier 3), then a netherite ingot (tier 4); each tier works more items at once. Locked places show a cross.",
+          "Layer arrow: the arrow under the section in the window (or sneak with an empty hand on the desk) moves the selected layer one down, from the bottom back to the top; a click on a level of the section selects it. The window names the metal that lies there.",
           "Gear: iron, golden and copper tools and armor melt down too, by their ingot cost and reduced by wear, so a melt never yields more than the piece cost. Pour targets: the casting tray; other mods may add targets (the reinforced cauldron of Simple Crucibles follows)."
         ]
       },
@@ -28,11 +34,13 @@
         "summary": "Baue einen Tank aus Schmelzkammern in einer geschlossenen Hülle, feuere am Pult an, wirf Erz ein und gieße die Schmelze nach Schicht.",
         "details": [
           "Hülle: Jede Seite jeder Schmelzkammer muss an eine weitere Kammer, das Hüttenpult, einen Hüttenziegel, einen Feuerrost, eine Gusstülle oder Vanilla-Glas (Fenster) grenzen. Jede Form geht (L, Kreuz, Stufen); höchstens 256 Kammern (Config, hart 512) und 32 Blöcke breit, nur in geladenen Chunks. Das Pult prüft beim Benutzen und alle 5 Sekunden, solange die Gießerei arbeitet.",
-          "Pult: Rechtsklick mit Brennstoff (Kohle, Holzkohle, Stämme; Kohleblock, Lohenrute, Lava-Eimer brennen heiß) oder mit Erz, Rohmetall, Barren, Klumpen oder Blöcken aus Gold, Kupfer und Eisen. Leere Hand zeigt den Zustand. Eisen braucht heißen Brennstoff (Kohleblock, Lohenrute, Lava-Eimer); Gold und Kupfer schmelzen mit jedem Brennstoff. Mindestens ein Feuerrost gehört zur Hülle; er glüht, solange die Gießerei brennt.",
+          "Pult: Rechtsklick mit leerer Hand öffnet das Pult-Fenster (Plätze links, Schnitt des Tanks in der Mitte, Stapel der Schmelzen rechts). Rechtsklick mit Brennstoff oder mit Erz, Rohmetall, Barren, Klumpen oder Blöcken aus Gold, Kupfer und Eisen wirft es sofort ein. Eisen braucht heißen Brennstoff (Kohleblock, Lohenrute, Lava-Eimer); Gold und Kupfer schmelzen mit jedem Brennstoff. Mindestens ein Feuerrost gehört zur Hülle; er glüht, solange die Gießerei brennt.",
+          "Brennstofftank: Das Pult speichert Brennstoff als Brenndauer (40 000 Ticks). Einen Lava-Eimer eingießen (Hauptweg, 20 000 Ticks, heiß; der leere Eimer kommt zurück) oder Kohle (je 1 600 Ticks, mittlere Hitze), per Rechtsklick oder über den Brennstoffplatz im Fenster. Die Anzeige an der Pultfront und im Fenster zeigt den Füllstand.",
           "Schmelzen: Erz, Rohmetall und Barren zählen neun Einheiten, Klumpen eine, Blöcke 81; heraus kommen immer gleich viele Barren (kein Erzbonus). Eine Kammer fasst 27 Barren.",
           "Schichten und Gießen: Die Schmelzen liegen nach Dichte, Gold unten, dann Kupfer, Eisen oben. Eine Gusstülle in der Wand gießt die Schicht, die auf ihrer Höhe liegt, je neun Einheiten in eine Gussschale vor ihr (bis zu neun Barren eines Metalls). Die Tülle mit dem Rücken an eine Kammerwand setzen. Leere Hand auf der Schale nimmt die Barren, sobald sie erstarrt sind.",
-          "Stufen: Das Pult hat vier Stufen mit 3, 6, 9 und 12 Eingabeplätzen. Rechtsklick mit einem Eisenblock (Stufe 2), dann Diamantblock (Stufe 3), dann Netherit-Barren (Stufe 4); jede Stufe schmilzt mehr Einheiten gleichzeitig. Bis das Pult-Fenster existiert, zeigen sich die Plätze als parallele Schmelzbahnen.",
-          "Schichtpfeil: Mit leerer Hand schleichend aufs Pult klicken schaltet die gewählte Schicht eine nach unten (von ganz unten zurück nach oben); der Chat nennt das Metall dort.",
+          "Fenster: Mit Glas in der Hülle siehst du die Schichten: Die Schmelzen liegen in den Schmelzkammern übereinander, Gold unten, dann Kupfer, dann Eisen.",
+          "Stufen: Das Pult hat vier Stufen mit 3, 6, 9 und 12 Plätzen im Fenster. Rechtsklick mit einem Eisenblock (Stufe 2), dann Diamantblock (Stufe 3), dann Netherit-Barren (Stufe 4); jede Stufe verarbeitet mehr Stücke gleichzeitig. Gesperrte Plätze zeigen ein Kreuz.",
+          "Schichtpfeil: Der Pfeil unter dem Schnitt im Fenster (oder schleichend mit leerer Hand aufs Pult) schaltet die gewählte Schicht eine nach unten, von ganz unten zurück nach oben; ein Klick auf eine Ebene im Schnitt wählt sie. Das Fenster nennt das Metall dort.",
           "Geräte: Eiserne, goldene und kupferne Werkzeuge und Rüstung schmelzen ebenfalls ein, nach ihren Barrenkosten und verringert durch Abnutzung, sodass eine Schmelze nie mehr bringt als das Stück kostet. Gussziele: die Gussschale; andere Mods können Ziele ergänzen (der verstärkte Kessel von Simple Crucibles folgt)."
         ]
       }

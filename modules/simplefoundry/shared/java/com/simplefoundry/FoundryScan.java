@@ -21,9 +21,9 @@ public final class FoundryScan {
     /** A spout on the hull: where it stands, the way it pours, and the tank level (0 = lowest chamber layer) it draws from. */
     public record Spout(BlockPos pos, Direction facing, int level) {}
 
-    public record Result(boolean valid, String reason, List<BlockPos> chambers, List<BlockPos> grates, List<Spout> spouts, int levels) {
+    public record Result(boolean valid, String reason, List<BlockPos> chambers, List<BlockPos> grates, List<Spout> spouts, int levels, int minY) {
         static Result fail(String reason) {
-            return new Result(false, reason, List.of(), List.of(), List.of(), 0);
+            return new Result(false, reason, List.of(), List.of(), List.of(), 0, 0);
         }
     }
 
@@ -80,7 +80,7 @@ public final class FoundryScan {
         for (BlockPos pos : spoutPos) {
             spouts.add(new Spout(pos, level.getBlockState(pos).getValue(SpoutBlock.FACING), Math.max(0, Math.min(maxY - minY, pos.getY() - minY))));
         }
-        return new Result(true, "ok", List.copyOf(chambers), List.copyOf(grates), spouts, maxY - minY + 1);
+        return new Result(true, "ok", List.copyOf(chambers), List.copyOf(grates), spouts, maxY - minY + 1, minY);
     }
 
     private static boolean isChamber(Level level, BlockPos pos) {
