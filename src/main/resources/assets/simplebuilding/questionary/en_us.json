@@ -1569,7 +1569,7 @@
       "{name}: A golden apple that went through the Nether and came back harder."
     ],
     "use": [
-      "Restores 8 hunger points and can always be eaten. Gives fire resistance (4 min), resistance (1 min), absorption (30 s) and regeneration (10 s). Craft: an apple ringed by 8 Netherite Nuggets."
+      "Restores 8 hunger points and can always be eaten. Gives Fire Resistance (4:00), Resistance I (1:00), Absorption II (0:30) and Regeneration II (0:10). Craft: an apple ringed by 8 Netherite Nuggets."
     ],
     "secret": [
       "It is fire resistant as an item, so a drop into lava does not destroy it."
@@ -1580,7 +1580,7 @@
       "{name}: An apple with the End's patience in its skin."
     ],
     "use": [
-      "Restores 14 hunger points and can always be eaten. Gives regeneration II (20 s), resistance and fire resistance (2.5 min each) and absorption IV (2 min). Craft: an apple ringed by 8 Enderite Nuggets."
+      "Restores 14 hunger points and can always be eaten. Gives Regeneration II (0:20), Resistance I (2:30), Fire Resistance (2:30), Absorption IV (2:00) and Health Boost III (2:00). Craft: an apple ringed by 8 Enderite Nuggets."
     ],
     "secret": [
       "Epic rarity, fire resistant and void-proof if dropped, like every Enderite item."
@@ -1591,7 +1591,7 @@
       "{name}: A netherite apple that was given a glow and kept it."
     ],
     "use": [
-      "Restores 8 hunger points. Gives regeneration II (40 s), resistance I and fire resistance (5 min each) and absorption IV (2 min, 8 extra hearts). Rare, with an enchantment glint."
+      "Restores 8 hunger points. Gives Regeneration II (0:40), Resistance I (5:00), Fire Resistance (5:00), Absorption IV (2:00) and Strength II (2:00). Rare, with an enchantment glint."
     ],
     "secret": [
       "Stronger than the plain netherite apple in every effect, and fire resistant as an item."
@@ -1602,7 +1602,7 @@
       "{name}: The End has only one fruit like it."
     ],
     "use": [
-      "Restores 14 hunger points. Gives regeneration III (60 s), resistance II (5 min), fire resistance (10 min) and absorption V (3 min, 10 extra hearts). Epic, with an enchantment glint."
+      "Restores 14 hunger points. Gives Regeneration III (1:00), Resistance II (5:00), Fire Resistance (10:00), Absorption V (3:00), Health Boost V (3:00) and Night Vision (5:00). Epic, with an enchantment glint."
     ],
     "secret": [
       "Its name contains \"enderite\", so it is under the void protection of the enderite tag: it will not fall out of the world."

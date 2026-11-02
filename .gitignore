@@ -257,6 +257,13 @@ mc26_3/overlay/resources/assets/simplebuilding/textures/item/reinforced_chest_ra
 mc26_3/overlay/resources/assets/simplebuilding/textures/item/reinforced_furnace_minecart.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/item/reinforced_hopper_minecart.png
 mc26_3/overlay/resources/assets/simplebuilding/textures/item/reinforced_shulker_shell.png
+src/main/resources/assets/simplebuilding/textures/item/netherite_apple.png
+src/main/resources/assets/simplebuilding/textures/item/enderite_apple.png
+src/main/resources/assets/simplebuilding/textures/item/netherite_apple.layers.json
+src/main/resources/assets/simplebuilding/textures/item/enderite_apple.layers.json
+wiki/assets/textures/item/netherite_apple.png
+wiki/assets/textures/item/enderite_apple.png
+tools/textures/hand/enderite_apple.png
 src/main/resources/assets/simplebuilding/textures/item/color_brush.png
 src/main/resources/assets/simplebuilding/textures/item/color_brush_tip.png
 src/main/resources/assets/simplebuilding/textures/item/color_brush_tip_palette.png

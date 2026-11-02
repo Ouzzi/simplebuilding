@@ -9,6 +9,7 @@ import java.util.function.Function;
 import com.simpleores.block.SilverMirrorBlock;
 import com.simpleores.block.LeadPlateBlock;
 import com.simpleores.entity.SilverArrow;
+import com.simpleores.item.FoodEffectsItem;
 import com.simpleores.item.SilverArrowItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -152,11 +153,11 @@ public final class OresRegistry {
             item(alloy.id + "_boots", p -> p.humanoidArmor(alloy.armor, ArmorType.BOOTS));
         }
         // IG31-41: the rose gold apples between the golden and the Netherite apple (numbers: OresFood).
-        item("rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ROSE_BRONZE_APPLE));
-        item("enchanted_rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ENCHANTED_ROSE_BRONZE_APPLE)
+        food("rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ROSE_BRONZE_APPLE));
+        food("enchanted_rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ENCHANTED_ROSE_BRONZE_APPLE)
                 .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
-        item("blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.BLOSSOM_GOLD_APPLE));
-        item("enchanted_blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.ENCHANTED_BLOSSOM_GOLD_APPLE)
+        food("blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.BLOSSOM_GOLD_APPLE));
+        food("enchanted_blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.ENCHANTED_BLOSSOM_GOLD_APPLE)
                 .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     }
 
@@ -197,6 +198,10 @@ public final class OresRegistry {
 
     private static void item(String path, Function<Item.Properties, Item.Properties> properties) {
         ITEMS.put(path, new Item(properties.apply(new Item.Properties()).setId(itemKey(path))));
+    }
+
+    private static void food(String path, Function<Item.Properties, Item.Properties> properties) {
+        ITEMS.put(path, new FoodEffectsItem(properties.apply(new Item.Properties()).setId(itemKey(path))));
     }
 
     public static Item item(String path) {

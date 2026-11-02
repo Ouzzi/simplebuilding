@@ -89,18 +89,18 @@
         "title": "Rose gold apples",
         "summary": "A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.",
         "details": [
-          "Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30. Blossom Gold apple: 6 hunger, Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30.",
-          "Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:25, Resistance I and Fire Resistance 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:32, the same and Strength I 1:00.",
-          "For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Fire Resistance 4:00, Resistance I 1:00. They appear in the Food and Drinks tab behind the enchanted golden apple."
+          "Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Blossom Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.",
+          "Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:30, Resistance I 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:35, the same. Like the enchanted golden apple, but no Fire Resistance. The tooltip lists every effect.",
+          "For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Fire Resistance 4:00, Resistance I 1:00 (it and the Enderite apple keep Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple."
         ]
       },
       "de": {
         "title": "Roségold-Äpfel",
         "summary": "Je Legierung ein normaler und ein verzauberter Apfel, zwischen Goldapfel und Netherit-Apfel. Immer essbar, ohne Abklingzeit.",
         "details": [
-          "Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30.",
-          "Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:25, Resistenz I und Feuerresistenz 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:32, dasselbe und Stärke I 1:00.",
-          "Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Feuerresistenz 4:00, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel."
+          "Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.",
+          "Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:30, Resistenz I 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel, aber ohne Feuerresistenz. Der Tooltip listet jeden Effekt.",
+          "Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Feuerresistenz 4:00, Resistenz I 1:00 (er und der Enderit-Apfel behalten die Feuerresistenz). Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel."
         ]
       }
     },
@@ -289,18 +289,6 @@
     }
   ],
   "notes": {
-    "simpleores:guide_book": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
-      ],
-      "en": {
-        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
-      },
-      "de": {
-        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
-      }
-    },
     "simpleores:silver_ore": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
@@ -911,10 +899,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Rose Bronze apple, a step between the golden and the Netherite apple: 5 hunger, always edible. Gives Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30. 8 rose bronze ingots round an apple."
+        "summary": "Rose Bronze apple, a step between the golden and the Netherite apple: 5 hunger, always edible. Gives Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. 8 rose bronze ingots round an apple."
       },
       "de": {
-        "summary": "Rosenbronze-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 5 Hunger, immer essbar. Gibt Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30. 8 Rosenbronzebarren um einen Apfel."
+        "summary": "Rosenbronze-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 5 Hunger, immer essbar. Gibt Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. 8 Rosenbronzebarren um einen Apfel."
       }
     },
     "simpleores:enchanted_rose_bronze_apple": {
@@ -922,10 +910,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Enchanted Rose Bronze apple (glint): 5 hunger, always edible. Gives Regeneration II 0:25, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. 8 blocks of rose bronze round an apple."
+        "summary": "Enchanted Rose Bronze apple (glint): 5 hunger, always edible. Gives Regeneration II 0:30, Resistance I 5:00, Absorption IV 2:00. 8 blocks of rose bronze round an apple."
       },
       "de": {
-        "summary": "Verzauberter Rosenbronze-Apfel (Schimmer): 5 Hunger, immer essbar. Gibt Regeneration II 0:25, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Rosenbronzeblöcke um einen Apfel."
+        "summary": "Verzauberter Rosenbronze-Apfel (Schimmer): 5 Hunger, immer essbar. Gibt Regeneration II 0:30, Resistenz I 5:00, Absorption IV 2:00. 8 Rosenbronzeblöcke um einen Apfel."
       }
     },
     "simpleores:blossom_gold_apple": {
@@ -933,10 +921,10 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Blossom Gold apple, a step between the golden and the Netherite apple: 6 hunger, always edible. Gives Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30. 8 blossom gold ingots round an apple."
+        "summary": "Blossom Gold apple, a step between the golden and the Netherite apple: 6 hunger, always edible. Gives Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. 8 blossom gold ingots round an apple."
       },
       "de": {
-        "summary": "Blütengold-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 6 Hunger, immer essbar. Gibt Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30. 8 Blütengoldbarren um einen Apfel."
+        "summary": "Blütengold-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 6 Hunger, immer essbar. Gibt Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. 8 Blütengoldbarren um einen Apfel."
       }
     },
     "simpleores:enchanted_blossom_gold_apple": {
@@ -944,10 +932,22 @@
         "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
       ],
       "en": {
-        "summary": "Enchanted Blossom Gold apple (glint): 6 hunger, always edible. Gives Regeneration II 0:32, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00, Strength I 1:00. 8 blocks of blossom gold round an apple."
+        "summary": "Enchanted Blossom Gold apple (glint): 6 hunger, always edible. Gives Regeneration II 0:35, Resistance I 5:00, Absorption IV 2:00. 8 blocks of blossom gold round an apple."
       },
       "de": {
-        "summary": "Verzauberter Blütengold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:32, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00, Stärke I 1:00. 8 Blütengoldblöcke um einen Apfel."
+        "summary": "Verzauberter Blütengold-Apfel (Schimmer): 6 Hunger, immer essbar. Gibt Regeneration II 0:35, Resistenz I 5:00, Absorption IV 2:00. 8 Blütengoldblöcke um einen Apfel."
+      }
+    },
+    "simpleores:guide_book": {
+      "sources": [
+        "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
+        "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
+      ],
+      "en": {
+        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+      },
+      "de": {
+        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
       }
     }
   }

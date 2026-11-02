@@ -1569,7 +1569,7 @@
       "{name}: Ein goldener Apfel, der durch den Nether ging und härter zurückkam."
     ],
     "use": [
-      "Stellt 8 Hungerpunkte her und lässt sich immer essen. Gibt Feuerresistenz (4 Min.), Resistenz (1 Min.), Absorption (30 s) und Regeneration (10 s). Herstellung: ein Apfel, umringt von 8 Netheritklumpen."
+      "Stellt 8 Hungerpunkte her und lässt sich immer essen. Gibt Feuerresistenz (4:00), Resistenz I (1:00), Absorption II (0:30) und Regeneration II (0:10). Herstellung: ein Apfel, umringt von 8 Netheritklumpen."
     ],
     "secret": [
       "Als Gegenstand ist er feuerfest, ein Sturz in Lava zerstört ihn also nicht."
@@ -1580,7 +1580,7 @@
       "{name}: Ein Apfel mit der Geduld des Endes in der Schale."
     ],
     "use": [
-      "Stellt 14 Hungerpunkte her und lässt sich immer essen. Gibt Regeneration II (20 s), Resistenz und Feuerresistenz (je 2,5 Min.) und Absorption IV (2 Min.). Herstellung: ein Apfel, umringt von 8 Enderitklumpen."
+      "Stellt 14 Hungerpunkte her und lässt sich immer essen. Gibt Regeneration II (0:20), Resistenz I (2:30), Feuerresistenz (2:30), Absorption IV (2:00) und Extraenergie III (2:00). Herstellung: ein Apfel, umringt von 8 Enderitklumpen."
     ],
     "secret": [
       "Seltenheit episch, feuerfest und leeresicher beim Fallenlassen, wie jeder Enderit-Gegenstand."
@@ -1591,7 +1591,7 @@
       "{name}: Ein Netherit-Apfel, dem man einen Schimmer gab und der ihn behielt."
     ],
     "use": [
-      "Stellt 8 Hungerpunkte her. Gibt Regeneration II (40 s), Resistenz I und Feuerresistenz (je 5 Min.) und Absorption IV (2 Min., 8 Extraherzen). Selten, mit Verzauberungsschimmer."
+      "Stellt 8 Hungerpunkte her. Gibt Regeneration II (0:40), Resistenz I (5:00), Feuerresistenz (5:00), Absorption IV (2:00) und Stärke II (2:00). Selten, mit Verzauberungsschimmer."
     ],
     "secret": [
       "In jedem Effekt stärker als der einfache Netherit-Apfel, und als Gegenstand feuerfest."
@@ -1602,7 +1602,7 @@
       "{name}: Das Ende kennt nur diese eine Frucht."
     ],
     "use": [
-      "Stellt 14 Hungerpunkte her. Gibt Regeneration III (60 s), Resistenz II (5 Min.), Feuerresistenz (10 Min.) und Absorption V (3 Min., 10 Extraherzen). Episch, mit Verzauberungsschimmer."
+      "Stellt 14 Hungerpunkte her. Gibt Regeneration III (1:00), Resistenz II (5:00), Feuerresistenz (10:00), Absorption V (3:00), Extraenergie V (3:00) und Nachtsicht (5:00). Episch, mit Verzauberungsschimmer."
     ],
     "secret": [
       "Sein Name enthält „enderite“, es steht also unter dem Leere-Schutz des Enderit-Tags: Es fällt nicht aus der Welt."

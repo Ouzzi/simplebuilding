@@ -63,6 +63,7 @@
   "item.simpleores.enderite_upgrade_template.base_slot_description": "Ausrüstung oder Block zum Aufwerten hinzufügen",
   "item.simpleores.enderite_upgrade_template.additions_slot_description": "Das im Rezept benötigte Material hinzufügen",
   "simpleores.testcentre.station": "Simple Ores",
+  "tooltip.simpleores.when_eaten": "Beim Verzehr:",
   "entity.simpleores.silver_arrow": "Silberpfeil",
   "text.autoconfig.simpleores.title": "Simple Ores",
   "text.autoconfig.simpleores.category.general": "Allgemein",
