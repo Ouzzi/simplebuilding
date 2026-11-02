@@ -400,6 +400,7 @@ final class RareFindsTests {
                 {StorageItems.ENDERITE_SHULKER_SHELL, Refs.shulkerBox("enderite")}};
         Item copperChest = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("exposed_copper_chest"));
         for (Item[] c : cases) {
+            if (c[0] == StorageItems.ENDERITE_SHULKER_SHELL && !Refs.enderite()) continue; // MACH32-ENDSYS: only with Simple Ores
             CraftingInput grid = CraftingInput.of(3, 1, List.of(new ItemStack(Items.SHULKER_SHELL), new ItemStack(copperChest), new ItemStack(c[0])));
             Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level);
             helper.assertTrue(match.isPresent(), "no recipe for " + c[0]);
