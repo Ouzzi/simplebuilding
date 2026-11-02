@@ -10,6 +10,8 @@ dependencies { jarJar project(':framework') }
 // SimpleLib (IdMoves migration, in-world upgrades and their axe way, shared materials) nested per principle 6a; compiled against.
 evaluationDependsOn(':modules:simplelib:neoforge')
 dependencies { jarJar project(':modules:simplelib:neoforge'); implementation project(':modules:simplelib:neoforge') }
+// IG31-15 (B): Simple Crucibles is an optional Sub-Mod of Simple Ovens, nested on every loader.
+dependencies { jarJar project(':modules:simplecrucibles:neoforge') }
 
 neoForge.runs {
     moduleIntegrationGameTest {

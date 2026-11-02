@@ -3501,7 +3501,7 @@
         "forge": ":modules:simplecrucibles:forge"
       },
       "parent": "simpleovens",
-      "bundle": "required"
+      "bundle": "optional"
     },
     {
       "id": "simpleoctets",
