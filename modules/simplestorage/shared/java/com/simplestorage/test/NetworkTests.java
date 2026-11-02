@@ -153,7 +153,8 @@ public final class NetworkTests {
         for (String id : List.of("copper_cable", "chest_interface", "wooden_controller_chest", "reinforced_controller_chest", "netherite_controller_chest",
                 "enderite_controller_chest")) {
             if (!BuiltInRegistries.ITEM.containsKey(SimpleStorage.id(id))) problems.add("no item " + id);
-            if (h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(id))).isEmpty()) problems.add("no recipe " + id);
+            if (h.getLevel().getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, SimpleStorage.id(id))).isEmpty()
+                    == (!id.contains("enderite") || com.simplelib.api.SimpleLibApi.materialPresent("enderite"))) problems.add("recipe state " + id); // MACH32-ENDSYS: Enderite recipes only with Simple Ores
         }
         if (StorageMenus.CONTROLLER == null) problems.add("controller menu type");
         if (ControllerLevel.rankOf(Blocks.CHEST) != 0 || ControllerLevel.rankOf(block("reinforced_chest")) != 1

@@ -400,6 +400,7 @@ final class RareFindsTests {
                 {StorageItems.ENDERITE_SHULKER_SHELL, Refs.shulkerBox("enderite")}};
         Item copperChest = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("exposed_copper_chest"));
         for (Item[] c : cases) {
+            if (c[0] == StorageItems.ENDERITE_SHULKER_SHELL && !Refs.enderite()) continue; // MACH32-ENDSYS: only with Simple Ores
             CraftingInput grid = CraftingInput.of(3, 1, List.of(new ItemStack(Items.SHULKER_SHELL), new ItemStack(copperChest), new ItemStack(c[0])));
             Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level);
             helper.assertTrue(match.isPresent(), "no recipe for " + c[0]);
@@ -445,7 +446,9 @@ final class RareFindsTests {
         if (new ItemStack(StorageItems.ENDERITE_SHULKER_SHELL).get(DataComponents.RARITY) != Rarity.EPIC) problems.add("enderite shell rarity");
         var manager = h.getLevel().getServer().getRecipeManager();
         for (String path : SimpleStorage.MOVED_SHELL_RECIPES) {
-            if (manager.byKey(net.minecraft.resources.ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty()) problems.add("recipe " + path);
+            // MACH32-ENDSYS: the Enderite recipe exists exactly with Simple Ores.
+            boolean expected = !path.contains("enderite") || com.simplelib.api.SimpleLibApi.materialPresent("enderite");
+            if (manager.byKey(net.minecraft.resources.ResourceKey.create(Registries.RECIPE, SimpleStorage.id(path))).isEmpty() == expected) problems.add("recipe state " + path);
         }
         var tab = com.simplestorage.registry.StorageRegistry.tabStacks();
         for (Item shell : ShulkerShells.tierShells()) {

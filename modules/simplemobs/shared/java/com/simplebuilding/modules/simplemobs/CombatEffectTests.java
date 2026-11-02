@@ -45,6 +45,64 @@ final class CombatEffectTests {
                 h.assertTrue(BuiltInRegistries.MOB_EFFECT.containsKey(key.identifier()), "effect " + key.identifier());
             h.succeed();
         });
+        add.accept("fx_registered", h -> {
+            for (var key : java.util.List.of(CombatEffects.LEECH_KEY, CombatEffects.FROSTBITE_KEY, CombatEffects.MAGNETIC_KEY, CombatEffects.TRACER_KEY, CombatEffects.DECAY_KEY))
+                h.assertTrue(BuiltInRegistries.MOB_EFFECT.containsKey(key.identifier()), "effect " + key.identifier());
+            close(h, CombatEffects.leechFraction(0), 0.05, "leech I");
+            close(h, CombatEffects.leechFraction(9), 0.25, "leech capped at 25 %");
+            h.assertTrue(CombatEffects.frostbiteSlowAmplifier(1) == 0 && CombatEffects.frostbiteSlowAmplifier(2) == 1, "frostbite slowness I/II");
+            h.assertTrue(CombatEffects.decayTicks(0, true) == CombatEffects.decayTicks(0, false) / 2, "decay halves on undead");
+            close(h, CombatEffects.magnetRadius(0), 3.0, "magnetic I");
+            close(h, CombatEffects.magnetRadius(9), 12.0, "magnetic capped");
+            h.succeed();
+        });
+        add.accept("fx_leech", h -> {
+            var striker = cow(h, 1, 1);
+            striker.setHealth(50.0f);
+            striker.addEffect(new MobEffectInstance(CombatEffects.leech(), 600, 3));   // level IV: 20 %
+            var victim = cow(h, 5, 5);
+            hit(h, victim, striker, 10f);
+            close(h, striker.getHealth(), 52.0, "the striker heals 20 % of the damage");
+            h.succeed();
+        });
+        add.accept("fx_frostbite_tracer", h -> {
+            var striker = cow(h, 1, 1);
+            striker.addEffect(new MobEffectInstance(CombatEffects.frostbite(), 600, 0));
+            striker.addEffect(new MobEffectInstance(CombatEffects.tracer(), 600, 0));
+            var victim = cow(h, 5, 5);
+            hit(h, victim, striker, 2f);
+            h.assertTrue(victim.getTicksFrozen() >= CombatEffects.FROSTBITE_TICKS, "the target is frozen");
+            h.assertTrue(victim.hasEffect(net.minecraft.world.effect.MobEffects.SLOWNESS), "slowness");
+            h.assertTrue(victim.hasEffect(net.minecraft.world.effect.MobEffects.GLOWING), "tracer: the target glows");
+            h.succeed();
+        });
+        add.accept("fx_decay", h -> {
+            var striker = cow(h, 1, 1);
+            striker.addEffect(new MobEffectInstance(CombatEffects.decay(), 600, 0));
+            var victim = cow(h, 5, 5);
+            hit(h, victim, striker, 2f);
+            h.assertTrue(victim.hasEffect(net.minecraft.world.effect.MobEffects.POISON), "living target is poisoned");
+            var zombie = h.spawn(EntityTypes.ZOMBIE, 8, 2, 8);
+            zombie.setNoAi(true);
+            hit(h, zombie, striker, 1f);
+            h.assertTrue(zombie.hasEffect(net.minecraft.world.effect.MobEffects.WITHER), "undead target withers");
+            h.succeed();
+        });
+        add.accept("fx_magnetic", h -> {
+            var bearer = cow(h, 2, 2);
+            bearer.addEffect(new MobEffectInstance(CombatEffects.magnetic(), 600, 0));
+            var near = h.spawnItem(net.minecraft.world.item.Items.STICK, 4.5f, 2.0f, 2.5f);
+            near.setPickUpDelay(0);
+            var far = h.spawnItem(net.minecraft.world.item.Items.STICK, 9.5f, 2.0f, 2.5f);   // outside the level I radius (3)
+            far.setPickUpDelay(0);
+            near.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+            far.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+            h.assertTrue(CombatEffects.MAGNETIC.applyEffectTick(h.getLevel(), bearer, 0), "the effect keeps ticking");
+            var toBearer = bearer.position().subtract(near.position()).normalize();
+            h.assertTrue(near.getDeltaMovement().dot(toBearer) > 0.05, "the item near the bearer is pulled towards it");
+            h.assertTrue(far.getDeltaMovement().lengthSqr() < 1.0E-6, "an item outside the radius is left alone");
+            h.succeed();
+        });
         add.accept("combat_potions", h -> {
             for (String effect : java.util.List.of("volatile", "deflection", "mirror")) {
                 for (String id : CombatEffects.potionIds(effect)) {

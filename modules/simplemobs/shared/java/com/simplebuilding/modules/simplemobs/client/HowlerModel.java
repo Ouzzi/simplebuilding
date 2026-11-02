@@ -105,6 +105,15 @@ public class HowlerModel extends EntityModel<HowlerRenderState> {
             // wall hit: thrown back, springing forward again over 4 ticks
             this.body.xRot -= 0.4F * (1.0F - state.staggerAge / 4.0F);
         }
+        if (state.flinch > 0.0F) {
+            // hit flinch: chest rocks back, the head snaps up and sideways, the arms swing out; recovers over the hurt time
+            this.body.xRot -= state.flinch * 0.22F;
+            this.neck.xRot -= state.flinch * 0.3F;
+            this.neck.yRot += state.flinch * 0.12F * Mth.sin(seed);
+            this.rightArm.zRot += state.flinch * 0.35F;
+            this.leftArm.zRot -= state.flinch * 0.35F;
+            this.jaw.xRot += state.flinch * 0.25F;
+        }
         if (state.emerge < 1.0F) {
             float under = 1.0F - state.emerge;
             this.root().y += under * 40.0F;

@@ -284,6 +284,42 @@ Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP)
 - [ ] ABN29-7 Schwingen: Feder-Look A gut; Knochenschwingen (B) als gerenderte Live-Vorschau (3D, getragen am Spieler) zeigen, nicht nur Textur. (Status 01.11.: offen – Knochenschwingen (B) als gerenderte Live-Vorschau fehlt)
 - [x] ABN29-8 Bereits früher beantwortet (nicht erneut fragen!): Display-Tönung C „beide sanft“, inverser Besatz (3 Stufen WA24-1), Butter-Teppich (WA24-3), Köcher (WA24-4), Nether-Juwel-Animation (wie jetzt im Spiel). Abnahme-Seiten vorher gegen Queue/Memory abgleichen. (Status 01.11.: prod – keine Code-Spur (Konzept/Vorschau))
 
+## BESITZER-ABNAHME 02.11. (Teil 2) → umsetzen (b-abn02)
+Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md (Vorgehen). Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken. Archiv: ORES32-PFEIL, KESSEL32-DORF, MACH32-PUSH, SNOW32-FROST, FOUNDRY32-UI/-NAME, LIVE32-ICON, MACH32-ENDSYS, BOAT40, ROHR33-UI.
+- [x] ORES32-PFEIL Silberpfeil Optik – A (helle Silberspitze) (schon gebaut: Variante A „gebaut“ in der Abnahme, silver_arrow in OresRegistry; nur Abnahme-Haken, Umzug nach Simple Arrows läuft separat unter ORES31-PFEIL) → QW
+- [x] LIVE32-ICON Simple Livemap Mod-Icon – A (erkundetes Land im Nebel) (schon gebaut: modules/simplelivemap/shared/resources/assets/simplelivemap/icon.png + icon_128.png) → QW
+- [x] FOUNDRY32-NAME Simple Foundry Block-Namen – A Hütte (schon gebaut: Lang block.simplefoundry.foundry_brick „Hüttenziegel“, foundry_desk „Hüttenpult“) → QW
+- [ ] FOUNDRY32-UI Simple Foundry Hüttenpult-Oberfläche – A (Plätze links, Schnitt Mitte, Stapel rechts) = Pult-Screen bauen (heute Rechtsklick + Chat); UI-Regeln: erst exemplarisch, Kontrast >= 4,5:1, echte Maus testen → PRIO
+- [~] (B, b-rohr02, 02.11.) ROHR33-UI Rohr-Fenster Umbau – Kompass-Anordnung (oben N, links W, rechts O, unten S, daneben Spalte Oben/Unten); 3 Zustände je Seite per Klick: Ausgang (hellrot) -> aus -> Eingang -> Ausgang; mehrere Ausgänge erlaubt (Round-Robin), Tooltip mit Zustand, echte Maus testen. Die Rohr-Varianten-Frage (ROHR33 Form/Pfeil/Muffe) bleibt OFFEN beim Besitzer → PRIO
+- [~] (B, b-boat02, 02.11.) BOAT40 Ofen-Boot – wie das Vanilla-Chest-Boat, nur mit Ofen statt Truhe (Modell, Item, Rezept analog; Optik damit beantwortet; Konzeptfragen mit Empfehlung angenommen) → PRIO
+- [~] (B, b-endsys01, 02.11.) MACH32-ENDSYS End-Systeme – Enderit-Teile nur verfügbar, wenn Enderit existiert (Simple Ores geladen); überall, wo Enderit optional ist, Simple Ores in fabric.mod.json als „recommends“ listen → PRIO
+- [~] (B, b-frost02, 02.11.) SNOW32-FROST Frostgras – Textur C (Bereift), aber GENAU wie Vanilla Snowy Grass aussehen (Anmerkung); Gerüst-Fortsetzung von b-snow32 → QW
+- [~] (B, b-frost02, 02.11.) MACH32-PUSH Eingefahrener Doppelkolben schiebbar wie Vanilla-Kolben – ja (wie Vanilla: eingefahren schiebbar, ausgefahren nicht) → QW
+- [~] (B, b-frost02, 02.11.) KESSEL32-DORF Kessel über Lagerfeuer – nur Gerüst bauen, Treppe egal (kein Seed/Dorf nötig) → QW
+- Weiter offen (nicht beantwortet, NICHT archiviert): blei, spiegel, optik, zfight, boar, truffle, daempfer, dkolben, abn32, ig3114, rohr33-Variante, qol33, farben, rel, TROMP-1/2. Beantwortet am 01.11. per Anmerkung (bleibt): MACH32-MOD, SNOW32-FALL.
+
+## BESITZER-ABNAHME 02.11. (Teil 3) → umsetzen (b-abn03)
+Quelle: /root/b-antworten-20261102b.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md (Vorgehen). Grundregel Besitzer: ohne Einwand = abgenommen. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken. Archiv (archiv.json 02.11.): IG3114, QOL33-TEILE, ORES32-BLEI, ORES01, ORES32-SPIEGEL, MACH32-DAEMPFER, MACH32-KOLBEN, ABN32, OPTIK32, FARBEN32, APPLE41, SPAWN01, HEADS39.
+- [~] (B, b-apple02, 02.11.) APPLE41 Äpfel – Rosenbronze/Blütengold/Netherit/Enderit keine Feuerresistenz; Rosenbronze Resistenz I 30 s; Blütengold Resistenz I 50 s; verzauberter Rosenbronze Regeneration II 30 s (statt 25); verzauberter Blütengold Regeneration II 35 s; Rest wie Vanilla-Gold-/Zauberapfel (Absorption, Resistenz, Feuerresistenz analog); verzauberter Netherit- und Enderit-Apfel Effekte vollständig prüfen, Tooltip/JEI/Wiki zeigen alle; Texturen reine Umfärbung von Vanilla-Apfel/Goldapfel → PRIO
+- [~] (B, b-tex03, 02.11.) ORES32-BLEI/ORES01 Blei – Bleiblock Karo leise (B), weniger Glanz oben links bei allen; Blei Blau-Grau; Rohblei-Item im Kieselhaufen-Stil, Rohbleiblock ebenfalls → PRIO
+- [~] (B, b-tex03, 02.11.) SPAWN01 Spawner-Fragment/-Brocken – Aussehen eisenartig/Vanilla-nah, etwas kleiner; Inspiration aus anderen Mods → PRIO
+- [~] (B, b-music03, 02.11.) IG3114-PLATTEN Schallplatten Vanilla-Form – Ember Forge (mittlerer Ring), Ant(?) Departure, Fortress Marsh überarbeiten; Obsidian Throne/Skyforge verbessern; Deep Pulse, Etikett, Composed bleiben; Rolling Variante C → PRIO
+- [~] (B, b-music03, 02.11.) IG3114-NOTEN Notenblatt – Hintergrundlinien Vanilla-artiger/weicher; Taschen-Jukebox beim jetzigen Aussehen, nur behutsam überarbeiten → QW
+- [~] (B, b-music03, 02.11.) IG3114-DAEMMER Dämmerholz-Stamm Ist-Zustand behalten (Rindenunregelmäßigkeit + Lila Stirnmitte), nur weniger hart; Schilder Variante B + Lila in den Hängeschildern → PRIO
+- [~] (B, b-music03, 02.11.) IG3114-BESATZ Inverser Besatz Variante A (1 px Übergang dunkellila Außenlinie; Stufe 2 Trim 1 px dicker, teils silber; Stufe 3 meist silber; Coast/Amethyst Farben invertiert prüfen/korrigieren) → PRIO
+- [~] (B, b-mech03, 02.11.) MACH32-DAEMPFER Signaldämpfer schiebbar wie ein Kolben-Block, KEIN Hebel → PRIO
+- [~] (B, b-mech03, 02.11.) MACH32-KOLBEN Doppelkolben Fugenpaar A; ORES32-SPIEGEL Silberspiegel Variante A (Haken, gebaut) → QW
+- [~] (B, b-mech03, 02.11.) OPTIK32-PFERDE Zebra/Zorse Variante B kompakt; Krebs Beine kaputt (links oben/rechts unten) – beide Seiten nach unten fixen → QW
+- [x] FARBEN32 Fellfarben je Biom – vorerst ok, später Upgrade (Abnahme-Haken) → QW
+- [x] HEADS39 Mob-Köpfe-Tab – abgenommen bis Spielprüfung durch Besitzer (Beleg: b-heads39) → QW
+- [x] QOL33 (Trichter, Keypicker inkl. Collapsibles) abgenommen; Free Look noch NICHT getestet, bleibt offen (IG31-29) → PRIO
+- [~] (B, b-rohr02, 02.11.) ROHR33 Verengung zum Ziel größer als jetzt, aber kleiner als das Rohr; UI-Wünsche aus Teil 2 (Kompass, 3 Zustände) gelten → PRIO
+- [~] (B, b-foundry03, 02.11.) FOUNDRY32 Rohstoffe übereinander gestapelt wie Variante A; Füllstand des Brennstofftanks sichtbar; nachfüllbar mit Kohle oder Lava (Lava Hauptweg); Endkonzept kommt noch vom Besitzer → PRIO
+- [x] BOAT40 Ofen-Boot: Optik beantwortet (bereits unter Teil 2, b-boat02)
+- [x] IDEEN-PHASE4 „Geteilter Klumpen“ (anderes Erz) und „Fladen C“ vorgemerkt (docs/ai/IDEEN-PHASE4.md)
+- [x] TROMP-HOERPROBE Hörproben der Trompeten-Seite repariert: fetch(data:)-Dekodierung durch atob ersetzt, init einmalig, resume(); headless geprüft (7 Töne dekodiert, Start/Stop). TROMP-1/-2 bleiben offen bis zur Hörabnahme → QW
+- Weiter offen: Free Look, TROMP-1/2, Foundry-Endkonzept, ROHR33-Variante.
+
 ## BESITZER-ABNAHME 01.11. (c) → umsetzen (b-abn01)
 Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken.
 - [x] (B, b-qw03, 01.11.) IG31-4 Text beim ersten Aufheben (First-Pickup-Tipps, simpleblocks.firstPickupTips / BlocksDiscover) – weg: Tipps entfernen; Idee als Eintrag in docs/ai/IDEEN-PHASE4.md (erst Phase 4 prüfen) → QW [Beleg: Generator tips=[] (tools/discover/discover.py), 14 DiscoverTipMixin + mixins.json + Lang tip.* entfernt, Handbuch first_pickup_tips -> recipe_book_unlocks; Idee in docs/ai/IDEEN-PHASE4.md; sbt gruen (Compile + Modul-Gametests 434/434); Gate/Client-Sicht steht aus]
@@ -330,7 +366,7 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [~] (B, b-machines01, 01.11.; Stufe 1 gebaut: Modul modules/simplemachines (Fabric 26.3, Pflicht-Sub-Mod SB) mit Doppelkolben + Signaldämpfer, IdMoves simplebuilding:/simpleredstone: → simplemachines:, eigene Config simplemachines-server.json; offen Stufen 2–5 (Kolben-Upgrades, Trichter, Auto-Schmied, End-Systeme) laut docs/ai/PLAN-B-MACHINES01-2026-11-01.md, Rückfrage MACH32-ENDSYS) MACH32-MOD Sub-Mod Simple Machines – mod: alle Blöcke aus dem Tab Simple Machines (Kolben-Upgrades, Doppelkolben, Dämpfer ...) ins Sub-Mod Simple Machines → PRIO
 - [ ] SNOW32-FALL Schneefall verschneit Pflanzen/Zäune – ja: bei Schneefall genau EINE Schneeschicht oben drauf, auch auf Zäunen usw., abbaubar (weiße Textur oben, wegmachbar) → PRIO
 - [ ] ZFIGHT32 Flackerndes Item (Z-Fighting) – einige noch; Besitzer listet sie spätestens in Phase 2 auf → PRIO
-- [ ] TROMP-3 Trompete: Samples über 2 Oktaven – zwei Samples (tief/hoch) → PRIO
+- [~] (B, b-mobfx02, 02.11.) TROMP-3 Trompete: Samples über 2 Oktaven – zwei Samples (tief/hoch) [Entscheidung festgehalten (docs/ai/PLAN-B-MOBFX02-2026-11-02.md): Die Trompete ist noch gar nicht gebaut (nur Konzept WP-18 §4), Klang TROMP-1/-2 unbeantwortet -> Bau mit zwei Samples erst nach TROMP-1/-2; keine Audiodatei erzeugt] → PRIO
 - [x] BE-2 Evil-Effektliste (Leuchtfeuer) – ok (nur Abnahme-Haken, nichts zu bauen) → PRIO
 - [ ] Loot Boss-Tresor Loot-Menge – wie gezeigt → PRIO
 - [ ] Lauf Leerenläufer Untervariante – A1 Fechter, Klingenarme → PRIO
@@ -356,11 +392,11 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [~] (B, b-zones02, 01.11.) ZO8 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Schutz VI weglassen – A (Schutz VI weglassen) – gebaut (kein VI) (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
 - [~] (B, b-zones02, 01.11.) ZO9 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Besatz-Fähigkeiten nach Simple Mobs (Pflicht-Sub-Mod) – A (Besatz-Fähigkeiten nach Simple Mobs (Pflicht-Sub-Mod)) – TEIL: Simple Mobs + Resonance Pflicht-Sub-Mods von SB, physischer Umzug der Besatz-Klassen offen (MOB27-3 Rest) (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
 - [~] (B, b-zones02, 01.11.) ZO10 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Spieler-Tränke erst nach Stufe Z2 – A (Spieler-Tränke erst nach Stufe Z2: ja) – gebaut: 9 Tränke Explosiv/Abwehr/Spiegel + Datenrezepte (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
-- [ ] FX-1 Simple Mobs: weitere Effekte – schwach: nur die fünf schwachen (Blutsauger, Frostbiss, Magnetisch, Leuchtspur, Zerfall) → PRIO
+- [x] (B, b-mobfx02, 02.11.) FX-1 Simple Mobs: weitere Effekte – schwach: nur die fünf schwachen [Beleg: CombatEffects leech/frostbite/magnetic/tracer/decay (Hook strike + Tick-Effekt), Icons tools/textures/mobfx02_icons.py, Lang EN/DE, Handbuch combat_effects, Tests fx_registered/fx_leech/fx_frostbite_tracer/fx_decay/fx_magnetic; offen Client-Sicht (Icons), Tränke nicht gebaut] → PRIO
 - [x] (B, b-qw03, 01.11.) FX-2 Volatile-Icon – A Explosionsstern → QW [Beleg: schon gebaut: textures/mob_effect/volatile.png ist der Explosionsstern (A); nur Haken; sbt gruen (Compile + Modul-Gametests 434/434); Gate/Client-Sicht steht aus]
 - [x] (B, b-qw03, 01.11.) HOW-1 Hollow Howler: Klang je Ereignis – empf: Empfehlung übernehmen (ElevenLabs-Kandidaten gemäß Seite howler23-preview) → QW [Beleg: schon gebaut: tools/sounds/howler_sounds.json Modus eleven (Standard) mit ambient_3, roar_1, rage_1, hurt_2, death_2 (a-sound24); nur Haken; sbt gruen (Compile + Modul-Gametests 434/434); Gate/Client-Sicht steht aus]
-- [ ] HOW-2 Hollow Howler: leuchtendes Herz – A Hinter den Rippen → PRIO
-- [ ] HOW-3 Hollow Howler: Visual- und Animationsteil – ja: starten, zuerst nur der Howler mit Vorschau → PRIO
+- [x] (B, b-mobfx02, 02.11.) HOW-2 Hollow Howler: leuchtendes Herz – A Hinter den Rippen [Beleg: hollow_howler_heart.png + .layers.json aus tools/textures/tex24_ice_heart_2026_10_24.py Variante A; offen Client-Sicht] → PRIO
+- [x] (B, b-mobfx02, 02.11.) HOW-3 Hollow Howler: Visual- und Animationsteil – ja: starten, zuerst nur der Howler [Beleg: Phase 2 V1-V9 schon in claude-howler-n63; neu Hit-Flinch (HowlerRenderState.flinch, HowlerModel); offen Client-Abnahme der Bewegung, danach andere Mobs (KONZEPT-MOB-ANIMATIONEN)] → PRIO
 - [x] ST-10 Mod-Icons (16x16) aller 47 Module – ok, alle abgenommen (nur Abnahme-Haken, nichts zu bauen) → QW
 - [x] ST-13 Mod-ID Simple Dimensions – behalten (Ausnahme dokumentiert, simpledimension) (nur Abnahme-Haken, nichts zu bauen) → QW
 - [x] (B, b-qw03, 01.11.) VW Alte Verwaist-Ideen (VW-1 Offline-Testlauf, VW-2 Tweaks-Ideenliste, VW-3 Tragezeit) – alle verwerfen → QW [Beleg: verworfen laut Besitzer (alle drei); nichts zu bauen; sbt gruen (Compile + Modul-Gametests 434/434); Gate/Client-Sicht steht aus]
@@ -973,3 +1009,4 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [~] (B, b-apple41, 01.11.) IG31-41 Roségold-Äpfel: Rosenbronze-/Blütengold-Apfel + je verzauberte Version in Simple Ores (OresFood, Werte-Tabelle in docs/ai/PLAN-B-APPLE41-2026-11-01.md), Rezepte 8 Barren/8 Blöcke um Apfel, Tab Essen & Trinken, Guide-Seite, Tests apples_eat_effects/apple_recipes. Textur = umgefärbter Vanilla-Goldapfel (gebaut), Vorschau /root/sb-tools-b/previews/b-apple41-preview.html (Code `APPLE41|rose=A|bloom=A`). Offen: Texturwahl, Client-Sicht, Bündel/Gate.
 - [~] (B, b-boat40, 01.11.) **IG31-40 Ofen-Boot:** Konzept + Vorschau fertig (`docs/ai/PLAN-B-BOAT40-2026-11-01.md`, `/root/sb-tools-b/previews/b-boat40-preview.html`); offen Besitzer-Wahl (Antwortcode BOAT40|...), dann Einbau in Simple Ovens.
 - [~] (B, b-boat02, 02.11.) BOAT40 Ofen-Boot in Simple Ovens: Code, Rezepte, Lang, Wiki, Tests, Vorschau fertig auf b-boat02; sbt-Lauf/Client-Sicht ausstehend (siehe Memory-Abschnitt b-boat02)
+- [~] (B, b-rohr02, 02.11.; Plan docs/ai/PLAN-B-ROHR-2026-11-02.md) ROHR33 Rohr-Fenster: Kompass N/W/O/S + Spalte Oben/Unten, 3 Zustaende je Seite (Eingang -> Ausgang hellrot -> Aus), mehrere Ausgaenge reihum, NBT-Migration, Ausgangs-Hals 3x3 -> 4x4; 4 neue Gametests + Modul-Tests gruen, Echte-Maus-Probe pipe_probe.py; offen Gate/Produktion, Besitzer-Abnahme

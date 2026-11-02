@@ -124,6 +124,7 @@ final class VehicleTests {
     static void chestVehicleRecipesCraftAndUpgrade(GameTestHelper helper) {
         List<String> wrong = new ArrayList<>();
         for (ChestTier tier : TIERS) {
+            if (tier == ChestTier.ENDERITE && !Refs.enderite()) continue; // MACH32-ENDSYS: the Enderite cart and boat recipes need Simple Ores
             ItemStack chest = new ItemStack(Refs.chest(tier.textureName()));
             craft(helper, wrong, List.of(new ItemStack(Items.MINECART), chest), StorageItems.CHEST_MINECARTS.get(tier), null);
             for (String wood : BoatWoods.all()) {

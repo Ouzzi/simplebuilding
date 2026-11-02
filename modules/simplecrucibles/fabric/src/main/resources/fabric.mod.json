@@ -42,6 +42,9 @@
     "fabric-api": "*",
     "simplelib": ">=0.4.0"
   },
+  "recommends": {
+    "simpleores": "*"
+  },
   "suggests": {
     "simplebuilding": "*",
     "jei": "*",

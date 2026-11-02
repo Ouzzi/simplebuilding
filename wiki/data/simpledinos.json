@@ -79,7 +79,7 @@
       ],
       "en": {
         "title": "T. rex",
-        "summary": "The combat mount: life size, a core hitbox of 3 x 4 blocks (head and tail reach beyond it). It hatches as a tame hatchling at a quarter of its size and grows to full size in 40 minutes (setting growMinutes); meat speeds growth up. Only adults carry a rider, with a large saddle.",
+        "summary": "The combat mount: three-quarter life size, a core hitbox of 3.6 x 3.5 blocks (head and tail reach beyond it). It hatches as a tame hatchling at a quarter of its size and grows to full size in 40 minutes (setting growMinutes); meat speeds growth up. Only adults carry a rider, with a large saddle.",
         "details": [
           "Adults eat any raw or cooked meat to heal (4 hearts per piece, up to full health). They bite 10 damage (setting trexBiteDamage), only monsters that attack the owner or the dinosaur, follow the owner and never attack players. Hatchlings run away when hurt.",
           "A T. rex that was not hatched from an egg (summoned by command) has no owner and cannot be ridden. It does not breed, never spawns on its own and does not break blocks.",
@@ -88,7 +88,7 @@
       },
       "de": {
         "title": "T-Rex",
-        "summary": "Das Kampf-Reittier: Lebensgröße, Kern-Hitbox 3 x 4 Blöcke (Kopf und Schwanz ragen darüber hinaus). Es schlüpft zahm als Jungtier mit einem Viertel der Größe und wächst in 40 Minuten zur vollen Größe (Einstellung growMinutes); Fleisch beschleunigt das Wachstum. Nur Erwachsene tragen einen Reiter, mit großem Sattel.",
+        "summary": "Das Kampf-Reittier: drei Viertel Lebensgröße, Kern-Hitbox 3,6 x 3,5 Blöcke (Kopf und Schwanz ragen darüber hinaus). Es schlüpft zahm als Jungtier mit einem Viertel der Größe und wächst in 40 Minuten zur vollen Größe (Einstellung growMinutes); Fleisch beschleunigt das Wachstum. Nur Erwachsene tragen einen Reiter, mit großem Sattel.",
         "details": [
           "Erwachsene fressen jedes rohe oder gegarte Fleisch zum Heilen (4 Herzen je Stück, bis zur vollen Gesundheit). Sie beißen mit 10 Schaden (Einstellung trexBiteDamage), nur Monster, die den Besitzer oder den Dinosaurier angreifen, folgen dem Besitzer und greifen nie Spieler an. Jungtiere laufen weg, wenn sie verletzt werden.",
           "Ein T-Rex, der nicht aus einem Ei geschlüpft ist (per Befehl gerufen), hat keinen Besitzer und lässt sich nicht reiten. Er züchtet nicht, spawnt nie von selbst und zerstört keine Blöcke.",

@@ -36,3 +36,10 @@ mandatory=false
 versionRange="[0,)"
 ordering="NONE"
 side="CLIENT"
+
+[[dependencies.simpleriding]]
+modId="simpleores"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"

@@ -651,8 +651,23 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void pipeSideKeysChooseTheOutput(GameTestHelper h) {
-        StorageTests.ALL.get("pipe_side_keys_choose_the_output").accept(h);
+    public void pipeSideKeysCycleInOutOff(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_side_keys_cycle_in_out_off").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeSeveralOutputsShareRoundRobin(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_several_outputs_share_round_robin").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeOffSideTakesAndGivesNothing(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_off_side_takes_and_gives_nothing").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void pipeOldSingleOutputMigratesAndNewStatesPersist(GameTestHelper h) {
+        StorageTests.ALL.get("pipe_old_single_output_migrates_and_new_states_persist").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")

@@ -134,7 +134,33 @@ public final class PotionPadRules {
         if (override != null) {
             return override;
         }
-        return TABLE.getOrDefault(id, DEFAULT);
+        Rule rule = TABLE.get(id);
+        if (rule != null) {
+            return rule;
+        }
+        return id.startsWith("minecraft:") ? DEFAULT : MOD_DEFAULTS.computeIfAbsent(id, key -> modDefault(effect));
+    }
+
+    /** Lazily built default rules of mod effects not in {@link #TABLE} (the potion registry is frozen when pads tick). */
+    private static final Map<String, Rule> MOD_DEFAULTS = new ConcurrentHashMap<>();
+
+    /**
+     * Another mod's effect without a table entry (b-fix91, e.g. Simple Mobs' Strong Volatile/Deflection/Mirror,
+     * ZO10): {@link #DEFAULT}, but up to the highest level a registered potion of that effect brews, so a brewed
+     * strong potion is not weakened while a command-made potion still cannot hand out more. SimpleBuilding does
+     * not need to know the other mod (module independence).
+     */
+    private static Rule modDefault(Holder<MobEffect> effect) {
+        int max = 0;
+        for (net.minecraft.world.item.alchemy.Potion potion : net.minecraft.core.registries.BuiltInRegistries.POTION) {
+            for (MobEffectInstance instance : potion.getEffects()) {
+                if (instance.getEffect().equals(effect) || id(instance.getEffect()).equals(id(effect))) {
+                    max = Math.max(max, instance.getAmplifier());
+                }
+            }
+        }
+        return max == 0 ? DEFAULT : new Rule(max, DEFAULT.maxSeconds(), DEFAULT.potionDurationShare(),
+                DEFAULT.cooldownMultiplier(), DEFAULT.lockoutTicks());
     }
 
     /** Who may receive the effect: tags first (blocked, public, owner_only), then the effect's category. */
