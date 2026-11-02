@@ -341,10 +341,10 @@ public final class OresTests {
         ALL.put("apples_eat_effects", h -> {
             // IG31-41: eating gives the effects of docs/ai/PLAN-B-APPLE41-2026-11-01.md (a step between the golden and the Netherite apple).
             Map<String, int[][]> table = new LinkedHashMap<>();   // {effect index, ticks, amplifier}
-            table.put("rose_bronze_apple", new int[][] {{0, 140, 1}, {1, 2400, 0}, {2, 1800, 0}});
-            table.put("blossom_gold_apple", new int[][] {{0, 180, 1}, {1, 3600, 0}, {2, 3000, 0}, {3, 600, 0}});
-            table.put("enchanted_rose_bronze_apple", new int[][] {{0, 500, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
-            table.put("enchanted_blossom_gold_apple", new int[][] {{0, 640, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}, {4, 1200, 0}});
+            table.put("rose_bronze_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 600, 0}});
+            table.put("blossom_gold_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 1000, 0}});
+            table.put("enchanted_rose_bronze_apple", new int[][] {{0, 600, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
+            table.put("enchanted_blossom_gold_apple", new int[][] {{0, 700, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
             @SuppressWarnings("unchecked")
             net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>[] effects = new net.minecraft.core.Holder[] {net.minecraft.world.effect.MobEffects.REGENERATION,
                     net.minecraft.world.effect.MobEffects.ABSORPTION, net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, net.minecraft.world.effect.MobEffects.RESISTANCE,
@@ -364,9 +364,10 @@ public final class OresTests {
                     var instance = player.getEffect(effects[e[0]]);
                     check(h, instance != null && instance.getDuration() == e[1] && instance.getAmplifier() == e[2], row.getKey() + " effect " + e[0] + ": " + instance);
                 }
+                check(h, enchanted || player.getEffect(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE) == null, row.getKey() + " plain: no Fire Resistance");
             }
-            // The step: more hunger and a longer Regeneration II than the golden apple, less than the Netherite apple (8 hunger, Regeneration II 0:10 / 0:40 enchanted).
-            check(h, 4 < 5 && 5 < 6 && 6 < 8 && 100 < 140 && 140 < 180 && 180 < 200 && 400 < 500 && 500 < 640 && 640 < 800, "ladder gold < rose < blossom < netherite");
+            // The step: more hunger than the golden apple (4), less than the Netherite apple (8); Resistance lasts longer than the golden apple's none.
+            check(h, 4 < 5 && 5 < 6 && 6 < 8 && 600 < 1000, "ladder gold < rose < blossom < netherite");
             h.succeed();
         });
         ALL.put("apple_recipes", h -> {

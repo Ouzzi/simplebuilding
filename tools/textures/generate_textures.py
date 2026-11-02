@@ -2391,7 +2391,7 @@ PAD_ACTIVE_GLOW = {
 # (Besitzer 2026-09-29: 26.3 zuerst, die Kopie nicht anfassen). Die Zustandsbilder vom 2026-09-29.
 MAIN_TREE_ONLY = {"item/pulsating_trim_template.png", "item/blueprint_signed.png"}  # blueprint_signed: Kontur 2026-10-02
 # Enderit-Apfel/-Karotte 2026-10-02 neu (foods_settled_2026_10_02.py); die 1.21.11-Kopie zieht der Port-Run nach.
-MAIN_TREE_ONLY |= {"item/enderite_apple.png", "item/enderite_carrot.png", "item/enderite_nugget.png"}
+MAIN_TREE_ONLY |= {"item/enderite_carrot.png", "item/enderite_nugget.png"}
 MAIN_TREE_ONLY |= {"item/blueprint.png", "item/blueprint_edited.png"}  # Kartenblatt-Blaupause 2026-10-03
 # Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
 # Ressourcen (Enderit generiert).
@@ -3234,7 +3234,8 @@ def build():
             rel = f"block/{prefix}backpack_{face}.png"
             glimmered = apply_glimmer(render(f"{prefix}backpack_{face}", rows, pal, True), rel)
             tex[rel] = continued(glimmered, glimmered.convert("RGB"))
-    for rel in ("item/enderite_apple.png", "item/enderite_carrot.png"):
+    # enderite_apple.png is Vanilla-derived and built (apples_derived_2026_11_02.py), no longer drawn here.
+    for rel in ("item/enderite_carrot.png",):
         hand_drawn(tex, rel)
 
     tex.update(tiered_machine_textures())

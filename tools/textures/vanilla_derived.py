@@ -38,6 +38,8 @@ OUTPUTS = {
     'entity/chest/nihil_vault.png': ((64, 64), 'n46_round3_2026_10_12.game_chests() - Vanilla ender chest (N2)'),
     # Older generators (owner 2026-10-12: build them too; Git history is not rewritten):
     'gui/container/auto_smither.png': ((256, 256), 'auto_smither_gui.derived()'),
+    'item/netherite_apple.png': ((16, 16), 'apples_derived_2026_11_02.derived() - Vanilla golden apple on the netherite ramp (B02)'),
+    'item/enderite_apple.png': ((16, 16), 'apples_derived_2026_11_02.derived() - netherite apple on the enderite ramp + glimmer (B02)'),
     'item/color_brush.png': ((16, 16), 'color_brush_2026_10_09.derived()'),
     'item/color_brush_tip.png': ((16, 16), 'color_brush_2026_10_09.derived()'),
     'item/color_brush_tip_palette.png': ((16, 16), 'color_brush_2026_10_09.derived()'),
@@ -210,7 +212,7 @@ MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures', 'abn29_
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03',
                     'music_disc_textures', 'placed_egg_textures', 'standing_rods_2026_10_04', 'vehicles_2026_10_10',
-                    'placed_display_3d_2026_10_16', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23', 'abn29_core', 'doors_2026_10_29')
+                    'placed_display_3d_2026_10_16', 'apples_derived_2026_11_02', 'sulfur_lights_2026_10_15', 'sbtex23_2026_10_23', 'abn29_core', 'doors_2026_10_29')
 # Probe file every usable jar contains.
 PROBE = 'assets/minecraft/textures/entity/chest/ender.png'
 # Shipped next to placeholder textures (assets/<ns>/<MARKER>, also by the Gradle fallbacks): the client logs an error

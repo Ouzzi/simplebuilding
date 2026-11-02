@@ -1860,7 +1860,7 @@ window.WIKI_MODULES = [
       "recipes": 68,
       "features": 11
     },
-    "dataHash": "f094d472b862"
+    "dataHash": "1f32465821c3"
   },
   {
     "id": "simplemachines",

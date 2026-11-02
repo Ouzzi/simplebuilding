@@ -397,6 +397,7 @@ def lang(locale):
     out.update({f'item.{NS}.{p}': n[i] for p, n in MOVED_ITEMS.items()})
     out.update({f'item.{NS}.enderite_upgrade_template.{k}': t[i] for k, t in TEMPLATE_TEXTS.items()})
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
+    out['tooltip.simpleores.when_eaten'] = ('When eaten:', 'Beim Verzehr:')[i]
     out[f'entity.{NS}.silver_arrow'] = ('Silver Arrow', 'Silberpfeil')[i]
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
     for cat, texts in CONFIG_CATEGORIES.items():
@@ -499,10 +500,10 @@ def note_summaries():
                 notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: {stats_en}. Mines like iron.', f'{de}{pde}: {stats_de}. Baut ab wie Eisen.')
     for a, (en, de) in ALLOYS.items():
         soft = a == 'blossom_gold'
-        eff_en, eff_de = (('Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30', 'Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30') if soft
-                          else ('Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30', 'Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30'))
-        enc_en, enc_de = (('Regeneration II 0:32, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00, Strength I 1:00', 'Regeneration II 0:32, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00, Stärke I 1:00') if soft
-                          else ('Regeneration II 0:25, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00', 'Regeneration II 0:25, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00'))
+        res_en, res_de = ('0:50', '0:50') if soft else ('0:30', '0:30')
+        eff_en, eff_de = f'Regeneration II 0:05, Absorption I 2:00, Resistance I {res_en}', f'Regeneration II 0:05, Absorption I 2:00, Resistenz I {res_de}'
+        reg = '0:35' if soft else '0:30'
+        enc_en, enc_de = f'Regeneration II {reg}, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00', f'Regeneration II {reg}, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00'
         hunger = 6 if soft else 5
         notes[f'item:{a}_apple'] = (f'{en} apple, a step between the golden and the Netherite apple: {hunger} hunger, always edible. Gives {eff_en}. 8 {en.lower()} ingots round an apple.',
                                     f'{de}-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: {hunger} Hunger, immer essbar. Gibt {eff_de}. 8 {de}barren um einen Apfel.')
@@ -561,13 +562,13 @@ FEATURES = [
               'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).'])),
     feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_blossom_gold_apple.json'],
             ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
-             ['Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:07, Absorption I 2:00, Fire Resistance 1:30. Blossom Gold apple: 6 hunger, Regeneration II 0:09, Absorption I 3:00, Fire Resistance 2:30, Resistance I 0:30.',
-              'Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:25, Resistance I and Fire Resistance 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:32, the same and Strength I 1:00.',
-              'For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Fire Resistance 4:00, Resistance I 1:00. They appear in the Food and Drinks tab behind the enchanted golden apple.']),
+             ['Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Blossom Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.',
+              'Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.',
+              'For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Resistance I 1:00 (plain apples have no Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple.']),
             ('Roségold-Äpfel', 'Je Legierung ein normaler und ein verzauberter Apfel, zwischen Goldapfel und Netherit-Apfel. Immer essbar, ohne Abklingzeit.',
-             ['Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:07, Absorption I 2:00, Feuerresistenz 1:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:09, Absorption I 3:00, Feuerresistenz 2:30, Resistenz I 0:30.',
-              'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:25, Resistenz I und Feuerresistenz 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:32, dasselbe und Stärke I 1:00.',
-              'Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Feuerresistenz 4:00, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel.'])),
+             ['Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.',
+              'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.',
+              'Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel.'])),
     feature('lead', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/lead_ore.json', f'{DATAP}/tags/block/soundproofing.json'],
             ('Lead', 'A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',
              ['Overworld: lead ore (and a deepslate twin), 6 veins of 9 per chunk between Y -64 and 48; more common than silver, rarer than copper. Needs a stone pickaxe; drops 1 to 2 raw lead (Fortune helps).',
