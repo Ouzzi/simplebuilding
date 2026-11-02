@@ -1356,7 +1356,6 @@ public class ModItems {
     public static void registerModItems() {
 
         Simplebuilding.LOGGER.info("Registering Mod Items for " + Simplebuilding.MOD_ID);
-        com.simplebuilding.recipe.RecipeFilter.register();
         if (com.simplebuilding.version.McVersion.CRUCIBLE) {
             // Plug SB into Simple Crucibles (hammer ways, soul scooper advancement); crucibles, soul lava and buckets are the module's (5/5b).
             com.simplebuilding.crucible.CrucibleCompat.init();

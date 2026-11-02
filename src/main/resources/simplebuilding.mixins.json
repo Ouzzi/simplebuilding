@@ -66,6 +66,7 @@
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",
     "PlayerEntityMixin",
+    "RecipeMapFilterMixin",
     "OperatorBookCraftingMixin",
     "OperatorBookCrafterMixin",
     "OperatorBookRecipeUnlockMixin",
