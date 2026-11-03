@@ -298,6 +298,22 @@ Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [x] (B, b-frost02, 02.11.) KESSEL32-DORF Kessel über Lagerfeuer – nur Gerüst bauen, Treppe egal (kein Seed/Dorf nötig) → QW || ERLEDIGT: Gerüst (visuals.cauldronStand) war in b-einbau32 schon gebaut und gilt für jeden Kessel auf Lagerfeuer; Treppe entfällt; nichts weiter zu bauen; offen nur Client-Sicht
 - Weiter offen (nicht beantwortet, NICHT archiviert): blei, spiegel, optik, zfight, boar, truffle, daempfer, dkolben, abn32, ig3114, rohr33-Variante, qol33, farben, rel, TROMP-1/2. Beantwortet am 01.11. per Anmerkung (bleibt): MACH32-MOD, SNOW32-FALL.
 
+## BESITZER-ABNAHME 03.11. → umsetzen (b-abn04)
+Quelle: /root/b-antworten-20261103a.md (wörtlich). Archiv (archiv.json 03.11.): BOSS01, FOUNDRY03, MUSIC03, MECH03, TEX03, ROHR02, BOAT02, ENCH01, ARROWS01, UI02, COND38, ROHR33, TROMP-1, TROMP-2. Offen bleiben QOL33 (Free Look) und RELQOA.
+- [ ] BOSS01 Boss-/Spawn-Ei-Texturen Vanilla-artiger (v. a. Spawn-Eier) → PRIO (geplant b-boss02)
+- [ ] FOUNDRY03 Foundry-Glas wird Spezialglas, das Wärme dämmt wie die Ziegelwände darin; weitere Punkte nach Ingame-Abnahme → PRIO (geplant b-foundry04)
+- [x] MUSIC03, MECH03 abgenommen (Abnahme-Haken) → QW
+- [ ] TEX03 Blei-Farbe zurück wie vorher (Karo leise B + Glanz-Reduktion bleiben) → QW (b-small04)
+- [ ] ROHR02 Rohr-Fenster: Padding größer, UI ragt über den Hintergrund → QW (b-small04)
+- [ ] ROHR33 Variante A: schmaler Hals etwas größer, aber noch kleiner als das Rohr → QW (b-small04)
+- [ ] COND38 Form A, Vanilla-Schale umgefärbt, in Vanilla-Größe → QW (b-small04)
+- [ ] BOAT02 Ofen-Boot für alle Ofen-Varianten (normal, reinforced, ... nur Öfen) → QW (b-small04)
+- [ ] ENCH01 Neues Sub-Mod Simple Enchanting (Enchanting-Tische); SB besitzt alle Baublöcke (Obsidian-/Holz-Varianten), Simple Enchanting allein bringt sie mit; End Enchanter → Astral Enchanter (aktuelle Astral-Textur); Dark Enchanter Musterung wie jetzt, Kontrast/Grain wie Astral; End Obsidian auch Boden für Dark Enchanter, Lohen-Obsidian-Boden beim Astral halb so stark; End Obsidian → Nihil Obsidian (wie Blazing mit Nihilit, navy/void-Highlights) → PRIO (laufend/geplant b-ench02)
+- [ ] ARROWS01 Lichtpfeil despawnt wie normaler Pfeil; Simple Arrows Stufe 1; Trank-Slot = WE25-9 (Prüfung 03.11.: NICHT gebaut; nur ArrowRecovery kopiert Trankinhalt, kein Slot im FletchingScreen/Handler; Lichtpfeil-Code ebenfalls nicht im Repo gefunden) → PRIO (geplant b-arrows02)
+- [ ] UI02 Variante A (schlichter Kasten Inventar-Grau), danach übrige Ausreißer → PRIO (geplant b-ui03)
+- [ ] TROMP-1/2 Trompete: K1 gleichmäßig hell, ohne Anstoß, KEIN Stopp-/Ausklang-Geräusch; in Konzept WP-18 §4.1 eingetragen, Trompete noch nicht gebaut → PRIO
+- Weiter offen: QOL33 Free Look, RELQOA.
+
 ## BESITZER-ABNAHME 02.11. (Teil 3) → umsetzen (b-abn03)
 Quelle: /root/b-antworten-20261102b.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-2026-11-01.md (Vorgehen). Grundregel Besitzer: ohne Einwand = abgenommen. Spur QW = <= 1-2 h ohne weitere Wahl, sonst PRIO. [x] = schon gebaut (Beleg) oder nur Abnahme-Haken. Archiv (archiv.json 02.11.): IG3114, QOL33-TEILE, ORES32-BLEI, ORES01, ORES32-SPIEGEL, MACH32-DAEMPFER, MACH32-KOLBEN, ABN32, OPTIK32, FARBEN32, APPLE41, SPAWN01, HEADS39.
 - [~] (B, b-apple02, 02.11.) APPLE41 Äpfel – Rosenbronze/Blütengold/Netherit/Enderit keine Feuerresistenz; Rosenbronze Resistenz I 30 s; Blütengold Resistenz I 50 s; verzauberter Rosenbronze Regeneration II 30 s (statt 25); verzauberter Blütengold Regeneration II 35 s; Rest wie Vanilla-Gold-/Zauberapfel (Absorption, Resistenz, Feuerresistenz analog); verzauberter Netherit- und Enderit-Apfel Effekte vollständig prüfen, Tooltip/JEI/Wiki zeigen alle; Texturen reine Umfärbung von Vanilla-Apfel/Goldapfel → PRIO
