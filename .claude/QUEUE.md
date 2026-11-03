@@ -54,7 +54,7 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [ ] WD25-3 Inverse Trims per Herz des Meeres auf Besatz-Vorlage (Status 01.11.: offen – Auslöser fehlt; Beleg: inverser Besatz selbst: WA24-1/WC24-2; Auslöser Herz des Meeres nicht gefunden)
 - [~] WD25-4 Rissiges Eis Variante C + Zustand bleibt nach Wachs/Kleber (Status 01.11.: abnahme – Zustandserhalt per Kleber (WD25-2) fehlt; Beleg: ABN30-7 (cracked_blue_ice = C, a-misc31))
 - [ ] WD25-5 Hohler Howler: Leuchtherz Variante B (Kern mit Adern) (Status 01.11.: offen – Wahl + Einbau; Beleg: Queue OW24-7/HOW-1: Besitzer-Wahl offen)
-- [ ] WD25-7 Bücher alle im Megaguide-Stil; Sub-Mod-Guides im Super-Mod-Guide; Config (Status 01.11.: offen – Umstellung + Config; Beleg: Queue END (Mega-Handbücher, „ganz am Ende“); Umstellung nicht belegt)
+- [~] (B, b-guide01, 03.11.: Simple-Modpack-Handbuch in SimpleLib, Sub-Mod-Guides als Kapitel im Super-Mod-Abschnitt; offen Besitzer-Abnahme Vorschau GUIDE01, eigene Config) WD25-7 Bücher alle im Megaguide-Stil; Sub-Mod-Guides im Super-Mod-Guide; Config (Status 01.11.: offen – Umstellung + Config; Beleg: Queue END (Mega-Handbücher, „ganz am Ende“); Umstellung nicht belegt)
 - [ ] WD25-13 Queue-Pflege: Questbuch, Wachs-Variante (Kleber), Chat-Rechner offen halten (Status 01.11.: offen – als Queue-Punkte eintragen, nie umgesetzt; Beleg: wd25.md)
 - [x] WD25-14 Simple Dimensions Mod-ID simpledimension -> simpledimensions mit Migration alter Welten (Status 01.11.: prod – modules/simpledimensions; Beleg: modules/simpledimensions; ModuleGameTest referenziert alte ID simpledimension:)
 - [~] WD25-15 Gadget-Meldungstext entfernen (REV2-B-10) (Status 01.11.: abnahme – Prüfung; Beleg: Queue WP-01/REV2-B-10; Code-Beleg nicht eigens geprüft)
@@ -1029,3 +1029,5 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 ## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
 - [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
 - [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
+## b-guide01 (03.11.) - Mega-Guide „Simple Modpack“ (Besitzer 03.11. Punkt 6)
+- [~] (B, b-guide01, 03.11.; Plan docs/ai/PLAN-B-GUIDE01-2026-11-03.md) GUIDE01 Ein Handbuch `simplelib:modpack_guide` (Buch + Werkbank, Tooltip nur „Your first steps into SimpleMods“), oben Lesezeichen je Super-Mod, seitlich je Kapitel; jede Mod liefert `assets/<ns>/simplelib/modpack_guide.json`; Kapitel öffnen über Advancement `<ns>:guide/chapter`; SB-Buch = Abschnitt SimpleBuilding (+ „Weitere Simple Mods“); alte Einzelbücher: aus Tabs/JEI, Rezepte/FTB-Kapitel weg, Umwandlung beim Benutzen (SB beim Einloggen). Offen: Besitzer-Abnahme Vorschau (abnahme-b/b-guide01-preview.html), Bündel/Gate, NeoForge/Forge (Netzwerk nur Fabric), Port-Run.

@@ -99,7 +99,9 @@ public final class CreativeTabPolicy {
     public static void filter() {
         // b-guide01: the single guides stay registered (worlds keep them) but leave every tab - the Simple Modpack guide replaces them.
         if (ModpackGuide.item() != null) {
-            for (CreativeModeTab tab : BuiltInRegistries.CREATIVE_MODE_TAB) { // also the search tab, built before this runs
+            for (CreativeModeTab tab : BuiltInRegistries.CREATIVE_MODE_TAB) {
+                // Category tabs and the search tab (it is built from them before this runs).
+                if (tab.getType() != CreativeModeTab.Type.CATEGORY && tab.getType() != CreativeModeTab.Type.SEARCH) continue;
                 tab.getDisplayItems().removeIf(CreativeTabPolicy::isRetiredGuide);
                 tab.getSearchTabDisplayItems().removeIf(CreativeTabPolicy::isRetiredGuide);
             }
