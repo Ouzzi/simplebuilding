@@ -57,6 +57,7 @@ public final class HopperAndTrimTests {
      * every hopper is placed, never loaded - notices nothing at all.
      */
     public static void hopperFilterModesGateWhatMayEnter(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ModHopperBlockEntity hopper = placeHopper(helper);
 
         // --- one block entity type, under the id the save format uses ---
@@ -136,6 +137,7 @@ public final class HopperAndTrimTests {
      * the old filter is gone with the filter principle, 2026-10-09.)
      */
     public static void hopperPayloadsOnlyActOnAnOpenHopperMenu(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerPlayer player = mockPlayer(helper);
         ModHopperBlockEntity hopper = placeHopper(helper);
 

@@ -1,16 +1,41 @@
 {
   "module": "simplemachines",
-  "derivation": "Simple Machines sells its piston upgrades for money with the values they had in SimpleBuilding's table (moved 03.11., MACH32-MOD stage 2); the Double Piston and the Signal Dampener are crafted from Vanilla materials and not sold.",
+  "derivation": "Simple Machines sells its piston upgrades and mod hoppers for money with the values they had in SimpleBuilding's table (moved 03.11., MACH32-MOD stages 2 and 3); the Double Piston, the Signal Dampener and the hopper carts are crafted and not sold.",
   "excluded": {
     "simplemachines:double_piston": "Crafted redstone part; built, not bought.",
     "simplemachines:signal_dampener": "Crafted redstone part; built, not bought.",
-    "simplemachines:guide_book": "Free guide book."
+    "simplemachines:guide_book": "Free guide book.",
+    "simplemachines:reinforced_hopper_minecart": "Crafted from the hopper of its tier and a minecart; the hopper carries the price.",
+    "simplemachines:netherite_hopper_minecart": "Smithed from the Reinforced cart or crafted from the Netherite hopper; the hopper carries the price.",
+    "simplemachines:enderite_hopper_minecart": "Smithed from the Netherite cart or crafted from the Enderite hopper; the hopper carries the price."
   },
   "prices": [
+    {
+      "item": "simplemachines:enderite_hopper",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
     {
       "item": "simplemachines:enderite_piston",
       "tier": 5,
       "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplemachines:netherite_hopper",
+      "tier": 4,
+      "hours": 24.9,
       "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
@@ -28,6 +53,17 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
+    },
+    {
+      "item": "simplemachines:reinforced_hopper",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
     },
     {
       "item": "simplemachines:reinforced_piston",

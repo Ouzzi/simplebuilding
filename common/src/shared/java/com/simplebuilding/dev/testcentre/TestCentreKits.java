@@ -219,7 +219,8 @@ public final class TestCentreKits {
             // Nur Mod-Maschinen: die Vanilla-Kupfertruhen (erste Truhenstufe, Rissiger Diamant) stehen
             // in der Registry vorn, sind aber nicht die Maschinen-Aufwertung dieser Station.
             if (upgrade != null && upgrade.from() == block
-                    && "simplebuilding".equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())) {
+                    // MACH32-MOD stage 3: on 26.3 the mod hoppers (the last SB machines with a step) are Simple Machines'.
+                    && !"minecraft".equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())) {
                 return new ItemStack(upgrade.nugget());
             }
         }

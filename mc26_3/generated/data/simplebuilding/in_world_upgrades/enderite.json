@@ -1,12 +1,3 @@
 {
-  "upgrades": [
-    {
-      "damage_per_hit": 10,
-      "from": "simplebuilding:netherite_hopper",
-      "material": "simpleores:enderite_nugget",
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplebuilding:enderite_hopper"
-    }
-  ]
+  "upgrades": []
 }

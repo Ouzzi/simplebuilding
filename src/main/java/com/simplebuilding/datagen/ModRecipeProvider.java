@@ -726,8 +726,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     com.simplebuilding.blocks.custom.ChestTier[] tiers = com.simplebuilding.blocks.custom.ChestTier.values();
                     for (com.simplebuilding.blocks.custom.ChestTier tier : tiers) {
                         // Split stage 8b-2: the chest carts and chest boats (and their recipes) are Simple Storage's.
-                        Item[][] carts = {
-                                {com.simplebuilding.entity.vehicle.VehicleTiers.hopper(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.hopperMinecart(tier)}};
+                        Item[][] carts = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? new Item[][] {
+                                {com.simplebuilding.entity.vehicle.VehicleTiers.hopper(tier).asItem(), com.simplebuilding.entity.vehicle.VehicleTiers.hopperMinecart(tier)}} : new Item[0][];
                         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: the furnace carts are Simple Ovens'
                             carts = java.util.Arrays.copyOf(carts, carts.length + 1);
                             carts[carts.length - 1] = new Item[]{com.simplebuilding.entity.vehicle.VehicleTiers.furnace(tier).asItem(),
@@ -743,6 +743,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             : java.util.List.<java.util.function.Function<com.simplebuilding.blocks.custom.ChestTier, Item>>of(
                                     com.simplebuilding.entity.vehicle.VehicleTiers::furnaceMinecart, com.simplebuilding.entity.vehicle.VehicleTiers::hopperMinecart)) {
                         if (!com.simplebuilding.version.McVersion.OVENS_IN_SB && kind.apply(tiers[0]) == com.simplebuilding.entity.vehicle.VehicleTiers.furnaceMinecart(tiers[0])) continue;
+                        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB && kind.apply(tiers[0]) == com.simplebuilding.entity.vehicle.VehicleTiers.hopperMinecart(tiers[0])) continue;
                         createSmithing(kind.apply(tiers[0]), kind.apply(tiers[1]), RecipeCategory.TRANSPORTATION);
                         createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, kind.apply(tiers[1]), ModItems.ENDERITE_INGOT,
                                 RecipeCategory.TRANSPORTATION, kind.apply(tiers[2]));
@@ -813,12 +814,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // HOPPER REINFORCED & NETHERITE
                 // =================================================================
                 // 1. Reinforced Hopper: one hopper reinforced with a cracked diamond and named.
+                if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { // 26.3: Simple Machines ships the hopper and hopper cart recipes (MACH32-MOD stage 3)
                 shapeless(RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER)
                         .requires(Items.HOPPER)
                         .requires(ModItems.CRACKED_DIAMOND)
                         .requires(Items.NAME_TAG)
                         .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
                         .save(output, "reinforced_hopper_from_crafting");
+                }
 
                 // Split stage 8b: on 26.3 these recipes are Simple Storage's (data/simplestorage/recipe, id moves).
                 if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {

@@ -6,11 +6,15 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
-/** Fabric client entry: the server's piston options (audit N16) and the late hooks (nugget hand hint) once the client runs. */
+/** Fabric client entry: the server's piston options (audit N16), the late hooks (nugget hand hint) once the client runs, hopper screens and cart renderers. */
 public final class MachinesFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ClientPlayNetworking.registerGlobalReceiver(PistonConfigPayload.ID, (payload, context) -> context.client().execute(payload::apply));
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> PistonUpgrades.registerLateHooks());
+        // Stage 3: the hopper menu (one type per tier) and the hopper carts (Vanilla's cart model with the tier hopper).
+        com.simplemachines.hopper.Hoppers.MENUS.values().forEach(type -> net.minecraft.client.gui.screens.MenuScreens.register(type, com.simplemachines.client.TierHopperScreen::new));
+        com.simplemachines.hopper.Hoppers.CARTS.values().forEach(type -> net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(type,
+                c -> new net.minecraft.client.renderer.entity.MinecartRenderer(c, net.minecraft.client.model.geom.ModelLayers.HOPPER_MINECART)));
     }
 }

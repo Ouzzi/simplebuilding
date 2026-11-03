@@ -107,8 +107,8 @@ public class ModBlocks {
     // every other block of this helper starts from: glass handed them no tool requirement (a bare
     // hand dropped them), no light while burning, no occlusion and glass's map colour and note.
     // The mod's own strength and sound still override what the copy brings.
-    public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL)));
-    public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_HOPPER = McVersion.HOPPERS_IN_SB ? registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL))) : com.simplebuilding.util.MachineRefs.block("reinforced_hopper"); // 26.3: Simple Machines (MACH32-MOD stage 3)
+    public static final Block NETHERITE_HOPPER = McVersion.HOPPERS_IN_SB ? registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("netherite_hopper"); // 26.3: Simple Machines (MACH32-MOD stage 3)
 
     // MACH32-MOD stage 2: on 26.3 the piston upgrades are Simple Machines' (simplemachines:*); these fields point at its blocks.
     // Beide verstaerkten Kolben starten wie alle anderen hier von GLASS, nicht von Vanillas
@@ -136,7 +136,7 @@ public class ModBlocks {
     // Netherit-Stufe (SledgehammerUpgrades); kein Werkbankrezept. Dieselben Klassen und damit
     // dieselben Block-Entities wie die beiden anderen Stufen, Haerte und Explosionsfestigkeit wie
     // beim Enderitkolben.
-    public static final Block ENDERITE_HOPPER = registerBlock("enderite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(6.0F, 1500.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block ENDERITE_HOPPER = McVersion.HOPPERS_IN_SB ? registerBlock("enderite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(6.0F, 1500.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("enderite_hopper"); // 26.3: Simple Machines (MACH32-MOD stage 3)
     public static final Block ENDERITE_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
     public static final Block ENDERITE_SMOKER = McVersion.OVENS_IN_SB ? registerBlock("enderite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
     public static final Block ENDERITE_BLAST_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;

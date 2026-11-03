@@ -426,12 +426,12 @@ public class ModItems {
             ? registerItem("netherite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_FURNACE_MINECART)) : null;
     public static final Item ENDERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerItem("enderite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_FURNACE_MINECART)) : null;
-    public static final Item REINFORCED_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
-            ? registerItem("reinforced_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_HOPPER_MINECART)) : null;
-    public static final Item NETHERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
-            ? registerItem("netherite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_HOPPER_MINECART)) : null;
-    public static final Item ENDERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
-            ? registerItem("enderite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_HOPPER_MINECART)) : null;
+    public static final Item REINFORCED_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
+            ? registerItem("reinforced_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_HOPPER_MINECART)) : com.simplebuilding.version.McVersion.TIERED_VEHICLES ? com.simplebuilding.util.MachineRefs.item("reinforced_hopper_minecart") : null; // 26.3: Simple Machines (stage 3)
+    public static final Item NETHERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
+            ? registerItem("netherite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_HOPPER_MINECART)) : com.simplebuilding.version.McVersion.TIERED_VEHICLES ? com.simplebuilding.util.MachineRefs.item("netherite_hopper_minecart") : null; // 26.3: Simple Machines (stage 3)
+    public static final Item ENDERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
+            ? registerItem("enderite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_HOPPER_MINECART)) : com.simplebuilding.version.McVersion.TIERED_VEHICLES ? com.simplebuilding.util.MachineRefs.item("enderite_hopper_minecart") : null; // 26.3: Simple Machines (stage 3)
 
     public static final Item CRACKED_DIAMOND = com.simplebuilding.util.SharedMaterials.item("cracked_diamond", () -> registerItem("cracked_diamond", settings -> new Item(settings)));
 
@@ -807,9 +807,9 @@ public class ModItems {
     public static final Item ENDERITE_SHULKER_BOX = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_shulker_box",
             s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.ENDERITE_SHULKER_BOX, shulkerBox(s).fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
+    public static final Item REINFORCED_HOPPER = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s)) : com.simplebuilding.util.MachineRefs.item("reinforced_hopper");
 
-    public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_HOPPER = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON))) : com.simplebuilding.util.MachineRefs.item("netherite_hopper");
 
     public static final Item REINFORCED_PISTON = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s)) : com.simplebuilding.util.MachineRefs.item("reinforced_piston");
 
@@ -834,7 +834,7 @@ public class ModItems {
     // Enderit-Maschinen: feuerfest und EPIC wie die uebrigen Enderit-Gegenstaende (Buendel, Koecher,
     // Rucksack, Enderitkolben). Kein Werkbankrezept - sie entstehen nur in der Welt, siehe
     // SledgehammerUpgrades.
-    public static final Item ENDERITE_HOPPER = registerItem("enderite_hopper", s -> new BlockItem(ModBlocks.ENDERITE_HOPPER, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_HOPPER = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? registerItem("enderite_hopper", s -> new BlockItem(ModBlocks.ENDERITE_HOPPER, s.fireResistant().rarity(Rarity.EPIC))) : com.simplebuilding.util.MachineRefs.item("enderite_hopper");
 
     public static final Item ENDERITE_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("enderite_furnace", s -> new BlockItem(ModBlocks.ENDERITE_FURNACE, s.fireResistant().rarity(Rarity.EPIC))) : null;
 

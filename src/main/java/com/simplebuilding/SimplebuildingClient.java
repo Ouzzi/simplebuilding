@@ -256,7 +256,7 @@ public class SimplebuildingClient implements ClientModInitializer {
             ClientNetworking.send(new TrimBenefitPayload(wantsBenefits));
         });
 
-        MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
+        if (ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER != null) MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
         MenuScreens.register(ModScreenHandlers.BACKPACK_MENU, BackpackScreen::new);
         MenuScreens.register(ModScreenHandlers.TIERED_CHEST_MENU, com.simplebuilding.client.gui.TieredChestScreen::new);
         if (ModScreenHandlers.FLETCHING_MENU != null) {

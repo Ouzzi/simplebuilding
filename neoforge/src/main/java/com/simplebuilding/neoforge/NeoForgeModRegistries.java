@@ -222,8 +222,8 @@ public final class NeoForgeModRegistries {
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> BackpackUpgradeRecipe.SERIALIZER);
 
     public static final Supplier<BlockEntityType<ModHopperBlockEntity>> MOD_HOPPER_BE =
-            BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<>(
-                    ModHopperBlockEntity::new, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER));
+            com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<>(
+                    ModHopperBlockEntity::new, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER)) : null; // 26.3: Simple Machines (stage 3)
     public static final Supplier<BlockEntityType<ModBlastFurnaceBlockEntity>> MOD_BLAST_FURNACE_BE =
             com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<>(
                     ModBlastFurnaceBlockEntity::new, ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE)) : null;
@@ -316,7 +316,7 @@ public final class NeoForgeModRegistries {
         if (GOAT_HORN_HOLDER_BE != null) ModBlockEntities.GOAT_HORN_HOLDER_BE = GOAT_HORN_HOLDER_BE.get();
         if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
-        ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
+        if (MOD_HOPPER_BE != null) ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         if (MOD_BLAST_FURNACE_BE != null) ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         if (MOD_FURNACE_BE != null) ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
         if (MOD_SMOKER_BE != null) ModBlockEntities.MOD_SMOKER_BE = MOD_SMOKER_BE.get();

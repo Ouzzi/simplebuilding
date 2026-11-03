@@ -117,6 +117,10 @@ public final class McVersion {
     public static final boolean PISTONS_IN_SB = true;
     /** Namespace of the piston upgrades ({@link #PISTONS_IN_SB}). */
     public static final String PISTONS_NAMESPACE = "simplebuilding";
+    /** Mod hoppers and tiered hopper carts: SimpleBuilding's own on 26.2 (26.3: Simple Machines, MACH32-MOD stage 3). */
+    public static final boolean HOPPERS_IN_SB = true;
+    /** Namespace of the mod hoppers, their carts and recipes ({@link #HOPPERS_IN_SB}). */
+    public static final String HOPPERS_NAMESPACE = "simplebuilding";
     /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
     public static final boolean CRUCIBLE = false;
     /** Trim templates in SimpleBuilding: 26.2 has no modules, the templates stay {@code simplebuilding:*} here (26.3: Simple Trims). */

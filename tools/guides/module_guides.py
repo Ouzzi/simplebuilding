@@ -227,10 +227,12 @@ MODULES = [
     dict(module="simplemachines", ns="simplemachines", package="com.simplemachines.guide", cls="MachinesGuide", kind="item",
          author="Simple Machines", recipe="minecraft:redstone",
          name=("Simple Machines Guide", "Simple-Machines-Handbuch"),
-         intro=("The machine parts of the Simple Machines tab: four stronger pistons, the Double Piston, which reaches further "
-                "than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-                "Die Maschinenteile des Tabs Simple Machines: vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder "
-                "Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.")),
+         intro=("The machine parts of the Simple Machines tab: three faster hoppers with an item filter and their hopper carts, "
+                "four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, "
+                "a repeater that takes up to 3 off the signal.",
+                "Die Maschinenteile des Tabs Simple Machines: drei schnellere Trichter mit Itemfilter und ihre Trichterloren, vier "
+                "stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein "
+                "Verstärker, der bis zu 3 vom Signal abzieht.")),
     dict(module="simpleenchanting", ns="simpleenchanting", package="com.simpleenchanting.guide", cls="EnchantingGuide", kind="item",
          author="Simple Enchanting", recipe="minecraft:lapis_lazuli",
          name=("Simple Enchanting Guide", "Simple-Enchanting-Handbuch"),

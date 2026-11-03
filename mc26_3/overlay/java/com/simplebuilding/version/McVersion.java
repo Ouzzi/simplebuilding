@@ -113,6 +113,10 @@ public final class McVersion {
     public static final boolean PISTONS_IN_SB = false;
     /** Namespace of the piston upgrades ({@link #PISTONS_IN_SB}). */
     public static final String PISTONS_NAMESPACE = "simplemachines";
+    /** Mod hoppers (Reinforced, Netherite, Enderite) and the tiered hopper carts: MACH32-MOD stage 3 (docs/ai/PLAN-B-MACHINES03-2026-11-03.md). 26.3: the required, bundled sub-mod Simple Machines registers them ({@code simplemachines:*}, block entity {@code simplemachines:hopper}, ids migrate); SimpleBuilding's item/block fields point at its objects ({@code util/MachineRefs}), its block entity type, menu and cart entity types are not registered. 26.2 keeps its own. */
+    public static final boolean HOPPERS_IN_SB = false;
+    /** Namespace of the mod hoppers, their carts and recipes ({@link #HOPPERS_IN_SB}). */
+    public static final String HOPPERS_NAMESPACE = "simplemachines";
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */

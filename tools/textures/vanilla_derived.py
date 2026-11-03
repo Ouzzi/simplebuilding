@@ -204,11 +204,13 @@ MODULE_OUTPUTS = {
     'simplearrows': {'item/silver_arrow.png': ((16, 16), 'arrows_derived.derived() - Vanilla arrow, head on the silver ramp (b-ores32, moved b-arrows02)'), 'entity/projectiles/silver_arrow.png': ((32, 32), 'arrows_derived.derived() - Vanilla arrow, head on the silver ramp (b-ores32, moved b-arrows02)'), 'item/light_arrow.png': ((16, 16), 'arrows_derived.derived() - Vanilla arrow, head on a glowstone ramp (b-arrows02)'), 'entity/projectiles/light_arrow.png': ((32, 32), 'arrows_derived.derived() - Vanilla arrow, head on a glowstone ramp (b-arrows02)')},
     'simplehammers': {'item/rose_bronze_sledgehammer.png': ((16, 16), 'ores_2026_10_30.derived_hammers() - the gold sledgehammer recoloured, optional with Simple Ores (ABN30-10)'), 'item/blossom_gold_sledgehammer.png': ((16, 16), 'ores_2026_10_30.derived_hammers() - the gold sledgehammer recoloured, optional with Simple Ores (ABN30-10)')},
     'simplebeacons': {'gui/container/strong_beacon.png': ((256, 288), 'strong_beacon_gui.derived() - Vanilla beacon GUI + 2 rows (T12)')},
+    # simplemachines (MACH32-MOD stage 3, vehicles_2026_10_10 art): one line (gradle/module-vanilla-derived.gradle reads its placeholder sizes from it).
+    'simplemachines': {'item/reinforced_hopper_minecart.png': ((16, 16), 'machines_carts_2026_11_03.derived() - Vanilla minecart (N23)'), 'item/netherite_hopper_minecart.png': ((16, 16), 'machines_carts_2026_11_03.derived() - Vanilla minecart (N23)'), 'item/enderite_hopper_minecart.png': ((16, 16), 'machines_carts_2026_11_03.derived() - Vanilla minecart (N23)')},
 }
 MODULE_GENERATORS = {'simplemobs': ('mobs2_textures', 'wither_textures', 'abn29_mobs', 'trials_2026_10_30'), 'simpleend': ('abn29_end',), 'simpleovens': ('ovens_carts_2026_10_13', 'ovens_boats_2026_11_02'),
                      'simplestorage': ('storage_vehicles_2026_10_20', 'shulker_shell_textures'),
                      'simplebeacons': ('strong_beacon_gui',), 'simpleblocks': ('missing_blocks_2026_10_16', 'shapecutter_2026_10_21', 'blocks_b23_2026_10_23', 'ice31_2026_10_30'), 'simplecrucibles': ('crucibles_derived_2026_10_16', 'soul_lava_2026_10_09'),
-                     'simpleores': ('ores_derived',), 'simplearrows': ('arrows_derived',), 'simplehammers': ('ores_hammers_derived',)}
+                     'simpleores': ('ores_derived',), 'simplearrows': ('arrows_derived',), 'simplehammers': ('ores_hammers_derived',), 'simplemachines': ('machines_carts_2026_11_03',)}
 # Older generators with a derived(jar) -> {texture path: Image or PNG bytes} function.
 OLDER_GENERATORS = ('auto_smither_gui', 'color_brush_2026_10_09', 'end_pistons_2026_10_03', 'end_rails_2026_10_04',
                     'fires_2026_10_11', 'silent_dandelion_2026_10_03',
@@ -347,6 +349,9 @@ SAME_AS = {'block/jukebox_amplifier_top.png': 'block/jukebox_amplifier_side.png'
            'block/note_amplifier_top.png': 'block/note_amplifier_side.png',
            # Same pixels as the simpleovens module copies (the wiki merges equal copies, jar and placeholder alike).
            **{f'item/{t}_furnace_minecart.png': f'simpleovens:item/{t}_furnace_minecart.png'
+              for t in ('reinforced', 'netherite', 'enderite')},
+           # MACH32-MOD stage 3: same pixels as the simplemachines copies of the hopper carts.
+           **{f'item/{t}_hopper_minecart.png': f'simplemachines:item/{t}_hopper_minecart.png'
               for t in ('reinforced', 'netherite', 'enderite')}}
 
 

@@ -27,4 +27,14 @@ public final class MachineRefs {
     public static Item item(String path) {
         return BuiltInRegistries.ITEM.getValue(id(path));
     }
+
+    /** Stage 3: an entity type of the module ({@code "reinforced_hopper_minecart"}). */
+    public static net.minecraft.world.entity.EntityType<?> entityType(String path) {
+        return BuiltInRegistries.ENTITY_TYPE.getValue(id(path));
+    }
+
+    /** Stage 3: a block entity type of the module ({@code "hopper"}); null if it has none under that id. */
+    public static net.minecraft.world.level.block.entity.BlockEntityType<?> blockEntityType(String path) {
+        return BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(id(path));
+    }
 }

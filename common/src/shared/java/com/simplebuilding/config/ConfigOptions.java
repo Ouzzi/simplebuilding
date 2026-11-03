@@ -183,6 +183,15 @@ public final class ConfigOptions {
     public static final Set<String> MOVED_TO_ENCHANTING = Set.of("server.features.endgameEnchantLevels");
 
     /**
+     * MACH32-MOD stage 3: the hopper speeds live in Simple Machines on 26.3 ({@code hoppers.*}, taken over once from here);
+     * {@code McVersion.HOPPERS_IN_SB}.
+     */
+    public static final Set<String> MOVED_TO_MACHINES_HOPPERS = Set.of(
+            "server.machines.reinforcedHopperSpeed",
+            "server.machines.netheriteHopperSpeed",
+            "server.machines.enderiteHopperSpeed");
+
+    /**
      * IG31-13: world generation of Sage Ore and Dimensional Scrap lives in Simple Ores on 26.3
      * ({@code McVersion.MATERIALS_IN_ORES}, inverted flag: hidden when true); Simple Ores has its own switches.
      */
@@ -197,7 +206,8 @@ public final class ConfigOptions {
                 || !com.simplebuilding.version.McVersion.STORAGE_IN_SB && MOVED_TO_STORAGE.contains(path)
                 || com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && MOVED_TO_ORES.contains(path)
                 || !com.simplebuilding.version.McVersion.PISTONS_IN_SB && MOVED_TO_MACHINES.contains(path)
-                || com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING && MOVED_TO_ENCHANTING.contains(path);
+                || com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING && MOVED_TO_ENCHANTING.contains(path)
+                || !com.simplebuilding.version.McVersion.HOPPERS_IN_SB && MOVED_TO_MACHINES_HOPPERS.contains(path);
     }
 
     private static final List<Option> ALL;

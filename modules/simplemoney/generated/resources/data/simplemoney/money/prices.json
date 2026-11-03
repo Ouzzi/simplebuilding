@@ -804,17 +804,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_hopper",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_horse_armor",
       "tier": 5,
       "hours": 38.1,
@@ -1157,17 +1146,6 @@
     },
     {
       "item": "simplebuilding:netherite_flypad",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_hopper",
       "tier": 4,
       "hours": 24.9,
       "craft": 0,
@@ -1750,17 +1728,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:reinforced_hopper",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:reinforced_potion_pad",
       "tier": 5,
       "hours": 38.1,
@@ -2245,9 +2212,31 @@
       "chance": 0.05
     },
     {
+      "item": "simplemachines:enderite_hopper",
+      "tier": 5,
+      "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplemachines:enderite_piston",
       "tier": 5,
       "hours": 38.1,
+      "craft": 0,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplemachines:netherite_hopper",
+      "tier": 4,
+      "hours": 24.9,
       "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
@@ -2265,6 +2254,17 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
+    },
+    {
+      "item": "simplemachines:reinforced_hopper",
+      "tier": 3,
+      "hours": 21.0,
+      "craft": 9,
+      "safetyFloor": 8,
+      "merchant": "mason",
+      "level": 4,
+      "stock": 1,
+      "chance": 1
     },
     {
       "item": "simplemachines:reinforced_piston",

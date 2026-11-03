@@ -21,6 +21,8 @@ public final class ModScreenHandlers {
     public static void registerScreenHandlers() {
         Simplebuilding.LOGGER.info("Registering Screen Handlers for " + Simplebuilding.MOD_ID);
 
+        // MACH32-MOD stage 3: on 26.3 the hopper menus are Simple Machines' (one per tier).
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
         NETHERITE_HOPPER_SCREEN_HANDLER = Registry.register(
                 BuiltInRegistries.MENU,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "netherite_hopper"),
@@ -29,6 +31,7 @@ public final class ModScreenHandlers {
                         BlockPos.STREAM_CODEC // Dies registriert automatisch das Netzwerk-Handling für die BlockPos
                 )
         );
+        }
         BACKPACK_MENU = Registry.register(
                 BuiltInRegistries.MENU,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "backpack"),

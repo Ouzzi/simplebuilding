@@ -238,4 +238,111 @@ public final class ModuleGameTest {
     public void onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(GameTestHelper h) {
         PistonUpgradeTests.onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(h);
     }
+
+    // ---- hoppers and hopper carts (MACH32-MOD stage 3): bodies in TierHopperTests and HopperModuleTests ----
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = com.simplemachines.test.TierHopperTests.REDSTONE_LOCK_MAX_TICKS)
+    public void redstonePowerStopsEveryHopperTransfer(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.redstonePowerStopsEveryHopperTransfer(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = com.simplemachines.test.TierHopperTests.KEEP_ONE_MAX_TICKS)
+    public void aFilteredHopperKeepsOneFilterItemInEverySlot(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.aFilteredHopperKeepsOneFilterItemInEverySlot(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void theModeDelegateReadsAndWritesTheFilterMode(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.theModeDelegateReadsAndWritesTheFilterMode(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void automationOnlyTopsUpMatchingSlots(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.automationOnlyTopsUpMatchingSlots(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperConfigurationSurvivesTheSaveAndLoadRoundTrip(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.hopperConfigurationSurvivesTheSaveAndLoadRoundTrip(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void theUpdateTagCarriesTheFilterModeToTheClient(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.theUpdateTagCarriesTheFilterModeToTheClient(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperMenuOpensOnUseAndFilterSlotsTakeOnlyTheirItem(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.hopperMenuOpensOnUseAndFilterSlotsTakeOnlyTheirItem(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperBlocksCarryTheirRegisteredStrengthSoundAndTags(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.hopperBlocksCarryTheirRegisteredStrengthSoundAndTags(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperRecipesCraftFromTheirDocumentedPatterns(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.hopperRecipesCraftFromTheirDocumentedPatterns(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = com.simplemachines.test.TierHopperTests.HOPPER_DROP_MAX_TICKS)
+    public void bothHoppersDropThemselvesWhenBroken(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.bothHoppersDropThemselvesWhenBroken(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = com.simplemachines.test.TierHopperTests.ITEM_AUTOMATION_MAX_TICKS)
+    public void modHoppersFallBackToTheLoaderTransferApiWithoutContainer(GameTestHelper h) {
+        com.simplemachines.test.TierHopperTests.modHoppersFallBackToTheLoaderTransferApiWithoutContainer(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hoppersRegistered(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.hoppersRegistered(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void oldHopperIdsMove(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.oldHopperIdsMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperSpeedsComeOverFromSimpleBuilding(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.hopperSpeedsComeOverFromSimpleBuilding(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void filterKeyIsMenuButton(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.filterKeyIsMenuButton(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void tierChangeKeepsTheBlockEntity(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.tierChangeKeepsTheBlockEntity(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 100)
+    public void hopperCartsTakeInAtTheHopperSpeed(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.hopperCartsTakeInAtTheHopperSpeed(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 100)
+    public void hopperCartFiltersLikeTheHopperBlock(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.hopperCartFiltersLikeTheHopperBlock(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperCartRecipesAndDrop(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.hopperCartRecipesAndDrop(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void hopperTooltipsNameSpeedAndFilter(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.hopperTooltipsNameSpeedAndFilter(h);
+    }
 }

@@ -31,8 +31,10 @@ public final class VehicleRenderers {
             registrar.register(ModEntities.NETHERITE_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
             registrar.register(ModEntities.ENDERITE_FURNACE_MINECART, c -> new MinecartRenderer(c, ModelLayers.FURNACE_MINECART));
         }
-        registrar.register(ModEntities.REINFORCED_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
-        registrar.register(ModEntities.NETHERITE_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
-        registrar.register(ModEntities.ENDERITE_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { // MACH32-MOD stage 3: Simple Machines renders its hopper carts
+            registrar.register(ModEntities.REINFORCED_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
+            registrar.register(ModEntities.NETHERITE_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
+            registrar.register(ModEntities.ENDERITE_HOPPER_MINECART, c -> new MinecartRenderer(c, ModelLayers.HOPPER_MINECART));
+        }
     }
 }

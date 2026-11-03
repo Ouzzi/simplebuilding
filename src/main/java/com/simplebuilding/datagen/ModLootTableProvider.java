@@ -107,9 +107,11 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         }
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK); // 26.3: SimpleLib's loot table
 
-        dropSelf(ModBlocks.REINFORCED_HOPPER);
-        dropSelf(ModBlocks.NETHERITE_HOPPER);
-        dropSelf(ModBlocks.ENDERITE_HOPPER);
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { // 26.3: Simple Machines ships the hopper loot tables (MACH32-MOD stage 3)
+            dropSelf(ModBlocks.REINFORCED_HOPPER);
+            dropSelf(ModBlocks.NETHERITE_HOPPER);
+            dropSelf(ModBlocks.ENDERITE_HOPPER);
+        }
 
         // Truhen wie Vanillas Truhe: sich selbst, mit dem Namen aus dem Amboss (der Inhalt faellt heraus).
         for (Block chest : ModBlocks.tieredChests()) {

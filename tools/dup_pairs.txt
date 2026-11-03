@@ -104,6 +104,9 @@ common/src/shared/java/com/simplebuilding/tweaks/mixin/client/WornModHeadMixin.j
 common/src/shared/java/com/simplebuilding/tweaks/network/LaserPayload.java modules/simplegadgets/shared/java/com/simplegadgets/network/LaserPayload.java
 common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 limit/2 limit/3 max/2 mirror/2 tryRemove/3
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
+common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
+common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java allow: of/1
+common/src/shared/java/com/simplebuilding/util/ItemFilter.java modules/simplemachines/shared/java/com/simplemachines/hopper/ItemFilter.java
 common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java modules/simpleovens/shared/java/com/simpleovens/LongCookContainerData.java
 common/src/shared/java/com/simplebuilding/util/ModSounds.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModSounds.java allow: register/0 registerSounds/0
 common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplefun/shared/java/com/simplefun/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1

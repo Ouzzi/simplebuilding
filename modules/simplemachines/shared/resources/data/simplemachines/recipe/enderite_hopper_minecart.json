@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplemachines:enderite_hopper",
+    "minecraft:minecart"
+  ],
+  "result": {
+    "id": "simplemachines:enderite_hopper_minecart"
+  }
+}

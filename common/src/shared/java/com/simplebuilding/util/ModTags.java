@@ -113,8 +113,8 @@ public class ModTags {
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
                     // IG31-13: the Enderite materials (Simple Ores, required sub-mod).
                     || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
-                    // MACH32 stage 2: the Enderite piston (Simple Machines, required sub-mod).
-                    || "simplemachines".equals(id.getNamespace());
+                    // MACH32-MOD stages 2/3: the Enderite Piston, Hopper and hopper cart (Simple Machines, required sub-mod).
+                    || com.simplebuilding.version.McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
             return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
@@ -185,7 +185,9 @@ public class ModTags {
                     || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
                     // IG31-13: the Enderite materials are Simple Ores' (ingot, nugget, block).
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
+                    // MACH32-MOD stages 2/3: the Enderite Piston, Hopper and hopper cart (Simple Machines).
+                    || com.simplebuilding.version.McVersion.PISTONS_NAMESPACE.equals(id.getNamespace()))
                     && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
                     && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }

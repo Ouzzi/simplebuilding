@@ -143,6 +143,7 @@ public final class VehicleTests {
      * Under a full chest each tier cart takes in 2/4/8 times what vanilla's hopper cart takes in the same ticks.
      */
     public static void hopperCartsTakeInAtTheHopperSpeed(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         if (!active(helper)) return;
         List<net.minecraft.world.entity.vehicle.minecart.AbstractMinecartContainer> carts = new ArrayList<>();
         List<BlockPos> chests = new ArrayList<>();
@@ -193,6 +194,7 @@ public final class VehicleTests {
      * cobblestone and dirt - no dirt comes in, and a hopper below may take everything but the last cobblestone.
      */
     public static void hopperCartFiltersLikeTheHopperBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         if (!active(helper)) return;
         BlockPos rail = new BlockPos(2, 2, 2);
         helper.setBlock(rail.below(), Blocks.STONE);
@@ -234,7 +236,9 @@ public final class VehicleTests {
         ServerLevel level = helper.getLevel();
         List<Entity> vehicles = new ArrayList<>();
         vehicles.add(helper.spawn(com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), new BlockPos(3, 2, 1)));
-        vehicles.add(helper.spawn(ModEntities.REINFORCED_HOPPER_MINECART, new BlockPos(5, 2, 1)));
+        // MACH32-MOD stage 3: on 26.3 the hopper carts are Simple Machines' (by id).
+        vehicles.add(com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? helper.spawn(ModEntities.REINFORCED_HOPPER_MINECART, new BlockPos(5, 2, 1))
+                : helper.spawn(com.simplebuilding.util.MachineRefs.entityType("reinforced_hopper_minecart"), new BlockPos(5, 2, 1)));
         Item[] expected = {com.simplebuilding.util.OvenRefs.item("enderite_furnace_minecart"), ModItems.REINFORCED_HOPPER_MINECART};
         for (int i = 0; i < vehicles.size(); i++) {
             Entity vehicle = vehicles.get(i);
