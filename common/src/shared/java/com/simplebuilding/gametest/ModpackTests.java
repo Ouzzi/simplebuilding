@@ -527,9 +527,12 @@ public final class ModpackTests {
         chisel.put("apack:unknown", "{\"tier\":\"iron\",\"chains\":[{\"blocks\":[\"minecraft:gravel\",\"nomod:thing\",\"minecraft:sand\"]}]}");
         chisel.put("apack:broken", "{\"tier\":\"wood\"}");
         Map<String, String> upgrades = new HashMap<>(ModDataTables.lastUpgradeFiles());
+        // MACH32-MOD stage 2: on 26.3 the pistons and their upgrade file are Simple Machines'; a SimpleBuilding block is removed there.
+        String removedUpgrade = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? "simplebuilding:reinforced_piston" : "simplebuilding:reinforced_hopper";
+        Block removedBlock = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? com.simplebuilding.blocks.ModBlocks.REINFORCED_PISTON : com.simplebuilding.blocks.ModBlocks.REINFORCED_HOPPER;
         upgrades.put("apack:extra", "{\"upgrades\":[{\"from\":\"minecraft:hopper\",\"to\":\"simplebuilding:reinforced_hopper\","
                 + "\"material\":\"minecraft:iron_nugget\",\"min_hammer\":\"any\",\"damage_per_hit\":3,\"tier\":\"reinforced\"}],"
-                + "\"remove\":[\"" + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston\"]}");
+                + "\"remove\":[\"" + removedUpgrade + "\"]}");
         ByteBuf raw = Unpooled.buffer();
         try {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(raw, helper.getLevel().registryAccess());
@@ -551,8 +554,8 @@ public final class ModpackTests {
             helper.assertTrue(added != null && added.nugget() == Items.IRON_NUGGET && added.minHammerRank() == 0
                             && added.damagePerHit() == 3 && added.toReinforced(),
                     "the added upgrade is missing or misread: " + added);
-            helper.assertTrue(SledgehammerUpgrades.upgradeOf(com.simplebuilding.blocks.ModBlocks.REINFORCED_PISTON) == null,
-                    "\"remove\" did not take the reinforced piston upgrade out");
+            helper.assertTrue(SledgehammerUpgrades.upgradeOf(removedBlock) == null,
+                    "\"remove\" did not take the " + removedUpgrade + " upgrade out");
             helper.assertTrue(SledgehammerUpgrades.isUpgradeNugget(new ItemStack(Items.IRON_NUGGET)),
                     "the added upgrade's material is not an upgrade material");
         } finally {
