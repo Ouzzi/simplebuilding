@@ -67,6 +67,12 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
         return new int[] {UiBoxes.FRAME, UiBoxes.FRAME, PipeMenu.IMAGE_WIDTH - 2 * UiBoxes.FRAME, PipeMenu.INVENTORY_Y - UiBoxes.FRAME - 2 - 2 * UiBoxes.FRAME};
     }
 
+    /** {@link #boxInside()} in screen coordinates, like the keys' positions. */
+    int[] boxInsideOnScreen() {
+        int[] b = boxInside();
+        return new int[] {this.leftPos + b[0], this.topPos + b[1], b[2], b[3]};
+    }
+
     int probeMode(Direction side) {
         return this.menu.sideMode(side);
     }
