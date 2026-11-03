@@ -229,9 +229,9 @@ public final class ArrowsTests {
         h.assertValueEqual(second.lightPos(), first.lightPos(), "both hold the same light");
         first.discard();
         h.assertTrue(h.getBlockState(stone.west()).is(Blocks.LIGHT), "one arrow left: the light stays");
-        h.setBlock(stone.west(), Blocks.TORCH);
+        h.setBlock(stone.west(), Blocks.GLASS);
         second.discard();
-        h.assertTrue(h.getBlockState(stone.west()).is(Blocks.TORCH), "a block placed into the light is not removed");
+        h.assertTrue(h.getBlockState(stone.west()).is(Blocks.GLASS), "a block placed into the light is not removed");
         h.succeed();
     }
 
@@ -249,6 +249,7 @@ public final class ArrowsTests {
         h.assertValueEqual(loaded.lightPos(), arrow.lightPos(), "light_pos loaded");
         arrow.remove(net.minecraft.world.entity.Entity.RemovalReason.UNLOADED_TO_CHUNK);
         h.assertTrue(h.getBlockState(stone.west()).is(Blocks.LIGHT), "unloading keeps the light");
+        loaded.setUUID(java.util.UUID.randomUUID());
         h.getLevel().addFreshEntity(loaded);
         loaded.discard();
         h.assertTrue(h.getBlockState(stone.west()).isAir(), "the reloaded arrow takes its light away");
