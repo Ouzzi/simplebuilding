@@ -60,6 +60,9 @@ public final class SimpleMachines {
         // netherite nugget of the hammer upgrades (SimpleLib registers both always).
         com.simplelib.api.SimpleLibApi.requestMaterial("cracked_diamond");
         com.simplelib.api.SimpleLibApi.requestMaterial("netherite_nugget");
+        // The shipped upgrade files (data/simplemachines/in_world_upgrades) apply before datapack files of other namespaces,
+        // so a modpack's "remove" takes a piston or hopper step out (like Simple Ovens).
+        com.simplelib.api.InWorldUpgrades.registerDefaults(MOD_ID);
         // Switch off = the recipe goes with it (SimpleLib RecipeFilters, read live; /reload applies a changed config).
         com.simplelib.api.RecipeFilters.register(MOD_ID, p -> (!MachinesConfig.doublePiston && p.equals("double_piston"))
                 || (!MachinesConfig.signalDampener && p.equals("signal_dampener")));

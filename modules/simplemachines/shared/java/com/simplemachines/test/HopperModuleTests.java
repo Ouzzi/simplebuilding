@@ -137,7 +137,7 @@ public final class HopperModuleTests {
     }
 
     /** The filter key is menu button 0: it cycles the hopper behind the menu; other ids do nothing. */
-    public static void filterKeyIsAMenuButton(GameTestHelper helper) {
+    public static void filterKeyIsMenuButton(GameTestHelper helper) {
         BlockPos pos = new BlockPos(2, 1, 2);
         helper.setBlock(pos, Hoppers.block(HopperTier.NETHERITE));
         TierHopperBlockEntity hopper = helper.getBlockEntity(pos, TierHopperBlockEntity.class);

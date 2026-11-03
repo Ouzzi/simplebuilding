@@ -317,8 +317,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplemachines:empty")
-    public void filterKeyIsAMenuButton(GameTestHelper h) {
-        com.simplemachines.test.HopperModuleTests.filterKeyIsAMenuButton(h);
+    public void filterKeyIsMenuButton(GameTestHelper h) {
+        com.simplemachines.test.HopperModuleTests.filterKeyIsMenuButton(h);
     }
 
     @GameTest(structure = "simplemachines:empty")

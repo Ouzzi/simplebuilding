@@ -244,7 +244,7 @@ public final class EnderiteMachineTests {
 
         helper.runAfterDelay(3, () -> {
             helper.assertValueEqual("hopper: " + dropsAround(helper, hopper) + ", piston: " + dropsAround(helper, piston),
-                    "hopper: 1 simplebuilding:enderite_hopper, piston: 1 " + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":enderite_piston",
+                    "hopper: 1 " + com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":enderite_hopper, piston: 1 " + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":enderite_piston",
                     "what the broken enderite hopper and piston left on the ground");
             helper.succeed();
         });
