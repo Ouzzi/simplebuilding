@@ -473,15 +473,15 @@ public final class PipeTests {
         h.succeed();
     }
 
-    /** The window has the Vanilla hopper's rows: slot row at y 20, inventory at y 51, one slot in the middle of the five. */
+    /** The window has the Vanilla hopper's rows: slot row at y 18, inventory at y 60 (b-small04: more padding inside the upper box than the hopper's), one slot in the middle of the five. */
     public static void windowFollowsTheHopperLayout(GameTestHelper h) {
         List<String> problems = new ArrayList<>();
-        if (PipeMenu.SLOT_Y != 20 || PipeMenu.INVENTORY_Y != 51 || PipeMenu.IMAGE_WIDTH != 176 || PipeMenu.SLOT_X != 80) problems.add("layout constants");
+        if (PipeMenu.SLOT_Y != 18 || PipeMenu.INVENTORY_Y != 60 || PipeMenu.IMAGE_WIDTH != 176 || PipeMenu.SLOT_X != 80) problems.add("layout constants");
         place(h, PIPE, "reinforced_pipe", Direction.DOWN);
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         PipeMenu menu = PipeMenu.server(1, player.getInventory(), entity(h, PIPE));
-        if (menu.getSlot(0).x != 80 || menu.getSlot(0).y != 20) problems.add("pipe slot at " + menu.getSlot(0).x + "," + menu.getSlot(0).y);
-        if (menu.slots.size() != 1 + 36 || menu.getSlot(1).x != 8 || menu.getSlot(1).y != 51) problems.add("inventory at " + menu.getSlot(1).x + "," + menu.getSlot(1).y + " slots " + menu.slots.size());
+        if (menu.getSlot(0).x != 80 || menu.getSlot(0).y != 18) problems.add("pipe slot at " + menu.getSlot(0).x + "," + menu.getSlot(0).y);
+        if (menu.slots.size() != 1 + 36 || menu.getSlot(1).x != 8 || menu.getSlot(1).y != 60) problems.add("inventory at " + menu.getSlot(1).x + "," + menu.getSlot(1).y + " slots " + menu.slots.size());
         h.assertTrue(problems.isEmpty(), "window layout: " + problems);
         h.succeed();
     }

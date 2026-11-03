@@ -111,6 +111,9 @@ def main():
                   {n: r[n][:2] for n in ('north', 'west', 'east', 'south')})
             check(f'{tag}: up/down column beside the compass', cx('up') > cx('east') and cx('down') == cx('up') and cy('up') < cy('down'),
                   {n: r[n][:2] for n in ('up', 'down')})
+            bx, by, bw, bh = r['box']
+            pad = min(min(r[n][0] - bx, r[n][1] - by, bx + bw - r[n][0] - r[n][2], by + bh - r[n][1] - r[n][3]) for n in ('north', 'west', 'east', 'south', 'up', 'down'))
+            check(f'{tag}: every side key keeps >= {4 * st["scale"]} px (4 gui px) padding inside the box', pad >= 4 * st['scale'], f'{pad} px = {pad / st["scale"]:.1f} gui px')
             check(f'{tag}: start = one output (down), rest input', st['values']['down'] == OUT and all(st['values'][n] == IN for n in ('north', 'south', 'east', 'west', 'up')), st['values'])
             command('shot')
 

@@ -1086,3 +1086,5 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [ ] (B, QW) DW03C-3 Rohre: kein Rohr-Fortsatz in Richtungen ohne Ausgang (Kisten usw. zählen als Ausgang).
 - [ ] (B, PRIO) DW03C-4 Mod-Fässer wie Vanilla-Fass platzierbar (Ausrichtung in alle 6 Richtungen), fehlende open-Textur ergänzen, mit dem Interface verbindbar.
 - [~] (B, b-keys34, 03.11., Tastatur-Layouts US/DE/UK/FR + Layout-Editor in Simple Keybinds gebaut; Vorschau abnahme-b/b-keys34-preview.html, Antwort KEYS34|…; offen Besitzer-Abnahme, Bündel/Gate, Client-Smoke-Nachlauf)
+## b-small04 (03.11.) - fuenf Abnahme-Anmerkungen
+- [~] (B, b-small04, 03.11.) Blei alte Farbe zurueck; Rohr-Fenster Padding (INVENTORY_Y 60); ROHR33=A Rille + Hals 5x5; COND38=A Conduit-Items Vanilla-Groesse; Ofen-Boote je Ofenstufe (40). Vorschau abnahme-b/b-small04-preview.html; sbt-Ergebnis siehe Memory-Abschnitt b-small04

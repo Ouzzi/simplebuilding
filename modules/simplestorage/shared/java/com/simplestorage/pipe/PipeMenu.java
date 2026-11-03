@@ -14,14 +14,14 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The window of the pipe (ST27-1): laid out like the Vanilla hopper window (slot row at y 20, inventory at y 51, height 133) with its one slot, the filter key (button 0) and the six side keys (buttons 2..7: a click cycles in - out - off, several outputs allowed, ROHR33), above the inventory.
+ * The window of the pipe (ST27-1): laid out like the Vanilla hopper window but with a taller upper box for the compass (slot row at y 18, inventory at y 60, b-small04) with its one slot, the filter key (button 0) and the six side keys (buttons 2..7: a click cycles in - out - off, several outputs allowed, ROHR33), above the inventory.
  * The server menu is wired to the block entity; filter mode, output side and tier reach the client as three data slots.
  */
 public class PipeMenu extends AbstractContainerMenu {
     /** Buttons: filter, turn the output on (sneak-click equivalent), and {@code BUTTON_SIDE + direction ordinal} = cycle that side: in, out, off (ROHR33). */
     public static final int BUTTON_FILTER = 0, BUTTON_OUTPUT = 1, BUTTON_SIDE = 2;
     /** Window size and the place of the pipe's slot (the screen and the menu use the same numbers). */
-    public static final int IMAGE_WIDTH = 176, SLOT_X = 80, SLOT_Y = 20, INVENTORY_Y = 51;
+    public static final int IMAGE_WIDTH = 176, SLOT_X = 80, SLOT_Y = 18, INVENTORY_Y = 60;
 
     private final Container container;
     private final ContainerData data;

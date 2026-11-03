@@ -41,7 +41,7 @@ RAMPS = {
 }
 RAMPS.update({
     # lead: dull and heavy, clearly darker than silver. a = blue-grey, b = violet-grey, c = graphite
-    'lead_a': ['#cdd8e8', '#aebfd8', '#91a5c2', '#768ba9', '#5f7493', '#4b5f7c', '#3a4c66', '#2b3a4f', '#1d2938', '#121a25'],   # b-tex03: bluer (owner 02.11.: blue-grey)
+    'lead_a': ['#d4dbe3', '#b7c1cc', '#9aa7b5', '#808e9d', '#677583', '#515e6b', '#3e4954', '#2d363f', '#1f262d', '#14191f'],   # b-small04: original grey-blue ramp back (owner 03.11.); Karo leise + calmer gloss stay
     'lead_b': ['#dcd9e3', '#c0bccd', '#a5a0b4', '#8a8499', '#716b80', '#5a5568', '#454153', '#332f3d', '#24212c', '#16141c'],
     'lead_c': ['#b9c0bd', '#9ea6a3', '#848c89', '#6b7371', '#555c5a', '#434948', '#333837', '#262a29', '#191c1c', '#0f1111'],
 })

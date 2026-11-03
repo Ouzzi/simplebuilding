@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "simpleores"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "simpleores"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "enderite_furnace_boat",
+  "ingredients": [
+    "minecraft:dark_oak_boat",
+    "simpleovens:enderite_furnace"
+  ],
+  "result": {
+    "id": "simpleovens:enderite_dark_oak_furnace_boat"
+  }
+}

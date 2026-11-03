@@ -20,6 +20,16 @@ def furnace_shades(jar):
     return [px[min(len(px) - 1, int(q * (len(px) - 1)))] for q in (0.05, 0.3, 0.55, 0.75, 0.9)]
 
 
+def tier_shades(tier):
+    """Five shades of a tier furnace's own side texture (committed in Simple Ovens), same quantiles as furnace_shades (b-small04)."""
+    im = Image.open(Path(__file__).resolve().parents[2] / f"modules/simpleovens/shared/resources/assets/simpleovens/textures/block/{tier}_furnace_side.png").convert("RGBA")
+    px = sorted((c[:3] for c in im.get_flattened_data() if c[3] > 0), key=vehicles.lum)
+    return [px[min(len(px) - 1, int(q * (len(px) - 1)))] for q in (0.05, 0.3, 0.55, 0.75, 0.9)]
+
+
+TIERS = ("reinforced", "netherite", "enderite")
+
+
 def overlay(chest, plain, shades):
     region = vehicles.mask(chest, plain)
     out = vehicles.paint(chest, region, shades)
@@ -34,5 +44,11 @@ def derived(jar):
     """Texture path under assets/simpleovens/textures/ -> image, for tools/textures/vanilla_derived.py --module."""
     vehicles.CLIENT_JAR = Path(jar)
     shades = furnace_shades(jar)
-    return {"item/furnace_boat_overlay.png": overlay(vehicles.vanilla("oak_chest_boat"), vehicles.vanilla("oak_boat"), shades),
-            "item/furnace_raft_overlay.png": overlay(vehicles.vanilla("bamboo_chest_raft"), vehicles.vanilla("bamboo_raft"), shades)}
+    chest_boat, boat = vehicles.vanilla("oak_chest_boat"), vehicles.vanilla("oak_boat")
+    chest_raft, raft = vehicles.vanilla("bamboo_chest_raft"), vehicles.vanilla("bamboo_raft")
+    out = {"item/furnace_boat_overlay.png": overlay(chest_boat, boat, shades),
+           "item/furnace_raft_overlay.png": overlay(chest_raft, raft, shades)}
+    for tier in TIERS:   # b-small04: the tier furnaces' own shades (the fire pixel stays)
+        out[f"item/{tier}_furnace_boat_overlay.png"] = overlay(chest_boat, boat, tier_shades(tier))
+        out[f"item/{tier}_furnace_raft_overlay.png"] = overlay(chest_raft, raft, tier_shades(tier))
+    return out

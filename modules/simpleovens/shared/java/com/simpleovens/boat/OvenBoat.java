@@ -1,5 +1,6 @@
 package com.simpleovens.boat;
 
+import com.simpleovens.OvenTier;
 import java.util.function.Supplier;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -24,6 +25,9 @@ import net.minecraft.world.phys.Vec3;
  * Furnace boat (BOAT40): a Vanilla boat or raft with a furnace where the chest boat has its chest. The player steers, the
  * furnace pushes like the furnace minecart: right-click with coal or charcoal adds fuel (3600 ticks each, at most 32000),
  * while fuel lasts and a player sits in it the boat gets a gentle forward push in water. Drops its own item.
+ * <p>One boat per furnace tier (b-small04, owner 03.11.): the plain furnace ({@code tier == null}) and the Reinforced, Netherite and
+ * Enderite furnace. The upper tiers burn fuel longer (as many times as the furnace of the tier cooks faster, like the tiered furnace
+ * minecart: 2/4/8) and push harder and faster (x1.25 / x1.5 / x2, the minecart's top-speed ratio 0.625 / 0.75 / 1.0 against 0.5).
  */
 public class OvenBoat extends AbstractBoat {
     /** Same fuel numbers as Vanilla's furnace minecart. */
@@ -34,11 +38,46 @@ public class OvenBoat extends AbstractBoat {
     public static final double THRUST_SPEED_CAP = 0.3;
     private static final EntityDataAccessor<Boolean> DATA_LIT = SynchedEntityData.defineId(OvenBoat.class, EntityDataSerializers.BOOLEAN);
     private final boolean raft;
+    private final OvenTier tier;
     private int fuel;
 
-    public OvenBoat(EntityType<? extends OvenBoat> type, Level level, Supplier<Item> dropItem, boolean raft) {
+    /** {@code tier} null = the plain furnace boat. */
+    public OvenBoat(EntityType<? extends OvenBoat> type, Level level, Supplier<Item> dropItem, boolean raft, OvenTier tier) {
         super(type, level, dropItem);
         this.raft = raft;
+        this.tier = tier;
+    }
+
+    /** The furnace tier of this boat; null for the plain furnace. */
+    public OvenTier tier() {
+        return this.tier;
+    }
+
+    /** How many times longer a fuel item burns and how much the furnace holds: 1 for the plain furnace, else the tier's furnace speed (2/4/8). */
+    public static int fuelFactor(OvenTier tier) {
+        return tier == null ? 1 : tier.speed();
+    }
+
+    /** Push and speed cap against the plain boat: 1, 1.25, 1.5, 2. Enderite then reaches 0.6 blocks/tick, still under an ice boat's ~0.7. */
+    public static double powerFactor(OvenTier tier) {
+        if (tier == null) return 1.0;
+        return switch (tier) {
+            case REINFORCED -> 1.25;
+            case NETHERITE -> 1.5;
+            case ENDERITE -> 2.0;
+        };
+    }
+
+    public int fuelPerItem() {
+        return FUEL_PER_ITEM * fuelFactor(this.tier);
+    }
+
+    public int maxFuel() {
+        return MAX_FUEL * fuelFactor(this.tier);
+    }
+
+    public double speedCap() {
+        return THRUST_SPEED_CAP * powerFactor(this.tier);
     }
 
     public boolean isRaft() {
@@ -79,13 +118,13 @@ public class OvenBoat extends AbstractBoat {
 
     /** The push per tick now: zero without fuel. */
     public double thrust() {
-        return isLit() ? THRUST : 0.0;
+        return isLit() ? THRUST * powerFactor(this.tier) : 0.0;
     }
 
     /** One fuel item: false when it is no fuel or the boat is full. */
     public boolean addFuel(ItemStack stack) {
-        if (!stack.is(ItemTags.FURNACE_MINECART_FUEL) || this.fuel + FUEL_PER_ITEM > MAX_FUEL) return false;
-        this.fuel += FUEL_PER_ITEM;
+        if (!stack.is(ItemTags.FURNACE_MINECART_FUEL) || this.fuel + fuelPerItem() > maxFuel()) return false;
+        this.fuel += fuelPerItem();
         this.entityData.set(DATA_LIT, true);
         return true;
     }
@@ -101,7 +140,7 @@ public class OvenBoat extends AbstractBoat {
         double push = thrust();
         if (push <= 0.0 || !this.isInWater()) return false;
         Vec3 motion = this.getDeltaMovement();
-        if (motion.horizontalDistanceSqr() >= THRUST_SPEED_CAP * THRUST_SPEED_CAP) return false;
+        if (motion.horizontalDistanceSqr() >= speedCap() * speedCap()) return false;
         float yaw = this.getYRot() * (float) (Math.PI / 180.0);
         this.setDeltaMovement(motion.add(Mth.sin(-yaw) * push, 0.0, Mth.cos(yaw) * push));
         return true;
@@ -144,7 +183,7 @@ public class OvenBoat extends AbstractBoat {
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
-        this.fuel = Mth.clamp(input.getIntOr("Fuel", 0), 0, MAX_FUEL);
+        this.fuel = Mth.clamp(input.getIntOr("Fuel", 0), 0, maxFuel());
         this.entityData.set(DATA_LIT, this.fuel > 0);
     }
 }

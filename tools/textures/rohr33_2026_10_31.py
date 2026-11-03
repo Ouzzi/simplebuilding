@@ -1,12 +1,12 @@
-"""b-rohr33 (31.10., Queue IG31-32): pipe concept - textures with the flow arrow worked into the metal (no stuck-on chevron) and
-the model geometry on top of pipe form B (output neck 6 -> 3), optionally with an 8x8 socket on every input (thicker inflow).
-
-PREVIEW ONLY: nothing here writes into the game resources. Plan: docs/ai/PLAN-B-ROHR33-2026-10-31.md.
+"""b-rohr33 (31.10., Queue IG31-32) + b-small04 (03.11.): pipe textures with the flow arrow worked into the metal (no stuck-on chevron)
+and the matching model geometry. Owner 03.11.: ROHR33 = A (groove); the output neck a bit bigger than 4x4 but smaller than the 6x6 pipe.
+PRODUCTION since b-small04: storage31 build() takes sheet(step, 'A') for the four pipes, storage30 pipe_templates() takes core/out_elements().
+The 8x8 socket of the preview (variant B) is dropped. Plan: docs/ai/PLAN-B-ROHR33-2026-10-31.md, docs/ai/PLAN-B-SMALL04-2026-11-03.md.
 
 Sheet layout (16 x 16, the same for every step and variant):
-  P plate 6x6 (0,0)   R end ring 6x6 (6,0)   N neck ring 3x3 (12,0)   H neck side 3x2 (12,3)
-  F flow strip 6x9 (0,6): side faces of core (v 3..9) + output body (v 0..3), arrow tip at v 0 = toward the output
-  M socket side 8x2 (8,6)   E socket end 8x8 (8,8)
+  P plate 6x6 (0,0)   R end ring 6x6 (6,0)
+  F flow strip 6x10 (0,6): side faces of core (v 4..10) + output body (v 0..4), arrow tip at v 1 = toward the output
+  N neck ring 5x5 (6,6)   H neck side up/down 5x1 (6,11)   V neck side east/west 1x5 (11,6)
 Variants of the arrow: A groove (engraved), B embossed (raised), C seam (two sheets meet in a V, the field ahead is lighter).
 
     python3 tools/textures/rohr33_2026_10_31.py [--report] [--write DIR]   (--write: PNG + .layers.json per variant/step)
@@ -26,10 +26,11 @@ from layers import save, snap  # noqa: E402
 
 CLEAR = (0, 0, 0, 0)
 STEPS = list(s31.PIPE31)                       # pipe (iron), reinforced_pipe, netherite_pipe, enderite_pipe: the existing ramps
-CELLS = {'P': (0, 0, 6, 6), 'R': (6, 0, 6, 6), 'N': (12, 0, 3, 3), 'H': (12, 3, 3, 2), 'F': (0, 6, 6, 9), 'M': (8, 6, 8, 2), 'E': (8, 8, 8, 8)}
+CELLS = {'P': (0, 0, 6, 6), 'R': (6, 0, 6, 6), 'N': (6, 6, 5, 5), 'H': (6, 11, 5, 1), 'V': (11, 6, 1, 5), 'F': (0, 6, 6, 10)}
+NECK = 5          # output neck n x n (b-small04: 3 -> 4 -> 5; 4.5 is not on the pixel grid), 1 px long
 VARIANTS = ('A', 'B', 'C')
 
-# arrow inside the 6x9 strip, tip at row 1 (toward the output), shaft down the middle
+# arrow inside the 6x10 strip, tip at row 1 (toward the output), shaft down the middle
 ARROW = ['......',
          '..XX..',
          '.XXXX.',
@@ -38,9 +39,11 @@ ARROW = ['......',
          '..XX..',
          '..XX..',
          '..XX..',
+         '..XX..',
          '......']
 # C: two V seams (a double chevron), the field inside each V is lighter
 SEAM = ['......',
+        '......',
         '..ss..',
         '.s++s.',
         's++++s',
@@ -61,7 +64,7 @@ def tone(ramp, t):
 
 def strip(ramp, seed, variant):
     """F: side face of core + output body with the arrow worked into the metal (only ramp tones, steps <= ~1.5)."""
-    w, h = 6, 9
+    w, h = 6, 10
     base = [[0.5 + s31.light(x, y, w, h, 0.14) + (s31.vnoise(x, y, 3, seed, 16) - 0.5) * 0.04
              + (0.08 if x == 0 else -0.1 if x == w - 1 else 0.0) for x in range(w)] for y in range(h)]
     t = [row[:] for row in base]
@@ -116,12 +119,11 @@ def sheet(step: str, variant: str, seed: int) -> Image.Image:
     img.paste(s31.face(6, 6, ramp, 0.52, seed, slope=0.18, grain=0.05, edge=0.08), (0, 0))
     snap(img, 'Platte')
     img.paste(ring(ramp, 6, seed), (6, 0))
-    img.paste(ring(ramp, 3, seed + 1, depth=1), (12, 0))
-    snap(img, 'Endringe')
-    img.paste(s31.face(3, 2, ramp, 0.5, seed + 2, slope=0.12, grain=0.03, edge=0.06), (12, 3))
-    img.paste(s31.face(8, 2, ramp, 0.58, seed + 4, slope=0.12, grain=0.04, edge=0.08), (8, 6))
-    img.paste(ring(ramp, 8, seed + 5, depth=3), (8, 8))
-    snap(img, 'Hals und Muffe')
+    snap(img, 'Endring')
+    img.paste(ring(ramp, NECK, seed + 1, depth=1), (6, 6))
+    img.paste(s31.face(NECK, 1, ramp, 0.5, seed + 2, slope=0.12, grain=0.03, edge=0.0), (6, 11))
+    img.paste(s31.face(1, NECK, ramp, 0.5, seed + 4, slope=0.12, grain=0.03, edge=0.0), (11, 6))
+    snap(img, 'Hals')
     img.paste(strip(ramp, seed + 3, variant), (0, 6))
     snap(img, 'Pfeil')
     return s31.reduce(img, 12)
@@ -158,34 +160,22 @@ def side_faces(u0, v0, u1, v1):
 
 
 def core_elements():
-    """Core 6x6x6, turned with the output: its four side faces carry the arrow (F v 3..9), back = plate."""
-    faces = side_faces(0, 9, 6, 15)
+    """Core 6x6x6, turned with the output: its four side faces carry the arrow (F v 4..10), back = plate."""
+    faces = side_faces(0, 10, 6, 16)
     faces['south'] = f((0, 0, 6, 6))
     faces['north'] = f((0, 0, 6, 6))
     return [{'from': [5, 5, 5], 'to': [11, 11, 11], 'faces': faces}]
 
 
-def out_elements():
-    """Pipe form B (owner 31.10.): body 6x6 over z 2..5 (F v 0..3, the arrow tip), neck 3x3 over z 0..2."""
-    body = side_faces(0, 6, 6, 9)
-    body['north'] = f((6, 0, 12, 6))
-    neck = side_faces(12, 3, 15, 5)
-    neck['north'] = f((12, 0, 15, 3))
-    return [{'from': [5, 5, 2], 'to': [11, 11, 5], 'faces': body},
-            {'from': [6.5, 6.5, 0], 'to': [9.5, 9.5, 2], 'faces': neck}]
-
-
-def arm_elements(socket: bool):
-    if not socket:
-        faces = {'north': f((6, 0, 12, 6)), 'up': f((0, 0, 6, 5)), 'down': f((0, 0, 6, 5)),
-                 'east': f((0, 0, 5, 6)), 'west': f((0, 0, 5, 6))}
-        return [{'from': [5, 5, 0], 'to': [11, 11, 5], 'faces': faces}]
-    arm = {'up': f((0, 0, 6, 3)), 'down': f((0, 0, 6, 3)), 'east': f((0, 0, 3, 6)), 'west': f((0, 0, 3, 6))}
-    sock = side_faces(8, 6, 16, 8)
-    sock['north'] = f((8, 8, 16, 16))
-    sock['south'] = f((8, 8, 16, 16))
-    return [{'from': [5, 5, 2], 'to': [11, 11, 5], 'faces': arm},
-            {'from': [4, 4, 0], 'to': [12, 12, 2], 'faces': sock}]
+def out_elements(z0: int = 0):
+    """Output arm toward north at z0..z0+5: body 6x6 over z0+1..z0+5 (F v 0..4, the arrow tip), neck NECK x NECK over z0..z0+1 (1 px)."""
+    lo, hi = 8 - NECK / 2, 8 + NECK / 2
+    body = side_faces(0, 6, 6, 10)
+    body['north'] = f((6, 0, 12, 6))   # the rim of the body end shows around the neck
+    neck = {'north': f((6, 6, 6 + NECK, 6 + NECK)), 'up': f((6, 11, 6 + NECK, 12)), 'down': f((6, 12, 6 + NECK, 11)),
+            'east': f((11, 6, 12, 6 + NECK)), 'west': f((12, 6, 11, 6 + NECK))}
+    return [{'from': [5, 5, z0 + 1], 'to': [11, 11, z0 + 5], 'faces': body},
+            {'from': [lo, lo, z0], 'to': [hi, hi, z0 + 1], 'faces': neck}]
 
 
 def main():
