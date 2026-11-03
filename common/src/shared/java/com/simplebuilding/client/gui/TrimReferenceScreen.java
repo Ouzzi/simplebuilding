@@ -50,7 +50,7 @@ public class TrimReferenceScreen extends Screen {
 
     /**
      * Alle Zahlen kommen aus TrimBonusCatalog, also aus denselben Konstanten, mit denen
-     * TrimEffectUtil rechnet. Namen sind die Vanilla-Uebersetzungen der Muster und Materialien.
+     * die Besatz-Regeln rechnen (TrimRates). Namen sind die Vanilla-Uebersetzungen der Muster und Materialien.
      */
     private void populateEntries() {
         float resonance = (float) playerMultiplier;

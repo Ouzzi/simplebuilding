@@ -1,5 +1,7 @@
 # Rüstungsbesatz-Boni – Balance-Durchsicht
 
+> Seit 03.11.2026 (ZO9 A, docs/ai/PLAN-B-TRIMMOVE01-2026-11-03.md): auf 26.3 rechnet Simple Mobs (`simplemobs` `trim/TrimAbilities`, `TrimAbilityAttributes`) mit denselben Zahlen; der Kern zeigt sie über `TrimRates`/`TrimBonusCatalog`. `TrimEffectUtil`/`TrimAttributeHandler` gibt es nur noch auf der 26.2-Linie. Die Tests `TrimEffectTests`/`TrimBonusTests` und die Mixin-Tests aus `TrimWiringTests` heißen jetzt `TrimEffectRuleTests`/`TrimBonusRuleTests`/`TrimHookRuleTests` (Simple Mobs).
+
 Stand 2026-09-25, zweite Runde mit den Entscheidungen des Besitzers (Abschnitt 4). Grundlage: `TrimEffectUtil`, `TrimMultiplierLogic`, `PlayerEntityMixin`,
 `LivingEntityMixin`, `SurvivalTracerMixin`, der Tooltip (`ItemMixin`), `TrimReferenceScreen` und
 `TrimStatsPanel` in beiden Linien (26.2 und 1.21.11 sind in diesen Dateien identisch). Alle Raten

@@ -7,8 +7,4 @@ public final class TrimHost {
 
     public static void install() {
     }
-
-    public static boolean handledElsewhere() {
-        return false;
-    }
 }

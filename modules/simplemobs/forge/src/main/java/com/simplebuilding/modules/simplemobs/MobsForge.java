@@ -18,6 +18,8 @@ public final class MobsForge {
     public MobsForge(FMLJavaModLoadingContext context) { com.simplebuilding.modules.simplemobs.forge.ModuleForgeTests.register(context.getModBusGroup());
         WitherLoot.idMoves();
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
+        // MOB27-3 / ZO9 A: Simple Mobs applies the armour trim abilities on every loader (the core has no fallback on 26.3).
+        com.simplebuilding.modules.simplemobs.trim.TrimAbilities.install();
         var bus = context.getModBusGroup();
         RegisterEvent.getBus(bus).addListener(event -> {
             event.register(Registries.SOUND_EVENT, r -> MobsSounds.forEach(r::register));

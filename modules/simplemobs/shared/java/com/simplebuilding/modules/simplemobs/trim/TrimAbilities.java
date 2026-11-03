@@ -23,7 +23,8 @@ import net.minecraft.world.phys.Vec3;
  * are the SimpleBuilding core's {@code TrimEffectUtil} one to one (same rates, caps and keys, docs/TRIM-BALANCE.md); only the inputs
  * come through {@link #resonance}, {@link #strength} and {@link #enabled}: from the host (SimpleBuilding core, framework
  * {@code TrimContracts.Host}) when there is one, otherwise from Simple Resonance ({@code ResonanceContracts.trimMultiplier}) and the
- * designed strengths. Simple Mobs {@link #install claims} the abilities, the core then keeps its own hooks quiet.
+ * designed strengths. Since ZO9 A (docs/ai/PLAN-B-TRIMMOVE01-2026-11-03.md) only Simple Mobs applies them on 26.3, on every loader; the
+ * core keeps the display rates and stays host.
  */
 public final class TrimAbilities {
     private TrimAbilities() {}
@@ -114,18 +115,18 @@ public final class TrimAbilities {
 
     private static volatile boolean installed;
 
-    /** Simple Mobs applies the abilities (Fabric entry point): from now on the core's trim hooks stay quiet while {@link #active}. */
+    /** Simple Mobs applies the abilities (every loader's entry point); {@link TrimContracts#claimed} tells other mods. */
     public static void install() {
         installed = true;
         TrimContracts.claim(TrimAbilities::active);
     }
 
-    /** Whether a loader entry point installed the abilities (Fabric; plan E4). */
+    /** Whether a loader entry point installed the abilities. */
     public static boolean installed() {
         return installed;
     }
 
-    /** Whether Simple Mobs applies the trim abilities now: installed (Fabric) and the sub-mod switch on. */
+    /** Whether Simple Mobs applies the trim abilities now: installed and the sub-mod switch on. */
     public static boolean active() {
         return installed && MobsRegistry.on();
     }

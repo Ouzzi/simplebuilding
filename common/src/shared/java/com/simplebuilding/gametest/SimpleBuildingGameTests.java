@@ -705,22 +705,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("protection_and_range_game_test_void_protection_lifts_enderite_back_into_the_world_while_other_items_are_lost", ProtectionAndRangeTests::voidProtectionLiftsEnderiteBackIntoTheWorldWhileOtherItemsAreLost)
                     .maxTicks(ProtectionAndRangeTests.VOID_PROTECTION_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("trim_effect_game_test_trim_counts_follow_the_pattern_and_material_matching", TrimEffectTests::trimCountsFollowThePatternAndMaterialMatching)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor", TrimEffectTests::damageReductionFollowsThePatternAndKeepsItsFloor)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_utility_bonuses_are_neutral_until_the_matching_trim_is_worn", TrimEffectTests::utilityBonusesAreNeutralUntilTheMatchingTrimIsWorn)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_benefit_gate_switches_every_trim_effect_off", TrimEffectTests::benefitGateSwitchesEveryTrimEffectOff)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick", TrimEffectTests::astralitJumpBoostCrossesItsThresholdsOnTick)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_astralit_speeds_up_the_glide", TrimEffectTests::astralitSpeedsUpTheGlide)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_nihilith_pulls_down_the_sneaking_airborne_player", TrimEffectTests::nihilithPullsDownTheSneakingAirbornePlayer)
-                    .build(),
-            GameTestSpec.named("trim_effect_game_test_trim_bonuses_reach_the_player_through_the_mixins", TrimEffectTests::trimBonusesReachThePlayerThroughTheMixins)
-                    .build(),
             GameTestSpec.named("combat_game_test_arrows_in_mobs_drop_when_they_die", CombatTests::arrowsInMobsDropWhenTheyDie)
                     .build(),
             GameTestSpec.named("combat_game_test_killing_arrows_drop_at_once", CombatTests::killingArrowsDropAtOnce)
@@ -1194,22 +1178,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("magnet_game_test_the_magnet_recipe_still_crafts_from_its_documented_pattern", MagnetTests::theMagnetRecipeStillCraftsFromItsDocumentedPattern)
                     .build(),
-            GameTestSpec.named("trim_bonus_game_test_tag_keyed_patterns_cover_the_whole_damage_family", TrimBonusTests::tagKeyedPatternsCoverTheWholeDamageFamily)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_exactly_keyed_patterns_ignore_their_neighbours", TrimBonusTests::exactlyKeyedPatternsIgnoreTheirNeighbours)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_magic_is_softened_by_the_vex_pattern_and_the_gold_and_lapis_materials", TrimBonusTests::magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_wild_and_silence_ride_on_the_damage_message_id", TrimBonusTests::wildAndSilenceRideOnTheDamageMessageId)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_flow_reads_the_type_name_of_the_projectile_that_landed", TrimBonusTests::flowReadsTheTypeNameOfTheProjectileThatLanded)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_armour_bypassing_hits_skip_the_three_physical_materials", TrimBonusTests::armourBypassingHitsSkipTheThreePhysicalMaterials)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_iron_and_quartz_materials_add_to_their_own_patterns", TrimBonusTests::ironAndQuartzMaterialsAddToTheirOwnPatterns)
-                    .build(),
-            GameTestSpec.named("trim_bonus_game_test_attacker_keyed_materials_read_the_entity_behind_the_hit", TrimBonusTests::attackerKeyedMaterialsReadTheEntityBehindTheHit)
-                    .build(),
             GameTestSpec.named("trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death", TrimWiringTests::theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_survival_time_counts_only_while_the_player_moves", TrimWiringTests::survivalTimeCountsOnlyWhileThePlayerMoves)
@@ -1217,14 +1185,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trim_wiring_game_test_the_combat_factor_weighs_kills_and_damage_by_mob_category", TrimWiringTests::theCombatFactorWeighsKillsAndDamageByMobCategory)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_tracker_survives_the_save_and_rebases_only_on_death", TrimWiringTests::theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_player_mixin_delivers_speed_hunger_and_experience_behind_its_guards", TrimWiringTests::thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_every_server_side_hit_runs_through_the_trim_damage_modifier", TrimWiringTests::everyServerSideHitRunsThroughTheTrimDamageModifier)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_coast_holds_the_air_supply_and_silence_lowers_the_visibility", TrimWiringTests::coastHoldsTheAirSupplyAndSilenceLowersTheVisibility)
-                    .build(),
-            GameTestSpec.named("trim_wiring_game_test_the_tick_driven_trim_effects_fire_on_their_own_cadence", TrimWiringTests::theTickDrivenTrimEffectsFireOnTheirOwnCadence)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_three_trim_materials_keep_their_colours_and_their_tags", TrimWiringTests::theThreeTrimMaterialsKeepTheirColoursAndTheirTags)
                     .build(),
@@ -1237,6 +1197,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trim_wiring_game_test_resonance_panel_layout_sits_beside_recipe_book", TrimWiringTests::resonancePanelLayoutSitsBesideRecipeBook)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_max_resonance_shows_the_diamond_heart", TrimWiringTests::maxResonanceShowsTheDiamondHeart)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_displayed_rates_match_the_balance_table", TrimWiringTests::theDisplayedRatesMatchTheBalanceTable)
                     .build(),
             GameTestSpec.named("rare_structure_finds_game_test_placed_shells_upgrade_one_tier_per_nugget", RareStructureFindsTests::placedShellsUpgradeOneTierPerNugget)
                     .build(),

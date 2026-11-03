@@ -204,6 +204,10 @@ public final class MobsTests {
         CombatEffectTests.addAll(MobsTests::add);
         ZoneEffectTests.addAll(MobsTests::add);
         TrimAbilityTests.addAll(MobsTests::add);
+        // ZO9 A / MOB27-3: the trim rule tests moved from the SimpleBuilding core (TrimEffectTests, TrimBonusTests, TrimWiringTests hooks).
+        TrimEffectRuleTests.addAll(MobsTests::add);
+        TrimBonusRuleTests.addAll(MobsTests::add);
+        TrimHookRuleTests.addAll(MobsTests::add);
         add("guide_book", com.simplebuilding.modules.simplemobs.guide.MobsGuide::gameTest);
     }
 

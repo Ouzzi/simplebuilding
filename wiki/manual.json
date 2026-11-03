@@ -1694,7 +1694,11 @@
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/util/TrimMultiplierLogic.java",
-        "common/src/shared/java/com/simplebuilding/util/TrimEffectUtil.java",
+        "common/src/shared/java/com/simplebuilding/util/TrimRates.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trim/TrimAbilities.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrimAbilityLivingMixin.java",
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/mixin/TrimAbilityPlayerMixin.java",
+        "mc26_3/overlay/java/com/simplebuilding/util/TrimHost.java",
         "common/src/shared/java/com/simplebuilding/trim/ModTrimMaterials.java",
         "common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java",
@@ -1726,11 +1730,11 @@
         "common/src/shared/java/com/simplebuilding/util/TrimBonusCatalog.java",
         "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
         "docs/TRIM-BALANCE.md",
-        "common/src/shared/java/com/simplebuilding/util/TrimAttributeHandler.java"
+        "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/trim/TrimAbilityAttributes.java"
       ],
       "en": {
         "title": "Armor Trim Benefits (Resonance)",
-        "summary": "Armor trims grant gameplay bonuses: patterns and materials cut specific damage types, make you faster, or give experience, luck, stealth or healing. How strong they are scales with a personal \"Resonance\" multiplier built from the experience you gathered, how long you have actively played since your last death, and combat experience. Every bonus has a vanilla-anchored cap, and the armor tooltip lists the bonuses of each piece like vanilla attribute lines. The mod adds three trim materials of its own: Astralit, Nihilit and Enderite.",
+        "summary": "Armor trims grant gameplay bonuses: patterns and materials cut specific damage types, make you faster, or give experience, luck, stealth or healing. How strong they are scales with a personal \"Resonance\" multiplier built from the experience you gathered, how long you have actively played since your last death, and combat experience. Every bonus has a vanilla-anchored cap, and the armor tooltip lists the bonuses of each piece like vanilla attribute lines. The mod adds three trim materials of its own: Astralit, Nihilit and Enderite. Since ZO9 (11/2026) the bonuses are applied by the bundled required sub-mod Simple Mobs; SimpleBuilding supplies the resonance, the strengths and the display.",
         "details": [
           "Resonance = trimBenefitBaseMultiplier (default 2.0) x the mean of the experience, survival and combat factors - so between 0.2 (fresh start) and 2.0 (fully progressed). Until 2026-09 it was the product of the three factors, which left a fresh player at 0.002.",
           "Experience factor = 0.1 + (experience points gathered since your last death / 1395) x 0.9, clamped to 0.1-1.0; 1395 points are exactly levels 0 to 30. It reads totalExperience minus the value at your last death, so spending levels on enchanting or the anvil costs no resonance, and with keepInventory the kept points do not count again.",
@@ -1767,7 +1771,7 @@
       },
       "de": {
         "title": "Rüstungsbesatz-Vorteile (Resonanz)",
-        "summary": "Rüstungsbesätze geben spielerische Boni: Muster und Materialien reduzieren bestimmte Schadensarten, beschleunigen, geben Erfahrung, Glück, Tarnung oder Heilung. Die Stärke skaliert mit einem persönlichen „Resonanz“-Multiplikator aus gesammelter Erfahrung, aktiver Spielzeit seit dem letzten Tod und Kampferfahrung. Jeder Bonus hat einen an Vanilla angelehnten Deckel, und der Tooltip eines Rüstungsteils listet seine Boni wie Vanilla-Attributzeilen. Die Mod bringt drei eigene Besatzmaterialien mit: Astralit, Nihilit und Enderit.",
+        "summary": "Rüstungsbesätze geben spielerische Boni: Muster und Materialien reduzieren bestimmte Schadensarten, beschleunigen, geben Erfahrung, Glück, Tarnung oder Heilung. Die Stärke skaliert mit einem persönlichen „Resonanz“-Multiplikator aus gesammelter Erfahrung, aktiver Spielzeit seit dem letzten Tod und Kampferfahrung. Jeder Bonus hat einen an Vanilla angelehnten Deckel, und der Tooltip eines Rüstungsteils listet seine Boni wie Vanilla-Attributzeilen. Die Mod bringt drei eigene Besatzmaterialien mit: Astralit, Nihilit und Enderit. Seit ZO9 (11/2026) wirken die Boni im gebündelten Pflicht-Sub-Mod Simple Mobs; SimpleBuilding liefert Resonanz, Stärken und Anzeige.",
         "details": [
           "Resonanz = trimBenefitBaseMultiplier (Standard 2,0) × Mittelwert aus Erfahrungs-, Überlebens- und Kampffaktor – also zwischen 0,2 (frischer Start) und 2,0 (voll fortgeschritten). Bis 2026-09 war es das Produkt der drei Faktoren; ein frischer Spieler lag damit bei 0,002.",
           "Erfahrungsfaktor = 0,1 + (seit dem letzten Tod gesammelte Erfahrungspunkte / 1395) × 0,9, begrenzt auf 0,1 bis 1,0; 1395 Punkte sind genau die Stufen 0 bis 30. Gelesen wird totalExperience minus dem Wert beim letzten Tod – ausgegebene Stufen (Zaubertisch, Amboss) kosten also keine Resonanz, und mit keepInventory zählen die behaltenen Punkte nicht noch einmal.",

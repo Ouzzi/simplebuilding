@@ -83,6 +83,8 @@ public final class SimplebuildingForge {
         // The Forge 26.3 compatibility entrypoint loads and validates persistent JSON.
         Simplebuilding.setConfig(AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig());
         SimplebuildingConfig.applySubModSwitches(Simplebuilding.getConfig());
+        // MOB27-3 / ZO9 A: the core feeds Simple Mobs' trim abilities (tracker, strengths, player switch); 26.2 twin is a no-op.
+        com.simplebuilding.util.TrimHost.install();
     }
 
     private void registerContent() {
