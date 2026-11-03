@@ -112,7 +112,9 @@ public class ModTags {
                     // Split stage 8b: the Enderite chests and shulker box (Simple Storage).
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
                     // IG31-13: the Enderite materials (Simple Ores, required sub-mod).
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
+                    // MACH32 stage 2: the Enderite piston (Simple Machines, required sub-mod).
+                    || "simplemachines".equals(id.getNamespace());
             return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
