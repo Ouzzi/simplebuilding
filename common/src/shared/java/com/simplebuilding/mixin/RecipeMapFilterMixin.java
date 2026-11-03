@@ -19,6 +19,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
+ * Auf 26.3 macht das SimpleLib {@code RecipeFilters} (QW-11); dieser Mixin bleibt, weil der gemeinsame Kern auch fuer
+ * 26.2/1.21.11 gebaut wird, und tut dort nichts ({@code LibServices.recipesFilteredByLib}).
  * Nimmt die Rezepte abgeschalteter Funktionen aus der Rezepttabelle ({@link RecipeFilter}). Der
  * private Konstruktor von {@link RecipeMap} ist auf 1.21.11, 26.2, 26.3 und 26.4 derselbe (26.2 baut
  * die Tabelle beim Laden der Datenpakete aus den JSONs, 26.3 aus der Rezept-Registry); hier landet
@@ -35,7 +37,7 @@ public abstract class RecipeMapFilterMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void simplebuilding$dropDisabledFeatures(CallbackInfo ci) {
-        if (byKey.isEmpty() || !RecipeFilter.anyDisabled()) {
+        if (com.simplebuilding.util.LibServices.recipesFilteredByLib() || byKey.isEmpty() || !RecipeFilter.anyDisabled()) {
             return;
         }
         ImmutableMultimap.Builder<RecipeType<?>, RecipeHolder<?>> types = ImmutableMultimap.builder();

@@ -19,13 +19,11 @@ import com.simplemaps.net.WaypointEditPayload;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -42,18 +40,12 @@ public final class MapsNeoForge {
         bus.addListener((net.neoforged.neoforge.registries.RegisterEvent e) -> {
             if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
         });
-        bus.addListener((net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent e) -> {
-            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.accept(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        });
         if (net.neoforged.fml.ModList.get().isLoaded("ftbquests")) com.simplebuilding.modules.simplemaps.guide.MapsGuide.installQuests(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();
             if (event.getRegistryKey().equals(Registries.ITEM)) MapsItems.register();
             if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MapsItems.registerTab();
-        });
-        bus.addListener((BuildCreativeModeTabContentsEvent event) -> {
-            if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) && MapsConfig.vanillaTabs()) MapsItems.tabStacks().forEach(event::accept);
         });
         bus.addListener((RegisterPayloadHandlersEvent event) -> {
             var registrar = event.registrar("1").optional();

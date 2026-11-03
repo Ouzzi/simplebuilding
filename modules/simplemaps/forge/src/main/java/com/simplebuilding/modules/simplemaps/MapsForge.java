@@ -19,8 +19,6 @@ import java.util.function.Consumer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -44,25 +42,11 @@ public final class MapsForge {
         net.minecraftforge.registries.RegisterEvent.getBus(context.getModBusGroup()).addListener(e -> {
             if (e.getRegistryKey().equals(net.minecraft.core.registries.Registries.ITEM)) com.simplebuilding.modules.simplemaps.guide.MapsGuide.register();
         });
-        net.minecraftforge.event.BuildCreativeModeTabContentsEvent.BUS.addListener(e -> {
-            if (e.getTabKey().equals(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES)) e.getEntries().put(com.simplebuilding.modules.simplemaps.guide.MapsGuide.stack(), net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        });
         if (net.minecraftforge.fml.ModList.isLoaded("ftbquests")) com.simplebuilding.modules.simplemaps.guide.MapsGuide.installQuests(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         RegisterEvent.getBus(context.getModBusGroup()).addListener(event -> {
             if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) MapsComponents.register();
             if (event.getRegistryKey().equals(Registries.ITEM)) MapsItems.register();
             if (event.getRegistryKey().equals(Registries.CREATIVE_MODE_TAB)) MapsItems.registerTab();
-        });
-        BuildCreativeModeTabContentsEvent.BUS.addListener(event -> {
-            if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES) || !MapsConfig.vanillaTabs()) return;
-            // After the vanilla map like on Fabric: appending to the tail clashes with other mods' putAfter at the tail.
-            var entries = event.getEntries();
-            var previous = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.MAP);
-            for (var stack : MapsItems.tabStacks()) {
-                if (entries.contains(previous)) entries.putAfter(previous, stack, net.minecraft.world.item.CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                else event.accept(stack);
-                previous = stack;
-            }
         });
         channel = ChannelBuilder.named(SimpleMaps.id("main")).payloadChannel().protocol(NetworkProtocol.PLAY)
                 .serverbound()

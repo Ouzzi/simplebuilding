@@ -35,7 +35,6 @@ public final class MapsItems {
 
     public static List<ItemStack> tabStacks() {
         if (!MapsConfig.enabled) return List.of();
-        // The guide book joins only the own tab (registerTab); the Vanilla tab gets it from the loader hook.
         return List.of(new ItemStack(WAYFINDER_MAP), new ItemStack(NETHER_WAYFINDER_MAP), new ItemStack(END_WAYFINDER_MAP),
                 new ItemStack(MEGA_WAYFINDER_MAP));
     }
@@ -51,7 +50,7 @@ public final class MapsItems {
 
     private MapsItems() {}
 
-    /** The module's own creative tab (items are also sorted into the Vanilla tabs, see the loader hooks). */
+    /** The module's own creative tab (no Vanilla-tab hooks since QW-5). */
     public static void registerTab() {
         net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB,
                 net.minecraft.resources.Identifier.fromNamespaceAndPath("simplemaps", "maps"),
@@ -61,7 +60,7 @@ public final class MapsItems {
                         .displayItems((params, out) -> {
                             List<ItemStack> stacks = tabStacks();
                             stacks.forEach(out::accept);
-                            // The guide belongs in the own tab too, not only in Tools & Utilities.
+                            // The guide belongs in the own tab too.
                             net.minecraft.world.item.Item guide = com.simplebuilding.modules.simplemaps.guide.MapsGuide.book();
                             if (guide != null && stacks.stream().noneMatch(s -> s.is(guide))) out.accept(new ItemStack(guide));
                         }).build());

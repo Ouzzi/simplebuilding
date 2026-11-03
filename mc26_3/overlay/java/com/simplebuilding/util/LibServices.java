@@ -69,7 +69,13 @@ public final class LibServices {
         return com.simplelib.api.InteractionGuard.probing > 0;
     }
 
+    /** QW-11: switched-off features take their recipes through SimpleLib {@code RecipeFilters}; the core mixin stands down. */
+    public static boolean recipesFilteredByLib() {
+        return true;
+    }
+
     public static void init() {
+        com.simplelib.api.RecipeFilters.register(Simplebuilding.MOD_ID, com.simplebuilding.recipe.RecipeFilter::removesPath);
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();
         // IG31-13: the building cores are SimpleLib's items; SimpleBuilding gives them their animation and the ore transmutation,

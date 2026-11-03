@@ -32,6 +32,11 @@ public final class LibServices {
     public static void init() {
     }
 
+    /** No SimpleLib on 26.2: the core {@code RecipeMapFilterMixin} filters the recipe table itself. */
+    public static boolean recipesFilteredByLib() {
+        return false;
+    }
+
     /** Simple Gadgets' gadgets are 26.3 only: no item hint, no published numbers, no events, no probe on this line. */
     public static boolean gadgetItemHint(Item item, net.minecraft.world.item.context.UseOnContext context) {
         return false;

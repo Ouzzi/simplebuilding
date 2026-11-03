@@ -5429,6 +5429,8 @@ function render(opts) {
     if (window.console) console.error(err);
   }
   if (!html) html = '<div class="notfound">' + T('emptyPage') + '</div>';
+  // WD25-24: the mod dropdown follows the page ("All mods" only on the overview of all mods, the mod everywhere else).
+  modSelect.value = r.section === 'allmods' ? '#allmods' : selectedMod;
   closeCtx();
   closeQs();
   if (r.section !== 'search' && document.activeElement !== $q) $q.value = '';

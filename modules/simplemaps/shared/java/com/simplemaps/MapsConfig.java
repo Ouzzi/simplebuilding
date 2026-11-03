@@ -83,11 +83,6 @@ public final class MapsConfig {
 
     private static Path configDir;
 
-    /** Whether the items also go into the Vanilla creative tabs (shared per-mod switch, default on). */
-    public static boolean vanillaTabs() {
-        return com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(configDir, SimpleMaps.MOD_ID);
-    }
-
     public static void load(Path dir) {
         configDir = dir;
         JsonObject json = new JsonObject();
