@@ -216,7 +216,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot(shot.name());
         }
         // clicks through the game's mouse handler
-        String row = "key.simpleinterfaces.open_keys";
+        String row = "key.simplelib.freelook_toggle"; // unbound by default (open_keys has "+" since QOL34)
         context.runOnClient(c -> {
             com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL);
             c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
@@ -230,6 +230,15 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         keysCheck(context, "onlyUnbound", "true");
         clickKeys(context, "only_unbound", null);
         keysCheck(context, "onlyUnbound", "false");
+        // QOL34: "Collapse all" folds everything, the same button then expands all
+        int rows0 = Integer.parseInt(context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get("rows"))));
+        clickKeys(context, "fold_all", null);
+        int rows1 = Integer.parseInt(context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get("rows"))));
+        context.takeScreenshot("keys-collapsed-all");
+        clickKeys(context, "fold_all", null);
+        int rows2 = Integer.parseInt(context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get("rows"))));
+        if (rows1 >= rows0 || rows2 <= rows0) throw new AssertionError("key page: collapse/expand all rows " + rows0 + " -> " + rows1 + " -> " + rows2);
+        context.takeScreenshot("keys-expanded-all");
         context.runOnClient(c -> ((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeShow(row));
         context.waitTicks(2);
         clickKeys(context, "key_button", row);
