@@ -24,6 +24,7 @@ public final class LibConfigScreen {
         com.simplelib.api.FreeLookRules.Release[] lookClient = {com.simplelib.api.FreeLookRules.client()};
         com.simplelib.api.FreeLookRules.Release[] lookServer = {com.simplelib.api.FreeLookRules.Release.parse(LibConfig.freeLookRelease)};
         boolean[] lookEnforce = {LibConfig.freeLookEnforce};
+        boolean[] lookCrosshair = {com.simplelib.api.FreeLookRules.crosshair()};
         var b = me.shedaniel.clothconfig2.api.ConfigBuilder.create().setParentScreen(parent).setTitle(Component.translatable("simplelib.title"));
         var e = b.entryBuilder();
         var legendary = b.getOrCreateCategory(Component.translatable("simplelib.tab.legendary"));
@@ -42,6 +43,8 @@ public final class LibConfigScreen {
         look.addEntry(e.startEnumSelector(name("freeLookRelease"), com.simplelib.api.FreeLookRules.Release.class, lookClient[0])
                 .setDefaultValue(com.simplelib.api.FreeLookRules.Release.CAMERA).setEnumNameProvider(LibConfigScreen::releaseName)
                 .setTooltip(tip("freeLookRelease")).setSaveConsumer(v -> lookClient[0] = v).build());
+        look.addEntry(e.startBooleanToggle(name("freeLookCrosshair"), lookCrosshair[0]).setDefaultValue(true)
+                .setTooltip(tip("freeLookCrosshair")).setSaveConsumer(v -> lookCrosshair[0] = v).build());
         look.addEntry(e.startEnumSelector(name("freeLookServerRelease"), com.simplelib.api.FreeLookRules.Release.class, lookServer[0])
                 .setDefaultValue(com.simplelib.api.FreeLookRules.Release.CAMERA).setEnumNameProvider(LibConfigScreen::releaseName)
                 .setTooltip(tip("freeLookServerRelease")).setSaveConsumer(v -> lookServer[0] = v).build());
@@ -65,6 +68,7 @@ public final class LibConfigScreen {
             LibConfig.freeLookEnforce = lookEnforce[0];
             LibConfig.save();
             com.simplelib.api.FreeLookRules.setClient(lookClient[0]);
+            com.simplelib.api.FreeLookRules.setCrosshair(lookCrosshair[0]);
             com.simplelib.api.client.ui.UiBrightness.save();
         });
         return b.build();

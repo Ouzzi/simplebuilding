@@ -7,11 +7,11 @@
       ],
       "en": {
         "title": "Manual crawling",
-        "summary": "P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
+        "summary": "C (default) or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
       },
       "de": {
         "title": "Manuelles Kriechen",
-        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
+        "summary": "C (Standard) oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
       }
     },
     {
@@ -21,11 +21,11 @@
       ],
       "en": {
         "title": "Auto-walk",
-        "summary": "R toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach. The autowalk and crawl key bindings of Simple QoL are taken over once."
+        "summary": "The Auto Walk key (unbound by default; set it in Controls) toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach. The autowalk and crawl key bindings of Simple QoL are taken over once."
       },
       "de": {
         "title": "Automatisch laufen",
-        "summary": "R schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung. Kein Tempo- oder Reichweitenbonus. Die Tastenbelegungen für Autowalk und Kriechen aus Simple QoL werden einmalig übernommen."
+        "summary": "Die Autowalk-Taste (Standard unbelegt, in der Steuerung setzen) schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung. Kein Tempo- oder Reichweitenbonus. Die Tastenbelegungen für Autowalk und Kriechen aus Simple QoL werden einmalig übernommen."
       }
     },
     {

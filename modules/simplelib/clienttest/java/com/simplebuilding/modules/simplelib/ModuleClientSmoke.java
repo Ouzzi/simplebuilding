@@ -64,8 +64,27 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(1);
         float[] r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
         check(Math.abs(r[0] - yaw0) < 0.01 && Math.abs(r[1]) > 5, "hold: camera offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);
+        // QOL34: the real crosshair (grey, outlined) stands left of the centre when the camera turned right; before/after pictures of the hand
+        context.runOnClient(mc -> mc.player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND_PICKAXE)));
+        context.waitTicks(20);
+        int[] point = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), mc.getWindow().getGuiScaledWidth(),
+                mc.getWindow().getGuiScaledHeight(), mc.options.fov().get()));
+        int centre = context.computeOnClient(mc -> mc.getWindow().getGuiScaledWidth() / 2);
+        check(point != null && Math.abs(point[0] - centre) > 4, "the real crosshair is not off-centre: " + java.util.Arrays.toString(point));
+        com.simplelib.api.client.FreeLook.handFix = false;
+        context.waitTicks(3);
+        context.takeScreenshot("freelook-before-hand-moves");
+        com.simplelib.api.client.FreeLook.handFix = true;
+        context.waitTicks(3);
+        context.takeScreenshot("freelook-after-hand-stays");
+        com.simplelib.api.FreeLookRules.setCrosshair(false);
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), 427, 240, 70.0)) == null, "crosshair option off still draws");
+        context.waitTicks(3);
+        context.takeScreenshot("freelook-crosshair-option-off");
+        com.simplelib.api.FreeLookRules.setCrosshair(true);
         context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
         context.waitTicks(30);
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), 427, 240, 70.0)) == null, "crosshair point after free look ended");
         r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
         check(Math.abs(r[1]) < 1 && Math.abs(r[0] - yaw0) < 0.01, "release (camera mode): offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);
         // client mode "player": the player turns to the camera on release

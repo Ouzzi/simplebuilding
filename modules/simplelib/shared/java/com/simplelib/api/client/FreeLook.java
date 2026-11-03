@@ -6,6 +6,8 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 /**
  * Free look (owner 26.10., E29-4; reworked IG31-29, 31.10.): while it is on, the mouse turns only the camera, not the player -
@@ -32,6 +34,8 @@ public final class FreeLook {
     /** Set on every reset: the hold key must be seen up once before a press counts. */
     private static boolean waitForRelease = true;
     private static Player lastPlayer;
+    /** For tests (before/after pictures): false = the hand travels with the camera like before QOL34. */
+    public static volatile boolean handFix = true;
 
     private FreeLook() {}
 
@@ -115,5 +119,38 @@ public final class FreeLook {
     /** For tests: whether free look is toggled on. */
     public static boolean toggled() {
         return toggled;
+    }
+
+    /** Camera orientation (camera to world) for a view of {@code yRot}/{@code xRot} degrees, exactly as {@code Camera.setRotation} builds it. */
+    private static Quaternionf orientation(float yRot, float xRot) {
+        return new Quaternionf().rotationYXZ((float) Math.PI - yRot * ((float) Math.PI / 180f), -xRot * ((float) Math.PI / 180f), 0f);
+    }
+
+    /**
+     * First person hand (QOL34, owner 03.11.): the hand is drawn in camera space, so with the camera turned away it travelled
+     * along with the camera. This is the rotation that puts it back to the body direction: camera^-1 * body, i.e. the hand
+     * stays where it is without free look and leaves the screen when the camera looks far enough away - like the arm of
+     * a body that does not turn. Null when free look is off or the offset is zero.
+     */
+    public static Quaternionf handCorrection(float playerYRot, float playerXRot) {
+        if (!handFix || (yaw == 0 && pitch == 0)) return null;
+        Quaternionf body = orientation(playerYRot, playerXRot);
+        float camPitch = Math.max(-90, Math.min(90, playerXRot + pitch));
+        return orientation(playerYRot + yaw, camPitch).conjugate().mul(body);
+    }
+
+    /**
+     * Where the body direction (the real aim point) is on the screen while free look is on: {x, y} in GUI pixels, or null when
+     * it is behind the camera or free look/the option is off. {@code fovDegrees} is the vertical field of view.
+     */
+    public static int[] crosshairPoint(float playerXRot, int guiWidth, int guiHeight, double fovDegrees) {
+        if (!active() || !FreeLookRules.crosshair()) return null;
+        Quaternionf cam = orientation(yaw, Math.max(-90, Math.min(90, playerXRot + pitch)));
+        Vector3f v = cam.conjugate().transform(orientation(0, playerXRot).transform(new Vector3f(0, 0, -1)));
+        if (v.z >= -1.0e-4f) return null;
+        double focal = guiHeight / 2.0 / Math.tan(Math.toRadians(fovDegrees) / 2);
+        int x = (int) Math.round(guiWidth / 2.0 + v.x / -v.z * focal);
+        int y = (int) Math.round(guiHeight / 2.0 - v.y / -v.z * focal);
+        return new int[]{x, y};
     }
 }

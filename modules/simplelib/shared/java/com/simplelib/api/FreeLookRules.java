@@ -28,6 +28,16 @@ public final class FreeLookRules {
 
     private static volatile Release client = Release.CAMERA, server = Release.CAMERA;
     private static volatile boolean enforce;
+    /** QOL34: show the grey outlined "real" crosshair at the body direction while free look is on (client choice, standard on). */
+    private static volatile boolean crosshair = true;
+
+    public static boolean crosshair() {
+        return crosshair;
+    }
+
+    public static void setCrosshair(boolean on) {
+        crosshair = on;
+    }
 
     private FreeLookRules() {}
 
