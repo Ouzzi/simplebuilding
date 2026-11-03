@@ -216,13 +216,14 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.takeScreenshot(shot.name());
         }
         // b-keys34: the other layouts (DE with the L-shaped Enter, UK, FR) and the layout editor
-        for (String layout : new String[] {"de", "uk", "fr"}) {
+        for (String[] pair : new String[][] {{"de", "simpleinterfaces-keys-layout-de"}, {"uk", "simpleinterfaces-keys-layout-uk"}, {"fr", "simpleinterfaces-keys-layout-fr"}}) {
+            String layout = pair[0];
             context.runOnClient(c -> {
                 com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, layout);
                 c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
             });
             context.waitTicks(3);
-            context.takeScreenshot("simpleinterfaces-keys-layout-" + layout);
+            context.takeScreenshot(pair[1]);
         }
         context.runOnClient(c -> {
             // every key of every built-in layout names a real Minecraft key (26.3 numbers by scancode; names are the stable form)
