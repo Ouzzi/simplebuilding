@@ -181,6 +181,8 @@
   "gui.simplestorage.controller.broken.conflict": "Ein zweiter Controller hängt am selben Netz.",
   "gui.simplestorage.controller.broken.too_big": "Mehr als %s Kabel und Schnittstellen.",
   "gui.simplestorage.controller.broken.fix": "Behälter oder Kabel entfernen oder höheren Controller nehmen.",
+  "text.autoconfig.simplestorage.option.interfaceFillsGaps": "Schnittstellen schließen Lücken",
+  "text.autoconfig.simplestorage.option.interfaceFillsGaps.@Tooltip": "Eine Schnittstelle an einer Truhe wächst bis\nzu festen Blöcken daneben, keine Lücke bleibt.\nAus: immer Truhenbreite. Standard: an",
   "item.simplestorage.guide_book": "Simple-Storage-Handbuch",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, die Werkbank mit Lager, die ihr Raster auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr Plätzen und größeren",
@@ -257,7 +259,5 @@
   "quests.simplestorage.start.title": "Willkommen bei Simple Storage",
   "quests.simplestorage.start.subtitle": "Dein Handbuch gratis",
   "quests.simplestorage.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen.",
-  "simplestorage.config.interfaceFillsGaps": "Schnittstellen schließen Lücken",
-  "simplestorage.config.interfaceFillsGaps.tooltip": "Eine Schnittstelle an einer Truhe wächst bis\nzu festen Blöcken daneben, keine Lücke bleibt.\nAus: immer Truhenbreite. Standard: an"
+  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen."
 }
