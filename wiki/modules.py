@@ -321,6 +321,18 @@ def module_inventory(repo):
     return out
 
 
+def modtree_stages(repo):
+    """module id -> 'done' | 'new' | 'planned' from tools/modtree/modtree.py (same rule as docs/MODSTRUKTUR.html)."""
+    import importlib.util
+    path = repo / 'tools/modtree/modtree.py'
+    if not path.is_file():
+        return {}
+    spec = importlib.util.spec_from_file_location('sb_modtree', path)
+    tree = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tree)
+    return {mid: m['status'] for mid, m in tree.load(repo).items()}
+
+
 def overview_status(repo):
     """Status per super-mod from 'Tabelle A' of the newest docs/ai/UEBERSICHT-MODS-*.md (hand-maintained text, optional)."""
     docs = sorted((repo / 'docs/ai').glob('UEBERSICHT-MODS-*.md'))
@@ -361,7 +373,11 @@ def sync(g, entries, selected, check=False, strict=False):
     overview = overview_status(g.REPO)
     intros = guide_intros(g.REPO)
     inventory = module_inventory(g.REPO)
+    stages = modtree_stages(g.REPO)
     for e in catalog:
+        # Build stage for the wiki's "Mod structure" page (b-site01), same source as docs/MODSTRUKTUR.html.
+        if e['id'] in stages:
+            e['stage'] = stages[e['id']]
         # Super-/sub-mod structure for the "All mods" page and the grouped mod dropdown.
         for key in ('parent', 'bundle'):
             if meta[e['id']].get(key):

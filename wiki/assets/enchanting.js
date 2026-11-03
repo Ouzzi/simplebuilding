@@ -330,7 +330,9 @@
       box.style.top = Math.max(4, Math.min(y, window.innerHeight - hh - 4)) + 'px';
     }
     function hide() { box.hidden = true; pinned = null; }
-    if (!window.__enchScroll) { window.__enchScroll = true; window.addEventListener('scroll', function () { var b = document.getElementById('mc-tip'); if (b) b.hidden = true; }, { passive: true }); }
+    /* keyboard focus keeps its tooltip while the page scrolls the focused offer into view (b-site01); pointer tips hide */
+    window.__enchRefocus = function () { var a = document.activeElement, t = a && a.closest && a.closest('[data-tip]'); if (t && el.contains(t) && document.body.contains(el)) { show(t); return true; } return false; };
+    if (!window.__enchScroll) { window.__enchScroll = true; window.addEventListener('scroll', function () { if (window.__enchRefocus && window.__enchRefocus()) return; var b = document.getElementById('mc-tip'); if (b) b.hidden = true; }, { passive: true }); }
     if (!el._enchBound) {
       el._enchBound = true;
       el.addEventListener('pointermove', function (ev) { if (ev.pointerType === 'touch') return; var t = ev.target.closest('[data-tip]'); if (t && el.contains(t)) show(t, ev.clientX, ev.clientY); else if (!pinned) box.hidden = true; });

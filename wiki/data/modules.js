@@ -56,6 +56,7 @@ window.WIKI_MODULES = [
       "simplechallenges",
       "simpledinos"
     ],
+    "stage": "done",
     "overview": {
       "status": "in Arbeit",
       "open": "86",
@@ -94,6 +95,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "purpose": {
       "en": "Minimal module used to verify loader and integration wiring.",
       "de": "Minimales Testmodul, prüft nur die Loader- und Integrationsverdrahtung (nicht für Spieler)."
@@ -134,6 +136,7 @@ window.WIKI_MODULES = [
       "wiringexample",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -171,6 +174,7 @@ window.WIKI_MODULES = [
       "modmenu",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -205,6 +209,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -242,6 +247,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -282,6 +288,7 @@ window.WIKI_MODULES = [
       "simplemodels",
       "modmenu"
     ],
+    "stage": "done",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -320,6 +327,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -361,6 +369,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "done",
     "overview": {
       "status": "in Arbeit",
       "open": "16",
@@ -407,6 +416,7 @@ window.WIKI_MODULES = [
       "simpleweather",
       "simplemaps"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -469,6 +479,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -504,6 +515,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -538,6 +550,7 @@ window.WIKI_MODULES = [
     "optional": [
       "jei"
     ],
+    "stage": "done",
     "overview": {
       "status": "fertig (wächst mit)",
       "open": "4",
@@ -576,6 +589,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -606,6 +620,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleores"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -640,6 +655,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplemaps"
     ],
+    "stage": "new",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAt0lEQVR42mOQ1FL5TwlmABHti2fCsZ1XAF4MV5cVhWoAusKoAlSMLq/r44jdAJiGjFlOKNitYAcYYzUAWTNMQ8OGMDh7yoKk/1EdFzAMQTEAphmkEYSjOizgmmEGoBuC1QCYxkceVmCMbBCyITgNgOEVVnpgDDIAhEkyAKYJPSCRwwLDAGyGoAcoSQagG4LufBQD0NMButPRNeJNSGSnxBV7toLTN6G8AFYDxKgpESpAKoYbQAkGAICo9pG6n+pKAAAAAElFTkSuQmCC",
     "counts": {
       "features": 4
@@ -664,6 +680,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -699,6 +716,7 @@ window.WIKI_MODULES = [
       "simpleresonance"
     ],
     "optional": [],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -736,6 +754,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -766,6 +785,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -800,6 +820,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -838,6 +859,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -868,6 +890,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -899,6 +922,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -926,6 +950,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "purpose": {
@@ -957,6 +982,7 @@ window.WIKI_MODULES = [
       "simplemodels"
     ],
     "optional": [],
+    "stage": "done",
     "overview": {
       "status": "fertig (Abnahme offen)",
       "open": "6",
@@ -986,6 +1012,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleend",
     "bundle": "optional",
     "intro": {
@@ -1019,6 +1046,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "overview": {
@@ -1057,6 +1085,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1093,6 +1122,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleores"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1132,6 +1162,7 @@ window.WIKI_MODULES = [
       "simplecrucibles",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1174,6 +1205,7 @@ window.WIKI_MODULES = [
       "jei",
       "modmenu"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1216,6 +1248,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpletweaks"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1255,6 +1288,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1288,6 +1322,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "new",
     "intro": {
       "en": "Every tool, weapon and piece of armor counts its own blocks, kills, absorbed damage, distances and catches, with an item-specific statistics screen.",
       "de": "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken und Fänge, mit einem Statistik-Bildschirm je Gegenstand."
@@ -1322,6 +1357,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1361,6 +1397,7 @@ window.WIKI_MODULES = [
       "jade",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simpleovens",
     "bundle": "optional",
     "intro": {
@@ -1400,6 +1437,7 @@ window.WIKI_MODULES = [
       "simpleores",
       "jei"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1440,6 +1478,7 @@ window.WIKI_MODULES = [
       "simpleores",
       "jei"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1473,6 +1512,7 @@ window.WIKI_MODULES = [
       "simpleoptserver"
     ],
     "optional": [],
+    "stage": "new",
     "overview": {
       "status": "in Arbeit",
       "open": "13",
@@ -1500,6 +1540,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
     "purpose": {
@@ -1523,6 +1564,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
     "purpose": {
@@ -1546,6 +1588,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
     "purpose": {
@@ -1582,6 +1625,7 @@ window.WIKI_MODULES = [
       "curios",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1619,6 +1663,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1656,6 +1701,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1686,6 +1732,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1715,6 +1762,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1742,6 +1790,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1771,6 +1820,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1806,6 +1856,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1843,6 +1894,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplehammers"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1878,6 +1930,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleores"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1909,6 +1962,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobs"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1940,6 +1994,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleovens"
     ],
+    "stage": "new",
     "parent": "simpleovens",
     "bundle": "optional",
     "purpose": {
