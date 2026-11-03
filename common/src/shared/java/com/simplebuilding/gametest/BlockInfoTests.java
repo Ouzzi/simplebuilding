@@ -150,17 +150,29 @@ public final class BlockInfoTests {
 
     /** Netherite piston: full durability new, 10 less after 10 damage; the reinforced piston has none and gets no line. */
     public static void pistonDurabilityFollowsTheBlockState(GameTestHelper helper) {
-        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines' pistons, no Jade line on 26.3 yet (open)
+        // Via PistonWear: SimpleBuilding's piston (26.2) or Simple Machines' (26.3, MACH32-MOD stage 2).
         BlockState fresh = ModBlocks.NETHERITE_PISTON.defaultBlockState();
-        int max = NetheriteBreakerPistonBlock.maxDurabilityOf(fresh);
+        int max = com.simplebuilding.util.PistonWear.maxDurability(ModBlocks.NETHERITE_PISTON);
         helper.assertTrue(max > 10, "the netherite piston has a durability of " + max);
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, fresh),
                 List.of("tooltip.simplebuilding.netherite_piston.durability [" + max + ", " + max + "]"), "new netherite piston");
-        BlockState worn = NetheriteBreakerPistonBlock.withDamage(fresh, 10);
+        BlockState worn = com.simplebuilding.version.McVersion.PISTONS_IN_SB
+                ? NetheriteBreakerPistonBlock.withDamage(fresh, 10)
+                : machinesWithDamage(fresh, 10);
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, worn),
                 List.of("tooltip.simplebuilding.netherite_piston.durability [" + (max - 10) + ", " + max + "]"), "netherite piston after 10 damage");
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, ModBlocks.REINFORCED_PISTON.defaultBlockState()), List.of(), "reinforced piston");
         helper.succeed();
+    }
+
+    /** {@code withDamage} of Simple Machines' piston class, looked up by name (SimpleBuilding imports none of its classes). */
+    private static BlockState machinesWithDamage(BlockState state, int damage) {
+        try {
+            return (BlockState) Class.forName("com.simplemachines.upgrade.NetheriteBreakerPistonBlock")
+                    .getMethod("withDamage", BlockState.class, int.class).invoke(null, state, damage);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     /** Reinforced chest 36 slots, no stack bonus; netherite 45, doubled 90, stacks x2. */

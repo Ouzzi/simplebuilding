@@ -152,10 +152,13 @@ public final class TrimAbilities {
         return (float) resonance(entity);
     }
 
-    /** Strength of one bonus (catalogue key): the host's server tuning, otherwise 1.0 (as designed). */
+    /**
+     * Strength of one bonus (catalogue key): the host's server tuning (SimpleBuilding's {@code server.trimStrengths}), otherwise 1.0
+     * (as designed), times the own option {@code trimStrength} ({@link com.simplebuilding.modules.simplemobs.MobsConfig#trimStrength}, 1.0 = unchanged).
+     */
     public static float strength(String bonusKey) {
         TrimContracts.Host host = TrimContracts.host();
-        return host == null ? 1.0f : host.strength(bonusKey);
+        return (host == null ? 1.0f : host.strength(bonusKey)) * com.simplebuilding.modules.simplemobs.MobsConfig.trimStrength;
     }
 
     /** The wearer's own switch (host), true without a host. */
