@@ -95,27 +95,32 @@ public class ModTags {
                 "echo_sounder");
 
         /**
-         * Die Regel fuer {@link #ENDERITE_ITEMS}: jedes {@code simplebuilding}-Item, dessen Pfad
+         * B3 (b-lib01): die Namespaces, deren Enderit-Items {@link #ENDERITE_ITEMS} traegt - die einzige Liste; die
+         * Datagen-Regel und beide Gametests (void_protected, enderite_items) lesen sie. SimpleBuilding selbst plus die
+         * Pflicht-Sub-Mods, in die Enderit-Items gezogen sind: SimpleLib (Grundstoffe, Teilung 3d), Simple Ovens (Oefen,
+         * Ofenwagen, Stufe 4), Simple Crucibles (Tiegel, Fass, Stufe 5), Simple Hammers (Vorschlaghammer, Stufe 7),
+         * Simple Storage (Truhen, Shulkerkiste, 8b), Simple Ores (Grundstoffe, IG31-13), Simple Machines (Kolben,
+         * Trichter, Trichterwagen, MACH32-MOD). Neuer Sub-Mod mit Enderit-Items: hier eintragen. Auf 26.2 sind alle
+         * {@code simplebuilding} (darum kein {@code Set.of}, das Doppelte ablehnt).
+         */
+        public static final Set<String> ENDERITE_NAMESPACES = Set.copyOf(java.util.List.of(
+                Simplebuilding.MOD_ID,
+                com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE,
+                com.simplebuilding.version.McVersion.OVENS_NAMESPACE,
+                com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE,
+                com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE,
+                com.simplebuilding.version.McVersion.STORAGE_NAMESPACE,
+                com.simplebuilding.version.McVersion.ORES_NAMESPACE,
+                com.simplebuilding.version.McVersion.PISTONS_NAMESPACE));
+
+        /**
+         * Die Regel fuer {@link #ENDERITE_ITEMS}: jedes Item aus {@link #ENDERITE_NAMESPACES}, dessen Pfad
          * "enderite" enthaelt (auch {@code raw_enderite}, {@code enchanted_enderite_apple}), plus
          * {@link #ENDERITE_ITEMS_EXTRA_PATHS}. Datagen und Gametest teilen sie.
          */
         public static boolean isEnderiteItemByRule(Identifier id) {
-            // 26.3: the enderite base materials are SimpleLib's (split stage 3d) and stay protected with SimpleBuilding.
-            // Split stage 4: the Enderite furnaces and furnace cart are Simple Ovens' (required sub-mod) and stay protected too.
-            // Split stage 5: so do the Enderite crucible and barrel (Simple Crucibles).
-            boolean own = Simplebuilding.MOD_ID.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
-                    // Split stage 7: the Enderite sledgehammer (Simple Hammers).
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
-                    // Split stage 8b: the Enderite chests and shulker box (Simple Storage).
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
-                    // IG31-13: the Enderite materials (Simple Ores, required sub-mod).
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
-                    // MACH32-MOD stages 2/3: the Enderite Piston, Hopper and hopper cart (Simple Machines, required sub-mod).
-                    || com.simplebuilding.version.McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
-            return own && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
+            return ENDERITE_NAMESPACES.contains(id.getNamespace())
+                    && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
         }
 
         /**
