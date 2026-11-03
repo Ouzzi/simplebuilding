@@ -3,8 +3,12 @@ common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java modules/simplesa
 common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlock.java allow: canSurvive/3 codec/0 getStateForPlacement/1 onPlace/5 storedStack/1 tick/4 updateShape/8
 common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java modules/simplestorage/shared/java/com/simplestorage/chest/ChestTier.java
 common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.java modules/simpleores/shared/java/com/simpleores/block/DimensionalScrapBlock.java allow: isEnderiteTool/1
+common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/EnderitePistonBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/ModPistonHeadBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ModPistonHeadBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheriteBreakerPistonBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlock.java allow: codec/0 isQuiver/0 onPlace/5 storedStack/1 tick/4
+common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ReinforcedPistonBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredShulkerBoxBlock.java
 common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackBlockEntity.java
@@ -42,6 +46,7 @@ common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplefun/
 common/src/shared/java/com/simplebuilding/items/ModItems.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModItems.java allow: createEnchantedEnderiteFoodEffects/0 createEnchantedNetheriteFoodEffects/0 createEnderiteFoodEffects/1 createNetheriteFoodEffects/1 register/0 registerModItems/0 trappedCopperChests/0
 common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackItem.java allow: carriedEntries/1 refillHandFromWornBackpack/3 replaceSlot/3
 common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackTier.java
+common/src/shared/java/com/simplebuilding/items/custom/NetheritePistonItem.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheritePistonItem.java
 common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/QuiverItem.java
 common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleItem.java allow: insertFromWorld/3 visualFill/1
 common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorItem.java allow: publishFacts/0
@@ -70,6 +75,8 @@ common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java module
 common/src/shared/java/com/simplebuilding/mixin/ShapelessRecipeMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/ShapelessRecipeMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java modules/simplefun/shared/java/com/simplefun/mixin/ItemMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/MultiPlayerGameModeHammerProgressMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/client/MultiPlayerGameModeHammerProgressMixin.java
+common/src/shared/java/com/simplebuilding/networking/PistonConfigPayload.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonConfigPayload.java allow: sendTo/1
+common/src/shared/java/com/simplebuilding/platform/PistonEventProbe.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonEventProbe.java allow: declare/1 declare/2 pistonRefused/1
 common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackUpgradeRecipe.java
 common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleRecipe.java
 common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackArmorSlot.java
@@ -103,6 +110,8 @@ common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplefun/sh
 common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1
 common/src/shared/java/com/simplebuilding/util/MusicDiscs.java modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java allow: Disc/2 Disc/5 Song/4 aSide/0 archaeology/0 bSide/0 bootstrap/1 discs/0 hasTrack/1 items/0 length/1 loot/3 register/1 song/0 songKey/1 songNames/0 sound/0 soundId/1 trackFile/1 trackName/1 tracks/0
 common/src/shared/java/com/simplebuilding/util/OwnedLightHolder.java modules/simpletrims/shared/java/com/simpletrims/light/OwnedLightHolder.java
+common/src/shared/java/com/simplebuilding/util/PistonBoreEffects.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonBoreEffects.java
+common/src/shared/java/com/simplebuilding/util/PistonBreach.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonBreach.java allow: pushReaction/1
 common/src/shared/java/com/simplebuilding/util/PlacedBundles.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundles.java allow: arrowsShown/1
 common/src/shared/java/com/simplebuilding/util/PlacedPlate.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedPlate.java allow: buildDisc/2 discPlace/3
 common/src/shared/java/com/simplebuilding/util/PlacedSolids.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedSolids.java allow: discBoxes/0 has/1 modelId/1 modelId/2
