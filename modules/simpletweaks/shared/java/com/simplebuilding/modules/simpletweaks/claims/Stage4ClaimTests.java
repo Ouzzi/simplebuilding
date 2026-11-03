@@ -25,7 +25,8 @@ import static com.simplebuilding.modules.simpletweaks.claims.ClaimTests.*;
 
 /** Real server entrypoints; the only custom-mod lookup is through public registry IDs. */
 final class Stage4ClaimTests {
-    private static Block block(String id){return BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:"+id));}
+    // MACH32-MOD stage 2: the piston upgrades are Simple Machines' on 26.3 (simplemachines:*); the other blocks stay SimpleBuilding's.
+    private static Block block(String id){var moved=Identifier.parse("simplemachines:"+id);return BuiltInRegistries.BLOCK.containsKey(moved)?BuiltInRegistries.BLOCK.getValue(moved):BuiltInRegistries.BLOCK.getValue(Identifier.parse("simplebuilding:"+id));}
     private static void modes(GameTestHelper h,java.util.function.BiConsumer<Fixture,Boolean> test){
         for(int mode:new int[]{1,0,-1})with(h,mode==1?on():ClaimConfig.OFF,c->{
             boolean enabled=mode==1;

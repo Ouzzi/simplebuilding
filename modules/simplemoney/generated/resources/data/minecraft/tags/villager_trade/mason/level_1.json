@@ -62,10 +62,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/reinforced_sticky_piston",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/nether_brick_quartz_checker",
       "required": false
     },
@@ -111,6 +107,10 @@
     },
     {
       "id": "simplemoney:links/simplefun/brick_snowball",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemachines/reinforced_sticky_piston",
       "required": false
     },
     {

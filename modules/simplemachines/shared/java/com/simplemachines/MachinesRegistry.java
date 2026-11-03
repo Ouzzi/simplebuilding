@@ -42,11 +42,13 @@ public final class MachinesRegistry {
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleMachines.id("signal_dampener"));
         SIGNAL_DAMPENER = Registry.register(BuiltInRegistries.BLOCK, key, new SignalDampenerBlock(BlockBehaviour.Properties.of()
                 .setId(key).instabreak().sound(SoundType.STONE))); // default push reaction: a piston moves it like a block
+        com.simplemachines.upgrade.PistonUpgrades.registerBlocks();
     }
 
     public static void registerItems() {
         DOUBLE_PISTON_ITEM = item("double_piston", p -> new MachinePartItem(DOUBLE_PISTON, "double_piston", p));
         SIGNAL_DAMPENER_ITEM = item("signal_dampener", p -> new MachinePartItem(SIGNAL_DAMPENER, "signal_dampener", p));
+        com.simplemachines.upgrade.PistonUpgrades.registerItems();
         com.simplemachines.guide.MachinesGuide.register();
     }
 
@@ -58,7 +60,7 @@ public final class MachinesRegistry {
                 .build());
     }
 
-    /** The two parts, then the guide (empty while the module is switched off). */
+    /** The four piston upgrades, the two parts, then the guide (empty while the module is switched off). */
     public static List<ItemStack> tabStacks() {
         List<ItemStack> out = partStacks();
         if (!out.isEmpty()) out.add(com.simplemachines.guide.MachinesGuide.stack());
@@ -69,6 +71,7 @@ public final class MachinesRegistry {
     public static List<ItemStack> partStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (SimpleMachines.on()) {
+            out.addAll(com.simplemachines.upgrade.PistonUpgrades.stacks());
             out.add(new ItemStack(DOUBLE_PISTON_ITEM));
             out.add(new ItemStack(SIGNAL_DAMPENER_ITEM));
         }

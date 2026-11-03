@@ -335,6 +335,7 @@ public final class GravityBlockTests {
      * does not fire, leaves the redstone block or the piston behind, or drops the piston.
      */
     public static void netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         fillFloor(helper);
 
         BlockPos fullOnNetherite = new BlockPos(1, 1, 1);
@@ -1272,7 +1273,7 @@ public final class GravityBlockTests {
                 ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND,
                 Items.PISTON, Items.IRON_INGOT, Items.PISTON,
                 Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT);
-        assertCrafts(helper, level, reinforced, "simplebuilding:reinforced_piston",
+        assertCrafts(helper, level, reinforced, com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston",
                 ModItems.REINFORCED_PISTON, 2);
 
         // The same nine items, turned by 180 degrees.

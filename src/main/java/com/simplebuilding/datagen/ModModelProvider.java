@@ -238,13 +238,15 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 5. Pistons ---
         // Reinforced Piston is a real Piston (has EXTENDED property)
-        registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
-        registerStickyPistonVariant(blockStateModelGenerator, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.REINFORCED_PISTON);
-        registerWearingPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
-        registerWearingPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
-        registerPistonHead(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON_HEAD, ModBlocks.REINFORCED_PISTON, true);
-        registerPistonHead(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON_HEAD, ModBlocks.NETHERITE_PISTON, false);
-        registerPistonHead(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON_HEAD, ModBlocks.ENDERITE_PISTON, false);
+        if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines ships the piston models (MACH32-MOD stage 2)
+            registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
+            registerStickyPistonVariant(blockStateModelGenerator, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.REINFORCED_PISTON);
+            registerWearingPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
+            registerWearingPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
+            registerPistonHead(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON_HEAD, ModBlocks.REINFORCED_PISTON, true);
+            registerPistonHead(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON_HEAD, ModBlocks.NETHERITE_PISTON, false);
+            registerPistonHead(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON_HEAD, ModBlocks.ENDERITE_PISTON, false);
+        }
 
         // --- 6. Rucksaecke (abgestellt); split stage 8c-2: on 26.3 Simple Storage's (its own models) ---
         if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {

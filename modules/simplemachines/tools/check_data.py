@@ -8,8 +8,12 @@ ROOT = MODULE.parents[1]
 NS = 'simplemachines'
 RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplemachines'
-BLOCKS = ['double_piston', 'double_piston_head', 'double_piston_arm', 'signal_dampener']
-ITEMS = ['double_piston', 'signal_dampener']
+PISTONS = ['reinforced_piston', 'reinforced_sticky_piston', 'netherite_piston', 'enderite_piston']
+HEADS = ['reinforced_piston_head', 'netherite_piston_head', 'enderite_piston_head']
+BLOCKS = ['double_piston', 'double_piston_head', 'double_piston_arm', 'signal_dampener'] + PISTONS + HEADS
+ITEMS = ['double_piston', 'signal_dampener'] + PISTONS
+# crafted items (the breakers come from the hammer upgrade, data/simplemachines/in_world_upgrades/pistons.json)
+CRAFTED = ['double_piston', 'signal_dampener', 'reinforced_piston', 'reinforced_sticky_piston']
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -26,10 +30,14 @@ for locale in ('en_us', 'de_de'):
 assert set(langs['en_us']) == set(langs['de_de']), 'EN/DE lang keys differ'
 for b in BLOCKS:
     assert (RES / f'assets/{NS}/blockstates/{b}.json').is_file(), b
-    assert (RES / f'data/{NS}/loot_table/blocks/{b}.json').is_file() or b in ('double_piston_head', 'double_piston_arm'), b
+    assert (RES / f'data/{NS}/loot_table/blocks/{b}.json').is_file() or b in ['double_piston_head', 'double_piston_arm'] + HEADS, b
 for i in ITEMS:
     assert (RES / f'assets/{NS}/items/{i}.json').is_file(), i
+for i in CRAFTED:
     assert (RES / f'data/{NS}/recipe/{i}.json').is_file(), i
+upgrades = json.loads((RES / f'data/{NS}/in_world_upgrades/pistons.json').read_text(encoding='utf-8'))['upgrades']
+assert {(u['from'], u['to']) for u in upgrades} == {(f'{NS}:reinforced_piston', f'{NS}:netherite_piston'),
+        (f'{NS}:reinforced_sticky_piston', f'{NS}:netherite_piston'), (f'{NS}:netherite_piston', f'{NS}:enderite_piston')}, upgrades
 # every model and texture a blockstate or model names exists
 for state in (RES / f'assets/{NS}/blockstates').glob('*.json'):
     for variant in json.loads(state.read_text(encoding='utf-8'))['variants'].values():
@@ -42,11 +50,11 @@ for model in (RES / f'assets/{NS}/models').rglob('*.json'):
 # 4 stages x lit or not for the Dampener, 3 extensions x 6 facings for the piston parts
 assert len(json.loads((RES / f'assets/{NS}/blockstates/signal_dampener.json').read_text(encoding='utf-8'))['variants']) == 4 * 4 * 2
 assert len(json.loads((RES / f'assets/{NS}/blockstates/double_piston.json').read_text(encoding='utf-8'))['variants']) == 6 * 3
-# the recipes use Vanilla ingredients only (module independence)
-for i in ITEMS:
+# the recipes use Vanilla and SimpleLib ingredients only (module independence; SimpleLib is required)
+for i in CRAFTED:
     text = (RES / f'data/{NS}/recipe/{i}.json').read_text(encoding='utf-8')
     for ing in re.findall(r'"([a-z0-9_]+:[a-z0-9_/]+)"', text):
-        assert ing.startswith(('minecraft:', f'{NS}:')), (i, ing)
+        assert ing.startswith(('minecraft:', 'simplelib:', f'{NS}:')), (i, ing)
 for path in list((RES / f'data/{NS}').rglob('*.json')) + list((RES / f'assets/{NS}').rglob('*.json')):
     if path.name.endswith('.layers.json') or path.parent.name in ('lang', 'questionary'):
         continue

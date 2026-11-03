@@ -56,6 +56,8 @@ public class Simplebuilding implements ModInitializer {
         // IG31-13 (26.3): ModItems/ModBlocks point at Simple Ores' Enderite, scrap and sage ore, so the required sub-mod registers
         // first. Fabric does not order initializers by dependency; its own later call returns (OresFabric guards). 26.2: no such mod.
         initializeFirst("simpleores");
+        // MACH32-MOD stage 2 (26.3): ModBlocks/ModItems point at Simple Machines' piston upgrades, so it registers first too.
+        initializeFirst("simplemachines");
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.

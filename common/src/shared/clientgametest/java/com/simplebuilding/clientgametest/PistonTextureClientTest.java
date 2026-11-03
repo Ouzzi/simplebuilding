@@ -68,12 +68,12 @@ public final class PistonTextureClientTest {
             List<String> found = new ArrayList<>();
 
             List<Expected> pistons = List.of(
-                    new Expected(ModBlocks.REINFORCED_STICKY_PISTON, "simplebuilding:block/reinforced_piston_top_sticky",
-                            "simplebuilding:block/reinforced_piston_bottom", "simplebuilding:block/reinforced_piston_side"),
-                    new Expected(ModBlocks.ENDERITE_PISTON, "simplebuilding:block/enderite_piston_top",
-                            "simplebuilding:block/enderite_piston_bottom", "simplebuilding:block/enderite_piston_side"),
-                    new Expected(ModBlocks.REINFORCED_PISTON, "simplebuilding:block/reinforced_piston_top",
-                            "simplebuilding:block/reinforced_piston_bottom", "simplebuilding:block/reinforced_piston_side"));
+                    new Expected(ModBlocks.REINFORCED_STICKY_PISTON, com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/reinforced_piston_top_sticky",
+                            com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/reinforced_piston_bottom", com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/reinforced_piston_side"),
+                    new Expected(ModBlocks.ENDERITE_PISTON, com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/enderite_piston_top",
+                            com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/enderite_piston_bottom", com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/enderite_piston_side"),
+                    new Expected(ModBlocks.REINFORCED_PISTON, com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/reinforced_piston_top",
+                            com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/reinforced_piston_bottom", com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":block/reinforced_piston_side"));
 
             // The retracted push plate of each piston, for the sticky-versus-plain control below.
             List<Set<String>> plates = new ArrayList<>();

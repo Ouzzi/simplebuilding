@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/piston_base",
+  "textures": {
+    "bottom": "simplemachines:block/enderite_piston_bottom",
+    "platform": "simplemachines:block/enderite_piston_top",
+    "side": "simplemachines:block/enderite_piston_side_worn2"
+  }
+}

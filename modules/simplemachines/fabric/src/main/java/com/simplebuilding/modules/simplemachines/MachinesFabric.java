@@ -12,8 +12,13 @@ import net.minecraft.world.item.Items;
 
 /** Fabric entry: registries are open during init, so everything registers directly. */
 public final class MachinesFabric implements ModInitializer {
+    /** SimpleBuilding runs this initializer before its own registration (its piston fields point at these blocks); the loader's second call returns. */
+    private static boolean initialized;
+
     @Override
     public void onInitialize() {
+        if (initialized) return;
+        initialized = true;
         SimpleMachines.init(FabricLoader.getInstance().getConfigDir());
         // CMD24: /simplemachines config for every option.
         com.simplelib.api.config.ConfigCommands.server(SimpleMachines.MOD_ID).json(com.simplemachines.config.MachinesConfig::toJson, com.simplemachines.config.MachinesConfig::apply)
@@ -21,6 +26,7 @@ public final class MachinesFabric implements ModInitializer {
         MachinesRegistry.registerBlocks();
         MachinesRegistry.registerItems();
         MachinesRegistry.registerTab();
+        PistonsFabric.init();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleMachines.MOD_ID)) return;
             var stacks = MachinesRegistry.partStacks().stream().filter(s -> out.getDisplayStacks().stream().noneMatch(d -> ItemStack.isSameItemSameComponents(d, s))).toList();

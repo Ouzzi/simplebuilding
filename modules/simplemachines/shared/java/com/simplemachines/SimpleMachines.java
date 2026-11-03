@@ -12,7 +12,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Simple Machines (MACH32-MOD, docs/ai/PLAN-B-MACHINES01-2026-11-01.md): the machine parts of the Simple Machines tab. Stage 1: the
  * Double Piston (one block, two stages) and the Signal Dampener, which lived in the module Simple Redstone (WP-17), then in the core
- * (IG31-12) and are a required sub-mod of SimpleBuilding now. Vanilla ingredients only, runs alone.
+ * (IG31-12) and are a required sub-mod of SimpleBuilding now. Stage 2 (docs/ai/PLAN-B-MACHINES02-2026-11-03.md): the piston upgrades
+ * ({@link com.simplemachines.upgrade.PistonUpgrades}). Vanilla and SimpleLib ingredients, runs alone.
  * The loader entry point calls {@link #init} once with its config directory before it registers anything.
  */
 public final class SimpleMachines {
@@ -26,6 +27,9 @@ public final class SimpleMachines {
     public static final List<String> MOVED_ITEMS = List.of("double_piston", "signal_dampener");
     /** Blocks that moved under the same path. */
     public static final List<String> MOVED_BLOCKS = List.of("double_piston", "double_piston_head", "double_piston_arm", "signal_dampener");
+
+    /** Stage 2: the crafted piston upgrades' recipes (the breakers come from the hammer upgrade, no recipe). */
+    public static final List<String> MOVED_PISTON_RECIPES = List.of("reinforced_piston", "reinforced_sticky_piston");
 
     private static boolean movesRegistered;
 
@@ -56,7 +60,8 @@ public final class SimpleMachines {
                 || (!MachinesConfig.signalDampener && p.equals("signal_dampener")));
         // Test centre station (framework contract, no import of the test centre): the module's items by id.
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "machines", "simplemachines.testcentre.station",
-                List.of(MOD_ID + ":double_piston", MOD_ID + ":signal_dampener", MOD_ID + ":guide_book"));
+                List.of(MOD_ID + ":reinforced_piston", MOD_ID + ":reinforced_sticky_piston", MOD_ID + ":netherite_piston",
+                        MOD_ID + ":enderite_piston", MOD_ID + ":double_piston", MOD_ID + ":signal_dampener", MOD_ID + ":guide_book"));
     }
 
     /**
@@ -80,6 +85,16 @@ public final class SimpleMachines {
         move(Registries.ITEM, REDSTONE_NAMESPACE, "guide_book");
         move(Registries.RECIPE, REDSTONE_NAMESPACE, "guide_book");
         move(Registries.ADVANCEMENT, REDSTONE_NAMESPACE, "recipes/misc/guide_book");
+        // Stage 2 (03.11.): the piston upgrades leave SimpleBuilding; block states (facing, extended, wear, wear_step) are the same.
+        for (String path : com.simplemachines.upgrade.PistonUpgrades.PISTONS) {
+            move(Registries.ITEM, CORE_NAMESPACE, path);
+            move(Registries.BLOCK, CORE_NAMESPACE, path);
+        }
+        for (String path : com.simplemachines.upgrade.PistonUpgrades.HEADS) move(Registries.BLOCK, CORE_NAMESPACE, path);
+        for (String path : MOVED_PISTON_RECIPES) {
+            move(Registries.RECIPE, CORE_NAMESPACE, path);
+            move(Registries.ADVANCEMENT, CORE_NAMESPACE, "recipes/redstone/" + path);
+        }
     }
 
     private static void move(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>> registry, String from, String path) {

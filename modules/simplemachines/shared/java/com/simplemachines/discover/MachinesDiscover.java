@@ -57,7 +57,15 @@ public final class MachinesDiscover {
             "simplemachines:double_piston",
             "simplemachines:double_piston_arm",
             "simplemachines:double_piston_head",
+            "simplemachines:enderite_piston",
+            "simplemachines:enderite_piston_head",
             "simplemachines:guide_book",
+            "simplemachines:netherite_piston",
+            "simplemachines:netherite_piston_head",
+            "simplemachines:piston_upgrades",
+            "simplemachines:reinforced_piston",
+            "simplemachines:reinforced_piston_head",
+            "simplemachines:reinforced_sticky_piston",
             "simplemachines:signal_dampener");
     static final List<Tip> TIPS = List.of();
 

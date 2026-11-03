@@ -1,0 +1,9 @@
+{
+  "parent": "simplemachines:block/template_tiered_piston_head_short",
+  "textures": {
+    "arm": "simplemachines:block/netherite_piston_arm",
+    "platform": "simplemachines:block/netherite_piston_top",
+    "side": "simplemachines:block/netherite_piston_side",
+    "unsticky": "simplemachines:block/netherite_piston_head"
+  }
+}

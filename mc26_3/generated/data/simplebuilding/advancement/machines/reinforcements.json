@@ -10,8 +10,8 @@
               "simpleovens:reinforced_smoker",
               "simpleovens:reinforced_blast_furnace",
               "simplebuilding:reinforced_hopper",
-              "simplebuilding:reinforced_piston",
-              "simplebuilding:reinforced_sticky_piston",
+              "simplemachines:reinforced_piston",
+              "simplemachines:reinforced_sticky_piston",
               "simplestorage:reinforced_chest"
             ]
           }

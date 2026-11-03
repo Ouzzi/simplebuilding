@@ -2,6 +2,13 @@
   "values": [
     "simplemachines:double_piston",
     "simplemachines:double_piston_head",
-    "simplemachines:double_piston_arm"
+    "simplemachines:double_piston_arm",
+    "simplemachines:reinforced_piston",
+    "simplemachines:reinforced_sticky_piston",
+    "simplemachines:netherite_piston",
+    "simplemachines:enderite_piston",
+    "simplemachines:reinforced_piston_head",
+    "simplemachines:netherite_piston_head",
+    "simplemachines:enderite_piston_head"
   ]
 }

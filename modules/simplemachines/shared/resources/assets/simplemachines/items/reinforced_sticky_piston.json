@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplemachines:block/reinforced_sticky_piston_inventory"
+  }
+}

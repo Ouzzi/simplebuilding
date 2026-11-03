@@ -850,17 +850,6 @@
       "chance": 0.1
     },
     {
-      "item": "simplebuilding:enderite_piston",
-      "tier": 5,
-      "hours": 38.1,
-      "craft": 0,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
       "item": "simplebuilding:enderite_pressure_plate",
       "tier": 5,
       "hours": 38.1,
@@ -1184,17 +1173,6 @@
       "tier": 4,
       "hours": 24.9,
       "craft": 1,
-      "safetyFloor": 8,
-      "merchant": "wandering_trader",
-      "level": 5,
-      "stock": 1,
-      "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:netherite_piston",
-      "tier": 4,
-      "hours": 24.9,
-      "craft": 0,
       "safetyFloor": 8,
       "merchant": "wandering_trader",
       "level": 5,
@@ -1763,17 +1741,6 @@
       "chance": 1
     },
     {
-      "item": "simplebuilding:reinforced_piston",
-      "tier": 3,
-      "hours": 21.0,
-      "craft": 9,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 4,
-      "stock": 1,
-      "chance": 1
-    },
-    {
       "item": "simplebuilding:reinforced_potion_pad",
       "tier": 5,
       "hours": 38.1,
@@ -1783,17 +1750,6 @@
       "level": 5,
       "stock": 1,
       "chance": 0.1
-    },
-    {
-      "item": "simplebuilding:reinforced_sticky_piston",
-      "tier": 0,
-      "hours": 0.5,
-      "craft": 2,
-      "safetyFloor": 8,
-      "merchant": "mason",
-      "level": 1,
-      "stock": 2,
-      "chance": 1
     },
     {
       "item": "simplebuilding:nether_brick_quartz_checker",

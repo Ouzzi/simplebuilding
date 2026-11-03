@@ -1689,6 +1689,11 @@ public final class DataIntegrityTests {
     }
 
     /** Items reachable as static fields of {@link ModItems}. */
+    /** MACH32-MOD stage 2: on 26.3 the piston fields point at Simple Machines' objects (its own checks cover them). */
+    private static boolean movedToMachines(Identifier id) {
+        return !McVersion.PISTONS_IN_SB && id != null && McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
+    }
+
     private static List<Item> declaredModItems() {
         List<Item> items = new ArrayList<>();
         for (Field field : ModItems.class.getDeclaredFields()) {
@@ -1697,7 +1702,8 @@ public final class DataIntegrityTests {
             }
             try {
                 // 26.3: the shared materials are SimpleLib's (split stage 3d) - SimpleLib's own checks cover them.
-                if (field.get(null) instanceof Item item && !com.simplebuilding.util.SharedMaterials.isShared(item)) {
+                if (field.get(null) instanceof Item item && !com.simplebuilding.util.SharedMaterials.isShared(item)
+                        && !movedToMachines(BuiltInRegistries.ITEM.getKey(item))) {
                     items.add(item);
                 }
             } catch (IllegalAccessException e) {
@@ -1735,7 +1741,8 @@ public final class DataIntegrityTests {
                 continue;
             }
             try {
-                if (field.get(null) instanceof Block block && !com.simplebuilding.util.SharedMaterials.isShared(block)) {
+                if (field.get(null) instanceof Block block && !com.simplebuilding.util.SharedMaterials.isShared(block)
+                        && !movedToMachines(BuiltInRegistries.BLOCK.getKey(block))) {
                     blocks.add(block);
                 }
             } catch (IllegalAccessException e) {
