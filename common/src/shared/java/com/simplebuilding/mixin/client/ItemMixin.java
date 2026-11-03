@@ -3,7 +3,7 @@ package com.simplebuilding.mixin.client;
 import com.simplebuilding.util.GlowingTrimUtils;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.util.TrimBonusCatalog;
-import com.simplebuilding.util.TrimEffectUtil;
+import com.simplebuilding.util.TrimRates;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,7 +45,7 @@ public class ItemMixin {
         if (player == null) return;
 
         // Resonanz des Spielers (Stufe, Ueberleben, Kampf) - clientseitig aus den synchronisierten Werten
-        float mult = TrimEffectUtil.getGlobalMultiplier(player);
+        float mult = TrimRates.getGlobalMultiplier(player);
 
         // 1. Glowing und Emitting Level (Radiance)
         int emittingLevel = GlowingTrimUtils.getEmissionLevel(stack);
@@ -63,7 +63,7 @@ public class ItemMixin {
         }
 
         // 2. Armor Trim Boni - im Stil der Vanilla-Attributliste, Werte aus TrimBonusCatalog
-        // (dieselben Konstanten, mit denen TrimEffectUtil rechnet).
+        // (dieselben Konstanten, mit denen die Regeln rechnen, TrimRates).
         var trim = stack.get(DataComponents.TRIM);
         if (trim != null) {
             TrimBonusCatalog.tooltipLines(trim, mult).forEach(textConsumer);

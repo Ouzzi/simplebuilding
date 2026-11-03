@@ -36,25 +36,9 @@ public final class TrimWiringGameTest {
         TrimWiringTests.theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath(helper);
     }
 
-    @GameTest
-    public void thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards(GameTestHelper helper) {
-        TrimWiringTests.thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards(helper);
-    }
 
-    @GameTest
-    public void everyServerSideHitRunsThroughTheTrimDamageModifier(GameTestHelper helper) {
-        TrimWiringTests.everyServerSideHitRunsThroughTheTrimDamageModifier(helper);
-    }
 
-    @GameTest
-    public void coastHoldsTheAirSupplyAndSilenceLowersTheVisibility(GameTestHelper helper) {
-        TrimWiringTests.coastHoldsTheAirSupplyAndSilenceLowersTheVisibility(helper);
-    }
 
-    @GameTest
-    public void theTickDrivenTrimEffectsFireOnTheirOwnCadence(GameTestHelper helper) {
-        TrimWiringTests.theTickDrivenTrimEffectsFireOnTheirOwnCadence(helper);
-    }
 
     @GameTest
     public void theThreeTrimMaterialsKeepTheirColoursAndTheirTags(GameTestHelper helper) {
@@ -84,5 +68,10 @@ public final class TrimWiringGameTest {
     @GameTest
     public void maxResonanceShowsTheDiamondHeart(GameTestHelper helper) {
         TrimWiringTests.maxResonanceShowsTheDiamondHeart(helper);
+    }
+
+    @GameTest
+    public void theDisplayedRatesMatchTheBalanceTable(GameTestHelper helper) {
+        TrimWiringTests.theDisplayedRatesMatchTheBalanceTable(helper);
     }
 }

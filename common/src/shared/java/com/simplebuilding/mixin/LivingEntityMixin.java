@@ -1,12 +1,9 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,13 +15,11 @@ import org.jspecify.annotations.Nullable;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.core.BlockPos;
-import com.simplebuilding.util.TrimAttributeHandler;
 import com.simplebuilding.util.OwnedLightHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -58,37 +53,11 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
         com.simplebuilding.util.AttractorFilter.markIfDeathDrop((LivingEntity) (Object) this, cir.getReturnValue());
     }
 
-    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, ordinal = 0)
-    private float simplebuilding$modifyDamageAmount(float amount, ServerLevel world, DamageSource source) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-        // MOB27-3: Simple Mobs applies the trim abilities when it is loaded and on; the core is the fallback.
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return amount;
-        // Ruft die große Logic-Methode in TrimEffectUtil auf
-        return TrimEffectUtil.modifyDamage(entity, amount, source);
-    }
-
-    // Schwimmen (Tide) ist seit 2026-09 ein Modifikator auf water_movement_efficiency, siehe
-    // TrimAttributeHandler - der getSpeed-Eingriff wirkte ohne Wassertritt ohnehin kaum.
-
-    @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)
-    private void simplebuilding$modifyAir(int air, CallbackInfoReturnable<Integer> cir) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
-
-        float chance = TrimEffectUtil.getAirSaveChance(entity);
-
-        if (chance > 0) {
-            if (entity.getRandom().nextFloat() < chance) {
-                cir.setReturnValue(air); // Luftstand behalten (kein Verbrauch)
-            }
-        }
-    }
-
-    // Ein tick-Hook fuer alle Besatz-Effekte (jedes Lebewesen laeuft hier durch): RIB (Wither), Amethyst, Radiance/Attribute.
+    // Ein tick-Hook fuer Radiance (emittierende Ruestung). Die Besatz-Faehigkeiten (Rib, Amethyst, Attribute) wirken auf 26.3 in
+    // Simple Mobs (ZO9 A / MOB27-3), auf 26.2 in LivingEntityTrimMixin.
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickEffects(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        // --- RADIANCE (emittierende Ruestung) und Besatz-Attribute ---
         // Licht: jeder Traeger ausser Spielern (die haben ihren eigenen Pfad im DynamicLightHandler),
         // also Ruestungsstaender und Mobs; Schimmer clientseitig an jedem Traeger.
         if (entity.level().isClientSide()) {
@@ -96,32 +65,6 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
             return;
         }
         DynamicLightHandler.tickWearer(entity);
-        // Besatz-Effekte: bei geladenem Simple Mobs dort (MOB27-3), sonst hier.
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
-        // --- RIB TRIM ---
-        if (entity.tickCount % 20 == 0 && entity.hasEffect(MobEffects.WITHER)) {
-            int reduction = TrimEffectUtil.getWitherReductionAmount(entity);
-            if (reduction > 0) {
-                MobEffectInstance effect = entity.getEffect(MobEffects.WITHER);
-                // Wenn Restzeit klein ist, entfernen
-                if (effect != null && effect.getDuration() <= reduction) {
-                    entity.removeEffect(MobEffects.WITHER);
-                } else if (effect != null) {
-                    // Leider kann man Duration nicht einfach setzen ohne Accessor.
-                    // Workaround: Wir heilen den Wither-Schaden einfach gegen.
-                    // Da Wither alle 2 Sek Schaden macht (bei Level 1), heilen wir leicht.
-                    entity.heal(0.5f); // Halbes Herz gegenheilen
-                }
-            }
-        }
-        // --- AMETHYST: alle 10 Sekunden ---
-        if (entity.tickCount % 200 == 0) {
-            float chance = TrimEffectUtil.getAmethystHealChance(entity);
-            if (chance > 0 && entity.getHealth() < entity.getMaxHealth() && entity.getRandom().nextFloat() < chance) {
-                entity.heal(1.0f);
-            }
-        }
-        TrimAttributeHandler.tick(entity);
     }
 
     // Vom Traeger gesetzter Lichtblock (Ruestungsstaender, Mobs), mit der Entity gespeichert.
@@ -152,23 +95,6 @@ public abstract class LivingEntityMixin implements OwnedLightHolder, com.simpleb
         this.simplebuilding$stuckArrows.clear();
         input.read(com.simplebuilding.fletching.ArrowRecovery.SAVE_KEY, ItemStack.CODEC.listOf()).ifPresent(list -> list.stream()
                 .limit(com.simplebuilding.config.ServerTuning.MAX_ARROWS_PER_MOB).forEach(this.simplebuilding$stuckArrows::add));
-    }
-
-    // 6. SILENCE TRIM (Stealth / Sichtbarkeit) - KORRIGIERT
-    // Wir nutzen "getAttackDistanceScalingFactor", da "getVisibilityTo" nicht existiert.
-    // Diese Methode berechnet Faktoren wie Sneaking (0.8) oder MobHeads (0.5).
-    // Wir multiplizieren unseren Stealth-Faktor dazu.
-    @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
-    // Nur der Callback, keine Zielparameter: 26.3 hat getVisibilityPercent um ein ServerLevel erweitert.
-    private void simplebuilding$modifyVisibility(CallbackInfoReturnable<Double> cir) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
-        float mult = TrimEffectUtil.getStealthMultiplier(entity);
-
-        // Wenn Stealth aktiv ist (Multiplikator < 1.0), verringern wir den Faktor weiter
-        if (mult < 1.0f) {
-            cir.setReturnValue(cir.getReturnValue() * mult);
-        }
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)

@@ -2,7 +2,6 @@ package com.simplebuilding.mixin;
 
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
-import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,9 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements TrimBenefitUser, ISpaceKeyTracker {
@@ -45,55 +42,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         com.simplebuilding.util.AttractorFilter.endDeathDrops();
     }
 
-    // --- TICK LOGIK ---
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void simplebuilding$tickLogic(CallbackInfo ci) {
-        Player player = (Player) (Object) this;
-        // MOB27-3: Simple Mobs applies the trim abilities when it is loaded and on; the core is the fallback.
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return;
-
-        // 1. Trim Effekte (Stasis, Astralit Jump Boost)
-        TrimEffectUtil.tick(player);
-
-        // 2. Nihilith Gravity (Client & Server für prediction)
-        TrimEffectUtil.handleNihilithGravity(player);
-        TrimEffectUtil.handleAstralitGlide(player);
-
-        // 2b. Luftsprung: die Landung setzt die Abklingzeit NICHT mehr zurueck (Besitzer 2026-09-29),
-        //     deshalb kein Aufruf mehr hier - AirJumpGuard prueft die volle Abklingzeit beim Paket.
-
-        // 3. Enderit-Sinkdaempfer: EnderiteSinkDamperMixin (Schwerkraft und Fallweg beim schleichenden Fall).
-    }
-
-    // --- HUNGER / EXHAUSTION ---
-    @ModifyVariable(method = "causeFoodExhaustion", at = @At("HEAD"), argsOnly = true)
-    private float simplebuilding$reduceExhaustion(float exhaustion) {
-        Player player = (Player) (Object) this;
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return exhaustion;
-        if (player.isSprinting()) {
-            // Nutzt jetzt den zentralen Rechner mit Multiplikator
-            float reductionPct = TrimEffectUtil.getExhaustionReduction(player);
-            if (reductionPct > 0) {
-                return exhaustion * (1.0f - reductionPct);
-            }
-        }
-        return exhaustion;
-    }
-
-    // --- XP BOOST ---
-    @ModifyVariable(method = "giveExperiencePoints", at = @At("HEAD"), argsOnly = true)
-    private int simplebuilding$modifyXpGain(int experience) {
-        Player player = (Player) (Object) this;
-        if (experience <= 0) return experience;
-        if (com.simplebuilding.util.TrimHost.handledElsewhere()) return experience;
-
-        float multiplier = TrimEffectUtil.getXPMultiplier(player);
-        if (multiplier > 1.0f) {
-            return Math.round(experience * multiplier);
-        }
-        return experience;
-    }
-
-    // Glueck und Laufgeschwindigkeit (Host/Smaragd, Bolt/Redstone) sind seit 2026-09 echte
-    // Vanilla-Attribut-Modifikatoren, siehe TrimAttributeHandler - keine getLuck/getSpeed-Eingriffe mehr.
+    // Die Besatz-Faehigkeiten der Spieler (Stase/Astralit, Nihilith, Gleiten, Sprint-Hunger, Erfahrung) wirken auf 26.3 in
+    // Simple Mobs (ZO9 A / MOB27-3, docs/ai/PLAN-B-TRIMMOVE01-2026-11-03.md), auf 26.2 in PlayerTrimMixin. Der Spieler-Schalter
+    // (TrimBenefitUser) bleibt hier: der Kern gibt ihn als Gastgeber (TrimHost) an Simple Mobs weiter.
 }

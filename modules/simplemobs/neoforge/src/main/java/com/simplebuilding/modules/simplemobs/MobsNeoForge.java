@@ -20,6 +20,8 @@ public final class MobsNeoForge {
     public MobsNeoForge(IEventBus bus, Dist dist) {
         WitherLoot.idMoves();
         MobsConfig.load(FMLPaths.CONFIGDIR.get());
+        // MOB27-3 / ZO9 A: Simple Mobs applies the armour trim abilities on every loader (the core has no fallback on 26.3).
+        com.simplebuilding.modules.simplemobs.trim.TrimAbilities.install();
         ModuleNeoTests.register(bus);
         bus.addListener((RegisterEvent event) -> {
             event.register(Registries.SOUND_EVENT, h -> MobsSounds.forEach(h::register));

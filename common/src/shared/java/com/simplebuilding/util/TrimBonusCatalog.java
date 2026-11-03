@@ -1,6 +1,6 @@
 package com.simplebuilding.util;
 
-import static com.simplebuilding.util.TrimEffectUtil.*;
+import static com.simplebuilding.util.TrimRates.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
 /**
- * Welche Boni ein Besatzmuster bzw. -material gibt, mit den Raten aus {@link TrimEffectUtil}.
- * Die Zuordnung spiegelt die exakten Pruefungen dort ({@link TrimEffectUtil#isOwn}, REV24-F-10); Tooltip und Nachschlage-Bildschirm
+ * Welche Boni ein Besatzmuster bzw. -material gibt, mit den Raten aus {@link TrimRates} (wirkend auf 26.3: Simple Mobs, gleiche Zahlen).
+ * Die Zuordnung spiegelt die exakten Pruefungen der Regeln ({@link TrimRates#isOwn}, REV24-F-10); Tooltip und Nachschlage-Bildschirm
  * lesen nur von hier, damit angezeigte und wirkende Werte nicht wieder auseinanderlaufen
  * (vorher standen im Tooltip eigene, teils halbierte oder erfundene Zahlen).
  */
@@ -142,7 +142,7 @@ public final class TrimBonusCatalog {
     public static List<Component> tooltipLines(ArmorTrim trim, float resonance) {
         Identifier pattern = trim.pattern().value().assetId();
         Identifier material = trim.material().unwrapKey().map(key -> key.identifier()).orElse(null);
-        // Wie TrimEffectUtil.getTrimCount: fremde Materialien zaehlen mit Normalgewicht
+        // Wie getTrimCount der Regeln: fremde Materialien zaehlen mit Normalgewicht
         float weight = material != null && isOwn(material, "enderite") ? PATTERN_WEIGHT_ENDERITE
                 : material != null && isOwn(material, "netherite") ? PATTERN_WEIGHT_NETHERITE : PATTERN_WEIGHT_DEFAULT;
 

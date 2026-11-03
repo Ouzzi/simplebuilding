@@ -1,17 +1,20 @@
-package com.simplebuilding.gametest;
+package com.simplebuilding.modules.simplemobs;
 
-import com.simplebuilding.config.SimplebuildingConfig;
-import com.simplebuilding.trim.ModTrimMaterials;
-import com.simplebuilding.util.TrimEffectUtil;
-import com.simplebuilding.util.TrimMultiplierLogic;
-import java.util.Optional;
+import com.simplebuilding.framework.api.TrimContracts;
+import com.simplebuilding.modules.simplemobs.trim.TrimAbilities;
+import com.simplebuilding.modules.simplemobs.trim.TrimAbilityAttributes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
@@ -31,97 +34,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
-import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import net.minecraft.world.item.equipment.trim.TrimPatterns;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * The arithmetic surface of {@code TrimEffectUtil.modifyDamage}: which incoming hit each trim
- * pattern and each trim material answers to, and by how much.
- *
- * <p>{@link TrimEffectTests} pins the frame around this - counting, material weighting, the 0.1
- * floor, the {@code amount <= 0} guard, the unconditional ward pattern, rib against wither, the
- * unconditional enderite material, the mob fallback factor and the benefit gate. It deliberately
- * measures only two of the twenty-odd branches inside {@code modifyDamage}. This class measures
- * the rest, and it is the only place where the <em>conditions</em> on those branches are pinned:
- * eleven of them read a damage-type tag or key, three read a string off the damage source or the
- * attacking entity's type, and three read the class of the entity behind the hit. Every one of
- * those conditions could be inverted, widened or dropped today without a single existing test
- * changing colour.
- *
- * <p>Method by method:
- * <ul>
- *   <li>{@code tagKeyedPatternsCoverTheWholeDamageFamily} - sentry, dune, snout and spire key on
- *       a damage-type <em>tag</em>, so each covers a whole family. Broken by narrowing one of
- *       them to a single damage type, or by swapping two tags.</li>
- *   <li>{@code exactlyKeyedPatternsIgnoreTheirNeighbours} - coast, eye and bolt key on a single
- *       damage type instead. Broken by widening one to its tag, or by moving a rate.</li>
- *   <li>{@code magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials} - the three separate
- *       triggers of the vex branch and the two magic materials. Broken by dropping any one of
- *       the three vex triggers or either material summand.</li>
- *   <li>{@code wildAndSilenceRideOnTheDamageMessageId} - the four raw string comparisons.
- *       Broken by a typo, by a vanilla message-id rename, or by loosening equals to contains.</li>
- *   <li>{@code flowReadsTheTypeNameOfTheProjectileThatLanded} - the entity-type-name test and
- *       its null guard. Broken by anything that changes what {@code EntityType.toString()}
- *       yields, and by keying flow on the projectile tag instead.</li>
- *   <li>{@code armourBypassingHitsSkipTheThreePhysicalMaterials} - diamond, astralit and
- *       nihilith behind the armour-bypass guard. Broken by dropping the guard (which would make
- *       them work against starvation and the void) or by dropping a material.</li>
- *   <li>{@code ironAndQuartzMaterialsAddToTheirOwnPatterns} - the two materials that double up
- *       with a pattern on the same hit, plus the quartz experience summand. Broken by deleting
- *       either half of a pair.</li>
- *   <li>{@code attackerKeyedMaterialsReadTheEntityBehindTheHit} - emerald against illagers,
- *       netherite against enchantment-bypassing hits and against the wither. Broken by reading
- *       {@code getDirectEntity()} where the code means {@code getEntity()} on either material,
- *       by narrowing the illager check to one concrete mob, or by swapping netherite's
- *       enchantment-bypass tag for the armour-bypass one.</li>
- * </ul>
- *
- * <p>Two conventions run through the whole class. Every measurement is taken at a progress
- * factor pinned to exactly 1.0 against a 10.0 hit, so the printed number is the rate itself.
- * And the carrier trim is chosen so that only the branch under test can fire: copper for the
- * pattern cases ({@code modifyDamage} has no copper branch) and the shaper pattern for the
- * material cases (no getter and no branch queries "shaper"). Where a case needs both halves at
- * once it says so.
- *
- * <p><b>Known defect.</b> Three conditions in {@code modifyDamage} read text that vanilla does
- * not promise to keep:
- * <ul>
- *   <li>Line 192 decides the flow bonus with
- *       {@code source.getDirectEntity().getType().toString().contains("wind_charge")}.
- *       {@code EntityType.toString()} is a debug method; it currently returns the translation
- *       key, which is why the check works at all. The registry key is available and is what the
- *       code means. If Mojang ever changes that {@code toString}, the flow bonus disappears with
- *       no crash and no log line.</li>
- *   <li>Lines 183 and 187 decide the wild and silence bonuses by comparing
- *       {@code source.getMsgId()} against {@code "cactus"}, {@code "sweetBerryBush"},
- *       {@code "stalagmite"} and {@code "sonic_boom"}, although
- *       {@code DamageTypes.CACTUS / SWEET_BERRY_BUSH / STALAGMITE / SONIC_BOOM} all exist and
- *       every neighbouring branch uses {@code source.is(...)}. A message-id rename - and
- *       {@code sweetBerryBush} is exactly the sort of camel-case leftover that gets cleaned up -
- *       silently removes the bonus.</li>
- * </ul>
- * Neither is worked around here: the tests assert the intended behaviour, so they stay green
- * while it holds and turn red the moment it stops.
- *
- * <p><b>Not covered.</b>
- * <ul>
- *   <li>Whether any of this reaches a real hit. {@code modifyDamage} is called directly
- *       throughout; the {@code LivingEntityMixin} delivery path is the subject of the wiring
- *       tests, not of this class.</li>
- *   <li>The progress multiplier itself - {@link HopperAndTrimTests} pins that curve, and every
- *       body here nails it to 1.0 so that a change in the curve cannot move these numbers.</li>
- *   <li>The two remaining wither-family branches. Rib against {@code DamageTypes.WITHER} is
- *       already measured in {@link TrimEffectTests}, and the enderite material is measured there
- *       against two unrelated damage types.</li>
- *   <li>Tooltips, trim rendering and the smithing-table preview: client-only.</li>
- * </ul>
+ * MOB27-3 / ZO9 A (docs/ai/PLAN-B-TRIMMOVE01-2026-11-03.md): moved from the SimpleBuilding core test class {@code TrimBonusTests} together with
+ * the trim abilities, bodies unchanged except for the inputs (see the helpers at the end); each method comment says what it pins.
  */
-public final class TrimBonusTests {
-
-    private TrimBonusTests() {
+final class TrimBonusRuleTests {
+    private TrimBonusRuleTests() {
     }
 
     /** The hit every measurement is taken on. Ten makes each percentage readable as a decimal. */
@@ -146,6 +69,17 @@ public final class TrimBonusTests {
     // PATTERNS KEYED ON A DAMAGE TYPE TAG
     // =====================================================================================
 
+    static void addAll(BiConsumer<String, Consumer<GameTestHelper>> add) {
+        add.accept("trim_bonus_tag_keyed_patterns_cover_the_whole_damage_family", TrimBonusRuleTests::tagKeyedPatternsCoverTheWholeDamageFamily);
+        add.accept("trim_bonus_exactly_keyed_patterns_ignore_their_neighbours", TrimBonusRuleTests::exactlyKeyedPatternsIgnoreTheirNeighbours);
+        add.accept("trim_bonus_magic_is_softened_by_the_vex_pattern_and_the_gold_and_lapis_materials", TrimBonusRuleTests::magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials);
+        add.accept("trim_bonus_wild_and_silence_ride_on_the_damage_message_id", TrimBonusRuleTests::wildAndSilenceRideOnTheDamageMessageId);
+        add.accept("trim_bonus_flow_reads_the_type_name_of_the_projectile_that_landed", TrimBonusRuleTests::flowReadsTheTypeNameOfTheProjectileThatLanded);
+        add.accept("trim_bonus_armour_bypassing_hits_skip_the_three_physical_materials", TrimBonusRuleTests::armourBypassingHitsSkipTheThreePhysicalMaterials);
+        add.accept("trim_bonus_iron_and_quartz_materials_add_to_their_own_patterns", TrimBonusRuleTests::ironAndQuartzMaterialsAddToTheirOwnPatterns);
+        add.accept("trim_bonus_attacker_keyed_materials_read_the_entity_behind_the_hit", TrimBonusRuleTests::attackerKeyedMaterialsReadTheEntityBehindTheHit);
+    }
+
     /**
      * Sentry, dune, snout and spire are written against {@code DamageTypeTags}, not against a
      * single damage type, and that is the whole point of them: sentry is meant to stop arrows
@@ -165,8 +99,8 @@ public final class TrimBonusTests {
      * <p>What breaks this test: changing any of the four tags, changing any of the four rates
      * (5% sentry, 8% dune, 5% snout, 8% spire per piece), or dropping a branch entirely.
      */
-    public static void tagKeyedPatternsCoverTheWholeDamageFamily(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void tagKeyedPatternsCoverTheWholeDamageFamily(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -231,13 +165,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // PATTERNS KEYED ON ONE EXACT DAMAGE TYPE
-    // =====================================================================================
 
     /**
      * Coast, eye and bolt are written against a single damage type instead of a tag, and each is
@@ -255,8 +185,8 @@ public final class TrimBonusTests {
      * dragon breath, or bolt on the lightning tag or on fire; and any change to the three rates
      * (10% coast, 10% eye, 25% bolt per piece).
      */
-    public static void exactlyKeyedPatternsIgnoreTheirNeighbours(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void exactlyKeyedPatternsIgnoreTheirNeighbours(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -312,13 +242,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // MAGIC: ONE PATTERN WITH THREE TRIGGERS, PLUS TWO MATERIALS
-    // =====================================================================================
 
     /**
      * The vex branch is the only one in {@code modifyDamage} with three separate triggers - the
@@ -345,8 +271,8 @@ public final class TrimBonusTests {
      * dropping or reweighting the gold (6%) or lapis (4%) summand, or restricting either
      * material to only one of the two magic types.
      */
-    public static void magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -415,13 +341,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // THE STRING COMPARISONS
-    // =====================================================================================
 
     /**
      * Four of the branches in {@code modifyDamage} do not ask the damage type registry anything;
@@ -446,8 +368,8 @@ public final class TrimBonusTests {
      * loosening equals to contains or startsWith, and any change to the 10% wild or 20% silence
      * rate.
      */
-    public static void wildAndSilenceRideOnTheDamageMessageId(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void wildAndSilenceRideOnTheDamageMessageId(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -496,13 +418,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // FLOW: THE ENTITY TYPE NAME TEST
-    // =====================================================================================
 
     /**
      * Flow is the one branch that identifies a hit by the <em>name of the entity type</em> that
@@ -526,8 +444,8 @@ public final class TrimBonusTests {
      * type, matching the entity type exactly instead of by substring (which would drop the
      * breeze's charge), dropping the null check, and changing the 10% rate.
      */
-    public static void flowReadsTheTypeNameOfTheProjectileThatLanded(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void flowReadsTheTypeNameOfTheProjectileThatLanded(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -575,13 +493,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // MATERIALS BEHIND THE ARMOUR BYPASS GUARD
-    // =====================================================================================
 
     /**
      * Diamond, astralit and nihilith share one condition: they only apply to damage that is not
@@ -604,13 +518,13 @@ public final class TrimBonusTests {
      * changing 3% diamond or 2% astralit/nihilith, or making the material lookup exact so that
      * the mod's own two materials stop being found.
      */
-    public static void armourBypassingHitsSkipTheThreePhysicalMaterials(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void armourBypassingHitsSkipTheThreePhysicalMaterials(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> diamond = material(helper, TrimMaterials.DIAMOND);
-            Holder<TrimMaterial> astralit = material(helper, ModTrimMaterials.ASTRALIT);
-            Holder<TrimMaterial> nihilith = material(helper, ModTrimMaterials.NIHILITH);
+            Holder<TrimMaterial> astralit = material(helper, SB_ASTRALIT);
+            Holder<TrimMaterial> nihilith = material(helper, SB_NIHILITH);
             Holder<TrimPattern> blank = pattern(helper, inertPattern());
             DamageSources sources = helper.getLevel().damageSources();
 
@@ -655,13 +569,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // MATERIALS THAT DOUBLE UP WITH A PATTERN
-    // =====================================================================================
 
     /**
      * Iron answers to the same projectile tag as the sentry pattern, and quartz to the same fire
@@ -681,8 +591,8 @@ public final class TrimBonusTests {
      * moving iron off the projectile tag or quartz off the fire tag; and deleting either the
      * pattern or the material half of the two combined readings.
      */
-    public static void ironAndQuartzMaterialsAddToTheirOwnPatterns(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void ironAndQuartzMaterialsAddToTheirOwnPatterns(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> iron = material(helper, TrimMaterials.IRON);
@@ -722,28 +632,24 @@ public final class TrimBonusTests {
 
             // --- and the other thing quartz does ---
             wear(player, quartz, blank, 4);
-            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.2,
+            assertClose(helper, TrimAbilities.getXPMultiplier(player), 1.2,
                     "the quartz experience bonus (4 x 5%)");
             wear(player, iron, blank, 4);
-            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.0,
+            assertClose(helper, TrimAbilities.getXPMultiplier(player), 1.0,
                     "an iron trim granted an experience bonus; only raiser, lapis and quartz do");
             // Progress 0.5 keeps the pair below the +50% experience cap, so both halves show.
             pinProgressMultiplier(helper, player, 0.5);
             wear(player, quartz, pattern(helper, TrimPatterns.RAISER), 4);
-            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.3,
+            assertClose(helper, TrimAbilities.getXPMultiplier(player), 1.3,
                     "a quartz raiser set (4 x 10% pattern + 4 x 5% material) - one of the two "
                             + "halves is gone");
 
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // MATERIALS THAT LOOK AT THE ATTACKER
-    // =====================================================================================
 
     /**
      * Emerald and netherite are the two materials that ignore the damage type and look at who
@@ -784,8 +690,8 @@ public final class TrimBonusTests {
      * swapping netherite's tag for the armour-bypass one, dropping either netherite trigger, and
      * changing the 8% emerald or 5% netherite rate.
      */
-    public static void attackerKeyedMaterialsReadTheEntityBehindTheHit(GameTestHelper helper) {
-        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    static void attackerKeyedMaterialsReadTheEntityBehindTheHit(GameTestHelper helper) {
+        TrimContracts.Host configuredBase = unpinned();
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> emerald = material(helper, TrimMaterials.EMERALD);
@@ -877,13 +783,9 @@ public final class TrimBonusTests {
             bare(player);
             helper.succeed();
         } finally {
-            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            restore(configuredBase);
         }
     }
-
-    // =====================================================================================
-    // HELPERS
-    // =====================================================================================
 
     /**
      * The inert carrier pattern. {@code shaper} is the one vanilla pattern whose asset path is
@@ -923,29 +825,6 @@ public final class TrimBonusTests {
     }
 
     /**
-     * Bends the configured base multiplier until {@link TrimMultiplierLogic} reports exactly
-     * {@code target} for this player, and checks that it does.
-     *
-     * <p>A fresh mock player has no distance walked, no play time and no kills, so every factor
-     * of the multiplier sits on its 0.1 floor and the product lands far below every rate this
-     * class measures. Those factors cannot usefully be raised from a test body, so the
-     * configured base is the only handle; because the multiplier is a plain product, scaling the
-     * base scales the result.
-     */
-    private static void pinProgressMultiplier(GameTestHelper helper, ServerPlayer player, double target) {
-        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = 1.0;
-        double perUnitOfBase = TrimMultiplierLogic.getMultiplier(player);
-        helper.assertTrue(perUnitOfBase > 0.0,
-                "the trim multiplier collapsed to " + perUnitOfBase + " at base 1.0, so it can no "
-                        + "longer be pinned to a known value");
-        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = target / perUnitOfBase;
-        double actual = TrimMultiplierLogic.getMultiplier(player);
-        helper.assertTrue(Math.abs(actual - target) < 1.0e-6,
-                "the configured base no longer scales the multiplier: wanted " + target
-                        + " but got " + actual);
-    }
-
-    /**
      * States the vanilla half of a claim separately from the mod half, so that a retagged damage
      * type is reported as what it is instead of as a broken trim.
      */
@@ -959,7 +838,7 @@ public final class TrimBonusTests {
     /** Runs one hit of {@link #HIT} through {@code modifyDamage} and checks what comes out. */
     private static void assertDamage(GameTestHelper helper, LivingEntity victim,
                                      DamageSource source, double expected, String what) {
-        float actual = TrimEffectUtil.modifyDamage(victim, HIT, source);
+        float actual = TrimAbilities.modifyDamage(victim, HIT, source);
         helper.assertTrue(Math.abs(actual - expected) < 1.0e-4,
                 what + ": expected " + expected + " of the " + HIT + " hit to land, but "
                         + actual + " did");
@@ -1002,16 +881,6 @@ public final class TrimBonusTests {
         return stack;
     }
 
-    private static Holder<TrimMaterial> material(GameTestHelper helper, ResourceKey<TrimMaterial> key) {
-        Registry<TrimMaterial> registry =
-                helper.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL);
-        Optional<Holder.Reference<TrimMaterial>> found = registry.get(key);
-        helper.assertTrue(found.isPresent(), "the trim material " + key.identifier()
-                + " is not in the datapack registry; for a mod material that means its generated "
-                + "JSON never reached the jar");
-        return found.orElseThrow();
-    }
-
     private static Holder<TrimPattern> pattern(GameTestHelper helper, ResourceKey<TrimPattern> key) {
         Registry<TrimPattern> registry =
                 helper.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_PATTERN);
@@ -1028,5 +897,99 @@ public final class TrimBonusTests {
     private static void assertClose(GameTestHelper helper, double actual, double expected, String what) {
         helper.assertTrue(Math.abs(actual - expected) < 1.0e-4,
                 what + ": expected " + expected + " but got " + actual);
+    }
+
+    // ---------------------------------------------------------------- MOB27-3 / ZO9 A test inputs
+    // The bodies above came from the SimpleBuilding core (docs/ai/PLAN-B-TRIMMOVE01-2026-11-03.md). There the resonance was
+    // pinned through the core config (trimBenefitBaseMultiplier) and the player switch through TrimBenefitUser; here both go through a
+    // test host (framework TrimContracts.Host), which works with and without SimpleBuilding loaded and puts the old host back.
+
+    /** Players switched off through {@link #gate}; cleared when a body restores its host. */
+    private static final java.util.Set<java.util.UUID> OFF = java.util.concurrent.ConcurrentHashMap.newKeySet();
+
+    /** The test host: a pinned resonance for players (NaN = ask the previous host), the player switch, the rest from the previous host. */
+    private static final class Pinned implements TrimContracts.Host {
+        final double target;
+        final TrimContracts.Host previous;
+
+        Pinned(double target, TrimContracts.Host previous) {
+            this.target = target;
+            this.previous = previous;
+        }
+
+        @Override
+        public double multiplier(Object livingEntity) {
+            if (livingEntity instanceof net.minecraft.world.entity.player.Player && !Double.isNaN(target)) return target;
+            return previous == null ? Double.NaN : previous.multiplier(livingEntity);
+        }
+
+        @Override
+        public float strength(String bonusKey) {
+            return previous == null ? 1.0f : previous.strength(bonusKey);
+        }
+
+        @Override
+        public boolean enabled(Object livingEntity) {
+            if (livingEntity instanceof net.minecraft.world.entity.player.Player p && OFF.contains(p.getUUID())) return false;
+            return previous == null || previous.enabled(livingEntity);
+        }
+    }
+
+    private static TrimContracts.Host unpinned() {
+        TrimContracts.Host current = TrimContracts.host();
+        return current instanceof Pinned pinned ? pinned.previous : current;
+    }
+
+    /** Puts the host a body started with back (and every player switch on). */
+    private static void restore(TrimContracts.Host host) {
+        TrimContracts.setHost(host);
+        OFF.clear();
+    }
+
+    /** Pins the resonance of every player to {@code target} and checks that the abilities read exactly that. */
+    private static void pinProgressMultiplier(GameTestHelper helper, ServerPlayer player, double target) {
+        TrimContracts.setHost(new Pinned(target, unpinned()));
+        double actual = TrimAbilities.resonance(player);
+        helper.assertTrue(Math.abs(actual - target) < 1.0e-6,
+                "the test host no longer feeds the resonance: wanted " + target + " but got " + actual);
+    }
+
+    /** The player's trim switch (formerly the core's TrimBenefitUser on the player), now the host's {@code enabled}. */
+    private static Gate gate(ServerPlayer player) {
+        return new Gate(player.getUUID());
+    }
+
+    private record Gate(java.util.UUID id) {
+        boolean simplebuilding$areTrimBenefitsEnabled() {
+            return !OFF.contains(id);
+        }
+
+        void simplebuilding$setTrimBenefitsEnabled(boolean enabled) {
+            TrimContracts.Host current = TrimContracts.host();
+            if (!(current instanceof Pinned)) TrimContracts.setHost(new Pinned(Double.NaN, current));
+            if (enabled) OFF.remove(id);
+            else OFF.add(id);
+        }
+    }
+
+    // The SimpleBuilding trim materials by key: Simple Mobs reads only the key (getMaterialCount/getTrimCount), so without
+    // SimpleBuilding a stand-alone holder with that key stands in (see material()).
+    private static final ResourceKey<TrimMaterial> SB_ASTRALIT = sbMaterial("astralit");
+    private static final ResourceKey<TrimMaterial> SB_NIHILITH = sbMaterial("nihilith");
+    private static final ResourceKey<TrimMaterial> SB_ENDERITE = sbMaterial("enderite");
+
+    private static ResourceKey<TrimMaterial> sbMaterial(String name) {
+        return ResourceKey.create(Registries.TRIM_MATERIAL, Identifier.fromNamespaceAndPath("simplebuilding", name));
+    }
+
+    private static Holder<TrimMaterial> material(GameTestHelper helper, ResourceKey<TrimMaterial> key) {
+        Registry<TrimMaterial> registry =
+                helper.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL);
+        Optional<Holder.Reference<TrimMaterial>> found = registry.get(key);
+        if (found.isPresent()) return found.get();
+        helper.assertTrue(key.identifier().getNamespace().equals("simplebuilding"), "the trim material " + key.identifier()
+                + " is not in the datapack registry");
+        // Simple Mobs alone: the SimpleBuilding material is not registered; the abilities read only its key.
+        return Holder.Reference.createStandAlone(registry, key);
     }
 }
