@@ -49,7 +49,7 @@ public class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
     static final int PANEL = 0xFF1C1529, PANEL_RIM = 0xFF0D0914, PANEL_LIGHT = 0xFF3A2D52;
     static final int TRACK_OFF = 0xFF2B2238, TRACK_FREE = 0xFF5D4A7C, TRACK_SET = 0xFFE7A93C, TICK = 0xFF6A5A86, GLYPH = 0xFF8F7BB5;
     static final int KNOB = 0xFFF7F0FF, KNOB_RIM = 0xFF3C2A55;
-    static final int TEXT = 0xFFEDE4FA, TEXT_OFF = 0xFF7A6F8C, GOLD = 0xFFF2C14E, GREEN = 0xFF80FF20, RED = 0xFFE05A4A;
+    static final int TEXT = 0xFFEDE4FA, TEXT_OFF = 0xFFA99FBC, GOLD = 0xFFF2C14E, GREEN = 0xFF80FF20, RED = 0xFFE05A4A;
     /** Dots in the button: lapis blue like Vanilla's table, blaze powder orange-red. */
     static final int LAPIS_DOT = 0xFF3D63DD, BLAZE_DOT = 0xFFF0602A;
 
