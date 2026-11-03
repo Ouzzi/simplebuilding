@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "reinforced_furnace_boat",
+  "ingredients": [
+    "minecraft:jungle_boat",
+    "simpleovens:reinforced_furnace"
+  ],
+  "result": {
+    "id": "simpleovens:reinforced_jungle_furnace_boat"
+  }
+}

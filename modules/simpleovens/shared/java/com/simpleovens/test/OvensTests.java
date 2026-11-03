@@ -435,23 +435,70 @@ public final class OvensTests {
         ALL.put("furnace_boats_registered_and_crafted", h -> {
             List<String> problems = new ArrayList<>();
             var manager = h.getLevel().getServer().getRecipeManager();
-            for (String wood : OvensRegistry.BOAT_WOODS) {
-                String name = OvensRegistry.boatName(wood);
-                Item item = OvensRegistry.BOAT_ITEMS.get(wood);
+            if (OvensRegistry.boatKeys().size() != 4 * OvensRegistry.BOAT_WOODS.size()) problems.add("boat count " + OvensRegistry.boatKeys().size());
+            boolean ores = BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath("simpleores", "enderite_ingot"));
+            for (String key : OvensRegistry.boatKeys()) {
+                String wood = OvensRegistry.boatWood(key);
+                var tier = OvensRegistry.boatTier(key);
+                String name = OvensRegistry.boatName(key);
+                Item item = OvensRegistry.BOAT_ITEMS.get(key);
                 if (item == null || BuiltInRegistries.ITEM.getValue(SimpleOvens.id(name)) != item) problems.add("item " + name);
-                if (BuiltInRegistries.ENTITY_TYPE.getValue(SimpleOvens.id(name)) != OvensRegistry.boatType(wood)) problems.add("entity " + name);
+                if (BuiltInRegistries.ENTITY_TYPE.getValue(SimpleOvens.id(name)) != OvensRegistry.boatType(key)) problems.add("entity " + name);
                 var holder = manager.byKey(ResourceKey.create(Registries.RECIPE, SimpleOvens.id(name)));
+                if (tier == com.simpleovens.OvenTier.ENDERITE && !ores) {
+                    if (holder.isPresent()) problems.add("enderite boat recipe without Simple Ores: " + name);
+                    continue;
+                }
+                Item oven = tier == null ? Items.FURNACE : OvensRegistry.FURNACES.get(tier).asItem();
                 Item vanilla = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(wood + (wood.equals("bamboo") ? "_raft" : "_boat")));
                 if (holder.isEmpty() || !(holder.get().value() instanceof net.minecraft.world.item.crafting.CraftingRecipe recipe)) {
                     problems.add("recipe " + name);
                     continue;
                 }
-                var input = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(Items.FURNACE), new ItemStack(vanilla)));
+                var input = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(oven), new ItemStack(vanilla)));
                 if (!recipe.matches(input, h.getLevel()) || recipe.assemble(input).getItem() != item) problems.add("boat + furnace gives " + name + "? " + wood);
+                for (var other : OvensRegistry.boatTiers()) {
+                    if (other == tier) continue;
+                    var mixed = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(other == null ? Items.FURNACE : OvensRegistry.FURNACES.get(other).asItem()), new ItemStack(vanilla)));
+                    if (recipe.matches(mixed, h.getLevel())) problems.add("the furnace of another tier also crafts " + name);
+                }
+                for (Item notAFurnace : List.of(Items.SMOKER, Items.BLAST_FURNACE)) {
+                    var smoke = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(notAFurnace), new ItemStack(vanilla)));
+                    if (recipe.matches(smoke, h.getLevel())) problems.add("a smoker or blast furnace crafts " + name);
+                }
                 var wrong = net.minecraft.world.item.crafting.CraftingInput.of(2, 1, List.of(new ItemStack(Items.CHEST), new ItemStack(vanilla)));
                 if (recipe.matches(wrong, h.getLevel())) problems.add("a chest also crafts " + name);
             }
             h.assertTrue(problems.isEmpty(), "furnace boats: " + problems);
+            h.succeed();
+        });
+        ALL.put("furnace_boat_tiers_scale", h -> {
+            List<String> problems = new ArrayList<>();
+            double lastPower = 0.0;
+            int lastFuel = 0;
+            for (var tier : OvensRegistry.boatTiers()) {
+                String key = OvensRegistry.boatKey(tier, "oak");
+                var boat = OvensRegistry.boatType(key).create(h.getLevel(), EntitySpawnReason.TRIGGERED);
+                if (boat == null || boat.tier() != tier) {
+                    problems.add("tier of " + key);
+                    continue;
+                }
+                if (boat.fuelPerItem() != com.simpleovens.boat.OvenBoat.FUEL_PER_ITEM * (tier == null ? 1 : tier.speed())) problems.add("fuel per item " + key + " " + boat.fuelPerItem());
+                if (boat.maxFuel() != com.simpleovens.boat.OvenBoat.MAX_FUEL * (tier == null ? 1 : tier.speed())) problems.add("max fuel " + key);
+                boat.addFuel(new ItemStack(Items.COAL));
+                double thrust = boat.thrust();
+                if (boat.fuel() != boat.fuelPerItem() || thrust <= lastPower || boat.fuelPerItem() <= lastFuel && tier != null && tier.speed() > 1) problems.add("not stronger than the tier below: " + key + " thrust " + thrust + " fuel " + boat.fuel());
+                if (boat.speedCap() >= 0.7) problems.add("faster than an ice boat: " + key + " " + boat.speedCap());
+                lastPower = thrust;
+                lastFuel = boat.fuelPerItem();
+                if (tier == null && (thrust != com.simpleovens.boat.OvenBoat.THRUST || boat.speedCap() != com.simpleovens.boat.OvenBoat.THRUST_SPEED_CAP)) problems.add("the plain boat changed");
+                var out = net.minecraft.world.level.storage.TagValueOutput.createWithContext(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess());
+                boat.saveWithoutId(out);
+                var copy = OvensRegistry.boatType(key).create(h.getLevel(), EntitySpawnReason.TRIGGERED);
+                copy.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, h.getLevel().registryAccess(), out.buildResult()));
+                if (copy.fuel() != boat.fuel()) problems.add("a tier boat's long fuel is not saved: " + key + " " + copy.fuel());
+            }
+            h.assertTrue(problems.isEmpty(), "furnace boat tiers: " + problems);
             h.succeed();
         });
         ALL.put("furnace_boat_fuel", h -> {

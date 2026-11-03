@@ -149,25 +149,28 @@
         "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
         "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java",
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/oak_furnace_boat.json",
+        "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_oak_furnace_boat.json",
         "modules/simpleovens/shared/java/com/simpleovens/OvensRegistry.java"
       ],
       "en": {
         "title": "Furnace Boats",
-        "summary": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood, plus a bamboo raft.",
+        "summary": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood (plus a bamboo raft) and per furnace: the plain furnace, Reinforced, Netherite and Enderite.",
         "details": [
-          "Shapeless: a boat (or the bamboo raft) of the wood and a furnace give the furnace boat of that wood.",
-          "Right-click with coal or charcoal fills the furnace (3600 ticks each, at most 32000, like the furnace minecart); with an empty hand or a full furnace you get in. One seat.",
-          "While fuel lasts and a player sits in it, the boat gets a gentle forward push on water (up to about 6 blocks per second, never over an ice boat); steering and W work as in any boat. Fuel only burns while somebody sits in it. The furnace glows and smokes while it burns.",
+          "Shapeless: a boat (or the bamboo raft) of the wood and a furnace give the furnace boat of that wood; the furnace decides the tier (plain, Reinforced, Netherite, Enderite). No smokers or blast furnaces. The Enderite boats need Simple Ores.",
+          "Right-click with coal or charcoal fills the furnace (3600 ticks each, at most 32000 on the plain boat); with an empty hand or a full furnace you get in. One seat. The boat shows the furnace of its tier.",
+          "While fuel lasts and a player sits in it, the boat gets a push on water, up to about 6 blocks per second on the plain boat, never over an ice boat; steering and W work as in any boat. Fuel only burns while somebody sits in it. The furnace glows and smokes while it burns.",
+          "The upper tiers burn each fuel item as many times longer as their furnace works faster (default 2x, 4x, 8x; the tank grows likewise) and push harder and faster: x1.25 Reinforced, x1.5 Netherite, x2 Enderite (about 12 blocks per second, still under an ice boat).",
           "Breaking it drops the furnace boat item; the fuel is lost."
         ]
       },
       "de": {
         "title": "Ofenboote",
-        "summary": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart, dazu ein Bambusfloß.",
+        "summary": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart (dazu ein Bambusfloß) und je Ofen: normal, Verstärkt, Netherit und Enderit.",
         "details": [
-          "Formlos: ein Boot (bzw. das Bambusfloß) der Holzart und ein Ofen ergeben das Ofenboot dieser Holzart.",
-          "Rechtsklick mit Kohle oder Holzkohle füllt den Ofen (je 3600 Ticks, höchstens 32000, wie bei der Antriebslore); mit leerer Hand oder vollem Ofen steigst du ein. Ein Sitz.",
-          "Solange Brennstoff da ist und ein Spieler drinsitzt, schiebt das Boot auf dem Wasser sanft nach vorn (bis etwa 6 Blöcke pro Sekunde, nie über einem Eisboot); Lenken und W wirken wie in jedem Boot. Brennstoff brennt nur, solange jemand drinsitzt. Der Ofen glüht und raucht beim Brennen.",
+          "Formlos: ein Boot (bzw. das Bambusfloß) der Holzart und ein Ofen ergeben das Ofenboot dieser Holzart; der Ofen bestimmt die Stufe (normal, Verstärkt, Netherit, Enderit). Keine Räucher- oder Schmelzöfen. Die Enderit-Boote brauchen Simple Ores.",
+          "Rechtsklick mit Kohle oder Holzkohle füllt den Ofen (je 3600 Ticks, beim normalen Boot höchstens 32000); mit leerer Hand oder vollem Ofen steigst du ein. Ein Sitz. Das Boot zeigt den Ofen seiner Stufe.",
+          "Solange Brennstoff da ist und ein Spieler drinsitzt, schiebt das Boot auf dem Wasser, beim normalen Boot bis etwa 6 Blöcke pro Sekunde, nie über einem Eisboot; Lenken und W wirken wie in jedem Boot. Brennstoff brennt nur, solange jemand drinsitzt. Der Ofen glüht und raucht beim Brennen.",
+          "Die oberen Stufen brennen jeden Brennstoff so viel länger, wie ihr Ofen schneller arbeitet (Standard 2x, 4x, 8x; der Tank wächst entsprechend) und schieben stärker und schneller: x1,25 Verstärkt, x1,5 Netherit, x2 Enderit (etwa 12 Blöcke pro Sekunde, noch unter einem Eisboot).",
           "Zerstören lässt das Ofenboot-Item fallen; der Brennstoff geht verloren."
         ]
       },
@@ -181,7 +184,37 @@
         "simpleovens:mangrove_furnace_boat",
         "simpleovens:cherry_furnace_boat",
         "simpleovens:pale_oak_furnace_boat",
-        "simpleovens:bamboo_furnace_raft"
+        "simpleovens:bamboo_furnace_raft",
+        "simpleovens:reinforced_oak_furnace_boat",
+        "simpleovens:reinforced_spruce_furnace_boat",
+        "simpleovens:reinforced_birch_furnace_boat",
+        "simpleovens:reinforced_jungle_furnace_boat",
+        "simpleovens:reinforced_acacia_furnace_boat",
+        "simpleovens:reinforced_dark_oak_furnace_boat",
+        "simpleovens:reinforced_mangrove_furnace_boat",
+        "simpleovens:reinforced_cherry_furnace_boat",
+        "simpleovens:reinforced_pale_oak_furnace_boat",
+        "simpleovens:reinforced_bamboo_furnace_raft",
+        "simpleovens:netherite_oak_furnace_boat",
+        "simpleovens:netherite_spruce_furnace_boat",
+        "simpleovens:netherite_birch_furnace_boat",
+        "simpleovens:netherite_jungle_furnace_boat",
+        "simpleovens:netherite_acacia_furnace_boat",
+        "simpleovens:netherite_dark_oak_furnace_boat",
+        "simpleovens:netherite_mangrove_furnace_boat",
+        "simpleovens:netherite_cherry_furnace_boat",
+        "simpleovens:netherite_pale_oak_furnace_boat",
+        "simpleovens:netherite_bamboo_furnace_raft",
+        "simpleovens:enderite_oak_furnace_boat",
+        "simpleovens:enderite_spruce_furnace_boat",
+        "simpleovens:enderite_birch_furnace_boat",
+        "simpleovens:enderite_jungle_furnace_boat",
+        "simpleovens:enderite_acacia_furnace_boat",
+        "simpleovens:enderite_dark_oak_furnace_boat",
+        "simpleovens:enderite_mangrove_furnace_boat",
+        "simpleovens:enderite_cherry_furnace_boat",
+        "simpleovens:enderite_pale_oak_furnace_boat",
+        "simpleovens:enderite_bamboo_furnace_raft"
       ]
     },
     {

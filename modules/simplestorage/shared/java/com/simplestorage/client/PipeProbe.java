@@ -141,6 +141,9 @@ public final class PipeProbe {
                     values.addProperty(b.side().getName(), s.probeMode(b.side()));
                 }
             }
+            JsonArray box = new JsonArray();
+            for (int v : PipeScreen.boxInside()) box.add(v * scale);
+            rects.add("box", box);   // relative to the window like the keys (x, y, w, h)
             JsonArray tip = new JsonArray();
             for (Component line : s.probeTooltip()) tip.add(line.getString());
             values.add("tooltip", tip);

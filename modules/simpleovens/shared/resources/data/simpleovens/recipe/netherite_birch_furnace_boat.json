@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "netherite_furnace_boat",
+  "ingredients": [
+    "minecraft:birch_boat",
+    "simpleovens:netherite_furnace"
+  ],
+  "result": {
+    "id": "simpleovens:netherite_birch_furnace_boat"
+  }
+}

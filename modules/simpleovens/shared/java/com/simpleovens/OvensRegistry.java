@@ -47,6 +47,7 @@ public final class OvensRegistry {
     public static final Map<OvenTier, EntityType<TieredFurnaceMinecart>> CARTS = new EnumMap<>(OvenTier.class);
     /** BOAT40: the Vanilla wood types a furnace boat exists in (the bamboo one is a raft). */
     public static final List<String> BOAT_WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "pale_oak", "bamboo");
+    /** Keyed by {@link #boatKey}: {@code oak}, {@code reinforced_oak}, {@code netherite_bamboo}, ... (b-small04: one boat per furnace tier). */
     public static final Map<String, Item> BOAT_ITEMS = new LinkedHashMap<>();
     public static final Map<String, EntityType<OvenBoat>> BOATS = new LinkedHashMap<>();
     public static BlockEntityType<TierFurnaceBlockEntity> FURNACE_BE;
@@ -71,24 +72,59 @@ public final class OvensRegistry {
             }
             CART_ITEMS.put(tier, item(tier.prefix() + "_furnace_minecart", tier, p -> new FurnaceMinecartItem(p.stacksTo(1), () -> CARTS.get(tier))));
         }
-        for (String wood : BOAT_WOODS) {
-            String name = boatName(wood);
-            ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, SimpleOvens.id(name));
-            BOAT_ITEMS.put(wood, Registry.register(BuiltInRegistries.ITEM, key, new BoatItem(boatType(wood), new Item.Properties().setId(key).stacksTo(1))));
+        for (String key : boatKeys()) {
+            ResourceKey<Item> id = ResourceKey.create(Registries.ITEM, SimpleOvens.id(boatName(key)));
+            OvenTier tier = boatTier(key);
+            Item.Properties props = new Item.Properties().setId(id).stacksTo(1);
+            if (tier != null) props = props.rarity(tier.rarity());
+            if (tier != null && tier.fireResistant()) props = props.fireResistant();
+            BOAT_ITEMS.put(key, Registry.register(BuiltInRegistries.ITEM, id, new BoatItem(boatType(key), props)));
         }
         com.simpleovens.guide.OvensGuide.register();
     }
 
-    /** {@code oak_furnace_boat}, {@code bamboo_furnace_raft}. */
-    public static String boatName(String wood) {
-        return wood + (wood.equals("bamboo") ? "_furnace_raft" : "_furnace_boat");
+    /** The key of a boat: the wood, with the tier prefix of the furnace in front for the upper tiers ({@code null} = plain furnace). */
+    public static String boatKey(OvenTier tier, String wood) {
+        return tier == null ? wood : tier.prefix() + "_" + wood;
     }
 
-    /** The furnace boat type of a wood; built on first use (the item needs it before the types are registered). */
-    public static EntityType<OvenBoat> boatType(String wood) {
-        return BOATS.computeIfAbsent(wood, w -> EntityType.Builder.<OvenBoat>of((t, level) -> new OvenBoat(t, level, () -> BOAT_ITEMS.get(w), w.equals("bamboo")), MobCategory.MISC)
+    /** All boat keys: the plain furnace first, then Reinforced, Netherite, Enderite; each over every wood. */
+    public static List<String> boatKeys() {
+        List<String> out = new ArrayList<>();
+        for (OvenTier tier : boatTiers()) for (String wood : BOAT_WOODS) out.add(boatKey(tier, wood));
+        return out;
+    }
+
+    /** null (plain furnace) followed by the three furnace tiers. */
+    public static List<OvenTier> boatTiers() {
+        List<OvenTier> out = new ArrayList<>();
+        out.add(null);
+        out.addAll(List.of(OvenTier.values()));
+        return out;
+    }
+
+    /** The furnace tier of a boat key; null for the plain furnace. */
+    public static OvenTier boatTier(String key) {
+        for (OvenTier tier : OvenTier.values()) if (key.startsWith(tier.prefix() + "_")) return tier;
+        return null;
+    }
+
+    /** The wood of a boat key ({@code bamboo} is the raft). */
+    public static String boatWood(String key) {
+        OvenTier tier = boatTier(key);
+        return tier == null ? key : key.substring(tier.prefix().length() + 1);
+    }
+
+    /** {@code oak_furnace_boat}, {@code reinforced_oak_furnace_boat}, {@code bamboo_furnace_raft}, {@code enderite_bamboo_furnace_raft}. */
+    public static String boatName(String key) {
+        return key + (boatWood(key).equals("bamboo") ? "_furnace_raft" : "_furnace_boat");
+    }
+
+    /** The furnace boat type of a key; built on first use (the item needs it before the types are registered). */
+    public static EntityType<OvenBoat> boatType(String key) {
+        return BOATS.computeIfAbsent(key, k -> EntityType.Builder.<OvenBoat>of((t, level) -> new OvenBoat(t, level, () -> BOAT_ITEMS.get(k), boatWood(k).equals("bamboo"), boatTier(k)), MobCategory.MISC)
                 .noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10)
-                .build(ResourceKey.create(Registries.ENTITY_TYPE, SimpleOvens.id(boatName(w)))));
+                .build(ResourceKey.create(Registries.ENTITY_TYPE, SimpleOvens.id(boatName(k)))));
     }
 
     /** The three block entity types (built by the loader: NeoForge/Forge take an extra constructor argument). */
@@ -119,7 +155,7 @@ public final class OvensRegistry {
                     .noLootTable().sized(0.98F, 0.7F).passengerAttachments(0.1875F).clientTrackingRange(8).build(key);
             CARTS.put(tier, Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type));
         }
-        for (String wood : BOAT_WOODS) Registry.register(BuiltInRegistries.ENTITY_TYPE, SimpleOvens.id(boatName(wood)), boatType(wood));
+        for (String key : boatKeys()) Registry.register(BuiltInRegistries.ENTITY_TYPE, SimpleOvens.id(boatName(key)), boatType(key));
     }
 
     public static void registerTab() {

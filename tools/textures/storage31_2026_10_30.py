@@ -365,9 +365,10 @@ def controller_sheet(step: str) -> Image.Image:
 # ------------------------------------------------------------------------------------------------- main
 
 def build():
+    import rohr33_2026_10_31 as r33   # lazy: r33 imports this module
     out = {}
-    for i, name in enumerate(PIPE31):
-        out[f'block/{name}'] = reduce(pipe_sheet(name, 11 + i * 5), 12)
+    for i, name in enumerate(PIPE31):   # b-small04 (owner 03.11., ROHR33 = A): arrow groove worked into the metal; pipe_sheet() = old gold chevron, kept for reference
+        out[f'block/{name}'] = r33.sheet(name, 'A', 11 + i * 5)
     out['block/copper_cable'] = reduce(cable_sheet(), 10)
     out['block/chest_interface'] = reduce(interface_sheet(), 12)
     for step in ('wooden', 'reinforced', 'netherite', 'enderite'):

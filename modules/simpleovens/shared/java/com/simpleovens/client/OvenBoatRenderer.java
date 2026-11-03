@@ -2,6 +2,7 @@ package com.simpleovens.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.simpleovens.OvensRegistry;
 import com.simpleovens.boat.OvenBoat;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -17,19 +18,25 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 /**
  * Furnace boat: Vanilla's boat or raft model and texture (nothing copied) plus the Vanilla furnace block where the chest
- * boat has its chest, facing forward; lit with a glow while the boat has fuel.
+ * boat has its chest, facing forward; lit with a glow while the boat has fuel. The furnace is the block of the boat's tier (b-small04):
+ * the plain Vanilla furnace or the Reinforced, Netherite or Enderite furnace.
  */
 public final class OvenBoatRenderer extends BoatRenderer {
     private static final BlockDisplayContext DISPLAY = BlockDisplayContext.create();
     private final BlockModelResolver blockModels;
+    private final Block furnace;
 
-    public OvenBoatRenderer(EntityRendererProvider.Context context, String wood) {
-        super(context, layer(wood));
+    /** @param key the boat key of {@link OvensRegistry#boatKey}: the wood, with the tier prefix in front for the upper tiers. */
+    public OvenBoatRenderer(EntityRendererProvider.Context context, String key) {
+        super(context, layer(OvensRegistry.boatWood(key)));
         this.blockModels = context.getBlockModelResolver();
+        var tier = OvensRegistry.boatTier(key);
+        this.furnace = tier == null ? Blocks.FURNACE : OvensRegistry.FURNACES.get(tier);
     }
 
     /** Vanilla's model layer of the wood; the texture follows from it. */
@@ -66,7 +73,7 @@ public final class OvenBoatRenderer extends BoatRenderer {
         if (state instanceof State s && entity instanceof OvenBoat boat) {
             s.lit = boat.isLit();
             s.raft = boat.isRaft();
-            this.blockModels.update(s.furnace, Blocks.FURNACE.defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.NORTH)
+            this.blockModels.update(s.furnace, this.furnace.defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.NORTH)
                     .setValue(AbstractFurnaceBlock.LIT, s.lit), DISPLAY);
         }
     }
