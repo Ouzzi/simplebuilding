@@ -586,7 +586,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 55
     },
-    "dataHash": "ef4fbbb1c5f6"
+    "dataHash": "72902eaa95a3"
   },
   {
     "id": "simplemaps",
