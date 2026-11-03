@@ -88,7 +88,7 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [x] WH26-8 Netherit-/Enderit-Kessel: doppelte bzw. vierfache Menge (Status 01.11.: prod – Branch claude-hammer12 gemergt (Memory hammer12-offen: Kessel x2); Beleg: Branch claude-hammer12 gemergt (Memory hammer12-offen: Kessel x2))
 - [ ] WH26-9 Claim-Urkunde neu: Grid der Claims, Karten-Optik, Handels-UI mit Claim-Credits (Status 01.11.: offen – Vorschau zuerst, dann Bau; Beleg: DeedMapScreen/Claims vorhanden; Credits-Handelsscreen nicht belegt)
 - [ ] WH26-10 Kompakte Blöcke Stufe 1 Compact / Stufe 2 Dense (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
-- [ ] WI26-1 Enchanter abbauen droppt Enderit-Nuggets passend zum Rezept (statt Barren) (Status 01.11.: offen – prüfen; Beleg: nicht belegt)
+- [x] (B, b-ench02, 03.11.) WI26-1 Enchanter abbauen droppt Nuggets passend zum Rezept: Dark → Tisch + 8 Netherit-Nuggets, Astral → Dark + 8 Enderit-Nuggets (Loot `data/simpleenchanting/loot_table`, Test `breaking_drops_table_nuggets_and_stock` grün)
 - [ ] WI26-2 Schachfiguren: beim Abbau nur die angeschaute Figur (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
 - [ ] WI26-3 Zwei neue Tooltip-Stufen „Corrupted“ (Glitch) und „Void/Voided“; Vorschau zuerst (Status 01.11.: offen – Vorschau + Bau; Beleg: kein Treffer)
 - [ ] WI26-4 End-Schwingen: Legendary-Tooltip-Rang statt Cursed (Status 01.11.: offen – abhängig von WI26-3; Beleg: nicht belegt)
@@ -1026,6 +1026,7 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [x] (B, b-fix94, 02.11.; Plan docs/ai/PLAN-B-FIX94-2026-11-02.md) Gate Bündel 94 rot behoben: void_runner/brimguard Kopf-Ausnahme (Boss, Trophäe Ender Heart/Gem), mob_essence in Mobs-Tab (TAB_ITEMS); sbt grün; flaky trials_void_tricks (1× rot im Integrationslauf, Nachlauf grün) beobachten; offen Gate→Production
 
 - [~] (B, b-ench01, 02.11.) ZO7/BS25-20/WI26-1 Konzept + Vorschau Dark/End-Enchanter fertig (docs/ai/KONZEPT-B-ENCH01-2026-11-02.md, abnahme-b/b-ench01-preview.html, Code ENCH01|...); Bau erst nach Besitzer-Antwort (End-Stoffe).
+- [~] (B, b-ench02, 03.11.) ENCH01/ZO7/BS25-20/WI26-1 gebaut: Pflicht-Sub-Mod Simple Enchanting (`simpleenchanting`, Fabric 26.3), Dark Enchanter (IdMove `simplebuilding:astral_enchanting_table`, 8 Netherit-Nuggets, bis 50, Boden Lohen ODER Nihil) + Astral Enchanter (8 Enderit-Nuggets, nur mit Simple Ores, 60 auf Nihil, Lohen halb, Schutz/Federfall V), Abbau gibt Nuggets zurück, Nihil-Obsidian in SB, Baublock-Zwillinge im Modul allein; Commit 94e5ac449, Modul-Tests 32/32 grün (mit SB + standalone), Vorschau abnahme-b/b-ench02-preview.html (Code ENCH02|...). Offen: End-Regale, gemeißelte Regale als Zwilling, Client-Smoke Menü, NeoForge/Forge; Plan docs/ai/PLAN-B-ENCH02-2026-11-03.md
 ## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
 - [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
 - [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
