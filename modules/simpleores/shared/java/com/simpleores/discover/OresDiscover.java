@@ -113,7 +113,6 @@ public final class OresDiscover {
             "simpleores:sage_orb",
             "simpleores:sage_ore",
             "simpleores:silver",
-            "simpleores:silver_arrow",
             "simpleores:silver_block",
             "simpleores:silver_ingot",
             "simpleores:silver_mirror",

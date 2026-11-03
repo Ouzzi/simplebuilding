@@ -24,8 +24,10 @@ window.WIKI_MODULES = [
       "simplegadgets",
       "simpleores",
       "simplemachines",
+      "simplearrows",
       "simplemobs",
-      "simpleresonance"
+      "simpleresonance",
+      "simpleenchanting"
     ],
     "optional": [
       "jei",
@@ -77,8 +79,8 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 498,
       "blocks": 286,
-      "recipes": 824,
-      "config": 235,
+      "recipes": 825,
+      "config": 237,
       "features": 48
     }
   },
@@ -568,7 +570,7 @@ window.WIKI_MODULES = [
       "recipes": 21,
       "features": 7
     },
-    "dataHash": "c89613a0006c"
+    "dataHash": "ef4ce3521444"
   },
   {
     "id": "simpleinterfaces",
@@ -600,7 +602,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 55
     },
-    "dataHash": "ef4fbbb1c5f6"
+    "dataHash": "52b775fee7c5"
   },
   {
     "id": "simplemaps",
@@ -734,7 +736,7 @@ window.WIKI_MODULES = [
       "recipes": 121,
       "features": 25
     },
-    "dataHash": "3dda09897eb6"
+    "dataHash": "58ee06aa928b"
   },
   {
     "id": "simpleweather",
@@ -799,7 +801,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "1510193cbfd8"
+    "dataHash": "658988b5b9b4"
   },
   {
     "id": "simpletools",
@@ -1495,7 +1497,7 @@ window.WIKI_MODULES = [
       "recipes": 13,
       "features": 13
     },
-    "dataHash": "45aade739eb9"
+    "dataHash": "20f4da06bbaa"
   },
   {
     "id": "simpleoptimization",
@@ -1745,7 +1747,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 5
     },
-    "dataHash": "2f4cc4644761"
+    "dataHash": "56dc0d996e3f"
   },
   {
     "id": "simpleearth",
@@ -1773,7 +1775,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "dfbbd8dc56d7"
+    "dataHash": "bff7093d39b0"
   },
   {
     "id": "simplechallenges",
@@ -1907,12 +1909,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 41,
+      "items": 40,
       "blocks": 19,
-      "recipes": 68,
-      "features": 11
+      "recipes": 67,
+      "features": 10
     },
-    "dataHash": "1f32465821c3"
+    "dataHash": "58033290d3a8"
   },
   {
     "id": "simplemachines",
@@ -1945,6 +1947,33 @@ window.WIKI_MODULES = [
       "features": 6
     },
     "dataHash": "952756703bc4"
+  },
+  {
+    "id": "simplearrows",
+    "displayName": "Simple Arrows",
+    "description": "Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mMwtPP6TwlmABFrD1wmiLVkBFBw1awdqAb0rjj0//Cl+2AaHYM0/P+06v+381FgDOJH5LdgGoAPgzSBNO+u0yPdAJCGriwrME2yATDNcS4qcL8TbQA2zTBM0AB8mgkaQEgzVgNAConVjGEASOGXL1+I1ozTgB07dhClGasBIM0gQ2AuIckAWBiADIEZRJIXYALImQXEJ4ThBlCCAdwLWD3aEHARAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 2,
+      "recipes": 2,
+      "features": 4
+    },
+    "dataHash": "d900bd3957ec"
   },
   {
     "id": "simpleresonance",
@@ -2008,5 +2037,38 @@ window.WIKI_MODULES = [
       "features": 2
     },
     "dataHash": "80ac24ac0fac"
+  },
+  {
+    "id": "simpleenchanting",
+    "displayName": "Simple Enchanting",
+    "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores",
+      "simplehammers"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Two enchanters above Vanilla's table: the Dark Enchanter, where you pick three enchantments with sliders, and the Astral Enchanter on a Nihil Obsidian floor, which lifts Protection and Feather Falling to V.",
+      "de": "Zwei Verzauberer über dem Vanilla-Tisch: der Dark Enchanter, an dem du drei Verzauberungen mit Reglern wählst, und der Astral Enchanter auf Nihil-Obsidian-Boden, der Schutz und Federfall auf V hebt."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 1,
+      "blocks": 8,
+      "recipes": 7,
+      "features": 5
+    },
+    "dataHash": "e585928f446d"
   }
 ];

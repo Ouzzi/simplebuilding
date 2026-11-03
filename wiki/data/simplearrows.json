@@ -1,0 +1,299 @@
+{
+  "schema": 1,
+  "generatedFrom": {
+    "line": "26.3",
+    "generator": "wiki/generate.py"
+  },
+  "mod": {
+    "id": "simplearrows",
+    "name": "Simple Arrows",
+    "version": "0.1.0",
+    "minecraftLines": [
+      "26.3"
+    ],
+    "loaders": [
+      "fabric"
+    ]
+  },
+  "features": [
+    {
+      "id": "light_arrow",
+      "sources": [
+        "modules/simplearrows/shared/java/com/simplearrows/entity/LightArrow.java",
+        "modules/simplearrows/shared/java/com/simplearrows/item/LightArrowItem.java",
+        "modules/simplearrows/shared/resources/data/simplearrows/recipe/light_arrow.json"
+      ],
+      "en": {
+        "title": "Light Arrow",
+        "summary": "An arrow that lights the spot where it sticks - until it despawns like any arrow.",
+        "details": [
+          "Recipe: glowstone dust over a stick over a feather makes 4 Light Arrows (Vanilla's arrow shape). Bows, crossbows and dispensers shoot them; they do the damage of a normal arrow.",
+          "Stuck in a block, the arrow puts Vanilla's invisible light block (level 15) into the air in front of the face it hit. Mobs do not spawn there while it shines; blocks can be placed into the light.",
+          "The light goes with the arrow: after 60 seconds in the ground it despawns like a normal arrow, picking it up, /kill or the block it sticks in breaking (it falls out) take the light away too. Two Light Arrows in the same spot share the light until the last one goes. A Light Arrow that hits a mob makes no light.",
+          "Switch lightArrow (server config) off: a plain arrow."
+        ]
+      },
+      "de": {
+        "title": "Lichtpfeil",
+        "summary": "Ein Pfeil, der die Stelle erhellt, an der er steckt - bis er wie jeder Pfeil verschwindet.",
+        "details": [
+          "Rezept: Glowstonestaub über einem Stock über einer Feder ergibt 4 Lichtpfeile (Form wie Vanillas Pfeil). Bögen, Armbrüste und Werfer schießen sie; sie machen den Schaden eines normalen Pfeils.",
+          "Steckt der Pfeil in einem Block, setzt er Vanillas unsichtbaren Lichtblock (Stufe 15) in die Luft vor der getroffenen Fläche. Solange er leuchtet, spawnen dort keine Monster; Blöcke lassen sich ins Licht setzen.",
+          "Das Licht geht mit dem Pfeil: nach 60 Sekunden im Boden verschwindet er wie ein normaler Pfeil, Aufheben, /kill oder das Abbauen des Blocks, in dem er steckt (er fällt heraus), nehmen das Licht ebenfalls weg. Zwei Lichtpfeile an derselben Stelle teilen sich das Licht, bis der letzte weg ist. Ein Lichtpfeil, der ein Wesen trifft, macht kein Licht.",
+          "Schalter lightArrow (Server-Config) aus: ein normaler Pfeil."
+        ]
+      }
+    },
+    {
+      "id": "silver_arrow",
+      "sources": [
+        "modules/simplearrows/shared/java/com/simplearrows/entity/SilverArrow.java",
+        "modules/simplearrows/shared/java/com/simplearrows/item/SilverArrowItem.java",
+        "modules/simplearrows/shared/resources/data/simplearrows/recipe/silver_arrow.json"
+      ],
+      "en": {
+        "title": "Silver Arrow",
+        "summary": "An arrow with a silver head that hits the undead harder (moved here from Simple Ores on 03.11.2026).",
+        "details": [
+          "Recipe (only with Simple Ores, its silver): a silver nugget over a stick over a feather makes 4 Silver Arrows. Without Simple Ores there is no recipe and no creative entry.",
+          "Against every mob in the tag #minecraft:undead (zombies, skeletons, drowned, the Wither ...) a Silver Arrow does silverArrowUndeadBonus extra damage (Standard 3, 0 = like a normal arrow), otherwise it is a normal arrow.",
+          "Worlds from before keep their arrows: simpleores:silver_arrow (item, flying arrows, recipe) loads as simplearrows:silver_arrow."
+        ]
+      },
+      "de": {
+        "title": "Silberpfeil",
+        "summary": "Ein Pfeil mit Silberspitze, der Untote härter trifft (am 03.11.2026 aus Simple Ores hierher umgezogen).",
+        "details": [
+          "Rezept (nur mit Simple Ores, dessen Silber): ein Silberklumpen über einem Stock über einer Feder ergibt 4 Silberpfeile. Ohne Simple Ores gibt es kein Rezept und keinen Kreativ-Eintrag.",
+          "Gegen jedes Wesen im Tag #minecraft:undead (Zombies, Skelette, Ertrunkene, den Wither ...) macht ein Silberpfeil silverArrowUndeadBonus Schaden mehr (Standard 3, 0 = wie ein normaler Pfeil), sonst ist er ein normaler Pfeil.",
+          "Alte Welten behalten ihre Pfeile: simpleores:silver_arrow (Gegenstand, fliegende Pfeile, Rezept) lädt als simplearrows:silver_arrow."
+        ]
+      }
+    },
+    {
+      "id": "config_server",
+      "sources": [
+        "modules/simplearrows/shared/java/com/simplearrows/config/ArrowsConfig.java"
+      ],
+      "en": {
+        "title": "Server settings",
+        "summary": "config/simplearrows-server.json (or /simplearrows config), read at start; every value is clamped to its range.",
+        "details": [
+          "silverArrowUndeadBonus (3, range 0 to 6): extra damage of a Silver Arrow against undead, 0 = off. Taken over once from simpleores-server.json.",
+          "lightArrow (true): a Light Arrow stuck in a block makes light; off = a plain arrow.",
+          "With SimpleBuilding the switch Enable Simple Arrows in its config turns the bundled module on or off."
+        ]
+      },
+      "de": {
+        "title": "Server-Einstellungen",
+        "summary": "config/simplearrows-server.json (oder /simplearrows config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.",
+        "details": [
+          "silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus. Einmal aus simpleores-server.json übernommen.",
+          "lightArrow (true): ein Lichtpfeil, der in einem Block steckt, macht Licht; aus = normaler Pfeil.",
+          "Mit SimpleBuilding schaltet der Schalter Simple Arrows aktivieren in dessen Config das gebündelte Modul ein oder aus."
+        ]
+      }
+    },
+    {
+      "id": "commands",
+      "sources": [
+        "modules/simplearrows/shared/java/com/simplearrows/SimpleArrows.java"
+      ],
+      "en": {
+        "title": "Commands",
+        "summary": "/simplearrows config [list | get | set | reset | help] (operators).",
+        "details": []
+      },
+      "de": {
+        "title": "Befehle",
+        "summary": "/simplearrows config [list | get | set | reset | help] (Operatoren).",
+        "details": []
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "simplearrows:light_arrow",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplearrows:light_arrow",
+        "count": 4
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/light_arrow.json",
+      "ingredients": [
+        "minecraft:feather",
+        "minecraft:glowstone_dust",
+        "minecraft:stick"
+      ],
+      "pattern": [
+        "G",
+        "S",
+        "F"
+      ],
+      "key": {
+        "G": [
+          "minecraft:glowstone_dust"
+        ],
+        "S": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:feather"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplearrows:silver_arrow",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplearrows:silver_arrow",
+        "count": 4
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/silver_arrow.json",
+      "ingredients": [
+        "minecraft:feather",
+        "minecraft:stick",
+        "simpleores:silver_nugget"
+      ],
+      "pattern": [
+        "N",
+        "S",
+        "F"
+      ],
+      "key": {
+        "N": [
+          "simpleores:silver_nugget"
+        ],
+        "S": [
+          "minecraft:stick"
+        ],
+        "F": [
+          "minecraft:feather"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:feather",
+            "count": 1
+          },
+          {
+            "id": "simpleores:silver_nugget",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    }
+  ],
+  "lootTables": [],
+  "tags": [],
+  "advancements": [],
+  "enchantments": [],
+  "items": [
+    {
+      "id": "simplearrows:light_arrow",
+      "name": {
+        "en_us": "Light Arrow",
+        "de_de": "Lichtpfeil"
+      },
+      "note": {
+        "sources": [
+          "modules/simplearrows/shared/java/com/simplearrows/entity/LightArrow.java",
+          "modules/simplearrows/shared/resources/data/simplearrows/recipe/light_arrow.json"
+        ],
+        "en": {
+          "summary": "Glowstone dust, stick, feather: 4 arrows. Stuck in a block it lights the air in front (level 15); the light goes when the arrow despawns (60 s in the ground) or is picked up."
+        },
+        "de": {
+          "summary": "Glowstonestaub, Stock, Feder: 4 Pfeile. Steckt er in einem Block, erhellt er die Luft davor (Stufe 15); das Licht geht, wenn der Pfeil verschwindet (60 s im Boden) oder aufgehoben wird."
+        }
+      },
+      "texture": "assets/textures/simplearrows/item/light_arrow.png",
+      "craftedBy": [
+        "simplearrows:light_arrow"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplearrows:silver_arrow",
+      "name": {
+        "en_us": "Silver Arrow",
+        "de_de": "Silberpfeil"
+      },
+      "note": {
+        "sources": [
+          "modules/simplearrows/shared/java/com/simplearrows/entity/SilverArrow.java",
+          "modules/simplearrows/shared/resources/data/simplearrows/recipe/silver_arrow.json"
+        ],
+        "en": {
+          "summary": "An arrow with a silver head: 3 extra damage against undead, otherwise like an arrow. Silver nugget, stick, feather: 4 arrows (only with Simple Ores)."
+        },
+        "de": {
+          "summary": "Ein Pfeil mit Silberspitze: 3 Schaden mehr gegen Untote, sonst wie ein Pfeil. Silberklumpen, Stock, Feder: 4 Pfeile (nur mit Simple Ores)."
+        }
+      },
+      "texture": "assets/textures/simplearrows/item/silver_arrow.png",
+      "craftedBy": [
+        "simplearrows:silver_arrow"
+      ],
+      "usedIn": []
+    }
+  ],
+  "blocks": [],
+  "trades": [],
+  "config": [],
+  "quests": [],
+  "recipesOtherLines": [],
+  "inWorld": {
+    "entries": [],
+    "kinds": []
+  },
+  "obtain": {
+    "sources": []
+  },
+  "undocumented": [],
+  "incompleteProse": {},
+  "counts": {
+    "features": 4,
+    "recipes": 2,
+    "lootTables": 0,
+    "tags": 0,
+    "advancements": 0,
+    "enchantments": 0,
+    "items": 2,
+    "blocks": 0,
+    "trades": 0,
+    "config": 0,
+    "quests": 0,
+    "recipesOtherLines": 0,
+    "undocumented": 0,
+    "inWorld": 0,
+    "incompleteProse": 0
+  }
+}
