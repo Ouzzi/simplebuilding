@@ -64,4 +64,7 @@ Basis b-rel32 d9cda1e21, Branch `b-rel32-opt`. Gelesen ohne Gradle: jede Datei v
 Keine P1/P2.
 
 ## Urteil
-**shipbar (Vorbehalt: Client-Lauf mit Sodium/Iris vor Veroeffentlichung, siehe P3-3)**
+**shipbar (Vorbehalt: Client-Smoke + Mixin-Audit gruen, Sodium nur Start/Mixins ohne OpenGL-Rendering belegt, Iris nie gelaufen, siehe P3-3 und Nachlauf 03.11.)**
+
+## Nachlauf 03.11. (b-rel34)
+Nachlauf 03.11. (b-rel34, Basis d4e396636 + Plan-Commit, sb-test, `xvfb-run -a`): (a) `module-simpleoptrender-client-263` 1/1 gruen (172 s). (b) `mixinaudit-client-263` (alle Module, echter Client, alle Mixin-Ziele geladen) 1/1 gruen (125 s). (c) Sodium-Lauf: Dev-Client (`-PmoduleClientTest=compat`, eigener Run-Ordner, Mods nur dort) mit simpleoptrender + simplevisuals (+cloth-config) und Sodium 0.9.2 (Modrinth-Release fuer 26.3, sha512 f3f260f2...): Start ohne Absturz, Welt 100 Ticks, Marker `[compat-opt] world ticked without crash`, Screenshot ok, keine Mixin-Fehler/-Konflikte im Log, Entscheidungstabelle `O1 leaf_culling -> off (rival_wins: sodium)`, O7/M1/M2/O3/O9 `on (no_rival)`. GRENZE: Xvfb liefert keinen OpenGL-Kontext (`Couldn't find matching GLX visual`), Minecraft faellt auf das Vulkan-Backend (llvmpipe) zurueck; Sodium ist OpenGL-only, sein Renderer lief dabei also nicht. Belegt ist nur Laden + Mixin-Anwendung + kein Absturz, NICHT Rendern/Sichtverhalten mit Sodium. (d) Iris 1.11.7 (Release 26.3, braucht genau Sodium 0.9.2): Client bricht unter Xvfb beim Start ab (SIGABRT, kein GL-Kontext, noch vor unserem Code); damit nicht pruefbar. Modrinth-Stand 03.11.: Sodium 26.3 Release 0.9.2 (0.9.3 nur beta/alpha), Iris 26.3 Release 1.11.7. Offen: Sichtlauf mit echtem OpenGL (echter Desktop oder Xvfb/Xorg mit passendem GLX-Visual) fuer Sodium und Iris.

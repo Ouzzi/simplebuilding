@@ -100,14 +100,14 @@ Stand 31.10. (alle 16 auditiert):
 | simpleloot | shipbar | 0/1 (fix)/1 | grün | modules/simpleloot/AUDIT.md |
 | simpleweather | shipbar | 0/0/1 | grün | modules/simpleweather/AUDIT.md |
 | simpleoptimization | shipbar | 0/0/1 | grün (Nachlauf 31.10. auf c3b2b5783: 3/3) | modules/simpleoptimization/AUDIT.md |
-| simpleoptrender | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/0/5 | Gametests grün (Nachlauf 31.10. auf c3b2b5783: 12/12); Client-Smoke Nachlauf offen | modules/simpleoptrender/AUDIT.md |
+| simpleoptrender | shipbar, Vorbehalt: Sodium nur Start/Mixins (kein OpenGL unter Xvfb), Iris nie gelaufen | 0/0/5 | Gametests grün (12/12); Client-Smoke 1/1 grün, mixinaudit-client-263 grün (03.11.) | modules/simpleoptrender/AUDIT.md |
 | simpleoptmemory | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptmemory/AUDIT.md |
 | simpleoptserver | shipbar | 0/1 (fix)/3 | grün | modules/simpleoptserver/AUDIT.md |
 | simpleaesthetics | shipbar | 0/0/3 | grün (3/3 Rerun) | modules/simpleaesthetics/AUDIT.md |
 | simplesounds | shipbar | 0/1 (Rückfrage Q-B1)/5 (2 fix) | grün, Client-Smoke 3 | modules/simplesounds/AUDIT.md |
 | simplemodels | shipbar | 0/1 (fix: Katalog-Paket kompakt, sonst Kick > 28000 Zeichen)/5 | grün, Client-Smoke 10 | modules/simplemodels/AUDIT.md |
-| simplevisuals | shipbar, Vorbehalt Sodium/Iris nie gelaufen | 0/1 (Rückfrage R-AES-2)/5 (1 fix) | grün, Client-Smoke 6 | modules/simplevisuals/AUDIT.md |
-Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md, aes.md. Simple Sounds enthält keine Audiodatei (nur Vanilla-Sound-Events) → keine Lizenzfrage. Noch für alle offen: echter Client-Start im Bündel, Lauf mit Sodium/Iris/Lithium/JEI/Mod Menu.
+| simplevisuals | shipbar, Vorbehalt: Sodium nur Start/Mixins (kein OpenGL unter Xvfb), Iris nie gelaufen | 0/1 (Rückfrage R-AES-2)/5 (1 fix) | grün, Client-Smoke 6, mixinaudit-client-263 grün (03.11.) | modules/simplevisuals/AUDIT.md |
+Familien-Abnahmepläne: docs/ai/release-qoa/qol-a.md, qol-b.md, opt.md, aes.md. Simple Sounds enthält keine Audiodatei (nur Vanilla-Sound-Events) → keine Lizenzfrage. Noch für alle offen: echter Client-Start im Bündel, Lauf mit Lithium/JEI/Mod Menu. Sodium/Iris (b-rel34, 03.11.): siehe §6a.
 
 ## 6. Weitere Besitzer-Punkte
 Besitzer 31.10. (über A). Diese Punkte **blockieren den QoL-Release**, bis sie gelöst und abgenommen sind (Queue IG31-29..31):
@@ -117,6 +117,14 @@ Besitzer 31.10. (über A). Diese Punkte **blockieren den QoL-Release**, bis sie 
 | IG31-29 | Free Look verbuggt (beim Join aktiv, falsches Verhalten) | Keybinds „Free Look“ (Halten) + „Free Look umschalten“ (Toggle); Loslassen per Config: Spieler dreht zur Kamera oder Kamera zurück zur Spieler-Blickrichtung (**Default: zurück**); Server-Config mit Default + erzwingbarem Wert; beim Join immer aus | umgesetzt b-qol33 (Abnahme offen) |
 | IG31-30 | Trichter-UI (Vanilla-Hopper) | Aussehen wie Mod-UI, unten genug Abstand zum Rand (Padding angleichen) | umgesetzt b-qol33 (Abnahme offen) |
 | IG31-31 | Mod-Keypicker | Knöpfe reparieren (Test mit echter Maus), 3. Ansicht nach Funktion wie Vanilla-Keybind-Menü, einheitlicher Vanilla-UI-Stil | umgesetzt b-qol33, echte Maus 40/40 (Abnahme offen) |
+
+## 6a. Sodium/Iris-Nachlauf (b-rel34, 03.11.)
+Basis d4e396636, sb-test, `xvfb-run -a`, Mods nur im Test-Run-Ordner (nicht im Repo), Downloads nur von cdn.modrinth.com.
+- Verfügbare 26.3-Fabric-Builds (Modrinth-API 03.11.): Sodium Release 0.9.2 (0.9.3 nur beta/alpha), Iris Release 1.11.7 (verlangt genau Sodium 0.9.2). Verwendet: beide Releases.
+- `module-simpleoptrender-client-263`: 1/1 grün. `mixinaudit-client-263` (alle Module): 1/1 grün (alle Client-Mixins gegen 26.3 im echten Client geladen).
+- Dev-Client mit simpleoptrender + simplevisuals + Sodium 0.9.2: Start ohne Absturz, Welt 100 Ticks, Screenshot, keine Mixin-Fehler/-Konflikte; Tabelle O1 leaf_culling off (rival_wins: sodium), übrige Bereiche on.
+- **Grenze:** Xvfb hat keinen OpenGL-Kontext (`Couldn't find matching GLX visual`), Minecraft nimmt das Vulkan-Backend (llvmpipe). Sodium (OpenGL) rendert dabei nicht: belegt sind nur Laden und Mixin-Anwendung. Iris 1.11.7 stürzt unter Xvfb beim Start ab (SIGABRT, vor unserem Code), nicht prüfbar.
+- **Vorbehalt bleibt** für simpleoptrender und simplevisuals: Sichtlauf mit echtem OpenGL (Desktop oder Xvfb/Xorg mit GLX-Visual) für Sodium und Iris (+ Shader). Der Besitzer-PC-Lauf oder ein GL-fähiger Test-Container löst das.
 
 ## Rückfragen an den Besitzer
 - R1 Versionsnummer zum Release: alle 1.0.0? (Empfehlung: ja)

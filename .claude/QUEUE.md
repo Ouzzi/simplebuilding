@@ -1024,3 +1024,6 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [x] (B, b-fix94, 02.11.; Plan docs/ai/PLAN-B-FIX94-2026-11-02.md) Gate Bündel 94 rot behoben: void_runner/brimguard Kopf-Ausnahme (Boss, Trophäe Ender Heart/Gem), mob_essence in Mobs-Tab (TAB_ITEMS); sbt grün; flaky trials_void_tricks (1× rot im Integrationslauf, Nachlauf grün) beobachten; offen Gate→Production
 
 - [~] (B, b-ench01, 02.11.) ZO7/BS25-20/WI26-1 Konzept + Vorschau Dark/End-Enchanter fertig (docs/ai/KONZEPT-B-ENCH01-2026-11-02.md, abnahme-b/b-ench01-preview.html, Code ENCH01|...); Bau erst nach Besitzer-Antwort (End-Stoffe).
+## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
+- [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
+- [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a

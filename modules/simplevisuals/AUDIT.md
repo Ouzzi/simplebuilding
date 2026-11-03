@@ -114,4 +114,9 @@ Lauf 31.10. auf sb-test (Commit ea41423fb, 1 sbt-Aufruf, Rerun fuer ein Ziel):
 - K=0: Client-Smokes unter `xvfb-run -a`: Models 10/10, Visuals 6/6, Sounds 3/3, Aesthetics 1/1 (echter Client, Welt betreten, Screens fotografiert). Hinweis des Laufs: je 1659 "Fehlende Textur/Modell"-Meldungen im Client-Log, in allen vier Logs gleich (stammt vermutlich aus dem gemeinsamen Spiel/Vanilla-Umfeld; nicht ausgewertet).
 - M=0: `check_client_mixins.py`: 660 Mixins geprueft, 0 Probleme (inkl. aller 17 Visuals-, 7 Models-, 1 Sounds-Mixins).
 - L=0: `check_lang_keys.py`: 52 Module, jeder Key EN und DE.
-Nicht getestet: Sodium/Iris, Forge/NeoForge, ein Lauf von `mixinaudit-client-263` (Hauptsitzung nach Merge).
+Nicht getestet (Stand 31.10.): Sodium/Iris, Forge/NeoForge, ein Lauf von `mixinaudit-client-263`. Siehe Nachlauf 03.11.
+
+## Nachlauf 03.11. (b-rel34)
+- `mixinaudit-client-263` (alle Module, echter Client, alle Mixin-Ziele geladen, Basis d4e396636): 1/1 gruen, damit sind auch die 17 Visuals-Mixins gegen 26.3 im echten Client geprueft.
+- Sodium 0.9.2 (Modrinth-Release 26.3) + simplevisuals + simpleoptrender im Dev-Client unter Xvfb: Start ohne Absturz, Welt betreten, Screenshot ok, keine Mixin-Fehler/-Konflikte im Log. GRENZE: Xvfb hat keinen OpenGL-Kontext, Minecraft lief auf dem Vulkan-Backend (llvmpipe), Sodiums OpenGL-Renderer war nicht aktiv; belegt ist nur Laden/Mixin-Anwendung, nicht Sichtverhalten (Item-Rahmen, Schaden-Partikel).
+- Iris 1.11.7: Start bricht unter Xvfb ab (kein GL-Kontext, SIGABRT vor unserem Code), nicht pruefbar. Vorbehalt bleibt: Sichtlauf mit echtem OpenGL (Sodium + Iris + Shader, `ItemFrameRenderer`-Submit-Pfad, QOLA-VIS-9) offen.
