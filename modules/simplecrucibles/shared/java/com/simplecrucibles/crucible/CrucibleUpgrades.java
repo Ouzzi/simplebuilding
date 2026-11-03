@@ -131,6 +131,9 @@ public final class CrucibleUpgrades {
         if (from.hasProperty(CrucibleBarrelBlock.FACING) && next.hasProperty(CrucibleBarrelBlock.FACING)) {
             next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING));
         }
+        if (from.hasProperty(CrucibleBarrelBlock.TOP) && next.hasProperty(CrucibleBarrelBlock.TOP)) {
+            next = next.setValue(CrucibleBarrelBlock.TOP, from.getValue(CrucibleBarrelBlock.TOP));
+        }
         return next;
     }
 
@@ -155,7 +158,8 @@ public final class CrucibleUpgrades {
             BlockState next = to.defaultBlockState();
             if (from.hasProperty(CrucibleBarrelBlock.FACING)) {
                 next = next.setValue(CrucibleBarrelBlock.FACING, from.getValue(CrucibleBarrelBlock.FACING))
-                        .setValue(CrucibleBarrelBlock.ATTACHED, from.getValue(CrucibleBarrelBlock.ATTACHED));
+                        .setValue(CrucibleBarrelBlock.ATTACHED, from.getValue(CrucibleBarrelBlock.ATTACHED))
+                        .setValue(CrucibleBarrelBlock.TOP, from.getValue(CrucibleBarrelBlock.TOP));
             }
             level.setBlock(pos, next, Block.UPDATE_ALL);
             if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity fresh) {

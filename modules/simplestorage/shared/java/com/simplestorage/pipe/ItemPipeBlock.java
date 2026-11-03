@@ -33,8 +33,9 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * The pipe of Simple Storage (ST27-1): a hopper with ONE slot that looks like a cable in a cable mod. Alone it is only the
- * middle piece; every neighbour that holds items (a chest, a furnace, another pipe) grows an arm - an input, the pipe pulls from
- * it - and exactly one side is the output ({@link #FACING}, drawn as an arm with an arrow). The six {@code north..down} states say
+ * middle piece; every neighbour that holds items (a chest, a furnace) grows an arm - an input, the pipe pulls from it - and
+ * exactly one side is the output ({@link #FACING}, drawn as an arm with an arrow when something takes the items). Another pipe
+ * is joined only where one of the two pushes into the other (DW03C-3, no stubs). The six {@code north..down} states say
  * "an arm here" (inputs and the output), so Vanilla's {@link PipeBlock} shapes fit; the model tells the output by {@code facing}.
  *
  * <p>Click: the window (one slot, filter key, output key); sneaking with an empty hand turns the output to the next allowed side.
@@ -87,27 +88,38 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction direction,
                                      BlockPos neighborPos, BlockState neighborState, RandomSource random) {
-        boolean arm = arm(level, pos, state, direction, connectsTo(level, neighborPos, neighborState));
-        return state.setValue(PROPERTY_BY_DIRECTION.get(direction), arm);
+        return state.setValue(PROPERTY_BY_DIRECTION.get(direction), arm(level, pos, state, direction, neighborPos, neighborState));
     }
 
-    /** An arm toward every neighbour that holds items, and the output. */
+    /** An arm toward every side where items flow. */
     public static BlockState withArms(BlockState state, LevelReader level, BlockPos pos) {
         for (Direction direction : Direction.values()) {
             BlockPos neighborPos = pos.relative(direction);
-            boolean arm = arm(level, pos, state, direction, connectsTo(level, neighborPos, level.getBlockState(neighborPos)));
-            state = state.setValue(PROPERTY_BY_DIRECTION.get(direction), arm);
+            state = state.setValue(PROPERTY_BY_DIRECTION.get(direction), arm(level, pos, state, direction, neighborPos, level.getBlockState(neighborPos)));
         }
         return state;
     }
 
-    /** An arm shows on an output side and on an input side with a container; a side that is off (ROHR33) has none. */
-    private static boolean arm(LevelReader level, BlockPos pos, BlockState state, Direction direction, boolean connects) {
-        if (level.getBlockEntity(pos) instanceof ItemPipeBlockEntity pipe) {
-            int mode = pipe.sideMode(direction);
-            return mode == Pipes.OUT || (mode == Pipes.IN && connects);
+    /**
+     * DW03C-3 (owner 03.11.): an arm only where items can flow, no stub. A side that is off (ROHR33) has none; a container that is
+     * not a pipe (a chest, a furnace - it gives or takes) gets one on an input and on an output side; another pipe only when one
+     * of the two points its output at the other (pipes never pull from pipes) and the other side is not off; an output into
+     * nothing (air, stone) has none - the arrow on the middle piece and the window still show where it points.
+     */
+    private static boolean arm(LevelReader level, BlockPos pos, BlockState state, Direction direction, BlockPos neighborPos, BlockState neighborState) {
+        int mine = modes(level, pos, state)[direction.ordinal()];
+        if (mine == Pipes.OFF) return false;
+        if (neighborState.getBlock() instanceof ItemPipeBlock) {
+            int theirs = modes(level, neighborPos, neighborState)[direction.getOpposite().ordinal()];
+            return theirs != Pipes.OFF && (mine == Pipes.OUT || theirs == Pipes.OUT);
         }
-        return direction == state.getValue(FACING) || connects;
+        return connectsTo(level, neighborPos, neighborState);
+    }
+
+    /** The side states of the pipe at {@code pos}: its block entity's, or (just placed, no entity yet) one output along {@code facing}. */
+    private static int[] modes(LevelReader level, BlockPos pos, BlockState state) {
+        if (level.getBlockEntity(pos) instanceof ItemPipeBlockEntity pipe) return pipe.sideModes();
+        return Pipes.fromSingleOutput(state.getValue(FACING));
     }
 
     /** The block state after the side states changed: the arrow points at the first output, the arms follow. */
@@ -130,7 +142,7 @@ public class ItemPipeBlock extends PipeBlock implements EntityBlock {
     }
 
     private static boolean connectsTo(LevelReader level, BlockPos neighborPos, BlockState neighborState) {
-        return neighborState.getBlock() instanceof ItemPipeBlock || neighborState.getBlock() instanceof WorldlyContainerHolder
+        return neighborState.getBlock() instanceof WorldlyContainerHolder
                 || level.getBlockEntity(neighborPos) instanceof Container;
     }
 

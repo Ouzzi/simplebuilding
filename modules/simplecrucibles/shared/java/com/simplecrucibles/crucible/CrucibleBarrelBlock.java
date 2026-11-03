@@ -47,6 +47,12 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty ATTACHED = BooleanProperty.create("attached");
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
+    /**
+     * DW03C-4 (owner 03.11.): where the lid of a loose barrel points, all six sides like Vanilla's barrel ({@code facing} there).
+     * Its own name because {@link #FACING} (sideways only) is the docking side and old worlds saved it on loose barrels too:
+     * without {@code top} they load with the default up and keep standing.
+     */
+    public static final EnumProperty<Direction> TOP = EnumProperty.create("top", Direction.class);
     public static final int ATTACH_STRIKES = 6;
 
     private final BarrelTier tier;
@@ -54,7 +60,8 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
     public CrucibleBarrelBlock(Properties properties, BarrelTier tier) {
         super(properties);
         this.tier = tier;
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHED, false).setValue(OPEN, false));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHED, false).setValue(OPEN, false)
+                .setValue(TOP, Direction.UP));
     }
 
     public BarrelTier tier() {
@@ -63,22 +70,30 @@ public class CrucibleBarrelBlock extends Block implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, ATTACHED, OPEN);
+        builder.add(FACING, ATTACHED, OPEN, TOP);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        // The lid towards the player like Vanilla's barrel (DW03C-4); the docking side stays sideways.
+        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(TOP, context.getNearestLookingDirection().getOpposite());
     }
 
     @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING))).setValue(TOP, rotation.rotate(state.getValue(TOP)));
     }
 
     @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+        return state.setValue(FACING, mirror.mirror(state.getValue(FACING))).setValue(TOP, mirror.mirror(state.getValue(TOP)));
+    }
+
+    /** The opener recheck Vanilla's barrel does (ContainerOpenersCounter schedules it): closes the lid when nobody looks in. */
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (level.getBlockEntity(pos) instanceof CrucibleBarrelBlockEntity be) be.recheckOpen();
     }
 
     /**

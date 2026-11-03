@@ -24,7 +24,7 @@ public final class StorageConfig {
     public static final String LEGACY_FILE = "simplebuilding.json";
     /** Every key of the file (wiki and check_data read this list). */
     public static final List<String> KEYS = List.of("invertBundleInteractions", "betterChestPercent", "reinforcedShulkerPercent",
-            "netheriteShulkerPercent", "enderiteShulkerPercent", "endermitesPerRareShulker", "chestNetwork", "controllerLootPercent");
+            "netheriteShulkerPercent", "enderiteShulkerPercent", "endermitesPerRareShulker", "chestNetwork", "controllerLootPercent", "interfaceFillsGaps");
     /** Highest percentages and escort a server may set (as in SimpleBuilding's {@code ServerTuning}). */
     public static final double MAX_BETTER_CHEST_PERCENT = 5.0, MAX_REINFORCED_SHULKER_PERCENT = 10.0, MAX_NETHERITE_SHULKER_PERCENT = 5.0,
             MAX_ENDERITE_SHULKER_PERCENT = 5.0;
@@ -53,6 +53,11 @@ public final class StorageConfig {
     public static boolean chestNetwork = true;
     /** Percent per better structure chest ({@code BetterChests}) that also holds a controller chest of its step and an interface (at most 50). */
     public static double controllerLootPercent = CONTROLLER_LOOT_DEFAULT;
+    /**
+     * DW03C-2: an interface on a chest grows its plate to solid blocks beside it, so no see-through gap stays (IG31-6). Off: the
+     * plate always keeps the chest's width. Default on (the owner's IG31-6 wish; without blocks beside it the plate is flush anyway).
+     */
+    public static boolean interfaceFillsGaps = true;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -113,6 +118,8 @@ public final class StorageConfig {
         JsonElement network = json.get("chestNetwork");
         chestNetwork = network == null || !network.isJsonPrimitive() || !network.getAsJsonPrimitive().isBoolean() || network.getAsBoolean();
         controllerLootPercent = percent(json, "controllerLootPercent", CONTROLLER_LOOT_DEFAULT, MAX_CONTROLLER_LOOT_PERCENT);
+        JsonElement fills = json.get("interfaceFillsGaps");
+        interfaceFillsGaps = fills == null || !fills.isJsonPrimitive() || !fills.getAsJsonPrimitive().isBoolean() || fills.getAsBoolean();
     }
 
     /** A percentage between 0 and {@code max}; missing, not a number or NaN gives the default. */
@@ -138,6 +145,7 @@ public final class StorageConfig {
         o.addProperty("endermitesPerRareShulker", endermitesPerRareShulker);
         o.addProperty("chestNetwork", chestNetwork);
         o.addProperty("controllerLootPercent", controllerLootPercent);
+        o.addProperty("interfaceFillsGaps", interfaceFillsGaps);
         return o;
     }
 

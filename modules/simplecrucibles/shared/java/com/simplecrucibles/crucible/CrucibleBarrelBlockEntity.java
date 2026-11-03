@@ -4,7 +4,16 @@ import com.simplecrucibles.registry.CrucibleBlockEntities;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.ContainerUser;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -32,6 +41,29 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
     private long lastStrike;
     private int upgradeStrikes; // own counter: attaching and upgrading with the axe must not feed each other
     private long lastUpgradeStrike;
+    /** DW03C-4: the lid opens while a player looks in, like Vanilla's barrel (block state {@code open}, barrel sounds). */
+    private final ContainerOpenersCounter openers = new ContainerOpenersCounter() {
+        @Override
+        protected void onOpen(Level level, BlockPos pos, BlockState state) {
+            sound(state, SoundEvents.BARREL_OPEN);
+            setOpen(state, true);
+        }
+
+        @Override
+        protected void onClose(Level level, BlockPos pos, BlockState state) {
+            sound(state, SoundEvents.BARREL_CLOSE);
+            setOpen(state, false);
+        }
+
+        @Override
+        protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int previous, int now) {
+        }
+
+        @Override
+        public boolean isOwnContainer(Player player) {
+            return player.containerMenu instanceof ChestMenu menu && menu.getContainer() == CrucibleBarrelBlockEntity.this;
+        }
+    };
 
     public CrucibleBarrelBlockEntity(BlockPos pos, BlockState state) {
         this(CrucibleBlockEntities.BARREL, pos, state);
@@ -64,6 +96,42 @@ public class CrucibleBarrelBlockEntity extends BaseContainerBlockEntity {
         if (now - lastUpgradeStrike > 600) upgradeStrikes = 0;
         lastUpgradeStrike = now;
         return ++upgradeStrikes;
+    }
+
+    @Override
+    public void startOpen(ContainerUser user) {
+        if (!remove && !user.getLivingEntity().isSpectator() && !attached()) {
+            openers.incrementOpeners(user.getLivingEntity(), getLevel(), getBlockPos(), getBlockState(), user.getContainerInteractionRange());
+        }
+    }
+
+    @Override
+    public void stopOpen(ContainerUser user) {
+        if (!remove && !user.getLivingEntity().isSpectator()) openers.decrementOpeners(user.getLivingEntity(), getLevel(), getBlockPos(), getBlockState());
+    }
+
+    @Override
+    public List<ContainerUser> getEntitiesWithContainerOpen() {
+        return openers.getEntitiesWithContainerOpen(getLevel(), getBlockPos());
+    }
+
+    public void recheckOpen() {
+        if (!remove) openers.recheckOpeners(getLevel(), getBlockPos(), getBlockState());
+    }
+
+    private void setOpen(BlockState state, boolean open) {
+        if (level != null && state.hasProperty(CrucibleBarrelBlock.OPEN) && state.getValue(CrucibleBarrelBlock.OPEN) != open) {
+            level.setBlock(getBlockPos(), state.setValue(CrucibleBarrelBlock.OPEN, open), Block.UPDATE_ALL);
+        }
+    }
+
+    /** At the lid like Vanilla: half a block out of the middle towards {@code top}. */
+    private void sound(BlockState state, SoundEvent sound) {
+        if (level == null) return;
+        Direction top = state.hasProperty(CrucibleBarrelBlock.TOP) ? state.getValue(CrucibleBarrelBlock.TOP) : Direction.UP;
+        double x = worldPosition.getX() + 0.5 + top.getStepX() / 2.0, y = worldPosition.getY() + 0.5 + top.getStepY() / 2.0,
+                z = worldPosition.getZ() + 0.5 + top.getStepZ() / 2.0;
+        level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
     }
 
     @Override

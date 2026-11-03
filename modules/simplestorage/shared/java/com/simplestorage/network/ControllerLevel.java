@@ -3,6 +3,9 @@ package com.simplestorage.network;
 import com.simplestorage.chest.ChestTier;
 import com.simplestorage.chest.TieredChestBlock;
 import com.simplestorage.chest.TieredShulkerBoxBlock;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
@@ -65,9 +68,13 @@ public enum ControllerLevel {
         };
     }
 
-    /** Whether an interface may sit on this block (IG31-37): every chest (controllers too), barrel and shulker box. */
+    /** Barrels of other mods (DW03C-4: the Simple Crucibles barrels) join through the common tag, no hard dependency. */
+    public static final TagKey<Block> BARRELS = TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "barrels"));
+
+    /** Whether an interface may sit on this block (IG31-37): every chest (controllers too), barrel (also tagged c:barrels) and shulker box. */
     public static boolean mountable(Block block) {
-        return block instanceof ChestBlock || block instanceof BarrelBlock || block instanceof ShulkerBoxBlock;
+        return block instanceof ChestBlock || block instanceof BarrelBlock || block instanceof ShulkerBoxBlock
+                || block.builtInRegistryHolder().is(BARRELS);
     }
 
     /** Rank of a storage block a network may hold (chest, barrel, shulker box), or -1 for everything else (controllers, other blocks). */
