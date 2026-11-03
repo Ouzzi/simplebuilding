@@ -1075,3 +1075,4 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [ ] Abnahme auf dem Dev-Wiki nach Bündel-Merge in claude-wave1 (Vorschau abnahme-b/b-site01-preview.html, Code SITE01), danach Production
 
 - [ ] (B, b-arrows02, 03.11.) ARROWS-STUFE2 Befiederungstisch aus dem SB-Kern nach Simple Arrows (IdMoves Rezepttyp/Kategorien/Menü/arrow_parts, Spitzen datengetrieben) – bewusst zurückgestellt, Plan docs/ai/PLAN-B-ARROWS02-2026-11-03.md §2
+- [~] (B, b-qol34, 03.11., erledigt: Free Look Hand bleibt in Körperrichtung + graues umrandetes Fadenkreuz am Startpunkt (Option freeLookCrosshair), Standard-Tasten crawl=C/autowalk=aus/zoom=V/Earth=#/Keybinds-Menü=+, Simple Keybinds Alle zuklappen/aufklappen + Unter-Collapsible je Kategorie (Debug startet zu); Tests grün, echte Maus grün; Besitzer-Abnahme offen: abnahme-b/b-qol34-preview.html) QOL34 (Besitzer 03.11. Punkte 1–3)

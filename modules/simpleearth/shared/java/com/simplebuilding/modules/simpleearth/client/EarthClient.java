@@ -19,10 +19,16 @@ import net.minecraft.client.player.LocalPlayer;
  * Key N (IG31-33 follow-up, 31.10.): O was taken - 26.3 binds Vanilla's friends list (key.friends) to O, and that mapping
  * won the click, so O never opened the earth. N is free in Vanilla 26.3 (only F3+N, a debug combination) and in the mod
  * family (A, B, C, H, I, K, R, U taken); the big map mods use other keys (JourneyMap J, Xaero Y/U/B/M). The mapping has a
- * new name ({@code key.simpleearth.menu}) so options saved with the old O binding do not keep the clash.
+ * new name ({@code key.simpleearth.menu}) so options saved with the old O binding do not keep the clash. QOL34 (03.11.): the
+ * standard is now "#" ({@link #HASH_KEY}); saved N bindings of earlier test builds stay as the player set them.
  */
 public final class EarthClient {
-    public static final KeyMapping KEY = new KeyMapping("key.simpleearth.menu", InputConstants.KEY_N,
+    /**
+     * "#" (QOL34, owner 03.11.): 26.3 numbers keys by SDL scancode; 50 = NONUSHASH, the ISO key left of Enter that prints "#" on a
+     * German layout (Minecraft name {@code key.keyboard.world.2}). Free in Vanilla and in the mod family.
+     */
+    public static final int HASH_KEY = 50;
+    public static final KeyMapping KEY = new KeyMapping("key.simpleearth.menu", HASH_KEY,
             KeyMapping.Category.register(SimpleEarth.id("general")));
 
     static boolean enabled, active, parked;

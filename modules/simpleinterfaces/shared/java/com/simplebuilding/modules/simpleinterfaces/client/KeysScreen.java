@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,6 +62,8 @@ public final class KeysScreen extends Screen {
     private String query = "";
     private boolean onlyConflicts, onlyUnbound, armedReset;
     private final Set<String> collapsed = new HashSet<>();
+    /** Sub-groups already seen: a debug sub-group starts folded the first time, later the user's choice stays (QOL34). */
+    private final Set<String> subSeen = new HashSet<>();
     KeyMapping listening;
     /** Key code a list click is going to assign to (chosen on the keyboard picture), or -1. */
     private int pickCode = -1;
@@ -297,14 +300,60 @@ public final class KeysScreen extends Screen {
             list = addRenderableWidget(new KeysList(minecraft, width, height - 33 - TOP, TOP));
             list.refill();
         }
-        // footer
+        // footer: fold all / unfold all, reset all, done
         int fy = height - 27;
+        probe.put("fold_all", addRenderableWidget(Button.builder(foldAllLabel(), b -> {
+            if (allFolded()) collapsed.clear();
+            else collapsed.addAll(foldIds());
+            if (list != null) list.refill();
+            refreshFoldAll();
+        }).bounds(cx - 154, fy, 96, 20).tooltip(Tooltip.create(t("fold_all.tip"))).build()));
         probe.put("reset_all", addRenderableWidget(Button.builder(resetLabel(), b -> {
             if (armedReset) resetAll(entries);
             armedReset = !armedReset;
             b.setMessage(resetLabel());
-        }).bounds(cx - 154, fy, 150, 20).build()));
-        probe.put("done", addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(cx + 4, fy, 150, 20).build()));
+        }).bounds(cx - 54, fy, 108, 20).build()));
+        probe.put("done", addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(cx + 58, fy, 96, 20).build()));
+        if (view == View.KEYBOARD) ((Button) probe.get("fold_all")).active = false;
+    }
+
+    /** True when the list view has groups and every group and sub-group is folded: the button then unfolds all. */
+    private boolean allFolded() {
+        Set<String> ids = foldIds();
+        return !ids.isEmpty() && collapsed.containsAll(ids);
+    }
+
+    void refreshFoldAll() {
+        if (probe.get("fold_all") instanceof Button b) b.setMessage(foldAllLabel());
+    }
+
+    private Component foldAllLabel() {
+        return t(allFolded() ? "unfold_all" : "fold_all");
+    }
+
+    /** Ids of every fold button of the current list view (groups and, in the by-mod view, sub-groups). */
+    private Set<String> foldIds() {
+        Set<String> ids = new LinkedHashSet<>();
+        for (Map.Entry<String, List<Item>> gr : groups().entrySet()) {
+            ids.add(gr.getKey());
+            for (String sub : subGroups(gr.getKey(), gr.getValue()).keySet()) ids.add(sub);
+        }
+        return ids;
+    }
+
+    /**
+     * By-mod view: a mod with more than one category gets one sub-group per category (id {@code sub/<group>/<category>});
+     * a mod with one category has none. Debug categories start folded (QOL34, owner 03.11.).
+     */
+    private Map<String, List<Item>> subGroups(String groupId, List<Item> items) {
+        Map<String, List<Item>> out = new LinkedHashMap<>();
+        if (view != View.MOD) return out;
+        for (Item e : items) out.computeIfAbsent("sub/" + groupId + "/" + e.mapping.getCategory().id(), k -> new ArrayList<>()).add(e);
+        if (out.size() < 2) return new LinkedHashMap<>();
+        for (Map.Entry<String, List<Item>> sub : out.entrySet()) {
+            if (subSeen.add(sub.getKey()) && sub.getValue().get(0).mapping.getCategory().id().getPath().startsWith("debug")) collapsed.add(sub.getKey());
+        }
+        return out;
     }
 
     private Component resetLabel() {
@@ -392,7 +441,16 @@ public final class KeysScreen extends Screen {
                 String title = view == View.MOD ? modTitle(first.owner()) : first.group();
                 rows.add(new HeaderRow(gr.getKey(), Component.literal(title), items));
                 if (collapsed.contains(gr.getKey())) continue;
-                for (Item e : items) rows.add(new KeyRow(e));
+                Map<String, List<Item>> subs = subGroups(gr.getKey(), items);
+                if (subs.isEmpty()) {
+                    for (Item e : items) rows.add(new KeyRow(e));
+                    continue;
+                }
+                for (Map.Entry<String, List<Item>> sub : subs.entrySet()) {
+                    rows.add(new SubHeaderRow(sub.getKey(), sub.getValue()));
+                    if (collapsed.contains(sub.getKey()) && query.isEmpty()) continue;
+                    for (Item e : sub.getValue()) rows.add(new KeyRow(e));
+                }
             }
             if (groups.isEmpty()) rows.add(new HeaderRow(null, t("empty"), List.of()));
             replaceEntries(rows);
@@ -435,6 +493,7 @@ public final class KeysScreen extends Screen {
             fold = id == null ? null : Button.builder(Component.literal(folded ? "+" : "-"), b -> {
                 if (!collapsed.remove(id)) collapsed.add(id);
                 KeysScreen.this.list.refill();
+                KeysScreen.this.refreshFoldAll();
             }).bounds(0, 0, 20, 20).tooltip(Tooltip.create(t(folded ? "unfold" : "fold"))).build();
             reset = id == null ? null : Button.builder(Component.translatable("controls.reset"), b -> resetAll(items)).bounds(0, 0, 50, 20)
                     .tooltip(Tooltip.create(t("reset_group"))).build();
@@ -461,6 +520,43 @@ public final class KeysScreen extends Screen {
         @Override
         public List<? extends NarratableEntry> narratables() {
             return fold == null ? List.of() : List.of(fold, reset);
+        }
+    }
+
+    /** A sub-group heading inside a mod (by-mod view): the category name, indented, with its own fold button. */
+    final class SubHeaderRow extends Row {
+        final String id;
+        private final Component title;
+        final Button fold;
+
+        SubHeaderRow(String id, List<Item> items) {
+            this.id = id;
+            boolean folded = collapsed.contains(id) && query.isEmpty();
+            this.title = items.get(0).mapping.getCategory().label().copy().withStyle(ChatFormatting.UNDERLINE)
+                    .append(Component.literal(" (" + items.size() + ")").withStyle(ChatFormatting.GRAY));
+            fold = Button.builder(Component.literal(folded ? "+" : "-"), b -> {
+                if (!collapsed.remove(id)) collapsed.add(id);
+                KeysScreen.this.list.refill();
+                KeysScreen.this.refreshFoldAll();
+            }).bounds(0, 0, 14, 20).tooltip(Tooltip.create(t(folded ? "unfold" : "fold"))).build();
+        }
+
+        @Override
+        public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
+            var font = Minecraft.getInstance().font;
+            fold.setPosition(getContentX() + 10, getContentY() - 2);
+            fold.extractRenderState(g, mouseX, mouseY, delta);
+            g.text(font, title, getContentX() + 30, getContentYMiddle() - 4, 0xFFD0D0D0);
+        }
+
+        @Override
+        public List<? extends GuiEventListener> children() {
+            return List.of(fold);
+        }
+
+        @Override
+        public List<? extends NarratableEntry> narratables() {
+            return List.of(fold);
         }
     }
 

@@ -23,7 +23,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 RUN = REPO / 'integration/run-fabric-263'
 REQUEST, STATUS, COMMAND = 'simpleinterfaces-keys-probe.json', 'simpleinterfaces-keys-status.json', 'simpleinterfaces-keys-command.json'
-ROW = 'key.simpleinterfaces.open_keys'  # unbound by default
+ROW = 'key.simplelib.freelook_toggle'  # unbound by default (open_keys has '+' since QOL34)
 G = 298  # GLFW code of F9: free in Vanilla, so its key page lists only the probed action
 
 _spec = importlib.util.spec_from_file_location('menu_probe', REPO / 'modules/simpleearth/tools/menu_probe.py')
@@ -166,10 +166,20 @@ def main():
             st = command('show')
             rows = int(st['values'].get('rows', '0'))
             command('open')
+            st = fresh()
+            c0 = int(st['values'].get('collapsed', '0'))  # the debug sub-group starts folded
             st = click('fold_first')
-            folded = st['values'].get('collapsed')
+            folded = int(st['values'].get('collapsed', '0'))
             st = click('fold_first')
-            check(f'{tag}: fold/unfold first group', folded == '1' and st['values'].get('collapsed') == '0', f'{folded} -> {st["values"].get("collapsed")} ({rows} rows)')
+            check(f'{tag}: fold/unfold first group', folded == c0 + 1 and int(st['values'].get('collapsed', '0')) == c0, f'{c0} -> {folded} -> {st["values"].get("collapsed")} ({rows} rows)')
+            # QOL34: "Collapse all" folds every group and sub-group, then reads "Expand all" and opens all again
+            st = click('fold_all')
+            rows_folded = int(st['values'].get('rows', '0'))
+            check(f'{tag}: collapse all', int(st['values'].get('collapsed', '0')) > c0 + 1 and rows_folded < rows, f'rows {rows} -> {rows_folded}, folded {st["values"].get("collapsed")}')
+            command('shot')
+            st = click('fold_all')
+            check(f'{tag}: expand all', st['values'].get('collapsed') == '0' and int(st['values'].get('rows', '0')) > rows, f'rows {st["values"].get("rows")}, folded {st["values"].get("collapsed")}')
+            command('shot')
             # reset all asks first; any other click cancels the question
             st = click('reset_all')
             armed = st['values'].get('armedReset')
