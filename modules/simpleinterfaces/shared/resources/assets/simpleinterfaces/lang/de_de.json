@@ -124,7 +124,7 @@
   "simpleinterfaces.keys.unfold": "Gruppe aufklappen",
   "simpleinterfaces.keys.fold_all": "Alle zuklappen",
   "simpleinterfaces.keys.unfold_all": "Alle aufklappen",
-  "simpleinterfaces.keys.fold_all.tip": "Alle Gruppen und Untergruppen dieser\nListe zu- oder aufklappen.",
+  "simpleinterfaces.keys.fold_all.tip": "Alle Gruppen und Untergruppen zu- oder aufklappen.",
   "simpleinterfaces.keys.reset_group": "Alle Tasten dieser Gruppe zurücksetzen",
   "simpleinterfaces.keys.cell.title": "Taste %s",
   "simpleinterfaces.keys.remove": "Entfernen",

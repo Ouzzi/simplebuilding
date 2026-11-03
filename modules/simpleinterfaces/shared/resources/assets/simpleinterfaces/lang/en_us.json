@@ -124,7 +124,7 @@
   "simpleinterfaces.keys.unfold": "Unfold this group",
   "simpleinterfaces.keys.fold_all": "Collapse all",
   "simpleinterfaces.keys.unfold_all": "Expand all",
-  "simpleinterfaces.keys.fold_all.tip": "Collapse or expand every group and sub-group\nof this list.",
+  "simpleinterfaces.keys.fold_all.tip": "Collapse or expand every group and sub-group.",
   "simpleinterfaces.keys.reset_group": "Reset every key of this group",
   "simpleinterfaces.keys.cell.title": "Key %s",
   "simpleinterfaces.keys.remove": "Remove",
