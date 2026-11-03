@@ -132,7 +132,7 @@
   "simpleovens.guide.page.7.title": "Furnace Minecarts",
   "simpleovens.guide.page.7": "and the cart runs at 5/8, 3/4 or all of a plain minecart's top speed.",
   "simpleovens.guide.page.8.title": "Furnace Boats",
-  "simpleovens.guide.page.8": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood and per furnace tier, plus a bamboo raft.",
+  "simpleovens.guide.page.8": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood (plus a bamboo raft) and per furnace: the plain furnace, Reinforced, Netherite and Enderite.",
   "simpleovens.guide.page.9.title": "Long Cook Times in the Menu",
   "simpleovens.guide.page.9": "Furnace menus send their timers as shorts; cook times above 32767 ticks are divided before sending, so the arrow and the flame keep the right ratio.",
   "simpleovens.guide.page.10.title": "Moved from SimpleBuilding",

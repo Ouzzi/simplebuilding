@@ -132,7 +132,7 @@
   "simpleovens.guide.page.7.title": "Antriebsloren",
   "simpleovens.guide.page.7": "ein Brennstoff brennt 2-, 4- oder 8-mal so lange wie in Vanillas Antriebslore (das Tempo des Ofens der Stufe), und die Lore fährt 5/8, 3/4 oder die volle Höchstgeschwindigkeit einer einfachen Lore.",
   "simpleovens.guide.page.8.title": "Ofenboote",
-  "simpleovens.guide.page.8": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart und Ofenstufe, dazu ein Bambusfloß.",
+  "simpleovens.guide.page.8": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart (dazu ein Bambusfloß) und je Ofen: normal, Verstärkt, Netherit und Enderit.",
   "simpleovens.guide.page.9.title": "Lange Garzeiten im Menü",
   "simpleovens.guide.page.9": "Ofenmenüs senden ihre Zeiten als short; Garzeiten über 32767 Ticks werden vor dem Senden geteilt, Pfeil und Flamme behalten das richtige Verhältnis.",
   "simpleovens.guide.page.10.title": "Aus SimpleBuilding umgezogen",
