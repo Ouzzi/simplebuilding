@@ -133,14 +133,16 @@
         "title": "Free Look",
         "summary": "While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal. Two keys: \"Free Look (hold)\" (standard left Alt) and \"Toggle Free Look\" (unbound, set it in the controls). When it ends, the camera turns back to where you look (standard) or you turn to where the camera looked - freeLookRelease in config/simplelib-client.json or the Free Look tab of the SimpleLib settings. A server can enforce its own choice (freeLookRelease + freeLookEnforce in simplelib-server.json, sent on join). Free Look is always off after joining, a world change and a respawn.",
         "details": [
-          "A key that is already down when the world opens (for example left Alt from Alt+Tab) does not switch Free Look on; release it and press again."
+          "A key that is already down when the world opens (for example left Alt from Alt+Tab) does not switch Free Look on; release it and press again.",
+          "In first person your hand keeps the direction of your body (it does not travel with the camera), and a grey, outlined crosshair marks where you really aim; the centred one is hidden meanwhile. Switch the grey crosshair off with freeLookCrosshair in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on."
         ]
       },
       "de": {
         "title": "Free Look",
         "summary": "Solange Free Look an ist, dreht die Maus nur die Kamera, nicht den Spieler; Laufen und alle anderen Eingaben bleiben normal. Zwei Tasten: „Free Look (halten)“ (Standard linke Alt-Taste) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen). Am Ende dreht die Kamera zurück zur Blickrichtung (Standard) oder der Spieler dreht sich dorthin, wohin die Kamera schaute - freeLookRelease in config/simplelib-client.json oder der Reiter Free Look der SimpleLib-Einstellungen. Ein Server kann seine Wahl erzwingen (freeLookRelease + freeLookEnforce in simplelib-server.json, beim Betreten gesendet). Nach dem Betreten, einem Weltwechsel und einem Respawn ist Free Look immer aus.",
         "details": [
-          "Eine Taste, die beim Öffnen der Welt schon gedrückt ist (z. B. linke Alt-Taste von Alt+Tab), schaltet Free Look nicht ein; loslassen und erneut drücken."
+          "Eine Taste, die beim Öffnen der Welt schon gedrückt ist (z. B. linke Alt-Taste von Alt+Tab), schaltet Free Look nicht ein; loslassen und erneut drücken.",
+          "In der Ego-Perspektive bleibt deine Hand in der Richtung des Körpers (sie wandert nicht mit der Kamera), und ein graues, umrandetes Fadenkreuz zeigt, wohin du wirklich zielst; das mittige ist so lange ausgeblendet. Das graue Fadenkreuz schaltest du mit freeLookCrosshair in config/simplelib-client.json oder in den SimpleLib-Einstellungen (Reiter Free Look) ab. Standard: an."
         ]
       }
     },
