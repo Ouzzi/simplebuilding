@@ -76,7 +76,10 @@ public final class InWorldExportTests {
         // Shulkerkisten: zwei Stueck Material und zehn Schlaege je Stufe, also doppelte Haltbarkeit.
         String expected = ("[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
                 + "minecraft:shulker_box>copper_sledgehammer/cracked_diamondx2/2per/20, "
-                // ENCH02: the enchanting table steps belong to Simple Enchanting (data/simpleenchanting/in_world_upgrades).
+                // ENCH02: the enchanting table step is Simple Enchanting's (data/simpleenchanting/in_world_upgrades): 8 Netherite nuggets,
+                // 16 strikes at 35 durability; from a Vanilla block, so it stays in the export.
+                + (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+                        ? "minecraft:enchanting_table>netherite_sledgehammer/netherite_nuggetx8/35per/560, " : "")
                 + (ovens ? "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (chests ? "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (ovens ? "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")

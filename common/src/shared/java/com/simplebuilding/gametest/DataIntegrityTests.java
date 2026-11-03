@@ -1679,7 +1679,9 @@ public final class DataIntegrityTests {
 
     /** Items reachable as static fields of {@link ModItems}. */
     /** MACH32-MOD stage 2: on 26.3 the piston fields point at Simple Machines' objects (its own checks cover them). */
+    /** ENCH02: the enchanter fields point at Simple Enchanting's tables likewise (its own checks cover them). */
     private static boolean movedToMachines(Identifier id) {
+        if (McVersion.ASTRAL_ENCHANTING && id != null && com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(id.getNamespace())) return true;
         return !McVersion.PISTONS_IN_SB && id != null && McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
     }
 
@@ -2822,7 +2824,9 @@ public final class DataIntegrityTests {
                     // OW24-2 G1: Simple Gadgets' Gauge keeps its place in SimpleBuilding's tools tab (by id).
                     && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // MACH32-MOD: Simple Machines' Double Piston and Signal Dampener keep their row in SimpleBuilding's functional tab (by id).
-                    && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+                    && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
+                    && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
