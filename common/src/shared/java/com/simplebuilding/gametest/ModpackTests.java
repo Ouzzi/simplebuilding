@@ -505,6 +505,18 @@ public final class ModpackTests {
             }
             if (mobSteps != 2) problems.add("Simple Mobs' file should load 2 vault upgrade steps, loaded " + mobSteps);
         }
+        // ENCH02: Simple Enchanting is a required sub-mod on 26.3; its own file (data/simpleenchanting/in_world_upgrades/
+        // enchanters.json) adds the 2 enchanter steps (enchanting table -> Dark Enchanter -> Astral Enchanter).
+        if (BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath("simpleenchanting", "dark_enchanter"))) {
+            int enchSteps = 0;
+            for (var it = loaded.values().iterator(); it.hasNext(); ) {
+                if ("simpleenchanting".equals(BuiltInRegistries.BLOCK.getKey(it.next().to()).getNamespace())) {
+                    it.remove();
+                    enchSteps++;
+                }
+            }
+            if (enchSteps != 2) problems.add("Simple Enchanting's file should load 2 enchanter upgrade steps, loaded " + enchSteps);
+        }
         if (!loaded.equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
                     + loaded.size() + " against " + SledgehammerUpgrades.builtInTable().size());
