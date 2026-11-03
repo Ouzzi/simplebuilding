@@ -8,6 +8,26 @@ Queue-Pflege (Besitzer 12.10.): Neue Nachträge OBEN anhängen (direkt unter „
 eintragen. Abschnitte ohne offene Punkte wandern monatlich unverändert nach `.claude/QUEUE-ARCHIV.md`
 (Reihenfolge erhalten; letzte Archivierung 2026-10-25, b-queueclean25). Ablauf: Abschnitt „So wird die Queue abgearbeitet“.
 
+## RELEASE-RELEVANT – nächste Schritte (B, 03.11.)
+Nach Priorität. Alles, was nicht hier steht und nicht `[R]` ist, läuft in den normalen Spuren weiter.
+1. Offene Abnahme-Umsetzungen ABN04: ABN04-ARROWS01 (Lichtpfeil/Simple Arrows Stufe 1), ABN04-COND38 (Conduit Form A), ABN04-ROHR (Rohr-Fenster), ABN04-BOSS01, ABN04-TEX03, ABN04-BOAT02, ABN04-UI02, ABN04-ENCH01.
+2. QoL-Abnahme b-qol33: IG31-29 Free Look, IG31-30 Trichter-UI, IG31-31 Keypicker (umgesetzt, Abnahme + Bündel/Gate offen; button()==0 in weiteren Screens prüfen).
+3. Fehler: BS25-19 Absturz Tod mit Seelenfeuer-Lohenkopf; VIS24-10 Modul-Smoke simpletweaks scheitert; ZFIGHT32 flackernde Items (Besitzer listet sie).
+4. Wackel-/Prüftests: MIXCHECK31-3 Prüfer-Lücken Mixin-Handler; bekannte Flaky-Tests im Bündel beobachten; AUTO-CLIENT Client-Start je Bündel.
+5. Release-Audit-Vorbehalte (docs/ai/RELEASE-QOL-OPT-AES.md): Sodium/Iris-Sichtlauf mit echtem OpenGL (simpleoptrender, simplevisuals); Lauf mit Lithium/JEI/Mod Menu; echter Client-Start im Bündel.
+6. Kompatibilität: Modpack-Kompatibilität e5 (K1–K23) und Benchmark e3 (Besitzer-PC, WP-34).
+7. Release-Abnahme-Seite (146 Schritte, RELQOA) vom Besitzer beantworten lassen; Release-Fragen R-AES-2 u. a.
+8. Mod-Konflikt/Abhängigkeiten: modtree.py --check und Standalone-Ziele je Sub-Mod vor dem Bündel.
+9. IG31-10 Mob-Köpfe abgeschnitten, IG31-14 Music-Texturen, WF25-12 Inverser Rüstungsbesatz (sichtbare Fehler, in Arbeit).
+10. Restliche Client-Sicht-Abnahmen (VIS24, WP-06).
+
+## NACH RELEASE (Besitzer 03.11.)
+Phase 2, 3 und 4 erst NACH dem Release; Schmelzanlage (Simple Foundry, SA*) = Phase 3, niedrige Priorität, zurückgestellt.
+Status `[R]` = nach Release (Zeilen unverändert, nur Haken). Keine neuen Agenten dafür starten. Zuordnung: docs/ai/PLAN-B-PHASE01-2026-11-03.md.
+- Phase 2: BS29b-1 / WP-28 (Erz-Statistiken); PHASEN (Zeile mit Phase-3-Vermerk Octet-Zellen); WP-32 Rest.
+- Phase 3: BS29-2 / WP-29 (Simple Skilltree); WP-30 (Web-Karte Stufe 4 3D); Foundry-Ausbau SA3–SA10, FOUNDRY32 (Schichten/Tank), FOUNDRY32-UI, FOUNDRY03 / ABN04-FOUNDRY03 (Spezialglas, b-foundry04 nicht starten).
+- Phase 4: Ideenliste docs/ai/IDEEN-PHASE4.md (First-Pickup-Tipps, Geteilter Klumpen, Fladen C).
+
 ## So wird die Queue abgearbeitet (Besitzer/Sitzung 22.–23.10.)
 1. **Nur MC 26.3 + Fabric** (Besitzer 22.10.): kein Compile/Test/Anpassen für NeoForge, Forge, 26.2, 1.21.11, 26.4 – Ports stehen unter (5) und kommen nur auf Anforderung.
 2. **UI/Optik/Texturen erst exemplarisch:** EIN Beispiel + 2–3 Varianten als Vorschau, Rest erst nach Wahl (PRINZIPIEN A8: Ebenen, Vanilla-nah).
@@ -227,11 +247,11 @@ Sortiert 29.10. (Sitzung A, a-queue): alles Zusammenfassbare ist zu Paketen (WP)
 |---|---|---|---|---|---|---|
 | WP-26 | Simple Storage: Rohr + Kisten-Netzwerk-Prototyp | ST27-1, BS29b-3 | simplestorage | Wünsche nach Prototyp | 10 | WP-11 (JEI), kein Konflikt sonst |
 | WP-27 | Simple Ores (bauen, nicht ausliefern) | BS29b-2 | neu | ja (Nutzen je Erz) | 8 | Feature-Flag |
-| WP-28 | Erz-Statistiken (Phase 2) | BS29b-1 | Wiki/Testzentrale | nein | 4 | Release |
-| WP-29 | Simple Skilltree (Phase 3) | BS29-2 | neu | ja | 10 | Phase 3 |
-| WP-30 | Web-Karte Stufe 4 (3D) + Dimensionen | WEB-Rest | simplemaps | nein | 6 | WP-21, Browser-Abnahme |
+| WP-28 | Erz-Statistiken (Phase 2) | BS29b-1 | Wiki/Testzentrale | nein | 4 | Release  [R] nach Release (03.11.) |
+| WP-29 | Simple Skilltree (Phase 3) | BS29-2 | neu | ja | 10 | Phase 3  [R] nach Release (03.11.) |
+| WP-30 | Web-Karte Stufe 4 (3D) + Dimensionen | WEB-Rest | simplemaps | nein | 6 | WP-21, Browser-Abnahme  [R] nach Release (03.11.) |
 | WP-31 | Dubletten Kern/Module + Port-abhängige Reste | REV24-F-17, REV24-N-5, AUDM24-6, CMD24-4 | Kern, lib | nein | 5 | 26.2-Entscheid / Port-Run |
-| WP-32 | Phase 3 / ganz am Ende (nur auf Anforderung) | PHASEN, END-3…END-9, END-11…END-16 | übergreifend | – | offen | Besitzer „los“ |
+| WP-32 | Phase 3 / ganz am Ende (nur auf Anforderung) | PHASEN, END-3…END-9, END-11…END-16 | übergreifend | – | offen | Besitzer „los“  [R] nach Release (03.11.) |
 | WP-33 | Simple Earth Umsetzung | WL-1 (Runden E29–E31 laufen über ihre Abschnitte) | simpleearth | Besitzer | offen | Besitzer-Anforderung |
 | WP-34 | Besitzer-Betrieb + Abnahme-Termin (kein Agent) | OPS-1…5, WIKI24-2, e3/END-1, e5/END-2, CL-1…CL-7, END-10 | Betrieb/Client | Besitzer | 0 | – |
 
@@ -289,7 +309,7 @@ Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [x] ORES32-PFEIL Silberpfeil Optik – A (helle Silberspitze) (schon gebaut: Variante A „gebaut“ in der Abnahme, silver_arrow in OresRegistry; nur Abnahme-Haken, Umzug nach Simple Arrows läuft separat unter ORES31-PFEIL) → QW
 - [x] LIVE32-ICON Simple Livemap Mod-Icon – A (erkundetes Land im Nebel) (schon gebaut: modules/simplelivemap/shared/resources/assets/simplelivemap/icon.png + icon_128.png) → QW
 - [x] FOUNDRY32-NAME Simple Foundry Block-Namen – A Hütte (schon gebaut: Lang block.simplefoundry.foundry_brick „Hüttenziegel“, foundry_desk „Hüttenpult“) → QW
-- [ ] FOUNDRY32-UI Simple Foundry Hüttenpult-Oberfläche – A (Plätze links, Schnitt Mitte, Stapel rechts) = Pult-Screen bauen (heute Rechtsklick + Chat); UI-Regeln: erst exemplarisch, Kontrast >= 4,5:1, echte Maus testen → PRIO
+- [R] FOUNDRY32-UI Simple Foundry Hüttenpult-Oberfläche – A (Plätze links, Schnitt Mitte, Stapel rechts) = Pult-Screen bauen (heute Rechtsklick + Chat); UI-Regeln: erst exemplarisch, Kontrast >= 4,5:1, echte Maus testen → PRIO
 - [~] (B, b-rohr02, 02.11.) ROHR33-UI Rohr-Fenster Umbau – Kompass-Anordnung (oben N, links W, rechts O, unten S, daneben Spalte Oben/Unten); 3 Zustände je Seite per Klick: Ausgang (hellrot) -> aus -> Eingang -> Ausgang; mehrere Ausgänge erlaubt (Round-Robin), Tooltip mit Zustand, echte Maus testen. Die Rohr-Varianten-Frage (ROHR33 Form/Pfeil/Muffe) bleibt OFFEN beim Besitzer → PRIO
 - [~] (B, b-boat02, 02.11.) BOAT40 Ofen-Boot – wie das Vanilla-Chest-Boat, nur mit Ofen statt Truhe (Modell, Item, Rezept analog; Optik damit beantwortet; Konzeptfragen mit Empfehlung angenommen) → PRIO
 - [~] (B, b-endsys01, 02.11.) MACH32-ENDSYS End-Systeme – Enderit-Teile nur verfügbar, wenn Enderit existiert (Simple Ores geladen); überall, wo Enderit optional ist, Simple Ores in fabric.mod.json als „recommends“ listen → PRIO
@@ -301,7 +321,7 @@ Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 ## BESITZER-ABNAHME 03.11. → umsetzen (b-abn04)
 Quelle: /root/b-antworten-20261103a.md (wörtlich). Archiv (archiv.json 03.11.): BOSS01, FOUNDRY03, MUSIC03, MECH03, TEX03, ROHR02, BOAT02, ENCH01, ARROWS01, UI02, COND38, ROHR33, TROMP-1, TROMP-2. Offen bleiben QOL33 (Free Look) und RELQOA.
 - [ ] BOSS01 Boss-/Spawn-Ei-Texturen Vanilla-artiger (v. a. Spawn-Eier) → PRIO (geplant b-boss02)
-- [ ] FOUNDRY03 Foundry-Glas wird Spezialglas, das Wärme dämmt wie die Ziegelwände darin; weitere Punkte nach Ingame-Abnahme → PRIO (geplant b-foundry04)
+- [R] FOUNDRY03 Foundry-Glas wird Spezialglas, das Wärme dämmt wie die Ziegelwände darin; weitere Punkte nach Ingame-Abnahme → PRIO (geplant b-foundry04)
 - [x] MUSIC03, MECH03 abgenommen (Abnahme-Haken) → QW
 - [ ] TEX03 Blei-Farbe zurück wie vorher (Karo leise B + Glanz-Reduktion bleiben) → QW (b-small04)
 - [ ] ROHR02 Rohr-Fenster: Padding größer, UI ragt über den Hintergrund → QW (b-small04)
@@ -330,7 +350,7 @@ Quelle: /root/b-antworten-20261102b.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [x] HEADS39 Mob-Köpfe-Tab – abgenommen bis Spielprüfung durch Besitzer (Beleg: b-heads39) → QW
 - [x] QOL33 (Trichter, Keypicker inkl. Collapsibles) abgenommen; Free Look noch NICHT getestet, bleibt offen (IG31-29) → PRIO
 - [~] (B, b-rohr02, 02.11.) ROHR33 Verengung zum Ziel größer als jetzt, aber kleiner als das Rohr; UI-Wünsche aus Teil 2 (Kompass, 3 Zustände) gelten → PRIO
-- [~] (B, b-foundry03, 02.11.) FOUNDRY32 Rohstoffe übereinander gestapelt wie Variante A; Füllstand des Brennstofftanks sichtbar; nachfüllbar mit Kohle oder Lava (Lava Hauptweg); Endkonzept kommt noch vom Besitzer → PRIO
+- [R] (B, b-foundry03, 02.11.) FOUNDRY32 Rohstoffe übereinander gestapelt wie Variante A; Füllstand des Brennstofftanks sichtbar; nachfüllbar mit Kohle oder Lava (Lava Hauptweg); Endkonzept kommt noch vom Besitzer → PRIO
 - [x] BOAT40 Ofen-Boot: Optik beantwortet (bereits unter Teil 2, b-boat02)
 - [x] IDEEN-PHASE4 „Geteilter Klumpen“ (anderes Erz) und „Fladen C“ vorgemerkt (docs/ai/IDEEN-PHASE4.md)
 - [x] TROMP-HOERPROBE Hörproben der Trompeten-Seite repariert: fetch(data:)-Dekodierung durch atob ersetzt, init einmalig, resume(); headless geprüft (7 Töne dekodiert, Start/Stop). TROMP-1/-2 bleiben offen bis zur Hörabnahme → QW
@@ -390,15 +410,15 @@ Quelle: /root/b-antworten-20261101c.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 - [ ] Luef Hut-Lüftung als Belohnung – ja → PRIO
 - [ ] Brut Brutaltar Konzept – K1 In-World-Ritual → PRIO
 - [x] SA2 Schmelzanlage (Simple Foundry): Name – A Hütte (Hüttenpult, Hüttenziegel) (schon gebaut: Hüttenpult/Hütte-Namen im Bestand (simplefoundry de_de)) → PRIO
-- [~] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA3 Schmelzanlage (Simple Foundry): Stufen – A 4 Stufen 3/6/9/12 → PRIO
-- [~] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA4 Schmelzanlage (Simple Foundry): Klick nach unten im Steuerblock – A Pfeil wechselt Schicht → PRIO
-- [~] (B, b-foundry02, 01.11.: CastTarget + Schale fertig, Kessel Content.MELT offen) SA5 Schmelzanlage (Simple Foundry): Gießziel – C beides (Gefäß und verstärkter Kessel) → PRIO
-- [ ] SA6 Schmelzanlage (Simple Foundry): Twist – A Schichtschmelze → PRIO
-- [~] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA7 Schmelzanlage (Simple Foundry): Einschmelzbare Stoffe – A Geräte einschmelzen: ja → PRIO
-- [ ] SA8 Schmelzanlage (Simple Foundry): Tankfassung – A 27 Barren → PRIO
-- [ ] SA9 Schmelzanlage (Simple Foundry): Hülle – A Dach Pflicht → PRIO
-- [ ] SA10 Schmelzanlage (Simple Foundry): Erz-Bonus – A aus → PRIO
-- [~] (B, b-foundry03, 02.11., Beleg docs/ai/PLAN-B-FOUNDRY03-2026-11-02.md; Tests siehe Memory) Simple Foundry 02.11.: Rohmaterialien als Schichten sichtbar (Kammerfenster, Variante A), Brennstofftank mit Füllstand (Pultfront + Fenster), Nachfüllen mit Lava-Eimer (Hauptweg) oder Kohle, Pult-Fenster FOUNDRY32-UI = A (Plätze links, Schnitt Mitte, Stapel rechts) → offen Besitzer-Abnahme der Optik (Vorschau abnahme-b/b-foundry03-preview.html), Gate/Production
+- [R] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA3 Schmelzanlage (Simple Foundry): Stufen – A 4 Stufen 3/6/9/12 → PRIO
+- [R] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA4 Schmelzanlage (Simple Foundry): Klick nach unten im Steuerblock – A Pfeil wechselt Schicht → PRIO
+- [R] (B, b-foundry02, 01.11.: CastTarget + Schale fertig, Kessel Content.MELT offen) SA5 Schmelzanlage (Simple Foundry): Gießziel – C beides (Gefäß und verstärkter Kessel) → PRIO
+- [R] SA6 Schmelzanlage (Simple Foundry): Twist – A Schichtschmelze → PRIO
+- [R] (B, b-foundry02, 01.11., Beleg docs/ai/PLAN-B-FOUNDRY02-2026-11-01.md) SA7 Schmelzanlage (Simple Foundry): Einschmelzbare Stoffe – A Geräte einschmelzen: ja → PRIO
+- [R] SA8 Schmelzanlage (Simple Foundry): Tankfassung – A 27 Barren → PRIO
+- [R] SA9 Schmelzanlage (Simple Foundry): Hülle – A Dach Pflicht → PRIO
+- [R] SA10 Schmelzanlage (Simple Foundry): Erz-Bonus – A aus → PRIO
+- [R] (B, b-foundry03, 02.11., Beleg docs/ai/PLAN-B-FOUNDRY03-2026-11-02.md; Tests siehe Memory) Simple Foundry 02.11.: Rohmaterialien als Schichten sichtbar (Kammerfenster, Variante A), Brennstofftank mit Füllstand (Pultfront + Fenster), Nachfüllen mit Lava-Eimer (Hauptweg) oder Kohle, Pult-Fenster FOUNDRY32-UI = A (Plätze links, Schnitt Mitte, Stapel rechts) → offen Besitzer-Abnahme der Optik (Vorschau abnahme-b/b-foundry03-preview.html), Gate/Production
 - [~] (B, b-zones02, 01.11.) ZO1 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Zonen-Effekte standardmäßig – A (Zonen-Effekte standardmäßig: aus bis Client-Abnahme, dann an) – gebaut (zoneMobsEnabled aus bis Client-Abnahme), Umschalten nach Abnahme (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
 - [~] (B, b-zones02, 01.11.) ZO2 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): Wert-Formel 0,7 x W_lang + 0,3 x F, Tod -25 % auf V – A (Wert-Formel 0,7 x W_lang + 0,3 x F, Tod -25 % auf V) – gebaut (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
 - [~] (B, b-zones02, 01.11.) ZO3 Zonen & Resonanz (Konzept WP-22, Branch a-konz29g): API-Weg – A (API-Weg: Vertrag in framework/) – gebaut (Plan docs/ai/PLAN-B-ZONES02-2026-11-01.md; Test im Bündel offen) → PRIO
@@ -579,7 +599,7 @@ Abgenommen ohne Folgearbeit: WA24-3 Butter-Teppich „passt“, WA24-4 Köcher, 
 - [x] (B, b-wb24f14 5d578ea91: Release-Jar-Filter in mc26_3/fabric/build.gradle nur auf com/simplebuilding/gametest, Testzentrale /sbtestcentre bleibt im Jar (Besitzer, CL-6/END-10/TZ22-9); Jar 46,2 → 44,1 MB, SB-Klassen 1488 → 1201 (gametest 287 → 0, dev 53 bleibt), fabric-gametest-Einträge leer + Build-Prüfung (Testzentrale muss drin sein); fabric-263 voll 1233/1233 (5c67b77f5) + test_centre* 19/19, integration-263 4/4, standalone crucibles 71/71, storage 120/120, hammers 15/15, check grün; Module unverändert) WB24-8 (REV24-F-14) Testcode **ja, trennen**: Gametests/Dev-Code aus dem Release-Jar (eigenes Sourceset + Release-Filter), Tests müssen weiter laufen. (Status 01.11.: prod – b-wb24f14 (Merge ac78dee94))
 
 ## Besitzer 29.10. – Erz-Statistiken, Simple Ores, Kisten-Netzwerk (BS29b)
-- [ ] BS29b-1 PHASE 2: YouTube-Video https://www.youtube.com/watch?v=Y3iR0jDfNgc&t=346s transkribieren/zusammenfassen. Daraus NUR die Statistiken und Aufschlüsselungsarten übernehmen (keine Verbesserungsvorschläge) und genau so für ALLE Erze und Blocktypen erstellen – Vanilla und Mod-Erze, Mod-Blöcke, Mod-Blocktypen, Mod-Werkzeuge usw. Reine Darstellung (z. B. Wiki/Testzentrale). → WP-28 (Status 01.11.: offen – Phase 2: Video transkribieren, Erz-Statistiken (WP-28))
+- [R] BS29b-1 PHASE 2: YouTube-Video https://www.youtube.com/watch?v=Y3iR0jDfNgc&t=346s transkribieren/zusammenfassen. Daraus NUR die Statistiken und Aufschlüsselungsarten übernehmen (keine Verbesserungsvorschläge) und genau so für ALLE Erze und Blocktypen erstellen – Vanilla und Mod-Erze, Mod-Blöcke, Mod-Blocktypen, Mod-Werkzeuge usw. Reine Darstellung (z. B. Wiki/Testzentrale). → WP-28 (Status 01.11.: offen – Phase 2: Video transkribieren, Erz-Statistiken (WP-28))
 - [~] BS29b-2 Simple Ores (neuer Sub-Mod von Simple Building; evtl. Phase 3 – schon bauen, aber erst ausliefern, wenn fertig → Feature-Flag/nicht ins Release): Zink, Silber, Nickel und einige weitere Erze. Werkzeug-Palette bleibt unverändert (Holz, Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit) – also KEINE neuen Werkzeuge; jedes Erz braucht ein eigenes Alleinstellungsmerkmal/Nutzen (Agent schlägt vor, Prinzip A12). Blöcke aus jedem Metall; kompatibel mit der Schmelzanlage (HS29-1). → WP-27 (Status 01.11.: abnahme – Simple Ores gebaut (modules/simpleores); weitere Erze Blei/Zink/Platin offen)
   - Silber: selten, aber weniger selten als Gold; Overworld etwa so häufig wie Gold. Im End als Silber-Endsteinerz (wie Nether-Golderz): droppt Silber-Nuggets, reichlich; größere Flecken ok (Farbe passt zum Endstein).
   - Zink/Nickel: Nutzen noch offen → Vorschläge.
@@ -605,7 +625,7 @@ Abgenommen ohne Folgearbeit: WA24-3 Butter-Teppich „passt“, WA24-4 Köcher, 
 
 ## Besitzer 29.10. – Durch Gras schlagen, Skilltree, Fernrohr (BS29) – erst nach „weiter“
 - [~] (A, a-qol29, 29.10.) BS29-1 „Durch Gras schlagen“ verbessern, orientiert an https://modrinth.com/mod/cut-through : mit Schärfe Chance, durch Gras/Pflanzen hindurch den Mob zu treffen (Gras ohne Hitbox) und dabei das Gras abzubauen – Schärfe I 10 %, linear bis Schärfe V 90 %. Abgebautes Gras: leichter Effekt; Standard (auch Axt) 3×3 um Block bzw. Ziel; mit Schwungkraft (Sweeping Edge) je Stufe größerer Bereich/mehr Blöcke (z. B. Stufe I 2–7 Blöcke im 3×3, Stufe II 3–9 … → größere Reichweite). Ist-Stand des vorhandenen Features prüfen, Plan, Tests. → WP-12 (Status 01.11.: abnahme – Besitzer-/Client-Abnahme)
-- [ ] BS29-2 PHASE 3: „Simple Skilltree“, angelehnt an https://modrinth.com/mod/skills und den Craftmine-Skilltree; voll konfigurierbar. Standard: einige Spieler-/allgemeine Werte als Skills, je Skillpunkt ein Upgrade, manche Skills teurer (Progression wie in To the Core, Scratchy Scratch, Bills Must Be Paid). Nur notieren/Konzept in Phase 3. → WP-29 (Status 01.11.: offen – Phase 3: Simple Skilltree (WP-29), nicht begonnen)
+- [R] BS29-2 PHASE 3: „Simple Skilltree“, angelehnt an https://modrinth.com/mod/skills und den Craftmine-Skilltree; voll konfigurierbar. Standard: einige Spieler-/allgemeine Werte als Skills, je Skillpunkt ein Upgrade, manche Skills teurer (Progression wie in To the Core, Scratchy Scratch, Bills Must Be Paid). Nur notieren/Konzept in Phase 3. → WP-29 (Status 01.11.: offen – Phase 3: Simple Skilltree (WP-29), nicht begonnen)
 - [~] (A, a-qol29, 29.10.) BS29-3 QoL Fernrohr: Fernrohr-Overlay nur am Bildschirmrand, übrige HUD-Elemente ausblenden, Zoom per Mausrad stufenlos; Zoom-Mod-Funktion integrieren (Config: Zoom nur mit Fernrohr oder zusätzlich per Hotkey, gleiches Overlay). Optik erst Vorschau. → WP-12 (Status 01.11.: abnahme – Besitzer-/Client-Abnahme)
 - [~] (A, a-qol29, 29.10.) BS29-4 Zwei Resourcepacks als eigene Funktion integrieren (QoL bzw. passender Mod, abschaltbar): https://modrinth.com/resourcepack/clearer-slot-highlight (deutlichere Slot-Hervorhebung) und https://modrinth.com/resourcepack/leggings-fix (Hosen-/Leggings-Darstellung). Lizenz prüfen; eigene Umsetzung/eigene Pixel, keine fremden Dateien ohne passende Lizenz, keine Mojang-Pixel im Repo. Vorher/Nachher-Vorschau. → WP-12 (Status 01.11.: abnahme – Besitzer-/Client-Abnahme)
 
@@ -726,7 +746,7 @@ Screenshots: /root/sb-tools-a/owner-img/25-glow-frame-titel.png (Fragentisch), 2
 
 ## Warteliste (später, Besitzer 23.10.)
 - [~] (A, a-chal30, 30.10.; Stand „S0–S8 fertig“ auf Branch a-chal30 (auf a-chal29b): S5 Lucky Block + Random Drops, S6 Skyline (linear/Raster/Ring, Stützen, Nachwachsen, Siegel + Endportal, Ankunft), S7 Easter Eggs (Endschiff/Elytra, Mini-Bastion, Tresor + Schlüssel, Backup), S8 16 Presets + Handbuch + Client-Smoke; offen Client-Sicht, Seed-Vorschau, R11-Audit, Server-Leerwelt; davor a-chal29b: S0–S4 – (alter Stand: S3 Welttyp „Simple Challenges“ + Zeile mit 3 letzten Challenges + Select-Challenge-Bildschirm + Rechteck-Editor mit Kartenvorschau, Fadenkreuz-Zeile, Weltspawn 0,0, Mob-Spawn-Sperre, Rand-Lehnen, Credits pro Spieler (Config); S4 Skyblock-Familie Classic/One Block/Sky Grid/Island Unlock; offen Seed-/Biom-Vorschau der Karte, Client-Sicht, S5 Lucky, S6 Skyline, S7 Easter Eggs, S8 Presets/Client-Smoke-Abnahme; Konzept abgenommen ABN29b-6)) CH29-1 KONZEPT „Simple Challenges“ (Spielmodi-Sub-Mod: Chunk/Block Unlock, Skyblock/One Block, Lucky Block, Skyline Block mit Easter Eggs, Presets, Welt-Erstellungs-UI, harte Sicherheitssperre ohne Konfiguration). Volle Spezifikation: docs/ai/WUNSCH-SIMPLE-CHALLENGES-2026-10-29.md. Zuerst intensive Recherche der beliebtesten Vorbilder (Verhalten, Probleme, Code), dann verbessern statt kopieren, Plan + Konzept-Artifact zur Abnahme. Umsetzung spätestens Phase 3, Konzept früher bereithalten. → WP-24
-- [ ] PHASEN (Besitzer 27.10.): Phase 2 beginnt mit der Veröffentlichung (Bugfixes + Fertigstellen aller nicht fertigen/nicht polierten Mods). Phase 3 = Verbesserungsphase. Für Phase 3 vermerkt: Octet-Zellen-Texturen nicht optimal → Referenzbilder /root/sb-tools-a/owner-img/27-octet-texturen-1.png und 27-octet-texturen-2.webp. → WP-32
+- [R] PHASEN (Besitzer 27.10.): Phase 2 beginnt mit der Veröffentlichung (Bugfixes + Fertigstellen aller nicht fertigen/nicht polierten Mods). Phase 3 = Verbesserungsphase. Für Phase 3 vermerkt: Octet-Zellen-Texturen nicht optimal → Referenzbilder /root/sb-tools-a/owner-img/27-octet-texturen-1.png und 27-octet-texturen-2.webp. → WP-32
 - [ ] WL-1 Simple Earth (neue Mod, später): Erde als abgerundeter Würfel ab Render-Umschalthöhe, Aktivierungshöhe = Würfelmitte, Kanten/Ecken drehen sich beim Flug, unendliche Welt „tesserakt-artig“ (jede Fläche neues Terrain), Terrain aus groben Chunk-Abfragen, Mond würfelig, Sonne flach. Vollständiger Wunsch: `docs/ai/WUNSCH-SIMPLE-EARTH-2026-10-23.md`; Konzept (Recherche Cosmic Horizons): `docs/ai/KONZEPT-SIMPLE-EARTH-2026-10-23.md` – **Konzept fertig (a-earth-konzept, 23.10.), Fragen E1–E12 an den Besitzer**, Empfehlung Tesserakt-Variante V3 „Eckfenster + Umstülpen“; Vorschau `/root/sb-tools-a/previews/earth-konzept.html`. Umsetzung erst auf Besitzer-Anforderung. → WP-33
 
 ## Funde 23.10.
