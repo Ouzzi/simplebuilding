@@ -22,6 +22,6 @@ public abstract class FreeLookHandMixin {
         var player = Minecraft.getInstance().player;
         if (player == null) return;
         Quaternionf q = FreeLook.handCorrection(player.getViewYRot(partialTicks), player.getViewXRot(partialTicks));
-        if (q != null) poseStack.mulPose(q);
+        if (q != null) poseStack.mulPose(new org.joml.Matrix4f().rotation(q));
     }
 }

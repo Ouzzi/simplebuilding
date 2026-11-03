@@ -976,7 +976,7 @@
       ],
       "en": {
         "title": "Spyglass and zoom",
-        "summary": "The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel. Optionally the zoom key (default C) zooms without a spyglass with the same overlay.",
+        "summary": "The spyglass darkens only the screen edge, hides the HUD (crosshair stays) and zooms steplessly with the mouse wheel. Optionally the zoom key (default V) zooms without a spyglass with the same overlay.",
         "details": [
           "Client only. The overlay is one own texture (soft rim, clear middle) stretched over the screen. Every part has its own switch in config/simpleinterfaces.json: scopeEdgeOverlay, scopeHideHud, scopeWheelZoom, zoomHotkey, zoomMaxMagnification; with all off the spyglass is exactly Vanilla.",
           "The mouse slows down with the zoom."
@@ -984,7 +984,7 @@
       },
       "de": {
         "title": "Fernrohr und Zoom",
-        "summary": "Das Fernrohr dunkelt nur den Bildschirmrand ab, blendet das HUD aus (Fadenkreuz bleibt) und zoomt stufenlos mit dem Mausrad. Optional zoomt die Zoom-Taste (Standard C) ohne Fernrohr mit demselben Overlay.",
+        "summary": "Das Fernrohr dunkelt nur den Bildschirmrand ab, blendet das HUD aus (Fadenkreuz bleibt) und zoomt stufenlos mit dem Mausrad. Optional zoomt die Zoom-Taste (Standard V) ohne Fernrohr mit demselben Overlay.",
         "details": [
           "Nur clientseitig. Das Overlay ist eine eigene Textur (weicher Rand, klare Mitte), über den Bildschirm gezogen. Jeder Teil hat einen eigenen Schalter in config/simpleinterfaces.json: scopeEdgeOverlay, scopeHideHud, scopeWheelZoom, zoomHotkey, zoomMaxMagnification; sind alle aus, ist das Fernrohr genau wie Vanilla.",
           "Die Maus wird mit dem Zoom langsamer."
@@ -1139,14 +1139,14 @@
       ],
       "en": {
         "title": "Zoom key without spyglass",
-        "summary": "The zoom key (default C, change it in the controls) zooms without a spyglass, with the same overlay. Off: zoom only with the spyglass. Default: off.",
+        "summary": "The zoom key (default V, change it in the controls) zooms without a spyglass, with the same overlay. Off: zoom only with the spyglass. Default: off.",
         "details": [
           "Local value in config/simpleinterfaces.json (client only)."
         ]
       },
       "de": {
         "title": "Zoom-Taste ohne Fernrohr",
-        "summary": "Die Zoom-Taste (Standard C, in den Steuerungen änderbar) zoomt ohne Fernrohr, mit demselben Overlay. Aus: Zoom nur mit dem Fernrohr. Standard: aus.",
+        "summary": "Die Zoom-Taste (Standard V, in den Steuerungen änderbar) zoomt ohne Fernrohr, mit demselben Overlay. Aus: Zoom nur mit dem Fernrohr. Standard: aus.",
         "details": [
           "Lokaler Wert in config/simpleinterfaces.json (nur Client)."
         ]

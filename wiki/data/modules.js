@@ -555,7 +555,7 @@ window.WIKI_MODULES = [
       "recipes": 21,
       "features": 7
     },
-    "dataHash": "ef4ce3521444"
+    "dataHash": "c89613a0006c"
   },
   {
     "id": "simpleinterfaces",
@@ -586,7 +586,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 55
     },
-    "dataHash": "52b775fee7c5"
+    "dataHash": "ef4fbbb1c5f6"
   },
   {
     "id": "simplemaps",
@@ -779,7 +779,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "4825252ad46b"
+    "dataHash": "1510193cbfd8"
   },
   {
     "id": "simpletools",
@@ -1725,7 +1725,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "bff7093d39b0"
+    "dataHash": "dfbbd8dc56d7"
   },
   {
     "id": "simplechallenges",
