@@ -898,6 +898,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // PISTON REINFORCED & NETHERITE
                 // =================================================================
+                if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines ships the piston recipes (MACH32-MOD stage 2)
                 ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON, 2)
                         .pattern("DDD")
                         .pattern("PIP")
@@ -915,6 +916,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('P', ModItems.REINFORCED_PISTON)
                         .unlockedBy(getHasName(ModItems.REINFORCED_PISTON), has(ModItems.REINFORCED_PISTON))
                         .save(output);
+                }
 
 
                 if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace recipes

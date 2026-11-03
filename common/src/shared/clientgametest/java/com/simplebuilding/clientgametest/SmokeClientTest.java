@@ -1417,7 +1417,8 @@ public final class SmokeClientTest {
     private static void breakerPistonSoundReachesTheClient(Script script) {
         TestScene.build(script, "minecraft:stone", "creative");
 
-        Identifier breakSound = com.simplebuilding.util.ModSounds.PISTON_BORE_ID;
+        Identifier breakSound = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? com.simplebuilding.util.ModSounds.PISTON_BORE_ID
+                : Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE, "block.piston.bore");
 
         script.act("install the sound listener", SoundRecorder::install);
 
@@ -1443,7 +1444,7 @@ public final class SmokeClientTest {
         clearWorkingVolume(script);
 
         Later<List<SoundRecorder.Heard>> mod = firePiston(script, "the netherite breaker piston",
-                "simplebuilding:netherite_piston", "east", MOD_PISTON, MOD_PISTON_TARGET);
+                com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":netherite_piston", "east", MOD_PISTON, MOD_PISTON_TARGET);
 
         script.act("the netherite breaker piston broke the block in front of it", client -> {
             // "Broke it" and not merely "extended past it": a piston that only pushed would have

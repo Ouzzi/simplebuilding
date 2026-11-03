@@ -131,10 +131,12 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
             add(ModBlocks.ENDERITE_SHULKER_BOX, tieredShulkerBoxDrop(ModBlocks.ENDERITE_SHULKER_BOX));
         }
 
-        dropSelf(ModBlocks.REINFORCED_PISTON);
-        dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);
-        dropSelf(ModBlocks.NETHERITE_PISTON);
-        dropSelf(ModBlocks.ENDERITE_PISTON);
+        if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines ships the piston loot tables
+            dropSelf(ModBlocks.REINFORCED_PISTON);
+            dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);
+            dropSelf(ModBlocks.NETHERITE_PISTON);
+            dropSelf(ModBlocks.ENDERITE_PISTON);
+        }
 
         if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: Simple Ovens ships the furnace loot tables
             dropSelf(ModBlocks.REINFORCED_BLAST_FURNACE);

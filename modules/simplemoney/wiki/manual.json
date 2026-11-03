@@ -1388,7 +1388,7 @@
       "id": "money_links_simplebuilding",
       "en": {
         "title": "Linked Price Table: simplebuilding",
-        "summary": "211 item prices; loaded-mod condition: simplebuilding.",
+        "summary": "207 item prices; loaded-mod condition: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: tier 1, hours 6.7, craft 9; 19 bills; toolsmith 2; stock 2; chance 1.",
           "simplebuilding:astral_end_stone: tier 4, hours 25.0, craft 9; 46 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1474,7 +1474,6 @@
           "simplebuilding:enderite_nautilus_armor: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_nugget: tier 5, hours 38.1, craft 1; 55 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_pickaxe: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:enderite_piston: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_pressure_plate: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_quiver: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:enderite_scrap: tier 5, hours 38.1, craft 1; 55 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1519,7 +1518,6 @@
           "simplebuilding:netherite_hopper: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_launchpad: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_nugget: tier 4, hours 24.9, craft 1; 38 bills; wandering_trader 5; stock 1; chance 0.1.",
-          "simplebuilding:netherite_piston: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_pressure_plate: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_quiver: tier 4, hours 24.9, craft 3; 40 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:netherite_shulker_box: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
@@ -1578,11 +1576,9 @@
           "simplebuilding:reinforced_elytra_pad: tier 3, hours 21.0, craft 3; 33 bills; mason 4; stock 1; chance 1.",
           "simplebuilding:reinforced_flypad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:reinforced_hopper: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
-          "simplebuilding:reinforced_piston: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
           "simplebuilding:reinforced_potion_pad: tier 5, hours 38.1, craft 3; 57 bills; wandering_trader 5; stock 1; chance 0.1.",
           "simplebuilding:reinforced_quiver: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
           "simplebuilding:reinforced_shulker_box: tier 0, hours 0.5, craft 0; 8 bills; mason 1; stock 2; chance 1.",
-          "simplebuilding:reinforced_sticky_piston: tier 0, hours 0.5, craft 2; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:red_nether_brick_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
           "simplebuilding:resin_quartz_checker: tier 0, hours 0.5, craft 4; 8 bills; mason 1; stock 2; chance 1.",
@@ -1607,7 +1603,7 @@
       },
       "de": {
         "title": "Verknüpfte Preisliste: simplebuilding",
-        "summary": "211 Itempreise; Mod-Ladebedingung: simplebuilding.",
+        "summary": "207 Itempreise; Mod-Ladebedingung: simplebuilding.",
         "details": [
           "simplebuilding:amethyst_lens: Stufe 1, Stunden 6.7, Rezeptplaetze 9; 19 Scheine; toolsmith 2; Vorrat 2; Chance 1.",
           "simplebuilding:astral_end_stone: Stufe 4, Stunden 25.0, Rezeptplaetze 9; 46 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1693,7 +1689,6 @@
           "simplebuilding:enderite_nautilus_armor: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_nugget: Stufe 5, Stunden 38.1, Rezeptplaetze 1; 55 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_pickaxe: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:enderite_piston: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_pressure_plate: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_quiver: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:enderite_scrap: Stufe 5, Stunden 38.1, Rezeptplaetze 1; 55 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1738,7 +1733,6 @@
           "simplebuilding:netherite_hopper: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_launchpad: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_nugget: Stufe 4, Stunden 24.9, Rezeptplaetze 1; 38 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
-          "simplebuilding:netherite_piston: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_pressure_plate: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_quiver: Stufe 4, Stunden 24.9, Rezeptplaetze 3; 40 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:netherite_shulker_box: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
@@ -1797,11 +1791,9 @@
           "simplebuilding:reinforced_elytra_pad: Stufe 3, Stunden 21.0, Rezeptplaetze 3; 33 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplebuilding:reinforced_flypad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:reinforced_hopper: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
-          "simplebuilding:reinforced_piston: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplebuilding:reinforced_potion_pad: Stufe 5, Stunden 38.1, Rezeptplaetze 3; 57 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
           "simplebuilding:reinforced_quiver: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
           "simplebuilding:reinforced_shulker_box: Stufe 0, Stunden 0.5, Rezeptplaetze 0; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
-          "simplebuilding:reinforced_sticky_piston: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:red_nether_brick_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
           "simplebuilding:resin_quartz_checker: Stufe 0, Stunden 0.5, Rezeptplaetze 4; 8 Scheine; mason 1; Vorrat 2; Chance 1.",
@@ -1910,7 +1902,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_nautilus_armor.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_nugget.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_pickaxe.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_piston.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/enderite_quiver.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simpleores/enderite_scrap.json",
@@ -1955,7 +1946,6 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_hopper.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_launchpad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_nugget.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_piston.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_pressure_plate.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_quiver.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/netherite_shulker_box.json",
@@ -2014,11 +2004,9 @@
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_elytra_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_flypad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_hopper.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_piston.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_potion_pad.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_quiver.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_shulker_box.json",
-        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/reinforced_sticky_piston.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/nether_brick_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/red_nether_brick_quartz_checker.json",
         "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplebuilding/resin_quartz_checker.json",
@@ -2127,7 +2115,6 @@
         "simplebuilding:enderite_nautilus_armor",
         "simplebuilding:enderite_nugget",
         "simplebuilding:enderite_pickaxe",
-        "simplebuilding:enderite_piston",
         "simplebuilding:enderite_pressure_plate",
         "simplebuilding:enderite_quiver",
         "simplebuilding:enderite_scrap",
@@ -2174,7 +2161,6 @@
         "simplebuilding:netherite_hopper",
         "simplebuilding:netherite_launchpad",
         "simplebuilding:netherite_nugget",
-        "simplebuilding:netherite_piston",
         "simplebuilding:netherite_pressure_plate",
         "simplebuilding:netherite_quiver",
         "simplebuilding:netherite_shulker_box",
@@ -2234,11 +2220,9 @@
         "simplebuilding:reinforced_elytra_pad",
         "simplebuilding:reinforced_flypad",
         "simplebuilding:reinforced_hopper",
-        "simplebuilding:reinforced_piston",
         "simplebuilding:reinforced_potion_pad",
         "simplebuilding:reinforced_quiver",
         "simplebuilding:reinforced_shulker_box",
-        "simplebuilding:reinforced_sticky_piston",
         "simplebuilding:nether_brick_quartz_checker",
         "simplebuilding:red_nether_brick_quartz_checker",
         "simplebuilding:resin_quartz_checker",
@@ -2875,6 +2859,42 @@
         "simpleovens:reinforced_blast_furnace",
         "simpleovens:reinforced_furnace",
         "simpleovens:reinforced_smoker"
+      ]
+    },
+    {
+      "id": "money_links_simplemachines",
+      "en": {
+        "title": "Linked Price Table: simplemachines",
+        "summary": "4 item prices; loaded-mod condition: simplemachines (the Enderite Piston also needs simpleores).",
+        "details": [
+          "simplemachines:enderite_piston: tier 5, hours 38.1, craft 0; 54 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplemachines:netherite_piston: tier 4, hours 24.9, craft 0; 37 bills; wandering_trader 5; stock 1; chance 0.1.",
+          "simplemachines:reinforced_piston: tier 3, hours 21.0, craft 9; 39 bills; mason 4; stock 1; chance 1.",
+          "simplemachines:reinforced_sticky_piston: tier 0, hours 0.5, craft 2; 8 bills; mason 1; stock 2; chance 1."
+        ]
+      },
+      "de": {
+        "title": "Verknüpfte Preisliste: simplemachines",
+        "summary": "4 Itempreise; Mod-Ladebedingung: simplemachines (der Enderitkolben braucht zusätzlich simpleores).",
+        "details": [
+          "simplemachines:enderite_piston: Stufe 5, Stunden 38.1, Rezeptplaetze 0; 54 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplemachines:netherite_piston: Stufe 4, Stunden 24.9, Rezeptplaetze 0; 37 Scheine; wandering_trader 5; Vorrat 1; Chance 0.1.",
+          "simplemachines:reinforced_piston: Stufe 3, Stunden 21.0, Rezeptplaetze 9; 39 Scheine; mason 4; Vorrat 1; Chance 1.",
+          "simplemachines:reinforced_sticky_piston: Stufe 0, Stunden 0.5, Rezeptplaetze 2; 8 Scheine; mason 1; Vorrat 2; Chance 1."
+        ]
+      },
+      "sources": [
+        "modules/simplemoney/shared/resources/data/simplemoney/money/simplemachines/prices.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/enderite_piston.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/netherite_piston.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_piston.json",
+        "modules/simplemoney/generated/resources/data/simplemoney/villager_trade/links/simplemachines/reinforced_sticky_piston.json"
+      ],
+      "related": [
+        "simplemachines:enderite_piston",
+        "simplemachines:netherite_piston",
+        "simplemachines:reinforced_piston",
+        "simplemachines:reinforced_sticky_piston"
       ]
     },
     {

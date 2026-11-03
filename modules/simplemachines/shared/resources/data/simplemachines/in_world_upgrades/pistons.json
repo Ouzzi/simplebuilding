@@ -1,0 +1,28 @@
+{
+  "upgrades": [
+    {
+      "from": "simplemachines:reinforced_piston",
+      "to": "simplemachines:netherite_piston",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simplemachines:reinforced_sticky_piston",
+      "to": "simplemachines:netherite_piston",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simplemachines:netherite_piston",
+      "to": "simplemachines:enderite_piston",
+      "material": "simpleores:enderite_nugget",
+      "min_tool": "netherite",
+      "damage_per_hit": 10,
+      "tier": "enderite"
+    }
+  ]
+}

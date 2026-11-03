@@ -215,7 +215,8 @@ public final class ImmersionTests {
                 "Filter in its menu: exact or type match");
         expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
                 "Filter in its menu: exact or type match");
-        expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
+        // MACH32-MOD stage 2: on 26.3 the Reinforced Pistons are Simple Machines' and their item writes its line itself.
+        if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
         // b-blocksmove: on 26.3 the gravity blocks are Simple Blocks' and their item writes the line itself (like the ovens).
         for (String[] gravity : new String[][]{{com.simplebuilding.util.BlockRefs.LEVITATING_SAND, "Falls upward instead of down"},
                 {com.simplebuilding.util.BlockRefs.SUSPENDED_GRAVEL, "Hangs in mid-air and never falls"}}) {

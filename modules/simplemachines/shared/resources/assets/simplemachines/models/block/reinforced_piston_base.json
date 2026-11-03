@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/piston_base",
+  "textures": {
+    "bottom": "simplemachines:block/reinforced_piston_bottom",
+    "platform": "simplemachines:block/reinforced_piston_top",
+    "side": "simplemachines:block/reinforced_piston_side"
+  }
+}

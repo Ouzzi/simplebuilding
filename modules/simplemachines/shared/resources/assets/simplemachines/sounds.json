@@ -1,0 +1,10 @@
+{
+  "block.piston.bore": {
+    "subtitle": "subtitles.simplemachines.block.piston.bore",
+    "sounds": [
+      "simplemachines:block/piston/bore1",
+      "simplemachines:block/piston/bore2",
+      "simplemachines:block/piston/bore3"
+    ]
+  }
+}

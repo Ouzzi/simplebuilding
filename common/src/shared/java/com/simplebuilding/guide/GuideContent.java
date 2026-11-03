@@ -204,8 +204,8 @@ public final class GuideContent {
                 ch("minecraft:paper", List.of(), List.of("simplebuilding:reinforced_hopper", "minecraft:paper")),
                 ch(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", List.of(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_blast_furnace"), List.of(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_smoker", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":netherite_furnace", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":enderite_furnace")),
                 ch(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":netherite_blast_furnace", List.of(), List.of("minecraft:raw_iron", "minecraft:raw_gold", "minecraft:raw_copper")),
-                ch("simplebuilding:reinforced_piston", List.of("simplebuilding:reinforced_piston"), List.of("simplebuilding:reinforced_sticky_piston", "minecraft:redstone_block", "minecraft:bedrock")),
-                ch("simplebuilding:netherite_piston", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:enderite_piston", "minecraft:redstone_torch")),
+                ch(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston", List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston"), List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_sticky_piston", "minecraft:redstone_block", "minecraft:bedrock")),
+                ch(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":netherite_piston", List.of(), List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":netherite_piston", com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":enderite_piston", "minecraft:redstone_torch")),
                 ch("simplebuilding:netherite_nugget", List.of(), List.of("simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")),
                 ch(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":suspended_sand", List.of(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":suspended_sand", com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":levitating_sand"), List.of(com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":suspended_gravel", com.simplebuilding.version.McVersion.BLOCKS_NAMESPACE + ":levitating_gravel")))));
         STYLES.put(GuideBooks.Book.END, new BookStyle(0xB88BE0, List.of(
@@ -269,7 +269,7 @@ public final class GuideContent {
                 ch("minecraft:chest", List.of(), List.of("simplebuilding:guide_book")),
                 ch("minecraft:emerald", List.of(), List.of("minecraft:emerald")),
                 ch("minecraft:comparator", List.of(), List.of("minecraft:ward_armor_trim_smithing_template", "minecraft:iron_boots")),
-                ch("minecraft:piston", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:iron_building_wand")),
+                ch("minecraft:piston", List.of(), List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":netherite_piston", "simplebuilding:iron_building_wand")),
                 ch("minecraft:barrier", List.of(), List.of(com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", "simplebuilding:magnet", "simplebuilding:blueprint")))));
     }
 

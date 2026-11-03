@@ -165,6 +165,16 @@ public final class ConfigOptions {
             "server.loot.endermitesPerRareShulker");
 
     /**
+     * MACH32-MOD stage 2: the piston upgrades' options live in Simple Machines on 26.3 ({@code config/simplemachines-server.json},
+     * {@code pistons.*}, taken over once from here); {@code McVersion.PISTONS_IN_SB}.
+     */
+    public static final Set<String> MOVED_TO_MACHINES = Set.of(
+            "breakerPistonsLoseDurability",
+            "pistonsBreachEndPortalFrames",
+            "pistonsBreachModdedUnbreakables",
+            "pistonsFireBreakEvents");
+
+    /**
      * IG31-13: world generation of Sage Ore and Dimensional Scrap lives in Simple Ores on 26.3
      * ({@code McVersion.MATERIALS_IN_ORES}, inverted flag: hidden when true); Simple Ores has its own switches.
      */
@@ -177,7 +187,8 @@ public final class ConfigOptions {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
                 || !com.simplebuilding.version.McVersion.HAMMERS_IN_SB && MOVED_TO_HAMMERS.contains(path)
                 || !com.simplebuilding.version.McVersion.STORAGE_IN_SB && MOVED_TO_STORAGE.contains(path)
-                || com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && MOVED_TO_ORES.contains(path);
+                || com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && MOVED_TO_ORES.contains(path)
+                || !com.simplebuilding.version.McVersion.PISTONS_IN_SB && MOVED_TO_MACHINES.contains(path);
     }
 
     private static final List<Option> ALL;

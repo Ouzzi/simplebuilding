@@ -17,14 +17,6 @@
       "min_tool": "netherite",
       "tier": "enderite",
       "to": "simplebuilding:enderite_hopper"
-    },
-    {
-      "damage_per_hit": 10,
-      "from": "simplebuilding:netherite_piston",
-      "material": "simpleores:enderite_nugget",
-      "min_tool": "netherite",
-      "tier": "enderite",
-      "to": "simplebuilding:enderite_piston"
     }
   ]
 }

@@ -3,7 +3,6 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.advancement.AdvancementChecks;
 import com.simplebuilding.advancement.ModCounters;
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.networking.DoubleJumpPayload;
@@ -351,9 +350,9 @@ public final class AdvancementTriggerTests {
         helper.setBlock(piston, upright);
         helper.getLevel().getBlockState(absolute).useItemOn(nugget, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
         helper.assertTrue(!done(player, repaired), "a nugget on an intact piston earned Good as New");
-        helper.setBlock(piston, NetheriteBreakerPistonBlock.withDamage(upright, 150));
+        helper.setBlock(piston, BreakerDamage.damaged(upright, 150));
         helper.getLevel().getBlockState(absolute).useItemOn(nugget, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
-        helper.assertValueEqual(NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(piston)), 0, "damage after the repair");
+        helper.assertTrue(!BreakerDamage.isDamaged(helper.getBlockState(piston)), "damage after the repair");
         helper.assertTrue(done(player, repaired), "repairing the Netherite Piston did not earn Good as New");
         helper.succeed();
     }

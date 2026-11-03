@@ -4,9 +4,15 @@
   "package": "com.simplemachines.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "DoublePistonPushableMixin"
+    "DoublePistonPushableMixin",
+    "PistonUpgradeBaseMixin",
+    "PistonUpgradeExplosionMixin",
+    "PistonUpgradeHeadMixin",
+    "PistonUpgradeResolverMixin"
   ],
-  "client": [],
+  "client": [
+    "client.PistonUpgradeHeadRendererMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

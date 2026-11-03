@@ -1,6 +1,7 @@
 package com.simplebuilding.modules.simplemachines;
 
 import com.simplemachines.test.MachinesTests;
+import com.simplemachines.test.PistonUpgradeTests;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
@@ -129,5 +130,112 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemachines:empty")
     public void guideBook(GameTestHelper h) {
         MachinesTests.ALL.get("guide_book").accept(h);
+    }
+
+    // ---- piston upgrades (MACH32-MOD stage 2): bodies in PistonUpgradeTests ----
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.PAID_PUSH_MAX_TICKS)
+    public void reinforcedPistonsPushOneUnbreakableOnlyWhenTheRedstoneBlockPays(GameTestHelper h) {
+        PistonUpgradeTests.reinforcedPistonsPushOneUnbreakableOnlyWhenTheRedstoneBlockPays(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", skyAccess = true, maxTicks = PistonUpgradeTests.LIMIT_MAX_TICKS)
+    public void reinforcedBreachCountsTowardsTheLimitAndOnlyReachesTheFrontBlock(GameTestHelper h) {
+        PistonUpgradeTests.reinforcedBreachCountsTowardsTheLimitAndOnlyReachesTheFrontBlock(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.STICKY_MAX_TICKS)
+    public void stickyReinforcedPistonPushesTheUnbreakableButNeverPullsItBack(GameTestHelper h) {
+        PistonUpgradeTests.stickyReinforcedPistonPushesTheUnbreakableButNeverPullsItBack(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.SACRIFICE_MAX_TICKS)
+    public void netheritePistonSacrificeLeavesNothingBehindAndNeedsTheRedstoneBlock(GameTestHelper h) {
+        PistonUpgradeTests.netheritePistonSacrificeLeavesNothingBehindAndNeedsTheRedstoneBlock(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.ENDERITE_MAX_TICKS)
+    public void enderitePistonBreachesThreeCellsSkippingAirAndStoppingAtImmuneBlocks(GameTestHelper h) {
+        PistonUpgradeTests.enderitePistonBreachesThreeCellsSkippingAirAndStoppingAtImmuneBlocks(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.HEAD_MAX_TICKS)
+    public void breakingTheHeadOfModPistonsBreaksThePistonToo(GameTestHelper h) {
+        PistonUpgradeTests.breakingTheHeadOfModPistonsBreaksThePistonToo(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.OWN_HEAD_MAX_TICKS)
+    public void everyModPistonCarriesTheHeadOfItsTierAndTakesItBack(GameTestHelper h) {
+        PistonUpgradeTests.everyModPistonCarriesTheHeadOfItsTierAndTakesItBack(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.BORE_EFFECTS_MAX_TICKS)
+    public void modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound(GameTestHelper h) {
+        PistonUpgradeTests.modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.IMMUNE_MAX_TICKS)
+    public void immuneBlocksNeverMoveOrBreak(GameTestHelper h) {
+        PistonUpgradeTests.immuneBlocksNeverMoveOrBreak(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.EXPLOSION_MAX_TICKS)
+    public void explosionsCannotDeleteUnbreakableBlocksWhileTheyMove(GameTestHelper h) {
+        PistonUpgradeTests.explosionsCannotDeleteUnbreakableBlocksWhileTheyMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.GUARD_MAX_TICKS)
+    public void modPistonsAskThePlatformGuardBeforeEveryBreak(GameTestHelper h) {
+        PistonUpgradeTests.modPistonsAskThePlatformGuardBeforeEveryBreak(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.DURABILITY_MAX_TICKS)
+    public void netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston(GameTestHelper h) {
+        PistonUpgradeTests.netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.ENDERITE_DURABILITY_MAX_TICKS)
+    public void enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker(GameTestHelper h) {
+        PistonUpgradeTests.enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = PistonUpgradeTests.LOADER_EVENTS_MAX_TICKS)
+    public void modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(GameTestHelper h) {
+        PistonUpgradeTests.modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void pistonUpgradesRegistered(GameTestHelper h) {
+        PistonUpgradeTests.pistonUpgradesRegistered(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void oldPistonIdsMove(GameTestHelper h) {
+        PistonUpgradeTests.oldPistonIdsMove(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void pistonOptionsComeOverFromSimpleBuilding(GameTestHelper h) {
+        PistonUpgradeTests.pistonOptionsComeOverFromSimpleBuilding(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn(GameTestHelper h) {
+        PistonUpgradeTests.endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void reinforcedStickyPistonCraftsFromSlimeAndDropsItself(GameTestHelper h) {
+        PistonUpgradeTests.reinforcedStickyPistonCraftsFromSlimeAndDropsItself(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar(GameTestHelper h) {
+        PistonUpgradeTests.breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty")
+    public void onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(GameTestHelper h) {
+        PistonUpgradeTests.onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(h);
     }
 }

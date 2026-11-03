@@ -467,6 +467,18 @@ public final class ModpackTests {
             }
             if (storageSteps != 34) problems.add("Simple Storage's file should load 34 chest, shulker box and pipe upgrade steps, loaded " + storageSteps);
         }
+        // MACH32-MOD stage 2: on 26.3 the 3 piston steps (Reinforced and Reinforced Sticky -> Netherite -> Enderite) come from
+        // Simple Machines' own file (data/simplemachines/in_world_upgrades).
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) {
+            int pistonSteps = 0;
+            for (var it = loaded.values().iterator(); it.hasNext(); ) {
+                if (com.simplebuilding.version.McVersion.PISTONS_NAMESPACE.equals(BuiltInRegistries.BLOCK.getKey(it.next().to()).getNamespace())) {
+                    it.remove();
+                    pistonSteps++;
+                }
+            }
+            if (pistonSteps != 3) problems.add("Simple Machines' file should load 3 piston upgrade steps, loaded " + pistonSteps);
+        }
         // a-small22: on 26.3 the 7 crucible, barrel and cauldron steps come from Simple Crucibles' own file
         // (data/simplecrucibles/in_world_upgrades), so the hammer ways also work without SimpleBuilding.
         if (com.simplebuilding.version.McVersion.CRUCIBLE && !"simplebuilding".equals(com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE)) {
@@ -517,7 +529,7 @@ public final class ModpackTests {
         Map<String, String> upgrades = new HashMap<>(ModDataTables.lastUpgradeFiles());
         upgrades.put("apack:extra", "{\"upgrades\":[{\"from\":\"minecraft:hopper\",\"to\":\"simplebuilding:reinforced_hopper\","
                 + "\"material\":\"minecraft:iron_nugget\",\"min_hammer\":\"any\",\"damage_per_hit\":3,\"tier\":\"reinforced\"}],"
-                + "\"remove\":[\"simplebuilding:reinforced_piston\"]}");
+                + "\"remove\":[\"" + com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston\"]}");
         ByteBuf raw = Unpooled.buffer();
         try {
             RegistryFriendlyByteBuf buffer = new RegistryFriendlyByteBuf(raw, helper.getLevel().registryAccess());

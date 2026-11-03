@@ -149,14 +149,17 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.CRACKED_DIAMOND_BLOCK))
                 .add(key(ModBlocks.REINFORCED_HOPPER))
                 .add(key(ModBlocks.NETHERITE_HOPPER))
-                .add(key(ModBlocks.REINFORCED_PISTON))
-                .add(key(ModBlocks.REINFORCED_STICKY_PISTON))
-                .add(key(ModBlocks.NETHERITE_PISTON))
-                .add(key(ModBlocks.ENDERITE_PISTON))
-                .add(key(ModBlocks.REINFORCED_PISTON_HEAD))
-                .add(key(ModBlocks.NETHERITE_PISTON_HEAD))
-                .add(key(ModBlocks.ENDERITE_PISTON_HEAD))
                 .add(key(ModBlocks.ENDERITE_HOPPER));
+        if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines tags its piston upgrades itself (MACH32-MOD stage 2)
+            builder(BlockTags.MINEABLE_WITH_PICKAXE)
+                    .add(key(ModBlocks.REINFORCED_PISTON))
+                    .add(key(ModBlocks.REINFORCED_STICKY_PISTON))
+                    .add(key(ModBlocks.NETHERITE_PISTON))
+                    .add(key(ModBlocks.ENDERITE_PISTON))
+                    .add(key(ModBlocks.REINFORCED_PISTON_HEAD))
+                    .add(key(ModBlocks.NETHERITE_PISTON_HEAD))
+                    .add(key(ModBlocks.ENDERITE_PISTON_HEAD));
+        }
         if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) {
             builder(BlockTags.MINEABLE_WITH_PICKAXE)
                     .add(key(ModBlocks.REINFORCED_CHEST))

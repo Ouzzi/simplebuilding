@@ -215,10 +215,12 @@ public final class TestCentreLayout {
     static {
         Map<String, String> excluded = new LinkedHashMap<>(Map.of(
             "simplebuilding:creative_spacer", "Platzhalter der Kreativ-Tabs, kein Spielinhalt",
-            "simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item",
-            "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
-            "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item",
             "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)"));
+        if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines' heads (MACH32-MOD stage 2)
+            excluded.put("simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item");
+            excluded.put("simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item");
+            excluded.put("simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item");
+        }
         if (com.simplebuilding.version.McVersion.FIRES) {
             excluded.put("simplebuilding:sulfur_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Schwefelbloecken");
             excluded.put("simplebuilding:copper_fire", "Feuer ohne Item: entsteht mit Feuerzeug auf Kupferbloecken");

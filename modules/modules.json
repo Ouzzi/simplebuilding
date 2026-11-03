@@ -4677,7 +4677,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Machines",
-      "description": "The machine parts of the Simple Machines tab. Stage 1: Double Piston (one block, two stages: head one block out, then body and head move on; Vanilla push rules) and Signal Dampener (four stages take 0-3 off the signal, one redstone tick late). Vanilla ingredients only. Fabric only for now.",
+      "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget). Vanilla and SimpleLib ingredients; the Enderite Piston needs Simple Ores. Fabric only for now.",
       "loaders": [
         "fabric"
       ],
@@ -4685,7 +4685,8 @@
         "simplelib"
       ],
       "optional": [
-        "simplebuilding"
+        "simplebuilding",
+        "simpleores"
       ],
       "checks": [
         "modules/simplemachines/tools/check_data.py"

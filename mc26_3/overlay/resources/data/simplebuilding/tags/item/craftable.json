@@ -431,7 +431,7 @@
     "simplebuilding:reinforced_flypad",
     "simpleovens:reinforced_furnace",
     "simplebuilding:reinforced_hopper",
-    "simplebuilding:reinforced_piston",
+    "simplemachines:reinforced_piston",
     "simplebuilding:reinforced_potion_pad",
     "simplestorage:reinforced_quiver",
     {
@@ -439,7 +439,7 @@
       "required": false
     },
     "simpleovens:reinforced_smoker",
-    "simplebuilding:reinforced_sticky_piston",
+    "simplemachines:reinforced_sticky_piston",
     "simplebuilding:resin_chess_bishop",
     "simplebuilding:resin_chess_bishop_flat",
     "simplebuilding:resin_chess_king",

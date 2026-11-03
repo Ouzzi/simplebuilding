@@ -94,8 +94,6 @@
     "simplebuilding:enderite_flypad",
     "simplebuilding:enderite_hopper",
     "simplebuilding:enderite_launchpad",
-    "simplebuilding:enderite_piston",
-    "simplebuilding:enderite_piston_head",
     "simplebuilding:enderite_pole",
     "simplebuilding:enderite_pressure_plate",
     "simplebuilding:enderite_spawn_teleporter",
@@ -156,8 +154,6 @@
     "simplebuilding:netherite_flypad",
     "simplebuilding:netherite_hopper",
     "simplebuilding:netherite_launchpad",
-    "simplebuilding:netherite_piston",
-    "simplebuilding:netherite_piston_head",
     "simplebuilding:netherite_pole",
     "simplebuilding:netherite_pressure_plate",
     "simplebuilding:nihil_end_stone",
@@ -234,10 +230,7 @@
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
     "simplebuilding:reinforced_hopper",
-    "simplebuilding:reinforced_piston",
-    "simplebuilding:reinforced_piston_head",
     "simplebuilding:reinforced_potion_pad",
-    "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:resin_quartz_checker",
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
@@ -932,9 +925,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_piston"
-    },
-    {
       "id": "simplebuilding:enderite_pole"
     },
     {
@@ -1382,9 +1372,6 @@
     {
       "id": "simplebuilding:netherite_paint_box",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_piston"
     },
     {
       "id": "simplebuilding:netherite_pole"
@@ -2093,14 +2080,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:reinforced_piston"
-    },
-    {
       "id": "simplebuilding:reinforced_potion_pad",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_sticky_piston"
     },
     {
       "id": "simplebuilding:resin_chess_bishop",

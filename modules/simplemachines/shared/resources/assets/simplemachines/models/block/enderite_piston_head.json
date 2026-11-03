@@ -1,0 +1,9 @@
+{
+  "parent": "simplemachines:block/template_tiered_piston_head",
+  "textures": {
+    "arm": "simplemachines:block/enderite_piston_arm",
+    "platform": "simplemachines:block/enderite_piston_top",
+    "side": "simplemachines:block/enderite_piston_side",
+    "unsticky": "simplemachines:block/enderite_piston_head"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_piston",
+  "textures": {
+    "bottom": "simplemachines:block/netherite_piston_bottom",
+    "platform": "simplemachines:block/netherite_piston_top",
+    "side": "simplemachines:block/netherite_piston_side_worn1"
+  }
+}

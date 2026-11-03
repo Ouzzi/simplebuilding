@@ -250,10 +250,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_piston",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_pressure_plate",
       "required": false
     },
@@ -323,10 +319,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_nugget",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_piston",
       "required": false
     },
     {
@@ -527,6 +519,14 @@
     },
     {
       "id": "simplemoney:links/simplelib/netherite_core",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemachines/enderite_piston",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemachines/netherite_piston",
       "required": false
     },
     {

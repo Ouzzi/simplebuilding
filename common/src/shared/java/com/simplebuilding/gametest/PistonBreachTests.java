@@ -164,6 +164,7 @@ public final class PistonBreachTests {
      * pistons, and a lever that counts as payment.
      */
     public static void reinforcedPistonsPushOneUnbreakableOnlyWhenTheRedstoneBlockPays(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos onBedrock = new BlockPos(1, 1, 1);
         BlockPos onDeepslate = new BlockPos(3, 1, 1);
         BlockPos onFrame = new BlockPos(5, 1, 1);
@@ -271,6 +272,7 @@ public final class PistonBreachTests {
      * the push was refused.
      */
     public static void reinforcedBreachCountsTowardsTheLimitAndOnlyReachesTheFrontBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos atLimit = new BlockPos(1, 1, 1);
         BlockPos overLimit = new BlockPos(5, 1, 1);
         BlockPos twoBedrock = new BlockPos(1, 1, 5);
@@ -351,6 +353,7 @@ public final class PistonBreachTests {
      * non-sticky.
      */
     public static void stickyReinforcedPistonPushesTheUnbreakableButNeverPullsItBack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos fuelOnly = new BlockPos(1, 1, 1);
         BlockPos heldOut = new BlockPos(4, 1, 1);
         BlockPos control = new BlockPos(2, 1, 5);
@@ -429,6 +432,7 @@ public final class PistonBreachTests {
      * redstone block before the one behind, and a lever that pays.
      */
     public static void netheritePistonSacrificeLeavesNothingBehindAndNeedsTheRedstoneBlock(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         fillFloor(helper);
         BlockPos up = new BlockPos(1, 1, 1);
         BlockPos down = new BlockPos(4, 3, 1);
@@ -514,6 +518,7 @@ public final class PistonBreachTests {
      * their drop, and a sacrifice that keeps the redstone block or the piston.
      */
     public static void enderitePistonBreachesThreeCellsSkippingAirAndStoppingAtImmuneBlocks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         fillFloor(helper);
         BlockPos gapped = new BlockPos(1, 1, 1);
         BlockPos immune = new BlockPos(1, 1, 5);
@@ -586,6 +591,7 @@ public final class PistonBreachTests {
      * wrong piston, and a base that survives the loss of its head.
      */
     public static void breakingTheHeadOfModPistonsBreaksThePistonToo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         fillFloor(helper);
         BlockPos reinforced = new BlockPos(1, 1, 1);
         BlockPos sticky = new BlockPos(3, 1, 1);
@@ -649,6 +655,7 @@ public final class PistonBreachTests {
      * retraction that leaves the head behind.
      */
     public static void everyModPistonCarriesTheHeadOfItsTierAndTakesItBack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         fillFloor(helper);
         BlockPos reinforced = new BlockPos(1, 1, 1);
         BlockPos sticky = new BlockPos(3, 1, 1);
@@ -721,6 +728,7 @@ public final class PistonBreachTests {
      * a report for the payer or the piston, a missing sound registration.
      */
     public static void modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos netherite = new BlockPos(1, 1, 1);
         BlockPos enderite = new BlockPos(4, 1, 1);
         BlockPos vanilla = new BlockPos(2, 1, 4);
@@ -779,6 +787,7 @@ public final class PistonBreachTests {
      * The guard has to have been asked for each of these five cells.
      */
     public static void modPistonsAskThePlatformGuardBeforeEveryBreak(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos refusedBreak = new BlockPos(1, 1, 1);
         BlockPos refusedBreach = new BlockPos(4, 1, 1);
         BlockPos enderite = new BlockPos(1, 1, 5);
@@ -913,6 +922,7 @@ public final class PistonBreachTests {
      * </ul>
      */
     public static void netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos stone = new BlockPos(1, 1, 1);
         BlockPos crumble = new BlockPos(4, 1, 1);
         BlockPos frozen = new BlockPos(1, 1, 5);
@@ -1065,6 +1075,7 @@ public final class PistonBreachTests {
      * </ul>
      */
     public static void enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos stone = new BlockPos(1, 1, 1);
         BlockPos crumble = new BlockPos(4, 1, 1);
         BlockPos deepslate = new BlockPos(1, 1, 5);
@@ -1166,6 +1177,7 @@ public final class PistonBreachTests {
      * </ul>
      */
     public static void breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos mined = new BlockPos(1, 1, 1);
         BlockPos placed = new BlockPos(3, 1, 1);
         BlockPos legacyPlaced = new BlockPos(5, 1, 1);
@@ -1273,6 +1285,7 @@ public final class PistonBreachTests {
      * </ul>
      */
     public static void modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos breakRow = new BlockPos(1, 1, 1);
         BlockPos pistonRow = new BlockPos(4, 1, 1);
         BlockPos switchedOff = new BlockPos(1, 1, 5);
@@ -1361,6 +1374,7 @@ public final class PistonBreachTests {
      * does, whatever a client stored.
      */
     public static void onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         ServerLevel level = helper.getLevel();
         SimplebuildingConfig config = Simplebuilding.getConfig();
         helper.assertTrue(config != null, "the mod has no live config, so the option cannot be switched");
@@ -1420,6 +1434,7 @@ public final class PistonBreachTests {
      * removing light or barrier from the tag, or a breach that ignores both.
      */
     public static void immuneBlocksNeverMoveOrBreak(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         BlockPos reinforcedLight = new BlockPos(1, 1, 1);
         BlockPos netheriteLight = new BlockPos(3, 1, 1);
         BlockPos netheriteCommand = new BlockPos(5, 1, 1);
@@ -1469,6 +1484,7 @@ public final class PistonBreachTests {
      * moving piston's own hardness instead of the hardness of the block it carries.
      */
     public static void explosionsCannotDeleteUnbreakableBlocksWhileTheyMove(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos bedrock = new BlockPos(3, 2, 3);
         BlockPos stone = new BlockPos(5, 2, 3);
@@ -1520,6 +1536,7 @@ public final class PistonBreachTests {
      * <p>What breaks this test: {@code PistonBreach} ignoring the option, or reading it inverted.
      */
     public static void endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         ServerLevel level = helper.getLevel();
         SimplebuildingConfig config = Simplebuilding.getConfig();
         helper.assertTrue(config != null, "the mod has no live config, so the option cannot be switched");
@@ -1595,6 +1612,7 @@ public final class PistonBreachTests {
      * block falling out of {@code mineable/pickaxe}.
      */
     public static void reinforcedStickyPistonCraftsFromSlimeAndDropsItself(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 2: Simple Machines tests its pistons on 26.3
         ServerLevel level = helper.getLevel();
 
         CraftingInput asShipped = CraftingInput.of(1, 2, List.of(

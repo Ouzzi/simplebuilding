@@ -1511,10 +1511,8 @@ public final class SledgehammerTests {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);
         var hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0, 0.5, 0), Direction.UP, pos, false);
-        BlockState netherite = com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(
-                com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState(), 10);
-        BlockState enderite = com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(
-                com.simplebuilding.blocks.ModBlocks.ENDERITE_PISTON.defaultBlockState(), 10);
+        BlockState netherite = BreakerDamage.damaged(com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState(), 10);
+        BlockState enderite = BreakerDamage.damaged(com.simplebuilding.blocks.ModBlocks.ENDERITE_PISTON.defaultBlockState(), 10);
         for (InteractionHand hand : InteractionHand.values()) {
             level.setBlockAndUpdate(pos, netherite);
             holding(player, ItemStack.EMPTY, ItemStack.EMPTY);
@@ -1541,12 +1539,11 @@ public final class SledgehammerTests {
         player.setGameMode(GameType.ADVENTURE);
         helper.assertFalse(fullHint(helper, hit, player, InteractionHand.MAIN_HAND), "adventure mode hinted a repair");
         level.getBlockState(pos).useItemOn(nugget, level, player, InteractionHand.MAIN_HAND, hit);
-        helper.assertValueEqual(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.damageOf(level.getBlockState(pos)), 10,
-                "adventure mode repaired the piston");
+        helper.assertTrue(BreakerDamage.isDamaged(level.getBlockState(pos)), "adventure mode repaired the piston");
         player.setGameMode(GameType.SURVIVAL);
         helper.assertTrue(level.getBlockState(pos).useItemOn(nugget, level, player, InteractionHand.MAIN_HAND, hit).consumesAction(),
                 "the hinted repair did not happen");
-        helper.assertValueEqual(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.damageOf(level.getBlockState(pos)), 0, "repair left damage");
+        helper.assertTrue(!BreakerDamage.isDamaged(level.getBlockState(pos)), "repair left damage");
         helper.assertValueEqual(nugget.getCount(), 0, "repair did not use the nugget");
         helper.assertFalse(fullHint(helper, hit, player, InteractionHand.MAIN_HAND), "repaired piston still hinted");
         helper.succeed();

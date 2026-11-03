@@ -27,6 +27,15 @@ public final class AliasMixinPlugin implements IMixinConfigPlugin {
             "com.simplebuilding.mixin.BowItemMixin", "com.simplebuilding.mixin.CrossbowItemMixin",
             "com.simplebuilding.mixin.AbstractArrowPickupMixin", "com.simplebuilding.mixin.ItemStackUseOnMixin");
 
+    /**
+     * MACH32-MOD stage 2: where Simple Machines owns the piston upgrades ({@code McVersion.PISTONS_IN_SB} false) it brings the
+     * piston mixins; SimpleBuilding's copies (they only know its own piston classes) stay out. The client head renderer mixin is
+     * in the client config without this plugin and stays inert there (it asks SimpleBuilding's classes only).
+     */
+    static final Set<String> PISTON_MIXINS = Set.of("com.simplebuilding.mixin.PistonBlockMixin",
+            "com.simplebuilding.mixin.PistonHandlerMixin", "com.simplebuilding.mixin.PistonHeadBlockMixin",
+            "com.simplebuilding.mixin.MovingPistonExplosionMixin");
+
     @Override
     public void onLoad(String mixinPackage) {
     }
@@ -42,6 +51,7 @@ public final class AliasMixinPlugin implements IMixinConfigPlugin {
         // is inlined by javac, so no game class loads here.
         if (!com.simplebuilding.version.McVersion.OVENS_IN_SB && OVENS_MIXINS.contains(mixinClassName)) return false;
         if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB && STORAGE_MIXINS.contains(mixinClassName)) return false;
+        if (!com.simplebuilding.version.McVersion.PISTONS_IN_SB && PISTON_MIXINS.contains(mixinClassName)) return false;
         return !(IdMovesHook.LIB_ALIASES && OWN_ALIAS_MIXINS.contains(mixinClassName));
     }
 

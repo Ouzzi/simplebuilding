@@ -109,6 +109,10 @@ public final class McVersion {
     public static final boolean DOORS = true;
     /** Double Piston and Signal Dampener: Simple Machines' parts (MACH32-MOD 01.11., simplemachines:*, bundled sub-mod, 26.3 only); the flag only gates SB's tab row and tests. */
     public static final boolean MACHINE_PARTS = true;
+    /** Piston upgrades (Reinforced, Reinforced Sticky, Netherite, Enderite + their heads): MACH32-MOD stage 2 (docs/ai/PLAN-B-MACHINES02-2026-11-03.md). 26.3: the required, bundled sub-mod Simple Machines registers them ({@code simplemachines:*}, ids migrate), SimpleBuilding's fields point at its objects ({@code util/MachineRefs}) and its piston mixins stay off. 26.2 keeps its own. */
+    public static final boolean PISTONS_IN_SB = false;
+    /** Namespace of the piston upgrades ({@link #PISTONS_IN_SB}). */
+    public static final String PISTONS_NAMESPACE = "simplemachines";
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */

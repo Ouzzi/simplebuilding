@@ -34,11 +34,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/reinforced_piston",
+      "id": "simplemoney:links/simplebuilding/spawn_teleporter",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/spawn_teleporter",
+      "id": "simplemoney:links/simplemachines/reinforced_piston",
       "required": false
     },
     {

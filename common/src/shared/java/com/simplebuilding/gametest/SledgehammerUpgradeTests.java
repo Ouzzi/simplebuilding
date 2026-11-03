@@ -1,7 +1,6 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.HopperFilterMode;
@@ -220,16 +219,17 @@ public final class SledgehammerUpgradeTests {
             // A damaged netherite breaker becomes an enderite piston with full durability: the
             // damage belongs to the netherite tier and does not carry over.
             BlockState beforeEnderite = helper.getBlockState(pos);
-            if (beforeEnderite.getBlock() instanceof NetheriteBreakerPistonBlock) {
-                helper.setBlock(pos, NetheriteBreakerPistonBlock.withDamage(beforeEnderite, 150));
+            boolean breaker = beforeEnderite.getBlock().getStateDefinition().getProperty("wear") != null;
+            if (breaker) {
+                helper.setBlock(pos, BreakerDamage.damaged(beforeEnderite, 150));
             }
             hammerThrough(helper, player, pos, family.netherite(), family.enderite(),
                     com.simplebuilding.util.HammerRefs.item("netherite"), ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                     "the netherite " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the enderite step");
             helper.assertTrue(done(player, endOfLine), "an enderite upgrade did not earn 'End of the Line'");
-            if (beforeEnderite.getBlock() instanceof NetheriteBreakerPistonBlock) {
-                helper.assertValueEqual(NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(pos)), 0,
+            if (breaker) {
+                helper.assertTrue(!BreakerDamage.isDamaged(helper.getBlockState(pos)),
                         "damage of the enderite piston hammered from a netherite piston with 150 damage");
             }
         }
@@ -952,7 +952,7 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(after.is(to), what + " is " + after + " after " + UPGRADE_TICKS + " ticks of hammering, "
                 + "not the next tier");
         for (Property<?> property : before.getProperties()) {
-            if (!after.hasProperty(property) || property == NetheriteBreakerPistonBlock.WEAR) {
+            if (!after.hasProperty(property) || "wear".equals(property.getName())) {
                 continue; // die Haltbarkeit ist nach der Aufwertung voll (eigene Pruefung oben)
             }
             helper.assertValueEqual(after.getValue(property), before.getValue(property),

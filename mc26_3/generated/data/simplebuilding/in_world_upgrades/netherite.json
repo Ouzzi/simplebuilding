@@ -7,22 +7,6 @@
       "min_tool": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_hopper"
-    },
-    {
-      "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_piston",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_piston"
-    },
-    {
-      "damage_per_hit": 4,
-      "from": "simplebuilding:reinforced_sticky_piston",
-      "material": "simplelib:netherite_nugget",
-      "min_tool": "diamond",
-      "tier": "netherite",
-      "to": "simplebuilding:netherite_piston"
     }
   ]
 }

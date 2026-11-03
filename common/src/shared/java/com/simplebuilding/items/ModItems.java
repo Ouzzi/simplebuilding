@@ -806,13 +806,13 @@ public class ModItems {
 
     public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON)));
 
-    public static final Item REINFORCED_PISTON = registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s));
+    public static final Item REINFORCED_PISTON = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s)) : com.simplebuilding.util.MachineRefs.item("reinforced_piston");
 
-    public static final Item REINFORCED_STICKY_PISTON = registerItem("reinforced_sticky_piston", s -> new BlockItem(ModBlocks.REINFORCED_STICKY_PISTON, s));
+    public static final Item REINFORCED_STICKY_PISTON = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? registerItem("reinforced_sticky_piston", s -> new BlockItem(ModBlocks.REINFORCED_STICKY_PISTON, s)) : com.simplebuilding.util.MachineRefs.item("reinforced_sticky_piston");
 
-    public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.NETHERITE_PISTON, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_PISTON = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? registerItem("netherite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.NETHERITE_PISTON, s.fireResistant().rarity(UNCOMMON))) : com.simplebuilding.util.MachineRefs.item("netherite_piston");
 
-    public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC), "tooltip.simplebuilding.enderite_piston"));
+    public static final Item ENDERITE_PISTON = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? registerItem("enderite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC), "tooltip.simplebuilding.enderite_piston")) : com.simplebuilding.util.MachineRefs.item("enderite_piston");
 
     public static final Item REINFORCED_BLAST_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s)) : null;
 

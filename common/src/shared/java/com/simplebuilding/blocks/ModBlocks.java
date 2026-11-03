@@ -110,18 +110,19 @@ public class ModBlocks {
     public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL)));
     public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
 
+    // MACH32-MOD stage 2: on 26.3 the piston upgrades are Simple Machines' (simplemachines:*); these fields point at its blocks.
     // Beide verstaerkten Kolben starten wie alle anderen hier von GLASS, nicht von Vanillas
     // Kolben-Properties: deren pushReaction(BLOCK) wuerde einen EINGEFAHRENEN Mod-Kolben
     // unverschiebbar machen, weil isPushable nur Blocks.PISTON / STICKY_PISTON beim Namen ausnimmt.
-    public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston", s -> new ReinforcedPistonBlock(false, s.strength(1.5F).sound(SoundType.METAL))); // sticky=false
-    public static final Block REINFORCED_STICKY_PISTON = registerBlock("reinforced_sticky_piston", s -> new ReinforcedPistonBlock(true, s.strength(1.5F).sound(SoundType.METAL))); // sticky=true
-    public static final Block NETHERITE_PISTON = registerBlock("netherite_piston", s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block ENDERITE_PISTON = registerBlock("enderite_piston", s -> new EnderitePistonBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_PISTON = McVersion.PISTONS_IN_SB ? registerBlock("reinforced_piston", s -> new ReinforcedPistonBlock(false, s.strength(1.5F).sound(SoundType.METAL))) : com.simplebuilding.util.MachineRefs.block("reinforced_piston"); // sticky=false
+    public static final Block REINFORCED_STICKY_PISTON = McVersion.PISTONS_IN_SB ? registerBlock("reinforced_sticky_piston", s -> new ReinforcedPistonBlock(true, s.strength(1.5F).sound(SoundType.METAL))) : com.simplebuilding.util.MachineRefs.block("reinforced_sticky_piston"); // sticky=true
+    public static final Block NETHERITE_PISTON = McVersion.PISTONS_IN_SB ? registerBlock("netherite_piston", s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("netherite_piston");
+    public static final Block ENDERITE_PISTON = McVersion.PISTONS_IN_SB ? registerBlock("enderite_piston", s -> new EnderitePistonBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("enderite_piston");
     // Die Koepfe der Kolben: Eigenschaften von Vanillas Kolbenkopf (unverschiebbar, keine Beute),
     // Haerte, Explosionswiderstand und Klang wie die Basis ihrer Stufe. Kein Item, wie minecraft:piston_head.
-    public static final Block REINFORCED_PISTON_HEAD = registerBlock("reinforced_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.REINFORCED, s.strength(1.5F).noLootTable().sound(SoundType.METAL)));
-    public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.NETHERITE, s.strength(5.0F, 1200.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block ENDERITE_PISTON_HEAD = registerBlock("enderite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.ENDERITE, s.strength(6.0F, 1500.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_PISTON_HEAD = McVersion.PISTONS_IN_SB ? registerBlock("reinforced_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.REINFORCED, s.strength(1.5F).noLootTable().sound(SoundType.METAL))) : com.simplebuilding.util.MachineRefs.block("reinforced_piston_head");
+    public static final Block NETHERITE_PISTON_HEAD = McVersion.PISTONS_IN_SB ? registerBlock("netherite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.NETHERITE, s.strength(5.0F, 1200.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("netherite_piston_head");
+    public static final Block ENDERITE_PISTON_HEAD = McVersion.PISTONS_IN_SB ? registerBlock("enderite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.ENDERITE, s.strength(6.0F, 1500.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("enderite_piston_head");
 
     // Split stage 4: on 26.3 the nine furnaces are Simple Ovens' (simpleovens:*, util/OvenRefs); null there.
     public static final Block REINFORCED_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("reinforced_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL))) : null;
