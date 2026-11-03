@@ -1261,6 +1261,80 @@ public final class RotatorTests {
      * mid test and turn a geometry failure into a durability failure.
      */
     @SuppressWarnings("removal")
+    // ---------------------------------------------------------------- BA03-5: armor stand poses
+
+    /** Right-click steps through the 13 poses and shows the arms, sneaking steps back, an empty Transposer only clicks. */
+    public static void armorStandPosesStepForwardAndBack(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        net.minecraft.world.entity.decoration.ArmorStand stand = armorStand(helper);
+        ItemStack rotator = new ItemStack(GadgetsRegistry.ROTATOR);
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.POSES.size(), 13, "Bedrock has 13 poses");
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(stand), 0, "a fresh stand stands in the default pose");
+        helper.assertTrue(!stand.showArms(), "a fresh stand has no arms");
+
+        InteractionResult first = com.simplegadgets.rotator.ArmorPoses.use(player, stand, rotator);
+        helper.assertTrue(first == InteractionResult.SUCCESS, "the click on the stand has to succeed, was " + first);
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(stand), 1, "first click -> second pose");
+        helper.assertTrue(stand.showArms(), "posing shows the arms");
+        helper.assertValueEqual(rotator.getDamageValue(), RotatorItem.useCost(), "a pose change costs one turn of charge");
+
+        for (int i = 2; i <= 12; i++) {
+            com.simplegadgets.rotator.ArmorPoses.use(player, stand, rotator);
+            helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(stand), i, "pose after " + i + " clicks");
+        }
+        com.simplegadgets.rotator.ArmorPoses.use(player, stand, rotator);
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(stand), 0, "the 13th click wraps around");
+
+        player.setShiftKeyDown(true);
+        com.simplegadgets.rotator.ArmorPoses.use(player, stand, rotator);
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(stand), 12, "sneaking steps to the previous pose (wrapping)");
+        player.setShiftKeyDown(false);
+
+        rotator.setDamageValue(rotator.getMaxDamage());
+        InteractionResult dry = com.simplegadgets.rotator.ArmorPoses.use(player, stand, rotator);
+        helper.assertTrue(dry == InteractionResult.FAIL, "an empty Transposer does not pose, was " + dry);
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(stand), 12, "pose after a dry click");
+        helper.succeed();
+    }
+
+    /** A stand broken by a player drops an item that keeps pose and arms (and name); placing it again restores them. */
+    public static void brokenArmorStandKeepsItsPose(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        net.minecraft.world.entity.decoration.ArmorStand stand = armorStand(helper);
+        com.simplegadgets.rotator.ArmorPoses.apply(stand, 4);
+        stand.setCustomName(net.minecraft.network.chat.Component.literal("Guard"));
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        net.minecraft.world.damagesource.DamageSource hit = level.damageSources().playerAttack(player);
+        stand.hurtServer(level, hit, 1.0f);
+        stand.hurtServer(level, hit, 1.0f);
+        helper.assertTrue(stand.isRemoved(), "two hits in a row break the stand");
+        java.util.List<net.minecraft.world.entity.item.ItemEntity> drops = level.getEntitiesOfClass(
+                net.minecraft.world.entity.item.ItemEntity.class, stand.getBoundingBox().inflate(3.0));
+        ItemStack dropped = drops.stream().map(net.minecraft.world.entity.item.ItemEntity::getItem)
+                .filter(s -> s.is(Items.ARMOR_STAND)).findFirst().orElse(ItemStack.EMPTY);
+        helper.assertTrue(!dropped.isEmpty(), "the broken stand dropped no armor stand item");
+        helper.assertTrue(dropped.get(DataComponents.ENTITY_DATA) != null, "the dropped item has to keep the pose (entity data)");
+        helper.assertTrue(dropped.get(DataComponents.LORE) != null, "the dropped item's tooltip names the pose");
+        helper.assertTrue(dropped.get(DataComponents.CUSTOM_NAME) != null, "Vanilla's custom name stays");
+
+        net.minecraft.world.entity.decoration.ArmorStand placed = armorStand(helper);
+        helper.assertTrue(!placed.showArms(), "a new stand starts without arms");
+        dropped.get(DataComponents.ENTITY_DATA).loadInto(placed);
+        helper.assertValueEqual(com.simplegadgets.rotator.ArmorPoses.indexOf(placed), 4, "the placed stand has the kept pose");
+        helper.assertTrue(placed.showArms(), "the placed stand shows its arms again");
+
+        ItemStack plain = com.simplegadgets.rotator.ArmorPoses.keepPose(armorStand(helper), new ItemStack(Items.ARMOR_STAND));
+        helper.assertTrue(plain.get(DataComponents.ENTITY_DATA) == null, "a plain stand drops a plain item (stacks as before)");
+        helper.succeed();
+    }
+
+    private static net.minecraft.world.entity.decoration.ArmorStand armorStand(GameTestHelper helper) {
+        Vec3 at = helper.absoluteVec(new Vec3(2.5, 1.0, 2.5));
+        net.minecraft.world.entity.decoration.ArmorStand stand = new net.minecraft.world.entity.decoration.ArmorStand(helper.getLevel(), at.x, at.y, at.z);
+        helper.getLevel().addFreshEntity(stand);
+        return stand;
+    }
+
     private static ServerPlayer mockPlayer(GameTestHelper helper, boolean instabuild) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));

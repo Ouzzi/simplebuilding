@@ -57,6 +57,8 @@ public final class GadgetsTests {
         ALL.put("rotator_facing_blocks_turn_one_quarter_around_the_clicked_axis_or_jump_to_its_start", RotatorTests::facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart);
         ALL.put("rotator_rim_aims_facing_blocks_at_the_rim_its_opposite_or_the_next_valid_value", RotatorTests::rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue);
         ALL.put("rotator_sixteen_step_blocks_step_once_in_the_middle_and_four_times_at_the_rim", RotatorTests::sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim);
+        ALL.put("rotator_armor_stand_poses_step_forward_and_back", RotatorTests::armorStandPosesStepForwardAndBack);
+        ALL.put("rotator_broken_armor_stand_keeps_its_pose", RotatorTests::brokenArmorStandKeepsItsPose);
         ALL.put("rotator_charge_runs_down_but_the_rotator_never_breaks", RotatorTests::chargeRunsDownButTheRotatorNeverBreaks);
         ALL.put("rotator_anvil_recharges_with_sixteen_ender_pearls_for_no_levels", RotatorTests::anvilRechargesWithSixteenEnderPearlsForNoLevels);
         ALL.put("rotator_anvil_takes_unbreaking_but_refuses_mending", RotatorTests::anvilTakesUnbreakingButRefusesMending);
