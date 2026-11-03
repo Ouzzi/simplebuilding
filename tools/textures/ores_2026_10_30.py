@@ -288,7 +288,7 @@ def derived(jar) -> dict:
     for alloy, ramp in ALLOYS.items():
         out[f'item/{alloy}_apple.png'] = apple_image(j, ramp, APPLE_VARIANT[alloy])
     out.update(lead_images(j, LEAD_VARIANT))
-    out.update(arrow_images(j, ARROW_VARIANT))
+    # The silver arrow (arrow_images) moved to Simple Arrows on 03.11.: arrows_derived.py draws it.
     out['block/silver_mirror.png'] = mirror_image(j, MIRROR_VARIANT)
     return out
 

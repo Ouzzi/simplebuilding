@@ -157,11 +157,13 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.4.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0", "simplegadgets": ">=0.9.0", "simpleores": ">=0.1.0", "simplemachines": ">=0.1.0", "simplemobs": ">=0.1.0", "simpleresonance": ">=0.1.0"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.4.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0", "simplegadgets": ">=0.9.0", "simpleores": ">=0.1.0", "simplemachines": ">=0.1.0", "simplearrows": ">=0.1.0", "simplemobs": ">=0.1.0", "simpleresonance": ">=0.1.0"')
 				// IG31-13: Simple Ores is required now (above), not only suggested.
 				.replace('"simpleores": "*",', '')
 				// MACH32-MOD: Simple Machines is required now (above), not only suggested.
 				.replace('"simplemachines": "*",', '')
+				// b-arrows02: Simple Arrows is required now (above), not only suggested.
+				.replace('"simplearrows": "*",', '')
 				// ZO9: Simple Mobs and Simple Resonance are required sub-mods now (above), not only suggested.
 				.replace('"simplemobs": "*",', '')
 				.replace('"simpleresonance": "*",', '')
@@ -300,6 +302,8 @@ dependencies {
 // (simplemachines:*, ids migrate). Nested below with the optional modules; loaded in dev/test runs, SB code never imports it.
 dependencies {
     implementation project(':modules:simplemachines:fabric')
+    // b-arrows02: Simple Arrows (Silver Arrow from Simple Ores, Light Arrow; simplearrows:*, ids migrate), required, Fabric only.
+    implementation project(':modules:simplearrows:fabric')
     // ZO9: required sub-mods now, loaded in dev/test runs.
     implementation project(':modules:simplemobs:fabric')
     implementation project(':modules:simpleresonance:fabric')
@@ -345,6 +349,7 @@ dependencies {
     include project(':modules:simpledinos:fabric')
     include project(':modules:simpleores:fabric')
     include project(':modules:simplemachines:fabric')
+    include project(':modules:simplearrows:fabric')
     include project(':modules:simplemusic:fabric')
     include project(':modules:simpleearth:fabric')
     include project(':modules:simplechallenges:fabric')

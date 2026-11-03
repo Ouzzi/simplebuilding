@@ -1,7 +1,7 @@
-package com.simpleores.entity;
+package com.simplearrows.entity;
 
-import com.simpleores.OresRegistry;
-import com.simpleores.config.OresConfig;
+import com.simplearrows.ArrowsRegistry;
+import com.simplearrows.config.ArrowsConfig;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +14,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The silver arrow (concept ORES31 section 4): a Vanilla arrow with a silver head that hits {@code #minecraft:undead} harder by
+ * The silver arrow (concept ORES31 section 4; Simple Ores until 03.11., since then Simple Arrows): a Vanilla arrow with a silver head that hits {@code #minecraft:undead} harder by
  * {@code silverArrowUndeadBonus} (config, 0 = Vanilla damage). Built like the Vanilla spectral arrow, which also extends
  * {@link AbstractArrow}: Vanilla's {@code Arrow} is tied to its own entity type.
  */
@@ -27,16 +27,16 @@ public class SilverArrow extends AbstractArrow {
     }
 
     public SilverArrow(Level level, LivingEntity owner, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
-        super(OresRegistry.SILVER_ARROW_ENTITY, owner, level, pickupItemStack, firedFromWeapon);
+        super(ArrowsRegistry.SILVER_ARROW_ENTITY, owner, level, pickupItemStack, firedFromWeapon);
     }
 
     public SilverArrow(Level level, double x, double y, double z, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
-        super(OresRegistry.SILVER_ARROW_ENTITY, x, y, z, level, pickupItemStack, firedFromWeapon);
+        super(ArrowsRegistry.SILVER_ARROW_ENTITY, x, y, z, level, pickupItemStack, firedFromWeapon);
     }
 
     /** Extra damage this arrow does to the target now (0 for a living non-undead target and when the bonus is switched off). */
     public static int bonusAgainst(Entity target) {
-        return OresConfig.silverArrowUndeadBonus > 0 && target.is(EntityTypeTags.UNDEAD) ? OresConfig.silverArrowUndeadBonus : 0;
+        return ArrowsConfig.silverArrowUndeadBonus > 0 && target.is(EntityTypeTags.UNDEAD) ? ArrowsConfig.silverArrowUndeadBonus : 0;
     }
 
     @Override
@@ -70,6 +70,6 @@ public class SilverArrow extends AbstractArrow {
 
     @Override
     protected ItemStack getDefaultPickupItem() {
-        return new ItemStack(OresRegistry.item("silver_arrow"));
+        return new ItemStack(ArrowsRegistry.SILVER_ARROW);
     }
 }

@@ -292,6 +292,13 @@ Fossilienblock, Dinosaurier-Eier zum Freipinseln und Ausbrüten (Daraufsitzen) u
 - Modelle und Texturen kommen aus Spezifikationen (`tools/gen_models.py`, `tools/gen_blocks.py`); Java-`*Layers` nie von Hand ändern.
 - Jede neue Entität des Moduls braucht eine Ausnahme in `simplemobheads/data/mobs.json`, solange es keinen Kopf gibt.
 
+### Simple Arrows (`simplearrows`)
+Pfeile als Pflicht-Sub-Mod von SB (b-arrows02, 03.11.), nur Fabric 26.3, allein mit Vanilla spielbar.
+
+- Silberpfeil (aus Simple Ores umgezogen, alte `simpleores:`-Ids per `SimpleArrows#registerIdMoves`): Rezept nur mit `fabric:all_mods_loaded ["simpleores"]`, ohne Ores kein Kreativ-Eintrag.
+- Lichtpfeil: Licht = Vanillas `minecraft:light` (Stufe 15) in der Luft vor der getroffenen Fläche, gehört dem Pfeil (`light_pos`), verschwindet mit ihm (Despawn wie ein normaler Pfeil, Aufheben, `/kill`, Herausfallen); entfernt wird nur ein Block, der noch `minecraft:light` ist.
+- Texturen Vanilla-abgeleitet (`tools/textures/arrows_derived.py`), nie eingecheckt. Der Befiederungstisch (Trank-Slot WE25-9) liegt bis Stufe 2 noch im SB-Kern.
+
 ### Simple Ores (`simpleores`)
 Silbererz (Oberwelt, End) und Roségold (zwei Legierungen, Pressling, nur Hochofen) mit Werkzeugen und Rüstung; allein mit Vanilla spielbar.
 

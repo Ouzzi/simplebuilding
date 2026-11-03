@@ -48,4 +48,9 @@ public final class FletchingGameTest {
     public void rightClickingTheFletchingTableOpensTheMenu(GameTestHelper helper) {
         FletchingTests.rightClickingTheFletchingTableOpensTheMenu(helper);
     }
+
+    @GameTest
+    public void potionSlotMakesTippedArrows(GameTestHelper helper) {
+        FletchingTests.potionSlotMakesTippedArrows(helper);
+    }
 }

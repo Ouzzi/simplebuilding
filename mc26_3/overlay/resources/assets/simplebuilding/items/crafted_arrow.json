@@ -146,6 +146,24 @@
           "type": "minecraft:model",
           "model": "simplebuilding:item/arrow/tip_flint"
         }
+      },
+      {
+        "type": "minecraft:condition",
+        "property": "minecraft:has_component",
+        "component": "minecraft:potion_contents",
+        "on_true": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/arrow/potion_tip",
+          "tints": [
+            {
+              "type": "minecraft:potion",
+              "default": -13083194
+            }
+          ]
+        },
+        "on_false": {
+          "type": "minecraft:empty"
+        }
       }
     ]
   }

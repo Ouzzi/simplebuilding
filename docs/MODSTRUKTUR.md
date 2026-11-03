@@ -6,13 +6,16 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
+  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
 
 ## SimpleBuilding
 
 - **SimpleBuilding** `simplebuilding` [fertig]: Building tools, storage, machines, and enchantments.
-  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Mobs, Simple Resonance
+  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance
   - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs
+  - **Simple Arrows** `simplearrows` (required) [neu]: Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.
+    - required: SimpleLib
+    - optional: SimpleBuilding, Simple Ores
   - **Simple Blocks** `simpleblocks` (required) [fertig]: Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.
     - required: SimpleLib
     - optional: SimpleBuilding, jei

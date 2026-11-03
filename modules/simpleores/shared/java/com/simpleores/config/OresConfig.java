@@ -17,8 +17,11 @@ import java.util.List;
 public final class OresConfig {
     public static final String FILE = "simpleores-server.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus",
+    public static final List<String> KEYS = List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords",
             "sageOre", "dimensionalScrap");
+
+    /** Simple Arrows' option since 03.11. (simplearrows-server.json); an old file keeps it for that one takeover. */
+    public static final String LEGACY_ARROW_KEY = "silverArrowUndeadBonus";
 
     public static boolean enabled = true;
     /** Lead walls muffle world sounds (concept ORES31 section 3). */
@@ -29,8 +32,6 @@ public final class OresConfig {
     public static double soundproofThreshold = 0.05;
     /** Records and music devices are muffled too. */
     public static boolean soundproofRecords = false;
-    /** Extra damage of a silver arrow against #minecraft:undead, 0 = Vanilla arrow damage (0 to 6). */
-    public static int silverArrowUndeadBonus = 3;
     /** IG31-13: new veins of Sage Ore in the Overworld (moved from SimpleBuilding with its ore). */
     public static boolean sageOre = true;
     /** IG31-13: new Dimensional Scrap in all three dimensions (moved from SimpleBuilding). */
@@ -47,7 +48,10 @@ public final class OresConfig {
         if (file != null) {
             try {
                 Files.createDirectories(dir);
-                ConfigFiles.writeAtomic(file, GSON.toJson(toJson()));
+                JsonObject out = toJson();
+                // 03.11.: the silver arrow's bonus moved to Simple Arrows, which takes it over from this file once; keep it until then.
+                if (json.has(LEGACY_ARROW_KEY)) out.add(LEGACY_ARROW_KEY, json.get(LEGACY_ARROW_KEY));
+                ConfigFiles.writeAtomic(file, GSON.toJson(out));
             } catch (Exception e) {
                 SimpleOres.LOG.warn("Could not write {}: {}", FILE, e.toString());
             }
@@ -60,7 +64,6 @@ public final class OresConfig {
         soundproofFactor = number(json, "soundproofFactor", 0.5, 0.2, 0.9);
         soundproofThreshold = number(json, "soundproofThreshold", 0.05, 0.01, 0.3);
         soundproofRecords = bool(json, "soundproofRecords", false);
-        silverArrowUndeadBonus = (int) Math.round(number(json, "silverArrowUndeadBonus", 3, 0, 6));
         sageOre = bool(json, "sageOre", true);
         dimensionalScrap = bool(json, "dimensionalScrap", true);
     }
@@ -83,7 +86,6 @@ public final class OresConfig {
         o.addProperty("soundproofFactor", soundproofFactor);
         o.addProperty("soundproofThreshold", soundproofThreshold);
         o.addProperty("soundproofRecords", soundproofRecords);
-        o.addProperty("silverArrowUndeadBonus", silverArrowUndeadBonus);
         o.addProperty("sageOre", sageOre);
         o.addProperty("dimensionalScrap", dimensionalScrap);
         return o;

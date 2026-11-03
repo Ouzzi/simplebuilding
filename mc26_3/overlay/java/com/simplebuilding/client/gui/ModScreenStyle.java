@@ -265,6 +265,9 @@ public final class ModScreenStyle {
         avoid.add(bigRect(result, left, top));
         avoid.add(new int[] {left + ax, top + py - 4, left + ax + 22, top + py + 21});
         avoid.add(new int[] {left + px - 26, top + py - 4, left + px + 55, top + py + 21});
+        // VIS24-9 (FLETCH=gravur, variant A): the engraved fletched arrow in the free space above the part row.
+        avoid.add(new int[] {left + px + FLETCHING_GRAVUR_DX - 2, top + FLETCHING_GRAVUR_Y - 2,
+                left + px + FLETCHING_GRAVUR_DX + FLETCHING_GRAVUR.width() + 2, top + FLETCHING_GRAVUR_Y + FLETCHING_GRAVUR.height() + 2});
         // The recipe book button sits left of the part row (crafting-table spot); keep the motif clear.
         avoid.add(new int[] {left + ModScreenLayout.FLETCHING_BOOK_X, top + ModScreenLayout.FLETCHING_BOOK_Y,
                 left + ModScreenLayout.FLETCHING_BOOK_X + ModScreenLayout.FLETCHING_BOOK_W,
@@ -278,8 +281,30 @@ public final class ModScreenStyle {
         }
         slots(g, menu, left, top, p, result);
         UiSymbols.engrave(g, FLETCHED_ARROW, left + ax, top + ay, p);
+        UiSymbols.engrave(g, FLETCHING_GRAVUR, left + px + FLETCHING_GRAVUR_DX, top + FLETCHING_GRAVUR_Y, p);
         return true;
     }
+
+    /**
+     * VIS24-9, owner FLETCH=gravur (variant A of the b-arrows01 preview, no motif ticked = A): a fletched arrow flying up to the
+     * right, engraved like the station arrows in the free space above feather, shaft and tip (left of the potion slot, WE25-9).
+     */
+    static final UiSymbols.Bitmap FLETCHING_GRAVUR = UiSymbols.Bitmap.of(
+            ".................####.",
+            "..................###.",
+            ".................#.##.",
+            "...............##...#.",
+            ".............##.......",
+            "...........##.........",
+            ".........##...........",
+            ".......##.............",
+            ".#.#.##...............",
+            "..###.................",
+            ".#.##.................",
+            "#.#.#.................",
+            ".#.#..................");
+    /** Left edge relative to the feather slot and top of the engraving (title line above, part row below). */
+    static final int FLETCHING_GRAVUR_DX = 15, FLETCHING_GRAVUR_Y = 17;
 
     /** The fletching arrow's left edge relative to the feather slot (Vanilla crafting table: arrow 62 px right of the grid). */
     static final int FLETCHING_ARROW_DX = 62;

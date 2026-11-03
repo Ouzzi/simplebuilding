@@ -25,6 +25,11 @@ import net.minecraft.world.phys.Vec3;
  * bei Vanilla, die Teile wirken zusaetzlich. Unendlichkeit gilt nur fuer {@code minecraft:arrow} (Vanilla-Regel).
  */
 public class CraftedArrow extends AbstractArrow {
+    /** WE25-9: the potion colour for the particles (-1 = no potion), synced like Vanilla's {@code Arrow}. */
+    private static final net.minecraft.network.syncher.EntityDataAccessor<Integer> POTION_COLOR =
+            net.minecraft.network.syncher.SynchedEntityData.defineId(CraftedArrow.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
+    /** Like Vanilla's tipped arrow: after this many ticks in the ground the potion has dried off. */
+    private static final int EXPOSED_POTION_DECAY_TIME = 600;
     private double simplebuilding$baseDamage = 2.0;
 
     public CraftedArrow(EntityType<? extends CraftedArrow> type, Level level) {
@@ -42,11 +47,35 @@ public class CraftedArrow extends AbstractArrow {
     }
 
     private void applyParts() {
+        updatePotionColor();
         int extra = parts().extraPierce();
         if (extra > 0) {
             ((com.simplebuilding.mixin.AbstractArrowAccessor) this).simplebuilding$setPierceLevel(
                     (byte) (this.getPierceLevel() + extra));
         }
+    }
+
+    @Override
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(POTION_COLOR, -1);
+    }
+
+    /** WE25-9: the potion of the Fletching Table's potion slot (empty = none). */
+    public net.minecraft.world.item.alchemy.PotionContents potion() {
+        return this.getPickupItemStackOrigin().getOrDefault(net.minecraft.core.component.DataComponents.POTION_CONTENTS,
+                net.minecraft.world.item.alchemy.PotionContents.EMPTY);
+    }
+
+    private void updatePotionColor() {
+        net.minecraft.world.item.alchemy.PotionContents potion = potion();
+        this.entityData.set(POTION_COLOR, potion.equals(net.minecraft.world.item.alchemy.PotionContents.EMPTY) ? -1 : potion.getColor());
+    }
+
+    @Override
+    protected void setPickupItemStack(ItemStack stack) {
+        super.setPickupItemStack(stack);
+        updatePotionColor();
     }
 
     public ArrowParts.Parts parts() {
@@ -84,6 +113,19 @@ public class CraftedArrow extends AbstractArrow {
         if (this.level().isClientSide() && !this.isInGround() && parts().shaft() == ArrowParts.Shaft.END_ROD) {
             this.level().addParticle(ParticleTypes.END_ROD, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
         }
+        int color = this.entityData.get(POTION_COLOR);
+        if (this.level().isClientSide()) {
+            if (color != -1 && (!this.isInGround() || this.inGroundTime % 5 == 0)) {
+                this.level().addParticle(net.minecraft.core.particles.ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, color),
+                        this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 0.0, 0.0, 0.0);
+            }
+        } else if (color != -1 && this.isInGround() && this.inGroundTime >= EXPOSED_POTION_DECAY_TIME) {
+            // Vanilla tipped arrow: picked up after half a minute in the ground it is a plain arrow again (same parts, no potion).
+            ItemStack dry = this.getPickupItemStackOrigin().copy();
+            dry.remove(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
+            dry.remove(net.minecraft.core.component.DataComponents.POTION_DURATION_SCALE);
+            this.setPickupItemStack(dry);
+        }
     }
 
     @Override
@@ -105,6 +147,10 @@ public class CraftedArrow extends AbstractArrow {
     @Override
     protected void doPostHurtEffects(LivingEntity target) {
         super.doPostHurtEffects(target);
+        // WE25-9: the potion works like on Vanilla's tipped arrow (duration scale from the stack, 1/8 from the table).
+        float scale = this.getPickupItemStackOrigin().getOrDefault(net.minecraft.core.component.DataComponents.POTION_DURATION_SCALE, 1.0F);
+        net.minecraft.world.entity.Entity source = this.getEffectSource();
+        potion().forEachEffect(effect -> target.addEffect(effect, source), scale);
         if (parts().shaft() == ArrowParts.Shaft.BLAZE_ROD) {
             target.setRemainingFireTicks(target.getRemainingFireTicks() + ArrowParts.BLAZE_EXTRA_FIRE_TICKS);
         }

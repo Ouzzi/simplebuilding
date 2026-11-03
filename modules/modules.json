@@ -33,6 +33,7 @@
         "simplegadgets",
         "simpleores",
         "simplemachines",
+        "simplearrows",
         "simplemobs",
         "simpleresonance"
       ],
@@ -4730,6 +4731,70 @@
       },
       "projects": {
         "fabric": ":modules:simplemachines:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
+    },
+    {
+      "id": "simplearrows",
+      "name": "Simple Arrows",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Arrows",
+      "description": "Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simpleores"
+      ],
+      "checks": [
+        "modules/simplearrows/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplearrows",
+        "catalogues": [
+          "modules/simplearrows/fabric/src/main/java/com/simplebuilding/modules/simplearrows/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplearrows"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplearrowsGameTest",
+            "report": "integration/build/simplearrows-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplearrowsStandaloneGameTest",
+              "report": "integration/build/standalone/simplearrows-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplearrows",
+        "shared": "modules/simplearrows/shared",
+        "fabric": "modules/simplearrows/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplearrows/generated/resources",
+        "lang": "modules/simplearrows/shared/resources/assets/simplearrows/lang",
+        "wikiManual": "modules/simplearrows/wiki/manual.json",
+        "balanceDir": "balance/simplearrows"
+      },
+      "projects": {
+        "fabric": ":modules:simplearrows:fabric"
       },
       "parent": "simplebuilding",
       "bundle": "required"

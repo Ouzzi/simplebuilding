@@ -21,6 +21,9 @@ import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 /**
  * Menue des Befiederungstischs (B14): Spitze, Schaft und Befiederung liegen diagonal wie ein Pfeil (Befiederung unten
@@ -36,6 +39,16 @@ public class FletchingMenu extends RecipeBookMenu {
     public static final int SHAFT_SLOT = 1;
     public static final int FLETCHING_SLOT = 2;
     public static final int RESULT_SLOT = 3;
+    /**
+     * WE25-9 Trank-Slot: menu index behind the hotbar (the indices 0-39 stay as they were), container index 3 of {@link #parts}.
+     * Holds one potion, splash or lingering potion with an effect; the arrows then carry it (Vanilla tipped arrow rule: 1/8 duration).
+     */
+    public static final int POTION_SLOT = 40;
+    private static final int POTION_PART = 3;
+    /** Item position of the potion slot: above the arrow logo (b-arrows02). */
+    public static final int POTION_X = 107, POTION_Y = 15;
+    /** Vanilla's tipped arrows: effects last 1/8 of the potion's duration. */
+    public static final float POTION_DURATION_SCALE = 0.125F;
     private static final int INV_START = 4;
     /** Item-Position der Befiederung (links, Schaft und Spitze je 18 px weiter), des Ergebnisses und die Zeile (WD25-12). */
     public static final int PART_X = 42, RESULT_X = 136, ROW_Y = 34;
@@ -45,13 +58,14 @@ public class FletchingMenu extends RecipeBookMenu {
     private static final Identifier[] EMPTY_ICONS = {
             Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_tip"),
             Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_shaft"),
-            Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_fletching")};
+            Identifier.fromNamespaceAndPath("simplebuilding", "container/slot/arrow_fletching"),
+            Identifier.withDefaultNamespace("container/slot/potion")};
 
     private final ContainerLevelAccess access;
     private long lastSoundTime;
     /** Waehrend der Rezeptbuch-Platzierung wird das Ergebnis erst am Ende einmal berechnet. */
     private boolean placingRecipe;
-    public final Container parts = new SimpleContainer(3) {
+    public final Container parts = new SimpleContainer(4) {
         @Override
         public void setChanged() {
             super.setChanged();
@@ -84,6 +98,7 @@ public class FletchingMenu extends RecipeBookMenu {
                 FletchingMenu.this.parts.removeItem(TIP_SLOT, 1);
                 FletchingMenu.this.parts.removeItem(SHAFT_SLOT, 1);
                 FletchingMenu.this.parts.removeItem(FLETCHING_SLOT, 1);
+                FletchingMenu.this.parts.removeItem(POTION_PART, 1);
                 FletchingMenu.this.access.execute((level, pos) -> {
                     if (FletchingMenu.this.lastSoundTime != level.getGameTime()) {
                         level.playSound(null, pos, SoundEvents.VILLAGER_WORK_FLETCHER, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -101,6 +116,14 @@ public class FletchingMenu extends RecipeBookMenu {
         for (int column = 0; column < 9; column++) {
             this.addSlot(new Slot(inventory, column, 8 + column * 18, 142));
         }
+        this.addSlot(new PartSlot(this.parts, POTION_PART, POTION_X, POTION_Y));
+    }
+
+    /** WE25-9: whether this stack fits the potion slot - a potion, splash or lingering potion that has an effect. */
+    public static boolean isArrowPotion(ItemStack stack) {
+        if (!stack.is(Items.POTION) && !stack.is(Items.SPLASH_POTION) && !stack.is(Items.LINGERING_POTION)) return false;
+        PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+        return contents != null && contents.hasEffects();
     }
 
     /** Welcher Teil-Slot dieses Item annimmt, sonst -1. */
@@ -108,11 +131,26 @@ public class FletchingMenu extends RecipeBookMenu {
         if (ArrowParts.tipFor(stack) != null) return TIP_SLOT;
         if (ArrowParts.shaftFor(stack) != null) return SHAFT_SLOT;
         if (ArrowParts.fletchingFor(stack) != null) return FLETCHING_SLOT;
+        if (isArrowPotion(stack)) return POTION_PART;
         return -1;
     }
 
     /** Das Ergebnis aus drei Slot-Stapeln, leer wenn ein Teil fehlt oder nicht passt. */
     public static ItemStack resultFor(ItemStack tip, ItemStack shaft, ItemStack fletching) {
+        return resultFor(tip, shaft, fletching, ItemStack.EMPTY);
+    }
+
+    /** WE25-9: with a potion (empty slot = none) the arrows carry its effects at 1/8 duration, like Vanilla's tipped arrows. */
+    public static ItemStack resultFor(ItemStack tip, ItemStack shaft, ItemStack fletching, ItemStack potion) {
+        ItemStack arrows = plainResult(tip, shaft, fletching);
+        if (arrows.isEmpty() || potion.isEmpty()) return arrows;
+        if (!isArrowPotion(potion)) return ItemStack.EMPTY;
+        arrows.set(DataComponents.POTION_CONTENTS, potion.get(DataComponents.POTION_CONTENTS));
+        arrows.set(DataComponents.POTION_DURATION_SCALE, POTION_DURATION_SCALE);
+        return arrows;
+    }
+
+    private static ItemStack plainResult(ItemStack tip, ItemStack shaft, ItemStack fletching) {
         ArrowParts.Tip t = ArrowParts.tipFor(tip);
         ArrowParts.Shaft s = ArrowParts.shaftFor(shaft);
         ArrowParts.Fletching f = ArrowParts.fletchingFor(fletching);
@@ -125,7 +163,8 @@ public class FletchingMenu extends RecipeBookMenu {
     @Override
     public void slotsChanged(Container container) {
         if (container == this.parts && !this.placingRecipe) {
-            this.result.setItem(0, resultFor(this.parts.getItem(TIP_SLOT), this.parts.getItem(SHAFT_SLOT), this.parts.getItem(FLETCHING_SLOT)));
+            this.result.setItem(0, resultFor(this.parts.getItem(TIP_SLOT), this.parts.getItem(SHAFT_SLOT), this.parts.getItem(FLETCHING_SLOT),
+                    this.parts.getItem(POTION_PART)));
             this.broadcastChanges();
         }
         super.slotsChanged(container);
@@ -169,7 +208,7 @@ public class FletchingMenu extends RecipeBookMenu {
 
     @Override
     public void fillCraftSlotsStackedContents(StackedItemContents contents) {
-        for (int i = 0; i < this.parts.getContainerSize(); i++) {
+        for (int i = 0; i < POTION_PART; i++) {
             contents.accountSimpleStack(this.parts.getItem(i));
         }
     }
@@ -202,14 +241,15 @@ public class FletchingMenu extends RecipeBookMenu {
                 return ItemStack.EMPTY;
             }
             slot.onQuickCraft(stack, moved);
-        } else if (slotIndex < RESULT_SLOT) {
+        } else if (slotIndex < RESULT_SLOT || slotIndex == POTION_SLOT) {
             if (!this.moveItemStackTo(stack, INV_START, HOTBAR_END, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
             int part = partSlotFor(stack);
+            int target = part == POTION_PART ? POTION_SLOT : part;
             if (part >= 0) {
-                if (!this.moveItemStackTo(stack, part, part + 1, false)) {
+                if (!this.moveItemStackTo(stack, target, target + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (slotIndex < INV_END) {
@@ -250,7 +290,13 @@ public class FletchingMenu extends RecipeBookMenu {
             return partSlotFor(stack) == this.getContainerSlot();
         }
 
-        /** Silhouette im leeren Slot wie bei den Ruestungsslots: Spitze, Schaft, Befiederung. */
+        /** Silhouette im leeren Slot wie bei den Ruestungsslots: Spitze, Schaft, Befiederung, Trank (Vanillas Trank-Silhouette). */
+        /** One potion at a time: each one makes one batch. */
+        @Override
+        public int getMaxStackSize() {
+            return this.getContainerSlot() == POTION_PART ? 1 : super.getMaxStackSize();
+        }
+
         @Override
         public Identifier getNoItemIcon() {
             return EMPTY_ICONS[this.getContainerSlot()];

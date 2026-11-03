@@ -1,6 +1,6 @@
-package com.simpleores.item;
+package com.simplearrows.item;
 
-import com.simpleores.entity.SilverArrow;
+import com.simplearrows.entity.SilverArrow;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.world.entity.LivingEntity;

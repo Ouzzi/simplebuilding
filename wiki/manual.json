@@ -7267,7 +7267,8 @@
           "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
           "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also the diamond rod (pierces one more target). The Netherite and Enderite Poles (formerly netherite and enderite rods) are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
           "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
-          "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable."
+          "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable.",
+          "Potion slot (above the arrow, WE25-9): put in a potion, splash potion or lingering potion with an effect and the 4 arrows carry it like Vanilla's tipped arrows - a hit gives the effect at 1/8 of the potion's duration, after half a minute in the ground the potion has dried off. Each batch uses up the bottle; without a potion the table makes plain arrows."
         ]
       },
       "de": {
@@ -7277,7 +7278,8 @@
           "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
           "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstange (früher Netherit- und Enderitstab) sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
           "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
-          "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar."
+          "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar.",
+          "Trank-Slot (über dem Pfeil, WE25-9): ein Trank, Wurftrank oder Verweiltrank mit Wirkung darin, und die 4 Pfeile tragen ihn wie Vanillas getränkte Pfeile - ein Treffer gibt die Wirkung mit 1/8 der Trankdauer, nach einer halben Minute im Boden ist der Trank abgetrocknet. Jede Herstellung verbraucht die Flasche; ohne Trank macht der Tisch normale Pfeile."
         ]
       },
       "sources": [

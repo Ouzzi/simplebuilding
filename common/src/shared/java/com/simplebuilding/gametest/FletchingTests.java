@@ -286,6 +286,64 @@ public final class FletchingTests {
         helper.succeed();
     }
 
+    /**
+     * WE25-9 Trank-Slot: nur Traenke mit Wirkung (Trank, Wurf-, Verweiltrank) passen; mit Trank tragen die 4 Pfeile ihn mit 1/8 Dauer
+     * (Vanilla-Tipped-Regel), Nehmen verbraucht die Flasche, danach wieder normale Pfeile. Ein Treffer gibt die Wirkung.
+     */
+    public static void potionSlotMakesTippedArrows(GameTestHelper helper) {
+        if (!McVersion.FLETCHING) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        FletchingMenu menu = new FletchingMenu(1, player.getInventory(), ContainerLevelAccess.NULL);
+        net.minecraft.world.inventory.Slot potionSlot = menu.getSlot(FletchingMenu.POTION_SLOT);
+        ItemStack poison = net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.POTION, net.minecraft.world.item.alchemy.Potions.POISON);
+        helper.assertTrue(potionSlot.mayPlace(poison), "a potion of poison fits the potion slot");
+        helper.assertTrue(potionSlot.mayPlace(net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.SPLASH_POTION, net.minecraft.world.item.alchemy.Potions.SWIFTNESS)), "a splash potion fits");
+        helper.assertTrue(potionSlot.mayPlace(net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.LINGERING_POTION, net.minecraft.world.item.alchemy.Potions.HEALING)), "a lingering potion fits");
+        helper.assertFalse(potionSlot.mayPlace(net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.POTION, net.minecraft.world.item.alchemy.Potions.WATER)), "a water bottle does not fit");
+        helper.assertFalse(potionSlot.mayPlace(net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.POTION, net.minecraft.world.item.alchemy.Potions.AWKWARD)), "an awkward potion does not fit");
+        helper.assertFalse(potionSlot.mayPlace(new ItemStack(Items.FLINT)), "flint does not fit the potion slot");
+        helper.assertFalse(menu.getSlot(FletchingMenu.TIP_SLOT).mayPlace(poison), "a potion does not fit the tip slot");
+        menu.getSlot(FletchingMenu.TIP_SLOT).set(new ItemStack(Items.FLINT, 2));
+        menu.getSlot(FletchingMenu.SHAFT_SLOT).set(new ItemStack(Items.STICK, 2));
+        menu.getSlot(FletchingMenu.FLETCHING_SLOT).set(new ItemStack(Items.FEATHER, 2));
+        helper.assertTrue(menu.getSlot(FletchingMenu.RESULT_SLOT).getItem().get(net.minecraft.core.component.DataComponents.POTION_CONTENTS) == null,
+                "without a potion: plain arrows");
+        potionSlot.set(poison.copy());
+        ItemStack result = menu.getSlot(FletchingMenu.RESULT_SLOT).getItem();
+        helper.assertValueEqual(result.getCount(), ArrowParts.ARROWS_PER_CRAFT, "4 tipped arrows");
+        net.minecraft.world.item.alchemy.PotionContents contents = result.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
+        helper.assertTrue(contents != null && contents.is(net.minecraft.world.item.alchemy.Potions.POISON), "the arrows carry the potion: " + contents);
+        helper.assertValueEqual(result.get(net.minecraft.core.component.DataComponents.POTION_DURATION_SCALE), FletchingMenu.POTION_DURATION_SCALE, "1/8 duration");
+        helper.assertValueEqual(ArrowParts.of(result), ArrowParts.Parts.VANILLA, "the parts stay");
+        menu.quickMoveStack(player, FletchingMenu.RESULT_SLOT);
+        helper.assertTrue(potionSlot.getItem().isEmpty(), "taking the arrows uses up the bottle");
+        helper.assertTrue(menu.getSlot(FletchingMenu.RESULT_SLOT).getItem().isEmpty()
+                        || menu.getSlot(FletchingMenu.RESULT_SLOT).getItem().get(net.minecraft.core.component.DataComponents.POTION_CONTENTS) == null,
+                "after the bottle: plain arrows again");
+        int tipped = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(ModItems.CRAFTED_ARROW) && stack.has(net.minecraft.core.component.DataComponents.POTION_CONTENTS)) tipped += stack.getCount();
+        }
+        helper.assertValueEqual(tipped, 4, "tipped arrows in the inventory");
+        // shift-click moves a potion from the inventory into the potion slot
+        player.getInventory().setItem(5, poison.copy());
+        menu.quickMoveStack(player, 4 + 27 + 5);
+        helper.assertTrue(potionSlot.getItem().is(Items.POTION), "shift-click put the potion into the potion slot");
+        // a hit gives the effect at 1/8 duration (poison: 900 ticks -> 112)
+        Mob cow = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 1));
+        Vec3 at = helper.absoluteVec(new Vec3(1.5, 3.0, 1.5));
+        CraftedArrow arrow = new CraftedArrow(helper.getLevel(), at.x, at.y, at.z, result.copyWithCount(1), null);
+        ((com.simplebuilding.mixin.AbstractArrowAccessor) arrow).simplebuilding$doPostHurtEffects(cow);
+        net.minecraft.world.effect.MobEffectInstance effect = cow.getEffect(net.minecraft.world.effect.MobEffects.POISON);
+        helper.assertTrue(effect != null && effect.getDuration() > 100 && effect.getDuration() <= 113, "poison for 1/8 of 900 ticks: " + effect);
+        helper.succeed();
+    }
+
     /** Rechtsklick auf den Vanilla-Befiederungstisch oeffnet das Menue. */
     public static void rightClickingTheFletchingTableOpensTheMenu(GameTestHelper helper) {
         if (!McVersion.FLETCHING) {

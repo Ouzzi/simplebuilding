@@ -128,6 +128,7 @@ public final class ConfigOptions {
             "enableSimpleDinos",
             "enableSimpleOres",
             "enableSimpleMachines",
+            "enableSimpleArrows",
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
             "server.charges.echoSounderMaxCharge",
