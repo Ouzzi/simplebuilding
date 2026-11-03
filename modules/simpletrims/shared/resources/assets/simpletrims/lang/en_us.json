@@ -39,6 +39,7 @@
   "jei.simpletrims.note.in_world": "Lay the template down, then strike it %s times with the tool (ink in the off hand).",
   "jei.simpletrims.note.durability": "Costs the tool %s durability per strike.",
   "item.simpletrims.guide_book": "Simple Trims Guide",
+  "simpletrims.guide.chapter": "Simple Trims",
   "simpletrims.guide.page.1.title": "Simple Trims",
   "simpletrims.guide.page.1": "Glowing, Emitting and Pulsating armor trims, placeable trim templates and forging them with an axe (with Simple Hammers: the sledgehammer).",
   "simpletrims.guide.page.2.title": "Simple Trims",
@@ -62,9 +63,5 @@
   "simpletrims.guide.page.11.title": "Commands",
   "simpletrims.guide.page.11": "/simpletrims config shows and changes every option of config/simpletrims-server.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simpletrims.guide.page.12.title": "Commands",
-  "simpletrims.guide.page.12": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
-  "quests.simpletrims.start.title": "Welcome to Simple Trims",
-  "quests.simpletrims.start.subtitle": "Your free guide",
-  "quests.simpletrims.start.welcome.title": "A free guide",
-  "quests.simpletrims.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Trims Guide as a reward. You can also craft it from a book and a glow ink sac."
+  "simpletrims.guide.page.12": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
 }

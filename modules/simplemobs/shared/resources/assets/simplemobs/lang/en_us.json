@@ -202,6 +202,7 @@
   "jei.simplemobs.info.boss_summons": "Summoned in the End. Void Runner: 3 purpur blocks on End Stone, an Eye of Ender and 4 Chorus Fruit on top, then Dragon's Breath on the top block. Brimguard: 3 x 3 obsidian, 3 Shellker Shells on the middle, then a Nether Star on it.",
   "jei.simplemobs.info.brood": "Brood hollow: a Purpur Block in a 3 x 3 Soul Sand ring with Soul Torches on the corners. Throw a Blank Egg, the essence of one mob and its catalyst onto it and light it with Flint and Steel: out comes the spawn egg. Essence drops rarely from mobs you kill.",
   "item.simplemobs.guide_book": "Simple Mobs Guide",
+  "simplemobs.guide.chapter": "Simple Mobs",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "New bosses and mobs with fair, announced attacks, their drops, the Blighted Wither and the Biome Brush.",
   "simplemobs.guide.page.2.title": "Hollow Howler",
@@ -277,9 +278,5 @@
   "simplemobs.guide.page.37.title": "Brimguard",
   "simplemobs.guide.page.37": "An End boss you summon: a squat 1.5 block figure under a wide bedrock sombrero. It cannot be hit from above - the brim catches everything that comes in too steeply. Drops the Ender Gem.",
   "simplemobs.guide.page.38.title": "Brood hollow",
-  "simplemobs.guide.page.38": "Spawn eggs from mob essence, in the world: no block, no screen. A ring of soul sand, a purpur hollow, soul torches - throw in the offerings and light it.",
-  "quests.simplemobs.start.title": "Welcome to Simple Mobs",
-  "quests.simplemobs.start.subtitle": "Your free guide",
-  "quests.simplemobs.start.welcome.title": "A free guide",
-  "quests.simplemobs.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Mobs Guide as a reward. You can also craft it from a book and a bone."
+  "simplemobs.guide.page.38": "Spawn eggs from mob essence, in the world: no block, no screen. A ring of soul sand, a purpur hollow, soul torches - throw in the offerings and light it."
 }

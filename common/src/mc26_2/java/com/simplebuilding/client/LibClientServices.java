@@ -17,6 +17,34 @@ public final class LibClientServices {
         return null;
     }
 
+    /** 26.3: the Simple Modpack guide's top bookmarks (SimpleLib); 26.2 has no SimpleLib - nothing drawn. */
+    public static net.minecraft.network.chat.Component modpackBar(net.minecraft.client.gui.GuiGraphicsExtractor graphics, int bx, int by,
+                                                                  int mouseX, int mouseY) {
+        return null;
+    }
+
+    public static boolean modpackBarClick(double mouseX, double mouseY, net.minecraft.world.InteractionHand hand) {
+        return false;
+    }
+
+    public static boolean modpackMore() {
+        return false;
+    }
+
+    public static void openModpackMore(net.minecraft.world.InteractionHand hand) {
+    }
+
+    public static void reportModpackMore(int[] rect) {
+    }
+
+    public static net.minecraft.world.item.ItemStack modpackIcon() {
+        return net.minecraft.world.item.ItemStack.EMPTY;
+    }
+
+    public static int modpackBookY(int height) {
+        return Math.max(0, (height - 180) / 2);
+    }
+
     /** Shift held (26.3: SimpleLib {@code UiShiftTooltip.held}). */
     public static boolean shiftHeld() {
         return net.minecraft.client.Minecraft.getInstance().hasShiftDown();

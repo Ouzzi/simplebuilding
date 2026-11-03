@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplemachines.guide.chapter",
+  "icon": "minecraft:redstone",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemachines:guide",
+      "title": "simplemachines.guide.chapter",
+      "icon": "minecraft:redstone",
+      "page_key": "simplemachines.guide.page",
+      "pages": 8,
+      "advancement": "simplemachines:guide/chapter",
+      "hint": "minecraft:redstone"
+    }
+  ]
+}

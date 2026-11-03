@@ -30,7 +30,7 @@
 					"id": "5F095C3524D0623D",
 					"type": "item",
 					"item": {
-						"id": "simplebuilding:guide_book",
+						"id": "simplelib:modpack_guide",
 						"count": 1
 					}
 				}
@@ -49,7 +49,7 @@
 					"id": "64DBC06821A3B367",
 					"type": "item",
 					"item": {
-						"id": "simplebuilding:guide_book",
+						"id": "simplelib:modpack_guide",
 						"count": 1
 					}
 				}

@@ -50,6 +50,7 @@
   "config.simpleenddragonfight.summonSpeedCap.tooltip": "Höchstes Gesamttempo, wenn Beschwörungen dazukommen. Standard: 2,0.",
   "jei.simpleenddragonfight.info.dragonmite_drops": "Dragonmites erscheinen, sobald der Enderdrache nur noch die Hälfte seiner Lebenspunkte hat. Ein Dragonmite, den ein Spieler tötet, kann Drachen-Chitin fallen lassen.",
   "item.simpleenddragonfight.guide_book": "Simple-Enddrachenkampf-Handbuch",
+  "simpleenddragonfight.guide.chapter": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1.title": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1": "Ein härterer Enderdrachenkampf: Er wächst mit den Spielern, fliegt schneller, lässt sich erneut beschwören, tritt mit einer Animation auf und bringt Drachenmilben mit.",
   "simpleenddragonfight.guide.page.2.title": "Eine Lebensleiste je Spieler",
@@ -69,9 +70,5 @@
   "simpleenddragonfight.guide.page.9.title": "Befehle",
   "simpleenddragonfight.guide.page.9": "/simpleenddragonfight config zeigt und ändert jede Option von config/simpleenddragonfight.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simpleenddragonfight.guide.page.10.title": "Befehle",
-  "simpleenddragonfight.guide.page.10": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
-  "quests.simpleenddragonfight.start.title": "Willkommen bei Simple End Dragon Fight",
-  "quests.simpleenddragonfight.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleenddragonfight.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleenddragonfight.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Enddrachenkampf-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Enderperle herstellen."
+  "simpleenddragonfight.guide.page.10": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2."
 }

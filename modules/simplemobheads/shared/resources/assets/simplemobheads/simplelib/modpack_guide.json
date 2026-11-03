@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplemobheads.guide.chapter",
+  "icon": "minecraft:skeleton_skull",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemobheads:guide",
+      "title": "simplemobheads.guide.chapter",
+      "icon": "minecraft:skeleton_skull",
+      "page_key": "simplemobheads.guide.page",
+      "pages": 18,
+      "advancement": "simplemobheads:guide/chapter",
+      "hint": "minecraft:skeleton_skull"
+    }
+  ]
+}

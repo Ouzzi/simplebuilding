@@ -2,25 +2,26 @@
 """
 Guide books for the SimpleBuilding modules - the single source of truth (plan: docs/ai/PLAN-MODUL-GUIDES-2026-10-05.md).
 
-Every module gets a guide that works without SimpleBuilding:
+Every module is a chapter of the Simple Modpack guide (SimpleLib, owner 03.11., docs/ai/PLAN-B-GUIDE01-2026-11-03.md):
 
-  item modules    <ns>:guide_book, a Vanilla WrittenBookItem whose default written_book_content holds translatable
-                  pages (opened by Vanilla on use, in the reader's language), a shapeless recipe "book + one
-                  typical Vanilla item", the recipe-book unlock, an item model, and an FTB Quests start chapter whose
-                  first quest gives the book (copied into config/ftbquests only when FTB Quests is installed).
-  client modules  no item (they must stay client-only installable); the same pages open locally in the Vanilla
-                  book screen with the client command /<ns> guide.
+  every module    assets/<ns>/simplelib/modpack_guide.json - its section (the super-mod at the top of modules.json's
+                  parent chain) and one chapter (its pages); SimpleLib reads it on the client, no class coupling.
+  item modules    the chapter opens with the advancement <ns>:guide/chapter (holding the typical Vanilla item of the
+                  old recipe). The old <ns>:guide_book stays registered (worlds keep it) with its item model; it leaves
+                  the creative tabs (SimpleLib's tab rules) and turns into the Simple Modpack guide when used. Its recipe
+                  and FTB Quests start chapter are gone (removed below); SimpleLib has the one start chapter.
+  client modules  the same pages still open with the client command /<ns> guide (no item, client-only installable).
 
 Pages come from modules/<id>/wiki/manual.json (code-backed texts): an intro page, then one bold title plus the
-summary per feature (config/trade/link/loader rows skipped), wrapped to the Vanilla book page by pixel width and
+summary per feature (config/trade/link/loader rows skipped), wrapped to the book page by pixel width and
 split over continuation pages. English and German always get the same page count.
 
 Written per module:
   <shared java>/<package>/guide/<Class>.java   from tools/guides/ModuleGuide.java.in or ClientGuide.java.in
-  lang en_us/de_de                             item name, <ns>.guide.page.<n>(.title), quests.<ns>.start.*
-  item modules additionally                    recipe, recipe advancement, item model, data/<ns>/ftbquests/*
-
-Later (simplelib merged): the template becomes com.simplelib.guide.ModuleGuideBook; only this script changes.
+  lang en_us/de_de                             item name, <ns>.guide.chapter, <ns>.guide.page.<n>(.title)
+  assets/<ns>/simplelib/modpack_guide.json     the contribution
+  item modules additionally                    item model, chapter advancement
+Plus SimpleLib's FTB Quests start chapter and the section owner file of super-mods without a guide (Simple Aesthetics).
 
 Usage:
   python tools/guides/module_guides.py          write all files
@@ -166,13 +167,13 @@ MODULES = [
                 "Die fehlenden Baublöcke: Gedämpfte Tiefenschieferfliesen, die Vibrationen wie Wolle schlucken, "
                 "Sculk-Tiefenschiefer, die fehlenden Vanilla-Treppen, -Stufen und -Mauern, rissige und bemooste Ziegel "
                 "und die Formsäge, die Stein und Holz schneidet.")),
-    dict(module="simplevisuals", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
+    dict(module="simplevisuals", icon="minecraft:spyglass", ns="simplevisuals", package="com.simplevisuals.guide", cls="VisualsGuide",
          kind="client", author="Simple Visuals",
          intro=("Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. "
                 "Open this guide again with /simplevisuals guide.",
                 "Begrenzte Client-Anzeigen, Tooltips, Amboss-Formatierung und Vanilla-Immersionspartikel. "
                 "Dieses Handbuch öffnet /simplevisuals guide.")),
-    dict(module="simplesounds", ns="simplesounds", package="com.simplebuilding.modules.simplesounds.guide",
+    dict(module="simplesounds", icon="minecraft:note_block", ns="simplesounds", package="com.simplebuilding.modules.simplesounds.guide",
          cls="SoundsGuide", kind="client", author="Simple Sounds",
          intro=("Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects. "
                 "Open this guide again with /simplesounds guide.",
@@ -266,13 +267,13 @@ MODULES = [
                 "your own mono Ogg files onto blank discs.",
                 "Notenblätter als Text schreiben, im Editor probehören und für die Jukebox auf einen Rohling pressen. "
                 "Eigene Mono-Ogg-Dateien auf Rohlinge brennen.")),
-    dict(module="simpleearth", ns="simpleearth", package="com.simplebuilding.modules.simpleearth.guide", cls="EarthGuide",
+    dict(module="simpleearth", icon="minecraft:globe_banner_pattern", ns="simpleearth", package="com.simplebuilding.modules.simpleearth.guide", cls="EarthGuide",
          kind="client", author="Simple Earth",
          intro=("Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from "
                 "the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
                 "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus "
                 "dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.")),
-    dict(module="simplechallenges", ns="simplechallenges", package="com.simplebuilding.modules.simplechallenges.guide", cls="ChallengesGuide",
+    dict(module="simplechallenges", icon="minecraft:target", ns="simplechallenges", package="com.simplebuilding.modules.simplechallenges.guide", cls="ChallengesGuide",
          kind="client", author="Simple Challenges",
          intro=("Game modes for a world of your choice. First the Unlock mode: the world is cut into cells and only free cells can be "
                 "entered; you pay to open the next one. Without a chosen challenge the mod changes nothing. Open this guide again with /simplechallenges guide.",
@@ -305,51 +306,16 @@ MODULES = [
 SETTINGS = ("Settings", "Einstellungen",
             "More settings are in the mod's config screen.",
             "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.")
-QUEST = {
-    "title": ("Welcome to %s", "Willkommen bei %s"),
-    "subtitle": ("Your free guide", "Dein Handbuch gratis"),
-    "welcome_title": ("A free guide", "Ein Handbuch gratis"),
-    "welcome_desc": ("Craft or pick up a crafting table and claim the %s as a reward. You can also craft it from a "
-                     "book and %s.",
-                     "Stelle eine Werkbank her oder hebe eine auf und hol dir das %s als Belohnung. Du kannst es auch "
-                     "aus einem Buch und %s herstellen."),
-}
-RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
-    "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
-    "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
-    "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
-    "minecraft:note_block": ("a note block", "einem Notenblock"),
-    "minecraft:lead": ("a lead", "einer Leine"),
-    "minecraft:raw_gold": ("raw gold", "rohem Gold"),
-    "minecraft:sweet_berries": ("sweet berries", "Süßbeeren"),
-    "minecraft:echo_shard": ("an echo shard", "einer Echo-Scherbe"),
-    "minecraft:brick": ("a brick", "einem Ziegel"),
-    "minecraft:clay_ball": ("a clay ball", "einem Tonklumpen"),
-    "minecraft:gold_nugget": ("a gold nugget", "einem Goldklumpen"),
-    "minecraft:bread": ("bread", "Brot"),
-    "minecraft:chest": ("a chest", "einer Truhe"),
-    "minecraft:item_frame": ("an item frame", "einem Rahmen"),
-    "minecraft:flint_and_steel": ("flint and steel", "einem Feuerzeug"),
-    "minecraft:paper": ("paper", "Papier"),
-    "minecraft:chorus_fruit": ("a chorus fruit", "einer Chorusfrucht"),
-    "minecraft:glistering_melon_slice": ("a glistering melon slice", "einer glitzernden Melonenscheibe"),
-    "minecraft:bone": ("a bone", "einem Knochen"),
-    "minecraft:brush": ("a brush", "einem Pinsel"),
-    "minecraft:skeleton_skull": ("a skeleton skull", "einem Skelettschädel"),
-    "minecraft:glow_ink_sac": ("a glow ink sac", "einem Leuchttintenbeutel"),
-    "minecraft:prismarine_shard": ("a prismarine shard", "einer Prismarinscherbe"),
-    "minecraft:charcoal": ("charcoal", "Holzkohle"),
-    "minecraft:cauldron": ("a cauldron", "einem Kessel"),
-    "minecraft:stonecutter": ("a stonecutter", "einem Steinmetz"),
-    "minecraft:iron_ingot": ("an iron ingot", "einem Eisenbarren"),
-    "minecraft:emerald": ("an emerald", "einem Smaragd"),
-    "minecraft:flint": ("a piece of flint", "einem Feuerstein"),
-    "minecraft:compass": ("a compass", "einem Kompass"),
-    "minecraft:anvil": ("an anvil", "einem Amboss"),
-    "minecraft:ender_pearl": ("an ender pearl", "einer Enderperle"),
-    "minecraft:barrel": ("a barrel", "einem Fass"),
-    "minecraft:clock": ("a clock", "einer Uhr"),
-}
+# SimpleLib's one FTB Quests start chapter (the single guides' chapters are gone); texts in SimpleLib's lang files.
+LIB_QUEST_NS = "simplelib"
+GUIDE_ITEM = "simplelib:modpack_guide"
+# Super-mods without a guide of their own still own their section (top bookmark): (module, namespace, name, icon).
+SECTION_OWNERS = [("simpleaesthetics", "simpleaesthetics", "Simple Aesthetics", "minecraft:painting")]
+SUPER_ORDER = {"simplequalityoflife": 10, "simpleaesthetics": 20, "simplestats": 30}
+# Files of the single guides that no longer exist (deleted when writing, reported by --check).
+RETIRED = ("data/{ns}/recipe/guide_book.json", "data/{ns}/advancement/recipes/misc/guide_book.json",
+           "data/{ns}/ftbquests/install.txt", "data/{ns}/ftbquests/chapters/{ns}_start.json5",
+           "data/{ns}/ftbquests/lang/en_us/chapters/{ns}_start.json5")
 
 
 # --------------------------------------------------------------------------------------------
@@ -524,26 +490,19 @@ def lang_entries(cfg: dict, pages) -> tuple[dict, dict]:
     en, de = {}, {}
     if cfg["kind"] == "item":
         en[f"item.{ns}.guide_book"], de[f"item.{ns}.guide_book"] = cfg["name"]
+    en[f"{ns}.guide.chapter"] = de[f"{ns}.guide.chapter"] = cfg["author"]
     for i, ((te, be), (td, bd)) in enumerate(pages, start=1):
         key = f"{ns}.guide.page.{i}"
         en[key + ".title"], de[key + ".title"] = te, td
         en[key], de[key] = be, bd
-    if cfg["kind"] == "item":
-        q = f"quests.{ns}.start"
-        thing = RECIPE_ITEM_NAMES[cfg["recipe"]]
-        en[q + ".title"], de[q + ".title"] = QUEST["title"][0] % cfg["author"], QUEST["title"][1] % cfg["author"]
-        en[q + ".subtitle"], de[q + ".subtitle"] = QUEST["subtitle"]
-        en[q + ".welcome.title"], de[q + ".welcome.title"] = QUEST["welcome_title"]
-        en[q + ".welcome.description"] = QUEST["welcome_desc"][0] % (cfg["name"][0], thing[0])
-        de[q + ".welcome.description"] = QUEST["welcome_desc"][1] % (cfg["name"][1], thing[1])
     return en, de
 
 
 def updated_lang(path: Path, cfg: dict, entries: dict) -> str:
     ns = cfg["ns"]
-    owned = (f"item.{ns}.guide_book", f"{ns}.guide.page.", f"quests.{ns}.start.")
+    owned = (f"item.{ns}.guide_book", f"{ns}.guide.chapter", f"{ns}.guide.page.", f"quests.{ns}.start.")
     data = json.loads(path.read_text(encoding="utf-8"))
-    items = {k: v for k, v in data.items() if not (k == owned[0] or k.startswith(owned[1:]))}
+    items = {k: v for k, v in data.items() if not (k in owned[:2] or k.startswith(owned[2:]))}
     items.update(entries)
     return json.dumps(items, indent=2, ensure_ascii=False) + "\n"
 
@@ -557,50 +516,61 @@ def java_source(cfg: dict, pages) -> str:
     return template
 
 
+def section_of(module: str) -> str:
+    """The super-mod a module belongs to: the top of its parent chain in modules/modules.json."""
+    manifest = {m["id"]: m for m in json.loads((REPO / "modules/modules.json").read_text(encoding="utf-8"))["modules"]}
+    seen = set()
+    while manifest.get(module, {}).get("parent") and module not in seen:
+        seen.add(module)
+        module = manifest[module]["parent"]
+    return module
+
+
+def contribution(cfg: dict, pages) -> str:
+    """assets/<ns>/simplelib/modpack_guide.json: the module's section and its one chapter (SimpleLib ModpackGuide)."""
+    ns = cfg["ns"]
+    icon = cfg.get("recipe") or cfg["icon"]
+    chapter = {"id": f"{ns}:guide", "title": f"{ns}.guide.chapter", "icon": icon, "page_key": f"{ns}.guide.page",
+               "pages": len(pages)}
+    if cfg["kind"] == "item":
+        chapter["advancement"] = f"{ns}:guide/chapter"
+        chapter["hint"] = cfg["recipe"]
+    section = section_of(cfg["module"])
+    return to_json({"section": section, "name": f"{ns}.guide.chapter", "icon": icon,
+                    "order": SUPER_ORDER.get(cfg["module"], 100), "chapters": [chapter]}, indent=2)
+
+
 def item_files(cfg: dict) -> dict[str, str]:
     ns, p = cfg["ns"], module_paths(cfg)
     out = {}
-    out[p["data"] / "recipe/guide_book.json"] = to_json({
-        "type": "minecraft:crafting_shapeless",
-        "category": "misc",
-        "ingredients": ["minecraft:book", cfg["recipe"]],
-        "result": {"count": 1, "id": f"{ns}:guide_book"},
-    }, indent=2)
-    out[p["data"] / "advancement/recipes/misc/guide_book.json"] = to_json({
-        "parent": "minecraft:recipes/root",
-        "criteria": {
-            "has_book": {"conditions": {"items": [{"items": "minecraft:book"}]}, "trigger": "minecraft:inventory_changed"},
-            "has_item": {"conditions": {"items": [{"items": cfg["recipe"]}]}, "trigger": "minecraft:inventory_changed"},
-            "has_the_recipe": {"conditions": {"recipes": f"{ns}:guide_book"}, "trigger": "minecraft:recipe_unlocked"},
-        },
-        "requirements": [["has_the_recipe", "has_book", "has_item"]],
-        "rewards": {"recipes": [f"{ns}:guide_book"]},
+    # The chapter opens with this advancement: no display (never in the advancement screen), no reward.
+    out[p["data"] / "advancement/guide/chapter.json"] = to_json({
+        "criteria": {"has_item": {"conditions": {"items": [{"items": cfg["recipe"]}]}, "trigger": "minecraft:inventory_changed"}},
+        "requirements": [["has_item"]],
     }, indent=2)
     out[p["assets"] / "items/guide_book.json"] = to_json(
         {"model": {"type": "minecraft:model", "model": f"{ns}:item/guide_book"}}, indent=2)
     out[p["assets"] / "models/item/guide_book.json"] = to_json(
         {"parent": "minecraft:item/generated", "textures": {"layer0": f"{ns}:item/guide_book"}}, indent=2)
-    # FTB Quests: one chapter, one quest (crafting table, like SimpleBuilding's first quest), reward = the guide.
-    qdir = p["data"] / "ftbquests"
+    return out
+
+
+def lib_quest_files() -> dict[Path, str]:
+    """SimpleLib's FTB Quests start chapter: craft or pick up a crafting table, reward the Simple Modpack guide."""
+    ns = LIB_QUEST_NS
+    qdir = REPO / "modules/simplelib/shared/resources/data" / ns / "ftbquests"
     filename = f"{ns}_start"
     chapter_id, quest_id = hid(ns, "chapter", "start"), hid(ns, "quest", "start.welcome")
+    out = {}
     out[qdir / f"chapters/{filename}.json5"] = to_json({
-        "id": chapter_id,
-        "order_index": 0,
-        "filename": filename,
-        "icon": {"id": f"{ns}:guide_book"},
-        "default_quest_shape": "",
-        "default_hide_dependency_lines": False,
-        "progression_mode": "flexible",
+        "id": chapter_id, "order_index": 0, "filename": filename, "icon": {"id": GUIDE_ITEM},
+        "default_quest_shape": "", "default_hide_dependency_lines": False, "progression_mode": "flexible",
         "quests": [{
             "id": quest_id, "x": 0.0, "y": 0.0, "dependencies": [],
-            "tasks": [{"id": hid(ns, "task", "start.welcome"), "type": "item",
-                       "item": {"id": "minecraft:crafting_table", "count": 1}}],
-            "rewards": [{"id": hid(ns, "reward", "start.welcome"), "type": "item",
-                         "item": {"id": f"{ns}:guide_book", "count": 1}}],
+            "tasks": [{"id": hid(ns, "task", "start.welcome"), "type": "item", "item": {"id": "minecraft:crafting_table", "count": 1}}],
+            "rewards": [{"id": hid(ns, "reward", "start.welcome"), "type": "item", "item": {"id": GUIDE_ITEM, "count": 1}}],
         }],
-        "quest_links": [],
-        "images": [],
+        "quest_links": [], "images": [],
     })
     q = f"quests.{ns}.start"
     out[qdir / f"lang/en_us/chapters/{filename}.json5"] = to_json({
@@ -610,17 +580,34 @@ def item_files(cfg: dict) -> dict[str, str]:
         f"quest.{quest_id}.quest_desc": [translate(q + ".welcome.description")],
     })
     out[qdir / "install.txt"] = "\n".join([
-        f"# {cfg['author']} default quests for FTB Quests - generated by tools/guides/module_guides.py, do not edit.",
+        "# Simple Modpack guide default quests for FTB Quests - generated by tools/guides/module_guides.py, do not edit.",
         "# Read by com.simplebuilding.framework.api.ModuleQuestDefaults; paths are relative to config/ftbquests/quests.",
         "format json5", f"version {DATA_VERSION}",
         f"file chapters/{filename}.json5", f"file lang/en_us/chapters/{filename}.json5"]) + "\n"
     return out
 
 
-NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your language. Shapeless recipe: book + %s. "
-        "Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to %s\" gives one for free.",
-        "Handbuch zu dieser Mod: %d Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + %s. "
-        "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
+def owner_files() -> dict[Path, str]:
+    """Section owner files of super-mods without a guide (no chapters): their sub-mods group under them."""
+    out = {}
+    for module, ns, name, icon in SECTION_OWNERS:
+        res = REPO / "modules" / module / "shared/resources/assets" / ns
+        out[res / "simplelib/modpack_guide.json"] = to_json({"section": ns, "name": f"{ns}.guide.chapter", "icon": icon,
+                                                              "order": SUPER_ORDER.get(module, 100), "chapters": []}, indent=2)
+        for locale in ("en_us", "de_de"):
+            path = res / "lang" / f"{locale}.json"
+            data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+            data[f"{ns}.guide.chapter"] = name
+            out[path] = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+    return out
+
+
+NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken from this wiki, shown in your language. "
+        "Unlocked by picking up: %s. Craft the guide from a book and a crafting table; an old single guide turns into "
+        "it when used.",
+        "Kapitel \"%s\" im Simple-Modpack-Handbuch (SimpleLib): %d Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet "
+        "durch Aufheben von: %s. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim "
+        "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
@@ -631,7 +618,7 @@ RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:lead": ("lead", "Leine"),
     "minecraft:raw_gold": ("raw gold", "Rohgold"),
     "minecraft:sweet_berries": ("sweet berries", "Süßbeeren"),
-    "minecraft:echo_shard": ("an echo shard", "einer Echo-Scherbe"),
+    "minecraft:echo_shard": ("echo shard", "Echo-Scherbe"),
     "minecraft:note_block": ("note block", "Notenblock"),
     "minecraft:hay_block": ("hay bale", "Heuballen"), "minecraft:brick": ("brick", "Ziegel"),
     "minecraft:gold_nugget": ("gold nugget", "Goldklumpen"), "minecraft:bread": ("bread", "Brot"),
@@ -663,9 +650,10 @@ def updated_manual(cfg: dict, pages) -> str:
     key = f"{cfg['ns']}:guide_book"
     names = RECIPE_ITEM_SHORT[cfg["recipe"]]
     rel = module_paths(cfg)["java"].relative_to(REPO).as_posix()
-    note = {"sources": [rel, f"modules/{cfg['module']}/shared/resources/data/{cfg['ns']}/recipe/guide_book.json"],
-            "en": {"summary": NOTE[0] % (len(pages), names[0], cfg["author"])},
-            "de": {"summary": NOTE[1] % (len(pages), names[1], cfg["author"])}}
+    note = {"sources": [rel, f"modules/{cfg['module']}/shared/resources/assets/{cfg['ns']}/simplelib/modpack_guide.json",
+                        f"modules/{cfg['module']}/shared/resources/data/{cfg['ns']}/advancement/guide/chapter.json"],
+            "en": {"summary": NOTE[0] % (cfg["author"], len(pages), names[0])},
+            "de": {"summary": NOTE[1] % (cfg["author"], len(pages), names[1])}}
     if json.dumps(data, indent=2, ensure_ascii=False) + nl == raw:
         notes = {k: v for k, v in data["notes"].items() if k != key}
         data["notes"] = {key: note, **notes}
@@ -694,10 +682,18 @@ def outputs() -> dict[Path, str]:
         en, de = lang_entries(cfg, pages)
         out[p["lang"] / "en_us.json"] = updated_lang(p["lang"] / "en_us.json", cfg, en)
         out[p["lang"] / "de_de.json"] = updated_lang(p["lang"] / "de_de.json", cfg, de)
+        out[p["assets"] / "simplelib/modpack_guide.json"] = contribution(cfg, pages)
         if cfg["kind"] == "item":
             out.update(item_files(cfg))
             out[REPO / "modules" / cfg["module"] / "wiki/manual.json"] = updated_manual(cfg, pages)
+    out.update(lib_quest_files())
+    out.update(owner_files())
     return out
+
+
+def retired() -> list[Path]:
+    """Files of the single guides that must be gone (their recipes and FTB start chapters)."""
+    return [module_paths(cfg)["res"] / pattern.format(ns=cfg["ns"]) for cfg in MODULES if cfg["kind"] == "item" for pattern in RETIRED]
 
 
 def main(argv: list[str]) -> int:
@@ -714,6 +710,13 @@ def main(argv: list[str]) -> int:
             crlf = path.exists() and b"\r\n" in path.read_bytes()
             path.write_bytes(text.replace("\n", "\r\n").encode() if crlf else text.encode())
             print("wrote", path.relative_to(REPO))
+    for path in retired():
+        if path.exists():
+            if check:
+                stale.append(str(path.relative_to(REPO)) + " (retired, delete)")
+            else:
+                path.unlink()
+                print("removed", path.relative_to(REPO))
     if stale:
         print("Module guides are stale - run: python tools/guides/module_guides.py")
         for s in stale:

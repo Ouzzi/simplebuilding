@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplerespawn.guide.chapter",
+  "icon": "minecraft:glistering_melon_slice",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplerespawn:guide",
+      "title": "simplerespawn.guide.chapter",
+      "icon": "minecraft:glistering_melon_slice",
+      "page_key": "simplerespawn.guide.page",
+      "pages": 7,
+      "advancement": "simplerespawn:guide/chapter",
+      "hint": "minecraft:glistering_melon_slice"
+    }
+  ]
+}

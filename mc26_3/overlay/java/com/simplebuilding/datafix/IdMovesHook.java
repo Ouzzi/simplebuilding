@@ -55,6 +55,8 @@ public final class IdMovesHook {
         String lib = "simplelib";
         for (String path : com.simplebuilding.util.SharedMaterials.ITEMS) moveTo(Registries.ITEM, path, lib, path);
         for (String path : com.simplebuilding.util.SharedMaterials.BLOCKS) moveTo(Registries.BLOCK, path, lib, path);
+        // b-guide01: the guide recipe (book + crafting table) is SimpleLib's Simple Modpack guide recipe now (RecipeFilter drops ours).
+        moveTo(Registries.RECIPE, "guide_book", lib, "modpack_guide");
         com.simplebuilding.util.SharedMaterials.RECIPES.forEach((path, folder) -> {
             moveTo(Registries.RECIPE, path, lib, path);
             moveTo(Registries.ADVANCEMENT, "recipes/" + folder + "/" + path, lib, "recipes/" + folder + "/" + path);

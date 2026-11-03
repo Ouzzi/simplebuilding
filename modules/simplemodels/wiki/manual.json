@@ -195,13 +195,14 @@
     "simplemodels:guide_book": {
       "sources": [
         "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/guide/ModelsGuide.java",
-        "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json"
+        "modules/simplemodels/shared/resources/assets/simplemodels/simplelib/modpack_guide.json",
+        "modules/simplemodels/shared/resources/data/simplemodels/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 20 pages taken from this wiki, shown in your language. Shapeless recipe: book + item frame. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Models\" gives one for free."
+        "summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 20 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rahmen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Models\" eins."
+        "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }

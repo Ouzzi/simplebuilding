@@ -84,5 +84,18 @@
   "text.autoconfig.simplelib.option.freeLookServerRelease": "Ende von Free Look (Server)",
   "text.autoconfig.simplelib.option.freeLookServerRelease.@Tooltip": "Die Wahl des Servers; sie gilt für die\nSpieler nur, solange „Bei Clients\nerzwingen“ an ist.\nStandard: Kamera dreht zurück.",
   "text.autoconfig.simplelib.option.freeLookEnforce": "Bei Clients erzwingen",
-  "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "An: alle Spieler nutzen die Server-Wahl\noben; die Client-Einstellung wird\nignoriert. Wird beim Betreten gesendet.\nStandard: aus."
+  "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "An: alle Spieler nutzen die Server-Wahl\noben; die Client-Einstellung wird\nignoriert. Wird beim Betreten gesendet.\nStandard: aus.",
+  "item.simplelib.modpack_guide": "Simple Modpack",
+  "tooltip.simplelib.modpack_guide": "Deine ersten Schritte in die SimpleMods",
+  "gui.simplelib.modpack_guide.contents": "Inhalt",
+  "gui.simplelib.modpack_guide.previous": "Vorherige Seite",
+  "gui.simplelib.modpack_guide.next": "Nächste Seite",
+  "gui.simplelib.modpack_guide.locked": "Öffnet sich, sobald du %s aufhebst",
+  "gui.simplelib.modpack_guide.locked_short": "Gesperrt",
+  "gui.simplelib.modpack_guide.more": "Weitere Simple Mods",
+  "gui.simplelib.modpack_guide.empty": "Keine Simple-Mod mit Handbuch installiert.",
+  "quests.simplelib.start.title": "Willkommen bei den Simple Mods",
+  "quests.simplelib.start.subtitle": "Dein Handbuch gratis",
+  "quests.simplelib.start.welcome.title": "Ein Handbuch gratis",
+  "quests.simplelib.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Modpack-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Werkbank herstellen."
 }

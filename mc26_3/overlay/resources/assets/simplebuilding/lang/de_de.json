@@ -3687,5 +3687,6 @@
   "simplebuilding.testcentre.command.built_partial": "Teilbau: %s (%s von %s Abschnitten) – /sbtestcentre build baut alles",
   "simplebuilding.testcentre.command.section_not_built": "Abschnitt %s gehört nicht zu diesem Bau (%s)",
   "simplebuilding.testcentre.section.structures": "Strukturen",
-  "jei.simplebuilding.note.fletching": "Eine Spitze, ein Schaft, eine Befiederung: ein gefertigter Pfeil"
+  "jei.simplebuilding.note.fletching": "Eine Spitze, ein Schaft, eine Befiederung: ein gefertigter Pfeil",
+  "simplebuilding.modpack_guide.section": "SimpleBuilding"
 }

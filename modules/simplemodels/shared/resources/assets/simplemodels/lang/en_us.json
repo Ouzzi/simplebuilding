@@ -40,6 +40,7 @@
   "simplemodels.browser.readonly": "Read only: server admins edit config/simplemodels/config.json.",
   "simplemodels.command.reload": "Simple Models: %s models reloaded and sent to all players.",
   "item.simplemodels.guide_book": "Simple Models Guide",
+  "simplemodels.guide.chapter": "Simple Models",
   "simplemodels.guide.page.1.title": "Simple Models",
   "simplemodels.guide.page.1": "Server-approved custom item models, anvil assignment and a searchable model browser.",
   "simplemodels.guide.page.2.title": "Anvil Assignment",
@@ -79,9 +80,5 @@
   "simplemodels.guide.page.19.title": "/simplemodels reload",
   "simplemodels.guide.page.19": "Malformed policy disables assignment; bad definitions are skipped with server logs.",
   "simplemodels.guide.page.20.title": "Settings",
-  "simplemodels.guide.page.20": "More settings are in the mod's config screen.",
-  "quests.simplemodels.start.title": "Welcome to Simple Models",
-  "quests.simplemodels.start.subtitle": "Your free guide",
-  "quests.simplemodels.start.welcome.title": "A free guide",
-  "quests.simplemodels.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Models Guide as a reward. You can also craft it from a book and an item frame."
+  "simplemodels.guide.page.20": "More settings are in the mod's config screen."
 }

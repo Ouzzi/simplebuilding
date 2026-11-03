@@ -57,6 +57,7 @@
   "text.autoconfig.simplefun.option.fun.maxKnockback.@Tooltip": "Serveroption. Standard: 4.0. Server bestimmt\nWerte; Neustart erforderlich.",
   "jei.simplefun.brick_snowball": "Vier Schneebälle um einen Ziegel. Mit Benutzen werfen; Server begrenzt Schaden und Wurftempo.",
   "item.simplefun.guide_book": "Simple-Fun-Handbuch",
+  "simplefun.guide.chapter": "Simple Fun",
   "simplefun.guide.page.1.title": "Simple Fun",
   "simplefun.guide.page.1": "Begrenzte verspielte Mechaniken, Wurfziegel und kosmetische Verwandlungen. Die Tierköpfe liegen jetzt in Simple Mobheads.",
   "simplefun.guide.page.2.title": "Schleichwurf",
@@ -98,9 +99,5 @@
   "simplefun.guide.page.20.title": "Kreativ-Tabs",
   "simplefun.guide.page.20": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
   "simplefun.guide.page.21.title": "Einstellungen",
-  "simplefun.guide.page.21": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplefun.start.title": "Willkommen bei Simple Fun",
-  "quests.simplefun.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplefun.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplefun.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Fun-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Ziegel herstellen."
+  "simplefun.guide.page.21": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

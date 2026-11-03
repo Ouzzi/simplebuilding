@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplecrucibles.guide.chapter",
+  "icon": "minecraft:cauldron",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplecrucibles:guide",
+      "title": "simplecrucibles.guide.chapter",
+      "icon": "minecraft:cauldron",
+      "page_key": "simplecrucibles.guide.page",
+      "pages": 11,
+      "advancement": "simplecrucibles:guide/chapter",
+      "hint": "minecraft:cauldron"
+    }
+  ]
+}

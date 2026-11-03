@@ -804,13 +804,14 @@
     "simplefun:guide_book": {
       "sources": [
         "modules/simplefun/shared/java/com/simplefun/guide/FunGuide.java",
-        "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json"
+        "modules/simplefun/shared/resources/assets/simplefun/simplelib/modpack_guide.json",
+        "modules/simplefun/shared/resources/data/simplefun/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 21 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
+        "summary": "Chapter \"Simple Fun\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: brick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 21 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
+        "summary": "Kapitel \"Simple Fun\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Ziegel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplefun:brick_snowball": {

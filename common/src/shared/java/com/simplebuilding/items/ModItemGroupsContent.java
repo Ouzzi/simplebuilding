@@ -182,7 +182,7 @@ public final class ModItemGroupsContent {
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new java.util.ArrayList<>();
             for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.items(shelf)) {
-                shelfBooks.add(new ItemStack(com.simplebuilding.guide.GuideBooks.item(book)));
+                shelfBooks.add(com.simplebuilding.guide.GuideBooks.tabStack(book)); // 26.3: the Simple Modpack guide
             }
             String name = shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books";
             rows.add(firstShelf ? new CreativeTabLayout.Row(name, shelfBooks) : CreativeTabLayout.Row.flowing(name, shelfBooks));

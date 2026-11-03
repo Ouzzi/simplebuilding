@@ -10,6 +10,7 @@
   "command.simpleresonance.debug_owner": "%s: %s blocks, chance %s %%",
   "command.simpleresonance.debug_level": "A spawn here with the first candidate as owner would get level %s (zone %s).",
   "item.simpleresonance.guide_book": "Simple Resonance Guide",
+  "simpleresonance.guide.chapter": "Simple Resonance",
   "simpleresonance.guide.page.1.title": "Simple Resonance",
   "simpleresonance.guide.page.1": "How experienced you are and how dangerous the land is:",
   "simpleresonance.guide.page.2.title": "Simple Resonance",
@@ -41,9 +42,5 @@
   "simpleresonance.guide.page.15.title": "Commands",
   "simpleresonance.guide.page.15": "/resonance shows your value, the level of the land where you stand and your newcomer protection. /resonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
   "simpleresonance.guide.page.16.title": "Settings",
-  "simpleresonance.guide.page.16": "More settings are in the mod's config screen.",
-  "quests.simpleresonance.start.title": "Welcome to Simple Resonance",
-  "quests.simpleresonance.start.subtitle": "Your free guide",
-  "quests.simpleresonance.start.welcome.title": "A free guide",
-  "quests.simpleresonance.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Resonance Guide as a reward. You can also craft it from a book and an echo shard."
+  "simpleresonance.guide.page.16": "More settings are in the mod's config screen."
 }

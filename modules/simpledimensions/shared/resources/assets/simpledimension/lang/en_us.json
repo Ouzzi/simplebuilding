@@ -111,6 +111,7 @@
   "simpledimension.config.travelEnabled": "Enable Travel",
   "simpledimension.config.travelEnabled.tooltip": "Allow new journeys to Travel. Turning this\noff keeps existing return paths and world\ndata. Default: On. Server setting.",
   "item.simpledimension.guide_book": "Simple Dimensions Guide",
+  "simpledimension.guide.chapter": "Simple Dimensions",
   "simpledimension.guide.page.1.title": "Simple Dimensions",
   "simpledimension.guide.page.1": "Configurable dimensions, light arches and safe linked portals.",
   "simpledimension.guide.page.2.title": "Skyblock",
@@ -166,9 +167,5 @@
   "simpledimension.guide.page.27.title": "Commands",
   "simpledimension.guide.page.27": "/simpledimension config shows and changes every option of config/simpledimension/server.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simpledimension.guide.page.28.title": "Commands",
-  "simpledimension.guide.page.28": "Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
-  "quests.simpledimension.start.title": "Welcome to Simple Dimensions",
-  "quests.simpledimension.start.subtitle": "Your free guide",
-  "quests.simpledimension.start.welcome.title": "A free guide",
-  "quests.simpledimension.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Dimensions Guide as a reward. You can also craft it from a book and flint and steel."
+  "simpledimension.guide.page.28": "Values are bounded like in the file, saved at once and take effect at once. Permission level 2."
 }

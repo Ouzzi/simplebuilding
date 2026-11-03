@@ -51,6 +51,7 @@
   "block.simplebeacons.evil_conduit": "Evil Conduit",
   "block.simplebeacons.mighty_evil_conduit": "Mighty Evil Conduit",
   "item.simplebeacons.guide_book": "Simple Beacons Guide",
+  "simplebeacons.guide.chapter": "Simple Beacons",
   "simplebeacons.guide.page.1.title": "Simple Beacons",
   "simplebeacons.guide.page.1": "The Strong Upgrade turns a beacon into a Strong Beacon with five pyramid levels and new powers, and a conduit into a Strong Conduit with a 7x7x7 frame.",
   "simplebeacons.guide.page.2.title": "Simple Beacons",
@@ -112,9 +113,5 @@
   "simplebeacons.guide.page.30.title": "Commands",
   "simplebeacons.guide.page.30": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
   "simplebeacons.guide.page.31.title": "Settings",
-  "simplebeacons.guide.page.31": "More settings are in the mod's config screen.",
-  "quests.simplebeacons.start.title": "Welcome to Simple Beacons",
-  "quests.simplebeacons.start.subtitle": "Your free guide",
-  "quests.simplebeacons.start.welcome.title": "A free guide",
-  "quests.simplebeacons.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Beacons Guide as a reward. You can also craft it from a book and a prismarine shard."
+  "simplebeacons.guide.page.31": "More settings are in the mod's config screen."
 }

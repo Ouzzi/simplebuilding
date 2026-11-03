@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleovens.guide.chapter",
+  "icon": "minecraft:charcoal",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleovens:guide",
+      "title": "simpleovens.guide.chapter",
+      "icon": "minecraft:charcoal",
+      "page_key": "simpleovens.guide.page",
+      "pages": 15,
+      "advancement": "simpleovens:guide/chapter",
+      "hint": "minecraft:charcoal"
+    }
+  ]
+}

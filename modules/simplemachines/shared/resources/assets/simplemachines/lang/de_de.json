@@ -27,6 +27,7 @@
   "tooltip.simplemachines.double_piston": "Signal 1-7: Kopf fährt aus; 8-15: Körper folgt",
   "tooltip.simplemachines.signal_dampener": "Zieht 0-3 vom Signal ab; Rechtsklick: Stufe",
   "item.simplemachines.guide_book": "Simple-Machines-Handbuch",
+  "simplemachines.guide.chapter": "Simple Machines",
   "simplemachines.guide.page.1.title": "Simple Machines",
   "simplemachines.guide.page.1": "Die Maschinenteile des Tabs Simple Machines: vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.",
   "simplemachines.guide.page.2.title": "Kolben-Upgrades",
@@ -42,9 +43,5 @@
   "simplemachines.guide.page.7.title": "Befehle",
   "simplemachines.guide.page.7": "/simplemachines config [list | get | set | reset | help] (Operatoren).",
   "simplemachines.guide.page.8.title": "Einstellungen",
-  "simplemachines.guide.page.8": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplemachines.start.title": "Willkommen bei Simple Machines",
-  "quests.simplemachines.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplemachines.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemachines.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Machines-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Redstone-Staub herstellen."
+  "simplemachines.guide.page.8": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

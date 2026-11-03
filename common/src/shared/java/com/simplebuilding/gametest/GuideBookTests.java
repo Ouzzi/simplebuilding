@@ -982,7 +982,9 @@ public final class GuideBookTests {
         helper.assertValueEqual((int) net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
                 .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count(), 1, "registered guide items");
         for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
-            Item hub = GuideBooks.item(shelf.hub());
+            // b-guide01: book + crafting table makes SimpleLib's Simple Modpack guide; SimpleBuilding's hub is retired.
+            Item hub = GuideBooks.modpackGuide();
+            helper.assertTrue(hub != null, "the Simple Modpack guide (SimpleLib) is missing");
             var baseGrid = List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub())));
             expect(helper, problems, baseGrid, hub, false);
             var baseRecipe = find(helper, baseGrid).orElseThrow();

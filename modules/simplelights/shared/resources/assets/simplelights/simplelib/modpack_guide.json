@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplelights.guide.chapter",
+  "icon": "minecraft:glowstone_dust",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplelights:guide",
+      "title": "simplelights.guide.chapter",
+      "icon": "minecraft:glowstone_dust",
+      "page_key": "simplelights.guide.page",
+      "pages": 7,
+      "advancement": "simplelights:guide/chapter",
+      "hint": "minecraft:glowstone_dust"
+    }
+  ]
+}

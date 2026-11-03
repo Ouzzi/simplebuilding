@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplestorage.guide.chapter",
+  "icon": "minecraft:barrel",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplestorage:guide",
+      "title": "simplestorage.guide.chapter",
+      "icon": "minecraft:barrel",
+      "page_key": "simplestorage.guide.page",
+      "pages": 36,
+      "advancement": "simplestorage:guide/chapter",
+      "hint": "minecraft:barrel"
+    }
+  ]
+}

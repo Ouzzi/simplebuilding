@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplemobs.guide.chapter",
+  "icon": "minecraft:bone",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemobs:guide",
+      "title": "simplemobs.guide.chapter",
+      "icon": "minecraft:bone",
+      "page_key": "simplemobs.guide.page",
+      "pages": 38,
+      "advancement": "simplemobs:guide/chapter",
+      "hint": "minecraft:bone"
+    }
+  ]
+}

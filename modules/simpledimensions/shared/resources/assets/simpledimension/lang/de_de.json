@@ -111,6 +111,7 @@
   "simpledimension.config.travelEnabled": "Reise erlauben",
   "simpledimension.config.travelEnabled.tooltip": "Neue Reisen zur Dimension Reise erlauben.\nAbschalten erhält bestehende Rückwege und\nWeltdaten. Standard: Ein. Servereinstellung.",
   "item.simpledimension.guide_book": "Simple-Dimensions-Handbuch",
+  "simpledimension.guide.chapter": "Simple Dimensions",
   "simpledimension.guide.page.1.title": "Simple Dimensions",
   "simpledimension.guide.page.1": "Konfigurierbare Dimensionen, Lichtbögen und sicher verknüpfte Portale.",
   "simpledimension.guide.page.2.title": "Skyblock",
@@ -166,9 +167,5 @@
   "simpledimension.guide.page.27.title": "Befehle",
   "simpledimension.guide.page.27": "/simpledimension config zeigt und ändert jede Option von config/simpledimension/server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simpledimension.guide.page.28.title": "Befehle",
-  "simpledimension.guide.page.28": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
-  "quests.simpledimension.start.title": "Willkommen bei Simple Dimensions",
-  "quests.simpledimension.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpledimension.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpledimension.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Dimensions-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Feuerzeug herstellen."
+  "simpledimension.guide.page.28": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2."
 }

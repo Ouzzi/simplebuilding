@@ -82,6 +82,7 @@
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability": "Blocks per Durability Point",
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability.@Tooltip": "Ridden distance on the ground per point of\nwear on each horseshoe. Range 8-400. Default:\n40. Server setting; restart required.",
   "item.simpleriding.guide_book": "Simple Riding Guide",
+  "simpleriding.guide.chapter": "Simple Riding",
   "simpleriding.guide.page.1.title": "Simple Riding",
   "simpleriding.guide.page.1": "Saddle speed, horse jumps, nautilus dashes, mount armor utilities, loot and trades.",
   "simpleriding.guide.page.2.title": "Tailwind",
@@ -111,9 +112,5 @@
   "simpleriding.guide.page.14.title": "Commands",
   "simpleriding.guide.page.14": "options read only at start say so. Permission level 2.",
   "simpleriding.guide.page.15.title": "Settings",
-  "simpleriding.guide.page.15": "More settings are in the mod's config screen.",
-  "quests.simpleriding.start.title": "Welcome to Simple Riding",
-  "quests.simpleriding.start.subtitle": "Your free guide",
-  "quests.simpleriding.start.welcome.title": "A free guide",
-  "quests.simpleriding.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Riding Guide as a reward. You can also craft it from a book and a hay bale."
+  "simpleriding.guide.page.15": "More settings are in the mod's config screen."
 }

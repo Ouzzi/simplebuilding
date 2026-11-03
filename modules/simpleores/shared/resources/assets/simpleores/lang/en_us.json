@@ -87,6 +87,7 @@
   "text.autoconfig.simpleores.option.silverArrowUndeadBonus": "Silver arrow bonus against undead",
   "text.autoconfig.simpleores.option.silverArrowUndeadBonus.@Tooltip": "Extra damage of a silver arrow against undead mobs (zombies, skeletons, ...). 0 = like a normal arrow. Range 0 to 6.\nDefault: 3.",
   "item.simpleores.guide_book": "Simple Ores Guide",
+  "simpleores.guide.chapter": "Simple Ores",
   "simpleores.guide.page.1.title": "Simple Ores",
   "simpleores.guide.page.1": "Silver ore in the Overworld and the End with the silver arrow against the undead and the silver mirror, lead whose blocks muffle sound and stop the Sculk, and rose gold:",
   "simpleores.guide.page.2.title": "Simple Ores",
@@ -112,9 +113,5 @@
   "simpleores.guide.page.12.title": "Sage Ore and Dimensional Scrap",
   "simpleores.guide.page.12": "Two rare finds that moved here from SimpleBuilding (IG31-13): the sage ore with its experience orb, and the scrap of the three dimensions.",
   "simpleores.guide.page.13.title": "Settings",
-  "simpleores.guide.page.13": "More settings are in the mod's config screen.",
-  "quests.simpleores.start.title": "Welcome to Simple Ores",
-  "quests.simpleores.start.subtitle": "Your free guide",
-  "quests.simpleores.start.welcome.title": "A free guide",
-  "quests.simpleores.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Ores Guide as a reward. You can also craft it from a book and raw gold."
+  "simpleores.guide.page.13": "More settings are in the mod's config screen."
 }

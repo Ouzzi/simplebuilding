@@ -88,6 +88,7 @@
   "item.simpletools.biome_brush": "Biom-Pinsel",
   "item.simpletools.biome_brush.tooltip": "Material in Nebenhand; Schleichen: eine Stelle",
   "item.simpletools.guide_book": "Simple-Tools-Handbuch",
+  "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",
   "simpletools.guide.page.1": "Mit Lava gefüllte Öfen, Haltbarkeitsboni, günstigere Amboss-Reparaturen, die Verzauberung Seelenbindung und der Todesvorrat.",
   "simpletools.guide.page.2.title": "Ofen mit Lava füllen",
@@ -155,9 +156,5 @@
   "simpletools.guide.page.33.title": "(mit Simple Money) Geldscheine als Opfer",
   "simpletools.guide.page.33": "Ist Simple Money installiert, zählen seine Geldscheine im Opferplatz des Todesgewölbes wie Diamanten (optionaler Tag-Eintrag, ohne die Mod ändert sich nichts).",
   "simpletools.guide.page.34.title": "Einstellungen",
-  "simpletools.guide.page.34": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpletools.start.title": "Willkommen bei Simple Tools",
-  "quests.simpletools.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpletools.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletools.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tools-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Amboss herstellen."
+  "simpletools.guide.page.34": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

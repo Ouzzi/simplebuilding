@@ -19,6 +19,27 @@ public final class SimpleLibFabric implements ModInitializer {
         com.simplelib.registry.LibSounds.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries ->
                 entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART)));
+        // b-guide01: the Simple Modpack guide - Vanilla Tools tab (SimpleBuilding shows it in its own tab instead, and the tab
+        // rules then drop it here), the chapter unlock query, and the FTB Quests start chapter when SimpleBuilding is absent
+        // (SimpleBuilding's own first quest gives the guide).
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries ->
+                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.MODPACK_GUIDE)));
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(
+                com.simplelib.net.ModpackGuideQueryPayload.TYPE, com.simplelib.net.ModpackGuideQueryPayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(
+                com.simplelib.net.ModpackGuideStatePayload.TYPE, com.simplelib.net.ModpackGuideStatePayload.CODEC);
+        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(com.simplelib.net.ModpackGuideQueryPayload.TYPE,
+                (payload, context) -> context.server().execute(() -> {
+                    var player = context.player();
+                    if (net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(player, com.simplelib.net.ModpackGuideStatePayload.TYPE)) {
+                        net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, new com.simplelib.net.ModpackGuideStatePayload(
+                                com.simplelib.api.ModpackGuide.done(player, payload.advancements())));
+                    }
+                }));
+        var loader = FabricLoader.getInstance();
+        if (loader.isModLoaded("ftbquests") && !loader.isModLoaded("simplebuilding")) {
+            com.simplelib.guide.ModpackGuideQuests.install(loader.getConfigDir());
+        }
         MaterialConditionFabric.register();
         // In-world upgrade files: SimpleLib's own load and client sync (idle while a partner such as SimpleBuilding loads them).
         net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(net.minecraft.server.packs.PackType.SERVER_DATA).registerReloadListener(

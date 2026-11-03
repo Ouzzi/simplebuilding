@@ -819,13 +819,14 @@
     "simplemobs:guide_book": {
       "sources": [
         "modules/simplemobs/shared/java/com/simplebuilding/modules/simplemobs/guide/MobsGuide.java",
-        "modules/simplemobs/shared/resources/data/simplemobs/recipe/guide_book.json"
+        "modules/simplemobs/shared/resources/assets/simplemobs/simplelib/modpack_guide.json",
+        "modules/simplemobs/shared/resources/data/simplemobs/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 38 pages taken from this wiki, shown in your language. Shapeless recipe: book + bone. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Mobs\" gives one for free."
+        "summary": "Chapter \"Simple Mobs\" of the Simple Modpack guide (SimpleLib): 38 pages taken from this wiki, shown in your language. Unlocked by picking up: bone. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 38 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Knochen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Mobs\" eins."
+        "summary": "Kapitel \"Simple Mobs\" im Simple-Modpack-Handbuch (SimpleLib): 38 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Knochen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplemobs:deceiver_cloth": {

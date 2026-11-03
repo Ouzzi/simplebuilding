@@ -1,0 +1,15 @@
+{
+  "section": "simpleaesthetics",
+  "name": "simplesounds.guide.chapter",
+  "icon": "minecraft:note_block",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplesounds:guide",
+      "title": "simplesounds.guide.chapter",
+      "icon": "minecraft:note_block",
+      "page_key": "simplesounds.guide.page",
+      "pages": 18
+    }
+  ]
+}

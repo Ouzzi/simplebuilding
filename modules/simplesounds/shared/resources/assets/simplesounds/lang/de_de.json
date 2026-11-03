@@ -50,6 +50,7 @@
   "simplesounds.level.maximum": "Maximum",
   "simplesounds.option.followVisuals": "Simple Visuals folgen",
   "simplesounds.option.followVisuals.tooltip": "Nutzt die Intensität von Simple Visuals,\nfalls verfügbar. Effekt-Overrides haben\nVorrang; sonst gilt die eigene Stufe. Nur\nclientseitig. Standard: true.",
+  "simplesounds.guide.chapter": "Simple Sounds",
   "simplesounds.guide.page.1.title": "Simple Sounds",
   "simplesounds.guide.page.1": "Begrenzte lokale Vanilla-Klänge zu den zwölf Immersionseffekten von Simple Visuals. Dieses Handbuch öffnet /simplesounds guide.",
   "simplesounds.guide.page.2.title": "Schrittstaub",

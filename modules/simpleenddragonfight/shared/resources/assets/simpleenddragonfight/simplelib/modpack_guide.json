@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleenddragonfight.guide.chapter",
+  "icon": "minecraft:ender_pearl",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleenddragonfight:guide",
+      "title": "simpleenddragonfight.guide.chapter",
+      "icon": "minecraft:ender_pearl",
+      "page_key": "simpleenddragonfight.guide.page",
+      "pages": 10,
+      "advancement": "simpleenddragonfight:guide/chapter",
+      "hint": "minecraft:ender_pearl"
+    }
+  ]
+}

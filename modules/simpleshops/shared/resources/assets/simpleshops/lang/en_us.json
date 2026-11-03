@@ -100,6 +100,7 @@
   "simpleshops.terminal.status.delivering": "Delivery %s (%s%%)",
   "message.simpleshops.storage_needs_sales": "Sneak and right click your own Sales Block to attach the storage",
   "item.simpleshops.guide_book": "Simple Shops Guide",
+  "simpleshops.guide.chapter": "Simple Shops",
   "simpleshops.guide.page.1.title": "Simple Shops",
   "simpleshops.guide.page.1": "Player shops: a Sales Block with a price and a Display Case with up to five goods, protected from strangers and explosions. Buyers swap price items for one piece per trade.",
   "simpleshops.guide.page.2.title": "Display Case",
@@ -137,9 +138,5 @@
   "simpleshops.guide.page.18.title": "Commands",
   "simpleshops.guide.page.18": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
   "simpleshops.guide.page.19.title": "Settings",
-  "simpleshops.guide.page.19": "More settings are in the mod's config screen.",
-  "quests.simpleshops.start.title": "Welcome to Simple Shops",
-  "quests.simpleshops.start.subtitle": "Your free guide",
-  "quests.simpleshops.start.welcome.title": "A free guide",
-  "quests.simpleshops.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Shops Guide as a reward. You can also craft it from a book and an emerald."
+  "simpleshops.guide.page.19": "More settings are in the mod's config screen."
 }

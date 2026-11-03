@@ -186,6 +186,7 @@
   "text.autoconfig.simpleearth.option.cornerEasing.@Tooltip": "Die Kurve über einer Ecke. Standard: 3.",
   "text.autoconfig.simpleearth.option.roundness": "Rundung zur Kugel",
   "text.autoconfig.simpleearth.option.roundness.@Tooltip": "Wie weit sich der gefaltete Würfel zur V5-Form rundet (1 = ganz). Standard: 0,6 (V27: 1).",
+  "simpleearth.guide.chapter": "Simple Earth",
   "simpleearth.guide.page.1.title": "Simple Earth",
   "simpleearth.guide.page.1": "Fliegst du sehr hoch, wird die Oberwelt zu einem Würfel im Orbit, seine Flächen in Kartenfarben direkt aus dem Weltgenerator. Darunter bleibt alles Vanilla. Dieses Handbuch öffnet /simpleearth guide.",
   "simpleearth.guide.page.2.title": "Orbit",

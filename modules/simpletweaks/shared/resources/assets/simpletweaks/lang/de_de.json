@@ -356,6 +356,7 @@
   "jei.simpletweaks.note.deed_copy": "Gebundene + leere Urkunde: eine zweite Urkunde",
   "jei.simpletweaks.note.deed_copy_once": "Das Original bleibt; eine Kopie lässt sich nicht kopieren",
   "item.simpletweaks.guide_book": "Simple-Tweaks-Handbuch",
+  "simpletweaks.guide.chapter": "Simple Tweaks",
   "simpletweaks.guide.page.1.title": "Simple Tweaks",
   "simpletweaks.guide.page.1": "Kompatibilität mit alten Ständen und serverseitige Claims, standardmäßig an.",
   "simpletweaks.guide.page.2.title": "Kompatibilität alter Welten",
@@ -499,9 +500,5 @@
   "simpletweaks.guide.page.71.title": "Befehle",
   "simpletweaks.guide.page.71": "/simpletweaks config zeigt und ändert jede Option von config/simpletweaks-play.json, -admin.json, -protect.json and -claims.json in einem Baum: play.*, admin.*, protect.*, claims.* (list [Gruppe], get, set, reset, help;",
   "simpletweaks.guide.page.72.title": "Befehle",
-  "simpletweaks.guide.page.72": "Tab ergänzt Optionen und Werte). Werte werden wie in den Dateien begrenzt und sofort gespeichert; play, admin und protect wirken sofort, claims.* nach einem Neustart. Berechtigung 2.",
-  "quests.simpletweaks.start.title": "Willkommen bei Simple Tweaks",
-  "quests.simpletweaks.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpletweaks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletweaks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Tweaks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Papier herstellen."
+  "simpletweaks.guide.page.72": "Tab ergänzt Optionen und Werte). Werte werden wie in den Dateien begrenzt und sofort gespeichert; play, admin und protect wirken sofort, claims.* nach einem Neustart. Berechtigung 2."
 }

@@ -2578,6 +2578,15 @@ public final class DataIntegrityTests {
      * item moved into a second tab or listed twice; an item dropped from every tab; books spread
      * into another tab.
      */
+    /**
+     * b-guide01 (26.3): the single guides ({@code <mod>:guide_book}, SimpleBuilding's hub) are retired - registered for old
+     * worlds, without recipe and outside the creative tabs; SimpleLib's Simple Modpack guide replaces them.
+     */
+    static boolean retiredGuide(Identifier id) {
+        return com.simplebuilding.guide.GuideBooks.modpackGuide() != null && !"minecraft".equals(id.getNamespace())
+                && !com.simplebuilding.guide.GuideBooks.MODPACK_GUIDE.equals(id) && id.getPath().equals("guide_book");
+    }
+
     /** Split stage 4: the furnaces and furnace carts SimpleBuilding's tabs keep listing (Simple Ovens' on 26.3). */
     static Set<Identifier> ovenItemIds() {
         Set<Identifier> ids = new HashSet<>();
@@ -2616,7 +2625,7 @@ public final class DataIntegrityTests {
         }
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if ("minecraft".equals(id.getNamespace()) || ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath())
-                    || MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.toString())) {
+                    || MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.toString()) || retiredGuide(id)) {
                 continue;
             }
             if (!offered.contains(BuiltInRegistries.ITEM.getValue(id))) {
@@ -3703,7 +3712,7 @@ public final class DataIntegrityTests {
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
             for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.items(shelf)) {
-                shelfBooks.add(new ItemStack(com.simplebuilding.guide.GuideBooks.item(book)));
+                shelfBooks.add(com.simplebuilding.guide.GuideBooks.tabStack(book)); // 26.3: the Simple Modpack guide (b-guide01)
             }
             String name = shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books";
             expected.add(firstShelf ? new CreativeTabLayout.Row(name, shelfBooks) : CreativeTabLayout.Row.flowing(name, shelfBooks));
@@ -5029,7 +5038,7 @@ public final class DataIntegrityTests {
         int recipeless = 0;
         for (Item item : BuiltInRegistries.ITEM) {
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
-            if (!MOD_ID.equals(id.getNamespace()) || obtainable.contains(item) || new ItemStack(item).is(hidden)) {
+            if (!MOD_ID.equals(id.getNamespace()) || obtainable.contains(item) || new ItemStack(item).is(hidden) || retiredGuide(id)) {
                 continue;
             }
             recipeless++;

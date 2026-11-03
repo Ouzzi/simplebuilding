@@ -1,0 +1,17 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simpletools.guide.chapter",
+  "icon": "minecraft:anvil",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpletools:guide",
+      "title": "simpletools.guide.chapter",
+      "icon": "minecraft:anvil",
+      "page_key": "simpletools.guide.page",
+      "pages": 34,
+      "advancement": "simpletools:guide/chapter",
+      "hint": "minecraft:anvil"
+    }
+  ]
+}

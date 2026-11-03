@@ -52,6 +52,8 @@ LINES = {
     },
 }
 QUEST_DIR = "data/simplebuilding/ftbquests"
+# b-guide01: on 26.3 the first quest gives (and the guide quest asks for) SimpleLib's Simple Modpack guide.
+MODPACK_GUIDE = "simplelib:modpack_guide"
 LANG_KEY = "quests." + NS
 FILE_PREFIX = NS + "_"
 
@@ -547,6 +549,8 @@ def build_files(book: Book, fmt: str, mega: bool = False) -> dict[str, str]:
             kind, _, ident = q.task.partition(":")
             if mega and ident in ("simplebuilding:guide_book_building", "simplebuilding:guide_book_storage", "simplebuilding:guide_book_tweaks"):
                 kind, ident = "adv", "simplebuilding:guides/" + ident.removeprefix("simplebuilding:guide_book_")
+            if mega and ident == "simplebuilding:guide_book":
+                ident = MODPACK_GUIDE  # b-guide01: 26.3 hands out SimpleLib's Simple Modpack guide (the hub is retired)
             if kind == "item":
                 task = {"id": task_id, "type": "item", "item": {"id": ident, "count": 1}}
             else:
@@ -562,7 +566,8 @@ def build_files(book: Book, fmt: str, mega: bool = False) -> dict[str, str]:
             quest["tasks"] = [task]
             if mega and q.reward:
                 # Owner P5: with FTB Quests the first quest hands out the guide for free (it is never a join gift on 26.3).
-                quest["rewards"] = [{"id": hid("reward", full), "type": "item", "item": {"id": q.reward, "count": 1}}]
+                reward = MODPACK_GUIDE if q.reward == "simplebuilding:guide_book" else q.reward
+                quest["rewards"] = [{"id": hid("reward", full), "type": "item", "item": {"id": reward, "count": 1}}]
             quests.append(quest)
             title, desc = book.quest_texts(chapter, q)
             table[f"quest.{quest_id}.title"] = title

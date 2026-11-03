@@ -64,6 +64,8 @@ public final class RecipeFilter {
                 || (!t.pads.enableSpawnTeleporters && p.contains("spawn_teleporter"))
                 || (!t.pads.enableLaunchpads && p.contains("launchpad"))
                 || (!t.pads.enablePotionPads && p.contains("potion_pad"))
-                || (!t.laserPointer.enable && (p.equals("amethyst_lens") || p.equals("laser_pointer")));
+                || (!t.laserPointer.enable && (p.equals("amethyst_lens") || p.equals("laser_pointer")))
+                // b-guide01 (26.3): book + crafting table makes SimpleLib's Simple Modpack guide now; the hub is retired.
+                || (p.equals("guide_book") && com.simplebuilding.guide.GuideBooks.modpackGuide() != null);
     }
 }

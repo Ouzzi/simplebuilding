@@ -226,13 +226,14 @@
     "simpleanimals:guide_book": {
       "sources": [
         "modules/simpleanimals/shared/java/com/simpleanimals/guide/AnimalsGuide.java",
-        "modules/simpleanimals/shared/resources/data/simpleanimals/recipe/guide_book.json"
+        "modules/simpleanimals/shared/resources/assets/simpleanimals/simplelib/modpack_guide.json",
+        "modules/simpleanimals/shared/resources/data/simpleanimals/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + sweet berries. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Animals\" gives one for free."
+        "summary": "Chapter \"Simple Animals\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: sweet berries. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Süßbeeren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Animals\" eins."
+        "summary": "Kapitel \"Simple Animals\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Süßbeeren. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleanimals:deer_spawn_egg": {

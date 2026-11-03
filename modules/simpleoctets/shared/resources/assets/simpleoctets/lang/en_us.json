@@ -358,6 +358,7 @@
   "item.simpleoctets.sulfur_octet": "Sulfur Octet",
   "block.simpleoctets.sulfur_octet": "Sulfur Octet Cell",
   "item.simpleoctets.guide_book": "Simple Octets Guide",
+  "simpleoctets.guide.chapter": "Simple Octets",
   "simpleoctets.guide.page.1.title": "Simple Octets",
   "simpleoctets.guide.page.1": "Octets - half-block cubes of every wood, of every block with stairs and slabs and of the melon - cut in the Shapecutter (Simple Blocks; without it in the stonecutter), placed into the clicked corner and mixed in one cell.",
   "simpleoctets.guide.page.2.title": "Octets: half-block cubes of every material",
@@ -385,9 +386,5 @@
   "simpleoctets.guide.page.13.title": "Worlds from SimpleBuilding",
   "simpleoctets.guide.page.13": "Placed cells, octet items, the mixed cell and its block entity, the recipes in the recipe book and their unlocks keep working under the new simpleoctets: ids;",
   "simpleoctets.guide.page.14.title": "Worlds from SimpleBuilding",
-  "simpleoctets.guide.page.14": "the next save writes the new ids.",
-  "quests.simpleoctets.start.title": "Welcome to Simple Octets",
-  "quests.simpleoctets.start.subtitle": "Your free guide",
-  "quests.simpleoctets.start.welcome.title": "A free guide",
-  "quests.simpleoctets.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Octets Guide as a reward. You can also craft it from a book and a stonecutter."
+  "simpleoctets.guide.page.14": "the next save writes the new ids."
 }

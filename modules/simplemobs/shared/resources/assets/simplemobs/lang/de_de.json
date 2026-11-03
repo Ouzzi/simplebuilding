@@ -202,6 +202,7 @@
   "jei.simplemobs.info.boss_summons": "Beschwörung im End. Leerenläufer: 3 Purpurblöcke auf Endstein, ein Enderauge und 4 Chorusfrüchte oben drauf, dann Drachenatem auf den obersten Block. Schirmling: 3 x 3 Obsidian, 3 Shellker-Schalen auf die Mitte, dann einen Netherstern darauf.",
   "jei.simplemobs.info.brood": "Brutmulde: ein Purpurblock in einem 3 x 3 Ring aus Seelensand, Seelenfackeln auf den Ecken. Einen Eirohling, die Essenz eines Mobs und seinen Katalysator darauf werfen und mit dem Feuerzeug anzünden: heraus kommt das Spawn-Ei. Essenz fällt selten von Mobs, die du tötest.",
   "item.simplemobs.guide_book": "Simple-Mobs-Handbuch",
+  "simplemobs.guide.chapter": "Simple Mobs",
   "simplemobs.guide.page.1.title": "Simple Mobs",
   "simplemobs.guide.page.1": "Neue Bosse und Mobs mit fairen, angekündigten Angriffen, ihre Beute, der Verdorrte Wither und der Biom-Pinsel.",
   "simplemobs.guide.page.2.title": "Tiefenheuler",
@@ -277,9 +278,5 @@
   "simplemobs.guide.page.37.title": "Schirmling",
   "simplemobs.guide.page.37": "Ein End-Boss, den du beschwörst: eine gedrungene Gestalt, 1,5 Blöcke hoch, unter einem breiten Sombrero aus Grundgestein. Von oben ist er nicht zu treffen - die Krempe fängt alles ab, was zu steil kommt. Lässt das Ender-Juwel fallen.",
   "simplemobs.guide.page.38.title": "Brutmulde",
-  "simplemobs.guide.page.38": "Spawn-Eier aus Mob-Essenz, direkt in der Welt: kein Block, keine Oberfläche. Ein Ring aus Seelensand, eine Purpurmulde, Seelenfackeln - Gaben hineinwerfen und anzünden.",
-  "quests.simplemobs.start.title": "Willkommen bei Simple Mobs",
-  "quests.simplemobs.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplemobs.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemobs.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Mobs-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Knochen herstellen."
+  "simplemobs.guide.page.38": "Spawn-Eier aus Mob-Essenz, direkt in der Welt: kein Block, keine Oberfläche. Ein Ring aus Seelensand, eine Purpurmulde, Seelenfackeln - Gaben hineinwerfen und anzünden."
 }

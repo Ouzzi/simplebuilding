@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpletrims.guide.chapter",
+  "icon": "minecraft:glow_ink_sac",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpletrims:guide",
+      "title": "simpletrims.guide.chapter",
+      "icon": "minecraft:glow_ink_sac",
+      "page_key": "simpletrims.guide.page",
+      "pages": 12,
+      "advancement": "simpletrims:guide/chapter",
+      "hint": "minecraft:glow_ink_sac"
+    }
+  ]
+}

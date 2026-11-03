@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
  *       {@code modules/modules.json} by {@code tools/modtree/tab_order.py}); inside one mod the registration order. Fabric places the mod tabs
  *       alphabetically by id, so the page, row and column of each mod tab are set again (Fabric only, the Vanilla pages stay).
  * </ol>
+ * b-guide01: the retired single guides ({@code <mod>:guide_book}) leave every tab; the Simple Modpack guide replaces them.
  * IG31-13: without the owner of Enderite (Simple Ores, {@code SimpleLibApi.materialPresent("enderite")}) the Enderite variants of
  * the other mods (every item whose id path contains {@code enderite}) leave every tab; they stay registered (worlds keep them).
  * The pure parts ({@link #isModItem}, {@link #isPlainVanilla}, {@link #rank}) are static so tests call them without a world.
@@ -89,8 +90,20 @@ public final class CreativeTabPolicy {
         return !isVanilla(id) && id.getPath().contains("enderite");
     }
 
+    /** b-guide01: a retired single guide ({@link ModpackGuide#isRetiredGuide}); only asked while the Simple Modpack guide exists. */
+    public static boolean isRetiredGuide(ItemStack stack) {
+        return ModpackGuide.isRetiredGuide(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+    }
+
     /** Rule 1 and 2 on the built tabs (idempotent). */
     public static void filter() {
+        // b-guide01: the single guides stay registered (worlds keep them) but leave every tab - the Simple Modpack guide replaces them.
+        if (ModpackGuide.item() != null) {
+            for (CreativeModeTab tab : BuiltInRegistries.CREATIVE_MODE_TAB) { // also the search tab, built before this runs
+                tab.getDisplayItems().removeIf(CreativeTabPolicy::isRetiredGuide);
+                tab.getSearchTabDisplayItems().removeIf(CreativeTabPolicy::isRetiredGuide);
+            }
+        }
         if (!com.simplelib.registry.LibMaterials.provided("enderite")) {
             for (CreativeModeTab tab : BuiltInRegistries.CREATIVE_MODE_TAB) {
                 if (tab.getType() != CreativeModeTab.Type.CATEGORY) continue;

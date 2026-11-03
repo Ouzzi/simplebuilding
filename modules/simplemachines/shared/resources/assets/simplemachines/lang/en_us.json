@@ -27,6 +27,7 @@
   "tooltip.simplemachines.double_piston": "Signal 1-7: head extends; 8-15: body follows",
   "tooltip.simplemachines.signal_dampener": "Takes 0-3 off the signal; right-click: stage",
   "item.simplemachines.guide_book": "Simple Machines Guide",
+  "simplemachines.guide.chapter": "Simple Machines",
   "simplemachines.guide.page.1.title": "Simple Machines",
   "simplemachines.guide.page.1": "The machine parts of the Simple Machines tab: four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
   "simplemachines.guide.page.2.title": "Piston upgrades",
@@ -42,9 +43,5 @@
   "simplemachines.guide.page.7.title": "Commands",
   "simplemachines.guide.page.7": "/simplemachines config [list | get | set | reset | help] (operators).",
   "simplemachines.guide.page.8.title": "Settings",
-  "simplemachines.guide.page.8": "More settings are in the mod's config screen.",
-  "quests.simplemachines.start.title": "Welcome to Simple Machines",
-  "quests.simplemachines.start.subtitle": "Your free guide",
-  "quests.simplemachines.start.welcome.title": "A free guide",
-  "quests.simplemachines.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Machines Guide as a reward. You can also craft it from a book and redstone dust."
+  "simplemachines.guide.page.8": "More settings are in the mod's config screen."
 }

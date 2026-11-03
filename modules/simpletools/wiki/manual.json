@@ -500,13 +500,14 @@
     "simpletools:guide_book": {
       "sources": [
         "modules/simpletools/shared/java/com/simplebuilding/modules/simpletools/guide/ToolsGuide.java",
-        "modules/simpletools/shared/resources/data/simpletools/recipe/guide_book.json"
+        "modules/simpletools/shared/resources/assets/simpletools/simplelib/modpack_guide.json",
+        "modules/simpletools/shared/resources/data/simpletools/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 34 pages taken from this wiki, shown in your language. Shapeless recipe: book + anvil. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tools\" gives one for free."
+        "summary": "Chapter \"Simple Tools\" of the Simple Modpack guide (SimpleLib): 34 pages taken from this wiki, shown in your language. Unlocked by picking up: anvil. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 34 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Amboss. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tools\" eins."
+        "summary": "Kapitel \"Simple Tools\" im Simple-Modpack-Handbuch (SimpleLib): 34 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Amboss. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpletools:biome_brush": {

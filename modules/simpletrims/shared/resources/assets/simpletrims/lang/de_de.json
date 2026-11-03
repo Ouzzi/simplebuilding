@@ -39,6 +39,7 @@
   "jei.simpletrims.note.in_world": "Vorlage ablegen, dann %s-mal mit dem Werkzeug schlagen (Tinte in der Nebenhand).",
   "jei.simpletrims.note.durability": "Kostet das Werkzeug %s Haltbarkeit je Schlag.",
   "item.simpletrims.guide_book": "Simple-Trims-Handbuch",
+  "simpletrims.guide.chapter": "Simple Trims",
   "simpletrims.guide.page.1.title": "Simple Trims",
   "simpletrims.guide.page.1": "Leuchtender, strahlender und pulsierender Rüstungsbesatz, ablegbare Besatzvorlagen und ihr Schmieden mit der Axt (mit Simple Hammers: dem Vorschlaghammer).",
   "simpletrims.guide.page.2.title": "Simple Trims",
@@ -62,9 +63,5 @@
   "simpletrims.guide.page.11.title": "Befehle",
   "simpletrims.guide.page.11": "/simpletrims config zeigt und ändert jede Option von config/simpletrims-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simpletrims.guide.page.12.title": "Befehle",
-  "simpletrims.guide.page.12": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
-  "quests.simpletrims.start.title": "Willkommen bei Simple Trims",
-  "quests.simpletrims.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpletrims.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpletrims.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Trims-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Leuchttintenbeutel herstellen."
+  "simpletrims.guide.page.12": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
 }

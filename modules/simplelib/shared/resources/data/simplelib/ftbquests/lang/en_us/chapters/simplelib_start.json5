@@ -1,0 +1,10 @@
+{
+	"chapter.566D47BB27626D12.title": "{\"translate\": \"quests.simplelib.start.title\"}",
+	"chapter.566D47BB27626D12.chapter_subtitle": [
+		"{\"translate\": \"quests.simplelib.start.subtitle\"}"
+	],
+	"quest.167139BECD201798.title": "{\"translate\": \"quests.simplelib.start.welcome.title\"}",
+	"quest.167139BECD201798.quest_desc": [
+		"{\"translate\": \"quests.simplelib.start.welcome.description\"}"
+	]
+}

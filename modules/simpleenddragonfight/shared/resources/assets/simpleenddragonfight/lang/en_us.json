@@ -50,6 +50,7 @@
   "config.simpleenddragonfight.summonSpeedCap.tooltip": "Highest total flight speed once summonings add to it. Default: 2.0.",
   "jei.simpleenddragonfight.info.dragonmite_drops": "Dragonmites appear once the Ender Dragon is down to half health. A Dragonmite killed by a player may drop Dragon Chitin.",
   "item.simpleenddragonfight.guide_book": "Simple End Dragon Fight Guide",
+  "simpleenddragonfight.guide.chapter": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1.title": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1": "A harder Ender Dragon fight: it scales with the players, flies faster, can be summoned again, enters with an animation and brings dragonmites.",
   "simpleenddragonfight.guide.page.2.title": "One health bar per player",
@@ -69,9 +70,5 @@
   "simpleenddragonfight.guide.page.9.title": "Commands",
   "simpleenddragonfight.guide.page.9": "/simpleenddragonfight config shows and changes every option of config/simpleenddragonfight.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simpleenddragonfight.guide.page.10.title": "Commands",
-  "simpleenddragonfight.guide.page.10": "Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
-  "quests.simpleenddragonfight.start.title": "Welcome to Simple End Dragon Fight",
-  "quests.simpleenddragonfight.start.subtitle": "Your free guide",
-  "quests.simpleenddragonfight.start.welcome.title": "A free guide",
-  "quests.simpleenddragonfight.start.welcome.description": "Craft or pick up a crafting table and claim the Simple End Dragon Fight Guide as a reward. You can also craft it from a book and an ender pearl."
+  "simpleenddragonfight.guide.page.10": "Values are bounded like in the file, saved at once and take effect at once. Permission level 2."
 }

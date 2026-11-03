@@ -16,6 +16,7 @@
   "item.simpleanimals.truffle_soup": "Truffle Soup",
   "simpleanimals.testcentre.station": "Simple Animals",
   "item.simpleanimals.guide_book": "Simple Animals Guide",
+  "simpleanimals.guide.chapter": "Simple Animals",
   "simpleanimals.guide.page.1.title": "Simple Animals",
   "simpleanimals.guide.page.1": "Five animals Vanilla does not have: the shy deer, the wild boar that defends its piglets,",
   "simpleanimals.guide.page.2.title": "Simple Animals",
@@ -45,9 +46,5 @@
   "simpleanimals.guide.page.14.title": "Commands",
   "simpleanimals.guide.page.14": "Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
   "simpleanimals.guide.page.15.title": "Settings",
-  "simpleanimals.guide.page.15": "More settings are in the mod's config screen.",
-  "quests.simpleanimals.start.title": "Welcome to Simple Animals",
-  "quests.simpleanimals.start.subtitle": "Your free guide",
-  "quests.simpleanimals.start.welcome.title": "A free guide",
-  "quests.simpleanimals.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Animals Guide as a reward. You can also craft it from a book and sweet berries."
+  "simpleanimals.guide.page.15": "More settings are in the mod's config screen."
 }

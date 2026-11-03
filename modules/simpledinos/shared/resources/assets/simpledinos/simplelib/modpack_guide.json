@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpledinos.guide.chapter",
+  "icon": "minecraft:brush",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpledinos:guide",
+      "title": "simpledinos.guide.chapter",
+      "icon": "minecraft:brush",
+      "page_key": "simpledinos.guide.page",
+      "pages": 12,
+      "advancement": "simpledinos:guide/chapter",
+      "hint": "minecraft:brush"
+    }
+  ]
+}

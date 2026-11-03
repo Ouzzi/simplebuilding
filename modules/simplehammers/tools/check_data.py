@@ -43,7 +43,8 @@ for h in HAMMERS:
 recipes = {p.stem: json.loads(p.read_text(encoding='utf-8')) for p in (DATA / 'recipe').glob('*.json')}
 # ABN30-10: the two rose gold hammers are optional (only with Simple Ores): recipe and unlock behind a load condition.
 OPTIONAL = {f'{a}_sledgehammer' for a in ('rose_bronze', 'blossom_gold')}
-assert set(recipes) - OPTIONAL == set(recipes_java) | {'guide_book'}, sorted(set(recipes) ^ (set(recipes_java) | {'guide_book'} | OPTIONAL))
+# b-guide01: the single guide has no recipe any more (it is a chapter of the Simple Modpack guide).
+assert set(recipes) - OPTIONAL == set(recipes_java), sorted(set(recipes) ^ (set(recipes_java) | OPTIONAL))
 for name in OPTIONAL:
     assert recipes[name]['fabric:load_conditions'][0]['values'] == ['simpleores'] and 'forge:condition' in recipes[name], name
     assert (DATA / f'advancement/recipes/tools/{name}.json').is_file(), ('recipe advancement', name)

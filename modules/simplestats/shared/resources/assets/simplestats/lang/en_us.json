@@ -204,6 +204,7 @@
   "stat.simplestats.damage.bad_respawn_point": "Bad Respawn Point",
   "stat.simplestats.damage.spear": "Spear",
   "item.simplestats.guide_book": "Simple Stats Guide",
+  "simplestats.guide.chapter": "Simple Stats",
   "simplestats.guide.page.1.title": "Simple Stats",
   "simplestats.guide.page.1": "Every tool, weapon and piece of armor counts its own blocks, kills, absorbed damage, distances and catches, with an item-specific statistics screen.",
   "simplestats.guide.page.2.title": "Item statistics",
@@ -261,9 +262,5 @@
   "simplestats.guide.page.28.title": "Who counts and who sees",
   "simplestats.guide.page.28": "enabled, trackMining, trackCombat, trackArmor, trackDistances, trackFishing, trackTools, trackPlayerKills and maxBytes in config/simplestats.json.",
   "simplestats.guide.page.29.title": "Commands",
-  "simplestats.guide.page.29": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. Game master permission required.",
-  "quests.simplestats.start.title": "Welcome to Simple Stats",
-  "quests.simplestats.start.subtitle": "Your free guide",
-  "quests.simplestats.start.welcome.title": "A free guide",
-  "quests.simplestats.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Stats Guide as a reward. You can also craft it from a book and a piece of flint."
+  "simplestats.guide.page.29": "/simplestats reset clears the statistics of the held item, /simplestats show lists the raw values, /simplestats reload reads the settings again. Game master permission required."
 }

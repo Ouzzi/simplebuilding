@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleblocks.guide.chapter",
+  "icon": "minecraft:clay_ball",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleblocks:guide",
+      "title": "simpleblocks.guide.chapter",
+      "icon": "minecraft:clay_ball",
+      "page_key": "simpleblocks.guide.page",
+      "pages": 16,
+      "advancement": "simpleblocks:guide/chapter",
+      "hint": "minecraft:clay_ball"
+    }
+  ]
+}

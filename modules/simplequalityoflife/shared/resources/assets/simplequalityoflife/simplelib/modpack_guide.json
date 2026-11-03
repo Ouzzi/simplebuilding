@@ -1,0 +1,17 @@
+{
+  "section": "simplequalityoflife",
+  "name": "simplequalityoflife.guide.chapter",
+  "icon": "minecraft:chest",
+  "order": 10,
+  "chapters": [
+    {
+      "id": "simplequalityoflife:guide",
+      "title": "simplequalityoflife.guide.chapter",
+      "icon": "minecraft:chest",
+      "page_key": "simplequalityoflife.guide.page",
+      "pages": 100,
+      "advancement": "simplequalityoflife:guide/chapter",
+      "hint": "minecraft:chest"
+    }
+  ]
+}

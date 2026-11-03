@@ -207,13 +207,14 @@
     "simplecrucibles:guide_book": {
       "sources": [
         "modules/simplecrucibles/shared/java/com/simplecrucibles/guide/CruciblesGuide.java",
-        "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/guide_book.json"
+        "modules/simplecrucibles/shared/resources/assets/simplecrucibles/simplelib/modpack_guide.json",
+        "modules/simplecrucibles/shared/resources/data/simplecrucibles/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + cauldron. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Crucibles\" gives one for free."
+        "summary": "Chapter \"Simple Crucibles\" of the Simple Modpack guide (SimpleLib): 11 pages taken from this wiki, shown in your language. Unlocked by picking up: cauldron. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kessel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Crucibles\" eins."
+        "summary": "Kapitel \"Simple Crucibles\" im Simple-Modpack-Handbuch (SimpleLib): 11 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kessel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplecrucibles:iron_crucible": {

@@ -1,0 +1,17 @@
+{
+  "section": "simpleaesthetics",
+  "name": "simplemodels.guide.chapter",
+  "icon": "minecraft:item_frame",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemodels:guide",
+      "title": "simplemodels.guide.chapter",
+      "icon": "minecraft:item_frame",
+      "page_key": "simplemodels.guide.page",
+      "pages": 20,
+      "advancement": "simplemodels:guide/chapter",
+      "hint": "minecraft:item_frame"
+    }
+  ]
+}

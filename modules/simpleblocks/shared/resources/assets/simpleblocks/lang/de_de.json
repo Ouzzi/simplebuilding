@@ -136,6 +136,7 @@
   "text.autoconfig.simpleblocks.option.thawOneIn": "Tauchance (1 zu N)",
   "text.autoconfig.simpleblocks.option.thawOneIn.@Tooltip": "Frostgras ohne Schnee taut mit einer Chance\nvon 1 zu N je Zufallstick (1-100).\nStandard: 6.",
   "item.simpleblocks.guide_book": "Simple-Blocks-Handbuch",
+  "simpleblocks.guide.chapter": "Simple Blocks",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "Die fehlenden Baublöcke:",
   "simpleblocks.guide.page.2.title": "Simple Blocks",
@@ -167,9 +168,5 @@
   "simpleblocks.guide.page.15.title": "Frostgras",
   "simpleblocks.guide.page.15": "Ein Grasblock mit Schnee darauf gefriert in kalten Biomen oder mit Eis darunter langsam zu Frostgras; ohne Schnee taut es langsam wieder zu Gras.",
   "simpleblocks.guide.page.16.title": "Einstellungen",
-  "simpleblocks.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleblocks.start.title": "Willkommen bei Simple Blocks",
-  "quests.simpleblocks.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleblocks.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleblocks.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Blocks-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Tonklumpen herstellen."
+  "simpleblocks.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

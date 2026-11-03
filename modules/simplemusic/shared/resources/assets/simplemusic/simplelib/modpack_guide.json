@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplemusic.guide.chapter",
+  "icon": "minecraft:note_block",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemusic:guide",
+      "title": "simplemusic.guide.chapter",
+      "icon": "minecraft:note_block",
+      "page_key": "simplemusic.guide.page",
+      "pages": 22,
+      "advancement": "simplemusic:guide/chapter",
+      "hint": "minecraft:note_block"
+    }
+  ]
+}

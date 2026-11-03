@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleoctets.guide.chapter",
+  "icon": "minecraft:stonecutter",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleoctets:guide",
+      "title": "simpleoctets.guide.chapter",
+      "icon": "minecraft:stonecutter",
+      "page_key": "simpleoctets.guide.page",
+      "pages": 14,
+      "advancement": "simpleoctets:guide/chapter",
+      "hint": "minecraft:stonecutter"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpletweaks.guide.chapter",
+  "icon": "minecraft:paper",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpletweaks:guide",
+      "title": "simpletweaks.guide.chapter",
+      "icon": "minecraft:paper",
+      "page_key": "simpletweaks.guide.page",
+      "pages": 72,
+      "advancement": "simpletweaks:guide/chapter",
+      "hint": "minecraft:paper"
+    }
+  ]
+}

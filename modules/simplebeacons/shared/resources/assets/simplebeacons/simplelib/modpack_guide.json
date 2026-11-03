@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplebeacons.guide.chapter",
+  "icon": "minecraft:prismarine_shard",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplebeacons:guide",
+      "title": "simplebeacons.guide.chapter",
+      "icon": "minecraft:prismarine_shard",
+      "page_key": "simplebeacons.guide.page",
+      "pages": 31,
+      "advancement": "simplebeacons:guide/chapter",
+      "hint": "minecraft:prismarine_shard"
+    }
+  ]
+}

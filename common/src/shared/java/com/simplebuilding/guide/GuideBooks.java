@@ -327,6 +327,24 @@ public final class GuideBooks {
                 .component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.WRITTEN_BOOK_CONTENT, true));
     }
 
+    // =====================================================================================
+    // Simple Modpack guide (26.3, b-guide01): SimpleLib's one guide replaces this hub as an item
+    // =====================================================================================
+
+    /** SimpleLib's Simple Modpack guide (26.3); SimpleBuilding's book is a section of it. Looked up by id (no 26.2 class). */
+    public static final Identifier MODPACK_GUIDE = Identifier.fromNamespaceAndPath("simplelib", "modpack_guide");
+
+    /** The Simple Modpack guide item, or null (26.2, or SimpleLib not registered yet). */
+    public static Item modpackGuide() {
+        return McVersion.MEGA_GUIDES ? BuiltInRegistries.ITEM.getOptional(MODPACK_GUIDE).orElse(null) : null;
+    }
+
+    /** What a book's creative-tab slot shows: on 26.3 the Simple Modpack guide instead of the hub (the hub is retired). */
+    public static ItemStack tabStack(Book book) {
+        Item guide = book.isHub() ? modpackGuide() : null;
+        return new ItemStack(guide != null ? guide : item(book));
+    }
+
     /** Macht ein Einstiegsbuch zu seinem eigenen Handwerksrest (nach der Registrierung aufzurufen). */
     public static void makeSelfRemainder(Item hub) {
         if (McVersion.MEGA_GUIDES) return;
@@ -588,8 +606,8 @@ public final class GuideBooks {
             var recipes = player.level().getServer().getRecipeManager();
             for (Shelf shelf : Shelf.values()) {
                 if (player.getInventory().countItem(Items.BOOK) > 0 || player.getInventory().countItem(keyItem(shelf.hub()).asItem()) > 0) {
-                    var key = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, shelf.hub().itemName()));
+                    // b-guide01: the hub's recipe is SimpleLib's Simple Modpack guide recipe now (same book + crafting table).
+                    var key = ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, MODPACK_GUIDE);
                     recipes.byKey(key).ifPresent(recipe -> player.awardRecipes(List.of(recipe)));
                 }
             }

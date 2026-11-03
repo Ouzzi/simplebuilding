@@ -1,0 +1,15 @@
+{
+  "section": "simplebuilding",
+  "name": "simplechallenges.guide.chapter",
+  "icon": "minecraft:target",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplechallenges:guide",
+      "title": "simplechallenges.guide.chapter",
+      "icon": "minecraft:target",
+      "page_key": "simplechallenges.guide.page",
+      "pages": 66
+    }
+  ]
+}

@@ -292,13 +292,14 @@
     "simpleores:guide_book": {
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-        "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
+        "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+        "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:silver_ore": {

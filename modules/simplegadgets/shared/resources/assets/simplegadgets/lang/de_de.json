@@ -25,6 +25,7 @@
   "tooltip.simplegadgets.amethyst_lens.repair": "Am Amboss mit Amethystscherben reparieren",
   "tooltip.simplegadgets.amethyst_lens.touch_hint": "Berührung des Konstrukteurs: Distanzmessung",
   "item.simplegadgets.guide_book": "Simple-Gadgets-Handbuch",
+  "simplegadgets.guide.chapter": "Simple Gadgets",
   "simplegadgets.guide.page.1.title": "Simple Gadgets",
   "simplegadgets.guide.page.1": "Geräte, die man in der Hand hält und benutzt:",
   "simplegadgets.guide.page.2.title": "Simple Gadgets",
@@ -50,9 +51,5 @@
   "simplegadgets.guide.page.12.title": "Aus SimpleBuilding umgezogen",
   "simplegadgets.guide.page.12": "Alte Welten laden sie über SimpleLibs Id-Umzüge als simplegadgets:* und speichern die neuen Ids - im Inventar, in Truhen und auf dem Boden.",
   "simplegadgets.guide.page.13.title": "Kreativ-Tabs",
-  "simplegadgets.guide.page.13": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs).",
-  "quests.simplegadgets.start.title": "Willkommen bei Simple Gadgets",
-  "quests.simplegadgets.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplegadgets.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplegadgets.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Gadgets-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Uhr herstellen."
+  "simplegadgets.guide.page.13": "Die Items des Moduls stehen nur im eigenen Kreativ-Tab (keine Vanilla-Tabs)."
 }

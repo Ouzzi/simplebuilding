@@ -3017,13 +3017,14 @@
     "simplemoney:guide_book": {
       "sources": [
         "modules/simplemoney/shared/java/com/simplemoney/guide/MoneyGuide.java",
-        "modules/simplemoney/shared/resources/data/simplemoney/recipe/guide_book.json"
+        "modules/simplemoney/shared/resources/assets/simplemoney/simplelib/modpack_guide.json",
+        "modules/simplemoney/shared/resources/data/simplemoney/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + gold nugget. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Money\" gives one for free."
+        "summary": "Chapter \"Simple Money\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: gold nugget. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Goldklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Money\" eins."
+        "summary": "Kapitel \"Simple Money\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Goldklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplemoney:special_paper": {

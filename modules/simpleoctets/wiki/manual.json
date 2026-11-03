@@ -161,13 +161,14 @@
     "simpleoctets:guide_book": {
       "sources": [
         "modules/simpleoctets/shared/java/com/simpleoctets/guide/OctetsGuide.java",
-        "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
+        "modules/simpleoctets/shared/resources/assets/simpleoctets/simplelib/modpack_guide.json",
+        "modules/simpleoctets/shared/resources/data/simpleoctets/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
+        "summary": "Chapter \"Simple Octets\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: stonecutter. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
+        "summary": "Kapitel \"Simple Octets\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinmetz. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleoctets:melon_octet": {
