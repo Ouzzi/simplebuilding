@@ -884,13 +884,17 @@ public final class CrucibleTests {
         BlockState turned = plain.setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.NORTH).rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_90);
         if (turned.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.EAST) problems.add("rotated top " + turned);
         // an old world's state (facing, attached, open - no top) loads standing
-        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
-        tag.putString("Name", "simplecrucibles:copper_barrel");
-        net.minecraft.nbt.CompoundTag props = new net.minecraft.nbt.CompoundTag();
-        props.putString("facing", "east");
-        props.putString("attached", "false");
-        props.putString("open", "false");
-        tag.put("Properties", props);
+        // (26.3 palette entries name the block under "id": write a real one and take "top" out of its properties)
+        net.minecraft.nbt.CompoundTag tag = net.minecraft.nbt.NbtUtils.writeBlockState(plain.setValue(CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.EAST)
+                .setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.NORTH));
+        boolean removed = false;
+        for (String key : tag.keySet()) {
+            if (tag.get(key) instanceof net.minecraft.nbt.CompoundTag properties && properties.contains("top")) {
+                properties.remove("top");
+                removed = true;
+            }
+        }
+        if (!removed) problems.add("no top in the written state " + tag);
         BlockState old = net.minecraft.nbt.NbtUtils.readBlockState(h.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), tag);
         if (old.getBlock() != CrucibleBlocks.COPPER_BARREL || old.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.UP
                 || old.getValue(CrucibleBarrelBlock.FACING) != net.minecraft.core.Direction.EAST) problems.add("old state " + old);
