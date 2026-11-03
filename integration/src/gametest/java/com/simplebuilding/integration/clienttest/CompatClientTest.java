@@ -15,6 +15,7 @@ public final class CompatClientTest implements FabricClientGameTest {
         try (var world = context.worldBuilder().create()) {
             world.getConnection().waitForClientboundPackets();
             context.waitTicks(100);
+            context.takeScreenshot("compat-opt");
             System.out.println("[compat-opt] world ticked without crash");
         }
     }
