@@ -20,7 +20,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Probe for the Simple Modpack guide with the REAL operating-system mouse (b-guide01, after Simple Earth's MenuProbe):
- * inert unless the game folder holds {@code simplelib-guide-probe.json}. Then, on the title screen, it sizes the window,
+ * inert unless the game folder holds {@code simplelib-guide-probe.json}. Then it opens a flat creative world, sizes the window,
  * sets the GUI scale, marks every second chapter as unlocked and opens the guide; each tick it writes
  * {@code simplelib-guide-status.json} (screen, section, chapter, bookmark rectangles in window pixels) and follows
  * {@code simplelib-guide-command.json} (guiScale, open, shot, quit). {@code modules/simplelib/tools/guide_probe.py} moves
@@ -44,7 +44,7 @@ public final class GuideProbe {
 
     private static final Gson GSON = new Gson();
     private static Boolean active;
-    private static boolean opened;
+    private static boolean opened, worldRequested;
     private static int ticks;
 
     private GuideProbe() {}
@@ -56,7 +56,22 @@ public final class GuideProbe {
         ticks++;
         try {
             if (!opened) {
-                if (mc.level != null || mc.gui.overlay() != null || mc.gui.screen() == null || ticks < 60) return;
+                // Item stacks need a world (components are bound with its registries): first a flat creative world (PipeProbe pattern).
+                if (!worldRequested) {
+                    if (mc.level != null || mc.gui.overlay() != null || mc.gui.screen() == null || ticks < 60) return;
+                    worldRequested = true;
+                    String name = "sb-guide-probe-" + System.nanoTime();
+                    var settings = new net.minecraft.world.level.LevelSettings(name, net.minecraft.world.level.GameType.CREATIVE,
+                            new net.minecraft.world.level.LevelSettings.DifficultySettings(net.minecraft.world.Difficulty.PEACEFUL, false, true),
+                            true, net.minecraft.world.level.WorldDataConfiguration.DEFAULT);
+                    mc.createWorldOpenFlows().createFreshLevel(name, settings, new net.minecraft.world.level.levelgen.WorldOptions(0L, false, false),
+                            provider -> provider.lookupOrThrow(net.minecraft.core.registries.Registries.WORLD_PRESET)
+                                    .getOrThrow(net.minecraft.world.level.levelgen.presets.WorldPresets.FLAT).value().createWorldDimensions(),
+                            mc.gui.screen());
+                    return;
+                }
+                var server = mc.getSingleplayerServer();
+                if (mc.level == null || mc.player == null || server == null || !server.isReady() || mc.gui.screen() != null) return;
                 JsonObject req = GSON.fromJson(Files.readString(dir.resolve("simplelib-guide-probe.json")), JsonObject.class);
                 mc.getWindow().setWindowed(req.get("width").getAsInt(), req.get("height").getAsInt());
                 mc.options.guiScale().set(req.get("guiScale").getAsInt());
