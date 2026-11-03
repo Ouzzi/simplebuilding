@@ -79,7 +79,12 @@
         "balanceDir": "balance",
         "langOverlay": "mc26_3/overlay/resources/assets/simplebuilding/lang",
         "generatedBase": "src/main/generated"
-      }
+      },
+      "fabricDevClasspath": [
+        "simplemaps",
+        "simplequestionary",
+        "simpletrims"
+      ]
     },
     {
       "id": "wiringexample",
@@ -238,7 +243,8 @@
         "sellEnabled": false
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleriding",
@@ -340,7 +346,8 @@
         "modules/simpleriding/tools/check_data.py"
       ],
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplemodels",
@@ -537,7 +544,8 @@
         "forge": ":modules:simplefun:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplevisuals",
@@ -983,7 +991,8 @@
         "forge": ":modules:simpletweaks:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpledimensions",
@@ -1090,7 +1099,8 @@
       "namespace": "simpledimension",
       "modId": "simpledimension",
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplesandwiches",
@@ -1189,7 +1199,8 @@
         "forge": ":modules:simplesandwiches:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplelib",
@@ -1469,7 +1480,8 @@
         "forge": ":modules:simplemaps:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": "host"
     },
     {
       "id": "simplelivemap",
@@ -1620,7 +1632,8 @@
         "forge": ":modules:simpletrims:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplemobs",
@@ -1716,7 +1729,8 @@
         "forge": ":modules:simplemobs:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleweather",
@@ -2391,7 +2405,8 @@
         "forge": ":modules:simplequestionary:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": "host"
     },
     {
       "id": "simpleaesthetics",
@@ -2661,7 +2676,8 @@
         "forge": ":modules:simpleend:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplerespawn",
@@ -2748,7 +2764,8 @@
         "forge": ":modules:simplerespawn:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplebeacons",
@@ -2840,7 +2857,8 @@
         "forge": ":modules:simplebeacons:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleovens",
@@ -2934,7 +2952,8 @@
         "forge": ":modules:simpleovens:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": false
     },
     {
       "id": "simplemobheads",
@@ -3037,7 +3056,8 @@
         "forge": ":modules:simplemobheads:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": false
     },
     {
       "id": "simpleshops",
@@ -3130,7 +3150,8 @@
         "forge": ":modules:simpleshops:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplewanderers",
@@ -3221,7 +3242,8 @@
         "forge": ":modules:simplewanderers:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplestats",
@@ -3401,7 +3423,8 @@
         "forge": ":modules:simpleblocks:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplecrucibles",
@@ -3603,7 +3626,8 @@
         "forge": ":modules:simpleoctets:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplehammers",
@@ -3712,7 +3736,8 @@
         "forge": ":modules:simplehammers:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleoptimization",
@@ -4060,7 +4085,8 @@
         "forge": ":modules:simplestorage:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplemusic",
@@ -4152,7 +4178,8 @@
         "forge": ":modules:simplemusic:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplelights",
@@ -4215,7 +4242,8 @@
         "fabric": ":modules:simplelights:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplegadgets",
@@ -4278,7 +4306,8 @@
         "fabric": ":modules:simplegadgets:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleearth",
@@ -4349,7 +4378,8 @@
         "fabric": ":modules:simpleearth:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplechallenges",
@@ -4420,7 +4450,8 @@
         "fabric": ":modules:simplechallenges:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleanimals",
@@ -4503,7 +4534,8 @@
         "forge": ":modules:simpleanimals:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpledinos",
@@ -4586,7 +4618,8 @@
         "forge": ":modules:simpledinos:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleores",
@@ -4670,7 +4703,8 @@
         "forge": ":modules:simpleores:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplemachines",
@@ -4734,7 +4768,8 @@
         "fabric": ":modules:simplemachines:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplearrows",
@@ -4798,7 +4833,8 @@
         "fabric": ":modules:simplearrows:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleresonance",
@@ -4880,7 +4916,8 @@
         "forge": ":modules:simpleresonance:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplefoundry",
@@ -5014,7 +5051,8 @@
         "fabric": ":modules:simpleenchanting:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     }
   ]
 }

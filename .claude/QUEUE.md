@@ -21,6 +21,8 @@ Nach Priorität. Alles, was nicht hier steht und nicht `[R]` ist, läuft in den 
 9. IG31-10 Mob-Köpfe abgeschnitten, IG31-14 Music-Texturen, WF25-12 Inverser Rüstungsbesatz (sichtbare Fehler, in Arbeit).
 10. Restliche Client-Sicht-Abnahmen (VIS24, WP-06).
 
+- [x] (B, b-lib01, 03.11.; Plan docs/ai/PLAN-B-LIB01-2026-11-03.md) PLAN-ZEIT B1 Sub-Mods aus modules/modules.json (Gradle liest depends/include/implementation, tools/submods/sync.py schreibt Config-Schalter/Tests, checkSubMods) + B3 Enderit-Namespaces aus ModTags.Items.ENDERITE_NAMESPACES; precheck grün, sbt: Compile 26.3+26.2, fabric.mod.json gleich, config_option 19/19, data_integrity 48/48, migration_world 2/2, modpack 10/11 (chisel_and_upgrade_tables rot wie schon im Gate b4c5cab84)
+
 ## NACH RELEASE (Besitzer 03.11.)
 Phase 2, 3 und 4 erst NACH dem Release; Schmelzanlage (Simple Foundry, SA*) = Phase 3, niedrige Priorität, zurückgestellt.
 Status `[R]` = nach Release (Zeilen unverändert, nur Haken). Keine neuen Agenten dafür starten. Zuordnung: docs/ai/PLAN-B-PHASE01-2026-11-03.md.

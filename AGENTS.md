@@ -134,6 +134,18 @@ Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integratio
 Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul-Prosa in
 `modules/<id>/wiki/manual.json` (EN/DE). Wiki: `python wiki/generate.py --all` und `--all --check`;
 `checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.
+**Neuer Sub-Mod von SimpleBuilding in 3 Schritten** (B1, b-lib01; `modules/modules.json` ist die einzige Quelle):
+1. `python tools/newmod.py <id> "Name"` (Gerüst, Manifest-Eintrag, `integration/enabled-mods.json`), dann im Eintrag
+   `"parent": "simplebuilding"`, `"bundle": "required"|"optional"`, `"configSwitch": true` (Schalter `enableSimple<X>`;
+   `false` = kein Schalter) setzen und die id in SB `requires` bzw. `optional` eintragen.
+2. `python tools/submods/sync.py` schreibt Config-Feld, `setSubMod`, `ConfigOptions`, `ConfigOptionTests` (Blöcke
+   `// <submods:begin …>`) und fabric.mod.json-suggests. Der 26.3-Fabric-Build (depends, include, implementation) liest
+   modules.json selbst. Von Hand nur: Lang EN/DE `text.autoconfig.simplebuilding.option.enableSimple<X>` + `.@Tooltip`.
+3. `python tools/modtree/modtree.py` (Strukturseite) und precheck/`check` (`checkSubMods` = `sync.py --check`).
+Enderit-Items in einem neuen Sub-Mod: Namespace in `ModTags.Items.ENDERITE_NAMESPACES` (einzige Liste, B3).
+Merge zweier Sub-Mod-Branches: `modules.json` per `tools/ai/merge_helpers/jsonreg3.py`, dann `sync.py` (überschreibt
+die generierten Blöcke samt Konfliktmarkern darin).
+
 Balancing-Multimod: Manifest-Pfade/Mod-Auswahl nutzen; Ablage `balance/<id>/`, SimpleBuilding weiter `balance/` (keine Migration). Schreibziele/Datagen nur 26.3; `checkBalance` prueft alle Module. Details/Lesergrenzen: `docs/BALANCING-ZENTRALE.md`.
 
 ## 11. AI workflow and continuity (added 2026-09-30)

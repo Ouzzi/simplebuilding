@@ -39,21 +39,14 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleQuestionary = true;
 
-    @ConfigEntry.Category("modules")
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleRiding = true;
-
-    @ConfigEntry.Category("modules")
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleSandwiches = true;
-
-    @ConfigEntry.Category("modules")
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleTweaks = true;
-
+    // <submods:begin fields>
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleMoney = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleRiding = true;
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
@@ -61,7 +54,15 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleTweaks = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleDimensions = true;
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleSandwiches = true;
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
@@ -117,11 +118,11 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleEarth = true;
+    public boolean enableSimpleGadgets = true;
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleGadgets = true;
+    public boolean enableSimpleEarth = true;
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
@@ -133,29 +134,28 @@ public class SimplebuildingConfig implements ConfigData {
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
-    public boolean enableSimpleResonance = true;
-
-    @ConfigEntry.Category("modules")
-    @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleDinos = true;
 
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleOres = true;
 
-    /** Simple Machines (MACH32-MOD, 01.11.): Double Piston and Signal Dampener. */
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleMachines = true;
 
-    /** Simple Arrows (b-arrows02, 03.11.): Silver Arrow (from Simple Ores) and Light Arrow. */
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleArrows = true;
-    /** Simple Enchanting (ENCH02, 03.11.): the Dark and the Astral Enchanter. */
+
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleResonance = true;
+
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleEnchanting = true;
+    // <submods:end fields>
 
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
@@ -164,12 +164,13 @@ public class SimplebuildingConfig implements ConfigData {
      */
     public static void applySubModSwitches(SimplebuildingConfig c) {
         if (c == null) return;
-        setSubMod("simpleriding", c.enableSimpleRiding);
-        setSubMod("simplesandwiches", c.enableSimpleSandwiches);
-        setSubMod("simpletweaks", c.enableSimpleTweaks);
+        // <submods:begin apply>
         setSubMod("simplemoney", c.enableSimpleMoney);
+        setSubMod("simpleriding", c.enableSimpleRiding);
         setSubMod("simplefun", c.enableSimpleFun);
+        setSubMod("simpletweaks", c.enableSimpleTweaks);
         setSubMod("simpledimension", c.enableSimpleDimensions);
+        setSubMod("simplesandwiches", c.enableSimpleSandwiches);
         setSubMod("simpletrims", c.enableSimpleTrims);
         setSubMod("simplemobs", c.enableSimpleMobs);
         setSubMod("simpleend", c.enableSimpleEnd);
@@ -183,16 +184,17 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simplestorage", c.enableSimpleStorage);
         setSubMod("simplemusic", c.enableSimpleMusic);
         setSubMod("simplelights", c.enableSimpleLights);
-        setSubMod("simpleearth", c.enableSimpleEarth);
         setSubMod("simplegadgets", c.enableSimpleGadgets);
+        setSubMod("simpleearth", c.enableSimpleEarth);
         setSubMod("simplechallenges", c.enableSimpleChallenges);
         setSubMod("simpleanimals", c.enableSimpleAnimals);
-        setSubMod("simpleresonance", c.enableSimpleResonance);
         setSubMod("simpledinos", c.enableSimpleDinos);
         setSubMod("simpleores", c.enableSimpleOres);
         setSubMod("simplemachines", c.enableSimpleMachines);
         setSubMod("simplearrows", c.enableSimpleArrows);
+        setSubMod("simpleresonance", c.enableSimpleResonance);
         setSubMod("simpleenchanting", c.enableSimpleEnchanting);
+        // <submods:end apply>
     }
 
     /**

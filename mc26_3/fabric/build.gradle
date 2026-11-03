@@ -148,30 +148,34 @@ dependencies {
 	implementation fabricApi.module("fabric-gametest-api-v1", project.mc263_fabric_version)
 }
 
+// B1 (b-lib01): SimpleBuilding's sub-mods come from modules/modules.json only - "requires" are the required sub-mods
+// (depends, nested, on the classpath), "optional" the optional ones (nested), "fabricDevClasspath" optional ones SB's
+// dev/test runs load as well. Order as in modules.json. Adding a sub-mod needs no edit here (AGENTS.md).
+def sbModuleRegistry = new groovy.json.JsonSlurper().parse(rootProject.file('modules/modules.json')).modules
+def sbModuleById = sbModuleRegistry.collectEntries { [(it.id): it] }
+def sbEntry = sbModuleById['simplebuilding']
+def sbRequiredSubMods = sbEntry.requires.findAll { sbModuleById[it]?.projects?.fabric }
+def sbOptionalSubMods = sbEntry.optional.findAll { sbModuleById[it]?.projects?.fabric }
+def sbFabricModId = { String id -> sbModuleById[id].modId ?: id }
+def sbRequiredDepends = sbRequiredSubMods.collect { "\"${sbFabricModId(it)}\": \">=${sbModuleById[it].version}\"" }.join(', ')
+
 processResources {
 	inputs.property "version", project.version
+	inputs.property "requiredSubMods", sbRequiredDepends
 	// fabric.mod.json is shared with the 26.2 line; only the Minecraft and Cloth Config ranges
 	// differ.
 	filesMatching("fabric.mod.json") {
 		expand "version": inputs.properties.version
 		filter { String line ->
-			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
+			String out = line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				// Required sub-mods of the 26.3 super-mod (PLAN-MODULAUFTEILUNG stage 4), bundled below.
-				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", "simplelib": ">=0.4.0", "simpleovens": ">=0.9.0", "simplemobheads": ">=0.9.0", "simplecrucibles": ">=0.9.0", "simpleoctets": ">=0.9.0", "simpleblocks": ">=0.9.0", "simplehammers": ">=0.9.0", "simplestorage": ">=0.9.0", "simplelights": ">=0.9.0", "simplegadgets": ">=0.9.0", "simpleores": ">=0.1.0", "simplemachines": ">=0.1.0", "simplearrows": ">=0.1.0", "simpleenchanting": ">=0.1.0", "simplemobs": ">=0.1.0", "simpleresonance": ">=0.1.0"')
-				// IG31-13: Simple Ores is required now (above), not only suggested.
-				.replace('"simpleores": "*",', '')
-				// MACH32-MOD: Simple Machines is required now (above), not only suggested.
-				.replace('"simplemachines": "*",', '')
-				// b-arrows02: Simple Arrows is required now (above), not only suggested.
-				.replace('"simplearrows": "*",', '')
-				// ENCH02: Simple Enchanting is required now (above), not only suggested.
-				.replace('"simpleenchanting": "*",', '')
-				// ZO9: Simple Mobs and Simple Resonance are required sub-mods now (above), not only suggested.
-				.replace('"simplemobs": "*",', '')
-				.replace('"simpleresonance": "*",', '')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3", ' + sbRequiredDepends)
 				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
 				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
+			// A required sub-mod is in depends now (above), not only suggested.
+			sbRequiredSubMods.each { out = out.replace("\"${sbFabricModId(it)}\": \"*\",", '') }
+			out
 		}
 	}
 }
@@ -241,123 +245,13 @@ apply from: rootProject.file('gradle/hub-project-mods.gradle')
 
 // Public cross-mod contracts are packaged on the main line only.
 dependencies { implementation project(':framework'); include project(':framework') }
-// SimpleLib (crucibles, warm food) nested per principle 6a; SB code uses it from P5 on.
+// Sub-mods of the super-mod from modules/modules.json (B1, see sbRequiredSubMods above): every sub-mod is nested for
+// production (include); required ones and "fabricDevClasspath" are also compiled against and loaded in SB's dev/test
+// runs (SB code reaches most of them only by id, util/*Refs). The other optional sub-mods are only nested: SB's own
+// dev/test runs stay without them, each sub-mod's integration target loads it together with SimpleBuilding.
 dependencies {
-    include project(':modules:simplelib:fabric')
-    // SB 26.3 code uses com.simplelib.api (crucible P5) and needs the mod in dev and test runs too.
-    implementation project(':modules:simplelib:fabric')
-}
-// Simple Ovens: required Sub-Mod (PLAN-MODULAUFTEILUNG stage 4) - the furnaces moved there (simpleovens:*, ids migrate).
-// Nested for production, loaded in SB's dev/test runs; SB code never imports it (util/OvenRefs: by id).
-dependencies {
-    include project(':modules:simpleovens:fabric')
-    implementation project(':modules:simpleovens:fabric')
-}
-// Simple Crucibles: required Sub-Mod (PLAN-MODULAUFTEILUNG stage 5) - the crucibles, barrels and the reinforced cauldron moved
-// there (simplecrucibles:*, ids migrate). Nested for production, compiled against (SimpleCruciblesApi) and loaded in dev/test runs.
-dependencies {
-    include project(':modules:simplecrucibles:fabric')
-    implementation project(':modules:simplecrucibles:fabric')
-}
-// Simple Octets: required Sub-Mod (split stage 6) - the material, wood and melon octets and the mixed cell moved there
-// (simpleoctets:*, ids migrate). Nested for production, compiled against (the octet cell API of the chess octets) and loaded in dev/test runs.
-dependencies {
-    include project(':modules:simpleoctets:fabric')
-    implementation project(':modules:simpleoctets:fabric')
-}
-// Simple Blocks: required Sub-Mod (b-blocksmove) - SimpleBuilding's building blocks without a home of their own moved there
-// (simpleblocks:*, ids migrate). Nested for production and loaded in dev/test runs; SB code never imports it (util/BlockRefs: by id).
-dependencies {
-    include project(':modules:simpleblocks:fabric')
-    implementation project(':modules:simpleblocks:fabric')
-}
-// Simple Hammers: required Sub-Mod (split stage 7) - the sledgehammers, their engine and enchantments moved there
-// (simplehammers:*, ids migrate). Nested for production, compiled against (the engine statics through the overlay subclasses) and loaded in dev/test runs.
-dependencies {
-    include project(':modules:simplehammers:fabric')
-    implementation project(':modules:simplehammers:fabric')
-}
-// Simple Storage: required Sub-Mod (split stage 8a) - the crates and the Storage Crafting Table moved there
-// (simplestorage:*, ids migrate). Nested for production and loaded in dev/test runs; SB code never imports it (util/StorageRefs: by id).
-dependencies {
-    include project(':modules:simplestorage:fabric')
-    implementation project(':modules:simplestorage:fabric')
-}
-// Simple Lights: required Sub-Mod (WB24-6, Fabric only for now) - the Light Panes moved there (simplelights:*, ids migrate).
-// Nested for production and loaded in dev/test runs; SB code never imports it (util/LightRefs: by id).
-dependencies {
-    include project(':modules:simplelights:fabric')
-    implementation project(':modules:simplelights:fabric')
-}
-// Simple Gadgets: required Sub-Mod (OW24-2 G1, Fabric only for now) - the Gauge moved there (simplegadgets:*, ids migrate).
-// Nested for production and loaded in dev/test runs; SB code never imports it (util/GadgetRefs: by id).
-dependencies {
-    include project(':modules:simplegadgets:fabric')
-    implementation project(':modules:simplegadgets:fabric')
-}
-// Simple Ores: required Sub-Mod (IG31-13, Fabric only for now) - Enderite, Dimensional Scrap and Sage Ore moved there
-// (simpleores:*, ids migrate). Nested below with the optional modules; loaded in dev/test runs, SB code never imports it.
-dependencies {
-    implementation project(':modules:simpleores:fabric')
-}
-// Simple Machines: required Sub-Mod (MACH32-MOD, Fabric only for now) - Double Piston and Signal Dampener moved there
-// (simplemachines:*, ids migrate). Nested below with the optional modules; loaded in dev/test runs, SB code never imports it.
-dependencies {
-    implementation project(':modules:simplemachines:fabric')
-    // b-arrows02: Simple Arrows (Silver Arrow from Simple Ores, Light Arrow; simplearrows:*, ids migrate), required, Fabric only.
-    implementation project(':modules:simplearrows:fabric')
-    // ENCH02 (03.11.): Simple Enchanting - the enchanters (simpleenchanting:*, ids migrate); SB's fields find them by id.
-    implementation project(':modules:simpleenchanting:fabric')
-    // ZO9: required sub-mods now, loaded in dev/test runs.
-    implementation project(':modules:simplemobs:fabric')
-    implementation project(':modules:simpleresonance:fabric')
-}
-// Simple Maps bundled as a Sub-Mod (Super-/Sub-Mod concept); switch "Enable Simple Maps" in the config.
-dependencies {
-    include project(':modules:simplemaps:fabric')
-    implementation project(':modules:simplemaps:fabric')
-}
-// Simple Questionary bundled as a Sub-Mod; switch "Enable Simple Questionary" in the config.
-dependencies {
-    include project(':modules:simplequestionary:fabric')
-    implementation project(':modules:simplequestionary:fabric')
-}
-// Simple Mobheads: required Sub-Mod (KONZEPT-SIMPLE-MOBHEADS-2026-10-13) - SB's mob heads moved there; SB code reaches
-// them only by registry id, its dev/test runs load the module like Simple Maps.
-dependencies {
-    include project(':modules:simplemobheads:fabric')
-    implementation project(':modules:simplemobheads:fabric')
-}
-// Simple Trims: SB worlds hold trim data that migrates to simpletrims:* (N18 stage 2-4); SB's dev/test runs load the
-// module like Simple Maps so those worlds and fixtures keep their items (SB code still never imports it).
-dependencies { implementation project(':modules:simpletrims:fabric') }
-// Optional Sub-Mods bundled for production (PLAN-MODULAUFTEILUNG stage 1a); switches "Enable Simple X" reach them via
-// framework SubMods. Only nested (no implementation): SB code never imports them, and SB's own dev/test runs stay as
-// before; each sub-mod's integration target loads it together with SimpleBuilding.
-dependencies {
-    include project(':modules:simpleriding:fabric')
-    include project(':modules:simplesandwiches:fabric')
-    include project(':modules:simpletweaks:fabric')
-    include project(':modules:simplemoney:fabric')
-    include project(':modules:simplefun:fabric')
-    include project(':modules:simpledimensions:fabric')
-    include project(':modules:simpletrims:fabric')
-    include project(':modules:simplemobs:fabric')
-    include project(':modules:simpleend:fabric')
-    include project(':modules:simplerespawn:fabric')
-    include project(':modules:simplebeacons:fabric')
-    include project(':modules:simpleshops:fabric')
-    include project(':modules:simplewanderers:fabric')
-    include project(':modules:simpleanimals:fabric')
-    include project(':modules:simpleresonance:fabric')
-    include project(':modules:simpledinos:fabric')
-    include project(':modules:simpleores:fabric')
-    include project(':modules:simplemachines:fabric')
-    include project(':modules:simplearrows:fabric')
-    include project(':modules:simpleenchanting:fabric')
-    include project(':modules:simplemusic:fabric')
-    include project(':modules:simpleearth:fabric')
-    include project(':modules:simplechallenges:fabric')
+    (sbRequiredSubMods + sbEntry.fabricDevClasspath).unique().each { implementation project(sbModuleById[it].projects.fabric) }
+    (sbRequiredSubMods + sbOptionalSubMods).unique().each { include project(sbModuleById[it].projects.fabric) }
 }
 // The development classpath already contains common; production jars must carry its bootstrap too.
 tasks.named('jar') { from project(':common').sourceSets.main.output }
