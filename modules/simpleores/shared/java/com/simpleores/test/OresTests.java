@@ -22,14 +22,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.projectile.arrow.Arrow;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import com.simpleores.block.LeadPlateBlock;
 import com.simpleores.block.SilverMirrorBlock;
-import com.simpleores.entity.SilverArrow;
 import com.simpleores.sound.Soundproofing;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -96,10 +93,10 @@ public final class OresTests {
             OresRegistry.BLOCKS.keySet().forEach(p -> check(h, BuiltInRegistries.BLOCK.containsKey(SimpleOres.id(p)), "block " + p));
             OresRegistry.ITEMS.keySet().forEach(p -> check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id(p)), "item " + p));
             check(h, BuiltInRegistries.ITEM.containsKey(SimpleOres.id("guide_book")), "guide book");
-            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 1 + 4 + 18 + 6 + 7 + 4 + 1, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
-            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "silverArrowUndeadBonus", "sageOre", "dimensionalScrap"))
+            check(h, OresRegistry.BLOCKS.size() == 12 + 6 + 1 && OresRegistry.ITEMS.size() == 12 + 3 + 3 + 4 + 18 + 6 + 7 + 4 + 1, "block/item count " + OresRegistry.BLOCKS.size() + "/" + OresRegistry.ITEMS.size());
+            check(h, OresConfig.enabled && OresConfig.KEYS.equals(List.of("enabled", "soundproofing", "soundproofFactor", "soundproofThreshold", "soundproofRecords", "sageOre", "dimensionalScrap"))
                     && OresConfig.soundproofing && OresConfig.soundproofFactor == 0.5 && OresConfig.soundproofThreshold == 0.05 && !OresConfig.soundproofRecords
-                    && OresConfig.silverArrowUndeadBonus == 3, "config defaults");
+                    , "config defaults");
             h.succeed();
         });
         ALL.put("silver_is_no_tool_material", h -> {
@@ -385,38 +382,12 @@ public final class OresTests {
             }
             h.succeed();
         });
-        ALL.put("silver_arrow_recipe", h -> {
-            CraftingInput arrow = CraftingInput.of(1, 3, List.of(stack("silver_nugget"), new ItemStack(Items.STICK), new ItemStack(Items.FEATHER)));
-            ItemStack out = craft(h, arrow);
-            check(h, out.is(item("silver_arrow")) && out.getCount() == 4, "nugget / stick / feather -> 4 silver arrows: " + out);
-            check(h, craft(h, CraftingInput.of(1, 3, List.of(new ItemStack(Items.FEATHER), new ItemStack(Items.STICK), stack("silver_nugget")))).isEmpty(), "upside down: nothing");
-            check(h, stack("silver_arrow").is(ItemTags.ARROWS), "a bow takes it as an arrow");
-            check(h, BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(OresRegistry.SILVER_ARROW_ENTITY).is(net.minecraft.tags.EntityTypeTags.ARROWS), "an arrow entity");
-            check(h, BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleOres.id("silver_arrow")), "entity type registered");
+        ALL.put("silver_mirror_recipe", h -> {
+            // The silver arrow moved to Simple Arrows on 03.11. (its tests: simplearrows module_game_test_*).
+            check(h, !OresRegistry.ITEMS.containsKey("silver_arrow"), "no silver arrow here any more");
             List<ItemStack> mirror = new ArrayList<>(List.of(ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), new ItemStack(Items.GLASS_PANE),
                     stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY));
             check(h, craft(h, CraftingInput.of(3, 3, mirror)).is(item("silver_mirror")), "4 silver ingots round a glass pane -> mirror");
-            h.succeed();
-        });
-        ALL.put("silver_arrow_undead_bonus", h -> {
-            ServerLevel level = h.getLevel();
-            try {
-                OresConfig.silverArrowUndeadBonus = 3;
-                float silverZombie = damage(h, EntityTypes.ZOMBIE, true, 1);
-                float vanillaZombie = damage(h, EntityTypes.ZOMBIE, false, 1);
-                check(h, silverZombie - vanillaZombie > 2.5F && silverZombie - vanillaZombie < 3.5F, "undead: +3 damage (armor takes a little): silver " + silverZombie + " vs " + vanillaZombie);
-                float silverSheep = damage(h, EntityTypes.SHEEP, true, 5);
-                float vanillaSheep = damage(h, EntityTypes.SHEEP, false, 5);
-                check(h, silverSheep == vanillaSheep && vanillaSheep > 0.0F, "a sheep takes the Vanilla damage: " + silverSheep + " vs " + vanillaSheep);
-                OresConfig.silverArrowUndeadBonus = 0;
-                float off = damage(h, EntityTypes.ZOMBIE, true, 9);
-                check(h, Math.abs(off - vanillaZombie) < 0.01F, "bonus 0 = Vanilla damage: " + off + " vs " + vanillaZombie);
-                OresConfig.silverArrowUndeadBonus = 6;
-                float max = damage(h, EntityTypes.ZOMBIE, true, 13);
-                check(h, max - vanillaZombie > 5.5F && max - vanillaZombie < 6.5F, "bonus 6: " + max + " vs " + vanillaZombie);
-            } finally {
-                OresConfig.reset();
-            }
             h.succeed();
         });
         ALL.put("silver_mirror_placement", h -> {
@@ -515,35 +486,6 @@ public final class OresTests {
         ALL.put("guide_book", com.simpleores.guide.OresGuide::gameTest);
         ALL.put("discover_recipe_unlocks", com.simpleores.discover.OresDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleores.discover.OresDiscover::behaviourHints);
-    }
-
-    /**
-     * Health a fresh mob of the type loses when a silver or Vanilla arrow flying at speed 3 hits it. Mobs stand 2 cells apart per call
-     * ({@code slot}) so the invulnerability frames of an earlier hit never matter.
-     */
-    private static <E extends net.minecraft.world.entity.Mob> float damage(GameTestHelper h, net.minecraft.world.entity.EntityType<E> type, boolean silver, int slot) {
-        E mob = h.spawnWithNoFreeWill(type, slot, 1, 12);
-        float before = mob.getHealth();
-        net.minecraft.world.entity.projectile.arrow.AbstractArrow arrow = silver
-                ? new SilverArrow(h.getLevel(), mob.getX() - 3.0, mob.getY() + 1.0, mob.getZ(), stack("silver_arrow"), null)
-                : new HitArrow(h.getLevel(), mob.getX() - 3.0, mob.getY() + 1.0, mob.getZ());
-        arrow.setDeltaMovement(3.0, 0.0, 0.0);
-        if (arrow instanceof SilverArrow silverArrow) silverArrow.onHitEntity(new EntityHitResult(mob));
-        else ((HitArrow) arrow).hit(new EntityHitResult(mob));
-        float lost = before - mob.getHealth();
-        mob.discard();
-        return lost;
-    }
-
-    /** A Vanilla arrow that can be made to hit without flying (onHitEntity is protected). */
-    private static final class HitArrow extends Arrow {
-        HitArrow(net.minecraft.world.level.Level level, double x, double y, double z) {
-            super(level, x, y, z, new ItemStack(Items.ARROW), null);
-        }
-
-        void hit(EntityHitResult result) {
-            onHitEntity(result);
-        }
     }
 
     /** Average veins one chunk rolls: the count placements of a placed feature, sampled 400 times with a fixed seed. */

@@ -39,8 +39,7 @@ BLOCKS = {
 }
 ITEMS = {'raw_silver': ('Raw Silver', 'Rohsilber'), 'silver_ingot': ('Silver Ingot', 'Silberbarren'),
          'silver_nugget': ('Silver Nugget', 'Silberklumpen'),
-         'raw_lead': ('Raw Lead', 'Rohblei'), 'lead_ingot': ('Lead Ingot', 'Bleibarren'), 'lead_nugget': ('Lead Nugget', 'Bleiklumpen'),
-         'silver_arrow': ('Silver Arrow', 'Silberpfeil')}
+         'raw_lead': ('Raw Lead', 'Rohblei'), 'lead_ingot': ('Lead Ingot', 'Bleibarren'), 'lead_nugget': ('Lead Nugget', 'Bleiklumpen')}
 for a, (en, de) in ALLOYS.items():
     ITEMS[f'{a}_ingot'] = (f'{en} Ingot', f'{de}barren')
     ITEMS[f'{a}_pressling'] = (f'{en} Pressling', f'{de}-Pressling')
@@ -194,10 +193,7 @@ for source in ('raw_lead', 'lead_ore', 'deepslate_lead_ore'):
 recipe('lead_plate', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': item('lead_ingot')},
                                          'pattern': ['###'], 'result': result('lead_plate', 6)}, item('lead_ingot'))
 
-# Silver arrow: silver nugget over stick over feather makes 4 (like the Vanilla arrow). Silver mirror: a silver frame round a glass pane.
-recipe('silver_arrow', 'combat', {'type': 'minecraft:crafting_shaped', 'category': 'equipment',
-                                  'key': {'N': item('silver_nugget'), 'S': 'minecraft:stick', 'F': 'minecraft:feather'},
-                                  'pattern': ['N', 'S', 'F'], 'result': result('silver_arrow', 4)}, item('silver_nugget'))
+# Silver mirror: a silver frame round a glass pane. (The silver arrow moved to Simple Arrows on 03.11., its recipe needs this mod.)
 recipe('silver_mirror', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building',
                                             'key': {'I': item('silver_ingot'), 'G': 'minecraft:glass_pane'},
                                             'pattern': [' I ', 'IGI', ' I '], 'result': result('silver_mirror')}, item('silver_ingot'))
@@ -309,10 +305,6 @@ tag('minecraft/tags/block/occludes_vibration_signals.json', ids(['lead_block']) 
 # (owner ORES31-BEXTRA, like the wool logic: the cell is what counts). The plate counts half.
 tag(f'{NS}/tags/block/soundproofing.json', ids(['lead_block']) + [{'id': 'simpleoctets:lead_block_octet', 'required': False}])
 tag(f'{NS}/tags/block/soundproofing_half.json', ids(['lead_plate']))
-# The silver arrow is an arrow: bows and crossbows take it as ammo, enchantments and the dispenser treat it like one.
-tag('minecraft/tags/item/arrows.json', ids(['silver_arrow']))
-tag('minecraft/tags/entity_type/arrows.json', [item('silver_arrow')])
-tag('minecraft/tags/entity_type/impact_projectiles.json', [item('silver_arrow')])
 for part, group in (('sword', 'swords'), ('pickaxe', 'pickaxes'), ('axe', 'axes'), ('shovel', 'shovels'), ('hoe', 'hoes'),
                     ('helmet', 'head_armor'), ('chestplate', 'chest_armor'), ('leggings', 'leg_armor'), ('boots', 'foot_armor')):
     tag(f'minecraft/tags/item/{group}.json', ids([f'{a}_{part}' for a in ALLOYS]))
@@ -359,7 +351,7 @@ put(DATA / 'neoforge/biome_modifier/end_silver_ore.json', {'type': 'neoforge:add
                                                            'features': item('end_silver_ore'), 'step': 'underground_ores'})
 
 # Config texts (A11: text.autoconfig.<mod>.option.<field> + .@Tooltip, "Default:"/"Standard:" in the tooltip), one row per option of OresConfig.KEYS.
-CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and soundproofing', 'Blei und Schalldämmung'), 'silver': ('Silver', 'Silber'),
+CONFIG_CATEGORIES = {'general': ('General', 'Allgemein'), 'lead': ('Lead and soundproofing', 'Blei und Schalldämmung'),
                      'materials': ('Sage Ore and Dimensional Scrap', 'Weisheitserz und Dimensionsschrott')}
 CONFIG_OPTIONS = {
     'enabled': ('general', ('Enable Simple Ores', 'Simple Ores aktivieren'),
@@ -383,9 +375,6 @@ CONFIG_OPTIONS = {
     'dimensionalScrap': ('materials', ('Dimensional Scrap', 'Dimensionsschrott'),
                          ('Off: no new Dimensional Scrap in any dimension. Takes effect at the next world start in newly generated chunks.\nDefault: true.',
                           'Aus: kein neuer Dimensionsschrott in allen Dimensionen. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.')),
-    'silverArrowUndeadBonus': ('silver', ('Silver arrow bonus against undead', 'Silberpfeil-Bonus gegen Untote'),
-                               ('Extra damage of a silver arrow against undead mobs (zombies, skeletons, ...). 0 = like a normal arrow. Range 0 to 6.\nDefault: 3.',
-                                'Zusatzschaden eines Silberpfeils gegen Untote (Zombies, Skelette, ...). 0 = wie ein normaler Pfeil. Bereich 0 bis 6.\nStandard: 3.')),
 }
 
 # ---------------------------------------------------------------- lang (guide keys are written by module_guides.py)
@@ -398,7 +387,6 @@ def lang(locale):
     out.update({f'item.{NS}.enderite_upgrade_template.{k}': t[i] for k, t in TEMPLATE_TEXTS.items()})
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
     out['tooltip.simpleores.when_eaten'] = ('When eaten:', 'Beim Verzehr:')[i]
-    out[f'entity.{NS}.silver_arrow'] = ('Silver Arrow', 'Silberpfeil')[i]
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
     for cat, texts in CONFIG_CATEGORIES.items():
         out[f'text.autoconfig.{NS}.category.{cat}'] = texts[i]
@@ -477,8 +465,6 @@ def note_summaries():
     notes['item:raw_lead'] = ('Mined from lead ore; smelt it in a furnace or blast furnace for a lead ingot.', 'Aus Bleierz gewonnen; im Ofen oder Hochofen zum Bleibarren schmelzen.')
     notes['item:lead_ingot'] = ('Lead ingot: nine make a block of lead. The leash item keeps its name Lead.', 'Bleibarren: neun ergeben einen Bleiblock. Die Leine behält ihren Namen Leine.')
     notes['item:lead_nugget'] = ('Nine make a lead ingot.', 'Neun ergeben einen Bleibarren.')
-    notes['item:silver_arrow'] = ('An arrow with a silver head: 3 extra damage against undead (zombies, skeletons, the Wither ...), otherwise like an arrow. Made of a silver nugget, a stick and a feather (4 arrows). Works in bows, crossbows and dispensers.',
-                                  'Ein Pfeil mit Silberspitze: 3 Schaden mehr gegen Untote (Zombies, Skelette, den Wither ...), sonst wie ein Pfeil. Aus Silberklumpen, Stock und Feder (4 Pfeile). Funktioniert in Bögen, Armbrüsten und Werfern.')
     notes['item:raw_silver'] = ('Mined from silver ore; smelt it in a furnace or blast furnace for a silver ingot.', 'Aus Silbererz gewonnen; im Ofen oder Hochofen zum Silberbarren schmelzen.')
     notes['item:silver_ingot'] = ('Silver ingot: a part of rose gold and a base for silver items. Not a tool material.', 'Silberbarren: Bestandteil von Roségold und Grundlage für Silber-Gegenstände. Kein Werkzeugmaterial.')
     notes['item:silver_nugget'] = ('Nine make a silver ingot; the End silver ore drops them.', 'Neun ergeben einen Silberbarren; das End-Silbererz lässt sie fallen.')
@@ -591,13 +577,6 @@ FEATURES = [
               'Unter soundproofThreshold wird das Geräusch gar nicht gesendet. Beispiel: eine TNT-Explosion (Lautstärke 4) hinter 3 Bleiblöcken bei Faktor 0,5 kommt mit Lautstärke 0,5 an, nur aus der Nähe; direkt an einer Wand aus 1 Block sind es 2,0. Spieler im selben Raum ohne Blei auf dem Weg hören alles wie vorher.',
               'Schallplatten und Musikgeräte werden nur mit soundproofRecords gedämpft. Sprach-Chat-Mods und alles, was der Client selbst abspielt, bleiben unberührt. Gedämmt wird von den Blöcken im Tag simpleores:soundproofing (Standard: der Bleiblock). Ausschalten mit soundproofing = false.',
               'Gewichte: ein Bleiblock zählt 1, eine Bleiplatte 0,5 (Tag simpleores:soundproofing_half), zwei Platten hintereinander entsprechen also einem Block. Blei-Octets aus Simple Octets (nur mit dieser Mod) stehen im ersten Tag und zählen einen ganzen Block, egal wie wenig sie von der Zelle füllen; sie halten auch Vibrationen wie Wolle auf.'])),
-    feature('silver_arrow', [f'{JAVA}/entity/SilverArrow.java', f'{JAVA}/item/SilverArrowItem.java', f'{DATAP}/recipe/silver_arrow.json'],
-            ('Silver arrow', 'An arrow with a silver head that hits the undead harder.',
-             ['Recipe: a silver nugget over a stick over a feather makes 4 silver arrows. Bows, crossbows and dispensers shoot them like arrows; they can be picked up again.',
-              'Against every mob in the tag #minecraft:undead (zombies, skeletons, drowned, the Wither ...) a silver arrow does silverArrowUndeadBonus extra damage (Standard 3, 0 = like a normal arrow, up to 6). Everything else: a normal arrow.']),
-            ('Silberpfeil', 'Ein Pfeil mit Silberspitze, der Untote härter trifft.',
-             ['Rezept: ein Silberklumpen über einem Stock über einer Feder ergibt 4 Silberpfeile. Bögen, Armbrüste und Werfer schießen sie wie Pfeile; man kann sie wieder aufsammeln.',
-              'Gegen jedes Wesen im Tag #minecraft:undead (Zombies, Skelette, Ertrunkene, den Wither ...) macht ein Silberpfeil silverArrowUndeadBonus Schaden mehr (Standard 3, 0 = wie ein normaler Pfeil, bis 6). Alles andere: ein normaler Pfeil.'])),
     feature('silver_mirror', [f'{JAVA}/block/SilverMirrorBlock.java', f'{DATAP}/recipe/silver_mirror.json'],
             ('Silver mirror', 'A wall decoration of silver and glass.',
              ['Recipe: 4 silver ingots around a glass pane. The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration.']),
@@ -626,13 +605,11 @@ FEATURES = [
             ('Server settings', 'config/simpleores-server.json (or /simpleores config), read at start; every value is clamped to its range.',
              ['enabled (true): off stops new silver and lead veins on Fabric and hides the module\'s creative entries; blocks and items that exist keep working.',
               'soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.',
-              'silverArrowUndeadBonus (3, range 0 to 6): extra damage of a silver arrow against undead, 0 = off.',
               'sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding\'s config).',
               'With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off.']),
             ('Server-Einstellungen', 'config/simpleores-server.json (oder /simpleores config), beim Start gelesen; jeder Wert wird auf seinen Bereich begrenzt.',
              ['enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.',
               'soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.',
-              'silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus.',
               'sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding).',
               'Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus.'])),
 ]

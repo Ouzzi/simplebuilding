@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "N": "simpleores:silver_nugget",
+    "G": "minecraft:glowstone_dust",
     "S": "minecraft:stick",
     "F": "minecraft:feather"
   },
   "pattern": [
-    "N",
+    "G",
     "S",
     "F"
   ],
   "result": {
-    "id": "simpleores:silver_arrow",
+    "id": "simplearrows:light_arrow",
     "count": 4
   }
 }

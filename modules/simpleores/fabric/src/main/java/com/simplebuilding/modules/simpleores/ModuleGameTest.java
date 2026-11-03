@@ -89,13 +89,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
-    public void silverArrowRecipe(GameTestHelper h) {
-        OresTests.ALL.get("silver_arrow_recipe").accept(h);
-    }
-
-    @GameTest(structure = "simpleores:arena", maxTicks = 100)
-    public void silverArrowUndeadBonus(GameTestHelper h) {
-        OresTests.ALL.get("silver_arrow_undead_bonus").accept(h);
+    public void silverMirrorRecipe(GameTestHelper h) {
+        OresTests.ALL.get("silver_mirror_recipe").accept(h);
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)

@@ -2046,6 +2046,8 @@
   "text.autoconfig.simplebuilding.option.enableSimpleOres.@Tooltip": "Schaltet das gebündelte Modul Simple Ores an oder aus: Silbererz in der Oberwelt und im End sowie Roségold (Rosenbronze und Blütengold) mit Werkzeugen und Rüstung. Aus stoppt neue Silberadern und blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.option.enableSimpleMachines": "Simple Machines aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimpleMachines.@Tooltip": "Schaltet das gebündelte Modul Simple Machines an oder aus: den Doppelkolben und den Signaldämpfer (weitere Maschinenteile des Tabs Simple Machines folgen). Aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus, der Doppelkolben bleibt stehen und der Dämpfer gibt nichts aus; schon vorhandene Blöcke und Items bleiben stehen. Wirkt nach einem Neustart. Standard: an.",
+  "text.autoconfig.simplebuilding.option.enableSimpleArrows": "Simple Arrows aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimpleArrows.@Tooltip": "Schaltet das gebündelte Modul Simple Arrows an oder aus: den Lichtpfeil und den Silberpfeil (aus Simple Ores). Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Pfeile funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
   "text.autoconfig.simplebuilding.category.equipment": "Verzauberungen & Rüstung",
   "text.autoconfig.simplebuilding.category.pistons": "Kolben",
   "text.autoconfig.simplebuilding.category.tweaks": "Pads & Tweaks",

@@ -1,0 +1,9 @@
+{
+  "module": "simplearrows",
+  "derivation": "Simple Arrows' arrows are crafted from cheap materials four at a time like Vanilla's arrow (the Silver Arrow was not sold in Simple Ores either); nothing is sold.",
+  "excluded": {
+    "simplearrows:light_arrow": "Crafted ammunition (glowstone dust, stick, feather); built, not bought.",
+    "simplearrows:silver_arrow": "Crafted ammunition (silver nugget, stick, feather); built, not bought."
+  },
+  "prices": []
+}
