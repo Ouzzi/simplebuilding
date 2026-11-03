@@ -2,8 +2,10 @@ package com.simplebuilding.modules.simpleinterfaces;
 
 import com.simplelib.api.client.keys.KeyConflicts;
 import com.simplelib.api.client.keys.KeyConflicts.Binding;
+import com.simplelib.api.client.keys.KeyboardEdit;
 import com.simplelib.api.client.keys.KeyboardLayout;
 import com.simplelib.api.client.keys.KeyboardLayout.Cell;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +23,8 @@ public final class KeyPageTests {
         ALL.put("key_page_filter", KeyPageTests::filter);
         ALL.put("key_page_suggest", KeyPageTests::suggest);
         ALL.put("key_page_key_names", KeyPageTests::keyNames);
+        ALL.put("key_page_iso_layouts", KeyPageTests::isoLayouts);
+        ALL.put("key_page_editor", KeyPageTests::editor);
     }
 
     private KeyPageTests() {}
@@ -38,17 +42,18 @@ public final class KeyPageTests {
         int[] counts = {62, 81, 104};
         int i = 0;
         for (KeyboardLayout.Size size : KeyboardLayout.Size.values()) {
-            for (boolean german : new boolean[] {false, true}) {
-                List<Cell> cells = KeyboardLayout.cells(size, german);
-                h.assertTrue(cells.size() == counts[i], size + " has " + counts[i] + " keys, found " + cells.size());
+            for (String layout : KeyboardLayout.PRESETS) {
+                List<Cell> cells = KeyboardLayout.cells(size, layout);
+                int expected = counts[i] + (layout.equals("us") ? 0 : 1); // ISO: one more key left of Y/Z
+                h.assertTrue(cells.size() == expected, size + "/" + layout + " has " + expected + " keys, found " + cells.size());
+                h.assertTrue(KeyboardEdit.problem(cells).isEmpty(), size + "/" + layout + ": " + KeyboardEdit.problem(cells));
                 Set<Integer> codes = new HashSet<>();
                 for (Cell c : cells) {
                     h.assertTrue(codes.add(c.code()), size + ": key " + c.label() + " twice");
                     h.assertTrue(c.w() > 0 && c.h() > 0 && c.x() >= 0 && c.y() >= 0, size + ": key " + c.label() + " outside");
                     for (Cell o : cells) {
                         if (o == c) continue;
-                        boolean apart = c.right() <= o.x() || o.right() <= c.x() || c.bottom() <= o.y() || o.bottom() <= c.y();
-                        h.assertTrue(apart, size + ": " + c.label() + " overlaps " + o.label());
+                        h.assertTrue(!c.overlaps(o), size + ": " + c.label() + " overlaps " + o.label());
                     }
                 }
             }
@@ -146,6 +151,66 @@ public final class KeyPageTests {
             h.assertTrue(!com.simplelib.api.client.keys.KeyConflicts.UNBOUND.equals(n), "cell " + c.label() + " (" + c.code() + ") has no key name");
             h.assertTrue(names.add(n), "two cells with the key name " + n);
         }
+        h.succeed();
+    }
+
+    /** DE / UK / FR: L-shaped Enter, extra key left of Enter and left of Y/Z, captions per layout, the codes stay physical. */
+    public static void isoLayouts(GameTestHelper h) {
+        for (String layout : new String[] {"de", "uk", "fr"}) {
+            List<Cell> cells = KeyboardLayout.cells(KeyboardLayout.Size.FULL, layout);
+            Cell enter = cell(cells, KeyboardLayout.ENTER), hash = cell(cells, KeyboardLayout.BACKSLASH), world = cell(cells, KeyboardLayout.WORLD_1);
+            Cell lshift = cell(cells, KeyboardLayout.LEFT_SHIFT), z = cell(cells, 'Z'), bracket = cell(cells, KeyboardLayout.RIGHT_BRACKET);
+            h.assertTrue(enter.l() && enter.ew() < enter.w() + 1 && enter.ey() == enter.y() + enter.h(), layout + ": Enter is L-shaped");
+            h.assertTrue(hash.right() == enter.ex() && hash.y() == enter.ey(), layout + ": the extra key sits left of the Enter foot");
+            h.assertTrue(world.x() == lshift.right() && world.y() == lshift.y() && z.x() == world.right(), layout + ": the extra key sits between Shift and the letters");
+            h.assertTrue(bracket.right() == enter.x(), layout + ": Enter's top starts right of the last bracket key");
+            h.assertTrue(KeyboardLayout.at(cells, 0, 0, 4, (enter.ex() + 1) * 4, (enter.ey() + 1) * 4).map(Cell::code).orElse(-1) == KeyboardLayout.ENTER,
+                    layout + ": the foot of the L is hit");
+            h.assertTrue(KeyboardLayout.at(cells, 0, 0, 4, (enter.x() - 1) * 4, (enter.ey() + 1) * 4 - 2).map(Cell::code).orElse(-1) != KeyboardLayout.ENTER,
+                    layout + ": the notch of the L is not hit");
+        }
+        h.assertTrue(KeyboardLayout.label('Y', "de").equals("Z") && KeyboardLayout.label('Z', "de").equals("Y") && KeyboardLayout.label('Q', "fr").equals("A")
+                && KeyboardLayout.label('A', "fr").equals("Q") && KeyboardLayout.label(KeyboardLayout.WORLD_1, "uk").equals("\\"), "captions per layout");
+        h.assertTrue(KeyboardLayout.keyName(KeyboardLayout.WORLD_1).equals("key.keyboard.world.1") && KeyboardLayout.codeOf("key.keyboard.world.1") == KeyboardLayout.WORLD_1
+                && KeyboardLayout.codeOf("key.keyboard.a") == 'A' && KeyboardLayout.codeOf("key.keyboard.nope") == -1, "key names both ways");
+        h.succeed();
+    }
+
+    /** Editor rules: no overlap, no duplicate, auto-add of a missing key on a free place, refused edits, JSON round trip. */
+    public static void editor(GameTestHelper h) {
+        List<Cell> de = KeyboardLayout.cells(KeyboardLayout.Size.FULL, "de");
+        Cell a = cell(de, 'A');
+        h.assertTrue(KeyboardEdit.replace(de, a.moved(1, 0)).isEmpty(), "moving A into S is refused");
+        h.assertTrue(KeyboardEdit.replace(de, a.moved(0, 20)).isPresent(), "moving A to a free place works");
+        h.assertTrue(KeyboardEdit.replace(de, cell(de, KeyboardLayout.ESC).moved(-1, 0)).isEmpty(), "Esc left of column 0 is outside");
+        List<Cell> twice = new ArrayList<>(de);
+        twice.add(new Cell('A', "A", 0, 40, 4, 4));
+        h.assertTrue(KeyboardEdit.problem(twice).map(KeyboardEdit.Problem::kind).orElse("").equals("duplicate"), "a key twice is refused");
+        List<Cell> overlap = new ArrayList<>(de);
+        overlap.add(new Cell(KeyboardLayout.F1 + 12, "F13", a.x(), a.y(), 4, 4));
+        h.assertTrue(KeyboardEdit.problem(overlap).map(KeyboardEdit.Problem::kind).orElse("").equals("overlap"), "overlap is found");
+        List<Cell> without = KeyboardEdit.remove(de, 'A');
+        h.assertTrue(without.size() == de.size() - 1 && cell(without, 'A') == null, "remove takes the key out");
+        List<Cell> grown = KeyboardEdit.add(without, 'A', "A");
+        Cell fresh = cell(grown, 'A');
+        h.assertTrue(grown.size() == de.size() && fresh != null && fresh.y() == KeyboardEdit.EXTRA_ROW && KeyboardEdit.problem(grown).isEmpty(),
+                "a missing key is added below the picture without overlap");
+        h.assertTrue(KeyboardEdit.add(grown, 'A', "A") == grown, "adding a present key changes nothing");
+        List<Cell> second = KeyboardEdit.add(grown, KeyboardLayout.F1 + 12, "F13");
+        h.assertTrue(second.size() == grown.size() + 1 && KeyboardEdit.problem(second).isEmpty() && cell(second, KeyboardLayout.F1 + 12).x() == fresh.right() && cell(second, KeyboardLayout.F1 + 12).y() == fresh.y(),
+                "the next added key takes the next free place in the row");
+        h.assertTrue(KeyboardEdit.problem(List.of()).isPresent(), "an empty layout is invalid");
+        Cell badL = new Cell(KeyboardLayout.ENTER, "Enter", 0, 0, 4, 4, 10, 10, 4, 4);
+        h.assertTrue(KeyboardEdit.problem(List.of(badL)).map(KeyboardEdit.Problem::kind).orElse("").equals("shape"), "L parts must touch");
+        h.assertTrue(KeyboardEdit.decode(KeyboardEdit.encode(de)).map(de::equals).orElse(false), "JSON round trip keeps every cap, also the L");
+        com.google.gson.JsonArray broken = KeyboardEdit.encode(de);
+        broken.get(0).getAsJsonObject().addProperty("key", "key.keyboard.nope");
+        h.assertTrue(KeyboardEdit.decode(broken).map(l -> l.size() == de.size() - 1).orElse(false), "an unknown key name is skipped");
+        broken.get(1).getAsJsonObject().addProperty("x", cell(de, 'A').x());
+        broken.get(1).getAsJsonObject().addProperty("y", cell(de, 'A').y());
+        h.assertTrue(KeyboardEdit.decode(broken).isEmpty(), "a hand-edited overlap makes the file layout invalid");
+        h.assertTrue(KeyboardEdit.validName("My DE") && !KeyboardEdit.validName("de") && !KeyboardEdit.validName("") && !KeyboardEdit.validName(" x")
+                && !KeyboardEdit.validName("12345678901234567"), "names");
         h.succeed();
     }
 }
