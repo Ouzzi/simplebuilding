@@ -84,6 +84,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True)
     ap.add_argument('--scales', default='2,3')
+    ap.add_argument('--size', default='1280x720', help='window size WxH')
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -91,7 +92,7 @@ def main():
     RUN.mkdir(parents=True, exist_ok=True)
     for f in (STATUS, COMMAND):
         (RUN / f).unlink(missing_ok=True)
-    (RUN / REQUEST).write_text(json.dumps({'width': 1280, 'height': 720, 'guiScale': scales[0]}))
+    (RUN / REQUEST).write_text(json.dumps({'width': int(args.size.split('x')[0]), 'height': int(args.size.split('x')[1]), 'guiScale': scales[0]}))
     started = time.time()
     log = open(out / 'client.log', 'w')
     game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
@@ -198,8 +199,9 @@ def main():
             for _ in range(4):
                 st = click('layout')
                 seen.append(st['values'].get('layout'))
+                if len(seen) == 1:
+                    command('shot')  # DE with the L-shaped Enter
             check(f'{tag}: layout button cycles', seen == ['de', 'uk', 'fr', 'us'], seen)
-            command('shot')
             # editor: remove F9 (select it, Del), press the real F9 key (it comes back, selected), move it, save as own layout
             st = click('edit')
             check(f'{tag}: edit opens the editor', st['screen'] == 'KeysEditorScreen', st['screen'])
