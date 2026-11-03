@@ -2844,7 +2844,9 @@ public final class DataIntegrityTests {
                     // OW24-2 G1: Simple Gadgets' Gauge keeps its place in SimpleBuilding's tools tab (by id).
                     && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // MACH32-MOD: Simple Machines' Double Piston and Signal Dampener keep their row in SimpleBuilding's functional tab (by id).
-                    && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+                    && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
+                    && !com.simplebuilding.guide.GuideBooks.MODPACK_GUIDE.equals(BuiltInRegistries.ITEM.getKey(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }

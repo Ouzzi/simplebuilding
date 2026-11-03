@@ -345,7 +345,9 @@ public final class GuideBookTests {
                     }
                 }
             }
-            if (book.isTopic()) {
+            // b-guide01 (26.3): a topic whose item is the retired hub has no recipe of its own any more (book + crafting table
+            // makes SimpleLib's Simple Modpack guide); its page shows the icon instead of a recipe card.
+            if (book.isTopic() && !(GuideBooks.modpackGuide() != null && GuideBooks.item(book) == GuideBooks.item(GuideBooks.Book.GUIDE))) {
                 String spec = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(GuideBooks.item(book)).toString();
                 if (GuideContent.select(recipes, spec, context).isEmpty()) {
                     problems.add(book + ": the topic page finds no recipe for " + spec);

@@ -101,7 +101,7 @@ def main():
     (RUN / REQUEST).write_text(json.dumps({'width': 1920, 'height': 1080, 'guiScale': scales[0], 'section': 'simplequalityoflife'}))
     started = time.time()
     log = open(out / 'client.log', 'w')
-    game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
+    game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient', '-Pforge263=false'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
                             start_new_session=True)
     results, ok = [], True
 
