@@ -6,6 +6,11 @@
 # Env: FORCE=1 (auch ohne Client-Änderung), MAX_WAIT=Sekunden (Standard 10800), LOAD_MAX (Standard 2), QUIET_CHECKS (Standard 2).
 # Ergebnis: /root/gate/client-<ref>.txt (Zeile DONE am Ende). Beendet nie fremde Prozesse (kein kill).
 set -u
+# WICHTIG: dieses Skript haelt waehrend des Wartens KEINEN Sperr-Slot (sonst Verklemmung mit einem Gate, das alle Slots braucht).
+# Nicht ueber /root/sbt starten, sondern detached: ssh sb-test "cd /root/wt/t-<branch> && nohup setsid bash tools/testrunner/bundle_client.sh <ref> &"
+# Den Slot holt erst der eigentliche Testlauf (/root/heavy.sh job, wartet dort hinter Gates).
+export SIMPLEBUILDING_SERIAL_TESTS=1 TMPDIR=/var/tmp/sb JAVA_HOME=/usr/lib/jvm/temurin-25-jdk-amd64 SIMPLEBUILDING_JAVA8_HOME=/usr/lib/jvm/temurin-8-jdk-amd64
+export PATH=/root/.local/share/uv/python/cpython-3.12-linux-x86_64-gnu/bin:$JAVA_HOME/bin:/root/.local/bin:$PATH
 REF=${1:?ref}; BASE=${2:-origin/master}
 OUT=/root/gate/client-$REF.txt; LOG=/root/gate/client-$REF.log
 LOAD_MAX=${LOAD_MAX:-2}; MAX_WAIT=${MAX_WAIT:-10800}; QUIET_CHECKS=${QUIET_CHECKS:-2}
@@ -26,7 +31,7 @@ targets=mixinaudit-client-263
 n=0; for m in $mods; do [ $n -ge "${MAX_MODULES:-8}" ] && break; echo "$avail" | grep -qx "module-$m-client-263" && { targets="$targets,module-$m-client-263"; n=$((n+1)); }; done
 echo "targets: $targets" >> "$OUT"
 
-# 3. Warten bis ruhig: kein Gate/Nachtlauf, kein anderer heavy-Job (eigene Vorfahren ausgenommen), Last < LOAD_MAX
+# 3. Warten bis ruhig (ohne Slot; ein Gate, das nur auf Locks wartet, zaehlt als belegt -> weiter warten): kein Gate/Nachtlauf, kein anderer heavy-Job (eigene Vorfahren ausgenommen), Last < LOAD_MAX
 anc=" $$ "; p=$$; while [ "$p" -gt 1 ]; do p=$(ps -o ppid= -p "$p" | tr -d ' '); [ -z "$p" ] && break; anc="$anc$p "; done
 busy() {
   pgrep -f 'sb-gate.sh|sb-night.sh' >/dev/null && { echo "gate/night"; return 0; }
@@ -44,7 +49,7 @@ echo "ruhig nach ${waited}s Wartezeit, Lauf startet $(date -Is)" >> "$OUT"
 
 # 4. EIN Sammellauf, niedrige Prioritaet, virtueller Bildschirm
 t0=$(date +%s)
-nice -n 15 ionice -c3 xvfb-run -a python3.12 tools/testrunner/run.py --targets "$targets" > "$LOG" 2>&1; rc=$?
+/root/heavy.sh job bash -c "nice -n 15 ionice -c3 xvfb-run -a python3.12 tools/testrunner/run.py --targets $targets" > "$LOG" 2>&1; rc=$?
 echo "laufzeit: $(( $(date +%s) - t0 )) s, exit $rc" >> "$OUT"
 grep -E 'alles gruen|NICHT gruen|FAIL|ROT|\[mixinaudit\]' "$LOG" | tail -15 | cut -c1-200 >> "$OUT"
 echo "log: $LOG" >> "$OUT"
