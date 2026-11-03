@@ -47,6 +47,8 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 SHARED = "common/src/shared/java/com/simplebuilding"
+#: Code the 26.3 line moved out of the core (hammers, trim abilities) stays here for the 26.2 line (26.3: modules/simplehammers, simplemobs).
+MC26_2 = "common/src/mc26_2/java/com/simplebuilding"
 CLIENT_MAIN = "src/main/java/com/simplebuilding"
 
 
@@ -189,7 +191,7 @@ MUTATIONS: list[Mutation] = [
              'smoke', 'The rotator sound was played at',
              'an accepted rotation plays SPYGLASS_USE at 1.0 / 1.0'),
     Mutation('p4-hammer-transform-pitch',
-             'common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java',
+             f'{MC26_2}/items/custom/SledgehammerItem.java',
              'world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 0.8f);',
              'world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 1.0f);',
              'smoke', 'The sledgehammer transformation sound was played at',
@@ -341,7 +343,7 @@ P6_MUTATIONS: list[Mutation] = [
              kind="server"),
     # --- tools -----------------------------------------------------------------------------
     Mutation("hammer-bedrock-guard",
-             f"{SHARED}/util/SledgehammerUtils.java",
+             f"{MC26_2}/util/SledgehammerUtils.java",
              "if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {",
              "if (targetState.isAir()) {",
              "sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks",
@@ -349,7 +351,7 @@ P6_MUTATIONS: list[Mutation] = [
              "an Override II hammer still leaves bedrock standing",
              kind="server"),
     Mutation("hammer-air-gap-billed",
-             f"{SHARED}/util/SledgehammerUtils.java",
+             f"{MC26_2}/util/SledgehammerUtils.java",
              "if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {",
              "if (targetState.getDestroySpeed(world, pos) < 0.0F) {",
              "sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks",
@@ -357,7 +359,7 @@ P6_MUTATIONS: list[Mutation] = [
              "a hole in the face costs no durability",
              kind="server"),
     Mutation("hammer-flat-cost",
-             f"{SHARED}/util/SledgehammerUsageEvent.java",
+             f"{MC26_2}/util/SledgehammerUsageEvent.java",
              "if (!isSuitable && !mainHandItem.isEmpty()) {",
              "if (false) {",
              "sledgehammer_game_test_sledgehammer_bills_two_durability_per_block_and_three_for_the_wrong_tool",
@@ -365,7 +367,7 @@ P6_MUTATIONS: list[Mutation] = [
              "the wrong tool class costs one point more per block",
              kind="server"),
     Mutation("hammer-charge-clamp",
-             f"{SHARED}/items/custom/SledgehammerItem.java",
+             f"{MC26_2}/items/custom/SledgehammerItem.java",
              "return Math.clamp(time, RESHAPE_MIN_TICKS, RESHAPE_MAX_TICKS);",
              "return Math.clamp(time, RESHAPE_MIN_TICKS, 50);",
              "sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency",
@@ -373,7 +375,7 @@ P6_MUTATIONS: list[Mutation] = [
              "the charge time is held at 40 ticks at the top",
              kind="server"),
     Mutation("hammer-efficiency-factor",
-             f"{SHARED}/items/custom/SledgehammerItem.java",
+             f"{MC26_2}/items/custom/SledgehammerItem.java",
              "float factor = materialSpeed + (efficiencyLevel * 5.0f);",
              "float factor = materialSpeed + (efficiencyLevel * 4.0f);",
              "sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency",
@@ -381,7 +383,7 @@ P6_MUTATIONS: list[Mutation] = [
              "every Efficiency level adds five to the speed factor",
              kind="server"),
     Mutation("radius-ignores-sneak",
-             f"{SHARED}/items/custom/SledgehammerItem.java",
+             f"{MC26_2}/items/custom/SledgehammerItem.java",
              "        if (player.isShiftKeyDown()) {\n            positions.add(initialPos);\n            return positions;\n        }",
              "        if (false) {\n            positions.add(initialPos);\n            return positions;\n        }",
              "enchantment_effect_game_test_radius_widens_the_sledgehammer_face_and_sneaking_suppresses_it",
@@ -467,7 +469,7 @@ P6_MUTATIONS: list[Mutation] = [
              kind="server"),
     # --- trim effects ----------------------------------------------------------------------
     Mutation("trim-damage-floor",
-             f"{SHARED}/util/TrimEffectUtil.java",
+             f"{MC26_2}/util/TrimEffectUtil.java",
              "if (multiplier < DAMAGE_FLOOR) multiplier = DAMAGE_FLOOR;",
              "if (multiplier < 0.0f) multiplier = 0.0f;",
              "trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor",
@@ -475,7 +477,7 @@ P6_MUTATIONS: list[Mutation] = [
              "no trim set reduces damage below twenty percent",
              kind="server"),
     Mutation("trim-ward-conditional",
-             f"{SHARED}/util/TrimEffectUtil.java",
+             f"{MC26_2}/util/TrimEffectUtil.java",
              "        generic += calculateReduction(entity, \"ward\", WARD_ALL, progressMult);",
              "        if (source.is(DamageTypeTags.IS_FIRE)) generic += calculateReduction(entity, \"ward\", WARD_ALL, progressMult);",
              "trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor",
@@ -483,7 +485,7 @@ P6_MUTATIONS: list[Mutation] = [
              "ward is the unconditional reduction",
              kind="server"),
     Mutation("trim-jump-threshold",
-             f"{SHARED}/util/TrimEffectUtil.java",
+             f"{MC26_2}/util/TrimEffectUtil.java",
              "if (jumpScore >= 8.0) amplifier = 1;",
              "if (jumpScore >= 7.0) amplifier = 1;",
              "trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick",
@@ -607,7 +609,7 @@ P6B_MUTATIONS: list[Mutation] = [
              kind="server"),
     # --- trims -------------------------------------------------------------------------------
     Mutation('trim-material-gate-copy',
-             'common/src/shared/java/com/simplebuilding/util/TrimEffectUtil.java',
+             f'{MC26_2}/util/TrimEffectUtil.java',
              '        if (entity instanceof TrimBenefitUser user && !user.simplebuilding$areTrimBenefitsEnabled()) {\n            return 0;\n        }\n        int count = 0;',
              '        int count = 0;',
              'trim_effect_game_test_benefit_gate_switches_every_trim_effect_off',
@@ -615,7 +617,7 @@ P6B_MUTATIONS: list[Mutation] = [
              'the benefit switch gates material counting as well as pattern counting - getMaterialCount carries its own copy of the gate',
              kind="server"),
     Mutation('trim-snout-narrowed',
-             'common/src/shared/java/com/simplebuilding/util/TrimEffectUtil.java',
+             f'{MC26_2}/util/TrimEffectUtil.java',
              '        if (source.is(DamageTypeTags.IS_FIRE)) multiplier -= calculateReduction(entity, "snout", SNOUT_FIRE, progressMult);',
              '        if (source.is(DamageTypes.ON_FIRE)) multiplier -= calculateReduction(entity, "snout", SNOUT_FIRE, progressMult);',
              'trim_bonus_game_test_tag_keyed_patterns_cover_the_whole_damage_family',
@@ -641,7 +643,7 @@ P6B_MUTATIONS: list[Mutation] = [
     # Seit 2026-09 ist der Laufbonus ein movement_speed-Modifikator (TrimAttributeHandler) statt eines
     # getSpeed-Eingriffs mit Schwimm-/Elytra-Waechter; die Gegenprobe prueft jetzt "nur Spieler".
     Mutation('trim-land-speed-under-elytra',
-             'common/src/shared/java/com/simplebuilding/util/TrimAttributeHandler.java',
+             f'{MC26_2}/util/TrimAttributeHandler.java',
              '                player ? TrimEffectUtil.getLandSpeedMultiplier(entity) - 1.0f : 0f,',
              '                TrimEffectUtil.getLandSpeedMultiplier(entity) - 1.0f,',
              'trim_wiring_game_test_the_player_mixin_delivers_speed_hunger_and_experience_behind_its_guards',
@@ -863,7 +865,7 @@ P6B_MUTATIONS: list[Mutation] = [
              "Versatility I searches the hotbar only; the whole inventory is level II's job",
              kind="server"),
     Mutation('hammer-stairs-to-slab-branch',
-             'common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java',
+             f'{MC26_2}/items/custom/SledgehammerItem.java',
              '        // 2. Stairs -> Slab\n        if (block instanceof StairBlock) {',
              '        // 2. Stairs -> Slab\n        if (block instanceof SlabBlock) {',
              'sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs',
@@ -873,7 +875,7 @@ P6B_MUTATIONS: list[Mutation] = [
     # Welle 10 (2026-09-25): the three forward name fallbacks of reshapeTarget, one each. Every one
     # was seen red on both lines before it went in here.
     Mutation('hammer-forward-planks-fallback',
-             'common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java',
+             f'{MC26_2}/items/custom/SledgehammerItem.java',
              '            if (stairs.isEmpty() && id.endsWith("_planks")) stairs = reshapeLookup(namespace, id.substring(0, id.length() - 7) + "_stairs");\n',
              '',
              'sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs',
@@ -881,7 +883,7 @@ P6B_MUTATIONS: list[Mutation] = [
              'oak_planks becomes oak_stairs (the _planks fallback)',
              kind="server"),
     Mutation('hammer-forward-block-fallback',
-             'common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java',
+             f'{MC26_2}/items/custom/SledgehammerItem.java',
              '            if (stairs.isEmpty() && id.endsWith("_block")) stairs = reshapeLookup(namespace, id.substring(0, id.length() - 6) + "_stairs");\n',
              '',
              'sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs',
@@ -889,7 +891,7 @@ P6B_MUTATIONS: list[Mutation] = [
              'quartz_block becomes quartz_stairs (the _block fallback)',
              kind="server"),
     Mutation('hammer-forward-plural-fallback',
-             'common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java',
+             f'{MC26_2}/items/custom/SledgehammerItem.java',
              '            if (stairs.isEmpty() && id.endsWith("s")) stairs = reshapeLookup(namespace, id.substring(0, id.length() - 1) + "_stairs");\n',
              '',
              'sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs',
@@ -1495,28 +1497,28 @@ P10_MUTATIONS: list[Mutation] = [
              'the nihilith origin moves one block into the island', kind="server"),
     # --- sledgehammer: slowdown per block and sneaking (owner feedback 2026-09-24) ---------------
     Mutation('p10-hammer-no-slowdown',
-             f'{SHARED}/util/SledgehammerUtils.java',
+             f'{MC26_2}/util/SledgehammerUtils.java',
              '        float divisor = blocks * lowerTierFactor(player, hammer, stack, player.level().getBlockState(origin));',
              '        float divisor = 1.0F;',
              'sledgehammer_game_test_sledgehammer_area_mines_each_block_like_the_pickaxe_one_tier_below',
              "mining progress for a diamond hammer's full 3x3",
              'a full 3x3 takes nine blocks of the pickaxe one tier below', kind="server"),
     Mutation('p10-hammer-counts-the-pattern',
-             f'{SHARED}/util/SledgehammerUtils.java',
+             f'{MC26_2}/util/SledgehammerUtils.java',
              '            if (pos.equals(origin) || shouldBreak(world, pos, originState, stack, overrideLevel)) {',
              '            if (pos.equals(origin) || !world.getBlockState(pos).isAir()) {',
              'sledgehammer_game_test_sledgehammer_area_mines_each_block_like_the_pickaxe_one_tier_below',
              'mining progress for a 3x3 with four dirt corners',
              'only the blocks that really break slow the hammer down', kind="server"),
     Mutation('p10-hammer-tier-ladder',
-             f'{SHARED}/util/SledgehammerUtils.java',
+             f'{MC26_2}/util/SledgehammerUtils.java',
              '        return best > 0.0F ? best : own;',
              '        return own;',
              'sledgehammer_game_test_sledgehammer_speed_and_block_count_scale_with_its_enchantments',
              'mining progress for a full 5x5 with Radius I',
              'each area block takes as long as with the pickaxe one tier below', kind="server"),
     Mutation('p10-hammer-sneak-takes-the-field',
-             f'{SHARED}/items/custom/SledgehammerItem.java',
+             f'{MC26_2}/items/custom/SledgehammerItem.java',
              "        if (player.isShiftKeyDown()) {\n            positions.add(initialPos);\n            return positions;\n        }",
              "        if (false) {\n            positions.add(initialPos);\n            return positions;\n        }",
              'sledgehammer_game_test_sledgehammer_sneaking_breaks_only_the_targeted_block',
@@ -1766,7 +1768,7 @@ P11_MUTATIONS: list[Mutation] = [
     # Each was seen red before it went in: the crack mutation on client-fabric-262, the server ones on
     # fabric-262 and fabric-12111 (the anchors read the same on both lines).
     Mutation('p11-hammer-upgrade-no-cracks',
-             f'{SHARED}/util/SledgehammerProgress.java',
+             f'{MC26_2}/util/SledgehammerProgress.java',
              '        level.destroyBlockProgress(id, pos, crackStage(hits));',
              '        level.destroyBlockProgress(id, pos, -1);',
              'item-rendering', 'SledgehammerProgress (cracks of two blows) did not draw anything',
@@ -1946,7 +1948,8 @@ def on_line(m: Mutation, line: str) -> Mutation:
     """The same mutation, addressed at the copy of its file on the given Minecraft line."""
     if line != LINE_1_21_11:
         return m
-    file = (m.file.replace("common/src/shared/java", "mc1_21_11/shared/java")
+    file = (m.file.replace("common/src/mc26_2/java", "mc1_21_11/shared/java")
+            .replace("common/src/shared/java", "mc1_21_11/shared/java")
             .replace("neoforge/src/main/java", "mc1_21_11/neoforge/src/main/java"))
     # Fabric's own sources AND its resources: the 1.21.11 line keeps its lang files and its
     # generated data under mc1_21_11/fabric/src/main as well.

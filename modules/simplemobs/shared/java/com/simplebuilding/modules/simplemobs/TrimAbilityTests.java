@@ -221,6 +221,14 @@ final class TrimAbilityTests {
                 check(TrimAbilities.enabled(player), "on without a host");
             });
             with(null, null, () -> near(TrimAbilities.resonance(player), 0.2, "neither host nor Resonance: the fixed value"));
+            float ownStrength = MobsConfig.trimStrength;
+            try {
+                MobsConfig.trimStrength = 0.5f;
+                with(null, null, () -> near(TrimAbilities.strength("fire_protection"), 0.5, "own strength without a host"));
+                with(new Fixed(0.7), null, () -> near(TrimAbilities.strength("fire_protection"), 0.5, "own strength times the host's 1.0"));
+            } finally {
+                MobsConfig.trimStrength = ownStrength;
+            }
             cow.discard();
             h.succeed();
         });

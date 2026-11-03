@@ -328,8 +328,16 @@ public final class InWorldTransformations {
      */
     public static JsonObject pistonRepair() {
         JsonArray steps = new JsonArray();
-        for (Block block : modBlocks()) {
-            if (block instanceof com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock breaker) {
+        List<Block> blocks = new ArrayList<>(modBlocks());
+        // 26.3: the breaker pistons are Simple Machines' (MACH32-MOD stage 2); found by interface, not by class.
+        for (Block block : BuiltInRegistries.BLOCK) {
+            if (com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())) {
+                blocks.add(block);
+            }
+        }
+        blocks.sort(Comparator.comparing(InWorldTransformations::id));
+        for (Block block : blocks) {
+            if (block instanceof com.simplelib.api.WearingBlock breaker && breaker.maxDurability() > 0) {
                 JsonObject step = new JsonObject();
                 step.addProperty("piston", id(block));
                 step.addProperty("nugget", id(breaker.repairMaterial()));

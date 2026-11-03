@@ -1,6 +1,5 @@
 package com.simplebuilding.compat;
 
-import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.blocks.custom.ChestTier;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
@@ -276,10 +275,10 @@ public final class BlockInfo {
         List<Line> lines = new ArrayList<>();
         switch (topic) {
             case PISTON_DURABILITY -> {
-                int max = NetheriteBreakerPistonBlock.maxDurabilityOf(state);
-                if (max > 0) {
+                // Any WearingBlock: SimpleBuilding's own (26.2) or Simple Machines' (26.3) breaker pistons.
+                if (state.getBlock() instanceof com.simplelib.api.WearingBlock wear && wear.maxDurability() > 0) {
                     lines.add(Line.of("tooltip.simplebuilding.netherite_piston.durability",
-                            Arg.literal(NetheriteBreakerPistonBlock.durabilityOf(state)), Arg.literal(max)));
+                            Arg.literal(wear.durabilityIn(state)), Arg.literal(wear.maxDurability())));
                 }
             }
             case CHEST_SLOTS -> {

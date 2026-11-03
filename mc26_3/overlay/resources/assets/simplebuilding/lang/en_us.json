@@ -1735,7 +1735,7 @@
   "book.simplebuilding.admin.10.title": "Gameplay Switches",
   "book.simplebuilding.admin.10.text": "trimBenefitBaseMultiplier sets the resonance base (2.0), airJumpCooldownTicks the rest after an Air Jump.",
   "book.simplebuilding.admin.11.title": "Tool Switches",
-  "book.simplebuilding.admin.11.text": "breakerPistonsLoseDurability turns breaker piston wear on or off, tools.buildingWandHungerCost the hunger of huge wand builds.",
+  "book.simplebuilding.admin.11.text": "pistons.breakerPistonsLoseDurability (Simple Machines config) turns breaker piston wear on or off.\ntools.buildingWandHungerCost sets the hunger of huge wand builds.",
   "book.simplebuilding.admin.12.title": "Feature Switches",
   "book.simplebuilding.admin.12.text": "The server.features options switch features off. For backpacks, Attractors, Echo Sounders, blueprints, Detectors and levitating blocks, recipes also disappear on reload.",
   "item.simplebuilding.stone_spatula": "Stone Spatula (Legacy)",

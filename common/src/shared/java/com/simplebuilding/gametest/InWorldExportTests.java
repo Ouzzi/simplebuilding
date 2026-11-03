@@ -202,8 +202,6 @@ public final class InWorldExportTests {
             helper.assertTrue(kind != null, "in-world section " + section + " has no JEI category");
             // 26.3: forging trim templates moved to Simple Trims (N18); the section only lists the templates.
             boolean movedAway = kind == InWorldRecipeCatalog.Kind.TRIM_TEMPLATE && !com.simplebuilding.version.McVersion.TRIMS_IN_SB;
-            // MACH32-MOD stage 2: the breaker pistons (and their repair) are Simple Machines' on 26.3 (open: a JEI entry of its own).
-            movedAway |= kind == InWorldRecipeCatalog.Kind.PISTON_REPAIR && !com.simplebuilding.version.McVersion.PISTONS_IN_SB;
             helper.assertTrue(movedAway || !catalog.of(kind).isEmpty(), "JEI category " + kind + " is empty");
         }
 
