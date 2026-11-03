@@ -1027,3 +1027,4 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 ## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
 - [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
 - [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
+- [~] (B, b-qol34, 03.11., erledigt: Free Look Hand bleibt in Körperrichtung + graues umrandetes Fadenkreuz am Startpunkt (Option freeLookCrosshair), Standard-Tasten crawl=C/autowalk=aus/zoom=V/Earth=#/Keybinds-Menü=+, Simple Keybinds Alle zuklappen/aufklappen + Unter-Collapsible je Kategorie (Debug startet zu); Tests grün, echte Maus grün; Besitzer-Abnahme offen: abnahme-b/b-qol34-preview.html) QOL34 (Besitzer 03.11. Punkte 1–3)
