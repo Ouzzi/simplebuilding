@@ -1029,3 +1029,6 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 ## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
 - [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
 - [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
+
+## b-small04 (03.11.) - fuenf Abnahme-Anmerkungen
+- [~] (B, b-small04, 03.11.) Blei alte Farbe zurueck; Rohr-Fenster Padding (INVENTORY_Y 60); ROHR33=A Rille + Hals 5x5; COND38=A Conduit-Items Vanilla-Groesse; Ofen-Boote je Ofenstufe (40). Vorschau abnahme-b/b-small04-preview.html; sbt-Ergebnis siehe Memory-Abschnitt b-small04
