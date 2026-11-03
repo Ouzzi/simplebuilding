@@ -585,46 +585,6 @@
       }
     },
     {
-      "id": "simpleovens:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleovens:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:charcoal"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:charcoal"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleovens:jungle_furnace_boat",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -1249,7 +1209,32 @@
       "source": "modules/simpleovens/shared/resources/data/simpleovens/tags/item/furnace_bonus_excluded.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleovens:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:charcoal"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -1425,19 +1410,18 @@
       "note": {
         "sources": [
           "modules/simpleovens/shared/java/com/simpleovens/guide/OvensGuide.java",
-          "modules/simpleovens/shared/resources/data/simpleovens/recipe/guide_book.json"
+          "modules/simpleovens/shared/resources/assets/simpleovens/simplelib/modpack_guide.json",
+          "modules/simpleovens/shared/resources/data/simpleovens/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + charcoal. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ovens\" gives one for free."
+          "summary": "Chapter \"Simple Ovens\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: charcoal. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Holzkohle. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ovens\" eins."
+          "summary": "Kapitel \"Simple Ovens\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Holzkohle. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleovens/item/guide_book.png",
-      "craftedBy": [
-        "simpleovens:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -2091,10 +2075,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 19,
+    "recipes": 18,
     "lootTables": 9,
     "tags": 1,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 14,
     "blocks": 9,

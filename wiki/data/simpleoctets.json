@@ -6373,50 +6373,6 @@
       }
     },
     {
-      "id": "simpleoctets:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleoctets:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:stonecutter"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:stonecutter"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:stone",
-            "count": 3
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleoctets:hushed_deepslate_tiles_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -17183,7 +17139,32 @@
   ],
   "lootTables": [],
   "tags": [],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleoctets:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:stonecutter"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -17195,13 +17176,14 @@
       "note": {
         "sources": [
           "modules/simpleoctets/shared/java/com/simpleoctets/guide/OctetsGuide.java",
-          "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/guide_book.json"
+          "modules/simpleoctets/shared/resources/assets/simpleoctets/simplelib/modpack_guide.json",
+          "modules/simpleoctets/shared/resources/data/simpleoctets/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 14 pages taken from this wiki, shown in your language. Shapeless recipe: book + stonecutter. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Octets\" gives one for free."
+          "summary": "Chapter \"Simple Octets\" of the Simple Modpack guide (SimpleLib): 14 pages taken from this wiki, shown in your language. Unlocked by picking up: stonecutter. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 14 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Steinmetz. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Octets\" eins."
+          "summary": "Kapitel \"Simple Octets\" im Simple-Modpack-Handbuch (SimpleLib): 14 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Steinmetz. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleoctets/item/guide_book.png",
@@ -17229,9 +17211,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simpleoctets:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -22391,10 +22371,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 524,
+    "recipes": 523,
     "lootTables": 0,
     "tags": 0,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 177,

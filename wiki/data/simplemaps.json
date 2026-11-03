@@ -481,50 +481,6 @@
       }
     },
     {
-      "id": "simplemaps:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplemaps:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:compass"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:compass"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 4
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplemaps:mega_wayfinder_map",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -908,7 +864,32 @@
       "source": "modules/simplemaps/shared/resources/data/simplemaps/tags/item/waypoint_heads.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplemaps:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:compass"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemaps/shared/resources/data/simplemaps/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -973,13 +954,14 @@
       "note": {
         "sources": [
           "modules/simplemaps/shared/java/com/simplebuilding/modules/simplemaps/guide/MapsGuide.java",
-          "modules/simplemaps/shared/resources/data/simplemaps/recipe/guide_book.json"
+          "modules/simplemaps/shared/resources/assets/simplemaps/simplelib/modpack_guide.json",
+          "modules/simplemaps/shared/resources/data/simplemaps/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + compass. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Maps\" gives one for free."
+          "summary": "Chapter \"Simple Maps\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: compass. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kompass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Maps\" eins."
+          "summary": "Kapitel \"Simple Maps\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kompass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemaps/item/guide_book.png",
@@ -1007,9 +989,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplemaps:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -1157,10 +1137,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 10,
-    "recipes": 7,
+    "recipes": 6,
     "lootTables": 0,
     "tags": 4,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 5,
     "blocks": 0,

@@ -2898,46 +2898,6 @@
       }
     },
     {
-      "id": "simplestorage:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplestorage:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:barrel",
-        "minecraft:book"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:barrel"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1.75
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplestorage:jungle_crate",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -8404,7 +8364,32 @@
       "source": "modules/simplestorage/shared/resources/data/simplestorage/tags/item/not_allowed_in_backpack.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplestorage:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:barrel"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [
     {
       "id": "simplestorage:deep_pockets",
@@ -9203,19 +9188,18 @@
       "note": {
         "sources": [
           "modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java",
-          "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"
+          "modules/simplestorage/shared/resources/assets/simplestorage/simplelib/modpack_guide.json",
+          "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 36 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."
+          "summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 36 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 36 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."
+          "summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 36 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplestorage/item/guide_book.png",
-      "craftedBy": [
-        "simplestorage:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -12613,10 +12597,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 15,
-    "recipes": 184,
+    "recipes": 183,
     "lootTables": 46,
     "tags": 8,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 3,
     "items": 18,
     "blocks": 47,

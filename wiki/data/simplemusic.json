@@ -974,50 +974,6 @@
       }
     },
     {
-      "id": "simplemusic:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplemusic:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:note_block"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:note_block"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:redstone",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplemusic:light_blue_pocket_jukebox",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -2225,7 +2181,32 @@
       "source": "modules/simplemusic/shared/resources/data/simplemusic/tags/item/pocket_jukeboxes.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplemusic:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:note_block"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemusic/shared/resources/data/simplemusic/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -2341,13 +2322,14 @@
       "note": {
         "sources": [
           "modules/simplemusic/shared/java/com/simplemusic/guide/MusicGuide.java",
-          "modules/simplemusic/shared/resources/data/simplemusic/recipe/guide_book.json"
+          "modules/simplemusic/shared/resources/assets/simplemusic/simplelib/modpack_guide.json",
+          "modules/simplemusic/shared/resources/data/simplemusic/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + note block. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Music\" gives one for free."
+          "summary": "Chapter \"Simple Music\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: note block. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Notenblock. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Music\" eins."
+          "summary": "Kapitel \"Simple Music\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Notenblock. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemusic/item/guide_book.png",
@@ -2375,9 +2357,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplemusic:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -3054,10 +3034,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 16,
-    "recipes": 37,
+    "recipes": 36,
     "lootTables": 18,
     "tags": 2,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 10,
     "blocks": 18,

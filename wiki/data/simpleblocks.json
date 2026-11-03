@@ -1693,46 +1693,6 @@
       }
     },
     {
-      "id": "simpleblocks:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleblocks:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:clay_ball"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:clay_ball"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:clay_ball",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleblocks:hushed_deepslate_tile_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -8241,7 +8201,32 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/tags/item/froglights.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleblocks:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:clay_ball"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -8253,13 +8238,14 @@
       "note": {
         "sources": [
           "modules/simpleblocks/shared/java/com/simpleblocks/guide/BlocksGuide.java",
-          "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/guide_book.json"
+          "modules/simpleblocks/shared/resources/assets/simpleblocks/simplelib/modpack_guide.json",
+          "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 16 pages taken from this wiki, shown in your language. Shapeless recipe: book + clay ball. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Blocks\" gives one for free."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 16 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Tonklumpen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Blocks\" eins."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -8287,9 +8273,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simpleblocks:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -9963,10 +9947,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 12,
-    "recipes": 286,
+    "recipes": 285,
     "lootTables": 57,
     "tags": 2,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 59,

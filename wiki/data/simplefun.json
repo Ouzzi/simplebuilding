@@ -859,46 +859,6 @@
           }
         ]
       }
-    },
-    {
-      "id": "simplefun:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplefun:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:brick"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:brick"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:clay_ball",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
     }
   ],
   "lootTables": [],
@@ -971,6 +931,30 @@
       ],
       "needs": "any",
       "source": "modules/simplefun/generated/resources/data/simplefun/advancement/content/brick_snowball.json"
+    },
+    {
+      "id": "simplefun:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:brick"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplefun/shared/resources/data/simplefun/advancement/guide/chapter.json"
     }
   ],
   "enchantments": [
@@ -1076,13 +1060,14 @@
       "note": {
         "sources": [
           "modules/simplefun/shared/java/com/simplefun/guide/FunGuide.java",
-          "modules/simplefun/shared/resources/data/simplefun/recipe/guide_book.json"
+          "modules/simplefun/shared/resources/assets/simplefun/simplelib/modpack_guide.json",
+          "modules/simplefun/shared/resources/data/simplefun/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 21 pages taken from this wiki, shown in your language. Shapeless recipe: book + brick. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Fun\" gives one for free."
+          "summary": "Chapter \"Simple Fun\" of the Simple Modpack guide (SimpleLib): 21 pages taken from this wiki, shown in your language. Unlocked by picking up: brick. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 21 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Ziegel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Fun\" eins."
+          "summary": "Kapitel \"Simple Fun\" im Simple-Modpack-Handbuch (SimpleLib): 21 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Ziegel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplefun/item/guide_book.png",
@@ -1110,9 +1095,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplefun:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -1132,10 +1115,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 38,
-    "recipes": 2,
+    "recipes": 1,
     "lootTables": 0,
     "tags": 1,
-    "advancements": 1,
+    "advancements": 2,
     "enchantments": 1,
     "items": 2,
     "blocks": 0,

@@ -173,51 +173,35 @@
       }
     }
   ],
-  "recipes": [
-    {
-      "id": "simplestats:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplestats:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplestats/shared/resources/data/simplestats/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:flint"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:flint"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:flint",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    }
-  ],
+  "recipes": [],
   "lootTables": [],
   "tags": [],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplestats:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:flint"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplestats/shared/resources/data/simplestats/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -229,13 +213,14 @@
       "note": {
         "sources": [
           "modules/simplestats/shared/java/com/simplebuilding/modules/simplestats/guide/StatsGuide.java",
-          "modules/simplestats/shared/resources/data/simplestats/recipe/guide_book.json"
+          "modules/simplestats/shared/resources/assets/simplestats/simplelib/modpack_guide.json",
+          "modules/simplestats/shared/resources/data/simplestats/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 29 pages taken from this wiki, shown in your language. Shapeless recipe: book + flint. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Stats\" gives one for free."
+          "summary": "Chapter \"Simple Stats\" of the Simple Modpack guide (SimpleLib): 29 pages taken from this wiki, shown in your language. Unlocked by picking up: flint. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 29 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Feuerstein. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Stats\" eins."
+          "summary": "Kapitel \"Simple Stats\" im Simple-Modpack-Handbuch (SimpleLib): 29 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feuerstein. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplestats/item/guide_book.png",
@@ -263,9 +248,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplestats:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -285,10 +268,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 10,
-    "recipes": 1,
+    "recipes": 0,
     "lootTables": 0,
     "tags": 0,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 0,

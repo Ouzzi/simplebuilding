@@ -467,46 +467,6 @@
       }
     },
     {
-      "id": "simpleshops:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleshops:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleshops/shared/resources/data/simpleshops/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:emerald"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:emerald"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:emerald",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleshops:sales_block",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -779,7 +739,32 @@
     }
   ],
   "tags": [],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleshops:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:emerald"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleshops/shared/resources/data/simpleshops/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -791,19 +776,18 @@
       "note": {
         "sources": [
           "modules/simpleshops/shared/java/com/simpleshops/guide/ShopsGuide.java",
-          "modules/simpleshops/shared/resources/data/simpleshops/recipe/guide_book.json"
+          "modules/simpleshops/shared/resources/assets/simpleshops/simplelib/modpack_guide.json",
+          "modules/simpleshops/shared/resources/data/simpleshops/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 19 pages taken from this wiki, shown in your language. Shapeless recipe: book + emerald. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Shops\" gives one for free."
+          "summary": "Chapter \"Simple Shops\" of the Simple Modpack guide (SimpleLib): 19 pages taken from this wiki, shown in your language. Unlocked by picking up: emerald. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 19 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Smaragd. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Shops\" eins."
+          "summary": "Kapitel \"Simple Shops\" im Simple-Modpack-Handbuch (SimpleLib): 19 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Smaragd. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleshops/item/guide_book.png",
-      "craftedBy": [
-        "simpleshops:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -1073,10 +1057,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 12,
-    "recipes": 6,
+    "recipes": 5,
     "lootTables": 5,
     "tags": 0,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 5,

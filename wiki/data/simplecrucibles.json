@@ -367,46 +367,6 @@
       }
     },
     {
-      "id": "simplecrucibles:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplecrucibles:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:cauldron"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:cauldron"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 7
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplecrucibles:raw_ceramic_bucket",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -802,7 +762,32 @@
       "source": "modules/simplecrucibles/generated/resources/data/simplecrucibles/tags/item/upgrade_reinforced.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplecrucibles:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:cauldron"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplecrucibles/shared/resources/data/simplecrucibles/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -1245,19 +1230,18 @@
       "note": {
         "sources": [
           "modules/simplecrucibles/shared/java/com/simplecrucibles/guide/CruciblesGuide.java",
-          "modules/simplecrucibles/shared/resources/data/simplecrucibles/recipe/guide_book.json"
+          "modules/simplecrucibles/shared/resources/assets/simplecrucibles/simplelib/modpack_guide.json",
+          "modules/simplecrucibles/shared/resources/data/simplecrucibles/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 11 pages taken from this wiki, shown in your language. Shapeless recipe: book + cauldron. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Crucibles\" gives one for free."
+          "summary": "Chapter \"Simple Crucibles\" of the Simple Modpack guide (SimpleLib): 11 pages taken from this wiki, shown in your language. Unlocked by picking up: cauldron. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 11 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Kessel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Crucibles\" eins."
+          "summary": "Kapitel \"Simple Crucibles\" im Simple-Modpack-Handbuch (SimpleLib): 11 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Kessel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplecrucibles/item/guide_book.png",
-      "craftedBy": [
-        "simplecrucibles:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -1747,10 +1731,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 8,
-    "recipes": 6,
+    "recipes": 5,
     "lootTables": 11,
     "tags": 11,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 27,
     "blocks": 11,
