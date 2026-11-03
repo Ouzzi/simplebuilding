@@ -457,7 +457,7 @@ public final class DataIntegrityTests {
         declaredInOrder.addAll(declared);
         for (Identifier id : declaredInOrder) {
             Item item = BuiltInRegistries.ITEM.getValue(id);
-            boolean expected = !ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath());
+            boolean expected = !ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) && !retiredGuide(id);
             if (expected && !inTheTab.contains(item)) {
                 problems.add(id + " is registered but ModItemGroupsContent never offers it, so it "
                         + "cannot be taken out of the creative inventory at all");
@@ -2747,7 +2747,7 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
-            int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) ? 0 : 1;
+            int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) || retiredGuide(id) ? 0 : 1;
             if (com.simplebuilding.version.McVersion.FLETCHING && BuiltInRegistries.ITEM.getValue(id) == ModItems.CRAFTED_ARROW) {
                 // Ein Item, eine Variante je Teile-Kombination (B14): alle im Tab SimpleArrows, sonst nirgends.
                 tabs = new ArrayList<>(new java.util.LinkedHashSet<>(tabs));

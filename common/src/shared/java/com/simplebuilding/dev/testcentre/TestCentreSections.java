@@ -1531,7 +1531,11 @@ public final class TestCentreSections {
             List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
             if (com.simplebuilding.version.McVersion.MEGA_GUIDES && (row.name().equals("guide_books") || row.name().equals("vanilla_guide_books"))) {
                 List<ItemStack> guides = new ArrayList<>(stacks);
-                for (ItemStack base : stacks) {
+                for (ItemStack shown : stacks) {
+                    // b-guide01: the tab shows SimpleLib's Simple Modpack guide in the hub's slot; the retired hub stands beside it.
+                    ItemStack base = shown.getItem() instanceof com.simplebuilding.items.custom.GuideBookItem ? shown
+                            : new ItemStack(com.simplebuilding.guide.GuideBooks.item(com.simplebuilding.guide.GuideBooks.Shelf.MOD.hub()));
+                    if (base != shown) guides.add(base);
                     var guide = (com.simplebuilding.items.custom.GuideBookItem) base.getItem();
                     ItemStack filled = base.copy();
                     for (var topic : guide.book().shelf().topics()) filled = com.simplebuilding.guide.GuideBooks.withChapter(filled, topic);
