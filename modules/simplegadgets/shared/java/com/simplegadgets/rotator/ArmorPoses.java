@@ -113,7 +113,7 @@ public final class ArmorPoses {
         Pose pose = step(stand, player.isShiftKeyDown());
         RotatorItem.drain(player, rotator, RotatorItem.useCost());
         player.level().playSound(null, stand.blockPosition(), SoundEvents.ARMOR_STAND_HIT, SoundSource.BLOCKS, 1.0f, 1.0f);
-        player.displayClientMessage(pose.label(), true);
+        player.sendOverlayMessage(pose.label());
         return InteractionResult.SUCCESS;
     }
 

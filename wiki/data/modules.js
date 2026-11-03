@@ -1698,7 +1698,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 5
     },
-    "dataHash": "56dc0d996e3f"
+    "dataHash": "2f4cc4644761"
   },
   {
     "id": "simpleearth",
