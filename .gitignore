@@ -1133,3 +1133,6 @@ modules/simpleores/shared/resources/assets/simpleores/textures/item/blossom_gold
 wiki/assets/textures/simpleores/item/blossom_gold_apple.png
 wiki/assets/textures/sheets/simplebuilding/simpleores/item/blossom_gold_apple.png
 wiki/assets/textures/sheets/simpleores/simpleores/item/blossom_gold_apple.png
+
+# Game logs of module client/test runs (bprep add -A picked them up, 03.11.)
+modules/*/*/logs/
