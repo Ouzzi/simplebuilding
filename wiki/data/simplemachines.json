@@ -17,6 +17,76 @@
   },
   "features": [
     {
+      "id": "hoppers",
+      "sources": [
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/Hoppers.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperBlock.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperBlockEntity.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperMenu.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/ItemFilter.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/HopperItem.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/HopperAutomation.java",
+        "modules/simplemachines/shared/java/com/simplemachines/client/TierHopperScreen.java",
+        "modules/simplemachines/shared/java/com/simplemachines/config/MachinesConfig.java",
+        "modules/simplemachines/fabric/src/main/java/com/simplebuilding/modules/simplemachines/HoppersFabric.java",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/reinforced_hopper_from_crafting.json",
+        "modules/simplemachines/shared/resources/data/simplemachines/in_world_upgrades/hoppers.json",
+        "modules/simplemachines/shared/java/com/simplemachines/test/TierHopperTests.java",
+        "modules/simplemachines/shared/java/com/simplemachines/test/HopperModuleTests.java"
+      ],
+      "en": {
+        "title": "Reinforced, Netherite and Enderite Hoppers",
+        "summary": "Three faster hoppers: the Reinforced Hopper (4 ticks between transfers), the Netherite Hopper (2) and the Enderite Hopper (1; Vanilla 8), each with an item filter in its menu. Until 03.11. SimpleBuilding's; old simplebuilding: ids and saved hoppers move here.",
+        "details": [
+          "A transfer pushes one item into the container in front and pulls from above, like Vanilla; a redstone signal stops both. Speeds: hoppers.reinforcedSpeed/netheriteSpeed/enderiteSpeed in config/simplemachines-server.json (times a Vanilla hopper, 1 to 8, default 2/4/8; taken over once from SimpleBuilding's server.machines.*HopperSpeed).",
+          "Filter key in the menu: Disabled, Exact Match (item and data), Type Match (item only). With a filter on, the real item lying in a slot is that slot's filter: automation only tops up matching slots and one item always stays behind.",
+          "In front of a block that is no Vanilla container (another mod's machine) the hopper hands its items to the loader's transfer interface (Fabric: ItemStorage), one per transfer.",
+          "Getting them: 1 Hopper + 1 Name Tag + 1 Cracked Diamond (shapeless) yield 1 Reinforced Hopper. The Netherite Hopper is hammered out of a Reinforced Hopper with a Netherite Nugget, the Enderite Hopper out of a Netherite Hopper with an Enderite Nugget (needs Simple Ores); the hopper keeps contents and filter.",
+          "Reinforced: hardness 3.0, blast resistance 4.8, metal sound. Netherite: 5.0 / 1200, its item fire resistant. Enderite: 6.0 / 1500, fire resistant and epic. Mined with a pickaxe."
+        ]
+      },
+      "de": {
+        "title": "Verstärkter, Netherit- und Enderittrichter",
+        "summary": "Drei schnellere Trichter: der Verstärkte Trichter (4 Ticks zwischen zwei Übergaben), der Netherittrichter (2) und der Enderittrichter (1; Vanilla 8), jeder mit Itemfilter im Menü. Bis 03.11. SimpleBuildings; alte simplebuilding:-Ids und gespeicherte Trichter ziehen hierher um.",
+        "details": [
+          "Eine Übergabe schiebt ein Item in den Behälter davor und zieht von oben, wie Vanilla; ein Redstone-Signal stoppt beides. Tempo: hoppers.reinforcedSpeed/netheriteSpeed/enderiteSpeed in config/simplemachines-server.json (mal ein Vanilla-Trichter, 1 bis 8, Standard 2/4/8; einmal aus SimpleBuildings server.machines.*HopperSpeed übernommen).",
+          "Filtertaste im Menü: Aus, Exakt gleich (Item und Daten), Gleiche Art (nur Item). Mit Filter ist das echte Item in einem Platz dessen Filter: Automatik füllt nur passende Plätze auf, und ein Item bleibt immer liegen.",
+          "Vor einem Block, der kein Vanilla-Behälter ist (Maschine eines anderen Mods), gibt der Trichter seine Items an die Transfer-Schnittstelle des Loaders (Fabric: ItemStorage), eins je Übergabe.",
+          "Herstellung: 1 Trichter + 1 Namensschild + 1 Rissiger Diamant (formlos) ergeben 1 Verstärkten Trichter. Der Netherittrichter wird mit einem Netheritklumpen aus einem Verstärkten Trichter gehämmert, der Enderittrichter mit einem Enderitklumpen aus einem Netherittrichter (braucht Simple Ores); Inhalt und Filter bleiben.",
+          "Verstärkt: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherit: 5,0 / 1200, Item feuerfest. Enderit: 6,0 / 1500, feuerfest und episch. Abbau mit der Spitzhacke."
+        ]
+      }
+    },
+    {
+      "id": "hopper_carts",
+      "sources": [
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperMinecart.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/HopperCartItem.java",
+        "modules/simplemachines/shared/java/com/simplemachines/hopper/Hoppers.java",
+        "modules/simplemachines/fabric/src/main/java/com/simplebuilding/modules/simplemachines/MachinesFabricClient.java",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/reinforced_hopper_minecart.json",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/netherite_hopper_minecart_smithing.json",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/enderite_hopper_minecart_smithing.json"
+      ],
+      "en": {
+        "title": "Hopper Minecarts",
+        "summary": "A hopper minecart per hopper tier: it takes in 2, 4 or 8 items per tick (the speed of its hopper; Vanilla's cart 1) and filters like the hopper block, with the same menu.",
+        "details": [
+          "Craft: a Minecart and the tier's hopper (shapeless). Smithing table: Reinforced to Netherite (Netherite Upgrade + Netherite Ingot), Netherite to Enderite (Enderite Upgrade + Enderite Ingot, needs Simple Ores).",
+          "An activator rail switches it off like Vanilla's hopper cart. Broken, it drops its own item and its contents. Until 03.11. SimpleBuilding's; old carts load as these."
+        ]
+      },
+      "de": {
+        "title": "Trichterloren",
+        "summary": "Eine Trichterlore je Trichterstufe: Sie nimmt 2, 4 oder 8 Items je Tick auf (das Tempo ihres Trichters; Vanillas Lore 1) und filtert wie der Trichterblock, mit demselben Menü.",
+        "details": [
+          "Herstellung: eine Lore und der Trichter der Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit (Netherit-Aufwertung + Netheritbarren), Netherit zu Enderit (Enderit-Aufwertung + Enderitbarren, braucht Simple Ores).",
+          "Eine Aktivierungsschiene schaltet sie ab wie Vanillas Trichterlore. Zerstört lässt sie ihr eigenes Item und ihren Inhalt fallen. Bis 03.11. SimpleBuildings; alte Loren laden als diese."
+        ]
+      }
+    },
+    {
       "id": "piston_upgrades",
       "sources": [
         "modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonUpgrades.java",
@@ -193,6 +263,7 @@
           "pistons.breachModdedUnbreakables (false): they also treat other mods' unbreakable blocks (hardness -1) that way.",
           "pistons.fireBreakEvents (true): before a breaker destroys a block it fires Fabric's block break event with a fake player (claims).",
           "A file without the pistons section takes the four values over once from SimpleBuilding's config (breakerPistonsLoseDurability, pistonsBreachEndPortalFrames, pistonsBreachModdedUnbreakables, pistonsFireBreakEvents), which stays unchanged.",
+          "hoppers.reinforcedSpeed (2), hoppers.netheriteSpeed (4), hoppers.enderiteSpeed (8): how many times faster than a Vanilla hopper each hopper tier moves items (1 to 8; 8 = one item every tick); also the items per tick of its hopper cart. A file without the hoppers section takes them over once from SimpleBuilding's server.machines.*HopperSpeed.",
           "With SimpleBuilding the switch Enable Simple Machines in its config turns the bundled module on or off."
         ]
       },
@@ -207,6 +278,7 @@
           "pistons.breachModdedUnbreakables (false): ebenso unzerstörbare Blöcke anderer Mods (Härte -1).",
           "pistons.fireBreakEvents (true): bevor ein Brecher einen Block zerstört, feuert er Fabrics Abbau-Ereignis mit einem Fake-Spieler (Claims).",
           "Fehlt der Abschnitt pistons in der Datei, werden die vier Werte einmal aus der SimpleBuilding-Konfiguration übernommen (breakerPistonsLoseDurability, pistonsBreachEndPortalFrames, pistonsBreachModdedUnbreakables, pistonsFireBreakEvents), die unverändert bleibt.",
+          "hoppers.reinforcedSpeed (2), hoppers.netheriteSpeed (4), hoppers.enderiteSpeed (8): wie viel schneller als ein Vanilla-Trichter jede Trichterstufe Items bewegt (1 bis 8; 8 = jeden Tick ein Item); auch die Items je Tick ihrer Trichterlore. Fehlt der Abschnitt hoppers, werden sie einmal aus SimpleBuildings server.machines.*HopperSpeed übernommen.",
           "Mit SimpleBuilding schaltet der Schalter Enable Simple Machines in dessen Konfiguration das gebündelte Modul an oder aus."
         ]
       }
@@ -295,6 +367,90 @@
       }
     },
     {
+      "id": "simplemachines:enderite_hopper_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemachines:enderite_hopper_minecart",
+        "count": 1
+      },
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/recipe/enderite_hopper_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplemachines:enderite_hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "simplemachines:enderite_hopper"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplemachines:enderite_hopper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemachines:enderite_hopper_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemachines:enderite_hopper_minecart",
+        "count": 1
+      },
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/recipe/enderite_hopper_minecart_smithing.json",
+      "ingredients": [
+        "simplemachines:netherite_hopper_minecart",
+        "simpleores:enderite_ingot",
+        "simpleores:enderite_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simpleores:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplemachines:netherite_hopper_minecart"
+        ],
+        "addition": [
+          "simpleores:enderite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplemachines:netherite_hopper",
+            "count": 1
+          },
+          {
+            "id": "simpleores:enderite_ingot",
+            "count": 1
+          },
+          {
+            "id": "simpleores:enderite_upgrade_template",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemachines:guide_book",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -330,6 +486,202 @@
           {
             "id": "minecraft:redstone",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemachines:netherite_hopper_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemachines:netherite_hopper_minecart",
+        "count": 1
+      },
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/recipe/netherite_hopper_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplemachines:netherite_hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "simplemachines:netherite_hopper"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "simplemachines:netherite_hopper",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemachines:netherite_hopper_minecart_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemachines:netherite_hopper_minecart",
+        "count": 1
+      },
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/recipe/netherite_hopper_minecart_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplemachines:reinforced_hopper_minecart"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplemachines:reinforced_hopper_minecart"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 10
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:netherite_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:netherite_upgrade_smithing_template",
+            "count": 1
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemachines:reinforced_hopper_from_crafting",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplemachines:reinforced_hopper",
+        "count": 1
+      },
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/recipe/reinforced_hopper_from_crafting.json",
+      "ingredients": [
+        "minecraft:hopper",
+        "minecraft:name_tag",
+        "simplelib:cracked_diamond"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:hopper"
+        ],
+        [
+          "simplelib:cracked_diamond"
+        ],
+        [
+          "minecraft:name_tag"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplemachines:reinforced_hopper_minecart",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplemachines:reinforced_hopper_minecart",
+        "count": 1
+      },
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/recipe/reinforced_hopper_minecart.json",
+      "ingredients": [
+        "minecraft:minecart",
+        "simplemachines:reinforced_hopper"
+      ],
+      "ingredientGroups": [
+        [
+          "simplemachines:reinforced_hopper"
+        ],
+        [
+          "minecraft:minecart"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:iron_ingot",
+            "count": 10
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 2
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 1
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 1
+          },
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 0.111
           }
         ]
       }
@@ -520,6 +872,24 @@
       "source": "modules/simplemachines/shared/resources/data/simplemachines/loot_table/blocks/double_piston.json"
     },
     {
+      "id": "simplemachines:blocks/enderite_hopper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemachines:enderite_hopper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/loot_table/blocks/enderite_hopper.json"
+    },
+    {
       "id": "simplemachines:blocks/enderite_piston",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -538,6 +908,24 @@
       "source": "modules/simplemachines/shared/resources/data/simplemachines/loot_table/blocks/enderite_piston.json"
     },
     {
+      "id": "simplemachines:blocks/netherite_hopper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemachines:netherite_hopper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/loot_table/blocks/netherite_hopper.json"
+    },
+    {
       "id": "simplemachines:blocks/netherite_piston",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -554,6 +942,24 @@
         }
       ],
       "source": "modules/simplemachines/shared/resources/data/simplemachines/loot_table/blocks/netherite_piston.json"
+    },
+    {
+      "id": "simplemachines:blocks/reinforced_hopper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplemachines:reinforced_hopper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simplemachines/shared/resources/data/simplemachines/loot_table/blocks/reinforced_hopper.json"
     },
     {
       "id": "simplemachines:blocks/reinforced_piston",
@@ -678,6 +1084,30 @@
   "enchantments": [],
   "items": [
     {
+      "id": "simplemachines:enderite_hopper_minecart",
+      "name": {
+        "en_us": "Enderite Hopper Minecart",
+        "de_de": "Enderit-Trichterlore"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperMinecart.java"
+        ],
+        "en": {
+          "summary": "Minecart with a Enderite Hopper: takes in 8 items per tick and filters like the hopper."
+        },
+        "de": {
+          "summary": "Lore mit Enderittrichter: nimmt 8 Items je Tick auf und filtert wie der Trichter."
+        }
+      },
+      "texture": "assets/textures/simplemachines/item/enderite_hopper_minecart.png",
+      "craftedBy": [
+        "simplemachines:enderite_hopper_minecart",
+        "simplemachines:enderite_hopper_minecart_smithing"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemachines:guide_book",
       "name": {
         "en_us": "Simple Machines Guide",
@@ -689,10 +1119,10 @@
           "modules/simplemachines/shared/resources/data/simplemachines/recipe/guide_book.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 8 pages taken from this wiki, shown in your language. Shapeless recipe: book + redstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Machines\" gives one for free."
+          "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + redstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Machines\" gives one for free."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 8 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Redstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Machines\" eins."
+          "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Redstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Machines\" eins."
         }
       },
       "texture": "assets/textures/simplemachines/item/guide_book.png",
@@ -700,6 +1130,57 @@
         "simplemachines:guide_book"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simplemachines:netherite_hopper_minecart",
+      "name": {
+        "en_us": "Netherite Hopper Minecart",
+        "de_de": "Netherit-Trichterlore"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperMinecart.java"
+        ],
+        "en": {
+          "summary": "Minecart with a Netherite Hopper: takes in 4 items per tick and filters like the hopper."
+        },
+        "de": {
+          "summary": "Lore mit Netherittrichter: nimmt 4 Items je Tick auf und filtert wie der Trichter."
+        }
+      },
+      "texture": "assets/textures/simplemachines/item/netherite_hopper_minecart.png",
+      "craftedBy": [
+        "simplemachines:netherite_hopper_minecart",
+        "simplemachines:netherite_hopper_minecart_smithing"
+      ],
+      "usedIn": [
+        "simplemachines:enderite_hopper_minecart_smithing"
+      ]
+    },
+    {
+      "id": "simplemachines:reinforced_hopper_minecart",
+      "name": {
+        "en_us": "Reinforced Hopper Minecart",
+        "de_de": "Verstärkte Trichterlore"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperMinecart.java"
+        ],
+        "en": {
+          "summary": "Minecart with a Reinforced Hopper: takes in 2 items per tick and filters like the hopper."
+        },
+        "de": {
+          "summary": "Lore mit Verstärktem Trichter: nimmt 2 Items je Tick auf und filtert wie der Trichter."
+        }
+      },
+      "texture": "assets/textures/simplemachines/item/reinforced_hopper_minecart.png",
+      "craftedBy": [
+        "simplemachines:reinforced_hopper_minecart"
+      ],
+      "usedIn": [
+        "simplemachines:netherite_hopper_minecart_smithing"
+      ]
     }
   ],
   "blocks": [
@@ -793,6 +1274,29 @@
       "usedIn": []
     },
     {
+      "id": "simplemachines:enderite_hopper",
+      "name": {
+        "en_us": "Enderite Hopper",
+        "de_de": "Enderittrichter"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/Hoppers.java",
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperBlockEntity.java"
+        ],
+        "en": {
+          "summary": "A hopper that waits 1 tick between transfers, with an item filter in its menu."
+        },
+        "de": {
+          "summary": "Ein Trichter, der 1 Tick zwischen zwei Übergaben wartet, mit Itemfilter im Menü."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplemachines:enderite_hopper_minecart"
+      ]
+    },
+    {
       "id": "simplemachines:enderite_piston",
       "name": {
         "en_us": "Enderite Piston",
@@ -836,6 +1340,29 @@
       "usedIn": []
     },
     {
+      "id": "simplemachines:netherite_hopper",
+      "name": {
+        "en_us": "Netherite Hopper",
+        "de_de": "Netherittrichter"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/Hoppers.java",
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperBlockEntity.java"
+        ],
+        "en": {
+          "summary": "A hopper that waits 2 ticks between transfers, with an item filter in its menu."
+        },
+        "de": {
+          "summary": "Ein Trichter, der 2 Ticks zwischen zwei Übergaben wartet, mit Itemfilter im Menü."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simplemachines:netherite_hopper_minecart"
+      ]
+    },
+    {
       "id": "simplemachines:netherite_piston",
       "name": {
         "en_us": "Netherite Piston",
@@ -877,6 +1404,31 @@
       "texture": "assets/textures/simplemachines/block/netherite_piston_head.png",
       "craftedBy": [],
       "usedIn": []
+    },
+    {
+      "id": "simplemachines:reinforced_hopper",
+      "name": {
+        "en_us": "Reinforced Hopper",
+        "de_de": "Verstärkter Trichter"
+      },
+      "note": {
+        "sources": [
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/Hoppers.java",
+          "modules/simplemachines/shared/java/com/simplemachines/hopper/TierHopperBlockEntity.java"
+        ],
+        "en": {
+          "summary": "A hopper that waits 4 ticks between transfers, with an item filter in its menu."
+        },
+        "de": {
+          "summary": "Ein Trichter, der 4 Ticks zwischen zwei Übergaben wartet, mit Itemfilter im Menü."
+        }
+      },
+      "craftedBy": [
+        "simplemachines:reinforced_hopper_from_crafting"
+      ],
+      "usedIn": [
+        "simplemachines:reinforced_hopper_minecart"
+      ]
     },
     {
       "id": "simplemachines:reinforced_piston",
@@ -1010,14 +1562,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 6,
-    "recipes": 5,
-    "lootTables": 6,
+    "features": 8,
+    "recipes": 11,
+    "lootTables": 9,
     "tags": 2,
     "advancements": 0,
     "enchantments": 0,
-    "items": 1,
-    "blocks": 11,
+    "items": 4,
+    "blocks": 14,
     "trades": 0,
     "config": 0,
     "quests": 0,

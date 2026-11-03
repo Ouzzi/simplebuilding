@@ -155,7 +155,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 75
     },
-    "dataHash": "06f5ddd6597e"
+    "dataHash": "27147a688fd7"
   },
   {
     "id": "simpleriding",
@@ -570,7 +570,7 @@ window.WIKI_MODULES = [
       "recipes": 21,
       "features": 7
     },
-    "dataHash": "ef4ce3521444"
+    "dataHash": "c89613a0006c"
   },
   {
     "id": "simpleinterfaces",
@@ -602,7 +602,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 55
     },
-    "dataHash": "52b775fee7c5"
+    "dataHash": "ef4fbbb1c5f6"
   },
   {
     "id": "simplemaps",
@@ -801,7 +801,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "658988b5b9b4"
+    "dataHash": "fa8a5dde8793"
   },
   {
     "id": "simpletools",
@@ -1747,7 +1747,7 @@ window.WIKI_MODULES = [
       "recipes": 7,
       "features": 5
     },
-    "dataHash": "56dc0d996e3f"
+    "dataHash": "2f4cc4644761"
   },
   {
     "id": "simpleearth",
@@ -1775,7 +1775,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "bff7093d39b0"
+    "dataHash": "dfbbd8dc56d7"
   },
   {
     "id": "simplechallenges",
@@ -1919,7 +1919,7 @@ window.WIKI_MODULES = [
   {
     "id": "simplemachines",
     "displayName": "Simple Machines",
-    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget). Vanilla and SimpleLib ingredients; the Enderite Piston needs Simple Ores. Fabric only for now.",
+    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1936,17 +1936,17 @@ window.WIKI_MODULES = [
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "The machine parts of the Simple Machines tab: four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-      "de": "Die Maschinenteile des Tabs Simple Machines: vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
+      "en": "The machine parts of the Simple Machines tab: three faster hoppers with an item filter and their hopper carts, four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
+      "de": "Die Maschinenteile des Tabs Simple Machines: drei schnellere Trichter mit Itemfilter und ihre Trichterloren, vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 1,
-      "blocks": 11,
-      "recipes": 5,
-      "features": 6
+      "items": 4,
+      "blocks": 14,
+      "recipes": 11,
+      "features": 8
     },
-    "dataHash": "952756703bc4"
+    "dataHash": "05e9ac101e69"
   },
   {
     "id": "simplearrows",
