@@ -28,14 +28,58 @@ public final class KeyboardLayout {
         }
     }
 
-    /** One key cap: position and size in quarter keys, {@code label} is what it shows. */
-    public record Cell(int code, String label, int x, int y, int w, int h) {
+    /**
+     * One key cap: position and size in quarter keys, {@code label} is what it shows. An L-shaped cap (ISO Enter) has a
+     * second rectangle {@code ex, ey, ew, eh} (absolute, {@code ew} = 0: none) that touches the first.
+     */
+    public record Cell(int code, String label, int x, int y, int w, int h, int ex, int ey, int ew, int eh) {
+        public Cell(int code, String label, int x, int y, int w, int h) {
+            this(code, label, x, y, w, h, 0, 0, 0, 0);
+        }
+
+        public boolean l() {
+            return ew > 0 && eh > 0;
+        }
+
         public int right() {
-            return x + w;
+            return l() ? Math.max(x + w, ex + ew) : x + w;
         }
 
         public int bottom() {
-            return y + h;
+            return l() ? Math.max(y + h, ey + eh) : y + h;
+        }
+
+        public int left() {
+            return l() ? Math.min(x, ex) : x;
+        }
+
+        public int top() {
+            return l() ? Math.min(y, ey) : y;
+        }
+
+        public Cell moved(int dx, int dy) {
+            return new Cell(code, label, x + dx, y + dy, w, h, l() ? ex + dx : 0, l() ? ey + dy : 0, ew, eh);
+        }
+
+        public Cell withLabel(String text) {
+            return new Cell(code, text, x, y, w, h, ex, ey, ew, eh);
+        }
+
+        /** True when the point (quarter keys, may be fractional) lies on the cap. */
+        public boolean contains(double px, double py) {
+            return px >= x && px < x + w && py >= y && py < y + h || l() && px >= ex && px < ex + ew && py >= ey && py < ey + eh;
+        }
+
+        /** True when the caps share an area. */
+        public boolean overlaps(Cell o) {
+            if (rects(x, y, w, h, o.x, o.y, o.w, o.h)) return true;
+            if (l() && rects(ex, ey, ew, eh, o.x, o.y, o.w, o.h)) return true;
+            if (o.l() && rects(x, y, w, h, o.ex, o.ey, o.ew, o.eh)) return true;
+            return l() && o.l() && rects(ex, ey, ew, eh, o.ex, o.ey, o.ew, o.eh);
+        }
+
+        private static boolean rects(int ax, int ay, int aw, int ah, int bx, int by, int bw, int bh) {
+            return ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah;
         }
     }
 
@@ -45,16 +89,30 @@ public final class KeyboardLayout {
             NUM_LOCK = 282, PRINT_SCREEN = 283, PAUSE = 284, F1 = 290, KP_0 = 320, KP_DECIMAL = 330, KP_DIVIDE = 331,
             KP_MULTIPLY = 332, KP_SUBTRACT = 333, KP_ADD = 334, KP_ENTER = 335, LEFT_SHIFT = 340, LEFT_CONTROL = 341,
             LEFT_ALT = 342, LEFT_SUPER = 343, RIGHT_SHIFT = 344, RIGHT_CONTROL = 345, RIGHT_ALT = 346, RIGHT_SUPER = 347,
-            MENU = 348, SPACE = 32;
-    private static final int APOSTROPHE = 39, COMMA = 44, MINUS = 45, PERIOD = 46, SLASH = 47, SEMICOLON = 59, EQUAL = 61,
+            MENU = 348, SPACE = 32, WORLD_1 = 161, WORLD_2 = 162, KP_EQUAL = 336;
+    public static final int APOSTROPHE = 39, COMMA = 44, MINUS = 45, PERIOD = 46, SLASH = 47, SEMICOLON = 59, EQUAL = 61,
             LEFT_BRACKET = 91, BACKSLASH = 92, RIGHT_BRACKET = 93, GRAVE = 96;
 
     private KeyboardLayout() {}
 
-    /** All cells of {@code size}; {@code german} swaps the captions of Y and Z (QWERTZ display only - the key codes stay US). */
+    /** The built-in layouts: US (ANSI), DE (ISO, QWERTZ), UK (ISO), FR (ISO, AZERTY). */
+    public static final List<String> PRESETS = List.of("us", "de", "uk", "fr");
+
+    /** Old form: {@code german} = the "de" layout, else "us". */
     public static List<Cell> cells(Size size, boolean german) {
+        return cells(size, german ? "de" : "us");
+    }
+
+    /**
+     * All cells of {@code size} in the built-in layout {@code layout} (see {@link #PRESETS}; anything else = US). The key codes
+     * are physical keys (the same on every layout), only captions and the ISO shapes differ: ISO has the L-shaped Enter, the
+     * extra key left of Enter (code backslash) and the extra key left of Y/Z ({@link #WORLD_1}).
+     */
+    public static List<Cell> cells(Size size, String layout) {
+        String id = PRESETS.contains(layout) ? layout : "us";
+        boolean iso = !id.equals("us");
         List<Cell> out = new ArrayList<>();
-        Row row = new Row(out, german);
+        Row row = new Row(out, id);
         // row 0: Esc (60 %) or Esc and the function keys, 15 keys wide in all sizes but 60 %
         row.at(0, 0).key(ESC, 4);
         if (size != Size.COMPACT) {
@@ -71,13 +129,19 @@ public final class KeyboardLayout {
         // row 2: Tab row
         row.at(0, 2).key(TAB, 6);
         for (char c : "QWERTYUIOP".toCharArray()) row.key(c, 4);
-        row.key(LEFT_BRACKET, 4).key(RIGHT_BRACKET, 4).key(BACKSLASH, 6);
+        row.key(LEFT_BRACKET, 4).key(RIGHT_BRACKET, 4);
+        if (iso) out.add(new Cell(ENTER, label(ENTER, id), 54, 2 * UNIT + 2, 6, UNIT, 55, 3 * UNIT + 2, 5, UNIT));
+        else row.key(BACKSLASH, 6);
         // row 3: Caps row
         row.at(0, 3).key(CAPS_LOCK, 7);
         for (char c : "ASDFGHJKL".toCharArray()) row.key(c, 4);
-        row.key(SEMICOLON, 4).key(APOSTROPHE, 4).key(ENTER, 9);
+        row.key(SEMICOLON, 4).key(APOSTROPHE, 4);
+        if (iso) row.key(BACKSLASH, 4);
+        else row.key(ENTER, 9);
         // row 4: Shift row (the arrow keys of the 75 % layout stand right of the main block, see below)
-        row.at(0, 4).key(LEFT_SHIFT, 9);
+        row.at(0, 4);
+        if (iso) row.key(LEFT_SHIFT, 5).key(WORLD_1, 4);
+        else row.key(LEFT_SHIFT, 9);
         for (char c : "ZXCVBNM".toCharArray()) row.key(c, 4);
         row.key(COMMA, 4).key(PERIOD, 4).key(SLASH, 4);
         row.key(RIGHT_SHIFT, 11);
@@ -137,7 +201,7 @@ public final class KeyboardLayout {
     /** The cell under the pixel ({@code mx}, {@code my}) when the picture's corner is at ({@code ox}, {@code oy}) and a quarter key is {@code scale} px. */
     public static Optional<Cell> at(List<Cell> cells, int ox, int oy, int scale, double mx, double my) {
         for (Cell c : cells) {
-            if (mx >= ox + c.x() * scale && mx < ox + c.right() * scale && my >= oy + c.y() * scale && my < oy + c.bottom() * scale) {
+            if (c.contains((mx - ox) / scale, (my - oy) / scale)) {
                 return Optional.of(c);
             }
         }
@@ -148,7 +212,7 @@ public final class KeyboardLayout {
     public static boolean plain(int code) {
         return code >= 'A' && code <= 'Z' || code >= '0' && code <= '9' || code >= F1 && code < F1 + 12
                 || code == GRAVE || code == MINUS || code == EQUAL || code == LEFT_BRACKET || code == RIGHT_BRACKET || code == BACKSLASH
-                || code == SEMICOLON || code == APOSTROPHE || code == COMMA || code == PERIOD || code == SLASH
+                || code == SEMICOLON || code == APOSTROPHE || code == COMMA || code == PERIOD || code == SLASH || code == WORLD_1
                 || code >= KP_0 && code <= KP_0 + 9;
     }
 
@@ -200,21 +264,63 @@ public final class KeyboardLayout {
             Map.entry(LEFT_SUPER, "left.win"), Map.entry(RIGHT_SUPER, "right.win"), Map.entry(MENU, "menu"), Map.entry(SPACE, "space"),
             Map.entry(APOSTROPHE, "apostrophe"), Map.entry(COMMA, "comma"), Map.entry(MINUS, "minus"), Map.entry(PERIOD, "period"),
             Map.entry(SLASH, "slash"), Map.entry(SEMICOLON, "semicolon"), Map.entry(EQUAL, "equal"), Map.entry(LEFT_BRACKET, "left.bracket"),
-            Map.entry(BACKSLASH, "backslash"), Map.entry(RIGHT_BRACKET, "right.bracket"), Map.entry(GRAVE, "grave.accent"));
+            Map.entry(BACKSLASH, "backslash"), Map.entry(RIGHT_BRACKET, "right.bracket"), Map.entry(GRAVE, "grave.accent"),
+            Map.entry(WORLD_1, "world.1"), Map.entry(WORLD_2, "world.2"), Map.entry(KP_EQUAL, "keypad.equal"));
 
-    /** The caption of a key; {@code german} swaps Y and Z. */
-    public static String label(int code, boolean german) {
-        if (code >= 'A' && code <= 'Z') {
-            char c = (char) code;
-            if (german && c == 'Y') c = 'Z';
-            else if (german && c == 'Z') c = 'Y';
-            return String.valueOf(c);
+    private static Map<String, Integer> byName;
+
+    /** The picture code of Minecraft key name {@code name} ({@code key.keyboard.*}), or -1 when the picture cannot show that key. */
+    public static synchronized int codeOf(String name) {
+        if (byName == null) {
+            Map<String, Integer> m = new java.util.HashMap<>();
+            for (int c = 0; c <= 400; c++) {
+                String n = keyName(c);
+                if (!n.equals(KeyConflicts.UNBOUND)) m.putIfAbsent(n, c);
+            }
+            byName = m;
         }
+        return byName.getOrDefault(name, -1);
+    }
+
+    /** The caption of a key on the US layout. */
+    public static String label(int code) {
+        return label(code, "us");
+    }
+
+    /** Old form: {@code german} = the "de" layout. */
+    public static String label(int code, boolean german) {
+        return label(code, german ? "de" : "us");
+    }
+
+    /** The caption of a key in the built-in layout {@code layout}. */
+    public static String label(int code, String layout) {
+        String own = LAYOUT_LABELS.getOrDefault(layout, Map.of()).get(code);
+        if (own != null) return own;
+        // ISO: the narrow Enter top (6) and left Shift (5) are too small for the full word
+        if (!layout.equals("us") && PRESETS.contains(layout)) {
+            if (code == ENTER) return "Ent";
+            if (code == LEFT_SHIFT) return "Sh";
+        }
+        if (code >= 'A' && code <= 'Z') return String.valueOf((char) code);
         if (code >= '0' && code <= '9') return String.valueOf((char) code);
         if (code >= F1 && code < F1 + 25) return "F" + (code - F1 + 1);
         if (code >= KP_0 && code <= KP_0 + 9) return String.valueOf(code - KP_0);
         return SPECIAL.getOrDefault(code, "?");
     }
+
+    /** Captions that differ from the US layout, by physical key (basic level only: no Shift / AltGr characters). */
+    private static final Map<String, Map<Integer, String>> LAYOUT_LABELS = Map.of(
+            "de", Map.ofEntries(Map.entry(GRAVE, "^"), Map.entry(MINUS, "\u00df"), Map.entry(EQUAL, "\u00b4"), Map.entry((int) 'Y', "Z"),
+                    Map.entry((int) 'Z', "Y"), Map.entry(LEFT_BRACKET, "\u00dc"), Map.entry(RIGHT_BRACKET, "+"), Map.entry(SEMICOLON, "\u00d6"),
+                    Map.entry(APOSTROPHE, "\u00c4"), Map.entry(BACKSLASH, "#"), Map.entry(SLASH, "-"), Map.entry(WORLD_1, "<")),
+            "uk", Map.of(BACKSLASH, "#", WORLD_1, "\\"),
+            "fr", Map.ofEntries(Map.entry(GRAVE, "\u00b2"), Map.entry((int) '1', "&"), Map.entry((int) '2', "\u00e9"), Map.entry((int) '3', "\""),
+                    Map.entry((int) '4', "'"), Map.entry((int) '5', "("), Map.entry((int) '6', "-"), Map.entry((int) '7', "\u00e8"),
+                    Map.entry((int) '8', "_"), Map.entry((int) '9', "\u00e7"), Map.entry((int) '0', "\u00e0"), Map.entry(MINUS, ")"),
+                    Map.entry(EQUAL, "="), Map.entry((int) 'Q', "A"), Map.entry((int) 'W', "Z"), Map.entry((int) 'A', "Q"), Map.entry((int) 'Z', "W"),
+                    Map.entry(LEFT_BRACKET, "^"), Map.entry(RIGHT_BRACKET, "$"), Map.entry(SEMICOLON, "M"), Map.entry(APOSTROPHE, "\u00f9"),
+                    Map.entry(BACKSLASH, "*"), Map.entry((int) 'M', ","), Map.entry(COMMA, ";"), Map.entry(PERIOD, ":"), Map.entry(SLASH, "!"),
+                    Map.entry(WORLD_1, "<")));
 
     private static final Map<Integer, String> SPECIAL = Map.ofEntries(
             Map.entry(ESC, "Esc"), Map.entry(ENTER, "Enter"), Map.entry(TAB, "Tab"), Map.entry(BACKSPACE, "Bksp"),
@@ -228,17 +334,18 @@ public final class KeyboardLayout {
             Map.entry(LEFT_SUPER, "Win"), Map.entry(RIGHT_SUPER, "Win"), Map.entry(MENU, "Menu"), Map.entry(SPACE, "Space"),
             Map.entry(APOSTROPHE, "'"), Map.entry(COMMA, ","), Map.entry(MINUS, "-"), Map.entry(PERIOD, "."), Map.entry(SLASH, "/"),
             Map.entry(SEMICOLON, ";"), Map.entry(EQUAL, "="), Map.entry(LEFT_BRACKET, "["), Map.entry(BACKSLASH, "\\"),
-            Map.entry(RIGHT_BRACKET, "]"), Map.entry(GRAVE, "`"));
+            Map.entry(RIGHT_BRACKET, "]"), Map.entry(GRAVE, "`"),
+            Map.entry(WORLD_1, "<"), Map.entry(WORLD_2, "W2"), Map.entry(KP_EQUAL, "="));
 
     /** Builds the cells row by row. */
     private static final class Row {
         private final List<Cell> out;
-        private final boolean german;
+        private final String layout;
         private int x, y;
 
-        Row(List<Cell> out, boolean german) {
+        Row(List<Cell> out, String layout) {
             this.out = out;
-            this.german = german;
+            this.layout = layout;
         }
 
         /** Next key at quarter-key column {@code x} of picture row {@code row} (the function row is separated by half a key). */
@@ -258,7 +365,7 @@ public final class KeyboardLayout {
         }
 
         Row tall(int code, int w, int h) {
-            out.add(new Cell(code, label(code, german), x, y, w, h));
+            out.add(new Cell(code, label(code, layout), x, y, w, h));
             x += w;
             return this;
         }

@@ -241,25 +241,18 @@ def face(uv, tex='#pipe', **extra):
 
 
 def PIPE_OUT_ELEMENTS(z0: int) -> list:
-    """The output arm toward north at z0..z0+5: body 6x6 over z0+1..z0+5, neck 4x4 over z0..z0+1 (ST31-pipe, owner 01.11.: the
-    narrowing only one pixel long; owner 02.11.: the neck is too small - 3x3 -> 4x4, still smaller than the 6x6 pipe)."""
-    return [
-        {'from': [5, 5, z0 + 1], 'to': [11, 11, z0 + 5], 'faces': {
-            'north': face((6, 0, 12, 6)),
-            'up': face((0, 6, 6, 10)), 'down': face((0, 10, 6, 6)),
-            'east': face((6, 6, 10, 12)), 'west': face((10, 6, 6, 12))}},
-        {'from': [6, 6, z0], 'to': [10, 10, z0 + 1], 'faces': {
-            'north': face((7, 1, 11, 5)),
-            'up': face((0, 6, 4, 7)), 'down': face((0, 7, 4, 6)),
-            'east': face((6, 6, 7, 10)), 'west': face((7, 6, 6, 10))}}]
+    """The output arm toward north: body 6x6, 1 px neck (b-small04: 5x5), geometry and sheet cells from rohr33_2026_10_31.py."""
+    import rohr33_2026_10_31 as r33
+    return r33.out_elements(z0)
 
 
 def pipe_templates() -> None:
-    # the middle piece 6x6x6: every face the core plate
+    # the middle piece 6x6x6, turned with the output (blockstate): the four side faces carry the arrow strip (ROHR33 = A), the back is the plate
+    import rohr33_2026_10_31 as r33
     cube = {d: face((0, 0, 6, 6)) for d in ('down', 'up', 'north', 'south', 'west', 'east')}
     dump(ASSETS / 'models/block/template_pipe_core.json', {
         'textures': {'particle': '#pipe'},
-        'elements': [{'from': [5, 5, 5], 'to': [11, 11, 11], 'faces': cube}]})
+        'elements': r33.core_elements()})
     # input arm (toward north): z 0..5 around x/y 5..11, slices of the plate, the open end is the ring
     dump(ASSETS / 'models/block/template_pipe_arm.json', {
         'textures': {'particle': '#pipe'},
@@ -278,7 +271,7 @@ def pipe_templates() -> None:
         'parent': 'minecraft:block/block',
         'textures': {'particle': '#pipe'},
         'elements': [
-            {'from': [5, 5, 5], 'to': [11, 11, 11], 'faces': cube},
+            *r33.core_elements(),
             *PIPE_OUT_ELEMENTS(0),
             {'from': [5, 5, 11], 'to': [11, 11, 16], 'faces': {
                 'south': face((6, 0, 12, 6)), 'up': face((0, 0, 6, 5)), 'down': face((0, 0, 6, 5)),
@@ -289,7 +282,7 @@ def pipe_templates() -> None:
                 'parent': f'{NS}:block/template_pipe_{part}',
                 'textures': {'pipe': f'{NS}:block/{name}', 'particle': f'{NS}:block/{name}'}})
         # blockstate: core, inputs (arm on, not the output side), the output arm
-        parts = [{'apply': {'model': f'{NS}:block/{name}_core'}}]
+        parts = [{'when': {'facing': d}, 'apply': {'model': f'{NS}:block/{name}_core', **ROT[d]}} for d in DIRS]
         for d in DIRS:
             others = '|'.join(x for x in DIRS if x != d)
             parts.append({'when': {'AND': [{d: 'true'}, {'facing': others}]}, 'apply': {'model': f'{NS}:block/{name}_arm', **ROT[d]}})

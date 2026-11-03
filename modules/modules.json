@@ -33,8 +33,10 @@
         "simplegadgets",
         "simpleores",
         "simplemachines",
+        "simplearrows",
         "simplemobs",
-        "simpleresonance"
+        "simpleresonance",
+        "simpleenchanting"
       ],
       "optional": [
         "jei",
@@ -77,7 +79,12 @@
         "balanceDir": "balance",
         "langOverlay": "mc26_3/overlay/resources/assets/simplebuilding/lang",
         "generatedBase": "src/main/generated"
-      }
+      },
+      "fabricDevClasspath": [
+        "simplemaps",
+        "simplequestionary",
+        "simpletrims"
+      ]
     },
     {
       "id": "wiringexample",
@@ -236,7 +243,8 @@
         "sellEnabled": false
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleriding",
@@ -338,7 +346,8 @@
         "modules/simpleriding/tools/check_data.py"
       ],
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplemodels",
@@ -535,7 +544,8 @@
         "forge": ":modules:simplefun:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplevisuals",
@@ -981,7 +991,8 @@
         "forge": ":modules:simpletweaks:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpledimensions",
@@ -1088,7 +1099,8 @@
       "namespace": "simpledimension",
       "modId": "simpledimension",
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplesandwiches",
@@ -1187,7 +1199,8 @@
         "forge": ":modules:simplesandwiches:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplelib",
@@ -1467,7 +1480,8 @@
         "forge": ":modules:simplemaps:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": "host"
     },
     {
       "id": "simplelivemap",
@@ -1618,7 +1632,8 @@
         "forge": ":modules:simpletrims:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplemobs",
@@ -1714,7 +1729,8 @@
         "forge": ":modules:simplemobs:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleweather",
@@ -2389,7 +2405,8 @@
         "forge": ":modules:simplequestionary:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": "host"
     },
     {
       "id": "simpleaesthetics",
@@ -2659,7 +2676,8 @@
         "forge": ":modules:simpleend:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplerespawn",
@@ -2746,7 +2764,8 @@
         "forge": ":modules:simplerespawn:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplebeacons",
@@ -2838,7 +2857,8 @@
         "forge": ":modules:simplebeacons:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleovens",
@@ -2932,7 +2952,8 @@
         "forge": ":modules:simpleovens:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": false
     },
     {
       "id": "simplemobheads",
@@ -3035,7 +3056,8 @@
         "forge": ":modules:simplemobheads:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": false
     },
     {
       "id": "simpleshops",
@@ -3128,7 +3150,8 @@
         "forge": ":modules:simpleshops:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplewanderers",
@@ -3219,7 +3242,8 @@
         "forge": ":modules:simplewanderers:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplestats",
@@ -3399,7 +3423,8 @@
         "forge": ":modules:simpleblocks:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplecrucibles",
@@ -3601,7 +3626,8 @@
         "forge": ":modules:simpleoctets:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplehammers",
@@ -3710,7 +3736,8 @@
         "forge": ":modules:simplehammers:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleoptimization",
@@ -4058,7 +4085,8 @@
         "forge": ":modules:simplestorage:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplemusic",
@@ -4150,7 +4178,8 @@
         "forge": ":modules:simplemusic:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplelights",
@@ -4213,7 +4242,8 @@
         "fabric": ":modules:simplelights:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplegadgets",
@@ -4276,7 +4306,8 @@
         "fabric": ":modules:simplegadgets:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleearth",
@@ -4347,7 +4378,8 @@
         "fabric": ":modules:simpleearth:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simplechallenges",
@@ -4418,7 +4450,8 @@
         "fabric": ":modules:simplechallenges:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleanimals",
@@ -4501,7 +4534,8 @@
         "forge": ":modules:simpleanimals:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpledinos",
@@ -4584,7 +4618,8 @@
         "forge": ":modules:simpledinos:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "optional"
+      "bundle": "optional",
+      "configSwitch": true
     },
     {
       "id": "simpleores",
@@ -4668,7 +4703,8 @@
         "forge": ":modules:simpleores:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplemachines",
@@ -4677,7 +4713,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Machines",
-      "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget). Vanilla and SimpleLib ingredients; the Enderite Piston needs Simple Ores. Fabric only for now.",
+      "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
       "loaders": [
         "fabric"
       ],
@@ -4732,7 +4768,73 @@
         "fabric": ":modules:simplemachines:fabric"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
+    },
+    {
+      "id": "simplearrows",
+      "name": "Simple Arrows",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Arrows",
+      "description": "Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simpleores"
+      ],
+      "checks": [
+        "modules/simplearrows/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simplearrows",
+        "catalogues": [
+          "modules/simplearrows/fabric/src/main/java/com/simplebuilding/modules/simplearrows/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simplearrows"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimplearrowsGameTest",
+            "report": "integration/build/simplearrows-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimplearrowsStandaloneGameTest",
+              "report": "integration/build/standalone/simplearrows-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simplearrows",
+        "shared": "modules/simplearrows/shared",
+        "fabric": "modules/simplearrows/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simplearrows/generated/resources",
+        "lang": "modules/simplearrows/shared/resources/assets/simplearrows/lang",
+        "wikiManual": "modules/simplearrows/wiki/manual.json",
+        "balanceDir": "balance/simplearrows"
+      },
+      "projects": {
+        "fabric": ":modules:simplearrows:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simpleresonance",
@@ -4814,7 +4916,8 @@
         "forge": ":modules:simpleresonance:forge"
       },
       "parent": "simplebuilding",
-      "bundle": "required"
+      "bundle": "required",
+      "configSwitch": true
     },
     {
       "id": "simplefoundry",
@@ -4884,6 +4987,72 @@
       },
       "parent": "simpleovens",
       "bundle": "optional"
+    },
+    {
+      "id": "simpleenchanting",
+      "name": "Simple Enchanting",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Enchanting",
+      "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simpleores",
+        "simplehammers"
+      ],
+      "checks": [
+        "modules/simpleenchanting/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleenchanting",
+        "catalogues": [
+          "modules/simpleenchanting/fabric/src/main/java/com/simplebuilding/modules/simpleenchanting/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleenchanting"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleenchantingGameTest",
+            "report": "integration/build/simpleenchanting-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleenchantingStandaloneGameTest",
+              "report": "integration/build/standalone/simpleenchanting-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simpleenchanting",
+        "shared": "modules/simpleenchanting/shared",
+        "fabric": "modules/simpleenchanting/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleenchanting/generated/resources",
+        "lang": "modules/simpleenchanting/shared/resources/assets/simpleenchanting/lang",
+        "wikiManual": "modules/simpleenchanting/wiki/manual.json",
+        "balanceDir": "balance/simpleenchanting"
+      },
+      "projects": {
+        "fabric": ":modules:simpleenchanting:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required",
+      "configSwitch": true
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "item.simplearrows.silver_arrow": "Silver Arrow",
+  "item.simplearrows.light_arrow": "Light Arrow",
+  "entity.simplearrows.silver_arrow": "Silver Arrow",
+  "entity.simplearrows.light_arrow": "Light Arrow",
+  "tooltip.simplearrows.light_arrow": "Lights the spot where it sticks",
+  "tooltip.simplearrows.light_arrow.2": "The light goes when the arrow despawns",
+  "itemgroup.simplearrows.arrows": "Simple Arrows",
+  "simplearrows.testcentre.station": "Simple Arrows",
+  "text.autoconfig.simplearrows.title": "Simple Arrows",
+  "text.autoconfig.simplearrows.option.silverArrowUndeadBonus": "Silver arrow bonus against undead",
+  "text.autoconfig.simplearrows.option.silverArrowUndeadBonus.@Tooltip": "Extra damage of a silver arrow against undead mobs (zombies, skeletons, ...). 0 = like a normal arrow. Range 0 to 6.\nDefault: 3.",
+  "text.autoconfig.simplearrows.option.lightArrow": "Light Arrow makes light",
+  "text.autoconfig.simplearrows.option.lightArrow.@Tooltip": "A Light Arrow stuck in a block lights the air in front of it (level 15) until the arrow despawns or is picked up. Off = a plain arrow.\nDefault: on."
+}

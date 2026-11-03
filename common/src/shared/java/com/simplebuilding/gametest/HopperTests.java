@@ -211,6 +211,7 @@ public final class HopperTests {
      * pull from above running.
      */
     public static void redstonePowerStopsEveryHopperTransfer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         buildHopperStack(helper, CONTROL_HOPPER);
         // The power goes down first: the hopper placed on top of it then computes ENABLED itself.
         helper.setBlock(POWER_SOURCE, Blocks.REDSTONE_BLOCK);
@@ -267,6 +268,7 @@ public final class HopperTests {
      * check), or the check also holding items back with the filter off.
      */
     public static void aFilteredHopperKeepsOneFilterItemInEverySlot(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         helper.setBlock(HOPPER_POS.below(), Blocks.CHEST);
         helper.setBlock(HOPPER_POS, ModBlocks.NETHERITE_HOPPER.defaultBlockState().setValue(HopperBlock.FACING, Direction.DOWN));
         ModHopperBlockEntity hopper = helper.getBlockEntity(HOPPER_POS, ModHopperBlockEntity.class);
@@ -367,6 +369,7 @@ public final class HopperTests {
      * losing the style its tooltip is drawn in.
      */
     public static void theModeDelegateReadsAndWritesTheFilterMode(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerPlayer player = mockPlayer(helper);
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.REINFORCED_HOPPER);
         ContainerData delegate = hopper.getPropertyDelegate();
@@ -513,6 +516,7 @@ public final class HopperTests {
      * last item go, or the two modes swapping their comparison.
      */
     public static void automationOnlyTopsUpMatchingSlots(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
         ItemStack namedDiamond = new ItemStack(Items.DIAMOND);
         namedDiamond.set(DataComponents.CUSTOM_NAME, Component.literal("a very particular diamond"));
@@ -586,6 +590,7 @@ public final class HopperTests {
      * saved mode, reading the old ghost list back into the slots, or the {@code ContainerHelper} format changing.
      */
     public static void hopperConfigurationSurvivesTheSaveAndLoadRoundTrip(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerLevel level = helper.getLevel();
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
 
@@ -673,6 +678,7 @@ public final class HopperTests {
      * <p>What breaks this test: dropping {@code FilterMode} from the tag, or a ghost list coming back.
      */
     public static void theUpdateTagCarriesTheFilterModeToTheClient(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerLevel level = helper.getLevel();
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
         hopper.toggleFilterMode();
@@ -705,6 +711,7 @@ public final class HopperTests {
      * filter slot refusing an empty slot, or {@code isGridAligned} starting to answer {@code true}.
      */
     public static void hopperMenuOpensOnUseAndFilterSlotsTakeOnlyTheirItem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerPlayer player = mockPlayer(helper);
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
 
@@ -879,6 +886,7 @@ public final class HopperTests {
      * netherite or the enderite hopper item.
      */
     public static void hopperBlocksCarryTheirRegisteredStrengthSoundAndTags(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos probe = helper.absolutePos(new BlockPos(1, 1, 1));
 
@@ -998,6 +1006,7 @@ public final class HopperTests {
      * netherite hopper coming back.
      */
     public static void hopperRecipesCraftFromTheirDocumentedPatterns(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerLevel level = helper.getLevel();
 
         // Shapeless: one vanilla hopper, one name tag and one cracked diamond.
@@ -1039,6 +1048,7 @@ public final class HopperTests {
      * blocks losing its table and dropping nothing.
      */
     public static void bothHoppersDropThemselvesWhenBroken(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         helper.setBlock(REINFORCED_DROP_POS, ModBlocks.REINFORCED_HOPPER);
         helper.setBlock(NETHERITE_DROP_POS, ModBlocks.NETHERITE_HOPPER);
         helper.assertBlockPresent(ModBlocks.REINFORCED_HOPPER, REINFORCED_DROP_POS);
@@ -1075,6 +1085,7 @@ public final class HopperTests {
      * filter slot used to answer on its own and took it. Diamonds are the control.
      */
     public static void filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ServerPlayer player = mockPlayer(helper);
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
         MenuProvider provider = helper.getBlockState(HOPPER_POS).getMenuProvider(helper.getLevel(), helper.absolutePos(HOPPER_POS));
@@ -1124,6 +1135,7 @@ public final class HopperTests {
      * automation and answers for exactly that position, everything else goes on to the loader.
      */
     public static void modHoppersFallBackToTheLoaderTransferApiWithoutContainer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.REINFORCED_HOPPER);
         helper.setBlock(HOPPER_POS.below(), Blocks.STONE);
         BlockPos machine = helper.absolutePos(HOPPER_POS.below());

@@ -805,7 +805,7 @@ public final class FeatureStations {
     }
 
     /**
-     * Astral-Verzauberungs-Station (Queue N27, McVersion.ASTRAL_ENCHANTING): links ein fertiger Astral-Tisch der Stufe 50
+     * Verzauberungs-Station (Queue N27, McVersion.ASTRAL_ENCHANTING; Tische seit ENCH02 aus Simple Enchanting): links ein fertiger Dark Enchanter der Stufe 50
      * (5x5 Lohen-Obsidian, 15 Lohen-Regale im Ring, vorn mittig frei, Lapis und Lohenstaub gelagert), rechts ein
      * Vanilla-Verzauberungstisch zum Haemmern; die Truhe haelt Netherit-Hammer, Enderit-Nuggets und die Lohen-Familie.
      */
@@ -825,15 +825,16 @@ public final class FeatureStations {
                 }
             }
         }
-        c.place(tx, 1, tz, ModBlocks.ASTRAL_ENCHANTING_TABLE);
+        c.place(tx, 1, tz, ModBlocks.DARK_ENCHANTER);
         c.contents(tx, 1, tz, List.of(new ItemStack(Items.LAPIS_LAZULI, 64), new ItemStack(Items.BLAZE_POWDER, 64)));
         c.place(8, 0, 3, Blocks.ENCHANTING_TABLE);
         c.place(9, 0, 1, TestCentreSections.facing(Blocks.CHEST.defaultBlockState(), Direction.NORTH));
-        c.contents(9, 0, 1, List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), new ItemStack(ModItems.ENDERITE_NUGGET, 8),
+        c.contents(9, 0, 1, List.of(new ItemStack(com.simplebuilding.util.HammerRefs.item("netherite")), new ItemStack(ModItems.NETHERITE_NUGGET, 8),
+                new ItemStack(ModItems.ENDERITE_NUGGET, 8), new ItemStack(ModItems.NIHIL_OBSIDIAN, 25), new ItemStack(ModItems.ASTRAL_ENCHANTER),
                 new ItemStack(Items.BLAZE_POWDER, 64), new ItemStack(Items.CRIMSON_PLANKS, 16), new ItemStack(Items.WARPED_PLANKS, 16),
                 new ItemStack(Items.PAPER, 16), new ItemStack(Items.CRYING_OBSIDIAN, 8), new ItemStack(ModItems.CRIMSON_BLAZEWOOD_PLANKS, 8),
                 new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),
-                new ItemStack(ModItems.ASTRAL_ENCHANTING_TABLE), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
+                new ItemStack(ModItems.DARK_ENCHANTER), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
                 new ItemStack(Items.EXPERIENCE_BOTTLE, 64), new ItemStack(Items.GOLDEN_APPLE, 2)));
         c.title(0, 3, wallZ, TcText.t("section.astral", "Enchanter"),
                 TcText.t("machines.astral_enchanting", "sliders; 15 blazewood shelves = 50"));

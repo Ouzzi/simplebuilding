@@ -100,6 +100,12 @@ public final class MobsConfig {
     /** Trials (TR31-R): an Evil / Void Raid has one more wave and leaves a Looter Chest after the victory. */
     public static boolean evilRaidExtras = true;
 
+    /**
+     * Armour trim abilities (QW-07): overall strength factor of every trim bonus, 0 (off) to 2, designed 1.0. Multiplies the strength
+     * of the SimpleBuilding host ({@code server.trimStrengths}) when there is one, so those per-bonus values are taken over as they are.
+     */
+    public static float trimStrength = 1.0f;
+
     /** WF25-6: chance that a Vanilla spawner mined with a pickaxe (no Silk Touch) drops a Spawner Fragment (0 = never, 1 = always). */
     public static float spawnerFragmentChance = 0.3f;
     /** WF25-6: a Makeshift Spawner works this many times slower than a Vanilla spawner (1 = as fast, 1-10). */
@@ -254,6 +260,7 @@ public final class MobsConfig {
         weatheredStructures = bool(json, "weatheredStructures", true);
         weatheredDecayPercent = Math.max(0, Math.min(100, integer(json, "weatheredDecayPercent", 11)));
         evilRaidExtras = bool(json, "evilRaidExtras", true);
+        trimStrength = Math.max(0.0f, Math.min(2.0f, num(json, "trimStrength", 1.0f)));
         applyZones(json);
     }
 
@@ -370,6 +377,7 @@ public final class MobsConfig {
         o.addProperty("weatheredStructures", weatheredStructures);
         o.addProperty("weatheredDecayPercent", weatheredDecayPercent);
         o.addProperty("evilRaidExtras", evilRaidExtras);
+        o.addProperty("trimStrength", trimStrength);
         zonesToJson(o);
         return o;
     }

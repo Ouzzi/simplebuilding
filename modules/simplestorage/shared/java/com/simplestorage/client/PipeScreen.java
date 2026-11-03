@@ -23,7 +23,7 @@ import net.minecraft.world.inventory.Slot;
  */
 public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     private static final int INVENTORY_HEIGHT = UiBoxes.FRAME + 58 + 17 + UiBoxes.FRAME_BOTTOM;
-    private static final int FILTER_X = 30, KEY_Y = 19, KEY_HEIGHT = 18;
+    private static final int FILTER_X = 30, KEY_Y = 17, KEY_HEIGHT = 18;
     /** The side keys (ROHR33): 11 px squares in a compass cross around this middle (north on top, west left, east right, south below) and an up/down column beside it. */
     private static final int SIDE_SIZE = 11, HEX_X = 126, HEX_Y = 26, COLUMN_X = 158;
     /** Light red output key with dark ink (about 9:1) and the greyed-out off key with dark ink (about 5.5:1); both beat 4.5:1. */
@@ -33,7 +33,7 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
     private Direction hoveredSide;
 
     public PipeScreen(PipeMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, 133);
+        super(menu, inventory, title, PipeMenu.IMAGE_WIDTH, PipeMenu.INVENTORY_Y + 82);
         this.inventoryLabelY = PipeMenu.INVENTORY_Y - 11;
     }
 
@@ -60,6 +60,17 @@ public class PipeScreen extends AbstractContainerScreen<PipeMenu> {
             addRenderableWidget(new SideButton(this.leftPos + HEX_X + at[0] - SIDE_SIZE / 2, this.topPos + HEX_Y + at[1] - SIDE_SIZE / 2,
                     button -> press(PipeMenu.BUTTON_SIDE + side.ordinal()), this.menu, side, this::palette));
         }
+    }
+
+    /** The inside of the upper box (x, y, width, height relative to the window): the keys keep their padding to its frame (b-small04, probe checks it). */
+    static int[] boxInside() {
+        return new int[] {UiBoxes.FRAME, UiBoxes.FRAME, PipeMenu.IMAGE_WIDTH - 2 * UiBoxes.FRAME, PipeMenu.INVENTORY_Y - UiBoxes.FRAME - 2 - 2 * UiBoxes.FRAME};
+    }
+
+    /** {@link #boxInside()} in screen coordinates, like the keys' positions. */
+    int[] boxInsideOnScreen() {
+        int[] b = boxInside();
+        return new int[] {this.leftPos + b[0], this.topPos + b[1], b[2], b[3]};
     }
 
     int probeMode(Direction side) {

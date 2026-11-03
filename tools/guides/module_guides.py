@@ -228,10 +228,19 @@ MODULES = [
     dict(module="simplemachines", ns="simplemachines", package="com.simplemachines.guide", cls="MachinesGuide", kind="item",
          author="Simple Machines", recipe="minecraft:redstone",
          name=("Simple Machines Guide", "Simple-Machines-Handbuch"),
-         intro=("The machine parts of the Simple Machines tab: four stronger pistons, the Double Piston, which reaches further "
-                "than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-                "Die Maschinenteile des Tabs Simple Machines: vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder "
-                "Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.")),
+         intro=("The machine parts of the Simple Machines tab: three faster hoppers with an item filter and their hopper carts, "
+                "four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, "
+                "a repeater that takes up to 3 off the signal.",
+                "Die Maschinenteile des Tabs Simple Machines: drei schnellere Trichter mit Itemfilter und ihre Trichterloren, vier "
+                "stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein "
+                "Verstärker, der bis zu 3 vom Signal abzieht.")),
+    dict(module="simpleenchanting", ns="simpleenchanting", package="com.simpleenchanting.guide", cls="EnchantingGuide", kind="item",
+         author="Simple Enchanting", recipe="minecraft:lapis_lazuli",
+         name=("Simple Enchanting Guide", "Simple-Enchanting-Handbuch"),
+         intro=("Two enchanters above Vanilla's table: the Dark Enchanter, where you pick three enchantments with sliders, and the "
+                "Astral Enchanter on a Nihil Obsidian floor, which lifts Protection and Feather Falling to V.",
+                "Zwei Verzauberer über dem Vanilla-Tisch: der Dark Enchanter, an dem du drei Verzauberungen mit Reglern wählst, und "
+                "der Astral Enchanter auf Nihil-Obsidian-Boden, der Schutz und Federfall auf V hebt.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
@@ -610,6 +619,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
+    "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:stonecutter": ("stonecutter", "Steinmetz"),

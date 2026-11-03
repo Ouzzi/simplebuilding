@@ -46,8 +46,7 @@ public final class VehicleClientTest {
             }
             List<EntityType<?>> carts = List.of(storageEntity("reinforced_chest_minecart"), storageEntity("netherite_chest_minecart"),
                     storageEntity("enderite_chest_minecart"), com.simplebuilding.util.OvenRefs.entityType("reinforced_furnace_minecart"), com.simplebuilding.util.OvenRefs.entityType("netherite_furnace_minecart"),
-                    com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), ModEntities.REINFORCED_HOPPER_MINECART, ModEntities.NETHERITE_HOPPER_MINECART,
-                    ModEntities.ENDERITE_HOPPER_MINECART);
+                    com.simplebuilding.util.OvenRefs.entityType("enderite_furnace_minecart"), hopperCart("reinforced"), hopperCart("netherite"), hopperCart("enderite"));
             for (int i = 0; i < carts.size(); i++) {
                 Entity cart = carts.get(i).create(level, EntitySpawnReason.COMMAND);
                 cart.setPos(4.5 + i * 1.5, 0.0625, Z + 0.5);
@@ -108,5 +107,17 @@ public final class VehicleClientTest {
             }
             server.execute(() -> work.accept(server));
         });
+    }
+
+    /** MACH32-MOD stage 3: on 26.3 the hopper carts are Simple Machines' (by id). */
+    private static EntityType<?> hopperCart(String tier) {
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
+            return switch (tier) {
+                case "reinforced" -> ModEntities.REINFORCED_HOPPER_MINECART;
+                case "netherite" -> ModEntities.NETHERITE_HOPPER_MINECART;
+                default -> ModEntities.ENDERITE_HOPPER_MINECART;
+            };
+        }
+        return com.simplebuilding.util.MachineRefs.entityType(tier + "_hopper_minecart");
     }
 }

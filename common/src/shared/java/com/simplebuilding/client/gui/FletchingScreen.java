@@ -20,7 +20,8 @@ import net.minecraft.world.item.Items;
  * Bildschirm des Befiederungstischs wie die Werkbank ({@code CraftingScreen}): Vanilla-Hintergrund der Werkbank ohne die
  * sechs Felder, die der Pfeil nicht braucht; Spitze, Schaft und Befiederung in einer Reihe, das Ergebnis rechts. Das
  * Rezeptbuch-Symbol sitzt wie am Schmiedetisch ueber dem dritten Teil (x 42, y 27 zwischen Titel und Teile-Reihe) und
- * oeffnet links Vanillas Rezeptbuch mit drei Reitern (Spitze, Schaft, Befiederung); ein Klick legt das Teil ein.
+ * oeffnet links Vanillas Rezeptbuch mit drei Reitern (Spitze, Schaft, Befiederung); ein Klick legt das Teil ein. Ueber dem Pfeil
+ * liegt der Trank-Slot (WE25-9).
  */
 public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
     private static final Identifier CRAFTING_TABLE_LOCATION = Identifier.withDefaultNamespace("textures/gui/container/crafting_table.png");
@@ -76,5 +77,8 @@ public class FletchingScreen extends AbstractRecipeBookScreen<FletchingMenu> {
         graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + px - 1, yo + py - 1, 29.0F, 34.0F, 54, 18, 256, 256);
         graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + px + 60, yo + py, 90.0F, 35.0F, 22, 15, 256, 256);
         graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + rx - 5, yo + py - 5, 119.0F, 30.0F, 26, 26, 256, 256);
+        // WE25-9: the potion slot above the arrow, one cell of the Vanilla grid.
+        graphics.blit(RenderPipelines.GUI_TEXTURED, CRAFTING_TABLE_LOCATION, xo + FletchingMenu.POTION_X - 1, yo + FletchingMenu.POTION_Y - 1,
+                29.0F, 16.0F, 18, 18, 256, 256);
     }
 }

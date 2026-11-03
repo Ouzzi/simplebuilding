@@ -34,7 +34,7 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
         Map<Block, Upgrade> table = builtIn;
         if (table == null) {
             Map<Block, Upgrade> map = new HashMap<>();
-            toNetherite(map, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER);
+            if (McVersion.HOPPERS_IN_SB) toNetherite(map, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER); // 26.3: data/simplemachines/in_world_upgrades (stage 3)
             if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: data/simpleovens/in_world_upgrades
                 toNetherite(map, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE);
                 toNetherite(map, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER);
@@ -45,7 +45,7 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
                 // Besitzer 2026-09-29: auch der verstaerkte klebrige Kolben wird zum Netherit-Kolben (Brecher, nicht klebrig).
                 toNetherite(map, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.NETHERITE_PISTON);
             }
-            toEnderite(map, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER);
+            if (McVersion.HOPPERS_IN_SB) toEnderite(map, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER);
             if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: data/simpleovens/in_world_upgrades
                 toEnderite(map, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE);
                 toEnderite(map, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER);
@@ -84,21 +84,13 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
             }
             // Crucibles, barrels and the cauldron: Simple Crucibles ships them (data/simplecrucibles/in_world_upgrades, a-small22),
             // so the hammer ways also work without SimpleBuilding.
-            // Astral-Verzauberungstisch (Queue N27, BS25-16 29.10.): Verzauberungstisch + 8 Enderit-Nuggets (alle 2 Schlaege
-            // eins = 16 Schlaege), ab Netherit-Hammer, 35 Haltbarkeit je Schlag; verbraucht werden die Nuggets beim letzten Schlag.
-            if (McVersion.ASTRAL_ENCHANTING) {
-                map.put(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE, new Upgrade(net.minecraft.world.level.block.Blocks.ENCHANTING_TABLE,
-                        ModBlocks.ASTRAL_ENCHANTING_TABLE, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ASTRAL_TABLE_DAMAGE_PER_HIT, true, false,
-                        1, ASTRAL_TABLE_NUGGETS, ASTRAL_TABLE_STRIKES_PER_NUGGET));
-            }
+            // ENCH02 (03.11.): the enchanters' upgrades (table -> Dark -> Astral) ship with Simple Enchanting
+            // (data/simpleenchanting/in_world_upgrades/enchanters.json), so they also work without SimpleBuilding.
             table = Map.copyOf(map);
             builtIn = table;
         }
         return table;
     }
-
-    /** Astral Enchanting Table (BS25-16, owner 25.10./29.10.): 8 Enderite nuggets, one per 2 strikes, 35 durability a strike (30-40). */
-    public static final int ASTRAL_TABLE_NUGGETS = 8, ASTRAL_TABLE_STRIKES_PER_NUGGET = 2, ASTRAL_TABLE_DAMAGE_PER_HIT = 35;
 
     private static void toNetherite(Map<Block, Upgrade> map, Block from, Block to) {
         map.put(from, new Upgrade(from, to, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false));

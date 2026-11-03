@@ -122,7 +122,7 @@ public final class GuideContent {
                 ch("simplebuilding:stone_sledgehammer", List.of("simplebuilding:stone_sledgehammer"), List.of("simplebuilding:iron_sledgehammer")),
                 ch("minecraft:stone_stairs", List.of(), List.of("minecraft:stone", "minecraft:stone_stairs", "minecraft:stone_slab", "simplebuilding:stone_sledgehammer")),
                 ch("simplebuilding:diamond_pebble", List.of("simplebuilding:cracked_diamond"), List.of("minecraft:diamond_block", "simplebuilding:diamond_pebble")),
-                ch("simplebuilding:reinforced_hopper", List.of(), List.of("simplebuilding:iron_sledgehammer", "minecraft:copper_chest", "minecraft:hopper", "minecraft:furnace")),
+                ch(com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":reinforced_hopper", List.of(), List.of("simplebuilding:iron_sledgehammer", "minecraft:copper_chest", "minecraft:hopper", "minecraft:furnace")),
                 ch("simplebuilding:netherite_nugget", List.of(), List.of("simplebuilding:cracked_diamond", "simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")),
                 ch("simplebuilding:copper_building_wand", List.of("simplebuilding:copper_building_wand"), List.of("minecraft:cobblestone")),
                 ch("simplebuilding:octant", List.of("simplebuilding:octant"), List.of()),
@@ -200,8 +200,8 @@ public final class GuideContent {
                 ch("simplebuilding:copper_building_wand", List.of(), List.of("minecraft:enchanted_book", com.simplebuilding.version.McVersion.STORAGE_NAMESPACE + ":backpack", "simplebuilding:copper_building_wand")),
                 ch("simplebuilding:reinforced_shulker_box", List.of("simplebuilding:reinforced_shulker_box"), List.of("simplebuilding:netherite_shulker_box", "simplebuilding:enderite_shulker_box", "simplebuilding:cracked_diamond", "simplebuilding:netherite_nugget", "simplebuilding:enderite_nugget")))));
         STYLES.put(GuideBooks.Book.MACHINES, new BookStyle(0x7FA7D9, List.of(
-                ch("simplebuilding:reinforced_hopper", List.of("simplebuilding:reinforced_hopper"), List.of("simplebuilding:netherite_hopper", "simplebuilding:enderite_hopper")),
-                ch("minecraft:paper", List.of(), List.of("simplebuilding:reinforced_hopper", "minecraft:paper")),
+                ch(com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":reinforced_hopper", List.of(com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":reinforced_hopper"), List.of(com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":netherite_hopper", com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":enderite_hopper")),
+                ch("minecraft:paper", List.of(), List.of(com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":reinforced_hopper", "minecraft:paper")),
                 ch(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", List.of(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_furnace", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_blast_furnace"), List.of(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":reinforced_smoker", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":netherite_furnace", com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":enderite_furnace")),
                 ch(com.simplebuilding.version.McVersion.OVENS_NAMESPACE + ":netherite_blast_furnace", List.of(), List.of("minecraft:raw_iron", "minecraft:raw_gold", "minecraft:raw_copper")),
                 ch(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston", List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_piston"), List.of(com.simplebuilding.version.McVersion.PISTONS_NAMESPACE + ":reinforced_sticky_piston", "minecraft:redstone_block", "minecraft:bedrock")),
@@ -299,10 +299,10 @@ public final class GuideContent {
             GuideBooks.Book book = GuideBooks.Book.MACHINES;
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
-            chapters.add(ch("simplebuilding:astral_enchanting_table", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
-                    "simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:blazing_obsidian"),
-                    List.of("minecraft:enchanting_table", "simplebuilding:netherite_sledgehammer", "simplebuilding:enderite_nugget",
-                            "simplebuilding:astral_enchanting_table")));
+            // ENCH02: the tables are Simple Enchanting's (its own guide); SB's chapter shows the building blocks they stand on.
+            chapters.add(ch("simplebuilding:blazing_obsidian", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
+                    "simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:blazing_obsidian", "simplebuilding:nihil_obsidian"),
+                    List.of("minecraft:enchanting_table", "simpleenchanting:dark_enchanter", "simpleenchanting:astral_enchanter")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {

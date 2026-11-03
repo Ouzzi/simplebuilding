@@ -182,7 +182,7 @@
           "Crucibles go up strike by strike with one material unit every few strikes (Simple Crucibles); a double chest needs the material twice (SimpleBuilding).",
           "Wrong material, a too weak hammer or too little material: a quiet clunk instead of text.",
           "Between two strikes the hammer draws back like a bow and rushes forward onto the block for the strike (first person); other players see the arm lifted over the head and the blow. Every upgradable block item says in its tooltip how it goes up and which off-hand material it takes how often.",
-          "Strike gap by hammer tier (Netherite 20 ticks, Enderite 19 ... Stone 25) and strikes_per_material: an entry may take one material per N strikes - the Astral Enchanting Table takes 8 Enderite Nuggets over 16 strikes at 35 durability each (a durability value that differs from the tier's default counts)."
+          "Strike gap by hammer tier (Netherite 20 ticks, Enderite 19 ... Stone 25) and strikes_per_material: an entry may take one material per N strikes - the Dark Enchanter (Simple Enchanting) takes 8 Netherite Nuggets over 16 strikes at 35 durability each (a durability value that differs from the tier's default counts)."
         ]
       },
       "de": {
@@ -195,7 +195,7 @@
           "Tiegel steigen Schlag für Schlag auf, alle paar Schläge eine Materialeinheit (Simple Crucibles); eine Doppeltruhe braucht das Material doppelt (SimpleBuilding).",
           "Falsches Material, zu schwacher Hammer oder zu wenig Material: ein leises Klonk statt Text.",
           "Zwischen zwei Schlägen holt der Hammer wie ein Bogen aus und saust zum Schlag auf den Block (erste Person); andere sehen den Arm über dem Kopf und den Schlag. Jedes aufwertbare Block-Item sagt im Tooltip, wie es aufsteigt und welches Material es wie oft in der Nebenhand braucht.",
-          "Schlagabstand je Hammerstufe (Netherit 20 Ticks, Enderit 19 ... Stein 25) und strikes_per_material: ein Eintrag kann ein Material je N Schläge nehmen - der Astral-Verzauberungstisch nimmt 8 Enderit-Nuggets über 16 Schläge zu je 35 Haltbarkeit (ein vom Stufen-Standard abweichender Haltbarkeitswert gilt)."
+          "Schlagabstand je Hammerstufe (Netherit 20 Ticks, Enderit 19 ... Stein 25) und strikes_per_material: ein Eintrag kann ein Material je N Schläge nehmen - der Dark Enchanter (Simple Enchanting) nimmt 8 Netherit-Nuggets über 16 Schläge zu je 35 Haltbarkeit (ein vom Stufen-Standard abweichender Haltbarkeitswert gilt)."
         ]
       }
     },

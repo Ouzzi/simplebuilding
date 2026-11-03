@@ -1,0 +1,20 @@
+{
+  "upgrades": [
+    {
+      "from": "simplemachines:reinforced_hopper",
+      "to": "simplemachines:netherite_hopper",
+      "material": "simplelib:netherite_nugget",
+      "min_tool": "diamond",
+      "damage_per_hit": 4,
+      "tier": "netherite"
+    },
+    {
+      "from": "simplemachines:netherite_hopper",
+      "to": "simplemachines:enderite_hopper",
+      "material": "simpleores:enderite_nugget",
+      "min_tool": "netherite",
+      "damage_per_hit": 10,
+      "tier": "enderite"
+    }
+  ]
+}

@@ -73,16 +73,19 @@ public final class InWorldExportTests {
         boolean trapped = chests && com.simplebuilding.version.McVersion.TRAPPED_TIERED_CHESTS;
         // 26.3 (MACH32-MOD stage 2): the three piston steps belong to Simple Machines (data/simplemachines/in_world_upgrades).
         boolean pistons = com.simplebuilding.version.McVersion.PISTONS_IN_SB;
+        // 26.3 (MACH32-MOD stage 3): the two hopper steps belong to Simple Machines (data/simplemachines/in_world_upgrades/hoppers.json).
+        boolean hoppers = com.simplebuilding.version.McVersion.HOPPERS_IN_SB;
         // Shulkerkisten: zwei Stueck Material und zehn Schlaege je Stufe, also doppelte Haltbarkeit.
         String expected = ("[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
                 + "minecraft:shulker_box>copper_sledgehammer/cracked_diamondx2/2per/20, "
-                // Astral-Verzauberungstisch (N27/N30, BS25-16): 16 Schlaege, acht Enderit-Nuggets, 35 Haltbarkeit je Schlag.
+                // ENCH02: the enchanting table step is Simple Enchanting's (data/simpleenchanting/in_world_upgrades): 8 Netherite nuggets,
+                // 16 strikes at 35 durability; from a Vanilla block, so it stays in the export.
                 + (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-                        ? "minecraft:enchanting_table>netherite_sledgehammer/enderite_nuggetx8/35per/560, " : "")
+                        ? "minecraft:enchanting_table>netherite_sledgehammer/netherite_nuggetx8/35per/560, " : "")
                 + (ovens ? "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (chests ? "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (ovens ? "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
-                + "netherite_hopper>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + (hoppers ? "netherite_hopper>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (pistons ? "netherite_piston>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
                 + (chests ? "netherite_shulker_box>netherite_sledgehammer/enderite_nuggetx2/10per/100, " : "")
                 + (ovens ? "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, " : "")
@@ -91,7 +94,7 @@ public final class InWorldExportTests {
                 + (ovens ? "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + (chests ? "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + (ovens ? "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
-                + "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + (hoppers ? "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + (pistons ? "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
                 + (chests ? "reinforced_shulker_box>diamond_sledgehammer/netherite_nuggetx2/4per/40, " : "")
                 + (ovens ? "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, " : "")
@@ -202,8 +205,6 @@ public final class InWorldExportTests {
             helper.assertTrue(kind != null, "in-world section " + section + " has no JEI category");
             // 26.3: forging trim templates moved to Simple Trims (N18); the section only lists the templates.
             boolean movedAway = kind == InWorldRecipeCatalog.Kind.TRIM_TEMPLATE && !com.simplebuilding.version.McVersion.TRIMS_IN_SB;
-            // MACH32-MOD stage 2: the breaker pistons (and their repair) are Simple Machines' on 26.3 (open: a JEI entry of its own).
-            movedAway |= kind == InWorldRecipeCatalog.Kind.PISTON_REPAIR && !com.simplebuilding.version.McVersion.PISTONS_IN_SB;
             helper.assertTrue(movedAway || !catalog.of(kind).isEmpty(), "JEI category " + kind + " is empty");
         }
 
@@ -220,11 +221,14 @@ public final class InWorldExportTests {
                             && entry.inputs().get(1).count() == step.get("nuggetCount").getAsInt(),
                     "JEI machine step " + entry.id() + " differs from the export");
         }
-        InWorldRecipeCatalog.Entry hopper = byId.get("machine_upgrade/simplebuilding:reinforced_hopper");
-        String hopperTools = hopper.tools().stream().map(InWorldTransformations::id).toList().toString()
-                .replace("simplebuilding:", "").replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "");
-        helper.assertTrue(hopperTools.equals("[diamond_sledgehammer, netherite_sledgehammer, enderite_sledgehammer]"),
-                "reinforced hopper: every hammer from diamond up, weakest first - but was " + hopperTools);
+        // 26.3 (MACH32-MOD stage 3): the hopper steps live in Simple Machines and are not part of SB's export.
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
+            InWorldRecipeCatalog.Entry hopper = byId.get("machine_upgrade/simplebuilding:reinforced_hopper");
+            String hopperTools = hopper.tools().stream().map(InWorldTransformations::id).toList().toString()
+                    .replace("simplebuilding:", "").replace(com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE + ":", "");
+            helper.assertTrue(hopperTools.equals("[diamond_sledgehammer, netherite_sledgehammer, enderite_sledgehammer]"),
+                    "reinforced hopper: every hammer from diamond up, weakest first - but was " + hopperTools);
+        }
 
         int chiselPairs = 0;
         JsonObject chisel = described.getAsJsonObject("chisel");

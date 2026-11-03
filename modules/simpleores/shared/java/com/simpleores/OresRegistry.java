@@ -8,9 +8,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import com.simpleores.block.SilverMirrorBlock;
 import com.simpleores.block.LeadPlateBlock;
-import com.simpleores.entity.SilverArrow;
 import com.simpleores.item.FoodEffectsItem;
-import com.simpleores.item.SilverArrowItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -19,8 +17,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +31,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Ores registers: silver (three ores, raw silver, ingot, nugget, blocks), lead (two ores, raw lead, ingot, nugget, blocks), the silver arrow and the silver mirror, the two rose gold alloys (ingot,
+ * Everything Simple Ores registers: silver (three ores, raw silver, ingot, nugget, blocks), lead (two ores, raw lead, ingot, nugget, blocks), the silver mirror (the silver arrow moved to Simple Arrows on 03.11.), the two rose gold alloys (ingot,
  * block, pressing each), their tools and armor, and the guide book. Loaders call {@link #blocks}/{@link #items} in their
  * matching registry event (Fabric: {@link #registerAll}). Block properties are copies of the matching gold blocks.
  *
@@ -113,11 +109,6 @@ public final class OresRegistry {
     private static final java.util.Set<String> FIRE_RESISTANT = java.util.Set.of("enderite_block", "dimensional_scrap", "nether_dimensional_scrap",
             "end_dimensional_scrap", "enderite_nugget", "enderite_scrap", "enderite_ingot");
 
-    public static final ResourceKey<EntityType<?>> SILVER_ARROW_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleOres.id("silver_arrow"));
-    /** Like Vanilla's arrow entity: 0.5 x 0.5, tracked from 4 chunks, updated every 20 ticks. */
-    public static final EntityType<SilverArrow> SILVER_ARROW_ENTITY = EntityType.Builder.<SilverArrow>of(SilverArrow::new, MobCategory.MISC)
-            .noLootTable().sized(0.5F, 0.5F).eyeHeight(0.13F).clientTrackingRange(4).updateInterval(20).build(SILVER_ARROW_KEY);
-
     static {
         for (String path : List.copyOf(BLOCKS.keySet())) {
             ResourceKey<Item> key = itemKey(path);
@@ -130,7 +121,6 @@ public final class OresRegistry {
         plain("raw_lead");
         plain("lead_ingot");
         plain("lead_nugget");
-        ITEMS.put("silver_arrow", new SilverArrowItem(new Item.Properties().setId(itemKey("silver_arrow"))));
         // IG31-13: the Enderite chain (SimpleBuilding adds the armor trim material to the ingot), the template, the sage orb.
         for (String path : List.of("raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget", "enderite_ingot")) {
             item(path, p -> FIRE_RESISTANT.contains(path) ? p.fireResistant() : p);
@@ -227,10 +217,8 @@ public final class OresRegistry {
 
     /** Fabric: registries are open during init. */
     public static void registerAll() {
-        Registry.register(BuiltInRegistries.ENTITY_TYPE, SILVER_ARROW_KEY, SILVER_ARROW_ENTITY);
         blocks((k, v) -> Registry.register(BuiltInRegistries.BLOCK, k, v));
         items((k, v) -> Registry.register(BuiltInRegistries.ITEM, k, v));
-        net.minecraft.world.level.block.DispenserBlock.registerProjectileBehavior(item("silver_arrow"));
     }
 
     /** Creative stacks of the paths, empty while the module is switched off. */
@@ -257,7 +245,7 @@ public final class OresRegistry {
     public static final String[] TOOLS = {"rose_bronze_shovel", "rose_bronze_pickaxe", "rose_bronze_axe", "rose_bronze_hoe",
             "blossom_gold_shovel", "blossom_gold_pickaxe", "blossom_gold_axe", "blossom_gold_hoe"};
     public static final String[] COMBAT = {"rose_bronze_sword", "rose_bronze_helmet", "rose_bronze_chestplate", "rose_bronze_leggings",
-            "rose_bronze_boots", "blossom_gold_sword", "blossom_gold_helmet", "blossom_gold_chestplate", "blossom_gold_leggings", "blossom_gold_boots", "silver_arrow"};
+            "rose_bronze_boots", "blossom_gold_sword", "blossom_gold_helmet", "blossom_gold_chestplate", "blossom_gold_leggings", "blossom_gold_boots"};
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
     public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "blossom_gold_apple", "enchanted_blossom_gold_apple"};

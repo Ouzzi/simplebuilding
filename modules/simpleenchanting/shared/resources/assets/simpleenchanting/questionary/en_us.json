@@ -1,0 +1,24 @@
+{
+  "dark_enchanter": {
+    "lore": [
+      "{name}: A table where the stars hold still while you choose."
+    ],
+    "use": [
+      "Pick your enchantments yourself: three random ones that fit the item, each with a slider from 0 to its maximum, paid from a level budget that the bookshelves around it and the obsidian floor below set (up to 50)."
+    ],
+    "secret": [
+      "Hold eight Netherite Nuggets in your off hand and strike an Enchanting Table with a Netherite Sledgehammer: it becomes this. Break it and table and nuggets return."
+    ]
+  },
+  "astral_enchanter": {
+    "lore": [
+      "{name}: The Dark Enchanter after it has seen the End; the stars swirl in its cloth."
+    ],
+    "use": [
+      "Like the Dark Enchanter, but strength 60 on a whole Nihil Obsidian floor, where Protection and Feather Falling reach V. Blazing Obsidian works only half here."
+    ],
+    "secret": [
+      "Eight Enderite Nuggets and an Enderite Sledgehammer turn a Dark Enchanter into it. The anvil still cannot make Protection V; only this table can."
+    ]
+  }
+}

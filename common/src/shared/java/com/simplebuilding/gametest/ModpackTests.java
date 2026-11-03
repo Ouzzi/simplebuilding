@@ -477,7 +477,9 @@ public final class ModpackTests {
                     pistonSteps++;
                 }
             }
-            if (pistonSteps != 3) problems.add("Simple Machines' file should load 3 piston upgrade steps, loaded " + pistonSteps);
+            // Stage 3: plus the 2 hopper steps (Reinforced -> Netherite -> Enderite) from data/simplemachines/in_world_upgrades/hoppers.json.
+            int expected = 3 + (com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? 0 : 2);
+            if (pistonSteps != expected) problems.add("Simple Machines' files should load " + expected + " piston and hopper upgrade steps, loaded " + pistonSteps);
         }
         // a-small22: on 26.3 the 7 crucible, barrel and cauldron steps come from Simple Crucibles' own file
         // (data/simplecrucibles/in_world_upgrades), so the hammer ways also work without SimpleBuilding.
@@ -502,6 +504,18 @@ public final class ModpackTests {
                 }
             }
             if (mobSteps != 2) problems.add("Simple Mobs' file should load 2 vault upgrade steps, loaded " + mobSteps);
+        }
+        // ENCH02: Simple Enchanting is a required sub-mod on 26.3; its own file (data/simpleenchanting/in_world_upgrades/
+        // enchanters.json) adds the 2 enchanter steps (enchanting table -> Dark Enchanter -> Astral Enchanter).
+        if (BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath("simpleenchanting", "dark_enchanter"))) {
+            int enchSteps = 0;
+            for (var it = loaded.values().iterator(); it.hasNext(); ) {
+                if ("simpleenchanting".equals(BuiltInRegistries.BLOCK.getKey(it.next().to()).getNamespace())) {
+                    it.remove();
+                    enchSteps++;
+                }
+            }
+            if (enchSteps != 2) problems.add("Simple Enchanting's file should load 2 enchanter upgrade steps, loaded " + enchSteps);
         }
         if (!loaded.equals(SledgehammerUpgrades.builtInTable())) {
             problems.add("the loaded sledgehammer upgrades differ from the built-in table: "
@@ -528,9 +542,10 @@ public final class ModpackTests {
         chisel.put("apack:broken", "{\"tier\":\"wood\"}");
         Map<String, String> upgrades = new HashMap<>(ModDataTables.lastUpgradeFiles());
         // MACH32-MOD stage 2: on 26.3 the pistons and their upgrade file are Simple Machines'; a SimpleBuilding block is removed there.
-        String removedUpgrade = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? "simplebuilding:reinforced_piston" : "simplebuilding:reinforced_hopper";
+        // Stage 3: the hoppers are Simple Machines' too on 26.3 (the remove works across files).
+        String removedUpgrade = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? "simplebuilding:reinforced_piston" : com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":reinforced_hopper";
         Block removedBlock = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? com.simplebuilding.blocks.ModBlocks.REINFORCED_PISTON : com.simplebuilding.blocks.ModBlocks.REINFORCED_HOPPER;
-        upgrades.put("apack:extra", "{\"upgrades\":[{\"from\":\"minecraft:hopper\",\"to\":\"simplebuilding:reinforced_hopper\","
+        upgrades.put("apack:extra", "{\"upgrades\":[{\"from\":\"minecraft:hopper\",\"to\":\"" + com.simplebuilding.version.McVersion.HOPPERS_NAMESPACE + ":reinforced_hopper\","
                 + "\"material\":\"minecraft:iron_nugget\",\"min_hammer\":\"any\",\"damage_per_hit\":3,\"tier\":\"reinforced\"}],"
                 + "\"remove\":[\"" + removedUpgrade + "\"]}");
         ByteBuf raw = Unpooled.buffer();

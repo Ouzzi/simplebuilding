@@ -107,8 +107,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch und Lohen-Obsidian mit der Spitzhacke (Obsidian ab Diamant),
             // Lohenholz und Lohen-Regale mit der Axt; die Regale zaehlen auch am Vanilla-Tisch (als ein Regal).
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_ENCHANTING_TABLE)).add(key(ModBlocks.BLAZING_OBSIDIAN));
-            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN));
+            // ENCH02: the tables are Simple Enchanting's (its own mineable tag); Nihil Obsidian like Blazing Obsidian.
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
+            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
             // LOHEN17 V2 (owner 2026-10-21): fire on blazing obsidian burns forever, like on netherrack or magma.
             builder(BlockTags.INFINIBURN_OVERWORLD).add(key(ModBlocks.BLAZING_OBSIDIAN));
             for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));
@@ -146,10 +147,13 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         // 1. Der Block soll mit einer Spitzhacke SCHNELLER abbaubar sein
         // Das behalten wir bei.
         builder(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(key(ModBlocks.CRACKED_DIAMOND_BLOCK))
-                .add(key(ModBlocks.REINFORCED_HOPPER))
-                .add(key(ModBlocks.NETHERITE_HOPPER))
-                .add(key(ModBlocks.ENDERITE_HOPPER));
+                .add(key(ModBlocks.CRACKED_DIAMOND_BLOCK));
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { // 26.3: Simple Machines tags its hoppers itself (MACH32-MOD stage 3)
+            builder(BlockTags.MINEABLE_WITH_PICKAXE)
+                    .add(key(ModBlocks.REINFORCED_HOPPER))
+                    .add(key(ModBlocks.NETHERITE_HOPPER))
+                    .add(key(ModBlocks.ENDERITE_HOPPER));
+        }
         if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines tags its piston upgrades itself (MACH32-MOD stage 2)
             builder(BlockTags.MINEABLE_WITH_PICKAXE)
                     .add(key(ModBlocks.REINFORCED_PISTON))

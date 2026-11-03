@@ -81,6 +81,8 @@
   "simplelib.freelook.release.player": "Player turns to camera",
   "text.autoconfig.simplelib.option.freeLookRelease": "When Free Look Ends (this client)",
   "text.autoconfig.simplelib.option.freeLookRelease.@Tooltip": "Camera turns back: the view eases back to\nwhere you look. Player turns to camera: you\nnow look where the camera looked.\nA server can enforce its own choice.\nDefault: Camera turns back.",
+  "text.autoconfig.simplelib.option.freeLookCrosshair": "Real Crosshair While Free Look (this client)",
+  "text.autoconfig.simplelib.option.freeLookCrosshair.@Tooltip": "Shows a grey, outlined crosshair where you\nactually aim (the start direction of your body)\nwhile Free Look is on, and hides the centred\none. Off: the normal crosshair stays.\nDefault: true.",
   "text.autoconfig.simplelib.option.freeLookServerRelease": "When Free Look Ends (server)",
   "text.autoconfig.simplelib.option.freeLookServerRelease.@Tooltip": "The server's choice; it only counts for\nplayers while \"Enforce on Clients\" is on.\nDefault: Camera turns back.",
   "text.autoconfig.simplelib.option.freeLookEnforce": "Enforce on Clients",

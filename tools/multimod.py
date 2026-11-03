@@ -183,7 +183,9 @@ def validate_bundle(entry, modules, root):
             name = sub.strip(':').split(':')[-2]
             found = 'forgeBundleModules' in build and (f"'{sub}'" in build or f"'{name}'" in build)
         else:
-            found = f"{nest[loader]} project('{sub}')" in build
+            # B1: SimpleBuilding's 26.3 Fabric build nests every sub-mod of its requires/optional (checked above) from modules.json.
+            found = (f"{nest[loader]} project('{sub}')" in build
+                     or (loader == 'fabric' and 'include project(sbModuleById[it].projects.fabric)' in build))
         if not found:
             raise ValueError(f'{parent["id"]}/{loader} does not bundle {mid} ({sub})')
 

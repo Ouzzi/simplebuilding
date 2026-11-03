@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleenchanting.guide.chapter",
+  "icon": "minecraft:lapis_lazuli",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleenchanting:guide",
+      "title": "simpleenchanting.guide.chapter",
+      "icon": "minecraft:lapis_lazuli",
+      "page_key": "simpleenchanting.guide.page",
+      "pages": 7,
+      "advancement": "simpleenchanting:guide/chapter",
+      "hint": "minecraft:lapis_lazuli"
+    }
+  ]
+}

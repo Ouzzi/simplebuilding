@@ -9,8 +9,8 @@
       "Am Schmiedetisch hebt die Enderit-Aufwertung Netherit-Ausrüstung und viele Blöcke auf Enderit. Enderit ist vor der Leere sicher; mit der Rüstung schwebst du bei gedrückter Sprungtaste hinab."
     ],
     "secret": [
-      "Halte ein Enderit-Nugget in der Nebenhand und schlage 20-mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: er wird zum Verzauberer, mit Lohen-Bücherregalen und Lohen-Obsidian-Boden bis Stärke 50.",
-      "Baust du ihn ab, kommen Tisch und Nugget zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
+      "Halte acht Enderit-Nuggets in der Nebenhand und schlage mit einem Enderit-Vorschlaghammer auf einen Dark Enchanter: er wird zum Astral Enchanter aus Simple Enchanting, auf Nihil-Obsidian-Boden bis Stärke 60.",
+      "Baust du ihn ab, kommen Dark Enchanter und Nuggets zurück. Acht Nuggets um einen Eimer ergeben den Enderit-Eimer."
     ]
   },
   "chess_pieces": {
@@ -32,7 +32,7 @@
       "Drei davon gehören in ein Lohenholz-Bücherregal."
     ],
     "secret": [
-      "Lohenholz-Regale belohnt der {item:simplebuilding:astral_enchanting_table}: Dort zählt jedes für zwei gewöhnliche."
+      "Lohenholz-Regale belohnt der {item:simpleenchanting:dark_enchanter}: Dort zählt jedes für zwei gewöhnliche."
     ]
   },
   "blazing_obsidian": {
@@ -40,10 +40,21 @@
       "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
     ],
     "use": [
-      "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+      "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Dark Enchanter: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern. Unter dem Astral Enchanter wirkt er nur halb."
     ],
     "secret": [
-      "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+      "Der Boden zählt nur unter den Verzauberern, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+    ]
+  },
+  "nihil_obsidian": {
+    "lore": [
+      "Lohen-Obsidian, der der Leere begegnet ist: Die Glut erlosch, navyblaues Licht blieb."
+    ],
+    "use": [
+      "Acht Nihilith-Splitter um weinenden Obsidian ergeben ihn. Ein 5 x 5 großer Boden unter dem Astral Enchanter gibt 20 Stärke dazu, sobald die Regale 30 liefern, genug für 60; unter dem Dark Enchanter zählt er wie Lohen-Obsidian."
+    ],
+    "secret": [
+      "Gemischt aus beiden Obsidianen ist es noch ein Boden, aber der Astral Enchanter zählt ihn dann nur halb."
     ]
   },
   "hammock_rope": {
@@ -176,17 +187,6 @@
     ],
     "secret": [
       "Baust du ein Gewölbe ab, bleibt der gemeinsame Inhalt und erscheint in jedem anderen oder neu gesetzten. Offene Menüs bleiben abgeglichen wie Spieler an einer Truhe, nichts dupliziert sich. Trichter und Komparatoren bekommen nichts."
-    ]
-  },
-  "astral_enchanting_table": {
-    "lore": [
-      "Ein Tisch, an dem die Sterne stillhalten, während du wählst."
-    ],
-    "use": [
-      "Wähle deine Verzauberungen selbst: drei zufällige, die zum Gegenstand passen, jede mit einem Regler von 0 bis zu ihrem Maximum, bezahlt aus einem Stufenbudget, das die Bücherregale ringsum festlegen."
-    ],
-    "secret": [
-      "Schlage 20 Mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch, mit einem Enderitklumpen in der Nebenhand: Er wird dazu. Lohenholz-Regale zählen doppelt, ein Boden aus Lohen-Obsidian gibt Stärke. Abgebaut kommen Tisch und Klumpen zurück."
     ]
   },
   "polished_end_stone": {

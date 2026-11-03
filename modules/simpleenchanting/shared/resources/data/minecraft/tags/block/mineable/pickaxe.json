@@ -1,0 +1,14 @@
+{
+  "values": [
+    "simpleenchanting:dark_enchanter",
+    "simpleenchanting:astral_enchanter",
+    {
+      "id": "simpleenchanting:blazing_obsidian",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:nihil_obsidian",
+      "required": false
+    }
+  ]
+}

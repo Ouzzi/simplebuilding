@@ -50,8 +50,6 @@ public final class ModScreenStyle {
     /** Crafter stone with a hint of the copper of its textures. */
     static final UiPalette AUTONOMOUS_CRAFTER = UiPalette.derived(0xFF5E5651);
     static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
-    /** Astral Enchanting Table: obsidian violet with a hint of enderite. */
-    static final UiPalette ASTRAL_ENCHANTING = UiPalette.derived(0xFF4B3866);
     private static final int ERROR = 0xFFC9503E;
 
     private ModScreenStyle() {}
@@ -75,7 +73,6 @@ public final class ModScreenStyle {
             case AutoSmitherMenu m -> AUTO_SMITHER;
             case AutonomousCrafterMenu m -> AUTONOMOUS_CRAFTER;
             case FletchingMenu m -> FLETCHING;
-            case com.simplebuilding.screen.AstralEnchantingMenu m -> ASTRAL_ENCHANTING;
             default -> null;
         };
         if (p == null) return null;
@@ -265,6 +262,9 @@ public final class ModScreenStyle {
         avoid.add(bigRect(result, left, top));
         avoid.add(new int[] {left + ax, top + py - 4, left + ax + 22, top + py + 21});
         avoid.add(new int[] {left + px - 26, top + py - 4, left + px + 55, top + py + 21});
+        // VIS24-9 (FLETCH=gravur, variant A): the engraved fletched arrow in the free space above the part row.
+        avoid.add(new int[] {left + px + FLETCHING_GRAVUR_DX - 2, top + FLETCHING_GRAVUR_Y - 2,
+                left + px + FLETCHING_GRAVUR_DX + FLETCHING_GRAVUR.width() + 2, top + FLETCHING_GRAVUR_Y + FLETCHING_GRAVUR.height() + 2});
         // The recipe book button sits left of the part row (crafting-table spot); keep the motif clear.
         avoid.add(new int[] {left + ModScreenLayout.FLETCHING_BOOK_X, top + ModScreenLayout.FLETCHING_BOOK_Y,
                 left + ModScreenLayout.FLETCHING_BOOK_X + ModScreenLayout.FLETCHING_BOOK_W,
@@ -278,8 +278,30 @@ public final class ModScreenStyle {
         }
         slots(g, menu, left, top, p, result);
         UiSymbols.engrave(g, FLETCHED_ARROW, left + ax, top + ay, p);
+        UiSymbols.engrave(g, FLETCHING_GRAVUR, left + px + FLETCHING_GRAVUR_DX, top + FLETCHING_GRAVUR_Y, p);
         return true;
     }
+
+    /**
+     * VIS24-9, owner FLETCH=gravur (variant A of the b-arrows01 preview, no motif ticked = A): a fletched arrow flying up to the
+     * right, engraved like the station arrows in the free space above feather, shaft and tip (left of the potion slot, WE25-9).
+     */
+    static final UiSymbols.Bitmap FLETCHING_GRAVUR = UiSymbols.Bitmap.of(
+            ".................####.",
+            "..................###.",
+            ".................#.##.",
+            "...............##...#.",
+            ".............##.......",
+            "...........##.........",
+            ".........##...........",
+            ".......##.............",
+            ".#.#.##...............",
+            "..###.................",
+            ".#.##.................",
+            "#.#.#.................",
+            ".#.#..................");
+    /** Left edge relative to the feather slot and top of the engraving (title line above, part row below). */
+    static final int FLETCHING_GRAVUR_DX = 15, FLETCHING_GRAVUR_Y = 17;
 
     /** The fletching arrow's left edge relative to the feather slot (Vanilla crafting table: arrow 62 px right of the grid). */
     static final int FLETCHING_ARROW_DX = 62;
@@ -306,37 +328,6 @@ public final class ModScreenStyle {
 
     public static boolean fletchingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         g.text(font, title, x, y, FLETCHING.label(), false);
-        return true;
-    }
-
-    // ------------------------------------------------------------------ astral enchanting table
-
-    /**
-     * Astral Enchanting Table (queue N27): the violet box with Ender motifs around item, lapis and blaze powder slots; the
-     * slider panel and the enchant button are drawn by {@link AstralEnchantingScreen} on top (both lines).
-     */
-    public static boolean astralEnchanting(GuiGraphicsExtractor g, com.simplebuilding.screen.AstralEnchantingMenu menu, Font font,
-            Component title, int left, int top, int imageWidth) {
-        if (!UiStyleToggle.isEnabled()) return false;
-        UiPalette p = ASTRAL_ENCHANTING;
-        int[] inv = ModScreenLayout.inventoryOrigin(menu);
-        Box container = ModScreenLayout.container(imageWidth, inv[1]);
-        box(g, left, top, container, p);
-        box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
-        List<int[]> avoid = slotRects(menu, left, top);
-        avoid.add(titleRect(font, title, left, top));
-        avoid.add(new int[] {left + AstralEnchantingScreen.PANEL_X - 2, top + 3, left + AstralEnchantingScreen.PANEL_X
-                + AstralEnchantingScreen.PANEL_W + 2, top + AstralEnchantingScreen.PANEL_Y + AstralEnchantingScreen.PANEL_H + 2});
-        avoid.add(new int[] {left + AstralEnchantingScreen.BUTTON_X - 1, top + AstralEnchantingScreen.BUTTON_Y - 1,
-                left + AstralEnchantingScreen.BUTTON_X + AstralEnchantingScreen.BUTTON_W + 1,
-                top + AstralEnchantingScreen.BUTTON_Y + AstralEnchantingScreen.BUTTON_H + 1});
-        motif(g, left, top, container, p, UiMotifs.Kind.ENDER, avoid, 9);
-        slots(g, menu, left, top, p);
-        return true;
-    }
-
-    public static boolean astralEnchantingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
-        g.text(font, title, x, y, ASTRAL_ENCHANTING.label(), false);
         return true;
     }
 

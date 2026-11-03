@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 540,
+      "count": 534,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -162,7 +162,7 @@
         "simpleovens:reinforced_furnace",
         "simpleovens:reinforced_blast_furnace",
         "simpleovens:reinforced_smoker",
-        "simplebuilding:reinforced_hopper",
+        "simplemachines:reinforced_hopper",
         "simplebuilding:reinforced_piston",
         "simplebuilding:netherite_nugget",
         "simplebuilding:basic_upgrade_template",
@@ -250,7 +250,7 @@
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_furnace.json",
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_blast_furnace.json",
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_smoker.json",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/reinforced_hopper_from_crafting.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
         "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
         "src/main/generated/data/simplebuilding/tags/item/chisel_tools.json",
@@ -1068,102 +1068,6 @@
       }
     },
     {
-      "id": "hoppers",
-      "related": [
-        "simplebuilding:reinforced_hopper",
-        "simplebuilding:netherite_hopper",
-        "simplebuilding:enderite_hopper",
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-        "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-        "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-        "common/src/shared/java/com/simplebuilding/networking/ToggleHopperFilterPayload.java",
-        "common/src/shared/java/com/simplebuilding/platform/PlatformServices.java",
-        "src/main/java/com/simplebuilding/Simplebuilding.java",
-        "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-        "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-        "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-        "src/main/java/com/simplebuilding/platform/HopperMenus.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
-        "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-        "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
-      ],
-      "en": {
-        "title": "Reinforced, Netherite and Enderite Hoppers",
-        "summary": "SimpleBuilding adds three faster hoppers: the Reinforced Hopper (4 ticks of cooldown per transfer), the Netherite Hopper (2 ticks) and the Enderite Hopper (1 tick). All three have a filter button in their menu with the modes Disabled, Exact Match and Type Match; with a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. The Netherite Hopper is hammered out of a Reinforced Hopper with a sledgehammer and a Netherite Nugget, the Enderite Hopper out of a Netherite Hopper with an Enderite Nugget; both are highly blast resistant and their items are fire resistant.",
-        "details": [
-          "Three tiers: Reinforced Hopper with 4 ticks, Netherite Hopper with 2 ticks and Enderite Hopper with 1 tick of cooldown after every successful transfer - the Enderite Hopper moves an item every tick; the fallback value in the shared block logic is 8 ticks, but that logic is only registered for these three blocks (the test comment compares 2 with the vanilla hopper's 8 ticks).",
-          "A transfer pushes one item into the container the hopper faces and pulls items in from above; both only when no cooldown is running and the hopper is not powered by redstone ('enabled'). With no vanilla container in front (another mod's machine, for example) the hopper hands the item to the loader's transfer API instead - NeoForge's item capability, Fabric's Transfer API (ItemStorage.SIDED), Forge's ITEM_HANDLER - through the face that looks at the hopper, one item per transfer.",
-          "The filter has three modes that the button in the menu cycles through in order (HopperFilterMode.next): Disabled -> Exact Match -> Type Match -> Disabled.",
-          "Disabled: canPlaceItem always returns true and every item may leave the hopper, so it behaves like a normal hopper.",
-          "Exact Match: automation may only put an item into a slot that already holds the same item with all the same components (ItemStack.isSameItemSameComponents; per the game test a renamed stone does not count as stone).",
-          "Type Match: only the item type has to match the item lying in the slot (stack.is(filter.getItem()) in ItemFilter.matches); name and other components do not matter.",
-          "Each of the five slots is filtered by its own item; the mode applies to the whole hopper.",
-          "There are no placeholder (ghost) items: with a filter on, the real item lying in a slot is its filter (ItemFilter, the filter principle). One of it always stays put: the hopper pushes, and other hoppers and pipes pull, only the second and every further item of a slot (ItemFilter.movable); with the filter off, everything moves like in a vanilla hopper.",
-          "The menu draws nothing extra for the filter - no overlay, no icon, no tooltip on the slots: what lies in a slot is what it filters.",
-          "With the filter on, an empty slot takes nothing from automation (hoppers, droppers, pipes, item entities): ItemFilter.accepts needs a matching item already lying there. Only a player can fill it through the menu.",
-          "The hopper is a WorldlyContainer with all five slots on every face (getSlotsForFace); canPlaceItemThroughFace asks the same canPlaceItem, and canTakeItem and canTakeItemThroughFace only allow taking from a slot that holds more than its one filter item, so a hopper below or another mod's pipe cannot take the last item of a filtered slot either.",
-          "In the menu the five slots are filtering slots (FilterSlot) whose mayPlace first asks vanilla's Slot.mayPlace - so a spawn elytra stays out of the mod hoppers like out of every other container - and then the hopper's mayPlayerPlace: with a filter on, a player may put any item into an empty slot (that sets its filter) and only a matching item onto a filled one. This holds for a click, a hotbar swap (keys 1-9), a drag across the slots and a shift click out of the inventory (getMaxStackSize is 0 for an item the slot refuses, so a shift click cannot top up a foreign stack). Taking items out is a normal click; taking the last one empties the slot and so clears its filter. The client menu is built without the block entity and does not check the filter, so a click is predicted there and corrected by the server.",
-          "The server only accepts mode changes (ToggleHopperFilterPayload, the hoppers' only network payload) when player.containerMenu is a ModHopperScreenHandler.",
-          "A mode change triggers a block update; the block entity's update tag carries only the mode, and the open menu receives it as synced container data. The filter needs no packet of its own: it is the slot contents, which the menu syncs like any container.",
-          "Mode and cooldown are saved with the block next to the items ('FilterMode', 'TransferCooldown') and survive a world reload; a 'FilterMode' outside the three known modes (a hand-edited region file, a downgrade) falls back to Disabled instead of throwing, so the hopper keeps its contents. A 'GhostItems' list from older saves is ignored: such a slot stays empty and, with the filter on, takes nothing in until a player puts an item in.",
-          "The menu is drawn in the mod's container style in the colors of the hopper's tier: the five slots, then a gap one slot wider than before with an engraved funnel and a colon as the caption, then SimpleLib's 18x18 filter key (UiFilterButton), which shows only the mode - a red cross (Disabled), a green check (Exact Match) or three yellow squares (Type Match); the whole row is centred (first slot at x=24 instead of vanilla's 44). The key's tooltip names the mode in red, green and yellow respectively. With the container style switched off, the vanilla hopper background (hopper.png) is drawn instead.",
-          "The mode names in the key's tooltip are translated (English and German); the caption in front of the key is a symbol, not text.",
-          "Getting them: 1 Hopper + 1 Name Tag + 1 Cracked Diamond (shapeless) yield 1 Reinforced Hopper at the crafting table. The Netherite and Enderite Hoppers have no crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, a Netherite Hopper becomes an Enderite Hopper with a Netherite Sledgehammer (or better) and an Enderite Nugget; items and filter mode stay in the hopper, and with them the filter (see the Sledgehammer). The Reinforced and Netherite Hopper items say so in their tooltip.",
-          "Reinforced Hopper: hardness 3.0, blast resistance 4.8, metal sound. Netherite Hopper: hardness 5.0, blast resistance 1200, netherite block sound, fire resistant item. Enderite Hopper: hardness 6.0, blast resistance 1500, netherite block sound, fire resistant item of rarity Epic. All three are in the pickaxe mining tag and drop themselves; like the vanilla hopper they are built from, they only drop when mined with a pickaxe.",
-          "All three blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper); the cooldown depends only on which of the three blocks is placed.",
-          "Game tests prove: the Netherite Hopper is faster than the Reinforced Hopper, which is faster than the vanilla hopper, and the Netherite Hopper needs at most half the vanilla hopper's time; the three filter modes behave as described; and the mode change payload only takes effect while a hopper menu is open."
-        ]
-      },
-      "de": {
-        "title": "Verstärkte Trichter, Netherit- und Enderittrichter",
-        "summary": "SimpleBuilding fügt drei schnellere Trichter hinzu: den Verstärkten Trichter (4 Ticks Wartezeit pro Transfer), den Netherittrichter (2 Ticks) und den Enderittrichter (1 Tick). Alle drei haben im Menü einen Filter-Knopf mit den Modi Aus, Exakt gleich und Gleiche Art; bei aktivem Filter ist das echte Item, das in einem Slot liegt, der Filter dieses Slots, und eines davon bleibt immer im Slot. Der Netherittrichter wird mit Vorschlaghammer und Netheritklumpen aus einem Verstärkten Trichter geschmiedet, der Enderittrichter mit einem Enderitklumpen aus einem Netherittrichter; beide halten Explosionen stand und sind als Item feuerfest.",
-        "details": [
-          "Drei Stufen: Verstärkter Trichter mit 4 Ticks, Netherittrichter mit 2 Ticks und Enderittrichter mit 1 Tick Wartezeit nach jedem erfolgreichen Transfer - der Enderittrichter bewegt also in jedem Tick ein Item; der Fallback-Wert der gemeinsamen Blocklogik ist 8 Ticks, die Logik ist aber nur für diese drei Blöcke registriert (der Testkommentar vergleicht 2 mit 8 Ticks des normalen Trichters).",
-          "Ein Transfer schiebt ein Item in den Behälter, auf den der Trichter zeigt, und zieht Items von oben ein; beides nur, wenn keine Wartezeit läuft und der Trichter nicht per Redstone gesperrt ist ('enabled'). Steht vorn kein Vanilla-Behälter (etwa die Maschine einer anderen Mod), übergibt der Trichter das Item stattdessen der Transfer-Schnittstelle des Loaders – NeoForges Item-Capability, Fabrics Transfer-API (ItemStorage.SIDED), Forges ITEM_HANDLER – über die Seite, die zum Trichter schaut, ein Item pro Transfer.",
-          "Der Filter hat drei Modi, die der Knopf im Menü der Reihe nach durchschaltet (HopperFilterMode.next): Aus → Exakt gleich → Gleiche Art → Aus.",
-          "Aus: canPlaceItem liefert immer true und jedes Item darf den Trichter verlassen, er verhält sich also wie ein normaler Trichter.",
-          "Exakt gleich: Automatik darf ein Item nur in einen Slot legen, in dem schon dasselbe Item mit denselben Komponenten liegt (ItemStack.isSameItemSameComponents; ein umbenannter Stein zählt laut Spieltest nicht als Stein).",
-          "Gleiche Art: nur der Item-Typ muss mit dem Item im Slot übereinstimmen (stack.is(filter.getItem()) in ItemFilter.matches); Name und andere Komponenten spielen keine Rolle.",
-          "Jeder der fünf Slots wird von seinem eigenen Item gefiltert; der Modus gilt für den ganzen Trichter.",
-          "Es gibt keine Platzhalter- (Geister-)Items: Bei aktivem Filter ist das echte Item, das in einem Slot liegt, sein Filter (ItemFilter, das Filter-Prinzip). Eines davon bleibt immer liegen: Der Trichter schiebt, und andere Trichter und Rohre ziehen, nur das zweite und jedes weitere Item eines Slots (ItemFilter.movable); ohne Filter bewegt sich alles wie beim Vanilla-Trichter.",
-          "Das Menü zeichnet für den Filter nichts zusätzlich – keine Hinterlegung, kein Symbol, kein Tooltip an den Slots: Was in einem Slot liegt, ist das, was er filtert.",
-          "Bei aktivem Filter nimmt ein leerer Slot von Automatik (Trichter, Spender, Rohre, liegende Items) nichts an: ItemFilter.accepts braucht ein passendes Item, das dort schon liegt. Füllen kann ihn nur ein Spieler über das Menü.",
-          "Der Trichter ist ein WorldlyContainer mit allen fünf Slots an jeder Seite (getSlotsForFace); canPlaceItemThroughFace fragt dasselbe canPlaceItem, und canTakeItem und canTakeItemThroughFace erlauben das Herausnehmen nur aus einem Slot, der mehr als sein eines Filter-Item hält – auch ein Trichter darunter oder das Rohr einer anderen Mod kann das letzte Item eines gefilterten Slots also nicht herausziehen.",
-          "Im Menü sind die fünf Slots filternde Slots (FilterSlot), deren mayPlace zuerst Vanillas Slot.mayPlace fragt – eine Spawn-Elytra bleibt also aus den Mod-Trichtern draußen wie aus jedem anderen Behälter – und dann mayPlayerPlace des Trichters: Bei aktivem Filter darf ein Spieler jedes Item in einen leeren Slot legen (das setzt dessen Filter) und auf einen belegten nur ein passendes. Das gilt für Klick, Hotbar-Tausch (Tasten 1-9), Ziehen über die Slots und Shift-Klick aus dem Inventar (getMaxStackSize ist 0 für ein Item, das der Slot ablehnt, ein Shift-Klick füllt also keinen fremden Stapel auf). Herausnehmen ist ein normaler Klick; wer das letzte Item nimmt, leert den Slot und löscht damit seinen Filter. Das Client-Menü entsteht ohne Block-Entity und prüft den Filter nicht, ein Klick wird dort also vorhergesagt und vom Server korrigiert.",
-          "Der Server nimmt Modus-Wechsel (ToggleHopperFilterPayload, das einzige Netzwerkpaket der Trichter) nur an, wenn player.containerMenu ein ModHopperScreenHandler ist.",
-          "Ein Modus-Wechsel löst ein Block-Update aus; das Update-Tag des Block-Entities enthält nur den Modus, und das offene Menü erhält ihn als synchronisierte Container-Daten. Der Filter braucht kein eigenes Paket: Er ist der Slot-Inhalt, den das Menü wie bei jedem Behälter abgleicht.",
-          "Modus und Wartezeit werden neben den Items mit dem Block gespeichert ('FilterMode', 'TransferCooldown') und überstehen das Neuladen der Welt; ein 'FilterMode' außerhalb der drei bekannten Modi (von Hand bearbeitete Regionsdatei, Rückstufung) fällt auf Aus zurück, statt zu werfen – der Inhalt des Trichters bleibt also erhalten. Eine 'GhostItems'-Liste aus älteren Spielständen wird ignoriert: Ein solcher Slot bleibt leer und nimmt bei aktivem Filter nichts an, bis ein Spieler ein Item hineinlegt.",
-          "Das Menü ist im Behälter-Stil der Mod in den Farben der Trichterstufe gezeichnet: die fünf Slots, dann eine um einen Slot breitere Lücke mit eingraviertem Trichter-Symbol und Doppelpunkt als Beschriftung, dann die 18x18 große Filter-Taste aus SimpleLib (UiFilterButton), die nur den Modus zeigt – ein rotes Kreuz (Aus), ein grünes Häkchen (Exakt gleich) oder drei gelbe Quadrate (Gleiche Art); die ganze Reihe steht mittig (erster Slot bei x=24 statt Vanillas 44). Der Tooltip der Taste nennt den Modus in Rot, Grün bzw. Gelb. Ist der Behälter-Stil abgeschaltet, wird stattdessen die Trichter-Oberfläche des Spiels (hopper.png) gezeichnet.",
-          "Die Modusnamen im Tooltip der Taste sind übersetzt (Englisch und Deutsch); die Beschriftung vor der Taste ist ein Symbol, kein Text.",
-          "Beschaffung: 1 Trichter + 1 Namensschild + 1 Rissiger Diamant (formlos) ergeben an der Werkbank 1 Verstärkten Trichter. Für Netherit- und Enderittrichter gibt es kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter, ein Netherittrichter mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen zum Enderittrichter; Items und Filtermodus bleiben im Trichter und damit auch der Filter (siehe Vorschlaghammer). Die Items des Verstärkten und des Netherittrichters weisen im Tooltip darauf hin.",
-          "Verstärkter Trichter: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherittrichter: Härte 5,0, Explosionswiderstand 1200, Netheritblock-Klang, Item feuerfest. Enderittrichter: Härte 6,0, Explosionswiderstand 1500, Netheritblock-Klang, Item feuerfest und von der Seltenheit Episch. Alle drei im Spitzhacken-Abbau-Tag, alle drei droppen sich selbst; wie der Vanilla-Trichter, von dem sie kopiert sind, nur beim Abbau mit einer Spitzhacke.",
-          "Alle drei Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter); die Wartezeit hängt nur davon ab, welcher der drei Blöcke gesetzt ist.",
-          "Spieltests belegen: Netherittrichter schneller als Verstärkter Trichter, dieser schneller als der normale Trichter, Netherittrichter höchstens halbe Zeit des normalen; die drei Filtermodi verhalten sich wie beschrieben; das Paket für den Modus-Wechsel wirkt nur bei geöffnetem Trichter-Menü."
-        ]
-      }
-    },
-    {
       "id": "pistons_and_falling",
       "related": [
         "simplemachines:reinforced_piston",
@@ -1851,7 +1755,7 @@
         "simplebuilding:enderite_boots",
         "simplebuilding:enderite_upgrade_template",
         "simplebuilding:enderite_backpack",
-        "simplebuilding:enderite_hopper",
+        "simplemachines:enderite_hopper",
         "simpleovens:enderite_furnace",
         "simpleovens:enderite_smoker",
         "simpleovens:enderite_blast_furnace",
@@ -2461,7 +2365,7 @@
         "simplebuilding:potion_pad",
         "simplebuilding:chunk_loader",
         "simplebuilding:netherite_piston",
-        "simplebuilding:netherite_hopper",
+        "simplemachines:netherite_hopper",
         "simplebuilding:netherite_chest"
       ],
       "sources": [
@@ -3308,77 +3212,6 @@
             "Abbau mit der Axt; brennbare Hölzer brennen und dienen als Brennstoff (100 Ticks)."
           ]
         }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astral_enchanting_table",
-      "name": {
-        "en_us": "Enchanter",
-        "de_de": "Verzauberer"
-      },
-      "texture": "assets/textures/block/astral_enchanting_table_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astral_enchanting_table.png",
-      "questionary": {
-        "en": {
-          "lore": [
-            "A table where the stars hold still while you choose."
-          ],
-          "use": [
-            "Pick your enchantments yourself: three random ones that fit the item, each with a slider from 0 to its maximum, paid from a level budget that the bookshelves around it set."
-          ],
-          "secret": [
-            "Hit an enchanting table 20 times with a Netherite Sledgehammer while holding an Enderite Nugget in your off hand: it becomes this. Blazewood shelves count double, a Blazing Obsidian floor adds strength. Break it and table and nugget return."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Tisch, an dem die Sterne stillhalten, während du wählst."
-          ],
-          "use": [
-            "Wähle deine Verzauberungen selbst: drei zufällige, die zum Gegenstand passen, jede mit einem Regler von 0 bis zu ihrem Maximum, bezahlt aus einem Stufenbudget, das die Bücherregale ringsum festlegen."
-          ],
-          "secret": [
-            "Schlage 20 Mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch, mit einem Enderitklumpen in der Nebenhand: Er wird dazu. Lohenholz-Regale zählen doppelt, ein Boden aus Lohen-Obsidian gibt Stärke. Abgebaut kommen Tisch und Klumpen zurück."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
-          "details": [
-            "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding 8 Enderite Nuggets in the off hand and keep holding - 16 blows (one nugget per 2 blows) at 35 durability each (560 in all); the 8 nuggets are used up at the last blow. Each hammer tier strikes at its own tempo (Netherite every 20 ticks, Enderite 19).",
-            "Golden apple: put a Golden Apple into the item slot and the button turns into the Enchanted Golden Apple for 40 levels (really taken off), 3 lapis lazuli and 3 blaze powder from the table's stock. The prices of 50 and 60 levels are reserved for the stages of the later enchanter rework (Nether and Enderite stage).",
-            "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
-            "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50 - when all of an offer together would cost more, prices are scaled down so every level less costs less and only the full choice costs 50. So Sharpness V + Looting III costs 32, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
-            "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. The price is the level you need; enchanting uses up only 1 level per started 10 of it (1-5, like Vanilla), and one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
-            "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
-            "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
-          ]
-        },
-        "de": {
-          "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
-          "details": [
-            "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, 8 Enderit-Nuggets in der Nebenhand, und halten - 16 Schläge (alle 2 Schläge ein Nugget) zu je 35 Haltbarkeit (560 insgesamt); die 8 Nuggets werden beim letzten Schlag verbraucht. Jede Hammerstufe schlägt in ihrem eigenen Takt (Netherit alle 20 Ticks, Enderit 19).",
-            "Goldener Apfel: einen Goldenen Apfel in den Item-Platz legen, dann wird der Knopf zum Verzauberten Goldenen Apfel für 40 Level (wirklich abgezogen), 3 Lapislazuli und 3 Lohenstaub aus dem Vorrat des Tisches. Die Preise 50 und 60 Level sind für die Stufen des späteren Verzauberer-Umbaus (Nether- und Enderit-Stufe) vorgemerkt.",
-            "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
-            "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50 - wäre das ganze Angebot teurer, werden die Preise heruntergerechnet, sodass jede Stufe weniger weniger kostet und nur die volle Auswahl 50 kostet. Schärfe V + Plünderung III kostet also 32, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
-            "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Der Preis ist die benötigte Stufe; Verzaubern verbraucht nur 1 Level je angefangene 10 davon (1-5, wie Vanilla), und einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
-            "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
-            "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
       },
       "hasCustomBehaviour": false
     },
@@ -6007,7 +5840,7 @@
             "Three of them go into a blazewood bookshelf."
           ],
           "secret": [
-            "Blazewood shelves reward the {item:simplebuilding:astral_enchanting_table}: each counts for two ordinary shelves there."
+            "Blazewood shelves reward the {item:simpleenchanting:dark_enchanter}: each counts for two ordinary shelves there."
           ]
         },
         "de": {
@@ -6018,7 +5851,7 @@
             "Drei davon gehören in ein Lohenholz-Bücherregal."
           ],
           "secret": [
-            "Lohenholz-Regale belohnt der {item:simplebuilding:astral_enchanting_table}: Dort zählt jedes für zwei gewöhnliche."
+            "Lohenholz-Regale belohnt der {item:simpleenchanting:dark_enchanter}: Dort zählt jedes für zwei gewöhnliche."
           ]
         }
       },
@@ -6062,10 +5895,10 @@
             "Crying obsidian's glowing sibling: where the other weeps, this one burns."
           ],
           "use": [
-            "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+            "A decorative block that gives light. Its job is at the Dark Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30. Under the Astral Enchanter it works only half."
           ],
           "secret": [
-            "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
+            "The floor only counts under the enchanters, not the vanilla table, so build it once the shelves are complete."
           ]
         },
         "de": {
@@ -6073,28 +5906,28 @@
             "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
           ],
           "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Dark Enchanter: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern. Unter dem Astral Enchanter wirkt er nur halb."
           ],
           "secret": [
-            "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+            "Der Boden zählt nur unter den Verzauberern, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under Simple Enchanting's Dark Enchanter adds 10 strength once the shelves give 30; under the Astral Enchanter only half.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under an Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
+            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under a Dark or Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
             "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
             "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
           ]
         },
         "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Dark Enchanter (Simple Enchanting) gibt 10 Stärke dazu, sobald die Regale 30 ergeben; unter dem Astral Enchanter nur halb so viel.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Astral-Verzauberer (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
+            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Dark oder Astral Enchanter (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
             "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
             "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
           ]
@@ -7961,7 +7794,8 @@
             "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
             "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also the diamond rod (pierces one more target). The Netherite and Enderite Poles (formerly netherite and enderite rods) are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
             "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
-            "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable."
+            "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable.",
+            "Potion slot (above the arrow, WE25-9): put in a potion, splash potion or lingering potion with an effect and the 4 arrows carry it like Vanilla's tipped arrows - a hit gives the effect at 1/8 of the potion's duration, after half a minute in the ground the potion has dried off. Each batch uses up the bottle; without a potion the table makes plain arrows."
           ]
         },
         "de": {
@@ -7971,7 +7805,8 @@
             "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
             "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstange (früher Netherit- und Enderitstab) sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
             "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
-            "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar."
+            "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar.",
+            "Trank-Slot (über dem Pfeil, WE25-9): ein Trank, Wurftrank oder Verweiltrank mit Wirkung darin, und die 4 Pfeile tragen ihn wie Vanillas getränkte Pfeile - ein Treffer gibt die Wirkung mit 1/8 der Trankdauer, nach einer halben Minute im Boden ist der Trank abgetrocknet. Jede Herstellung verbraucht die Flasche; ohne Trank macht der Tisch normale Pfeile."
           ]
         },
         "sources": [
@@ -11504,182 +11339,6 @@
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_hopper",
-      "name": {
-        "en_us": "Enderite Hopper",
-        "de_de": "Enderittrichter"
-      },
-      "texture": "assets/textures/item/enderite_hopper.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:enderite_hopper_minecart"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper so fast it seems to have always been done."
-          ],
-          "use": [
-            "Waits only 1 tick after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
-          ],
-          "secret": [
-            "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Hammer a Netherite Hopper with an Enderite Nugget."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter, so schnell, als wäre er immer schon fertig."
-          ],
-          "use": [
-            "Wartet nach jeder Übertragung nur 1 Tick. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
-          ],
-          "secret": [
-            "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Hämmere einen Netherit-Trichter mit einem Enderitklumpen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
-        ],
-        "en": {
-          "summary": "The Enderite Hopper is the fastest hopper: it waits only 1 tick after every transfer, so it moves an item every tick, with the same item filter as the Reinforced and Netherite Hoppers. It is hammered out of a Netherite Hopper.",
-          "details": [
-            "After every successful transfer it waits 1 tick (ModHopperBlockEntity.insertAndExtract: speed = 1 for ENDERITE_HOPPER; Netherite 2, Reinforced 4, fallback 8).",
-            "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved. It only moves items while it is not powered by redstone.",
-            "Same block class (ModHopperBlock), block entity type (simplebuilding:mod_hopper) and menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper) as the other two tiers: 5 slots, filter key with Disabled, Exact Match and Type Match, the item lying in each slot as that slot's filter, saved as 'FilterMode' and 'TransferCooldown' next to the items.",
-            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Hopper with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items and filter mode stay in the hopper, and with them its filter.",
-            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. noOcclusion is set.",
-            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
-            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the tab \"SimpleMachines\" right after its Netherite sibling.",
-            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
-          ],
-          "controls": [
-            "Right-click the block to open the filter menu, as on the other mod hoppers."
-          ],
-          "caveats": [
-            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
-            "No game test measures its speed yet."
-          ]
-        },
-        "de": {
-          "summary": "Der Enderittrichter ist der schnellste Trichter: Nach jedem Transfer wartet er nur 1 Tick, er bewegt also in jedem Tick ein Item, mit demselben Item-Filter wie der Verstärkte und der Netherittrichter. Er wird aus einem Netherittrichter geschmiedet.",
-          "details": [
-            "Nach jedem erfolgreichen Transfer wartet er 1 Tick (ModHopperBlockEntity.insertAndExtract: speed = 1 für ENDERITE_HOPPER; Netherit 2, Verstärkt 4, Fallback 8).",
-            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn wirklich etwas bewegt wurde. Er bewegt nur Items, solange er nicht per Redstone gesperrt ist.",
-            "Dieselbe Blockklasse (ModHopperBlock), derselbe Block-Entity-Typ (simplebuilding:mod_hopper) und dasselbe Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter) wie die anderen beiden Stufen: 5 Slots, Filter-Taste mit Aus, Exakt gleich und Gleiche Art, das Item in jedem Slot als Filter dieses Slots, gespeichert als 'FilterMode' und 'TransferCooldown' neben den Items.",
-            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherittrichter halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Items und Filtermodus bleiben im Trichter und damit auch sein Filter.",
-            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Trichter kopiert (ofFullCopy(Blocks.HOPPER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. noOcclusion ist gesetzt.",
-            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
-            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus im Reiter „SimpleMachines“ direkt nach seinem Netherit-Geschwister.",
-            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
-          ],
-          "controls": [
-            "Rechtsklick auf den Block öffnet das Filter-Menü, wie bei den anderen Mod-Trichtern."
-          ],
-          "caveats": [
-            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Klumpen bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
-            "Noch kein Spieltest misst seine Geschwindigkeit."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:enderite_hopper_minecart",
-      "name": {
-        "en_us": "Enderite Hopper Minecart",
-        "de_de": "Enderit-Trichterlore"
-      },
-      "texture": "assets/textures/item/enderite_hopper_minecart.png",
-      "craftedBy": [
-        "simplebuilding:enderite_hopper_minecart",
-        "simplebuilding:enderite_hopper_minecart_smithing"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/enderite_hopper_minecart.png",
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper that rides along."
-          ],
-          "use": [
-            "Takes in up to 8 items per tick (vanilla's hopper minecart takes 1) and filters like the hopper block of its tier."
-          ],
-          "secret": [
-            "It is the same speed-up as the mod hopper over the vanilla hopper, now on rails."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter, der mitfährt."
-          ],
-          "use": [
-            "Nimmt bis zu 8 Gegenstände pro Tick auf (die Vanilla-Lore mit Trichter nimmt 1) und filtert wie der Trichterblock seiner Stufe."
-          ],
-          "secret": [
-            "Es ist dieselbe Beschleunigung wie beim Mod-Trichter gegenüber dem Vanilla-Trichter, nun auf Schienen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
-          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-          "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
-          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
-          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
-        ],
-        "en": {
-          "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
-          "details": [
-            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
-            "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
-            "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
-            "Breaking it drops the cart item and its contents; it shows the tier hopper."
-          ]
-        },
-        "de": {
-          "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
-          "details": [
-            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
-            "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
-            "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
-            "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_horse_armor",
@@ -17841,210 +17500,6 @@
       "hasCustomBehaviour": true
     },
     {
-      "id": "simplebuilding:netherite_hopper",
-      "name": {
-        "en_us": "Netherite Hopper",
-        "de_de": "Netherittrichter"
-      },
-      "texture": "assets/textures/item/netherite_hopper.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:netherite_hopper_minecart"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper with fire in its pipes."
-          ],
-          "use": [
-            "Waits only 2 ticks after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
-          ],
-          "secret": [
-            "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Hammer a Reinforced Hopper with a Netherite Nugget."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter mit Feuer in den Rohren."
-          ],
-          "use": [
-            "Wartet nach jeder Übertragung nur 2 Ticks. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
-          ],
-          "secret": [
-            "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Hämmere einen Verstärkten Trichter mit einem Netheritklumpen."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Netherite Hopper is the second fastest hopper tier after the Enderite Hopper: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
-          "details": [
-            "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks, Enderite Hopper 1 tick; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
-            "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved.",
-            "It only moves items while it is not powered by redstone (the 'enabled' block state); the ticker runs on the server only.",
-            "Hardness 5.0 and blast resistance 1200; SoundType.NETHERITE_BLOCK; noOcclusion set.",
-            "The item is registered as fire resistant (fireResistant).",
-            "5 slots; menu, filter key, filter and storage ('FilterMode', 'TransferCooldown' next to the items) are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
-            "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
-            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "No crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items and filter mode, and so its filter (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Hopper (1 tick of cooldown); the item's tooltip says so.",
-            "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
-            "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
-            "The game tests for the three filter modes and for the menu binding of the mode change payload (HopperAndTrimTests) are run on a placed Netherite Hopper."
-          ],
-          "controls": [
-            "Right-click the block to open the menu.",
-            "Clicking the filter key to the right of the five slots cycles the filter: Disabled (red cross) -> Exact Match (green check) -> Type Match (three yellow squares) -> Disabled.",
-            "With the filter on: put any item into an empty hopper slot (click, hotbar key, drag or shift click) and it becomes that slot's filter; onto a filled slot only a matching item can be placed.",
-            "Taking items out is a normal click; taking the last item of a slot clears that slot's filter.",
-            "Hovering over the filter key shows the mode name (red/green/yellow)."
-          ],
-          "caveats": [
-            "With the filter on, an empty slot takes nothing from automation; each of the five slots has to get its first item from a player in the menu.",
-            "The filter decides what may enter the hopper and holds back the last item of each slot; whatever lies above that one item is pushed into the target container unfiltered.",
-            "The symbols on the filter key (cross, check, squares) are drawn, not text, and stay the same in every language; the other menu texts are translated.",
-            "The server only accepts mode changes while the player has a mod hopper's menu open.",
-            "The Netherite Hopper has no special logic of its own: ModBlockEntities registers ModHopperBlockEntity for all mod hoppers; the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
-          ]
-        },
-        "de": {
-          "summary": "Der Netherittrichter ist nach dem Enderittrichter die zweitschnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
-          "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks, Enderittrichter 1 Tick; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
-            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
-            "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled'); der Ticker läuft nur serverseitig.",
-            "Härte 5,0 und Explosionswiderstand 1200; Klang SoundType.NETHERITE_BLOCK; noOcclusion gesetzt.",
-            "Das Item ist als feuerfest (fireResistant) registriert.",
-            "5 Slots; Menü, Filter-Taste, Filter und Speicherung ('FilterMode', 'TransferCooldown' neben den Items) sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
-            "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
-            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter und behält Items und Filtermodus, also auch seinen Filter (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen wird er weiter zum Enderittrichter geschmiedet (1 Tick Wartezeit); der Tooltip des Items weist darauf hin.",
-            "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
-            "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
-            "Die Spieltests zu den drei Filtermodi und zur Menü-Bindung des Pakets für den Modus-Wechsel (HopperAndTrimTests) werden an einem gesetzten Netherittrichter ausgeführt."
-          ],
-          "controls": [
-            "Rechtsklick auf den Block öffnet das Menü.",
-            "Klick auf die Filter-Taste rechts neben den fünf Slots schaltet den Filter der Reihe nach um: Aus (rotes Kreuz) → Exakt gleich (grünes Häkchen) → Gleiche Art (drei gelbe Quadrate) → Aus.",
-            "Bei aktivem Filter: Jedes Item, das du in einen leeren Trichter-Slot legst (Klick, Hotbar-Taste, Ziehen oder Shift-Klick), wird zum Filter dieses Slots; auf einen belegten Slot passt nur ein passendes Item.",
-            "Herausnehmen ist ein normaler Klick; wer das letzte Item eines Slots nimmt, löscht dessen Filter.",
-            "Maus über der Filter-Taste zeigt den Modus-Namen (rot/grün/gelb)."
-          ],
-          "caveats": [
-            "Bei aktivem Filter nimmt ein leerer Slot von Automatik nichts an; jeder der fünf Slots muss sein erstes Item von einem Spieler im Menü bekommen.",
-            "Der Filter entscheidet, was in den Trichter hinein darf, und hält das letzte Item jedes Slots zurück; was über diesem einen Item liegt, wird ungefiltert in den Zielbehälter geschoben.",
-            "Die Symbole auf der Filter-Taste (Kreuz, Häkchen, Quadrate) sind gezeichnet, kein Text, und bleiben in jeder Sprache gleich; die übrigen Menü-Texte sind übersetzt.",
-            "Der Server nimmt Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-            "Der Netherittrichter hat keine eigene Sonderlogik: ModBlockEntities registriert für alle Trichter der Mod ModHopperBlockEntity; die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-          "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-          "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
-          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:netherite_hopper_minecart",
-      "name": {
-        "en_us": "Netherite Hopper Minecart",
-        "de_de": "Netherit-Trichterlore"
-      },
-      "texture": "assets/textures/item/netherite_hopper_minecart.png",
-      "craftedBy": [
-        "simplebuilding:netherite_hopper_minecart",
-        "simplebuilding:netherite_hopper_minecart_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_hopper_minecart_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/netherite_hopper_minecart.png",
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper that rides along."
-          ],
-          "use": [
-            "Takes in up to 4 items per tick (vanilla's hopper minecart takes 1) and filters like the hopper block of its tier."
-          ],
-          "secret": [
-            "It is the same speed-up as the mod hopper over the vanilla hopper, now on rails."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter, der mitfährt."
-          ],
-          "use": [
-            "Nimmt bis zu 4 Gegenstände pro Tick auf (die Vanilla-Lore mit Trichter nimmt 1) und filtert wie der Trichterblock seiner Stufe."
-          ],
-          "secret": [
-            "Es ist dieselbe Beschleunigung wie beim Mod-Trichter gegenüber dem Vanilla-Trichter, nun auf Schienen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
-          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-          "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
-          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
-          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
-        ],
-        "en": {
-          "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
-          "details": [
-            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
-            "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
-            "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
-            "Breaking it drops the cart item and its contents; it shows the tier hopper."
-          ]
-        },
-        "de": {
-          "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
-          "details": [
-            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
-            "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
-            "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
-            "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_paint_box",
       "name": {
         "en_us": "Netherite Paint Box",
@@ -18191,6 +17646,69 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/nihil_end_stone.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_obsidian",
+      "name": {
+        "en_us": "Nihil Obsidian",
+        "de_de": "Nihil-Obsidian"
+      },
+      "texture": "assets/textures/block/nihil_obsidian.png",
+      "craftedBy": [
+        "simplebuilding:nihil_obsidian"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_obsidian.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Blazing Obsidian that met the void: the embers went out and navy light stayed."
+          ],
+          "use": [
+            "Eight Nihilith Shards around crying obsidian make it. A 5 x 5 floor of it under the Astral Enchanter adds 20 strength once the shelves give 30, enough for 60; under the Dark Enchanter it counts like Blazing Obsidian."
+          ],
+          "secret": [
+            "Mixing both obsidians still makes a floor, but the Astral Enchanter then counts it only half."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Lohen-Obsidian, der der Leere begegnet ist: Die Glut erlosch, navyblaues Licht blieb."
+          ],
+          "use": [
+            "Acht Nihilith-Splitter um weinenden Obsidian ergeben ihn. Ein 5 x 5 großer Boden unter dem Astral Enchanter gibt 20 Stärke dazu, sobald die Regale 30 liefern, genug für 60; unter dem Dark Enchanter zählt er wie Lohen-Obsidian."
+          ],
+          "secret": [
+            "Gemischt aus beiden Obsidianen ist es noch ein Boden, aber der Astral Enchanter zählt ihn dann nur halb."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "Blazing Obsidian with Nihilith (owner 03.11.): navy/void light instead of embers. A 5x5 floor of it under Simple Enchanting's Astral Enchanter adds 20 strength once the shelves give 30 (60 with 15 blazewood bookshelves); under the Dark Enchanter it counts like Blazing Obsidian.",
+          "details": [
+            "Recipe: 8 Nihilith Shards around 1 Crying Obsidian.",
+            "Light level 10, mined with a diamond pickaxe or better; navy motes rise from every free face and fly to the book of an enchanter standing on the 5x5 around it.",
+            "A floor mixed of Blazing and Nihil Obsidian counts at the Dark Enchanter in full and at the Astral Enchanter only half (block tags simpleenchanting:obsidian_floor and simpleenchanting:nihil_floor)."
+          ]
+        },
+        "de": {
+          "summary": "Lohen-Obsidian mit Nihilit (Besitzer 03.11.): Navy-/Void-Licht statt Glut. Ein 5x5-Boden daraus unter dem Astral Enchanter (Simple Enchanting) gibt 20 Stärke dazu, sobald die Regale 30 ergeben (60 mit 15 Lohen-Bücherregalen); unter dem Dark Enchanter zählt er wie Lohen-Obsidian.",
+          "details": [
+            "Rezept: 8 Nihilith-Splitter um 1 weinenden Obsidian.",
+            "Lichtstufe 10, abbaubar ab Diamant-Spitzhacke; navyblaue Funken steigen aus jeder freien Seite und fliegen zum Buch eines Verzauberers auf der 5x5-Fläche darum.",
+            "Ein aus Lohen- und Nihil-Obsidian gemischter Boden zählt am Dark Enchanter voll, am Astral Enchanter nur halb (Block-Tags simpleenchanting:obsidian_floor und simpleenchanting:nihil_floor)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19555,6 +19073,7 @@
         "simplebuilding:bridge_redstone",
         "simplebuilding:ender_quartz",
         "simplebuilding:nihil_end_stone",
+        "simplebuilding:nihil_obsidian",
         "simplebuilding:nihil_purpur_block",
         "simplebuilding:nihil_redstone",
         "simplebuilding:nihil_vault",
@@ -25837,212 +25356,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:reinforced_hopper",
-      "name": {
-        "en_us": "Reinforced Hopper",
-        "de_de": "Verstärkter Trichter"
-      },
-      "texture": "assets/textures/item/reinforced_hopper.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_hopper_from_crafting"
-      ],
-      "usedIn": [
-        "simplebuilding:reinforced_hopper_minecart"
-      ],
-      "trades": [],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper in a hurry."
-          ],
-          "use": [
-            "Waits only 4 ticks after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
-          ],
-          "secret": [
-            "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Craft: 5 hoppers, a name tag, 3 Cracked Diamonds."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter in Eile."
-          ],
-          "use": [
-            "Wartet nach jeder Übertragung nur 4 Ticks. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
-          ],
-          "secret": [
-            "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Herstellung: 5 Trichter, ein Namensschild, 3 Rissige Diamanten."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Reinforced Hopper is a faster hopper: it waits only 4 ticks after every successful item transfer, and it adds an item filter with three modes that you set up in its menu.",
-          "details": [
-            "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, 1 for ENDERITE_HOPPER, fallback 8; the block logic is only registered for those three blocks).",
-            "Per transfer it pushes exactly one item into the container it faces (insert() removes 1 item and stops after the first success) and in the same tick pulls items in from above via HopperBlockEntity.suckInItems as long as it is not full; the cooldown is only set when something actually moved.",
-            "It only moves items while it is not powered by redstone (the 'enabled' block state is checked before every transfer); the ticker runs on the server only (getTicker returns null on the client).",
-            "5 slots (getContainerSize = 5); the menu is drawn in the mod's container style (with that style switched off: the vanilla hopper background, textures/gui/container/hopper.png) and carries the vanilla hopper title (container.hopper).",
-            "Hardness 3.0 and blast resistance 4.8; SoundType.METAL; noOcclusion set.",
-            "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
-            "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
-            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "Recipe (yields 1, category redstone, shapeless): one Hopper, one Name Tag and one Cracked Diamond (simplebuilding:cracked_diamond); unlocked as soon as you own a minecraft:hopper.",
-            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items and filter mode, and so with its filter (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
-            "Filter mode and transfer cooldown are saved with the block next to its items (keys 'FilterMode', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost. A 'GhostItems' list from older saves is ignored.",
-            "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
-            "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
-          ],
-          "controls": [
-            "Right-click the block to open the menu (useWithoutItem; the menu is opened on the server only).",
-            "Clicking the filter key to the right of the five slots cycles the filter: Disabled (red cross) -> Exact Match (green check) -> Type Match (three yellow squares) -> Disabled.",
-            "With the filter on: put any item into an empty hopper slot (click, hotbar key, drag or shift click) and it becomes that slot's filter; onto a filled slot only a matching item can be placed.",
-            "Taking items out is a normal click; taking the last item of a slot clears that slot's filter.",
-            "Hovering over the filter key shows the mode name (red/green/yellow)."
-          ],
-          "caveats": [
-            "With the filter on, an empty slot takes nothing from automation (canPlaceItem returns false); each of the five slots has to get its first item from a player in the menu.",
-            "The filter decides what may enter the hopper (canPlaceItem) and holds back the last item of each slot; whatever lies above that one item is pushed into the target container unfiltered.",
-            "The symbols on the filter key (cross, check, squares) are drawn, not text, and stay the same in every language; the other menu texts are translated.",
-            "The server only accepts mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open."
-          ]
-        },
-        "de": {
-          "summary": "Der Verstärkte Trichter ist ein Trichter, der nach jedem erfolgreichen Item-Transfer nur 4 Ticks wartet und zusätzlich einen im Menü einstellbaren Item-Filter mit drei Modi besitzt.",
-          "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, 1 für ENDERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese drei Blöcke registriert).",
-            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt (insert() entfernt 1 Item und bricht nach dem ersten Erfolg ab), und zieht im selben Tick über HopperBlockEntity.suckInItems Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
-            "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled' wird vor jedem Transfer geprüft); der Ticker läuft ausschließlich serverseitig (getTicker liefert auf dem Client null).",
-            "5 Slots (getContainerSize = 5); das Menü ist im Behälter-Stil der Mod gezeichnet (ist der Stil abgeschaltet: die Trichter-Oberfläche des Spiels, textures/gui/container/hopper.png) und trägt den Titel des normalen Trichters (container.hopper).",
-            "Härte 3,0 und Explosionswiderstand 4,8; Klang SoundType.METAL; noOcclusion gesetzt.",
-            "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
-            "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
-            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Rezept (ergibt 1 Stück, Kategorie redstone, formlos): ein Trichter, ein Namensschild und ein Rissiger Diamant (simplebuilding:cracked_diamond); freigeschaltet, sobald man einen minecraft:hopper besitzt.",
-            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items und Filtermodus, also auch samt Filter, zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
-            "Filtermodus und Wartezeit werden neben den Items mit dem Block gespeichert (Schlüssel 'FilterMode', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Aus zurück, statt zu werfen – es geht nichts verloren. Eine 'GhostItems'-Liste aus älteren Spielständen wird ignoriert.",
-            "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
-            "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
-          ],
-          "controls": [
-            "Rechtsklick auf den Block öffnet das Menü (useWithoutItem, nur serverseitig geöffnet).",
-            "Klick auf die Filter-Taste rechts neben den fünf Slots schaltet den Filter der Reihe nach um: Aus (rotes Kreuz) → Exakt gleich (grünes Häkchen) → Gleiche Art (drei gelbe Quadrate) → Aus.",
-            "Bei aktivem Filter: Jedes Item, das du in einen leeren Trichter-Slot legst (Klick, Hotbar-Taste, Ziehen oder Shift-Klick), wird zum Filter dieses Slots; auf einen belegten Slot passt nur ein passendes Item.",
-            "Herausnehmen ist ein normaler Klick; wer das letzte Item eines Slots nimmt, löscht dessen Filter.",
-            "Maus über der Filter-Taste zeigt den Modus-Namen (rot/grün/gelb)."
-          ],
-          "caveats": [
-            "Bei aktivem Filter nimmt ein leerer Slot von Automatik nichts an (canPlaceItem liefert false); jeder der fünf Slots muss sein erstes Item von einem Spieler im Menü bekommen.",
-            "Der Filter entscheidet, was in den Trichter hinein darf (canPlaceItem), und hält das letzte Item jedes Slots zurück; was über diesem einen Item liegt, wird ungefiltert in den Zielbehälter geschoben.",
-            "Die Symbole auf der Filter-Taste (Kreuz, Häkchen, Quadrate) sind gezeichnet, kein Text, und bleiben in jeder Sprache gleich; die übrigen Menü-Texte sind übersetzt.",
-            "Der Server nimmt Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-          "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-          "src/main/java/com/simplebuilding/platform/HopperMenus.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
-          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
-        ]
-      },
-      "hasCustomBehaviour": true
-    },
-    {
-      "id": "simplebuilding:reinforced_hopper_minecart",
-      "name": {
-        "en_us": "Reinforced Hopper Minecart",
-        "de_de": "Verstärkte Trichterlore"
-      },
-      "texture": "assets/textures/item/reinforced_hopper_minecart.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_hopper_minecart"
-      ],
-      "usedIn": [
-        "simplebuilding:netherite_hopper_minecart_smithing"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/reinforced_hopper_minecart.png",
-      "properties": {
-        "maxStackSize": 1
-      },
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper that rides along."
-          ],
-          "use": [
-            "Takes in up to 2 items per tick (vanilla's hopper minecart takes 1) and filters like the hopper block of its tier."
-          ],
-          "secret": [
-            "It is the same speed-up as the mod hopper over the vanilla hopper, now on rails."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter, der mitfährt."
-          ],
-          "use": [
-            "Nimmt bis zu 2 Gegenstände pro Tick auf (die Vanilla-Lore mit Trichter nimmt 1) und filtert wie der Trichterblock seiner Stufe."
-          ],
-          "secret": [
-            "Es ist dieselbe Beschleunigung wie beim Mod-Trichter gegenüber dem Vanilla-Trichter, nun auf Schienen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
-          "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-          "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-          "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
-          "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
-          "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
-        ],
-        "en": {
-          "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
-          "details": [
-            "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
-            "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
-            "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
-            "Breaking it drops the cart item and its contents; it shows the tier hopper."
-          ]
-        },
-        "de": {
-          "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
-          "details": [
-            "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
-            "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
-            "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
-            "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
-          ]
-        }
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:reinforced_paint_box",
       "name": {
         "en_us": "Reinforced Paint Box",
@@ -29205,82 +28518,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:astral_enchanting_table",
-      "name": {
-        "en_us": "Enchanter",
-        "de_de": "Verzauberer"
-      },
-      "texture": "assets/textures/block/astral_enchanting_table_side.png",
-      "craftedBy": [],
-      "usedIn": [],
-      "trades": [],
-      "icon": "assets/textures/render/astral_enchanting_table.png",
-      "lootTable": "simplebuilding:blocks/astral_enchanting_table",
-      "drops": [
-        "minecraft:enchanting_table",
-        "simpleores:enderite_ingot"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "A table where the stars hold still while you choose."
-          ],
-          "use": [
-            "Pick your enchantments yourself: three random ones that fit the item, each with a slider from 0 to its maximum, paid from a level budget that the bookshelves around it set."
-          ],
-          "secret": [
-            "Hit an enchanting table 20 times with a Netherite Sledgehammer while holding an Enderite Nugget in your off hand: it becomes this. Blazewood shelves count double, a Blazing Obsidian floor adds strength. Break it and table and nugget return."
-          ]
-        },
-        "de": {
-          "lore": [
-            "Ein Tisch, an dem die Sterne stillhalten, während du wählst."
-          ],
-          "use": [
-            "Wähle deine Verzauberungen selbst: drei zufällige, die zum Gegenstand passen, jede mit einem Regler von 0 bis zu ihrem Maximum, bezahlt aus einem Stufenbudget, das die Bücherregale ringsum festlegen."
-          ],
-          "secret": [
-            "Schlage 20 Mal mit einem Netherit-Vorschlaghammer auf einen Zaubertisch, mit einem Enderitklumpen in der Nebenhand: Er wird dazu. Lohenholz-Regale zählen doppelt, ein Boden aus Lohen-Obsidian gibt Stärke. Abgebaut kommen Tisch und Klumpen zurück."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
-          "details": [
-            "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding 8 Enderite Nuggets in the off hand and keep holding - 16 blows (one nugget per 2 blows) at 35 durability each (560 in all); the 8 nuggets are used up at the last blow. Each hammer tier strikes at its own tempo (Netherite every 20 ticks, Enderite 19).",
-            "Golden apple: put a Golden Apple into the item slot and the button turns into the Enchanted Golden Apple for 40 levels (really taken off), 3 lapis lazuli and 3 blaze powder from the table's stock. The prices of 50 and 60 levels are reserved for the stages of the later enchanter rework (Nether and Enderite stage).",
-            "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
-            "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50 - when all of an offer together would cost more, prices are scaled down so every level less costs less and only the full choice costs 50. So Sharpness V + Looting III costs 32, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
-            "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. The price is the level you need; enchanting uses up only 1 level per started 10 of it (1-5, like Vanilla), and one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
-            "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
-            "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
-          ]
-        },
-        "de": {
-          "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
-          "details": [
-            "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, 8 Enderit-Nuggets in der Nebenhand, und halten - 16 Schläge (alle 2 Schläge ein Nugget) zu je 35 Haltbarkeit (560 insgesamt); die 8 Nuggets werden beim letzten Schlag verbraucht. Jede Hammerstufe schlägt in ihrem eigenen Takt (Netherit alle 20 Ticks, Enderit 19).",
-            "Goldener Apfel: einen Goldenen Apfel in den Item-Platz legen, dann wird der Knopf zum Verzauberten Goldenen Apfel für 40 Level (wirklich abgezogen), 3 Lapislazuli und 3 Lohenstaub aus dem Vorrat des Tisches. Die Preise 50 und 60 Level sind für die Stufen des späteren Verzauberer-Umbaus (Nether- und Enderit-Stufe) vorgemerkt.",
-            "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
-            "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50 - wäre das ganze Angebot teurer, werden die Preise heruntergerechnet, sodass jede Stufe weniger weniger kostet und nur die volle Auswahl 50 kostet. Schärfe V + Plünderung III kostet also 32, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
-            "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Der Preis ist die benötigte Stufe; Verzaubern verbraucht nur 1 Level je angefangene 10 davon (1-5, wie Vanilla), und einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
-            "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
-            "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
-          "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-        ]
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:astral_end_stone",
       "name": {
         "en_us": "Astral End Stone",
@@ -30648,10 +29885,10 @@
             "Crying obsidian's glowing sibling: where the other weeps, this one burns."
           ],
           "use": [
-            "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+            "A decorative block that gives light. Its job is at the Dark Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30. Under the Astral Enchanter it works only half."
           ],
           "secret": [
-            "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
+            "The floor only counts under the enchanters, not the vanilla table, so build it once the shelves are complete."
           ]
         },
         "de": {
@@ -30659,28 +29896,28 @@
             "Das leuchtende Geschwister des weinenden Obsidians: Wo der andere weint, brennt dieser."
           ],
           "use": [
-            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Verzauberer: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern."
+            "Ein Dekoblock, der Licht gibt. Seine Aufgabe liegt am Dark Enchanter: Ein 5 x 5 großer Boden direkt darunter gibt 10 Stärke dazu, sobald die Regale 30 liefern. Unter dem Astral Enchanter wirkt er nur halb."
           ],
           "secret": [
-            "Der Boden zählt nur unter dem Verzauberer, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
+            "Der Boden zählt nur unter den Verzauberern, nicht am Vanilla-Tisch. Bau ihn also erst, wenn die Regale vollständig sind."
           ]
         }
       },
       "note": {
         "en": {
-          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
+          "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under Simple Enchanting's Dark Enchanter adds 10 strength once the shelves give 30; under the Astral Enchanter only half.",
           "details": [
             "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under an Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
+            "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under a Dark or Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
             "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
             "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
           ]
         },
         "de": {
-          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+          "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Dark Enchanter (Simple Enchanting) gibt 10 Stärke dazu, sobald die Regale 30 ergeben; unter dem Astral Enchanter nur halb so viel.",
           "details": [
             "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Astral-Verzauberer (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
+            "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Dark oder Astral Enchanter (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
             "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
             "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
           ]
@@ -33377,119 +32614,6 @@
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:enderite_hopper",
-      "name": {
-        "en_us": "Enderite Hopper",
-        "de_de": "Enderittrichter"
-      },
-      "texture": "assets/textures/block/enderite_hopper_outside.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:enderite_hopper_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/block/enderite_hopper.png",
-      "lootTable": "simplebuilding:blocks/enderite_hopper",
-      "drops": [
-        "simplebuilding:enderite_hopper"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper so fast it seems to have always been done."
-          ],
-          "use": [
-            "Waits only 1 tick after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
-          ],
-          "secret": [
-            "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Hammer a Netherite Hopper with an Enderite Nugget."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter, so schnell, als wäre er immer schon fertig."
-          ],
-          "use": [
-            "Wartet nach jeder Übertragung nur 1 Tick. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
-          ],
-          "secret": [
-            "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Hämmere einen Netherit-Trichter mit einem Enderitklumpen."
-          ]
-        }
-      },
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
-        ],
-        "en": {
-          "summary": "The Enderite Hopper is the fastest hopper: it waits only 1 tick after every transfer, so it moves an item every tick, with the same item filter as the Reinforced and Netherite Hoppers. It is hammered out of a Netherite Hopper.",
-          "details": [
-            "After every successful transfer it waits 1 tick (ModHopperBlockEntity.insertAndExtract: speed = 1 for ENDERITE_HOPPER; Netherite 2, Reinforced 4, fallback 8).",
-            "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved. It only moves items while it is not powered by redstone.",
-            "Same block class (ModHopperBlock), block entity type (simplebuilding:mod_hopper) and menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper) as the other two tiers: 5 slots, filter key with Disabled, Exact Match and Type Match, the item lying in each slot as that slot's filter, saved as 'FilterMode' and 'TransferCooldown' next to the items.",
-            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Hopper with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items and filter mode stay in the hopper, and with them its filter.",
-            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. noOcclusion is set.",
-            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
-            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the tab \"SimpleMachines\" right after its Netherite sibling.",
-            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
-          ],
-          "controls": [
-            "Right-click the block to open the filter menu, as on the other mod hoppers."
-          ],
-          "caveats": [
-            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
-            "No game test measures its speed yet."
-          ]
-        },
-        "de": {
-          "summary": "Der Enderittrichter ist der schnellste Trichter: Nach jedem Transfer wartet er nur 1 Tick, er bewegt also in jedem Tick ein Item, mit demselben Item-Filter wie der Verstärkte und der Netherittrichter. Er wird aus einem Netherittrichter geschmiedet.",
-          "details": [
-            "Nach jedem erfolgreichen Transfer wartet er 1 Tick (ModHopperBlockEntity.insertAndExtract: speed = 1 für ENDERITE_HOPPER; Netherit 2, Verstärkt 4, Fallback 8).",
-            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn wirklich etwas bewegt wurde. Er bewegt nur Items, solange er nicht per Redstone gesperrt ist.",
-            "Dieselbe Blockklasse (ModHopperBlock), derselbe Block-Entity-Typ (simplebuilding:mod_hopper) und dasselbe Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter) wie die anderen beiden Stufen: 5 Slots, Filter-Taste mit Aus, Exakt gleich und Gleiche Art, das Item in jedem Slot als Filter dieses Slots, gespeichert als 'FilterMode' und 'TransferCooldown' neben den Items.",
-            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherittrichter halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Items und Filtermodus bleiben im Trichter und damit auch sein Filter.",
-            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Trichter kopiert (ofFullCopy(Blocks.HOPPER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. noOcclusion ist gesetzt.",
-            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
-            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus im Reiter „SimpleMachines“ direkt nach seinem Netherit-Geschwister.",
-            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
-          ],
-          "controls": [
-            "Rechtsklick auf den Block öffnet das Filter-Menü, wie bei den anderen Mod-Trichtern."
-          ],
-          "caveats": [
-            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Klumpen bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
-            "Noch kein Spieltest misst seine Geschwindigkeit."
-          ]
-        }
-      },
-      "machine": {
-        "kind": "hopper",
-        "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:279",
-        "cooldownTicks": 1,
-        "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_launchpad",
@@ -36981,145 +36105,6 @@
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:netherite_hopper",
-      "name": {
-        "en_us": "Netherite Hopper",
-        "de_de": "Netherittrichter"
-      },
-      "texture": "assets/textures/block/netherite_hopper_outside.png",
-      "craftedBy": [],
-      "usedIn": [
-        "simplebuilding:netherite_hopper_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/block/netherite_hopper.png",
-      "lootTable": "simplebuilding:blocks/netherite_hopper",
-      "drops": [
-        "simplebuilding:netherite_hopper"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper with fire in its pipes."
-          ],
-          "use": [
-            "Waits only 2 ticks after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
-          ],
-          "secret": [
-            "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Hammer a Reinforced Hopper with a Netherite Nugget."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter mit Feuer in den Rohren."
-          ],
-          "use": [
-            "Wartet nach jeder Übertragung nur 2 Ticks. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
-          ],
-          "secret": [
-            "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Hämmere einen Verstärkten Trichter mit einem Netheritklumpen."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Netherite Hopper is the second fastest hopper tier after the Enderite Hopper: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
-          "details": [
-            "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks, Enderite Hopper 1 tick; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
-            "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved.",
-            "It only moves items while it is not powered by redstone (the 'enabled' block state); the ticker runs on the server only.",
-            "Hardness 5.0 and blast resistance 1200; SoundType.NETHERITE_BLOCK; noOcclusion set.",
-            "The item is registered as fire resistant (fireResistant).",
-            "5 slots; menu, filter key, filter and storage ('FilterMode', 'TransferCooldown' next to the items) are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
-            "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
-            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "No crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items and filter mode, and so its filter (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Hopper (1 tick of cooldown); the item's tooltip says so.",
-            "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
-            "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
-            "The game tests for the three filter modes and for the menu binding of the mode change payload (HopperAndTrimTests) are run on a placed Netherite Hopper."
-          ],
-          "controls": [
-            "Right-click the block to open the menu.",
-            "Clicking the filter key to the right of the five slots cycles the filter: Disabled (red cross) -> Exact Match (green check) -> Type Match (three yellow squares) -> Disabled.",
-            "With the filter on: put any item into an empty hopper slot (click, hotbar key, drag or shift click) and it becomes that slot's filter; onto a filled slot only a matching item can be placed.",
-            "Taking items out is a normal click; taking the last item of a slot clears that slot's filter.",
-            "Hovering over the filter key shows the mode name (red/green/yellow)."
-          ],
-          "caveats": [
-            "With the filter on, an empty slot takes nothing from automation; each of the five slots has to get its first item from a player in the menu.",
-            "The filter decides what may enter the hopper and holds back the last item of each slot; whatever lies above that one item is pushed into the target container unfiltered.",
-            "The symbols on the filter key (cross, check, squares) are drawn, not text, and stay the same in every language; the other menu texts are translated.",
-            "The server only accepts mode changes while the player has a mod hopper's menu open.",
-            "The Netherite Hopper has no special logic of its own: ModBlockEntities registers ModHopperBlockEntity for all mod hoppers; the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
-          ]
-        },
-        "de": {
-          "summary": "Der Netherittrichter ist nach dem Enderittrichter die zweitschnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
-          "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks, Enderittrichter 1 Tick; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
-            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
-            "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled'); der Ticker läuft nur serverseitig.",
-            "Härte 5,0 und Explosionswiderstand 1200; Klang SoundType.NETHERITE_BLOCK; noOcclusion gesetzt.",
-            "Das Item ist als feuerfest (fireResistant) registriert.",
-            "5 Slots; Menü, Filter-Taste, Filter und Speicherung ('FilterMode', 'TransferCooldown' neben den Items) sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
-            "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
-            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter und behält Items und Filtermodus, also auch seinen Filter (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen wird er weiter zum Enderittrichter geschmiedet (1 Tick Wartezeit); der Tooltip des Items weist darauf hin.",
-            "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
-            "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
-            "Die Spieltests zu den drei Filtermodi und zur Menü-Bindung des Pakets für den Modus-Wechsel (HopperAndTrimTests) werden an einem gesetzten Netherittrichter ausgeführt."
-          ],
-          "controls": [
-            "Rechtsklick auf den Block öffnet das Menü.",
-            "Klick auf die Filter-Taste rechts neben den fünf Slots schaltet den Filter der Reihe nach um: Aus (rotes Kreuz) → Exakt gleich (grünes Häkchen) → Gleiche Art (drei gelbe Quadrate) → Aus.",
-            "Bei aktivem Filter: Jedes Item, das du in einen leeren Trichter-Slot legst (Klick, Hotbar-Taste, Ziehen oder Shift-Klick), wird zum Filter dieses Slots; auf einen belegten Slot passt nur ein passendes Item.",
-            "Herausnehmen ist ein normaler Klick; wer das letzte Item eines Slots nimmt, löscht dessen Filter.",
-            "Maus über der Filter-Taste zeigt den Modus-Namen (rot/grün/gelb)."
-          ],
-          "caveats": [
-            "Bei aktivem Filter nimmt ein leerer Slot von Automatik nichts an; jeder der fünf Slots muss sein erstes Item von einem Spieler im Menü bekommen.",
-            "Der Filter entscheidet, was in den Trichter hinein darf, und hält das letzte Item jedes Slots zurück; was über diesem einen Item liegt, wird ungefiltert in den Zielbehälter geschoben.",
-            "Die Symbole auf der Filter-Taste (Kreuz, Häkchen, Quadrate) sind gezeichnet, kein Text, und bleiben in jeder Sprache gleich; die übrigen Menü-Texte sind übersetzt.",
-            "Der Server nimmt Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-            "Der Netherittrichter hat keine eigene Sonderlogik: ModBlockEntities registriert für alle Trichter der Mod ModHopperBlockEntity; die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-          "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-          "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
-          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
-        ]
-      },
-      "machine": {
-        "kind": "hopper",
-        "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:274",
-        "cooldownTicks": 2,
-        "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
-      },
-      "hasCustomBehaviour": true
-    },
-    {
       "id": "simplebuilding:netherite_launchpad",
       "name": {
         "en_us": "Netherite Launchpad II",
@@ -37381,6 +36366,73 @@
       "drops": [
         "simplebuilding:nihil_end_stone"
       ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihil_obsidian",
+      "name": {
+        "en_us": "Nihil Obsidian",
+        "de_de": "Nihil-Obsidian"
+      },
+      "texture": "assets/textures/block/nihil_obsidian.png",
+      "craftedBy": [
+        "simplebuilding:nihil_obsidian"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihil_obsidian.png",
+      "lootTable": "simplebuilding:blocks/nihil_obsidian",
+      "drops": [
+        "simplebuilding:nihil_obsidian"
+      ],
+      "questionary": {
+        "en": {
+          "lore": [
+            "Blazing Obsidian that met the void: the embers went out and navy light stayed."
+          ],
+          "use": [
+            "Eight Nihilith Shards around crying obsidian make it. A 5 x 5 floor of it under the Astral Enchanter adds 20 strength once the shelves give 30, enough for 60; under the Dark Enchanter it counts like Blazing Obsidian."
+          ],
+          "secret": [
+            "Mixing both obsidians still makes a floor, but the Astral Enchanter then counts it only half."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Lohen-Obsidian, der der Leere begegnet ist: Die Glut erlosch, navyblaues Licht blieb."
+          ],
+          "use": [
+            "Acht Nihilith-Splitter um weinenden Obsidian ergeben ihn. Ein 5 x 5 großer Boden unter dem Astral Enchanter gibt 20 Stärke dazu, sobald die Regale 30 liefern, genug für 60; unter dem Dark Enchanter zählt er wie Lohen-Obsidian."
+          ],
+          "secret": [
+            "Gemischt aus beiden Obsidianen ist es noch ein Boden, aber der Astral Enchanter zählt ihn dann nur halb."
+          ]
+        }
+      },
+      "note": {
+        "en": {
+          "summary": "Blazing Obsidian with Nihilith (owner 03.11.): navy/void light instead of embers. A 5x5 floor of it under Simple Enchanting's Astral Enchanter adds 20 strength once the shelves give 30 (60 with 15 blazewood bookshelves); under the Dark Enchanter it counts like Blazing Obsidian.",
+          "details": [
+            "Recipe: 8 Nihilith Shards around 1 Crying Obsidian.",
+            "Light level 10, mined with a diamond pickaxe or better; navy motes rise from every free face and fly to the book of an enchanter standing on the 5x5 around it.",
+            "A floor mixed of Blazing and Nihil Obsidian counts at the Dark Enchanter in full and at the Astral Enchanter only half (block tags simpleenchanting:obsidian_floor and simpleenchanting:nihil_floor)."
+          ]
+        },
+        "de": {
+          "summary": "Lohen-Obsidian mit Nihilit (Besitzer 03.11.): Navy-/Void-Licht statt Glut. Ein 5x5-Boden daraus unter dem Astral Enchanter (Simple Enchanting) gibt 20 Stärke dazu, sobald die Regale 30 ergeben (60 mit 15 Lohen-Bücherregalen); unter dem Dark Enchanter zählt er wie Lohen-Obsidian.",
+          "details": [
+            "Rezept: 8 Nihilith-Splitter um 1 weinenden Obsidian.",
+            "Lichtstufe 10, abbaubar ab Diamant-Spitzhacke; navyblaue Funken steigen aus jeder freien Seite und fliegen zum Buch eines Verzauberers auf der 5x5-Fläche darum.",
+            "Ein aus Lohen- und Nihil-Obsidian gemischter Boden zählt am Dark Enchanter voll, am Astral Enchanter nur halb (Block-Tags simpleenchanting:obsidian_floor und simpleenchanting:nihil_floor)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -40500,148 +39552,6 @@
         ]
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:reinforced_hopper",
-      "name": {
-        "en_us": "Reinforced Hopper",
-        "de_de": "Verstärkter Trichter"
-      },
-      "texture": "assets/textures/block/reinforced_hopper_outside.png",
-      "craftedBy": [
-        "simplebuilding:reinforced_hopper_from_crafting"
-      ],
-      "usedIn": [
-        "simplebuilding:reinforced_hopper_minecart"
-      ],
-      "trades": [],
-      "icon": "assets/textures/render/block/reinforced_hopper.png",
-      "lootTable": "simplebuilding:blocks/reinforced_hopper",
-      "drops": [
-        "simplebuilding:reinforced_hopper"
-      ],
-      "questionary": {
-        "en": {
-          "lore": [
-            "{name}: a hopper in a hurry."
-          ],
-          "use": [
-            "Waits only 4 ticks after each transfer. It adds an item filter with three modes in its menu: disabled, exact match, type match."
-          ],
-          "secret": [
-            "With a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. Craft: 5 hoppers, a name tag, 3 Cracked Diamonds."
-          ]
-        },
-        "de": {
-          "lore": [
-            "{name}: ein Trichter in Eile."
-          ],
-          "use": [
-            "Wartet nach jeder Übertragung nur 4 Ticks. Er bringt einen Gegenstandsfilter mit drei Modi im Menü mit: aus, exakt, Typ."
-          ],
-          "secret": [
-            "Bei aktivem Filter ist der echte Gegenstand im Platz dessen Filter, und einer davon bleibt immer im Platz. Herstellung: 5 Trichter, ein Namensschild, 3 Rissige Diamanten."
-          ]
-        }
-      },
-      "note": {
-        "en": {
-          "summary": "The Reinforced Hopper is a faster hopper: it waits only 4 ticks after every successful item transfer, and it adds an item filter with three modes that you set up in its menu.",
-          "details": [
-            "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, 1 for ENDERITE_HOPPER, fallback 8; the block logic is only registered for those three blocks).",
-            "Per transfer it pushes exactly one item into the container it faces (insert() removes 1 item and stops after the first success) and in the same tick pulls items in from above via HopperBlockEntity.suckInItems as long as it is not full; the cooldown is only set when something actually moved.",
-            "It only moves items while it is not powered by redstone (the 'enabled' block state is checked before every transfer); the ticker runs on the server only (getTicker returns null on the client).",
-            "5 slots (getContainerSize = 5); the menu is drawn in the mod's container style (with that style switched off: the vanilla hopper background, textures/gui/container/hopper.png) and carries the vanilla hopper title (container.hopper).",
-            "Hardness 3.0 and blast resistance 4.8; SoundType.METAL; noOcclusion set.",
-            "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
-            "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
-            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "Recipe (yields 1, category redstone, shapeless): one Hopper, one Name Tag and one Cracked Diamond (simplebuilding:cracked_diamond); unlocked as soon as you own a minecraft:hopper.",
-            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items and filter mode, and so with its filter (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
-            "Filter mode and transfer cooldown are saved with the block next to its items (keys 'FilterMode', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost. A 'GhostItems' list from older saves is ignored.",
-            "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
-            "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
-          ],
-          "controls": [
-            "Right-click the block to open the menu (useWithoutItem; the menu is opened on the server only).",
-            "Clicking the filter key to the right of the five slots cycles the filter: Disabled (red cross) -> Exact Match (green check) -> Type Match (three yellow squares) -> Disabled.",
-            "With the filter on: put any item into an empty hopper slot (click, hotbar key, drag or shift click) and it becomes that slot's filter; onto a filled slot only a matching item can be placed.",
-            "Taking items out is a normal click; taking the last item of a slot clears that slot's filter.",
-            "Hovering over the filter key shows the mode name (red/green/yellow)."
-          ],
-          "caveats": [
-            "With the filter on, an empty slot takes nothing from automation (canPlaceItem returns false); each of the five slots has to get its first item from a player in the menu.",
-            "The filter decides what may enter the hopper (canPlaceItem) and holds back the last item of each slot; whatever lies above that one item is pushed into the target container unfiltered.",
-            "The symbols on the filter key (cross, check, squares) are drawn, not text, and stay the same in every language; the other menu texts are translated.",
-            "The server only accepts mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open."
-          ]
-        },
-        "de": {
-          "summary": "Der Verstärkte Trichter ist ein Trichter, der nach jedem erfolgreichen Item-Transfer nur 4 Ticks wartet und zusätzlich einen im Menü einstellbaren Item-Filter mit drei Modi besitzt.",
-          "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, 1 für ENDERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese drei Blöcke registriert).",
-            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt (insert() entfernt 1 Item und bricht nach dem ersten Erfolg ab), und zieht im selben Tick über HopperBlockEntity.suckInItems Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
-            "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled' wird vor jedem Transfer geprüft); der Ticker läuft ausschließlich serverseitig (getTicker liefert auf dem Client null).",
-            "5 Slots (getContainerSize = 5); das Menü ist im Behälter-Stil der Mod gezeichnet (ist der Stil abgeschaltet: die Trichter-Oberfläche des Spiels, textures/gui/container/hopper.png) und trägt den Titel des normalen Trichters (container.hopper).",
-            "Härte 3,0 und Explosionswiderstand 4,8; Klang SoundType.METAL; noOcclusion gesetzt.",
-            "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
-            "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
-            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Rezept (ergibt 1 Stück, Kategorie redstone, formlos): ein Trichter, ein Namensschild und ein Rissiger Diamant (simplebuilding:cracked_diamond); freigeschaltet, sobald man einen minecraft:hopper besitzt.",
-            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items und Filtermodus, also auch samt Filter, zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
-            "Filtermodus und Wartezeit werden neben den Items mit dem Block gespeichert (Schlüssel 'FilterMode', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Aus zurück, statt zu werfen – es geht nichts verloren. Eine 'GhostItems'-Liste aus älteren Spielständen wird ignoriert.",
-            "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
-            "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
-          ],
-          "controls": [
-            "Rechtsklick auf den Block öffnet das Menü (useWithoutItem, nur serverseitig geöffnet).",
-            "Klick auf die Filter-Taste rechts neben den fünf Slots schaltet den Filter der Reihe nach um: Aus (rotes Kreuz) → Exakt gleich (grünes Häkchen) → Gleiche Art (drei gelbe Quadrate) → Aus.",
-            "Bei aktivem Filter: Jedes Item, das du in einen leeren Trichter-Slot legst (Klick, Hotbar-Taste, Ziehen oder Shift-Klick), wird zum Filter dieses Slots; auf einen belegten Slot passt nur ein passendes Item.",
-            "Herausnehmen ist ein normaler Klick; wer das letzte Item eines Slots nimmt, löscht dessen Filter.",
-            "Maus über der Filter-Taste zeigt den Modus-Namen (rot/grün/gelb)."
-          ],
-          "caveats": [
-            "Bei aktivem Filter nimmt ein leerer Slot von Automatik nichts an (canPlaceItem liefert false); jeder der fünf Slots muss sein erstes Item von einem Spieler im Menü bekommen.",
-            "Der Filter entscheidet, was in den Trichter hinein darf (canPlaceItem), und hält das letzte Item jedes Slots zurück; was über diesem einen Item liegt, wird ungefiltert in den Zielbehälter geschoben.",
-            "Die Symbole auf der Filter-Taste (Kreuz, Häkchen, Quadrate) sind gezeichnet, kein Text, und bleiben in jeder Sprache gleich; die übrigen Menü-Texte sind übersetzt.",
-            "Der Server nimmt Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-          "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-          "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-          "src/main/java/com/simplebuilding/platform/HopperMenus.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-          "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
-          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
-        ]
-      },
-      "machine": {
-        "kind": "hopper",
-        "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:276",
-        "cooldownTicks": 4,
-        "vanillaCooldownTicks": 8,
-        "vanillaCooldownSource": "mc26_3/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_potion_pad",
@@ -55599,96 +54509,6 @@
       }
     },
     {
-      "id": "simplebuilding:enderite_hopper_minecart",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_hopper_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_hopper_minecart.json",
-      "ingredients": [
-        "minecraft:minecart",
-        "simplebuilding:enderite_hopper"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:enderite_hopper"
-        ],
-        [
-          "minecraft:minecart"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplebuilding:enderite_hopper",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:enderite_hopper_minecart_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_hopper_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/enderite_hopper_minecart_smithing.json",
-      "ingredients": [
-        "simplebuilding:netherite_hopper_minecart",
-        "simpleores:enderite_ingot",
-        "simpleores:enderite_upgrade_template"
-      ],
-      "slots": {
-        "template": [
-          "simpleores:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_hopper_minecart"
-        ],
-        "addition": [
-          "simpleores:enderite_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplebuilding:netherite_hopper",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_ingot",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_upgrade_template",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:enderite_horse_armor_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -62672,108 +61492,6 @@
       }
     },
     {
-      "id": "simplebuilding:netherite_hopper_minecart",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_hopper_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_hopper_minecart.json",
-      "ingredients": [
-        "minecraft:minecart",
-        "simplebuilding:netherite_hopper"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:netherite_hopper"
-        ],
-        [
-          "minecraft:minecart"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "simplebuilding:netherite_hopper",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_hopper_minecart_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_hopper_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_hopper_minecart_smithing.json",
-      "ingredients": [
-        "minecraft:netherite_ingot",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:reinforced_hopper_minecart"
-      ],
-      "slots": {
-        "template": [
-          "minecraft:netherite_upgrade_smithing_template"
-        ],
-        "base": [
-          "simplebuilding:reinforced_hopper_minecart"
-        ],
-        "addition": [
-          "minecraft:netherite_ingot"
-        ]
-      },
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 10
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "minecraft:netherite_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:netherite_upgrade_smithing_template",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 1
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 0.111
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:netherite_launchpad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -63070,6 +61788,50 @@
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihil_obsidian",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihil_obsidian",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihil_obsidian.json",
+      "ingredients": [
+        "minecraft:crying_obsidian",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "NNN",
+        "NON",
+        "NNN"
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "O": [
+          "minecraft:crying_obsidian"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 32
+          },
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
           }
         ]
       }
@@ -73605,236 +72367,6 @@
           {
             "id": "minecraft:netherrack",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:reinforced_hopper_from_crafting",
-      "type": "minecraft:crafting_shapeless",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_hopper",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-      "ingredients": [
-        "minecraft:hopper",
-        "minecraft:name_tag",
-        "simplelib:cracked_diamond"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:hopper"
-        ],
-        [
-          "simplelib:cracked_diamond"
-        ],
-        [
-          "minecraft:name_tag"
-        ]
-      ],
-      "variants": [
-        {
-          "lines": [
-            "1.21.11"
-          ],
-          "changes": [
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "minecraft:hopper"
-                ],
-                [
-                  "simplelib:cracked_diamond"
-                ],
-                [
-                  "minecraft:name_tag"
-                ]
-              ],
-              "other": null
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplebuilding:cracked_diamond"
-              ]
-            },
-            {
-              "field": "key",
-              "this": null,
-              "other": {
-                "D": [
-                  "simplebuilding:cracked_diamond"
-                ],
-                "H": [
-                  "minecraft:hopper"
-                ],
-                "N": [
-                  "minecraft:name_tag"
-                ]
-              }
-            },
-            {
-              "field": "pattern",
-              "this": null,
-              "other": [
-                "HNH",
-                "DDD",
-                "HHH"
-              ]
-            },
-            {
-              "field": "result",
-              "this": {
-                "id": "simplebuilding:reinforced_hopper",
-                "count": 1
-              },
-              "other": {
-                "id": "simplebuilding:reinforced_hopper",
-                "count": 5
-              }
-            },
-            {
-              "field": "type",
-              "this": "minecraft:crafting_shapeless",
-              "other": "minecraft:crafting_shaped"
-            }
-          ],
-          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json"
-        },
-        {
-          "lines": [
-            "26.2"
-          ],
-          "changes": [
-            {
-              "field": "ingredientGroups",
-              "this": [
-                [
-                  "minecraft:hopper"
-                ],
-                [
-                  "simplelib:cracked_diamond"
-                ],
-                [
-                  "minecraft:name_tag"
-                ]
-              ],
-              "other": [
-                [
-                  "minecraft:hopper"
-                ],
-                [
-                  "simplebuilding:cracked_diamond"
-                ],
-                [
-                  "minecraft:name_tag"
-                ]
-              ]
-            },
-            {
-              "field": "ingredients",
-              "this": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplelib:cracked_diamond"
-              ],
-              "other": [
-                "minecraft:hopper",
-                "minecraft:name_tag",
-                "simplebuilding:cracked_diamond"
-              ]
-            }
-          ],
-          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json"
-        }
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 5
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 1
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 0.111
-          }
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:reinforced_hopper_minecart",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:reinforced_hopper_minecart",
-        "count": 1
-      },
-      "source": "mc26_3/generated/data/simplebuilding/recipe/reinforced_hopper_minecart.json",
-      "ingredients": [
-        "minecraft:minecart",
-        "simplebuilding:reinforced_hopper"
-      ],
-      "ingredientGroups": [
-        [
-          "simplebuilding:reinforced_hopper"
-        ],
-        [
-          "minecraft:minecart"
-        ]
-      ],
-      "lines": [
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:iron_ingot",
-            "count": 10
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 2
-          },
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 1
-          },
-          {
-            "id": "simplelib:cracked_diamond",
-            "count": 1
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 0.111
           }
         ]
       }
@@ -88330,34 +86862,6 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/loot_table/blocks/ashwood_sheet.json"
     },
     {
-      "id": "simplebuilding:blocks/astral_enchanting_table",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "minecraft:enchanting_table"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        },
-        {
-          "rolls": 1,
-          "items": [
-            "simpleores:enderite_ingot"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astral_enchanting_table.json"
-    },
-    {
       "id": "simplebuilding:blocks/astral_end_stone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -89945,24 +88449,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_flypad.json"
     },
     {
-      "id": "simplebuilding:blocks/enderite_hopper",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:enderite_hopper"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
-    },
-    {
       "id": "simplebuilding:blocks/enderite_launchpad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -91057,24 +89543,6 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_flypad.json"
     },
     {
-      "id": "simplebuilding:blocks/netherite_hopper",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:netherite_hopper"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json"
-    },
-    {
       "id": "simplebuilding:blocks/netherite_launchpad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -91145,6 +89613,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_end_stone.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihil_obsidian",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihil_obsidian"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihil_obsidian.json"
     },
     {
       "id": "simplebuilding:blocks/nihil_piston",
@@ -92323,24 +90809,6 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_flypad.json"
-    },
-    {
-      "id": "simplebuilding:blocks/reinforced_hopper",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simplebuilding:reinforced_hopper"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_potion_pad",
@@ -98397,7 +96865,7 @@
           "required": true
         },
         {
-          "id": "simplebuilding:reinforced_hopper",
+          "id": "simplemachines:reinforced_hopper",
           "required": true
         },
         {
@@ -98704,14 +97172,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_hopper",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_hopper_minecart",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_horse_armor",
           "required": true
         },
@@ -98809,6 +97269,18 @@
         },
         {
           "id": "simplelib:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_hopper",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_hopper_minecart",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_piston",
           "required": true
         },
         {
@@ -98947,14 +97419,6 @@
           "required": true
         },
         {
-          "id": "simplebuilding:enderite_hopper",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_hopper_minecart",
-          "required": true
-        },
-        {
           "id": "simplebuilding:enderite_horse_armor",
           "required": true
         },
@@ -99072,6 +97536,14 @@
         },
         {
           "id": "simplelib:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_hopper",
+          "required": true
+        },
+        {
+          "id": "simplemachines:enderite_hopper_minecart",
           "required": true
         },
         {
@@ -100521,66 +98993,6 @@
       "reload": "restart",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleRiding",
-      "shortName": "enableSimpleRiding",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Simple Mods",
-      "categoryDe": "Simple Mods",
-      "group": null,
-      "groupDe": null,
-      "label": "Enable Simple Riding",
-      "labelDe": "Simple Riding aktivieren",
-      "tooltip": "Turns the bundled Simple Riding module on or off: horseshoes, saddle speed and horse jumps, mount armor utilities and their loot. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Riding ein oder aus: Hufeisen, Sattel-Tempo und Pferdesprung, Reittier-Rüstung und ihre Beute. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleSandwiches",
-      "shortName": "enableSimpleSandwiches",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Simple Mods",
-      "categoryDe": "Simple Mods",
-      "group": null,
-      "groupDe": null,
-      "label": "Enable Simple Sandwiches",
-      "labelDe": "Simple Sandwiches aktivieren",
-      "tooltip": "Turns the bundled Simple Sandwiches module on or off: sandwiches, knives, cutting boards and their recipes in use. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Sandwiches ein oder aus: Sandwiches, Messer, Schneidbretter und ihre Verwendung. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleTweaks",
-      "shortName": "enableSimpleTweaks",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Simple Mods",
-      "categoryDe": "Simple Mods",
-      "group": null,
-      "groupDe": null,
-      "label": "Enable Simple Tweaks",
-      "labelDe": "Simple Tweaks aktivieren",
-      "tooltip": "Turns the bundled Simple Tweaks module on or off: its land claims and legacy tweaks. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Tweaks ein oder aus: seine Grundstücks-Claims und Alt-Tweaks. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableSimpleMoney",
       "shortName": "enableSimpleMoney",
       "type": "boolean",
@@ -100594,6 +99006,26 @@
       "labelDe": "Simple Money aktivieren",
       "tooltip": "Turns the bundled Simple Money module on or off: coins, money trades and treasure loot. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Money ein oder aus: Münzen, Geld-Handel und Schatz-Beute. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleRiding",
+      "shortName": "enableSimpleRiding",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Riding",
+      "labelDe": "Simple Riding aktivieren",
+      "tooltip": "Turns the bundled Simple Riding module on or off: horseshoes, saddle speed and horse jumps, mount armor utilities and their loot. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Riding ein oder aus: Hufeisen, Sattel-Tempo und Pferdesprung, Reittier-Rüstung und ihre Beute. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -100621,6 +99053,26 @@
       "reload": "restart",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleTweaks",
+      "shortName": "enableSimpleTweaks",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Tweaks",
+      "labelDe": "Simple Tweaks aktivieren",
+      "tooltip": "Turns the bundled Simple Tweaks module on or off: its land claims and legacy tweaks. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Tweaks ein oder aus: seine Grundstücks-Claims und Alt-Tweaks. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableSimpleDimensions",
       "shortName": "enableSimpleDimensions",
       "type": "boolean",
@@ -100634,6 +99086,26 @@
       "labelDe": "Simple Dimensions aktivieren",
       "tooltip": "Turns the bundled Simple Dimensions module on or off: configurable dimensions, light arches and linked portals. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Dimensions ein oder aus: einstellbare Dimensionen, Lichtbögen und verbundene Portale. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleSandwiches",
+      "shortName": "enableSimpleSandwiches",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Sandwiches",
+      "labelDe": "Simple Sandwiches aktivieren",
+      "tooltip": "Turns the bundled Simple Sandwiches module on or off: sandwiches, knives, cutting boards and their recipes in use. Off keeps its items and blocks in the world but they do nothing. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Sandwiches ein oder aus: Sandwiches, Messer, Schneidbretter und ihre Verwendung. Aus behält seine Gegenstände und Blöcke in der Welt, sie bewirken aber nichts. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -100901,26 +99373,6 @@
       "reload": "restart",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
       "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleEarth",
-      "shortName": "enableSimpleEarth",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Simple Mods",
-      "categoryDe": "Simple Mods",
-      "group": null,
-      "groupDe": null,
-      "label": "Enable Simple Earth",
-      "labelDe": "Simple Earth aktivieren",
-      "tooltip": "Turns the bundled Simple Earth module on or off: far above the world (activation height, default 1024) the Overworld shows as a cube with map-colored terrain read from the world generator. Off: no orbit, everything stays Vanilla. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Earth ein oder aus: weit über der Welt (Aktivierungshöhe, Standard 1024) erscheint die Oberwelt als Würfel mit Terrain in Kartenfarben aus dem Weltgenerator. Aus: kein Orbit, alles bleibt Vanilla. Gilt nach einem Neustart. Standard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
       "name": "enableSimpleGadgets",
       "shortName": "enableSimpleGadgets",
       "type": "boolean",
@@ -100934,6 +99386,26 @@
       "labelDe": "Simple Gadgets aktivieren",
       "tooltip": "Turns the bundled Simple Gadgets module on or off: the gadgets you hold and use (for now the Gauge). Off hides the module's creative tab, its Vanilla tab entries and its guide; the gadgets and their recipes stay and keep working. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das mitgelieferte Modul Simple Gadgets an oder aus: die Geräte, die man in der Hand hält und benutzt (vorerst die Messuhr). Aus blendet den Kreativ-Tab des Moduls, seine Einträge in den Vanilla-Tabs und sein Handbuch aus; Geräte und Rezepte bleiben und funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleEarth",
+      "shortName": "enableSimpleEarth",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Earth",
+      "labelDe": "Simple Earth aktivieren",
+      "tooltip": "Turns the bundled Simple Earth module on or off: far above the world (activation height, default 1024) the Overworld shows as a cube with map-colored terrain read from the world generator. Off: no orbit, everything stays Vanilla. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Earth ein oder aus: weit über der Welt (Aktivierungshöhe, Standard 1024) erscheint die Oberwelt als Würfel mit Terrain in Kartenfarben aus dem Weltgenerator. Aus: kein Orbit, alles bleibt Vanilla. Gilt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -100974,26 +99446,6 @@
       "labelDe": "Simple Animals aktivieren",
       "tooltip": "Turns the bundled Simple Animals module on or off: deer, wild boar, hedgehog, crab and zebra. Off stops their natural spawns; animals already in the world stay. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Animals ein oder aus: Hirsch, Wildschwein, Igel, Krebs und Zebra. Aus stoppt ihr natürliches Spawnen; Tiere, die schon in der Welt sind, bleiben. Wirkt nach einem Neustart. Standard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "restart",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "enableSimpleResonance",
-      "shortName": "enableSimpleResonance",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Simple Mods",
-      "categoryDe": "Simple Mods",
-      "group": null,
-      "groupDe": null,
-      "label": "Enable Simple Resonance",
-      "labelDe": "Simple Resonance aktivieren",
-      "tooltip": "Turns the bundled Simple Resonance module on or off: player value, danger zones and spawn owners for other mods (Simple Mobs). Off: no values and no levels, every spawn stays Vanilla. Takes effect after a restart. Default: on.",
-      "tooltipDe": "Schaltet das gebündelte Modul Simple Resonance ein oder aus: Spielerwert, Gefahrenzonen und Spawn-Besitzer für andere Mods (Simple Mobs). Aus: keine Werte und keine Stufen, jeder Spawn bleibt Vanilla. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -101054,6 +99506,66 @@
       "labelDe": "Simple Machines aktivieren",
       "tooltip": "Turns the bundled Simple Machines module on or off: the Double Piston and the Signal Dampener (more machine parts of the Simple Machines tab follow). Off hides the module's creative entries and its guide, the Double Piston stays put and the Dampener outputs nothing; blocks and items that already exist keep standing. Takes effect after a restart. Default: on.",
       "tooltipDe": "Schaltet das gebündelte Modul Simple Machines an oder aus: den Doppelkolben und den Signaldämpfer (weitere Maschinenteile des Tabs Simple Machines folgen). Aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus, der Doppelkolben bleibt stehen und der Dämpfer gibt nichts aus; schon vorhandene Blöcke und Items bleiben stehen. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleArrows",
+      "shortName": "enableSimpleArrows",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Arrows",
+      "labelDe": "Simple Arrows aktivieren",
+      "tooltip": "Turns the bundled Simple Arrows module on or off: the Light Arrow and the Silver Arrow (from Simple Ores). Off hides the module's creative entries; arrows that already exist keep working. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Arrows an oder aus: den Lichtpfeil und den Silberpfeil (aus Simple Ores). Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Pfeile funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleResonance",
+      "shortName": "enableSimpleResonance",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Resonance",
+      "labelDe": "Simple Resonance aktivieren",
+      "tooltip": "Turns the bundled Simple Resonance module on or off: player value, danger zones and spawn owners for other mods (Simple Mobs). Off: no values and no levels, every spawn stays Vanilla. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Resonance ein oder aus: Spielerwert, Gefahrenzonen und Spawn-Besitzer für andere Mods (Simple Mobs). Aus: keine Werte und keine Stufen, jeder Spawn bleibt Vanilla. Wirkt nach einem Neustart. Standard: an."
+    },
+    {
+      "range": null,
+      "side": "server",
+      "reload": "restart",
+      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+      "name": "enableSimpleEnchanting",
+      "shortName": "enableSimpleEnchanting",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Simple Mods",
+      "categoryDe": "Simple Mods",
+      "group": null,
+      "groupDe": null,
+      "label": "Enable Simple Enchanting",
+      "labelDe": "Simple Enchanting aktivieren",
+      "tooltip": "Turns the bundled Simple Enchanting module on or off: the Dark Enchanter and the Astral Enchanter. Off hides the module's creative entries and its guide; tables that already exist keep working. The building blocks (Blazing and Nihil Obsidian, blazewood) stay SimpleBuilding's. Takes effect after a restart. Default: on.",
+      "tooltipDe": "Schaltet das gebündelte Modul Simple Enchanting an oder aus: den Dark Enchanter und den Astral Enchanter. Aus blendet die Kreativ-Einträge und das Handbuch des Moduls aus; vorhandene Tische arbeiten weiter. Die Baublöcke (Lohen- und Nihil-Obsidian, Lohenholz) bleiben bei SimpleBuilding. Wirkt nach einem Neustart. Standard: an."
     },
     {
       "range": null,
@@ -101481,66 +99993,6 @@
       "labelDe": "Besatz-Resonanz-Multiplikator",
       "tooltip": "Base of the trim resonance: higher values\nmake matching trims stronger (0 to 10). Also\nsettable with /simplebuilding config\nsetTrimMultiplier. On a server the server's\nvalue applies and is shown to every player.\nDefault: 2.0.",
       "tooltipDe": "Basis der Besatz-Resonanz: höhere Werte\nmachen passende Besätze stärker (0 bis 10).\nAuch mit /simplebuilding config\nsetTrimMultiplier einstellbar. Auf einem\nServer gilt der Wert des Servers und wird\nallen Spielern angezeigt. Standard: 2,0."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "breakerPistonsLoseDurability",
-      "shortName": "breakerPistonsLoseDurability",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Pistons",
-      "categoryDe": "Kolben",
-      "group": null,
-      "groupDe": null,
-      "label": "Breaker Pistons Lose Durability",
-      "labelDe": "Brecher-Kolben verlieren Haltbarkeit",
-      "tooltip": "If enabled (the default), every block a\nNetherite or Enderite Piston destroys while\nextending costs 1 durability: 226 for the\nNetherite Piston, 281 for the Enderite Piston\n(1/9 of the pickaxe of their tier). When it\nruns out, the Enderite Piston turns into a\nNetherite Piston with full durability and the\nNetherite Piston into a Reinforced Piston. A\nnugget of the tier restores full durability.\nDisabled: they never lose durability.\nServer-side. Default: on.",
-      "tooltipDe": "Wenn aktiviert (Standard), kostet jeder\nBlock, den ein Netherit- oder Enderitkolben\nbeim Ausfahren zerstört, 1 Haltbarkeit: 226\nbeim Netheritkolben, 281 beim Enderitkolben\n(1/9 der Spitzhacke ihrer Stufe). Ist sie\naufgebraucht, wird der Enderitkolben zum\nNetheritkolben mit voller Haltbarkeit und der\nNetheritkolben zum Verstärkten Kolben. Ein\nKlumpen der Stufe stellt die volle\nHaltbarkeit wieder her. Deaktiviert: sie\nverlieren nie Haltbarkeit. Serverseitig.\nStandard: an."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "pistonsBreachEndPortalFrames",
-      "shortName": "pistonsBreachEndPortalFrames",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "category": "Pistons",
-      "categoryDe": "Kolben",
-      "group": null,
-      "groupDe": null,
-      "label": "Pistons Breach End Portal Frames",
-      "labelDe": "Kolben durchbrechen Endportalrahmen",
-      "tooltip": "On: the mod's pistons treat End Portal Frames\nlike other unbreakable blocks - a Reinforced\nPiston paid with a Redstone Block can push\none, a Netherite or Enderite Piston can\ndestroy it. Off: End Portal Frames are left\nalone. Server-side, sent to clients. Default:\noff.",
-      "tooltipDe": "An: Die Kolben der Mod behandeln\nEndportalrahmen wie andere unzerstörbare\nBlöcke - ein mit einem Redstoneblock\nbezahlter Verstärkter Kolben kann einen\nschieben, ein Netherit- oder Enderitkolben\nihn zerstören. Aus: Endportalrahmen bleiben\nunangetastet. Serverseitig, an die Clients\ngeschickt. Standard: aus."
-    },
-    {
-      "range": null,
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "pistonsBreachModdedUnbreakables",
-      "shortName": "pistonsBreachModdedUnbreakables",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "category": "Pistons",
-      "categoryDe": "Kolben",
-      "group": null,
-      "groupDe": null,
-      "label": "Pistons Breach Unbreakables of Other Mods",
-      "labelDe": "Kolben durchbrechen Unzerstörbares anderer Mods",
-      "tooltip": "On: the mod's pistons also treat unbreakable\nblocks (hardness -1) of other mods as\nbreachable. Off: only vanilla's unbreakable\nblocks and the tag\nsimplebuilding:piston_breachable_extra count.\nServer-side, sent to clients. Default: off.",
-      "tooltipDe": "An: Die Kolben der Mod behandeln auch\nunzerstörbare Blöcke (Härte -1) anderer Mods\nals durchbrechbar. Aus: Nur die\nunzerstörbaren Blöcke von Vanilla und der Tag\nsimplebuilding:piston_breachable_extra\nzählen. Serverseitig, an die Clients\ngeschickt. Standard: aus."
     },
     {
       "range": null,
@@ -102910,26 +101362,6 @@
     },
     {
       "range": null,
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "pistonsFireBreakEvents",
-      "shortName": "pistonsFireBreakEvents",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Compatibility & Advanced",
-      "categoryDe": "Kompatibilität & Erweitert",
-      "group": null,
-      "groupDe": null,
-      "label": "Pistons Fire Block Break Events",
-      "labelDe": "Kolben lösen Abbau-Ereignisse aus",
-      "tooltip": "Before a Netherite or Enderite Piston\ndestroys a block it fires the loader's block\nbreak event with a fake player, so claim and\nprotection mods can stop it. Turn it off if a\nprotection mod blocks every fake player\n(pistons would stop everywhere) or quest and\nstatistics mods count piston breaks as player\nbreaks. Server-side. Default: on.",
-      "tooltipDe": "Bevor ein Netherit- oder Enderitkolben einen\nBlock zerstört, löst er das Abbau-Ereignis\ndes Loaders mit einem Fake-Spieler aus, damit\nClaim- und Schutz-Mods es verhindern können.\nAusschalten, wenn ein Schutz-Mod jeden\nFake-Spieler sperrt (die Kolben stünden\nüberall still) oder Quest- und Statistik-Mods\nKolbenabbau als Spielerabbau zählen.\nServerseitig. Standard: an."
-    },
-    {
-      "range": null,
       "side": "client",
       "reload": "no",
       "source": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
@@ -103368,8 +101800,8 @@
       "groupDe": "Funktionen: an/aus",
       "label": "Endgame enchantment levels",
       "labelDe": "Endgame-Verzauberungsstufen",
-      "tooltip": "At the top stage of the Astral Enchanter\n(tier 50) Protection and Feather Falling\nreach level V. Off: Vanilla maximum.\nDefault: true.",
-      "tooltipDe": "Auf der höchsten Stufe des Astral-Verzauberers\n(Tier 50) erreichen Schutz und Federfall\nStufe V. Aus: Vanilla-Maximum.\nStandard: true."
+      "tooltip": "Moved to Simple Enchanting on 26.3\n(simpleenchanting-server.json).\nOff: Vanilla maximum.\nDefault: true.",
+      "tooltipDe": "Auf 26.3 nach Simple Enchanting verschoben\n(simpleenchanting-server.json).\nAus: Vanilla-Maximum.\nStandard: true."
     },
     {
       "range": null,
@@ -104294,75 +102726,6 @@
       "labelDe": "Nihil-Schiene Bremse (0,02–0,4)",
       "tooltip": "Fixed braking per tick on top of 20%\nfriction, limited to 0.02-0.4. Default: 0.08.",
       "tooltipDe": "Feste Bremsung je Tick zusätzlich zu 20 %\nReibung, begrenzt auf 0,02-0,4. Standard: 0,08."
-    },
-    {
-      "range": [
-        1.0,
-        8.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.machines.reinforcedHopperSpeed",
-      "shortName": "reinforcedHopperSpeed",
-      "type": "int",
-      "default": "2",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Reinforced Hopper: Speed",
-      "labelDe": "Verstärkter Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper\nit moves items (8 = one item every tick, the\nfastest), 1 to 8. Server-side. Default: 2.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 2."
-    },
-    {
-      "range": [
-        1.0,
-        8.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.machines.netheriteHopperSpeed",
-      "shortName": "netheriteHopperSpeed",
-      "type": "int",
-      "default": "4",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Netherite Hopper: Speed",
-      "labelDe": "Netherit-Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper\nit moves items (8 = one item every tick, the\nfastest), 1 to 8. Server-side. Default: 4.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 4."
-    },
-    {
-      "range": [
-        1.0,
-        8.0
-      ],
-      "side": "server",
-      "reload": "no",
-      "source": "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-      "scopeSource": "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
-      "name": "server.machines.enderiteHopperSpeed",
-      "shortName": "enderiteHopperSpeed",
-      "type": "int",
-      "default": "8",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Enderite Hopper: Speed",
-      "labelDe": "Enderit-Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper\nit moves items (8 = one item every tick, the\nfastest), 1 to 8. Server-side. Default: 8.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter\ner Gegenstände bewegt (8 = ein Gegenstand je\nTick, das Schnellste), 1 bis 8. Serverseitig.\nStandard: 8."
     },
     {
       "range": [
@@ -106039,103 +104402,6 @@
       }
     ],
     "entries": [
-      {
-        "id": "sledgehammer_upgrade/minecraft:enchanting_table",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "minecraft:enchanting_table",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_nugget",
-            "count": 8
-          }
-        ],
-        "tools": [
-          "simplehammers:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:astral_enchanting_table",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 320,
-          "hits": 16,
-          "damagePerHit": 35,
-          "damage": 560
-        },
-        "lines": [
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:netherite_hopper",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:netherite_hopper",
-            "count": 1
-          },
-          {
-            "id": "simpleores:enderite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:netherite_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:enderite_hopper",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 10,
-          "damage": 50
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
-      {
-        "id": "sledgehammer_upgrade/simplebuilding:reinforced_hopper",
-        "kind": "sledgehammer_upgrade",
-        "inputs": [
-          {
-            "id": "simplebuilding:reinforced_hopper",
-            "count": 1
-          },
-          {
-            "id": "simplelib:netherite_nugget",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplehammers:diamond_sledgehammer"
-        ],
-        "toolOrBetter": true,
-        "output": {
-          "id": "simplebuilding:netherite_hopper",
-          "count": 1
-        },
-        "stats": {
-          "ticks": 100,
-          "hits": 5,
-          "damagePerHit": 4,
-          "damage": 20
-        },
-        "lines": [
-          "1.21.11",
-          "26.2",
-          "26.3"
-        ]
-      },
       {
         "id": "diamond_crush",
         "kind": "diamond_crush",
@@ -125990,7 +124256,7 @@
             "simpleovens:reinforced_furnace",
             "simpleovens:reinforced_smoker",
             "simpleovens:reinforced_blast_furnace",
-            "simplebuilding:reinforced_hopper",
+            "simplemachines:reinforced_hopper",
             "simplemachines:reinforced_piston",
             "simplemachines:reinforced_sticky_piston",
             "simplestorage:reinforced_chest"
@@ -129842,17 +128108,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 498,
-    "blocks": 286,
-    "recipes": 824,
-    "lootTables": 305,
+    "items": 492,
+    "blocks": 283,
+    "recipes": 819,
+    "lootTables": 302,
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
-    "config": 235,
-    "inWorld": 476,
+    "config": 230,
+    "inWorld": 473,
     "advancements": 116,
-    "features": 48,
+    "features": 47,
     "undocumented": 0,
     "incompleteProse": 0
   },

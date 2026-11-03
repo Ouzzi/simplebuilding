@@ -107,8 +107,8 @@ public class ModBlocks {
     // every other block of this helper starts from: glass handed them no tool requirement (a bare
     // hand dropped them), no light while burning, no occlusion and glass's map colour and note.
     // The mod's own strength and sound still override what the copy brings.
-    public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL)));
-    public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_HOPPER = McVersion.HOPPERS_IN_SB ? registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL))) : com.simplebuilding.util.MachineRefs.block("reinforced_hopper"); // 26.3: Simple Machines (MACH32-MOD stage 3)
+    public static final Block NETHERITE_HOPPER = McVersion.HOPPERS_IN_SB ? registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("netherite_hopper"); // 26.3: Simple Machines (MACH32-MOD stage 3)
 
     // MACH32-MOD stage 2: on 26.3 the piston upgrades are Simple Machines' (simplemachines:*); these fields point at its blocks.
     // Beide verstaerkten Kolben starten wie alle anderen hier von GLASS, nicht von Vanillas
@@ -136,7 +136,7 @@ public class ModBlocks {
     // Netherit-Stufe (SledgehammerUpgrades); kein Werkbankrezept. Dieselben Klassen und damit
     // dieselben Block-Entities wie die beiden anderen Stufen, Haerte und Explosionsfestigkeit wie
     // beim Enderitkolben.
-    public static final Block ENDERITE_HOPPER = registerBlock("enderite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(6.0F, 1500.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block ENDERITE_HOPPER = McVersion.HOPPERS_IN_SB ? registerBlock("enderite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(6.0F, 1500.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK))) : com.simplebuilding.util.MachineRefs.block("enderite_hopper"); // 26.3: Simple Machines (MACH32-MOD stage 3)
     public static final Block ENDERITE_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
     public static final Block ENDERITE_SMOKER = McVersion.OVENS_IN_SB ? registerBlock("enderite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
     public static final Block ENDERITE_BLAST_FURNACE = McVersion.OVENS_IN_SB ? registerBlock("enderite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK))) : null;
@@ -264,10 +264,10 @@ public class ModBlocks {
     public static final Block AUTONOMOUS_CRAFTER = McVersion.AUTONOMOUS_CRAFTER
             ? registerBlock("autonomous_crafter", Blocks.CRAFTER, com.simplebuilding.blocks.custom.AutonomousCrafterBlock::new) : null;
     // Astral-Verzauberung (2026-10-09, N27, docs/ai/KONZEPT-ASTRAL-VERZAUBERUNG-2026-10-09.md, McVersion.ASTRAL_ENCHANTING).
-    /** Astral-Verzauberungstisch: wie der Verzauberungstisch, doppelt so lange abzubauen (Haerte 10 statt 5). */
-    public static final Block ASTRAL_ENCHANTING_TABLE = McVersion.ASTRAL_ENCHANTING ? registerBlock("astral_enchanting_table",
-            Blocks.ENCHANTING_TABLE, s -> new com.simplebuilding.enchanting.AstralEnchantingTableBlock(s
-                    .strength(com.simplebuilding.enchanting.AstralEnchantingTableBlock.HARDNESS, 1200.0F).lightLevel(state -> 10))) : null;
+    // ENCH02 (03.11.): die Tische gehoeren dem Pflicht-Sub-Mod Simple Enchanting (simpleenchanting:*, der alte Astral-Tisch ist
+    // der Dark Enchanter); SB behaelt die Baubloecke darunter. Die Felder zeigen per Id auf die Modul-Bloecke (Luft ohne Modul).
+    public static final Block DARK_ENCHANTER = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("dark_enchanter") : null;
+    public static final Block ASTRAL_ENCHANTER = McVersion.ASTRAL_ENCHANTING ? com.simplebuilding.util.EnchantingRefs.block("astral_enchanter") : null;
     /** Lohenholz je Nether-Holzart: 8 Lohenstaub um ein Brett. */
     public static final Block CRIMSON_BLAZEWOOD_PLANKS = McVersion.ASTRAL_ENCHANTING
             ? registerBlock("crimson_blazewood_planks", Blocks.CRIMSON_PLANKS, Block::new) : null;
@@ -289,9 +289,12 @@ public class ModBlocks {
             ? List.of(CRIMSON_BLAZEWOOD_PLANKS, WARPED_BLAZEWOOD_PLANKS) : List.of();
     public static final List<Block> BLAZEWOOD_BOOKSHELVES = McVersion.ASTRAL_ENCHANTING
             ? List.of(CRIMSON_BLAZEWOOD_BOOKSHELF, WARPED_BLAZEWOOD_BOOKSHELF) : List.of();
-    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Astral-Tisch fuer Stufe 40/50. */
+    /** Lohen-Obsidian: leuchtende Variante des weinenden Obsidians, 5x5 unter dem Dark Enchanter fuer Stufe 40/50. */
     public static final Block BLAZING_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("blazing_obsidian", Blocks.CRYING_OBSIDIAN,
-            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(s.lightLevel(state -> 12))) : null;
+            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(false, s.lightLevel(state -> 12))) : null;
+    /** Nihil-Obsidian (ENCH02, Besitzer 03.11.): Lohen-Obsidian mit Nihilit, Navy/Void statt Glut; voller Boden des Astral Enchanters. */
+    public static final Block NIHIL_OBSIDIAN = McVersion.ASTRAL_ENCHANTING ? registerBlock("nihil_obsidian", Blocks.CRYING_OBSIDIAN,
+            s -> new com.simplebuilding.enchanting.BlazingObsidianBlock(true, s.lightLevel(state -> 10))) : null;
     public static final Block PLACED_SMALL_PARTS = McVersion.SMALL_PLACEABLES ? registerBlock("placed_small_parts", s -> new com.simplebuilding.blocks.custom.PlacedSmallPartsBlock(s
             .strength(0.2F).sound(SoundType.STONE).noCollision().noLootTable().noOcclusion().mapColor(MapColor.NONE)
             .lightLevel(com.simplebuilding.blocks.custom.PlacedSmallPartsBlock::light)

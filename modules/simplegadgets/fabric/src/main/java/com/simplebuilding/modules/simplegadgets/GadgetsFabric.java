@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,6 +50,15 @@ public final class GadgetsFabric implements ModInitializer {
                 BlockState current = level.getBlockState(pos);
                 return PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(level, player, pos, current, level.getBlockEntity(pos));
             }
+        });
+        // BA03-5: the Transposer on an armor stand steps its pose (before the stand's own equipment click would take the item).
+        net.fabricmc.fabric.api.event.player.UseEntityCallback.EVENT.register((player, level, hand, entity, hit) -> {
+            ItemStack held = player.getItemInHand(hand);
+            if (hand != net.minecraft.world.InteractionHand.MAIN_HAND || !(entity instanceof net.minecraft.world.entity.decoration.ArmorStand stand)
+                    || GadgetsRegistry.ROTATOR == null || !held.is(GadgetsRegistry.ROTATOR)) {
+                return net.minecraft.world.InteractionResult.PASS;
+            }
+            return com.simplegadgets.rotator.ArmorPoses.use(player, stand, held);
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> com.simplegadgets.rotator.RotatorItem.onDisconnect(handler.player));
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> com.simplegadgets.rotator.RotatorItem.clearAll());

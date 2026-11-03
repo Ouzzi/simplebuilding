@@ -24,8 +24,10 @@ window.WIKI_MODULES = [
       "simplegadgets",
       "simpleores",
       "simplemachines",
+      "simplearrows",
       "simplemobs",
-      "simpleresonance"
+      "simpleresonance",
+      "simpleenchanting"
     ],
     "optional": [
       "jei",
@@ -56,6 +58,7 @@ window.WIKI_MODULES = [
       "simplechallenges",
       "simpledinos"
     ],
+    "stage": "done",
     "overview": {
       "status": "in Arbeit",
       "open": "86",
@@ -74,11 +77,11 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 498,
-      "blocks": 286,
-      "recipes": 824,
-      "config": 235,
-      "features": 48
+      "items": 492,
+      "blocks": 283,
+      "recipes": 819,
+      "config": 230,
+      "features": 47
     }
   },
   {
@@ -94,6 +97,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "purpose": {
       "en": "Minimal module used to verify loader and integration wiring.",
       "de": "Minimales Testmodul, prüft nur die Loader- und Integrationsverdrahtung (nicht für Spieler)."
@@ -134,6 +138,7 @@ window.WIKI_MODULES = [
       "wiringexample",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -150,7 +155,7 @@ window.WIKI_MODULES = [
       "recipes": 8,
       "features": 75
     },
-    "dataHash": "c37e22387780"
+    "dataHash": "b04bc6ddfd77"
   },
   {
     "id": "simpleriding",
@@ -171,6 +176,7 @@ window.WIKI_MODULES = [
       "modmenu",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -205,6 +211,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -241,6 +248,7 @@ window.WIKI_MODULES = [
       "jei",
       "jade"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -281,6 +289,7 @@ window.WIKI_MODULES = [
       "simplemodels",
       "modmenu"
     ],
+    "stage": "done",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -319,6 +328,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simpleaesthetics",
     "bundle": "required",
     "intro": {
@@ -360,6 +370,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "done",
     "overview": {
       "status": "in Arbeit",
       "open": "16",
@@ -405,6 +416,7 @@ window.WIKI_MODULES = [
       "simpleweather",
       "simplemaps"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -467,6 +479,7 @@ window.WIKI_MODULES = [
       "griefdefender",
       "claimchunk"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -501,6 +514,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleend"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -535,6 +549,7 @@ window.WIKI_MODULES = [
     "optional": [
       "jei"
     ],
+    "stage": "done",
     "overview": {
       "status": "fertig (wächst mit)",
       "open": "4",
@@ -552,7 +567,7 @@ window.WIKI_MODULES = [
       "recipes": 22,
       "features": 8
     },
-    "dataHash": "2e4d37d070cc"
+    "dataHash": "f425292e2569"
   },
   {
     "id": "simpleinterfaces",
@@ -573,6 +588,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -583,7 +599,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 55
     },
-    "dataHash": "52b775fee7c5"
+    "dataHash": "72902eaa95a3"
   },
   {
     "id": "simplemaps",
@@ -603,6 +619,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpleores"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -637,6 +654,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplemaps"
     ],
+    "stage": "new",
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAt0lEQVR42mOQ1FL5TwlmABHti2fCsZ1XAF4MV5cVhWoAusKoAlSMLq/r44jdAJiGjFlOKNitYAcYYzUAWTNMQ8OGMDh7yoKk/1EdFzAMQTEAphmkEYSjOizgmmEGoBuC1QCYxkceVmCMbBCyITgNgOEVVnpgDDIAhEkyAKYJPSCRwwLDAGyGoAcoSQagG4LufBQD0NMButPRNeJNSGSnxBV7toLTN6G8AFYDxKgpESpAKoYbQAkGAICo9pG6n+pKAAAAAElFTkSuQmCC",
     "counts": {
       "features": 4
@@ -661,6 +679,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -696,6 +715,7 @@ window.WIKI_MODULES = [
       "simpleresonance"
     ],
     "optional": [],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -713,7 +733,7 @@ window.WIKI_MODULES = [
       "recipes": 120,
       "features": 25
     },
-    "dataHash": "28b730313ccf"
+    "dataHash": "b9de8a554623"
   },
   {
     "id": "simpleweather",
@@ -733,6 +753,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -763,6 +784,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -776,7 +798,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "4825252ad46b"
+    "dataHash": "8add1659b652"
   },
   {
     "id": "simpletools",
@@ -797,6 +819,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "intro": {
@@ -835,6 +858,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -865,6 +889,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -896,6 +921,7 @@ window.WIKI_MODULES = [
       "simplequalityoflife",
       "modmenu"
     ],
+    "stage": "new",
     "parent": "simplequalityoflife",
     "bundle": "required",
     "purpose": {
@@ -923,6 +949,7 @@ window.WIKI_MODULES = [
       "simplelib"
     ],
     "optional": [],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "purpose": {
@@ -954,6 +981,7 @@ window.WIKI_MODULES = [
       "simplemodels"
     ],
     "optional": [],
+    "stage": "done",
     "overview": {
       "status": "fertig (Abnahme offen)",
       "open": "6",
@@ -983,6 +1011,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleend",
     "bundle": "optional",
     "intro": {
@@ -1015,6 +1044,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleenddragonfight"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "overview": {
@@ -1053,6 +1083,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1088,6 +1119,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleores"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1127,6 +1159,7 @@ window.WIKI_MODULES = [
       "simplecrucibles",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1139,12 +1172,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAiElEQVR42mOItVL4TwlmABEfd00iGb+YEIBqgJaWFkl4eYYVpgFdXV3/8/LywDQMo/NBGK8BVlZWeDFBA/DZDBMjygB8huE1QE5ODi8m2YATXgLkGQDT+KFLAcUQogwAaYBp/H/DC8UQogwAaQBpRMYgMaIMwBZ9REcj2UkZlDFAAqRiuAGUYACdtBRwbfGWOAAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 14,
+      "items": 44,
       "blocks": 9,
-      "recipes": 18,
+      "recipes": 48,
       "features": 9
     },
-    "dataHash": "6e61dc84147d"
+    "dataHash": "92aceb379c99"
   },
   {
     "id": "simplemobheads",
@@ -1169,6 +1202,7 @@ window.WIKI_MODULES = [
       "jei",
       "modmenu"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1210,6 +1244,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simpletweaks"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1249,6 +1284,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1281,6 +1317,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "new",
     "intro": {
       "en": "Every tool, weapon and piece of armor counts its own blocks, kills, absorbed damage, distances and catches, with an item-specific statistics screen.",
       "de": "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken und Fänge, mit einem Statistik-Bildschirm je Gegenstand."
@@ -1314,6 +1351,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "jei"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1353,6 +1391,7 @@ window.WIKI_MODULES = [
       "jade",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simpleovens",
     "bundle": "optional",
     "intro": {
@@ -1392,6 +1431,7 @@ window.WIKI_MODULES = [
       "simpleores",
       "jei"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1432,6 +1472,7 @@ window.WIKI_MODULES = [
       "simpleores",
       "jei"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1448,7 +1489,7 @@ window.WIKI_MODULES = [
       "recipes": 12,
       "features": 13
     },
-    "dataHash": "11d7336a2ce5"
+    "dataHash": "3a0da83bc035"
   },
   {
     "id": "simpleoptimization",
@@ -1465,6 +1506,7 @@ window.WIKI_MODULES = [
       "simpleoptserver"
     ],
     "optional": [],
+    "stage": "new",
     "overview": {
       "status": "in Arbeit",
       "open": "13",
@@ -1492,6 +1534,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
     "purpose": {
@@ -1515,6 +1558,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
     "purpose": {
@@ -1538,6 +1582,7 @@ window.WIKI_MODULES = [
     ],
     "requires": [],
     "optional": [],
+    "stage": "new",
     "parent": "simpleoptimization",
     "bundle": "required",
     "purpose": {
@@ -1574,6 +1619,7 @@ window.WIKI_MODULES = [
       "curios",
       "simpleores"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1611,6 +1657,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1648,6 +1695,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1678,6 +1726,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "done",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1690,7 +1739,7 @@ window.WIKI_MODULES = [
       "recipes": 6,
       "features": 5
     },
-    "dataHash": "2afed0d3d527"
+    "dataHash": "ce9d61dbe486"
   },
   {
     "id": "simpleearth",
@@ -1707,6 +1756,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1717,7 +1767,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 5
     },
-    "dataHash": "bff7093d39b0"
+    "dataHash": "dfbbd8dc56d7"
   },
   {
     "id": "simplechallenges",
@@ -1734,6 +1784,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simplebuilding"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1763,6 +1814,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1798,6 +1850,7 @@ window.WIKI_MODULES = [
       "simplemoney",
       "simplemobheads"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "optional",
     "intro": {
@@ -1835,6 +1888,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplehammers"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1847,17 +1901,17 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 41,
+      "items": 40,
       "blocks": 19,
-      "recipes": 67,
-      "features": 11
+      "recipes": 66,
+      "features": 10
     },
-    "dataHash": "4a98cdb68f07"
+    "dataHash": "bcee39eff812"
   },
   {
     "id": "simplemachines",
     "displayName": "Simple Machines",
-    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget). Vanilla and SimpleLib ingredients; the Enderite Piston needs Simple Ores. Fabric only for now.",
+    "description": "The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1870,20 +1924,48 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simpleores"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
-      "en": "The machine parts of the Simple Machines tab: four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
-      "de": "Die Maschinenteile des Tabs Simple Machines: vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
+      "en": "The machine parts of the Simple Machines tab: three faster hoppers with an item filter and their hopper carts, four stronger pistons, the Double Piston, which reaches further than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
+      "de": "Die Maschinenteile des Tabs Simple Machines: drei schnellere Trichter mit Itemfilter und ihre Trichterloren, vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR42q2Su0oDQRSG8ygpLCy0skknCloIYgxizEVjYXBRxM1lzSa7yV5zv5lEwYBaWYiCWIqlryD4DDY+w++eU+wmmEZj8c2cmf8//5xifGszfkyDj5b3Yf/XvESDXsCBcPInOCAcTcCud2HVOmPcSBI+A7MM1XSnl5swKi3eCerlAKvagVlpQ7cdQ7kFzWrgOp11A4Zimj10TzpBZzdAtxsoGlWG6pJZw5UojgSknKYmo1l1t3YDVJ2aa05jHU+nK3hT1idCGnloEkWrjAZUkC9azJ2whHY0gNvk4o+dNJqSfIWS7QXkFMNJLLNAxmdxdSKkkY+aZdX0AvJFExedHC67Mu/Eo3mIr9gCQzV5ZNVwHtMh5UvM2AQEPuKMlNfQEwT3PDg6Zn1reY6hOiuPBGTlIs4bGfRbEnrNLAbtMzwYSXeCey3pvpqSCsjk1PEJdmIekfi+I+xBCQXxOu9nCptBbEd2+Z50z5f4h69My0Yo/CfcgGn4BshxP6OdXA5MAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 1,
-      "blocks": 11,
-      "recipes": 4,
-      "features": 6
+      "items": 4,
+      "blocks": 14,
+      "recipes": 10,
+      "features": 8
     },
-    "dataHash": "85e84ab65bf7"
+    "dataHash": "1ac701cd8c82"
+  },
+  {
+    "id": "simplearrows",
+    "displayName": "Simple Arrows",
+    "description": "Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mMwtPP6TwlmABFrD1wmiLVkBFBw1awdqAb0rjj0//Cl+2AaHYM0/P+06v+381FgDOJH5LdgGoAPgzSBNO+u0yPdAJCGriwrME2yATDNcS4qcL8TbQA2zTBM0AB8mgkaQEgzVgNAConVjGEASOGXL1+I1ozTgB07dhClGasBIM0gQ2AuIckAWBiADIEZRJIXYALImQXEJ4ThBlCCAdwLWD3aEHARAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 2,
+      "recipes": 2,
+      "features": 4
+    },
+    "dataHash": "d900bd3957ec"
   },
   {
     "id": "simpleresonance",
@@ -1901,6 +1983,7 @@ window.WIKI_MODULES = [
       "simplebuilding",
       "simplemobs"
     ],
+    "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
     "intro": {
@@ -1931,6 +2014,7 @@ window.WIKI_MODULES = [
     "optional": [
       "simpleovens"
     ],
+    "stage": "new",
     "parent": "simpleovens",
     "bundle": "optional",
     "purpose": {
@@ -1944,5 +2028,38 @@ window.WIKI_MODULES = [
       "features": 2
     },
     "dataHash": "80ac24ac0fac"
+  },
+  {
+    "id": "simpleenchanting",
+    "displayName": "Simple Enchanting",
+    "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib"
+    ],
+    "optional": [
+      "simplebuilding",
+      "simpleores",
+      "simplehammers"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Two enchanters above Vanilla's table: the Dark Enchanter, where you pick three enchantments with sliders, and the Astral Enchanter on a Nihil Obsidian floor, which lifts Protection and Feather Falling to V.",
+      "de": "Zwei Verzauberer über dem Vanilla-Tisch: der Dark Enchanter, an dem du drei Verzauberungen mit Reglern wählst, und der Astral Enchanter auf Nihil-Obsidian-Boden, der Schutz und Federfall auf V hebt."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 1,
+      "blocks": 8,
+      "recipes": 6,
+      "features": 5
+    },
+    "dataHash": "7e14fcae29fd"
   }
 ];

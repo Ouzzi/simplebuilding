@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "simpleenchanting:crimson_blazewood_bookshelf",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:warped_blazewood_bookshelf",
+      "required": false
+    }
+  ]
+}

@@ -167,25 +167,28 @@
         "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
         "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java",
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/oak_furnace_boat.json",
+        "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_oak_furnace_boat.json",
         "modules/simpleovens/shared/java/com/simpleovens/OvensRegistry.java"
       ],
       "en": {
         "title": "Furnace Boats",
-        "summary": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood, plus a bamboo raft.",
+        "summary": "A Vanilla boat with a furnace where the chest boat has its chest: you steer, the furnace pushes. One furnace boat per Vanilla wood (plus a bamboo raft) and per furnace: the plain furnace, Reinforced, Netherite and Enderite.",
         "details": [
-          "Shapeless: a boat (or the bamboo raft) of the wood and a furnace give the furnace boat of that wood.",
-          "Right-click with coal or charcoal fills the furnace (3600 ticks each, at most 32000, like the furnace minecart); with an empty hand or a full furnace you get in. One seat.",
-          "While fuel lasts and a player sits in it, the boat gets a gentle forward push on water (up to about 6 blocks per second, never over an ice boat); steering and W work as in any boat. Fuel only burns while somebody sits in it. The furnace glows and smokes while it burns.",
+          "Shapeless: a boat (or the bamboo raft) of the wood and a furnace give the furnace boat of that wood; the furnace decides the tier (plain, Reinforced, Netherite, Enderite). No smokers or blast furnaces. The Enderite boats need Simple Ores.",
+          "Right-click with coal or charcoal fills the furnace (3600 ticks each, at most 32000 on the plain boat); with an empty hand or a full furnace you get in. One seat. The boat shows the furnace of its tier.",
+          "While fuel lasts and a player sits in it, the boat gets a push on water, up to about 6 blocks per second on the plain boat, never over an ice boat; steering and W work as in any boat. Fuel only burns while somebody sits in it. The furnace glows and smokes while it burns.",
+          "The upper tiers burn each fuel item as many times longer as their furnace works faster (default 2x, 4x, 8x; the tank grows likewise) and push harder and faster: x1.25 Reinforced, x1.5 Netherite, x2 Enderite (about 12 blocks per second, still under an ice boat).",
           "Breaking it drops the furnace boat item; the fuel is lost."
         ]
       },
       "de": {
         "title": "Ofenboote",
-        "summary": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart, dazu ein Bambusfloß.",
+        "summary": "Ein Vanilla-Boot mit Ofen an der Stelle, wo das Truhenboot seine Truhe hat: Du lenkst, der Ofen schiebt. Ein Ofenboot je Vanilla-Holzart (dazu ein Bambusfloß) und je Ofen: normal, Verstärkt, Netherit und Enderit.",
         "details": [
-          "Formlos: ein Boot (bzw. das Bambusfloß) der Holzart und ein Ofen ergeben das Ofenboot dieser Holzart.",
-          "Rechtsklick mit Kohle oder Holzkohle füllt den Ofen (je 3600 Ticks, höchstens 32000, wie bei der Antriebslore); mit leerer Hand oder vollem Ofen steigst du ein. Ein Sitz.",
-          "Solange Brennstoff da ist und ein Spieler drinsitzt, schiebt das Boot auf dem Wasser sanft nach vorn (bis etwa 6 Blöcke pro Sekunde, nie über einem Eisboot); Lenken und W wirken wie in jedem Boot. Brennstoff brennt nur, solange jemand drinsitzt. Der Ofen glüht und raucht beim Brennen.",
+          "Formlos: ein Boot (bzw. das Bambusfloß) der Holzart und ein Ofen ergeben das Ofenboot dieser Holzart; der Ofen bestimmt die Stufe (normal, Verstärkt, Netherit, Enderit). Keine Räucher- oder Schmelzöfen. Die Enderit-Boote brauchen Simple Ores.",
+          "Rechtsklick mit Kohle oder Holzkohle füllt den Ofen (je 3600 Ticks, beim normalen Boot höchstens 32000); mit leerer Hand oder vollem Ofen steigst du ein. Ein Sitz. Das Boot zeigt den Ofen seiner Stufe.",
+          "Solange Brennstoff da ist und ein Spieler drinsitzt, schiebt das Boot auf dem Wasser, beim normalen Boot bis etwa 6 Blöcke pro Sekunde, nie über einem Eisboot; Lenken und W wirken wie in jedem Boot. Brennstoff brennt nur, solange jemand drinsitzt. Der Ofen glüht und raucht beim Brennen.",
+          "Die oberen Stufen brennen jeden Brennstoff so viel länger, wie ihr Ofen schneller arbeitet (Standard 2x, 4x, 8x; der Tank wächst entsprechend) und schieben stärker und schneller: x1,25 Verstärkt, x1,5 Netherit, x2 Enderit (etwa 12 Blöcke pro Sekunde, noch unter einem Eisboot).",
           "Zerstören lässt das Ofenboot-Item fallen; der Brennstoff geht verloren."
         ]
       },
@@ -199,7 +202,37 @@
         "simpleovens:mangrove_furnace_boat",
         "simpleovens:cherry_furnace_boat",
         "simpleovens:pale_oak_furnace_boat",
-        "simpleovens:bamboo_furnace_raft"
+        "simpleovens:bamboo_furnace_raft",
+        "simpleovens:reinforced_oak_furnace_boat",
+        "simpleovens:reinforced_spruce_furnace_boat",
+        "simpleovens:reinforced_birch_furnace_boat",
+        "simpleovens:reinforced_jungle_furnace_boat",
+        "simpleovens:reinforced_acacia_furnace_boat",
+        "simpleovens:reinforced_dark_oak_furnace_boat",
+        "simpleovens:reinforced_mangrove_furnace_boat",
+        "simpleovens:reinforced_cherry_furnace_boat",
+        "simpleovens:reinforced_pale_oak_furnace_boat",
+        "simpleovens:reinforced_bamboo_furnace_raft",
+        "simpleovens:netherite_oak_furnace_boat",
+        "simpleovens:netherite_spruce_furnace_boat",
+        "simpleovens:netherite_birch_furnace_boat",
+        "simpleovens:netherite_jungle_furnace_boat",
+        "simpleovens:netherite_acacia_furnace_boat",
+        "simpleovens:netherite_dark_oak_furnace_boat",
+        "simpleovens:netherite_mangrove_furnace_boat",
+        "simpleovens:netherite_cherry_furnace_boat",
+        "simpleovens:netherite_pale_oak_furnace_boat",
+        "simpleovens:netherite_bamboo_furnace_raft",
+        "simpleovens:enderite_oak_furnace_boat",
+        "simpleovens:enderite_spruce_furnace_boat",
+        "simpleovens:enderite_birch_furnace_boat",
+        "simpleovens:enderite_jungle_furnace_boat",
+        "simpleovens:enderite_acacia_furnace_boat",
+        "simpleovens:enderite_dark_oak_furnace_boat",
+        "simpleovens:enderite_mangrove_furnace_boat",
+        "simpleovens:enderite_cherry_furnace_boat",
+        "simpleovens:enderite_pale_oak_furnace_boat",
+        "simpleovens:enderite_bamboo_furnace_raft"
       ]
     },
     {
@@ -501,6 +534,186 @@
       }
     },
     {
+      "id": "simpleovens:enderite_acacia_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_acacia_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_acacia_furnace_boat.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:acacia_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_bamboo_furnace_raft",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_bamboo_furnace_raft",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_bamboo_furnace_raft.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:bamboo_raft"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_birch_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_birch_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_birch_furnace_boat.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:birch_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_cherry_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_cherry_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_cherry_furnace_boat.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:cherry_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_dark_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_dark_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_dark_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:dark_oak_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:enderite_furnace_minecart",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -585,6 +798,186 @@
       }
     },
     {
+      "id": "simpleovens:enderite_jungle_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_jungle_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_jungle_furnace_boat.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:jungle_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_mangrove_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_mangrove_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_mangrove_furnace_boat.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:mangrove_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:oak_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_pale_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_pale_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_pale_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:pale_oak_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:enderite_spruce_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "enderite_furnace_boat",
+      "result": {
+        "id": "simpleovens:enderite_spruce_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/enderite_spruce_furnace_boat.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simpleovens:enderite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:spruce_boat"
+        ],
+        [
+          "simpleovens:enderite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:enderite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:jungle_furnace_boat",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -652,6 +1045,186 @@
           {
             "id": "minecraft:mangrove_log",
             "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_acacia_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_acacia_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_acacia_furnace_boat.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:acacia_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_bamboo_furnace_raft",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_bamboo_furnace_raft",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_bamboo_furnace_raft.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:bamboo_raft"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_birch_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_birch_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_birch_furnace_boat.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:birch_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_cherry_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_cherry_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_cherry_furnace_boat.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:cherry_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_dark_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_dark_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_dark_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:dark_oak_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
           }
         ]
       }
@@ -745,6 +1318,186 @@
       }
     },
     {
+      "id": "simpleovens:netherite_jungle_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_jungle_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_jungle_furnace_boat.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:jungle_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_mangrove_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_mangrove_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_mangrove_furnace_boat.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:mangrove_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:oak_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_pale_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_pale_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_pale_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:pale_oak_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:netherite_spruce_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "netherite_furnace_boat",
+      "result": {
+        "id": "simpleovens:netherite_spruce_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/netherite_spruce_furnace_boat.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simpleovens:netherite_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:spruce_boat"
+        ],
+        [
+          "simpleovens:netherite_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
+          },
+          {
+            "id": "simpleovens:netherite_furnace",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:oak_furnace_boat",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -817,6 +1570,126 @@
       }
     },
     {
+      "id": "simpleovens:reinforced_acacia_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_acacia_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_acacia_furnace_boat.json",
+      "ingredients": [
+        "minecraft:acacia_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:acacia_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_bamboo_furnace_raft",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_bamboo_furnace_raft",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_bamboo_furnace_raft.json",
+      "ingredients": [
+        "minecraft:bamboo_raft",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:bamboo_raft"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:bamboo",
+            "count": 22.5
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_birch_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_birch_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_birch_furnace_boat.json",
+      "ingredients": [
+        "minecraft:birch_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:birch_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:birch_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:reinforced_blast_furnace",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -861,6 +1734,86 @@
           {
             "id": "simplelib:cracked_diamond",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_cherry_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_cherry_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_cherry_furnace_boat.json",
+      "ingredients": [
+        "minecraft:cherry_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:cherry_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_dark_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_dark_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_dark_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:dark_oak_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:dark_oak_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1.25
           }
         ]
       }
@@ -947,6 +1900,166 @@
       }
     },
     {
+      "id": "simpleovens:reinforced_jungle_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_jungle_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_jungle_furnace_boat.json",
+      "ingredients": [
+        "minecraft:jungle_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:jungle_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_mangrove_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_mangrove_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_mangrove_furnace_boat.json",
+      "ingredients": [
+        "minecraft:mangrove_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:mangrove_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:oak_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:oak_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_pale_oak_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_pale_oak_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_pale_oak_furnace_boat.json",
+      "ingredients": [
+        "minecraft:pale_oak_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:pale_oak_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleovens:reinforced_smoker",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -987,6 +2100,46 @@
           {
             "id": "simplelib:cracked_diamond",
             "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleovens:reinforced_spruce_furnace_boat",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "reinforced_furnace_boat",
+      "result": {
+        "id": "simpleovens:reinforced_spruce_furnace_boat",
+        "count": 1
+      },
+      "source": "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_spruce_furnace_boat.json",
+      "ingredients": [
+        "minecraft:spruce_boat",
+        "simpleovens:reinforced_furnace"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:spruce_boat"
+        ],
+        [
+          "simpleovens:reinforced_furnace"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 8
+          },
+          {
+            "id": "simplelib:cracked_diamond",
+            "count": 2
+          },
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1.25
           }
         ]
       }
@@ -1353,6 +2506,121 @@
       "usedIn": []
     },
     {
+      "id": "simpleovens:enderite_acacia_furnace_boat",
+      "name": {
+        "en_us": "Enderite Acacia Furnace Boat",
+        "de_de": "Enderit-Akazien-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Acacia boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Akazienboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_acacia_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_bamboo_furnace_raft",
+      "name": {
+        "en_us": "Enderite Bamboo Furnace Raft",
+        "de_de": "Enderit-Bambus-Ofenfloß"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Bamboo raft with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the raft and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Bambusfloß mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Floß und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_bamboo_furnace_raft"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_birch_furnace_boat",
+      "name": {
+        "en_us": "Enderite Birch Furnace Boat",
+        "de_de": "Enderit-Birken-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Birch boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Birkenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_birch_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_cherry_furnace_boat",
+      "name": {
+        "en_us": "Enderite Cherry Furnace Boat",
+        "de_de": "Enderit-Kirschholz-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Cherry boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Kirschholzboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_cherry_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_dark_oak_furnace_boat",
+      "name": {
+        "en_us": "Enderite Dark Oak Furnace Boat",
+        "de_de": "Enderit-Schwarzeichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Dark oak boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Schwarzeichenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_dark_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleovens:enderite_furnace_minecart",
       "name": {
         "en_us": "Enderite Furnace Minecart",
@@ -1398,6 +2666,121 @@
       "craftedBy": [
         "simpleovens:enderite_furnace_minecart",
         "simpleovens:enderite_furnace_minecart_smithing"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_jungle_furnace_boat",
+      "name": {
+        "en_us": "Enderite Jungle Furnace Boat",
+        "de_de": "Enderit-Dschungelholz-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Jungle boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Dschungelholzboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_jungle_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_mangrove_furnace_boat",
+      "name": {
+        "en_us": "Enderite Mangrove Furnace Boat",
+        "de_de": "Enderit-Mangroven-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Mangrove boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Mangrovenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_mangrove_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_oak_furnace_boat",
+      "name": {
+        "en_us": "Enderite Oak Furnace Boat",
+        "de_de": "Enderit-Eichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Oak boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Eichenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_pale_oak_furnace_boat",
+      "name": {
+        "en_us": "Enderite Pale Oak Furnace Boat",
+        "de_de": "Enderit-Blasseichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Pale oak boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Blasseichenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_pale_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:enderite_spruce_furnace_boat",
+      "name": {
+        "en_us": "Enderite Spruce Furnace Boat",
+        "de_de": "Enderit-Fichten-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Spruce boat with the Enderite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Enderite furnace, shapeless. Needs Simple Ores."
+        },
+        "de": {
+          "summary": "Fichtenboot mit Enderit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Enderit-Ofen, formlos. Braucht Simple Ores."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:enderite_spruce_furnace_boat"
       ],
       "usedIn": []
     },
@@ -1471,6 +2854,121 @@
       "usedIn": []
     },
     {
+      "id": "simpleovens:netherite_acacia_furnace_boat",
+      "name": {
+        "en_us": "Netherite Acacia Furnace Boat",
+        "de_de": "Netherit-Akazien-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Acacia boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Akazienboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_acacia_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_bamboo_furnace_raft",
+      "name": {
+        "en_us": "Netherite Bamboo Furnace Raft",
+        "de_de": "Netherit-Bambus-Ofenfloß"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Bamboo raft with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the raft and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Bambusfloß mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Floß und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_bamboo_furnace_raft"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_birch_furnace_boat",
+      "name": {
+        "en_us": "Netherite Birch Furnace Boat",
+        "de_de": "Netherit-Birken-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Birch boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Birkenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_birch_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_cherry_furnace_boat",
+      "name": {
+        "en_us": "Netherite Cherry Furnace Boat",
+        "de_de": "Netherit-Kirschholz-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Cherry boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Kirschholzboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_cherry_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_dark_oak_furnace_boat",
+      "name": {
+        "en_us": "Netherite Dark Oak Furnace Boat",
+        "de_de": "Netherit-Schwarzeichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Dark oak boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Schwarzeichenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_dark_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleovens:netherite_furnace_minecart",
       "name": {
         "en_us": "Netherite Furnace Minecart",
@@ -1522,6 +3020,121 @@
       ]
     },
     {
+      "id": "simpleovens:netherite_jungle_furnace_boat",
+      "name": {
+        "en_us": "Netherite Jungle Furnace Boat",
+        "de_de": "Netherit-Dschungelholz-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Jungle boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Dschungelholzboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_jungle_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_mangrove_furnace_boat",
+      "name": {
+        "en_us": "Netherite Mangrove Furnace Boat",
+        "de_de": "Netherit-Mangroven-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Mangrove boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Mangrovenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_mangrove_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_oak_furnace_boat",
+      "name": {
+        "en_us": "Netherite Oak Furnace Boat",
+        "de_de": "Netherit-Eichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Oak boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Eichenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_pale_oak_furnace_boat",
+      "name": {
+        "en_us": "Netherite Pale Oak Furnace Boat",
+        "de_de": "Netherit-Blasseichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Pale oak boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Blasseichenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_pale_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:netherite_spruce_furnace_boat",
+      "name": {
+        "en_us": "Netherite Spruce Furnace Boat",
+        "de_de": "Netherit-Fichten-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Spruce boat with the Netherite furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Netherite furnace, shapeless."
+        },
+        "de": {
+          "summary": "Fichtenboot mit Netherit-Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein Netherit-Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:netherite_spruce_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleovens:oak_furnace_boat",
       "name": {
         "en_us": "Oak Furnace Boat",
@@ -1564,6 +3177,121 @@
       },
       "craftedBy": [
         "simpleovens:pale_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_acacia_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Acacia Furnace Boat",
+        "de_de": "Verstärktes Akazien-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Acacia boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Akazienboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_acacia_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_bamboo_furnace_raft",
+      "name": {
+        "en_us": "Reinforced Bamboo Furnace Raft",
+        "de_de": "Verstärktes Bambus-Ofenfloß"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Bamboo raft with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the raft and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Bambusfloß mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Floß und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_bamboo_furnace_raft"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_birch_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Birch Furnace Boat",
+        "de_de": "Verstärktes Birken-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Birch boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Birkenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_birch_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_cherry_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Cherry Furnace Boat",
+        "de_de": "Verstärktes Kirschholz-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Cherry boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Kirschholzboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_cherry_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_dark_oak_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Dark Oak Furnace Boat",
+        "de_de": "Verstärktes Schwarzeichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Dark oak boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Schwarzeichenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_dark_oak_furnace_boat"
       ],
       "usedIn": []
     },
@@ -1616,6 +3344,121 @@
       "usedIn": [
         "simpleovens:netherite_furnace_minecart_smithing"
       ]
+    },
+    {
+      "id": "simpleovens:reinforced_jungle_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Jungle Furnace Boat",
+        "de_de": "Verstärktes Dschungelholz-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Jungle boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Dschungelholzboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_jungle_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_mangrove_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Mangrove Furnace Boat",
+        "de_de": "Verstärktes Mangroven-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Mangrove boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Mangrovenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_mangrove_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_oak_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Oak Furnace Boat",
+        "de_de": "Verstärktes Eichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Oak boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Eichenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_pale_oak_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Pale Oak Furnace Boat",
+        "de_de": "Verstärktes Blasseichen-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Pale oak boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Blasseichenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_pale_oak_furnace_boat"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleovens:reinforced_spruce_furnace_boat",
+      "name": {
+        "en_us": "Reinforced Spruce Furnace Boat",
+        "de_de": "Verstärktes Fichten-Ofenboot"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleovens/shared/java/com/simpleovens/boat/OvenBoat.java",
+          "modules/simpleovens/shared/java/com/simpleovens/client/OvenBoatRenderer.java"
+        ],
+        "en": {
+          "summary": "Spruce boat with the Reinforced furnace instead of the chest: you steer, coal or charcoal pushes it forward on water, longer and harder than the plain furnace boat (see Furnace Boats). Crafted: the boat and a Reinforced furnace, shapeless."
+        },
+        "de": {
+          "summary": "Fichtenboot mit verstärktem Ofen statt Truhe: Du lenkst, Kohle oder Holzkohle schiebt es auf dem Wasser vorwärts, länger und stärker als beim normalen Ofenboot (siehe Ofenboote). Gecraftet: das Boot und ein verstärkter Ofen, formlos."
+        }
+      },
+      "craftedBy": [
+        "simpleovens:reinforced_spruce_furnace_boat"
+      ],
+      "usedIn": []
     },
     {
       "id": "simpleovens:spruce_furnace_boat",
@@ -1731,7 +3574,17 @@
       },
       "craftedBy": [],
       "usedIn": [
-        "simpleovens:enderite_furnace_minecart"
+        "simpleovens:enderite_acacia_furnace_boat",
+        "simpleovens:enderite_bamboo_furnace_raft",
+        "simpleovens:enderite_birch_furnace_boat",
+        "simpleovens:enderite_cherry_furnace_boat",
+        "simpleovens:enderite_dark_oak_furnace_boat",
+        "simpleovens:enderite_furnace_minecart",
+        "simpleovens:enderite_jungle_furnace_boat",
+        "simpleovens:enderite_mangrove_furnace_boat",
+        "simpleovens:enderite_oak_furnace_boat",
+        "simpleovens:enderite_pale_oak_furnace_boat",
+        "simpleovens:enderite_spruce_furnace_boat"
       ]
     },
     {
@@ -1868,7 +3721,17 @@
       },
       "craftedBy": [],
       "usedIn": [
-        "simpleovens:netherite_furnace_minecart"
+        "simpleovens:netherite_acacia_furnace_boat",
+        "simpleovens:netherite_bamboo_furnace_raft",
+        "simpleovens:netherite_birch_furnace_boat",
+        "simpleovens:netherite_cherry_furnace_boat",
+        "simpleovens:netherite_dark_oak_furnace_boat",
+        "simpleovens:netherite_furnace_minecart",
+        "simpleovens:netherite_jungle_furnace_boat",
+        "simpleovens:netherite_mangrove_furnace_boat",
+        "simpleovens:netherite_oak_furnace_boat",
+        "simpleovens:netherite_pale_oak_furnace_boat",
+        "simpleovens:netherite_spruce_furnace_boat"
       ]
     },
     {
@@ -2009,7 +3872,17 @@
         "simpleovens:reinforced_furnace"
       ],
       "usedIn": [
-        "simpleovens:reinforced_furnace_minecart"
+        "simpleovens:reinforced_acacia_furnace_boat",
+        "simpleovens:reinforced_bamboo_furnace_raft",
+        "simpleovens:reinforced_birch_furnace_boat",
+        "simpleovens:reinforced_cherry_furnace_boat",
+        "simpleovens:reinforced_dark_oak_furnace_boat",
+        "simpleovens:reinforced_furnace_minecart",
+        "simpleovens:reinforced_jungle_furnace_boat",
+        "simpleovens:reinforced_mangrove_furnace_boat",
+        "simpleovens:reinforced_oak_furnace_boat",
+        "simpleovens:reinforced_pale_oak_furnace_boat",
+        "simpleovens:reinforced_spruce_furnace_boat"
       ]
     },
     {
@@ -2075,12 +3948,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 18,
+    "recipes": 48,
     "lootTables": 9,
     "tags": 1,
     "advancements": 1,
     "enchantments": 0,
-    "items": 14,
+    "items": 44,
     "blocks": 9,
     "trades": 0,
     "config": 0,

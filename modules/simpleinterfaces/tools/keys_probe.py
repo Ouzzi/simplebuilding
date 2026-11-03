@@ -23,7 +23,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 RUN = REPO / 'integration/run-fabric-263'
 REQUEST, STATUS, COMMAND = 'simpleinterfaces-keys-probe.json', 'simpleinterfaces-keys-status.json', 'simpleinterfaces-keys-command.json'
-ROW = 'key.simpleinterfaces.open_keys'  # unbound by default
+ROW = 'key.simplelib.freelook_toggle'  # unbound by default (open_keys has '+' since QOL34)
 G = 298  # GLFW code of F9: free in Vanilla, so its key page lists only the probed action
 
 _spec = importlib.util.spec_from_file_location('menu_probe', REPO / 'modules/simpleearth/tools/menu_probe.py')
@@ -84,6 +84,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', required=True)
     ap.add_argument('--scales', default='2,3')
+    ap.add_argument('--size', default='1280x720', help='window size WxH')
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -91,7 +92,7 @@ def main():
     RUN.mkdir(parents=True, exist_ok=True)
     for f in (STATUS, COMMAND):
         (RUN / f).unlink(missing_ok=True)
-    (RUN / REQUEST).write_text(json.dumps({'width': 1280, 'height': 720, 'guiScale': scales[0]}))
+    (RUN / REQUEST).write_text(json.dumps({'width': int(args.size.split('x')[0]), 'height': int(args.size.split('x')[1]), 'guiScale': scales[0]}))
     started = time.time()
     log = open(out / 'client.log', 'w')
     game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
@@ -166,10 +167,20 @@ def main():
             st = command('show')
             rows = int(st['values'].get('rows', '0'))
             command('open')
+            st = fresh()
+            c0 = int(st['values'].get('collapsed', '0'))  # the debug sub-group starts folded
             st = click('fold_first')
-            folded = st['values'].get('collapsed')
+            folded = int(st['values'].get('collapsed', '0'))
             st = click('fold_first')
-            check(f'{tag}: fold/unfold first group', folded == '1' and st['values'].get('collapsed') == '0', f'{folded} -> {st["values"].get("collapsed")} ({rows} rows)')
+            check(f'{tag}: fold/unfold first group', folded == c0 + 1 and int(st['values'].get('collapsed', '0')) == c0, f'{c0} -> {folded} -> {st["values"].get("collapsed")} ({rows} rows)')
+            # QOL34: "Collapse all" folds every group and sub-group, then reads "Expand all" and opens all again
+            st = click('fold_all')
+            rows_folded = int(st['values'].get('rows', '0'))
+            check(f'{tag}: collapse all', int(st['values'].get('collapsed', '0')) > c0 + 1 and rows_folded < rows, f'rows {rows} -> {rows_folded}, folded {st["values"].get("collapsed")}')
+            command('shot')
+            st = click('fold_all')
+            check(f'{tag}: expand all', st['values'].get('collapsed') == '0' and int(st['values'].get('rows', '0')) > rows, f'rows {st["values"].get("rows")}, folded {st["values"].get("collapsed")}')
+            command('shot')
             # reset all asks first; any other click cancels the question
             st = click('reset_all')
             armed = st['values'].get('armedReset')
@@ -183,10 +194,40 @@ def main():
             command('shot')
             st = click('size_100')
             check(f'{tag}: size 100 %', st['values'].get('size').replace(' ', '') == '100%', st['values'].get('size'))
-            st = click('german')
-            g1 = st['values'].get('german')
-            st = click('german')
-            check(f'{tag}: QWERTZ toggle', g1 == 'true' and st['values'].get('german') == 'false', f'{g1} -> {st["values"].get("german")}')
+            # b-keys34: the layout button cycles US -> DE -> UK -> FR -> US
+            seen = []
+            for _ in range(4):
+                st = click('layout')
+                seen.append(st['values'].get('layout'))
+                if len(seen) == 1:
+                    command('shot')  # DE with the L-shaped Enter
+            check(f'{tag}: layout button cycles', seen == ['de', 'uk', 'fr', 'us'], seen)
+            # editor: remove F9 (select it, Del), press the real F9 key (it comes back, selected), move it, save as own layout
+            st = click('edit')
+            check(f'{tag}: edit opens the editor', st['screen'] == 'KeysEditorScreen', st['screen'])
+            n0 = int(st['values'].get('keys', '0'))
+            st = click('cell', st)
+            check(f'{tag}: click selects the key', st['values'].get('selected') == str(G), st['values'].get('selected'))
+            st = click('remove', st)
+            check(f'{tag}: remove key', int(st['values'].get('keys', '0')) == n0 - 1, f'{n0} -> {st["values"].get("keys")}')
+            io.key('F9')
+            st = fresh()
+            check(f'{tag}: real key press re-adds the missing key', int(st['values'].get('keys', '0')) == n0 and st['values'].get('selected') == str(G)
+                  and st['values'].get('valid') == 'true', f'{st["values"].get("keys")} selected {st["values"].get("selected")} {st["values"].get("message")}')
+            command('shot')
+            st = click('right', st)
+            st = click('right', st)
+            check(f'{tag}: arrow button moves the key', st['values'].get('error') == 'false', st['values'].get('message'))
+            for _ in range(8):
+                st = click('left', st)
+            check(f'{tag}: moving into a neighbour is refused', st['values'].get('error') == 'true', st['values'].get('message'))
+            command('shot')
+            st = click('save', st)
+            check(f'{tag}: save returns to the page with the own layout', st['screen'] == 'KeysScreen' and st['values'].get('layout') == 'My US',
+                  f'{st["screen"]} {st["values"].get("layout")}')
+            st = click('edit', st)
+            st = click('delete', st)
+            check(f'{tag}: delete layout', st['screen'] == 'KeysScreen' and st['values'].get('layout') == 'us', f'{st["screen"]} {st["values"].get("layout")}')
             # a key on the picture -> its page -> "assign an action here" -> list in pick mode -> click the action
             st = click('cell')
             check(f'{tag}: keyboard key opens its page', st['screen'] == 'KeyCellScreen', st['screen'])

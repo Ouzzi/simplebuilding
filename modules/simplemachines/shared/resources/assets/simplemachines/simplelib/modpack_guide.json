@@ -9,7 +9,7 @@
       "title": "simplemachines.guide.chapter",
       "icon": "minecraft:redstone",
       "page_key": "simplemachines.guide.page",
-      "pages": 8,
+      "pages": 13,
       "advancement": "simplemachines:guide/chapter",
       "hint": "minecraft:redstone"
     }

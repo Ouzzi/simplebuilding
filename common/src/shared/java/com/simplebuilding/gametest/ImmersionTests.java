@@ -209,12 +209,15 @@ public final class ImmersionTests {
             helper.assertValueEqual(ovenLines(helper, new ItemStack(furnace)).size(), 2,
                     "blast furnace tooltip contains only speed and experience");
         }
-        expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks",
-                "Filter in its menu: exact or type match");
-        expectLines(helper, ModBlocks.NETHERITE_HOPPER, "Moves an item every 2 ticks",
-                "Filter in its menu: exact or type match");
-        expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
-                "Filter in its menu: exact or type match");
+        // MACH32-MOD stage 3: on 26.3 the hoppers are Simple Machines' and their item writes its lines itself.
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
+            expectLines(helper, ModBlocks.REINFORCED_HOPPER, "Moves an item every 4 ticks",
+                    "Filter in its menu: exact or type match");
+            expectLines(helper, ModBlocks.NETHERITE_HOPPER, "Moves an item every 2 ticks",
+                    "Filter in its menu: exact or type match");
+            expectLines(helper, ModBlocks.ENDERITE_HOPPER, "Moves an item every tick",
+                    "Filter in its menu: exact or type match");
+        }
         // MACH32-MOD stage 2: on 26.3 the Reinforced Pistons are Simple Machines' and their item writes its line itself.
         if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) expectLines(helper, ModBlocks.REINFORCED_STICKY_PISTON, "Pushes up to 18 blocks");
         // b-blocksmove: on 26.3 the gravity blocks are Simple Blocks' and their item writes the line itself (like the ovens).

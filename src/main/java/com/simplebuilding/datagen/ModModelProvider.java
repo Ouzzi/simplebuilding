@@ -232,9 +232,11 @@ public class ModModelProvider extends FabricModelProvider {
         }
 
         // --- 4. Hoppers ---
-        registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
-        registerCustomHopper(blockStateModelGenerator, ModBlocks.NETHERITE_HOPPER);
-        registerCustomHopper(blockStateModelGenerator, ModBlocks.ENDERITE_HOPPER);
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { // 26.3: Simple Machines ships the hopper models (MACH32-MOD stage 3)
+            registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
+            registerCustomHopper(blockStateModelGenerator, ModBlocks.NETHERITE_HOPPER);
+            registerCustomHopper(blockStateModelGenerator, ModBlocks.ENDERITE_HOPPER);
+        }
 
         // --- 5. Pistons ---
         // Reinforced Piston is a real Piston (has EXTENDED property)
@@ -903,9 +905,11 @@ public class ModModelProvider extends FabricModelProvider {
         if (!com.simplebuilding.version.McVersion.MATERIALS_IN_LIB) itemModelGenerator.generateFlatItem(ModItems.CRACKED_DIAMOND, ModelTemplates.FLAT_ITEM); // 26.3: SimpleLib
 
         // Hoppers hier auch, da Generated Item Model für Inventory
-        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_HOPPER, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_HOPPER, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOPPER, ModelTemplates.FLAT_ITEM);
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
+            itemModelGenerator.generateFlatItem(ModItems.REINFORCED_HOPPER, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(ModItems.NETHERITE_HOPPER, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOPPER, ModelTemplates.FLAT_ITEM);
+        }
 
         if (com.simplebuilding.version.McVersion.TRIMS_IN_SB) { // 26.3: Simple Trims (N18)
             itemModelGenerator.generateFlatItem(ModItems.GLOWING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);

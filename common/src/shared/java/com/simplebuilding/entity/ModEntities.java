@@ -49,7 +49,7 @@ public final class ModEntities {
     public static final EntityType<com.simplebuilding.dummy.SmallArmorStand> SMALL_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY
             ? registerPartialStand("small_armor_stand", 1.0F) : null;
 
-    // --- Fahrzeug-Stufen (Queue N19/N23, 26.3): Ofen- und Trichterloren je Truhen-Stufe; die Kistenloren und Kistenboote
+    // --- Fahrzeug-Stufen (Queue N19/N23, 26.3): Ofen- und Trichterloren je Truhen-Stufe (26.3: Simple Ovens bzw. seit MACH32-MOD Stufe 3 Simple Machines); die Kistenloren und Kistenboote
     // gehoeren seit Stufe 8b-2 Simple Storage (simplestorage:<stufe>_chest_minecart/_chest_boat, IdMoves) ---
     public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> REINFORCED_FURNACE_MINECART = vehicles() && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerCart("reinforced_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.REINFORCED)) : null;
@@ -57,11 +57,11 @@ public final class ModEntities {
             ? registerCart("netherite_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.NETHERITE)) : null;
     public static final EntityType<com.simplebuilding.entity.vehicle.TieredFurnaceMinecart> ENDERITE_FURNACE_MINECART = vehicles() && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerCart("enderite_furnace_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredFurnaceMinecart(t, l, ChestTier.ENDERITE)) : null;
-    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> REINFORCED_HOPPER_MINECART = vehicles()
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> REINFORCED_HOPPER_MINECART = vehicles() && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
             ? registerCart("reinforced_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.REINFORCED)) : null;
-    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> NETHERITE_HOPPER_MINECART = vehicles()
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> NETHERITE_HOPPER_MINECART = vehicles() && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
             ? registerCart("netherite_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.NETHERITE)) : null;
-    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> ENDERITE_HOPPER_MINECART = vehicles()
+    public static final EntityType<com.simplebuilding.entity.vehicle.TieredHopperMinecart> ENDERITE_HOPPER_MINECART = vehicles() && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
             ? registerCart("enderite_hopper_minecart", (t, l) -> new com.simplebuilding.entity.vehicle.TieredHopperMinecart(t, l, ChestTier.ENDERITE)) : null;
 
     private ModEntities() {

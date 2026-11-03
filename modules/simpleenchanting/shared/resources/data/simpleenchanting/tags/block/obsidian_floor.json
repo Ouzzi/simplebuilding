@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "simplebuilding:blazing_obsidian",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:nihil_obsidian",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:blazing_obsidian",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:nihil_obsidian",
+      "required": false
+    }
+  ]
+}

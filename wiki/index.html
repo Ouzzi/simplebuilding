@@ -671,6 +671,7 @@ a.chip:hover { text-decoration: none; }
   .brand { flex: 1; min-width: 0; }
   .brand-text { font-size: .85rem; }
   .allmods { margin-left: auto; }
+  .topbar .allmods { min-width: 0; white-space: normal; line-height: 1.15; }
   .topbar .search { order: 10; flex: 1 0 100%; width: 100%; }
 }
 .row-focused { outline: 3px solid var(--accent, #d6a34b); outline-offset: -3px; background: rgba(214, 163, 75, .18); scroll-margin: 5rem; }
@@ -748,6 +749,55 @@ body.tx-lb-open { overflow: hidden; }
 .tx-lb-info th { text-align: left; color: var(--muted); font-weight: 600; padding: .15rem .8rem .15rem 0; vertical-align: top; white-space: nowrap; width: 1%; }
 .tx-lb-info td { padding: .15rem 0; overflow-wrap: anywhere; }
 .tx-meta-json { margin: 0; font-size: .75rem; max-height: 10rem; overflow: auto; background: var(--code-bg); padding: .3rem .5rem; border-radius: 4px; }
+/* Modpack-Leiste, Browser, Mod-Struktur (b-site01); nur vorhandene Farbvariablen (Kontrast >= 4,5:1, a-wiki22). */
+.packbar { margin: -.4rem 0 1.1rem; padding: .55rem .75rem; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius-sm); background: var(--panel); }
+.pb-row { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem; }
+.pb-l { font-weight: 650; color: var(--text); }
+.pb-sel { height: 32px; max-width: 100%; min-width: 0; padding: 0 .4rem; border: 2px solid var(--accent); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; font-size: .88rem; }
+.pb-count { color: var(--muted); font-size: .85rem; }
+.pb-links { display: inline-flex; flex-wrap: wrap; gap: .4rem; margin-left: auto; }
+.pb-links .btn, .pb-edit { text-decoration: none; }
+.packbar .btn.pb-on, .pb-edit[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); }
+.pb-note, .pb-out { margin: .5rem 0 0; font-size: .88rem; color: var(--text); }
+.pb-out { padding: .4rem .6rem; background: var(--warn-bg); border-radius: var(--radius-sm); }
+.pb-panel { margin-top: .6rem; border-top: 1px solid var(--border); padding-top: .5rem; }
+.pb-hint { margin: 0 0 .4rem; font-size: .85rem; color: var(--muted); }
+.pb-tree, .pb-tree ul { list-style: none; margin: 0; padding: 0; }
+.pb-tree { columns: 2 280px; column-gap: 1.5rem; }
+.pb-tree > li { break-inside: avoid; margin-bottom: .5rem; }
+.pb-tree ul { padding-left: 1.3rem; border-left: 1px dashed var(--border-strong); margin-left: .45rem; }
+.pb-tree li { line-height: 1.9; }
+.pb-tree label { cursor: pointer; }
+.pb-tree input, .st-chk input { width: 18px; height: 18px; vertical-align: -3px; accent-color: var(--accent); }
+.pb-root { font-weight: 650; }
+.pb-tag { display: inline-block; margin-left: .35rem; padding: 0 .45em; border-radius: 999px; font-size: .72rem; line-height: 1.55; border: 1px solid var(--border); color: var(--muted); background: var(--panel); vertical-align: 1px; }
+.pb-tag.pb-req, .pb-tag.st-done { border-color: var(--accent); color: var(--accent); }
+.pb-fam { margin-left: .35rem; font: inherit; font-size: .75rem; padding: 0 .45em; border: 1px solid var(--border); border-radius: 999px; background: var(--panel-2); color: var(--text); cursor: pointer; }
+.chip.chip-on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chip .n { color: var(--muted); font-size: .75rem; margin-left: .2rem; }
+.br-types { display: flex; flex-wrap: wrap; gap: .35rem; margin: .4rem 0 .7rem; }
+.br-filter { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; }
+.br-filter input, .br-filter select { height: 36px; padding: 0 .6rem; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; font-size: .9rem; }
+.br-filter input { flex: 1 1 240px; min-width: 0; }
+.br-filter select { flex: 0 1 240px; min-width: 0; }
+.st-tree { list-style: none; margin: 0; padding: 0; }
+.st-tree .st-tree { margin: .4rem 0 0 .6rem; padding-left: 1rem; border-left: 2px solid var(--border-strong); }
+.st-node { padding: .35rem 0; }
+.st-head { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .45rem; }
+.st-icon { image-rendering: pixelated; }
+.st-acts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-left: auto; }
+.st-acts .btn { height: 28px; font-size: .8rem; text-decoration: none; }
+.st-chk { font-size: .82rem; color: var(--text); cursor: pointer; white-space: nowrap; }
+.st-desc { font-size: .88rem; color: var(--text); margin: .1rem 0 .15rem; }
+.st-rel { font-size: .82rem; margin-top: .15rem; display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
+.st-rel .chip { font-size: .75rem; padding: .05rem .5rem; }
+.st-node:not(.st-in) > .st-head strong { color: var(--muted); }
+@media (max-width: 640px) {
+  .packbar { margin-top: 0; padding: .5rem .55rem; }
+  .pb-sel { flex: 1 1 100%; }
+  .pb-links { margin-left: 0; }
+  .st-acts { margin-left: 0; width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -1942,10 +1992,59 @@ function fmtStat(x) { return Number(x).toLocaleString(LANG === 'de' ? 'de-DE' : 
 var MODULES = arr(window.WIKI_MODULES);
 var MODULE_DATA = window.WIKI_MODULE_DATA || { simplebuilding: window.WIKI_DATA };
 var modParams = new URLSearchParams(location.search);
+/* ------------------------------------------------------------------ */
+/* Modpack-Auswahl (b-site01): welcher Teil der Simple-Mods gezeigt   */
+/* wird. Quelle ist der Katalog (modules/modules.json): Super-Mods    */
+/* haben Kinder (parent), Pflicht-Abhaengigkeiten sind requires-      */
+/* Eintraege, die selbst Wiki-Mods sind (transitiv). Schluessel:      */
+/* all | super:<id> | mod:<id> | c:<ids ohne "simple">.               */
+/* ------------------------------------------------------------------ */
+var PACK_HIDDEN = { wiringexample: 1 };
+var PACK_MODS = MODULES.filter(function (m) { return !PACK_HIDDEN[m.id]; });
+var PACK_BY = {};
+PACK_MODS.forEach(function (m) { PACK_BY[m.id] = m; });
+var PACK_STORE = 'simple-wiki-pack';
+function packKids(id) { return PACK_MODS.filter(function (c) { return c.parent === id; }); }
+function packFamily(id) { var out = [id]; packKids(id).forEach(function (c) { out = out.concat(packFamily(c.id)); }); return out; }
+function packReqs(id) { return arr(PACK_BY[id] && PACK_BY[id].requires).filter(function (r) { return PACK_BY[r] && r !== id; }); }
+function packOrder(set) { return PACK_MODS.map(function (m) { return m.id; }).filter(function (id) { return set[id]; }); }
+function packClosure(ids) {
+  var set = {};
+  (function add(list) { list.forEach(function (id) { if (!PACK_BY[id] || set[id]) return; set[id] = 1; add(packReqs(id)); }); })(ids);
+  return packOrder(set);
+}
+function packIsSuper(id) { return !!PACK_BY[id] && !PACK_BY[id].parent && packKids(id).length > 0; }
+function packShort(id) { return id.replace(/^simple/, ''); }
+function packLong(s) { return PACK_BY['simple' + s] ? 'simple' + s : s; }
+function packParse(key) {
+  key = String(key || 'all');
+  var m = /^(super|mod):([a-z0-9_-]+)$/.exec(key);
+  if (m && PACK_BY[m[2]]) {
+    var seed = [m[2]];
+    if (m[1] === 'super') packKids(m[2]).forEach(function (c) { if (c.bundle === 'required') seed.push(c.id); });
+    return mkPack(key, m[1], m[2], packClosure(seed));
+  }
+  if (key.indexOf('c:') === 0) {
+    var ids = packClosure(key.slice(2).split(',').map(packLong).filter(function (id) { return PACK_BY[id]; }));
+    if (ids.length && ids.length < PACK_MODS.length) return mkPack('c:' + ids.map(packShort).join(','), 'custom', null, ids);
+  }
+  return mkPack('all', 'all', null, PACK_MODS.map(function (x) { return x.id; }));
+}
+function mkPack(key, kind, root, ids) { var set = {}; ids.forEach(function (id) { set[id] = 1; }); return { key: key, kind: kind, root: root, ids: ids, set: set }; }
+var PACK = packParse(modParams.get('pack') || (function () { try { return localStorage.getItem(PACK_STORE); } catch (err) { return null; } })());
+function inPack(id) { return !!PACK.set[id]; }
+/* Startmod eines Packs: sein Kopf (Super-Mod/Mod), sonst der erste Pack-Mod mit Wiki-Daten. */
+function packHome() {
+  if (PACK.root && MODULE_DATA[PACK.root]) return PACK.root;
+  var have = PACK.ids.filter(function (id) { return MODULE_DATA[id]; });
+  return have.filter(packIsSuper)[0] || have.filter(function (id) { return id !== 'simplelib'; })[0] || have[0] || 'simplebuilding';
+}
 var selectedMod = modParams.get('mod');
 // Old item links belong to their namespace; other legacy links stay SimpleBuilding.
 if (!selectedMod && (location.hash || modParams.has('item') || modParams.has('page'))) selectedMod = 'simplebuilding';
 if (!selectedMod) { try { selectedMod = localStorage.getItem('simple-wiki-mod'); } catch (err) {} }
+// b-site01: without an explicit mod the wiki opens on the head of the chosen modpack.
+if (!modParams.get('mod') && !(location.hash || modParams.has('item') || modParams.has('page')) && !inPack(selectedMod)) selectedMod = packHome();
 if (!MODULE_DATA[selectedMod]) selectedMod = 'simplebuilding';
 var D = isObj(MODULE_DATA[selectedMod]) ? MODULE_DATA[selectedMod] : null;
 try { localStorage.setItem('simple-wiki-mod', selectedMod); } catch (err) {}
@@ -1958,15 +2057,19 @@ function buildModSelect() {
     var o = document.createElement('option'); o.value = value; o.textContent = label; o.selected = !!sel; parent.appendChild(o);
   }
   opt(modSelect, '#allmods', '★ ' + (de ? 'Alle Mods' : 'All mods'), false);
+  /* b-site01: only mods of the chosen modpack (plus the open one); nested sub-mods (Crucibles under Ovens) indented. */
+  function shown(id) { return id === selectedMod || inPack(id) || !PACK_BY[id]; }
+  function family(m, depth, g) {
+    if (shown(m.id)) opt(g, m.id, depth ? new Array(depth + 1).join('   ') + '◆ ' + m.displayName : '● ' + m.displayName, m.id === selectedMod);
+    modChildren(m.id).forEach(function (c) { family(c, depth + 1, g); });
+  }
   var other = [];
   MODULES.forEach(function (m) {
     if (m.parent) return;
-    var subs = modChildren(m.id);
-    if (!subs.length) { other.push(m); return; }
+    if (!modChildren(m.id).length) { if (shown(m.id)) other.push(m); return; }
     var g = document.createElement('optgroup'); g.label = m.displayName;
-    opt(g, m.id, '● ' + m.displayName, m.id === selectedMod);
-    subs.forEach(function (c) { opt(g, c.id, '   ◆ ' + c.displayName, c.id === selectedMod); });
-    modSelect.appendChild(g);
+    family(m, 0, g);
+    if (g.children.length) modSelect.appendChild(g);
   });
   if (other.length) {
     var og = document.createElement('optgroup'); og.label = T('amOtherGroup');
@@ -2031,7 +2134,7 @@ function moduleInfo() {
 }
 /* Befehle aller Mods (?tab=commands), je Mod eine Zeile; der eigene Mod steht oben. */
 function pageCommands() {
-  var mods = MODULES.filter(function (m) { return arr(m.commands).length; });
+  var mods = MODULES.filter(function (m) { return arr(m.commands).length && (inPack(m.id) || !PACK_BY[m.id]); });
   mods.sort(function (a, b) { return (b.id === selectedMod) - (a.id === selectedMod); });
   var h = '<div class="listhead"><h1>' + esc(T('navCommands')) + ' <span class="muted tiny" style="font-weight:400">' + allCommandCount() + '</span></h1></div><p>' + esc(T('cmdIntro')) + '</p>';
   if (!mods.length) return h + '<p class="hint">' + esc(T('cmdNone')) + '</p>';
@@ -2846,9 +2949,11 @@ function amCounts(m) {
 function amLink(m) { return '<a href="' + esc(crossModHref(m.id, '', '')) + '">' + (m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="32" height="32" style="image-rendering:pixelated;vertical-align:middle;margin-right:6px">' : '') + esc(m.displayName) + '</a>'; }
 function pageAllMods() {
   var h = '<section class="home-hero"><h1>' + esc(T('navAllMods')) + '</h1></section><p>' + esc(T('amIntro')) + '</p>';
-  var supers = MODULES.filter(function (m) { return modChildren(m.id).length; });
+  /* b-site01: filtered by the chosen modpack. */
+  if (PACK.kind !== 'all') h += '<p class="pb-note">' + esc(T('pbFiltered', PACK.ids.length, PACK_MODS.length)) + ' <button type="button" class="btn" data-pack-set="all">' + esc(T('pbShowAll')) + '</button></p>';
+  var supers = MODULES.filter(function (m) { return modChildren(m.id).length && (inPack(m.id) || modChildren(m.id).some(function (c) { return inPack(c.id); })); });
   supers.forEach(function (m) {
-    var o = m.overview, subs = modChildren(m.id);
+    var o = m.overview, subs = modChildren(m.id).filter(function (c) { return inPack(c.id); });
     h += '<section class="box" id="mod-' + esc(m.id) + '"><h2>' + amLink(m) + ' <span class="muted tiny">' + esc(T('amSuper')) + ' · <code>' + esc(m.id) + '</code></span></h2><p>' + esc(modPurpose(m) || m.description) + '</p>';
     h += '<p class="muted">' + esc('v' + m.version + ' · ' + T('amLoaders') + ': ' + m.loaders.join(', ') + (amCounts(m) ? ' · ' + amCounts(m) : '')) + '</p>';
     if (o) h += '<p><strong>' + esc(T('amStatus')) + ':</strong> ' + esc(o.status) + ' · ' + esc(o.open + ' ' + T('amOpen')) + '<br><strong>' + esc(T('amMissing')) + ':</strong> ' + esc(o.missing) + '<br><span class="muted tiny">' + esc(T('amAsOf', o.asOf)) + '</span></p>';
@@ -2858,7 +2963,7 @@ function pageAllMods() {
     });
     h += '</tbody></table></div></section>';
   });
-  var alone = MODULES.filter(function (m) { return !m.parent && !modChildren(m.id).length; });
+  var alone = MODULES.filter(function (m) { return !m.parent && !modChildren(m.id).length && inPack(m.id); });
   if (alone.length) {
     h += '<section class="box"><h2>' + esc(T('amStandalone')) + '</h2><div class="table-wrap tw-full"><table class="table am-table"><tbody>' + alone.map(function (c) {
       return '<tr><td>' + amLink(c) + ' <code class="tiny">' + esc(c.id) + '</code></td><td>' + esc(modPurpose(c) || c.description) + (amCounts(c) ? '<br><span class="muted tiny">' + esc(amCounts(c)) + '</span>' : '') + '</td></tr>';
@@ -4776,6 +4881,21 @@ function buildSearch() {
   IW.kinds.forEach(function (k) { add('inworld', k.id, iwKindTitle(k.id), T('navInWorld'), noteText(k.note), '#/inworld/' + k.id); });
   arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.label || c.name, [c.name, c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.tooltipDe, c.labelDe, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
+var SEARCH_MODS = {};
+function searchEntriesOf(m) {
+  var k = m.id + '|' + LANG;
+  if (SEARCH_MODS[k]) return SEARCH_MODS[k];
+  var data = MODULE_DATA[m.id], out = [];
+  ['features', 'items', 'blocks', 'recipes', 'enchantments', 'tags', 'config', 'lootTables', 'trades'].forEach(function (key) {
+    var section = key === 'lootTables' ? 'loot' : key;
+    arr(data[key]).forEach(function (e) {
+      var id = e.id || e.name, title = key === 'features' ? featureTitle(e) : (nameOf(e) || id);
+      out.push({section: section, id: id, title: title, sub: id, text: norm(JSON.stringify(e)),
+        ntitle: norm(title), nid: norm(id), modBadge: m.displayName, href: crossModHref(m.id, section, id)});
+    });
+  });
+  return (SEARCH_MODS[k] = out);
+}
 function search(q) {
   var tokens = norm(q).split(/\s+/).filter(Boolean);
   if (!tokens.length) return [];
@@ -4783,18 +4903,10 @@ function search(q) {
   var pool = SEARCH.map(function (entry) { return Object.assign({}, entry); });
   if (document.getElementById('all-mods').checked) {
     pool.forEach(function (e) { e.modBadge = MOD.name; });
+    /* b-site01: "Whole pack" searches the mods of the chosen modpack; each mod's entries are built once. */
     MODULES.forEach(function (m) {
-      if (m.id === selectedMod || !MODULE_DATA[m.id]) return;
-      var data = MODULE_DATA[m.id];
-      ['features', 'items', 'blocks', 'recipes', 'enchantments', 'tags', 'config', 'lootTables', 'trades'].forEach(function (key) {
-        var section = key === 'lootTables' ? 'loot' : key;
-        arr(data[key]).forEach(function (e) {
-          var id = e.id || e.name, title = key === 'features' ? featureTitle(e) : (nameOf(e) || id);
-          var text = norm(JSON.stringify(e));
-          pool.push({section: section, id: id, title: title, sub: id, text: text,
-            ntitle: norm(title), nid: norm(id), modBadge: m.displayName, href: crossModHref(m.id, section, id)});
-        });
-      });
+      if (m.id === selectedMod || !MODULE_DATA[m.id] || !inPack(m.id)) return;
+      pool = pool.concat(searchEntriesOf(m));
     });
   }
   pool.forEach(function (e) {
@@ -4877,7 +4989,242 @@ var $meta = document.getElementById('topmeta');
 var $lang = document.getElementById('lang');
 var $theme = document.getElementById('theme-btn');
 var $menu = document.getElementById('menu-btn');
-document.getElementById('all-mods').addEventListener('change', function () { if (currentRoute().section === 'search') render({ keepScroll: true }); else if (!$qs.hidden) renderQs(); });
+(function () { var v = null; try { v = localStorage.getItem('simple-wiki-packsearch'); } catch (err) {} document.getElementById('all-mods').checked = v !== '0'; })();
+document.getElementById('all-mods').addEventListener('change', function () { try { localStorage.setItem('simple-wiki-packsearch', this.checked ? '1' : '0'); } catch (err) {} if (currentRoute().section === 'search') render({ keepScroll: true }); else if (!$qs.hidden) renderQs(); });
+
+/* ------------------------------------------------------------------ */
+/* Modpack-Leiste, Browser und Mod-Struktur (b-site01)                 */
+/* ------------------------------------------------------------------ */
+Object.assign(STR.en, {
+  pbLabel: 'Modpack', pbAll: 'Simple Modpack (everything)', pbSupers: 'Super-mods (with required sub-mods)',
+  pbSingles: 'Single mods (with required dependencies)', pbCustom: 'Custom selection …', pbCount: '{0} of {1} mods',
+  pbEdit: 'Customise', pbBrowse: 'Browse everything', pbStructure: 'Mod structure', pbFamily: 'whole family',
+  pbNotIn: '{0} is not part of your modpack.', pbAdd: 'Add it', pbAdded: 'Added as required: {0}',
+  pbRemoved: 'Also removed (they need it): {0}', pbKeepOne: 'At least one mod stays selected.',
+  pbReqTag: 'required', pbOptTag: 'optional', pbTreeHint: 'Tick mods to build your own pack. Required dependencies are ticked automatically.',
+  pbSearchAll: 'Whole pack', pbFiltered: 'Filtered by your modpack: {0} of {1} mods.', pbShowAll: 'Show everything',
+  navBrowse: 'Browse', brIntro: 'Every item, block, recipe and guide of the mods in your modpack. Click an entry for its page.',
+  brAll: 'All', brItems: 'Items', brBlocks: 'Blocks', brRecipes: 'Recipes', brGuides: 'Guides', brEnch: 'Enchantments',
+  brConfig: 'Settings', brLoot: 'Loot', brTags: 'Tags', brFilter: 'Filter…', brAnyMod: 'All mods in the pack',
+  brShown: '{0} of {1} shown', brMore: 'Show more', brNone: 'Nothing matches.',
+  navStructure: 'Mod structure', stIntro: 'How the Simple mods fit together, from the module manifests. Super-mods bundle sub-mods; required sub-mods always come along, optional ones are your choice. Every mod also runs on its own.',
+  stUse: 'Use as modpack', stInPack: 'in pack', stNeeds: 'Needs', stUsedBy: 'Needed by', stBase: 'Base and standalone mods',
+  stDone: 'done', stNew: 'new', stPlanned: 'planned', stWiki: 'Wiki'
+});
+Object.assign(STR.de, {
+  pbLabel: 'Modpack', pbAll: 'Simple Modpack (alles)', pbSupers: 'Super-Mods (mit Pflicht-Sub-Mods)',
+  pbSingles: 'Einzelne Mods (mit Pflicht-Abhängigkeiten)', pbCustom: 'Eigene Auswahl …', pbCount: '{0} von {1} Mods',
+  pbEdit: 'Anpassen', pbBrowse: 'Alles durchsuchen', pbStructure: 'Mod-Struktur', pbFamily: 'ganze Familie',
+  pbNotIn: '{0} ist nicht in deinem Modpack.', pbAdd: 'Hinzufügen', pbAdded: 'Als Pflicht mit angehakt: {0}',
+  pbRemoved: 'Ebenfalls entfernt (brauchen es): {0}', pbKeepOne: 'Mindestens ein Mod bleibt ausgewählt.',
+  pbReqTag: 'Pflicht', pbOptTag: 'optional', pbTreeHint: 'Mods anhaken, um ein eigenes Pack zu bauen. Pflicht-Abhängigkeiten werden automatisch mit angehakt.',
+  pbSearchAll: 'Ganzes Pack', pbFiltered: 'Gefiltert nach deinem Modpack: {0} von {1} Mods.', pbShowAll: 'Alles zeigen',
+  navBrowse: 'Browser', brIntro: 'Alle Items, Blöcke, Rezepte und Anleitungen der Mods in deinem Modpack. Ein Klick öffnet die Seite des Eintrags.',
+  brAll: 'Alles', brItems: 'Items', brBlocks: 'Blöcke', brRecipes: 'Rezepte', brGuides: 'Anleitungen', brEnch: 'Verzauberungen',
+  brConfig: 'Einstellungen', brLoot: 'Beute', brTags: 'Tags', brFilter: 'Filtern…', brAnyMod: 'Alle Mods im Pack',
+  brShown: '{0} von {1} angezeigt', brMore: 'Mehr zeigen', brNone: 'Nichts gefunden.',
+  navStructure: 'Mod-Struktur', stIntro: 'Wie die Simple-Mods zusammenhängen, aus den Modul-Manifesten. Super-Mods bündeln Sub-Mods; Pflicht-Sub-Mods kommen immer mit, optionale nach Wahl. Jeder Mod läuft auch allein.',
+  stUse: 'Als Modpack', stInPack: 'im Pack', stNeeds: 'Braucht', stUsedBy: 'Gebraucht von', stBase: 'Basis und eigenständige Mods',
+  stDone: 'fertig', stNew: 'neu', stPlanned: 'geplant', stWiki: 'Wiki'
+});
+var PACK_UI = { open: PACK.kind === 'custom', note: '' };
+function packName(id) { var m = PACK_BY[id] || modMeta(id); return m ? m.displayName : id; }
+function setPack(key, note) {
+  PACK = packParse(key);
+  PACK_UI.note = note || '';
+  try { localStorage.setItem(PACK_STORE, PACK.key); } catch (err) {}
+  BR.cache = null; SEARCH_MODS = {};
+  buildModSelect();
+  if (!HASHMODE) { try { history.replaceState(history.state, '', routeUrl(currentRoute())); } catch (err) {} }
+  render({ keepScroll: true });
+}
+/* Eigene Auswahl: Anhaken zieht Pflicht-Abhaengigkeiten mit, Abhaken nimmt mit, was das Abgehakte braucht. */
+function packToggle(ids, on) {
+  var set = Object.assign({}, PACK.set), note = '';
+  if (on) {
+    var before = Object.assign({}, set);
+    packClosure(ids).forEach(function (id) { set[id] = 1; });
+    var extra = packOrder(set).filter(function (id) { return !before[id] && ids.indexOf(id) < 0; });
+    if (extra.length) note = T('pbAdded', extra.map(packName).join(', '));
+  } else {
+    var gone = ids.slice(), changed = true;
+    ids.forEach(function (id) { delete set[id]; });
+    while (changed) {
+      changed = false;
+      Object.keys(set).forEach(function (id) { if (packReqs(id).some(function (r) { return !set[r]; })) { delete set[id]; gone.push(id); changed = true; } });
+    }
+    var dep = gone.filter(function (id) { return ids.indexOf(id) < 0; });
+    if (dep.length) note = T('pbRemoved', dep.map(packName).join(', '));
+    if (!Object.keys(set).length) { PACK_UI.note = T('pbKeepOne'); render({ keepScroll: true }); return; }
+  }
+  PACK_UI.open = true;
+  setPack('c:' + packOrder(set).map(packShort).join(','), note);
+}
+function packTreeHtml() {
+  function node(m, depth) {
+    var kids = packKids(m.id);
+    var tag = m.bundle ? '<span class="pb-tag pb-' + (m.bundle === 'required' ? 'req' : 'opt') + '">' + esc(T(m.bundle === 'required' ? 'pbReqTag' : 'pbOptTag')) + '</span>' : '';
+    var fam = kids.length ? ' <button type="button" class="pb-fam" data-pack-family="' + esc(m.id) + '">' + esc(T('pbFamily')) + '</button>' : '';
+    return '<li><label><input type="checkbox" data-pack-mod="' + esc(m.id) + '"' + (inPack(m.id) ? ' checked' : '') + '> <span' + (depth ? '' : ' class="pb-root"') + '>' + esc(m.displayName) + '</span></label>' + tag + fam +
+      (kids.length ? '<ul>' + kids.map(function (c) { return node(c, depth + 1); }).join('') + '</ul>' : '') + '</li>';
+  }
+  var roots = PACK_MODS.filter(function (m) { return !m.parent || !PACK_BY[m.parent]; });
+  roots.sort(function (a, b) { return packKids(b.id).length - packKids(a.id).length || a.displayName.localeCompare(b.displayName); });
+  return '<p class="pb-hint">' + esc(T('pbTreeHint')) + '</p><ul class="pb-tree">' + roots.map(function (m) { return node(m, 0); }).join('') + '</ul>';
+}
+function packPresetOptions() {
+  function o(v, label) { return '<option value="' + esc(v) + '"' + (PACK.key === v ? ' selected' : '') + '>' + esc(label) + '</option>'; }
+  var supers = PACK_MODS.filter(function (m) { return packIsSuper(m.id); });
+  var singles = PACK_MODS.filter(function (m) { return !packIsSuper(m.id); }).sort(function (a, b) { return a.displayName.localeCompare(b.displayName); });
+  return o('all', T('pbAll')) +
+    '<optgroup label="' + esc(T('pbSupers')) + '">' + supers.map(function (m) { return o('super:' + m.id, m.displayName); }).join('') + '</optgroup>' +
+    '<optgroup label="' + esc(T('pbSingles')) + '">' + singles.map(function (m) { return o('mod:' + m.id, m.displayName); }).join('') + '</optgroup>' +
+    '<option value="custom"' + (PACK.kind === 'custom' ? ' selected' : '') + '>' + esc(T('pbCustom')) + '</option>';
+}
+function packBarHtml(section) {
+  var h = '<div class="packbar" role="region" aria-label="' + esc(T('pbLabel')) + '"><div class="pb-row">' +
+    '<label class="pb-l" for="pb-preset">' + esc(T('pbLabel')) + '</label>' +
+    '<select id="pb-preset" class="pb-sel">' + packPresetOptions() + '</select>' +
+    '<span class="pb-count">' + esc(T('pbCount', PACK.ids.length, PACK_MODS.length)) + '</span>' +
+    '<button type="button" class="btn pb-edit" data-pack-edit aria-expanded="' + (PACK_UI.open ? 'true' : 'false') + '">' + esc(T('pbEdit')) + '</button>' +
+    '<span class="pb-links"><a class="btn' + (section === 'browse' ? ' pb-on' : '') + '" href="#/browse">' + esc(T('pbBrowse')) + '</a><a class="btn' + (section === 'structure' ? ' pb-on' : '') + '" href="#/structure">' + esc(T('pbStructure')) + '</a></span></div>';
+  if (PACK_UI.note) h += '<p class="pb-note" role="status">' + esc(PACK_UI.note) + '</p>';
+  if (PACK_UI.open) h += '<div class="pb-panel">' + packTreeHtml() + '</div>';
+  if (!inPack(selectedMod) && PACK_BY[selectedMod] && ['browse', 'structure', 'allmods'].indexOf(section) < 0)
+    h += '<p class="pb-out">' + esc(T('pbNotIn', packName(selectedMod))) + ' <button type="button" class="btn" data-pack-add="' + esc(selectedMod) + '">' + esc(T('pbAdd')) + '</button></p>';
+  return h + '</div>';
+}
+$main.addEventListener('change', function (ev) {
+  var t = ev.target;
+  if (t.id === 'pb-preset') {
+    if (t.value === 'custom') { PACK_UI.open = true; setPack('c:' + PACK.ids.map(packShort).join(',')); }
+    else setPack(t.value);
+    return;
+  }
+  if (t.hasAttribute && t.hasAttribute('data-pack-mod')) packToggle([t.getAttribute('data-pack-mod')], t.checked);
+});
+$main.addEventListener('click', function (ev) {
+  var b = ev.target.closest && ev.target.closest('[data-pack-edit],[data-pack-family],[data-pack-add],[data-pack-set],[data-br-type],[data-br-more]');
+  if (!b) return;
+  ev.preventDefault();
+  if (b.hasAttribute('data-pack-edit')) { PACK_UI.open = !PACK_UI.open; PACK_UI.note = ''; render({ keepScroll: true }); }
+  else if (b.hasAttribute('data-pack-family')) { var fam = packFamily(b.getAttribute('data-pack-family')); packToggle(fam, !fam.every(inPack)); }
+  else if (b.hasAttribute('data-pack-add')) packToggle([b.getAttribute('data-pack-add')], true);
+  else if (b.hasAttribute('data-pack-set')) setPack(b.getAttribute('data-pack-set'));
+  else if (b.hasAttribute('data-br-type')) { BR.type = b.getAttribute('data-br-type'); BR.limit = BR_PAGE; render({ keepScroll: true }); }
+  else if (b.hasAttribute('data-br-more')) { BR.limit += BR_PAGE; brFill(); }
+});
+$main.addEventListener('input', function (ev) {
+  if (ev.target.id === 'br-q') { BR.q = ev.target.value; BR.limit = BR_PAGE; brFill(); }
+});
+$main.addEventListener('change', function (ev) {
+  if (ev.target.id === 'br-mod') { BR.mod = ev.target.value; BR.limit = BR_PAGE; render({ keepScroll: true }); }
+});
+
+/* Browser: alle Eintraege aller Pack-Mods, aus den schon geladenen Wiki-Daten (keine neuen Bilder). */
+var BR_PAGE = 200;
+var BR = { type: 'items', q: '', mod: '', limit: BR_PAGE, cache: null };
+var BR_TYPES = [['all', 'brAll'], ['items', 'brItems'], ['blocks', 'brBlocks'], ['recipes', 'brRecipes'], ['features', 'brGuides'], ['enchantments', 'brEnch'], ['config', 'brConfig'], ['loot', 'brLoot'], ['tags', 'brTags']];
+var BR_NAMES = null;
+function brEntry(id) {
+  if (!BR_NAMES) {
+    BR_NAMES = new Map();
+    MODULES.forEach(function (m) { var d = MODULE_DATA[m.id]; if (!isObj(d)) return; arr(d.blocks).concat(arr(d.items)).forEach(function (e) { if (isObj(e) && e.id) BR_NAMES.set(e.id, e); }); });
+  }
+  return BR_NAMES.get(id) || null;
+}
+function brName(id) { var e = brEntry(id); return (e && nameOf(e)) || prettyFromId(id); }
+function brTex(id) { var e = brEntry(id); var t = e && (e.icon || e.texture); return t || (isVanilla(id) ? vanillaTexture(id) : null); }
+function brList() {
+  var key = PACK.key + '|' + LANG;
+  if (BR.cache && BR.cache.key === key) return BR.cache.list;
+  var list = [];
+  PACK.ids.forEach(function (mid) {
+    var d = MODULE_DATA[mid]; if (!isObj(d)) return;
+    var mod = packName(mid);
+    function add(type, id, title, sub, text, tex) {
+      var href = mid === selectedMod ? '#/' + type + '/' + id : crossModHref(mid, type, id);
+      list.push({ type: type, mid: mid, mod: mod, id: id, title: title, sub: sub, tex: tex, href: href, text: norm([title, sub, id, mod, text].join(' ')) });
+    }
+    arr(d.items).filter(isObj).forEach(function (e) { add('items', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), e.icon || e.texture); });
+    arr(d.blocks).filter(isObj).forEach(function (e) { add('blocks', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), e.icon || e.texture); });
+    arr(d.recipes).filter(isObj).forEach(function (r) {
+      var res = normStack(r.result), rid = res && res.id;
+      add('recipes', r.id, (rid ? brName(rid) : prettyFromId(r.id)) + ' · ' + recipeTypeLabel(r.type), r.id, allIngredientRefs(r).map(function (i) { return brName(i) + ' ' + i; }).join(' '), rid ? brTex(rid) : null);
+    });
+    arr(d.features).filter(isObj).forEach(function (f) { var v = localised(f).v || {}; add('features', f.id, featureTitle(f) || f.id, v.summary || f.summary || '', arr(f.related).join(' '), null); });
+    arr(d.enchantments).filter(isObj).forEach(function (e) { add('enchantments', e.id, nameOf(e) || prettyFromId(e.id), e.id, nameAlt(e), null); });
+    arr(d.config).filter(isObj).forEach(function (c) { add('config', c.name, (LANG === 'de' && c.labelDe) || c.label || c.name, c.name + (c.default != null ? ' = ' + c.default : ''), [c.tooltip, c.tooltipDe].join(' '), null); });
+    arr(d.lootTables).filter(isObj).forEach(function (l) { add('loot', l.id, prettyFromId(l.id), l.id, '', null); });
+    arr(d.tags).filter(isObj).forEach(function (t) { add('tags', t.id, tagRefOf(t).ref, t.id, '', null); });
+  });
+  BR.cache = { key: key, list: list };
+  return list;
+}
+function brMatches() {
+  var tokens = norm(BR.q).split(/\s+/).filter(Boolean);
+  return brList().filter(function (e) {
+    if (BR.type !== 'all' && e.type !== BR.type) return false;
+    if (BR.mod && e.mid !== BR.mod) return false;
+    for (var i = 0; i < tokens.length; i++) if (e.text.indexOf(tokens[i]) < 0) return false;
+    return true;
+  });
+}
+function brRow(e) {
+  var icon = e.tex ? imgHtml(e.tex, e.title, true) : '<span class="slot-text">' + esc(sectionLabel(e.type)) + '</span>';
+  return '<a class="row" href="' + esc(e.href) + '"><span class="slot' + (e.tex ? '' : ' slot-plain') + '">' + icon + '</span><div class="row-main"><div class="row-title">' + esc(e.title) + '</div><div class="row-sub">' + esc(e.sub) + '</div></div><div class="row-right">' + badge(e.mod) + (BR.type === 'all' ? badge(sectionLabel(e.type)) : '') + '</div></a>';
+}
+function brFill() {
+  var box = document.getElementById('br-results'); if (!box) return;
+  var hits = brMatches(), shown = hits.slice(0, BR.limit);
+  box.innerHTML = '<p class="muted tiny">' + esc(T('brShown', shown.length, hits.length)) + '</p>' +
+    (hits.length ? '<div class="rows">' + shown.map(brRow).join('') + '</div>' : '<p class="hint">' + esc(T('brNone')) + '</p>') +
+    (hits.length > shown.length ? '<p><button type="button" class="btn" data-br-more>' + esc(T('brMore')) + '</button></p>' : '');
+}
+function pageBrowse() {
+  if (BR.mod && !inPack(BR.mod)) BR.mod = '';
+  var all = brList(), counts = {};
+  all.forEach(function (e) { if (!BR.mod || e.mid === BR.mod) { counts[e.type] = (counts[e.type] || 0) + 1; counts.all = (counts.all || 0) + 1; } });
+  var h = '<div class="listhead"><h1>' + esc(T('navBrowse')) + '</h1></div><p>' + esc(T('brIntro')) + '</p>';
+  h += '<div class="br-types" role="tablist">' + BR_TYPES.filter(function (t) { return counts[t[0]]; }).map(function (t) {
+    return '<button type="button" role="tab" class="chip' + (BR.type === t[0] ? ' chip-on' : '') + '" aria-selected="' + (BR.type === t[0]) + '" data-br-type="' + t[0] + '">' + esc(T(t[1])) + ' <span class="n">' + counts[t[0]] + '</span></button>';
+  }).join('') + '</div>';
+  h += '<div class="br-filter"><input id="br-q" type="search" placeholder="' + esc(T('brFilter')) + '" aria-label="' + esc(T('brFilter')) + '" value="' + esc(BR.q) + '">' +
+    '<select id="br-mod" aria-label="Mod"><option value="">' + esc(T('brAnyMod')) + '</option>' + PACK.ids.filter(function (id) { return MODULE_DATA[id]; }).map(function (id) { return '<option value="' + esc(id) + '"' + (BR.mod === id ? ' selected' : '') + '>' + esc(packName(id)) + '</option>'; }).join('') + '</select></div>';
+  return h + '<div id="br-results"></div>';
+}
+
+/* Mod-Struktur: derselbe Baum wie docs/MODSTRUKTUR.html (tools/modtree), klickbar. */
+function pageStructure() {
+  var used = {};
+  PACK_MODS.forEach(function (m) { packReqs(m.id).forEach(function (r) { (used[r] = used[r] || []).push(m.id); }); });
+  function chips(ids) { return ids.map(function (id) { return '<a class="chip' + (inPack(id) ? ' chip-on' : '') + '" href="#st-' + esc(id) + '">' + esc(packName(id)) + '</a>'; }).join(' '); }
+  function card(m, depth) {
+    var kids = packKids(m.id).slice().sort(function (a, b) { return (a.bundle !== 'required') - (b.bundle !== 'required') || a.displayName.localeCompare(b.displayName); });
+    var needs = packReqs(m.id).filter(function (r) { return r !== m.parent; });
+    var stage = m.stage ? '<span class="pb-tag st-' + esc(m.stage) + '">' + esc(T(m.stage === 'done' ? 'stDone' : m.stage === 'planned' ? 'stPlanned' : 'stNew')) + '</span>' : '';
+    var bundle = m.bundle ? '<span class="pb-tag pb-' + (m.bundle === 'required' ? 'req' : 'opt') + '">' + esc(T(m.bundle === 'required' ? 'pbReqTag' : 'pbOptTag')) + '</span>' : '';
+    var key = (packIsSuper(m.id) ? 'super:' : 'mod:') + m.id;
+    var h = '<li class="st-node' + (inPack(m.id) ? ' st-in' : '') + '" id="st-' + esc(m.id) + '"><div class="st-head">' +
+      (m.icon ? '<img src="' + esc(m.icon) + '" alt="" width="24" height="24" class="st-icon">' : '') +
+      '<strong>' + esc(m.displayName) + '</strong> <code class="tiny">' + esc(m.id) + '</code> ' + bundle + stage +
+      '<span class="st-acts"><label class="st-chk"><input type="checkbox" data-pack-mod="' + esc(m.id) + '"' + (inPack(m.id) ? ' checked' : '') + '> ' + esc(T('stInPack')) + '</label>' +
+      '<button type="button" class="btn" data-pack-set="' + esc(key) + '">' + esc(T('stUse')) + '</button>' +
+      (MODULE_DATA[m.id] ? '<a class="btn" href="' + esc(crossModHref(m.id, '', '')) + '">' + esc(T('stWiki')) + '</a>' : '') + '</span></div>' +
+      '<div class="st-desc">' + esc(modPurpose(m) || m.description || '') + '</div>' +
+      (needs.length ? '<div class="st-rel"><span class="muted">' + esc(T('stNeeds')) + ':</span> ' + chips(needs) + '</div>' : '') +
+      (arr(used[m.id]).length ? '<div class="st-rel"><span class="muted">' + esc(T('stUsedBy')) + ':</span> ' + chips(used[m.id]) + '</div>' : '');
+    if (kids.length) h += '<ul class="st-tree">' + kids.map(function (c) { return card(c, depth + 1); }).join('') + '</ul>';
+    return h + '</li>';
+  }
+  var roots = PACK_MODS.filter(function (m) { return !m.parent || !PACK_BY[m.parent]; });
+  var supers = roots.filter(function (m) { return packKids(m.id).length; }).sort(function (a, b) { return packKids(b.id).length - packKids(a.id).length; });
+  var rest = roots.filter(function (m) { return !packKids(m.id).length; }).sort(function (a, b) { return a.displayName.localeCompare(b.displayName); });
+  var h = '<div class="listhead"><h1>' + esc(T('navStructure')) + ' <span class="muted tiny" style="font-weight:400">' + PACK_MODS.length + '</span></h1></div><p>' + esc(T('stIntro')) + '</p>';
+  supers.forEach(function (m) { h += '<section class="box st-box"><ul class="st-tree st-top">' + card(m, 0) + '</ul></section>'; });
+  if (rest.length) h += '<section class="box st-box"><h2>' + esc(T('stBase')) + '</h2><ul class="st-tree st-top">' + rest.map(function (m) { return card(m, 0); }).join('') + '</ul></section>';
+  return h;
+}
 
 /* ------------------------------------------------------------------ */
 /* Adressen: jede Ansicht hat eine teilbare URL mit Suchparametern.    */
@@ -4891,7 +5238,7 @@ document.getElementById('all-mods').addEventListener('change', function () { if 
    es beim Hash-Router - dann gilt HASHMODE. */
 var ROUTE_PARAM = { items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
 var PARAM_ROUTE = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
-var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands'];
+var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'enchanting', 'tags', 'config', 'advancements', 'features', 'search', 'textures', 'commands', 'browse', 'structure'];
 var HASHMODE = false;
 function hashToRoute(h) {
   h = String(h || '');
@@ -4933,6 +5280,7 @@ function paramsToRoute(sp) {
 function routeToSearch(r) {
   var sp = new URLSearchParams();
   sp.set('mod', selectedMod);
+  if (PACK.key !== 'all') sp.set('pack', PACK.key);
   var s = r.section;
   if (s === 'search') sp.set('q', r.id || '');
   else if (ROUTE_PARAM[s] && r.id) sp.set(ROUTE_PARAM[s], r.id);
@@ -4942,7 +5290,7 @@ function routeToSearch(r) {
   if (LANG !== 'en') sp.set('lang', LANG);
   var q = sp.toString();
   /* Doppelpunkte und Schraegstriche lesbar lassen: ?item=simplebuilding:enderite_chisel */
-  return q ? '?' + q.replace(/%3A/gi, ':').replace(/%2F/gi, '/') : '';
+  return q ? '?' + q.replace(/%3A/gi, ':').replace(/%2F/gi, '/').replace(/%2C/gi, ',') : '';
 }
 function routeUrl(r) { return HASHMODE ? routeToHash(r) : location.pathname + routeToSearch(r); }
 function currentRoute() {
@@ -5049,7 +5397,7 @@ var NAV_PROG = [
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
   if (MODID !== 'simplebuilding') {
-    var links = [['', T('navOverview')], ['allmods', T('navAllMods')], ['features', T('navGuides')]];
+    var links = [['', T('navOverview')], ['allmods', T('navAllMods')], ['browse', T('navBrowse')], ['structure', T('navStructure')], ['features', T('navGuides')]];
     NAV_REF.concat(NAV_PROG).forEach(function (entry) {
       var field = entry.key === 'loot' ? 'lootTables' : entry.key === 'allrecipes' ? 'recipes' : entry.key;
       var count = field === 'inworld' ? IW.entries.length : arr(D[field]).length;
@@ -5064,7 +5412,7 @@ function renderSidebar(active) {
   }
   function plain(n) { return link('#/' + n.key, n.key, T(n.labelKey), '<span class="glyph" aria-hidden="true">' + n.glyph + '</span>', n.count ? n.count() : null); }
   var ce = catEntries();
-  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + link('#/allmods', 'allmods', T('navAllMods'), '<span class="glyph" aria-hidden="true">★</span>', null) + '</div>';
+  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + link('#/allmods', 'allmods', T('navAllMods'), '<span class="glyph" aria-hidden="true">★</span>', null) + link('#/browse', 'browse', T('navBrowse'), '<span class="glyph" aria-hidden="true">▤</span>', null) + link('#/structure', 'structure', T('navStructure'), '<span class="glyph" aria-hidden="true">⊢</span>', null) + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbCategories')) + '</div>' + catsShown().map(function (c) { return link('#/cat/' + c.key, 'cat:' + c.key, catLabel(c.key), iconHtml(catIcon(c)) || '', ce[c.key].length); }).join('') + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbReference')) + '</div>' + NAV_REF.map(plain).join('') + '</div>';
   h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbProgress')) + '</div>' + NAV_PROG.map(plain).join('') + '</div>';
@@ -5376,7 +5724,7 @@ function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
   $meta.innerHTML = (MOD.version ? '<span>v' + esc(MOD.version) + '</span>' : '') + '<span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
-  document.getElementById('all-mods-label').textContent = LANG === 'de' ? 'Alle Mods' : 'All mods';
+  document.getElementById('all-mods-label').textContent = T('pbSearchAll');
   modSelect.setAttribute('aria-label', LANG === 'de' ? 'Mod auswählen' : 'Select mod');
   buildModSelect();
   /* Modul-Symbol aus modules.js (sonst blieb die Kachel bei Sub-Mods leer) */
@@ -5417,6 +5765,8 @@ function render(opts) {
       case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
       case 'textures': html = pageTextures(); title = T('navTextures'); break;
       case 'commands': html = pageCommands(); title = T('navCommands'); break;
+      case 'browse': html = pageBrowse(); title = T('navBrowse'); break;
+      case 'structure': html = pageStructure(); title = T('navStructure'); break;
       case 'allrecipes': html = pageAllRecipes(); title = T('arTitle'); break;
       case 'make': case 'use': html = pageMake(r.id, r.section); title = T(r.section === 'use' ? 'mkUseTitle' : 'mkTitle', displayName(r.id)); active = 'allrecipes'; break;
       case 'tree': html = pageTree(r.id); title = T('treeTitle', r.id ? displayName(r.id) : '?'); active = ''; break;
@@ -5434,7 +5784,8 @@ function render(opts) {
   closeCtx();
   closeQs();
   if (r.section !== 'search' && document.activeElement !== $q) $q.value = '';
-  $main.innerHTML = html + footerHtml();
+  $main.innerHTML = packBarHtml(r.section) + html + footerHtml();
+  if (r.section === 'browse') brFill();
   restoreListFilter();
   tsRefresh();
   $main.querySelectorAll('.table-wrap').forEach(function (wrap) {

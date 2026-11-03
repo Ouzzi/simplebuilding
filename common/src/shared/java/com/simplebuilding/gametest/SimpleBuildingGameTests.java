@@ -747,6 +747,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
                     .build(),
+            GameTestSpec.named("fletching_game_test_potion_slot_makes_tipped_arrows", FletchingTests::potionSlotMakesTippedArrows)
+                    .build(),
             GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
                     .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)
@@ -937,18 +939,10 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(WorkstationTests.CRAFTER_MAX_TICKS).build(),
             GameTestSpec.named("workstation_game_test_auto_smither_sorts_hopper_input", WorkstationTests::autoSmitherSortsHopperInput)
                     .build(),
-            GameTestSpec.named("astral_enchanting_game_test_budget_and_cost_rules", AstralEnchantingTests::budgetAndCostRules).build(),
-            GameTestSpec.named("astral_enchanting_game_test_shelves_and_floor_set_the_tier", AstralEnchantingTests::shelvesAndFloorSetTheTier).build(),
-            GameTestSpec.named("astral_enchanting_game_test_hammer_turns_the_enchanting_table_astral", AstralEnchantingTests::hammerTurnsTheEnchantingTableAstral).maxTicks(AstralEnchantingTests.MAX_TICKS).build(),
-            GameTestSpec.named("astral_enchanting_game_test_golden_apple_becomes_enchanted", AstralEnchantingTests::goldenAppleBecomesEnchanted).build(),
-            GameTestSpec.named("astral_enchanting_game_test_breaking_drops_table_nugget_and_stock", AstralEnchantingTests::breakingDropsTableNuggetAndStock).build(),
-            GameTestSpec.named("astral_enchanting_game_test_stock_stays_in_the_table", AstralEnchantingTests::stockStaysInTheTable).build(),
-            GameTestSpec.named("astral_enchanting_game_test_enchanting_uses_up_what_the_rules_say", AstralEnchantingTests::enchantingUsesUpWhatTheRulesSay).build(),
-            GameTestSpec.named("astral_enchanting_game_test_recipes_are_loaded", AstralEnchantingTests::recipesAreLoaded).build(),
-            GameTestSpec.named("astral_enchanting_game_test_endgame_level_rules", AstralEnchantingTests::endgameLevelRules).build(),
-            GameTestSpec.named("astral_enchanting_game_test_endgame_levels_at_the_table", AstralEnchantingTests::endgameLevelsAtTheTable).build(),
-            GameTestSpec.named("astral_enchanting_game_test_blazing_obsidian_keeps_fire_burning", AstralEnchantingTests::blazingObsidianKeepsFireBurning).build(),
-            GameTestSpec.named("astral_enchanting_game_test_chiseled_bookshelves_store_books", AstralEnchantingTests::chiseledBookshelvesStoreBooks).build(),
+            GameTestSpec.named("enchanting_block_game_test_recipes_are_loaded", EnchantingBlockTests::recipesAreLoaded).build(),
+            GameTestSpec.named("enchanting_block_game_test_blazing_obsidian_keeps_fire_burning", EnchantingBlockTests::blazingObsidianKeepsFireBurning).build(),
+            GameTestSpec.named("enchanting_block_game_test_chiseled_bookshelves_store_books", EnchantingBlockTests::chiseledBookshelvesStoreBooks).build(),
+            GameTestSpec.named("enchanting_block_game_test_nihil_obsidian_is_crafted_and_counts_as_floor", EnchantingBlockTests::nihilObsidianIsCraftedAndCountsAsFloor).build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_dimensional_scrap_is_enderite_gated_and_indestructible", OreGenAndItemFrameTests::dimensionalScrapIsEnderiteGatedAndIndestructible)
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_sage_ore_generates_in_the_overworld_and_drops_only_with_silk_touch", OreGenAndItemFrameTests::sageOreGeneratesInTheOverworldAndDropsOnlyWithSilkTouch)

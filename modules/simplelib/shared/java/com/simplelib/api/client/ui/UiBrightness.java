@@ -69,6 +69,7 @@ public enum UiBrightness {
         configDir = dir;
         set(LIGHT);
         com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.CAMERA);
+        com.simplelib.api.FreeLookRules.setCrosshair(true);
         if (dir == null) {
             return;
         }
@@ -81,6 +82,7 @@ public enum UiBrightness {
         } catch (Exception ignored) {
             set(LIGHT);
             com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.CAMERA);
+            com.simplelib.api.FreeLookRules.setCrosshair(true);
         }
     }
 
@@ -92,11 +94,12 @@ public enum UiBrightness {
                 .save(UiBrightness::save).register();
     }
 
-    /** The whole client file: this brightness and the free look release mode (IG31-29, {@link com.simplelib.api.FreeLookRules}). */
+    /** The whole client file: this brightness and the free look release mode and crosshair (IG31-29, QOL34, {@link com.simplelib.api.FreeLookRules}). */
     public static com.google.gson.JsonObject toJson() {
         com.google.gson.JsonObject json = new com.google.gson.JsonObject();
         json.addProperty("inventoryBrightness", current.id());
         json.addProperty("freeLookRelease", com.simplelib.api.FreeLookRules.client().id());
+        json.addProperty("freeLookCrosshair", com.simplelib.api.FreeLookRules.crosshair());
         return json;
     }
 
@@ -105,6 +108,7 @@ public enum UiBrightness {
         set(json.has("inventoryBrightness") ? parse(json.get("inventoryBrightness").getAsString()) : LIGHT);
         com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.parse(
                 json.has("freeLookRelease") ? json.get("freeLookRelease").getAsString() : null));
+        com.simplelib.api.FreeLookRules.setCrosshair(!json.has("freeLookCrosshair") || json.get("freeLookCrosshair").getAsBoolean());
     }
 
     /** Writes the current brightness next to the other configs (no-op before {@link #load}). */

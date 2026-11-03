@@ -1,0 +1,15 @@
+{
+  "item.simplearrows.silver_arrow": "Silberpfeil",
+  "item.simplearrows.light_arrow": "Lichtpfeil",
+  "entity.simplearrows.silver_arrow": "Silberpfeil",
+  "entity.simplearrows.light_arrow": "Lichtpfeil",
+  "tooltip.simplearrows.light_arrow": "Erhellt die Stelle, an der er steckt",
+  "tooltip.simplearrows.light_arrow.2": "Das Licht geht, wenn der Pfeil verschwindet",
+  "itemgroup.simplearrows.arrows": "Simple Arrows",
+  "simplearrows.testcentre.station": "Simple Arrows",
+  "text.autoconfig.simplearrows.title": "Simple Arrows",
+  "text.autoconfig.simplearrows.option.silverArrowUndeadBonus": "Silberpfeil-Bonus gegen Untote",
+  "text.autoconfig.simplearrows.option.silverArrowUndeadBonus.@Tooltip": "Zusatzschaden eines Silberpfeils gegen Untote (Zombies, Skelette, ...). 0 = wie ein normaler Pfeil. Bereich 0 bis 6.\nStandard: 3.",
+  "text.autoconfig.simplearrows.option.lightArrow": "Lichtpfeil macht Licht",
+  "text.autoconfig.simplearrows.option.lightArrow.@Tooltip": "Ein Lichtpfeil, der in einem Block steckt, erhellt die Luft davor (Stufe 15), bis er verschwindet oder aufgehoben wird. Aus = normaler Pfeil.\nStandard: an."
+}

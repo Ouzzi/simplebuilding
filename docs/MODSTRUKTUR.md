@@ -6,16 +6,22 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
+  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Enchanting, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
 
 ## SimpleBuilding
 
 - **SimpleBuilding** `simplebuilding` [fertig]: Building tools, storage, machines, and enchantments.
-  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Mobs, Simple Resonance
+  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting
   - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs
+  - **Simple Arrows** `simplearrows` (required) [neu]: Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.
+    - required: SimpleLib
+    - optional: SimpleBuilding, Simple Ores
   - **Simple Blocks** `simpleblocks` (required) [fertig]: Missing building blocks: Hushed Deepslate Tiles (dampen vibrations like wool), Sculk Deepslate, the missing Vanilla stairs, slabs and walls and cracked/mossy brick variants, and SimpleBuilding's building blocks without a home of their own (suspended and levitating sand/gravel, dirt/grass/sand/gravel slabs, cracked and chiseled ice, the nautilus shell block, three froglight colors; ids migrate). The Shapecutter cuts stone and wood into every stair, slab and shape. Works on its own with Vanilla; required sub-mod of SimpleBuilding.
     - required: SimpleLib
     - optional: SimpleBuilding, jei
+  - **Simple Enchanting** `simpleenchanting` (required) [neu]: The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.
+    - required: SimpleLib
+    - optional: SimpleBuilding, Simple Ores, Simple Hammers
   - **Simple Gadgets** `simplegadgets` (required) [fertig]: Gadgets you hold and use - for now the Gauge (speed dial, altimeter with fall-damage warning, auto-walk), moved from SimpleBuilding (ids migrate); the Transposer, Resonance Rod, Detector, Attractor, Echo Sounder, Color Brush and Octant follow stage by stage. Fabric only for now.
     - required: SimpleLib
     - optional: SimpleBuilding
@@ -25,7 +31,7 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
   - **Simple Lights** `simplelights` (required) [fertig]: Light Panes: flat 1 px lamps on any block side - plain, transparent, sixteen colors, a redstone pane whose color follows the signal strength and copper panes that toggle like the Copper Bulb, moved from SimpleBuilding (ids migrate). Fabric only for now.
     - required: SimpleLib
     - optional: SimpleBuilding
-  - **Simple Machines** `simplemachines` (required) [neu]: The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget). Vanilla and SimpleLib ingredients; the Enderite Piston needs Simple Ores. Fabric only for now.
+  - **Simple Machines** `simplemachines` (required) [neu]: The machine parts of the Simple Machines tab: Double Piston (one block, two stages; Vanilla push rules), Signal Dampener (four stages take 0-3 off the signal, one redstone tick late) and, since stage 2, the piston upgrades (Reinforced and Reinforced Sticky Piston push 18 and one paid unbreakable; Netherite and Enderite Piston break blocks, wear out and are repaired with their nugget) and, since stage 3, the mod hoppers (Reinforced, Netherite, Enderite: 2/4/8 times as fast, item filter) with their hopper minecarts. Vanilla and SimpleLib ingredients; the Enderite parts need Simple Ores. Fabric only for now.
     - required: SimpleLib
     - optional: SimpleBuilding, Simple Ores
   - **Simple Mobheads** `simplemobheads` (required) [fertig]: A head for every mob: dropped when a charged creeper's explosion kills it, worn for a small secret, placed, or played on a note block. Required sub-mod of SimpleBuilding; Simple Fun's and SimpleBuilding's heads moved in.

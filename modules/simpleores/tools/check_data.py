@@ -14,13 +14,13 @@ import vanilla_derived  # noqa: E402
 
 keys = re.search(r'KEYS = List\.of\(([^;]*)\);', (JAVA / 'config/OresConfig.java').read_text(encoding='utf-8'), re.S).group(1)
 config_keys = re.findall(r'"([A-Za-z]+)"', keys)
-assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords', 'silverArrowUndeadBonus',
+assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
                        'sageOre', 'dimensionalScrap'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
           'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
 ALLOYS = ('rose_bronze', 'blossom_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
-ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget', 'silver_arrow') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR) \
+ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR) \
     + tuple(f'{e}{a}_apple' for a in ALLOYS for e in ('', 'enchanted_'))   # IG31-41: the enchanted apple shares the plain texture
 assert not any(i.startswith('silver_') and i.rsplit('_', 1)[-1] in GEAR for i in ITEMS), 'silver is no tool material (ABN30-10)'
 langs = {}
@@ -47,8 +47,8 @@ for a in ALLOYS:
     assert (RES / f'assets/{NS}/equipment/{a}.json').is_file()
     for layer in ('humanoid', 'humanoid_leggings'):
         assert f'entity/equipment/{layer}/{a}.png' in derived, (a, layer)
-assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 4 + 1, len(derived)   # - the 2 enchanted apples (shared texture) + the silver arrow entity texture
-assert 'entity/projectiles/silver_arrow.png' in derived
+assert len(derived) == len(BLOCKS) - 1 + len(ITEMS) - 2 + 4, len(derived)   # - the 2 enchanted apples (shared texture)
+assert not any('silver_arrow' in d for d in derived), 'the silver arrow moved to Simple Arrows (03.11.)'
 
 # Pressing recipes: shapeless, 1 pressing from 7 to 9 ingots; the loss is in the recipe. Only the blast furnace melts a pressing,
 # 600 ticks in the blast furnace (the recipe stores the furnace time, which the blast furnace halves), exactly 1 ingot.
@@ -85,10 +85,7 @@ assert json.loads((RES / f'data/{NS}/tags/block/soundproofing.json').read_text(e
 assert json.loads((RES / f'data/{NS}/tags/block/soundproofing_half.json').read_text(encoding='utf-8'))['values'] == [f'{NS}:lead_plate']
 plate = json.loads((RES / f'data/{NS}/recipe/lead_plate.json').read_text(encoding='utf-8'))
 assert plate['pattern'] == ['###'] and plate['result'] == {'id': f'{NS}:lead_plate', 'count': 6}
-assert f'{NS}:silver_arrow' in json.loads((mc / 'item/arrows.json').read_text(encoding='utf-8'))['values']
-assert f'{NS}:silver_arrow' in json.loads((mc / 'entity_type/arrows.json').read_text(encoding='utf-8'))['values']
-arrow = json.loads((RES / f'data/{NS}/recipe/silver_arrow.json').read_text(encoding='utf-8'))
-assert arrow['pattern'] == ['N', 'S', 'F'] and arrow['result'] == {'id': f'{NS}:silver_arrow', 'count': 4}
+assert not (RES / f'data/{NS}/recipe/silver_arrow.json').exists(), 'the silver arrow moved to Simple Arrows (03.11.)'
 for lang in langs.values():
     for key in config_keys:
         assert lang.get(f'text.autoconfig.{NS}.option.{key}') and lang.get(f'text.autoconfig.{NS}.option.{key}.@Tooltip'), key
@@ -131,7 +128,7 @@ for note, entry in manual['notes'].items():
     for src in entry['sources']:
         assert (ROOT / src).is_file(), (note, src)
 assert {f'{NS}:{i}' for i in ITEMS} | {f'{NS}:{b}' for b in BLOCKS} | {f'{NS}:guide_book'} <= set(manual['notes'])
-assert {'lead', 'soundproofing', 'silver_arrow', 'silver_mirror'} <= {f['id'] for f in manual['features']}
+assert {'lead', 'soundproofing', 'silver_mirror'} <= {f['id'] for f in manual['features']}
 assert (RES / f'data/{NS}/structure/arena.nbt').is_file()
 
 # IG31-13: the moved materials (Enderite from SimpleLib, scrap and sage ore from SimpleBuilding) keep their own committed textures.

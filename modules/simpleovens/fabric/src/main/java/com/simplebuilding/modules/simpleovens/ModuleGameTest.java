@@ -102,6 +102,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleovens:empty")
+    public void furnaceBoatTiersScale(GameTestHelper h) {
+        OvensTests.ALL.get("furnace_boat_tiers_scale").accept(h);
+    }
+
+    @GameTest(structure = "simpleovens:empty")
     public void furnaceBoatFuel(GameTestHelper h) {
         OvensTests.ALL.get("furnace_boat_fuel").accept(h);
     }

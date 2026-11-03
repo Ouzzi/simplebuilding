@@ -2,7 +2,9 @@
   "_": "Generiert von tools/modtree/modtree.py aus modules/modules.json (parent/bundle); nicht von Hand bearbeiten.",
   "order": [
     "simplebuilding",
+    "simplearrows",
     "simpleblocks",
+    "simpleenchanting",
     "simplegadgets",
     "simplehammers",
     "simplelights",

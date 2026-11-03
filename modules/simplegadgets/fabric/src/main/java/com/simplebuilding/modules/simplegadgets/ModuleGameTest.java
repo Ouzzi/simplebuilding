@@ -67,6 +67,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplegadgets:empty")
+    public void rotatorArmorStandPosesStepForwardAndBack(GameTestHelper h) {
+        GadgetsTests.ALL.get("rotator_armor_stand_poses_step_forward_and_back").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
+    public void rotatorBrokenArmorStandKeepsItsPose(GameTestHelper h) {
+        GadgetsTests.ALL.get("rotator_broken_armor_stand_keeps_its_pose").accept(h);
+    }
+
+    @GameTest(structure = "simplegadgets:empty")
     public void rotatorChargeRunsDownButTheRotatorNeverBreaks(GameTestHelper h) {
         GadgetsTests.ALL.get("rotator_charge_runs_down_but_the_rotator_never_breaks").accept(h);
     }

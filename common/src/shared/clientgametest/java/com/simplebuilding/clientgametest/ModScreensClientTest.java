@@ -296,7 +296,7 @@ public final class ModScreensClientTest {
         octantScreenViaSettingsKey(script);
         buildingWandScreenConstructsAndRenders(script);
         buildingWandScreenNeedsConstructorsTouch(script);
-        netheriteHopperMenu(script);
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) netheriteHopperMenu(script); // 26.3: Simple Machines' screen (MACH32-MOD stage 3)
         smithingTrimReferenceButton(script);
         trimReferenceRowsMatchTheServer(script);
         cartographyTableShowsTheBlueprintPreview(script);

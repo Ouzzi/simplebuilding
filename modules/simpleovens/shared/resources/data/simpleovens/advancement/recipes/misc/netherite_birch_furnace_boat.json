@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_birch_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:birch_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_netherite_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleovens:netherite_furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleovens:netherite_birch_furnace_boat"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_birch_boat",
+      "has_netherite_furnace"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleovens:netherite_birch_furnace_boat"
+    ]
+  }
+}

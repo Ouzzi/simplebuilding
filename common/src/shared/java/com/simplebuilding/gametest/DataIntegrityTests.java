@@ -1142,17 +1142,6 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
-            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().equals("astral_enchanting_table")) {
-                // Konzept Astral-Verzauberung "Abbauen": zurueck in seine Teile, Verzauberungstisch + Enderit-Barren (Besitzer 15.10.).
-                for (List<ItemStack> produced : rolls) {
-                    if (produced.size() != 2 || produced.stream().anyMatch(s -> s.getCount() != 1)
-                            || produced.stream().noneMatch(s -> s.is(Items.ENCHANTING_TABLE))
-                            || produced.stream().noneMatch(s -> s.is(ModItems.ENDERITE_INGOT))) {
-                        problems.add(actual + " must drop one enchanting table and one enderite ingot: " + produced);
-                    }
-                }
-                continue;
-            }
             if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().endsWith("_blazewood_bookshelf") && !blockId.getPath().startsWith("chiseled_")) {
                 // Wie Vanillas Buecherregal: ohne Behutsamkeit 3 Lohenbuecher (Konzept Astral-Verzauberung).
                 for (List<ItemStack> produced : rolls) {
@@ -1481,20 +1470,9 @@ public final class DataIntegrityTests {
         //     rule in ModTags and re-running datagen cannot move expectation and reality together.
         Set<Identifier> byWrittenRule = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            // 26.3: plus SimpleLib's shared enderite materials (split stage 3d), protected as before.
-            // Split stage 4: plus the Enderite furnaces and cart of the required sub-mod Simple Ovens.
-            // Split stage 5: plus the Enderite crucible and barrel of the required sub-mod Simple Crucibles.
-            if ((MOD_ID.equals(id.getNamespace()) || com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
-                    // Split stage 7: plus the Enderite sledgehammer of the required sub-mod Simple Hammers.
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
-                    // Split stage 8b: plus the Enderite chests and shulker box of the required sub-mod Simple Storage.
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
-                    // IG31-13: plus the Enderite materials of the required sub-mod Simple Ores.
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
-                    // MACH32 stage 2: plus the Enderite piston of the required sub-mod Simple Machines.
-                    || "simplemachines".equals(id.getNamespace()))
+            // B3: the namespaces come from the one list (SB plus the required sub-mods holding enderite items); the path
+            // rule below stays stated here on purpose.
+            if (ModTags.Items.ENDERITE_NAMESPACES.contains(id.getNamespace())
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -1692,7 +1670,9 @@ public final class DataIntegrityTests {
 
     /** Items reachable as static fields of {@link ModItems}. */
     /** MACH32-MOD stage 2: on 26.3 the piston fields point at Simple Machines' objects (its own checks cover them). */
+    /** ENCH02: the enchanter fields point at Simple Enchanting's tables likewise (its own checks cover them). */
     private static boolean movedToMachines(Identifier id) {
+        if (McVersion.ASTRAL_ENCHANTING && id != null && com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(id.getNamespace())) return true;
         return !McVersion.PISTONS_IN_SB && id != null && McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
     }
 
@@ -2845,6 +2825,8 @@ public final class DataIntegrityTests {
                     && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // MACH32-MOD: Simple Machines' Double Piston and Signal Dampener keep their row in SimpleBuilding's functional tab (by id).
                     && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
+                    && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
                     && !com.simplebuilding.guide.GuideBooks.MODPACK_GUIDE.equals(BuiltInRegistries.ITEM.getKey(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
@@ -3027,7 +3009,9 @@ public final class DataIntegrityTests {
         }
         if (McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch und Boden, Luecke, Lohenholz, Lohen-Regale, Lohenbuch.
-            expected.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.ASTRAL_ENCHANTING_TABLE, ModItems.BLAZING_OBSIDIAN, gap,
+            // ENCH02: die Tische (Simple Enchanting) per Id, dann beide Boeden; Nihil-Obsidian neu.
+            expected.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.DARK_ENCHANTER, ModItems.ASTRAL_ENCHANTER,
+                    ModItems.BLAZING_OBSIDIAN, ModItems.NIHIL_OBSIDIAN, gap,
                     ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
                     ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
                     ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));
@@ -3378,20 +3362,9 @@ public final class DataIntegrityTests {
 
         Set<String> found = new TreeSet<>();
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            boolean shared = com.simplebuilding.version.McVersion.MATERIALS_IN_LIB
-                    && com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE.equals(id.getNamespace())
-                    // split stage 4: Simple Ovens' Enderite furnaces and cart keep SimpleBuilding's Enderite perks
-                    || com.simplebuilding.version.McVersion.OVENS_NAMESPACE.equals(id.getNamespace())
-                    // split stage 5: so do Simple Crucibles' Enderite crucible and barrel
-                    || com.simplebuilding.version.McVersion.CRUCIBLES_NAMESPACE.equals(id.getNamespace())
-                    // split stage 7: and Simple Hammers' Enderite sledgehammer
-                    || com.simplebuilding.version.McVersion.HAMMERS_NAMESPACE.equals(id.getNamespace())
-                    // split stage 8b: and Simple Storage's Enderite chests and shulker box
-                    || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
-                    // IG31-13: and Simple Ores' Enderite materials
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
-                    // MACH32 stage 2: and Simple Machines' Enderite piston
-                    || "simplemachines".equals(id.getNamespace());
+            // B3: SB and the required sub-mods holding enderite items (ovens, crucibles, hammers, storage, ores, machines,
+            // SimpleLib's materials) - the one list the datagen rule reads too.
+            boolean shared = ModTags.Items.ENDERITE_NAMESPACES.contains(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
@@ -5141,8 +5114,8 @@ public final class DataIntegrityTests {
             "fine_elytra_pad",
             // Ausnahmen mit eigenem Grund: die geliehene Spawn-Elytra verbrennt nicht ueber Lava, der Easter-Stock nie
             "spawn_elytra", "funny_stick",
-            // Astral-Verzauberungstisch: mit einem Enderit-Nugget gebaut; Kreativ-Baustab wie die Enderit-Staebe
-            "astral_enchanting_table", "creative_building_wand");
+            // Kreativ-Baustab wie die Enderit-Staebe (die Verzauberer sind seit ENCH02 Simple Enchantings)
+            "creative_building_wand");
 
     /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
     static net.minecraft.world.item.Rarity expectedRarity(String path) {

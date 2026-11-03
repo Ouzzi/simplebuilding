@@ -1,0 +1,24 @@
+{
+  "dark_enchanter": {
+    "lore": [
+      "{name}: Ein Tisch, an dem die Sterne stillhalten, während du wählst."
+    ],
+    "use": [
+      "Wähle deine Verzauberungen selbst: drei zufällige, die zum Gegenstand passen, jede mit einem Regler von 0 bis zu ihrem Maximum, bezahlt aus einem Stufenbudget, das die Bücherregale ringsum und der Obsidian-Boden darunter festlegen (bis 50)."
+    ],
+    "secret": [
+      "Halte acht Netherit-Nuggets in der Nebenhand und schlage mit einem Netherit-Vorschlaghammer auf einen Zaubertisch: Er wird dazu. Abgebaut kommen Tisch und Nuggets zurück."
+    ]
+  },
+  "astral_enchanter": {
+    "lore": [
+      "{name}: Der Dark Enchanter, nachdem er das End gesehen hat; die Sterne wirbeln in seinem Tuch."
+    ],
+    "use": [
+      "Wie der Dark Enchanter, aber Stärke 60 auf einem ganzen Boden aus Nihil-Obsidian, wo Schutz und Federfall V erreichen. Lohen-Obsidian wirkt hier nur halb."
+    ],
+    "secret": [
+      "Acht Enderit-Nuggets und ein Enderit-Vorschlaghammer machen aus einem Dark Enchanter diesen Tisch. Der Amboss kann Schutz V weiterhin nicht bauen, nur dieser Tisch."
+    ]
+  }
+}

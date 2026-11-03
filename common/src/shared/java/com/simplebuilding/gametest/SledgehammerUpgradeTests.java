@@ -288,6 +288,7 @@ public final class SledgehammerUpgradeTests {
      * {@code ModHopperBlock}, and a hopper block entity type that does not list the next tier.
      */
     public static void upgradedHopperKeepsItsItemsFilterAndMode(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         BlockPos pos = new BlockPos(3, 1, 3);
         helper.setBlock(pos, ModBlocks.REINFORCED_HOPPER.defaultBlockState()
                 .setValue(HopperBlock.FACING, Direction.EAST)

@@ -570,7 +570,7 @@ public final class ModItemGroupsContent {
         }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch, Lohen-Obsidian-Boden, Lohenholz, Lohen-Regale, Lohenbuch.
-            rows.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.ASTRAL_ENCHANTING_TABLE, ModItems.BLAZING_OBSIDIAN,
+            rows.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.DARK_ENCHANTER, ModItems.ASTRAL_ENCHANTER, ModItems.BLAZING_OBSIDIAN, ModItems.NIHIL_OBSIDIAN,
                     CreativeTabLayout.GAP, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
                     ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
                     ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));

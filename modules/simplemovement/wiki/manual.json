@@ -7,11 +7,11 @@
       ],
       "en": {
         "title": "Manual crawling",
-        "summary": "P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
+        "summary": "C (default) or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused."
       },
       "de": {
         "title": "Manuelles Kriechen",
-        "summary": "P oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
+        "summary": "C (Standard) oder /crawl setzt die synchronisierte Schwimmpose. Springen beendet das Kriechen. Maximal eine Änderung je 10 Ticks; Zuschauer und Passagiere werden abgewiesen."
       }
     },
     {
@@ -21,11 +21,11 @@
       ],
       "en": {
         "title": "Auto-walk",
-        "summary": "R toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach. The autowalk and crawl key bindings of Simple QoL are taken over once."
+        "summary": "The Auto Walk key (unbound by default) toggles ordinary forward input only when the server enables enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach. Old Simple QoL keys are taken over once."
       },
       "de": {
         "title": "Automatisch laufen",
-        "summary": "R schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung. Kein Tempo- oder Reichweitenbonus. Die Tastenbelegungen für Autowalk und Kriechen aus Simple QoL werden einmalig übernommen."
+        "summary": "Die Autowalk-Taste (Standard unbelegt) schaltet normale Vorwärtseingabe nur bei Serverfreigabe enableAutowalk (Standard false). Bildschirm öffnen oder Welt verlassen beendet sie. Ein Klickton meldet die Änderung. Kein Tempo- oder Reichweitenbonus. Alte Simple-QoL-Tasten werden einmalig übernommen."
       }
     },
     {
@@ -227,11 +227,11 @@
       ],
       "en": {
         "title": "Step Height",
-        "summary": "Treasure enchantment for boots, levels I-II: the step_height attribute rises by 0.4 / 0.9, so you step up 1 block (I) or 1.5 blocks (II, fences) without jumping. Like Mending: not in the enchanting table (or the Astral Enchanter), found as a book in chest loot and from librarians, also at the anvil. Compatible with every other enchantment. Datapack-only: works with the sub-mod switched off."
+        "summary": "Treasure enchantment for boots, levels I-II: the step_height attribute rises by 0.4 / 0.9, so you step up 1 block (I) or 1.5 blocks (II, fences) without jumping. Like Mending: not in the enchanting table (or the Dark or Astral Enchanter), found as a book in chest loot and from librarians, also at the anvil. Compatible with every other enchantment. Datapack-only: works with the sub-mod switched off."
       },
       "de": {
         "title": "Stufenhöhe",
-        "summary": "Schatz-Verzauberung für Stiefel, Stufen I-II: Das Attribut step_height steigt um 0,4 / 0,9, du steigst ohne Sprung 1 Block (I) bzw. 1,5 Blöcke (II, Zäune) hoch. Wie Reparatur: nicht am Verzauberungstisch (auch nicht im Astral-Verzauberer), als Buch in Truhen-Beute und bei Bibliothekaren, auch am Amboss. Mit allen anderen Verzauberungen kombinierbar. Reine Datenpaket-Verzauberung: wirkt auch bei abgeschalteter Sub-Mod."
+        "summary": "Schatz-Verzauberung für Stiefel, Stufen I-II: Das Attribut step_height steigt um 0,4 / 0,9, du steigst ohne Sprung 1 Block (I) bzw. 1,5 Blöcke (II, Zäune) hoch. Wie Reparatur: nicht am Verzauberungstisch (auch nicht am Dark oder Astral Enchanter), als Buch in Truhen-Beute und bei Bibliothekaren, auch am Amboss. Mit allen anderen Verzauberungen kombinierbar. Reine Datenpaket-Verzauberung: wirkt auch bei abgeschalteter Sub-Mod."
       }
     },
     {
@@ -243,11 +243,11 @@
       ],
       "en": {
         "title": "Sprint",
-        "summary": "Treasure enchantment for leggings, levels I-III: while sprinting, movement speed rises by 10 / 20 / 30 % of the base speed (so +10/20/30 % over normal sprint speed); walking and sneaking are unchanged. Swift Sneak does the same for sneaking and stays compatible. Like Mending: not in the enchanting table (or the Astral Enchanter), found as a book in chest loot and from librarians. The bonus is updated when you change blocks, so it starts and ends a fraction of a second late. Datapack-only: works with the sub-mod switched off."
+        "summary": "Treasure enchantment for leggings, levels I-III: while sprinting, movement speed rises by 10 / 20 / 30 % of the base speed (so +10/20/30 % over normal sprint speed); walking and sneaking are unchanged. Swift Sneak does the same for sneaking and stays compatible. Like Mending: not in the enchanting table (or the Dark or Astral Enchanter), found as a book in chest loot and from librarians. The bonus is updated when you change blocks, so it starts and ends a fraction of a second late. Datapack-only: works with the sub-mod switched off."
       },
       "de": {
         "title": "Sprint",
-        "summary": "Schatz-Verzauberung für Hosen, Stufen I-III: Beim Sprinten steigt die Laufgeschwindigkeit um 10 / 20 / 30 % der Grundgeschwindigkeit (also +10/20/30 % über dem normalen Sprinttempo); Gehen und Schleichen bleiben unverändert. Swift Sneak macht dasselbe beim Schleichen und bleibt kombinierbar. Wie Reparatur: nicht am Verzauberungstisch (auch nicht im Astral-Verzauberer), als Buch in Truhen-Beute und bei Bibliothekaren. Der Bonus wird beim Blockwechsel aktualisiert und setzt daher einen Bruchteil einer Sekunde verzögert ein bzw. aus. Reine Datenpaket-Verzauberung: wirkt auch bei abgeschalteter Sub-Mod."
+        "summary": "Schatz-Verzauberung für Hosen, Stufen I-III: Beim Sprinten steigt die Laufgeschwindigkeit um 10 / 20 / 30 % der Grundgeschwindigkeit (also +10/20/30 % über dem normalen Sprinttempo); Gehen und Schleichen bleiben unverändert. Swift Sneak macht dasselbe beim Schleichen und bleibt kombinierbar. Wie Reparatur: nicht am Verzauberungstisch (auch nicht am Dark oder Astral Enchanter), als Buch in Truhen-Beute und bei Bibliothekaren. Der Bonus wird beim Blockwechsel aktualisiert und setzt daher einen Bruchteil einer Sekunde verzögert ein bzw. aus. Reine Datenpaket-Verzauberung: wirkt auch bei abgeschalteter Sub-Mod."
       }
     }
   ],

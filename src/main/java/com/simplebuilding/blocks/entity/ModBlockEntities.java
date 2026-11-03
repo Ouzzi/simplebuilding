@@ -35,11 +35,11 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutoSmitherBlockEntity> AUTO_SMITHER_BE;
     /** Autonomer Crafter; nur, wenn es den Block gibt (McVersion.AUTONOMOUS_CRAFTER). */
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity> AUTONOMOUS_CRAFTER_BE;
-    /** Astral-Verzauberungstisch (McVersion.ASTRAL_ENCHANTING). */
-    public static BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity> ASTRAL_ENCHANTING_TABLE_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     public static void registerBlockEntities() {
+        // MACH32-MOD stage 3: on 26.3 Simple Machines registers the hoppers' block entity (simplemachines:hopper).
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
         MOD_HOPPER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_hopper"),
                 FabricBlockEntityTypeBuilder.create(ModHopperBlockEntity::new,
@@ -47,6 +47,7 @@ public class ModBlockEntities {
                         ModBlocks.NETHERITE_HOPPER,
                         ModBlocks.ENDERITE_HOPPER
                 ).build());
+        }
 
 
         // Split stage 4: on 26.3 Simple Ovens registers the furnace block entities (simpleovens:furnace|smoker|blast_furnace).
@@ -114,11 +115,7 @@ public class ModBlockEntities {
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "autonomous_crafter"),
                     FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.AutonomousCrafterBlockEntity::new, ModBlocks.AUTONOMOUS_CRAFTER).build());
         }
-        if (ModBlocks.ASTRAL_ENCHANTING_TABLE != null) {
-            ASTRAL_ENCHANTING_TABLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "astral_enchanting_table"),
-                    FabricBlockEntityTypeBuilder.create(com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity::new, ModBlocks.ASTRAL_ENCHANTING_TABLE).build());
-        }
+        // ENCH02: the enchanters' block entity is Simple Enchanting's (simpleenchanting:enchanter, id moved).
 
         if (ModBlocks.PLACED_SMALL_PARTS != null) {
             PLACED_SMALL_PARTS_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,

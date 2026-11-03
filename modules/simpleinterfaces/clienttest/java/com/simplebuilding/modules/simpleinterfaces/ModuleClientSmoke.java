@@ -215,8 +215,45 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.takeScreenshot(shot.name());
         }
+        // b-keys34: the other layouts (DE with the L-shaped Enter, UK, FR) and the layout editor
+        for (String[] pair : new String[][] {{"de", "simpleinterfaces-keys-layout-de"}, {"uk", "simpleinterfaces-keys-layout-uk"}, {"fr", "simpleinterfaces-keys-layout-fr"}}) {
+            String layout = pair[0];
+            context.runOnClient(c -> {
+                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, layout);
+                c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
+            });
+            context.waitTicks(3);
+            context.takeScreenshot(pair[1]);
+        }
+        context.runOnClient(c -> {
+            // every key of every built-in layout names a real Minecraft key (26.3 numbers by scancode; names are the stable form)
+            for (String layout : com.simplelib.api.client.keys.KeyboardLayout.PRESETS) {
+                for (var cell : com.simplelib.api.client.keys.KeyboardLayout.cells(com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, layout)) {
+                    String name = com.simplelib.api.client.keys.KeyboardLayout.keyName(cell.code());
+                    var key = com.mojang.blaze3d.platform.InputConstants.getKey(name);
+                    if (!name.equals(key.getName())) throw new AssertionError(layout + ": key " + cell.label() + " (" + name + ") is not a Minecraft key: " + key.getName());
+                }
+            }
+            var parent = new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null);
+            c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysEditorScreen(parent, "de",
+                    com.simplelib.api.client.keys.KeyboardLayout.cells(com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "de")));
+        });
+        context.waitTicks(3);
+        context.runOnClient(c -> {
+            if (!(c.gui.screen() instanceof com.simplebuilding.modules.simpleinterfaces.client.KeysEditorScreen e)) throw new AssertionError("editor did not open");
+            e.press(298); // F9 exists: selected
+            e.press(com.simplelib.api.client.keys.KeyboardLayout.F1 + 12); // F13 is missing: added
+            e.press(com.simplelib.api.client.keys.KeyboardLayout.WORLD_2);
+            if (!"true".equals(String.valueOf(e.probeValues().get("valid"))) || !"107".equals(String.valueOf(e.probeValues().get("keys"))))
+                throw new AssertionError("editor: " + e.probeValues());
+        });
+        context.waitTicks(2);
+        context.takeScreenshot("simpleinterfaces-keys-editor");
+        context.runOnClient(c -> {
+            com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us");
+        });
         // clicks through the game's mouse handler
-        String row = "key.simpleinterfaces.open_keys";
+        String row = "key.simplelib.freelook_toggle"; // unbound by default (open_keys has "+" since QOL34)
         context.runOnClient(c -> {
             com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL);
             c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
@@ -230,6 +267,15 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         keysCheck(context, "onlyUnbound", "true");
         clickKeys(context, "only_unbound", null);
         keysCheck(context, "onlyUnbound", "false");
+        // QOL34: "Collapse all" folds everything, the same button then expands all
+        int rows0 = Integer.parseInt(context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get("rows"))));
+        clickKeys(context, "fold_all", null);
+        int rows1 = Integer.parseInt(context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get("rows"))));
+        context.takeScreenshot("keys-collapsed-all");
+        clickKeys(context, "fold_all", null);
+        int rows2 = Integer.parseInt(context.computeOnClient(c -> String.valueOf(((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeValues().get("rows"))));
+        if (rows1 >= rows0 || rows2 <= rows0) throw new AssertionError("key page: collapse/expand all rows " + rows0 + " -> " + rows1 + " -> " + rows2);
+        context.takeScreenshot("keys-expanded-all");
         context.runOnClient(c -> ((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).probeShow(row));
         context.waitTicks(2);
         clickKeys(context, "key_button", row);

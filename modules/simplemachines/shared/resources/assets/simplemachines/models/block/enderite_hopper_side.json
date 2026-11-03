@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/hopper_side",
+  "textures": {
+    "bottom": "simplemachines:block/enderite_hopper_outside",
+    "inside": "simplemachines:block/enderite_hopper_inside",
+    "side": "simplemachines:block/enderite_hopper_outside",
+    "top": "simplemachines:block/enderite_hopper_top"
+  }
+}

@@ -38,7 +38,9 @@
     "client.RarityTooltipTextMixin",
     "client.LegendaryToastMixin",
     "client.FreeLookTurnMixin",
-    "client.FreeLookCameraMixin"
+    "client.FreeLookCameraMixin",
+    "client.FreeLookHandMixin",
+    "client.FreeLookCrosshairMixin"
   ],
   "server": [],
   "injectors": {

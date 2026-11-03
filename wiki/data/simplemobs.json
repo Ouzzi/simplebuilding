@@ -216,7 +216,8 @@
           "Per piece at resonance 1.0, for example: Ward 3 % less of every damage, Sentry 5 % less projectile damage, Spire 8 % less fall damage, Bolt 5 % faster walking, Raiser 10 % more experience, Shaper 0.25 blocks reach; materials: Diamond 3 % less physical damage, Enderite 5 % less of every damage, Resin knockback resistance, Amethyst a chance to heal. Netherite pieces count 1.75 and Enderite pieces 2 for their pattern.",
           "Caps: never more than 80 % less damage per hit, the bonuses against every damage together at most 25 %, walking +20 %, experience +50 %, air saving 75 %, half visibility.",
           "Resonance: with SimpleBuilding its own trim resonance (experience, survival and combat since the last death, 0.2 to 2.0); without it Simple Resonance's trim multiplier; monsters and armour stands always 0.2.",
-          "With SimpleBuilding the server's trim strengths and each player's own trim switch apply; without Simple Mobs (or with it switched off) SimpleBuilding keeps applying the same abilities itself."
+          "With SimpleBuilding the server's trim strengths and each player's own trim switch apply; without Simple Mobs (or with it switched off) SimpleBuilding keeps applying the same abilities itself.",
+          "Server option trimStrength in simplemobs-server.json (default 1.0, 0 to 2): one factor for every trim bonus, multiplied with SimpleBuilding's per-bonus strengths when present. Without SimpleBuilding it is the only strength setting."
         ]
       },
       "de": {
@@ -226,7 +227,8 @@
           "Je Teil bei Resonanz 1,0 zum Beispiel: Ward 3 % weniger von jedem Schaden, Sentry 5 % weniger Geschossschaden, Spire 8 % weniger Fallschaden, Bolt 5 % schneller laufen, Raiser 10 % mehr Erfahrung, Shaper 0,25 Blöcke Reichweite; Materialien: Diamant 3 % weniger körperlicher Schaden, Enderit 5 % weniger von jedem Schaden, Harz Rückstoßresistenz, Amethyst eine Heil-Chance. Netherit-Teile zählen 1,75 und Enderit-Teile 2 für ihr Muster.",
           "Deckel: nie mehr als 80 % weniger Schaden je Treffer, die Boni gegen jeden Schaden zusammen höchstens 25 %, Laufen +20 %, Erfahrung +50 %, Luft sparen 75 %, halbe Sichtbarkeit.",
           "Resonanz: mit SimpleBuilding dessen eigene Besatz-Resonanz (Erfahrung, Überleben und Kampf seit dem letzten Tod, 0,2 bis 2,0); ohne den Besatz-Multiplikator von Simple Resonance; Monster und Rüstungsständer immer 0,2.",
-          "Mit SimpleBuilding gelten die Besatz-Stärken des Servers und der eigene Besatz-Schalter jedes Spielers; ohne Simple Mobs (oder ausgeschaltet) wendet SimpleBuilding dieselben Fähigkeiten selbst an."
+          "Mit SimpleBuilding gelten die Besatz-Stärken des Servers und der eigene Besatz-Schalter jedes Spielers; ohne Simple Mobs (oder ausgeschaltet) wendet SimpleBuilding dieselben Fähigkeiten selbst an.",
+          "Server-Option trimStrength in simplemobs-server.json (Standard 1,0, 0 bis 2): ein Faktor für alle Besatz-Boni, multipliziert mit den Stärken je Bonus aus SimpleBuilding, wenn vorhanden. Ohne SimpleBuilding ist sie die einzige Stärke-Einstellung."
         ]
       }
     },

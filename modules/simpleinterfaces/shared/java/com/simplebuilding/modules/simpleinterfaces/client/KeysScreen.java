@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,7 +53,6 @@ public final class KeysScreen extends Screen {
     private static final int ROW = 20, TOP = 68;
     /** Remembered between openings. */
     private static View view = View.MOD;
-    private static boolean german;
     private static KeyboardLayout.Size size = KeyboardLayout.Size.FULL;
 
     private record Item(KeyMapping mapping, Binding binding) {}
@@ -61,6 +61,8 @@ public final class KeysScreen extends Screen {
     private String query = "";
     private boolean onlyConflicts, onlyUnbound, armedReset;
     private final Set<String> collapsed = new HashSet<>();
+    /** Sub-groups already seen: a debug sub-group starts folded the first time, later the user's choice stays (QOL34). */
+    private final Set<String> subSeen = new HashSet<>();
     KeyMapping listening;
     /** Key code a list click is going to assign to (chosen on the keyboard picture), or -1. */
     private int pickCode = -1;
@@ -81,6 +83,12 @@ public final class KeysScreen extends Screen {
     public static void preset(View start, KeyboardLayout.Size keyboardSize) {
         view = start;
         size = keyboardSize;
+    }
+
+    /** Also chooses the keyboard layout (built-in id us, de, uk, fr; saved like a click on the layout button). */
+    public static void preset(View start, KeyboardLayout.Size keyboardSize, String layout) {
+        KeyboardStore.select(layout);
+        preset(start, keyboardSize);
     }
 
     /** Old form: {@code list} = the by-mod view, else the keyboard. */
@@ -202,14 +210,21 @@ public final class KeysScreen extends Screen {
         return e == null ? null : e.mapping;
     }
 
-    static boolean german() {
-        return german;
+    /** The cells of the chosen keyboard layout at the chosen size. */
+    static List<KeyboardLayout.Cell> layoutCells() {
+        return KeyboardStore.cells(KeyboardStore.selected(), size);
+    }
+
+    /** The caption of a key in the chosen layout. */
+    static String cellLabel(int code) {
+        for (KeyboardLayout.Cell c : layoutCells()) if (c.code() == code) return c.label();
+        return KeyboardLayout.label(code);
     }
 
     /** The key codes already bound (for "move to a free key"). */
     Set<Integer> usedCodes() {
         Set<Integer> used = new HashSet<>();
-        for (KeyboardLayout.Cell c : KeyboardLayout.cells(KeyboardLayout.Size.FULL, false)) {
+        for (KeyboardLayout.Cell c : layoutCells()) {
             if (byKey.containsKey(nameOf(c.code()))) used.add(c.code());
         }
         return used;
@@ -240,20 +255,27 @@ public final class KeysScreen extends Screen {
         // row 2: search and filters, or the picture's size and layout
         int rowY = 44;
         if (view == View.KEYBOARD) {
-            int bx = cx - (3 * 52 + 102) / 2;
+            int bx = cx - (3 * 52 + 92 + 52) / 2;
+            boolean own = KeyboardStore.isCustom(KeyboardStore.selected());
             for (KeyboardLayout.Size s : KeyboardLayout.Size.values()) {
                 Button b = addRenderableWidget(Button.builder(Component.literal(s.percent), x -> {
                     size = s;
                     rebuildWidgets();
                 }).bounds(bx, rowY, 50, 20).build());
-                b.active = size != s;
+                b.active = size != s && !own;
                 probe.put("size_" + s.percent.replace("%", "").trim(), b);
                 bx += 52;
             }
-            probe.put("german", addRenderableWidget(Button.builder(filterLabel("layout.german", german), b -> {
-                german = !german;
+            String id = KeyboardStore.selected();
+            probe.put("layout", addRenderableWidget(Button.builder(t("layout", KeyboardStore.shortName(id)), b -> {
+                List<String> ids = KeyboardStore.ids();
+                KeyboardStore.select(ids.get((ids.indexOf(KeyboardStore.selected()) + 1) % ids.size()));
                 rebuildWidgets();
-            }).bounds(bx, rowY, 102, 20).build()));
+            }).bounds(bx, rowY, 90, 20).tooltip(Tooltip.create(t("layout.tip", id))).build()));
+            bx += 92;
+            probe.put("edit", addRenderableWidget(Button.builder(t("edit"), b ->
+                    minecraft.gui.setScreen(new KeysEditorScreen(this, KeyboardStore.selected(), layoutCells()))).bounds(bx, rowY, 50, 20)
+                    .tooltip(Tooltip.create(t("edit.tip"))).build()));
             int top = TOP, bottom = height - 33;
             probe.put("keyboard", addRenderableWidget(new KeyboardWidget(8, top, width - 16, bottom - top)));
         } else {
@@ -297,14 +319,60 @@ public final class KeysScreen extends Screen {
             list = addRenderableWidget(new KeysList(minecraft, width, height - 33 - TOP, TOP));
             list.refill();
         }
-        // footer
+        // footer: fold all / unfold all, reset all, done
         int fy = height - 27;
+        probe.put("fold_all", addRenderableWidget(Button.builder(foldAllLabel(), b -> {
+            if (allFolded()) collapsed.clear();
+            else collapsed.addAll(foldIds());
+            if (list != null) list.refill();
+            refreshFoldAll();
+        }).bounds(cx - 154, fy, 96, 20).tooltip(Tooltip.create(t("fold_all.tip"))).build()));
         probe.put("reset_all", addRenderableWidget(Button.builder(resetLabel(), b -> {
             if (armedReset) resetAll(entries);
             armedReset = !armedReset;
             b.setMessage(resetLabel());
-        }).bounds(cx - 154, fy, 150, 20).build()));
-        probe.put("done", addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(cx + 4, fy, 150, 20).build()));
+        }).bounds(cx - 54, fy, 108, 20).build()));
+        probe.put("done", addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).bounds(cx + 58, fy, 96, 20).build()));
+        if (view == View.KEYBOARD) ((Button) probe.get("fold_all")).active = false;
+    }
+
+    /** True when the list view has groups and every group and sub-group is folded: the button then unfolds all. */
+    private boolean allFolded() {
+        Set<String> ids = foldIds();
+        return !ids.isEmpty() && collapsed.containsAll(ids);
+    }
+
+    void refreshFoldAll() {
+        if (probe.get("fold_all") instanceof Button b) b.setMessage(foldAllLabel());
+    }
+
+    private Component foldAllLabel() {
+        return t(allFolded() ? "unfold_all" : "fold_all");
+    }
+
+    /** Ids of every fold button of the current list view (groups and, in the by-mod view, sub-groups). */
+    private Set<String> foldIds() {
+        Set<String> ids = new LinkedHashSet<>();
+        for (Map.Entry<String, List<Item>> gr : groups().entrySet()) {
+            ids.add(gr.getKey());
+            for (String sub : subGroups(gr.getKey(), gr.getValue()).keySet()) ids.add(sub);
+        }
+        return ids;
+    }
+
+    /**
+     * By-mod view: a mod with more than one category gets one sub-group per category (id {@code sub/<group>/<category>});
+     * a mod with one category has none. Debug categories start folded (QOL34, owner 03.11.).
+     */
+    private Map<String, List<Item>> subGroups(String groupId, List<Item> items) {
+        Map<String, List<Item>> out = new LinkedHashMap<>();
+        if (view != View.MOD) return out;
+        for (Item e : items) out.computeIfAbsent("sub/" + groupId + "/" + e.mapping.getCategory().id(), k -> new ArrayList<>()).add(e);
+        if (out.size() < 2) return new LinkedHashMap<>();
+        for (Map.Entry<String, List<Item>> sub : out.entrySet()) {
+            if (subSeen.add(sub.getKey()) && sub.getValue().get(0).mapping.getCategory().id().getPath().startsWith("debug")) collapsed.add(sub.getKey());
+        }
+        return out;
     }
 
     private Component resetLabel() {
@@ -330,9 +398,10 @@ public final class KeysScreen extends Screen {
         super.extractRenderState(g, mx, my, delta);
         g.centeredText(font, title, width / 2, 7, 0xFFFFFFFF);
         if (view != View.KEYBOARD && pickCode >= 0) {
-            g.centeredText(font, t("pick", KeyboardLayout.label(pickCode, german)), width / 2 - 52, 50, 0xFFFFFF55);
+            g.centeredText(font, t("pick", cellLabel(pickCode)), width / 2 - 52, 50, 0xFFFFFF55);
         }
-        Component info = t("footer", KeyConflicts.sharedKeys(byKey), size.percent);
+        Component info = t("footer", KeyConflicts.sharedKeys(byKey), KeyboardStore.isCustom(KeyboardStore.selected()) ? KeyboardStore.selected()
+                : KeyboardStore.shortName(KeyboardStore.selected()) + " " + size.percent);
         if (font.width(info) < width / 2 - 170) g.text(font, info, 8, height - 21, 0xFFA0A0A0);
     }
 
@@ -392,7 +461,16 @@ public final class KeysScreen extends Screen {
                 String title = view == View.MOD ? modTitle(first.owner()) : first.group();
                 rows.add(new HeaderRow(gr.getKey(), Component.literal(title), items));
                 if (collapsed.contains(gr.getKey())) continue;
-                for (Item e : items) rows.add(new KeyRow(e));
+                Map<String, List<Item>> subs = subGroups(gr.getKey(), items);
+                if (subs.isEmpty()) {
+                    for (Item e : items) rows.add(new KeyRow(e));
+                    continue;
+                }
+                for (Map.Entry<String, List<Item>> sub : subs.entrySet()) {
+                    rows.add(new SubHeaderRow(sub.getKey(), sub.getValue()));
+                    if (collapsed.contains(sub.getKey()) && query.isEmpty()) continue;
+                    for (Item e : sub.getValue()) rows.add(new KeyRow(e));
+                }
             }
             if (groups.isEmpty()) rows.add(new HeaderRow(null, t("empty"), List.of()));
             replaceEntries(rows);
@@ -435,6 +513,7 @@ public final class KeysScreen extends Screen {
             fold = id == null ? null : Button.builder(Component.literal(folded ? "+" : "-"), b -> {
                 if (!collapsed.remove(id)) collapsed.add(id);
                 KeysScreen.this.list.refill();
+                KeysScreen.this.refreshFoldAll();
             }).bounds(0, 0, 20, 20).tooltip(Tooltip.create(t(folded ? "unfold" : "fold"))).build();
             reset = id == null ? null : Button.builder(Component.translatable("controls.reset"), b -> resetAll(items)).bounds(0, 0, 50, 20)
                     .tooltip(Tooltip.create(t("reset_group"))).build();
@@ -461,6 +540,43 @@ public final class KeysScreen extends Screen {
         @Override
         public List<? extends NarratableEntry> narratables() {
             return fold == null ? List.of() : List.of(fold, reset);
+        }
+    }
+
+    /** A sub-group heading inside a mod (by-mod view): the category name, indented, with its own fold button. */
+    final class SubHeaderRow extends Row {
+        final String id;
+        private final Component title;
+        final Button fold;
+
+        SubHeaderRow(String id, List<Item> items) {
+            this.id = id;
+            boolean folded = collapsed.contains(id) && query.isEmpty();
+            this.title = items.get(0).mapping.getCategory().label().copy().withStyle(ChatFormatting.UNDERLINE)
+                    .append(Component.literal(" (" + items.size() + ")").withStyle(ChatFormatting.GRAY));
+            fold = Button.builder(Component.literal(folded ? "+" : "-"), b -> {
+                if (!collapsed.remove(id)) collapsed.add(id);
+                KeysScreen.this.list.refill();
+                KeysScreen.this.refreshFoldAll();
+            }).bounds(0, 0, 14, 20).tooltip(Tooltip.create(t(folded ? "unfold" : "fold"))).build();
+        }
+
+        @Override
+        public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
+            var font = Minecraft.getInstance().font;
+            fold.setPosition(getContentX() + 10, getContentY() - 2);
+            fold.extractRenderState(g, mouseX, mouseY, delta);
+            g.text(font, title, getContentX() + 30, getContentYMiddle() - 4, 0xFFD0D0D0);
+        }
+
+        @Override
+        public List<? extends GuiEventListener> children() {
+            return List.of(fold);
+        }
+
+        @Override
+        public List<? extends NarratableEntry> narratables() {
+            return List.of(fold);
         }
     }
 
@@ -495,7 +611,7 @@ public final class KeysScreen extends Screen {
                 key = Component.literal("> ").append(key.copy().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE)).append(" <")
                         .withStyle(ChatFormatting.YELLOW);
             } else if (pickCode >= 0) {
-                key = Component.literal("-> " + KeyboardLayout.label(pickCode, german)).withStyle(ChatFormatting.YELLOW);
+                key = Component.literal("-> " + cellLabel(pickCode)).withStyle(ChatFormatting.YELLOW);
             }
             change.setMessage(key);
             if (others.isEmpty()) {
@@ -545,7 +661,7 @@ public final class KeysScreen extends Screen {
         }
 
         private List<KeyboardLayout.Cell> cells() {
-            return KeyboardLayout.cells(size, german);
+            return layoutCells();
         }
 
         int scale() {
@@ -643,7 +759,7 @@ public final class KeysScreen extends Screen {
         v.put("listening", listening == null ? "" : listening.getName());
         v.put("pickCode", pickCode);
         v.put("size", size.percent);
-        v.put("german", german);
+        v.put("layout", KeyboardStore.selected());
         v.put("collapsed", collapsed.size());
         v.put("rows", list == null ? 0 : list.children().size());
         v.put("query", query);

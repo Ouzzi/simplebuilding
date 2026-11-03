@@ -59,7 +59,7 @@ public final class McVersion {
     public static final boolean AUTO_SMITHER = true;
     /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26). */
     public static final boolean AUTONOMOUS_CRAFTER = true;
-    /** Astral Enchanting Table, blazewood, blaze books and shelves, blazing obsidian (owner 2026-10-09, queue N27). */
+    /** Enchanting building blocks: blazewood, blaze books and shelves, Blazing and Nihil Obsidian (owner 2026-10-09, queue N27). Since ENCH02 (03.11.) the tables (Dark/Astral Enchanter) are the required sub-mod Simple Enchanting's ({@code util/EnchantingRefs}); SB keeps the blocks and its endgame option is hidden. */
     public static final boolean ASTRAL_ENCHANTING = true;
     /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26); since split stage 8a it is Simple Storage's ({@link #STORAGE_NAMESPACE}). */
     public static final boolean STORAGE_CRAFTING_TABLE = true;
@@ -113,6 +113,10 @@ public final class McVersion {
     public static final boolean PISTONS_IN_SB = false;
     /** Namespace of the piston upgrades ({@link #PISTONS_IN_SB}). */
     public static final String PISTONS_NAMESPACE = "simplemachines";
+    /** Mod hoppers (Reinforced, Netherite, Enderite) and the tiered hopper carts: MACH32-MOD stage 3 (docs/ai/PLAN-B-MACHINES03-2026-11-03.md). 26.3: the required, bundled sub-mod Simple Machines registers them ({@code simplemachines:*}, block entity {@code simplemachines:hopper}, ids migrate); SimpleBuilding's item/block fields point at its objects ({@code util/MachineRefs}), its block entity type, menu and cart entity types are not registered. 26.2 keeps its own. */
+    public static final boolean HOPPERS_IN_SB = false;
+    /** Namespace of the mod hoppers, their carts and recipes ({@link #HOPPERS_IN_SB}). */
+    public static final String HOPPERS_NAMESPACE = "simplemachines";
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */

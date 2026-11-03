@@ -104,17 +104,7 @@ public final class ForgeModRegistries {
                             net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
                     : null;
 
-    /** Astral-Verzauberungstisch, nur Hauptlinie (McVersion.ASTRAL_ENCHANTING). */
-    public static final RegistryObject<MenuType<com.simplebuilding.screen.AstralEnchantingMenu>> ASTRAL_ENCHANTING_MENU =
-            com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-                    ? MENUS.register("astral_enchanting_table", () -> new MenuType<>(com.simplebuilding.screen.AstralEnchantingMenu::new,
-                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
-                    : null;
-    public static final RegistryObject<BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity>> ASTRAL_ENCHANTING_TABLE_BE =
-            com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-                    ? BLOCK_ENTITIES.register("astral_enchanting_table", () -> new BlockEntityType<com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity>(
-                            com.simplebuilding.enchanting.AstralEnchantingTableBlockEntity::new, Set.of(ModBlocks.ASTRAL_ENCHANTING_TABLE)))
-                    : null;
+    // ENCH02 (03.11.): the enchanters are Simple Enchanting's (Fabric only for now); no menu or block entity here.
 
     /** Autonomer Crafter, nur Hauptlinie (McVersion.AUTONOMOUS_CRAFTER). */
     public static final RegistryObject<MenuType<com.simplebuilding.screen.AutonomousCrafterMenu>> AUTONOMOUS_CRAFTER_MENU =
@@ -229,8 +219,8 @@ public final class ForgeModRegistries {
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> com.simplebuilding.recipe.BackpackUpgradeRecipe.SERIALIZER);
 
     public static final RegistryObject<BlockEntityType<ModHopperBlockEntity>> MOD_HOPPER_BE =
-            BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<ModHopperBlockEntity>(
-                    ModHopperBlockEntity::new, Set.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER)));
+            com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<ModHopperBlockEntity>(
+                    ModHopperBlockEntity::new, Set.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER))) : null; // 26.3: Simple Machines (stage 3)
     public static final RegistryObject<BlockEntityType<ModBlastFurnaceBlockEntity>> MOD_BLAST_FURNACE_BE =
             com.simplebuilding.version.McVersion.OVENS_IN_SB ? BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<ModBlastFurnaceBlockEntity>(
                     ModBlastFurnaceBlockEntity::new, Set.of(ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE))) : null;
@@ -307,8 +297,6 @@ public final class ForgeModRegistries {
         if (AUTO_SMITHER_BE != null) ModBlockEntities.AUTO_SMITHER_BE = AUTO_SMITHER_BE.get();
         if (AUTONOMOUS_CRAFTER_MENU != null) ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU = AUTONOMOUS_CRAFTER_MENU.get();
         if (AUTONOMOUS_CRAFTER_BE != null) ModBlockEntities.AUTONOMOUS_CRAFTER_BE = AUTONOMOUS_CRAFTER_BE.get();
-        if (ASTRAL_ENCHANTING_MENU != null) ModScreenHandlers.ASTRAL_ENCHANTING_MENU = ASTRAL_ENCHANTING_MENU.get();
-        if (ASTRAL_ENCHANTING_TABLE_BE != null) ModBlockEntities.ASTRAL_ENCHANTING_TABLE_BE = ASTRAL_ENCHANTING_TABLE_BE.get();
         if (FLETCHING_TYPE != null) {
             com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
             com.simplebuilding.fletching.FletchingRecipes.TIP_CATEGORY = FLETCHING_TIP_CATEGORY.get();
@@ -325,7 +313,7 @@ public final class ForgeModRegistries {
         if (GOAT_HORN_HOLDER_BE != null) ModBlockEntities.GOAT_HORN_HOLDER_BE = GOAT_HORN_HOLDER_BE.get();
         if (CHESS_PIECES_BE != null) ModBlockEntities.CHESS_PIECES_BE = CHESS_PIECES_BE.get();
         if (HAMMOCK_BE != null) ModBlockEntities.HAMMOCK_BE = HAMMOCK_BE.get();
-        ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
+        if (MOD_HOPPER_BE != null) ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         if (MOD_BLAST_FURNACE_BE != null) ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         if (MOD_FURNACE_BE != null) ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
         if (MOD_SMOKER_BE != null) ModBlockEntities.MOD_SMOKER_BE = MOD_SMOKER_BE.get();

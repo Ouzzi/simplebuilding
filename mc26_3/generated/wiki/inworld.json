@@ -9387,41 +9387,7 @@
     ],
     "hitIntervalTicks": 20,
     "hits": 5,
-    "steps": [
-      {
-        "damagePerHit": 35,
-        "durationTicks": 320,
-        "from": "minecraft:enchanting_table",
-        "hits": 16,
-        "minimumHammer": "simplehammers:netherite_sledgehammer",
-        "nugget": "simpleores:enderite_nugget",
-        "nuggetCount": 8,
-        "to": "simplebuilding:astral_enchanting_table",
-        "totalDamage": 560
-      },
-      {
-        "damagePerHit": 10,
-        "durationTicks": 100,
-        "from": "simplebuilding:netherite_hopper",
-        "hits": 5,
-        "minimumHammer": "simplehammers:netherite_sledgehammer",
-        "nugget": "simpleores:enderite_nugget",
-        "nuggetCount": 1,
-        "to": "simplebuilding:enderite_hopper",
-        "totalDamage": 50
-      },
-      {
-        "damagePerHit": 4,
-        "durationTicks": 100,
-        "from": "simplebuilding:reinforced_hopper",
-        "hits": 5,
-        "minimumHammer": "simplehammers:diamond_sledgehammer",
-        "nugget": "simplelib:netherite_nugget",
-        "nuggetCount": 1,
-        "to": "simplebuilding:netherite_hopper",
-        "totalDamage": 20
-      }
-    ]
+    "steps": []
   },
   "trimTemplate": {
     "damage": 1,

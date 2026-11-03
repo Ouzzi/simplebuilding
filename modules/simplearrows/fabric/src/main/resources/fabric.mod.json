@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "simplearrows",
+  "version": "${version}",
+  "name": "Simple Arrows",
+  "icon": "assets/simplearrows/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Arrows: the Light Arrow lights the spot where it sticks until it despawns like a normal arrow; the Silver Arrow hits undead harder (crafted with Simple Ores' silver). Works on its own.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplearrows.ArrowsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplearrows.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplearrows.ArrowsFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleores": "*"
+  }
+}

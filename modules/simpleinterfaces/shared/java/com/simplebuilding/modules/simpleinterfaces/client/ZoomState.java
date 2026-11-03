@@ -12,7 +12,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
  */
 public final class ZoomState {
     public static final double SPYGLASS = 0.1, KEY_START = 0.25;
-    public static final KeyMapping KEY = new KeyMapping("key.simpleinterfaces.zoom", com.mojang.blaze3d.platform.InputConstants.KEY_C,
+    public static final KeyMapping KEY = new KeyMapping("key.simpleinterfaces.zoom", com.mojang.blaze3d.platform.InputConstants.KEY_V,
             StyleToggleClient.CATEGORY);
     private static double factor = SPYGLASS;
     private static boolean was;

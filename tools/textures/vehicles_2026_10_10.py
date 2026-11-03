@@ -30,6 +30,8 @@ ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "mc26_3/overlay/resources/assets/simplebuilding"
 # Split stage 8b-2 (docs/ai/PLAN-B-S8C-STORAGE-2026-10-20.md): the chest carts and chest boats are Simple Storage's.
 STORAGE_ASSETS = ROOT / "modules/simplestorage/shared/resources/assets/simplestorage"
+# MACH32-MOD stage 3 (docs/ai/PLAN-B-MACHINES03-2026-11-03.md): the hoppers and hopper carts are Simple Machines'.
+MACHINES_ASSETS = ROOT / "modules/simplemachines/shared/resources/assets/simplemachines"
 OWN_TEX = ROOT / "src/main/resources/assets/simplebuilding/textures"
 CLIENT_JAR = Path(os.environ.get("SB_CLIENT_JAR") or Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-client.jar")
 TIERS = ["reinforced", "netherite", "enderite"]
@@ -140,12 +142,12 @@ def build():
             elif kind == "furnace":
                 shades = ramp(OWN_TEX / f"block/{tier}_furnace_top.png", (0, 0, 16, 16))
             else:
-                shades = ramp(OWN_TEX / f"block/{tier}_hopper_outside.png", (0, 0, 16, 16))
+                shades = ramp(MACHINES_ASSETS / f"textures/block/{tier}_hopper_outside.png", (0, 0, 16, 16))
             img = paint(src, region, shades, LOCK[tier] if kind == "chest" else None)
             name = f"{tier}_{kind}_minecart"
             tex[name] = tier_marks(img, region, tier, "chest" if kind == "chest" else kind)
-            ns = "simplestorage" if kind == "chest" else "simplebuilding"
-            key = f"simplestorage:{name}" if kind == "chest" else name
+            ns = {"chest": "simplestorage", "hopper": "simplemachines"}.get(kind, "simplebuilding")
+            key = f"{ns}:{name}" if kind in ("chest", "hopper") else name
             models[key] = {"parent": "minecraft:item/generated",
                            "textures": {"layer0": "minecraft:item/minecart", "layer1": f"{ns}:item/{name}"}}
             items[key] = {"model": {"type": "minecraft:model", "model": f"{ns}:item/{name}"}}
@@ -232,7 +234,8 @@ def main():
     tex, models, items = build()
     stale = []
     files = {}
-    roots = {"simpleend": ROOT / "modules/simpleend/shared/resources/assets/simpleend", "simplestorage": STORAGE_ASSETS}
+    roots = {"simpleend": ROOT / "modules/simpleend/shared/resources/assets/simpleend", "simplestorage": STORAGE_ASSETS,
+             "simplemachines": MACHINES_ASSETS}
     for name, data in models.items():
         root = roots.get(name.split(":")[0], ASSETS) if ":" in name else ASSETS
         files[root / f"models/item/{name.split(':')[-1]}.json"] = json.dumps(data, indent=2) + "\n"

@@ -161,30 +161,6 @@
       }
     },
     {
-      "id": "silver_arrow",
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/entity/SilverArrow.java",
-        "modules/simpleores/shared/java/com/simpleores/item/SilverArrowItem.java",
-        "modules/simpleores/shared/resources/data/simpleores/recipe/silver_arrow.json"
-      ],
-      "en": {
-        "title": "Silver arrow",
-        "summary": "An arrow with a silver head that hits the undead harder.",
-        "details": [
-          "Recipe: a silver nugget over a stick over a feather makes 4 silver arrows. Bows, crossbows and dispensers shoot them like arrows; they can be picked up again.",
-          "Against every mob in the tag #minecraft:undead (zombies, skeletons, drowned, the Wither ...) a silver arrow does silverArrowUndeadBonus extra damage (Standard 3, 0 = like a normal arrow, up to 6). Everything else: a normal arrow."
-        ]
-      },
-      "de": {
-        "title": "Silberpfeil",
-        "summary": "Ein Pfeil mit Silberspitze, der Untote härter trifft.",
-        "details": [
-          "Rezept: ein Silberklumpen über einem Stock über einer Feder ergibt 4 Silberpfeile. Bögen, Armbrüste und Werfer schießen sie wie Pfeile; man kann sie wieder aufsammeln.",
-          "Gegen jedes Wesen im Tag #minecraft:undead (Zombies, Skelette, Ertrunkene, den Wither ...) macht ein Silberpfeil silverArrowUndeadBonus Schaden mehr (Standard 3, 0 = wie ein normaler Pfeil, bis 6). Alles andere: ein normaler Pfeil."
-        ]
-      }
-    },
-    {
       "id": "silver_mirror",
       "sources": [
         "modules/simpleores/shared/java/com/simpleores/block/SilverMirrorBlock.java",
@@ -270,7 +246,6 @@
         "details": [
           "enabled (true): off stops new silver and lead veins on Fabric and hides the module's creative entries; blocks and items that exist keep working.",
           "soundproofing (true): lead blocks muffle sounds. soundproofFactor (0.5, range 0.2 to 0.9): volume factor per lead block. soundproofThreshold (0.05, range 0.01 to 0.3): below this a muffled sound is not sent. soundproofRecords (false): records are muffled too.",
-          "silverArrowUndeadBonus (3, range 0 to 6): extra damage of a silver arrow against undead, 0 = off.",
           "sageOre (true), dimensionalScrap (true): new veins of Sage Ore and Dimensional Scrap (IG31-13, before in SimpleBuilding's config).",
           "With SimpleBuilding the switch Enable Simple Ores in its config turns the bundled module on or off."
         ]
@@ -281,7 +256,6 @@
         "details": [
           "enabled (true): aus stoppt neue Silber- und Bleiadern auf Fabric und blendet die Kreativ-Einträge des Moduls aus; vorhandene Blöcke und Gegenstände funktionieren weiter.",
           "soundproofing (true): Bleiblöcke dämmen Geräusche. soundproofFactor (0,5, Bereich 0,2 bis 0,9): Lautstärkefaktor je Bleiblock. soundproofThreshold (0,05, Bereich 0,01 bis 0,3): darunter wird ein gedämmtes Geräusch nicht gesendet. soundproofRecords (false): Schallplatten werden mitgedämpft.",
-          "silverArrowUndeadBonus (3, Bereich 0 bis 6): Zusatzschaden eines Silberpfeils gegen Untote, 0 = aus.",
           "sageOre (true), dimensionalScrap (true): neue Adern von Weisheitserz und Dimensionsschrott (IG31-13, vorher in der Config von SimpleBuilding).",
           "Mit SimpleBuilding schaltet der Schalter Simple Ores aktivieren in dessen Config das gebündelte Modul ein oder aus."
         ]
@@ -296,10 +270,10 @@
         "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpleores:silver_ore": {
@@ -619,17 +593,6 @@
       },
       "de": {
         "summary": "Neun ergeben einen Bleibarren."
-      }
-    },
-    "simpleores:silver_arrow": {
-      "sources": [
-        "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-      ],
-      "en": {
-        "summary": "An arrow with a silver head: 3 extra damage against undead (zombies, skeletons, the Wither ...), otherwise like an arrow. Made of a silver nugget, a stick and a feather (4 arrows). Works in bows, crossbows and dispensers."
-      },
-      "de": {
-        "summary": "Ein Pfeil mit Silberspitze: 3 Schaden mehr gegen Untote (Zombies, Skelette, den Wither ...), sonst wie ein Pfeil. Aus Silberklumpen, Stock und Feder (4 Pfeile). Funktioniert in Bögen, Armbrüsten und Werfern."
       }
     },
     "simpleores:raw_silver": {

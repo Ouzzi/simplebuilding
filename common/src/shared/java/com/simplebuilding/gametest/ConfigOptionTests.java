@@ -557,12 +557,13 @@ public final class ConfigOptionTests {
 
             "root.enableSimpleMaps boolean=true",
             "root.enableSimpleQuestionary boolean=true",
-            "root.enableSimpleRiding boolean=true",
-            "root.enableSimpleSandwiches boolean=true",
-            "root.enableSimpleTweaks boolean=true",
+            // <submods:begin expected>
             "root.enableSimpleMoney boolean=true",
+            "root.enableSimpleRiding boolean=true",
             "root.enableSimpleFun boolean=true",
+            "root.enableSimpleTweaks boolean=true",
             "root.enableSimpleDimensions boolean=true",
+            "root.enableSimpleSandwiches boolean=true",
             "root.enableSimpleTrims boolean=true",
             "root.enableSimpleMobs boolean=true",
             "root.enableSimpleEnd boolean=true",
@@ -571,19 +572,22 @@ public final class ConfigOptionTests {
             "root.enableSimpleShops boolean=true",
             "root.enableSimpleWanderers boolean=true",
             "root.enableSimpleBlocks boolean=true",
+            "root.enableSimpleOctets boolean=true",
             "root.enableSimpleHammers boolean=true",
             "root.enableSimpleStorage boolean=true",
             "root.enableSimpleMusic boolean=true",
             "root.enableSimpleLights boolean=true",
-            "root.enableSimpleEarth boolean=true",
             "root.enableSimpleGadgets boolean=true",
+            "root.enableSimpleEarth boolean=true",
             "root.enableSimpleChallenges boolean=true",
             "root.enableSimpleAnimals boolean=true",
-            "root.enableSimpleResonance boolean=true",
             "root.enableSimpleDinos boolean=true",
             "root.enableSimpleOres boolean=true",
             "root.enableSimpleMachines boolean=true",
-            "root.enableSimpleOctets boolean=true",
+            "root.enableSimpleArrows boolean=true",
+            "root.enableSimpleResonance boolean=true",
+            "root.enableSimpleEnchanting boolean=true",
+            // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=400",
@@ -1196,13 +1200,39 @@ public final class ConfigOptionTests {
      * the live switches unless applied on purpose. The live state is restored from the loaded config afterwards.
      */
     public static void superModSwitchesReachTheBundledSubMods(GameTestHelper helper) {
-        String[][] switches = {{"enableSimpleRiding", "simpleriding"}, {"enableSimpleSandwiches", "simplesandwiches"},
-                {"enableSimpleTweaks", "simpletweaks"}, {"enableSimpleMoney", "simplemoney"}, {"enableSimpleFun", "simplefun"},
-                {"enableSimpleDimensions", "simpledimension"}, {"enableSimpleTrims", "simpletrims"}, {"enableSimpleMobs", "simplemobs"},
-                {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
-                {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
-                {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"},
-                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMachines", "simplemachines"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleChallenges", "simplechallenges"}, {"enableSimpleAnimals", "simpleanimals"}, {"enableSimpleResonance", "simpleresonance"}, {"enableSimpleDinos", "simpledinos"}, {"enableSimpleOres", "simpleores"}};
+        String[][] switches = {
+                // <submods:begin switches>
+                {"enableSimpleMoney", "simplemoney"},
+                {"enableSimpleRiding", "simpleriding"},
+                {"enableSimpleFun", "simplefun"},
+                {"enableSimpleTweaks", "simpletweaks"},
+                {"enableSimpleDimensions", "simpledimension"},
+                {"enableSimpleSandwiches", "simplesandwiches"},
+                {"enableSimpleTrims", "simpletrims"},
+                {"enableSimpleMobs", "simplemobs"},
+                {"enableSimpleEnd", "simpleend"},
+                {"enableSimpleRespawn", "simplerespawn"},
+                {"enableSimpleBeacons", "simplebeacons"},
+                {"enableSimpleShops", "simpleshops"},
+                {"enableSimpleWanderers", "simplewanderers"},
+                {"enableSimpleBlocks", "simpleblocks"},
+                {"enableSimpleOctets", "simpleoctets"},
+                {"enableSimpleHammers", "simplehammers"},
+                {"enableSimpleStorage", "simplestorage"},
+                {"enableSimpleMusic", "simplemusic"},
+                {"enableSimpleLights", "simplelights"},
+                {"enableSimpleGadgets", "simplegadgets"},
+                {"enableSimpleEarth", "simpleearth"},
+                {"enableSimpleChallenges", "simplechallenges"},
+                {"enableSimpleAnimals", "simpleanimals"},
+                {"enableSimpleDinos", "simpledinos"},
+                {"enableSimpleOres", "simpleores"},
+                {"enableSimpleMachines", "simplemachines"},
+                {"enableSimpleArrows", "simplearrows"},
+                {"enableSimpleResonance", "simpleresonance"},
+                {"enableSimpleEnchanting", "simpleenchanting"},
+                // <submods:end switches>
+        };
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {
@@ -1457,6 +1487,8 @@ public final class ConfigOptionTests {
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_STORAGE, !McVersion.STORAGE_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ORES, McVersion.MATERIALS_IN_ORES);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES, !McVersion.PISTONS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ENCHANTING, McVersion.ASTRAL_ENCHANTING);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES_HOPPERS, !McVersion.HOPPERS_IN_SB);
         var visible = com.simplebuilding.config.ConfigOptions.visible();
         int hiddenCount = 0;
         com.google.gson.Gson gson = new com.google.gson.GsonBuilder().setPrettyPrinting().create();

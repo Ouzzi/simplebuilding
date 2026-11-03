@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "simpleores:enderite_ingot",
-  "base": "simplebuilding:netherite_hopper_minecart",
-  "result": {
-    "id": "simplebuilding:enderite_hopper_minecart"
-  },
-  "template": "simpleores:enderite_upgrade_template"
-}

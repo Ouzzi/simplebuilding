@@ -426,12 +426,12 @@ public class ModItems {
             ? registerItem("netherite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_FURNACE_MINECART)) : null;
     public static final Item ENDERITE_FURNACE_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.OVENS_IN_SB
             ? registerItem("enderite_furnace_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_FURNACE_MINECART)) : null;
-    public static final Item REINFORCED_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
-            ? registerItem("reinforced_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_HOPPER_MINECART)) : null;
-    public static final Item NETHERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
-            ? registerItem("netherite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_HOPPER_MINECART)) : null;
-    public static final Item ENDERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES
-            ? registerItem("enderite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_HOPPER_MINECART)) : null;
+    public static final Item REINFORCED_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
+            ? registerItem("reinforced_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1), () -> com.simplebuilding.entity.ModEntities.REINFORCED_HOPPER_MINECART)) : com.simplebuilding.version.McVersion.TIERED_VEHICLES ? com.simplebuilding.util.MachineRefs.item("reinforced_hopper_minecart") : null; // 26.3: Simple Machines (stage 3)
+    public static final Item NETHERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
+            ? registerItem("netherite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), () -> com.simplebuilding.entity.ModEntities.NETHERITE_HOPPER_MINECART)) : com.simplebuilding.version.McVersion.TIERED_VEHICLES ? com.simplebuilding.util.MachineRefs.item("netherite_hopper_minecart") : null; // 26.3: Simple Machines (stage 3)
+    public static final Item ENDERITE_HOPPER_MINECART = com.simplebuilding.version.McVersion.TIERED_VEHICLES && com.simplebuilding.version.McVersion.HOPPERS_IN_SB
+            ? registerItem("enderite_hopper_minecart", s -> new com.simplebuilding.entity.vehicle.TieredMinecartItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), () -> com.simplebuilding.entity.ModEntities.ENDERITE_HOPPER_MINECART)) : com.simplebuilding.version.McVersion.TIERED_VEHICLES ? com.simplebuilding.util.MachineRefs.item("enderite_hopper_minecart") : null; // 26.3: Simple Machines (stage 3)
 
     public static final Item CRACKED_DIAMOND = com.simplebuilding.util.SharedMaterials.item("cracked_diamond", () -> registerItem("cracked_diamond", settings -> new Item(settings)));
 
@@ -515,8 +515,11 @@ public class ModItems {
     public static final Item AUTONOMOUS_CRAFTER = com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
             ? registerItem("autonomous_crafter", s -> new BlockItem(ModBlocks.AUTONOMOUS_CRAFTER, s)) : null;
     // Astral-Verzauberung (Queue N27).
-    public static final Item ASTRAL_ENCHANTING_TABLE = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("astral_enchanting_table", s -> new BlockItem(ModBlocks.ASTRAL_ENCHANTING_TABLE, s.fireResistant())) : null;
+    /** ENCH02: the tables are Simple Enchanting's (simpleenchanting:*), found by id (air without the module). */
+    public static final Item DARK_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? com.simplebuilding.util.EnchantingRefs.item("dark_enchanter") : null;
+    public static final Item ASTRAL_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? com.simplebuilding.util.EnchantingRefs.item("astral_enchanter") : null;
     public static final Item CRIMSON_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
     public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
@@ -531,6 +534,8 @@ public class ModItems {
             ? registerItem("chiseled_warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
     public static final Item BLAZING_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blazing_obsidian", s -> new BlockItem(ModBlocks.BLAZING_OBSIDIAN, s)) : null;
+    public static final Item NIHIL_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("nihil_obsidian", s -> new BlockItem(ModBlocks.NIHIL_OBSIDIAN, s)) : null;
     /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blaze_book", s -> new Item(s)) : null;
@@ -802,9 +807,9 @@ public class ModItems {
     public static final Item ENDERITE_SHULKER_BOX = !com.simplebuilding.version.McVersion.STORAGE_IN_SB ? null : registerItem("enderite_shulker_box",
             s -> new com.simplebuilding.items.custom.TieredShulkerBoxItem(ModBlocks.ENDERITE_SHULKER_BOX, shulkerBox(s).fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
+    public static final Item REINFORCED_HOPPER = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s)) : com.simplebuilding.util.MachineRefs.item("reinforced_hopper");
 
-    public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_HOPPER = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON))) : com.simplebuilding.util.MachineRefs.item("netherite_hopper");
 
     public static final Item REINFORCED_PISTON = com.simplebuilding.version.McVersion.PISTONS_IN_SB ? registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s)) : com.simplebuilding.util.MachineRefs.item("reinforced_piston");
 
@@ -829,7 +834,7 @@ public class ModItems {
     // Enderit-Maschinen: feuerfest und EPIC wie die uebrigen Enderit-Gegenstaende (Buendel, Koecher,
     // Rucksack, Enderitkolben). Kein Werkbankrezept - sie entstehen nur in der Welt, siehe
     // SledgehammerUpgrades.
-    public static final Item ENDERITE_HOPPER = registerItem("enderite_hopper", s -> new BlockItem(ModBlocks.ENDERITE_HOPPER, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_HOPPER = com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? registerItem("enderite_hopper", s -> new BlockItem(ModBlocks.ENDERITE_HOPPER, s.fireResistant().rarity(Rarity.EPIC))) : com.simplebuilding.util.MachineRefs.item("enderite_hopper");
 
     public static final Item ENDERITE_FURNACE = com.simplebuilding.version.McVersion.OVENS_IN_SB ? registerItem("enderite_furnace", s -> new BlockItem(ModBlocks.ENDERITE_FURNACE, s.fireResistant().rarity(Rarity.EPIC))) : null;
 

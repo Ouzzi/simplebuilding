@@ -34,7 +34,7 @@ public final class KeyCellScreen extends Screen {
     final Map<String, AbstractWidget> probe = new LinkedHashMap<>();
 
     KeyCellScreen(KeysScreen parent, int code) {
-        super(Component.translatable(K + "cell.title", KeyboardLayout.label(code, KeysScreen.german())));
+        super(Component.translatable(K + "cell.title", KeysScreen.cellLabel(code)));
         this.parent = parent;
         this.code = code;
     }
@@ -112,7 +112,7 @@ public final class KeyCellScreen extends Screen {
             remove = m == null ? null : Button.builder(Component.translatable(K + "remove"), b -> assign(m, InputConstants.UNKNOWN))
                     .bounds(0, 0, 70, 20).tooltip(Tooltip.create(Component.translatable(K + "remove.tip"))).build();
             Optional<KeyboardLayout.Cell> free = !offerMove || m == null ? Optional.empty()
-                    : KeyboardLayout.nearestFree(KeyboardLayout.cells(KeyboardLayout.Size.FULL, KeysScreen.german()), parent.usedCodes(), code);
+                    : KeyboardLayout.nearestFree(KeysScreen.layoutCells(), parent.usedCodes(), code);
             move = free.map(c -> Button.builder(Component.translatable(K + "move", c.label()), b -> assign(m, KeysScreen.keyOf(c.code())))
                     .bounds(0, 0, 70, 20).build()).orElse(null);
         }

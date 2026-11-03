@@ -1,0 +1,24 @@
+{
+  "upgrades": [
+    {
+      "from": "minecraft:enchanting_table",
+      "to": "simpleenchanting:dark_enchanter",
+      "material": "simplelib:netherite_nugget",
+      "material_count": 8,
+      "strikes_per_material": 2,
+      "min_tool": "netherite",
+      "damage_per_hit": 35,
+      "tier": "netherite"
+    },
+    {
+      "from": "simpleenchanting:dark_enchanter",
+      "to": "simpleenchanting:astral_enchanter",
+      "material": "simpleores:enderite_nugget",
+      "material_count": 8,
+      "strikes_per_material": 2,
+      "min_tool": "enderite",
+      "damage_per_hit": 35,
+      "tier": "enderite"
+    }
+  ]
+}
