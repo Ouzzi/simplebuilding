@@ -99,7 +99,12 @@ public final class ModpackGuideBar {
 
     /** The item of an icon id, empty when it is not registered. */
     public static ItemStack icon(Identifier id) {
-        return BuiltInRegistries.ITEM.getOptional(id).map(ItemStack::new).orElse(ItemStack.EMPTY);
+        try {
+            return BuiltInRegistries.ITEM.getOptional(id).map(ItemStack::new).orElse(ItemStack.EMPTY);
+        } catch (RuntimeException e) {
+            // Outside a world (title screen) item components are not bound yet: no icon rather than a crash (real-mouse probe 03.11.).
+            return ItemStack.EMPTY;
+        }
     }
 
     public static boolean in(double mx, double my, int[] r) {
