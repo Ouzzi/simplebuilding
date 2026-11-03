@@ -226,10 +226,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_hopper",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_horse_armor",
       "required": false
     },
@@ -307,10 +303,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/netherite_flypad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_hopper",
       "required": false
     },
     {
@@ -522,7 +514,15 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplemachines/enderite_hopper",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplemachines/enderite_piston",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplemachines/netherite_hopper",
       "required": false
     },
     {

@@ -258,7 +258,7 @@ public final class HudAndTooltipClientTest {
             bundleWheelSelectsAndLeavingClears(script);
             bundleSubmenuReachesVanillaContainerScreens(script);
         }
-        hopperFilterButtonAndFilterSlots(script);
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) hopperFilterButtonAndFilterSlots(script); // 26.3: Simple Machines' screen (MACH32-MOD stage 3)
         inventoryShowsTheResonanceFieldAndItsDetails(script);
         oreDetectorGlintMarksTheCalibratedSlot(script);
         extraHeadSlotAndInventoryBrightness(script);

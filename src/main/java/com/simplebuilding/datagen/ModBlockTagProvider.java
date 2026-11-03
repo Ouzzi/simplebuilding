@@ -146,10 +146,13 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         // 1. Der Block soll mit einer Spitzhacke SCHNELLER abbaubar sein
         // Das behalten wir bei.
         builder(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(key(ModBlocks.CRACKED_DIAMOND_BLOCK))
-                .add(key(ModBlocks.REINFORCED_HOPPER))
-                .add(key(ModBlocks.NETHERITE_HOPPER))
-                .add(key(ModBlocks.ENDERITE_HOPPER));
+                .add(key(ModBlocks.CRACKED_DIAMOND_BLOCK));
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { // 26.3: Simple Machines tags its hoppers itself (MACH32-MOD stage 3)
+            builder(BlockTags.MINEABLE_WITH_PICKAXE)
+                    .add(key(ModBlocks.REINFORCED_HOPPER))
+                    .add(key(ModBlocks.NETHERITE_HOPPER))
+                    .add(key(ModBlocks.ENDERITE_HOPPER));
+        }
         if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines tags its piston upgrades itself (MACH32-MOD stage 2)
             builder(BlockTags.MINEABLE_WITH_PICKAXE)
                     .add(key(ModBlocks.REINFORCED_PISTON))

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "simplemachines:enderite_piston"
+    "simplemachines:enderite_piston",
+    "simplemachines:enderite_hopper",
+    "simplemachines:enderite_hopper_minecart"
   ]
 }

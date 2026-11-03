@@ -18,6 +18,7 @@ assets/simplebuilding/blockstates/enderite_blast_furnace.json
 assets/simplebuilding/blockstates/enderite_block.json
 assets/simplebuilding/blockstates/enderite_chest.json
 assets/simplebuilding/blockstates/enderite_furnace.json
+assets/simplebuilding/blockstates/enderite_hopper.json
 assets/simplebuilding/blockstates/enderite_piston.json
 assets/simplebuilding/blockstates/enderite_piston_head.json
 assets/simplebuilding/blockstates/enderite_shulker_box.json
@@ -32,6 +33,7 @@ assets/simplebuilding/blockstates/netherite_backpack.json
 assets/simplebuilding/blockstates/netherite_blast_furnace.json
 assets/simplebuilding/blockstates/netherite_chest.json
 assets/simplebuilding/blockstates/netherite_furnace.json
+assets/simplebuilding/blockstates/netherite_hopper.json
 assets/simplebuilding/blockstates/netherite_piston.json
 assets/simplebuilding/blockstates/netherite_piston_head.json
 assets/simplebuilding/blockstates/netherite_shulker_box.json
@@ -43,6 +45,7 @@ assets/simplebuilding/blockstates/reinforced_backpack.json
 assets/simplebuilding/blockstates/reinforced_blast_furnace.json
 assets/simplebuilding/blockstates/reinforced_chest.json
 assets/simplebuilding/blockstates/reinforced_furnace.json
+assets/simplebuilding/blockstates/reinforced_hopper.json
 assets/simplebuilding/blockstates/reinforced_piston.json
 assets/simplebuilding/blockstates/reinforced_piston_head.json
 assets/simplebuilding/blockstates/reinforced_shulker_box.json
@@ -83,6 +86,7 @@ assets/simplebuilding/items/enderite_bundle.json
 assets/simplebuilding/items/enderite_chest.json
 assets/simplebuilding/items/enderite_core.json
 assets/simplebuilding/items/enderite_furnace.json
+assets/simplebuilding/items/enderite_hopper.json
 assets/simplebuilding/items/enderite_ingot.json
 assets/simplebuilding/items/enderite_nugget.json
 assets/simplebuilding/items/enderite_piston.json
@@ -119,6 +123,7 @@ assets/simplebuilding/items/netherite_bundle.json
 assets/simplebuilding/items/netherite_chest.json
 assets/simplebuilding/items/netherite_core.json
 assets/simplebuilding/items/netherite_furnace.json
+assets/simplebuilding/items/netherite_hopper.json
 assets/simplebuilding/items/netherite_nugget.json
 assets/simplebuilding/items/netherite_piston.json
 assets/simplebuilding/items/netherite_quiver.json
@@ -134,6 +139,7 @@ assets/simplebuilding/items/reinforced_blast_furnace.json
 assets/simplebuilding/items/reinforced_bundle.json
 assets/simplebuilding/items/reinforced_chest.json
 assets/simplebuilding/items/reinforced_furnace.json
+assets/simplebuilding/items/reinforced_hopper.json
 assets/simplebuilding/items/reinforced_piston.json
 assets/simplebuilding/items/reinforced_quiver.json
 assets/simplebuilding/items/reinforced_shulker_box.json
@@ -161,6 +167,8 @@ assets/simplebuilding/models/block/enderite_block.json
 assets/simplebuilding/models/block/enderite_chest.json
 assets/simplebuilding/models/block/enderite_furnace.json
 assets/simplebuilding/models/block/enderite_furnace_on.json
+assets/simplebuilding/models/block/enderite_hopper.json
+assets/simplebuilding/models/block/enderite_hopper_side.json
 assets/simplebuilding/models/block/enderite_piston.json
 assets/simplebuilding/models/block/enderite_piston_base.json
 assets/simplebuilding/models/block/enderite_piston_base_worn1.json
@@ -185,6 +193,8 @@ assets/simplebuilding/models/block/netherite_blast_furnace_on.json
 assets/simplebuilding/models/block/netherite_chest.json
 assets/simplebuilding/models/block/netherite_furnace.json
 assets/simplebuilding/models/block/netherite_furnace_on.json
+assets/simplebuilding/models/block/netherite_hopper.json
+assets/simplebuilding/models/block/netherite_hopper_side.json
 assets/simplebuilding/models/block/netherite_piston.json
 assets/simplebuilding/models/block/netherite_piston_base.json
 assets/simplebuilding/models/block/netherite_piston_base_worn1.json
@@ -217,6 +227,8 @@ assets/simplebuilding/models/block/reinforced_blast_furnace_on.json
 assets/simplebuilding/models/block/reinforced_chest.json
 assets/simplebuilding/models/block/reinforced_furnace.json
 assets/simplebuilding/models/block/reinforced_furnace_on.json
+assets/simplebuilding/models/block/reinforced_hopper.json
+assets/simplebuilding/models/block/reinforced_hopper_side.json
 assets/simplebuilding/models/block/reinforced_piston.json
 assets/simplebuilding/models/block/reinforced_piston_base.json
 assets/simplebuilding/models/block/reinforced_piston_head.json
@@ -253,6 +265,7 @@ assets/simplebuilding/models/item/enderite_bundle_open_back_dyed.json
 assets/simplebuilding/models/item/enderite_bundle_open_front.json
 assets/simplebuilding/models/item/enderite_bundle_open_front_dyed.json
 assets/simplebuilding/models/item/enderite_core.json
+assets/simplebuilding/models/item/enderite_hopper.json
 assets/simplebuilding/models/item/enderite_ingot.json
 assets/simplebuilding/models/item/enderite_nugget.json
 assets/simplebuilding/models/item/enderite_quiver.json
@@ -287,6 +300,7 @@ assets/simplebuilding/models/item/netherite_bundle_open_back_dyed.json
 assets/simplebuilding/models/item/netherite_bundle_open_front.json
 assets/simplebuilding/models/item/netherite_bundle_open_front_dyed.json
 assets/simplebuilding/models/item/netherite_core.json
+assets/simplebuilding/models/item/netherite_hopper.json
 assets/simplebuilding/models/item/netherite_nugget.json
 assets/simplebuilding/models/item/netherite_quiver.json
 assets/simplebuilding/models/item/netherite_quiver_dyed.json
@@ -304,6 +318,7 @@ assets/simplebuilding/models/item/reinforced_bundle_open_back.json
 assets/simplebuilding/models/item/reinforced_bundle_open_back_dyed.json
 assets/simplebuilding/models/item/reinforced_bundle_open_front.json
 assets/simplebuilding/models/item/reinforced_bundle_open_front_dyed.json
+assets/simplebuilding/models/item/reinforced_hopper.json
 assets/simplebuilding/models/item/reinforced_quiver.json
 assets/simplebuilding/models/item/reinforced_quiver_dyed.json
 assets/simplebuilding/models/item/reinforced_shulker_box.json
@@ -455,6 +470,7 @@ data/simplebuilding/advancement/recipes/misc/upgrade_gold_sledgehammer_to_diamon
 data/simplebuilding/advancement/recipes/misc/upgrade_iron_sledgehammer_to_gold_sledgehammer.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_blast_furnace.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_furnace.json
+data/simplebuilding/advancement/recipes/redstone/reinforced_hopper_from_crafting.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_piston.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_smoker.json
 data/simplebuilding/advancement/recipes/redstone/reinforced_sticky_piston.json
@@ -499,6 +515,7 @@ data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json
 data/simplebuilding/loot_table/blocks/enderite_block.json
 data/simplebuilding/loot_table/blocks/enderite_chest.json
 data/simplebuilding/loot_table/blocks/enderite_furnace.json
+data/simplebuilding/loot_table/blocks/enderite_hopper.json
 data/simplebuilding/loot_table/blocks/enderite_piston.json
 data/simplebuilding/loot_table/blocks/enderite_shulker_box.json
 data/simplebuilding/loot_table/blocks/enderite_smoker.json
@@ -510,6 +527,7 @@ data/simplebuilding/loot_table/blocks/netherite_backpack.json
 data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json
 data/simplebuilding/loot_table/blocks/netherite_chest.json
 data/simplebuilding/loot_table/blocks/netherite_furnace.json
+data/simplebuilding/loot_table/blocks/netherite_hopper.json
 data/simplebuilding/loot_table/blocks/netherite_piston.json
 data/simplebuilding/loot_table/blocks/netherite_shulker_box.json
 data/simplebuilding/loot_table/blocks/netherite_smoker.json
@@ -519,6 +537,7 @@ data/simplebuilding/loot_table/blocks/reinforced_backpack.json
 data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json
 data/simplebuilding/loot_table/blocks/reinforced_chest.json
 data/simplebuilding/loot_table/blocks/reinforced_furnace.json
+data/simplebuilding/loot_table/blocks/reinforced_hopper.json
 data/simplebuilding/loot_table/blocks/reinforced_piston.json
 data/simplebuilding/loot_table/blocks/reinforced_shulker_box.json
 data/simplebuilding/loot_table/blocks/reinforced_smoker.json
@@ -642,6 +661,7 @@ data/simplebuilding/recipe/reinforced_bundle_dyed.json
 data/simplebuilding/recipe/reinforced_chest.json
 data/simplebuilding/recipe/reinforced_elytra_pad_smithing.json
 data/simplebuilding/recipe/reinforced_furnace.json
+data/simplebuilding/recipe/reinforced_hopper_from_crafting.json
 data/simplebuilding/recipe/reinforced_piston.json
 data/simplebuilding/recipe/reinforced_quiver.json
 data/simplebuilding/recipe/reinforced_quiver_dyed.json

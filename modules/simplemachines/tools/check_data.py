@@ -10,10 +10,13 @@ RES = MODULE / 'shared/resources'
 JAVA = MODULE / 'shared/java/com/simplemachines'
 PISTONS = ['reinforced_piston', 'reinforced_sticky_piston', 'netherite_piston', 'enderite_piston']
 HEADS = ['reinforced_piston_head', 'netherite_piston_head', 'enderite_piston_head']
-BLOCKS = ['double_piston', 'double_piston_head', 'double_piston_arm', 'signal_dampener'] + PISTONS + HEADS
-ITEMS = ['double_piston', 'signal_dampener'] + PISTONS
+# stage 3: the mod hoppers and their carts
+HOPPERS = [f'{t}_hopper' for t in ('reinforced', 'netherite', 'enderite')]
+CARTS = [f'{h}_minecart' for h in HOPPERS]
+BLOCKS = ['double_piston', 'double_piston_head', 'double_piston_arm', 'signal_dampener'] + PISTONS + HEADS + HOPPERS
+ITEMS = ['double_piston', 'signal_dampener'] + PISTONS + HOPPERS + CARTS
 # crafted items (the breakers come from the hammer upgrade, data/simplemachines/in_world_upgrades/pistons.json)
-CRAFTED = ['double_piston', 'signal_dampener', 'reinforced_piston', 'reinforced_sticky_piston']
+CRAFTED = ['double_piston', 'signal_dampener', 'reinforced_piston', 'reinforced_sticky_piston', 'reinforced_hopper_from_crafting']
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -45,7 +48,8 @@ for state in (RES / f'assets/{NS}/blockstates').glob('*.json'):
         assert (RES / f'assets/{NS}/models/{model}.json').is_file(), (state.name, model)
 for model in (RES / f'assets/{NS}/models').rglob('*.json'):
     for tex in json.loads(model.read_text(encoding='utf-8')).get('textures', {}).values():
-        if tex.startswith(f'{NS}:'):
+        # the hopper cart sprites are Vanilla-derived: built by tools/textures/vanilla_derived.py, never committed (stage 3)
+        if tex.startswith(f'{NS}:') and not tex.endswith('_hopper_minecart'):
             assert (RES / f'assets/{NS}/textures/{tex.split(":")[1]}.png').is_file(), (model.name, tex)
 # 4 stages x lit or not for the Dampener, 3 extensions x 6 facings for the piston parts
 assert len(json.loads((RES / f'assets/{NS}/blockstates/signal_dampener.json').read_text(encoding='utf-8'))['variants']) == 4 * 4 * 2

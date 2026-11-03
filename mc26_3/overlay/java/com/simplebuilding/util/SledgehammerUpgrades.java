@@ -34,7 +34,7 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
         Map<Block, Upgrade> table = builtIn;
         if (table == null) {
             Map<Block, Upgrade> map = new HashMap<>();
-            toNetherite(map, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER);
+            if (McVersion.HOPPERS_IN_SB) toNetherite(map, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER); // 26.3: data/simplemachines/in_world_upgrades (stage 3)
             if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: data/simpleovens/in_world_upgrades
                 toNetherite(map, ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE);
                 toNetherite(map, ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER);
@@ -45,7 +45,7 @@ public final class SledgehammerUpgrades extends com.simplehammers.engine.Sledgeh
                 // Besitzer 2026-09-29: auch der verstaerkte klebrige Kolben wird zum Netherit-Kolben (Brecher, nicht klebrig).
                 toNetherite(map, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.NETHERITE_PISTON);
             }
-            toEnderite(map, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER);
+            if (McVersion.HOPPERS_IN_SB) toEnderite(map, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER);
             if (com.simplebuilding.version.McVersion.OVENS_IN_SB) { // 26.3: data/simpleovens/in_world_upgrades
                 toEnderite(map, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE);
                 toEnderite(map, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER);

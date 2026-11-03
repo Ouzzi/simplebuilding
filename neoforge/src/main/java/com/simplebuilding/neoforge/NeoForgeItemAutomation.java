@@ -42,7 +42,7 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
             event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_SMOKER_BE.get(), WorldlyContainerWrapper::new);
             event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_BLAST_FURNACE_BE.get(), WorldlyContainerWrapper::new);
         }
-        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_HOPPER_BE.get(),
+        if (NeoForgeModRegistries.MOD_HOPPER_BE != null) event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_HOPPER_BE.get(),
                 (hopper, side) -> VanillaContainerWrapper.of(hopper));
         // Mod-Truhen wie NeoForges eigene Truhen-Anbindung (CapabilityHooks): eine Doppeltruhe ist
         // ein Lager aus beiden Haelften. VanillaContainerWrapper fragt getMaxStackSize(stack) der

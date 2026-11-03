@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplemachines:netherite_hopper",
+    "minecraft:minecart"
+  ],
+  "result": {
+    "id": "simplemachines:netherite_hopper_minecart"
+  }
+}

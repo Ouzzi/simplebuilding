@@ -178,6 +178,7 @@ public final class BlockInfoTests {
 
     /** Mod hopper: filter off; exact match with empty slots; then the names of the filter items (the real items in the slots) in slot order. */
     public static void hopperFilterNamesTheModeAndItems(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.HOPPERS_IN_SB) { helper.succeed(); return; } // MACH32-MOD stage 3: Simple Machines tests its hoppers on 26.3
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, ModBlocks.NETHERITE_HOPPER);
         ModHopperBlockEntity hopper = helper.getBlockEntity(pos, ModHopperBlockEntity.class);

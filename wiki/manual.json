@@ -133,7 +133,7 @@
         "simpleovens:reinforced_furnace",
         "simpleovens:reinforced_blast_furnace",
         "simpleovens:reinforced_smoker",
-        "simplebuilding:reinforced_hopper",
+        "simplemachines:reinforced_hopper",
         "simplebuilding:reinforced_piston",
         "simplebuilding:netherite_nugget",
         "simplebuilding:basic_upgrade_template",
@@ -221,7 +221,7 @@
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_furnace.json",
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_blast_furnace.json",
         "modules/simpleovens/shared/resources/data/simpleovens/recipe/reinforced_smoker.json",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
+        "modules/simplemachines/shared/resources/data/simplemachines/recipe/reinforced_hopper_from_crafting.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
         "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
         "src/main/generated/data/simplebuilding/tags/item/chisel_tools.json",
@@ -1039,102 +1039,6 @@
       }
     },
     {
-      "id": "hoppers",
-      "related": [
-        "simplebuilding:reinforced_hopper",
-        "simplebuilding:netherite_hopper",
-        "simplebuilding:enderite_hopper",
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-        "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-        "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-        "common/src/shared/java/com/simplebuilding/networking/ToggleHopperFilterPayload.java",
-        "common/src/shared/java/com/simplebuilding/platform/PlatformServices.java",
-        "src/main/java/com/simplebuilding/Simplebuilding.java",
-        "src/main/java/com/simplebuilding/SimplebuildingClient.java",
-        "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-        "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-        "src/main/java/com/simplebuilding/platform/HopperMenus.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
-        "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-        "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
-      ],
-      "en": {
-        "title": "Reinforced, Netherite and Enderite Hoppers",
-        "summary": "SimpleBuilding adds three faster hoppers: the Reinforced Hopper (4 ticks of cooldown per transfer), the Netherite Hopper (2 ticks) and the Enderite Hopper (1 tick). All three have a filter button in their menu with the modes Disabled, Exact Match and Type Match; with a filter on, the real item lying in a slot is that slot's filter, and one of it always stays in the slot. The Netherite Hopper is hammered out of a Reinforced Hopper with a sledgehammer and a Netherite Nugget, the Enderite Hopper out of a Netherite Hopper with an Enderite Nugget; both are highly blast resistant and their items are fire resistant.",
-        "details": [
-          "Three tiers: Reinforced Hopper with 4 ticks, Netherite Hopper with 2 ticks and Enderite Hopper with 1 tick of cooldown after every successful transfer - the Enderite Hopper moves an item every tick; the fallback value in the shared block logic is 8 ticks, but that logic is only registered for these three blocks (the test comment compares 2 with the vanilla hopper's 8 ticks).",
-          "A transfer pushes one item into the container the hopper faces and pulls items in from above; both only when no cooldown is running and the hopper is not powered by redstone ('enabled'). With no vanilla container in front (another mod's machine, for example) the hopper hands the item to the loader's transfer API instead - NeoForge's item capability, Fabric's Transfer API (ItemStorage.SIDED), Forge's ITEM_HANDLER - through the face that looks at the hopper, one item per transfer.",
-          "The filter has three modes that the button in the menu cycles through in order (HopperFilterMode.next): Disabled -> Exact Match -> Type Match -> Disabled.",
-          "Disabled: canPlaceItem always returns true and every item may leave the hopper, so it behaves like a normal hopper.",
-          "Exact Match: automation may only put an item into a slot that already holds the same item with all the same components (ItemStack.isSameItemSameComponents; per the game test a renamed stone does not count as stone).",
-          "Type Match: only the item type has to match the item lying in the slot (stack.is(filter.getItem()) in ItemFilter.matches); name and other components do not matter.",
-          "Each of the five slots is filtered by its own item; the mode applies to the whole hopper.",
-          "There are no placeholder (ghost) items: with a filter on, the real item lying in a slot is its filter (ItemFilter, the filter principle). One of it always stays put: the hopper pushes, and other hoppers and pipes pull, only the second and every further item of a slot (ItemFilter.movable); with the filter off, everything moves like in a vanilla hopper.",
-          "The menu draws nothing extra for the filter - no overlay, no icon, no tooltip on the slots: what lies in a slot is what it filters.",
-          "With the filter on, an empty slot takes nothing from automation (hoppers, droppers, pipes, item entities): ItemFilter.accepts needs a matching item already lying there. Only a player can fill it through the menu.",
-          "The hopper is a WorldlyContainer with all five slots on every face (getSlotsForFace); canPlaceItemThroughFace asks the same canPlaceItem, and canTakeItem and canTakeItemThroughFace only allow taking from a slot that holds more than its one filter item, so a hopper below or another mod's pipe cannot take the last item of a filtered slot either.",
-          "In the menu the five slots are filtering slots (FilterSlot) whose mayPlace first asks vanilla's Slot.mayPlace - so a spawn elytra stays out of the mod hoppers like out of every other container - and then the hopper's mayPlayerPlace: with a filter on, a player may put any item into an empty slot (that sets its filter) and only a matching item onto a filled one. This holds for a click, a hotbar swap (keys 1-9), a drag across the slots and a shift click out of the inventory (getMaxStackSize is 0 for an item the slot refuses, so a shift click cannot top up a foreign stack). Taking items out is a normal click; taking the last one empties the slot and so clears its filter. The client menu is built without the block entity and does not check the filter, so a click is predicted there and corrected by the server.",
-          "The server only accepts mode changes (ToggleHopperFilterPayload, the hoppers' only network payload) when player.containerMenu is a ModHopperScreenHandler.",
-          "A mode change triggers a block update; the block entity's update tag carries only the mode, and the open menu receives it as synced container data. The filter needs no packet of its own: it is the slot contents, which the menu syncs like any container.",
-          "Mode and cooldown are saved with the block next to the items ('FilterMode', 'TransferCooldown') and survive a world reload; a 'FilterMode' outside the three known modes (a hand-edited region file, a downgrade) falls back to Disabled instead of throwing, so the hopper keeps its contents. A 'GhostItems' list from older saves is ignored: such a slot stays empty and, with the filter on, takes nothing in until a player puts an item in.",
-          "The menu is drawn in the mod's container style in the colors of the hopper's tier: the five slots, then a gap one slot wider than before with an engraved funnel and a colon as the caption, then SimpleLib's 18x18 filter key (UiFilterButton), which shows only the mode - a red cross (Disabled), a green check (Exact Match) or three yellow squares (Type Match); the whole row is centred (first slot at x=24 instead of vanilla's 44). The key's tooltip names the mode in red, green and yellow respectively. With the container style switched off, the vanilla hopper background (hopper.png) is drawn instead.",
-          "The mode names in the key's tooltip are translated (English and German); the caption in front of the key is a symbol, not text.",
-          "Getting them: 1 Hopper + 1 Name Tag + 1 Cracked Diamond (shapeless) yield 1 Reinforced Hopper at the crafting table. The Netherite and Enderite Hoppers have no crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, a Netherite Hopper becomes an Enderite Hopper with a Netherite Sledgehammer (or better) and an Enderite Nugget; items and filter mode stay in the hopper, and with them the filter (see the Sledgehammer). The Reinforced and Netherite Hopper items say so in their tooltip.",
-          "Reinforced Hopper: hardness 3.0, blast resistance 4.8, metal sound. Netherite Hopper: hardness 5.0, blast resistance 1200, netherite block sound, fire resistant item. Enderite Hopper: hardness 6.0, blast resistance 1500, netherite block sound, fire resistant item of rarity Epic. All three are in the pickaxe mining tag and drop themselves; like the vanilla hopper they are built from, they only drop when mined with a pickaxe.",
-          "All three blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper); the cooldown depends only on which of the three blocks is placed.",
-          "Game tests prove: the Netherite Hopper is faster than the Reinforced Hopper, which is faster than the vanilla hopper, and the Netherite Hopper needs at most half the vanilla hopper's time; the three filter modes behave as described; and the mode change payload only takes effect while a hopper menu is open."
-        ]
-      },
-      "de": {
-        "title": "Verstärkte Trichter, Netherit- und Enderittrichter",
-        "summary": "SimpleBuilding fügt drei schnellere Trichter hinzu: den Verstärkten Trichter (4 Ticks Wartezeit pro Transfer), den Netherittrichter (2 Ticks) und den Enderittrichter (1 Tick). Alle drei haben im Menü einen Filter-Knopf mit den Modi Aus, Exakt gleich und Gleiche Art; bei aktivem Filter ist das echte Item, das in einem Slot liegt, der Filter dieses Slots, und eines davon bleibt immer im Slot. Der Netherittrichter wird mit Vorschlaghammer und Netheritklumpen aus einem Verstärkten Trichter geschmiedet, der Enderittrichter mit einem Enderitklumpen aus einem Netherittrichter; beide halten Explosionen stand und sind als Item feuerfest.",
-        "details": [
-          "Drei Stufen: Verstärkter Trichter mit 4 Ticks, Netherittrichter mit 2 Ticks und Enderittrichter mit 1 Tick Wartezeit nach jedem erfolgreichen Transfer - der Enderittrichter bewegt also in jedem Tick ein Item; der Fallback-Wert der gemeinsamen Blocklogik ist 8 Ticks, die Logik ist aber nur für diese drei Blöcke registriert (der Testkommentar vergleicht 2 mit 8 Ticks des normalen Trichters).",
-          "Ein Transfer schiebt ein Item in den Behälter, auf den der Trichter zeigt, und zieht Items von oben ein; beides nur, wenn keine Wartezeit läuft und der Trichter nicht per Redstone gesperrt ist ('enabled'). Steht vorn kein Vanilla-Behälter (etwa die Maschine einer anderen Mod), übergibt der Trichter das Item stattdessen der Transfer-Schnittstelle des Loaders – NeoForges Item-Capability, Fabrics Transfer-API (ItemStorage.SIDED), Forges ITEM_HANDLER – über die Seite, die zum Trichter schaut, ein Item pro Transfer.",
-          "Der Filter hat drei Modi, die der Knopf im Menü der Reihe nach durchschaltet (HopperFilterMode.next): Aus → Exakt gleich → Gleiche Art → Aus.",
-          "Aus: canPlaceItem liefert immer true und jedes Item darf den Trichter verlassen, er verhält sich also wie ein normaler Trichter.",
-          "Exakt gleich: Automatik darf ein Item nur in einen Slot legen, in dem schon dasselbe Item mit denselben Komponenten liegt (ItemStack.isSameItemSameComponents; ein umbenannter Stein zählt laut Spieltest nicht als Stein).",
-          "Gleiche Art: nur der Item-Typ muss mit dem Item im Slot übereinstimmen (stack.is(filter.getItem()) in ItemFilter.matches); Name und andere Komponenten spielen keine Rolle.",
-          "Jeder der fünf Slots wird von seinem eigenen Item gefiltert; der Modus gilt für den ganzen Trichter.",
-          "Es gibt keine Platzhalter- (Geister-)Items: Bei aktivem Filter ist das echte Item, das in einem Slot liegt, sein Filter (ItemFilter, das Filter-Prinzip). Eines davon bleibt immer liegen: Der Trichter schiebt, und andere Trichter und Rohre ziehen, nur das zweite und jedes weitere Item eines Slots (ItemFilter.movable); ohne Filter bewegt sich alles wie beim Vanilla-Trichter.",
-          "Das Menü zeichnet für den Filter nichts zusätzlich – keine Hinterlegung, kein Symbol, kein Tooltip an den Slots: Was in einem Slot liegt, ist das, was er filtert.",
-          "Bei aktivem Filter nimmt ein leerer Slot von Automatik (Trichter, Spender, Rohre, liegende Items) nichts an: ItemFilter.accepts braucht ein passendes Item, das dort schon liegt. Füllen kann ihn nur ein Spieler über das Menü.",
-          "Der Trichter ist ein WorldlyContainer mit allen fünf Slots an jeder Seite (getSlotsForFace); canPlaceItemThroughFace fragt dasselbe canPlaceItem, und canTakeItem und canTakeItemThroughFace erlauben das Herausnehmen nur aus einem Slot, der mehr als sein eines Filter-Item hält – auch ein Trichter darunter oder das Rohr einer anderen Mod kann das letzte Item eines gefilterten Slots also nicht herausziehen.",
-          "Im Menü sind die fünf Slots filternde Slots (FilterSlot), deren mayPlace zuerst Vanillas Slot.mayPlace fragt – eine Spawn-Elytra bleibt also aus den Mod-Trichtern draußen wie aus jedem anderen Behälter – und dann mayPlayerPlace des Trichters: Bei aktivem Filter darf ein Spieler jedes Item in einen leeren Slot legen (das setzt dessen Filter) und auf einen belegten nur ein passendes. Das gilt für Klick, Hotbar-Tausch (Tasten 1-9), Ziehen über die Slots und Shift-Klick aus dem Inventar (getMaxStackSize ist 0 für ein Item, das der Slot ablehnt, ein Shift-Klick füllt also keinen fremden Stapel auf). Herausnehmen ist ein normaler Klick; wer das letzte Item nimmt, leert den Slot und löscht damit seinen Filter. Das Client-Menü entsteht ohne Block-Entity und prüft den Filter nicht, ein Klick wird dort also vorhergesagt und vom Server korrigiert.",
-          "Der Server nimmt Modus-Wechsel (ToggleHopperFilterPayload, das einzige Netzwerkpaket der Trichter) nur an, wenn player.containerMenu ein ModHopperScreenHandler ist.",
-          "Ein Modus-Wechsel löst ein Block-Update aus; das Update-Tag des Block-Entities enthält nur den Modus, und das offene Menü erhält ihn als synchronisierte Container-Daten. Der Filter braucht kein eigenes Paket: Er ist der Slot-Inhalt, den das Menü wie bei jedem Behälter abgleicht.",
-          "Modus und Wartezeit werden neben den Items mit dem Block gespeichert ('FilterMode', 'TransferCooldown') und überstehen das Neuladen der Welt; ein 'FilterMode' außerhalb der drei bekannten Modi (von Hand bearbeitete Regionsdatei, Rückstufung) fällt auf Aus zurück, statt zu werfen – der Inhalt des Trichters bleibt also erhalten. Eine 'GhostItems'-Liste aus älteren Spielständen wird ignoriert: Ein solcher Slot bleibt leer und nimmt bei aktivem Filter nichts an, bis ein Spieler ein Item hineinlegt.",
-          "Das Menü ist im Behälter-Stil der Mod in den Farben der Trichterstufe gezeichnet: die fünf Slots, dann eine um einen Slot breitere Lücke mit eingraviertem Trichter-Symbol und Doppelpunkt als Beschriftung, dann die 18x18 große Filter-Taste aus SimpleLib (UiFilterButton), die nur den Modus zeigt – ein rotes Kreuz (Aus), ein grünes Häkchen (Exakt gleich) oder drei gelbe Quadrate (Gleiche Art); die ganze Reihe steht mittig (erster Slot bei x=24 statt Vanillas 44). Der Tooltip der Taste nennt den Modus in Rot, Grün bzw. Gelb. Ist der Behälter-Stil abgeschaltet, wird stattdessen die Trichter-Oberfläche des Spiels (hopper.png) gezeichnet.",
-          "Die Modusnamen im Tooltip der Taste sind übersetzt (Englisch und Deutsch); die Beschriftung vor der Taste ist ein Symbol, kein Text.",
-          "Beschaffung: 1 Trichter + 1 Namensschild + 1 Rissiger Diamant (formlos) ergeben an der Werkbank 1 Verstärkten Trichter. Für Netherit- und Enderittrichter gibt es kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter, ein Netherittrichter mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen zum Enderittrichter; Items und Filtermodus bleiben im Trichter und damit auch der Filter (siehe Vorschlaghammer). Die Items des Verstärkten und des Netherittrichters weisen im Tooltip darauf hin.",
-          "Verstärkter Trichter: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherittrichter: Härte 5,0, Explosionswiderstand 1200, Netheritblock-Klang, Item feuerfest. Enderittrichter: Härte 6,0, Explosionswiderstand 1500, Netheritblock-Klang, Item feuerfest und von der Seltenheit Episch. Alle drei im Spitzhacken-Abbau-Tag, alle drei droppen sich selbst; wie der Vanilla-Trichter, von dem sie kopiert sind, nur beim Abbau mit einer Spitzhacke.",
-          "Alle drei Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter); die Wartezeit hängt nur davon ab, welcher der drei Blöcke gesetzt ist.",
-          "Spieltests belegen: Netherittrichter schneller als Verstärkter Trichter, dieser schneller als der normale Trichter, Netherittrichter höchstens halbe Zeit des normalen; die drei Filtermodi verhalten sich wie beschrieben; das Paket für den Modus-Wechsel wirkt nur bei geöffnetem Trichter-Menü."
-        ]
-      }
-    },
-    {
       "id": "pistons_and_falling",
       "related": [
         "simplemachines:reinforced_piston",
@@ -1822,7 +1726,7 @@
         "simplebuilding:enderite_boots",
         "simplebuilding:enderite_upgrade_template",
         "simplebuilding:enderite_backpack",
-        "simplebuilding:enderite_hopper",
+        "simplemachines:enderite_hopper",
         "simpleovens:enderite_furnace",
         "simpleovens:enderite_smoker",
         "simpleovens:enderite_blast_furnace",
@@ -2432,7 +2336,7 @@
         "simplebuilding:potion_pad",
         "simplebuilding:chunk_loader",
         "simplebuilding:netherite_piston",
-        "simplebuilding:netherite_hopper",
+        "simplemachines:netherite_hopper",
         "simplebuilding:netherite_chest"
       ],
       "sources": [
@@ -4158,183 +4062,6 @@
         "common/src/shared/java/com/simplebuilding/util/AttractorFilter.java"
       ]
     },
-    "reinforced_hopper": {
-      "en": {
-        "summary": "The Reinforced Hopper is a faster hopper: it waits only 4 ticks after every successful item transfer, and it adds an item filter with three modes that you set up in its menu.",
-        "details": [
-          "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, 1 for ENDERITE_HOPPER, fallback 8; the block logic is only registered for those three blocks).",
-          "Per transfer it pushes exactly one item into the container it faces (insert() removes 1 item and stops after the first success) and in the same tick pulls items in from above via HopperBlockEntity.suckInItems as long as it is not full; the cooldown is only set when something actually moved.",
-          "It only moves items while it is not powered by redstone (the 'enabled' block state is checked before every transfer); the ticker runs on the server only (getTicker returns null on the client).",
-          "5 slots (getContainerSize = 5); the menu is drawn in the mod's container style (with that style switched off: the vanilla hopper background, textures/gui/container/hopper.png) and carries the vanilla hopper title (container.hopper).",
-          "Hardness 3.0 and blast resistance 4.8; SoundType.METAL; noOcclusion set.",
-          "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
-          "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
-          "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-          "Recipe (yields 1, category redstone, shapeless): one Hopper, one Name Tag and one Cracked Diamond (simplebuilding:cracked_diamond); unlocked as soon as you own a minecraft:hopper.",
-          "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items and filter mode, and so with its filter (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
-          "Filter mode and transfer cooldown are saved with the block next to its items (keys 'FilterMode', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost. A 'GhostItems' list from older saves is ignored.",
-          "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
-          "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
-        ],
-        "controls": [
-          "Right-click the block to open the menu (useWithoutItem; the menu is opened on the server only).",
-          "Clicking the filter key to the right of the five slots cycles the filter: Disabled (red cross) -> Exact Match (green check) -> Type Match (three yellow squares) -> Disabled.",
-          "With the filter on: put any item into an empty hopper slot (click, hotbar key, drag or shift click) and it becomes that slot's filter; onto a filled slot only a matching item can be placed.",
-          "Taking items out is a normal click; taking the last item of a slot clears that slot's filter.",
-          "Hovering over the filter key shows the mode name (red/green/yellow)."
-        ],
-        "caveats": [
-          "With the filter on, an empty slot takes nothing from automation (canPlaceItem returns false); each of the five slots has to get its first item from a player in the menu.",
-          "The filter decides what may enter the hopper (canPlaceItem) and holds back the last item of each slot; whatever lies above that one item is pushed into the target container unfiltered.",
-          "The symbols on the filter key (cross, check, squares) are drawn, not text, and stay the same in every language; the other menu texts are translated.",
-          "The server only accepts mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open."
-        ]
-      },
-      "de": {
-        "summary": "Der Verstärkte Trichter ist ein Trichter, der nach jedem erfolgreichen Item-Transfer nur 4 Ticks wartet und zusätzlich einen im Menü einstellbaren Item-Filter mit drei Modi besitzt.",
-        "details": [
-          "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, 1 für ENDERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese drei Blöcke registriert).",
-          "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt (insert() entfernt 1 Item und bricht nach dem ersten Erfolg ab), und zieht im selben Tick über HopperBlockEntity.suckInItems Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
-          "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled' wird vor jedem Transfer geprüft); der Ticker läuft ausschließlich serverseitig (getTicker liefert auf dem Client null).",
-          "5 Slots (getContainerSize = 5); das Menü ist im Behälter-Stil der Mod gezeichnet (ist der Stil abgeschaltet: die Trichter-Oberfläche des Spiels, textures/gui/container/hopper.png) und trägt den Titel des normalen Trichters (container.hopper).",
-          "Härte 3,0 und Explosionswiderstand 4,8; Klang SoundType.METAL; noOcclusion gesetzt.",
-          "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
-          "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
-          "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-          "Rezept (ergibt 1 Stück, Kategorie redstone, formlos): ein Trichter, ein Namensschild und ein Rissiger Diamant (simplebuilding:cracked_diamond); freigeschaltet, sobald man einen minecraft:hopper besitzt.",
-          "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items und Filtermodus, also auch samt Filter, zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
-          "Filtermodus und Wartezeit werden neben den Items mit dem Block gespeichert (Schlüssel 'FilterMode', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Aus zurück, statt zu werfen – es geht nichts verloren. Eine 'GhostItems'-Liste aus älteren Spielständen wird ignoriert.",
-          "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
-          "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
-        ],
-        "controls": [
-          "Rechtsklick auf den Block öffnet das Menü (useWithoutItem, nur serverseitig geöffnet).",
-          "Klick auf die Filter-Taste rechts neben den fünf Slots schaltet den Filter der Reihe nach um: Aus (rotes Kreuz) → Exakt gleich (grünes Häkchen) → Gleiche Art (drei gelbe Quadrate) → Aus.",
-          "Bei aktivem Filter: Jedes Item, das du in einen leeren Trichter-Slot legst (Klick, Hotbar-Taste, Ziehen oder Shift-Klick), wird zum Filter dieses Slots; auf einen belegten Slot passt nur ein passendes Item.",
-          "Herausnehmen ist ein normaler Klick; wer das letzte Item eines Slots nimmt, löscht dessen Filter.",
-          "Maus über der Filter-Taste zeigt den Modus-Namen (rot/grün/gelb)."
-        ],
-        "caveats": [
-          "Bei aktivem Filter nimmt ein leerer Slot von Automatik nichts an (canPlaceItem liefert false); jeder der fünf Slots muss sein erstes Item von einem Spieler im Menü bekommen.",
-          "Der Filter entscheidet, was in den Trichter hinein darf (canPlaceItem), und hält das letzte Item jedes Slots zurück; was über diesem einen Item liegt, wird ungefiltert in den Zielbehälter geschoben.",
-          "Die Symbole auf der Filter-Taste (Kreuz, Häkchen, Quadrate) sind gezeichnet, kein Text, und bleiben in jeder Sprache gleich; die übrigen Menü-Texte sind übersetzt.",
-          "Der Server nimmt Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-        "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-        "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-        "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-        "src/main/java/com/simplebuilding/platform/HopperMenus.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
-        "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
-      ]
-    },
-    "netherite_hopper": {
-      "en": {
-        "summary": "The Netherite Hopper is the second fastest hopper tier after the Enderite Hopper: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
-        "details": [
-          "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks, Enderite Hopper 1 tick; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
-          "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved.",
-          "It only moves items while it is not powered by redstone (the 'enabled' block state); the ticker runs on the server only.",
-          "Hardness 5.0 and blast resistance 1200; SoundType.NETHERITE_BLOCK; noOcclusion set.",
-          "The item is registered as fire resistant (fireResistant).",
-          "5 slots; menu, filter key, filter and storage ('FilterMode', 'TransferCooldown' next to the items) are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
-          "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
-          "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-          "No crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items and filter mode, and so its filter (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Hopper (1 tick of cooldown); the item's tooltip says so.",
-          "Listed in the creative tab \"SimpleMachines\" (simplebuilding:functional), in its hopper group.",
-          "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
-          "The game tests for the three filter modes and for the menu binding of the mode change payload (HopperAndTrimTests) are run on a placed Netherite Hopper."
-        ],
-        "controls": [
-          "Right-click the block to open the menu.",
-          "Clicking the filter key to the right of the five slots cycles the filter: Disabled (red cross) -> Exact Match (green check) -> Type Match (three yellow squares) -> Disabled.",
-          "With the filter on: put any item into an empty hopper slot (click, hotbar key, drag or shift click) and it becomes that slot's filter; onto a filled slot only a matching item can be placed.",
-          "Taking items out is a normal click; taking the last item of a slot clears that slot's filter.",
-          "Hovering over the filter key shows the mode name (red/green/yellow)."
-        ],
-        "caveats": [
-          "With the filter on, an empty slot takes nothing from automation; each of the five slots has to get its first item from a player in the menu.",
-          "The filter decides what may enter the hopper and holds back the last item of each slot; whatever lies above that one item is pushed into the target container unfiltered.",
-          "The symbols on the filter key (cross, check, squares) are drawn, not text, and stay the same in every language; the other menu texts are translated.",
-          "The server only accepts mode changes while the player has a mod hopper's menu open.",
-          "The Netherite Hopper has no special logic of its own: ModBlockEntities registers ModHopperBlockEntity for all mod hoppers; the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
-        ]
-      },
-      "de": {
-        "summary": "Der Netherittrichter ist nach dem Enderittrichter die zweitschnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
-        "details": [
-          "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks, Enderittrichter 1 Tick; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
-          "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
-          "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled'); der Ticker läuft nur serverseitig.",
-          "Härte 5,0 und Explosionswiderstand 1200; Klang SoundType.NETHERITE_BLOCK; noOcclusion gesetzt.",
-          "Das Item ist als feuerfest (fireResistant) registriert.",
-          "5 Slots; Menü, Filter-Taste, Filter und Speicherung ('FilterMode', 'TransferCooldown' neben den Items) sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
-          "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
-          "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-          "Kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zum Netherittrichter und behält Items und Filtermodus, also auch seinen Filter (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen wird er weiter zum Enderittrichter geschmiedet (1 Tick Wartezeit); der Tooltip des Items weist darauf hin.",
-          "Im Kreativ-Tab „SimpleMachines“ (simplebuilding:functional) einsortiert, in der Gruppe der Trichter.",
-          "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
-          "Die Spieltests zu den drei Filtermodi und zur Menü-Bindung des Pakets für den Modus-Wechsel (HopperAndTrimTests) werden an einem gesetzten Netherittrichter ausgeführt."
-        ],
-        "controls": [
-          "Rechtsklick auf den Block öffnet das Menü.",
-          "Klick auf die Filter-Taste rechts neben den fünf Slots schaltet den Filter der Reihe nach um: Aus (rotes Kreuz) → Exakt gleich (grünes Häkchen) → Gleiche Art (drei gelbe Quadrate) → Aus.",
-          "Bei aktivem Filter: Jedes Item, das du in einen leeren Trichter-Slot legst (Klick, Hotbar-Taste, Ziehen oder Shift-Klick), wird zum Filter dieses Slots; auf einen belegten Slot passt nur ein passendes Item.",
-          "Herausnehmen ist ein normaler Klick; wer das letzte Item eines Slots nimmt, löscht dessen Filter.",
-          "Maus über der Filter-Taste zeigt den Modus-Namen (rot/grün/gelb)."
-        ],
-        "caveats": [
-          "Bei aktivem Filter nimmt ein leerer Slot von Automatik nichts an; jeder der fünf Slots muss sein erstes Item von einem Spieler im Menü bekommen.",
-          "Der Filter entscheidet, was in den Trichter hinein darf, und hält das letzte Item jedes Slots zurück; was über diesem einen Item liegt, wird ungefiltert in den Zielbehälter geschoben.",
-          "Die Symbole auf der Filter-Taste (Kreuz, Häkchen, Quadrate) sind gezeichnet, kein Text, und bleiben in jeder Sprache gleich; die übrigen Menü-Texte sind übersetzt.",
-          "Der Server nimmt Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-          "Der Netherittrichter hat keine eigene Sonderlogik: ModBlockEntities registriert für alle Trichter der Mod ModHopperBlockEntity; die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-        "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-        "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-        "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
-        "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
-        "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-        "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
-      ]
-    },
     "vein_miner": {
       "en": {
         "summary": "While you sneak, Vein Miner lets a pickaxe or an axe break a whole connected vein of the same ore - or a run of the same log - in one swing.",
@@ -5366,68 +5093,6 @@
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ]
-    },
-    "enderite_hopper": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
-        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
-        "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-        "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
-        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
-        "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-        "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
-      ],
-      "en": {
-        "summary": "The Enderite Hopper is the fastest hopper: it waits only 1 tick after every transfer, so it moves an item every tick, with the same item filter as the Reinforced and Netherite Hoppers. It is hammered out of a Netherite Hopper.",
-        "details": [
-          "After every successful transfer it waits 1 tick (ModHopperBlockEntity.insertAndExtract: speed = 1 for ENDERITE_HOPPER; Netherite 2, Reinforced 4, fallback 8).",
-          "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved. It only moves items while it is not powered by redstone.",
-          "Same block class (ModHopperBlock), block entity type (simplebuilding:mod_hopper) and menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper) as the other two tiers: 5 slots, filter key with Disabled, Exact Match and Type Match, the item lying in each slot as that slot's filter, saved as 'FilterMode' and 'TransferCooldown' next to the items.",
-          "Made only in the world: hold right-click for 5 seconds on a placed Netherite Hopper with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items and filter mode stay in the hopper, and with them its filter.",
-          "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. noOcclusion is set.",
-          "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
-          "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the tab \"SimpleMachines\" right after its Netherite sibling.",
-          "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
-        ],
-        "controls": [
-          "Right-click the block to open the filter menu, as on the other mod hoppers."
-        ],
-        "caveats": [
-          "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
-          "No game test measures its speed yet."
-        ]
-      },
-      "de": {
-        "summary": "Der Enderittrichter ist der schnellste Trichter: Nach jedem Transfer wartet er nur 1 Tick, er bewegt also in jedem Tick ein Item, mit demselben Item-Filter wie der Verstärkte und der Netherittrichter. Er wird aus einem Netherittrichter geschmiedet.",
-        "details": [
-          "Nach jedem erfolgreichen Transfer wartet er 1 Tick (ModHopperBlockEntity.insertAndExtract: speed = 1 für ENDERITE_HOPPER; Netherit 2, Verstärkt 4, Fallback 8).",
-          "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn wirklich etwas bewegt wurde. Er bewegt nur Items, solange er nicht per Redstone gesperrt ist.",
-          "Dieselbe Blockklasse (ModHopperBlock), derselbe Block-Entity-Typ (simplebuilding:mod_hopper) und dasselbe Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter) wie die anderen beiden Stufen: 5 Slots, Filter-Taste mit Aus, Exakt gleich und Gleiche Art, das Item in jedem Slot als Filter dieses Slots, gespeichert als 'FilterMode' und 'TransferCooldown' neben den Items.",
-          "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderitklumpen in der Nebenhand auf einen gesetzten Netherittrichter halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Klumpen wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Items und Filtermodus bleiben im Trichter und damit auch sein Filter.",
-          "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Trichter kopiert (ofFullCopy(Blocks.HOPPER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. noOcclusion ist gesetzt.",
-          "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
-          "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus im Reiter „SimpleMachines“ direkt nach seinem Netherit-Geschwister.",
-          "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
-        ],
-        "controls": [
-          "Rechtsklick auf den Block öffnet das Filter-Menü, wie bei den anderen Mod-Trichtern."
-        ],
-        "caveats": [
-          "Er ist die oberste Stufe: Ein Vorschlaghammer mit Klumpen bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
-          "Noch kein Spieltest misst seine Geschwindigkeit."
-        ]
-      }
     },
     "construction_light": {
       "sources": [
@@ -8833,39 +8498,6 @@
           "Die Scherbe bleibt erhalten; der Meißel verliert 1 Haltbarkeit und hat seine übliche Abklingzeit.",
           "Abgebaut droppt der Stamm mit seinem Motiv.",
           "(mit Simple End) Geschnitzte Asch- und Dämmerstämme mit eigenem Motiv: ein knubbeliger Chorusstiel (Aschholz) und die geschlossene Dämmerknospe über einem Inselrand (Dämmerholz)."
-        ]
-      }
-    },
-    "*_hopper_minecart": {
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/TieredHopperMinecart.java",
-        "common/src/shared/java/com/simplebuilding/util/ItemFilter.java",
-        "common/src/shared/java/com/simplebuilding/util/FilterHopper.java",
-        "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-        "common/src/shared/java/com/simplebuilding/entity/vehicle/VehicleTiers.java",
-        "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "mc26_3/overlay/java/com/simplebuilding/client/render/VehicleRenderers.java",
-        "common/src/shared/java/com/simplebuilding/gametest/VehicleTests.java"
-      ],
-      "en": {
-        "summary": "Hopper minecarts of the mod hoppers: they take in up to 2/4/8 items per tick (vanilla's hopper minecart 1) - the same speed-up as the mod hopper over vanilla's hopper - and filter like the hopper block.",
-        "details": [
-          "Crafting: a Minecart plus the Reinforced/Netherite/Enderite Hopper of the same tier (shapeless). Smithing table: Reinforced to Netherite with a Netherite Upgrade template and a Netherite Ingot, Netherite to Enderite with an Enderite Upgrade template and an Enderite Ingot.",
-          "Same menu as the mod hoppers with the filter key (off / exact / same kind). Filter principle: with a filter on, a slot only takes what matches the real item lying in it, and one item always stays - hoppers below pull only the second and every further one.",
-          "An activator rail switches it off, as in vanilla. Items per tick follow the server setting of the hopper speed of that tier (server.machines).",
-          "Breaking it drops the cart item and its contents; it shows the tier hopper."
-        ]
-      },
-      "de": {
-        "summary": "Trichterloren der Mod-Trichter: sie nehmen bis zu 2/4/8 Items je Tick auf (Vanillas Trichterlore 1) - derselbe Vorsprung wie Mod-Trichter gegenüber Vanillas Trichter - und filtern wie der Trichter-Block.",
-        "details": [
-          "Werkbank: eine Lore und den Verstärkten/Netherit-/Enderittrichter derselben Stufe (formlos). Schmiedetisch: Verstärkt zu Netherit mit Netherit-Aufwertungsvorlage und Netheritbarren, Netherit zu Enderit mit Enderit-Aufwertungsvorlage und Enderitbarren.",
-          "Dasselbe Menü wie die Mod-Trichter mit Filter-Taste (aus / exakt / gleiche Art). Filter-Prinzip: mit Filter nimmt ein Platz nur, was zum echten Item darin passt, und ein Item bleibt immer liegen - Trichter darunter ziehen erst das zweite und jedes weitere.",
-          "Eine Aktivierungsschiene schaltet sie ab, wie bei Vanilla. Items je Tick folgen der Servereinstellung des Trichtertempos dieser Stufe (server.machines).",
-          "Beim Zerstören fallen das Loren-Item und der Inhalt heraus; sie zeigt den Stufen-Trichter."
         ]
       }
     },

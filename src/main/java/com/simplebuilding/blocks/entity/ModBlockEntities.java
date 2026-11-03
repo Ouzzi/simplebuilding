@@ -40,6 +40,8 @@ public class ModBlockEntities {
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredShulkerBoxBlockEntity> TIERED_SHULKER_BOX_BE;
 
     public static void registerBlockEntities() {
+        // MACH32-MOD stage 3: on 26.3 Simple Machines registers the hoppers' block entity (simplemachines:hopper).
+        if (com.simplebuilding.version.McVersion.HOPPERS_IN_SB) {
         MOD_HOPPER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_hopper"),
                 FabricBlockEntityTypeBuilder.create(ModHopperBlockEntity::new,
@@ -47,6 +49,7 @@ public class ModBlockEntities {
                         ModBlocks.NETHERITE_HOPPER,
                         ModBlocks.ENDERITE_HOPPER
                 ).build());
+        }
 
 
         // Split stage 4: on 26.3 Simple Ovens registers the furnace block entities (simpleovens:furnace|smoker|blast_furnace).

@@ -267,7 +267,8 @@ public final class EnderiteMachineTests {
      */
     public static void enderiteMachinesFitTheirBlockEntityTypesAndTitles(GameTestHelper helper) {
         StringBuilder refused = new StringBuilder();
-        refused.append(refusedBy(ModBlockEntities.MOD_HOPPER_BE,
+        // MACH32-MOD stage 3: on 26.3 the hoppers' block entity type is Simple Machines' (simplemachines:hopper).
+        refused.append(refusedBy(com.simplebuilding.version.McVersion.HOPPERS_IN_SB ? ModBlockEntities.MOD_HOPPER_BE : com.simplebuilding.util.MachineRefs.blockEntityType("hopper"),
                 ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER));
         refused.append(refusedBy(com.simplebuilding.util.OvenRefs.blockEntityType("furnace"),
                 com.simplebuilding.util.OvenRefs.block("reinforced_furnace"), com.simplebuilding.util.OvenRefs.block("netherite_furnace"), com.simplebuilding.util.OvenRefs.block("enderite_furnace")));

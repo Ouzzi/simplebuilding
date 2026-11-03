@@ -92,7 +92,6 @@
     "simplebuilding:enderite_chunk_loader",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
-    "simplebuilding:enderite_hopper",
     "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_pole",
     "simplebuilding:enderite_pressure_plate",
@@ -152,7 +151,6 @@
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
-    "simplebuilding:netherite_hopper",
     "simplebuilding:netherite_launchpad",
     "simplebuilding:netherite_pole",
     "simplebuilding:netherite_pressure_plate",
@@ -229,7 +227,6 @@
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
-    "simplebuilding:reinforced_hopper",
     "simplebuilding:reinforced_potion_pad",
     "simplebuilding:resin_quartz_checker",
     "simplebuilding:resin_quartz_checker_slab",
@@ -888,13 +885,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_hopper"
-    },
-    {
-      "id": "simplebuilding:enderite_hopper_minecart",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:enderite_horse_armor",
       "maxStackSize": 1
     },
@@ -1356,13 +1346,6 @@
     },
     {
       "id": "simplebuilding:netherite_flypad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_hopper"
-    },
-    {
-      "id": "simplebuilding:netherite_hopper_minecart",
       "maxStackSize": 1
     },
     {
@@ -2066,13 +2049,6 @@
     },
     {
       "id": "simplebuilding:reinforced_flypad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_hopper"
-    },
-    {
-      "id": "simplebuilding:reinforced_hopper_minecart",
       "maxStackSize": 1
     },
     {

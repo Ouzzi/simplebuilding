@@ -5,3 +5,5 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // SimpleLib nested per principle 6a and compiled against: /<modid> config (ConfigCommands, CMD24).
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// Hopper minecart item textures are Vanilla-derived (built, never committed; MACH32-MOD stage 3).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
