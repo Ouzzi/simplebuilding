@@ -31,7 +31,7 @@ import net.minecraft.network.chat.Component;
  */
 public final class KeysEditorScreen extends net.minecraft.client.gui.screens.Screen {
     private static final String K = "simpleinterfaces.keys.";
-    private static final int TOP = 68;
+    private static final int TOP = 78;
 
     private final KeysScreen parent;
     private final String origin;
@@ -301,7 +301,7 @@ public final class KeysEditorScreen extends net.minecraft.client.gui.screens.Scr
         var hover = KeyboardLayout.at(cells, ox, oy, scale, mx, my);
         UiKeyboard.draw(g, font, cells, ox, oy, scale, c -> KeyConflicts.State.FREE, hover.map(Cell::code).orElse(-1), selected, false);
         Component line = message != null ? message : t("edit.hint");
-        g.centeredText(font, line, width / 2, TOP - 10, message == null ? 0xFFA0A0A0 : error ? 0xFFFF6060 : 0xFF80FF80);
+        g.centeredText(font, line, width / 2, 68, message == null ? 0xFFA0A0A0 : error ? 0xFFFF6060 : 0xFF80FF80);
     }
 
     // --- probe / client test ------------------------------------------------------------------------------------------

@@ -296,6 +296,11 @@ public final class KeyboardLayout {
     public static String label(int code, String layout) {
         String own = LAYOUT_LABELS.getOrDefault(layout, Map.of()).get(code);
         if (own != null) return own;
+        // ISO: the narrow Enter top (6) and left Shift (5) are too small for the full word
+        if (!layout.equals("us") && PRESETS.contains(layout)) {
+            if (code == ENTER) return "Ent";
+            if (code == LEFT_SHIFT) return "Sh";
+        }
         if (code >= 'A' && code <= 'Z') return String.valueOf((char) code);
         if (code >= '0' && code <= '9') return String.valueOf((char) code);
         if (code >= F1 && code < F1 + 25) return "F" + (code - F1 + 1);
