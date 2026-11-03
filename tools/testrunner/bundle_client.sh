@@ -23,7 +23,7 @@ fi
 # 2. Targets: Mixin-Audit immer, dazu Client-Smokes der geänderten Module (nur wenn es das Target gibt)
 avail=$(python3.12 tools/testrunner/run.py --list 2>/dev/null | grep -o 'module-[a-z0-9]*-client-263' | sort -u)
 targets=mixinaudit-client-263
-for m in $mods; do echo "$avail" | grep -qx "module-$m-client-263" && targets="$targets,module-$m-client-263"; done
+n=0; for m in $mods; do [ $n -ge "${MAX_MODULES:-8}" ] && break; echo "$avail" | grep -qx "module-$m-client-263" && { targets="$targets,module-$m-client-263"; n=$((n+1)); }; done
 echo "targets: $targets" >> "$OUT"
 
 # 3. Warten bis ruhig: kein Gate/Nachtlauf, kein anderer heavy-Job (eigene Vorfahren ausgenommen), Last < LOAD_MAX
