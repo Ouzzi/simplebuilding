@@ -515,8 +515,11 @@ public class ModItems {
     public static final Item AUTONOMOUS_CRAFTER = com.simplebuilding.version.McVersion.AUTONOMOUS_CRAFTER
             ? registerItem("autonomous_crafter", s -> new BlockItem(ModBlocks.AUTONOMOUS_CRAFTER, s)) : null;
     // Astral-Verzauberung (Queue N27).
-    public static final Item ASTRAL_ENCHANTING_TABLE = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
-            ? registerItem("astral_enchanting_table", s -> new BlockItem(ModBlocks.ASTRAL_ENCHANTING_TABLE, s.fireResistant())) : null;
+    /** ENCH02: the tables are Simple Enchanting's (simpleenchanting:*), found by id (air without the module). */
+    public static final Item DARK_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? com.simplebuilding.util.EnchantingRefs.item("dark_enchanter") : null;
+    public static final Item ASTRAL_ENCHANTER = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? com.simplebuilding.util.EnchantingRefs.item("astral_enchanter") : null;
     public static final Item CRIMSON_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
     public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
@@ -531,6 +534,8 @@ public class ModItems {
             ? registerItem("chiseled_warped_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, s)) : null;
     public static final Item BLAZING_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blazing_obsidian", s -> new BlockItem(ModBlocks.BLAZING_OBSIDIAN, s)) : null;
+    public static final Item NIHIL_OBSIDIAN = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("nihil_obsidian", s -> new BlockItem(ModBlocks.NIHIL_OBSIDIAN, s)) : null;
     /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blaze_book", s -> new Item(s)) : null;

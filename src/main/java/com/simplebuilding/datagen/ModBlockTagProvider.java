@@ -107,8 +107,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch und Lohen-Obsidian mit der Spitzhacke (Obsidian ab Diamant),
             // Lohenholz und Lohen-Regale mit der Axt; die Regale zaehlen auch am Vanilla-Tisch (als ein Regal).
-            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.ASTRAL_ENCHANTING_TABLE)).add(key(ModBlocks.BLAZING_OBSIDIAN));
-            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN));
+            // ENCH02: the tables are Simple Enchanting's (its own mineable tag); Nihil Obsidian like Blazing Obsidian.
+            builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
+            builder(BlockTags.NEEDS_DIAMOND_TOOL).add(key(ModBlocks.BLAZING_OBSIDIAN)).add(key(ModBlocks.NIHIL_OBSIDIAN));
             // LOHEN17 V2 (owner 2026-10-21): fire on blazing obsidian burns forever, like on netherrack or magma.
             builder(BlockTags.INFINIBURN_OVERWORLD).add(key(ModBlocks.BLAZING_OBSIDIAN));
             for (net.minecraft.world.level.block.Block block : ModBlocks.BLAZEWOOD_PLANKS) builder(BlockTags.MINEABLE_WITH_AXE).add(key(block));

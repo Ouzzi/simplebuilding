@@ -1142,17 +1142,6 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
-            if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().equals("astral_enchanting_table")) {
-                // Konzept Astral-Verzauberung "Abbauen": zurueck in seine Teile, Verzauberungstisch + Enderit-Barren (Besitzer 15.10.).
-                for (List<ItemStack> produced : rolls) {
-                    if (produced.size() != 2 || produced.stream().anyMatch(s -> s.getCount() != 1)
-                            || produced.stream().noneMatch(s -> s.is(Items.ENCHANTING_TABLE))
-                            || produced.stream().noneMatch(s -> s.is(ModItems.ENDERITE_INGOT))) {
-                        problems.add(actual + " must drop one enchanting table and one enderite ingot: " + produced);
-                    }
-                }
-                continue;
-            }
             if (McVersion.ASTRAL_ENCHANTING && blockId.getPath().endsWith("_blazewood_bookshelf") && !blockId.getPath().startsWith("chiseled_")) {
                 // Wie Vanillas Buecherregal: ohne Behutsamkeit 3 Lohenbuecher (Konzept Astral-Verzauberung).
                 for (List<ItemStack> produced : rolls) {
@@ -3014,7 +3003,9 @@ public final class DataIntegrityTests {
         }
         if (McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch und Boden, Luecke, Lohenholz, Lohen-Regale, Lohenbuch.
-            expected.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.ASTRAL_ENCHANTING_TABLE, ModItems.BLAZING_OBSIDIAN, gap,
+            // ENCH02: die Tische (Simple Enchanting) per Id, dann beide Boeden; Nihil-Obsidian neu.
+            expected.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.DARK_ENCHANTER, ModItems.ASTRAL_ENCHANTER,
+                    ModItems.BLAZING_OBSIDIAN, ModItems.NIHIL_OBSIDIAN, gap,
                     ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
                     ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
                     ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));
@@ -5126,8 +5117,8 @@ public final class DataIntegrityTests {
             "fine_elytra_pad",
             // Ausnahmen mit eigenem Grund: die geliehene Spawn-Elytra verbrennt nicht ueber Lava, der Easter-Stock nie
             "spawn_elytra", "funny_stick",
-            // Astral-Verzauberungstisch: mit einem Enderit-Nugget gebaut; Kreativ-Baustab wie die Enderit-Staebe
-            "astral_enchanting_table", "creative_building_wand");
+            // Kreativ-Baustab wie die Enderit-Staebe (die Verzauberer sind seit ENCH02 Simple Enchantings)
+            "creative_building_wand");
 
     /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
     static net.minecraft.world.item.Rarity expectedRarity(String path) {

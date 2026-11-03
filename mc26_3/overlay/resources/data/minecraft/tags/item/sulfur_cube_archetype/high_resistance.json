@@ -65,7 +65,11 @@
       "required": false
     },
     {
-      "id": "simplebuilding:astral_enchanting_table",
+      "id": "simpleenchanting:dark_enchanter",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:astral_enchanter",
       "required": false
     },
     {

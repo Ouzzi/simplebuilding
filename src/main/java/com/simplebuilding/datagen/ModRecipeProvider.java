@@ -260,6 +260,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('B', Items.BLAZE_POWDER).define('O', Items.CRYING_OBSIDIAN)
                             .unlockedBy(getHasName(Items.CRYING_OBSIDIAN), has(Items.CRYING_OBSIDIAN))
                             .save(output);
+                    // ENCH02 (Besitzer 03.11.): Nihil-Obsidian = Lohen-Obsidian mit Nihilit: 8 Nihilith-Splitter um weinenden Obsidian.
+                    shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.NIHIL_OBSIDIAN)
+                            .pattern("NNN").pattern("NON").pattern("NNN")
+                            .define('N', ModItems.NIHILITH_SHARD).define('O', Items.CRYING_OBSIDIAN)
+                            .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
+                            .save(output);
                 }
 
                 // Lautsprecher (2026-10-03) wie Notenblock (Redstone in der Mitte) und Plattenspieler (Diamant):

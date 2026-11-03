@@ -299,10 +299,10 @@ public final class GuideContent {
             GuideBooks.Book book = GuideBooks.Book.MACHINES;
             BookStyle old = STYLES.get(book);
             var chapters = new ArrayList<>(old.chapters());
-            chapters.add(ch("simplebuilding:astral_enchanting_table", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
-                    "simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:blazing_obsidian"),
-                    List.of("minecraft:enchanting_table", "simplebuilding:netherite_sledgehammer", "simplebuilding:enderite_nugget",
-                            "simplebuilding:astral_enchanting_table")));
+            // ENCH02: the tables are Simple Enchanting's (its own guide); SB's chapter shows the building blocks they stand on.
+            chapters.add(ch("simplebuilding:blazing_obsidian", List.of("simplebuilding:crimson_blazewood_planks", "simplebuilding:blaze_book",
+                    "simplebuilding:crimson_blazewood_bookshelf", "simplebuilding:blazing_obsidian", "simplebuilding:nihil_obsidian"),
+                    List.of("minecraft:enchanting_table", "simpleenchanting:dark_enchanter", "simpleenchanting:astral_enchanter")));
             STYLES.put(book, new BookStyle(old.colour(), List.copyOf(chapters)));
         }
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) {

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleenchanting:block/crimson_blazewood_planks",
+    "side": "simpleenchanting:block/crimson_blazewood_bookshelf"
+  }
+}

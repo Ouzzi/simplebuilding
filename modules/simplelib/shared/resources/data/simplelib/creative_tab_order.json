@@ -3,6 +3,7 @@
   "order": [
     "simplebuilding",
     "simpleblocks",
+    "simpleenchanting",
     "simplegadgets",
     "simplehammers",
     "simplelights",

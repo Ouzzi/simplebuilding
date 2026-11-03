@@ -148,6 +148,11 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleMachines = true;
 
+    /** Simple Enchanting (ENCH02, 03.11.): the Dark and the Astral Enchanter. */
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleEnchanting = true;
+
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
      * bundled optional sub-mods to framework SubMods (only the mod id string is shared, no class import). Called once
@@ -182,6 +187,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpledinos", c.enableSimpleDinos);
         setSubMod("simpleores", c.enableSimpleOres);
         setSubMod("simplemachines", c.enableSimpleMachines);
+        setSubMod("simpleenchanting", c.enableSimpleEnchanting);
     }
 
     /**

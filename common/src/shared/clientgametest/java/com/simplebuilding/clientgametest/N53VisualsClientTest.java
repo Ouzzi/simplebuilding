@@ -52,8 +52,8 @@ public final class N53VisualsClientTest {
                 BlockState state = level.getBlockState(pos);
                 level.setBlock(pos, Block.updateFromNeighbourShapes(state, level, pos), Block.UPDATE_ALL);
             }
-            if (ModBlocks.ASTRAL_ENCHANTING_TABLE != null) {
-                level.setBlock(new BlockPos(14, 0, zb + 1), ModBlocks.ASTRAL_ENCHANTING_TABLE.defaultBlockState(), Block.UPDATE_ALL);
+            if (ModBlocks.DARK_ENCHANTER != null) {
+                level.setBlock(new BlockPos(14, 0, zb + 1), ModBlocks.DARK_ENCHANTER.defaultBlockState(), Block.UPDATE_ALL);
             }
         });
         script.awaitPackets();

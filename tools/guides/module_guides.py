@@ -231,6 +231,13 @@ MODULES = [
                 "than any Vanilla piston, and the Signal Dampener, a repeater that takes up to 3 off the signal.",
                 "Die Maschinenteile des Tabs Simple Machines: vier stärkere Kolben, der Doppelkolben, der weiter reicht als jeder "
                 "Vanilla-Kolben, und der Signaldämpfer, ein Verstärker, der bis zu 3 vom Signal abzieht.")),
+    dict(module="simpleenchanting", ns="simpleenchanting", package="com.simpleenchanting.guide", cls="EnchantingGuide", kind="item",
+         author="Simple Enchanting", recipe="minecraft:lapis_lazuli",
+         name=("Simple Enchanting Guide", "Simple-Enchanting-Handbuch"),
+         intro=("Two enchanters above Vanilla's table: the Dark Enchanter, where you pick three enchantments with sliders, and the "
+                "Astral Enchanter on a Nihil Obsidian floor, which lifts Protection and Feather Falling to V.",
+                "Zwei Verzauberer über dem Vanilla-Tisch: der Dark Enchanter, an dem du drei Verzauberungen mit Reglern wählst, und "
+                "der Astral Enchanter auf Nihil-Obsidian-Boden, der Schutz und Federfall auf V hebt.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
@@ -317,6 +324,7 @@ QUEST = {
 RECIPE_ITEM_NAMES = {  # (English with article, German with article) for the quest text
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
+    "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),
     "minecraft:hay_block": ("a hay bale", "einem Heuballen"),
     "minecraft:note_block": ("a note block", "einem Notenblock"),
     "minecraft:lead": ("a lead", "einer Leine"),
@@ -623,6 +631,7 @@ NOTE = ("Guide to this mod: %d pages taken from this wiki, shown in your languag
         "Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei %s\" eins.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
+    "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),
     "minecraft:clay_ball": ("clay ball", "Tonklumpen"),
     "minecraft:stonecutter": ("stonecutter", "Steinmetz"),
