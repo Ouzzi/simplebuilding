@@ -99077,6 +99077,10 @@
           "required": true
         },
         {
+          "id": "simplemachines:enderite_piston",
+          "required": true
+        },
+        {
           "id": "simpleores:enderite_block",
           "required": true
         },
