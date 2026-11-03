@@ -1492,7 +1492,9 @@ public final class DataIntegrityTests {
                     // Split stage 8b: plus the Enderite chests and shulker box of the required sub-mod Simple Storage.
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
                     // IG31-13: plus the Enderite materials of the required sub-mod Simple Ores.
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace()))
+                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
+                    // MACH32 stage 2: plus the Enderite piston of the required sub-mod Simple Machines.
+                    || "simplemachines".equals(id.getNamespace()))
                     && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
                             "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath())
                     // Dimensions-Schrott (Besitzer 2026-10-01) schwebt ebenfalls ueber dem Void.
@@ -3376,7 +3378,9 @@ public final class DataIntegrityTests {
                     // split stage 8b: and Simple Storage's Enderite chests and shulker box
                     || com.simplebuilding.version.McVersion.STORAGE_NAMESPACE.equals(id.getNamespace())
                     // IG31-13: and Simple Ores' Enderite materials
-                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace());
+                    || com.simplebuilding.version.McVersion.ORES_NAMESPACE.equals(id.getNamespace())
+                    // MACH32 stage 2: and Simple Machines' Enderite piston
+                    || "simplemachines".equals(id.getNamespace());
             if ((!MOD_ID.equals(id.getNamespace()) && !shared) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
                 continue;
             }
