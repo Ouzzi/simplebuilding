@@ -77,7 +77,7 @@ import org.jetbrains.annotations.Nullable;
  *       Wertebereich der Blockeigenschaft und muss auf Server und Client gleich sein.</li>
  * </ul>
  */
-public class NetheriteBreakerPistonBlock extends PistonBaseBlock implements com.simplelib.api.WearingBlock {
+public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = BlockCodecs.simple(NetheriteBreakerPistonBlock::new);
 
     /** Sichtbare Rissstufen; die Modelle zeigen je zwei Stufen dieselbe Textur. */
@@ -122,7 +122,6 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock implements com.
     }
 
     /** Die volle Haltbarkeit dieser Kolbenstufe; eine Konstante (sie bestimmt den Wertebereich oben). */
-    @Override
     public int maxDurability() {
         return NETHERITE_MAX_DURABILITY;
     }
@@ -162,11 +161,6 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock implements com.
         int stage = state.getValue(WEAR);
         int nextStage = stage + 1 < WEAR_STAGES ? firstDamageOfStage(stage + 1, max) : max;
         return Math.min(firstDamageOfStage(stage, max) + state.getValue(breaker.wearStepProperty()), nextStage - 1);
-    }
-
-    @Override
-    public int durabilityIn(BlockState state) {
-        return durabilityOf(state);
     }
 
     /** Die verbleibende Haltbarkeit eines Zustands. */
@@ -219,7 +213,6 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock implements com.
     }
 
     /** {@link #repairNugget} fuer den Wiki- und JEI-Export ({@code InWorldTransformations}). */
-    @Override
     public final net.minecraft.world.item.Item repairMaterial() {
         return repairNugget();
     }

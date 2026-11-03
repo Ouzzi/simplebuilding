@@ -150,9 +150,9 @@ public final class BlockInfoTests {
 
     /** Netherite piston: full durability new, 10 less after 10 damage; the reinforced piston has none and gets no line. */
     public static void pistonDurabilityFollowsTheBlockState(GameTestHelper helper) {
-        // Via WearingBlock: SimpleBuilding's piston (26.2) or Simple Machines' (26.3, MACH32-MOD stage 2).
+        // Via PistonWear: SimpleBuilding's piston (26.2) or Simple Machines' (26.3, MACH32-MOD stage 2).
         BlockState fresh = ModBlocks.NETHERITE_PISTON.defaultBlockState();
-        int max = ((com.simplelib.api.WearingBlock) ModBlocks.NETHERITE_PISTON).maxDurability();
+        int max = com.simplebuilding.util.PistonWear.maxDurability(ModBlocks.NETHERITE_PISTON);
         helper.assertTrue(max > 10, "the netherite piston has a durability of " + max);
         expect(helper, BlockInfo.stateLines(Topic.PISTON_DURABILITY, fresh),
                 List.of("tooltip.simplebuilding.netherite_piston.durability [" + max + ", " + max + "]"), "new netherite piston");

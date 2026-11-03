@@ -6,7 +6,7 @@ common/src/shared/java/com/simplebuilding/blocks/custom/DimensionalScrapBlock.ja
 common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/EnderitePistonBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java modules/simpleblocks/shared/java/com/simpleblocks/nature/LevitatingBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/ModPistonHeadBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ModPistonHeadBlock.java allow: codec/0
-common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheriteBreakerPistonBlock.java allow: codec/0
+common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/NetheriteBreakerPistonBlock.java allow: codec/0 durabilityIn/1
 common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundleBlock.java allow: codec/0 isQuiver/0 onPlace/5 storedStack/1 tick/4
 common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java modules/simplemachines/shared/java/com/simplemachines/upgrade/ReinforcedPistonBlock.java allow: codec/0
 common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestBlock.java allow: codec/0

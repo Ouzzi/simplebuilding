@@ -275,10 +275,11 @@ public final class BlockInfo {
         List<Line> lines = new ArrayList<>();
         switch (topic) {
             case PISTON_DURABILITY -> {
-                // Any WearingBlock: SimpleBuilding's own (26.2) or Simple Machines' (26.3) breaker pistons.
-                if (state.getBlock() instanceof com.simplelib.api.WearingBlock wear && wear.maxDurability() > 0) {
+                // SimpleBuilding's own (26.2) or Simple Machines' (26.3) breaker pistons, see PistonWear.
+                int max = com.simplebuilding.util.PistonWear.maxDurability(state.getBlock());
+                if (max > 0) {
                     lines.add(Line.of("tooltip.simplebuilding.netherite_piston.durability",
-                            Arg.literal(wear.durabilityIn(state)), Arg.literal(wear.maxDurability())));
+                            Arg.literal(com.simplebuilding.util.PistonWear.durability(state)), Arg.literal(max)));
                 }
             }
             case CHEST_SLOTS -> {

@@ -329,7 +329,7 @@ public final class InWorldTransformations {
     public static JsonObject pistonRepair() {
         JsonArray steps = new JsonArray();
         List<Block> blocks = new ArrayList<>(modBlocks());
-        // 26.3: the breaker pistons are Simple Machines' (MACH32-MOD stage 2); found by interface, not by class.
+        // 26.3: the breaker pistons are Simple Machines' (MACH32-MOD stage 2); found by PistonWear, not by class.
         for (Block block : BuiltInRegistries.BLOCK) {
             if (com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())) {
                 blocks.add(block);
@@ -337,12 +337,12 @@ public final class InWorldTransformations {
         }
         blocks.sort(Comparator.comparing(InWorldTransformations::id));
         for (Block block : blocks) {
-            if (block instanceof com.simplelib.api.WearingBlock breaker && breaker.maxDurability() > 0) {
+            if (PistonWear.maxDurability(block) > 0) {
                 JsonObject step = new JsonObject();
                 step.addProperty("piston", id(block));
-                step.addProperty("nugget", id(breaker.repairMaterial()));
+                step.addProperty("nugget", id(PistonWear.repairMaterial(block)));
                 step.addProperty("nuggetCount", 1);
-                step.addProperty("durability", breaker.maxDurability());
+                step.addProperty("durability", PistonWear.maxDurability(block));
                 steps.add(step);
             }
         }
