@@ -1161,14 +1161,18 @@
         "modules/simplelib/shared/java/com/simplelib/api/client/keys/KeyConflicts.java",
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeysScreen.java",
         "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/mixin/KeyBindsScreenMixin.java",
-        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeyCellScreen.java"
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeyCellScreen.java",
+        "modules/simplelib/shared/java/com/simplelib/api/client/keys/KeyboardEdit.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeysEditorScreen.java",
+        "modules/simpleinterfaces/shared/java/com/simplebuilding/modules/simpleinterfaces/client/KeyboardStore.java"
       ],
       "en": {
         "title": "Key binding page",
         "summary": "A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.",
         "details": [
           "Open it with the Simple Keys button on the Vanilla controls page or with its own key (unbound by default). It uses Vanilla's buttons and list: click a key button, then press the new key or a mouse button (Esc = no key); Reset restores the default. Each group can be folded and reset; Reset all asks once more first.",
-          "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key opens its page: remove an action, move it to the nearest free key, or assign an action here (then click the action in the list). Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt."
+          "The keyboard colours keys green (one action), red (shared by several actions) or grey (free), with a tick, an exclamation mark or a dash as well. Hovering lists the actions; clicking a key opens its page: remove an action, move it to the nearest free key, or assign an action here (then click the action in the list). Conflicts are only shown, never changed automatically. Everything is saved the Vanilla way in options.txt.",
+          "The Layout button of the keyboard switches between US (ANSI), DE (QWERTZ, L-shaped Enter), UK (ISO) and FR (AZERTY) and your own layouts; the choice is kept. Edit builds an own layout from the shown one: click a key and drag it or use the arrow buttons, make it wider or taller (W/H), switch it between rectangle and L shape, change its text, remove it. Press any key that the layout lacks and it appears on a free place by itself; Add key also takes Esc. Keys may not overlap or leave the grid (the editor refuses and says why). Save stores the layout under its name in config/simpleinterfaces-keyboards.json; own layouts have one fixed size."
         ]
       },
       "de": {
@@ -1176,7 +1180,8 @@
         "summary": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod nach Mod, nach Funktion oder als Tastatur 60/75/100 %, mit Suche und Konfliktmarken.",
         "details": [
           "Öffnen mit dem Knopf Simple Keys auf der Vanilla-Steuerungsseite oder mit einer eigenen Taste (standardmäßig unbelegt). Die Seite nutzt Vanillas Knöpfe und Liste: Tastenknopf anklicken, dann die neue Taste oder Maustaste drücken (Esc = keine Taste); Zurücksetzen stellt den Standard her. Jede Gruppe lässt sich einklappen und zurücksetzen; Alle zurücksetzen fragt vorher noch einmal.",
-          "Die Tastatur färbt Tasten grün (eine Aktion), rot (von mehreren Aktionen geteilt) oder grau (frei), zusätzlich mit Haken, Ausrufezeichen oder Strich. Darüberfahren zeigt die Aktionen; ein Klick öffnet die Seite der Taste: Aktion entfernen, auf die nächste freie Taste verschieben oder eine Aktion hierher legen (dann die Aktion in der Liste anklicken). Konflikte werden nur angezeigt, nie automatisch geändert. Gespeichert wird wie in Vanilla in der options.txt."
+          "Die Tastatur färbt Tasten grün (eine Aktion), rot (von mehreren Aktionen geteilt) oder grau (frei), zusätzlich mit Haken, Ausrufezeichen oder Strich. Darüberfahren zeigt die Aktionen; ein Klick öffnet die Seite der Taste: Aktion entfernen, auf die nächste freie Taste verschieben oder eine Aktion hierher legen (dann die Aktion in der Liste anklicken). Konflikte werden nur angezeigt, nie automatisch geändert. Gespeichert wird wie in Vanilla in der options.txt.",
+          "Der Knopf Layout der Tastatur wechselt zwischen US (ANSI), DE (QWERTZ, L-förmige Enter-Taste), UK (ISO) und FR (AZERTY) sowie deinen eigenen Layouts; die Wahl bleibt gespeichert. Bearbeiten baut aus dem gezeigten ein eigenes Layout: Taste anklicken und ziehen oder die Pfeilknöpfe nutzen, breiter oder höher machen (W/H), zwischen Rechteck und L-Form wechseln, den Text ändern, entfernen. Jede Taste, die dem Layout fehlt, erscheint beim Drücken von selbst auf einem freien Platz; Taste neu nimmt auch Esc. Tasten dürfen sich nicht überlappen oder das Raster verlassen (der Editor lehnt ab und nennt den Grund). Speichern legt das Layout unter seinem Namen in config/simpleinterfaces-keyboards.json ab; eigene Layouts haben eine feste Größe."
         ]
       }
     }

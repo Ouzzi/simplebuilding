@@ -53,7 +53,6 @@ public final class KeysScreen extends Screen {
     private static final int ROW = 20, TOP = 68;
     /** Remembered between openings. */
     private static View view = View.MOD;
-    private static boolean german;
     private static KeyboardLayout.Size size = KeyboardLayout.Size.FULL;
 
     private record Item(KeyMapping mapping, Binding binding) {}
@@ -84,6 +83,12 @@ public final class KeysScreen extends Screen {
     public static void preset(View start, KeyboardLayout.Size keyboardSize) {
         view = start;
         size = keyboardSize;
+    }
+
+    /** Also chooses the keyboard layout (built-in id us, de, uk, fr; saved like a click on the layout button). */
+    public static void preset(View start, KeyboardLayout.Size keyboardSize, String layout) {
+        KeyboardStore.select(layout);
+        preset(start, keyboardSize);
     }
 
     /** Old form: {@code list} = the by-mod view, else the keyboard. */
@@ -205,14 +210,21 @@ public final class KeysScreen extends Screen {
         return e == null ? null : e.mapping;
     }
 
-    static boolean german() {
-        return german;
+    /** The cells of the chosen keyboard layout at the chosen size. */
+    static List<KeyboardLayout.Cell> layoutCells() {
+        return KeyboardStore.cells(KeyboardStore.selected(), size);
+    }
+
+    /** The caption of a key in the chosen layout. */
+    static String cellLabel(int code) {
+        for (KeyboardLayout.Cell c : layoutCells()) if (c.code() == code) return c.label();
+        return KeyboardLayout.label(code);
     }
 
     /** The key codes already bound (for "move to a free key"). */
     Set<Integer> usedCodes() {
         Set<Integer> used = new HashSet<>();
-        for (KeyboardLayout.Cell c : KeyboardLayout.cells(KeyboardLayout.Size.FULL, false)) {
+        for (KeyboardLayout.Cell c : layoutCells()) {
             if (byKey.containsKey(nameOf(c.code()))) used.add(c.code());
         }
         return used;
@@ -243,20 +255,27 @@ public final class KeysScreen extends Screen {
         // row 2: search and filters, or the picture's size and layout
         int rowY = 44;
         if (view == View.KEYBOARD) {
-            int bx = cx - (3 * 52 + 102) / 2;
+            int bx = cx - (3 * 52 + 92 + 52) / 2;
+            boolean own = KeyboardStore.isCustom(KeyboardStore.selected());
             for (KeyboardLayout.Size s : KeyboardLayout.Size.values()) {
                 Button b = addRenderableWidget(Button.builder(Component.literal(s.percent), x -> {
                     size = s;
                     rebuildWidgets();
                 }).bounds(bx, rowY, 50, 20).build());
-                b.active = size != s;
+                b.active = size != s && !own;
                 probe.put("size_" + s.percent.replace("%", "").trim(), b);
                 bx += 52;
             }
-            probe.put("german", addRenderableWidget(Button.builder(filterLabel("layout.german", german), b -> {
-                german = !german;
+            String id = KeyboardStore.selected();
+            probe.put("layout", addRenderableWidget(Button.builder(t("layout", KeyboardStore.shortName(id)), b -> {
+                List<String> ids = KeyboardStore.ids();
+                KeyboardStore.select(ids.get((ids.indexOf(KeyboardStore.selected()) + 1) % ids.size()));
                 rebuildWidgets();
-            }).bounds(bx, rowY, 102, 20).build()));
+            }).bounds(bx, rowY, 90, 20).tooltip(Tooltip.create(t("layout.tip", id))).build()));
+            bx += 92;
+            probe.put("edit", addRenderableWidget(Button.builder(t("edit"), b ->
+                    minecraft.gui.setScreen(new KeysEditorScreen(this, KeyboardStore.selected(), layoutCells()))).bounds(bx, rowY, 50, 20)
+                    .tooltip(Tooltip.create(t("edit.tip"))).build()));
             int top = TOP, bottom = height - 33;
             probe.put("keyboard", addRenderableWidget(new KeyboardWidget(8, top, width - 16, bottom - top)));
         } else {
@@ -379,9 +398,10 @@ public final class KeysScreen extends Screen {
         super.extractRenderState(g, mx, my, delta);
         g.centeredText(font, title, width / 2, 7, 0xFFFFFFFF);
         if (view != View.KEYBOARD && pickCode >= 0) {
-            g.centeredText(font, t("pick", KeyboardLayout.label(pickCode, german)), width / 2 - 52, 50, 0xFFFFFF55);
+            g.centeredText(font, t("pick", cellLabel(pickCode)), width / 2 - 52, 50, 0xFFFFFF55);
         }
-        Component info = t("footer", KeyConflicts.sharedKeys(byKey), size.percent);
+        Component info = t("footer", KeyConflicts.sharedKeys(byKey), KeyboardStore.isCustom(KeyboardStore.selected()) ? KeyboardStore.selected()
+                : KeyboardStore.shortName(KeyboardStore.selected()) + " " + size.percent);
         if (font.width(info) < width / 2 - 170) g.text(font, info, 8, height - 21, 0xFFA0A0A0);
     }
 
@@ -591,7 +611,7 @@ public final class KeysScreen extends Screen {
                 key = Component.literal("> ").append(key.copy().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE)).append(" <")
                         .withStyle(ChatFormatting.YELLOW);
             } else if (pickCode >= 0) {
-                key = Component.literal("-> " + KeyboardLayout.label(pickCode, german)).withStyle(ChatFormatting.YELLOW);
+                key = Component.literal("-> " + cellLabel(pickCode)).withStyle(ChatFormatting.YELLOW);
             }
             change.setMessage(key);
             if (others.isEmpty()) {
@@ -641,7 +661,7 @@ public final class KeysScreen extends Screen {
         }
 
         private List<KeyboardLayout.Cell> cells() {
-            return KeyboardLayout.cells(size, german);
+            return layoutCells();
         }
 
         int scale() {
@@ -739,7 +759,7 @@ public final class KeysScreen extends Screen {
         v.put("listening", listening == null ? "" : listening.getName());
         v.put("pickCode", pickCode);
         v.put("size", size.percent);
-        v.put("german", german);
+        v.put("layout", KeyboardStore.selected());
         v.put("collapsed", collapsed.size());
         v.put("rows", list == null ? 0 : list.children().size());
         v.put("query", query);

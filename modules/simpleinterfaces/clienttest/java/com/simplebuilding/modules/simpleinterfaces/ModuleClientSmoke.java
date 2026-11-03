@@ -215,6 +215,43 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             });
             context.takeScreenshot(shot.name());
         }
+        // b-keys34: the other layouts (DE with the L-shaped Enter, UK, FR) and the layout editor
+        for (String[] pair : new String[][] {{"de", "simpleinterfaces-keys-layout-de"}, {"uk", "simpleinterfaces-keys-layout-uk"}, {"fr", "simpleinterfaces-keys-layout-fr"}}) {
+            String layout = pair[0];
+            context.runOnClient(c -> {
+                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, layout);
+                c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
+            });
+            context.waitTicks(3);
+            context.takeScreenshot(pair[1]);
+        }
+        context.runOnClient(c -> {
+            // every key of every built-in layout names a real Minecraft key (26.3 numbers by scancode; names are the stable form)
+            for (String layout : com.simplelib.api.client.keys.KeyboardLayout.PRESETS) {
+                for (var cell : com.simplelib.api.client.keys.KeyboardLayout.cells(com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, layout)) {
+                    String name = com.simplelib.api.client.keys.KeyboardLayout.keyName(cell.code());
+                    var key = com.mojang.blaze3d.platform.InputConstants.getKey(name);
+                    if (!name.equals(key.getName())) throw new AssertionError(layout + ": key " + cell.label() + " (" + name + ") is not a Minecraft key: " + key.getName());
+                }
+            }
+            var parent = new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null);
+            c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysEditorScreen(parent, "de",
+                    com.simplelib.api.client.keys.KeyboardLayout.cells(com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "de")));
+        });
+        context.waitTicks(3);
+        context.runOnClient(c -> {
+            if (!(c.gui.screen() instanceof com.simplebuilding.modules.simpleinterfaces.client.KeysEditorScreen e)) throw new AssertionError("editor did not open");
+            e.press(298); // F9 exists: selected
+            e.press(com.simplelib.api.client.keys.KeyboardLayout.F1 + 12); // F13 is missing: added
+            e.press(com.simplelib.api.client.keys.KeyboardLayout.WORLD_2);
+            if (!"true".equals(String.valueOf(e.probeValues().get("valid"))) || !"107".equals(String.valueOf(e.probeValues().get("keys"))))
+                throw new AssertionError("editor: " + e.probeValues());
+        });
+        context.waitTicks(2);
+        context.takeScreenshot("simpleinterfaces-keys-editor");
+        context.runOnClient(c -> {
+            com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us");
+        });
         // clicks through the game's mouse handler
         String row = "key.simplelib.freelook_toggle"; // unbound by default (open_keys has "+" since QOL34)
         context.runOnClient(c -> {

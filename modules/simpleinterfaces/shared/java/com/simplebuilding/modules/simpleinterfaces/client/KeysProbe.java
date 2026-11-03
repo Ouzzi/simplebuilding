@@ -65,6 +65,7 @@ public final class KeysProbe {
                     case "show" -> {
                         if (mc.gui.screen() instanceof KeysScreen k) k.probeShow(row);
                     }
+                    case "layout" -> KeyboardStore.select(c.get("value").getAsString());
                     case "open" -> mc.gui.setScreen(new KeysScreen(null));
                     case "controls" -> mc.gui.setScreen(new KeyBindsScreen(null, mc.options));
                     case "shot" -> Screenshot.grab(mc, false);
@@ -97,6 +98,9 @@ public final class KeysProbe {
         if (mc.gui.screen() instanceof KeysScreen k) {
             k.probeRects(row, cell).forEach((name, r) -> rects.add(name, rect(r, scale)));
             k.probeValues().forEach((name, v) -> values.addProperty(name, String.valueOf(v)));
+        } else if (mc.gui.screen() instanceof KeysEditorScreen e) {
+            e.probeRects(cell).forEach((name, r) -> rects.add(name, rect(r, scale)));
+            e.probeValues().forEach((name, v) -> values.addProperty(name, String.valueOf(v)));
         } else if (mc.gui.screen() instanceof KeyCellScreen s) {
             s.probeRects().forEach((name, r) -> rects.add(name, rect(r, scale)));
             values.addProperty("code", String.valueOf(s.code()));
