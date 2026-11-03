@@ -1019,3 +1019,7 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [~] (B, b-rohr02, 02.11.; Plan docs/ai/PLAN-B-ROHR-2026-11-02.md) ROHR33 Rohr-Fenster: Kompass N/W/O/S + Spalte Oben/Unten, 3 Zustaende je Seite (Eingang -> Ausgang hellrot -> Aus), mehrere Ausgaenge reihum, NBT-Migration, Ausgangs-Hals 3x3 -> 4x4; 4 neue Gametests + Modul-Tests gruen, Echte-Maus-Probe pipe_probe.py; offen Gate/Produktion, Besitzer-Abnahme
 - [x] MECH03 (b-mech03, 02.11.): Dämpfer schiebbar/kein Hebel, Doppelkolben Fugenpaar A, Silberspiegel A (schon drin), Zebra/Zorse Modell B (ZebraModel), Krebs-Beine nach unten; Vorschau abnahme-b/b-mech03-preview.html; offen Client-Sicht, Prod via Sitzung B.
 - [x] (B, b-fix94, 02.11.; Plan docs/ai/PLAN-B-FIX94-2026-11-02.md) Gate Bündel 94 rot behoben: void_runner/brimguard Kopf-Ausnahme (Boss, Trophäe Ender Heart/Gem), mob_essence in Mobs-Tab (TAB_ITEMS); sbt grün; flaky trials_void_tricks (1× rot im Integrationslauf, Nachlauf grün) beobachten; offen Gate→Production
+
+## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
+- [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
+- [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
