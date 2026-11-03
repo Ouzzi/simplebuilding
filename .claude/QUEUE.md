@@ -1029,3 +1029,4 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 ## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
 - [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
 - [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
+- [x] (B, b-armor01, 03.11.) BA03-5 Transposer stellt Rüstungsständer in 13 Bedrock-Posen (Rechtsklick vor, Schleichen zurück), abgebaut behält der Ständer Pose/Arme/Name im Item (ENTITY_DATA + Lore). Gametests rotator_armor_stand_poses_step_forward_and_back, rotator_broken_armor_stand_keeps_its_pose; Modul-Läufe 48/48 grün. Offen: Besitzer-/Client-Sicht der Posenwinkel (eigene Werte, nicht die Bedrock-Rohdaten).
