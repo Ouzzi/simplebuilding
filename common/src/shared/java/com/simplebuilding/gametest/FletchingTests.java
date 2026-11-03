@@ -319,6 +319,7 @@ public final class FletchingTests {
         helper.assertTrue(contents != null && contents.is(net.minecraft.world.item.alchemy.Potions.POISON), "the arrows carry the potion: " + contents);
         helper.assertValueEqual(result.get(net.minecraft.core.component.DataComponents.POTION_DURATION_SCALE), FletchingMenu.POTION_DURATION_SCALE, "1/8 duration");
         helper.assertValueEqual(ArrowParts.of(result), ArrowParts.Parts.VANILLA, "the parts stay");
+        ItemStack tippedArrow = result.copyWithCount(1); // quickMoveStack empties the slot's stack below
         menu.quickMoveStack(player, FletchingMenu.RESULT_SLOT);
         helper.assertTrue(potionSlot.getItem().isEmpty(), "taking the arrows uses up the bottle");
         helper.assertTrue(menu.getSlot(FletchingMenu.RESULT_SLOT).getItem().isEmpty()
@@ -337,7 +338,7 @@ public final class FletchingTests {
         // a hit gives the effect at 1/8 duration (poison: 900 ticks -> 112)
         Mob cow = helper.spawnWithNoFreeWill(EntityTypes.COW, new BlockPos(1, 2, 1));
         Vec3 at = helper.absoluteVec(new Vec3(1.5, 3.0, 1.5));
-        CraftedArrow arrow = new CraftedArrow(helper.getLevel(), at.x, at.y, at.z, result.copyWithCount(1), null);
+        CraftedArrow arrow = new CraftedArrow(helper.getLevel(), at.x, at.y, at.z, tippedArrow, null);
         ((com.simplebuilding.mixin.AbstractArrowAccessor) arrow).simplebuilding$doPostHurtEffects(cow);
         net.minecraft.world.effect.MobEffectInstance effect = cow.getEffect(net.minecraft.world.effect.MobEffects.POISON);
         helper.assertTrue(effect != null && effect.getDuration() > 100 && effect.getDuration() <= 113, "poison for 1/8 of 900 ticks: " + effect);
