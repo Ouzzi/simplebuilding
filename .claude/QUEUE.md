@@ -1027,3 +1027,6 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 ## b-rel34 (03.11.) - Release-Audit-Reste Sodium/Iris
 - [x] Client-Smoke optrender, mixinaudit-client-263 gruen; Sodium 0.9.2 Start+Mixins ok (b-rel34 71d515b38)
 - [ ] Sodium-Rendering + Iris mit echtem OpenGL (Xvfb hat kein GLX-Visual), siehe RELEASE-QOL-OPT-AES 6a
+## b-site01 (03.11.) - Wiki „alles vereint“: Modpack-Auswahl, Browser, Mod-Struktur
+- [x] Modpack-Leiste (Simple Modpack/Super-Mod/Einzel-Mod/Eigene Auswahl, ?pack=, localStorage), Browser über alle Pack-Mods, Seite Mod-Struktur (Plan docs/ai/PLAN-B-SITE01-2026-11-03.md)
+- [ ] Abnahme auf dem Dev-Wiki nach Bündel-Merge in claude-wave1 (Vorschau abnahme-b/b-site01-preview.html, Code SITE01), danach Production
