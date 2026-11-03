@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simpleenchanting:block/dark_enchanter"
+    }
+  }
+}

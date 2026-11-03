@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:lapis_lazuli"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simpleenchanting:guide_book"
+  }
+}

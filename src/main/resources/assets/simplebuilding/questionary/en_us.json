@@ -9,8 +9,8 @@
       "At a Smithing Table the Enderite Upgrade lifts Netherite gear and many blocks to Enderite. Enderite items are safe from the void; the armor lets you drift down while you hold jump."
     ],
     "secret": [
-      "Hold an Enderite Nugget in your off hand and strike an Enchanting Table 20 times with a Netherite Sledgehammer: it becomes the Enchanter, strong up to 50 with blazewood bookshelves and a Blazing Obsidian floor.",
-      "Break it, and table and nugget return. Eight nuggets around a bucket make the Enderite Bucket."
+      "Hold eight Enderite Nuggets in your off hand and strike a Dark Enchanter with an Enderite Sledgehammer: it becomes the Astral Enchanter of Simple Enchanting, strong up to 60 on a Nihil Obsidian floor.",
+      "Break it, and the Dark Enchanter and the nuggets return. Eight nuggets around a bucket make the Enderite Bucket."
     ]
   },
   "chess_pieces": {
@@ -32,7 +32,7 @@
       "Three of them go into a blazewood bookshelf."
     ],
     "secret": [
-      "Blazewood shelves reward the {item:simplebuilding:astral_enchanting_table}: each counts for two ordinary shelves there."
+      "Blazewood shelves reward the {item:simpleenchanting:dark_enchanter}: each counts for two ordinary shelves there."
     ]
   },
   "blazing_obsidian": {
@@ -40,10 +40,21 @@
       "Crying obsidian's glowing sibling: where the other weeps, this one burns."
     ],
     "use": [
-      "A decorative block that gives light. Its job is at the Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30."
+      "A decorative block that gives light. Its job is at the Dark Enchanter: a 5 x 5 floor of it right under the table adds 10 strength once the shelves give 30. Under the Astral Enchanter it works only half."
     ],
     "secret": [
-      "The floor only counts under the Enchanter, not the vanilla table, so build it once the shelves are complete."
+      "The floor only counts under the enchanters, not the vanilla table, so build it once the shelves are complete."
+    ]
+  },
+  "nihil_obsidian": {
+    "lore": [
+      "Blazing Obsidian that met the void: the embers went out and navy light stayed."
+    ],
+    "use": [
+      "Eight Nihilith Shards around crying obsidian make it. A 5 x 5 floor of it under the Astral Enchanter adds 20 strength once the shelves give 30, enough for 60; under the Dark Enchanter it counts like Blazing Obsidian."
+    ],
+    "secret": [
+      "Mixing both obsidians still makes a floor, but the Astral Enchanter then counts it only half."
     ]
   },
   "hammock_rope": {
@@ -176,17 +187,6 @@
     ],
     "secret": [
       "Break a vault and the shared contents stay, ready in every other or newly placed vault. Open menus stay in sync like players at one chest, so nothing duplicates. Hoppers and comparators get nothing."
-    ]
-  },
-  "astral_enchanting_table": {
-    "lore": [
-      "A table where the stars hold still while you choose."
-    ],
-    "use": [
-      "Pick your enchantments yourself: three random ones that fit the item, each with a slider from 0 to its maximum, paid from a level budget that the bookshelves around it set."
-    ],
-    "secret": [
-      "Hit an enchanting table 20 times with a Netherite Sledgehammer while holding an Enderite Nugget in your off hand: it becomes this. Blazewood shelves count double, a Blazing Obsidian floor adds strength. Break it and table and nugget return."
     ]
   },
   "polished_end_stone": {

@@ -82,20 +82,17 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         if (ModBlocks.IRON_POLE != null) dropSelf(ModBlocks.IRON_POLE);
         if (ModBlocks.AUTO_SMITHER != null) dropSelf(ModBlocks.AUTO_SMITHER);
         if (ModBlocks.AUTONOMOUS_CRAFTER != null) dropSelf(ModBlocks.AUTONOMOUS_CRAFTER);
-        if (ModBlocks.ASTRAL_ENCHANTING_TABLE != null) {
+        if (ModBlocks.BLAZING_OBSIDIAN != null) {
             // Astral-Verzauberung (Queue N27): der Tisch gibt den Vanilla-Tisch und einen Enderit-Barren zurueck (Besitzer 15.10.)
             // (gelagerter Lapis/Lohenstaub faellt als Inhalt heraus), Lohen-Regale drei Lohenbuecher wie Vanilla-Regale.
-            add(ModBlocks.ASTRAL_ENCHANTING_TABLE, LootTable.lootTable()
-                    .withPool(applyExplosionCondition(Items.ENCHANTING_TABLE, LootPool.lootPool().setRolls(LootNumbers.exactly(1))
-                            .add(LootItem.lootTableItem(Items.ENCHANTING_TABLE))))
-                    .withPool(applyExplosionCondition(ModItems.ENDERITE_INGOT, LootPool.lootPool().setRolls(LootNumbers.exactly(1))
-                            .add(LootItem.lootTableItem(ModItems.ENDERITE_INGOT)))));
+            // ENCH02: the tables' loot is Simple Enchanting's (data/simpleenchanting/loot_table).
             for (Block planks : ModBlocks.BLAZEWOOD_PLANKS) dropSelf(planks);
             for (Block shelf : ModBlocks.BLAZEWOOD_BOOKSHELVES) {
                 add(shelf, createSingleItemTableWithSilkTouch(shelf, ModItems.BLAZE_BOOK, LootNumbers.exactly(3)));
             }
             for (Block shelf : ModBlocks.CHISELED_BLAZEWOOD_BOOKSHELVES) dropSelf(shelf); // the books drop via the block entity
             dropSelf(ModBlocks.BLAZING_OBSIDIAN);
+            dropSelf(ModBlocks.NIHIL_OBSIDIAN);
         }
         if (ModBlocks.JUKEBOX_AMPLIFIER != null) dropSelf(ModBlocks.JUKEBOX_AMPLIFIER);
         if (ModBlocks.NOTE_AMPLIFIER != null) dropSelf(ModBlocks.NOTE_AMPLIFIER);

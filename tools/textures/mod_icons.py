@@ -183,6 +183,25 @@ def challenges_icon():
 
 ICONS: dict[str, dict] = {
     "simplechallenges": challenges_icon(),
+    "simpleenchanting": icon("Verzauberer mit Buch (ENCH02)", {"o": "#1a0a12", "B": "#b04030", "b": "#7a2028",
+                                                             "G": "#e8b048", "W": "#f4ead0", "S": "#3a1420", "s": "#5a2030"},
+                             [("Kontur", "o"), ("Buch", "BbWG"), ("Tisch", "Ss")],
+                             "................",
+                             "................",
+                             "................",
+                             "....oooooooo....",
+                             "...oBWWbbWWBo...",
+                             "...obWGbbGWbo...",
+                             "....oooooooo....",
+                             "................",
+                             "..oooooooooooo..",
+                             "..oGGGGGGGGGGo..",
+                             "..oSsSsSsSsSso..",
+                             "..osSsSsSsSsSo..",
+                             "..oSsSsSsSsSso..",
+                             "..oooooooooooo..",
+                             "................",
+                             "................"),
     "simpleearth": earth_icon(),
     "wiringexample": icon("Redstone-Knoten (Verdrahtung)", {"o": "#3a0a08", "R": "#d82818", "r": "#9a1a10",
                                                             "H": "#ff6a4a", "L": "#ffd0b0"},
@@ -799,6 +818,7 @@ BG = {
     "simplearrows": "#7a9ab8",
     "simpleresonance": "#6a58b0",
     "simplefoundry": "#c88a68",
+    "simpleenchanting": "#5a3a78",
 }
 SPARKLES = ((3, 2), (13, 3), (2, 13))
 

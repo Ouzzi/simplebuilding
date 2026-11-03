@@ -1,0 +1,16 @@
+{
+  "category": "building",
+  "key": {
+    "N": "simplebuilding:nihilith_shard",
+    "O": "minecraft:crying_obsidian"
+  },
+  "pattern": [
+    "NNN",
+    "NON",
+    "NNN"
+  ],
+  "result": {
+    "id": "simplebuilding:nihil_obsidian"
+  },
+  "type": "minecraft:crafting_shaped"
+}

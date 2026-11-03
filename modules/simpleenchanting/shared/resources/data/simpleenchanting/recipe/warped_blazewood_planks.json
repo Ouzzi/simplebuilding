@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplebuilding"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:blaze_powder",
+    "P": "minecraft:warped_planks"
+  },
+  "pattern": [
+    "BBB",
+    "BPB",
+    "BBB"
+  ],
+  "result": {
+    "id": "simpleenchanting:warped_blazewood_planks"
+  }
+}

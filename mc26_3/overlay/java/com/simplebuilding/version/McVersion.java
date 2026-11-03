@@ -59,7 +59,7 @@ public final class McVersion {
     public static final boolean AUTO_SMITHER = true;
     /** Autonomous Crafter: crafts on its own over a hopper (owner 2026-10-09, queue N26). */
     public static final boolean AUTONOMOUS_CRAFTER = true;
-    /** Astral Enchanting Table, blazewood, blaze books and shelves, blazing obsidian (owner 2026-10-09, queue N27). */
+    /** Enchanting building blocks: blazewood, blaze books and shelves, Blazing and Nihil Obsidian (owner 2026-10-09, queue N27). Since ENCH02 (03.11.) the tables (Dark/Astral Enchanter) are the required sub-mod Simple Enchanting's ({@code util/EnchantingRefs}); SB keeps the blocks and its endgame option is hidden. */
     public static final boolean ASTRAL_ENCHANTING = true;
     /** Crafting table that keeps its 3x3 grid and shows it on top (owner 2026-10-09, queue N26); since split stage 8a it is Simple Storage's ({@link #STORAGE_NAMESPACE}). */
     public static final boolean STORAGE_CRAFTING_TABLE = true;

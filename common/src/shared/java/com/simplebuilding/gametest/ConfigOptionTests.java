@@ -584,6 +584,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleOres boolean=true",
             "root.enableSimpleMachines boolean=true",
             "root.enableSimpleArrows boolean=true",
+            "root.enableSimpleEnchanting boolean=true",
             "root.enableSimpleOctets boolean=true",
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1203,7 +1204,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleEnd", "simpleend"}, {"enableSimpleRespawn", "simplerespawn"},
                 {"enableSimpleBeacons", "simplebeacons"}, {"enableSimpleShops", "simpleshops"},
                 {"enableSimpleWanderers", "simplewanderers"}, {"enableSimpleBlocks", "simpleblocks"}, {"enableSimpleOctets", "simpleoctets"}, {"enableSimpleHammers", "simplehammers"},
-                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMachines", "simplemachines"}, {"enableSimpleArrows", "simplearrows"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleChallenges", "simplechallenges"}, {"enableSimpleAnimals", "simpleanimals"}, {"enableSimpleResonance", "simpleresonance"}, {"enableSimpleDinos", "simpledinos"}, {"enableSimpleOres", "simpleores"}};
+                {"enableSimpleStorage", "simplestorage"}, {"enableSimpleMachines", "simplemachines"}, {"enableSimpleArrows", "simplearrows"}, {"enableSimpleEnchanting", "simpleenchanting"}, {"enableSimpleMusic", "simplemusic"}, {"enableSimpleLights", "simplelights"}, {"enableSimpleEarth", "simpleearth"}, {"enableSimpleGadgets", "simplegadgets"}, {"enableSimpleChallenges", "simplechallenges"}, {"enableSimpleAnimals", "simpleanimals"}, {"enableSimpleResonance", "simpleresonance"}, {"enableSimpleDinos", "simpledinos"}, {"enableSimpleOres", "simpleores"}};
         try {
             Class.forName("com.simplebuilding.framework.api.SubMods");
         } catch (ClassNotFoundException e) {
@@ -1458,6 +1459,7 @@ public final class ConfigOptionTests {
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_STORAGE, !McVersion.STORAGE_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ORES, McVersion.MATERIALS_IN_ORES);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES, !McVersion.PISTONS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ENCHANTING, McVersion.ASTRAL_ENCHANTING);
         var visible = com.simplebuilding.config.ConfigOptions.visible();
         int hiddenCount = 0;
         com.google.gson.Gson gson = new com.google.gson.GsonBuilder().setPrettyPrinting().create();

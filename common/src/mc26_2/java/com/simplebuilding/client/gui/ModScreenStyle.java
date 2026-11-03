@@ -81,15 +81,6 @@ public final class ModScreenStyle {
         return false;
     }
 
-    public static boolean astralEnchanting(GuiGraphicsExtractor g, com.simplebuilding.screen.AstralEnchantingMenu menu, Font font,
-            Component title, int left, int top, int imageWidth) {
-        return false;
-    }
-
-    public static boolean astralEnchantingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
-        return false;
-    }
-
     public static void setPanels(boolean on) {}
 
     public static boolean panels() {

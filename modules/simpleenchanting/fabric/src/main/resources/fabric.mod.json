@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "simpleenchanting",
+  "version": "${version}",
+  "name": "Simple Enchanting",
+  "icon": "assets/simpleenchanting/icon.png",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "description": "Two enchanters above Vanilla's table: the Dark Enchanter (three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and an obsidian floor) and the Astral Enchanter (tier 60 on Nihil Obsidian, Protection V and Feather Falling V). Made in the world with a hammer and eight nuggets. Works on its own; the Astral Enchanter needs Simple Ores.",
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simpleenchanting.EnchantingFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simpleenchanting.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simpleenchanting.EnchantingFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.3.0"
+  },
+  "suggests": {
+    "simplebuilding": "*",
+    "simpleores": "*",
+    "simplehammers": "*"
+  }
+}

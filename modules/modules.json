@@ -35,7 +35,8 @@
         "simplemachines",
         "simplearrows",
         "simplemobs",
-        "simpleresonance"
+        "simpleresonance",
+        "simpleenchanting"
       ],
       "optional": [
         "jei",
@@ -4949,6 +4950,71 @@
       },
       "parent": "simpleovens",
       "bundle": "optional"
+    },
+    {
+      "id": "simpleenchanting",
+      "name": "Simple Enchanting",
+      "version": "0.1.0",
+      "minecraft": "26.3",
+      "defaultEnabled": true,
+      "displayName": "Simple Enchanting",
+      "description": "The enchanters above Vanilla's table: the Dark Enchanter (SimpleBuilding's Astral Enchanting Table until 03.11.: three random enchantments with sliders up to Vanilla's maximum, tier 50 with blazewood bookshelves and a Blazing or Nihil Obsidian floor) and the Astral Enchanter (tier 60 on a Nihil Obsidian floor, Blazing works half; Protection V and Feather Falling V). Made in the world with a hammer and 8 nuggets (Netherite; Enderite for the Astral one, needs Simple Ores), breaking gives them back. SimpleBuilding owns the building blocks; alone this module brings its own Blazing and Nihil Obsidian and blazewood planks and bookshelves. Fabric only for now.",
+      "loaders": [
+        "fabric"
+      ],
+      "requires": [
+        "simplelib"
+      ],
+      "optional": [
+        "simplebuilding",
+        "simpleores",
+        "simplehammers"
+      ],
+      "checks": [
+        "modules/simpleenchanting/tools/check_data.py"
+      ],
+      "tests": {
+        "namespace": "simpleenchanting",
+        "catalogues": [
+          "modules/simpleenchanting/fabric/src/main/java/com/simplebuilding/modules/simpleenchanting/ModuleGameTest.java"
+        ],
+        "requires": [
+          "simpleenchanting"
+        ],
+        "devMods": [],
+        "loaders": {
+          "fabric": {
+            "task": ":integration:runSimpleenchantingGameTest",
+            "report": "integration/build/simpleenchanting-junit.xml"
+          }
+        },
+        "standalone": {
+          "requires": [],
+          "devMods": [],
+          "loaders": {
+            "fabric": {
+              "task": ":integration:runSimpleenchantingStandaloneGameTest",
+              "report": "integration/build/standalone/simpleenchanting-junit.xml"
+            }
+          }
+        }
+      },
+      "paths": {
+        "root": "modules/simpleenchanting",
+        "shared": "modules/simpleenchanting/shared",
+        "fabric": "modules/simpleenchanting/fabric",
+        "neoforge": null,
+        "forge": null,
+        "generated": "modules/simpleenchanting/generated/resources",
+        "lang": "modules/simpleenchanting/shared/resources/assets/simpleenchanting/lang",
+        "wikiManual": "modules/simpleenchanting/wiki/manual.json",
+        "balanceDir": "balance/simpleenchanting"
+      },
+      "projects": {
+        "fabric": ":modules:simpleenchanting:fabric"
+      },
+      "parent": "simplebuilding",
+      "bundle": "required"
     }
   ]
 }

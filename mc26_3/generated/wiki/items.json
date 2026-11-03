@@ -2,7 +2,6 @@
   "blocks": [
     "simplebuilding:acacia_cauldron",
     "simplebuilding:acacia_sheet",
-    "simplebuilding:astral_enchanting_table",
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_piston",
     "simplebuilding:astral_purpur_block",
@@ -157,6 +156,7 @@
     "simplebuilding:netherite_pole",
     "simplebuilding:netherite_pressure_plate",
     "simplebuilding:nihil_end_stone",
+    "simplebuilding:nihil_obsidian",
     "simplebuilding:nihil_piston",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihil_rail",
@@ -294,9 +294,6 @@
     },
     {
       "id": "simplebuilding:acacia_sheet"
-    },
-    {
-      "id": "simplebuilding:astral_enchanting_table"
     },
     {
       "id": "simplebuilding:astral_end_stone"
@@ -1389,6 +1386,9 @@
     },
     {
       "id": "simplebuilding:nihil_end_stone"
+    },
+    {
+      "id": "simplebuilding:nihil_obsidian"
     },
     {
       "id": "simplebuilding:nihil_piston"

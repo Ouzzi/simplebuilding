@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplebuilding"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": "minecraft:popped_chorus_fruit",
+    "O": "minecraft:crying_obsidian"
+  },
+  "pattern": [
+    "CCC",
+    "COC",
+    "CCC"
+  ],
+  "result": {
+    "id": "simpleenchanting:nihil_obsidian"
+  }
+}

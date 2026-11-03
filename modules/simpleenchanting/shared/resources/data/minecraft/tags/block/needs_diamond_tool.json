@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "simpleenchanting:blazing_obsidian",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:nihil_obsidian",
+      "required": false
+    }
+  ]
+}

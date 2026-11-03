@@ -76,20 +76,7 @@ public final class ModScreenStyleTests {
                 problems.add("autonomous crafter: the filter key leaves the box");
             }
         }
-        if (McVersion.ASTRAL_ENCHANTING) {
-            // Astral Enchanting Table (N27): slots, slider panel and enchant button inside the violet box.
-            com.simplebuilding.screen.AstralEnchantingMenu astral = new com.simplebuilding.screen.AstralEnchantingMenu(0, inv);
-            twoBoxes(astral, 176, com.simplebuilding.screen.AstralEnchantingMenu.IMAGE_HEIGHT, "astral enchanting table", problems);
-            Box box = ModScreenLayout.container(176, ModScreenLayout.inventoryOrigin(astral)[1]);
-            if (!box.holds(com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_X - 1, com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_Y - 1,
-                    com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_W + 2, com.simplebuilding.client.gui.AstralEnchantingScreen.PANEL_H + 2)) {
-                problems.add("astral enchanting table: the slider panel leaves " + box);
-            }
-            if (!box.holds(com.simplebuilding.client.gui.AstralEnchantingScreen.BUTTON_X, com.simplebuilding.client.gui.AstralEnchantingScreen.BUTTON_Y,
-                    com.simplebuilding.client.gui.AstralEnchantingScreen.BUTTON_W, com.simplebuilding.client.gui.AstralEnchantingScreen.BUTTON_H)) {
-                problems.add("astral enchanting table: the enchant button leaves " + box);
-            }
-        }
+        // ENCH02: the enchanters' screen is Simple Enchanting's (EnchanterScreen, SimpleLib UI parts).
         if (McVersion.AUTO_SMITHER) {
             AutoSmitherMenu smither = new AutoSmitherMenu(0, inv);
             twoBoxes(smither, 176, 166, "auto smither", problems);

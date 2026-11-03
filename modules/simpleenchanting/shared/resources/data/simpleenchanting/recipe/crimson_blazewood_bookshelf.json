@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplebuilding"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "K": "minecraft:book",
+    "W": "simpleenchanting:crimson_blazewood_planks"
+  },
+  "pattern": [
+    "WWW",
+    "KKK",
+    "WWW"
+  ],
+  "result": {
+    "id": "simpleenchanting:crimson_blazewood_bookshelf"
+  }
+}

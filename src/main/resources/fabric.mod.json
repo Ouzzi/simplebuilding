@@ -82,7 +82,7 @@
       "com.simplebuilding.gametest.WoodworkGameTest",
       "com.simplebuilding.gametest.VehicleGameTest",
       "com.simplebuilding.gametest.WorkstationGameTest",
-      "com.simplebuilding.gametest.AstralEnchantingGameTest",
+      "com.simplebuilding.gametest.EnchantingBlockGameTest",
       "com.simplebuilding.gametest.ConfigOptionGameTest",
       "com.simplebuilding.gametest.ServerTuningGameTest",
       "com.simplebuilding.gametest.AirJumpGameTest",
@@ -198,6 +198,7 @@
     "simpleores": "*",
     "simplemachines": "*",
     "simplearrows": "*",
+    "simpleenchanting": "*",
     "simpleresonance": "*",
     "simpledinos": "*"
   }

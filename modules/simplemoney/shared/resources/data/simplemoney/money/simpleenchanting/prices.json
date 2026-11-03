@@ -1,0 +1,16 @@
+{
+  "module": "simpleenchanting",
+  "derivation": "Simple Enchanting sells nothing: the enchanters are made in the world from an enchanting table with a hammer and eight nuggets (until 03.11. SimpleBuilding's Astral Enchanting Table, which had no price either); its building-block twins only exist without SimpleBuilding, whose blocks they are.",
+  "excluded": {
+    "simpleenchanting:dark_enchanter": "Made in the world from an Enchanting Table, a Netherite hammer and 8 Netherite Nuggets; a trade would skip the upgrade.",
+    "simpleenchanting:astral_enchanter": "Made in the world from a Dark Enchanter, an Enderite hammer and 8 Enderite Nuggets; a trade would skip the End stage.",
+    "simpleenchanting:blazing_obsidian": "Twin of SimpleBuilding's block (only without it); crafted from Vanilla materials.",
+    "simpleenchanting:nihil_obsidian": "Twin of SimpleBuilding's block (only without it); crafted from Vanilla materials.",
+    "simpleenchanting:crimson_blazewood_planks": "Twin of SimpleBuilding's block (only without it); crafted from Vanilla materials.",
+    "simpleenchanting:warped_blazewood_planks": "Twin of SimpleBuilding's block (only without it); crafted from Vanilla materials.",
+    "simpleenchanting:crimson_blazewood_bookshelf": "Twin of SimpleBuilding's block (only without it); crafted from Vanilla materials.",
+    "simpleenchanting:warped_blazewood_bookshelf": "Twin of SimpleBuilding's block (only without it); crafted from Vanilla materials.",
+    "simpleenchanting:guide_book": "Free guide book."
+  },
+  "prices": []
+}

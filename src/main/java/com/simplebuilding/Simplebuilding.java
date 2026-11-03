@@ -58,6 +58,8 @@ public class Simplebuilding implements ModInitializer {
         initializeFirst("simpleores");
         // MACH32-MOD stage 2 (26.3): ModBlocks/ModItems point at Simple Machines' piston upgrades, so it registers first too.
         initializeFirst("simplemachines");
+        // ENCH02 (26.3): ModBlocks/ModItems point at Simple Enchanting's enchanters, so it registers first too.
+        initializeFirst("simpleenchanting");
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.

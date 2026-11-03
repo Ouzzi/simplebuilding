@@ -152,6 +152,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Category("modules")
     @ConfigEntry.Gui.Tooltip
     public boolean enableSimpleArrows = true;
+    /** Simple Enchanting (ENCH02, 03.11.): the Dark and the Astral Enchanter. */
+    @ConfigEntry.Category("modules")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableSimpleEnchanting = true;
 
     /**
      * Super-mod (docs/ai/PLAN-MODULAUFTEILUNG-2026-10-11.md, stage 1a): hands the "Enable Simple X" switches of the
@@ -188,6 +192,7 @@ public class SimplebuildingConfig implements ConfigData {
         setSubMod("simpleores", c.enableSimpleOres);
         setSubMod("simplemachines", c.enableSimpleMachines);
         setSubMod("simplearrows", c.enableSimpleArrows);
+        setSubMod("simpleenchanting", c.enableSimpleEnchanting);
     }
 
     /**

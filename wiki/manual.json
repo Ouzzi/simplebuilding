@@ -7346,40 +7346,6 @@
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
       ]
     },
-    "astral_enchanting_table": {
-      "en": {
-        "summary": "The Enchanter lets you pick the enchantments yourself: three random enchantments that fit the item, each with a slider from 0 to its maximum level, paid in levels from a budget set by the bookshelves (and the floor).",
-        "details": [
-          "Made in the world: right-click a Vanilla Enchanting Table with a Netherite or Enderite Sledgehammer while holding 8 Enderite Nuggets in the off hand and keep holding - 16 blows (one nugget per 2 blows) at 35 durability each (560 in all); the 8 nuggets are used up at the last blow. Each hammer tier strikes at its own tempo (Netherite every 20 ticks, Enderite 19).",
-          "Golden apple: put a Golden Apple into the item slot and the button turns into the Enchanted Golden Apple for 40 levels (really taken off), 3 lapis lazuli and 3 blaze powder from the table's stock. The prices of 50 and 60 levels are reserved for the stages of the later enchanter rework (Nether and Enderite stage).",
-          "Strength like Vanilla: bookshelves where Vanilla's count (air between table and shelf), the best 15. A bookshelf is worth 1 point, a blazewood bookshelf 2. Up to 15 points the strength is 2 x points (15 bookshelves = 30), above that it climbs on to 40 at 30 points - so 15 blazewood bookshelves give 40, and every blazewood shelf in place of a bookshelf adds about two thirds of a strength. A 5x5 floor of Blazing Obsidian right under the table adds 10 once the shelves give 30 (15 bookshelves on the floor = 40). So 30 to 40 needs blazewood shelves OR the floor, and the maximum 50 needs both: 15 blazewood bookshelves plus the floor. Hover the strength in the screen: it shows what the next stage lacks.",
-          "The price is in XP levels. Each enchantment has a value at its maximum level: a base by its Vanilla anvil cost (1: 4, 2: 6, 4: 9, 8: 12) plus 2 per maximum level (Sharpness V 14, Looting III 15, Fire Aspect II 13, Unbreaking III 12); a slider level costs its share (Sharpness I 3, III 9). Combining is taxed: each further enchantment adds a quarter of the sum, and no price is above 50 - when all of an offer together would cost more, prices are scaled down so every level less costs less and only the full choice costs 50. So Sharpness V + Looting III costs 32, Sharpness V + Looting III + Fire Aspect II 50, three weak ones like Protection IV + Knockback II + Loyalty III 48.",
-          "The strength is the budget: you may spend as many levels as the strength (3 without any shelf); dearer slider levels are greyed out. Only at strength 50 can all three sliders stand at their maximum together. The top right of the screen shows price/budget in levels. The price is the level you need; enchanting uses up only 1 level per started 10 of it (1-5, like Vanilla), and one lapis lazuli per started 10 levels (blue dot in the button) and twice that in blaze powder (orange-red dot). Treasure enchantments are never offered; after each enchanting the three offers are new, like Vanilla's seed.",
-          "Lapis lazuli and blaze powder stay stored in the table (one stack each) when you leave; hoppers can top them up but never pull them out.",
-          "Breaking it takes twice as long as the Vanilla table and drops a Vanilla Enchanting Table, the Enderite Nugget and the stored lapis and blaze powder."
-        ]
-      },
-      "de": {
-        "summary": "Am Verzauberer wählt man die Verzauberungen selbst: drei zufällige, zum Item passende Verzauberungen mit je einem Regler von 0 bis zur Höchststufe, bezahlt aus einem Budget, das Bücherregale und Boden festlegen.",
-        "details": [
-          "Entsteht in der Welt: einen Vanilla-Verzauberungstisch mit Netherit- oder Enderit-Vorschlaghammer rechtsklicken, 8 Enderit-Nuggets in der Nebenhand, und halten - 16 Schläge (alle 2 Schläge ein Nugget) zu je 35 Haltbarkeit (560 insgesamt); die 8 Nuggets werden beim letzten Schlag verbraucht. Jede Hammerstufe schlägt in ihrem eigenen Takt (Netherit alle 20 Ticks, Enderit 19).",
-          "Goldener Apfel: einen Goldenen Apfel in den Item-Platz legen, dann wird der Knopf zum Verzauberten Goldenen Apfel für 40 Level (wirklich abgezogen), 3 Lapislazuli und 3 Lohenstaub aus dem Vorrat des Tisches. Die Preise 50 und 60 Level sind für die Stufen des späteren Verzauberer-Umbaus (Nether- und Enderit-Stufe) vorgemerkt.",
-          "Stärke wie bei Vanilla: Bücherregale an den Vanilla-Plätzen (Luft zwischen Tisch und Regal), die besten 15. Ein Bücherregal zählt 1 Punkt, ein Lohen-Bücherregal 2. Bis 15 Punkte ist die Stärke 2 x Punkte (15 Bücherregale = 30), darüber steigt sie weiter bis 40 bei 30 Punkten - 15 Lohen-Regale geben also 40, und jedes Lohen-Regal statt eines Bücherregals bringt etwa zwei Drittel Stärke. Ein 5x5-Boden aus Lohen-Obsidian direkt unter dem Tisch gibt 10 dazu, sobald die Regale 30 ergeben (15 Bücherregale auf dem Boden = 40). 30 bis 40 braucht also Lohen-Regale ODER den Boden, das Maximum 50 braucht beides: 15 Lohen-Regale plus Boden. Im Bildschirm über der Stärke schweben zeigt, was für die nächste Stufe fehlt.",
-          "Der Preis wird in XP-Level gezahlt. Jede Verzauberung hat einen Wert auf Höchststufe: ein Grundwert nach den Vanilla-Amboss-Kosten (1: 4, 2: 6, 4: 9, 8: 12) plus 2 je Höchststufe (Schärfe V 14, Plünderung III 15, Verbrennung II 13, Haltbarkeit III 12); eine Reglerstufe kostet ihren Anteil (Schärfe I 3, III 9). Kombinieren kostet Steuer: jede weitere Verzauberung schlägt ein Viertel der Summe auf, und kein Preis liegt über 50 - wäre das ganze Angebot teurer, werden die Preise heruntergerechnet, sodass jede Stufe weniger weniger kostet und nur die volle Auswahl 50 kostet. Schärfe V + Plünderung III kostet also 32, Schärfe V + Plünderung III + Verbrennung II 50, drei schwache wie Schutz IV + Rückstoß II + Treue III 48.",
-          "Die Stärke ist das Budget: man darf so viele Level ausgeben, wie die Stärke angibt (3 ganz ohne Regal); teurere Reglerstufen sind ausgegraut. Erst bei Stärke 50 stehen alle drei Regler zugleich auf dem Maximum. Oben rechts steht Preis/Budget in Level. Der Preis ist die benötigte Stufe; Verzaubern verbraucht nur 1 Level je angefangene 10 davon (1-5, wie Vanilla), und einen Lapislazuli je angefangene 10 Level (blauer Punkt im Knopf) und doppelt so viel Lohenstaub (orange-roter Punkt). Schatz-Verzauberungen gibt es nie; nach jedem Verzaubern sind die drei Angebote neu, wie beim Vanilla-Seed.",
-          "Lapislazuli und Lohenstaub bleiben im Tisch gelagert (je ein Stapel), auch wenn man ihn verlässt; Trichter füllen nach, ziehen aber nichts heraus.",
-          "Abbauen dauert doppelt so lange wie beim Vanilla-Tisch; er gibt einen Vanilla-Verzauberungstisch, das Enderit-Nugget und den gelagerten Lapislazuli und Lohenstaub zurück."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchanting.java",
-        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlock.java",
-        "common/src/shared/java/com/simplebuilding/enchanting/AstralEnchantingTableBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/screen/AstralEnchantingMenu.java",
-        "modules/simplehammers/shared/java/com/simplehammers/engine/SledgehammerUpgrades.java",
-        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java"
-      ]
-    },
     "crimson_blazewood_planks": {
       "en": {
         "summary": "Blazewood planks from Crimson planks: eight blaze powder around one crimson plank give one. Material for blazewood bookshelves.",
@@ -7478,19 +7444,19 @@
     },
     "blazing_obsidian": {
       "en": {
-        "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under the Enchanter adds 10 strength once the shelves give 30.",
+        "summary": "The glowing sibling of crying obsidian. A 5x5 floor of it right under Simple Enchanting's Dark Enchanter adds 10 strength once the shelves give 30; under the Astral Enchanter only half.",
         "details": [
           "Recipe: 8 Blaze Powder around 1 Crying Obsidian.",
-          "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under an Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
+          "Light level 12, mined with a diamond pickaxe or better; sparks rise from every free face and it crackles like fire now and then. Under a Dark or Astral Enchanter (any block of the 5x5 below it) sparks fly to the book.",
           "Fire on top of it burns forever, like on netherrack (block tag minecraft:infiniburn_overworld).",
           "Right under a crucible it gives high heat, like lava (Simple Crucibles; config server.features.blazingHeat, on by default)."
         ]
       },
       "de": {
-        "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Verzauberer gibt 10 Stärke dazu, sobald die Regale 30 ergeben.",
+        "summary": "Die leuchtende Schwester des weinenden Obsidians. Ein 5x5-Boden daraus direkt unter dem Dark Enchanter (Simple Enchanting) gibt 10 Stärke dazu, sobald die Regale 30 ergeben; unter dem Astral Enchanter nur halb so viel.",
         "details": [
           "Rezept: 8 Lohenstaub um 1 weinenden Obsidian.",
-          "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Astral-Verzauberer (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
+          "Lichtstufe 12, abbaubar ab Diamant-Spitzhacke; aus jeder freien Seite steigen Funken, ab und zu knistert er wie Feuer. Unter einem Dark oder Astral Enchanter (jeder Block der 5x5-Fläche darunter) fliegen Funken zum Buch.",
           "Feuer auf ihm brennt dauerhaft wie auf Netherrack (Block-Tag minecraft:infiniburn_overworld).",
           "Direkt unter einem Tiegel gibt er hohe Hitze wie Lava (Simple Crucibles; Einstellung server.features.blazingHeat, standardmäßig an)."
         ]
@@ -7501,6 +7467,30 @@
         "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
         "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
         "mc26_3/overlay/java/com/simplebuilding/crucible/CrucibleCompat.java"
+      ]
+    },
+    "nihil_obsidian": {
+      "en": {
+        "summary": "Blazing Obsidian with Nihilith (owner 03.11.): navy/void light instead of embers. A 5x5 floor of it under Simple Enchanting's Astral Enchanter adds 20 strength once the shelves give 30 (60 with 15 blazewood bookshelves); under the Dark Enchanter it counts like Blazing Obsidian.",
+        "details": [
+          "Recipe: 8 Nihilith Shards around 1 Crying Obsidian.",
+          "Light level 10, mined with a diamond pickaxe or better; navy motes rise from every free face and fly to the book of an enchanter standing on the 5x5 around it.",
+          "A floor mixed of Blazing and Nihil Obsidian counts at the Dark Enchanter in full and at the Astral Enchanter only half (block tags simpleenchanting:obsidian_floor and simpleenchanting:nihil_floor)."
+        ]
+      },
+      "de": {
+        "summary": "Lohen-Obsidian mit Nihilit (Besitzer 03.11.): Navy-/Void-Licht statt Glut. Ein 5x5-Boden daraus unter dem Astral Enchanter (Simple Enchanting) gibt 20 Stärke dazu, sobald die Regale 30 ergeben (60 mit 15 Lohen-Bücherregalen); unter dem Dark Enchanter zählt er wie Lohen-Obsidian.",
+        "details": [
+          "Rezept: 8 Nihilith-Splitter um 1 weinenden Obsidian.",
+          "Lichtstufe 10, abbaubar ab Diamant-Spitzhacke; navyblaue Funken steigen aus jeder freien Seite und fliegen zum Buch eines Verzauberers auf der 5x5-Fläche darum.",
+          "Ein aus Lohen- und Nihil-Obsidian gemischter Boden zählt am Dark Enchanter voll, am Astral Enchanter nur halb (Block-Tags simpleenchanting:obsidian_floor und simpleenchanting:nihil_floor)."
+        ]
+      },
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/enchanting/BlazingObsidianBlock.java",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json"
       ]
     },
     "warden_tendril": {
