@@ -567,7 +567,7 @@ window.WIKI_MODULES = [
       "recipes": 22,
       "features": 8
     },
-    "dataHash": "f425292e2569"
+    "dataHash": "ebf09c7d4efb"
   },
   {
     "id": "simpleinterfaces",

@@ -1090,3 +1090,8 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [~] (B, b-keys34, 03.11., Tastatur-Layouts US/DE/UK/FR + Layout-Editor in Simple Keybinds gebaut; Vorschau abnahme-b/b-keys34-preview.html, Antwort KEYS34|…; offen Besitzer-Abnahme, Bündel/Gate, Client-Smoke-Nachlauf)
 ## b-small04 (03.11.) - fuenf Abnahme-Anmerkungen
 - [~] (B, b-small04, 03.11.) Blei alte Farbe zurueck; Rohr-Fenster Padding (INVENTORY_Y 60); ROHR33=A Rille + Hals 5x5; COND38=A Conduit-Items Vanilla-Groesse; Ofen-Boote je Ofenstufe (40). Vorschau abnahme-b/b-small04-preview.html; sbt-Ergebnis siehe Memory-Abschnitt b-small04
+
+## Besitzer 04.11. Abnahme-Antworten (DW04A)
+- [~] (B, b-abn06, 04.11.) DW04A-1 Shellker- und Deceiver-Spawn-Ei zurück auf die Fassung vor BOSS02 (Generator spawn_eggs_2026_10_23.py: shade_legacy nur für diese zwei, Shellker animiert; Dateien byte-gleich zu 08497b504~1; --check grün). Übrige Eier unverändert. Offen: Besitzer-Sicht.
+- [~] (B, b-abn06, 04.11.) DW04A-3 Tasten-Screens (KeysScreen, KeyCellScreen, KeysEditorScreen, Tastatur-Ansicht) zurück auf den alten transparenten Stil (Stand vor b-ui03 15996dcbc, keys34-Änderungen bleiben, da vorher gemergt); Säge behält den Kasten. Offen: Besitzer-Sicht.
+- [~] (B, b-abn06, 04.11.) DW04A-2 Free Look: Mausrad zoomt automatisch solange Free Look an ist (Hotbar scrollt nicht), Reset beim Beenden; Option freeLookZoom (Standard an, Reiter Free Look, EN/DE); weicht dem Simple-Interfaces-Zoom (Fernrohr/V) aus. Client-Smoke freelook-zoomed/-zoom-reset. Offen: Client-Sicht.

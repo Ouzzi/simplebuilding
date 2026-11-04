@@ -82,8 +82,19 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(3);
         context.takeScreenshot("freelook-crosshair-option-off");
         com.simplelib.api.FreeLookRules.setCrosshair(true);
+        // DW04A-2: the wheel zooms while free look is on (the hotbar stays), the zoom is reset when it ends
+        int slot0 = context.computeOnClient(mc -> mc.player.getInventory().getSelectedSlot());
+        context.getInput().scroll(3);
+        context.waitTicks(3);
+        double zoomed = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFactor());
+        check(zoomed < 0.9, "wheel does not zoom during free look: " + zoomed);
+        check(context.computeOnClient(mc -> mc.player.getInventory().getSelectedSlot()) == slot0, "the wheel scrolled the hotbar during free look");
+        context.takeScreenshot("freelook-zoomed");
         context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
         context.waitTicks(30);
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFactor()) == 1.0, "zoom not reset after free look ended");
+        context.takeScreenshot("freelook-zoom-reset");
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFov()) == 1f, "zoom fov still applied after free look");
         check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), 427, 240, 70.0)) == null, "crosshair point after free look ended");
         r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
         check(Math.abs(r[1]) < 1 && Math.abs(r[0] - yaw0) < 0.01, "release (camera mode): offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);

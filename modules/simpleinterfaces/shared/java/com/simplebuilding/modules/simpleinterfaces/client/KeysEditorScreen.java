@@ -295,22 +295,13 @@ public final class KeysEditorScreen extends net.minecraft.client.gui.screens.Scr
     // --- drawing -----------------------------------------------------------------------------------------------------
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
-        super.extractBackground(g, mx, my, delta);
-        KeysScreen.pageBox(g, width, height);
-        KeysScreen.field(g, 8, TOP, width - 16, height - 33 - TOP);
-    }
-
-    @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractRenderState(g, mx, my, delta);
-        KeysScreen.centered(g, font, title, width / 2, 7, 0xFFFFFFFF);
+        g.centeredText(font, title, width / 2, 7, 0xFFFFFFFF);
         var hover = KeyboardLayout.at(cells, ox, oy, scale, mx, my);
         UiKeyboard.draw(g, font, cells, ox, oy, scale, c -> KeyConflicts.State.FREE, hover.map(Cell::code).orElse(-1), selected, false);
         Component line = message != null ? message : t("edit.hint");
-        int tone = message == null ? 0xFFA0A0A0 : error ? 0xFFFF6060 : 0xFF80FF80;
-        if (KeysScreen.boxed() && message != null) tone = error ? com.simplelib.api.client.ui.UiContrast.INK_ERROR : com.simplelib.api.client.ui.UiContrast.INK_OK;
-        KeysScreen.centered(g, font, line, width / 2, 68, tone);
+        g.centeredText(font, line, width / 2, 68, message == null ? 0xFFA0A0A0 : error ? 0xFFFF6060 : 0xFF80FF80);
     }
 
     // --- probe / client test ------------------------------------------------------------------------------------------
