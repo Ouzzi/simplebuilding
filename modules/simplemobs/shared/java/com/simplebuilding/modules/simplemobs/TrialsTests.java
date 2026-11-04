@@ -428,7 +428,7 @@ public final class TrialsTests {
             boolean voidOld = MobsConfig.voidChain, tricks = MobsConfig.voidMobTricks;
             // The aura looks mobs up in the level's entity sections, which only list entities of an accessible chunk: a chunk that was
             // force-loaded this very tick (busy batch) can still hide a fresh mob. Wait until the lookup sees it, then run the checks.
-            h.startSequence().thenWaitUntil(() -> check(level.getEntitiesOfClass(Mob.class, skeleton.getBoundingBox().inflate(1)).contains(skeleton),
+            h.startSequence().thenWaitUntil(() -> h.assertTrue(level.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, skeleton.getBoundingBox().inflate(1)).contains(skeleton),
                             "the spawned Void archer is visible to the entity lookup"))
                     .thenExecute(() -> {
                         try {
