@@ -1977,4 +1977,153 @@ public final class TestCentreTests {
             }
         };
     }
+
+    /**
+     * DW04D-1 (Besitzer 04.11.: "alle bloecke in logischer reihenfolge nebeneinander"): der Abschnitt
+     * {@link com.simplebuilding.dev.testcentre.ModBlockGallery#SECTION} steht in der Planung; jedes Item der Familien-Mods steht
+     * dort genau einmal (gesetzt oder im Rahmen); jede Material-Familie ist eine Spalte; je Band liegen die Formzeilen in
+     * fester Reihenfolge hintereinander und jede Familie beginnt eine Form auf derselben Zeile; nichts ueberlappt.
+     */
+    public static void modBlockFamiliesStandOnceAndAligned(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        TestCentreLayout.Plan plan = TestCentreLayout.plan(helper.getLevel(), BlockPos.ZERO);
+        helper.assertTrue(TestCentreLayout.sectionIds().contains(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)
+                && !plan.section(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION).ops().isEmpty(),
+                "the test centre plans no mod block families");
+        List<String> namespaces = com.simplebuilding.dev.testcentre.ModBlockGallery.namespaces();
+        com.simplebuilding.dev.testcentre.ModBlockGallery.Gallery gallery = com.simplebuilding.dev.testcentre.ModBlockGallery.gallery(namespaces);
+        Map<Item, Integer> counts = new HashMap<>();
+        Set<BlockPos> placed = new HashSet<>();
+        for (TcOp op : gallery.canvas().ops()) {
+            if (op instanceof TcOp.Place place) {
+                if (!placed.add(place.pos())) {
+                    problems.add("two blocks at " + place.pos());
+                }
+                BlockState state = place.state();
+                boolean upper = state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF)
+                        && state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF)
+                        == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER;
+                if (!upper) {
+                    counts.merge(TcContext.itemOf(state.getBlock()), 1, Integer::sum);
+                }
+            } else if (op instanceof TcOp.Frame frame) {
+                counts.merge(frame.stack().getItem(), 1, Integer::sum);
+            }
+        }
+        for (TcOp op : gallery.canvas().ops()) {
+            if ((op instanceof TcOp.Frame || op instanceof TcOp.Sign) && placed.contains(op.pos())) {
+                problems.add("frame or sign inside a block at " + op.pos());
+            }
+        }
+        int items = 0;
+        for (String ns : namespaces) {
+            for (Item item : com.simplebuilding.dev.testcentre.ModBlockGallery.items(ns)) {
+                if (item instanceof net.minecraft.world.item.BlockItem blockItem && TcContext.itemOf(blockItem.getBlock()) != item) {
+                    continue; // setzt den Block eines anderen Items
+                }
+                items++;
+                int n = counts.getOrDefault(item, 0);
+                if (n != 1) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(item) + " stands " + n + " times");
+                }
+            }
+        }
+        // Familien = Spalten, Formzeilen ausgerichtet.
+        Map<String, List<com.simplebuilding.dev.testcentre.ModBlockGallery.Cell>> bands = new LinkedHashMap<>();
+        for (var cell : gallery.cells()) {
+            bands.computeIfAbsent(cell.namespace() + "#" + cell.band(), key -> new ArrayList<>()).add(cell);
+        }
+        int multiForm = 0;
+        for (var band : bands.entrySet()) {
+            Map<String, Set<Integer>> columns = new HashMap<>();
+            Map<com.simplebuilding.dev.testcentre.ModBlockGallery.Form, int[]> rows = new java.util.EnumMap<>(com.simplebuilding.dev.testcentre.ModBlockGallery.Form.class);
+            Map<String, Map<com.simplebuilding.dev.testcentre.ModBlockGallery.Form, Integer>> firstRow = new HashMap<>();
+            for (var cell : band.getValue()) {
+                columns.computeIfAbsent(cell.family(), key -> new HashSet<>()).add(cell.pos().getX());
+                int z = cell.pos().getZ();
+                rows.merge(cell.form(), new int[] {z, z}, (a, b) -> new int[] {Math.min(a[0], b[0]), Math.max(a[1], b[1])});
+                firstRow.computeIfAbsent(cell.family(), key -> new java.util.EnumMap<>(com.simplebuilding.dev.testcentre.ModBlockGallery.Form.class))
+                        .merge(cell.form(), z, Math::min);
+            }
+            columns.forEach((family, xs) -> {
+                if (xs.size() != 1) {
+                    problems.add(band.getKey() + " family " + family + " spreads over columns " + xs);
+                }
+            });
+            int previousEnd = Integer.MIN_VALUE;
+            for (var form : com.simplebuilding.dev.testcentre.ModBlockGallery.Form.values()) {
+                int[] range = rows.get(form);
+                if (range == null) {
+                    continue;
+                }
+                if (range[0] <= previousEnd) {
+                    problems.add(band.getKey() + " row " + form + " starts at z " + range[0] + " inside the row before (ends " + previousEnd + ")");
+                }
+                previousEnd = range[1];
+            }
+            for (var entry : firstRow.entrySet()) {
+                if (entry.getValue().size() > 1) {
+                    multiForm++;
+                }
+                entry.getValue().forEach((form, z) -> {
+                    if (z != rows.get(form)[0]) {
+                        problems.add(band.getKey() + " family " + entry.getKey() + " starts its " + form + " row at z " + z
+                                + " instead of " + rows.get(form)[0]);
+                    }
+                });
+            }
+        }
+        helper.assertTrue(!gallery.cells().isEmpty() && multiForm > 0, "no material family with several forms (cells "
+                + gallery.cells().size() + ")");
+        helper.assertTrue(gallery.canvas().width() <= TestCentreLayout.MAX_ROW_WIDTH, "the gallery is " + gallery.canvas().width() + " wide");
+        com.simplebuilding.Simplebuilding.LOGGER.info("mod block families: {} mods, {} items, {} family cells, {} x {}", namespaces.size(), items,
+                gallery.cells().size(), gallery.canvas().width(), gallery.canvas().depth());
+        helper.assertTrue(problems.isEmpty(), problems.size() + " mod block gallery problem(s): "
+                + String.join("; ", problems.subList(0, Math.min(30, problems.size()))));
+        helper.succeed();
+    }
+
+    /**
+     * DW04D-1: {@code /testcenter mod <id> build <x y z>} leert seinen Bereich (ein fremder Block darin ist danach weg) und
+     * baut ihn wie geplant (Bloecke, Rahmen); {@code /testcenter} hat {@code all}, {@code mods}, {@code mod}.
+     */
+    public static void testcenterCommandClearsAndBuildsTheModArea(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        var root = level.getServer().getCommands().getDispatcher().getRoot().getChild("testcenter");
+        helper.assertTrue(root != null && root.getChild("all") != null && root.getChild("mods") != null && root.getChild("mod") != null,
+                "/testcenter all|mods|mod is not registered");
+        Map<String, Integer> perMod = new HashMap<>();
+        com.simplebuilding.dev.testcentre.ModBlockGallery.all().cells().forEach(cell -> perMod.merge(cell.namespace(), 1, Integer::sum));
+        String ns = perMod.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey)
+                .orElse(com.simplebuilding.Simplebuilding.MOD_ID);
+        com.simplebuilding.dev.testcentre.ModBlockGallery.Gallery gallery = com.simplebuilding.dev.testcentre.ModBlockGallery.gallery(List.of(ns));
+        BlockPos origin = new BlockPos(24000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 24000);
+        BlockPos stray = origin.offset(gallery.canvas().width() - 1, gallery.canvas().height() + 1, gallery.canvas().depth() - 1);
+        level.setBlock(stray, Blocks.STONE.defaultBlockState(), Block.UPDATE_ALL);
+        try {
+            level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack().withLevel(level)
+                    .withSuppressedOutput(), "testcenter mod " + ns + " build " + origin.getX() + " " + origin.getY() + " " + origin.getZ());
+            helper.assertTrue(level.getBlockState(stray).isAir(), "the stray block in the area was not cleared");
+            List<String> wrong = new ArrayList<>();
+            int frames = 0;
+            for (TcOp op : gallery.canvas().ops()) {
+                if (op instanceof TcOp.Place place) {
+                    Block actual = level.getBlockState(place.pos().offset(origin)).getBlock();
+                    if (actual != place.state().getBlock() && wrong.size() < 10) {
+                        wrong.add(place.pos() + " holds " + BuiltInRegistries.BLOCK.getKey(actual) + " instead of "
+                                + BuiltInRegistries.BLOCK.getKey(place.state().getBlock()));
+                    }
+                } else if (op instanceof TcOp.Frame) {
+                    frames++;
+                }
+            }
+            helper.assertTrue(wrong.isEmpty(), "/testcenter mod " + ns + ": blocks differ from the plan: " + String.join("; ", wrong));
+            AABB area = AABB.of(TestCentreBuilder.canvasBox(origin, gallery.canvas()));
+            int placedFrames = level.getEntitiesOfClass(ItemFrame.class, area).size();
+            helper.assertTrue(placedFrames == frames, "/testcenter mod " + ns + ": frames planned " + frames + ", placed " + placedFrames);
+        } finally {
+            TestCentreBuilder.clear(level, TestCentreBuilder.canvasBox(origin, gallery.canvas()));
+        }
+        helper.succeed();
+    }
 }

@@ -66,6 +66,8 @@ public final class TestCentreLayout {
             List.of("armour", "archery", "arrows", "sinkdamper", "riding", "tweaks", "deathvault", "respawn", "food", "materials"),
             // Die Module der Familie (Modulaufteilung 3c, TZ22-1); nur mit Modulen.
             List.of(MODULES_SECTION),
+            // DW04D-1: alle Bloecke je Mod als Material-Familien (Spalten) und Formzeilen, Items nach Gruppen.
+            List.of(ModBlockGallery.SECTION),
             // Mobs of every loaded mod (Queue N43); empty without such mods.
             List.of("mobs"),
             // Jede eigene Struktur und jedes Strukturteil (TZ22-3); leer ohne Strukturen (26.2).
@@ -79,7 +81,7 @@ public final class TestCentreLayout {
 
     /** Namen der Bezirke fuer {@code /sbtestcentre build only|without} (TZ22-4), in der Reihenfolge von {@link #DISTRICTS}. */
     public static final List<String> DISTRICT_NAMES = List.of("workshop", "states", "blocks", "technics", "combat", "modules",
-            "mobs", "structures", RecipeStation.SECTION, "catalog", "rest");
+            ModBlockGallery.SECTION, "mobs", "structures", RecipeStation.SECTION, "catalog", "rest");
 
     /**
      * Teilbau (TZ22-4, Besitzer 22.10.: "Der Standardbefehl baut alles. Optionen schraenken die Groesse ein, z. B. ohne die
@@ -538,6 +540,10 @@ public final class TestCentreLayout {
                     && placedAnywhere.contains(frame.stack().getItem()));
             canvases.put(TabBrowser.sectionId(tab), wall);
         }
+
+        // DW04D-1: Mod-Bloecke als Familien - wie die Tab-Waende nach der Abdeckung (zeigt alles noch einmal geordnet,
+        // nimmt Modul-Buchten und Galerie nichts weg).
+        canvases.put(ModBlockGallery.SECTION, ModBlockGallery.all().canvas());
 
         // Crafting-Rezepte (Nachtrag 13): wie die Tab-Waende nach der Abdeckung - Zutaten im Crafter zaehlen nicht als Platz.
         canvases.put(RecipeStation.SECTION, RecipeStation.build(ctx));

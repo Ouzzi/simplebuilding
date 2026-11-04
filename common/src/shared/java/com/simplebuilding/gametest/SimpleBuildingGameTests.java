@@ -191,6 +191,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_upgrade_chains_run_by_tier", TestCentreTests::upgradeChainsRunByTier)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_mod_block_families_stand_once_and_aligned", TestCentreTests::modBlockFamiliesStandOnceAndAligned)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_testcenter_command_clears_and_builds_the_mod_area", TestCentreTests::testcenterCommandClearsAndBuildsTheModArea)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)
