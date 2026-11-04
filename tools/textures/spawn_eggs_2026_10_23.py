@@ -86,38 +86,71 @@ def overlay(rows: list[str], art: list[str]) -> list[str]:
     return ["".join(a if a not in ". " else r for r, a in zip(row, line.ljust(16, "."))) for row, line in zip(rows, art)]
 
 
+def stretch(ramp, n=9):
+    """A ramp spread to n tones (linear in RGB between the drawn tones), so the shading can step softly like Vanilla."""
+    if len(ramp) >= n:
+        return [tuple(c[:3]) for c in ramp]
+    out = []
+    for i in range(n):
+        t = i * (len(ramp) - 1) / (n - 1)
+        k = min(int(t), len(ramp) - 2)
+        f = t - k
+        out.append(tuple(round(ramp[k][j] + (ramp[k + 1][j] - ramp[k][j]) * f) for j in range(3)))
+    return out
+
+
 def shade(rows: list[str], mats: dict, fixed: dict, main: str, light=1.0, dither=True, seed=0):
-    """Renders a material grid. mats: letter -> (ramp, base index, noise) shaded; fixed: letter -> RGB as drawn.
-    Returns (img, layers) with layers Umriss / Grundfarbe / Motiv / Details as RGBA byte images."""
+    """Renders a material grid like the Vanilla 26.3 eggs (BOSS02, 04.11.). mats: letter -> (ramp, base index, noise)
+    shaded; fixed: letter -> RGB as drawn. Each ramp is spread to 9 tones; the outline is the material's own darkest
+    tones (top/left one step lighter, bottom/right darkest, no black line), the light is a soft area at the top left,
+    one pixel of inner shade runs along the bottom/right outline, and the grain sits in 2x2 patches (calm like Vanilla)
+    instead of per-pixel noise. Returns (img, layers) with layers Umriss / Grundfarbe / Motiv / Details."""
     filled = {(x, y) for y in range(16) for x in range(16) if rows[y][x] != "."}
     out = {name: bytearray(16 * 16 * 4) for name in ("Umriss", "Grundfarbe", "Motiv", "Details")}
     img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     ys = [y for _, y in filled]
+    xs = [x for x, _ in filled]
     top, bottom = min(ys), max(ys)
     cy = (top + bottom) / 2
+    cx = (min(xs) + max(xs)) / 2
+    span_y = max(1.0, (bottom - top) / 2)
+
+    def edge(x, y):
+        return [(x + dx, y + dy) not in filled for dx, dy in ((0, -1), (-1, 0), (0, 1), (1, 0))]
+
     for (x, y) in filled:
         ch = rows[y][x]
         if ch in fixed:
             c, layer = fixed[ch], "Details"
         else:
             ramp, base, noise = mats[ch]
-            up = (x, y - 1) not in filled
-            left = (x - 1, y) not in filled
-            down = (x, y + 1) not in filled
-            right = (x + 1, y) not in filled
+            r = stretch(ramp)
+            bi = base * (len(r) - 1) / max(1, len(ramp) - 1)
+            up, left, down, right = edge(x, y)
             if up or left or down or right:
-                lit_side = (up or left) and not (down or right)
-                c = ramp[0] if lit_side else dark(ramp[0], 0.7)
-                if not lit_side and (up or left):
-                    c = ramp[0]
+                if (down or right) and not (up or left):
+                    c = r[0]
+                    if down and y >= bottom - 1:
+                        c = dark(r[0], 0.86)
+                elif (up or left) and not (down or right):
+                    c = r[max(1, min(len(r) - 1, int(round(bi - 2.5))))]
+                else:
+                    c = r[1]
                 layer = "Umriss"
             else:
-                # light from the top left: about +1.5 in the upper left, -1.5 in the lower right
-                l = ((7.5 - x) * 0.22 + (cy - y) * 0.26) * light
+                # soft light from the top left: about +2 steps there, -2 at the bottom right
+                l = ((cx - x) / 6.0 * 0.9 + (cy - y) / span_y * 1.3) * light
+                if (x - (cx - 2.5)) ** 2 + (y - (top + 3.2)) ** 2 < 4.5:
+                    l += 0.9
+                if (x, y + 1) in filled and any(edge(x, y + 1)):
+                    l -= 0.8
+                if (x + 1, y) in filled and any(edge(x + 1, y)):
+                    l -= 0.5
                 if dither:
-                    l += ((h(x, y, seed) & 7) - 3.5) / 9.0 * noise
-                i = max(1, min(len(ramp) - 1, int(round(base + l))))
-                c = ramp[i]
+                    l += ((h(x // 2, y // 2, seed) & 7) - 3.5) / 7.0 * noise * 0.9
+                    l += ((h(x, y, seed + 1) & 3) - 1.5) / 6.0 * noise * 0.4
+                i = max(1, min(len(r) - 1, int(round(bi + l))))
+                c = r[i]
                 layer = "Grundfarbe" if ch == main else "Motiv"
         px = tuple(c[:3]) + (255,)
         img.putpixel((x, y), px)
