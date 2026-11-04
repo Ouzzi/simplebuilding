@@ -910,7 +910,8 @@ public final class TestCentreTests {
         // TZ22-2: was eine Station gesetzt zeigt, rahmt die Tab-Wand nicht noch einmal.
         Set<Item> placedAnywhere = new HashSet<>();
         for (TestCentreLayout.Section section : plan.sections()) {
-            if (!section.id().startsWith(TabBrowser.PREFIX)) {
+            // DW04D-1: the mod block families are planned after the tab walls (like them a second, ordered view).
+            if (!section.id().startsWith(TabBrowser.PREFIX) && !section.id().equals(com.simplebuilding.dev.testcentre.ModBlockGallery.SECTION)) {
                 placedAnywhere.addAll(TestCentreLayout.shownPlaced(section.ops()));
             }
         }
