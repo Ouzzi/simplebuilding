@@ -64,7 +64,7 @@
   "simplemachines.guide.page.8.title": "Piston upgrades",
   "simplemachines.guide.page.8": "the Netherite and Enderite Pistons break blocks by signal strength, wear out like tools and are repaired with their nugget. Until 03.11. SimpleBuilding's; old simplebuilding: ids move here.",
   "simplemachines.guide.page.9.title": "Double Piston",
-  "simplemachines.guide.page.9": "One block that pushes in two stages: a signal of 1 to 7 brings the head out one block like a Vanilla piston, 8 to 15 moves the body half a block forward and the head a second block - three blocks long in all.",
+  "simplemachines.guide.page.9": "One block that pushes in two stages: a signal of 1 to 7 brings the head out one block like a Vanilla piston, 8 to 15 slides an arm out of it and moves the head a second block - three blocks long in all.",
   "simplemachines.guide.page.10.title": "Signal Dampener",
   "simplemachines.guide.page.10": "A flat redstone part like the Repeater that takes 0 to 3 off the signal and passes it on one redstone tick later.",
   "simplemachines.guide.page.11.title": "Creative tabs",
