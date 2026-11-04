@@ -25,5 +25,6 @@
   "tooltip.simplemobmanners.frog_bucket.variant": "Variant: %s",
   "tooltip.simplemobmanners.frog_bucket.variant.temperate": "Temperate",
   "tooltip.simplemobmanners.frog_bucket.variant.warm": "Warm",
-  "tooltip.simplemobmanners.frog_bucket.variant.cold": "Cold"
+  "tooltip.simplemobmanners.frog_bucket.variant.cold": "Cold",
+  "itemgroup.simplemobmanners.mobmanners": "Simple Mob Manners"
 }

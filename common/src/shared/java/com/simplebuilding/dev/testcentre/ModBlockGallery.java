@@ -159,42 +159,14 @@ public final class ModBlockGallery {
         return null;
     }
 
-    private static final List<String> FORM_SUFFIXES = List.of("_octet", "_stairs", "_slab", "_wall", "_fence_gate", "_fence",
-            "_pane", "_trapdoor", "_door");
-    /** Varianten-Woerter, Reihenfolge = Rang in der Spalte (Basis zuerst, dann geschliffen ... gemeisselt, Saeule). */
-    private static final List<String> VARIANT_WORDS = List.of("planks", "block", "log", "stem", "wood", "hyphae", "stripped",
-            "cobbled", "polished", "smooth", "cut", "bricks", "brick", "tiles", "tile", "cracked", "mossy", "chiseled", "pillar",
-            "waxed", "exposed", "weathered", "oxidized");
-
-    /** Material-Schluessel einer Id: Form-Endung und Varianten-Woerter weg ({@code mossy_stone_brick_wall} -> {@code stone}). */
+    /** Material-Schluessel einer Id (QW11: eine Regel mit den Kreativ-Tabs, {@link com.simplelib.api.TabSort}). */
     public static String materialKey(String path) {
-        String p = path;
-        for (String suffix : FORM_SUFFIXES) {
-            if (p.endsWith(suffix) && p.length() > suffix.length()) {
-                p = p.substring(0, p.length() - suffix.length());
-                break;
-            }
-        }
-        List<String> kept = new ArrayList<>();
-        for (String word : p.split("_")) {
-            if (!VARIANT_WORDS.contains(word)) {
-                kept.add(word);
-            }
-        }
-        if (kept.isEmpty()) {
-            // "bricks", "brick_stairs": das Material ist das Wort selbst.
-            return p.replace("bricks", "brick").replace("tiles", "tile");
-        }
-        return String.join("_", kept);
+        return com.simplelib.api.TabSort.materialKey(path);
     }
 
     /** Rang in der Spalte: das spaeteste Varianten-Wort zaehlt ({@code mossy_stone_bricks} nach {@code stone_bricks}). */
     static int rank(String path) {
-        int rank = -1;
-        for (String word : path.split("_")) {
-            rank = Math.max(rank, VARIANT_WORDS.indexOf(word));
-        }
-        return rank;
+        return com.simplelib.api.TabSort.variantRank(path);
     }
 
     private static Entry entry(Item item, boolean vanilla) {

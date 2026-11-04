@@ -49,6 +49,7 @@
   "config.simpleenddragonfight.summonSpeedCap": "Tempo-Obergrenze mit Beschwörungen",
   "config.simpleenddragonfight.summonSpeedCap.tooltip": "Höchstes Gesamttempo, wenn Beschwörungen dazukommen. Standard: 2,0.",
   "jei.simpleenddragonfight.info.dragonmite_drops": "Dragonmites erscheinen, sobald der Enderdrache nur noch die Hälfte seiner Lebenspunkte hat. Ein Dragonmite, den ein Spieler tötet, kann Drachen-Chitin fallen lassen.",
+  "itemgroup.simpleenddragonfight.dragonfight": "Simple End Dragon Fight",
   "item.simpleenddragonfight.guide_book": "Simple-Enddrachenkampf-Handbuch",
   "simpleenddragonfight.guide.chapter": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1.title": "Simple End Dragon Fight",

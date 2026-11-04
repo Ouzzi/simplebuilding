@@ -62,6 +62,7 @@
   "item.simpleores.enderite_upgrade_template.base_slot_description": "Add equipment or a block to upgrade",
   "item.simpleores.enderite_upgrade_template.additions_slot_description": "Add the material required by the recipe",
   "simpleores.testcentre.station": "Simple Ores",
+  "itemgroup.simpleores.ores": "Simple Ores",
   "tooltip.simpleores.when_eaten": "When eaten:",
   "text.autoconfig.simpleores.title": "Simple Ores",
   "text.autoconfig.simpleores.category.general": "General",

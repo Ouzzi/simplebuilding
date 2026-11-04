@@ -386,6 +386,7 @@ def lang(locale):
     out.update({f'item.{NS}.{p}': n[i] for p, n in MOVED_ITEMS.items()})
     out.update({f'item.{NS}.enderite_upgrade_template.{k}': t[i] for k, t in TEMPLATE_TEXTS.items()})
     out[f'{NS}.testcentre.station'] = 'Simple Ores'
+    out[f'itemgroup.{NS}.ores'] = 'Simple Ores'  # QW11: the one tab of the module (ModTabs, collects its items)
     out['tooltip.simpleores.when_eaten'] = ('When eaten:', 'Beim Verzehr:')[i]
     out[f'text.autoconfig.{NS}.title'] = ('Simple Ores', 'Simple Ores')[i]
     for cat, texts in CONFIG_CATEGORIES.items():

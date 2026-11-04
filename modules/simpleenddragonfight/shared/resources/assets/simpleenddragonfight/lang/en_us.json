@@ -49,6 +49,7 @@
   "config.simpleenddragonfight.summonSpeedCap": "Speed cap with summonings",
   "config.simpleenddragonfight.summonSpeedCap.tooltip": "Highest total flight speed once summonings add to it. Default: 2.0.",
   "jei.simpleenddragonfight.info.dragonmite_drops": "Dragonmites appear once the Ender Dragon is down to half health. A Dragonmite killed by a player may drop Dragon Chitin.",
+  "itemgroup.simpleenddragonfight.dragonfight": "Simple End Dragon Fight",
   "item.simpleenddragonfight.guide_book": "Simple End Dragon Fight Guide",
   "simpleenddragonfight.guide.chapter": "Simple End Dragon Fight",
   "simpleenddragonfight.guide.page.1.title": "Simple End Dragon Fight",

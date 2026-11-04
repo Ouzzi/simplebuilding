@@ -102,5 +102,6 @@
   "quests.simplelib.start.title": "Willkommen bei den Simple Mods",
   "quests.simplelib.start.subtitle": "Dein Handbuch gratis",
   "quests.simplelib.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplelib.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Modpack-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Werkbank herstellen."
+  "quests.simplelib.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Modpack-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Werkbank herstellen.",
+  "itemgroup.simplelib.lib": "Simple Lib"
 }

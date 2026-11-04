@@ -87,6 +87,7 @@
   "simpletools.option.enableItemFrameReverseRotate.tooltip": "Schleichen + Rechtsklick dreht das Item\nim Rahmen rückwärts. Standard: true.",
   "item.simpletools.biome_brush": "Biom-Pinsel",
   "item.simpletools.biome_brush.tooltip": "Material in Nebenhand; Schleichen: eine Stelle",
+  "itemgroup.simpletools.tools": "Simple Tools",
   "item.simpletools.guide_book": "Simple-Tools-Handbuch",
   "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",

@@ -20,6 +20,7 @@ public final class WanderersFabric implements ModInitializer {
         // CMD24: /simplewanderers config for every option.
         com.simplelib.api.config.ConfigCommands.server(SimpleWanderers.MOD_ID).json(com.simplewanderers.config.WandererConfig::toJson, com.simplewanderers.config.WandererConfig::apply).file(FabricLoader.getInstance().getConfigDir(), com.simplewanderers.config.WandererConfig.FILE).register();
         WandererRegistry.registerAll();
+        com.simplelib.api.ModTabs.register(SimpleWanderers.MOD_ID, "wanderers", "itemgroup.simplewanderers.wanderers", () -> new net.minecraft.world.item.ItemStack(WandererRegistry.WANDERER_EGG));
         FabricDefaultAttributeRegistry.register(WandererRegistry.WANDERER, WandererRegistry.wandererAttributes());
         FabricDefaultAttributeRegistry.register(WandererRegistry.HORSE, WandererRegistry.horseAttributes());
         ServerTickEvents.END_SERVER_TICK.register(WandererSpawner::tick);

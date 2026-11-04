@@ -23,5 +23,6 @@
   "screen.simplequestionary.origin.mine": "Abbauen",
   "screen.simplequestionary.origin.mine.hint": ": ein Block aus der Welt.",
   "screen.simplequestionary.origin.find": "Finden",
-  "screen.simplequestionary.origin.find.hint": ": in Truhen, bei Mobs oder im Handel."
+  "screen.simplequestionary.origin.find.hint": ": in Truhen, bei Mobs oder im Handel.",
+  "itemgroup.simplequestionary.questionary": "Simple Questionary"
 }

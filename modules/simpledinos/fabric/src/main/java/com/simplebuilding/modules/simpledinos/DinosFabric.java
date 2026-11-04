@@ -39,6 +39,7 @@ public final class DinosFabric implements ModInitializer {
         com.simplelib.api.config.ConfigCommands.server(SimpleDinos.MOD_ID).json(com.simpledinos.config.DinosConfig::toJson, com.simpledinos.config.DinosConfig::apply)
                 .file(FabricLoader.getInstance().getConfigDir(), com.simpledinos.config.DinosConfig.FILE).register();
         DinosRegistry.registerAll();
+        com.simplelib.api.ModTabs.register(SimpleDinos.MOD_ID, "dinos", "itemgroup.simpledinos.dinos", () -> new ItemStack(DinosRegistry.FOSSIL_ITEM));
         DinosRegistry.registerBlockEntityTypes(new BlockEntityType<>(FossilBlockEntity::new, DinosRegistry.fossilBlocks()),
                 new BlockEntityType<>(DinoEggBlockEntity::new, DinosRegistry.eggBlocks()));
         FabricDefaultAttributeRegistry.register(DinosRegistry.TREX, DinosRegistry.trexAttributes());
