@@ -112,11 +112,14 @@ public final class DoublePistons {
         return state.getBlock() instanceof DoublePistonArmBlock a && a.variant() == variant && state.getValue(DirectionalBlock.FACING) == f;
     }
 
-    /** Whether {@code behind} (the cell behind a head) holds the head: the base at stage 1 or the arm. */
+    /**
+     * Whether {@code behind} (the cell behind a head) holds the head: the base at stage 1, the arm, or (like Vanilla's head) a moving
+     * block of the same facing - the base going back to 0 removes the head itself, without break particles.
+     */
     public static boolean holdsHead(BlockState behind, BlockState head) {
         DoublePistonVariant v = ((DoublePistonHeadBlock) head.getBlock()).variant();
         Direction f = head.getValue(DirectionalBlock.FACING);
-        return isBase(behind, v, f, 1) || isArm(behind, v, f);
+        return isBase(behind, v, f, 1) || isArm(behind, v, f) || behind.is(Blocks.MOVING_PISTON) && behind.getValue(MovingPistonBlock.FACING) == f;
     }
 
     /** True while a part still has a block move running (the next step waits for it). */
