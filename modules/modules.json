@@ -1224,6 +1224,9 @@
       ],
       "tests": {
         "namespace": "simplelib",
+        "standalone": {
+          "exempt": "Library: its module suite already runs with simplelib alone (requires only itself)."
+        },
         "catalogues": [
           "modules/simplelib/fabric/src/main/java/com/simplebuilding/modules/simplelib/ModuleGameTest.java"
         ],

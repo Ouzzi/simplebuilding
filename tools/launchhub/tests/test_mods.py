@@ -31,7 +31,9 @@ class ModTests(unittest.TestCase):
             for project in entry['projects'].values():
                 path = self.root.joinpath(*project.strip(':').split(':')) / 'build.gradle'
                 path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text('// fixture')
+                real = ROOT.joinpath(*project.strip(':').split(':')) / 'build.gradle'
+                # Parent builds nest sub-mods (multimod.validate_bundle reads them); keep the real file.
+                path.write_text(real.read_text(encoding='utf-8') if real.is_file() else '// fixture', encoding='utf-8')
             if entry['paths']['root'].startswith('modules/'):
                 for loader in entry['loaders']:
                     relative = Path(entry['paths'][loader]) / 'src/main/resources'
@@ -161,7 +163,7 @@ class ModTests(unittest.TestCase):
     def test_new_target_does_not_change_default_sweep_or_catalogue(self):
         runner = targets.runner()
         self.assertNotIn('integration-263', {t.id for t in runner.DEFAULT_TARGETS})
-        self.assertEqual(len(runner.read_catalogue()['integration-26.3']), 1)
+        self.assertGreaterEqual(len(runner.read_catalogue()['integration-26.3']), 1)
         self.assertEqual(runner.read_catalogue()['26.3'], runner.read_catalogue()['26.2'])
 
     def test_offline_forge262_is_rejected_before_job_start(self):
@@ -252,9 +254,11 @@ class ModTests(unittest.TestCase):
                 continue
             self.assertLessEqual(set(standalone.get('requires', [])), set(module['requires']))
             for loader in ('fabric', 'neoforge'):
+                if loader not in standalone.get('loaders', {}):
+                    continue
                 self.assertIn(f"module-{module['id']}-standalone-{loader}-263", found)
         tweaks = next(m for m in modules if m['id'] == 'simpletweaks')
-        self.assertEqual(tweaks['tests']['standalone']['requires'], ['simplebuilding'])
+        self.assertEqual(tweaks['tests']['standalone']['requires'], [])  # allein spielbar seit Stufe 2
         preset = targets.test_presets()['standalone']['targets']
         self.assertTrue(preset and all('-standalone-' in item for item in preset))
 

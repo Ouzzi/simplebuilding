@@ -17,7 +17,10 @@ server), parses the compiled mixin classes and checks them against the game jar 
   * @Slice from/to selectors and @At CONSTANT / @ModifyConstant @Constant values occur in the target methods
   * handler signatures of @Redirect (INVOKE), @WrapOperation (INVOKE: receiver + arguments + Operation) and
     @ModifyArg (index >= 0): parameter count, primitive types and the return type (object types are compared
-    loosely, a subclass or interface is fine); not checked: @Local captures, @ModifyArgs, @At FIELD handlers
+    loosely, a subclass or interface is fine); @Redirect on an @At FIELD (getter (Owner)T / ()T or setter
+    (Owner, T)V / (T)V); @ModifyArgs handlers (first parameter Args, returns void)
+  * mixin config "plugin" class exists and implements IMixinConfigPlugin
+  * not checked (needs the local variable table / runtime): @Local captures, @Desc selectors, regex selectors
 
 Usage (Gradle passes explicit paths, see :integration:checkClientMixins):
   check_client_mixins.py --mods <dir|jar>... --cp <dir|jar>...
@@ -459,8 +462,41 @@ def loose(a: str, b: str) -> bool:
     return a[0] in "L[" and b[0] in "L[" and not (a[0] == "[" and b[0] == "[" and a.lstrip("[")[0] != "L" and b.lstrip("[")[0] != "L")
 
 
+def check_field_redirect(tag, handler, short, selected, ann, problems):
+    """@Redirect on @At(FIELD): getter (Owner)T / ()T or setter (Owner, T)V / (T)V. get/put and static are not
+    told apart by the instruction set, so any of the four shapes is accepted."""
+    at_list = ats(ann)
+    if len(at_list) != 1 or at_list[0].get("value") != "FIELD" or not at_list[0].get("target"):
+        return
+    owner, name, desc = parse_ref(at_list[0]["target"])
+    hits = at_matches(selected, "FIELD", at_list[0]["target"])
+    if not hits or not desc:
+        return  # not found is reported by check_at
+    hargs, hret = split_args(handler.desc)
+    for hit in hits:
+        ftype = hit[3]
+        recv = "L" + hit[1] + ";"
+        if (hargs in ([], [recv]) or (len(hargs) == 1 and loose(hargs[0], recv))) and loose(hret, ftype):
+            return
+        if hret == "V" and (len(hargs) == 1 and loose(hargs[0], ftype)
+                            or len(hargs) == 2 and loose(hargs[0], recv) and loose(hargs[1], ftype)):
+            return
+    problems.append(f"{tag}.{handler.name}: {short} FIELD handler {handler.desc} does not fit field "
+                    f"{name}:{desc}; expected getter ([Owner]){desc} or setter ([Owner]{desc})V")
+
+
+def check_modify_args(tag, handler, short, problems):
+    hargs, hret = split_args(handler.desc)
+    if not hargs or "injection/invoke/arg/Args" not in hargs[0] or hret != "V":
+        problems.append(f"{tag}.{handler.name}: {short} handler {handler.desc} must be (Args, ...)V")
+
+
 def check_signature(tag, handler, atype, short, selected, ann, problems):
     """Handler signature of @Redirect / @WrapOperation (INVOKE) and @ModifyArg (index >= 0) against the invoked method."""
+    if atype == INJ + "Redirect;":
+        check_field_redirect(tag, handler, short, selected, ann, problems)
+    if atype == INJ + "ModifyArgs;":
+        check_modify_args(tag, handler, short, problems)
     kinds = {INJ + "Redirect;": 0, MX + "wrapoperation/WrapOperation;": 1, INJ + "ModifyArg;": 2}
     if atype not in kinds:
         return
@@ -528,6 +564,31 @@ def check_injector(cp, tag, tname, target, handler, atype, ann, problems):
                                 f"{tname}.{selected[0].name}{selected[0].desc}")
 
 
+def check_plugin(cp, cfg_name, cfg, problems):
+    plugin = cfg.get("plugin")
+    if not plugin:
+        return
+    ci = cp.get(plugin.replace(".", "/"))
+    if ci is None:
+        problems.append(f"{cfg_name}: plugin class {plugin} not found")
+    elif implements(cp, ci, "org/spongepowered/asm/mixin/extensibility/IMixinConfigPlugin") is False:
+        problems.append(f"{cfg_name}: plugin class {plugin} does not implement IMixinConfigPlugin")
+
+
+def implements(cp, ci, iface, depth=0):
+    """True/False, or None when a super type is not on the class path (unknown: no verdict, no false alarm)."""
+    if iface in ci.interfaces:
+        return True
+    unknown = False
+    for name in ([ci.super] if ci.super and ci.super != "java/lang/Object" else []) + ci.interfaces:
+        parent = cp.get(name) if depth < 8 else None
+        verdict = implements(cp, parent, iface, depth + 1) if parent is not None else None
+        if verdict:
+            return True
+        unknown = unknown or verdict is None
+    return None if unknown else False
+
+
 def mixin_configs(mod_roots: list[str]) -> list[tuple[str, dict]]:
     """(config name, json) for each config named in a fabric.mod.json of the mod outputs."""
     files: dict[str, bytes] = {}
@@ -591,6 +652,7 @@ def main() -> int:
             problems.append(f"{cfg_name}: config named in fabric.mod.json but missing")
             continue
         pkg = cfg.get("package", "").replace(".", "/")
+        check_plugin(cp, cfg_name, cfg, problems)
         for section in ("mixins", "client", "server"):
             for entry in cfg.get(section, []):
                 name = f"{pkg}/{entry.replace('.', '/')}"

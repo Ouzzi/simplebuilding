@@ -38,6 +38,10 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
    if(claims.view().size()!=1||data==null||!data.owner().equals(p.getUUID()))throw new AssertionError("The sheet claims the chunk and binds the deed: "+claims.view().size()+" "+data);
    com.simplebuilding.modules.simpletweaks.deed.DeedService.open(p,0);
   });
+  // SP22-8: the owner of land gets the map view first; the code editor is behind its "Rights" button (VIS24-10).
+  context.waitForScreen(com.simplebuilding.modules.simpletweaks.deed.client.DeedMapScreen.class);
+  context.waitTicks(5);context.takeScreenshot("simpletweaks-deed-map");
+  context.clickScreenButton("simpletweaks.deed.rights");
   context.waitForScreen(com.simplebuilding.modules.simpletweaks.deed.client.DeedScreen.class);
   context.waitTicks(5);context.takeScreenshot("simpletweaks-deed-editor");
   input.pressKey(com.mojang.blaze3d.platform.InputConstants.KEY_RETURN);input.typeChars("*: U");input.pressKey(com.mojang.blaze3d.platform.InputConstants.KEY_RETURN);input.typeChars("Zed: Q");
