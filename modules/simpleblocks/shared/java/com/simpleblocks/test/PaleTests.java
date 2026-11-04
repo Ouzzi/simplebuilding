@@ -63,25 +63,25 @@ public final class PaleTests {
     /** A Vanilla pumpkin fades through faded, bleached and pale only inside the Pale Garden; the end stage stops ticking. */
     public static void agesOnlyInPaleGarden(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        BlockPos outside = new BlockPos(0, 2, 0);
         helper.setBlock(MID, Blocks.PUMPKIN);
-        helper.setBlock(outside, Blocks.PUMPKIN);
         helper.assertTrue(Blocks.PUMPKIN.defaultBlockState().isRandomlyTicking(), "the Vanilla pumpkin random-ticks (aging chain base)");
+        // First outside the Pale Garden (the test world's own biome), then with the Pale Garden around it.
+        if (!level.getBiome(helper.absolutePos(MID)).is(PaleBlocks.PALES_BLOCKS)) {
+            withChance("pumpkin", 1, () -> {
+                for (int i = 0; i < 4; i++) tick(helper, MID);
+            });
+            helper.assertTrue(helper.getBlockState(MID).is(Blocks.PUMPKIN), "outside the Pale Garden it stays a pumpkin, is " + helper.getBlockState(MID));
+        }
         Holder<Biome> before = paleGarden(helper, MID);
-        boolean outsidePale = level.getBiome(helper.absolutePos(outside)).is(PaleBlocks.PALES_BLOCKS);
         try {
             withChance("pumpkin", 1, () -> {
-                for (int i = 0; i < 4; i++) {
-                    tick(helper, MID);
-                    tick(helper, outside);
-                }
+                for (int i = 0; i < 4; i++) tick(helper, MID);
             });
         } finally {
             restore(helper, MID, before);
         }
         helper.assertTrue(helper.getBlockState(MID).is(PaleBlocks.PUMPKIN.stages().get(3)), "in the Pale Garden: pale pumpkin after 3 ticks, is " + helper.getBlockState(MID));
         helper.assertTrue(!helper.getBlockState(MID).isRandomlyTicking(), "the end stage does not tick");
-        helper.assertTrue(outsidePale || helper.getBlockState(outside).is(Blocks.PUMPKIN), "outside the Pale Garden it stays a pumpkin, is " + helper.getBlockState(outside));
         helper.succeed();
     }
 
@@ -240,19 +240,23 @@ public final class PaleTests {
         }
     }
 
-    /** Puts the biome cell of {@code pos} into the Pale Garden; returns the biome that was there. */
+    /**
+     * Puts the biome cells around {@code pos} into the Pale Garden (4 blocks each way: {@code getBiome} blends neighbouring
+     * 4 x 4 x 4 cells, like Vanilla's biome zoom); returns the biome that was there.
+     */
     private static Holder<Biome> paleGarden(GameTestHelper helper, BlockPos pos) {
         ServerLevel level = helper.getLevel();
         BlockPos abs = helper.absolutePos(pos);
         Holder<Biome> before = level.getBiome(abs);
-        FillBiomeCommand.fill(level, abs, abs, level.registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(Biomes.PALE_GARDEN));
+        FillBiomeCommand.fill(level, abs.offset(-4, -4, -4), abs.offset(4, 4, 4),
+                level.registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(Biomes.PALE_GARDEN));
         helper.assertTrue(level.getBiome(abs).is(Biomes.PALE_GARDEN), "biome set to the Pale Garden");
         return before;
     }
 
     private static void restore(GameTestHelper helper, BlockPos pos, Holder<Biome> before) {
         BlockPos abs = helper.absolutePos(pos);
-        FillBiomeCommand.fill(helper.getLevel(), abs, abs, before);
+        FillBiomeCommand.fill(helper.getLevel(), abs.offset(-4, -4, -4), abs.offset(4, 4, 4), before);
     }
 
     private static ServerPlayer survivor(GameTestHelper helper) {

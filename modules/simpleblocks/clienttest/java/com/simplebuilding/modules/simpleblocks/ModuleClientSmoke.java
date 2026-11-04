@@ -69,7 +69,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
 
     /**
      * DW04B (b-pale01): the five pale chains in the Pale Garden, one row per block (pumpkin, carved pumpkin, jack o'lantern,
-     * melon, hay bale), columns Vanilla | faded | bleached | pale; pale moss floor and pale oak behind them.
+     * melon, hay bale), seen from the front left to right Vanilla | faded | bleached | pale; pale moss floor, pale oak behind.
      */
     private static void paleGarden(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext server) {
         server.runCommand("execute at @a run fill ~-12 ~ ~-2 ~12 ~8 ~16 minecraft:air");
@@ -79,7 +79,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         String[] stages = {"minecraft:", "simpleblocks:faded_", "simpleblocks:bleached_", "simpleblocks:pale_"};
         for (int r = 0; r < rows.length; r++) {
             for (int c = 0; c < stages.length; c++) {
-                server.runCommand("execute at @a run setblock ~" + (-3 + 2 * c) + " ~ ~" + (3 + 2 * r) + " " + stages[c] + rows[r]);
+                server.runCommand("execute at @a run setblock ~" + (3 - 2 * c) + " ~ ~" + (3 + 2 * r) + " " + stages[c] + rows[r]);
             }
         }
         for (int x : new int[]{-7, 7}) {
@@ -91,7 +91,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         server.runCommand("execute as @a at @s run tp @s ~ ~3 ~-1 0 32");
         context.waitTicks(60);
         context.takeScreenshot("pale01-garden");
-        server.runCommand("execute as @a at @s run tp @s ~ ~-2 ~1 0 14");
+        server.runCommand("execute as @a at @s run tp @s ~ ~ ~2 0 20");
         context.waitTicks(40);
         context.takeScreenshot("pale01-close");
     }
