@@ -1092,3 +1092,8 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 ## b-small04 (03.11.) - fuenf Abnahme-Anmerkungen
 - [~] (B, b-small04, 03.11.) Blei alte Farbe zurueck; Rohr-Fenster Padding (INVENTORY_Y 60); ROHR33=A Rille + Hals 5x5; COND38=A Conduit-Items Vanilla-Groesse; Ofen-Boote je Ofenstufe (40). Vorschau abnahme-b/b-small04-preview.html; sbt-Ergebnis siehe Memory-Abschnitt b-small04
 - [x] (B, b-qw08, 04.11.) QW08-1 Wackel-Tests an der Ursache: backup (Abbruch je Lauf), void_tricks (Lookup), boar, soundproof, web_http, wreck (Diagnose), howler/mobs2 --check, wiki test_textures. Plan docs/ai/PLAN-B-QW08-2026-11-04.md
+
+## Besitzer 04.11. Blass-Mechanik (DW04B, Wortlaut /root/b-antworten-20261104b.md)
+- [~] (B, b-pale01, 04.11.; Plan docs/ai/PLAN-B-PALE01-2026-11-04.md) DW04B-1 SimpleLib: allgemeine Altern-/Verwitterungs-Mechanik wie Vanilla-Kupfer (Kette mit N Stufen, Endstufe, Chance je Random Tick per Config, Bedingung je Kette z. B. Biom-Tag, Wachs konserviert, Axt schabt ab, Dispenser-Honigwabe), Builder „Basisblock + Stufen → alle Blöcke/Items“, abweichendes Verhalten per Override; Doku „Altern in 3 Schritten“.
+- [~] (B, b-pale01, 04.11.) DW04B-2 Kürbis (auch geschnitzt und Kürbislaterne) im Pale Garden wird über 3 Stufen blass, gewachst bleibt er.
+- [~] (B, b-pale01, 04.11.) DW04B-3 dasselbe für Melone und Heuballen.
