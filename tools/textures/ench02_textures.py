@@ -5,7 +5,8 @@ b-ench02 (03.11.2026, owner ENCH01): textures of Simple Enchanting.
 * Dark Enchanter (top, side, bottom): the pattern of the Dark proposal of b-ench01 (rhomb cloth, Glut-Karmesin, ember star,
   corner glints) with the contrast and grain of the Astral Enchanter (the old Astral Enchanting Table texture, unchanged):
   per-pixel dither between neighbouring ramp tones, brighter highlights, an 8-frame interpolated shimmer (frametime 6) like the
-  Astral one. Own pixels only.
+  Astral one. Own pixels only. Since b-ench03 the top/side animation comes from ench03_textures.py (frame 0 of this
+  drawing + a calm glow layer): run that one after --write here.
 * Nihil Obsidian (SimpleBuilding + Simple Enchanting's twin): Blazing Obsidian's 16-frame animation with the ember highlights
   mapped onto a navy/void ramp (owner: "blazing obsidian mit nihilit, navy/void highlights statt orangene").
 
