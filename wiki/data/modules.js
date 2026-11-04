@@ -1409,7 +1409,7 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 8
     },
-    "dataHash": "da804772d087"
+    "dataHash": "eccf3d7f324a"
   },
   {
     "id": "simpleoctets",
@@ -1637,7 +1637,7 @@ window.WIKI_MODULES = [
       "recipes": 183,
       "features": 15
     },
-    "dataHash": "c4910fc9e048"
+    "dataHash": "f980a068bfc8"
   },
   {
     "id": "simplemusic",
