@@ -40,7 +40,9 @@
     "client.FreeLookTurnMixin",
     "client.FreeLookCameraMixin",
     "client.FreeLookHandMixin",
-    "client.FreeLookCrosshairMixin"
+    "client.FreeLookCrosshairMixin",
+    "client.FreeLookZoomMixin",
+    "client.FreeLookFovMixin"
   ],
   "server": [],
   "injectors": {

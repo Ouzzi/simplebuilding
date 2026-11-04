@@ -70,6 +70,7 @@ public enum UiBrightness {
         set(LIGHT);
         com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.CAMERA);
         com.simplelib.api.FreeLookRules.setCrosshair(true);
+        com.simplelib.api.FreeLookRules.setZoom(true);
         if (dir == null) {
             return;
         }
@@ -83,6 +84,7 @@ public enum UiBrightness {
             set(LIGHT);
             com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.CAMERA);
             com.simplelib.api.FreeLookRules.setCrosshair(true);
+            com.simplelib.api.FreeLookRules.setZoom(true);
         }
     }
 
@@ -100,6 +102,7 @@ public enum UiBrightness {
         json.addProperty("inventoryBrightness", current.id());
         json.addProperty("freeLookRelease", com.simplelib.api.FreeLookRules.client().id());
         json.addProperty("freeLookCrosshair", com.simplelib.api.FreeLookRules.crosshair());
+        json.addProperty("freeLookZoom", com.simplelib.api.FreeLookRules.zoom());
         return json;
     }
 
@@ -109,6 +112,7 @@ public enum UiBrightness {
         com.simplelib.api.FreeLookRules.setClient(com.simplelib.api.FreeLookRules.Release.parse(
                 json.has("freeLookRelease") ? json.get("freeLookRelease").getAsString() : null));
         com.simplelib.api.FreeLookRules.setCrosshair(!json.has("freeLookCrosshair") || json.get("freeLookCrosshair").getAsBoolean());
+        com.simplelib.api.FreeLookRules.setZoom(!json.has("freeLookZoom") || json.get("freeLookZoom").getAsBoolean());
     }
 
     /** Writes the current brightness next to the other configs (no-op before {@link #load}). */

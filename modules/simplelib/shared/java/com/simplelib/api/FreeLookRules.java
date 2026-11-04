@@ -31,6 +31,17 @@ public final class FreeLookRules {
     /** QOL34: show the grey outlined "real" crosshair at the body direction while free look is on (client choice, standard on). */
     private static volatile boolean crosshair = true;
 
+    /** DW04A-2: the mouse wheel zooms while free look is on (client choice, standard on). */
+    private static volatile boolean zoom = true;
+
+    public static boolean zoom() {
+        return zoom;
+    }
+
+    public static void setZoom(boolean on) {
+        zoom = on;
+    }
+
     public static boolean crosshair() {
         return crosshair;
     }
