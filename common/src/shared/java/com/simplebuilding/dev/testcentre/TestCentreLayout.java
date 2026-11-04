@@ -73,7 +73,7 @@ public final class TestCentreLayout {
             // Jedes Crafting-Rezept der Familie als Crafter (Nachtrag 13); leer ohne Server (Planung nur aus den Registern).
             List.of(RecipeStation.SECTION),
             // Item-orientiert: je Kreativ-Tab eine Wand (TabBrowser), zaehlt nicht fuer die Abdeckung.
-            List.of("tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads", "tab_arrows"),
+            List.of("tab_tools", "tab_combat", "tab_building_blocks", "tab_materials", "tab_food", "tab_functional", "tab_pads"),
             // Was noch keinen Abschnitt hat.
             List.of("gallery", "unsorted"));
 
