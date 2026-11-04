@@ -47,26 +47,26 @@
       "x": 90
     },
     "ext=2,facing=north": {
-      "model": "simplemachines:block/double_piston_moved"
+      "model": "simplemachines:block/double_piston_extended"
     },
     "ext=2,facing=east": {
-      "model": "simplemachines:block/double_piston_moved",
+      "model": "simplemachines:block/double_piston_extended",
       "y": 90
     },
     "ext=2,facing=south": {
-      "model": "simplemachines:block/double_piston_moved",
+      "model": "simplemachines:block/double_piston_extended",
       "y": 180
     },
     "ext=2,facing=west": {
-      "model": "simplemachines:block/double_piston_moved",
+      "model": "simplemachines:block/double_piston_extended",
       "y": 270
     },
     "ext=2,facing=up": {
-      "model": "simplemachines:block/double_piston_moved",
+      "model": "simplemachines:block/double_piston_extended",
       "x": 270
     },
     "ext=2,facing=down": {
-      "model": "simplemachines:block/double_piston_moved",
+      "model": "simplemachines:block/double_piston_extended",
       "x": 90
     }
   }

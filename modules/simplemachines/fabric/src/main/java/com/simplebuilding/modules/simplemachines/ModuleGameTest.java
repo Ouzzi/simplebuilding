@@ -117,6 +117,16 @@ public final class ModuleGameTest {
         MachinesTests.ALL.get("double_piston_switch_off_keeps_it_still").accept(h);
     }
 
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void doublePistonAllFacings(GameTestHelper h) {
+        MachinesTests.ALL.get("double_piston_all_facings").accept(h);
+    }
+
+    @GameTest(structure = "simplemachines:empty", maxTicks = 200)
+    public void doublePistonMovesWithVanillaBlocks(GameTestHelper h) {
+        MachinesTests.ALL.get("double_piston_moves_with_vanilla_blocks").accept(h);
+    }
+
     @GameTest(structure = "simplemachines:empty")
     public void discoverRecipeUnlocks(GameTestHelper h) {
         MachinesTests.ALL.get("discover_recipe_unlocks").accept(h);

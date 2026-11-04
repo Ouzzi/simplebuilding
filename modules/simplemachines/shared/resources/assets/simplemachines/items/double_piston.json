@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplemachines:block/double_piston"
+    "model": "simplemachines:block/double_piston_inventory"
   }
 }

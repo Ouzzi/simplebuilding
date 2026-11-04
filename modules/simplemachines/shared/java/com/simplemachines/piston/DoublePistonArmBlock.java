@@ -20,11 +20,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Cell in front of the base at stage 2 (IG31-26): the front quarter of the piston body, which moved half a block forward,
- * and the rod on to the head. It needs the base behind it and the head (or the head's move) in front of it.
+ * Cell in front of the base at stage 2 (IG31-26, DW04C-6): the telescope sleeve, a 6 px rod from the base's front (it reaches
+ * 4 px into the base like Vanilla's head rod) to the head, whose thinner rod sits in it. It needs the base behind it and the head
+ * (or the head's move) in front of it.
  */
 public class DoublePistonArmBlock extends DirectionalBlock {
-    private static final Map<Direction, VoxelShape> SHAPES = DoublePistons.facing(new double[] {0, 0, 12, 16, 16, 16}, new double[] {6, 6, 0, 10, 10, 12});
+    private static final Map<Direction, VoxelShape> SHAPES = DoublePistons.facing(new double[] {5, 5, 0, 11, 11, 16});
     private final DoublePistonVariant variant;
 
     public DoublePistonArmBlock(DoublePistonVariant variant, BlockBehaviour.Properties properties) {

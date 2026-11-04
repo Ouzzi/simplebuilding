@@ -29,13 +29,12 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * The Double Piston (IG31-26): ONE block that reads the signal like a Vanilla piston and drives the move ({@link DoublePistons#step}).
- * Stage 0 a full block; stage 1 (signal 1-7) like Vanilla's extended base (12 px) with the head in front; stage 2 (8-15) the body
- * itself moved half a block forward (8 px left in this cell, the rest in the {@link DoublePistonArmBlock} in front) and the head one
- * cell further - three cells in all. The only loot of the whole piston drops here.
+ * Stage 0 a full block; stage 1 (signal 1-7) and stage 2 (8-15) like Vanilla's extended base (12 px); in front the head (stage 1)
+ * or the {@link DoublePistonArmBlock} with the head one cell further (stage 2) - three cells in all (DW04C-6: the earlier stage 2,
+ * the body moved half a block, read as "the box stays, the arm floats"). The only loot of the whole piston drops here.
  */
 public class DoublePistonBlock extends DirectionalBlock {
     private static final Map<Direction, VoxelShape> EXTENDED = DoublePistons.facing(new double[] {0, 0, 4, 16, 16, 16});
-    private static final Map<Direction, VoxelShape> MOVED = DoublePistons.facing(new double[] {0, 0, 0, 16, 16, 8});
     private final DoublePistonVariant variant;
     private final DoublePistonHeadBlock head;
     private final DoublePistonArmBlock arm;
@@ -62,11 +61,7 @@ public class DoublePistonBlock extends DirectionalBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(DoublePistons.EXT)) {
-            case 0 -> Shapes.block();
-            case 1 -> EXTENDED.get(state.getValue(FACING));
-            default -> MOVED.get(state.getValue(FACING));
-        };
+        return state.getValue(DoublePistons.EXT) == 0 ? Shapes.block() : EXTENDED.get(state.getValue(FACING));
     }
 
     @Override
@@ -97,6 +92,12 @@ public class DoublePistonBlock extends DirectionalBlock {
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         DoublePistons.step(level, pos, state);
+    }
+
+    /** Runs a step the server started ({@link DoublePistons#step}) on the server and on the clients, like Vanilla's piston. */
+    @Override
+    protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int type, int from) {
+        return DoublePistons.move(level, pos, state, type, from);
     }
 
     /** Out, but the part in front is gone (broken, blown up): the piston goes too and drops itself. */

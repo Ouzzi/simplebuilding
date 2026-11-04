@@ -1938,7 +1938,7 @@ window.WIKI_MODULES = [
       "recipes": 10,
       "features": 8
     },
-    "dataHash": "1ac701cd8c82"
+    "dataHash": "432e700194e6"
   },
   {
     "id": "simplearrows",
