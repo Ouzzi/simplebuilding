@@ -416,7 +416,8 @@ def outputs():
         RES / 'textures/entity/hollow_howler/hollow_howler.png': s,
         RES / 'textures/entity/hollow_howler/hollow_howler_glow.png': glow(s),
         RES / 'textures/entity/hollow_howler/hollow_howler_antennae.png': antenna_glow(),
-        RES / 'textures/entity/hollow_howler/hollow_howler_heart.png': heart(),
+        # entity/hollow_howler/hollow_howler_heart.png: owner variant A (HOW-2, 02.11.) from tools/textures/tex24_ice_heart_2026_10_24.py, kept as
+        # PNG + .layers.json (pixel editor); heart() below is only the old H4 proposal for --heart-preview.
         RES / 'textures/item/echo_core.png': echo_core(),
         # textures/item/hollow_howler_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
         RES / 'textures/mob_effect/silence.png': silence_icon(),

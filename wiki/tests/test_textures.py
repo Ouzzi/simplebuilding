@@ -1,6 +1,7 @@
 """Texture index of the wiki page "Textures" (wiki/textures.py)."""
 import json
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -171,7 +172,12 @@ class TextureIndexTests(unittest.TestCase):
         textures = index['textures']
         self.assertGreater(len(textures), 500)
         for t in textures:
-            self.assertTrue((ROOT / 'wiki' / t['file']).is_file(), t['file'])
+            path = ROOT / 'wiki' / t['file']
+            # Vanilla-derived files are never committed (.gitignore, tools/textures/vanilla_derived.py): they exist only after the
+            # derived textures were built in this checkout, so the index may name them while the file is absent. Anything else must exist.
+            if not path.is_file() and subprocess.run(['git', 'check-ignore', '-q', str(path)], cwd=ROOT).returncode == 0:
+                continue
+            self.assertTrue(path.is_file(), t['file'])
             self.assertFalse(t['file'].startswith('assets/textures/minecraft/'), t['file'])
         kinds = {t['kind'] for t in textures}
         self.assertTrue({'item', 'block', 'entity', 'gui'} <= kinds, kinds)

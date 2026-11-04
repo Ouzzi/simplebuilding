@@ -418,30 +418,38 @@ public final class TrialsTests {
         });
         add("trials_void_tricks", h -> {
             ServerLevel level = h.getLevel();
+            for (int x = 0; x < 20; x++) for (int z = 0; z < 20; z++) h.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+            var skeleton = h.spawn(EntityTypes.SKELETON, new BlockPos(10, 1, 10));
+            Zombie zombie = h.spawn(EntityTypes.ZOMBIE, new BlockPos(12, 1, 10));
+            check(TrialsExtras.isArcher(skeleton) && !TrialsExtras.isArcher(zombie), "skeletons shoot, zombies do not");
+            EvilOmen.buff(skeleton, TrialKind.VOID, 1, 0.9f);
+            ServerPlayer player = h.makeMockServerPlayerInLevel();
+            player.setPos(skeleton.getX() + 3, skeleton.getY(), skeleton.getZ());
             boolean voidOld = MobsConfig.voidChain, tricks = MobsConfig.voidMobTricks;
-            try {
-                for (int x = 0; x < 20; x++) for (int z = 0; z < 20; z++) h.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
-                var skeleton = h.spawn(EntityTypes.SKELETON, new BlockPos(10, 1, 10));
-                Zombie zombie = h.spawn(EntityTypes.ZOMBIE, new BlockPos(12, 1, 10));
-                check(TrialsExtras.isArcher(skeleton) && !TrialsExtras.isArcher(zombie), "skeletons shoot, zombies do not");
-                EvilOmen.buff(skeleton, TrialKind.VOID, 1, 0.9f);
-                ServerPlayer player = h.makeMockServerPlayerInLevel();
-                player.setPos(skeleton.getX() + 3, skeleton.getY(), skeleton.getZ());
-                MobsConfig.voidMobTricks = true;
-                MobsConfig.voidChain = false;
-                TrialsExtras.auraLevel(level);
-                check(player.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "a Void mob within 6 blocks darkens the player");
-                player.removeEffect(net.minecraft.world.effect.MobEffects.DARKNESS);
-                player.setPos(skeleton.getX() + 12, skeleton.getY(), skeleton.getZ());
-                TrialsExtras.auraLevel(level);
-                check(!player.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "far away: no darkness");
-                double x0 = skeleton.getX(), z0 = skeleton.getZ();
-                check(TrialsExtras.teleportAway(skeleton, level) && (skeleton.getX() != x0 || skeleton.getZ() != z0), "the Void archer blinks away");
-            } finally {
-                MobsConfig.voidChain = voidOld;
-                MobsConfig.voidMobTricks = tricks;
-            }
-            h.succeed();
+            // The aura looks mobs up in the level's entity sections, which only list entities of an accessible chunk: a chunk that was
+            // force-loaded this very tick (busy batch) can still hide a fresh mob. Wait until the lookup sees it, then run the checks.
+            h.startSequence().thenWaitUntil(() -> h.assertTrue(level.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, skeleton.getBoundingBox().inflate(1)).contains(skeleton),
+                            "the spawned Void archer is visible to the entity lookup"))
+                    .thenExecute(() -> {
+                        try {
+                            MobsConfig.voidMobTricks = true;
+                            MobsConfig.voidChain = false;
+                            player.setPos(skeleton.getX() + 3, skeleton.getY(), skeleton.getZ());
+                            TrialsExtras.auraLevel(level);
+                            check(player.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "a Void mob within 6 blocks darkens the player (archer alive="
+                                    + skeleton.isAlive() + " tags=" + skeleton.entityTags() + " distSqr=" + skeleton.distanceToSqr(player) + " spectator=" + player.isSpectator() + ")");
+                            player.removeEffect(net.minecraft.world.effect.MobEffects.DARKNESS);
+                            player.setPos(skeleton.getX() + 12, skeleton.getY(), skeleton.getZ());
+                            TrialsExtras.auraLevel(level);
+                            check(!player.hasEffect(net.minecraft.world.effect.MobEffects.DARKNESS), "far away: no darkness");
+                            double x0 = skeleton.getX(), z0 = skeleton.getZ();
+                            check(TrialsExtras.teleportAway(skeleton, level) && (skeleton.getX() != x0 || skeleton.getZ() != z0), "the Void archer blinks away");
+                        } finally {
+                            MobsConfig.voidChain = voidOld;
+                            MobsConfig.voidMobTricks = tricks;
+                        }
+                    })
+                    .thenSucceed();
         });
         add("trials_vanilla_spawner", h -> {
             ServerLevel level = h.getLevel();

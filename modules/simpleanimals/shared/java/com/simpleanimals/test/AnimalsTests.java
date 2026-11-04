@@ -410,14 +410,12 @@ public final class AnimalsTests {
                 }
                 on[0] = true;
             });
-            h.runAfterDelay(2 * Boar.DIG_INTERVAL + 40, () -> {
-                int found = truffles(h);
-                AnimalsConfig.reset();
-                h.assertTrue(found >= 1, "switch on, chance 1: the adult boar dug in its own tick");
-                h.succeed();
-            });
+            // The attempt only counts ticks while switched on, so it comes DIG_INTERVAL ticks after the switch (20 ticks of margin were
+            // too tight whenever the boar stood on a non-dirt cell or off the ground at that very tick); the next attempt is DIG_INTERVAL later.
+            h.runAfterDelay(Boar.DIG_INTERVAL + 21, () -> h.succeedWhen(() -> h.assertTrue(truffles(h) >= 1, "switch on, chance 1: the adult boar dug in its own tick")));
+            h.runBeforeTestEnd(AnimalsConfig::reset);
         });
-        MAX_TICKS.put("boar_truffle_tick_and_switch", 2 * Boar.DIG_INTERVAL + 80);
+        MAX_TICKS.put("boar_truffle_tick_and_switch", 3 * Boar.DIG_INTERVAL + 80);
         ALL.put("truffle_soup", h -> {
             var soup = new net.minecraft.world.item.ItemStack(AnimalsRegistry.TRUFFLE_SOUP);
             var stew = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.MUSHROOM_STEW);

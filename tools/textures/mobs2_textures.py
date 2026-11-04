@@ -356,7 +356,7 @@ def outputs():
         tex / 'entity/soulfire_blaze/soulfire_blaze.png': soulfire_blaze(),
         tex / 'entity/equipment/humanoid/shellker.png': armor_layer(),
         tex / 'item/shellker_helmet.png': helmet_item(),
-        tex / 'item/soulfire_rod.png': rod_item(),
+        # item/soulfire_rod.png: owner variant A (ABN29-5) from tools/textures/abn29_2026_10_29.py (Vanilla blaze rod recoloured); rod_item() is the old draw.
         # item/shellker_spawn_egg.png: tools/textures/spawn_eggs_2026_10_23.py (animated, owner 23.10., TX22-2)
         # item/soulfire_blaze_spawn_egg.png: W24-1: spawn egg drawn by tools/textures/spawn_eggs_2026_10_23.py (style B, owner 23.10.)
         tex / 'mob_effect/high_gravity.png': gravity_icon(),
