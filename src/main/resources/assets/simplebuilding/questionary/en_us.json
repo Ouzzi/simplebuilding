@@ -1498,17 +1498,6 @@
       "The hopper below is the machine's only door out: if it is full, nothing is crafted. A redstone signal is the off switch."
     ]
   },
-  "crafted_arrow": {
-    "lore": [
-      "An arrow made with attention, tip by tip."
-    ],
-    "use": [
-      "Made at the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it."
-    ],
-    "secret": [
-      "At the Fletching Table a Diamond Rod works as an arrow shaft and lets the arrow pierce one more target."
-    ]
-  },
   "raw_ceramic_bucket": {
     "lore": [
       "A bucket of wet clay, still deciding what it wants to be."

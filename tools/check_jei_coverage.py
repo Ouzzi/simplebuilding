@@ -24,7 +24,7 @@ HANDLED_TYPES = {
     "simpletrims:trim_upgrade": "smithing extension (TrimsJeiPlugin)",
     "simpletrims:tool_shapeless": "shapeless subclass, JEI crafting",
     "simpletweaks:claim_deed_copy": "RecipeViewer.special (DeedViewer)",
-    "simplebuilding:fletching": "RecipeViewer.special (LibServices, SimpleBuilding 26.3)",
+    "simplearrows:fletching": "RecipeViewer.special (Fletchings.recipeViewerEntries, Simple Arrows)",
     "simplebuilding:count_based_smithing": "SimpleBuilding's smithing extension (only loaded with SimpleBuilding)",
 }
 VANILLA_PREFIXES = ("minecraft:", "forge:", "neoforge:", "fabric:", "c:")

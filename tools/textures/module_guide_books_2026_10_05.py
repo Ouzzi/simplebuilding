@@ -56,6 +56,8 @@ BOOKS = {
     # 2026-10-30 (a-dino30)
     "simplemachines": ("simplemachines", ("#2a0c0c", "#481414", "#c0463c", "#9c3028", "#7a2420"), "#ffd24a", "Redstone-Rot, Lampen-Bernstein"),
     "simpleenchanting": ("simpleenchanting", ("#1a0c18", "#2e1428", "#8c3c5c", "#6e2a48", "#541e38"), "#c890ff", "Dark-Enchanter-Karmesin, Astral-Violett"),
+    # 2026-11-04 (b-arrows03): the Fletching Table moved in, the guide came with it
+    "simplearrows": ("simplearrows", ("#2c2414", "#463a20", "#c8b07a", "#a8905a", "#86703e"), "#ecebe0", "Befiederungstisch-Holz, Federweiss"),
     "simpleores": ("simpleores", ("#161c28", "#242e42", "#8a9ab4", "#66789a", "#4a5a78"), "#e69a73", "Silberblau, Roségold-Akzent"),
     "simpledinos": ("simpledinos", ("#1c2a12", "#2e4420", "#8a9a50", "#6a7e3a", "#4c5e2a"), "#e8e0b8", "Urwaldgruen, Fossil-Elfenbein"),
     # 2026-10-30 (a-zones31)

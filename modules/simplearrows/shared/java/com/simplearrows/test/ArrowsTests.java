@@ -55,6 +55,24 @@ public final class ArrowsTests {
         ALL.put("light_arrow_light_is_shared", ArrowsTests::lightArrowLightIsShared);
         ALL.put("light_arrow_light_follows_save_data", ArrowsTests::lightArrowLightFollowsSaveData);
         ALL.put("light_arrow_switch_off", ArrowsTests::lightArrowSwitchOff);
+        // Stage 2 (b-arrows03, 04.11.): the Fletching Table from the SimpleBuilding core.
+        ALL.put("fletching_each_tip_adds_its_damage_against_its_targets", FletchingTests::eachTipAddsItsDamageAgainstItsTargets);
+        ALL.put("fletching_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight);
+        ALL.put("fletching_material_shafts_are_only_the_diamond_rod", FletchingTests::materialShaftsAreOnlyTheDiamondRod);
+        ALL.put("fletching_old_netherite_and_enderite_shafts_load_as_sticks", FletchingTests::oldNetheriteAndEnderiteShaftsLoadAsSticks);
+        ALL.put("fletching_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts);
+        ALL.put("fletching_recipe_book_places_the_parts_from_the_inventory", FletchingTests::recipeBookPlacesThePartsFromTheInventory);
+        ALL.put("fletching_every_part_has_its_recipe_book_entry", FletchingTests::everyCombinationHasItsRecipeBookEntry);
+        ALL.put("fletching_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu);
+        ALL.put("fletching_potion_slot_makes_tipped_arrows", FletchingTests::potionSlotMakesTippedArrows);
+        ALL.put("old_fletching_ids_move", FletchingTests::oldFletchingIdsMove);
+        ALL.put("fletching_layout", FletchingTests::fletchingLayout);
+        ALL.put("amethyst_arrow_is_not_recovered", FletchingTests::amethystArrowIsNotRecovered);
+        ALL.put("dummy_head_counts_for_tips", FletchingTests::dummyHeadCountsForTips);
+        ALL.put("tip_tags_are_data", FletchingTests::tipTagsAreData);
+        ALL.put("discover_recipe_unlocks", com.simplearrows.discover.ArrowsDiscover::recipeUnlocks);
+        ALL.put("discover_behaviour_hints", com.simplearrows.discover.ArrowsDiscover::behaviourHints);
+        ALL.put("guide_book", com.simplearrows.guide.ArrowsGuide::gameTest);
     }
 
     private ArrowsTests() {}
@@ -65,12 +83,12 @@ public final class ArrowsTests {
     }
 
     public static void registered(GameTestHelper h) {
-        for (String path : List.of("silver_arrow", "light_arrow")) {
+        for (String path : List.of("silver_arrow", "light_arrow", "crafted_arrow")) {
             h.assertTrue(BuiltInRegistries.ITEM.containsKey(SimpleArrows.id(path)), "item " + path);
             h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleArrows.id(path)), "entity type " + path);
         }
-        h.assertTrue(new ItemStack(ArrowsRegistry.SILVER_ARROW).is(ItemTags.ARROWS) && new ItemStack(ArrowsRegistry.LIGHT_ARROW).is(ItemTags.ARROWS),
-                "bows take both as arrows");
+        h.assertTrue(new ItemStack(ArrowsRegistry.SILVER_ARROW).is(ItemTags.ARROWS) && new ItemStack(ArrowsRegistry.LIGHT_ARROW).is(ItemTags.ARROWS)
+                && new ItemStack(com.simplearrows.fletching.Fletchings.CRAFTED_ARROW).is(ItemTags.ARROWS), "bows take all three as arrows");
         h.assertTrue(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(ArrowsRegistry.SILVER_ARROW_ENTITY).is(EntityTypeTags.ARROWS)
                 && BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(ArrowsRegistry.LIGHT_ARROW_ENTITY).is(EntityTypeTags.ARROWS), "arrow entities");
         h.assertTrue(ArrowsConfig.KEYS.equals(List.of("silverArrowUndeadBonus", "lightArrow")) && ArrowsConfig.silverArrowUndeadBonus == 3

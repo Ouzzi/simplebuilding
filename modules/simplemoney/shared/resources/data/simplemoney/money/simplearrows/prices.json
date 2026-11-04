@@ -1,9 +1,11 @@
 {
   "module": "simplearrows",
-  "derivation": "Simple Arrows' arrows are crafted from cheap materials four at a time like Vanilla's arrow (the Silver Arrow was not sold in Simple Ores either); nothing is sold.",
+  "derivation": "Simple Arrows' arrows are crafted from cheap materials four at a time like Vanilla's arrow (the Silver Arrow was not sold in Simple Ores either, the Fletching Table's arrows were not sold in SimpleBuilding); nothing is sold.",
   "excluded": {
     "simplearrows:light_arrow": "Crafted ammunition (glowstone dust, stick, feather); built, not bought.",
-    "simplearrows:silver_arrow": "Crafted ammunition (silver nugget, stick, feather); built, not bought."
+    "simplearrows:silver_arrow": "Crafted ammunition (silver nugget, stick, feather); built, not bought.",
+    "simplearrows:crafted_arrow": "Fletching Table ammunition (tip, shaft, fletching); built at the table, not bought.",
+    "simplearrows:guide_book": "Old guide book; turns into the Simple Modpack guide."
   },
   "prices": []
 }

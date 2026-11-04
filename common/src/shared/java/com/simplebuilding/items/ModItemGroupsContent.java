@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Inhalt der acht Kreativ-Tabs der Mod ({@link Tab}; "SimpleArrows" ist auf 26.2 leer und damit unsichtbar). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
+ * Inhalt der sieben Kreativ-Tabs der Mod ({@link Tab}; die Pfeile stehen seit 04.11. im Tab "Simple Arrows" des Moduls). Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
  * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs", seit tweaks P8 mit Fliess-Regel): die Kategorien
  * sind weiterhin als Zeilen beschrieben, werden standardmaessig aber ohne kuenstliche Spacer
  * ausgegeben. Jeder Loader registriert je {@link Tab} einen Tab mit der
@@ -43,13 +43,8 @@ public final class ModItemGroupsContent {
         FOOD("food", () -> new ItemStack(ModItems.ENCHANTED_ENDERITE_APPLE)),
         FUNCTIONAL("functional", () -> new ItemStack(ModItems.NETHERITE_HOPPER)),
         /** Druckplatten und Pads (Besitzer 2026-09-29: passen nicht zu den Maschinen). */
-        PADS("pads", () -> new ItemStack(com.simplebuilding.tweaks.block.TweaksBlocks.ELYTRA_PAD)),
-        /** Pfeile vom Befiederungstisch (B14, nur Hauptlinie; auf 26.2 leer und damit unsichtbar). */
-        ARROWS("arrows", () -> com.simplebuilding.version.McVersion.FLETCHING
-                ? com.simplebuilding.fletching.ArrowParts.stack(new com.simplebuilding.fletching.ArrowParts.Parts(
-                        com.simplebuilding.fletching.ArrowParts.Tip.DIAMOND, com.simplebuilding.fletching.ArrowParts.Shaft.STICK,
-                        com.simplebuilding.fletching.ArrowParts.Fletching.FEATHER), 1)
-                : new ItemStack(Items.ARROW));
+        PADS("pads", () -> new ItemStack(com.simplebuilding.tweaks.block.TweaksBlocks.ELYTRA_PAD));
+        // Der Tab "SimpleArrows" (B14) ist seit 04.11. weg: die Pfeile stehen im einen Tab "Simple Arrows" des Moduls (DW04C-4).
 
         public final String id;
         public final Supplier<ItemStack> icon;
@@ -105,7 +100,6 @@ public final class ModItemGroupsContent {
             case FOOD -> CreativeTabLayout.emit(entries, foodRows());
             case FUNCTIONAL -> functional(entries);
             case PADS -> CreativeTabLayout.emit(entries, padsRows());
-            case ARROWS -> CreativeTabLayout.emit(entries, arrowsRows());
         }
     }
 
@@ -686,27 +680,6 @@ public final class ModItemGroupsContent {
      * steht die Blaupause direkt beim Enderit-Baustab, der sie baut. Ein Stapel darf in einem Tab nur
      * einmal stehen, darum wiederholt die Zeile den Enderit-Baustab nicht, sondern teilt sich seine Zeile.
      */
-    /**
-     * Zeilen des Tabs "SimpleArrows" (B14): je Spitze eine Kategorie mit ihren Pfeilen (Schaft, dann Befiederung) in
-     * der Reihenfolge von {@link com.simplebuilding.fletching.ArrowParts#allCombinations()}.
-     */
-    public static List<CreativeTabLayout.Row> arrowsRows() {
-        if (!com.simplebuilding.version.McVersion.FLETCHING) {
-            return List.of();
-        }
-        var rows = new java.util.ArrayList<CreativeTabLayout.Row>();
-        for (var tip : com.simplebuilding.fletching.ArrowParts.Tip.values()) {
-            var stacks = new java.util.ArrayList<ItemStack>();
-            for (var parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
-                if (parts.tip() == tip) {
-                    stacks.add(com.simplebuilding.fletching.ArrowParts.stack(parts, 1));
-                }
-            }
-            rows.add(new CreativeTabLayout.Row("arrows_" + tip.getSerializedName(), stacks, false));
-        }
-        return rows;
-    }
-
     public static CreativeTabLayout.Row buildingPlanningRow() {
         return CreativeTabLayout.Row.besides("building_planning", ModItems.BLUEPRINT, ModItems.CREATIVE_BLUEPRINT, Items.CARTOGRAPHY_TABLE);
     }

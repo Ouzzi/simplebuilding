@@ -116,9 +116,6 @@ public final class SimplebuildingNeoForgeClient {
         if (ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks (b-blocksmove)
             event.registerEntityRenderer(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         }
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            event.registerEntityRenderer(ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
-        }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             event.registerEntityRenderer(ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.client.TrainingDummyRenderer.straw());
             event.registerEntityRenderer(ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.client.TrainingDummyRenderer.dummy());
@@ -181,9 +178,6 @@ public final class SimplebuildingNeoForgeClient {
         event.register(NeoForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
         event.register(NeoForgeModRegistries.BACKPACK_MENU.get(), BackpackScreen::new);
         event.register(NeoForgeModRegistries.TIERED_CHEST_MENU.get(), com.simplebuilding.client.gui.TieredChestScreen::new);
-        if (NeoForgeModRegistries.FLETCHING_MENU != null) {
-            event.register(NeoForgeModRegistries.FLETCHING_MENU.get(), com.simplebuilding.client.gui.FletchingScreen::new);
-        }
         if (NeoForgeModRegistries.AUTO_SMITHER_MENU != null) {
             event.register(NeoForgeModRegistries.AUTO_SMITHER_MENU.get(), com.simplebuilding.client.gui.AutoSmitherScreen::new);
         }

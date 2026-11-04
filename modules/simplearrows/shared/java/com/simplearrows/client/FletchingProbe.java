@@ -33,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
  * Probe for the Fletching Table's potion slot (WE25-9) with the REAL operating-system mouse (pattern of Simple Storage's PipeProbe):
  * inert unless the game folder holds {@code simplearrows-fletching-probe.json}. Then, on the title screen, it creates a flat
  * survival world, gives flint, stick, feather and a potion of swiftness into the hotbar, places a Vanilla fletching table and
- * uses it on the server (SimpleBuilding's table menu opens through the normal path), writes {@code simplearrows-fletching-status.json}
+ * uses it on the server (Simple Arrows' table menu opens through the normal path), writes {@code simplearrows-fletching-status.json}
  * each tick (window position, every menu slot's centre in window pixels with its item) and follows commands from
  * {@code simplearrows-fletching-command.json} ({@code guiScale}, {@code reset}, {@code shot}, {@code quit}). The driver
  * ({@code modules/simplearrows/tools/fletching_probe.py}) moves and clicks the X11 pointer through XTest. No SimpleBuilding class
