@@ -1,0 +1,35 @@
+{
+  "parent": "simplepads:easter/what_have_you_done",
+  "criteria": {
+    "seriously": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplepads:easter_stage": 2
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.easter.seriously.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "simplepads:netherite_elytra_pad"
+    },
+    "title": {
+      "translate": "advancements.simplepads.easter.seriously.title"
+    }
+  },
+  "requirements": [
+    [
+      "seriously"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

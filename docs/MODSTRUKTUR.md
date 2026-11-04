@@ -6,12 +6,12 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
 
 - **SimpleLib** `simplelib` [fertig]: Shared content bundled by SimpleBuilding, Simple Crucibles and Simple Sandwiches: warm food, shared materials and the building cores, id moves, in-world upgrades and UI building blocks.
   - optional: jei
-  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Enchanting, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
+  - required von: Simple Arrows, Simple Beacons, Simple Blocks, Simple Challenges, Simple Crucibles, Simple Earth, Simple Enchanting, Simple Gadgets, Simple Hammers, Simple Interfaces, Simple Lights, Simple Machines, Simple Maps, Simple Mobheads, Simple Mobs, Simple Music, Simple Octets, Simple Ores, Simple Ovens, Simple Pads, Simple Questionary, Simple Shops, Simple Storage, Simple Trims, Simple Tweaks, SimpleBuilding
 
 ## SimpleBuilding
 
 - **SimpleBuilding** `simplebuilding` [fertig]: Building tools, storage, machines, and enchantments.
-  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting
+  - required: cloth-config, SimpleLib, Simple Ovens, Simple Mobheads, Simple Crucibles, Simple Octets, Simple Blocks, Simple Hammers, Simple Storage, Simple Lights, Simple Gadgets, Simple Ores, Simple Machines, Simple Arrows, Simple Mobs, Simple Resonance, Simple Enchanting, Simple Pads
   - optional: jei, roughlyenoughitems, modmenu, jade, appleskin, mousetweaks, trinkets_updated, curios, Simple Maps, Simple Questionary, Simple Riding, Simple Sandwiches, Simple Tweaks, Simple Money, Simple Fun, Simple Dimensions, Simple Trims, Simple End, Simple Respawn, Simple Beacons, Simple Shops, Simple Wanderers, Simple Animals, Simple Music, Simple Earth, Simple Challenges, Simple Dinosaurs
   - **Simple Arrows** `simplearrows` (required) [neu]: Arrows: the Fletching Table (moved from SimpleBuilding on 04.11., ids migrate) builds 4 arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla (tips and shafts of other mods appear with them). Fabric only for now.
     - required: SimpleLib
@@ -53,6 +53,9 @@ Erzeugt aus `modules/modules.json` durch `python tools/modtree/modtree.py` (nich
       - optional: SimpleBuilding, jei, jade, Simple Ores
     - **Simple Foundry** `simplefoundry` (optional) [neu]: A multiblock foundry for Simple Ovens: a tank of melting chambers in a brick hull, fuel on the desk, ore thrown in, the melt poured by layer through spouts into casting trays. Gold, copper and iron, one ingot per ingot.
       - optional: Simple Ovens
+  - **Simple Pads** `simplepads` (required) [neu]: The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra (moved out of SimpleBuilding, DW04C-5). Requires Simple Ores (Enderite tiers) and Simple Mobheads (the heads of the first tiers). Fabric only for now.
+    - required: SimpleLib, Simple Ores, Simple Mobheads
+    - optional: SimpleBuilding
   - **Simple Resonance** `simpleresonance` (required) [neu]: Player value, danger zones and spawn owners: how experienced a player is (playing time, survival, bosses, partial loss on death), how dangerous the land is (soft zones from the spawn), which player a monster spawn belongs to and a newcomer protection. An API for other mods (Simple Mobs gives new monsters status effects by it); works on its own with Vanilla.
     - optional: SimpleBuilding, Simple Mobs
   - **Simple Storage** `simplestorage` (required) [fertig]: Crates (open wooden food boxes for every wood, hoppers and comparators work), the Storage Crafting Table (a crafting table that keeps its grid), tiered and trapped chests, trapped copper chests and tier shulker boxes (more slots, bigger stacks, upgraded in the world keeping their contents), moved from SimpleBuilding (ids migrate). Chest carts and chest boats, bundles, quivers, the placed bundle and the storage enchantments Drawer, Deep Pockets and Funnel (8c-1) also moved, then the four backpacks (8c-2).

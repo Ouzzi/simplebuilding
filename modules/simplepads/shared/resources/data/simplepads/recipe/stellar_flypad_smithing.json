@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplepads:reinforced_flypad",
+  "base": "simplepads:reinforced_flypad",
+  "result": {
+    "id": "simplepads:stellar_flypad"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

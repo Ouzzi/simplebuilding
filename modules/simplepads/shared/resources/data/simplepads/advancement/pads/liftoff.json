@@ -1,0 +1,28 @@
+{
+  "parent": "simplepads:pads/under_pressure",
+  "criteria": {
+    "launchpad": {
+      "conditions": {
+        "feature": "launchpad"
+      },
+      "trigger": "simplepads:pad_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.liftoff.description"
+    },
+    "icon": {
+      "id": "simplepads:launchpad"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.liftoff.title"
+    }
+  },
+  "requirements": [
+    [
+      "launchpad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

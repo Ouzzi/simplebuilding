@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "charge=0": {
+      "model": "simplepads:block/enderite_launchpad"
+    },
+    "charge=1": {
+      "model": "simplepads:block/enderite_launchpad_charge_1"
+    },
+    "charge=2": {
+      "model": "simplepads:block/enderite_launchpad_charge_2"
+    },
+    "charge=3": {
+      "model": "simplepads:block/enderite_launchpad_charge_3"
+    }
+  }
+}

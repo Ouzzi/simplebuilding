@@ -47,7 +47,8 @@ public final class TweaksClient {
         }
 
         boolean jumpDown = client.options.keyJump.isDown();
-        if (jumpDown && !jumpWasDown && player.isFallFlying() && SpawnElytraHud.wearsSpawnElytra(player)) {
+        // 26.3 (b-pads01): Simple Pads sends its own boost.
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB && jumpDown && !jumpWasDown && player.isFallFlying() && SpawnElytraHud.wearsSpawnElytra(player)) {
             TweaksNetwork.sendToServer(new ElytraBoostPayload());
         }
         jumpWasDown = jumpDown;

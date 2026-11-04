@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "simplepads:block/enderite_elytra_pad_active_fade_1"
+  }
+}

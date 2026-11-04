@@ -104,6 +104,7 @@ public class ModTags {
          * {@code simplebuilding} (darum kein {@code Set.of}, das Doppelte ablehnt).
          */
         public static final Set<String> ENDERITE_NAMESPACES = Set.copyOf(java.util.List.of(
+                "simplepads",
                 Simplebuilding.MOD_ID,
                 com.simplebuilding.version.McVersion.MATERIAL_NAMESPACE,
                 com.simplebuilding.version.McVersion.OVENS_NAMESPACE,

@@ -69,6 +69,7 @@ public final class PotionPadTests {
      * neuer Trank - auch ein Verweiltrank - ersetzt ihn, ein Wasser-Wurftrank wischt das Pad leer.
      */
     public static void splashPotionsLandingOnThePadAreStoredAndReplaced(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         // Ersetzen (wie der Treffer, den ein zerschellender Trank dem Block meldet): Splash, Verweil, Wasser
         BlockPos other = new BlockPos(5, 1, 2);
@@ -113,6 +114,7 @@ public final class PotionPadTests {
      * naechsten Betreten wieder bei 0 an.
      */
     public static void standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         int[] seconds = {45, 90, 180};
         int[] percent = {25, 50, 100};
         for (int i = 0; i < PADS.length; i++) {
@@ -169,6 +171,7 @@ public final class PotionPadTests {
      * Tranks steigt dabei mit. Danach ist das Pad in der Abklingzeit und heilt nicht noch einmal.
      */
     public static void instantEffectsApplyOnceAtTheThreeSecondMark(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pad = new BlockPos(2, 1, 2);
         helper.setBlock(pad, TweaksBlocks.POTION_PAD);
@@ -209,6 +212,7 @@ public final class PotionPadTests {
      * etwas, auch nicht nach 3 s Stehen; sie laeuft Tick fuer Tick ab, danach ist das Pad wieder bereit.
      */
     public static void aFullApplicationPutsThePadOnCooldownForTwiceTheEffectDuration(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         int[] cooldownTicks = {1350, 2700, 5400};
         for (int i = 0; i < PADS.length; i++) {
             BlockPos pad = new BlockPos(1 + i * 3, 1, 2);
@@ -252,6 +256,7 @@ public final class PotionPadTests {
      * gesetzt laeuft sie genau dort weiter. Ein bereites Pad faellt ohne Restzeit.
      */
     public static void aPadBrokenDuringCooldownKeepsTheRemainingTimeAndResumesWhenPlacedAgain(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pos = new BlockPos(3, 1, 3);
         ServerPlayer builder = mockPlayer(helper, new Vec3(6.5, 1.0, 6.5));
@@ -315,6 +320,7 @@ public final class PotionPadTests {
      * Trank-Pad und die alten Flypads. Gegenprobe: die Druckplatten sind keine Pads und stapeln bis 64.
      */
     public static void everyPadItemStacksToOne(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<Block> pads = new java.util.ArrayList<>();
         for (TweaksFamilies.Family family : TweaksFamilies.Family.values()) {
             if (family != TweaksFamilies.Family.PRESSURE_PLATE) {
@@ -356,6 +362,7 @@ public final class PotionPadTests {
      * Aufwertungen nehmen weder die Platte der falschen Stufe noch Barren oder den alten Enderit-Kern.
      */
     public static void potionPadRecipesCoverAllThreeTiers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
         Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
         Item end = ModItems.ENDERITE_UPGRADE_TEMPLATE;
@@ -396,6 +403,7 @@ public final class PotionPadTests {
      * Vanillas Mob-Koepfen: einer je Explosion); ein zweiter geladener Creeper bringt den naechsten.
      */
     public static void chargedCreeperExplosionsDropOneBlazeHeadEach(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         Creeper creeper = chargedCreeper(helper, new BlockPos(1, 2, 1));
         helper.assertTrue(creeper.isPowered(), "the lightning did not charge the creeper");
@@ -415,6 +423,7 @@ public final class PotionPadTests {
 
     /** Eine Lohe, die ein Spieler oder ein ungeladener Creeper toetet, laesst keinen Kopf fallen. */
     public static void blazesKilledOtherwiseDropNoHead(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         Creeper plain = helper.spawn(EntityTypes.CREEPER, new BlockPos(1, 2, 1));
         Blaze byCreeper = helper.spawn(EntityTypes.BLAZE, new BlockPos(3, 2, 3));
@@ -440,6 +449,7 @@ public final class PotionPadTests {
      * signal that ignores the potion or the cooldown.
      */
     public static void potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(2, 1, 2);
         helper.setBlock(pad, TweaksBlocks.POTION_PAD);
         helper.assertValueEqual(potionPadSignal(helper, pad), 0, "comparator signal of a potion pad without a potion");
@@ -481,6 +491,7 @@ public final class PotionPadTests {
      * absorbed.
      */
     public static void aDispenserFillsThePotionPadButAHopperCannot(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos thrownPad = new BlockPos(1, 1, 1);
         BlockPos dispenserPos = thrownPad.above(2);
         helper.setBlock(thrownPad, TweaksBlocks.POTION_PAD);

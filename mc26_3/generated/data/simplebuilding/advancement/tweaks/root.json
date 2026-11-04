@@ -5,8 +5,8 @@
         "items": [
           {
             "items": [
-              "simplebuilding:copper_pressure_plate",
-              "simplebuilding:diamond_pressure_plate",
+              "simplepads:copper_pressure_plate",
+              "simplepads:diamond_pressure_plate",
               "simplebuilding:magnet",
               "simplebuilding:detector",
               "simplegadgets:velocity_gauge",
@@ -28,7 +28,7 @@
       "translate": "advancements.simplebuilding.tweaks.root.description"
     },
     "icon": {
-      "id": "simplebuilding:netherite_launchpad"
+      "id": "simplepads:netherite_launchpad"
     },
     "show_toast": false,
     "title": {

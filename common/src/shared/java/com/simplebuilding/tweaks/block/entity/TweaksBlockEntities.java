@@ -39,6 +39,9 @@ public final class TweaksBlockEntities {
             return;
         }
         registered = true;
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            return; // 26.3 (b-pads01): Simple Pads registers the pad block entity types (simplepads:*_be); these stay null
+        }
         SPAWN_TELEPORTER = register("spawn_teleporter_be", factory.create(SpawnTeleporterBlockEntity::new,
                 TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.SPAWN_TELEPORTER_TIER_3,
                 TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));

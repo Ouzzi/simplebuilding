@@ -3637,5 +3637,7 @@
   "simplebuilding.testcentre.command.built_partial": "Teilbau: %s (%s von %s Abschnitten) – /sbtestcentre build baut alles",
   "simplebuilding.testcentre.command.section_not_built": "Abschnitt %s gehört nicht zu diesem Bau (%s)",
   "simplebuilding.testcentre.section.structures": "Strukturen",
-  "simplebuilding.modpack_guide.section": "SimpleBuilding"
+  "simplebuilding.modpack_guide.section": "SimpleBuilding",
+  "text.autoconfig.simplebuilding.option.enableSimplePads": "Simple Pads aktivieren",
+  "text.autoconfig.simplebuilding.option.enableSimplePads.@Tooltip": "Schaltet das gebündelte Modul Simple Pads an oder aus. Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an."
 }

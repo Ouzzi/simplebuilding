@@ -99,6 +99,7 @@ public final class PerformanceTests {
      * vergisst beides im ersten Tick, nachdem er gegangen ist; danach laeuft sein Tick leer.
      */
     public static void anIdleSpawnTeleporterStopsTrackingOncePlayersLeave(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pad = new BlockPos(2, 1, 2);
         helper.setBlock(pad, TweaksBlocks.SPAWN_TELEPORTER_TIER_2);

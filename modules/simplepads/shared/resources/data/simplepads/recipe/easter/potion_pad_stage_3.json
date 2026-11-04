@@ -1,0 +1,9 @@
+{
+  "type": "simplepads:easter_smithing",
+  "addition": "simplepads:enderite_pressure_plate",
+  "base": "simplepads:reinforced_potion_pad",
+  "base_stage": 2,
+  "result": "simplepads:infused_potion_pad",
+  "result_stage": 3,
+  "template": "simpleores:enderite_upgrade_template"
+}

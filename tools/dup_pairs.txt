@@ -80,6 +80,7 @@ common/src/shared/java/com/simplebuilding/mixin/client/MultiPlayerGameModeHammer
 common/src/shared/java/com/simplebuilding/networking/PistonConfigPayload.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonConfigPayload.java allow: sendTo/1
 common/src/shared/java/com/simplebuilding/platform/PistonEventProbe.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonEventProbe.java allow: declare/1 declare/2 pistonRefused/1
 common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackUpgradeRecipe.java
+common/src/shared/java/com/simplebuilding/recipe/EnchantedShapelessRecipe.java modules/simplepads/shared/java/com/simplepads/recipe/EnchantedShapelessRecipe.java
 common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java modules/simplestorage/shared/java/com/simplestorage/bundle/ReinforcedBundleRecipe.java
 common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackArmorSlot.java
 common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java modules/simplestorage/shared/java/com/simplestorage/backpack/BackpackContainer.java
@@ -92,7 +93,44 @@ common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java modules/si
 common/src/shared/java/com/simplebuilding/screen/TieredChestOpenData.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestOpenData.java
 common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java modules/simplestorage/shared/java/com/simplestorage/chest/TieredChestSlot.java
 common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java modules/simplestorage/shared/java/com/simplestorage/backpack/WornBackpackContainer.java
+common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java modules/simplepads/shared/java/com/simplepads/PotionPadRules.java
+common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java modules/simplepads/shared/java/com/simplepads/block/ChunkLoaderBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/CopperPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/DiamondPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java modules/simplepads/shared/java/com/simplepads/block/ElytraPadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java modules/simplepads/shared/java/com/simplepads/block/FilterPressurePlateBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java modules/simplepads/shared/java/com/simplepads/block/FlypadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java modules/simplepads/shared/java/com/simplepads/block/LaunchpadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/LegacyElytraPadBlock.java modules/simplepads/shared/java/com/simplepads/block/LegacyElytraPadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/LegacyFlypadBlock.java modules/simplepads/shared/java/com/simplepads/block/LegacyFlypadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/LegacySpawnTeleporterBlock.java modules/simplepads/shared/java/com/simplepads/block/LegacySpawnTeleporterBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/LegacyTierBlock.java modules/simplepads/shared/java/com/simplepads/block/LegacyTierBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/PadBlock.java modules/simplepads/shared/java/com/simplepads/block/PadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/PadOwnership.java modules/simplepads/shared/java/com/simplepads/block/PadOwnership.java
+common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java modules/simplepads/shared/java/com/simplepads/block/PadTiers.java
+common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java modules/simplepads/shared/java/com/simplepads/block/PotionPadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java modules/simplepads/shared/java/com/simplepads/block/SpawnTeleporterBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/WaterloggedPadBlock.java modules/simplepads/shared/java/com/simplepads/block/WaterloggedPadBlock.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java modules/simplepads/shared/java/com/simplepads/block/entity/ChunkLoaderRegistry.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/CopperPressurePlateBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/ElytraPadBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FilterPlateBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/FlypadBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/LaunchpadBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/OwnedBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/OwnedBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/PadSignalSource.java modules/simplepads/shared/java/com/simplepads/block/entity/PadSignalSource.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/PotionPadBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java modules/simplepads/shared/java/com/simplepads/block/entity/SpawnTeleporterBlockEntity.java
+common/src/shared/java/com/simplebuilding/tweaks/client/SpawnElytraHud.java modules/simplepads/shared/java/com/simplepads/client/SpawnElytraHud.java
+common/src/shared/java/com/simplebuilding/tweaks/command/ChunkLoaderCommand.java modules/simplepads/shared/java/com/simplepads/command/ChunkLoaderCommand.java
+common/src/shared/java/com/simplebuilding/tweaks/easter/EasterEggs.java modules/simplepads/shared/java/com/simplepads/easter/EasterEggs.java
+common/src/shared/java/com/simplebuilding/tweaks/easter/EasterSmithingRecipe.java modules/simplepads/shared/java/com/simplepads/easter/EasterSmithingRecipe.java
+common/src/shared/java/com/simplebuilding/tweaks/easter/FunnyStickItem.java modules/simplepads/shared/java/com/simplepads/easter/FunnyStickItem.java
 common/src/shared/java/com/simplebuilding/tweaks/heads/HeadAbilities.java modules/simplemobheads/shared/java/com/simplemobheads/ability/HeadAbilities.java allow: active/2 calmsBees/1 dig/3 flickerTorches/2 forgetAll/0 friction/2 gaze/3 greet/2 interact/3 is/2 jumpPower/2 layEgg/2 muffledStep/1 ramKnockback/1 resetForTests/1 scaresCreepers/1 seed/1 sniffGround/1 sparesTurtleEggs/1 tick/1 truffle/1 truffleGround/1 wolvesSpare/1
+common/src/shared/java/com/simplebuilding/tweaks/item/LegacyTierBlockItem.java modules/simplepads/shared/java/com/simplepads/item/LegacyTierBlockItem.java
+common/src/shared/java/com/simplebuilding/tweaks/item/PotionPadItem.java modules/simplepads/shared/java/com/simplepads/item/PotionPadItem.java
+common/src/shared/java/com/simplebuilding/tweaks/item/SpawnElytraItem.java modules/simplepads/shared/java/com/simplepads/item/SpawnElytraItem.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/FireBlockInvoker.java modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/mixin/FireBlockInvoker.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/FireBlockInvoker.java modules/simplestorage/shared/java/com/simplestorage/mixin/FireBlockInvoker.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityConsumeEffectMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityConsumeEffectMixin.java
@@ -101,11 +139,24 @@ common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityFarmlandMixin.
 common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityLivingEntityMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityLivingEntityMixin.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityPlayerMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityPlayerMixin.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/HeadAbilityShulkerBoxMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/HeadAbilityShulkerBoxMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/LaunchpadWindChargeMixin.java modules/simplepads/shared/java/com/simplepads/mixin/LaunchpadWindChargeMixin.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/SkullBlockEntityTypeMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/SmithingTransformEasterGuardMixin.java modules/simplepads/shared/java/com/simplepads/mixin/SmithingTransformEasterGuardMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/SpawnElytraDamageMixin.java modules/simplepads/shared/java/com/simplepads/mixin/SpawnElytraDamageMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/SpawnElytraItemEntityMixin.java modules/simplepads/shared/java/com/simplepads/mixin/SpawnElytraItemEntityMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/SpawnElytraSlotMixin.java modules/simplepads/shared/java/com/simplepads/mixin/SpawnElytraSlotMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/client/ExperienceBarMixin.java modules/simplepads/shared/java/com/simplepads/mixin/client/ExperienceBarMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/mixin/client/HudExperienceLevelMixin.java modules/simplepads/shared/java/com/simplepads/mixin/client/HudExperienceLevelMixin.java
 common/src/shared/java/com/simplebuilding/tweaks/mixin/client/WornModHeadMixin.java modules/simplemobheads/shared/java/com/simplemobheads/mixin/client/WornModHeadMixin.java
+common/src/shared/java/com/simplebuilding/tweaks/network/ElytraBoostPayload.java modules/simplepads/shared/java/com/simplepads/network/ElytraBoostPayload.java
 common/src/shared/java/com/simplebuilding/tweaks/network/LaserPayload.java modules/simplegadgets/shared/java/com/simplegadgets/network/LaserPayload.java
+common/src/shared/java/com/simplebuilding/tweaks/spawn/ElytraDamageRules.java modules/simplepads/shared/java/com/simplepads/spawn/ElytraDamageRules.java
+common/src/shared/java/com/simplebuilding/tweaks/spawn/LaunchSafety.java modules/simplepads/shared/java/com/simplepads/spawn/LaunchSafety.java
+common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java modules/simplepads/shared/java/com/simplepads/spawn/SpawnElytra.java
+common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnSetup.java modules/simplepads/shared/java/com/simplepads/spawn/SpawnSetup.java allow: onLevelLoad/1 resolveWorldSpawn/4
 common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java modules/simplelib/shared/java/com/simplelib/api/StackLimits.java allow: cap/1 getMaxStackSize/0 getMaxStackSize/1 limit/2 limit/3 max/2 mirror/2 tryRemove/3
 common/src/shared/java/com/simplebuilding/util/DyedStorage.java modules/simplestorage/shared/java/com/simplestorage/bundle/DyedStorage.java
+common/src/shared/java/com/simplebuilding/util/Feedback.java modules/simplepads/shared/java/com/simplepads/util/Feedback.java
 common/src/shared/java/com/simplebuilding/util/FilterHopper.java modules/simplemachines/shared/java/com/simplemachines/hopper/FilterHopper.java
 common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java modules/simplemachines/shared/java/com/simplemachines/hopper/HopperFilterMode.java allow: of/1
 common/src/shared/java/com/simplebuilding/util/ItemFilter.java modules/simplemachines/shared/java/com/simplemachines/hopper/ItemFilter.java
@@ -115,12 +166,14 @@ common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplefun/sh
 common/src/shared/java/com/simplebuilding/util/ModTags.java modules/simplesandwiches/shared/java/com/simplesandwiches/registry/ModTags.java allow: isDimensionalScrap/1 isEnderiteIngotTierByRule/1 isEnderiteItemByRule/1 isVoidProtectedByRule/1
 common/src/shared/java/com/simplebuilding/util/MusicDiscs.java modules/simplemusic/shared/java/com/simplemusic/disc/MusicDiscs.java allow: Disc/2 Disc/5 Song/4 aSide/0 archaeology/0 bSide/0 bootstrap/1 discs/0 hasTrack/1 items/0 length/1 loot/3 register/1 song/0 songKey/1 songNames/0 sound/0 soundId/1 trackFile/1 trackName/1 tracks/0
 common/src/shared/java/com/simplebuilding/util/OwnedLightHolder.java modules/simpletrims/shared/java/com/simpletrims/light/OwnedLightHolder.java
+common/src/shared/java/com/simplebuilding/util/PadRefs.java modules/simplepads/shared/java/com/simplepads/util/PadRefs.java allow: block/1 blockEntityType/1 component/1 core/1 enderiteTemplate/0 id/1 item/1 mobHead/1 ores/1 trialChamberHeads/0
 common/src/shared/java/com/simplebuilding/util/PistonBoreEffects.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonBoreEffects.java
 common/src/shared/java/com/simplebuilding/util/PistonBreach.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonBreach.java allow: pushReaction/1
 common/src/shared/java/com/simplebuilding/util/PlacedBundles.java modules/simplestorage/shared/java/com/simplestorage/bundle/PlacedBundles.java allow: arrowsShown/1
 common/src/shared/java/com/simplebuilding/util/PlacedPlate.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedPlate.java allow: buildDisc/2 discPlace/3
 common/src/shared/java/com/simplebuilding/util/PlacedSolids.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedSolids.java allow: discBoxes/0 has/1 modelId/1 modelId/2
 common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java modules/simpletrims/shared/java/com/simpletrims/placed/PlacedTemplates.java allow: consumeMaterials/1 extraMaterials/1 hasMaterials/1 isHammerStance/1 isHammerTarget/3 isPlaceGesture/3 isPlaceable/1 isPlaceableBlueprint/1 isPlaceableOctant/1 isPlaceableSmall/1 isPlaceableTemplate/1 isPlacedOctant/2 isToolStance/1 isToolTarget/3 isTrimTemplate/1 itemListed/2 leftToSimpleTrims/1 mayChange/3 migrateToSimpleTrims/4 opensPlacedBlueprint/2 toggleFlat/5 toggleOctantOutline/4 upgrades/0 usePlacedBlueprint/3
+common/src/shared/java/com/simplebuilding/util/PlayerScan.java modules/simplepads/shared/java/com/simplepads/util/PlayerScan.java
 common/src/shared/java/com/simplebuilding/util/RotatorSwap.java modules/simplegadgets/shared/java/com/simplegadgets/rotator/RotatorSwap.java
 common/src/shared/java/com/simplebuilding/util/ShulkerShells.java modules/simplestorage/shared/java/com/simplestorage/rare/ShulkerShells.java allow: canUpgrade/3 shellOf/1 targetIndex/2 upgrade/4
 common/src/shared/java/com/simplebuilding/util/StorageDyes.java modules/simplestorage/shared/java/com/simplestorage/bundle/StorageDyes.java

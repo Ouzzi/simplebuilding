@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:saturation",
+    "minecraft:absorption",
+    "minecraft:health_boost",
+    "minecraft:conduit_power",
+    "minecraft:dolphins_grace",
+    "minecraft:hero_of_the_village",
+    "minecraft:bad_omen",
+    "minecraft:raid_omen",
+    "minecraft:trial_omen",
+    {
+      "id": "minecraft:breath_of_the_nautilus",
+      "required": false
+    }
+  ]
+}

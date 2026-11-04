@@ -12,9 +12,9 @@ import generate as g
 
 # '*_sledgehammer' lives in Simple Hammers' manual since stage 7 (modules/simplehammers/wiki/manual.json).
 # '*backpack' moved to Simple Storage's manual (split stage 8c-2).
+# b-pads01 (04.11.): the pad families ('*elytra_pad', '*flypad', ...) moved to Simple Pads' manual (modules/simplepads/wiki/manual.json).
 FAMILIES = ['*_chisel', '*_building_wand',  # IG31-13: '*_core' moved to SimpleLib's wiki
-            '*elytra_pad', '*flypad', '*spawn_teleporter*', '*chunk_loader', '*launchpad',
-            '*potion_pad', '*copper_pressure_plate', '*_quartz_checker', 'chiseled_*_bricks',
+            '*_quartz_checker', 'chiseled_*_bricks',
             'enderite_*_armor', 'guide_book*', 'nihil_redstone', 'astral_redstone',
             'bridge_redstone']
 
@@ -96,14 +96,16 @@ class ItemNoteTests(unittest.TestCase):
                     return json.loads(path.read_text())
             self.fail('Missing recipe: ' + name)
 
+        # b-pads01 (04.11.): Elytra Pad I and Flypad I are Simple Pads' recipes now.
+        pads = ROOT / 'modules/simplepads/shared/resources/data/simplepads/recipe'
         for name, ingredients in [
                 ('elytra_pad_crafting', ['simplelib:diamond_core',
-                                         'simplebuilding:diamond_pressure_plate', 'minecraft:elytra']),
+                                         'simplepads:diamond_pressure_plate', 'minecraft:elytra']),
                 ('flypad_tier1_crafting', ['simplelib:enderite_core',
-                                          'simplebuilding:enderite_pressure_plate',
+                                          'simplepads:enderite_pressure_plate',
                                           'simplemobheads:shulker_head', 'minecraft:elytra'])]:
-            value = recipe(name)
-            self.assertEqual(value['type'], 'simplebuilding:enchanted_shapeless')
+            value = json.loads((pads / (name + '.json')).read_text())
+            self.assertEqual(value['type'], 'simplepads:enchanted_shapeless')
             self.assertEqual(value['enchantment'], 'minecraft:mending')
             self.assertCountEqual(value['ingredients'], ingredients)
         vault = recipe('astral_vault')

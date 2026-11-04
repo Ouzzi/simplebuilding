@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EMPTY_BY_DESIGN = {
     "simplebuilding:block/dyeable_families": "opt-in list for datapacks/mods: extra families the color brush may recolor",
     "simplebuilding:mob_effect/potion_pad/public": "datapack opt-in: harmful effects that potion pads may still give to everyone",
+    "simplepads:mob_effect/potion_pad/public": "datapack opt-in (Simple Pads, moved from SimpleBuilding 04.11.): harmful effects that potion pads may still give to everyone",
     "simplecrucibles:block/heat_source/extreme": "filled by consumer mods; Simple Crucibles alone has none",
     "simplelib:item/hammers": "filled by a hammer mod; SimpleBuilding's sledgehammer is deliberately not in it (InWorldUpgradeTests)",
     "curios:item/belt": "26.3 overlay of SimpleBuilding (split stage 8c-1): only quivers go on the belt, they are Simple Storage's (its own tag)",

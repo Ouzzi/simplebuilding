@@ -48,9 +48,11 @@ import org.jetbrains.annotations.Nullable;
 public final class EasterEggs {
 
     /** Easter-Stufe 1..{@link #stageCount}; fehlt die Komponente, ist es ein normales Pad. */
-    public static final DataComponentType<Integer> EASTER_STAGE = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,
-            SimpleTweaks.id("easter_stage"),
-            DataComponentType.<Integer>builder().persistent(Codec.intRange(1, 5)).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+    public static final DataComponentType<Integer> EASTER_STAGE = !com.simplebuilding.version.McVersion.PADS_IN_SB
+            // 26.3 (b-pads01): Simple Pads' component (simplepads:easter_stage).
+            ? com.simplebuilding.util.PadRefs.component("easter_stage")
+            : Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleTweaks.id("easter_stage"),
+                    DataComponentType.<Integer>builder().persistent(Codec.intRange(1, 5)).networkSynchronized(ByteBufCodecs.VAR_INT).build());
 
     /** Hoechstens so viele Easter-Stufen hat eine Familie (bei weniger Stufen entsprechend weniger). */
     public static final int MAX_STAGES = 5;
@@ -76,6 +78,10 @@ public final class EasterEggs {
 
     public static void registerItems() {
         if (funnyStick != null) {
+            return;
+        }
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            funnyStick = com.simplebuilding.util.PadRefs.item("funny_stick"); // 26.3: Simple Pads' item (b-pads01)
             return;
         }
         Identifier id = SimpleTweaks.id("funny_stick");

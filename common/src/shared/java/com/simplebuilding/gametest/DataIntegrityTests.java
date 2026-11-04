@@ -558,7 +558,9 @@ public final class DataIntegrityTests {
         for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
             net.minecraft.world.item.crafting.Recipe<?> recipe = holder.value();
             Identifier serializer = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer());
-            if (serializer == null || !MOD_ID.equals(serializer.getNamespace())) {
+            // 26.3 (b-pads01): Simple Pads' serializers (Elytra Pad I, Flypad I, the easter chain) count like SimpleBuilding's own.
+            if (serializer == null || !(MOD_ID.equals(serializer.getNamespace())
+                    || com.simplebuilding.version.McVersion.PADS_NAMESPACE.equals(serializer.getNamespace()))) {
                 continue;
             }
             serializers.add(serializer);
@@ -598,8 +600,9 @@ public final class DataIntegrityTests {
                 }
             }
         }
-        helper.assertTrue(serializers.contains(Identifier.fromNamespaceAndPath(MOD_ID, "enchanted_shapeless")),
-                "no loaded recipe uses simplebuilding:enchanted_shapeless (Elytra Pad I / Flypad I); found only " + serializers);
+        // 26.3 (b-pads01): the serializer is Simple Pads' (simplepads:enchanted_shapeless).
+        helper.assertTrue(serializers.contains(Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.PADS_NAMESPACE, "enchanted_shapeless")),
+                "no loaded recipe uses " + com.simplebuilding.version.McVersion.PADS_NAMESPACE + ":enchanted_shapeless (Elytra Pad I / Flypad I); found only " + serializers);
         helper.assertTrue(problems.isEmpty(), "recipe sync problems: " + problems);
         helper.succeed();
     }
@@ -3062,6 +3065,7 @@ public final class DataIntegrityTests {
      * in SimpleMachines, trailing filler.
      */
     public static void padsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<String> problems = new ArrayList<>();
         List<CreativeTabLayout.Row> expected = new ArrayList<>(List.of(
                 CreativeTabLayout.Row.of("pressure_plates",

@@ -87,6 +87,9 @@ public final class TweaksNetwork {
      * Leiste, mit Toleranz gegen Rundungsfehler.
      */
     public static void handleBoost(ElytraBoostPayload payload, ServerPlayer player) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            return; // 26.3 (b-pads01): the Spawn Elytra boost is Simple Pads'
+        }
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         // Der Client schickt nur im Gleitflug; der Server prueft es jetzt auch (Simple Tweaks nicht).
         if (!chest.is(TweaksItems.SPAWN_ELYTRA) || !player.isFallFlying()) {

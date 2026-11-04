@@ -1,0 +1,9 @@
+{
+  "type": "simplepads:easter_smithing",
+  "addition": "simplepads:netherite_pressure_plate",
+  "base": "simplepads:elytra_pad",
+  "base_stage": 1,
+  "result": "simplepads:netherite_elytra_pad",
+  "result_stage": 2,
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "simplepads:pads/bottoms_up",
+  "criteria": {
+    "infused_potion_pad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplepads:infused_potion_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.infusion.description"
+    },
+    "icon": {
+      "id": "simplepads:infused_potion_pad"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.infusion.title"
+    }
+  },
+  "requirements": [
+    [
+      "infused_potion_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

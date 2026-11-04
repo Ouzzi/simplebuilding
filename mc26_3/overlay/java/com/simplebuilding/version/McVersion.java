@@ -117,6 +117,10 @@ public final class McVersion {
     public static final boolean HOPPERS_IN_SB = false;
     /** Namespace of the mod hoppers, their carts and recipes ({@link #HOPPERS_IN_SB}). */
     public static final String HOPPERS_NAMESPACE = "simplemachines";
+    /** Pads, pressure plates and the Spawn Elytra (b-pads01, DW04C-5, docs/ai/PLAN-B-PADS01-2026-11-04.md). 26.3: the required, bundled sub-mod Simple Pads registers them ({@code simplepads:*}, ids migrate); SimpleBuilding's {@code TweaksBlocks}/{@code TweaksItems}/{@code TweaksComponents} fields point at its objects ({@code util/PadRefs}), its pad block entity types, components, recipe serializers, events, mixins and commands stay off. 26.2 keeps its own. */
+    public static final boolean PADS_IN_SB = false;
+    /** Namespace of the pads, plates, Spawn Elytra and their recipes ({@link #PADS_IN_SB}). */
+    public static final String PADS_NAMESPACE = "simplepads";
     /** Crucible SB parts (2026-10-05): Enderite crucible/barrel, sledgehammer ways, soul lava, copper/enderite buckets (needs SimpleLib, 26.3 only). */
     public static final boolean CRUCIBLE = true;
     /** Trim templates in SimpleBuilding (N18 stage 2-4): on 26.3 they live in the bundled sub-mod Simple Trims ({@code simpletrims:*}, migrated through SimpleLib id moves); SB registers neither the three templates nor their four components and its trim-template code paths stay neutral. */

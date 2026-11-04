@@ -3637,5 +3637,7 @@
   "simplebuilding.testcentre.command.built_partial": "Partial build: %s (%s of %s sections) - /sbtestcentre build builds everything",
   "simplebuilding.testcentre.command.section_not_built": "Section %s is not part of this build (%s)",
   "simplebuilding.testcentre.section.structures": "Structures",
-  "simplebuilding.modpack_guide.section": "SimpleBuilding"
+  "simplebuilding.modpack_guide.section": "SimpleBuilding",
+  "text.autoconfig.simplebuilding.option.enableSimplePads": "Enable Simple Pads",
+  "text.autoconfig.simplebuilding.option.enableSimplePads.@Tooltip": "Turns the bundled Simple Pads module on or off. Off hides the module's creative entries; existing items keep working. Takes effect after a restart. Default: on."
 }

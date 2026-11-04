@@ -1,0 +1,195 @@
+package com.simplepads.block;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simplepads.block.entity.PotionPadBlockEntity;
+import com.simplepads.block.entity.PadsBlockEntities;
+import com.simplepads.component.PadsComponents;
+import com.simplepads.easter.EasterEggs;
+import java.util.List;
+import com.simplepads.util.BlockCodecs;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Trank-Pad I-III (Besitzer 2026-09-28, docs/SIMPLETWEAKS-UEBERNAHME.md Abschnitt 2.4): ein
+ * Wurftrank (Splash oder Verweil), der auf dem Pad zerschellt, wird gespeichert und ersetzt den
+ * vorigen; ein Wasser-Wurftrank wischt das Pad leer. Wer auf dem Pad steht, bekommt die gespeicherten
+ * Wirkungen mit der Verstaerkung des Tranks in drei Schritten (nach 1/2/3 s: 25/50/100 % von 45/90/180 s
+ * fuer Stufe I/II/III, die letzte Easter-Stufe 360 s); Sofortwirkungen einmal beim 3-s-Schritt. Der
+ * 100-%-Schritt setzt das Pad fuer das 1,5-Fache der Wirkdauer in die Abklingzeit ({@link #cooldownAt},
+ * Blockzustand {@link #COOLING} mit animierter Textur), die nur gesetzt weiterlaeuft; abgebaut traegt das
+ * Item die Restzeit ({@link PadsComponents#POTION_PAD_COOLDOWN}). Unbegrenzt haltbar.
+ * Ablauf im Detail: {@link PotionPadBlockEntity}.
+ */
+public class PotionPadBlock extends PadBlock {
+    public static final MapCodec<PotionPadBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            BlockCodecs.propertiesField(),
+            Codec.INT.fieldOf("tier").forGetter(PotionPadBlock::getTier)
+    ).apply(i, PotionPadBlock::new));
+
+    /** Abklingzeit laeuft: das Pad gibt nichts, die Textur ist animiert. */
+    public static final BooleanProperty COOLING = BooleanProperty.create("cooling");
+    /**
+     * Bereit (Besitzer 2026-09-29): ein Trank ist gespeichert, keine Abklingzeit, nicht abgeschaltet - die
+     * Adern gluehen hell. Leer, abgeschaltet oder abklingend steht es auf false (in der Abklingzeit zeigt
+     * {@link #COOLING} die animierte Textur). Gesetzt von {@link PotionPadBlockEntity#serverTick}.
+     */
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+
+    /** Hoechste Stufe. */
+    public static final int MAX_TIER = 3;
+    /** Wirkdauer je Stufe in Ticks: 45 s, 90 s, 180 s. */
+    private static final int[] DURATION_TICKS = {45 * 20, 90 * 20, 180 * 20};
+
+    private final int tier;
+
+    public PotionPadBlock(BlockBehaviour.Properties properties, int tier) {
+        super(properties, Block.box(1, 0, 1, 15, 1, 15), PadOwnership.OWNER_PAD, PadOwnership.STRANGER_PAD);
+        this.tier = Math.max(1, Math.min(MAX_TIER, tier));
+        registerDefaultState(stateDefinition.any().setValue(COOLING, false).setValue(ACTIVE, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(COOLING, ACTIVE);
+        addFadeProperty(builder);
+    }
+
+    /**
+     * Nur im Client: in der Abklingzeit steigt ab und zu ein weisses Dampfwoelkchen auf (das Pad kuehlt
+     * ab), abgeschaltet ein Rauchwoelkchen. Die Trankfarbe eines bereiten Pads schickt der Server.
+     */
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (animateSwitchedOff(level, pos, random)) {
+            return;
+        }
+        if (state.getValue(COOLING) && random.nextInt(14) == 0) {
+            level.addParticle(net.minecraft.core.particles.ParticleTypes.WHITE_SMOKE, pos.getX() + 0.25 + random.nextDouble() * 0.5,
+                    pos.getY() + 0.1, pos.getZ() + 0.25 + random.nextDouble() * 0.5, 0.0, 0.02, 0.0);
+        }
+    }
+
+    /** Ein abgebautes Pad in der Abklingzeit wird wieder als abklingendes Pad gesetzt. */
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Integer rest = context.getItemInHand().get(PadsComponents.POTION_PAD_COOLDOWN);
+        return defaultBlockState().setValue(COOLING, rest != null && rest > 0);
+    }
+
+    public int getTier() {
+        return tier;
+    }
+
+    @Override
+    protected boolean isRedstoneControlled() {
+        return true;
+    }
+
+    /** Wirkdauer der gespeicherten Effekte beim Betreten, in Ticks. */
+    public int effectDuration() {
+        return effectDuration(tier);
+    }
+
+    public static int effectDuration(int tier) {
+        return DURATION_TICKS[Math.max(1, Math.min(MAX_TIER, tier)) - 1];
+    }
+
+    /**
+     * Wirkdauer des gesetzten Pads: die Stufendauer, bei der letzten Easter-Stufe ({@link EasterEggs})
+     * doppelt so lang (Stufe III: 360 s statt 180 s).
+     */
+    public int effectDurationAt(BlockGetter level, BlockPos pos) {
+        return EasterEggs.isBoosted(level, pos) ? 2 * effectDuration() : effectDuration();
+    }
+
+    /** Abklingzeit nach dem vollen Schritt: das 1,5-Fache der Wirkdauer des gesetzten Pads (I 67,5 s, II 135 s, III 270 s, Easter-Endstufe 540 s). */
+    public int cooldownAt(BlockGetter level, BlockPos pos) {
+        // Config tweaks.padTuning.potionPadCooldownFactor (Standard 1,5 = das 1,5-Fache der Wirkdauer; 0 = keine).
+        return (int) Math.round(com.simplepads.SimplePads.config().padTuning.potionPadCooldown()
+                * effectDurationAt(level, pos));
+    }
+
+    /**
+     * Beim Abbau behaelt das Item den gespeicherten Trank und eine laufende Abklingzeit (Restticks als
+     * {@link PadsComponents#POTION_PAD_COOLDOWN}); die Easter-Stufe schreibt {@link PadBlock#getDrops}.
+     */
+    @Override
+    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+        List<ItemStack> drops = super.getDrops(state, params);
+        if (params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof PotionPadBlockEntity pad) {
+            for (ItemStack stack : drops) {
+                if (stack.is(this.asItem())) {
+                    if (pad.getStored() != null) {
+                        stack.set(DataComponents.POTION_CONTENTS, pad.getStored());
+                    }
+                    if (pad.isCoolingDown()) {
+                        stack.set(PadsComponents.POTION_PAD_COOLDOWN, pad.getCooldown());
+                    }
+                }
+            }
+        }
+        return drops;
+    }
+
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new PotionPadBlockEntity(pos, state);
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return level.isClientSide() ? null : createTickerHelper(type, PadsBlockEntities.POTION_PAD, PotionPadBlockEntity::serverTick);
+    }
+
+    /** Ein Wurftrank zerschellt auf dem Pad: seine Wirkungen werden gespeichert (siehe {@link #absorb}). */
+    @Override
+    protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+        super.onProjectileHit(level, state, hit, projectile);
+        if (!level.isClientSide() && PotionPadBlockEntity.isThrownPotion(projectile)
+                && level.getBlockEntity(hit.getBlockPos()) instanceof PotionPadBlockEntity pad
+                && projectile instanceof net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile thrown) {
+            absorb(pad, thrown.getItem());
+        }
+    }
+
+    /**
+     * Speichert die Wirkungen des Tranks auf dem Pad (ersetzt die vorigen). Ein Trank ohne Wirkungen
+     * (Wasser, seltsamer Trank) wischt das Pad leer. Liefert, ob danach Wirkungen gespeichert sind.
+     */
+    public static boolean absorb(PotionPadBlockEntity pad, ItemStack potion) {
+        PotionContents contents = potion.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+        pad.setStored(contents.hasEffects() ? contents : null);
+        return pad.getStored() != null;
+    }
+}

@@ -43,6 +43,7 @@ public final class BlockInfoTests {
 
     /** Launchpad I holds 4; after loading 3 the tooltip says "3 / 4", and the owner line is empty without an owner. */
     public static void launchpadShowsItsChargesAgainstItsCapacity(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, TweaksBlocks.LAUNCHPAD);
         LaunchpadBlockEntity pad = helper.getBlockEntity(pos, LaunchpadBlockEntity.class);
@@ -62,6 +63,7 @@ public final class BlockInfoTests {
      */
     @SuppressWarnings("removal")
     public static void padOwnerIsNamedByTheServer(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, TweaksBlocks.POTION_PAD);
         PotionPadBlockEntity pad = helper.getBlockEntity(pos, PotionPadBlockEntity.class);
@@ -86,6 +88,7 @@ public final class BlockInfoTests {
 
     /** Potion pad: nothing stored, then Swiftness II (speed at potency 1) with 45 ticks = 3 s of cooldown, then ready. */
     public static void potionPadShowsItsPotionAndCooldown(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, TweaksBlocks.POTION_PAD);
         PotionPadBlockEntity pad = helper.getBlockEntity(pos, PotionPadBlockEntity.class);
@@ -115,6 +118,7 @@ public final class BlockInfoTests {
      * owner-online rule ({@code ChunkLoaderRegistry#mayRun}) does not apply.
      */
     public static void chunkLoaderShowsHowManyChunksItHolds(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(1, 1, 1);
         net.minecraft.server.level.ServerLevel level = helper.getLevel();
         BlockPos abs = helper.absolutePos(pos);
@@ -224,6 +228,7 @@ public final class BlockInfoTests {
 
     /** The server data tag carries the lines unchanged (including translated pieces), per topic, and nothing for no lines. */
     public static void linesSurviveTheServerDataTag(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, TweaksBlocks.POTION_PAD);
         PotionPadBlockEntity pad = helper.getBlockEntity(pos, PotionPadBlockEntity.class);

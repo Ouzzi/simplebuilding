@@ -27,7 +27,8 @@ window.WIKI_MODULES = [
       "simplearrows",
       "simplemobs",
       "simpleresonance",
-      "simpleenchanting"
+      "simpleenchanting",
+      "simplepads"
     ],
     "optional": [
       "jei",
@@ -77,10 +78,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 491,
-      "blocks": 283,
-      "recipes": 802,
-      "config": 230,
+      "items": 490,
+      "blocks": 248,
+      "recipes": 776,
+      "config": 231,
       "features": 47
     }
   },
@@ -153,9 +154,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 75
+      "features": 76
     },
-    "dataHash": "b04bc6ddfd77"
+    "dataHash": "73d6d926fc2a"
   },
   {
     "id": "simpleriding",
@@ -2065,5 +2066,38 @@ window.WIKI_MODULES = [
       "features": 5
     },
     "dataHash": "7e14fcae29fd"
+  },
+  {
+    "id": "simplepads",
+    "displayName": "Simple Pads",
+    "description": "The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra (moved out of SimpleBuilding, DW04C-5). Requires Simple Ores (Enderite tiers) and Simple Mobheads (the heads of the first tiers). Fabric only for now.",
+    "version": "0.1.0",
+    "minecraft": "26.3",
+    "loaders": [
+      "fabric"
+    ],
+    "requires": [
+      "simplelib",
+      "simpleores",
+      "simplemobheads"
+    ],
+    "optional": [
+      "simplebuilding"
+    ],
+    "stage": "new",
+    "parent": "simplebuilding",
+    "bundle": "required",
+    "intro": {
+      "en": "Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite, Enderite and copper pressure plates.",
+      "de": "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten."
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
+    "counts": {
+      "items": 3,
+      "blocks": 35,
+      "recipes": 26,
+      "features": 1
+    },
+    "dataHash": "a6711562ef9d"
   }
 ];

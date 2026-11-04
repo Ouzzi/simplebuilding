@@ -1,0 +1,29 @@
+{
+  "parent": "simplepads:pads/root",
+  "criteria": {
+    "potion_pad": {
+      "conditions": {
+        "feature": "potion_pad"
+      },
+      "trigger": "simplepads:pad_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.bottoms_up.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplepads:potion_pad"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.bottoms_up.title"
+    }
+  },
+  "requirements": [
+    [
+      "potion_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

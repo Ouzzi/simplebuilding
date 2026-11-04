@@ -1,0 +1,8 @@
+{
+  "type": "simplepads:easter_smithing",
+  "addition": "minecraft:elytra",
+  "base": "simplepads:enderite_elytra_pad",
+  "result": "simplepads:elytra_pad",
+  "result_stage": 1,
+  "template": "simplelib:diamond_core"
+}

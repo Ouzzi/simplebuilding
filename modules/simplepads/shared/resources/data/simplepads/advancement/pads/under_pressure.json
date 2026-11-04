@@ -1,0 +1,32 @@
+{
+  "parent": "simplepads:pads/root",
+  "criteria": {
+    "diamond_pressure_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplepads:diamond_pressure_plate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.under_pressure.description"
+    },
+    "icon": {
+      "id": "simplepads:diamond_pressure_plate"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.under_pressure.title"
+    }
+  },
+  "requirements": [
+    [
+      "diamond_pressure_plate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -47,6 +47,7 @@ public final class PotionPadRuleTests {
      * nothing to receive still charging the pad.
      */
     public static void harmfulEffectsReachOnlyTheOwnerAndStrangersCannotChargeThePad(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer owner = mockPlayer(helper, new Vec3(0.5, 3.0, 0.5));
         BlockPos mixedPos = new BlockPos(1, 1, 2);
         PotionPadBlockEntity mixed = place(helper, mixedPos, TweaksBlocks.POTION_PAD, custom(
@@ -84,6 +85,7 @@ public final class PotionPadRuleTests {
      * being skipped.
      */
     public static void blockedEffectsAreNeverGivenAndStartNoCooldown(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(2, 1, 2);
         PotionPadBlockEntity be = place(helper, pos, TweaksBlocks.INFUSED_POTION_PAD, custom(
                 new MobEffectInstance(MobEffects.SATURATION, 2400, 0), new MobEffectInstance(MobEffects.BAD_OMEN, 2400, 0)));
@@ -106,6 +108,7 @@ public final class PotionPadRuleTests {
      * {@code grant}.
      */
     public static void levelsAndDurationsNeverExceedVanillaOrThePotion(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 3.0, 0.5));
         int tier = 180 * 20;
@@ -154,6 +157,7 @@ public final class PotionPadRuleTests {
      * basis depending on the tier.
      */
     public static void theCooldownFollowsTheGrantedDurationAndTheEffectMultiplier(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 3.0, 0.5));
         PotionPadBlockEntity nightVision = place(helper, new BlockPos(1, 1, 1), TweaksBlocks.INFUSED_POTION_PAD, new PotionContents(Potions.LONG_NIGHT_VISION));
@@ -192,6 +196,7 @@ public final class PotionPadRuleTests {
      * <p>What breaks it: the lockout not being set or checked, or it binding the pad instead of the player.
      */
     public static void healingLocksThePlayerOutOfEveryPadForOneMinute(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos first = new BlockPos(1, 1, 2);
         BlockPos second = new BlockPos(4, 1, 2);
@@ -222,6 +227,7 @@ public final class PotionPadRuleTests {
      * pad stays ready.
      */
     public static void mobsNeverReceiveAnyPadEffect(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(2, 1, 2);
         PotionPadBlockEntity be = place(helper, pos, TweaksBlocks.POTION_PAD, new PotionContents(Potions.SWIFTNESS));
         Zombie zombie = spawnZombie(helper, pos);
@@ -240,6 +246,7 @@ public final class PotionPadRuleTests {
      * its own duration on a tier III pad beyond what it lasts itself.
      */
     public static void everyVanillaEffectHasDeliberateRules(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Set<String> blocked = Set.of("minecraft:saturation", "minecraft:absorption", "minecraft:health_boost",
                 "minecraft:conduit_power", "minecraft:dolphins_grace", "minecraft:hero_of_the_village",
                 "minecraft:bad_omen", "minecraft:raid_omen", "minecraft:trial_omen", "minecraft:breath_of_the_nautilus");

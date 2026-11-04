@@ -159,6 +159,7 @@ public final class MobHeadTests {
      * verzaubert, mit dem Namen der Verzauberung als Zeile.
      */
     public static void flypadOneNeedsTheShulkerHeadAndAnElytraWithMending(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ItemStack mending = enchanted(helper, Enchantments.MENDING);
         ItemStack unbreaking = enchanted(helper, Enchantments.UNBREAKING);
         ItemStack core = new ItemStack(ModItems.ENDERITE_CORE);

@@ -119,6 +119,7 @@ public final class TweaksTests {
      * 32x32x32, 128x128x192 (nur die Endstufe ist Enderit und traegt den Boost-Vorteil).
      */
     public static void padTiersGrowAndEnderiteSitsBetweenNetheriteAndTheNetherStarTier(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         int[] widths = new int[PadTiers.MAX];
         for (int tier = 1; tier <= PadTiers.MAX; tier++) {
             widths[tier - 1] = (int) (PadTiers.halfWidth(tier) * 2);
@@ -145,6 +146,7 @@ public final class TweaksTests {
      * die Netherstern-Stufen jetzt aus der Enderit-Stufe - und nicht mehr direkt aus Netherit.
      */
     public static void enderiteTiersAreSmithedFromTheNetheriteTierAndTheNetherStarTiersFromEnderite(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Item template = ModItems.ENDERITE_UPGRADE_TEMPLATE;
         Item netherite = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
         Item ingot = ModItems.ENDERITE_INGOT;
@@ -174,6 +176,7 @@ public final class TweaksTests {
      * (Enderit-Vorlage, das zweite als Zutat); das alte Werkbank-Rezept KKK / ESE / FFF gibt es nicht mehr.
      */
     public static void theStellarFlypadIsSmithedFromTwoReinforcedFlypads(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         expectSmithing(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD.asItem(), TweaksBlocks.STELLAR_FLYPAD);
         Optional<RecipeHolder<SmithingRecipe>> one = smithing(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD.asItem());
         helper.assertTrue(one.isEmpty(), "a flypad I and a flypad II already smith something");
@@ -259,6 +262,7 @@ public final class TweaksTests {
      * Fallschaden schuetzt (nur Spawn-Elytren tun das), und laedt sie mit voller Flugzeit.
      */
     public static void elytraPadsEquipAnUnsafeSpawnElytraInTheirArea(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(3, 1, 3);
         helper.setBlock(pad, TweaksBlocks.ELYTRA_PAD);
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
@@ -283,6 +287,7 @@ public final class TweaksTests {
      * Bereich (Zusatzfunktion der Stufe IV, die V behaelt).
      */
     public static void elytraPadsRechargeBoostsInTheColumnAndFromEnderiteOnInTheWholeArea(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(1, 1, 1);
         ServerPlayer player = mockPlayer(helper, new Vec3(6.5, 2.0, 6.5));
         TweaksConfig.Spawn config = SimpleTweaks.config().spawn;
@@ -304,6 +309,7 @@ public final class TweaksTests {
 
     /** Boost: kostet 1/maxBoosts, braucht Gleitflug und Spawn-Elytra, schiebt in Blickrichtung. */
     public static void theSpawnElytraBoostSpendsOneChargeAndOnlyWhileGliding(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
         ItemStack elytra = new ItemStack(TweaksItems.SPAWN_ELYTRA);
         elytra.set(TweaksComponents.BOOST_LEVEL, 1.0f);
@@ -333,6 +339,7 @@ public final class TweaksTests {
      * nach dem Enderit-Launchpad entfaellt genau ein Fallschaden.
      */
     public static void safeSpawnElytrasAndEnderiteLaunchesPreventFallDamage(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
         ItemStack safe = new ItemStack(TweaksItems.SPAWN_ELYTRA);
         SpawnElytra.rechargeAsSpawnElytra(safe, SimpleTweaks.config().spawn);
@@ -369,6 +376,7 @@ public final class TweaksTests {
      * Tweaks nicht: dort brach der Tick dann ab und Pad-Elytren liefen nie ab).
      */
     public static void padElytrasExpireEvenWithTheSpawnElytraSwitchedOff(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
         boolean spawnOn = SimpleTweaks.config().spawn.giveElytraOnSpawn;
         try {
@@ -400,6 +408,7 @@ public final class TweaksTests {
 
     /** Flypads geben Kreativflug im Bereich; wer nicht mehr im Bereich ist, wird vorgemerkt und verliert ihn. */
     public static void flypadsGrantFlightInsideAndTakeItBackOutside(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(3, 1, 3);
         helper.setBlock(pad, TweaksBlocks.FLYPAD);
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5));
@@ -425,6 +434,7 @@ public final class TweaksTests {
      * Stufen aus Enderit und fangen ihn mit dem Sicherheitsnetz (Sanfter Fall) auf - schon Stufe I.
      */
     public static void enderiteFlypadsCatchFlyersLeavingTheirAreaWithSlowFalling(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer first = survivalLikePlayer(helper, new Vec3(1.5, 1.0, 1.5));
         first.getAbilities().mayfly = true;
         first.getAbilities().flying = true;
@@ -449,6 +459,7 @@ public final class TweaksTests {
 
     /** Ausgeschaltete Flypads geben keinen Flug (Config pads.enableFlypads). */
     public static void switchedOffFlypadsGrantNoFlight(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(3, 1, 3);
         helper.setBlock(pad, TweaksBlocks.FLYPAD);
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5));
@@ -476,6 +487,7 @@ public final class TweaksTests {
      * gilt auch fuer sie das Spawn-Ziel.
      */
     public static void spawnTeleportersSendStillPlayersToTheirSpawnPoint(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(2, 1, 2);
         helper.setBlock(pad, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
         BlockPos target = helper.absolutePos(new BlockPos(6, 1, 6));
@@ -506,6 +518,7 @@ public final class TweaksTests {
 
     /** Ohne gesetztes Ziel geht es zum Weltspawn; ein per Befehl gesetztes Ziel gilt fuer alle Stufen. */
     public static void spawnTeleporterTargetsFallBackToTheWorldSpawn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
         int savedY = spawn.spawn1Y;
         try {
@@ -525,6 +538,7 @@ public final class TweaksTests {
 
     /** Kupferplatte: loest erst nach 1 s (unoxidiert) Stehen aus; die Stehzeit waechst mit der Oxidation. */
     public static void copperPlatesWaitLongerTheMoreTheyOxidized(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         helper.assertValueEqual(List.of(
                 CopperPressurePlateBlock.requiredTicks(WeatheringCopper.WeatherState.UNAFFECTED),
                 CopperPressurePlateBlock.requiredTicks(WeatheringCopper.WeatherState.EXPOSED),
@@ -543,6 +557,7 @@ public final class TweaksTests {
 
     /** Oxidation folgt der Kette, behaelt den Besitzer; die Axt kratzt eine Stufe ab. */
     public static void copperPlatesOxidizeInOrderAndTheAxeScrapesThemBack(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<Block> stages = CopperPressurePlateBlock.stages();
         for (int i = 0; i < stages.size(); i++) {
             CopperPressurePlateBlock block = (CopperPressurePlateBlock) stages.get(i);
@@ -572,6 +587,7 @@ public final class TweaksTests {
 
     /** Diamant-Druckplatte: nur Spieler, keine Mobs oder Gegenstaende. */
     public static void diamondPressurePlatesReactToPlayersOnly(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos plate = new BlockPos(2, 1, 2);
         helper.setBlock(plate, TweaksBlocks.DIAMOND_PRESSURE_PLATE);
         helper.spawn(EntityTypes.ZOMBIE, plate);
@@ -596,6 +612,7 @@ public final class TweaksTests {
 
     /** Netherit-Druckplatte: ohne Fass jeder Spieler, mit Fass nur wer einen Gegenstand daraus traegt. */
     public static void netheritePlatesAdmitOnlyHoldersOfBarrelItems(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         FilterPressurePlateBlock plate = (FilterPressurePlateBlock) TweaksBlocks.NETHERITE_PRESSURE_PLATE;
         Player holder = helper.makeMockPlayer(GameType.SURVIVAL);
         Player stranger = helper.makeMockPlayer(GameType.SURVIVAL);
@@ -612,6 +629,7 @@ public final class TweaksTests {
      * auf einem Namensschild im Fass steht (oder der einen Whitelist-Gegenstand traegt).
      */
     public static void enderitePlatesLockToTheirOwnerAndNamedTags(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         FilterPressurePlateBlock plate = (FilterPressurePlateBlock) TweaksBlocks.ENDERITE_PRESSURE_PLATE;
         BlockPos pos = new BlockPos(3, 1, 3);
         helper.setBlock(pos, TweaksBlocks.ENDERITE_PRESSURE_PLATE);
@@ -635,6 +653,7 @@ public final class TweaksTests {
 
     /** Besitzer bauen Platten schnell ab, Fremde sehr langsam; Kreativ bleibt Vanilla. */
     public static void ownersBreakTheirPadsFastAndStrangersSlowly(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(2, 1, 2);
         BlockPos plate = new BlockPos(5, 1, 5);
         helper.setBlock(pad, TweaksBlocks.ELYTRA_PAD);
@@ -654,6 +673,7 @@ public final class TweaksTests {
 
     /** Wer setzt, ist Besitzer (Setzen ueber das BlockItem, wie ein Spieler). */
     public static void placingPadsMakesThePlacerTheOwner(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pos = new BlockPos(3, 1, 3);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         helper.setBlock(pos, TweaksBlocks.SPAWN_TELEPORTER);
@@ -672,6 +692,7 @@ public final class TweaksTests {
      * frei, die ER erzwungen hat - fremde Erzwingungen (hier die der Spieltest-Umgebung) bleiben.
      */
     public static void chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pos = new BlockPos(3, 1, 3);
         BlockPos abs = helper.absolutePos(pos);
@@ -976,6 +997,7 @@ public final class TweaksTests {
      * {@code spawnTeleporterCount} wird uebernommen.
      */
     public static void theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         TweaksConfig.Spawn fresh = new TweaksConfig().spawn;
         helper.assertValueEqual(fresh.firstJoinTeleporterCount, 0, "default spawn teleporters on the first join");
         helper.assertValueEqual(fresh.firstJoinElytraPadCount, 0, "default elytra pads on the first join");
@@ -1176,6 +1198,7 @@ public final class TweaksTests {
 
     /** Die Config-Befehle unter /simplebuilding tweaks schreiben die Config (hier: Flypads aus und wieder an). */
     public static void theTweaksCommandsWriteTheConfig(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         var players = helper.getLevel().getServer().getPlayerList();
         boolean wasOp = players.isOp(player.nameAndId());
@@ -1215,6 +1238,7 @@ public final class TweaksTests {
      * Luecke war bei sofort nachgelegter Elytra eine geschenkte echte).
      */
     public static void spawnElytrasVanishAsSoonAsTheyLeaveTheChestSlot(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(3, 1, 3);
         helper.setBlock(pad, TweaksBlocks.ELYTRA_PAD);
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
@@ -1247,6 +1271,7 @@ public final class TweaksTests {
      * Fallschutz ein Kreis, die Ecken gaben Elytren ohne Schutz).
      */
     public static void theSpawnAreaLiesOnlyInTheSpawnDimensionAndFallProtectionCoversAllOfIt(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
         helper.assertTrue(nether != null, "the test server has no nether");
@@ -1292,6 +1317,7 @@ public final class TweaksTests {
      * damit keine fremde Erzwingung der Spieltest-Umgebung die Chunks schon haelt.
      */
     public static void chunkLoadersReleaseOnSetblockAndHandOverSharedChunks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos enderite = helper.absolutePos(new BlockPos(1, 1, 1)).offset(4096, 0, 4096);
         BlockPos plain = enderite.offset(1, 0, 1);
@@ -1333,6 +1359,7 @@ public final class TweaksTests {
      * ihn abdeckt; und ein Pad nimmt nur Flug zurueck, den ein Flypad gab (nicht den eines anderen Mods).
      */
     public static void overlappingFlypadsKeepThePlayerFlyingAndTakeOnlyTheirOwnFlight(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos first = new BlockPos(1, 1, 1);
         BlockPos second = new BlockPos(5, 1, 5);
         helper.setBlock(first, TweaksBlocks.FLYPAD);
@@ -2384,6 +2411,7 @@ public final class TweaksTests {
      * ein abgebautes Launchpad laesst seine Windkugeln fallen.
      */
     public static void flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         TweaksConfig.Spawn huge = new TweaksConfig().spawn;
         huge.flightTimeSeconds = Integer.MAX_VALUE;
         huge.maxBoosts = Integer.MAX_VALUE;
@@ -2494,6 +2522,7 @@ public final class TweaksTests {
      * erzwungen fuer immer, der neue Loader kennt sie nicht).
      */
     public static void aChunkLoaderReplacedByAnotherLoaderTypeReleasesItsChunks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1)).offset(8192, 0, 8192);
         long chunk = ChunkLoaderBlockEntity.key(pos.getX() >> 4, pos.getZ() >> 4);
@@ -2597,6 +2626,7 @@ public final class TweaksTests {
      * Flypad-Tag - sonst naehme ein Pad spaeter Flug zurueck, den ein anderer Mod gab.
      */
     public static void creativePlayersLoseTheStaleFlypadFlightTag(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = true;
         player.getAbilities().mayfly = true;
@@ -2693,6 +2723,7 @@ public final class TweaksTests {
      * Wasser bleibt stehen. Trocken gesetzt bleibt sie trocken und hinterlaesst Luft.
      */
     public static void padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         BlockPos wet = new BlockPos(4, 1, 4);
         BlockPos dry = new BlockPos(6, 1, 1);

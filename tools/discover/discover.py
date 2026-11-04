@@ -140,6 +140,9 @@ MODS = [
     dict(id="simplearrows", ns=["simplearrows"], cls="ArrowsDiscover", package="com.simplearrows.discover",
          own_packages=["com.simplearrows."],
          grouped={"simplearrows:fletching": ("fletching_table_parts", "combat", ["minecraft:fletching_table", "#minecraft:arrows"])}),
+    # b-pads01 (04.11.): the pads and pressure plates moved here from SimpleBuilding; the hidden easter chain stays secret.
+    dict(id="simplepads", ns=["simplepads"], cls="PadsDiscover", package="com.simplepads.discover",
+         mixin_package="com.simplepads.mixin", own_packages=["com.simplepads."], secret=["simplepads:easter_smithing"]),
     dict(id="simpleores", ns=["simpleores"], cls="OresDiscover", package="com.simpleores.discover",
          own_packages=["com.simpleores."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",

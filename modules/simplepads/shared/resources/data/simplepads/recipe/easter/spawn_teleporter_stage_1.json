@@ -1,0 +1,8 @@
+{
+  "type": "simplepads:easter_smithing",
+  "addition": "simplemobheads:enderman_head",
+  "base": "simplepads:enderite_spawn_teleporter",
+  "result": "simplepads:spawn_teleporter",
+  "result_stage": 1,
+  "template": "simplelib:gold_core"
+}

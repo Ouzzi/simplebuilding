@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplepads:netherite_pressure_plate",
+  "base": "simplepads:elytra_pad",
+  "result": {
+    "id": "simplepads:netherite_elytra_pad"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

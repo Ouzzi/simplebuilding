@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "pad": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplepads:copper_pressure_plate",
+              "simplepads:diamond_pressure_plate",
+              "simplepads:netherite_pressure_plate",
+              "simplepads:enderite_pressure_plate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:block/copper_block",
+    "description": {
+      "translate": "advancements.simplepads.pads.root.description"
+    },
+    "icon": {
+      "id": "simplepads:netherite_launchpad"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.simplepads.pads.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

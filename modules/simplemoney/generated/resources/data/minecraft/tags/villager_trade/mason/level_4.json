@@ -14,23 +14,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/diamond_pressure_plate",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/diamond_spatula",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/reinforced_elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/spawn_teleporter",
       "required": false
     },
     {
@@ -51,6 +35,22 @@
     },
     {
       "id": "simplemoney:links/simpleovens/reinforced_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/diamond_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/reinforced_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_teleporter",
       "required": false
     },
     {

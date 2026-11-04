@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "simplemobheads:blaze_head",
-  "base": "simplebuilding:netherite_pressure_plate",
-  "result": {
-    "id": "simplebuilding:potion_pad"
-  },
-  "template": "simplelib:netherite_core"
-}

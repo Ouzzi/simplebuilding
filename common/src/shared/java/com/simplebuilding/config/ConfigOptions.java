@@ -131,6 +131,7 @@ public final class ConfigOptions {
             "enableSimpleArrows",
             "enableSimpleResonance",
             "enableSimpleEnchanting",
+            "enableSimplePads",
             // <submods:end restart>
             "server.charges.lensMaxCharge",
             "server.charges.rotatorMaxCharge",
@@ -201,6 +202,25 @@ public final class ConfigOptions {
             "server.oreGeneration.sageOre",
             "server.oreGeneration.dimensionalScrap");
 
+    /**
+     * b-pads01 (DW04C-5): the pad options live in Simple Pads on 26.3 ({@code config/simplepads-server.json}, taken over once from
+     * here; {@code McVersion.PADS_IN_SB}).
+     */
+    public static final Set<String> MOVED_TO_PADS = Set.of(
+            "tweaks.pads.enableChunkLoaders", "tweaks.pads.enableElytraPads", "tweaks.pads.enableFlypads",
+            "tweaks.pads.enableSpawnTeleporters", "tweaks.pads.enableLaunchpads", "tweaks.pads.enableTimedCopperPlates",
+            "tweaks.pads.enableFilterPlates", "tweaks.pads.enablePotionPads",
+            "tweaks.padTuning.teleporterTier1WarmupTicks", "tweaks.padTuning.teleporterTier2WarmupTicks",
+            "tweaks.padTuning.teleporterTier3WarmupTicks", "tweaks.padTuning.launchpadStrengthMultiplier",
+            "tweaks.padTuning.potionPadChargeStepTicks", "tweaks.padTuning.potionPadCooldownFactor",
+            "tweaks.spawn.disableFallDamageInSpawn", "tweaks.spawn.firstJoinTeleporterCount", "tweaks.spawn.firstJoinElytraPadCount",
+            "tweaks.spawn.giveElytraOnSpawn", "tweaks.spawn.spawnElytraRadius", "tweaks.spawn.useWorldSpawnAsCenter",
+            "tweaks.spawn.customSpawnElytraX", "tweaks.spawn.customSpawnElytraZ", "tweaks.spawn.flightTimeSeconds",
+            "tweaks.spawn.maxBoosts", "tweaks.spawn.boostStrength", "tweaks.spawn.spawn1X", "tweaks.spawn.spawn1Y",
+            "tweaks.spawn.spawn1Z", "server.pads.strangerPadBreakSeconds", "server.pads.strangerPlateBreakSeconds",
+            "server.dimensionLocks.chunkLoaderBlockedDimensions", "server.dimensionLocks.flypadBlockedDimensions",
+            "server.chunkLoaders.requireOwnerOnline");
+
     /** True if {@code path} belongs to a sub-mod on this line (see {@link #MOVED_TO_OVENS}). */
     public static boolean hidden(String path) {
         return !com.simplebuilding.version.McVersion.OVENS_IN_SB && MOVED_TO_OVENS.contains(path)
@@ -209,7 +229,8 @@ public final class ConfigOptions {
                 || com.simplebuilding.version.McVersion.MATERIALS_IN_ORES && MOVED_TO_ORES.contains(path)
                 || !com.simplebuilding.version.McVersion.PISTONS_IN_SB && MOVED_TO_MACHINES.contains(path)
                 || com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING && MOVED_TO_ENCHANTING.contains(path)
-                || !com.simplebuilding.version.McVersion.HOPPERS_IN_SB && MOVED_TO_MACHINES_HOPPERS.contains(path);
+                || !com.simplebuilding.version.McVersion.HOPPERS_IN_SB && MOVED_TO_MACHINES_HOPPERS.contains(path)
+                || !com.simplebuilding.version.McVersion.PADS_IN_SB && MOVED_TO_PADS.contains(path);
     }
 
     private static final List<Option> ALL;

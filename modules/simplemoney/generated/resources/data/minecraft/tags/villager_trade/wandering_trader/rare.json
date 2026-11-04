@@ -206,18 +206,6 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_chunk_loader",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_flypad",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_helmet",
       "required": false
     },
@@ -227,10 +215,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/enderite_horse_armor",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_launchpad",
       "required": false
     },
     {
@@ -246,15 +230,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/enderite_pressure_plate",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/enderite_shovel",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/enderite_spawn_teleporter",
       "required": false
     },
     {
@@ -263,18 +239,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/enderite_sword",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/fine_elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/flypad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/infused_potion_pad",
       "required": false
     },
     {
@@ -294,27 +258,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/netherite_chunk_loader",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_elytra_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_flypad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_launchpad",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/netherite_nugget",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/netherite_pressure_plate",
       "required": false
     },
     {
@@ -419,30 +363,6 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/polished_nihilith_wall",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/potion_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/reinforced_flypad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/reinforced_potion_pad",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/spawn_elytra",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_2",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/stellar_flypad",
       "required": false
     },
     {
@@ -871,6 +791,86 @@
     },
     {
       "id": "simplemoney:links/simpleovens/netherite_smoker",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/enderite_chunk_loader",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/enderite_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/enderite_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/enderite_launchpad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/enderite_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/enderite_spawn_teleporter",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/fine_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/infused_potion_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/netherite_chunk_loader",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/netherite_elytra_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/netherite_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/netherite_launchpad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/netherite_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/potion_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/reinforced_flypad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/reinforced_potion_pad",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_elytra",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_2",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/stellar_flypad",
       "required": false
     },
     {

@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplepads.guide.chapter",
+  "icon": "minecraft:stone_pressure_plate",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplepads:guide",
+      "title": "simplepads.guide.chapter",
+      "icon": "minecraft:stone_pressure_plate",
+      "page_key": "simplepads.guide.page",
+      "pages": 6,
+      "advancement": "simplepads:guide/chapter",
+      "hint": "minecraft:stone_pressure_plate"
+    }
+  ]
+}

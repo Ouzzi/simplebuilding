@@ -38,8 +38,9 @@ public final class TweaksItems {
 
     private static final List<Item> BLOCK_ITEMS = new ArrayList<>();
 
-    public static final Item SPAWN_ELYTRA = register("spawn_elytra",
-            p -> new SpawnElytraItem(p.stacksTo(1).fireResistant()));
+    // 26.3 (b-pads01): the Spawn Elytra is Simple Pads' item; the field points at it.
+    public static final Item SPAWN_ELYTRA = !McVersion.PADS_IN_SB ? com.simplebuilding.util.PadRefs.item("spawn_elytra")
+            : register("spawn_elytra", p -> new SpawnElytraItem(p.stacksTo(1).fireResistant()));
     // OW24-2 stage G2: on 26.3 the Resonance Rod is Simple Gadgets' (McVersion.GADGETS_IN_SB false, field null, util/GadgetRefs).
     public static final Item LASER_POINTER = !McVersion.GADGETS_IN_SB ? null : register("amethyst_lens",
             // Resonanzstab: Die Haltbarkeit ist die Ladung (nie zerbrechend, Amethyst im Amboss

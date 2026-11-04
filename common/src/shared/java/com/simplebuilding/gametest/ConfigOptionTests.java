@@ -587,6 +587,7 @@ public final class ConfigOptionTests {
             "root.enableSimpleArrows boolean=true",
             "root.enableSimpleResonance boolean=true",
             "root.enableSimpleEnchanting boolean=true",
+            "root.enableSimplePads boolean=true",
             // <submods:end expected>
             "root.tools group:Tools",
             "root.enableDoubleJump boolean=true",
@@ -1231,6 +1232,7 @@ public final class ConfigOptionTests {
                 {"enableSimpleArrows", "simplearrows"},
                 {"enableSimpleResonance", "simpleresonance"},
                 {"enableSimpleEnchanting", "simpleenchanting"},
+                {"enableSimplePads", "simplepads"},
                 // <submods:end switches>
         };
         try {
@@ -1489,6 +1491,7 @@ public final class ConfigOptionTests {
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES, !McVersion.PISTONS_IN_SB);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_ENCHANTING, McVersion.ASTRAL_ENCHANTING);
         moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_MACHINES_HOPPERS, !McVersion.HOPPERS_IN_SB);
+        moved.put(com.simplebuilding.config.ConfigOptions.MOVED_TO_PADS, !McVersion.PADS_IN_SB);
         var visible = com.simplebuilding.config.ConfigOptions.visible();
         int hiddenCount = 0;
         com.google.gson.Gson gson = new com.google.gson.GsonBuilder().setPrettyPrinting().create();
@@ -1504,7 +1507,9 @@ public final class ConfigOptionTests {
                 // An old file with a changed value: flip switches, halve numbers (inside every clamp).
                 Object value = option.defaultValue();
                 Object changed = value instanceof Boolean b ? (Object) !b
-                        : value instanceof Integer n ? (Object) Math.max(1, n / 2) : (Object) (((Double) value) / 2);
+                        : value instanceof Integer n ? (Object) Math.max(1, n / 2)
+                        : value instanceof Float f ? (Object) (f / 2)
+                        : value instanceof String ? (Object) "minecraft:the_nether" : (Object) (((Double) value) / 2);
                 written.put(path, changed);
                 JsonObject group = file;
                 String[] parts = path.split("\\.");
@@ -1745,6 +1750,7 @@ public final class ConfigOptionTests {
 
     /** Drive pad switches, charge steps, cooldowns, warm-ups and launch strength through their readers. */
     public static void newPadOptionsChangeWhatThePadsDo(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         TweaksConfig tweaks = liveConfig(helper).tweaks;
         boolean potionPads = tweaks.pads.enablePotionPads;
         int step = tweaks.padTuning.potionPadChargeStepTicks;

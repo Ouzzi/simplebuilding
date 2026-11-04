@@ -30,27 +30,11 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/copper_pressure_plate",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/copper_spatula",
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/exposed_copper_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/funny_stick",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/lapis_quartz_checker",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/oxidized_copper_pressure_plate",
       "required": false
     },
     {
@@ -74,35 +58,7 @@
       "required": false
     },
     {
-      "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_3",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/spawn_teleporter_tier_4",
-      "required": false
-    },
-    {
       "id": "simplemoney:links/simplebuilding/stone_spatula",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/waxed_copper_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/waxed_exposed_copper_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/waxed_oxidized_copper_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/waxed_weathered_copper_pressure_plate",
-      "required": false
-    },
-    {
-      "id": "simplemoney:links/simplebuilding/weathered_copper_pressure_plate",
       "required": false
     },
     {
@@ -119,6 +75,50 @@
     },
     {
       "id": "simplemoney:links/simplemobheads/bogged_skull",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/exposed_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/funny_stick",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/oxidized_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_3",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/spawn_teleporter_tier_4",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/waxed_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/waxed_exposed_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/waxed_oxidized_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/waxed_weathered_copper_pressure_plate",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplepads/weathered_copper_pressure_plate",
       "required": false
     },
     {

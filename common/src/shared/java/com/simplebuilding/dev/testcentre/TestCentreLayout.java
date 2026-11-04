@@ -217,7 +217,7 @@ public final class TestCentreLayout {
     static {
         Map<String, String> excluded = new LinkedHashMap<>(Map.of(
             "simplebuilding:creative_spacer", "Platzhalter der Kreativ-Tabs, kein Spielinhalt",
-            "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)"));
+            com.simplebuilding.version.McVersion.PADS_NAMESPACE + ":funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)"));
         if (com.simplebuilding.version.McVersion.PISTONS_IN_SB) { // 26.3: Simple Machines' heads (MACH32-MOD stage 2)
             excluded.put("simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item");
             excluded.put("simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item");
@@ -281,7 +281,15 @@ public final class TestCentreLayout {
      */
     public static boolean frameOnly(Block block) {
         // Multi-cell doors (WP-17): a single gallery cell of a door would fall apart at once; their items hang in the tab wall.
-        return block instanceof PadBlock || TweaksBlocks.legacy().contains(block) || block instanceof com.simplebuilding.doors.WideDoorBlock;
+        return block instanceof PadBlock || TweaksBlocks.legacy().contains(block) || block instanceof com.simplebuilding.doors.WideDoorBlock
+                || !com.simplebuilding.version.McVersion.PADS_IN_SB && modulePad(block);
+    }
+
+    /** 26.3 (b-pads01): a pad of Simple Pads (not one of its three metal plates), by id - the module's classes stay unknown here. */
+    private static boolean modulePad(Block block) {
+        net.minecraft.resources.Identifier id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
+        return com.simplebuilding.util.PadRefs.NAMESPACE.equals(id.getNamespace())
+                && !id.getPath().matches("(diamond|netherite|enderite)_pressure_plate");
     }
 
     /** Breite des Ausgabe-Knopfs vorn links an jeder Station (Befehlsblock + eine Spalte Luft). */

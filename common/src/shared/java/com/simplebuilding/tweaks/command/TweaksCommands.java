@@ -67,6 +67,30 @@ public final class TweaksCommands {
                         .then(Commands.literal("dimension")
                                 .then(boolSetting("nether", (c, v) -> c.dimensions.allowNether = v))
                                 .then(boolSetting("end", (c, v) -> c.dimensions.allowEnd = v)))
+                        .then(Commands.literal("worldspawn")
+                                .then(boolSetting("forceExact", (c, v) -> c.spawn.forceExactSpawn = v))
+                                .then(boolSetting("custom", true, (c, v) -> c.spawn.useCustomWorldSpawn = v))
+                                .then(Commands.literal("set")
+                                        .then(Commands.argument("x", IntegerArgumentType.integer())
+                                                .then(Commands.argument("y", IntegerArgumentType.integer(-1, 320))
+                                                        .then(Commands.argument("z", IntegerArgumentType.integer())
+                                                                .executes(ctx -> setWorldSpawn(ctx,
+                                                                        IntegerArgumentType.getInteger(ctx, "x"),
+                                                                        IntegerArgumentType.getInteger(ctx, "y"),
+                                                                        IntegerArgumentType.getInteger(ctx, "z")))))))
+                                .then(Commands.literal("here").executes(ctx -> {
+                                    BlockPos pos = ctx.getSource().getEntityOrException().blockPosition();
+                                    return setWorldSpawn(ctx, pos.getX(), pos.getY(), pos.getZ());
+                                })))
+                        .then(Commands.literal("commands")
+                                .then(boolSetting("enableKillBoats", (c, v) -> c.commands.enableKillBoatsCommand = v))
+                                .then(boolSetting("enableKillCarts", (c, v) -> c.commands.enableKillCartsCommand = v)))));
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            return; // 26.3 (b-pads01): spawn elytra, first-join gifts, teleporter target and pad switches are /simplepads ...
+        }
+        dispatcher.register(Commands.literal("simplebuilding")
+                .requires(SimplebuildingCommand.OPERATOR_ONLY)
+                .then(Commands.literal("tweaks")
                         .then(Commands.literal("spawn")
                                 .then(intSetting("teleporterCount", 0, 64, (c, v) -> c.spawn.firstJoinTeleporterCount = v))
                                 .then(intSetting("elytraPadCount", 0, 64, (c, v) -> c.spawn.firstJoinElytraPadCount = v))
@@ -94,24 +118,7 @@ public final class TweaksCommands {
                                                 })))))
                         .then(Commands.literal("worldspawn")
                                 // Ein Ziel fuer alle Spawn-Teleporter (seit 2026-09-28 keine Ziele je Stufe mehr)
-                                .then(Commands.literal("setspawn1").executes(TweaksCommands::setTeleporterSpawn))
-                                .then(boolSetting("forceExact", (c, v) -> c.spawn.forceExactSpawn = v))
-                                .then(boolSetting("custom", true, (c, v) -> c.spawn.useCustomWorldSpawn = v))
-                                .then(Commands.literal("set")
-                                        .then(Commands.argument("x", IntegerArgumentType.integer())
-                                                .then(Commands.argument("y", IntegerArgumentType.integer(-1, 320))
-                                                        .then(Commands.argument("z", IntegerArgumentType.integer())
-                                                                .executes(ctx -> setWorldSpawn(ctx,
-                                                                        IntegerArgumentType.getInteger(ctx, "x"),
-                                                                        IntegerArgumentType.getInteger(ctx, "y"),
-                                                                        IntegerArgumentType.getInteger(ctx, "z")))))))
-                                .then(Commands.literal("here").executes(ctx -> {
-                                    BlockPos pos = ctx.getSource().getEntityOrException().blockPosition();
-                                    return setWorldSpawn(ctx, pos.getX(), pos.getY(), pos.getZ());
-                                })))
-                        .then(Commands.literal("commands")
-                                .then(boolSetting("enableKillBoats", (c, v) -> c.commands.enableKillBoatsCommand = v))
-                                .then(boolSetting("enableKillCarts", (c, v) -> c.commands.enableKillCartsCommand = v)))
+                                .then(Commands.literal("setspawn1").executes(TweaksCommands::setTeleporterSpawn)))
                         .then(Commands.literal("pads")
                                 .then(boolSetting("chunkLoaders", (c, v) -> c.pads.enableChunkLoaders = v))
                                 .then(boolSetting("elytraPads", (c, v) -> c.pads.enableElytraPads = v))

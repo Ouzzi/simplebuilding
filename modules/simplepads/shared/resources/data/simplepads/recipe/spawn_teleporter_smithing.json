@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplemobheads:enderman_head",
+  "base": "minecraft:light_weighted_pressure_plate",
+  "result": {
+    "id": "simplepads:spawn_teleporter"
+  },
+  "template": "simplelib:gold_core"
+}
