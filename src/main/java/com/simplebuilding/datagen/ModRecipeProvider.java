@@ -1282,7 +1282,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(shelf.hub());
                         baseGuideRecipe.unlockedBy(getHasName(key), has(key));
                     }
-                    baseGuideRecipe.save(output);
+                    // b-guide01: on 26.3 book + crafting table makes SimpleLib's Simple Modpack guide; the hub has no recipe
+                    // (and no recipe unlock) of its own any more.
+                    if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) baseGuideRecipe.save(output);
                     if (!com.simplebuilding.version.McVersion.MEGA_GUIDES) {
                     for (com.simplebuilding.guide.GuideBooks.Book topic : shelf.topics()) {
                         ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(topic);

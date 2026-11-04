@@ -12550,9 +12550,7 @@
         "de_de": "Mega-Handbuch: SimpleBuilding"
       },
       "texture": "assets/textures/item/guide_book.png",
-      "craftedBy": [
-        "simplebuilding:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "properties": {
@@ -56930,51 +56928,6 @@
       }
     },
     {
-      "id": "simplebuilding:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:guide_book",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:crafting_table"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:crafting_table"
-        ]
-      ],
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:gunpowder_from_sulfur",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -81806,6 +81759,33 @@
         ]
       },
       "lines": [
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/guide_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:crafting_table"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:crafting_table"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
         "26.2"
       ]
     },
@@ -128244,7 +128224,7 @@
   "counts": {
     "items": 492,
     "blocks": 283,
-    "recipes": 819,
+    "recipes": 818,
     "lootTables": 302,
     "trades": 20,
     "enchantments": 13,

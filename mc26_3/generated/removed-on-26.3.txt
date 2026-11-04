@@ -442,6 +442,7 @@ data/simplebuilding/advancement/recipes/misc/enderite_quiver_dyed.json
 data/simplebuilding/advancement/recipes/misc/enderite_scrap_from_blasting_layered_raw_enderite.json
 data/simplebuilding/advancement/recipes/misc/enderite_upgrade_template.json
 data/simplebuilding/advancement/recipes/misc/glowing_armor_upgrade_dummy.json
+data/simplebuilding/advancement/recipes/misc/guide_book.json
 data/simplebuilding/advancement/recipes/misc/guide_book_admin.json
 data/simplebuilding/advancement/recipes/misc/guide_book_building.json
 data/simplebuilding/advancement/recipes/misc/guide_book_enchantments.json
@@ -598,6 +599,7 @@ data/simplebuilding/recipe/gray_reinforced_shulker_box.json
 data/simplebuilding/recipe/green_enderite_shulker_box.json
 data/simplebuilding/recipe/green_netherite_shulker_box.json
 data/simplebuilding/recipe/green_reinforced_shulker_box.json
+data/simplebuilding/recipe/guide_book.json
 data/simplebuilding/recipe/guide_book_admin.json
 data/simplebuilding/recipe/guide_book_building.json
 data/simplebuilding/recipe/guide_book_enchantments.json
