@@ -872,17 +872,28 @@ public final class TestCentreSections {
         return c;
     }
 
-    /** Befiederungstisch (B14): der Tisch zum Ausprobieren und alle Pfeile, eine Zeile je Spitze. */
+    /**
+     * Befiederungstisch (B14; seit 04.11. in Simple Arrows): der Tisch zum Ausprobieren und alle Pfeile, eine Zeile je Spitze.
+     * Die Pfeile kommen per Id aus dem Modul-Tab ({@link com.simplebuilding.util.ArrowRefs}); ihr Name folgt der Spitze, so
+     * trennen sich die Zeilen.
+     */
     public static TcCanvas arrows(TcContext ctx) {
         TcCanvas c = new TcCanvas();
         int wallZ = 2;
-        if (!com.simplebuilding.version.McVersion.FLETCHING) {
+        List<ItemStack> arrows = com.simplebuilding.util.ArrowRefs.craftedArrows(ctx.lookup(), 1);
+        if (!com.simplebuilding.version.McVersion.FLETCHING || arrows.isEmpty()) {
             return c;
         }
         List<TcCanvas.Line> lines = new ArrayList<>();
-        for (var row : ModItemGroupsContent.arrowsRows()) {
-            lines.add(new TcCanvas.Line(row.stacks().get(0).getHoverName(), row.stacks()));
+        List<ItemStack> row = new ArrayList<>();
+        for (ItemStack stack : arrows) {
+            if (!row.isEmpty() && !row.get(0).getHoverName().getString().equals(stack.getHoverName().getString())) {
+                lines.add(new TcCanvas.Line(row.get(0).getHoverName(), row));
+                row = new ArrayList<>();
+            }
+            row.add(stack);
         }
+        lines.add(new TcCanvas.Line(row.get(0).getHoverName(), row));
         c.title(0, TcCanvas.SHELF_LINES, wallZ, TcText.t("section.arrows", "Arrows"), TcText.t("section.arrows.sub", "Fletching Table"));
         int end = c.shelves(0, wallZ, lines);
         c.place(1, 0, 0, net.minecraft.world.level.block.Blocks.FLETCHING_TABLE);

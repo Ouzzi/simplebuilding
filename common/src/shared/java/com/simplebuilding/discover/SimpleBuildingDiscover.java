@@ -139,7 +139,6 @@ public final class SimpleBuildingDiscover {
             "simplebuilding:cover",
             "simplebuilding:cracked_diamond",
             "simplebuilding:cracked_ice",
-            "simplebuilding:crafted_arrow",
             "simplebuilding:creative_blueprint",
             "simplebuilding:creative_building_wand",
             "simplebuilding:creative_spacer",

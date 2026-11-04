@@ -18,8 +18,9 @@ import net.minecraft.world.level.gamerules.GameRules;
  *
  * <p>Keine Vermehrung: nur Pfeile mit {@code pickup == ALLOWED} (Unendlichkeit, Kreativ und die Zusatzpfeile von
  * Mehrfachschuss sind {@code CREATIVE_ONLY}), nur mit einem Spieler als Besitzer (Skelette, Werfer nicht), nur ohne
- * Durchschlag (ein durchbohrender Pfeil fliegt weiter und bleibt selbst aufsammelbar), nie Spieler als Ziel und nie
- * Pfeile mit Amethyst-Spitze, die beim Treffer zerspringen. Schalter und Obergrenze: {@code server.arrows}.
+ * Durchschlag (ein durchbohrender Pfeil fliegt weiter und bleibt selbst aufsammelbar), nie Spieler als Ziel. Pfeile, die
+ * beim Treffer zerspringen (Amethyst-Spitze vom Befiederungstisch, seit 04.11. Simple Arrows), setzen dafuer selbst
+ * {@code pickup = DISALLOWED}. Schalter und Obergrenze: {@code server.arrows}.
  */
 public final class ArrowRecovery {
     public static final String SAVE_KEY = "SimpleBuildingStuckArrows";
@@ -40,10 +41,7 @@ public final class ArrowRecovery {
         if (arrow.pickup != AbstractArrow.Pickup.ALLOWED || !(arrow.getOwner() instanceof Player) || arrow.getPierceLevel() > 0) {
             return false;
         }
-        if (target instanceof Player || arrow.getPickupItemStackOrigin().isEmpty()) {
-            return false;
-        }
-        return !(arrow instanceof CraftedArrow crafted && crafted.parts().tip() == ArrowParts.Tip.AMETHYST);
+        return !(target instanceof Player) && !arrow.getPickupItemStackOrigin().isEmpty();
     }
 
     /** Nach einem erfolgreichen Treffer (vor dem Verwerfen des Pfeils): merken oder sofort fallen lassen. */

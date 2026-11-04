@@ -241,6 +241,13 @@ MODULES = [
                 "Astral Enchanter on a Nihil Obsidian floor, which lifts Protection and Feather Falling to V.",
                 "Zwei Verzauberer über dem Vanilla-Tisch: der Dark Enchanter, an dem du drei Verzauberungen mit Reglern wählst, und "
                 "der Astral Enchanter auf Nihil-Obsidian-Boden, der Schutz und Federfall auf V hebt.")),
+    dict(module="simplearrows", ns="simplearrows", package="com.simplearrows.guide", cls="ArrowsGuide", kind="item",
+         author="Simple Arrows", recipe="minecraft:feather",
+         name=("Simple Arrows Guide", "Simple-Arrows-Handbuch"),
+         intro=("Arrows: the Fletching Table builds four arrows from a tip, a shaft and a fletching, optionally with a potion; the "
+                "Light Arrow lights the spot where it sticks, the Silver Arrow hits undead harder.",
+                "Pfeile: der Befiederungstisch baut vier Pfeile aus Spitze, Schaft und Befiederung, auf Wunsch mit Trank; der "
+                "Lichtpfeil erhellt die Stelle, an der er steckt, der Silberpfeil trifft Untote härter.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
@@ -618,6 +625,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "durch Aufheben von: %s. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim "
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
+    "minecraft:feather": ("feather", "Feder"),
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),

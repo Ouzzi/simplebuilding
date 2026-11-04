@@ -6926,36 +6926,6 @@
         ]
       }
     },
-    "crafted_arrow": {
-      "en": {
-        "summary": "Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it.",
-        "details": [
-          "Tips: flint (vanilla damage), copper nugget (+2 against drowned), iron nugget (+0.5, +2 against zombies), gold nugget (+2 against undead), diamond pebble (+1), netherite nugget (+1.5, pierces one more target), enderite nugget (+1.5, no gravity for the first second), amethyst shard (shatters: 1 damage within 1.5 blocks), prismarine shard (no water drag).",
-          "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
-          "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); on 26.3 also the diamond rod (pierces one more target). The Netherite and Enderite Poles (formerly netherite and enderite rods) are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
-          "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
-          "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable.",
-          "Potion slot (above the arrow, WE25-9): put in a potion, splash potion or lingering potion with an effect and the 4 arrows carry it like Vanilla's tipped arrows - a hit gives the effect at 1/8 of the potion's duration, after half a minute in the ground the potion has dried off. Each batch uses up the bottle; without a potion the table makes plain arrows."
-        ]
-      },
-      "de": {
-        "summary": "Pfeile vom Befiederungstisch: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Befiederungstisch öffnet ihn.",
-        "details": [
-          "Spitzen: Feuerstein (Vanilla-Schaden), Kupfer-Nugget (+2 gegen Ertrunkene), Eisen-Nugget (+0,5, +2 gegen Zombies), Gold-Nugget (+2 gegen Untote), Diamantkiesel (+1), Netherit-Nugget (+1,5, durchbohrt ein Ziel mehr), Enderit-Nugget (+1,5, die erste Sekunde ohne Schwerkraft), Amethyst-Splitter (zersplittert: 1 Schaden im Umkreis von 1,5 Blöcken), Prismarin-Splitter (kein Wasserwiderstand).",
-          "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
-          "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); auf 26.3 außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstange (früher Netherit- und Enderitstab) sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
-          "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
-          "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar.",
-          "Trank-Slot (über dem Pfeil, WE25-9): ein Trank, Wurftrank oder Verweiltrank mit Wirkung darin, und die 4 Pfeile tragen ihn wie Vanillas getränkte Pfeile - ein Treffer gibt die Wirkung mit 1/8 der Trankdauer, nach einer halben Minute im Boden ist der Trank abgetrocknet. Jede Herstellung verbraucht die Flasche; ohne Trank macht der Tisch normale Pfeile."
-        ]
-      },
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java",
-        "common/src/shared/java/com/simplebuilding/fletching/CraftedArrow.java",
-        "common/src/shared/java/com/simplebuilding/fletching/FletchingMenu.java",
-        "common/src/shared/java/com/simplebuilding/fletching/FletchingRecipes.java"
-      ]
-    },
     "auto_smither": {
       "en": {
         "summary": "The Smither smiths once per redstone pulse from its template, base and addition. Finished results go into a container in front or stay in its output slot.",
@@ -7712,7 +7682,7 @@
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/fletching/ArrowParts.java"
+        "modules/simplearrows/shared/java/com/simplearrows/fletching/ArrowParts.java"
       ]
     },
     "netherite_pole": {

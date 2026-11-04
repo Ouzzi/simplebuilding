@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplearrows.guide.chapter",
+  "icon": "minecraft:feather",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplearrows:guide",
+      "title": "simplearrows.guide.chapter",
+      "icon": "minecraft:feather",
+      "page_key": "simplearrows.guide.page",
+      "pages": 6,
+      "advancement": "simplearrows:guide/chapter",
+      "hint": "minecraft:feather"
+    }
+  ]
+}

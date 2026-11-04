@@ -5,7 +5,7 @@ item/arrow.png: its pixels are split into tip (grey head), shaft (brown diagonal
 (white feathers bottom left). Each layer keeps vanilla's shape and shading ranks and takes its tones
 from the vanilla item that makes the part (flint, copper nugget, end rod, phantom membrane ...).
 Flint + stick + feather stays pixel-identical to the vanilla arrow. Output goes to
-mc26_3/overlay/resources/assets/simplebuilding/textures/item/arrow/."""
+modules/simplearrows/shared/resources/assets/simplearrows/textures/item/arrow/ (Simple Arrows since 04.11.)."""
 from PIL import Image
 import os
 import sys

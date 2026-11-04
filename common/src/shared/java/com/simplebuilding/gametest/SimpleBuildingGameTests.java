@@ -731,24 +731,6 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("combat_game_test_crafty_shulker_teleports_when_hit_and_respects_the_cooldown", CombatTests::craftyShulkerTeleportsWhenHitAndRespectsTheCooldown)
                     .build(),
-            GameTestSpec.named("fletching_game_test_each_tip_adds_its_damage_against_its_targets", FletchingTests::eachTipAddsItsDamageAgainstItsTargets)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_material_shafts_are_only_the_diamond_rod", FletchingTests::materialShaftsAreOnlyTheDiamondRod)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_old_netherite_and_enderite_shafts_load_as_sticks", FletchingTests::oldNetheriteAndEnderiteShaftsLoadAsSticks)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_recipe_book_places_the_parts_from_the_inventory", FletchingTests::recipeBookPlacesThePartsFromTheInventory)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_every_combination_has_its_recipe_book_entry", FletchingTests::everyCombinationHasItsRecipeBookEntry)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_potion_slot_makes_tipped_arrows", FletchingTests::potionSlotMakesTippedArrows)
-                    .build(),
             GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
                     .build(),
             GameTestSpec.named("crucible_game_test_enderite_tiers_have_twenty_seven_slots_and_double_stacks", CrucibleTests::enderiteTiersHaveTwentySevenSlotsAndDoubleStacks)

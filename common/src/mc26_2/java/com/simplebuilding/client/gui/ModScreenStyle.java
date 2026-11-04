@@ -1,6 +1,5 @@
 package com.simplebuilding.client.gui;
 
-import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.screen.AutoSmitherMenu;
 import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
@@ -60,15 +59,6 @@ public final class ModScreenStyle {
     }
 
     public static boolean autonomousCrafterLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
-        return false;
-    }
-
-    public static boolean fletching(GuiGraphicsExtractor g, FletchingMenu menu, Font font, Component title, int left, int top,
-            int imageWidth) {
-        return false;
-    }
-
-    public static boolean fletchingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
         return false;
     }
 
