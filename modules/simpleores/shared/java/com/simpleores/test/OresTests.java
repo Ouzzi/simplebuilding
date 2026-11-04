@@ -278,6 +278,7 @@ public final class OresTests {
             h.succeed();
         });
         ALL.put("soundproof_attenuation", h -> {
+            OresConfig.reset(); // another test may hold a changed switch across ticks
             // The maths: factor ^ blocks, threshold on the resulting volume.
             check(h, Soundproofing.attenuation(0, 0.5) == 1.0F && Soundproofing.attenuation(1, 0.5) == 0.5F && Soundproofing.attenuation(3, 0.5) == 0.125F, "factor ^ blocks");
             check(h, Soundproofing.audible(4.0F, Soundproofing.attenuation(3, 0.5), 0.05), "TNT (4) behind 3 lead blocks is still heard (0.5)");

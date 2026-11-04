@@ -130,9 +130,10 @@ final class WebHttpTests {
         JsonObject saved = MapsConfig.toJson();
         Predicate<String> loaded = SimpleMaps.modLoaded;
         try {
+            WebMap.stopHttp(); // a server left over from another test must not decide this one
             SimpleMaps.modLoaded = id -> false;
             WebMap.syncHttp(server);
-            h.assertTrue(WebMap.http(server) == null, "no web server with the default config");
+            h.assertTrue(WebMap.http(server) == null, "no web server with the default config (webEnabled=" + MapsConfig.webEnabled + ", webHttpEnabled=" + MapsConfig.webHttpEnabled + ")");
             MapsConfig.webHttpEnabled = true;
             MapsConfig.webHttpPort = 0;
             MapsConfig.webEnabled = false;
@@ -145,14 +146,14 @@ final class WebHttpTests {
             SimpleMaps.modLoaded = id -> false;
             WebMap.syncHttp(server);
             WebHttp http = WebMap.http(server);
-            h.assertTrue(http != null && http.port() > 0 && connects(http.port()), "switched on: port open");
+            h.assertTrue(http != null && http.port() > 0 && connects(http.port()), "switched on: port open (http=" + http + ")");
             h.assertTrue(InetAddress.getByName(http.settings().bind()).isLoopbackAddress(), "bound to the local machine");
             Reply live = get(http.port(), "/live.json");
-            h.assertTrue(live.status() == 200 && live.text().contains("\"players\""), "live.json served: " + live.status());
+            h.assertTrue(live.status() == 200 && live.text().contains("\"players\""), "live.json served: " + live.status() + " " + live.headers());
             int port = http.port();
             MapsConfig.webHttpEnabled = false;
             WebMap.syncHttp(server);
-            h.assertTrue(WebMap.http(server) == null && !http.running() && !connects(port), "switched off: port closed");
+            h.assertTrue(WebMap.http(server) == null && !http.running() && !connects(port), "switched off: port closed (port " + port + ", http=" + WebMap.http(server) + ", running=" + http.running() + ", reconnect=" + connects(port) + ")");
         } catch (IOException e) {
             throw new IllegalStateException(e);
         } finally {

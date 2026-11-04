@@ -25,8 +25,11 @@ public final class Backups {
     private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger("simpletweaks-backup");
     private static ExecutorService worker;
     private static volatile boolean running;
-    /** Set on server stop (review H-1): the zip worker gives up at the next file. */
-    private static volatile boolean cancelled;
+    /**
+     * Cancel flag of the backup that started last (one per run, so a stop of an earlier run cannot abort or release a
+     * later one). Set on server stop (review H-1): the zip worker gives up at the next file.
+     */
+    private static volatile java.util.concurrent.atomic.AtomicBoolean cancel = new java.util.concurrent.atomic.AtomicBoolean();
     /** Levels this backup switched to noSave; server thread only. */
     private static final List<ServerLevel> PAUSED = new ArrayList<>();
     private static long last;
@@ -45,7 +48,7 @@ public final class Backups {
         catch (Exception e) { last = System.currentTimeMillis(); } // first start: the first backup comes one interval later
     }
     public static void stop() {
-        cancelled = true;
+        cancel.set(true);
         if (worker != null) worker.shutdown();
         // let a running zip finish its current file before the server goes on (N-6); bounded, the thread is a daemon anyway
         try { if (worker != null) worker.awaitTermination(5, java.util.concurrent.TimeUnit.SECONDS); }
@@ -61,7 +64,8 @@ public final class Backups {
     public static boolean begin(MinecraftServer server, java.util.function.Consumer<Path> done) {
         if (running || worker == null) return false;
         running = true;
-        cancelled = false;
+        var mine = new java.util.concurrent.atomic.AtomicBoolean();
+        cancel = mine;
         // save-off + save-all flush; if anything fails (or the worker is gone) saving must be on again (N-6)
         try {
             for (var level : server.getAllLevels()) if (!level.noSave) { level.noSave = true; PAUSED.add(level); }
@@ -78,12 +82,12 @@ public final class Backups {
         broadcast(server, Component.translatable("simpletweaks.admin.backup.started").withStyle(ChatFormatting.GRAY));
         try { worker.submit(() -> {
             Path archive = null;
-            try { archive = zip(world, dir, name); prune(dir, world.getFileName() + "-", keep); }
+            try { archive = zip(world, dir, name, mine); prune(dir, world.getFileName() + "-", keep); }
             catch (Exception e) { LOG.error("World backup failed", e); }
             final Path result = archive;
             server.execute(() -> {
-                resume();
-                running = false;
+                // a stale callback of a stopped run must not release the saving pause of a newer run
+                if (cancel == mine) { resume(); running = false; }
                 last = System.currentTimeMillis();
                 try { Files.createDirectories(dir); Files.writeString(marker(server), Long.toString(last)); } catch (IOException ignored) {}
                 broadcast(server, result == null ? Component.translatable("simpletweaks.admin.backup.failed").withStyle(ChatFormatting.RED)
@@ -109,7 +113,7 @@ public final class Backups {
      * make the worker stop zipping.
      */
     public static void stopping() {
-        cancelled = true;
+        cancel.set(true);
         resume();
         running = false;
     }
@@ -123,12 +127,12 @@ public final class Backups {
         for (var p : server.getPlayerList().getPlayers()) if (AdminPerms.has(p, Admin.config().backups().permission())) p.sendSystemMessage(text);
     }
 
-    static Path zip(Path world, Path dir, String name) throws IOException {
+    static Path zip(Path world, Path dir, String name, java.util.concurrent.atomic.AtomicBoolean cancelled) throws IOException {
         Files.createDirectories(dir);
         cleanParts(dir);
         Path part = dir.resolve(name + ".part"), out = dir.resolve(name);
         try {
-            writeZip(world, dir, name, part);
+            writeZip(world, dir, part, cancelled);
         } catch (IOException | RuntimeException e) {
             Files.deleteIfExists(part);
             throw e;
@@ -145,19 +149,29 @@ public final class Backups {
             }
         } catch (IOException ignored) {}
     }
-    private static void writeZip(Path world, Path dir, String name, Path part) throws IOException {
-        try (var zip = new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(part)));
-             var walk = Files.walk(world)) {
-            for (var file : (Iterable<Path>) walk::iterator) {
-                if (cancelled) throw new IOException("Backup cancelled (server stopping)");
-                if (!Files.isRegularFile(file) || file.startsWith(dir) || file.getFileName().toString().equals("session.lock")) continue;
-                String entry = world.getFileName() + "/" + world.relativize(file).toString().replace('\\', '/');
-                try (var in = Files.newInputStream(file)) {
-                    zip.putNextEntry(new ZipEntry(entry));
-                    in.transferTo(zip);
-                    zip.closeEntry();
-                } catch (IOException e) { LOG.warn("Skipped {} in the backup: {}", file, e.toString()); }
-            }
+    private static void writeZip(Path world, Path dir, Path part, java.util.concurrent.atomic.AtomicBoolean cancelled) throws IOException {
+        try (var zip = new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(part)))) {
+            // The world is live (other threads delete temp files, the backup folder may sit inside): a file that vanishes is skipped.
+            Files.walkFileTree(world, new SimpleFileVisitor<Path>() {
+                @Override public FileVisitResult preVisitDirectory(Path d, java.nio.file.attribute.BasicFileAttributes a) {
+                    return d.startsWith(dir) ? FileVisitResult.SKIP_SUBTREE : FileVisitResult.CONTINUE;
+                }
+                @Override public FileVisitResult visitFile(Path file, java.nio.file.attribute.BasicFileAttributes a) throws IOException {
+                    if (cancelled.get()) throw new IOException("Backup cancelled (server stopping)");
+                    if (!a.isRegularFile() || file.getFileName().toString().equals("session.lock")) return FileVisitResult.CONTINUE;
+                    String entry = world.getFileName() + "/" + world.relativize(file).toString().replace('\\', '/');
+                    try (var in = Files.newInputStream(file)) {
+                        zip.putNextEntry(new ZipEntry(entry));
+                        in.transferTo(zip);
+                        zip.closeEntry();
+                    } catch (IOException e) { LOG.warn("Skipped {} in the backup: {}", file, e.toString()); }
+                    return FileVisitResult.CONTINUE;
+                }
+                @Override public FileVisitResult visitFileFailed(Path file, IOException e) {
+                    LOG.warn("Skipped {} in the backup: {}", file, e.toString());
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         }
     }
     static void prune(Path dir, String prefix, int keep) throws IOException {

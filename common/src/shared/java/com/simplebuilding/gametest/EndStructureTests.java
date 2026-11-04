@@ -155,7 +155,8 @@ public final class EndStructureTests {
         helper.assertTrue(mound > 150, "wreck is not buried in an end-stone mound, found " + mound);
         var frames = helper.getLevel().getEntitiesOfClass(ItemFrame.class, new AABB(base).inflate(14));
         helper.assertTrue(frames.size() == 1 && frames.get(0).getItem().is(Items.ELYTRA)
-                && frames.get(0).getItem().getDamageValue() == frames.get(0).getItem().getMaxDamage() - 1, "expected one frame with a broken elytra");
+                && frames.get(0).getItem().getDamageValue() == frames.get(0).getItem().getMaxDamage() - 1,
+                "expected one frame with a broken elytra, found " + frames.size() + " " + frames.stream().map(f -> f.getItem() + "@" + f.blockPosition()).toList() + " base " + base);
         frames.forEach(f -> f.discard());
         clear(helper, base);
         place(helper, "wreck_bow_none", base);
