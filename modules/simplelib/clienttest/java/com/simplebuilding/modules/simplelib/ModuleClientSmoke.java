@@ -90,6 +90,18 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         check(zoomed < 0.9, "wheel does not zoom during free look: " + zoomed);
         check(context.computeOnClient(mc -> mc.player.getInventory().getSelectedSlot()) == slot0, "the wheel scrolled the hotbar during free look");
         context.takeScreenshot("freelook-zoomed");
+        // b-qw10: the start point follows the real (zoomed) field of view; expectation = same pinhole projection, offset scales with tan(fov/2)
+        double[] z = context.computeOnClient(mc -> {
+            double base = mc.options.fov().get(), cam = mc.gameRenderer.mainCamera().getFov();
+            int w = mc.getWindow().getGuiScaledWidth(), h = mc.getWindow().getGuiScaledHeight();
+            int[] p0 = com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), w, h, base);
+            int[] p1 = com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), w, h, cam);
+            double k = Math.tan(Math.toRadians(base) / 2) / Math.tan(Math.toRadians(cam) / 2);
+            if (p0 == null || p1 == null) return null;
+            return new double[]{base, cam, p1[0] - (w / 2.0 + (p0[0] - w / 2.0) * k), p1[1] - (h / 2.0 + (p0[1] - h / 2.0) * k)};
+        });
+        check(z != null && z[1] < z[0] - 1, "zoom does not narrow the camera fov: " + java.util.Arrays.toString(z));
+        check(z != null && Math.abs(z[2]) <= 1.5 && Math.abs(z[3]) <= 1.5, "start point off under zoom: " + java.util.Arrays.toString(z));
         context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
         context.waitTicks(30);
         check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFactor()) == 1.0, "zoom not reset after free look ended");
