@@ -199,29 +199,31 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         var function = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.FUNCTION;
         var keyboard = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.KEYBOARD;
         // UI03 (Variant A): the pages in the inventory-grey box ("-box", style on) next to Vanilla's options background ("-old", style off)
+        String[][] names = {{"ui03-keys-list-old", "ui03-keys-cell-old", "ui03-keys-keyboard-old", "ui03-keys-editor-old"},
+                {"ui03-keys-list-box", "ui03-keys-cell-box", "ui03-keys-keyboard-box", "ui03-keys-editor-box"}};
         for (boolean on : new boolean[] {false, true}) {
-            String sfx = on ? "-box" : "-old";
+            String[] nm = names[on ? 1 : 0];
             UiStyleToggle.setEnabled(on);
             context.runOnClient(c -> {
                 com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us");
                 c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
             });
             context.waitTicks(3);
-            context.takeScreenshot("ui03-keys-list" + sfx);
+            context.takeScreenshot(nm[0]);
             context.runOnClient(c -> ((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).openKey(87));
             context.waitTicks(3);
-            context.takeScreenshot("ui03-keys-cell" + sfx);
+            context.takeScreenshot(nm[1]);
             context.runOnClient(c -> {
                 com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us");
                 c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
             });
             context.waitTicks(3);
-            context.takeScreenshot("ui03-keys-keyboard" + sfx);
+            context.takeScreenshot(nm[2]);
             context.runOnClient(c -> c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysEditorScreen(
                     new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null), "us",
                     com.simplelib.api.client.keys.KeyboardLayout.cells(com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us"))));
             context.waitTicks(3);
-            context.takeScreenshot("ui03-keys-editor" + sfx);
+            context.takeScreenshot(nm[3]);
         }
         UiStyleToggle.setEnabled(true);
         record Shot(String name, com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View view, com.simplelib.api.client.keys.KeyboardLayout.Size size) {}
