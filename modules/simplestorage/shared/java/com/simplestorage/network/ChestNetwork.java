@@ -226,18 +226,24 @@ public final class ChestNetwork {
     }
 
     /**
-     * The containers a window works on: the controller itself first, then the chests. A chest a player may not open (locked) stays
-     * out for that player. Looked up fresh for every use; hold it only for one action.
+     * The containers a window or the controller's intake works on: the controller itself first, then the chests. A chest a player
+     * may not open (locked) stays out for that player; without a player (hoppers, pipes) every chest counts, like a Vanilla hopper.
+     * Looked up fresh for every use; hold it only for one action.
+     *
+     * <p>DW04C-2 (owner 04.11.): the controller has no inventory of its own. Its slots are only listed and emptied (items an older
+     * version stored there); {@link #insert} never puts anything into them.
      */
     public static final class Storage {
         private final List<Container> containers = new ArrayList<>();
+        /** Index of the first container {@link #insert} may fill: the one after the controller. */
+        private static final int FIRST_TARGET = 1;
 
-        public Storage(Level level, Container controller, Members members, Player player) {
+        public Storage(Level level, Container controller, Members members, @org.jetbrains.annotations.Nullable Player player) {
             this.containers.add(controller);
             for (BlockPos pos : members.chests()) {
                 BlockEntity entity = level.getBlockEntity(pos);
                 if (!(entity instanceof Container container)) continue;
-                if (entity instanceof BaseContainerBlockEntity locked && !locked.canOpen(player)) continue;
+                if (player != null && entity instanceof BaseContainerBlockEntity locked && !locked.canOpen(player)) continue;
                 if (entity instanceof RandomizableContainerBlockEntity loot && loot.getLootTable() != null) loot.unpackLootTable(player);
                 this.containers.add(container);
             }
@@ -290,16 +296,27 @@ public final class ChestNetwork {
             return !box || com.simplestorage.chest.TieredShulkerBoxBlockEntity.canHold(stack);
         }
 
-        /** Puts {@code stack} into the chests (onto the same kind first, then empty slots, controller first); returns the rest. */
+        /** Whether {@code container} already holds {@code stack}'s kind somewhere. */
+        private static boolean holds(Container container, ItemStack stack) {
+            for (int slot = 0; slot < container.getContainerSize(); slot++) {
+                if (ItemStack.isSameItemSameComponents(container.getItem(slot), stack)) return true;
+            }
+            return false;
+        }
+
+        /**
+         * Puts {@code stack} into the chests, never into the controller (DW04C-2); returns the rest. Order: onto stacks of the same
+         * kind, then empty slots of a chest that holds the kind already, then any empty slot (network order).
+         */
         public ItemStack insert(ItemStack stack) {
             ItemStack rest = stack.copy();
-            for (int pass = 0; pass < 2 && !rest.isEmpty(); pass++) {
-                for (Container container : this.containers) {
-                    if (rest.isEmpty()) break;
+            for (int pass = 0; pass < 3 && !rest.isEmpty(); pass++) {
+                for (int c = FIRST_TARGET; c < this.containers.size() && !rest.isEmpty(); c++) {
+                    Container container = this.containers.get(c);
+                    if (!accepts(container, rest) || pass == 1 && !holds(container, rest)) continue;
                     boolean touched = false;
                     for (int slot = 0; slot < container.getContainerSize() && !rest.isEmpty(); slot++) {
                         ItemStack here = container.getItem(slot);
-                        if (!accepts(container, rest)) break;
                         if (pass == 0 && !here.isEmpty() && ItemStack.isSameItemSameComponents(here, rest)) {
                             int room = container.getMaxStackSize(here) - here.getCount();
                             int move = Math.min(room, rest.getCount());
@@ -308,7 +325,7 @@ public final class ChestNetwork {
                                 rest.shrink(move);
                                 touched = true;
                             }
-                        } else if (pass == 1 && here.isEmpty() && container.canPlaceItem(slot, rest)) {
+                        } else if (pass > 0 && here.isEmpty() && container.canPlaceItem(slot, rest)) {
                             int move = Math.min(container.getMaxStackSize(rest), rest.getCount());
                             if (move > 0) {
                                 container.setItem(slot, rest.split(move));
@@ -320,6 +337,24 @@ public final class ChestNetwork {
                 }
             }
             return rest;
+        }
+
+        /** Whether all of {@code stack} would fit into the chests ({@link #insert} would return nothing); changes nothing. */
+        public boolean fits(ItemStack stack) {
+            long room = 0;
+            for (int c = FIRST_TARGET; c < this.containers.size() && room < stack.getCount(); c++) {
+                Container container = this.containers.get(c);
+                if (!accepts(container, stack)) continue;
+                for (int slot = 0; slot < container.getContainerSize() && room < stack.getCount(); slot++) {
+                    ItemStack here = container.getItem(slot);
+                    if (here.isEmpty()) {
+                        if (container.canPlaceItem(slot, stack)) room += container.getMaxStackSize(stack);
+                    } else if (ItemStack.isSameItemSameComponents(here, stack)) {
+                        room += Math.max(0, container.getMaxStackSize(here) - here.getCount());
+                    }
+                }
+            }
+            return room >= stack.getCount();
         }
     }
 }

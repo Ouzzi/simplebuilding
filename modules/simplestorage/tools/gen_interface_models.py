@@ -25,6 +25,8 @@ SIDE = [(1, 0, -1, 15, 9, 2)], (6, 6, 2, 10, 9, 6)
 FRONT = [(1, 0, 0, 15, 9, 2), (1, 0, -1, 7, 9, 0), (9, 0, -1, 15, 9, 0), (7, 0, -1, 9, 7, 0)], (6, 6, 2, 10, 9, 6)
 FLAT_EDGES = {'e': (15, 1, 0, 16, 15, 3), 'w': (0, 1, 0, 1, 15, 3), 'u': (1, 15, 0, 15, 16, 3), 'd': (1, 0, 0, 15, 1, 3)}
 SIDE_EDGES = {'e': (15, 0, -1, 16, 9, 2), 'w': (0, 0, -1, 1, 9, 2)}
+# DW04C-1: the 1 px corner between two edge strips, drawn when both are on (InterfaceBlock.FLAT_CORNERS)
+FLAT_CORNERS = {'eu': (15, 15, 0, 16, 16, 3), 'ed': (15, 0, 0, 16, 1, 3), 'wu': (0, 15, 0, 1, 16, 3), 'wd': (0, 0, 0, 1, 1, 3)}
 ROT = {'north': {}, 'east': {'y': 90}, 'south': {'y': 180}, 'west': {'y': 270}, 'up': {'x': 270}, 'down': {'x': 90}}
 
 
@@ -99,6 +101,8 @@ def main():
     write(m / 'chest_interface_plate_front.json', model([plate_faces(b, '#plate', 1, 9, 14, 9) for b in FRONT[0]] + [post(FRONT[1], '#plate')], low))
     for k, box in FLAT_EDGES.items():
         write(m / f'chest_interface_edge_{k}.json', model([plate_faces(box, '#plate', 1, 15, 14, 14)], T))
+    for k, box in FLAT_CORNERS.items():
+        write(m / f'chest_interface_corner_{k}.json', model([plate_faces(box, '#plate', 1, 15, 14, 14)], T))
     for k, box in SIDE_EDGES.items():
         write(m / f'chest_interface_side_edge_{k}.json', model([plate_faces(box, '#plate', 1, 9, 14, 9)], low))
 
@@ -121,6 +125,9 @@ def main():
             for k in FLAT_EDGES:
                 parts.append({'when': {'facing': f, 'mount': chest, f'edge_{k}': 'true'},
                               'apply': {'model': f'{NS}:block/chest_interface_edge_{k}', **rot}})
+            for k in FLAT_CORNERS:
+                parts.append({'when': {'facing': f, 'mount': chest, f'edge_{k[0]}': 'true', f'edge_{k[1]}': 'true'},
+                              'apply': {'model': f'{NS}:block/chest_interface_corner_{k}', **rot}})
     write(bs, {'multipart': parts + wires})
 
 
