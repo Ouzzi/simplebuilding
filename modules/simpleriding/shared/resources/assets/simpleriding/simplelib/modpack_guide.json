@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleriding.guide.chapter",
+  "icon": "minecraft:hay_block",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleriding:guide",
+      "title": "simpleriding.guide.chapter",
+      "icon": "minecraft:hay_block",
+      "page_key": "simpleriding.guide.page",
+      "pages": 15,
+      "advancement": "simpleriding:guide/chapter",
+      "hint": "minecraft:hay_block"
+    }
+  ]
+}

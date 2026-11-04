@@ -105,6 +105,7 @@
   "screen.simplemaps.frame.status.error.scale": "Scale: 8:1, 4:1, 2:1, 1:1 … 1:64",
   "screen.simplemaps.frame.status.error.range": "This chunk is outside the world",
   "item.simplemaps.guide_book": "Simple Maps Guide",
+  "simplemaps.guide.chapter": "Simple Maps",
   "simplemaps.guide.page.1.title": "Simple Maps",
   "simplemaps.guide.page.1": "Wayfinder Maps that show where you have been, a big map screen with waypoints, cartography and map displays on item frames.",
   "simplemaps.guide.page.2.title": "Wayfinder maps",
@@ -128,9 +129,5 @@
   "simplemaps.guide.page.11.title": "Commands",
   "simplemaps.guide.page.11": "/simplemaps config shows and changes every option of config/simplemaps-server.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simplemaps.guide.page.12.title": "Commands",
-  "simplemaps.guide.page.12": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
-  "quests.simplemaps.start.title": "Welcome to Simple Maps",
-  "quests.simplemaps.start.subtitle": "Your free guide",
-  "quests.simplemaps.start.welcome.title": "A free guide",
-  "quests.simplemaps.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Maps Guide as a reward. You can also craft it from a book and a compass."
+  "simplemaps.guide.page.12": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
 }

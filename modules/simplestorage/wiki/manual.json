@@ -755,9 +755,9 @@
   ],
   "notes": {
     "simplestorage:guide_book": {
-      "sources": ["modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java", "modules/simplestorage/shared/resources/data/simplestorage/recipe/guide_book.json"],
-      "en": {"summary": "Guide to this mod: 36 pages taken from this wiki, shown in your language. Shapeless recipe: book + barrel. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Storage\" gives one for free."},
-      "de": {"summary": "Handbuch zu dieser Mod: 36 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Fass. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Storage\" eins."}
+      "sources": ["modules/simplestorage/shared/java/com/simplestorage/guide/StorageGuide.java", "modules/simplestorage/shared/resources/assets/simplestorage/simplelib/modpack_guide.json", "modules/simplestorage/shared/resources/data/simplestorage/advancement/guide/chapter.json"],
+      "en": {"summary": "Chapter \"Simple Storage\" of the Simple Modpack guide (SimpleLib): 36 pages taken from this wiki, shown in your language. Unlocked by picking up: barrel. Craft the guide from a book and a crafting table; an old single guide turns into it when used."},
+      "de": {"summary": "Kapitel \"Simple Storage\" im Simple-Modpack-Handbuch (SimpleLib): 36 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Fass. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."}
     },
     "simplestorage:*_crate": {
       "sources": [

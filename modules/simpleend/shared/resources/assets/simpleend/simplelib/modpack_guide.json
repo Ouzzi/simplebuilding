@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleend.guide.chapter",
+  "icon": "minecraft:chorus_fruit",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleend:guide",
+      "title": "simpleend.guide.chapter",
+      "icon": "minecraft:chorus_fruit",
+      "page_key": "simpleend.guide.page",
+      "pages": 22,
+      "advancement": "simpleend:guide/chapter",
+      "hint": "minecraft:chorus_fruit"
+    }
+  ]
+}

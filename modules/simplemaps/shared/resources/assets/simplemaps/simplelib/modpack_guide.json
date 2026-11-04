@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplemaps.guide.chapter",
+  "icon": "minecraft:compass",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemaps:guide",
+      "title": "simplemaps.guide.chapter",
+      "icon": "minecraft:compass",
+      "page_key": "simplemaps.guide.page",
+      "pages": 12,
+      "advancement": "simplemaps:guide/chapter",
+      "hint": "minecraft:compass"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "section": "simpleaesthetics",
+  "name": "simplevisuals.guide.chapter",
+  "icon": "minecraft:spyglass",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplevisuals:guide",
+      "title": "simplevisuals.guide.chapter",
+      "icon": "minecraft:spyglass",
+      "page_key": "simplevisuals.guide.page",
+      "pages": 43
+    }
+  ]
+}

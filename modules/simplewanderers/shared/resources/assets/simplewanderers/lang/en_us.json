@@ -4,6 +4,7 @@
   "item.simplewanderers.village_wanderer_spawn_egg": "Village Wanderer Spawn Egg",
   "simplewanderers.testcentre.station": "Simple Wanderers",
   "item.simplewanderers.guide_book": "Simple Wanderers Guide",
+  "simplewanderers.guide.chapter": "Simple Wanderers",
   "simplewanderers.guide.page.1.title": "Simple Wanderers",
   "simplewanderers.guide.page.1": "One Village Wanderer per village: a travel-cloaked trader with a leashed horse, a new stock every 3 days, a restock every 1.5 days and goods that follow the village biome. Kill him and a new one comes after 7 days.",
   "simplewanderers.guide.page.2.title": "Village Wanderer",
@@ -29,9 +30,5 @@
   "simplewanderers.guide.page.12.title": "Commands",
   "simplewanderers.guide.page.12": "Values are bounded like in the file, saved at once and take effect at once. Permission level 2.",
   "simplewanderers.guide.page.13.title": "Settings",
-  "simplewanderers.guide.page.13": "More settings are in the mod's config screen.",
-  "quests.simplewanderers.start.title": "Welcome to Simple Wanderers",
-  "quests.simplewanderers.start.subtitle": "Your free guide",
-  "quests.simplewanderers.start.welcome.title": "A free guide",
-  "quests.simplewanderers.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Wanderers Guide as a reward. You can also craft it from a book and a lead."
+  "simplewanderers.guide.page.13": "More settings are in the mod's config screen."
 }

@@ -118,7 +118,7 @@ public final class FunTests {
   }
 
   /**
-   * The fun tab holds only the mod's items (guide, brick snowball, no vanilla ingredients); the brick
+   * The fun tab holds only the mod's items (brick snowball, no vanilla ingredients, no single guide); the brick
    * snowball stands in no Vanilla tab, and in the search tab it stands exactly once.
    */
   public static void creativeTabs(GameTestHelper h) {
@@ -131,7 +131,8 @@ public final class FunTests {
             .stream()
             .map(ItemStack::getItem)
             .toList();
-    var expected = FunContent.tabStacks().stream().map(ItemStack::getItem).toList();
+    // b-guide01: the single guide left the tabs (SimpleLib's tab rules) - the Simple Modpack guide replaces it.
+    var expected = FunContent.tabStacks().stream().map(ItemStack::getItem).filter(item -> item != com.simplefun.guide.FunGuide.book()).toList();
     h.assertTrue(own.equals(expected), "fun tab lists only own items in order: " + own);
     var search =
         CreativeModeTabs.searchTab().getDisplayItems().stream().map(ItemStack::getItem).toList();

@@ -44,6 +44,7 @@
   "config.simplerespawn.announce": "Chat-Meldungen",
   "config.simplerespawn.announce.tooltip": "An: alle lesen im Chat, wenn ein Spieler niedergeschlagen oder wiederbelebt wird.",
   "item.simplerespawn.guide_book": "Simple-Respawn-Handbuch",
+  "simplerespawn.guide.chapter": "Simple Respawn",
   "simplerespawn.guide.page.1.title": "Simple Respawn",
   "simplerespawn.guide.page.1": "Niedergeschlagen statt tot: Mitspieler beleben dich wieder, bevor du verblutest.",
   "simplerespawn.guide.page.2.title": "Niedergeschlagen statt tot",
@@ -57,9 +58,5 @@
   "simplerespawn.guide.page.6.title": "Befehle",
   "simplerespawn.guide.page.6": "/simplerespawn giveup für den Niedergeschlagenen (der Knopf Aufgeben); /simplerespawn down <Spieler> und /simplerespawn revive <Spieler> für Spielleiter.",
   "simplerespawn.guide.page.7.title": "Einstellungen",
-  "simplerespawn.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplerespawn.start.title": "Willkommen bei Simple Respawn",
-  "quests.simplerespawn.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplerespawn.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplerespawn.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Respawn-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer glitzernden Melonenscheibe herstellen."
+  "simplerespawn.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

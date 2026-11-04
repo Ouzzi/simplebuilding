@@ -42,6 +42,7 @@
   "text.autoconfig.simplemoney.option.links.cooldownTicks.tooltip": "Gemeinsame Spielerpause, 20-1200 Spielticks.\nStandard: 100. Servereinstellung. Lokalen\nEntwurf speichern; Server neu laden oder\nstarten. Bestehende Angebote behalten\nGrundpreis und Vorrat.",
   "jei.simplemoney.links": "Zusätzliche Angebote für geladene Mods. Standard: aktiviert. Nur Kauf, ein Item, 8-64 Scheine; keine Rabatte. Standard: 8 verknüpfte Käufe pro Spieler je 24000 Spielticks, 100 Ticks Kaufpause. Alte Angebote bleiben. Simple-Money-Wiki: verknüpfte Preislisten.",
   "item.simplemoney.guide_book": "Simple-Money-Handbuch",
+  "simplemoney.guide.chapter": "Simple Money",
   "simplemoney.guide.page.1.title": "Simple Money",
   "simplemoney.guide.page.1": "Geldherstellung, gewichtete Dorfbewohner-Angebote und Schatzbeute.",
   "simplemoney.guide.page.2.title": "Spezialpapier",
@@ -73,9 +74,5 @@
   "simplemoney.guide.page.15.title": "Befehle",
   "simplemoney.guide.page.15": "/simplemoney config zeigt und ändert jede Option von config/simplemoney.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte). Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort.",
   "simplemoney.guide.page.16.title": "Befehle",
-  "simplemoney.guide.page.16": "Berechtigung 2.",
-  "quests.simplemoney.start.title": "Willkommen bei Simple Money",
-  "quests.simplemoney.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplemoney.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemoney.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Money-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Goldklumpen herstellen."
+  "simplemoney.guide.page.16": "Berechtigung 2."
 }

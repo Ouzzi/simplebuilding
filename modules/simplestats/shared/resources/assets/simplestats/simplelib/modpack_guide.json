@@ -1,0 +1,17 @@
+{
+  "section": "simplestats",
+  "name": "simplestats.guide.chapter",
+  "icon": "minecraft:flint",
+  "order": 30,
+  "chapters": [
+    {
+      "id": "simplestats:guide",
+      "title": "simplestats.guide.chapter",
+      "icon": "minecraft:flint",
+      "page_key": "simplestats.guide.page",
+      "pages": 29,
+      "advancement": "simplestats:guide/chapter",
+      "hint": "minecraft:flint"
+    }
+  ]
+}

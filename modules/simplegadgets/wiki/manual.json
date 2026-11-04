@@ -166,13 +166,14 @@
     "simplegadgets:guide_book": {
       "sources": [
         "modules/simplegadgets/shared/java/com/simplegadgets/guide/GadgetsGuide.java",
-        "modules/simplegadgets/shared/resources/data/simplegadgets/recipe/guide_book.json"
+        "modules/simplegadgets/shared/resources/assets/simplegadgets/simplelib/modpack_guide.json",
+        "modules/simplegadgets/shared/resources/data/simplegadgets/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + clock. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Gadgets\" gives one for free."
+        "summary": "Chapter \"Simple Gadgets\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: clock. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Uhr. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Gadgets\" eins."
+        "summary": "Kapitel \"Simple Gadgets\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Uhr. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplegadgets:velocity_gauge": {

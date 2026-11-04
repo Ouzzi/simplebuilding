@@ -82,6 +82,7 @@
   "text.autoconfig.simpleores.option.dimensionalScrap": "Dimensionsschrott",
   "text.autoconfig.simpleores.option.dimensionalScrap.@Tooltip": "Aus: kein neuer Dimensionsschrott in allen Dimensionen. Wirkt beim nächsten Weltstart in neu erzeugten Chunks.\nStandard: true.",
   "item.simpleores.guide_book": "Simple-Ores-Handbuch",
+  "simpleores.guide.chapter": "Simple Ores",
   "simpleores.guide.page.1.title": "Simple Ores",
   "simpleores.guide.page.1": "Silbererz in der Oberwelt und im End mit Silberpfeil gegen Untote und Silberspiegel, Blei, dessen Blöcke Geräusche dämmen und den Sculk taub halten, sowie Roségold:",
   "simpleores.guide.page.2.title": "Simple Ores",
@@ -105,9 +106,5 @@
   "simpleores.guide.page.11.title": "Weisheitserz und Dimensionsschrott",
   "simpleores.guide.page.11": "Zwei seltene Funde, die aus SimpleBuilding hierher umgezogen sind (IG31-13): das Weisheitserz mit seiner Erfahrungskugel und der Schrott der drei Dimensionen.",
   "simpleores.guide.page.12.title": "Einstellungen",
-  "simpleores.guide.page.12": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleores.start.title": "Willkommen bei Simple Ores",
-  "quests.simpleores.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleores.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleores.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Ores-Handbuch als Belohnung. Du kannst es auch aus einem Buch und rohem Gold herstellen."
+  "simpleores.guide.page.12": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

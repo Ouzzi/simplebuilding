@@ -51,6 +51,7 @@
   "block.simplebeacons.evil_conduit": "Böser Aquisator",
   "block.simplebeacons.mighty_evil_conduit": "Mächtiger Böser Aquisator",
   "item.simplebeacons.guide_book": "Simple-Beacons-Handbuch",
+  "simplebeacons.guide.chapter": "Simple Beacons",
   "simplebeacons.guide.page.1.title": "Simple Beacons",
   "simplebeacons.guide.page.1": "Die Starke Aufwertungsvorlage macht aus einem Leuchtfeuer ein Starkes Leuchtfeuer mit fünf Pyramidenebenen und neuen Kräften und aus einem Aquisator einen Starken Aquisator mit 7x7x7-Rahmen.",
   "simplebeacons.guide.page.2.title": "Simple Beacons",
@@ -112,9 +113,5 @@
   "simplebeacons.guide.page.30.title": "Befehle",
   "simplebeacons.guide.page.30": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simplebeacons.guide.page.31.title": "Einstellungen",
-  "simplebeacons.guide.page.31": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplebeacons.start.title": "Willkommen bei Simple Beacons",
-  "quests.simplebeacons.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplebeacons.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplebeacons.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Beacons-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Prismarinscherbe herstellen."
+  "simplebeacons.guide.page.31": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

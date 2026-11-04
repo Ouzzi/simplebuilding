@@ -164,13 +164,14 @@
     "simpletrims:guide_book": {
       "sources": [
         "modules/simpletrims/shared/java/com/simpletrims/guide/TrimsGuide.java",
-        "modules/simpletrims/shared/resources/data/simpletrims/recipe/guide_book.json"
+        "modules/simpletrims/shared/resources/assets/simpletrims/simplelib/modpack_guide.json",
+        "modules/simpletrims/shared/resources/data/simpletrims/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
+        "summary": "Chapter \"Simple Trims\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: glow ink sac. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
+        "summary": "Kapitel \"Simple Trims\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Leuchttintenbeutel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simpletrims:glowing_trim_template": {

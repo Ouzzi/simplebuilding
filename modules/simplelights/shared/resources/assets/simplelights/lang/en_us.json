@@ -77,6 +77,7 @@
   "block.simplelights.copper_redstone_light_pane": "Copper Redstone Pane",
   "item.simplelights.copper_redstone_light_pane": "Copper Redstone Pane",
   "item.simplelights.guide_book": "Simple Lights Guide",
+  "simplelights.guide.chapter": "Simple Lights",
   "simplelights.guide.page.1.title": "Simple Lights",
   "simplelights.guide.page.1": "Light Panes: flat lamps on any block side - plain, transparent, in sixteen colors,",
   "simplelights.guide.page.2.title": "Simple Lights",
@@ -90,9 +91,5 @@
   "simplelights.guide.page.6.title": "Moved from SimpleBuilding",
   "simplelights.guide.page.6": "placed panes keep their facing, light and color state.",
   "simplelights.guide.page.7.title": "Creative tabs",
-  "simplelights.guide.page.7": "The module's items sit in its own creative tab only (no Vanilla tabs).",
-  "quests.simplelights.start.title": "Welcome to Simple Lights",
-  "quests.simplelights.start.subtitle": "Your free guide",
-  "quests.simplelights.start.welcome.title": "A free guide",
-  "quests.simplelights.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Lights Guide as a reward. You can also craft it from a book and glowstone dust."
+  "simplelights.guide.page.7": "The module's items sit in its own creative tab only (no Vanilla tabs)."
 }

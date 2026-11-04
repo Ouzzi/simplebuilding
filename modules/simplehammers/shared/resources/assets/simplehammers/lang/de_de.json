@@ -31,6 +31,7 @@
   "item.simplehammers.rose_bronze_sledgehammer": "Rosenbronze-Vorschlaghammer",
   "item.simplehammers.blossom_gold_sledgehammer": "Blütengold-Vorschlaghammer",
   "item.simplehammers.guide_book": "Simple-Hammers-Handbuch",
+  "simplehammers.guide.chapter": "Simple Hammers",
   "simplehammers.guide.page.1.title": "Simple Hammers",
   "simplehammers.guide.page.1": "Sieben Vorschlaghämmer, die ganze Flächen abbauen, Blöcke abtragen und umformen, Diamant- und Quarzblöcke zerschlagen und Blöcke in der Welt Schlag für Schlag aufwerten, und ihre drei Verzauberungen.",
   "simplehammers.guide.page.2.title": "Vorschlaghämmer: eine ganze Fläche abbauen",
@@ -82,9 +83,5 @@
   "simplehammers.guide.page.25.title": "Befehle",
   "simplehammers.guide.page.25": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simplehammers.guide.page.26.title": "Einstellungen",
-  "simplehammers.guide.page.26": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplehammers.start.title": "Willkommen bei Simple Hammers",
-  "quests.simplehammers.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplehammers.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplehammers.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Hammers-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Eisenbarren herstellen."
+  "simplehammers.guide.page.26": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

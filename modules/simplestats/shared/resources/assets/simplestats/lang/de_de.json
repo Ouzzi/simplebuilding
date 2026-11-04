@@ -204,6 +204,7 @@
   "stat.simplestats.damage.bad_respawn_point": "Ungültiger Wiederbelebungspunkt",
   "stat.simplestats.damage.spear": "Speer",
   "item.simplestats.guide_book": "Simple-Stats-Handbuch",
+  "simplestats.guide.chapter": "Simple Stats",
   "simplestats.guide.page.1.title": "Simple Stats",
   "simplestats.guide.page.1": "Jedes Werkzeug, jede Waffe und jedes Rüstungsteil zählt eigene Blöcke, Kills, abgefangenen Schaden, Strecken und Fänge, mit einem Statistik-Bildschirm je Gegenstand.",
   "simplestats.guide.page.2.title": "Gegenstandsstatistik",
@@ -261,9 +262,5 @@
   "simplestats.guide.page.28.title": "Wer zählt und wer sieht",
   "simplestats.guide.page.28": "enabled, trackMining, trackCombat, trackArmor, trackDistances, trackFishing, trackTools, trackPlayerKills und maxBytes in config/simplestats.json.",
   "simplestats.guide.page.29.title": "Befehle",
-  "simplestats.guide.page.29": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu. Spielleiter-Recht nötig.",
-  "quests.simplestats.start.title": "Willkommen bei Simple Stats",
-  "quests.simplestats.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplestats.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestats.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Stats-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Feuerstein herstellen."
+  "simplestats.guide.page.29": "/simplestats reset löscht die Statistik des gehaltenen Gegenstands, /simplestats show listet die Rohwerte, /simplestats reload liest die Einstellungen neu. Spielleiter-Recht nötig."
 }

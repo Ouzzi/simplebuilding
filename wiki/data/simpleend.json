@@ -1337,46 +1337,6 @@
       }
     },
     {
-      "id": "simpleend:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleend:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:chorus_fruit"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:chorus_fruit"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:chorus_fruit",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleend:stripped_ashwood_wood",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2624,7 +2584,32 @@
       "source": "modules/simpleend/generated/resources/data/simpleend/tags/worldgen/biome/watcher_core.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleend:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:chorus_fruit"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleend/shared/resources/data/simpleend/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -2762,19 +2747,18 @@
       "note": {
         "sources": [
           "modules/simpleend/shared/java/com/simplebuilding/modules/simpleend/guide/EndGuide.java",
-          "modules/simpleend/shared/resources/data/simpleend/recipe/guide_book.json"
+          "modules/simpleend/shared/resources/assets/simpleend/simplelib/modpack_guide.json",
+          "modules/simpleend/shared/resources/data/simpleend/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 22 pages taken from this wiki, shown in your language. Shapeless recipe: book + chorus fruit. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple End\" gives one for free."
+          "summary": "Chapter \"Simple End\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: chorus fruit. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 22 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Chorusfrucht. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple End\" eins."
+          "summary": "Kapitel \"Simple End\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Chorusfrucht. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleend/item/guide_book.png",
-      "craftedBy": [
-        "simpleend:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -3848,10 +3832,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 35,
+    "recipes": 34,
     "lootTables": 44,
     "tags": 8,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 8,
     "blocks": 47,

@@ -288,13 +288,14 @@
     "simplemachines:guide_book": {
       "sources": [
         "modules/simplemachines/shared/java/com/simplemachines/guide/MachinesGuide.java",
-        "modules/simplemachines/shared/resources/data/simplemachines/recipe/guide_book.json"
+        "modules/simplemachines/shared/resources/assets/simplemachines/simplelib/modpack_guide.json",
+        "modules/simplemachines/shared/resources/data/simplemachines/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + redstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Machines\" gives one for free."
+        "summary": "Chapter \"Simple Machines\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: redstone dust. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Redstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Machines\" eins."
+        "summary": "Kapitel \"Simple Machines\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Redstone-Staub. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplemachines:double_piston": {

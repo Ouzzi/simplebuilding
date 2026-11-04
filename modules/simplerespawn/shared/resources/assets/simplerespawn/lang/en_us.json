@@ -44,6 +44,7 @@
   "config.simplerespawn.announce": "Chat messages",
   "config.simplerespawn.announce.tooltip": "On: everyone reads in chat when a player is downed or revived.",
   "item.simplerespawn.guide_book": "Simple Respawn Guide",
+  "simplerespawn.guide.chapter": "Simple Respawn",
   "simplerespawn.guide.page.1.title": "Simple Respawn",
   "simplerespawn.guide.page.1": "Downed instead of dead: teammates revive you before you bleed out.",
   "simplerespawn.guide.page.2.title": "Downed instead of dead",
@@ -57,9 +58,5 @@
   "simplerespawn.guide.page.6.title": "Commands",
   "simplerespawn.guide.page.6": "/simplerespawn giveup for the downed player (the Give up button); /simplerespawn down <players> and /simplerespawn revive <players> for game masters.",
   "simplerespawn.guide.page.7.title": "Settings",
-  "simplerespawn.guide.page.7": "More settings are in the mod's config screen.",
-  "quests.simplerespawn.start.title": "Welcome to Simple Respawn",
-  "quests.simplerespawn.start.subtitle": "Your free guide",
-  "quests.simplerespawn.start.welcome.title": "A free guide",
-  "quests.simplerespawn.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Respawn Guide as a reward. You can also craft it from a book and a glistering melon slice."
+  "simplerespawn.guide.page.7": "More settings are in the mod's config screen."
 }

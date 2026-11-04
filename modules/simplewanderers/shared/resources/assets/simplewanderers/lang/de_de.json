@@ -4,6 +4,7 @@
   "item.simplewanderers.village_wanderer_spawn_egg": "Dorf-Wanderer-Spawn-Ei",
   "simplewanderers.testcentre.station": "Simple Wanderers",
   "item.simplewanderers.guide_book": "Simple-Wanderers-Handbuch",
+  "simplewanderers.guide.chapter": "Simple Wanderers",
   "simplewanderers.guide.page.1.title": "Simple Wanderers",
   "simplewanderers.guide.page.1": "Ein Dorf-Wanderer je Dorf: ein Händler im Reisemantel mit Pferd an der Leine, alle 3 Tage neues Angebot, alle 1,5 Tage Nachschub und Waren passend zum Dorfbiom. Wird er getötet, kommt nach 7 Tagen ein neuer.",
   "simplewanderers.guide.page.2.title": "Dorf-Wanderer",
@@ -29,9 +30,5 @@
   "simplewanderers.guide.page.12.title": "Befehle",
   "simplewanderers.guide.page.12": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
   "simplewanderers.guide.page.13.title": "Einstellungen",
-  "simplewanderers.guide.page.13": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplewanderers.start.title": "Willkommen bei Simple Wanderers",
-  "quests.simplewanderers.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplewanderers.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplewanderers.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Wanderers-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Leine herstellen."
+  "simplewanderers.guide.page.13": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

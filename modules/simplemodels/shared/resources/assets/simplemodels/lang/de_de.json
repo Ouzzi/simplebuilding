@@ -40,6 +40,7 @@
   "simplemodels.browser.readonly": "Nur Lesen: Serveradmins bearbeiten config/simplemodels/config.json.",
   "simplemodels.command.reload": "Simple Models: %s Modelle neu geladen und an alle Spieler geschickt.",
   "item.simplemodels.guide_book": "Simple-Models-Handbuch",
+  "simplemodels.guide.chapter": "Simple Models",
   "simplemodels.guide.page.1.title": "Simple Models",
   "simplemodels.guide.page.1": "Vom Server freigegebene eigene Itemmodelle, Zuweisung am Amboss und ein durchsuchbarer Modell-Browser.",
   "simplemodels.guide.page.2.title": "Ambosszuweisung",
@@ -79,9 +80,5 @@
   "simplemodels.guide.page.19.title": "/simplemodels reload",
   "simplemodels.guide.page.19": "Fehlerhafte Regeln sperren die Zuweisung; fehlerhafte Definitionen werden mit Serverlog übersprungen.",
   "simplemodels.guide.page.20.title": "Einstellungen",
-  "simplemodels.guide.page.20": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplemodels.start.title": "Willkommen bei Simple Models",
-  "quests.simplemodels.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplemodels.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemodels.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Models-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Rahmen herstellen."
+  "simplemodels.guide.page.20": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

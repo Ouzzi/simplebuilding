@@ -57,6 +57,7 @@
   "text.autoconfig.simplefun.option.fun.maxKnockback.@Tooltip": "Server option. Default: 4.0. Server-owned;\nrestart required.",
   "jei.simplefun.brick_snowball": "Four snowballs around a brick. Throw with use; the server enforces damage and cooldown caps.",
   "item.simplefun.guide_book": "Simple Fun Guide",
+  "simplefun.guide.chapter": "Simple Fun",
   "simplefun.guide.page.1.title": "Simple Fun",
   "simplefun.guide.page.1": "Bounded playful mechanics, throwable bricks and cosmetic transformations. The animal heads moved to Simple Mobheads.",
   "simplefun.guide.page.2.title": "Sneak Throw",
@@ -98,9 +99,5 @@
   "simplefun.guide.page.20.title": "Creative tabs",
   "simplefun.guide.page.20": "The module's items sit in its own creative tab only (no Vanilla tabs).",
   "simplefun.guide.page.21.title": "Settings",
-  "simplefun.guide.page.21": "More settings are in the mod's config screen.",
-  "quests.simplefun.start.title": "Welcome to Simple Fun",
-  "quests.simplefun.start.subtitle": "Your free guide",
-  "quests.simplefun.start.welcome.title": "A free guide",
-  "quests.simplefun.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Fun Guide as a reward. You can also craft it from a book and a brick."
+  "simplefun.guide.page.21": "More settings are in the mod's config screen."
 }

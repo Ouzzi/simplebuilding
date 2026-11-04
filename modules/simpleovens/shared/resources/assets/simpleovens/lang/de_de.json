@@ -117,6 +117,7 @@
   "item.simpleovens.pale_oak_furnace_boat": "Blasseichen-Ofenboot",
   "item.simpleovens.spruce_furnace_boat": "Fichten-Ofenboot",
   "item.simpleovens.guide_book": "Simple-Ovens-Handbuch",
+  "simpleovens.guide.chapter": "Simple Ovens",
   "simpleovens.guide.page.1.title": "Simple Ovens",
   "simpleovens.guide.page.1": "Verstärkte, Netherit- und Enderit-Öfen, -Räucheröfen und -Schmelzöfen, die 2-, 4- und 8-mal so schnell garen, und Antriebsloren derselben Stufen.",
   "simpleovens.guide.page.2.title": "Schnellere Öfen: Verstärkt, Netherit und Enderit",
@@ -146,9 +147,5 @@
   "simpleovens.guide.page.14.title": "Befehle",
   "simpleovens.guide.page.14": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simpleovens.guide.page.15.title": "Einstellungen",
-  "simpleovens.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleovens.start.title": "Willkommen bei Simple Ovens",
-  "quests.simpleovens.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleovens.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleovens.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Ovens-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Holzkohle herstellen."
+  "simpleovens.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

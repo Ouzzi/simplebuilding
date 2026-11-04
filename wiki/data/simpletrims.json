@@ -298,46 +298,6 @@
       }
     },
     {
-      "id": "simpletrims:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpletrims:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpletrims/shared/resources/data/simpletrims/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:glow_ink_sac"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:glow_ink_sac"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:glow_ink_sac",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpletrims:inverting_armor_upgrade",
       "type": "simpletrims:trim_upgrade",
       "category": null,
@@ -606,6 +566,30 @@
       ],
       "needs": "any",
       "source": "modules/simpletrims/shared/resources/data/simpletrims/advancement/glow_up.json"
+    },
+    {
+      "id": "simpletrims:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:glow_ink_sac"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpletrims/shared/resources/data/simpletrims/advancement/guide/chapter.json"
     }
   ],
   "enchantments": [],
@@ -721,13 +705,14 @@
       "note": {
         "sources": [
           "modules/simpletrims/shared/java/com/simpletrims/guide/TrimsGuide.java",
-          "modules/simpletrims/shared/resources/data/simpletrims/recipe/guide_book.json"
+          "modules/simpletrims/shared/resources/assets/simpletrims/simplelib/modpack_guide.json",
+          "modules/simpletrims/shared/resources/data/simpletrims/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + glow ink sac. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Trims\" gives one for free."
+          "summary": "Chapter \"Simple Trims\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: glow ink sac. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leuchttintenbeutel. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Trims\" eins."
+          "summary": "Kapitel \"Simple Trims\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Leuchttintenbeutel. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpletrims/item/guide_book.png",
@@ -755,9 +740,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simpletrims:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -927,10 +910,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 7,
-    "recipes": 10,
+    "recipes": 9,
     "lootTables": 0,
     "tags": 2,
-    "advancements": 3,
+    "advancements": 4,
     "enchantments": 0,
     "items": 5,
     "blocks": 1,

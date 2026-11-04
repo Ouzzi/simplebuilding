@@ -749,46 +749,6 @@
       }
     },
     {
-      "id": "simplelights:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplelights:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplelights/shared/resources/data/simplelights/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:glowstone_dust"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:glowstone_dust"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplelights:light_blue_copper_light_pane",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -2646,7 +2606,32 @@
       "source": "modules/simplelights/shared/resources/data/simplelights/tags/item/light_panes.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplelights:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:glowstone_dust"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplelights/shared/resources/data/simplelights/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -2658,19 +2643,18 @@
       "note": {
         "sources": [
           "modules/simplelights/shared/java/com/simplelights/guide/LightsGuide.java",
-          "modules/simplelights/shared/resources/data/simplelights/recipe/guide_book.json"
+          "modules/simplelights/shared/resources/assets/simplelights/simplelib/modpack_guide.json",
+          "modules/simplelights/shared/resources/data/simplelights/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + glowstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Lights\" gives one for free."
+          "summary": "Chapter \"Simple Lights\" of the Simple Modpack guide (SimpleLib): 7 pages taken from this wiki, shown in your language. Unlocked by picking up: glowstone dust. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Glowstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Lights\" eins."
+          "summary": "Kapitel \"Simple Lights\" im Simple-Modpack-Handbuch (SimpleLib): 7 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Glowstone-Staub. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplelights/item/guide_book.png",
-      "craftedBy": [
-        "simplelights:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -4428,10 +4412,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 3,
-    "recipes": 38,
+    "recipes": 37,
     "lootTables": 37,
     "tags": 2,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 37,

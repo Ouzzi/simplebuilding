@@ -1134,46 +1134,6 @@
       }
     },
     {
-      "id": "simpleores:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleores:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:raw_gold"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:raw_gold"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:raw_gold",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleores:layered_raw_enderite",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -3019,7 +2979,32 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/tags/worldgen/biome/has_end_silver_ore.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleores:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:raw_gold"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -3469,19 +3454,18 @@
       "note": {
         "sources": [
           "modules/simpleores/shared/java/com/simpleores/guide/OresGuide.java",
-          "modules/simpleores/shared/resources/data/simpleores/recipe/guide_book.json"
+          "modules/simpleores/shared/resources/assets/simpleores/simplelib/modpack_guide.json",
+          "modules/simpleores/shared/resources/data/simpleores/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 12 pages taken from this wiki, shown in your language. Shapeless recipe: book + raw gold. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Ores\" gives one for free."
+          "summary": "Chapter \"Simple Ores\" of the Simple Modpack guide (SimpleLib): 12 pages taken from this wiki, shown in your language. Unlocked by picking up: raw gold. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 12 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rohgold. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Ores\" eins."
+          "summary": "Kapitel \"Simple Ores\" im Simple-Modpack-Handbuch (SimpleLib): 12 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rohgold. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleores/item/guide_book.png",
-      "craftedBy": [
-        "simpleores:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -4482,10 +4466,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 10,
-    "recipes": 67,
+    "recipes": 66,
     "lootTables": 19,
     "tags": 6,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 40,
     "blocks": 19,

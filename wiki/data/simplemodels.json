@@ -209,51 +209,35 @@
       "related": []
     }
   ],
-  "recipes": [
-    {
-      "id": "simplemodels:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplemodels:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:item_frame"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:item_frame"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 2
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 1
-          }
-        ]
-      }
-    }
-  ],
+  "recipes": [],
   "lootTables": [],
   "tags": [],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplemodels:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:item_frame"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplemodels/shared/resources/data/simplemodels/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -265,13 +249,14 @@
       "note": {
         "sources": [
           "modules/simplemodels/shared/java/com/simplebuilding/modules/simplemodels/guide/ModelsGuide.java",
-          "modules/simplemodels/shared/resources/data/simplemodels/recipe/guide_book.json"
+          "modules/simplemodels/shared/resources/assets/simplemodels/simplelib/modpack_guide.json",
+          "modules/simplemodels/shared/resources/data/simplemodels/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 20 pages taken from this wiki, shown in your language. Shapeless recipe: book + item frame. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Models\" gives one for free."
+          "summary": "Chapter \"Simple Models\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: item frame. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 20 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Rahmen. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Models\" eins."
+          "summary": "Kapitel \"Simple Models\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Rahmen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplemodels/item/guide_book.png",
@@ -299,9 +284,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplemodels:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -321,10 +304,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 14,
-    "recipes": 1,
+    "recipes": 0,
     "lootTables": 0,
     "tags": 0,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 0,

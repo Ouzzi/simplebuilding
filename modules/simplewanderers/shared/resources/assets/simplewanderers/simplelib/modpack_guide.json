@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplewanderers.guide.chapter",
+  "icon": "minecraft:lead",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplewanderers:guide",
+      "title": "simplewanderers.guide.chapter",
+      "icon": "minecraft:lead",
+      "page_key": "simplewanderers.guide.page",
+      "pages": 13,
+      "advancement": "simplewanderers:guide/chapter",
+      "hint": "minecraft:lead"
+    }
+  ]
+}

@@ -147,13 +147,14 @@
     "simplequalityoflife:guide_book": {
       "sources": [
         "modules/simplequalityoflife/shared/java/com/simplequalityoflife/guide/QolGuide.java",
-        "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/recipe/guide_book.json"
+        "modules/simplequalityoflife/shared/resources/assets/simplequalityoflife/simplelib/modpack_guide.json",
+        "modules/simplequalityoflife/shared/resources/data/simplequalityoflife/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 100 pages taken from this wiki, shown in your language. Shapeless recipe: book + chest. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Quality of Life\" gives one for free."
+        "summary": "Chapter \"Simple Quality of Life\" of the Simple Modpack guide (SimpleLib): 100 pages taken from this wiki, shown in your language. Unlocked by picking up: chest. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 100 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Truhe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Quality of Life\" eins."
+        "summary": "Kapitel \"Simple Quality of Life\" im Simple-Modpack-Handbuch (SimpleLib): 100 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Truhe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     }
   }

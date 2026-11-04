@@ -46,6 +46,7 @@
   "jei.simplesandwiches.note.sandwich.fill": "Butter optional, then up to %s ingredients",
   "jei.simplesandwiches.note.sandwich.close": "Empty hand closes and takes it",
   "item.simplesandwiches.guide_book": "Simple Sandwiches Guide",
+  "simplesandwiches.guide.chapter": "Simple Sandwiches",
   "simplesandwiches.guide.page.1.title": "Simple Sandwiches",
   "simplesandwiches.guide.page.1": "Sandwiches on a cutting board, a kitchen knife, cheese and butter from the cauldron, and eating straight out of bundles.",
   "simplesandwiches.guide.page.2.title": "Sandwiches",
@@ -63,9 +64,5 @@
   "simplesandwiches.guide.page.8.title": "Commands",
   "simplesandwiches.guide.page.8": "/simplesandwiches config shows and changes every option of config/simplesandwiches-server.json (list [group], get, set, reset, help; Tab completes options and values).",
   "simplesandwiches.guide.page.9.title": "Commands",
-  "simplesandwiches.guide.page.9": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
-  "quests.simplesandwiches.start.title": "Welcome to Simple Sandwiches",
-  "quests.simplesandwiches.start.subtitle": "Your free guide",
-  "quests.simplesandwiches.start.welcome.title": "A free guide",
-  "quests.simplesandwiches.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Sandwiches Guide as a reward. You can also craft it from a book and bread."
+  "simplesandwiches.guide.page.9": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2."
 }

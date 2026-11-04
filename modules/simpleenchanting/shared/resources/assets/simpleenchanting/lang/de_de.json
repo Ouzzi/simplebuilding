@@ -43,6 +43,7 @@
   "container.simpleenchanting.enchanter.tier_hint.dark_enchanter": "Stufen: 0-30 Bücherregale (15 = 30). 30-40: Lohen-Regale ODER ein Obsidian-Boden (Lohen oder Nihil). 50: beides.",
   "container.simpleenchanting.enchanter.value": "Stufe 1: %s Level, alle %3$s Stufen: %2$s Level",
   "item.simpleenchanting.guide_book": "Simple-Enchanting-Handbuch",
+  "simpleenchanting.guide.chapter": "Simple Enchanting",
   "simpleenchanting.guide.page.1.title": "Simple Enchanting",
   "simpleenchanting.guide.page.1": "Zwei Verzauberer über dem Vanilla-Tisch: der Dark Enchanter, an dem du drei Verzauberungen mit Reglern wählst, und der Astral Enchanter auf Nihil-Obsidian-Boden, der Schutz und Federfall auf V hebt.",
   "simpleenchanting.guide.page.2.title": "Dark und Astral Enchanter",
@@ -56,9 +57,5 @@
   "simpleenchanting.guide.page.6.title": "Befehle",
   "simpleenchanting.guide.page.6": "/simpleenchanting config [list | get | set | reset | help] (Operatoren).",
   "simpleenchanting.guide.page.7.title": "Einstellungen",
-  "simpleenchanting.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleenchanting.start.title": "Willkommen bei Simple Enchanting",
-  "quests.simpleenchanting.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleenchanting.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleenchanting.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Enchanting-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Lapislazuli herstellen."
+  "simpleenchanting.guide.page.7": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

@@ -176,52 +176,7 @@
       }
     }
   ],
-  "recipes": [
-    {
-      "id": "simplerespawn:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplerespawn:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplerespawn/shared/resources/data/simplerespawn/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:glistering_melon_slice"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:glistering_melon_slice"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:melon_slice",
-            "count": 1
-          },
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 0.889
-          }
-        ]
-      }
-    }
-  ],
+  "recipes": [],
   "lootTables": [],
   "tags": [],
   "advancements": [
@@ -247,6 +202,30 @@
       ],
       "needs": "any",
       "source": "modules/simplerespawn/shared/resources/data/simplerespawn/advancement/first_aid.json"
+    },
+    {
+      "id": "simplerespawn:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:glistering_melon_slice"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplerespawn/shared/resources/data/simplerespawn/advancement/guide/chapter.json"
     }
   ],
   "enchantments": [],
@@ -260,13 +239,14 @@
       "note": {
         "sources": [
           "modules/simplerespawn/shared/java/com/simplebuilding/modules/simplerespawn/guide/RespawnGuide.java",
-          "modules/simplerespawn/shared/resources/data/simplerespawn/recipe/guide_book.json"
+          "modules/simplerespawn/shared/resources/assets/simplerespawn/simplelib/modpack_guide.json",
+          "modules/simplerespawn/shared/resources/data/simplerespawn/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + glistering melon slice. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Respawn\" gives one for free."
+          "summary": "Chapter \"Simple Respawn\" of the Simple Modpack guide (SimpleLib): 7 pages taken from this wiki, shown in your language. Unlocked by picking up: glistering melon slice. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + glitzernde Melonenscheibe. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Respawn\" eins."
+          "summary": "Kapitel \"Simple Respawn\" im Simple-Modpack-Handbuch (SimpleLib): 7 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: glitzernde Melonenscheibe. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplerespawn/item/guide_book.png",
@@ -298,9 +278,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplerespawn:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -320,10 +298,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 1,
+    "recipes": 0,
     "lootTables": 0,
     "tags": 0,
-    "advancements": 1,
+    "advancements": 2,
     "enchantments": 0,
     "items": 1,
     "blocks": 0,

@@ -186,13 +186,14 @@
     "simplewanderers:guide_book": {
       "sources": [
         "modules/simplewanderers/shared/java/com/simplewanderers/guide/WanderersGuide.java",
-        "modules/simplewanderers/shared/resources/data/simplewanderers/recipe/guide_book.json"
+        "modules/simplewanderers/shared/resources/assets/simplewanderers/simplelib/modpack_guide.json",
+        "modules/simplewanderers/shared/resources/data/simplewanderers/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 13 pages taken from this wiki, shown in your language. Shapeless recipe: book + lead. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Wanderers\" gives one for free."
+        "summary": "Chapter \"Simple Wanderers\" of the Simple Modpack guide (SimpleLib): 13 pages taken from this wiki, shown in your language. Unlocked by picking up: lead. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 13 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Leine. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Wanderers\" eins."
+        "summary": "Kapitel \"Simple Wanderers\" im Simple-Modpack-Handbuch (SimpleLib): 13 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Leine. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplewanderers:village_wanderer_spawn_egg": {

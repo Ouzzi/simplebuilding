@@ -521,46 +521,6 @@
       }
     },
     {
-      "id": "simplesandwiches:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simplesandwiches:guide_book",
-        "count": 1
-      },
-      "source": "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:bread"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:bread"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:wheat",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simplesandwiches:jungle_cutting_board",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -1610,7 +1570,32 @@
       "source": "modules/simplesandwiches/generated/resources/data/simplesandwiches/tags/item/sandwich_ingredients.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simplesandwiches:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:bread"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplesandwiches/shared/resources/data/simplesandwiches/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -1748,13 +1733,14 @@
       "note": {
         "sources": [
           "modules/simplesandwiches/shared/java/com/simplesandwiches/guide/SandwichGuide.java",
-          "modules/simplesandwiches/shared/resources/data/simplesandwiches/recipe/guide_book.json"
+          "modules/simplesandwiches/shared/resources/assets/simplesandwiches/simplelib/modpack_guide.json",
+          "modules/simplesandwiches/shared/resources/data/simplesandwiches/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 9 pages taken from this wiki, shown in your language. Shapeless recipe: book + bread. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Sandwiches\" gives one for free."
+          "summary": "Chapter \"Simple Sandwiches\" of the Simple Modpack guide (SimpleLib): 9 pages taken from this wiki, shown in your language. Unlocked by picking up: bread. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 9 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Brot. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Sandwiches\" eins."
+          "summary": "Kapitel \"Simple Sandwiches\" im Simple-Modpack-Handbuch (SimpleLib): 9 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Brot. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simplesandwiches/item/guide_book.png",
@@ -1782,9 +1768,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simplesandwiches:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -2364,10 +2348,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 7,
-    "recipes": 17,
+    "recipes": 16,
     "lootTables": 20,
     "tags": 5,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 6,
     "blocks": 21,

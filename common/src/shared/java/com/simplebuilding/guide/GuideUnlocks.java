@@ -143,11 +143,19 @@ public final class GuideUnlocks {
         stack.remove(ModDataComponentTypes.GUIDE_CHAPTERS);
     }
 
-    /** At login: migrate the books the player carries, then open and send. */
+    /**
+     * At login: migrate the books the player carries, then open and send. b-guide01: a carried SimpleBuilding guide then
+     * turns into SimpleLib's Simple Modpack guide (its book is a section of it; the hub is retired, no duplicates).
+     */
     public static void onJoin(ServerPlayer player) {
         if (!McVersion.MEGA_GUIDES) return;
         var inventory = player.getInventory();
-        for (int slot = 0; slot < inventory.getContainerSize(); slot++) migrate(player, inventory.getItem(slot));
+        var guide = GuideBooks.modpackGuide();
+        for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
+            ItemStack stack = inventory.getItem(slot);
+            migrate(player, stack);
+            if (guide != null && stack.getItem() instanceof GuideBookItem) inventory.setItem(slot, new ItemStack(guide, stack.getCount()));
+        }
         SENT.remove(player);
         refresh(player, false);
     }

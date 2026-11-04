@@ -332,46 +332,6 @@
       }
     },
     {
-      "id": "simpleanimals:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleanimals:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleanimals/shared/resources/data/simpleanimals/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:sweet_berries"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:sweet_berries"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          },
-          {
-            "id": "minecraft:sweet_berries",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleanimals:truffle_soup",
       "type": "minecraft:crafting_shapeless",
       "category": "misc",
@@ -530,7 +490,32 @@
     }
   ],
   "tags": [],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleanimals:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:sweet_berries"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleanimals/shared/resources/data/simpleanimals/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -727,13 +712,14 @@
       "note": {
         "sources": [
           "modules/simpleanimals/shared/java/com/simpleanimals/guide/AnimalsGuide.java",
-          "modules/simpleanimals/shared/resources/data/simpleanimals/recipe/guide_book.json"
+          "modules/simpleanimals/shared/resources/assets/simpleanimals/simplelib/modpack_guide.json",
+          "modules/simpleanimals/shared/resources/data/simpleanimals/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 15 pages taken from this wiki, shown in your language. Shapeless recipe: book + sweet berries. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Animals\" gives one for free."
+          "summary": "Chapter \"Simple Animals\" of the Simple Modpack guide (SimpleLib): 15 pages taken from this wiki, shown in your language. Unlocked by picking up: sweet berries. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 15 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Süßbeeren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Animals\" eins."
+          "summary": "Kapitel \"Simple Animals\" im Simple-Modpack-Handbuch (SimpleLib): 15 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Süßbeeren. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleanimals/item/guide_book.png",
@@ -761,9 +747,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simpleanimals:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     },
     {
@@ -1019,10 +1003,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 5,
+    "recipes": 4,
     "lootTables": 7,
     "tags": 0,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 10,
     "blocks": 0,

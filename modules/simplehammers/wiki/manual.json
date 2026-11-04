@@ -352,13 +352,14 @@
     "simplehammers:guide_book": {
       "sources": [
         "modules/simplehammers/shared/java/com/simplehammers/guide/HammersGuide.java",
-        "modules/simplehammers/shared/resources/data/simplehammers/recipe/guide_book.json"
+        "modules/simplehammers/shared/resources/assets/simplehammers/simplelib/modpack_guide.json",
+        "modules/simplehammers/shared/resources/data/simplehammers/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 26 pages taken from this wiki, shown in your language. Shapeless recipe: book + iron ingot. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Hammers\" gives one for free."
+        "summary": "Chapter \"Simple Hammers\" of the Simple Modpack guide (SimpleLib): 26 pages taken from this wiki, shown in your language. Unlocked by picking up: iron ingot. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 26 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Eisenbarren. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Hammers\" eins."
+        "summary": "Kapitel \"Simple Hammers\" im Simple-Modpack-Handbuch (SimpleLib): 26 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Eisenbarren. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplehammers:*_sledgehammer": {

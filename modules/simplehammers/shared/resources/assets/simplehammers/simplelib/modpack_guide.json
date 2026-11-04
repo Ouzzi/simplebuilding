@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplehammers.guide.chapter",
+  "icon": "minecraft:iron_ingot",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplehammers:guide",
+      "title": "simplehammers.guide.chapter",
+      "icon": "minecraft:iron_ingot",
+      "page_key": "simplehammers.guide.page",
+      "pages": 26,
+      "advancement": "simplehammers:guide/chapter",
+      "hint": "minecraft:iron_ingot"
+    }
+  ]
+}

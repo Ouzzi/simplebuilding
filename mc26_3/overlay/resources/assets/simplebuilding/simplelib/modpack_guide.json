@@ -1,0 +1,8 @@
+{
+  "section": "simplebuilding",
+  "name": "simplebuilding.modpack_guide.section",
+  "icon": "simplebuilding:copper_building_wand",
+  "order": 0,
+  "screen": true,
+  "chapters": []
+}

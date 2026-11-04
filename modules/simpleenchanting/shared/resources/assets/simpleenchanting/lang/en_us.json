@@ -43,6 +43,7 @@
   "container.simpleenchanting.enchanter.tier_hint.dark_enchanter": "Stages: 0-30 bookshelves (15 = 30). 30-40: blazewood shelves OR an obsidian floor (Blazing or Nihil). 50: both.",
   "container.simpleenchanting.enchanter.value": "Level 1: %s levels, all %3$s levels: %2$s levels",
   "item.simpleenchanting.guide_book": "Simple Enchanting Guide",
+  "simpleenchanting.guide.chapter": "Simple Enchanting",
   "simpleenchanting.guide.page.1.title": "Simple Enchanting",
   "simpleenchanting.guide.page.1": "Two enchanters above Vanilla's table: the Dark Enchanter, where you pick three enchantments with sliders, and the Astral Enchanter on a Nihil Obsidian floor, which lifts Protection and Feather Falling to V.",
   "simpleenchanting.guide.page.2.title": "Dark and Astral Enchanter",
@@ -56,9 +57,5 @@
   "simpleenchanting.guide.page.6.title": "Commands",
   "simpleenchanting.guide.page.6": "/simpleenchanting config [list | get | set | reset | help] (operators).",
   "simpleenchanting.guide.page.7.title": "Settings",
-  "simpleenchanting.guide.page.7": "More settings are in the mod's config screen.",
-  "quests.simpleenchanting.start.title": "Welcome to Simple Enchanting",
-  "quests.simpleenchanting.start.subtitle": "Your free guide",
-  "quests.simpleenchanting.start.welcome.title": "A free guide",
-  "quests.simpleenchanting.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Enchanting Guide as a reward. You can also craft it from a book and lapis lazuli."
+  "simpleenchanting.guide.page.7": "More settings are in the mod's config screen."
 }

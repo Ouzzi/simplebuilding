@@ -64,8 +64,8 @@ public final class MoneyTests {
   CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(),true,h.getLevel().registryAccess());
   var expected=MoneyItems.TAB_ORDER.stream().map(MoneyItems.ITEMS::get).toList();
   var own=BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB,id("money_items"))).getDisplayItems().stream().map(ItemStack::getItem).toList();
-  var ownExpected=new ArrayList<Item>();ownExpected.add(com.simplemoney.guide.MoneyGuide.book());ownExpected.addAll(expected);
-  h.assertValueEqual(own,ownExpected,"own tab: guide, then crafting order");
+  // b-guide01: the single guide left the tabs (SimpleLib's tab rules) - the Simple Modpack guide replaces it.
+  h.assertValueEqual(own,expected,"own tab: crafting order");
   var ingredients=BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(CreativeModeTabs.INGREDIENTS).getDisplayItems().stream().map(ItemStack::getItem).toList();
   h.assertTrue(expected.stream().noneMatch(ingredients::contains),"money items stand in the own tab only, not in Ingredients");
   var search=CreativeModeTabs.searchTab().getDisplayItems().stream().map(ItemStack::getItem).toList();

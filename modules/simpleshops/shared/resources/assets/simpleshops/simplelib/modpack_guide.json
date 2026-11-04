@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleshops.guide.chapter",
+  "icon": "minecraft:emerald",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleshops:guide",
+      "title": "simpleshops.guide.chapter",
+      "icon": "minecraft:emerald",
+      "page_key": "simpleshops.guide.page",
+      "pages": 19,
+      "advancement": "simpleshops:guide/chapter",
+      "hint": "minecraft:emerald"
+    }
+  ]
+}

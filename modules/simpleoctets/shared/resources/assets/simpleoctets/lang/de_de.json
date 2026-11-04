@@ -358,6 +358,7 @@
   "item.simpleoctets.sulfur_octet": "Schwefel-Achtelblock",
   "block.simpleoctets.sulfur_octet": "Schwefel-Achtelzelle",
   "item.simpleoctets.guide_book": "Simple-Octets-Handbuch",
+  "simpleoctets.guide.chapter": "Simple Octets",
   "simpleoctets.guide.page.1.title": "Simple Octets",
   "simpleoctets.guide.page.1": "Achtel - halbe Blockwürfel aus jedem Holz, jedem Block mit Treppe und Stufe und der Melone - in der Formsäge (Simple Blocks; ohne sie im Steinmetz) geschnitten, in die angeklickte Ecke gesetzt und in einer Zelle gemischt.",
   "simpleoctets.guide.page.2.title": "Achtel: halbe Blockwürfel aus jedem Material",
@@ -385,9 +386,5 @@
   "simpleoctets.guide.page.13.title": "Welten aus SimpleBuilding",
   "simpleoctets.guide.page.13": "Gesetzte Zellen, Achtel-Items, die gemischte Zelle samt Block-Entity, die Rezepte im Rezeptbuch und ihre Freischaltungen funktionieren unter den neuen simpleoctets:-Ids weiter;",
   "simpleoctets.guide.page.14.title": "Welten aus SimpleBuilding",
-  "simpleoctets.guide.page.14": "das nächste Speichern schreibt die neuen Ids.",
-  "quests.simpleoctets.start.title": "Willkommen bei Simple Octets",
-  "quests.simpleoctets.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleoctets.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleoctets.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Octets-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Steinmetz herstellen."
+  "simpleoctets.guide.page.14": "das nächste Speichern schreibt die neuen Ids."
 }

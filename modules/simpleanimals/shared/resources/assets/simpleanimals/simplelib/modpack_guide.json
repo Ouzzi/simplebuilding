@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleanimals.guide.chapter",
+  "icon": "minecraft:sweet_berries",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleanimals:guide",
+      "title": "simpleanimals.guide.chapter",
+      "icon": "minecraft:sweet_berries",
+      "page_key": "simpleanimals.guide.page",
+      "pages": 15,
+      "advancement": "simpleanimals:guide/chapter",
+      "hint": "minecraft:sweet_berries"
+    }
+  ]
+}

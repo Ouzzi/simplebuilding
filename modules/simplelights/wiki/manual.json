@@ -87,13 +87,14 @@
     "simplelights:guide_book": {
       "sources": [
         "modules/simplelights/shared/java/com/simplelights/guide/LightsGuide.java",
-        "modules/simplelights/shared/resources/data/simplelights/recipe/guide_book.json"
+        "modules/simplelights/shared/resources/assets/simplelights/simplelib/modpack_guide.json",
+        "modules/simplelights/shared/resources/data/simplelights/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + glowstone dust. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Lights\" gives one for free."
+        "summary": "Chapter \"Simple Lights\" of the Simple Modpack guide (SimpleLib): 7 pages taken from this wiki, shown in your language. Unlocked by picking up: glowstone dust. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Glowstone-Staub. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Lights\" eins."
+        "summary": "Kapitel \"Simple Lights\" im Simple-Modpack-Handbuch (SimpleLib): 7 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Glowstone-Staub. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "simplelights:*light_pane": {

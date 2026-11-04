@@ -31,6 +31,7 @@
   "item.simplehammers.rose_bronze_sledgehammer": "Rose Bronze Sledgehammer",
   "item.simplehammers.blossom_gold_sledgehammer": "Blossom Gold Sledgehammer",
   "item.simplehammers.guide_book": "Simple Hammers Guide",
+  "simplehammers.guide.chapter": "Simple Hammers",
   "simplehammers.guide.page.1.title": "Simple Hammers",
   "simplehammers.guide.page.1": "Seven sledgehammers that mine a whole area, carve and reshape blocks, crush diamond and quartz blocks and upgrade blocks in the world strike by strike, and their three enchantments.",
   "simplehammers.guide.page.2.title": "Sledgehammers: mining a whole area",
@@ -82,9 +83,5 @@
   "simplehammers.guide.page.25.title": "Commands",
   "simplehammers.guide.page.25": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
   "simplehammers.guide.page.26.title": "Settings",
-  "simplehammers.guide.page.26": "More settings are in the mod's config screen.",
-  "quests.simplehammers.start.title": "Welcome to Simple Hammers",
-  "quests.simplehammers.start.subtitle": "Your free guide",
-  "quests.simplehammers.start.welcome.title": "A free guide",
-  "quests.simplehammers.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Hammers Guide as a reward. You can also craft it from a book and an iron ingot."
+  "simplehammers.guide.page.26": "More settings are in the mod's config screen."
 }

@@ -10,6 +10,7 @@
   "command.simpleresonance.debug_owner": "%s: %s Blöcke, Chance %s %%",
   "command.simpleresonance.debug_level": "Ein Spawn hier mit dem ersten Kandidaten als Besitzer bekäme Stufe %s (Zone %s).",
   "item.simpleresonance.guide_book": "Simple-Resonance-Handbuch",
+  "simpleresonance.guide.chapter": "Simple Resonance",
   "simpleresonance.guide.page.1.title": "Simple Resonance",
   "simpleresonance.guide.page.1": "Wie erfahren du bist und wie gefährlich das Land ist:",
   "simpleresonance.guide.page.2.title": "Simple Resonance",
@@ -41,9 +42,5 @@
   "simpleresonance.guide.page.15.title": "Befehle",
   "simpleresonance.guide.page.15": "/resonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /resonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
   "simpleresonance.guide.page.16.title": "Einstellungen",
-  "simpleresonance.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleresonance.start.title": "Willkommen bei Simple Resonance",
-  "quests.simpleresonance.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleresonance.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleresonance.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Resonance-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Echo-Scherbe herstellen."
+  "simpleresonance.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

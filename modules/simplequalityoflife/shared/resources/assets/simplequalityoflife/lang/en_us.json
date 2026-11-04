@@ -18,6 +18,7 @@
   "text.autoconfig.simplequalityoflife.category.submods": "Sub-mods",
   "command.simplequalityoflife.changed": "Configuration saved: %s = %s",
   "item.simplequalityoflife.guide_book": "Simple Quality of Life Guide",
+  "simplequalityoflife.guide.chapter": "Simple Quality of Life",
   "simplequalityoflife.guide.page.1.title": "Simple Quality of Life",
   "simplequalityoflife.guide.page.1": "Bundles seven sub-mods with one switch each: weather, interfaces, loot, mob manners, farming, tools and movement.",
   "simplequalityoflife.guide.page.2.title": "Commands",
@@ -217,9 +218,5 @@
   "simplequalityoflife.guide.page.99.title": "Key binding page",
   "simplequalityoflife.guide.page.99": "A page for all key bindings of Minecraft and every mod by mod, by function or as a 60/75/100 % keyboard, with search and conflict marks.",
   "simplequalityoflife.guide.page.100.title": "Settings",
-  "simplequalityoflife.guide.page.100": "More settings are in the mod's config screen.",
-  "quests.simplequalityoflife.start.title": "Welcome to Simple Quality of Life",
-  "quests.simplequalityoflife.start.subtitle": "Your free guide",
-  "quests.simplequalityoflife.start.welcome.title": "A free guide",
-  "quests.simplequalityoflife.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Quality of Life Guide as a reward. You can also craft it from a book and a chest."
+  "simplequalityoflife.guide.page.100": "More settings are in the mod's config screen."
 }

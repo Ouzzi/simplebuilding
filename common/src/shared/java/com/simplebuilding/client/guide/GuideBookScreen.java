@@ -97,6 +97,12 @@ public class GuideBookScreen extends Screen {
     /** 26.3, creative only: the locked tab picked for "Unlock anyway", and its button under the book. */
     private GuideBooks.Book unlockTarget;
     private net.minecraft.client.gui.components.Button unlockButton;
+    /**
+     * b-guide01 (26.3): opened as the SimpleBuilding section of SimpleLib's Simple Modpack guide; then holding that guide
+     * keeps the book open, and the top bookmarks lead to the other sections. {@code modpackHandless}: opened without a guide
+     * in hand (test probe), nothing closes it.
+     */
+    private boolean inModpack, modpackHandless;
 
     public GuideBookScreen(GuideBooks.Book book) {
         this(new ItemStack(GuideBooks.item(book)));
@@ -118,10 +124,25 @@ public class GuideBookScreen extends Screen {
         this.sourceHand = hand;
     }
 
+    /** b-guide01: this screen is the SimpleBuilding section of the Simple Modpack guide, held in {@code hand} (null: none). */
+    public GuideBookScreen inModpackGuide(net.minecraft.world.InteractionHand hand) {
+        inModpack = true;
+        modpackHandless = hand == null;
+        if (hand != null) sourceHand = hand;
+        return this;
+    }
+
+    /** The hand the Simple Modpack guide is held in, or null (the old guide or no guide is held): the other sections' screens use it. */
+    private net.minecraft.world.InteractionHand modpackHand() {
+        return inModpack && !modpackHandless ? sourceHand : null;
+    }
+
     @Override
     protected void init() {
         bx = (width - BOOK_W) / 2;
-        by = Math.max(0, (height - BOOK_H) / 2);
+        // 26.3: room for the Simple Modpack guide's top bookmarks, the same place as in SimpleLib's guide screen.
+        by = com.simplebuilding.version.McVersion.MEGA_GUIDES ? com.simplebuilding.client.LibClientServices.modpackBookY(height)
+                : Math.max(0, (height - BOOK_H) / 2);
         context = minecraft.level != null ? SlotDisplayContext.fromLevel(minecraft.level) : null;
         unlockButton = addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.empty(), button -> {
             if (unlockTarget != null) {
@@ -300,7 +321,8 @@ public class GuideBookScreen extends Screen {
         super.tick();
         if (!com.simplebuilding.version.McVersion.MEGA_GUIDES || minecraft.player == null) return;
         ItemStack held = minecraft.player.getItemInHand(sourceHand);
-        if (!held.is(source.getItem())) { onClose(); return; }
+        boolean modpackGuide = GuideBooks.MODPACK_GUIDE.equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(held.getItem()));
+        if (!held.is(source.getItem()) && !(inModpack && (modpackHandless || modpackGuide))) { onClose(); return; }
         // Left creative mode while the button showed: hide it (the server would refuse anyway).
         if (unlockTarget != null && !creative()) pickUnlock(null);
         if (com.simplebuilding.guide.GuideUnlocks.clientVersion() != seenUnlocks) {
@@ -548,6 +570,14 @@ public class GuideBookScreen extends Screen {
         if (event.button() != InputConstants.MOUSE_BUTTON_LEFT) {
             return super.mouseClicked(event, doubleClick);
         }
+        // b-guide01 (26.3): the Simple Modpack guide's top bookmarks and the "More Simple mods" bookmark come first.
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) {
+            if (com.simplebuilding.client.LibClientServices.modpackBarClick(mx, my, modpackHand())) return true;
+            if (com.simplebuilding.client.LibClientServices.modpackMore() && overTab(shelfBooks().size(), mx, my)) {
+                com.simplebuilding.client.LibClientServices.openModpackMore(modpackHand());
+                return true;
+            }
+        }
         if (overPrev(mx, my) && spread > 0) {
             goTo(spread - 2, false);
             return true;
@@ -661,6 +691,7 @@ public class GuideBookScreen extends Screen {
         if (overContentsTab(mouseX, mouseY)) {
             hoveredText = Component.translatable(GuideContent.GUI + "contents");
         }
+        if (com.simplebuilding.version.McVersion.MEGA_GUIDES) modpackBookmarks(g, books.size(), mouseX, mouseY);
         blit(g, bx, by, 0, 0, BOOK_W, BOOK_H);
 
         for (int side = 0; side < 2; side++) {
@@ -696,6 +727,27 @@ public class GuideBookScreen extends Screen {
         } else if (hoveredText != null) {
             g.setTooltipForNextFrame(font, hoveredText, mouseX, mouseY);
         }
+    }
+
+    /**
+     * b-guide01 (26.3): the Simple Modpack guide's top bookmarks (one per installed super-mod, SimpleLib) and, after the
+     * book's own bookmarks, "More Simple mods" - the chapters SimpleBuilding's sub-mods hand in, in SimpleLib's screen.
+     * Drawn before the cover, so their lower ends lie under it like the side bookmarks.
+     */
+    private void modpackBookmarks(GuiGraphicsExtractor g, int index, int mouseX, int mouseY) {
+        Component bar = com.simplebuilding.client.LibClientServices.modpackBar(g, bx, by, mouseX, mouseY);
+        if (bar != null) hoveredText = bar;
+        if (!com.simplebuilding.client.LibClientServices.modpackMore()) {
+            com.simplebuilding.client.LibClientServices.reportModpackMore(null);
+            return;
+        }
+        int ty = by + tabY(index);
+        int tx = leftTab(index) ? bx - 24 : bx + BOOK_W - 8;
+        if (leftTab(index)) blitMirrored(g, tx, ty, 0, 184, 30, 20);
+        else blit(g, tx, ty, 0, 184, 30, 20);
+        g.item(com.simplebuilding.client.LibClientServices.modpackIcon(), leftTab(index) ? tx + 4 : tx + 10, ty + 3);
+        com.simplebuilding.client.LibClientServices.reportModpackMore(leftTab(index) ? new int[]{bx - 22, ty, 24, 19} : new int[]{bx + BOOK_W - 2, ty, 26, 19});
+        if (overTab(index, mouseX, mouseY)) hoveredText = Component.translatable("gui.simplelib.modpack_guide.more");
     }
 
     static void blit(GuiGraphicsExtractor g, int x, int y, int u, int v, int w, int h) {

@@ -50,6 +50,7 @@
   "simplesounds.level.maximum": "Maximum",
   "simplesounds.option.followVisuals": "Follow Simple Visuals",
   "simplesounds.option.followVisuals.tooltip": "Use the Simple Visuals intensity when\navailable. Effect overrides take priority;\notherwise your own level applies. Client\nonly. Default: true.",
+  "simplesounds.guide.chapter": "Simple Sounds",
   "simplesounds.guide.page.1.title": "Simple Sounds",
   "simplesounds.guide.page.1": "Bounded local Vanilla sound counterparts for the twelve Simple Visuals immersion effects. Open this guide again with /simplesounds guide.",
   "simplesounds.guide.page.2.title": "Footstep dust",

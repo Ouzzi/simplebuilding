@@ -345,7 +345,9 @@ public final class GuideBookTests {
                     }
                 }
             }
-            if (book.isTopic()) {
+            // b-guide01 (26.3): a topic whose item is the retired hub has no recipe of its own any more (book + crafting table
+            // makes SimpleLib's Simple Modpack guide); its page shows the icon instead of a recipe card.
+            if (book.isTopic() && !(GuideBooks.modpackGuide() != null && GuideBooks.item(book) == GuideBooks.item(GuideBooks.Book.GUIDE))) {
                 String spec = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(GuideBooks.item(book)).toString();
                 if (GuideContent.select(recipes, spec, context).isEmpty()) {
                     problems.add(book + ": the topic page finds no recipe for " + spec);
@@ -982,7 +984,9 @@ public final class GuideBookTests {
         helper.assertValueEqual((int) net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
                 .filter(item -> item instanceof com.simplebuilding.items.custom.GuideBookItem).count(), 1, "registered guide items");
         for (GuideBooks.Shelf shelf : GuideBooks.Shelf.values()) {
-            Item hub = GuideBooks.item(shelf.hub());
+            // b-guide01: book + crafting table makes SimpleLib's Simple Modpack guide; SimpleBuilding's hub is retired.
+            Item hub = GuideBooks.modpackGuide();
+            helper.assertTrue(hub != null, "the Simple Modpack guide (SimpleLib) is missing");
             var baseGrid = List.of(new ItemStack(Items.BOOK), new ItemStack(GuideBooks.keyItem(shelf.hub())));
             expect(helper, problems, baseGrid, hub, false);
             var baseRecipe = find(helper, baseGrid).orElseThrow();

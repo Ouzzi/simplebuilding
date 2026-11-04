@@ -28,6 +28,7 @@ public final class LibClientServices {
 
     /** From each loader's client entry. */
     public static void init() {
+        registerModpackSection();
         InventoryExtrasClient.register(new InventoryExtrasClient.Panel() {
             private final TrimStatsPanel trimStats = new TrimStatsPanel();
 
@@ -59,6 +60,51 @@ public final class LibClientServices {
             return config == null ? GadgetHud.DEFAULTS
                     : new GadgetHud.Settings(config.showModHud, config.hudPositionX, config.hudPositionY, config.hudScale);
         });
+    }
+
+    // =====================================================================================
+    // b-guide01: SimpleBuilding's guide is the "simplebuilding" section of SimpleLib's Simple Modpack guide
+    // =====================================================================================
+
+    /** The section's own book screen (registered in {@link #init}). */
+    private static void registerModpackSection() {
+        com.simplelib.api.client.ModpackGuideScreens.register("simplebuilding", hand ->
+                new com.simplebuilding.client.guide.GuideBookScreen(com.simplebuilding.guide.GuideBooks.Book.GUIDE).inModpackGuide(hand));
+    }
+
+    /** Draws the Simple Modpack guide's top bookmarks above SimpleBuilding's book; returns the hovered one's tooltip or null. */
+    public static Component modpackBar(GuiGraphicsExtractor graphics, int bx, int by, int mouseX, int mouseY) {
+        return com.simplelib.api.client.ModpackGuideBar.render(graphics, bx, by, "simplebuilding", mouseX, mouseY);
+    }
+
+    /** A click on a top bookmark (true: handled). {@code hand}: where the Simple Modpack guide is held, null without one. */
+    public static boolean modpackBarClick(double mouseX, double mouseY, net.minecraft.world.InteractionHand hand) {
+        return com.simplelib.api.client.ModpackGuideBar.click(mouseX, mouseY, "simplebuilding", hand);
+    }
+
+    /** Whether SimpleBuilding's sub-mods hand in chapters (then the book shows the "More Simple mods" bookmark). */
+    public static boolean modpackMore() {
+        return com.simplelib.api.client.ModpackGuideScreens.hasChapters("simplebuilding");
+    }
+
+    /** Opens SimpleLib's guide screen at the sub-mod chapters of the SimpleBuilding section. */
+    public static void openModpackMore(net.minecraft.world.InteractionHand hand) {
+        com.simplelib.api.client.ModpackGuideScreens.openChapters("simplebuilding", hand);
+    }
+
+    /** Where the "More Simple mods" bookmark is (GUI pixels), for SimpleLib's real-mouse test probe. */
+    public static void reportModpackMore(int[] rect) {
+        com.simplelib.api.client.ModpackGuideBar.reportSideLink(rect);
+    }
+
+    /** The Simple Modpack guide as an icon (empty when SimpleLib did not register it). */
+    public static net.minecraft.world.item.ItemStack modpackIcon() {
+        return com.simplelib.api.ModpackGuide.stack();
+    }
+
+    /** Top edge of a guide book on a screen of this height (the same as SimpleLib's, so switching never moves the book). */
+    public static int modpackBookY(int height) {
+        return com.simplelib.api.client.ModpackGuideBar.bookY(height);
     }
 
     private static String hudSlotId(HudPanel.Slot slot) {

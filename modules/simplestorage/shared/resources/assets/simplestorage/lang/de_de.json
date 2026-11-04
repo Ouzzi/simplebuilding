@@ -184,6 +184,7 @@
   "text.autoconfig.simplestorage.option.interfaceFillsGaps": "Schnittstellen schließen Lücken",
   "text.autoconfig.simplestorage.option.interfaceFillsGaps.@Tooltip": "Eine Schnittstelle an einer Truhe wächst bis\nzu festen Blöcken daneben, keine Lücke bleibt.\nAus: immer Truhenbreite. Standard: an",
   "item.simplestorage.guide_book": "Simple-Storage-Handbuch",
+  "simplestorage.guide.chapter": "Simple Storage",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Kisten aus jedem Holz, die neun Stapel Essen in Lagen halten, die Werkbank mit Lager, die ihr Raster auf der Platte behält, Truhen, Shulkerkisten, Güterloren und Truhenboote in drei Stufen mit mehr Plätzen und größeren",
   "simplestorage.guide.page.2.title": "Simple Storage",
@@ -255,9 +256,5 @@
   "simplestorage.guide.page.35.title": "Truhen-Netzwerk (Prototyp)",
   "simplestorage.guide.page.35": "Kupferkabel verbinden Truhen, jede mit einer Truhen-Schnittstelle an der Seite, mit einer Controller-Truhe. Das Fenster des Controllers listet jede Sorte aller verbundenen Truhen:",
   "simplestorage.guide.page.36.title": "Truhen-Netzwerk (Prototyp)",
-  "simplestorage.guide.page.36": "Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein.",
-  "quests.simplestorage.start.title": "Willkommen bei Simple Storage",
-  "quests.simplestorage.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplestorage.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplestorage.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Storage-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Fass herstellen."
+  "simplestorage.guide.page.36": "Stapel herausnehmen, mit einem Item klicken zum Einlagern, Shift-Klick im Inventar lagert ein."
 }

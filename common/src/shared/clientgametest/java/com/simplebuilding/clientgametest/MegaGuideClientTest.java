@@ -54,7 +54,8 @@ public final class MegaGuideClientTest {
         return (boolean) method.invoke(screen, book);
     }
     private static void clickBuilding(GuideBookScreen screen) {
-        click(screen, (screen.width - 292) / 2 + 300, Math.max(0, (screen.height - 180) / 2) + 12 + 3 * 20 + 8);
+        // b-guide01: the book sits where SimpleLib puts it (room for the Simple Modpack top bookmarks).
+        click(screen, (screen.width - 292) / 2 + 300, com.simplebuilding.client.LibClientServices.modpackBookY(screen.height) + 12 + 3 * 20 + 8);
     }
     private static Object field(Object value, String name) throws Exception {
         Field field = value.getClass().getDeclaredField(name); field.setAccessible(true); return field.get(value);

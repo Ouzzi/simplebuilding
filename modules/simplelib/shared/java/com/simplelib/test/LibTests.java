@@ -68,6 +68,10 @@ public final class LibTests {
         ALL.put("dev_variants_registry_persistence", DevVariantTests::registryAndPersistence);
         ALL.put("free_look_release_rules", LibTests::freeLookReleaseRules);
         ALL.put("enderite_only_with_ores", LibTests::enderiteOnlyWithOres);
+        ALL.put("modpack_guide_item", ModpackGuideTests::item);
+        ALL.put("modpack_guide_sections", ModpackGuideTests::sections);
+        ALL.put("modpack_guide_unlocks", ModpackGuideTests::unlocks);
+        ALL.put("modpack_guide_creative_tabs", ModpackGuideTests::creativeTabs);
     }
 
     // ------------------------------------------------------------ helpers

@@ -31,6 +31,7 @@ def files():
     materials(out)
     shapes(out)
     warped_wart(out)
+    modpack_guide(out)
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": [f"{NS}:{b}" for b in (*MATERIAL_BLOCKS, *SHAPES)]}
     for kind, tag in (("stairs", "stairs"), ("slab", "slabs"), ("wall", "walls")):
         members = [f"{NS}:{n}" for n, k in SHAPES.items() if k == kind]
@@ -232,6 +233,25 @@ def materials(out):
         out[f"{c}/{kind}/storage_blocks/cracked_diamond.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
         out[f"{c}/{kind}/storage_blocks.json"] = {"values": ["#c:storage_blocks/cracked_diamond"]}
     out["data/minecraft/tags/block/needs_iron_tool.json"] = {"values": [f"{NS}:cracked_diamond_block"]}
+
+
+def modpack_guide(out):
+    """The Simple Modpack guide (b-guide01): item model and the shapeless recipe book + crafting table (SimpleBuilding's
+    guide recipe before), unlocked by holding either."""
+    a, d = f"assets/{NS}", f"data/{NS}"
+    out[f"{a}/models/item/modpack_guide.json"] = {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/modpack_guide"}}
+    out[f"{a}/items/modpack_guide.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:item/modpack_guide"}}
+    out[f"{d}/recipe/modpack_guide.json"] = {"type": "minecraft:crafting_shapeless", "category": "misc",
+                                             "ingredients": ["minecraft:book", "minecraft:crafting_table"],
+                                             "result": {"count": 1, "id": f"{NS}:modpack_guide"}}
+    out[f"{d}/advancement/recipes/misc/modpack_guide.json"] = {
+        "parent": "minecraft:recipes/root",
+        "criteria": {
+            "has_book": {"conditions": {"items": [{"items": "minecraft:book"}]}, "trigger": "minecraft:inventory_changed"},
+            "has_crafting_table": {"conditions": {"items": [{"items": "minecraft:crafting_table"}]}, "trigger": "minecraft:inventory_changed"},
+            "has_the_recipe": {"conditions": {"recipes": f"{NS}:modpack_guide"}, "trigger": "minecraft:recipe_unlocked"}},
+        "requirements": [["has_the_recipe", "has_book", "has_crafting_table"]],
+        "rewards": {"recipes": [f"{NS}:modpack_guide"]}}
 
 
 def warped_wart(out):

@@ -16,6 +16,7 @@
   "item.simpleanimals.truffle_soup": "Trüffelsuppe",
   "simpleanimals.testcentre.station": "Simple Animals",
   "item.simpleanimals.guide_book": "Simple-Animals-Handbuch",
+  "simpleanimals.guide.chapter": "Simple Animals",
   "simpleanimals.guide.page.1.title": "Simple Animals",
   "simpleanimals.guide.page.1": "Fünf Tiere, die Vanilla nicht hat:",
   "simpleanimals.guide.page.2.title": "Simple Animals",
@@ -45,9 +46,5 @@
   "simpleanimals.guide.page.14.title": "Befehle",
   "simpleanimals.guide.page.14": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort. Berechtigung 2.",
   "simpleanimals.guide.page.15.title": "Einstellungen",
-  "simpleanimals.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleanimals.start.title": "Willkommen bei Simple Animals",
-  "quests.simpleanimals.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleanimals.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleanimals.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Animals-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Süßbeeren herstellen."
+  "simpleanimals.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

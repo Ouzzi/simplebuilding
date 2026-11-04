@@ -90,6 +90,7 @@
   "simplechallenges.ui.area.cell": "1 Zelle = %s Blöcke",
   "simplechallenges.ui.area.too_many": "Zu viele Zellen.",
   "simplechallenges.ui.area.help": "Links ziehen fügt ein Rechteck hinzu, rechts ziehen entfernt eines, mit der mittleren Taste ziehen verschiebt die Karte, das Mausrad zoomt. Die Spawn-Zelle (weißer Rahmen) bleibt immer.",
+  "simplechallenges.guide.chapter": "Simple Challenges",
   "simplechallenges.guide.page.1.title": "Simple Challenges",
   "simplechallenges.guide.page.1": "Spielmodi für eine Welt deiner Wahl. Zuerst der Unlock-Modus: Die Welt ist in Zellen zerlegt und nur freie Zellen sind betretbar; die nächste öffnest du gegen Bezahlung. Ohne gewählte Challenge ändert die Mod nichts.",
   "simplechallenges.guide.page.2.title": "Simple Challenges",

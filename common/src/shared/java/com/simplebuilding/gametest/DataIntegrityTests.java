@@ -457,7 +457,7 @@ public final class DataIntegrityTests {
         declaredInOrder.addAll(declared);
         for (Identifier id : declaredInOrder) {
             Item item = BuiltInRegistries.ITEM.getValue(id);
-            boolean expected = !ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath());
+            boolean expected = !ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) && !retiredGuide(id);
             if (expected && !inTheTab.contains(item)) {
                 problems.add(id + " is registered but ModItemGroupsContent never offers it, so it "
                         + "cannot be taken out of the creative inventory at all");
@@ -2558,6 +2558,15 @@ public final class DataIntegrityTests {
      * item moved into a second tab or listed twice; an item dropped from every tab; books spread
      * into another tab.
      */
+    /**
+     * b-guide01 (26.3): the single guides ({@code <mod>:guide_book}, SimpleBuilding's hub) are retired - registered for old
+     * worlds, without recipe and outside the creative tabs; SimpleLib's Simple Modpack guide replaces them.
+     */
+    static boolean retiredGuide(Identifier id) {
+        return com.simplebuilding.guide.GuideBooks.modpackGuide() != null && !"minecraft".equals(id.getNamespace())
+                && !com.simplebuilding.guide.GuideBooks.MODPACK_GUIDE.equals(id) && id.getPath().equals("guide_book");
+    }
+
     /** Split stage 4: the furnaces and furnace carts SimpleBuilding's tabs keep listing (Simple Ovens' on 26.3). */
     static Set<Identifier> ovenItemIds() {
         Set<Identifier> ids = new HashSet<>();
@@ -2596,7 +2605,7 @@ public final class DataIntegrityTests {
         }
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if ("minecraft".equals(id.getNamespace()) || ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath())
-                    || MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.toString())) {
+                    || MODULE_ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.toString()) || retiredGuide(id)) {
                 continue;
             }
             if (!offered.contains(BuiltInRegistries.ITEM.getValue(id))) {
@@ -2718,7 +2727,7 @@ public final class DataIntegrityTests {
                 }
                 continue;
             }
-            int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) ? 0 : 1;
+            int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) || retiredGuide(id) ? 0 : 1;
             if (com.simplebuilding.version.McVersion.FLETCHING && BuiltInRegistries.ITEM.getValue(id) == ModItems.CRAFTED_ARROW) {
                 // Ein Item, eine Variante je Teile-Kombination (B14): alle im Tab SimpleArrows, sonst nirgends.
                 tabs = new ArrayList<>(new java.util.LinkedHashSet<>(tabs));
@@ -2817,7 +2826,9 @@ public final class DataIntegrityTests {
                     // MACH32-MOD: Simple Machines' Double Piston and Signal Dampener keep their row in SimpleBuilding's functional tab (by id).
                     && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
-                    && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+                    && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
+                    && !com.simplebuilding.guide.GuideBooks.MODPACK_GUIDE.equals(BuiltInRegistries.ITEM.getKey(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
@@ -3676,7 +3687,7 @@ public final class DataIntegrityTests {
         for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
             List<ItemStack> shelfBooks = new ArrayList<>();
             for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.items(shelf)) {
-                shelfBooks.add(new ItemStack(com.simplebuilding.guide.GuideBooks.item(book)));
+                shelfBooks.add(com.simplebuilding.guide.GuideBooks.tabStack(book)); // 26.3: the Simple Modpack guide (b-guide01)
             }
             String name = shelf == com.simplebuilding.guide.GuideBooks.Shelf.MOD ? "guide_books" : "vanilla_guide_books";
             expected.add(firstShelf ? new CreativeTabLayout.Row(name, shelfBooks) : CreativeTabLayout.Row.flowing(name, shelfBooks));
@@ -5002,7 +5013,7 @@ public final class DataIntegrityTests {
         int recipeless = 0;
         for (Item item : BuiltInRegistries.ITEM) {
             Identifier id = BuiltInRegistries.ITEM.getKey(item);
-            if (!MOD_ID.equals(id.getNamespace()) || obtainable.contains(item) || new ItemStack(item).is(hidden)) {
+            if (!MOD_ID.equals(id.getNamespace()) || obtainable.contains(item) || new ItemStack(item).is(hidden) || retiredGuide(id)) {
                 continue;
             }
             recipeless++;

@@ -46,6 +46,7 @@
   "simplemachines.hopper_filter.whitelist": "Exact Match",
   "simplemachines.hopper_filter.type": "Type Match",
   "item.simplemachines.guide_book": "Simple Machines Guide",
+  "simplemachines.guide.chapter": "Simple Machines",
   "simplemachines.guide.page.1.title": "Simple Machines",
   "simplemachines.guide.page.1": "The machine parts of the Simple Machines tab:",
   "simplemachines.guide.page.2.title": "Simple Machines",
@@ -71,9 +72,5 @@
   "simplemachines.guide.page.12.title": "Commands",
   "simplemachines.guide.page.12": "/simplemachines config [list | get | set | reset | help] (operators).",
   "simplemachines.guide.page.13.title": "Settings",
-  "simplemachines.guide.page.13": "More settings are in the mod's config screen.",
-  "quests.simplemachines.start.title": "Welcome to Simple Machines",
-  "quests.simplemachines.start.subtitle": "Your free guide",
-  "quests.simplemachines.start.welcome.title": "A free guide",
-  "quests.simplemachines.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Machines Guide as a reward. You can also craft it from a book and redstone dust."
+  "simplemachines.guide.page.13": "More settings are in the mod's config screen."
 }

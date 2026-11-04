@@ -82,6 +82,7 @@
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability": "Blöcke je Haltbarkeitspunkt",
   "text.autoconfig.simpleriding.option.horseshoes.blocksPerDurability.@Tooltip": "Gerittene Strecke am Boden je Abnutzungspunkt\njedes Hufeisens. Bereich 8-400. Standard: 40.\nServereinstellung; Neustart erforderlich.",
   "item.simpleriding.guide_book": "Simple-Riding-Handbuch",
+  "simpleriding.guide.chapter": "Simple Riding",
   "simpleriding.guide.page.1.title": "Simple Riding",
   "simpleriding.guide.page.1": "Sattel-Tempo, Pferdesprünge, Nautilus-Sprints, Reittier-Rüstungshilfen, Beute und Handel.",
   "simpleriding.guide.page.2.title": "Rückenwind",
@@ -111,9 +112,5 @@
   "simpleriding.guide.page.14.title": "Befehle",
   "simpleriding.guide.page.14": "Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
   "simpleriding.guide.page.15.title": "Einstellungen",
-  "simpleriding.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simpleriding.start.title": "Willkommen bei Simple Riding",
-  "quests.simpleriding.start.subtitle": "Dein Handbuch gratis",
-  "quests.simpleriding.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simpleriding.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Riding-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Heuballen herstellen."
+  "simpleriding.guide.page.15": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

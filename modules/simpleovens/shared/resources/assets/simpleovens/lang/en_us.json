@@ -117,6 +117,7 @@
   "item.simpleovens.pale_oak_furnace_boat": "Pale Oak Furnace Boat",
   "item.simpleovens.spruce_furnace_boat": "Spruce Furnace Boat",
   "item.simpleovens.guide_book": "Simple Ovens Guide",
+  "simpleovens.guide.chapter": "Simple Ovens",
   "simpleovens.guide.page.1.title": "Simple Ovens",
   "simpleovens.guide.page.1": "Reinforced, Netherite and Enderite furnaces, smokers and blast furnaces that cook 2, 4 and 8 times as fast, and furnace minecarts of the same tiers.",
   "simpleovens.guide.page.2.title": "Faster Furnaces: Reinforced, Netherite and Enderite",
@@ -146,9 +147,5 @@
   "simpleovens.guide.page.14.title": "Commands",
   "simpleovens.guide.page.14": "Values are bounded like in the file, saved at once and take effect at once; options read only at start say so. Permission level 2.",
   "simpleovens.guide.page.15.title": "Settings",
-  "simpleovens.guide.page.15": "More settings are in the mod's config screen.",
-  "quests.simpleovens.start.title": "Welcome to Simple Ovens",
-  "quests.simpleovens.start.subtitle": "Your free guide",
-  "quests.simpleovens.start.welcome.title": "A free guide",
-  "quests.simpleovens.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Ovens Guide as a reward. You can also craft it from a book and charcoal."
+  "simpleovens.guide.page.15": "More settings are in the mod's config screen."
 }

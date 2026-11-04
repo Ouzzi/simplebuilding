@@ -5,5 +5,6 @@
   "text.autoconfig.simpleaesthetics.option.enableSimpleSounds": "Enable Simple Sounds",
   "text.autoconfig.simpleaesthetics.option.enableSimpleSounds.@Tooltip": "Turns the Simple Sounds sub-mod on or off.\nDefault: true.",
   "text.autoconfig.simpleaesthetics.option.enableSimpleModels": "Enable Simple Models",
-  "text.autoconfig.simpleaesthetics.option.enableSimpleModels.@Tooltip": "Turns the Simple Models sub-mod on or off.\nDefault: true."
+  "text.autoconfig.simpleaesthetics.option.enableSimpleModels.@Tooltip": "Turns the Simple Models sub-mod on or off.\nDefault: true.",
+  "simpleaesthetics.guide.chapter": "Simple Aesthetics"
 }

@@ -42,6 +42,7 @@
   "text.autoconfig.simplemoney.option.links.cooldownTicks.tooltip": "Shared player cooldown, 20-1200 game ticks.\nDefault: 100. Server setting. Save a local\ndraft; reload or restart the server. Existing\noffers keep their base price and stock.",
   "jei.simplemoney.links": "Additional trades for loaded mods. Default: enabled. Buy only, one item, 8-64 bills; no discounts. Default: 8 linked purchases per player per 24000 game ticks, 100 ticks between purchases. Original trades remain. See Simple Money wiki: linked price tables.",
   "item.simplemoney.guide_book": "Simple Money Guide",
+  "simplemoney.guide.chapter": "Simple Money",
   "simplemoney.guide.page.1.title": "Simple Money",
   "simplemoney.guide.page.1": "Currency production, weighted villager trades and treasure loot.",
   "simplemoney.guide.page.2.title": "Special Paper",
@@ -73,9 +74,5 @@
   "simplemoney.guide.page.15.title": "Commands",
   "simplemoney.guide.page.15": "/simplemoney config shows and changes every option of config/simplemoney.json (list [group], get, set, reset, help; Tab completes options and values). Values are bounded like in the file, saved at once and take effect at once.",
   "simplemoney.guide.page.16.title": "Commands",
-  "simplemoney.guide.page.16": "Permission level 2.",
-  "quests.simplemoney.start.title": "Welcome to Simple Money",
-  "quests.simplemoney.start.subtitle": "Your free guide",
-  "quests.simplemoney.start.welcome.title": "A free guide",
-  "quests.simplemoney.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Money Guide as a reward. You can also craft it from a book and a gold nugget."
+  "simplemoney.guide.page.16": "Permission level 2."
 }

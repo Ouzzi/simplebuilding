@@ -1,6 +1,32 @@
 {
   "features": [
     {
+      "id": "modpack_guide",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/ModpackGuide.java",
+        "modules/simplelib/shared/java/com/simplelib/client/guide/ModpackGuideScreen.java",
+        "modules/simplelib/shared/java/com/simplelib/api/client/ModpackGuideBar.java",
+        "modules/simplelib/shared/java/com/simplelib/api/CreativeTabPolicy.java",
+        "modules/simplelib/generated/resources/data/simplelib/recipe/modpack_guide.json"
+      ],
+      "en": {
+        "title": "Simple Modpack guide",
+        "summary": "One guide for every Simple mod, there with any of them installed: craft it from a book and a crafting table (shapeless), or get it from the first FTB Quests quest. Bookmarks along the top pick a super-mod (SimpleBuilding, Simple Quality of Life, Simple Aesthetics ...; a sub-mod alone gets its own), bookmarks at the sides its chapters, one per mod. A chapter opens with its advancement - mostly when you first pick up the item it names; until then its bookmark is grey and says what opens it. In creative mode every chapter is open.",
+        "details": [
+          "Each mod hands in its part as data (assets/<mod>/simplelib/modpack_guide.json); SimpleBuilding's own book with its bookmarks is the SimpleBuilding section, its sub-mods' chapters sit behind \"More Simple mods\".",
+          "The old single guides stay in old worlds, leave the creative tabs and the recipe viewer and turn into the Simple Modpack guide when used (SimpleBuilding's at login)."
+        ]
+      },
+      "de": {
+        "title": "Simple-Modpack-Handbuch",
+        "summary": "Ein Handbuch für alle Simple-Mods, vorhanden, sobald eine davon installiert ist: formlos aus Buch und Werkbank herstellen oder von der ersten FTB-Quests-Quest holen. Lesezeichen oben wählen eine Super-Mod (SimpleBuilding, Simple Quality of Life, Simple Aesthetics ...; eine Sub-Mod allein bekommt ein eigenes), Lesezeichen an den Seiten ihre Kapitel, eines je Mod. Ein Kapitel öffnet sich mit seinem Fortschritt - meist, sobald du den genannten Gegenstand zum ersten Mal aufhebst; bis dahin ist sein Lesezeichen grau und nennt, was es öffnet. Im Kreativmodus sind alle Kapitel offen.",
+        "details": [
+          "Jede Mod liefert ihren Teil als Daten (assets/<mod>/simplelib/modpack_guide.json); SimpleBuildings eigenes Buch mit seinen Lesezeichen ist der Abschnitt SimpleBuilding, die Kapitel seiner Sub-Mods liegen hinter „Weitere Simple Mods“.",
+          "Die alten Einzelhandbücher bleiben in alten Welten, verlassen die Kreativ-Tabs und den Rezept-Viewer und werden beim Benutzen zum Simple-Modpack-Handbuch (das von SimpleBuilding beim Einloggen)."
+        ]
+      }
+    },
+    {
       "id": "warm_food",
       "en": {
         "title": "Warm food",
@@ -319,6 +345,14 @@
       },
       "de": {
         "summary": "Enderitkern: nicht stapelbar, Zutat von Baustäben, Leuchtfeuern und Gadgets. Nur mit Simple Ores (Rezept und Beute brauchen Enderit)."
+      }
+    },
+    "simplelib:modpack_guide": {
+      "en": {
+        "summary": "The Simple Modpack guide: one book for all Simple mods, top bookmarks per super-mod, side bookmarks per chapter. Book + crafting table."
+      },
+      "de": {
+        "summary": "Das Simple-Modpack-Handbuch: ein Buch für alle Simple-Mods, oben Lesezeichen je Super-Mod, seitlich je Kapitel. Buch + Werkbank."
       }
     }
   }

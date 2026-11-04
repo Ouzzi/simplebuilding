@@ -1,0 +1,15 @@
+{
+  "section": "simplebuilding",
+  "name": "simpleearth.guide.chapter",
+  "icon": "minecraft:globe_banner_pattern",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simpleearth:guide",
+      "title": "simpleearth.guide.chapter",
+      "icon": "minecraft:globe_banner_pattern",
+      "page_key": "simpleearth.guide.page",
+      "pages": 33
+    }
+  ]
+}

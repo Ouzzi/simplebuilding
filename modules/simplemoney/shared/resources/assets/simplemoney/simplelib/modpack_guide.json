@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplemoney.guide.chapter",
+  "icon": "minecraft:gold_nugget",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplemoney:guide",
+      "title": "simplemoney.guide.chapter",
+      "icon": "minecraft:gold_nugget",
+      "page_key": "simplemoney.guide.page",
+      "pages": 16,
+      "advancement": "simplemoney:guide/chapter",
+      "hint": "minecraft:gold_nugget"
+    }
+  ]
+}

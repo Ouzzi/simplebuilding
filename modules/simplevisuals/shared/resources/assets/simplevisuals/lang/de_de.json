@@ -169,6 +169,7 @@
   "simplevisuals.rename_to": "Am Amboss umbenennen: %s",
   "simplevisuals.server_formatting": "Server-Ambossformatierung: %s",
   "simplevisuals.screen.anvil_uses": "Vorherige Ambossnutzungen: %s",
+  "simplevisuals.guide.chapter": "Simple Visuals",
   "simplevisuals.guide.page.1.title": "Simple Visuals",
   "simplevisuals.guide.page.1": "Begrenzte Client-Anzeigen, Tooltips, Amboss-Formatierung und Vanilla-Immersionspartikel. Dieses Handbuch öffnet /simplevisuals guide.",
   "simplevisuals.guide.page.2.title": "Geschwindigkeitslinien",

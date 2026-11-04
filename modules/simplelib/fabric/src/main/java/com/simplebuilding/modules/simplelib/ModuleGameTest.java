@@ -234,4 +234,24 @@ public final class ModuleGameTest {
     public void freeLookReleaseRules(GameTestHelper h) {
         LibTests.ALL.get("free_look_release_rules").accept(h);
     }
+
+    @GameTest
+    public void modpackGuideItem(GameTestHelper h) {
+        LibTests.ALL.get("modpack_guide_item").accept(h);
+    }
+
+    @GameTest
+    public void modpackGuideSections(GameTestHelper h) {
+        LibTests.ALL.get("modpack_guide_sections").accept(h);
+    }
+
+    @GameTest
+    public void modpackGuideUnlocks(GameTestHelper h) {
+        LibTests.ALL.get("modpack_guide_unlocks").accept(h);
+    }
+
+    @GameTest
+    public void modpackGuideCreativeTabs(GameTestHelper h) {
+        LibTests.ALL.get("modpack_guide_creative_tabs").accept(h);
+    }
 }

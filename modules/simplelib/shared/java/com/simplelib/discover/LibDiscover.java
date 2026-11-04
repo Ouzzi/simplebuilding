@@ -64,6 +64,7 @@ public final class LibDiscover {
             "simplelib:hang_watchdog",
             "simplelib:iron_core",
             "simplelib:legendary_moments",
+            "simplelib:modpack_guide",
             "simplelib:netherite_core",
             "simplelib:netherite_nugget",
             "simplelib:polished_end_stone",

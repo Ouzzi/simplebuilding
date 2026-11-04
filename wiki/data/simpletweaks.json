@@ -1137,42 +1137,6 @@
       },
       "source": "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/claim_deed_copy.json",
       "ingredients": []
-    },
-    {
-      "id": "simpletweaks:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpletweaks:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:paper"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:paper"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 4
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
     }
   ],
   "lootTables": [
@@ -1309,7 +1273,32 @@
       "source": "modules/simpletweaks/shared/resources/data/simpletweaks/tags/block/claim_use.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpletweaks:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:paper"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpletweaks/shared/resources/data/simpletweaks/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -1371,13 +1360,14 @@
       "note": {
         "sources": [
           "modules/simpletweaks/shared/java/com/simplebuilding/modules/simpletweaks/guide/TweaksGuide.java",
-          "modules/simpletweaks/shared/resources/data/simpletweaks/recipe/guide_book.json"
+          "modules/simpletweaks/shared/resources/assets/simpletweaks/simplelib/modpack_guide.json",
+          "modules/simpletweaks/shared/resources/data/simpletweaks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 72 pages taken from this wiki, shown in your language. Shapeless recipe: book + paper. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Tweaks\" gives one for free."
+          "summary": "Chapter \"Simple Tweaks\" of the Simple Modpack guide (SimpleLib): 72 pages taken from this wiki, shown in your language. Unlocked by picking up: paper. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 72 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Papier. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Tweaks\" eins."
+          "summary": "Kapitel \"Simple Tweaks\" im Simple-Modpack-Handbuch (SimpleLib): 72 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Papier. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpletweaks/item/guide_book.png",
@@ -1405,9 +1395,7 @@
           ]
         }
       },
-      "craftedBy": [
-        "simpletweaks:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -1450,10 +1438,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 42,
-    "recipes": 3,
+    "recipes": 2,
     "lootTables": 1,
     "tags": 2,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 2,
     "blocks": 1,

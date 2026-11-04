@@ -136,6 +136,7 @@
   "text.autoconfig.simpleblocks.option.thawOneIn": "Thaw Chance (1 in N)",
   "text.autoconfig.simpleblocks.option.thawOneIn.@Tooltip": "Frost grass without snow thaws with a\nchance of 1 in N per random tick (1-100).\nDefault: 6.",
   "item.simpleblocks.guide_book": "Simple Blocks Guide",
+  "simpleblocks.guide.chapter": "Simple Blocks",
   "simpleblocks.guide.page.1.title": "Simple Blocks",
   "simpleblocks.guide.page.1": "The missing building blocks: Hushed Deepslate Tiles that swallow vibrations like wool, Sculk Deepslate,",
   "simpleblocks.guide.page.2.title": "Simple Blocks",
@@ -167,9 +168,5 @@
   "simpleblocks.guide.page.15.title": "Frost Grass",
   "simpleblocks.guide.page.15": "A grass block with snow on top slowly freezes to Frost Grass in cold biomes or with ice below it; without snow it slowly thaws back to grass.",
   "simpleblocks.guide.page.16.title": "Settings",
-  "simpleblocks.guide.page.16": "More settings are in the mod's config screen.",
-  "quests.simpleblocks.start.title": "Welcome to Simple Blocks",
-  "quests.simpleblocks.start.subtitle": "Your free guide",
-  "quests.simpleblocks.start.welcome.title": "A free guide",
-  "quests.simpleblocks.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Blocks Guide as a reward. You can also craft it from a book and a clay ball."
+  "simpleblocks.guide.page.16": "More settings are in the mod's config screen."
 }

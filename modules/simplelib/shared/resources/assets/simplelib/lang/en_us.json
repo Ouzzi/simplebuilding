@@ -86,5 +86,18 @@
   "text.autoconfig.simplelib.option.freeLookServerRelease": "When Free Look Ends (server)",
   "text.autoconfig.simplelib.option.freeLookServerRelease.@Tooltip": "The server's choice; it only counts for\nplayers while \"Enforce on Clients\" is on.\nDefault: Camera turns back.",
   "text.autoconfig.simplelib.option.freeLookEnforce": "Enforce on Clients",
-  "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "On: every player uses the server's choice\nabove; the client setting is ignored.\nSent when a player joins.\nDefault: false."
+  "text.autoconfig.simplelib.option.freeLookEnforce.@Tooltip": "On: every player uses the server's choice\nabove; the client setting is ignored.\nSent when a player joins.\nDefault: false.",
+  "item.simplelib.modpack_guide": "Simple Modpack",
+  "tooltip.simplelib.modpack_guide": "Your first steps into SimpleMods",
+  "gui.simplelib.modpack_guide.contents": "Contents",
+  "gui.simplelib.modpack_guide.previous": "Previous page",
+  "gui.simplelib.modpack_guide.next": "Next page",
+  "gui.simplelib.modpack_guide.locked": "Opens when you pick up %s",
+  "gui.simplelib.modpack_guide.locked_short": "Locked",
+  "gui.simplelib.modpack_guide.more": "More Simple mods",
+  "gui.simplelib.modpack_guide.empty": "No Simple mod with a guide is installed.",
+  "quests.simplelib.start.title": "Welcome to the Simple mods",
+  "quests.simplelib.start.subtitle": "Your free guide",
+  "quests.simplelib.start.welcome.title": "A free guide",
+  "quests.simplelib.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Modpack guide as a reward. You can also craft it from a book and a crafting table."
 }

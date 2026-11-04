@@ -1,0 +1,17 @@
+{
+  "section": "simplebuilding",
+  "name": "simplesandwiches.guide.chapter",
+  "icon": "minecraft:bread",
+  "order": 100,
+  "chapters": [
+    {
+      "id": "simplesandwiches:guide",
+      "title": "simplesandwiches.guide.chapter",
+      "icon": "minecraft:bread",
+      "page_key": "simplesandwiches.guide.page",
+      "pages": 9,
+      "advancement": "simplesandwiches:guide/chapter",
+      "hint": "minecraft:bread"
+    }
+  ]
+}

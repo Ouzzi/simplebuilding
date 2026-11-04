@@ -169,6 +169,7 @@
   "simplevisuals.rename_to": "Rename at an anvil: %s",
   "simplevisuals.server_formatting": "Server anvil formatting: %s",
   "simplevisuals.screen.anvil_uses": "Prior anvil uses: %s",
+  "simplevisuals.guide.chapter": "Simple Visuals",
   "simplevisuals.guide.page.1.title": "Simple Visuals",
   "simplevisuals.guide.page.1": "Bounded client HUD, tooltips, anvil formatting and Vanilla immersion particles. Open this guide again with /simplevisuals guide.",
   "simplevisuals.guide.page.2.title": "Speed lines",

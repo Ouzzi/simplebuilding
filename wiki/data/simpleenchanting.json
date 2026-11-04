@@ -276,46 +276,6 @@
       }
     },
     {
-      "id": "simpleenchanting:guide_book",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleenchanting:guide_book",
-        "count": 1
-      },
-      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/guide_book.json",
-      "ingredients": [
-        "minecraft:book",
-        "minecraft:lapis_lazuli"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:book"
-        ],
-        [
-          "minecraft:lapis_lazuli"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:sugar_cane",
-            "count": 3
-          },
-          {
-            "id": "minecraft:lapis_lazuli",
-            "count": 1
-          },
-          {
-            "id": "minecraft:leather",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
       "id": "simpleenchanting:nihil_obsidian",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -674,7 +634,32 @@
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/obsidian_floor.json"
     }
   ],
-  "advancements": [],
+  "advancements": [
+    {
+      "id": "simpleenchanting:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:lapis_lazuli"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
     {
@@ -686,19 +671,18 @@
       "note": {
         "sources": [
           "modules/simpleenchanting/shared/java/com/simpleenchanting/guide/EnchantingGuide.java",
-          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/guide_book.json"
+          "modules/simpleenchanting/shared/resources/assets/simpleenchanting/simplelib/modpack_guide.json",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Guide to this mod: 7 pages taken from this wiki, shown in your language. Shapeless recipe: book + lapis lazuli. Use it to read. With FTB Quests installed, the first quest of the chapter \"Welcome to Simple Enchanting\" gives one for free."
+          "summary": "Chapter \"Simple Enchanting\" of the Simple Modpack guide (SimpleLib): 7 pages taken from this wiki, shown in your language. Unlocked by picking up: lapis lazuli. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Handbuch zu dieser Mod: 7 Seiten aus diesem Wiki, in deiner Sprache. Formloses Rezept: Buch + Lapislazuli. Benutzen zum Lesen. Mit FTB Quests schenkt die erste Quest im Kapitel \"Willkommen bei Simple Enchanting\" eins."
+          "summary": "Kapitel \"Simple Enchanting\" im Simple-Modpack-Handbuch (SimpleLib): 7 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Lapislazuli. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleenchanting/item/guide_book.png",
-      "craftedBy": [
-        "simpleenchanting:guide_book"
-      ],
+      "craftedBy": [],
       "usedIn": []
     }
   ],
@@ -957,10 +941,10 @@
   "incompleteProse": {},
   "counts": {
     "features": 5,
-    "recipes": 7,
+    "recipes": 6,
     "lootTables": 8,
     "tags": 3,
-    "advancements": 0,
+    "advancements": 1,
     "enchantments": 0,
     "items": 1,
     "blocks": 8,

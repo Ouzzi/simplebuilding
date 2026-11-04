@@ -18,6 +18,7 @@
   "text.autoconfig.simplequalityoflife.category.submods": "Sub-Mods",
   "command.simplequalityoflife.changed": "Konfiguration gespeichert: %s = %s",
   "item.simplequalityoflife.guide_book": "Simple-Quality-of-Life-Handbuch",
+  "simplequalityoflife.guide.chapter": "Simple Quality of Life",
   "simplequalityoflife.guide.page.1.title": "Simple Quality of Life",
   "simplequalityoflife.guide.page.1": "Bündelt sieben Sub-Mods mit je einem Schalter: Wetter, Oberflächen, Beute, Mob-Manieren, Landwirtschaft, Werkzeuge und Bewegung.",
   "simplequalityoflife.guide.page.2.title": "Befehle",
@@ -217,9 +218,5 @@
   "simplequalityoflife.guide.page.99.title": "Tastenbelegungs-Seite",
   "simplequalityoflife.guide.page.99": "Eine Seite für alle Tastenbelegungen von Minecraft und jedem Mod nach Mod, nach Funktion oder als Tastatur 60/75/100 %, mit Suche und Konfliktmarken.",
   "simplequalityoflife.guide.page.100.title": "Einstellungen",
-  "simplequalityoflife.guide.page.100": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplequalityoflife.start.title": "Willkommen bei Simple Quality of Life",
-  "quests.simplequalityoflife.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplequalityoflife.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplequalityoflife.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Quality-of-Life-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einer Truhe herstellen."
+  "simplequalityoflife.guide.page.100": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

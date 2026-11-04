@@ -46,6 +46,7 @@
   "simplemachines.hopper_filter.whitelist": "Exakt gleich",
   "simplemachines.hopper_filter.type": "Gleiche Art",
   "item.simplemachines.guide_book": "Simple-Machines-Handbuch",
+  "simplemachines.guide.chapter": "Simple Machines",
   "simplemachines.guide.page.1.title": "Simple Machines",
   "simplemachines.guide.page.1": "Die Maschinenteile des Tabs Simple Machines:",
   "simplemachines.guide.page.2.title": "Simple Machines",
@@ -71,9 +72,5 @@
   "simplemachines.guide.page.12.title": "Befehle",
   "simplemachines.guide.page.12": "/simplemachines config [list | get | set | reset | help] (Operatoren).",
   "simplemachines.guide.page.13.title": "Einstellungen",
-  "simplemachines.guide.page.13": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod.",
-  "quests.simplemachines.start.title": "Willkommen bei Simple Machines",
-  "quests.simplemachines.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplemachines.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemachines.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Machines-Handbuch als Belohnung. Du kannst es auch aus einem Buch und Redstone-Staub herstellen."
+  "simplemachines.guide.page.13": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

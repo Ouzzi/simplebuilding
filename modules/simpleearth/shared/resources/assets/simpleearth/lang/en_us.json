@@ -186,6 +186,7 @@
   "text.autoconfig.simpleearth.option.cornerEasing.@Tooltip": "The curve over a corner. Default: 3.",
   "text.autoconfig.simpleearth.option.roundness": "Roundness",
   "text.autoconfig.simpleearth.option.roundness.@Tooltip": "How far the folded cube rounds towards V5's body (1 = fully). Default: 0.6 (V27: 1).",
+  "simpleearth.guide.chapter": "Simple Earth",
   "simpleearth.guide.page.1.title": "Simple Earth",
   "simpleearth.guide.page.1": "Fly very high and the Overworld turns into a cube in orbit, its faces painted in map colours straight from the world generator. Below everything stays Vanilla. Open this guide again with /simpleearth guide.",
   "simpleearth.guide.page.2.title": "Orbit",

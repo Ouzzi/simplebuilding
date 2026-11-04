@@ -105,6 +105,7 @@
   "screen.simplemaps.frame.status.error.scale": "Maßstab: 8:1, 4:1, 2:1, 1:1 … 1:64",
   "screen.simplemaps.frame.status.error.range": "Dieser Chunk liegt außerhalb der Welt",
   "item.simplemaps.guide_book": "Simple-Maps-Handbuch",
+  "simplemaps.guide.chapter": "Simple Maps",
   "simplemaps.guide.page.1.title": "Simple Maps",
   "simplemaps.guide.page.1": "Wegfinder-Karten, die zeigen, wo du gewesen bist, ein großer Kartenbildschirm mit Wegpunkten, Kartographie und Kartenanzeigen auf Rahmen.",
   "simplemaps.guide.page.2.title": "Wegfinder-Karten",
@@ -128,9 +129,5 @@
   "simplemaps.guide.page.11.title": "Befehle",
   "simplemaps.guide.page.11": "/simplemaps config zeigt und ändert jede Option von config/simplemaps-server.json (list [Gruppe], get, set, reset, help; Tab ergänzt Optionen und Werte).",
   "simplemaps.guide.page.12.title": "Befehle",
-  "simplemaps.guide.page.12": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2.",
-  "quests.simplemaps.start.title": "Willkommen bei Simple Maps",
-  "quests.simplemaps.start.subtitle": "Dein Handbuch gratis",
-  "quests.simplemaps.start.welcome.title": "Ein Handbuch gratis",
-  "quests.simplemaps.start.welcome.description": "Stelle eine Werkbank her oder hebe eine auf und hol dir das Simple-Maps-Handbuch als Belohnung. Du kannst es auch aus einem Buch und einem Kompass herstellen."
+  "simplemaps.guide.page.12": "Werte werden wie in der Datei begrenzt, sofort gespeichert und wirken sofort; Optionen, die nur beim Start gelesen werden, sagen das. Berechtigung 2."
 }

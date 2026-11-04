@@ -78,6 +78,8 @@ public final class LibServices {
         com.simplelib.api.RecipeFilters.register(Simplebuilding.MOD_ID, com.simplebuilding.recipe.RecipeFilter::removesPath);
         // Split stage 3d: SimpleBuilding uses every shared material - their recipes and the anvil crushing stay on.
         SharedMaterials.request();
+        // b-guide01: opening SimpleLib's Simple Modpack guide catches up SimpleBuilding's bookmarks like its own guide did.
+        com.simplelib.api.ModpackGuide.addUseHook(player -> com.simplebuilding.guide.GuideUnlocks.refresh(player, true));
         // IG31-13: the building cores are SimpleLib's items; SimpleBuilding gives them their animation and the ore transmutation,
         // and the sage orb of Simple Ores its hand motion like the cores (N21).
         com.simplelib.api.CoreHooks.setCore(new com.simplelib.api.CoreHooks.Core() {
