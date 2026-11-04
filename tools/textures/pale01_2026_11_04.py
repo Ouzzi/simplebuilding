@@ -225,7 +225,7 @@ def preview(jar, out, shot=None):
             d.text((x + 150, y + 236), f'hart {hard_share(face) * 100:.0f} %', font=small, fill=(170, 165, 160))
     if shot_img:
         y = th + rh * len(BLOCKS) + 30
-        d.text((20, y), 'Ingame im Pale Garden (xvfb 1920x1080): je Reihe Vanilla | Stufe 1 | 2 | 3, ganz rechts gewachst',
+        d.text((20, y), 'Ingame im Pale Garden (Client-Smoke unter xvfb): je Reihe von links Vanilla | Stufe 1 | 2 | 3; Reihen Kürbis, geschnitzt, Laterne, Melone, Heu',
                font=font, fill=(235, 230, 222))
         img.paste(shot_img, (20, y + 36))
     img.save(out, quality=88)
