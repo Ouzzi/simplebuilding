@@ -63,9 +63,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             sawScreen(context, "ui03-saw-box", new ItemStack(Items.STONE_BRICKS, 40), Items.STONE_BRICK_STAIRS);
             sawScreen(context, "simpleblocks-saw-planks", new ItemStack(Items.OAK_PLANKS, 16), Items.OAK_STAIRS);
             sawScreen(context, "simpleblocks-saw-stone", new ItemStack(Items.STONE_BRICKS, 16), Items.STONE_BRICK_STAIRS);
-<<<<<<< HEAD
             paleGarden(context, server);
-=======
             if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) testCenter(context, world);
         }
     }
@@ -96,8 +94,20 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             context.waitTicks(60);
             context.takeScreenshot(String.join("-", "tc01", mod, "angle"));
             server.runCommand("execute as @a at @s run tp @s ~-18 ~-12 ~-2 0 0");
->>>>>>> hub/b-tc01
         }
+    }
+
+    private static void sawScreen(ClientGameTestContext context, String name, ItemStack input, net.minecraft.world.item.Item pick) {
+        context.runOnClient(c -> {
+            var menu = new ShapecutterMenu(0, c.player.getInventory());
+            menu.container.setItem(0, input);
+            if (menu.cuts().isEmpty()) throw new AssertionError(name + ": no cuts on the client (saw recipe list not synced)");
+            for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == pick) menu.clickMenuButton(c.player, i);
+            c.setScreenAndShow(new ShapecutterScreen(menu, c.player.getInventory(), Component.translatable("container.simpleblocks.shapecutter")));
+        });
+        context.waitTicks(5);
+        context.takeScreenshot(name);
+        context.runOnClient(c -> c.setScreenAndShow(null));
     }
 
     /**
@@ -127,18 +137,5 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         server.runCommand("execute as @a at @s run tp @s ~ ~ ~2 0 20");
         context.waitTicks(40);
         context.takeScreenshot("pale01-close");
-    }
-
-    private static void sawScreen(ClientGameTestContext context, String name, ItemStack input, net.minecraft.world.item.Item pick) {
-        context.runOnClient(c -> {
-            var menu = new ShapecutterMenu(0, c.player.getInventory());
-            menu.container.setItem(0, input);
-            if (menu.cuts().isEmpty()) throw new AssertionError(name + ": no cuts on the client (saw recipe list not synced)");
-            for (int i = 0; i < menu.cuts().size(); i++) if (menu.cuts().get(i).result().item().value() == pick) menu.clickMenuButton(c.player, i);
-            c.setScreenAndShow(new ShapecutterScreen(menu, c.player.getInventory(), Component.translatable("container.simpleblocks.shapecutter")));
-        });
-        context.waitTicks(5);
-        context.takeScreenshot(name);
-        context.runOnClient(c -> c.setScreenAndShow(null));
     }
 }
