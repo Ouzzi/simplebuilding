@@ -4755,6 +4755,14 @@
               "report": "integration/build/standalone/simplemachines-junit.xml"
             }
           }
+        },
+        "client": {
+          "entrypoints": [
+            "com.simplebuilding.modules.simplemachines.MachinesShotsClient"
+          ],
+          "sources": "modules/simplemachines/clienttest/java",
+          "screenshots": "integration/run-fabric-263/screenshots",
+          "task": ":integration:runClientGameTest"
         }
       },
       "paths": {
