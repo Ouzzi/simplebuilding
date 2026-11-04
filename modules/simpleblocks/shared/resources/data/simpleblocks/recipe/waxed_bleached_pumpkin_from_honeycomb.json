@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_bleached_pumpkin",
+  "ingredients": [
+    "simpleblocks:bleached_pumpkin",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_bleached_pumpkin"
+  }
+}

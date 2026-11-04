@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_faded_carved_pumpkin",
+  "ingredients": [
+    "simpleblocks:faded_carved_pumpkin",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_faded_carved_pumpkin"
+  }
+}

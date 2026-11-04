@@ -85,4 +85,18 @@ for color in g.WOOLS:
 for path, ingredient, out, count, mod in cuts:
     foreign = {ingredient.lstrip('#').split(':')[0], out.split(':')[0]} - {'minecraft', NS}
     assert foreign <= ({mod} if mod else set()), (path, 'needs a mod-loaded condition for', foreign)
-print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')
+# DW04B pale blocks (b-pale01): PaleBlocks' chains and stage words equal the generator's; names, wiki, Vanilla-derived textures.
+pale_java = (MODULE / 'shared/java/com/simpleblocks/pale/PaleBlocks.java').read_text(encoding='utf-8')
+assert re.findall(r'chain\("([a-z_]+)", "', pale_java) == [c.base_path for c in g.PALE_CHAINS], 'PaleBlocks chains vs generate_data.PALE_CHAINS'
+assert 'List.of("faded", "bleached", "pale")' in pale_java and g.PALE_WORDS == ['faded', 'bleached', 'pale'], 'pale stage words'
+assert len(g.PALE) == 30, len(g.PALE)
+for locale, data in langs.items():
+    for name in g.PALE:
+        assert data.get(f'block.{NS}.{name}') and data.get(f'item.{NS}.{name}'), (locale, name)
+assert related >= {f'{NS}:{n}' for n in g.PALE}, 'wiki: every pale block is documented'
+for c in g.PALE_CHAINS:
+    for word in g.PALE_WORDS:
+        for sprite in c.textures.values():
+            rel = f'block/{word}_{sprite}.png'
+            assert rel in vanilla_derived.MODULE_OUTPUTS[NS] and not (tex / f'{word}_{sprite}.layers.json').exists(), f'{rel} is Vanilla-derived'
+print(f'simpleblocks: 38 blocks + 15 moved from SimpleBuilding + 2 cracked hard ices + 30 pale blocks + Shapecutter ({len(cuts)} sawing recipes), generated data, bilingual lang and wiki valid')

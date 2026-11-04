@@ -1,0 +1,16 @@
+{
+  "values": [
+    "simpleblocks:faded_carved_pumpkin",
+    "simpleblocks:bleached_carved_pumpkin",
+    "simpleblocks:pale_carved_pumpkin",
+    "simpleblocks:waxed_carved_pumpkin",
+    "simpleblocks:waxed_faded_carved_pumpkin",
+    "simpleblocks:waxed_bleached_carved_pumpkin",
+    "simpleblocks:faded_jack_o_lantern",
+    "simpleblocks:bleached_jack_o_lantern",
+    "simpleblocks:pale_jack_o_lantern",
+    "simpleblocks:waxed_jack_o_lantern",
+    "simpleblocks:waxed_faded_jack_o_lantern",
+    "simpleblocks:waxed_bleached_jack_o_lantern"
+  ]
+}

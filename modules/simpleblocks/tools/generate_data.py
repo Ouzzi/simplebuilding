@@ -472,6 +472,10 @@ def lang():
             data[f'block.{NS}.{name}'] = text
             data[f'item.{NS}.{name}'] = text
         data.update(MOVED_TEXT[locale])
+        for name, text in pale_names(locale).items():
+            data[f'block.{NS}.{name}'] = text
+            data[f'item.{NS}.{name}'] = text
+        data.update(PALE_TEXT[locale])
         saw = SAW_LANG[locale]
         data[f'block.{NS}.{SAW}'] = data[f'item.{NS}.{SAW}'] = data[f'container.{NS}.{SAW}'] = data[f'jei.{NS}.category.sawing'] = saw['name']
         data[f'jei.{NS}.info.{SAW}'] = saw['info']
@@ -507,9 +511,98 @@ def cracked_hard():
             'rewards': {'recipes': [f'{NS}:{recipe_id}']}})
 
 
+# --- Pale Garden aging (DW04B-2/3, docs/ai/PLAN-B-PALE01-2026-11-04.md) -------------------------------------------------
+# Java: com.simpleblocks.pale.PaleBlocks (SimpleLib AgingChain); data from SimpleLib's aging helper (modules/simplelib/tools/aging_data.py).
+sys.path.insert(0, str(MODULE.parents[0] / 'simplelib/tools'))
+import aging_data as A  # noqa: E402
+
+PALE_WORDS = ['faded', 'bleached', 'pale']
+_SKIN = {'front': None, 'side': 'pumpkin_side', 'top': 'pumpkin_top'}
+
+
+def _melon_loot(block):
+    """Like Vanilla melon: the block with Silk Touch, else 3-7 melon slices (Fortune, at most 9)."""
+    return {'type': 'minecraft:block', 'pools': [{'entries': [{'type': 'minecraft:alternatives', 'children': [
+        {'type': 'minecraft:item', 'condition': 'minecraft:tool/can_silk_touch', 'name': block},
+        {'type': 'minecraft:item', 'modifier': [
+            {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'max': 7, 'min': 3}},
+            {'type': 'minecraft:apply_bonus', 'enchantment': 'minecraft:fortune', 'formula': 'minecraft:uniform_bonus_count',
+             'parameters': {'bonusMultiplier': 1}},
+            {'type': 'minecraft:limit_count', 'limit': {'max': 9}}, {'type': 'minecraft:explosion_decay'}],
+         'name': 'minecraft:melon_slice'}]}], 'rolls': 1}]}
+
+
+_GOURD_TAGS = ['mineable/axe', 'sword_efficient', 'blocks_motion_no_leaves']
+_ITEM_ALL = ['sulfur_cube_archetype/fast_flat']
+PALE_CHAINS = [
+    A.Chain(NS, 'minecraft:pumpkin', [f'{w}_pumpkin' for w in PALE_WORDS], 'minecraft:block/pumpkin',
+            {'end': 'pumpkin_top', 'side': 'pumpkin_side'}, block_tags=_GOURD_TAGS + ['enderman_holdable'], item_tags=_ITEM_ALL),
+    A.Chain(NS, 'minecraft:carved_pumpkin', [f'{w}_carved_pumpkin' for w in PALE_WORDS], 'minecraft:block/carved_pumpkin',
+            {'front': 'carved_pumpkin', 'side': 'pumpkin_side', 'top': 'pumpkin_top'}, state='facing',
+            block_tags=_GOURD_TAGS + ['enderman_holdable', 'simpleblocks:golem_heads'],
+            item_tags=_ITEM_ALL + ['map_invisibility_equipment', 'gaze_disguise_equipment', 'enchantable/vanishing', 'enchantable/equippable']),
+    A.Chain(NS, 'minecraft:jack_o_lantern', [f'{w}_jack_o_lantern' for w in PALE_WORDS], 'minecraft:block/jack_o_lantern',
+            {'front': 'jack_o_lantern', 'side': 'pumpkin_side', 'top': 'pumpkin_top'}, state='facing',
+            block_tags=_GOURD_TAGS + ['simpleblocks:golem_heads'], item_tags=_ITEM_ALL),
+    A.Chain(NS, 'minecraft:melon', [f'{w}_melon' for w in PALE_WORDS], 'minecraft:block/melon',
+            {'end': 'melon_top', 'side': 'melon_side'}, block_tags=_GOURD_TAGS + ['enderman_holdable'], item_tags=_ITEM_ALL, loot=_melon_loot),
+    A.Chain(NS, 'minecraft:hay_block', [f'{w}_hay_block' for w in PALE_WORDS], 'minecraft:block/hay_block',
+            {'end': 'hay_block_top', 'side': 'hay_block_side'}, state='axis', horizontal_model='minecraft:block/hay_block_horizontal',
+            block_tags=['mineable/hoe', 'blocks_motion_no_leaves'],
+            item_tags=_ITEM_ALL + ['llama_tempt_items', 'llama_food', 'horse_food']),
+]
+PALE = [b for c in PALE_CHAINS for b in c.blocks()]
+# Names: (EN, DE) of the Vanilla block and the DE adjective endings (der Kürbis / der Strohballen, die Melone / die Kürbislaterne).
+PALE_NAMES = {'pumpkin': ('Pumpkin', 'Kürbis', 'r'), 'carved_pumpkin': ('Carved Pumpkin', 'geschnitzter Kürbis', 'r'),
+              'jack_o_lantern': ("Jack o'Lantern", 'Kürbislaterne', 'e'), 'melon': ('Melon', 'Melone', 'e'),
+              'hay_block': ('Hay Bale', 'Strohballen', 'r')}
+PALE_EN = {'faded': 'Faded', 'bleached': 'Bleached', 'pale': 'Pale'}
+PALE_DE = {'faded': 'Verblasst', 'bleached': 'Gebleicht', 'pale': 'Bleich'}  # + e (die) / er (der)
+PALE_TEXT = {'en_us': {'tooltip.simpleblocks.pale': 'Fades in the Pale Garden'},
+             'de_de': {'tooltip.simpleblocks.pale': 'Verblasst im Blassen Garten'}}
+
+
+def pale_names(locale):
+    out = {}
+    for c in PALE_CHAINS:
+        base = c.base_path
+        en, de, end = PALE_NAMES[base]
+        for path in c.blocks():
+            waxed = path.startswith('waxed_')
+            word = next((w for w in PALE_WORDS if path.removeprefix('waxed_').startswith(w + '_')), None)
+            if locale == 'en_us':
+                out[path] = ' '.join(x for x in ('Waxed' if waxed else '', PALE_EN.get(word, ''), en) if x)
+            else:
+                adj = [PALE_DE[word] + ('e' if end == 'e' else 'er')] if word else []
+                if waxed:
+                    adj = ['Gewachste' if end == 'e' else 'Gewachster'] + [a.lower() for a in adj]
+                text = ' '.join(adj + [de])
+                out[path] = text[0].upper() + text[1:]
+    return out
+
+
+def pale():
+    """The 30 pale blocks: SimpleLib aging data per chain, merged tags, the biome tag, and torch recipes for the lanterns."""
+    for c in PALE_CHAINS:
+        for rel, data in A.files(c).items():
+            put(rel, data)
+    for rel, ids in A.tag_members(PALE_CHAINS).items():
+        put(rel, {'values': ids})
+    put(f'data/{NS}/tags/worldgen/biome/pales_blocks.json', {'values': ['minecraft:pale_garden']})
+    carved, jack = PALE_CHAINS[1], PALE_CHAINS[2]
+    pairs = list(zip(carved.stages, jack.stages)) + [(a, b) for (a, _), (b, _) in zip(carved.waxed(), jack.waxed())]
+    for src, out in pairs:
+        recipe = out
+        put(f'data/{NS}/recipe/{recipe}.json', {'type': 'minecraft:crafting_shaped', 'category': 'building',
+                                                'key': {'A': f'{NS}:{src}', 'B': 'minecraft:torch'}, 'pattern': ['A', 'B'],
+                                                'result': {'id': f'{NS}:{out}'}})
+        put(f'data/{NS}/advancement/recipes/building_blocks/{recipe}.json', A._recipe_advancement(carved, recipe, f'{NS}:{src}'))
+
+
 def build():
     files.clear()
     cracked_hard()
+    pale()
     models_and_states()
     recipes()
     loot()

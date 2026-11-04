@@ -426,21 +426,86 @@
       }
     },
     {
+      "id": "pale_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PalePumpkinBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/PaleGolemHeadMixin.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/Aging.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/tags/worldgen/biome/pales_blocks.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/PaleTests.java"
+      ],
+      "related": [
+        "simpleblocks:faded_pumpkin",
+        "simpleblocks:bleached_pumpkin",
+        "simpleblocks:pale_pumpkin",
+        "simpleblocks:waxed_pumpkin",
+        "simpleblocks:waxed_faded_pumpkin",
+        "simpleblocks:waxed_bleached_pumpkin",
+        "simpleblocks:faded_carved_pumpkin",
+        "simpleblocks:bleached_carved_pumpkin",
+        "simpleblocks:pale_carved_pumpkin",
+        "simpleblocks:waxed_carved_pumpkin",
+        "simpleblocks:waxed_faded_carved_pumpkin",
+        "simpleblocks:waxed_bleached_carved_pumpkin",
+        "simpleblocks:faded_jack_o_lantern",
+        "simpleblocks:bleached_jack_o_lantern",
+        "simpleblocks:pale_jack_o_lantern",
+        "simpleblocks:waxed_jack_o_lantern",
+        "simpleblocks:waxed_faded_jack_o_lantern",
+        "simpleblocks:waxed_bleached_jack_o_lantern",
+        "simpleblocks:faded_melon",
+        "simpleblocks:bleached_melon",
+        "simpleblocks:pale_melon",
+        "simpleblocks:waxed_melon",
+        "simpleblocks:waxed_faded_melon",
+        "simpleblocks:waxed_bleached_melon",
+        "simpleblocks:faded_hay_block",
+        "simpleblocks:bleached_hay_block",
+        "simpleblocks:pale_hay_block",
+        "simpleblocks:waxed_hay_block",
+        "simpleblocks:waxed_faded_hay_block",
+        "simpleblocks:waxed_bleached_hay_block"
+      ],
+      "en": {
+        "title": "Pale Blocks",
+        "summary": "A pumpkin, carved pumpkin, jack o'lantern, melon or hay bale placed in the Pale Garden slowly fades like copper weathers: Faded, then Bleached, then Pale (the end stage). Use a honeycomb on it to keep it as it is (Waxed); an axe takes the wax off or scrapes one stage back.",
+        "details": [
+          "Chance per random tick like Vanilla copper (0.0569, about one stage per in-game day); a younger block of the five within 4 blocks holds an older one back, so a build fades as one. Only inside the Pale Garden; outside, every stage stays as it is.",
+          "They behave like the Vanilla block: the lantern glows, carved ones can be worn and make golems, melons drop slices without Silk Touch, hay softens falls. Shears carve a pale pumpkin into a carved one of the same stage; a carved one with a torch below makes the lantern of that stage.",
+          "Waxing: honeycomb by hand, in the crafting grid or from a dispenser, like copper. Waxed blocks never fade.",
+          "Settings: pale.enabled and pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (chance 0-1, 0 = never) in /simpleblocks config."
+        ]
+      },
+      "de": {
+        "title": "Blasse Blöcke",
+        "summary": "Ein Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen im Blassen Garten verblasst langsam, so wie Kupfer anläuft: verblasst, dann gebleicht, dann bleich (Endstufe). Mit einer Honigwabe bleibt er, wie er ist (gewachst); eine Axt nimmt das Wachs ab oder schabt eine Stufe zurück.",
+        "details": [
+          "Chance je Zufallstick wie bei Vanilla-Kupfer (0,0569, etwa eine Stufe je Spieltag); ein jüngerer der fünf Blöcke im Umkreis von 4 bremst einen älteren, so verblasst ein Bau gemeinsam. Nur im Blassen Garten; außerhalb bleibt jede Stufe, wie sie ist.",
+          "Sie verhalten sich wie der Vanilla-Block: die Laterne leuchtet, geschnitzte lassen sich aufsetzen und bauen Golems, Melonen geben ohne Behutsamkeit Scheiben, Heu dämpft Stürze. Die Schere schnitzt einen blassen Kürbis zum geschnitzten derselben Stufe; geschnitzt mit einer Fackel darunter ergibt die Laterne dieser Stufe.",
+          "Wachsen: Honigwabe per Hand, in der Werkbank oder aus dem Werfer, wie bei Kupfer. Gewachste Blöcke verblassen nie.",
+          "Einstellungen: pale.enabled sowie pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Chance 0-1, 0 = nie) in /simpleblocks config."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowConfig.java",
-        "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java"
+        "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java"
       ],
       "en": {
         "title": "Settings",
-        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100).",
+        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100); pale.enabled (default true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (default 0.0569, 0-1).",
         "details": [
           "/simpleblocks config shows and changes every option (list, get, set, reset, help); values are bounded like in the file, saved and active at once. Permission level 2."
         ]
       },
       "de": {
         "title": "Einstellungen",
-        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100).",
+        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100); pale.enabled (Standard true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Standard 0,0569, 0-1).",
         "details": [
           "/simpleblocks config zeigt und ändert jede Option (list, get, set, reset, help); Werte werden wie in der Datei begrenzt, sofort gespeichert und wirksam. Berechtigung 2."
         ]
@@ -455,10 +520,10 @@
         "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 18 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 18 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "*_slab": {
@@ -635,6 +700,50 @@
       },
       "de": {
         "summary": "Schneehaube: Bei Schneefall bekommen Zäune, Mauern, Scheiben, Treppen und untere Stufen eine dünne Schneeschicht oben drauf (nie mehr als eine). Der Block darunter bleibt unverändert. Von Hand abbaubar, mit der Schaufel gibt es einen Schneeball; schmilzt bei hellem Licht und verschwindet ohne Träger. Config snow.snowCaps (Standard an)."
+      }
+    },
+    "simpleblocks:faded_*": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+      ],
+      "en": {
+        "summary": "Stage 1 of the pale blocks: a Vanilla pumpkin, carved pumpkin, jack o'lantern, melon or hay bale that began to fade in the Pale Garden."
+      },
+      "de": {
+        "summary": "Stufe 1 der blassen Blöcke: ein Vanilla-Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen, der im Blassen Garten zu verblassen begann."
+      }
+    },
+    "simpleblocks:bleached_*": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+      ],
+      "en": {
+        "summary": "Stage 2 of the pale blocks: mostly pale, with warm remnants; it keeps fading in the Pale Garden."
+      },
+      "de": {
+        "summary": "Stufe 2 der blassen Blöcke: fast ganz blass, mit warmen Resten; im Blassen Garten verblasst er weiter."
+      }
+    },
+    "simpleblocks:pale_*": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+      ],
+      "en": {
+        "summary": "Stage 3, the end stage of the pale blocks: fully pale, it does not change any more."
+      },
+      "de": {
+        "summary": "Stufe 3, die Endstufe der blassen Blöcke: ganz blass, er ändert sich nicht mehr."
+      }
+    },
+    "simpleblocks:waxed_*": {
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+      ],
+      "en": {
+        "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+      },
+      "de": {
+        "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
       }
     }
   }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/hay_block",
+  "textures": {
+    "end": "simpleblocks:block/faded_hay_block_top",
+    "side": "simpleblocks:block/faded_hay_block_side"
+  }
+}

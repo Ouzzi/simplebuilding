@@ -112,6 +112,7 @@ public final class BlocksRegistry {
         BLOCKS.forEach((name, block) -> Registry.register(BuiltInRegistries.BLOCK, SimpleBlocks.id(name), block));
         com.simpleblocks.nature.NatureBlocks.registerBlocks();
         com.simpleblocks.snow.SnowBlocks.registerBlocks();
+        com.simpleblocks.pale.PaleBlocks.registerBlocks();
         com.simpleblocks.saw.Sawing.registerBlock();
     }
 
@@ -136,6 +137,7 @@ public final class BlocksRegistry {
         });
         com.simpleblocks.nature.NatureBlocks.registerItems();
         com.simpleblocks.snow.SnowBlocks.registerItems();
+        com.simpleblocks.pale.PaleBlocks.registerItems();
         com.simpleblocks.saw.Sawing.registerItem();
         com.simpleblocks.guide.BlocksGuide.register();
         SimpleBlocks.registerStation();
@@ -167,7 +169,8 @@ public final class BlocksRegistry {
 
     /**
      * All items in tab order (empty while the module is switched off): the saw, the own blocks, the building blocks that
-     * moved here from SimpleBuilding (tab stage T2: gravity, slabs, ice and shell, froglights), frost grass (SN30-2), the guide book. With
+     * moved here from SimpleBuilding (tab stage T2: gravity, slabs, ice and shell, froglights), frost grass (SN30-2), the pale
+     * blocks of the Pale Garden (DW04B), the guide book. With
      * SimpleBuilding loaded its remaining building blocks follow behind (tab stage T1, appended by SimpleBuilding).
      */
     public static List<ItemStack> tabStacks() {
@@ -177,6 +180,7 @@ public final class BlocksRegistry {
         ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         com.simpleblocks.nature.NatureBlocks.ITEMS.values().forEach(item -> out.add(new ItemStack(item)));
         if (com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM != null) out.add(new ItemStack(com.simpleblocks.snow.SnowBlocks.FROST_GRASS_ITEM));
+        out.addAll(com.simpleblocks.pale.PaleBlocks.tabStacks()); // DW04B: the pale stages and their waxed copies
         out.add(com.simpleblocks.guide.BlocksGuide.stack());
         return out;
     }

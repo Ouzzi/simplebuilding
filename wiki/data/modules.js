@@ -565,9 +565,9 @@ window.WIKI_MODULES = [
       "items": 11,
       "blocks": 6,
       "recipes": 22,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "f425292e2569"
+    "dataHash": "ed038497c85d"
   },
   {
     "id": "simpleinterfaces",
@@ -1365,11 +1365,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 59,
-      "recipes": 285,
-      "features": 12
+      "blocks": 89,
+      "recipes": 306,
+      "features": 13
     },
-    "dataHash": "b04a60324a03"
+    "dataHash": "f0faa11dedd9"
   },
   {
     "id": "simplecrucibles",

@@ -63,7 +63,37 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             sawScreen(context, "ui03-saw-box", new ItemStack(Items.STONE_BRICKS, 40), Items.STONE_BRICK_STAIRS);
             sawScreen(context, "simpleblocks-saw-planks", new ItemStack(Items.OAK_PLANKS, 16), Items.OAK_STAIRS);
             sawScreen(context, "simpleblocks-saw-stone", new ItemStack(Items.STONE_BRICKS, 16), Items.STONE_BRICK_STAIRS);
+            paleGarden(context, server);
         }
+    }
+
+    /**
+     * DW04B (b-pale01): the five pale chains in the Pale Garden, one row per block (pumpkin, carved pumpkin, jack o'lantern,
+     * melon, hay bale), columns Vanilla | faded | bleached | pale; pale moss floor and pale oak behind them.
+     */
+    private static void paleGarden(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext server) {
+        server.runCommand("execute at @a run fill ~-12 ~ ~-2 ~12 ~8 ~16 minecraft:air");
+        server.runCommand("execute at @a run fill ~-12 ~-1 ~-2 ~12 ~-1 ~16 minecraft:pale_moss_block");
+        server.runCommand("execute at @a run fillbiome ~-16 ~-4 ~-8 ~16 ~16 ~24 minecraft:pale_garden");
+        String[] rows = {"pumpkin", "carved_pumpkin[facing=north]", "jack_o_lantern[facing=north]", "melon", "hay_block"};
+        String[] stages = {"minecraft:", "simpleblocks:faded_", "simpleblocks:bleached_", "simpleblocks:pale_"};
+        for (int r = 0; r < rows.length; r++) {
+            for (int c = 0; c < stages.length; c++) {
+                server.runCommand("execute at @a run setblock ~" + (-3 + 2 * c) + " ~ ~" + (3 + 2 * r) + " " + stages[c] + rows[r]);
+            }
+        }
+        for (int x : new int[]{-7, 7}) {
+            server.runCommand("execute at @a run fill ~" + x + " ~ ~12 ~" + x + " ~5 ~12 minecraft:pale_oak_log");
+            server.runCommand("execute at @a run fill ~" + (x - 2) + " ~5 ~10 ~" + (x + 2) + " ~7 ~14 minecraft:pale_oak_leaves[persistent=true] keep");
+        }
+        server.runCommand("execute at @a run fill ~-4 ~ ~14 ~4 ~ ~14 minecraft:pale_moss_carpet");
+        context.waitTicks(20);
+        server.runCommand("execute as @a at @s run tp @s ~ ~3 ~-1 0 32");
+        context.waitTicks(60);
+        context.takeScreenshot("pale01-garden");
+        server.runCommand("execute as @a at @s run tp @s ~ ~-2 ~1 0 14");
+        context.waitTicks(40);
+        context.takeScreenshot("pale01-close");
     }
 
     private static void sawScreen(ClientGameTestContext context, String name, ItemStack input, net.minecraft.world.item.Item pick) {
