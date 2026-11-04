@@ -40,6 +40,10 @@ public final class GuideProbe {
         List<Integer> probeTabChapters();
 
         int[] probeNext();
+
+        double[] probeLastClick();
+
+        String probeLastHit();
     }
 
     private static final Gson GSON = new Gson();
@@ -126,6 +130,10 @@ public final class GuideProbe {
         o.addProperty("scale", scale);
         o.addProperty("mouseX", mc.mouseHandler.xpos());
         o.addProperty("mouseY", mc.mouseHandler.ypos());
+        o.addProperty("screenW", w.getScreenWidth());
+        o.addProperty("screenH", w.getScreenHeight());
+        o.addProperty("guiW", w.getGuiScaledWidth());
+        o.addProperty("guiH", w.getGuiScaledHeight());
         JsonArray top = new JsonArray();
         List<String> ids = ModpackGuideBar.ids();
         List<int[]> rects = ModpackGuideBar.rects();
@@ -153,6 +161,9 @@ public final class GuideProbe {
             }
             o.add("tabs", tabs);
             o.add("next", rect(t.probeNext(), scale));
+            double[] click = t.probeLastClick();
+            o.addProperty("lastClick", click[0] + "," + click[1]);
+            o.addProperty("lastHit", t.probeLastHit());
         }
         Path tmp = dir.resolve("simplelib-guide-status.tmp");
         Files.writeString(tmp, GSON.toJson(o));

@@ -50,6 +50,9 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
     private int bx, by;
     private @Nullable List<Component> tooltip;
     private ItemStack hoveredStack = ItemStack.EMPTY;
+    /** Where the last click arrived (GUI pixels) and what it hit, for the real-mouse probe. */
+    private double[] lastClick = {-1, -1};
+    private String lastHit = "none";
 
     /** One row of a page: optional icon, text lines, a chapter to jump to (-1 none). */
     record Row(int y, ItemStack icon, List<FormattedCharSequence> lines, int colour, int chapter) {
@@ -269,6 +272,8 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
         double mx = event.x(), my = event.y();
+        lastClick = new double[]{mx, my};
+        lastHit = "miss";
         if (event.button() == InputConstants.MOUSE_BUTTON_RIGHT) {
             spread = 0;
             return true;
@@ -280,16 +285,19 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
             return true;
         }
         if (ModpackGuideBar.in(mx, my, nextRect()) && spread + 2 < pages.size()) {
+            lastHit = "next";
             spread = clamp(spread + 2);
             return true;
         }
         if (ModpackGuideBar.in(mx, my, contentsRect())) {
+            lastHit = "contents";
             spread = 0;
             return true;
         }
         for (int i = 0; i < tabs.size() && shown(i); i++) {
             if (!ModpackGuideBar.in(mx, my, tabRect(i))) continue;
             int tab = tabs.get(i);
+            lastHit = "tab " + tab;
             if (tab < 0) ModpackGuideScreens.open(section.id(), hand);
             else jump(tab); // a locked chapter has no pages: nothing happens, its tooltip says what opens it
             return true;
@@ -417,6 +425,16 @@ public final class ModpackGuideScreen extends Screen implements GuideProbe.Targe
         List<Integer> out = new ArrayList<>();
         for (int i = 0; i < tabs.size() && shown(i); i++) out.add(tabs.get(i));
         return out;
+    }
+
+    @Override
+    public double[] probeLastClick() {
+        return lastClick;
+    }
+
+    @Override
+    public String probeLastHit() {
+        return lastHit;
     }
 
     @Override

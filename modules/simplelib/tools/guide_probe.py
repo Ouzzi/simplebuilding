@@ -76,6 +76,30 @@ def centre(st, rect):
     return st['windowX'] + x + w / 2, st['windowY'] + y + h / 2
 
 
+def aim_click(ptr, st, rect, label, log):
+    """Move to the rectangle's centre, compare where the game sees the pointer (window pixels) with the target, correct a constant
+    offset once (calibration), click, and log target / seen / where the click arrived in the screen (lastClick, GUI pixels)."""
+    x, y, w, h = rect
+    tx, ty = x + w / 2, y + h / 2                      # target in window pixels
+    rx, ry = st['windowX'] + tx, st['windowY'] + ty    # root pixels
+    ptr.move(rx, ry)
+    time.sleep(0.8)
+    seen = status() or st
+    sx, sy = seen.get('mouseX', -1), seen.get('mouseY', -1)
+    note = f'{label}: target {tx:.0f}/{ty:.0f} seen {sx:.0f}/{sy:.0f} window {seen.get("screenW")}x{seen.get("screenH")} gui {seen.get("guiW")}x{seen.get("guiH")}'
+    if sx >= 0 and (abs(sx - tx) > 3 or abs(sy - ty) > 3):
+        rx, ry = rx + (tx - sx), ry + (ty - sy)
+        ptr.move(rx, ry)
+        time.sleep(0.8)
+        again = status() or seen
+        note += f' -> corrected, seen {again.get("mouseX", -1):.0f}/{again.get("mouseY", -1):.0f}'
+    ptr.click(rx, ry)
+    after = status() or seen
+    note += f'; click arrived at {after.get("lastClick")} hit {after.get("lastHit")}'
+    print(note, flush=True)
+    log.append(note)
+
+
 def wait(pred, seconds=15):
     end = time.time() + seconds
     st = status()
@@ -103,7 +127,7 @@ def main():
     log = open(out / 'client.log', 'w')
     game = subprocess.Popen(['./gradlew', ':integration:runIntegrationClient', '-Pforge263=false'], cwd=REPO, stdout=log, stderr=subprocess.STDOUT,
                             start_new_session=True)
-    results, ok = [], True
+    results, ok, aims = [], True, []
 
     def check(name, good, detail):
         nonlocal ok
@@ -140,37 +164,37 @@ def main():
             tabs = st.get('tabs', [])
             first = next((t for t in tabs if t['chapter'] == 0), None)
             if first:
-                ptr.click(*centre(st, first['rect']))
+                aim_click(ptr, st, first['rect'], f'{tag} side chapter 1', aims)
                 st = wait(lambda s: s.get('chapter') == 0, 5)
                 check(f'{tag}: side bookmark opens chapter 1', st.get('chapter') == 0, f'chapter {st.get("chapter")}')
                 command('shot')
             locked = next((t for t in tabs if t['chapter'] == 1), None)
             if locked:
                 before = st.get('chapter')
-                ptr.click(*centre(st, locked['rect']))
+                aim_click(ptr, st, locked['rect'], f'{tag} locked chapter', aims)
                 st = status()
                 check(f'{tag}: locked bookmark keeps the page', st.get('chapter') == before, f'{before} -> {st.get("chapter")}')
                 command('shot')
             rect = top(st, 'simplebuilding')
             if rect:
-                ptr.click(*centre(st, rect))
+                aim_click(ptr, st, rect, f'{tag} top SimpleBuilding', aims)
                 st = wait(lambda s: s.get('screen') == 'GuideBookScreen', 8)
                 check(f'{tag}: top bookmark SimpleBuilding opens its own book', st.get('screen') == 'GuideBookScreen', st.get('screen'))
                 command('shot')
                 st = wait(lambda s: 'more' in s, 5)
                 if 'more' in st:
-                    ptr.click(*centre(st, st['more']))
+                    aim_click(ptr, st, st['more'], f'{tag} more', aims)
                     st = wait(lambda s: s.get('section') == 'simplebuilding' and s.get('screen') == 'ModpackGuideScreen', 8)
                     check(f'{tag}: "More Simple mods" opens the sub-mod chapters', st.get('section') == 'simplebuilding'
                           and st.get('screen') == 'ModpackGuideScreen', f'{st.get("screen")} {st.get("section")}')
                     command('shot')
                     target = next((t for t in st.get('tabs', []) if t['chapter'] == 2), None)
                     if target:
-                        ptr.click(*centre(st, target['rect']))
+                        aim_click(ptr, st, target['rect'], f'{tag} sub-mod chapter', aims)
                         st = wait(lambda s: s.get('chapter') == 2, 5)
                         check(f'{tag}: sub-mod chapter bookmark opens it', st.get('chapter') == 2, f'chapter {st.get("chapter")}')
                         spread = st.get('spread')
-                        ptr.click(*centre(st, st['next']))
+                        aim_click(ptr, st, st['next'], f'{tag} next', aims)
                         st = status()
                         check(f'{tag}: next arrow turns the page', st.get('spread', 0) > spread, f'{spread} -> {st.get("spread")}')
                         command('shot')
@@ -180,7 +204,7 @@ def main():
                 check(f'{tag}: SimpleBuilding top bookmark shown', False, [t['id'] for t in st.get('top', [])])
             other = next((t for t in st.get('top', []) if t['id'] not in ('simplebuilding', 'simplequalityoflife')), None)
             if other:
-                ptr.click(*centre(st, other['rect']))
+                aim_click(ptr, st, other['rect'], f'{tag} top other', aims)
                 st = wait(lambda s: s.get('section') == other['id'], 8)
                 check(f'{tag}: top bookmark {other["id"]} switches the section', st.get('section') == other['id'], st.get('section'))
                 command('shot')
@@ -200,7 +224,7 @@ def main():
         for i, p in enumerate(shots):
             shutil.copy(p, out / f'{i:02d}-{p.name}')
         ok = ok and bool(results)
-        (out / 'results.json').write_text(json.dumps({'ok': ok, 'results': results}, indent=1))
+        (out / 'results.json').write_text(json.dumps({'ok': ok, 'results': results, 'aims': aims}, indent=1))
     sys.exit(0 if ok else 1)
 
 
