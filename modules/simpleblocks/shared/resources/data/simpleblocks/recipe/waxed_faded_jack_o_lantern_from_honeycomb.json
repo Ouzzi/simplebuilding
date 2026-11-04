@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_faded_jack_o_lantern",
+  "ingredients": [
+    "simpleblocks:faded_jack_o_lantern",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_faded_jack_o_lantern"
+  }
+}

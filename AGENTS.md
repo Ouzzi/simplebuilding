@@ -142,6 +142,7 @@ Preis-Tabelle (simplemoney), `enabled-mods.json`, Platzhalter-Icon, `TcContext.F
 SB-`requires`/`optional`, Schalter-Lang EN/DE und `tools/submods/sync.py`; danach Modtree. Mit `--enderite` kommt die Id in
 `ModTags.Items.ENDERITE_NAMESPACES`. Was von Hand bleibt (Guide, Config, Upgrades, Tab, Texturen), druckt das Skript als Checkliste.
 Danach `precheck.py --fix` und `run.py --targets module-<id>-fabric-263,module-<id>-standalone-fabric-263`. Test: `python3 -m unittest tools/tests/test_newmod.py`.
+**Alternde Blöcke wie Kupfer (DW04B-1, Plan `docs/ai/PLAN-B-PALE01-2026-11-04.md`):** nie neu bauen, sondern SimpleLib `com.simplelib.api.aging.AgingChain` – Altern in 3 Schritten: (1) `AgingChain.builder(id, Basisblock).stages("a_x", "b_x", "c_x")` (+ `.when(AgingCondition.biome(tag))`, `.chance(() -> config)`, `.group`, `.hint`, abweichendes Verhalten per `.factory(Unterklasse::new)`), (2) `registerBlocks()`/`registerItems()` in der Loader-Registrierung, (3) Daten mit `modules/simplelib/tools/aging_data.py` (Blockstates, Modelle, Items, Loot, Wachs-Rezepte, Basis-Tags). Wachs/Axt/Werfer/Nachbarregel macht SimpleLib (Mixin auf den Block-Zustand). Beispiel: `modules/simpleblocks/.../pale/PaleBlocks.java`, Doku SimpleLib-Wiki „Alternde Blöcke“.
 Merge zweier Sub-Mod-Branches: `modules.json` per `tools/ai/merge_helpers/jsonreg3.py`, dann `sync.py` (überschreibt
 die generierten Blöcke samt Konfliktmarkern darin).
 

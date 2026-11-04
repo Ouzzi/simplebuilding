@@ -273,6 +273,7 @@ public final class BlocksTests {
         // The building blocks that moved here from SimpleBuilding (b-blocksmove).
         NatureTests.register(ALL, MAX_TICKS);
         SnowTests.register(ALL, MAX_TICKS);
+        PaleTests.register(ALL, MAX_TICKS); // DW04B pale blocks on SimpleLib's aging chains
     }
 
     private BlocksTests() {}

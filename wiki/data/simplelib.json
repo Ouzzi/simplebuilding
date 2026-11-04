@@ -193,6 +193,33 @@
       }
     },
     {
+      "id": "aging",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/aging/AgingChain.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/Aging.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/AgingCondition.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/AgingStateMixin.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/AgingDispenserMixin.java",
+        "modules/simplelib/tools/aging_data.py"
+      ],
+      "en": {
+        "title": "Aging blocks (for mods)",
+        "summary": "Blocks that change over time like copper weathers, for any Simple mod (first user: the pale blocks of Simple Blocks). Aging in 3 steps: (1) AgingChain.builder(id, baseBlock).stages(\"faded_x\", \"bleached_x\", \"pale_x\") with optional .when(AgingCondition.biome(tag)), .chance(() -> config), .group(id), .hint(langKey); (2) chain.registerBlocks() and chain.registerItems() in the loader's registration; (3) modules/simplelib/tools/aging_data.py writes blockstates, models, items, loot, wax recipes and the base block's tags.",
+        "details": [
+          "Every stage and its waxed copy is the base block's class with its properties, so it behaves like the base block; different behaviour comes from a subclass given with .factory(...). For full control use Vanilla's ChangeOverTimeBlock directly.",
+          "Like copper: chance per random tick (default 0.0569), a younger block of the same group within 4 blocks holds older ones back, the last stage is the end. Honeycomb (hand or dispenser) waxes, an axe takes the wax off or scrapes one stage back, with Vanilla's particles and sounds; waxed items say so in their tooltip. Vanilla base blocks that never random-tick (the pumpkin) are switched on by the chain."
+        ]
+      },
+      "de": {
+        "title": "Alternde Blöcke (für Mods)",
+        "summary": "Blöcke, die sich mit der Zeit verändern wie Kupfer, für jede Simple-Mod (erste Nutzung: die blassen Blöcke von Simple Blocks). Altern in 3 Schritten: (1) AgingChain.builder(id, Basisblock).stages(\"faded_x\", \"bleached_x\", \"pale_x\") mit optional .when(AgingCondition.biome(tag)), .chance(() -> Config), .group(id), .hint(Lang-Schlüssel); (2) chain.registerBlocks() und chain.registerItems() bei der Registrierung des Loaders; (3) modules/simplelib/tools/aging_data.py schreibt Blockstates, Modelle, Items, Loot, Wachs-Rezepte und die Tags des Basisblocks.",
+        "details": [
+          "Jede Stufe und ihre gewachste Kopie hat die Klasse und die Eigenschaften des Basisblocks und verhält sich daher wie er; abweichendes Verhalten kommt aus einer Unterklasse über .factory(...). Für volle Kontrolle Vanillas ChangeOverTimeBlock direkt nutzen.",
+          "Wie Kupfer: Chance je Zufallstick (Standard 0,0569), ein jüngerer Block derselben Gruppe im Umkreis von 4 bremst ältere, die letzte Stufe ist die Endstufe. Honigwabe (Hand oder Werfer) wachst, eine Axt nimmt das Wachs ab oder schabt eine Stufe zurück, mit Vanillas Partikeln und Geräuschen; gewachste Items sagen es im Tooltip. Vanilla-Basisblöcke ohne Zufallsticks (Kürbis) schaltet die Kette ein."
+        ]
+      }
+    },
+    {
       "id": "commands",
       "sources": [
         "modules/simplelib/shared/java/com/simplelib/SimpleLib.java",
@@ -1471,7 +1498,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
+    "features": 9,
     "recipes": 22,
     "lootTables": 6,
     "tags": 5,

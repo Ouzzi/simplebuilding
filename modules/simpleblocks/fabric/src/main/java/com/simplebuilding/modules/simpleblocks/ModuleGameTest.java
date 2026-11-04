@@ -275,4 +275,39 @@ public final class ModuleGameTest {
     public void configCommand(GameTestHelper h) {
         BlocksTests.ALL.get("config_command").accept(h);
     }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void paleAgesOnlyInPaleGarden(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_ages_only_in_pale_garden").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void paleWaxStopsAxeScrapes(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_wax_stops_axe_scrapes").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void paleChanceZeroNever(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_chance_zero_never").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 60)
+    public void paleDispenserWaxes(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_dispenser_waxes").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void paleShearsKeepStage(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_shears_keep_stage").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void paleBlocksLikeVanilla(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_blocks_like_vanilla").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 40)
+    public void paleGolemFromPaleHead(GameTestHelper h) {
+        BlocksTests.ALL.get("pale_golem_from_pale_head").accept(h);
+    }
 }

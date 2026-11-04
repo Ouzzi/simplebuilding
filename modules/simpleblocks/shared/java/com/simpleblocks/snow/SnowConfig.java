@@ -13,12 +13,15 @@ import java.util.List;
 /**
  * Server config {@code config/simpleblocks-server.json}, group {@code snow} (b-snow32, docs/ai/PLAN-B-SNOW32-2026-10-31.md):
  * {@code snowlogging}, {@code snowCaps} and {@code frostGrass} (both default on) and the chances of frost grass, 1 in N per random tick. Missing
- * or broken keys use the defaults and the file is rewritten complete; numbers are clamped to 1-100.
+ * or broken keys use the defaults and the file is rewritten complete; numbers are clamped to 1-100. Group {@code pale}: see
+ * {@link com.simpleblocks.pale.PaleConfig} (DW04B).
  */
 public final class SnowConfig {
     public static final String FILE = "simpleblocks-server.json";
     /** Every key of the file (wiki and check_data read this list). */
-    public static final List<String> KEYS = List.of("snow.snowlogging", "snow.snowCaps", "snow.frostGrass", "snow.freezeOneIn", "snow.thawOneIn");
+    public static final List<String> KEYS = java.util.stream.Stream.concat(
+            java.util.stream.Stream.of("snow.snowlogging", "snow.snowCaps", "snow.frostGrass", "snow.freezeOneIn", "snow.thawOneIn"),
+            com.simpleblocks.pale.PaleConfig.KEYS.stream()).toList();
 
     public static final int FREEZE_DEFAULT = 3, THAW_DEFAULT = 6, ONE_IN_MIN = 1, ONE_IN_MAX = 100;
 
@@ -59,6 +62,9 @@ public final class SnowConfig {
         frostGrass = bool(s, "frostGrass", true);
         freezeOneIn = number(s, "freezeOneIn", FREEZE_DEFAULT);
         thawOneIn = number(s, "thawOneIn", THAW_DEFAULT);
+        // DW04B: the pale group (com.simpleblocks.pale.PaleConfig) lives in the same file.
+        JsonElement pale = json.get("pale");
+        com.simpleblocks.pale.PaleConfig.apply(pale != null && pale.isJsonObject() ? pale.getAsJsonObject() : new JsonObject());
     }
 
     public static JsonObject toJson() {
@@ -70,6 +76,7 @@ public final class SnowConfig {
         s.addProperty("thawOneIn", thawOneIn);
         JsonObject o = new JsonObject();
         o.add("snow", s);
+        o.add("pale", com.simpleblocks.pale.PaleConfig.toJson());
         return o;
     }
 

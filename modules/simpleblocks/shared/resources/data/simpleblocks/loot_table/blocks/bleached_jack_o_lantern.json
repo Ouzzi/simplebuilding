@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simpleblocks:bleached_jack_o_lantern"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/melon",
+  "textures": {
+    "end": "simpleblocks:block/faded_melon_top",
+    "side": "simpleblocks:block/faded_melon_side"
+  }
+}

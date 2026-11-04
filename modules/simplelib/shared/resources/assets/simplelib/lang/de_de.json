@@ -2,6 +2,7 @@
   "tooltip.simplelib.warm": "Warm (noch etwa %s Min.)",
   "tooltip.simplelib.warm.faster": "%s %% schneller gegessen",
   "tooltip.simplelib.hold_shift": "Umschalt halten für mehr",
+  "tooltip.simplelib.aging.waxed": "Gewachst: behält sein Aussehen",
   "item.simplelib.diamond_pebble": "Diamantkiesel",
   "item.simplelib.cracked_diamond": "Rissiger Diamant",
   "item.simplelib.netherite_nugget": "Netheritklumpen",

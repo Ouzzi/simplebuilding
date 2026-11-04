@@ -1,0 +1,28 @@
+{
+  "values": [
+    "simpleblocks:faded_pumpkin",
+    "simpleblocks:bleached_pumpkin",
+    "simpleblocks:pale_pumpkin",
+    "simpleblocks:waxed_pumpkin",
+    "simpleblocks:waxed_faded_pumpkin",
+    "simpleblocks:waxed_bleached_pumpkin",
+    "simpleblocks:faded_carved_pumpkin",
+    "simpleblocks:bleached_carved_pumpkin",
+    "simpleblocks:pale_carved_pumpkin",
+    "simpleblocks:waxed_carved_pumpkin",
+    "simpleblocks:waxed_faded_carved_pumpkin",
+    "simpleblocks:waxed_bleached_carved_pumpkin",
+    "simpleblocks:faded_jack_o_lantern",
+    "simpleblocks:bleached_jack_o_lantern",
+    "simpleblocks:pale_jack_o_lantern",
+    "simpleblocks:waxed_jack_o_lantern",
+    "simpleblocks:waxed_faded_jack_o_lantern",
+    "simpleblocks:waxed_bleached_jack_o_lantern",
+    "simpleblocks:faded_melon",
+    "simpleblocks:bleached_melon",
+    "simpleblocks:pale_melon",
+    "simpleblocks:waxed_melon",
+    "simpleblocks:waxed_faded_melon",
+    "simpleblocks:waxed_bleached_melon"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_faded_hay_block",
+  "ingredients": [
+    "simpleblocks:faded_hay_block",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_faded_hay_block"
+  }
+}
