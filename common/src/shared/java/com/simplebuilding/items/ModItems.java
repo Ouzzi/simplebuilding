@@ -539,6 +539,12 @@ public class ModItems {
     /** Lohenbuch: wie ein Buch, mit Lohenstaub statt Leder; drei davon und sechs Lohenholz ergeben ein Lohen-Regal. */
     public static final Item BLAZE_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("blaze_book", s -> new Item(s)) : null;
+    /**
+     * Nihilit-Buch (DW04C-3, docs/ai/PLAN-B-SHELVES01-2026-11-04.md): ein Buch mit 4 Nihilitsplittern; drei davon und sechs
+     * Asch-/Daemmerholzbretter (Simple End) ergeben dessen End-Buecherregal. Passt wie das Lohenbuch in gemeisselte Regale.
+     */
+    public static final Item NIHILITH_BOOK = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("nihilith_book", s -> new Item(s)) : null;
     /** Waerter-Fuehler (2026-10-09, N24): Drop des Waerters, Brauzutat des Dunkelheitstranks; selten (B23-M5). */
     public static final Item WARDEN_TENDRIL = com.simplebuilding.version.McVersion.BREWING_EFFECTS
             ? registerItem("warden_tendril", s -> new Item(s.rarity(Rarity.RARE))) : null;

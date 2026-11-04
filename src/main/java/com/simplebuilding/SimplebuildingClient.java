@@ -107,6 +107,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Haengematte: das Kopfteil zeichnet die ganze Matte entlang der Ankerlinie (jeder Winkel).
         if (com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE != null) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.HAMMOCK_BE, com.simplebuilding.client.render.HammockRenderer::new);
+        // DW04C-3: Lohen- und Nihilit-Buecher zeigen sich im gemeisselten Regal (Vanilla- und Mod-Regale teilen Vanillas Block-Entity).
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                net.minecraft.world.level.block.entity.BlockEntityTypes.CHISELED_BOOKSHELF, com.simplebuilding.client.render.ChiseledBooksRenderer::new);
         if (com.simplebuilding.version.McVersion.END_SYSTEMS) net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 net.minecraft.world.level.block.entity.BlockEntityTypes.ENDER_CHEST, com.simplebuilding.client.render.AstralVaultRenderer::new);
         // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.

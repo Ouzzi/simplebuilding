@@ -79,7 +79,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 492,
       "blocks": 283,
-      "recipes": 818,
+      "recipes": 821,
       "config": 230,
       "features": 47
     }
@@ -1064,11 +1064,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mOQk9D+TwlmABET2paQjH1sclANSA1v/L9u+d7/Jy8eBrOxYZgcSLO5th+mAcgKZy2dCueD2MiaQRbhNQCGc6uywRjGB2mGYaIN8HIKwNBM0IC4kKT/r59+AOPTh66AMUiMKAOQNYPwxq7TYAOWzt6AYghOA5A1w2wHaQbhupIO/AYg2w6zGWYASDMIw1yB0wCYJlya8RoAwshOhmkGuQZZM04DQBIgRciakW3GawAodcEkQQrRNeKNRpgAMkbXjC6PYgAlGADBDC0kWCrJGAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
-      "blocks": 47,
-      "recipes": 34,
+      "blocks": 51,
+      "recipes": 38,
       "features": 9
     },
-    "dataHash": "e6142516c812"
+    "dataHash": "c7f05b022c80"
   },
   {
     "id": "simplerespawn",
@@ -2056,10 +2056,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 8,
-      "recipes": 6,
+      "blocks": 10,
+      "recipes": 8,
       "features": 5
     },
-    "dataHash": "7e14fcae29fd"
+    "dataHash": "22742d426a61"
   }
 ];

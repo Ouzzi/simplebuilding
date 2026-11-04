@@ -129,6 +129,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 bookshelfBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
             }
         }
+        // DW04C-3: Lohen- und Nihilit-Buch passen wie jedes Buch ins gemeisselte Buecherregal (Vanilla und Mod-Regale).
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            bookshelfBooks.add(key(ModItems.BLAZE_BOOK));
+            bookshelfBooks.add(key(ModItems.NIHILITH_BOOK));
+        }
 
         // Rotator: Unbreaking ja, Mending nein (Besitzer 2026-09-28) - EnchantmentMixin liest diesen Tag.
         builder(ModTags.Items.XP_REPAIR_INCOMPATIBLE)

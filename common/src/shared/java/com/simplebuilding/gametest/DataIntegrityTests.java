@@ -3010,11 +3010,9 @@ public final class DataIntegrityTests {
         if (McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch und Boden, Luecke, Lohenholz, Lohen-Regale, Lohenbuch.
             // ENCH02: die Tische (Simple Enchanting) per Id, dann beide Boeden; Nihil-Obsidian neu.
+            // DW04C-3: Lohenholz und -Regale als Baubloecke (Simple Blocks), hier die Buecher.
             expected.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.DARK_ENCHANTER, ModItems.ASTRAL_ENCHANTER,
-                    ModItems.BLAZING_OBSIDIAN, ModItems.NIHIL_OBSIDIAN, gap,
-                    ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
-                    ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
-                    ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));
+                    ModItems.BLAZING_OBSIDIAN, ModItems.NIHIL_OBSIDIAN, gap, ModItems.BLAZE_BOOK, ModItems.NIHILITH_BOOK));
         }
         if (McVersion.TRAINING_DUMMY) {
             expected.add(CreativeTabLayout.Row.of("training_dummy", ModItems.STRAW_ARMOR_STAND, ModItems.TRAINING_DUMMY,
@@ -3191,6 +3189,9 @@ public final class DataIntegrityTests {
         }
         if (McVersion.FIRES) {
             expected.add(com.simplebuilding.items.ModItemGroupsContent.sulfurLightRow()); // N58: sulfur torch, lantern, campfire
+        }
+        if (McVersion.ASTRAL_ENCHANTING) {
+            expected.add(com.simplebuilding.items.ModItemGroupsContent.blazewoodRow()); // DW04C-3: blazewood building blocks
         }
         if (McVersion.WOODWORK) {
             // Holzwerk (2026-10-09) am Ende: je Holzart Roehren, Platten, Kessel, Kiste, Schnitzholz.

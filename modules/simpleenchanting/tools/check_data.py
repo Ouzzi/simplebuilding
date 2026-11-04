@@ -11,8 +11,13 @@ JAVA = MODULE / 'shared/java/com/simpleenchanting'
 TABLES = ['dark_enchanter', 'astral_enchanter']
 # the building-block twins (registered only without SimpleBuilding)
 TWINS = ['blazing_obsidian', 'nihil_obsidian', 'crimson_blazewood_planks', 'warped_blazewood_planks', 'crimson_blazewood_bookshelf',
-         'warped_blazewood_bookshelf']
+         'warped_blazewood_bookshelf', 'chiseled_crimson_blazewood_bookshelf', 'chiseled_warped_blazewood_bookshelf']
 BLOCKS = TABLES + TWINS
+# b-shelves01: the chiseled twins' textures are Vanilla-derived (built, never committed; tools/textures/vanilla_derived.MODULE_OUTPUTS).
+import sys  # noqa: E402
+sys.path.insert(0, str(ROOT / 'tools/textures'))
+import vanilla_derived  # noqa: E402
+DERIVED = set(vanilla_derived.MODULE_OUTPUTS[NS])
 
 used = set()
 for src in JAVA.rglob('*.java'):
@@ -51,13 +56,15 @@ astral = json.loads((RES / f'data/{NS}/loot_table/blocks/astral_enchanter.json')
 assert 'simpleores' in json.dumps(astral.get('fabric:load_conditions')), 'the Astral loot names Simple Ores: load condition'
 # every model and texture a blockstate or model names exists
 for state in (RES / f'assets/{NS}/blockstates').glob('*.json'):
-    for variant in json.loads(state.read_text(encoding='utf-8'))['variants'].values():
+    doc = json.loads(state.read_text(encoding='utf-8'))
+    parts = list(doc['variants'].values()) if 'variants' in doc else [p['apply'] for p in doc['multipart']]
+    for variant in parts:
         model = variant['model'].split(':')[1]
         assert (RES / f'assets/{NS}/models/{model}.json').is_file(), (state.name, model)
 for model in (RES / f'assets/{NS}/models').rglob('*.json'):
     for tex in json.loads(model.read_text(encoding='utf-8')).get('textures', {}).values():
         if tex.startswith(f'{NS}:'):
-            assert (RES / f'assets/{NS}/textures/{tex.split(":")[1]}.png').is_file(), (model.name, tex)
+            assert (RES / f'assets/{NS}/textures/{tex.split(":")[1]}.png').is_file() or f'{tex.split(":")[1]}.png' in DERIVED, (model.name, tex)
 # foreign ids only as optional tag entries or behind a load condition (module independence)
 for path in (RES / f'data/{NS}').rglob('*.json'):
     text = path.read_text(encoding='utf-8')

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "P": "simpleend:duskwood_planks",
+    "S": "simpleend:duskwood_slab"
+  },
+  "pattern": [
+    "SSS",
+    "PPP",
+    "SSS"
+  ],
+  "result": {
+    "id": "simpleend:chiseled_duskwood_bookshelf"
+  }
+}

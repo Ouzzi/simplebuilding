@@ -66,14 +66,16 @@
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/obsidian_floor.json",
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/nihil_floor.json",
         "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/blaze_shelves.json",
-        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/nihil_obsidian.json"
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/nihil_obsidian.json",
+        "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/end_shelves.json"
       ],
       "en": {
         "title": "Floors and shelves",
         "summary": "SimpleBuilding owns the building blocks the tables need: Blazing and Nihil Obsidian, blazewood planks and bookshelves. Installed alone, this module brings its own of them.",
         "details": [
           "Without SimpleBuilding: Blazing Obsidian (8 blaze powder around crying obsidian), Nihil Obsidian (8 popped chorus fruit around crying obsidian), crimson and warped blazewood planks (8 blaze powder around a plank) and their bookshelves (6 planks and 3 books; they drop 3 books like Vanilla's). With SimpleBuilding its blocks count and these recipes are off; the ids move along both ways, so a world keeps its blocks.",
-          "The table reads the floor and the shelves through the block tags simpleenchanting:obsidian_floor, simpleenchanting:nihil_floor and simpleenchanting:blaze_shelves."
+          "The table reads the floor and the shelves through the block tags simpleenchanting:obsidian_floor, simpleenchanting:nihil_floor and simpleenchanting:blaze_shelves.",
+          "Simple End's Ashwood and Duskwood bookshelves (tag simpleenchanting:end_shelves) are worth 2 points like the blazewood shelves, at both enchanters. Chiseled bookshelves give no power, like Vanilla's; they take Vanilla books and, with SimpleBuilding, Blaze and Nihilit Books. Alone this module also brings the chiseled blazewood bookshelves (6 planks, 3 crimson/warped slabs)."
         ]
       },
       "de": {
@@ -81,7 +83,8 @@
         "summary": "SimpleBuilding besitzt die Baublöcke der Tische: Lohen- und Nihil-Obsidian, Lohenholz und Lohen-Bücherregale. Allein installiert bringt dieses Modul eigene mit.",
         "details": [
           "Ohne SimpleBuilding: Lohen-Obsidian (8 Lohenstaub um weinenden Obsidian), Nihil-Obsidian (8 geplatzte Chorusfrüchte um weinenden Obsidian), Karmesin- und Wirr-Lohenholzbretter (8 Lohenstaub um ein Brett) und ihre Bücherregale (6 Bretter und 3 Bücher; sie lassen wie Vanillas 3 Bücher fallen). Mit SimpleBuilding zählen dessen Blöcke und diese Rezepte sind aus; die Ids wandern in beide Richtungen mit, eine Welt behält ihre Blöcke.",
-          "Der Tisch liest Boden und Regale über die Block-Tags simpleenchanting:obsidian_floor, simpleenchanting:nihil_floor und simpleenchanting:blaze_shelves."
+          "Der Tisch liest Boden und Regale über die Block-Tags simpleenchanting:obsidian_floor, simpleenchanting:nihil_floor und simpleenchanting:blaze_shelves.",
+          "Die Asch- und Dämmerholz-Bücherregale von Simple End (Tag simpleenchanting:end_shelves) zählen an beiden Tischen 2 Punkte wie Lohen-Regale. Gemeißelte Bücherregale geben wie Vanillas keine Kraft; sie nehmen Vanilla-Bücher und mit SimpleBuilding Lohen- und Nihilit-Bücher. Allein bringt dieses Modul auch die gemeißelten Lohen-Regale mit (6 Bretter, 3 Karmesin-/Wirr-Stufen)."
         ]
       }
     },
@@ -181,6 +184,88 @@
           {
             "id": "minecraft:crying_obsidian",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/chiseled_crimson_blazewood_bookshelf.json",
+      "ingredients": [
+        "minecraft:crimson_slab",
+        "simpleenchanting:crimson_blazewood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "SSS",
+        "WWW"
+      ],
+      "key": {
+        "S": [
+          "minecraft:crimson_slab"
+        ],
+        "W": [
+          "simpleenchanting:crimson_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 24
+          },
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 1.875
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleenchanting:chiseled_warped_blazewood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleenchanting:chiseled_warped_blazewood_bookshelf",
+        "count": 1
+      },
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/chiseled_warped_blazewood_bookshelf.json",
+      "ingredients": [
+        "minecraft:warped_slab",
+        "simpleenchanting:warped_blazewood_planks"
+      ],
+      "pattern": [
+        "WWW",
+        "SSS",
+        "WWW"
+      ],
+      "key": {
+        "S": [
+          "minecraft:warped_slab"
+        ],
+        "W": [
+          "simpleenchanting:warped_blazewood_planks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:blaze_rod",
+            "count": 24
+          },
+          {
+            "id": "minecraft:warped_stem",
+            "count": 1.875
           }
         ]
       }
@@ -455,6 +540,42 @@
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/blazing_obsidian.json"
     },
     {
+      "id": "simpleenchanting:blocks/chiseled_crimson_blazewood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:chiseled_crimson_blazewood_bookshelf"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/chiseled_crimson_blazewood_bookshelf.json"
+    },
+    {
+      "id": "simpleenchanting:blocks/chiseled_warped_blazewood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleenchanting:chiseled_warped_blazewood_bookshelf"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/loot_table/blocks/chiseled_warped_blazewood_bookshelf.json"
+    },
+    {
       "id": "simpleenchanting:blocks/crimson_blazewood_bookshelf",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -594,6 +715,21 @@
         }
       ],
       "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/blaze_shelves.json"
+    },
+    {
+      "id": "simpleenchanting:block/end_shelves",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleend:ashwood_bookshelf",
+          "required": false
+        },
+        {
+          "id": "simpleend:duskwood_bookshelf",
+          "required": false
+        }
+      ],
+      "source": "modules/simpleenchanting/shared/resources/data/simpleenchanting/tags/block/end_shelves.json"
     },
     {
       "id": "simpleenchanting:block/nihil_floor",
@@ -757,6 +893,52 @@
       "usedIn": []
     },
     {
+      "id": "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
+      "name": {
+        "en_us": "Chiseled Crimson Blazewood Bookshelf",
+        "de_de": "Gemeißeltes Karmesin-Lohen-Bücherregal"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/chiseled_crimson_blazewood_bookshelf.json"
+        ],
+        "en": {
+          "summary": "Chiseled Crimson Blazewood Bookshelf, this module's own (only without SimpleBuilding): six book slots like Vanilla's, no enchanting power."
+        },
+        "de": {
+          "summary": "Gemeißeltes Karmesin-Lohen-Bücherregal, das eigene dieses Moduls (nur ohne SimpleBuilding): sechs Buchfächer wie Vanilla, keine Verzauberungskraft."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:chiseled_crimson_blazewood_bookshelf"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleenchanting:chiseled_warped_blazewood_bookshelf",
+      "name": {
+        "en_us": "Chiseled Warped Blazewood Bookshelf",
+        "de_de": "Gemeißeltes Wirr-Lohen-Bücherregal"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleenchanting/shared/java/com/simpleenchanting/EnchantingRegistry.java",
+          "modules/simpleenchanting/shared/resources/data/simpleenchanting/recipe/chiseled_warped_blazewood_bookshelf.json"
+        ],
+        "en": {
+          "summary": "Chiseled Warped Blazewood Bookshelf, this module's own (only without SimpleBuilding): six book slots like Vanilla's, no enchanting power."
+        },
+        "de": {
+          "summary": "Gemeißeltes Wirr-Lohen-Bücherregal, das eigene dieses Moduls (nur ohne SimpleBuilding): sechs Buchfächer wie Vanilla, keine Verzauberungskraft."
+        }
+      },
+      "craftedBy": [
+        "simpleenchanting:chiseled_warped_blazewood_bookshelf"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleenchanting:crimson_blazewood_bookshelf",
       "name": {
         "en_us": "Crimson Blazewood Bookshelf",
@@ -803,6 +985,7 @@
         "simpleenchanting:crimson_blazewood_planks"
       ],
       "usedIn": [
+        "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
         "simpleenchanting:crimson_blazewood_bookshelf"
       ]
     },
@@ -922,6 +1105,7 @@
         "simpleenchanting:warped_blazewood_planks"
       ],
       "usedIn": [
+        "simpleenchanting:chiseled_warped_blazewood_bookshelf",
         "simpleenchanting:warped_blazewood_bookshelf"
       ]
     }
@@ -941,13 +1125,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 5,
-    "recipes": 6,
-    "lootTables": 8,
-    "tags": 3,
+    "recipes": 8,
+    "lootTables": 10,
+    "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 8,
+    "blocks": 10,
     "trades": 0,
     "config": 0,
     "quests": 0,

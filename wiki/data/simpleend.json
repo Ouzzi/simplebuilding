@@ -285,6 +285,51 @@
       }
     },
     {
+      "id": "simpleend:ashwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_bookshelf",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/ashwood_bookshelf.json",
+      "ingredients": [
+        "minecraft:book",
+        "simpleend:ashwood_slab"
+      ],
+      "pattern": [
+        "SSS",
+        "KKK",
+        "SSS"
+      ],
+      "key": {
+        "K": [
+          "minecraft:book"
+        ],
+        "S": [
+          "simpleend:ashwood_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 9
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 3
+          },
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 0.75
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleend:ashwood_button",
       "type": "minecraft:crafting_shapeless",
       "category": "redstone",
@@ -795,6 +840,80 @@
       }
     },
     {
+      "id": "simpleend:chiseled_ashwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:chiseled_ashwood_bookshelf",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/chiseled_ashwood_bookshelf.json",
+      "ingredients": [
+        "simpleend:ashwood_planks",
+        "simpleend:ashwood_slab"
+      ],
+      "pattern": [
+        "SSS",
+        "PPP",
+        "SSS"
+      ],
+      "key": {
+        "P": [
+          "simpleend:ashwood_planks"
+        ],
+        "S": [
+          "simpleend:ashwood_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:ashwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:chiseled_duskwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:chiseled_duskwood_bookshelf",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/chiseled_duskwood_bookshelf.json",
+      "ingredients": [
+        "simpleend:duskwood_planks",
+        "simpleend:duskwood_slab"
+      ],
+      "pattern": [
+        "SSS",
+        "PPP",
+        "SSS"
+      ],
+      "key": {
+        "P": [
+          "simpleend:duskwood_planks"
+        ],
+        "S": [
+          "simpleend:duskwood_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 1.5
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleend:duskwood_boat",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -822,6 +941,51 @@
           {
             "id": "simpleend:duskwood_log",
             "count": 1.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleend:duskwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_bookshelf",
+        "count": 1
+      },
+      "source": "modules/simpleend/generated/resources/data/simpleend/recipe/duskwood_bookshelf.json",
+      "ingredients": [
+        "minecraft:book",
+        "simpleend:duskwood_slab"
+      ],
+      "pattern": [
+        "SSS",
+        "KKK",
+        "SSS"
+      ],
+      "key": {
+        "K": [
+          "minecraft:book"
+        ],
+        "S": [
+          "simpleend:duskwood_slab"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 9
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 3
+          },
+          {
+            "id": "simpleend:duskwood_log",
+            "count": 0.75
           }
         ]
       }
@@ -1421,6 +1585,23 @@
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ash_bud.json"
     },
     {
+      "id": "simpleend:blocks/ashwood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:ashwood_bookshelf",
+            "minecraft:book"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/ashwood_bookshelf.json"
+    },
+    {
       "id": "simpleend:blocks/ashwood_button",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1754,6 +1935,38 @@
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/burrowed_end_stone.json"
     },
     {
+      "id": "simpleend:blocks/chiseled_ashwood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:chiseled_ashwood_bookshelf"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/chiseled_ashwood_bookshelf.json"
+    },
+    {
+      "id": "simpleend:blocks/chiseled_duskwood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:chiseled_duskwood_bookshelf"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/chiseled_duskwood_bookshelf.json"
+    },
+    {
       "id": "simpleend:blocks/dusk_bud",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -1770,6 +1983,23 @@
         }
       ],
       "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/dusk_bud.json"
+    },
+    {
+      "id": "simpleend:blocks/duskwood_bookshelf",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleend:duskwood_bookshelf",
+            "minecraft:book"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleend/generated/resources/data/simpleend/loot_table/blocks/duskwood_bookshelf.json"
     },
     {
       "id": "simpleend:blocks/duskwood_button",
@@ -2550,6 +2780,22 @@
           "required": true
         },
         {
+          "id": "simpleend:ashwood_bookshelf",
+          "required": true
+        },
+        {
+          "id": "simpleend:duskwood_bookshelf",
+          "required": true
+        },
+        {
+          "id": "simpleend:chiseled_ashwood_bookshelf",
+          "required": true
+        },
+        {
+          "id": "simpleend:chiseled_duskwood_bookshelf",
+          "required": true
+        },
+        {
           "id": "simpleend:end_grass",
           "required": true
         },
@@ -2866,6 +3112,26 @@
       "usedIn": []
     },
     {
+      "id": "simpleend:ashwood_bookshelf",
+      "name": {
+        "en_us": "Ashwood Bookshelf",
+        "de_de": "Aschholz-Bücherregal"
+      },
+      "note": {
+        "en": {
+          "summary": "Ashwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 ashwood slabs around 3 books (with SimpleBuilding: 6 planks, 3 Nihilit Books); drops 3 of its books (Simple End)."
+        },
+        "de": {
+          "summary": "Aschholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Aschholzstufen um 3 Bücher (mit SimpleBuilding: 6 Bretter, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/ashwood_bookshelf.png",
+      "craftedBy": [
+        "simpleend:ashwood_bookshelf"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleend:ashwood_button",
       "name": {
         "en_us": "Ashwood Button",
@@ -3027,7 +3293,8 @@
         "simpleend:ashwood_sign",
         "simpleend:ashwood_slab",
         "simpleend:ashwood_stairs",
-        "simpleend:ashwood_trapdoor"
+        "simpleend:ashwood_trapdoor",
+        "simpleend:chiseled_ashwood_bookshelf"
       ]
     },
     {
@@ -3106,7 +3373,10 @@
       "craftedBy": [
         "simpleend:ashwood_slab"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleend:ashwood_bookshelf",
+        "simpleend:chiseled_ashwood_bookshelf"
+      ]
     },
     {
       "id": "simpleend:ashwood_stairs",
@@ -3256,6 +3526,44 @@
       "usedIn": []
     },
     {
+      "id": "simpleend:chiseled_ashwood_bookshelf",
+      "name": {
+        "en_us": "Chiseled Ashwood Bookshelf",
+        "de_de": "Gemeißeltes Aschholz-Bücherregal"
+      },
+      "note": {
+        "en": {
+          "summary": "Chiseled Ashwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 ashwood slabs around 3 planks (Simple End)."
+        },
+        "de": {
+          "summary": "Gemeißeltes Aschholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Aschholzstufen um 3 Bretter (Simple End)."
+        }
+      },
+      "craftedBy": [
+        "simpleend:chiseled_ashwood_bookshelf"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:chiseled_duskwood_bookshelf",
+      "name": {
+        "en_us": "Chiseled Duskwood Bookshelf",
+        "de_de": "Gemeißeltes Dämmerholz-Bücherregal"
+      },
+      "note": {
+        "en": {
+          "summary": "Chiseled Duskwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 duskwood slabs around 3 planks (Simple End)."
+        },
+        "de": {
+          "summary": "Gemeißeltes Dämmerholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Dämmerholzstufen um 3 Bretter (Simple End)."
+        }
+      },
+      "craftedBy": [
+        "simpleend:chiseled_duskwood_bookshelf"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleend:dusk_bud",
       "name": {
         "en_us": "Dusk Bud",
@@ -3271,6 +3579,26 @@
       },
       "texture": "assets/textures/simpleend/block/dusk_bud.png",
       "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleend:duskwood_bookshelf",
+      "name": {
+        "en_us": "Duskwood Bookshelf",
+        "de_de": "Dämmerholz-Bücherregal"
+      },
+      "note": {
+        "en": {
+          "summary": "Duskwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 duskwood slabs around 3 books (with SimpleBuilding: 6 planks, 3 Nihilit Books); drops 3 of its books (Simple End)."
+        },
+        "de": {
+          "summary": "Dämmerholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Dämmerholzstufen um 3 Bücher (mit SimpleBuilding: 6 Bretter, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
+        }
+      },
+      "texture": "assets/textures/simpleend/block/duskwood_bookshelf.png",
+      "craftedBy": [
+        "simpleend:duskwood_bookshelf"
+      ],
       "usedIn": []
     },
     {
@@ -3426,6 +3754,7 @@
         "simpleend:duskwood_planks"
       ],
       "usedIn": [
+        "simpleend:chiseled_duskwood_bookshelf",
         "simpleend:duskwood_boat",
         "simpleend:duskwood_button",
         "simpleend:duskwood_door",
@@ -3514,7 +3843,10 @@
       "craftedBy": [
         "simpleend:duskwood_slab"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleend:chiseled_duskwood_bookshelf",
+        "simpleend:duskwood_bookshelf"
+      ]
     },
     {
       "id": "simpleend:duskwood_stairs",
@@ -3832,13 +4164,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 9,
-    "recipes": 34,
-    "lootTables": 44,
+    "recipes": 38,
+    "lootTables": 48,
     "tags": 8,
     "advancements": 1,
     "enchantments": 0,
     "items": 8,
-    "blocks": 47,
+    "blocks": 51,
     "trades": 0,
     "config": 0,
     "quests": 0,

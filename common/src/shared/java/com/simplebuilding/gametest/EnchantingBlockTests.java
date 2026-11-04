@@ -27,7 +27,7 @@ public final class EnchantingBlockTests {
         if (!McVersion.ASTRAL_ENCHANTING) { helper.succeed(); return; }
         var recipes = helper.getLevel().getServer().getRecipeManager();
         for (String id : List.of("crimson_blazewood_planks", "warped_blazewood_planks", "crimson_blazewood_bookshelf",
-                "warped_blazewood_bookshelf", "chiseled_crimson_blazewood_bookshelf", "chiseled_warped_blazewood_bookshelf", "blaze_book", "blazing_obsidian")) {
+                "warped_blazewood_bookshelf", "chiseled_crimson_blazewood_bookshelf", "chiseled_warped_blazewood_bookshelf", "blaze_book", "nihilith_book", "blazing_obsidian")) {
             helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplebuilding", id))).isPresent(),
                     "recipe " + id + " is not loaded");
         }
@@ -44,6 +44,24 @@ public final class EnchantingBlockTests {
         helper.assertTrue(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER),
                 "blazewood shelves do not count at the Vanilla table");
         helper.assertTrue(ModBlocks.BLAZING_OBSIDIAN.defaultBlockState().getLightEmission() > 0, "blazing obsidian does not glow");
+        // DW04C-3: Nihilit Book = 4 Nihilit Shards around a book (plus); both mod books go into chiseled bookshelves.
+        var nihil = (net.minecraft.world.item.crafting.CraftingRecipe) recipes.byKey(ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath("simplebuilding", "nihilith_book"))).orElseThrow().value();
+        ItemStack shard = new ItemStack(ModItems.NIHILITH_SHARD);
+        var plus = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, shard.copy(), ItemStack.EMPTY,
+                shard.copy(), new ItemStack(Items.BOOK), shard.copy(), ItemStack.EMPTY, shard.copy(), ItemStack.EMPTY));
+        helper.assertTrue(nihil.matches(plus, helper.getLevel()) && nihil.assemble(plus).is(ModItems.NIHILITH_BOOK), "4 nihilit shards + book craft the nihilit book");
+        helper.assertTrue(new ItemStack(ModItems.BLAZE_BOOK).is(net.minecraft.tags.ItemTags.BOOKSHELF_BOOKS)
+                && new ItemStack(ModItems.NIHILITH_BOOK).is(net.minecraft.tags.ItemTags.BOOKSHELF_BOOKS), "mod books fit chiseled bookshelves");
+        // With Simple End: its bookshelves are made of Nihilit Books here (Simple End's own book recipe is off).
+        if (com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleend")) {
+            for (String wood : List.of("ashwood", "duskwood")) {
+                helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplebuilding", wood + "_bookshelf"))).isPresent(),
+                        "nihilit-book recipe of the " + wood + " bookshelf");
+                helper.assertTrue(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simpleend", wood + "_bookshelf"))).isEmpty(),
+                        "Simple End's book recipe of the " + wood + " bookshelf is off with SimpleBuilding");
+            }
+        }
         helper.succeed();
     }
 

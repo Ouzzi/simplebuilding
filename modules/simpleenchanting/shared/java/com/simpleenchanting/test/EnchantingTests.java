@@ -61,6 +61,9 @@ public final class EnchantingTests {
         ALL.put("endgame_level_rules", EnchantingTests::endgameLevelRules);
         ALL.put("endgame_levels_at_the_table", EnchantingTests::endgameLevelsAtTheTable);
         ALL.put("config_takes_over_the_endgame_switch", EnchantingTests::configTakesOverTheEndgameSwitch);
+        ALL.put("end_shelves_count_double", EnchantingTests::endShelvesCountDouble);
+        ALL.put("chiseled_shelves_take_mod_books", EnchantingTests::chiseledShelvesTakeModBooks);
+        ALL.put("end_shelf_drops_its_books", EnchantingTests::endShelfDropsItsBooks);
         ALL.put("discover_recipe_unlocks", com.simpleenchanting.discover.EnchantingDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simpleenchanting.discover.EnchantingDiscover::behaviourHints);
         ALL.put("guide_book", com.simpleenchanting.guide.EnchantingGuide::gameTest);
@@ -317,6 +320,98 @@ public final class EnchantingTests {
     }
 
     /** A building block of this installation: SimpleBuilding's, or this module's twin without it. */
+    // ------------------------------------------------------------------ DW04C-3: End bookshelves, chiseled bookshelves, mod books
+
+    private static Block byId(String id) {
+        return BuiltInRegistries.BLOCK.getValue(Identifier.parse(id));
+    }
+
+    private static net.minecraft.world.item.Item itemById(String id) {
+        return BuiltInRegistries.ITEM.getValue(Identifier.parse(id));
+    }
+
+    /**
+     * Simple End's bookshelves are worth {@value EnchantingRules#BLAZE_SHELF} at the enchanters and count like a bookshelf at
+     * Vanilla's table; every chiseled bookshelf (Vanilla's, the blazewood ones, the End ones) counts nothing, like Vanilla's.
+     */
+    public static void endShelvesCountDouble(GameTestHelper helper) {
+        BlockPos offset = EnchantingTableBlock.BOOKSHELF_OFFSETS.getFirst();
+        BlockPos table = helper.absolutePos(TABLE);
+        helper.setBlock(TABLE, EnchantingRegistry.DARK_ENCHANTER);
+        for (String wood : new String[] {"ashwood", "duskwood"}) {
+            Block end = byId("simpleend:" + wood + "_bookshelf");
+            if (end == Blocks.AIR) continue;     // Simple End not installed (standalone run)
+            helper.assertTrue(end.defaultBlockState().is(EnchantingRules.END_SHELVES), wood + " bookshelf in end_shelves");
+            helper.assertTrue(end.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER), wood + " counts at Vanilla's table");
+            helper.setBlock(TABLE.offset(offset), end);
+            int value = EnchantingRules.shelfValue(helper.getLevel(), table, offset);
+            helper.assertTrue(value == EnchantingRules.BLAZE_SHELF, wood + " bookshelf worth " + EnchantingRules.BLAZE_SHELF + ", got " + value);
+        }
+        List<Block> chiseled = new java.util.ArrayList<>(List.of(Blocks.CHISELED_BOOKSHELF, building("chiseled_crimson_blazewood_bookshelf"),
+                building("chiseled_warped_blazewood_bookshelf"), byId("simpleend:chiseled_ashwood_bookshelf"), byId("simpleend:chiseled_duskwood_bookshelf")));
+        chiseled.removeIf(b -> b == Blocks.AIR);
+        for (Block block : chiseled) {
+            helper.setBlock(TABLE.offset(offset), block);
+            helper.assertTrue(EnchantingRules.shelfValue(helper.getLevel(), table, offset) == 0, BuiltInRegistries.BLOCK.getKey(block) + " counts nothing");
+            helper.assertTrue(!block.defaultBlockState().is(net.minecraft.tags.BlockTags.ENCHANTMENT_POWER_PROVIDER), BuiltInRegistries.BLOCK.getKey(block) + " no power");
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Every chiseled bookshelf (Vanilla's and the mod ones) takes Vanilla books and, with SimpleBuilding, the Blaze and Nihilit
+     * Books (tag minecraft:bookshelf_books); a book sets its slot's state and the comparator reads the last slot + 1 like Vanilla.
+     */
+    public static void chiseledShelvesTakeModBooks(GameTestHelper helper) {
+        List<Block> shelves = new java.util.ArrayList<>(List.of(Blocks.CHISELED_BOOKSHELF, building("chiseled_crimson_blazewood_bookshelf"),
+                building("chiseled_warped_blazewood_bookshelf"), byId("simpleend:chiseled_ashwood_bookshelf"), byId("simpleend:chiseled_duskwood_bookshelf")));
+        shelves.removeIf(b -> b == Blocks.AIR);
+        helper.assertTrue(shelves.size() >= 3, "Vanilla's and both blazewood chiseled bookshelves exist");
+        List<ItemStack> books = new java.util.ArrayList<>(List.of(new ItemStack(Items.BOOK), new ItemStack(Items.ENCHANTED_BOOK)));
+        for (String id : new String[] {"simplebuilding:blaze_book", "simplebuilding:nihilith_book"}) {
+            var item = itemById(id);
+            if (item != Items.AIR) books.add(new ItemStack(item));
+            helper.assertTrue(item != Items.AIR || !SimpleEnchanting.simpleBuilding(), id + " exists with SimpleBuilding");
+        }
+        BlockPos at = new BlockPos(1, 2, 1);
+        for (Block block : shelves) {
+            helper.setBlock(at, block);
+            var entity = helper.getBlockEntity(at, net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity.class);
+            for (int slot = 0; slot < books.size() && slot < 6; slot++) {
+                ItemStack book = books.get(slot).copy();
+                helper.assertTrue(entity.canPlaceItem(slot, book), BuiltInRegistries.BLOCK.getKey(block) + " takes " + book.getItem());
+                entity.setItem(slot, book);
+                var state = helper.getBlockState(at);
+                helper.assertTrue(state.getValue(net.minecraft.world.level.block.ChiseledBookShelfBlock.SLOT_OCCUPIED_PROPERTIES.get(slot)),
+                        BuiltInRegistries.BLOCK.getKey(block) + " slot " + slot + " shows the book");
+                int signal = state.getAnalogOutputSignal(helper.getLevel(), helper.absolutePos(at), Direction.NORTH);
+                helper.assertTrue(signal == slot + 1, BuiltInRegistries.BLOCK.getKey(block) + " comparator " + signal + " after slot " + slot);
+            }
+            helper.assertTrue(!entity.canPlaceItem(5, new ItemStack(Items.PAPER)), "paper is no book");
+            helper.setBlock(at, Blocks.AIR);
+        }
+        helper.succeed();
+    }
+
+    /** An End bookshelf broken without Silk Touch drops 3 books: Nihilit Books with SimpleBuilding (it is made of them), else books. */
+    public static void endShelfDropsItsBooks(GameTestHelper helper) {
+        Block end = byId("simpleend:ashwood_bookshelf");
+        if (end == Blocks.AIR) {
+            helper.succeed();
+            return;
+        }
+        var expected = SimpleEnchanting.simpleBuilding() ? itemById("simplebuilding:nihilith_book") : Items.BOOK;
+        BlockPos at = new BlockPos(4, 2, 4);
+        helper.setBlock(at, end);
+        helper.getLevel().destroyBlock(helper.absolutePos(at), true);
+        AABB box = new AABB(helper.absolutePos(at)).inflate(2);
+        int count = helper.getLevel().getEntitiesOfClass(ItemEntity.class, box).stream()
+                .filter(e -> e.getItem().is(expected)).mapToInt(e -> e.getItem().getCount()).sum();
+        helper.assertTrue(count == 3, "3 x " + BuiltInRegistries.ITEM.getKey(expected) + " dropped, got " + count);
+        helper.getLevel().getEntitiesOfClass(ItemEntity.class, box).forEach(net.minecraft.world.entity.Entity::discard);
+        helper.succeed();
+    }
+
     static Block building(String path) {
         return BuiltInRegistries.BLOCK.getValue(Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), path));
     }

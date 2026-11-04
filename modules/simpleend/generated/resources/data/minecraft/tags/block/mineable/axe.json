@@ -1,6 +1,10 @@
 {
   "values": [
     "simpleend:ashwood_sticks",
-    "simpleend:duskwood_sticks"
+    "simpleend:ashwood_bookshelf",
+    "simpleend:duskwood_sticks",
+    "simpleend:duskwood_bookshelf",
+    "simpleend:chiseled_ashwood_bookshelf",
+    "simpleend:chiseled_duskwood_bookshelf"
   ]
 }

@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
  *
  * <p><b>Strength.</b> Shelves stand where Vanilla's do ({@link EnchantingTableBlock#BOOKSHELF_OFFSETS}, air gap between
  * table and shelf). A Vanilla bookshelf (anything in {@code minecraft:enchantment_power_provider}) is worth
- * {@value #NORMAL_SHELF} point, a blazewood bookshelf {@value #BLAZE_SHELF}; the best {@value #MAX_SHELVES} shelves count.
+ * {@value #NORMAL_SHELF} point, a blazewood or End bookshelf {@value #BLAZE_SHELF}; the best {@value #MAX_SHELVES} shelves count.
  * Up to {@value #MAX_SHELVES} points the tier is {@code 2 x points} like Vanilla (15 bookshelves = 30); the points above
  * that (only blazewood shelves give them) climb evenly on to {@value #TIER_SHELVES_MAX} at {@value #MAX_POINTS} points - so the
  * same 15 shelves, all blazewood, reach {@value #TIER_SHELVES_MAX}. The 5x5 floor under the table adds its bonus once the shelves
@@ -67,6 +67,8 @@ public final class EnchantingRules {
     public static final int FLOOR_NONE = 0, FLOOR_BLAZING = 1, FLOOR_NIHIL = 2;
     /** Bookshelves worth {@value #BLAZE_SHELF} (SimpleBuilding's blazewood shelves or this module's twins). */
     public static final TagKey<net.minecraft.world.level.block.Block> BLAZE_SHELVES = tag("blaze_shelves");
+    /** Simple End's Ashwood/Duskwood bookshelves (DW04C-3): worth {@value #BLAZE_SHELF} like the blazewood shelves. */
+    public static final TagKey<net.minecraft.world.level.block.Block> END_SHELVES = tag("end_shelves");
     /** Every block of an obsidian floor (Blazing and Nihil Obsidian). */
     public static final TagKey<net.minecraft.world.level.block.Block> OBSIDIAN_FLOOR = tag("obsidian_floor");
     /** The blocks of a Nihil floor (full bonus at the Astral Enchanter). */
@@ -318,9 +320,12 @@ public final class EnchantingRules {
 
     // ------------------------------------------------------------------ the world
 
-    /** Whether {@code state} is a blazewood bookshelf (worth {@value #BLAZE_SHELF}; tag {@code simpleenchanting:blaze_shelves}). */
+    /**
+     * Whether {@code state} is a strong shelf worth {@value #BLAZE_SHELF}: a blazewood bookshelf (tag {@code simpleenchanting:blaze_shelves})
+     * or an End bookshelf (tag {@code simpleenchanting:end_shelves}, DW04C-3). Chiseled bookshelves count nothing, like Vanilla's.
+     */
     public static boolean isBlazeShelf(BlockState state) {
-        return state.is(BLAZE_SHELVES);
+        return state.is(BLAZE_SHELVES) || state.is(END_SHELVES);
     }
 
     /** Value of the shelf at {@code table + offset}: 0 without shelf or when the gap is not free (Vanilla's rule). */

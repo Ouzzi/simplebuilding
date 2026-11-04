@@ -255,6 +255,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                             .define('B', Items.BLAZE_POWDER).define('K', Items.BOOK)
                             .unlockedBy(getHasName(Items.BLAZE_POWDER), has(Items.BLAZE_POWDER))
                             .save(output);
+                    // DW04C-3 (b-shelves01): Nihilit-Buch = Buch mit 4 Nihilitsplittern im Plus (Splitter sind seltener als Lohenstaub).
+                    shaped(RecipeCategory.MISC, ModItems.NIHILITH_BOOK)
+                            .pattern(" N ").pattern("NKN").pattern(" N ")
+                            .define('N', ModItems.NIHILITH_SHARD).define('K', Items.BOOK)
+                            .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
+                            .save(output);
                     shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.BLAZING_OBSIDIAN)
                             .pattern("BBB").pattern("BOB").pattern("BBB")
                             .define('B', Items.BLAZE_POWDER).define('O', Items.CRYING_OBSIDIAN)

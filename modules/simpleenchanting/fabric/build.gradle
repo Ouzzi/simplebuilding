@@ -5,3 +5,5 @@ apply from: rootProject.file('gradle/module-fabric.gradle')
 dependencies { include project(':framework') }
 // SimpleLib nested per principle 6a and compiled against: IdMoves, in-world upgrades (axe way), Netherite nugget, UI parts, /<modid> config.
 dependencies { include project(':modules:simplelib:fabric'); implementation project(':modules:simplelib:fabric') }
+// b-shelves01: the chiseled blazewood bookshelf twins have Vanilla-derived textures (built, never committed).
+apply from: rootProject.file('gradle/module-vanilla-derived.gradle')
