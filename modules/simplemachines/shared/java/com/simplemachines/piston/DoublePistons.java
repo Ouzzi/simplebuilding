@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
+import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -26,16 +27,22 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Logic of the Double Piston (IG31-26, one block, two stages). Cells in the push direction {@code f} from the base {@code P}:
- * stage 1 head at {@code P+f}; stage 2 arm at {@code P+f} (front of the body, which moved half a block) and head at {@code P+2f}.
- * Signal 1-7 aims at stage 1, 8-15 at stage 2, 0 at stage 0. A move is always one block at a time over Vanilla's moving_piston
- * (animation, entity push, collision) and Vanilla's {@link PistonStructureResolver} (limit 12, slime and honey, no block entities,
- * obsidian stops it); after each step the base looks at the signal again and goes one more step or back. No block entity.
+ * stage 1 head at {@code P+f}; stage 2 arm (telescope sleeve) at {@code P+f} and head at {@code P+2f}; the base shows Vanilla's
+ * extended piston base at stage 1 and 2 (DW04C-6). Signal 1-7 aims at stage 1, 8-15 at stage 2, 0 at stage 0. A move is always one
+ * block at a time over Vanilla's moving_piston and Vanilla's {@link PistonStructureResolver} (limit 12, slime and honey, no block
+ * entities, obsidian stops it); after each step the base looks at the signal again and goes one more step or back. Like
+ * Vanilla's piston the server only decides ({@link #step}) and starts the move as a block event, which runs on the server and on
+ * every client near it ({@link DoublePistonBlock#triggerEvent}): only so the client has the moving block entity and draws the move
+ * smoothly (it is never sent). No block entity of its own.
  */
 public final class DoublePistons {
     /** The stage: 0 in, 1 head one block out, 2 body half a block and head two blocks out. */
     public static final IntegerProperty EXT = IntegerProperty.create("ext", 0, 2);
     /** Game ticks until a step has settled and the next one may start (a Vanilla block move takes 2 to 3). */
     public static final int SETTLE_TICKS = 3;
+    /** Block event types (like Vanilla's piston: 0 out, 1 in); the event's data is the stage the move starts from. */
+    public static final int EVENT_EXTEND = 0;
+    public static final int EVENT_RETRACT = 1;
 
     private DoublePistons() {}
 
@@ -150,8 +157,19 @@ public final class DoublePistons {
         }
         int target = targetExt(signal(level, pos, f));
         if (target == cur) return;
-        boolean moved = target > cur ? extend(level, pos, block, f, cur) : retract(level, pos, block, f, cur);
-        if (moved) schedule(level, pos, block, SETTLE_TICKS);
+        level.blockEvent(pos, block, target > cur ? EVENT_EXTEND : EVENT_RETRACT, cur);
+    }
+
+    /**
+     * One step, on the server and on the clients ({@link DoublePistonBlock#triggerEvent}); {@code from} is the stage the server saw.
+     * The server looks again {@link #SETTLE_TICKS} later.
+     */
+    public static boolean move(Level level, BlockPos pos, BlockState base, int type, int from) {
+        if (!(base.getBlock() instanceof DoublePistonBlock block) || base.getValue(EXT) != from) return false;
+        Direction f = base.getValue(DirectionalBlock.FACING);
+        boolean moved = type == EVENT_EXTEND ? from < 2 && extend(level, pos, block, f, from) : from > 0 && retract(level, pos, base, block, f, from);
+        if (moved && !level.isClientSide()) schedule(level, pos, block, SETTLE_TICKS);
+        return moved;
     }
 
     /** A lost head or arm (explosion, command, an old 1x2 piston from Simple Redstone): clear what is left and go back to 0. */
@@ -164,7 +182,7 @@ public final class DoublePistons {
         setExt(level, base, 0);
     }
 
-    private static boolean extend(ServerLevel level, BlockPos base, DoublePistonBlock block, Direction f, int cur) {
+    private static boolean extend(Level level, BlockPos base, DoublePistonBlock block, Direction f, int cur) {
         BlockPos pistonPos = base.relative(f, cur);
         BlockPos headPos = pistonPos.relative(f);
         PistonStructureResolver resolver = new PistonStructureResolver(level, pistonPos, f, true);
@@ -176,19 +194,28 @@ public final class DoublePistons {
         return true;
     }
 
-    private static boolean retract(ServerLevel level, BlockPos base, DoublePistonBlock block, Direction f, int cur) {
+    private static boolean retract(Level level, BlockPos base, BlockState baseState, DoublePistonBlock block, Direction f, int cur) {
         BlockPos headPos = base.relative(f, cur);
-        BlockState head = level.getBlockState(headPos);
-        setExt(level, base, cur - 1);
+        // a client that is behind finishes the last move first (Vanilla does the same)
+        if (level.getBlockEntity(headPos) instanceof PistonMovingBlockEntity last) last.finalTick();
+        BlockState moving = Blocks.MOVING_PISTON.defaultBlockState().setValue(MovingPistonBlock.FACING, f);
         if (cur == 2) {
-            // The head slides back one block over the arm's cell, which becomes the moving block; the body jumps back with the stage.
+            // The head slides back one block over the arm's cell, which becomes the moving block; the arm's sleeve rides along on
+            // the moving head (sleeve=true, dropped again by the head's updateShape once it has arrived).
+            setExt(level, base, 1);
             BlockPos armPos = base.relative(f);
+            BlockState head = block.head().defaultBlockState().setValue(DirectionalBlock.FACING, f).setValue(DoublePistonHeadBlock.SLEEVE, true);
             level.setBlock(headPos, Blocks.AIR.defaultBlockState(), 2 | 16 | 64);
-            BlockState moving = Blocks.MOVING_PISTON.defaultBlockState().setValue(MovingPistonBlock.FACING, f);
             level.setBlock(armPos, moving, 324);
             level.setBlockEntity(MovingPistonBlock.newMovingBlockEntity(armPos, moving, head, f, false, false));
         } else {
-            level.setBlock(headPos, Blocks.AIR.defaultBlockState(), 3);
+            // Vanilla's retract: the base itself is the moving block (source piston), its head slides back into it; the renderer
+            // and the collision of that moving block know the Double Piston (mixins PistonUpgradeHeadRendererMixin, DoublePistonMovingMixin).
+            level.setBlock(base, moving, 276);
+            level.setBlockEntity(MovingPistonBlock.newMovingBlockEntity(base, moving, baseState.setValue(EXT, 0), f, false, true));
+            level.updateNeighborsAt(base, moving.getBlock());
+            moving.updateNeighbourShapes(level, base, 2);
+            level.removeBlock(headPos, false);
         }
         level.playSound(null, base, SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.15F + 0.6F);
         return true;

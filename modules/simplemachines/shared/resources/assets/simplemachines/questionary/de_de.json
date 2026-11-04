@@ -4,7 +4,7 @@
       "{name}: Ein Kolben mit zwei Stufen, darum reicht er weiter als jeder Vanilla-Kolben. Quarz, ein Redstoneblock und Eisen bilden ihn."
     ],
     "use": [
-      "Ein Signal von 1 bis 7 schiebt den Kopf einen Block weit hinaus; 8 bis 15 rückt den Körper einen halben Block nach und den Kopf einen weiteren Block. Er schiebt wie ein Vanilla-Kolben (höchstens 12 Blöcke) und fährt in einzelnen Schritten."
+      "Ein Signal von 1 bis 7 schiebt den Kopf einen Block weit hinaus; 8 bis 15 fährt ein Schaft aus ihm heraus und der Kopf einen weiteren Block. Er schiebt wie ein Vanilla-Kolben (höchstens 12 Blöcke) und fährt in einzelnen Schritten."
     ],
     "secret": [
       "Schwäche ein starkes Signal mit Signaldämpfern: 15 minus drei Stufen zu je 3 ist 6, also nur ein Block. Der Kolben selbst lässt sich nicht verschieben."

@@ -24,7 +24,7 @@
   "subtitles.simplemachines.block.piston.bore": "Piston bores through a block",
   "simplemachines.testcentre.station": "Simple Machines",
   "itemgroup.simplemachines.machines": "Simple Machines",
-  "tooltip.simplemachines.double_piston": "Signal 1-7: head extends; 8-15: body follows",
+  "tooltip.simplemachines.double_piston": "Signal 1-7: head extends; 8-15: arm follows",
   "tooltip.simplemachines.signal_dampener": "Takes 0-3 off the signal; right-click: stage",
   "block.simplemachines.reinforced_hopper": "Reinforced Hopper",
   "item.simplemachines.reinforced_hopper": "Reinforced Hopper",

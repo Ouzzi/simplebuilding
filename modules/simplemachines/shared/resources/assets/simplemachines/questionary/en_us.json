@@ -4,7 +4,7 @@
       "{name}: A piston with two stages, so it reaches further than any Vanilla piston. Quartz, a block of redstone and iron make it."
     ],
     "use": [
-      "A signal of 1 to 7 pushes the head one block out; 8 to 15 moves the body half a block on and the head one more block. It pushes like a Vanilla piston (12 blocks at most) and moves in single steps."
+      "A signal of 1 to 7 pushes the head one block out; 8 to 15 slides an arm out of it and the head one more block. It pushes like a Vanilla piston (12 blocks at most) and moves in single steps."
     ],
     "secret": [
       "Weaken a strong signal with Signal Dampeners: 15 minus three stages of 3 is 6, which is only one block. The piston itself cannot be pushed."

@@ -24,7 +24,7 @@
   "subtitles.simplemachines.block.piston.bore": "Kolben bohrt sich durch einen Block",
   "simplemachines.testcentre.station": "Simple Machines",
   "itemgroup.simplemachines.machines": "Simple Machines",
-  "tooltip.simplemachines.double_piston": "Signal 1-7: Kopf fährt aus; 8-15: Körper folgt",
+  "tooltip.simplemachines.double_piston": "Signal 1-7: Kopf fährt aus; 8-15: Schaft folgt",
   "tooltip.simplemachines.signal_dampener": "Zieht 0-3 vom Signal ab; Rechtsklick: Stufe",
   "block.simplemachines.reinforced_hopper": "Verstärkter Trichter",
   "item.simplemachines.reinforced_hopper": "Verstärkter Trichter",
