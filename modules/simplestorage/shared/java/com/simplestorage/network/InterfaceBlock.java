@@ -86,6 +86,13 @@ public class InterfaceBlock extends Block {
     /** Edge strips E, W, U, D of the flat plate (under or on a chest) and E, W of the side plate. */
     private static final double[][] FLAT_EDGES = {{15, 1, 0, 16, 15, 3}, {0, 1, 0, 1, 15, 3}, {1, 15, 0, 15, 16, 3}, {1, 0, 0, 15, 1, 3}};
     private static final double[][] SIDE_EDGES = {{15, 0, -1, 16, 9, 2}, {0, 0, -1, 1, 9, 2}};
+    /**
+     * DW04C-1: the 1 px corners EU, ED, WU, WD of the flat plate, drawn when both edge strips beside them are ({@link #CORNER_EDGES}),
+     * so two stretched edges meet without a see-through hole.
+     */
+    private static final double[][] FLAT_CORNERS = {{15, 15, 0, 16, 16, 3}, {15, 0, 0, 16, 1, 3}, {0, 15, 0, 1, 16, 3}, {0, 0, 0, 1, 1, 3}};
+    /** The two edge strips (indices into {@link #EDGES}) each corner of {@link #FLAT_CORNERS} joins. */
+    private static final int[][] CORNER_EDGES = {{0, 2}, {0, 3}, {1, 2}, {1, 3}};
     private static final VoxelShape CORE = Block.cube(4.0);
     /** The wire arm from the middle to the edge, for each side. */
     private static final Map<Direction, VoxelShape> ARMS = Shapes.rotateAll(Block.boxZ(4.0, 0.0, 8.0));
@@ -107,6 +114,13 @@ public class InterfaceBlock extends Block {
             double[][] edges = facing.getAxis().isHorizontal() ? SIDE_EDGES : FLAT_EDGES;
             for (int i = 0; i < edges.length; i++) {
                 if (shapeState.getValue(EDGES[i])) shape = Shapes.or(shape, boxes(facing, new double[][] {edges[i]}));
+            }
+            if (edges == FLAT_EDGES) {
+                for (int i = 0; i < FLAT_CORNERS.length; i++) {
+                    if (shapeState.getValue(EDGES[CORNER_EDGES[i][0]]) && shapeState.getValue(EDGES[CORNER_EDGES[i][1]])) {
+                        shape = Shapes.or(shape, boxes(facing, new double[][] {FLAT_CORNERS[i]}));
+                    }
+                }
             }
             return shape;
         });

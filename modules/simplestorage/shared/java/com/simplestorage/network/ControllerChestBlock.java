@@ -4,6 +4,7 @@ import com.simplestorage.chest.ChestTier;
 import com.simplestorage.chest.TieredChestBlock;
 import com.simplestorage.registry.StorageBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,6 +12,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.WorldlyContainerHolder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -25,12 +31,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The controller chest of the chest network (BS29b-3): a chest of its step with its own slots (they belong to the network) whose
- * click opens the network window instead - every chest of the network in one list. Never a double chest. Without a network (no
- * interface on it) the window simply shows its own contents. Switched off in the config it turns into the plain chest of its step
- * ({@link NetworkSubstitutes}).
+ * The controller chest of the chest network (BS29b-3): a chest of its step whose click opens the network window - every chest of
+ * the network in one list. Never a double chest. It has no inventory of its own (DW04C-2): what a player, a hopper or a pipe puts
+ * in goes into the network's chests ({@link #getContainer}), and stays out when nothing has room. Switched off in the config it
+ * turns into the plain chest of its step ({@link NetworkSubstitutes}).
  */
-public class ControllerChestBlock extends TieredChestBlock {
+public class ControllerChestBlock extends TieredChestBlock implements WorldlyContainerHolder {
     private final ControllerLevel step;
 
     public ControllerChestBlock(ControllerLevel step, SoundEvent open, SoundEvent close, BlockBehaviour.Properties properties) {
@@ -96,6 +102,64 @@ public class ControllerChestBlock extends TieredChestBlock {
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        NetworkSubstitutes.replaceIfDisabled(level, pos, state);
+        if (NetworkSubstitutes.replaceIfDisabled(level, pos, state)) return;
+        if (level.getBlockEntity(pos) instanceof ControllerChestBlockEntity controller) controller.moveOwnItemsIntoNetwork();
+    }
+
+    /**
+     * What hoppers and pipes see (they ask {@code HopperBlockEntity.getContainerAt}, which takes this before the block entity): an
+     * intake of one slot that takes a stack only when the whole of it fits into the network and hands it on at once; it gives
+     * nothing out.
+     */
+    @Override
+    public WorldlyContainer getContainer(BlockState state, LevelAccessor level, BlockPos pos) {
+        return new Intake(level.getBlockEntity(pos) instanceof ControllerChestBlockEntity controller ? controller : null);
+    }
+
+    private static final class Intake extends SimpleContainer implements WorldlyContainer {
+        private static final int[] SLOTS = {0};
+        private final @Nullable ControllerChestBlockEntity controller;
+
+        Intake(@Nullable ControllerChestBlockEntity controller) {
+            super(1);
+            this.controller = controller;
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return 99;
+        }
+
+        @Override
+        public int[] getSlotsForFace(Direction direction) {
+            return SLOTS;
+        }
+
+        @Override
+        public boolean canPlaceItem(int slot, ItemStack stack) {
+            if (this.controller == null || this.controller.getLevel() == null || this.controller.getLevel().isClientSide()) return false;
+            ChestNetwork.Storage storage = this.controller.storage(null);
+            return storage != null && storage.fits(stack);
+        }
+
+        @Override
+        public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
+            return canPlaceItem(slot, stack);
+        }
+
+        @Override
+        public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
+            return false;
+        }
+
+        @Override
+        public void setChanged() {
+            ItemStack stack = removeItemNoUpdate(0);
+            if (stack.isEmpty() || this.controller == null || this.controller.getLevel() == null) return;
+            ChestNetwork.Storage storage = this.controller.storage(null);
+            ItemStack rest = storage == null ? stack : storage.insert(stack);
+            // canPlaceItem made sure it fits; should the network have changed in between, the rest falls out instead of vanishing
+            if (!rest.isEmpty()) Block.popResource(this.controller.getLevel(), this.controller.getBlockPos().above(), rest);
+        }
     }
 }
