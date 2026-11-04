@@ -126,7 +126,7 @@ Luftsprung 20 s / 10 s, Server erzwingt · Hammer-Haltbarkeit unverändert bis d
 
 ## 10. Multimod-Grundlage (26.3)
 Zusatzmods liegen additiv unter `modules/<id>/`; bestehende Projekte niemals verschieben.
-Anlage: `python tools/newmod.py <id> "Name"`. Manifest: `modules/modules.json`, Dev-Mods: `tools/devmods.json`.
+Anlage: `python3 tools/newmod.py <id> --name "Name"` (siehe unten). Manifest: `modules/modules.json`, Dev-Mods: `tools/devmods.json`.
 Integration nutzt eigene Saves unter `integration/run-fabric-263` und `integration/enabled-mods.json`.
 Module koppeln nur ueber framework-API oder oeffentliche Registry-IDs, nie interne Klassen.
 Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integration-263` (separat vom Bestand).
@@ -134,15 +134,14 @@ Details und Grenzen: `docs/MULTIMOD.md`; Integrationstest: `--targets integratio
 Multimod-Datenvertrag: Manifest-Pfade/Abhaengigkeiten vollstaendig halten; Modul-Prosa in
 `modules/<id>/wiki/manual.json` (EN/DE). Wiki: `python wiki/generate.py --all` und `--all --check`;
 `checkWiki` prueft alle Module. Details und Datagen-Exports: `docs/MULTIMOD.md`.
-**Neuer Sub-Mod von SimpleBuilding in 3 Schritten** (B1, b-lib01; `modules/modules.json` ist die einzige Quelle):
-1. `python tools/newmod.py <id> "Name"` (Gerüst, Manifest-Eintrag, `integration/enabled-mods.json`), dann im Eintrag
-   `"parent": "simplebuilding"`, `"bundle": "required"|"optional"`, `"configSwitch": true` (Schalter `enableSimple<X>`;
-   `false` = kein Schalter) setzen und die id in SB `requires` bzw. `optional` eintragen.
-2. `python tools/submods/sync.py` schreibt Config-Feld, `setSubMod`, `ConfigOptions`, `ConfigOptionTests` (Blöcke
-   `// <submods:begin …>`) und fabric.mod.json-suggests. Der 26.3-Fabric-Build (depends, include, implementation) liest
-   modules.json selbst. Von Hand nur: Lang EN/DE `text.autoconfig.simplebuilding.option.enableSimple<X>` + `.@Tooltip`.
-3. `python tools/modtree/modtree.py` (Strukturseite) und precheck/`check` (`checkSubMods` = `sync.py --check`).
-Enderit-Items in einem neuen Sub-Mod: Namespace in `ModTags.Items.ENDERITE_NAMESPACES` (einzige Liste, B3).
+**Neuer (Sub-)Mod: ein Befehl** (B1 b-lib01, B2 b-newmod01; `modules/modules.json` ist die einzige Quelle):
+`python3 tools/newmod.py <id> --name "Simple X" [--parent simplebuilding --bundle required|optional --config-switch true|host|false --loaders fabric[,neoforge,forge] --enderite]`
+legt ein baubares, gate-festes Fabric-26.3-Modul an: Gerüst aus `tools/templates/module` (Token-Item, Fabric-Einstieg, Smoke-GameTest,
+Client-Smoke, Lang EN/DE, Wiki-Manual EN/DE, `check_data.py`, Test-Zentrale-Station), `modules.json`-Eintrag (checks, tests, standalone),
+Preis-Tabelle (simplemoney), `enabled-mods.json`, Platzhalter-Icon, `TcContext.FAMILY`, bei `--parent simplebuilding` zusätzlich
+SB-`requires`/`optional`, Schalter-Lang EN/DE und `tools/submods/sync.py`; danach Modtree. Mit `--enderite` kommt die Id in
+`ModTags.Items.ENDERITE_NAMESPACES`. Was von Hand bleibt (Guide, Config, Upgrades, Tab, Texturen), druckt das Skript als Checkliste.
+Danach `precheck.py --fix` und `run.py --targets module-<id>-fabric-263,module-<id>-standalone-fabric-263`. Test: `python3 -m unittest tools/tests/test_newmod.py`.
 Merge zweier Sub-Mod-Branches: `modules.json` per `tools/ai/merge_helpers/jsonreg3.py`, dann `sync.py` (überschreibt
 die generierten Blöcke samt Konfliktmarkern darin).
 
