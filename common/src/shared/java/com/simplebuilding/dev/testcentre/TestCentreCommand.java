@@ -142,6 +142,73 @@ public final class TestCentreCommand {
                                     : TcText.t("command.coverage.missing", "Not in any section yet: %s", String.join(", ", names)).withStyle(ChatFormatting.RED), false);
                             return names.size();
                         })));
+        registerTestcenter(dispatcher);
+    }
+
+    /**
+     * DW04D-1 (Besitzer 04.11.: "/testcenter mods build here oder /testcenter all build here"): {@code /testcenter}
+     * <ul>
+     *   <li>{@code all build [here|x y z]} - die ganze Zentrale (wie {@code /sbtestcentre build}); ohne Ort am gespeicherten
+     *       Ursprung.</li>
+     *   <li>{@code mods build [here|x y z]} - nur die Block-Familien aller Mods ({@link ModBlockGallery}), je Mod ein
+     *       beschilderter Bereich.</li>
+     *   <li>{@code mod <id> build [here|x y z]} - der Bereich eines Mods.</li>
+     * </ul>
+     * {@code here} (und ohne Ort bei mods/mod): der Bereich beginnt zwei Felder vor den Fuessen (+z, Blick nach Sueden). Der
+     * Bereich wird vorher geleert.
+     */
+    private static void registerTestcenter(CommandDispatcher<CommandSourceStack> dispatcher) {
+        dispatcher.register(Commands.literal("testcenter")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .executes(ctx -> help(ctx.getSource()))
+                .then(Commands.literal("all").then(Commands.literal("build")
+                        .executes(ctx -> build(ctx.getSource(), savedOrDefaultOrigin(ctx.getSource().getLevel()), TestCentreLayout.Options.ALL))
+                        .then(Commands.literal("here")
+                                .executes(ctx -> build(ctx.getSource(), BlockPos.containing(ctx.getSource().getPosition()), TestCentreLayout.Options.ALL)))
+                        .then(Commands.argument("origin", BlockPosArgument.blockPos())
+                                .executes(ctx -> build(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), TestCentreLayout.Options.ALL)))))
+                .then(Commands.literal("mods").then(galleryBuild(ctx -> ModBlockGallery.namespaces())))
+                .then(Commands.literal("mod").then(Commands.argument("id", StringArgumentType.word())
+                        .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(ModBlockGallery.namespaces(), builder))
+                        .then(galleryBuild(ctx -> List.of(StringArgumentType.getString(ctx, "id")))))));
+    }
+
+    @FunctionalInterface
+    private interface Mods {
+        List<String> get(CommandContext<CommandSourceStack> ctx);
+    }
+
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> galleryBuild(Mods mods) {
+        return Commands.literal("build")
+                .executes(ctx -> buildGallery(ctx.getSource(), here(ctx.getSource()), mods.get(ctx)))
+                .then(Commands.literal("here").executes(ctx -> buildGallery(ctx.getSource(), here(ctx.getSource()), mods.get(ctx))))
+                .then(Commands.argument("origin", BlockPosArgument.blockPos())
+                        .executes(ctx -> buildGallery(ctx.getSource(), BlockPosArgument.getBlockPos(ctx, "origin"), mods.get(ctx))));
+    }
+
+    /** Zwei Felder vor den Fuessen: dort beginnt ein {@code here}-Bereich, der Spieler steht davor. */
+    private static BlockPos here(CommandSourceStack source) {
+        return BlockPos.containing(source.getPosition()).offset(0, 0, 2);
+    }
+
+    /** Baut die Familien-Bereiche der Mods an {@code origin} (vordere linke Ecke), Bereich vorher geleert. */
+    static int buildGallery(CommandSourceStack source, BlockPos origin, List<String> mods) {
+        if (outsideOverworld(source)) {
+            return 0;
+        }
+        List<String> known = ModBlockGallery.namespaces();
+        for (String mod : mods) {
+            if (!known.contains(mod)) {
+                source.sendFailure(TcText.t("command.unknown_mod", "Unknown mod %s - known: %s", mod, String.join(", ", known)));
+                return 0;
+            }
+        }
+        ModBlockGallery.Gallery gallery = ModBlockGallery.gallery(mods);
+        TestCentreBuilder.Result result = TestCentreBuilder.buildCanvas(source.getLevel(), origin, gallery.canvas());
+        source.sendSuccess(() -> TcText.t("command.mods_built", "Blocks of %s mod(s) built at %s %s %s (%s x %s, %s ms)",
+                mods.size(), origin.getX(), origin.getY(), origin.getZ(), gallery.canvas().width(), gallery.canvas().depth(),
+                result.millis()).withStyle(ChatFormatting.GREEN), true);
+        return Math.max(1, gallery.cells().size());
     }
 
     /** {@code tp <anchor>}: to a named place of the plan (e.g. a mob cell {@code mob/simplemobs/shellker}), facing south into it. */
@@ -209,6 +276,7 @@ public final class TestCentreCommand {
                 TcText.t("help.without", "build [here|x y z] without <areas> - all but these, e.g. without structures"),
                 TcText.t("help.section", "section <id> - rebuild one section; stats [only|without ...] - size without building"),
                 TcText.t("help.more", "kit, give <station>, fill <section> (containers + ender chest), tp [place], coverage, help"),
+                TcText.t("help.testcenter", "/testcenter all|mods|mod <id> build [here|x y z] - whole centre or the block families"),
                 TcText.t("help.areas", "Areas: %s, or any section id", String.join(", ", TestCentreLayout.DISTRICT_NAMES))
                         .withStyle(ChatFormatting.GRAY));
         for (net.minecraft.network.chat.Component line : lines) {

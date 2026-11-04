@@ -63,7 +63,40 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             sawScreen(context, "ui03-saw-box", new ItemStack(Items.STONE_BRICKS, 40), Items.STONE_BRICK_STAIRS);
             sawScreen(context, "simpleblocks-saw-planks", new ItemStack(Items.OAK_PLANKS, 16), Items.OAK_STAIRS);
             sawScreen(context, "simpleblocks-saw-stone", new ItemStack(Items.STONE_BRICKS, 16), Items.STONE_BRICK_STAIRS);
+<<<<<<< HEAD
             paleGarden(context, server);
+=======
+            if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("simplebuilding")) testCenter(context, world);
+        }
+    }
+
+    /**
+     * DW04D-1, with SimpleBuilding loaded: {@code /testcenter mod <id> build here} lays the block families of a mod out in
+     * front of the player; photographed from above (spectator, looking straight down) and at an angle.
+     */
+    private static void testCenter(ClientGameTestContext context, net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext world) {
+        var server = world.getServer();
+        server.runCommand("gamemode spectator @a");
+        String[] mods = {"simpleblocks", "simpleoctets"};
+        for (int i = 0; i < mods.length; i++) {
+            String mod = mods[i];
+            server.runCommand("execute as @a at @s run tp @s ~ ~ ~" + (i == 0 ? 40 : 200) + " 0 0");
+            server.runCommand("execute as @a at @s run testcenter mod " + mod + " build here");
+            context.waitTicks(20);
+            server.runCommand("execute as @a at @s run tp @s ~30 ~40 ~32 0 90");
+            world.getConnection().waitForChunksRender();
+            context.waitTicks(60);
+            context.takeScreenshot(String.join("-", "tc01", mod, "above"));
+            server.runCommand("execute as @a at @s run tp @s ~ ~30 ~ 0 90");
+            world.getConnection().waitForChunksRender();
+            context.waitTicks(60);
+            context.takeScreenshot(String.join("-", "tc01", mod, "high"));
+            server.runCommand("execute as @a at @s run tp @s ~-12 ~-58 ~-30 0 35");
+            world.getConnection().waitForChunksRender();
+            context.waitTicks(60);
+            context.takeScreenshot(String.join("-", "tc01", mod, "angle"));
+            server.runCommand("execute as @a at @s run tp @s ~-18 ~-12 ~-2 0 0");
+>>>>>>> hub/b-tc01
         }
     }
 
