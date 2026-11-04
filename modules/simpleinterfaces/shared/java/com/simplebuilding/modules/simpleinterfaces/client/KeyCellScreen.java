@@ -46,7 +46,8 @@ public final class KeyCellScreen extends Screen {
     @Override
     protected void init() {
         probe.clear();
-        list = addRenderableWidget(new CellList(minecraft, width, height - 33 - 32, 32));
+        list = addRenderableWidget(new CellList(minecraft, width - 16, height - 33 - 32, 32));
+        list.setX(8);
         fill();
         int fy = height - 27, cx = width / 2;
         probe.put("assign", addRenderableWidget(Button.builder(Component.translatable(K + "popup.assign"), b -> parent.startPick(code))
@@ -78,9 +79,16 @@ public final class KeyCellScreen extends Screen {
     }
 
     @Override
+    public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
+        super.extractBackground(g, mx, my, delta);
+        KeysScreen.pageBox(g, width, height);
+        if (list != null) KeysScreen.field(g, list.getX(), list.getY(), list.getWidth(), list.getHeight());
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractRenderState(g, mx, my, delta);
-        g.centeredText(font, title, width / 2, 12, 0xFFFFFFFF);
+        KeysScreen.centered(g, font, title, width / 2, 12, 0xFFFFFFFF);
     }
 
     /** Rectangles (x, y, w, h, GUI coordinates) of the named widgets for the real-mouse probe. */
@@ -98,6 +106,21 @@ public final class KeyCellScreen extends Screen {
         @Override
         public int getRowWidth() {
             return Math.min(320, width - 20);
+        }
+
+        @Override
+        protected int scrollBarX() {
+            return getX() + getWidth() - 6;
+        }
+
+        @Override
+        protected void extractListBackground(GuiGraphicsExtractor g) {
+            if (!KeysScreen.boxed()) super.extractListBackground(g);
+        }
+
+        @Override
+        protected void extractListSeparators(GuiGraphicsExtractor g) {
+            if (!KeysScreen.boxed()) super.extractListSeparators(g);
         }
     }
 
@@ -121,7 +144,7 @@ public final class KeyCellScreen extends Screen {
         public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
             var font = Minecraft.getInstance().font;
             if (binding == null) {
-                g.centeredText(font, Component.translatable(K + "tip.free"), getContentXMiddle(), getContentYMiddle() - 4, 0xFFFFFFFF);
+                KeysScreen.centered(g, font, Component.translatable(K + "tip.free"), getContentXMiddle(), getContentYMiddle() - 4, 0xFFFFFFFF);
                 return;
             }
             int right = getContentRight();
@@ -134,7 +157,7 @@ public final class KeyCellScreen extends Screen {
                 textRight = move.getX() - 4;
             }
             String label = binding.action() + " (" + binding.group() + ")";
-            g.text(font, KeysScreen.fit(font, label, textRight - getContentX() - 4), getContentX(), getContentY() + 6, 0xFFFFFFFF);
+            KeysScreen.text(g, font, Component.literal(KeysScreen.fit(font, label, textRight - getContentX() - 4)), getContentX(), getContentY() + 6, 0xFFFFFFFF);
         }
 
         @Override

@@ -56,6 +56,11 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
             server.runCommand("execute as @a at @s run tp @s ~1 ~0.6 ~0.4 0 38");
             context.waitTicks(40);
             context.takeScreenshot("simpleblocks-saw-world");
+            // UI03: the same screen in Vanilla's stonecutter look (style off), for the before / after pair
+            com.simplelib.api.client.ui.UiStyleToggle.setEnabled(false);
+            sawScreen(context, "ui03-saw-old", new ItemStack(Items.STONE_BRICKS, 40), Items.STONE_BRICK_STAIRS);
+            com.simplelib.api.client.ui.UiStyleToggle.setEnabled(true);
+            sawScreen(context, "ui03-saw-box", new ItemStack(Items.STONE_BRICKS, 40), Items.STONE_BRICK_STAIRS);
             sawScreen(context, "simpleblocks-saw-planks", new ItemStack(Items.OAK_PLANKS, 16), Items.OAK_STAIRS);
             sawScreen(context, "simpleblocks-saw-stone", new ItemStack(Items.STONE_BRICKS, 16), Items.STONE_BRICK_STAIRS);
         }

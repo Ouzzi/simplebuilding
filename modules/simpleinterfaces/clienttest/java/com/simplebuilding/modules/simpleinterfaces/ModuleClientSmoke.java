@@ -198,6 +198,32 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         var mod = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.MOD;
         var function = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.FUNCTION;
         var keyboard = com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View.KEYBOARD;
+        // UI03 (Variant A): the pages in the inventory-grey box ("-box", style on) next to Vanilla's options background ("-old", style off)
+        for (boolean on : new boolean[] {false, true}) {
+            String sfx = on ? "-box" : "-old";
+            UiStyleToggle.setEnabled(on);
+            context.runOnClient(c -> {
+                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us");
+                c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
+            });
+            context.waitTicks(3);
+            context.takeScreenshot("ui03-keys-list" + sfx);
+            context.runOnClient(c -> ((com.simplebuilding.modules.simpleinterfaces.client.KeysScreen) c.gui.screen()).openKey(87));
+            context.waitTicks(3);
+            context.takeScreenshot("ui03-keys-cell" + sfx);
+            context.runOnClient(c -> {
+                com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.preset(keyboard, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us");
+                c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null));
+            });
+            context.waitTicks(3);
+            context.takeScreenshot("ui03-keys-keyboard" + sfx);
+            context.runOnClient(c -> c.setScreenAndShow(new com.simplebuilding.modules.simpleinterfaces.client.KeysEditorScreen(
+                    new com.simplebuilding.modules.simpleinterfaces.client.KeysScreen(null), "us",
+                    com.simplelib.api.client.keys.KeyboardLayout.cells(com.simplelib.api.client.keys.KeyboardLayout.Size.FULL, "us"))));
+            context.waitTicks(3);
+            context.takeScreenshot("ui03-keys-editor" + sfx);
+        }
+        UiStyleToggle.setEnabled(true);
         record Shot(String name, com.simplebuilding.modules.simpleinterfaces.client.KeysScreen.View view, com.simplelib.api.client.keys.KeyboardLayout.Size size) {}
         for (Shot shot : java.util.List.of(
                 new Shot("simpleinterfaces-keys-list", mod, com.simplelib.api.client.keys.KeyboardLayout.Size.FULL),

@@ -3,6 +3,9 @@ package com.simpleblocks.saw.client;
 import com.mojang.blaze3d.platform.cursor.CursorTypes;
 import com.simpleblocks.saw.Sawing;
 import com.simpleblocks.saw.ShapecutterMenu;
+import com.simplelib.api.client.ui.UiBoxes;
+import com.simplelib.api.client.ui.UiPalette;
+import com.simplelib.api.client.ui.UiStyleToggle;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -15,6 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 
 /**
  * Screen of the Shapecutter: Vanilla's StonecutterScreen (owner 21.10.: "die gleiche ui wie stonecutter mit mehr rezepten").
@@ -53,10 +57,19 @@ public class ShapecutterScreen extends AbstractContainerScreen<ShapecutterMenu> 
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float a) {
         super.extractBackground(g, mouseX, mouseY, a);
         int x = this.leftPos, y = this.topPos;
-        g.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, x, y, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        boolean styled = UiStyleToggle.isEnabled();
+        if (styled) {
+            paintBox(g, x, y);
+        } else {
+            g.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, x, y, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        }
         int knob = (int) ((SCROLL_H - KNOB_H + 2) * this.scroll); // Vanilla: 41 px of travel
         int sx = x + SCROLL_X, sy = y + SCROLL_Y;
-        g.blitSprite(RenderPipelines.GUI_TEXTURED, this.scrollable() ? SCROLLER : SCROLLER_DISABLED, sx, sy + knob, SCROLL_W, KNOB_H);
+        if (styled) {
+            UiBoxes.raised(g, sx, sy + knob, SCROLL_W, KNOB_H, this.scrollable() ? 0xFFE0E0E0 : 0xFFA8A8A8);
+        } else {
+            g.blitSprite(RenderPipelines.GUI_TEXTURED, this.scrollable() ? SCROLLER : SCROLLER_DISABLED, sx, sy + knob, SCROLL_W, KNOB_H);
+        }
         if (mouseX >= sx && mouseY >= sy && mouseX < sx + SCROLL_W && mouseY < sy + SCROLL_H) {
             g.requestCursor(this.scrollable() ? (this.scrolling ? CursorTypes.RESIZE_NS : CursorTypes.POINTING_HAND) : CursorTypes.NOT_ALLOWED);
         }
@@ -68,12 +81,30 @@ public class ShapecutterScreen extends AbstractContainerScreen<ShapecutterMenu> 
             int tx = x + GRID_X + pos % COLUMNS * CELL_W, ty = y + GRID_Y + pos / COLUMNS * CELL_H + 2;
             boolean hovered = mouseX >= tx && mouseY >= ty && mouseX < tx + CELL_W && mouseY < ty + CELL_H;
             Identifier sprite = index == this.menu.selectedIndex() ? TILE_SELECTED : hovered ? TILE_HOVERED : TILE;
-            g.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, tx, ty - 1, CELL_W, CELL_H);
+            if (!styled) {
+                g.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, tx, ty - 1, CELL_W, CELL_H);
+            } else if (index == this.menu.selectedIndex()) {
+                UiBoxes.sunkRect(g, tx, ty - 1, CELL_W, CELL_H, UiPalette.INVENTORY);
+            } else {
+                UiBoxes.raised(g, tx, ty - 1, CELL_W, CELL_H, hovered ? 0xFFE6E6E6 : 0xFFC6C6C6);
+            }
             if (mouseX >= tx && mouseY >= ty - 1 && mouseX < tx + CELL_W && mouseY < ty - 1 + CELL_H) g.requestCursor(CursorTypes.POINTING_HAND);
             var stack = cuts.get(index).resultStack();
             g.item(stack, tx, ty);
             g.itemDecorations(this.font, stack, tx, ty, null);
         }
+    }
+
+    /** UI03 (Variant A): the plain inventory-grey box, sunk slots, a sunk field for the cuts and the scroll track. */
+    private void paintBox(GuiGraphicsExtractor g, int x, int y) {
+        UiPalette p = UiPalette.INVENTORY;
+        UiBoxes.box(g, x, y, this.imageWidth, this.imageHeight, p);
+        for (Slot slot : this.menu.slots) {
+            if (slot.index == ShapecutterMenu.RESULT_SLOT) UiBoxes.bigSlot(g, x + slot.x, y + slot.y, p);
+            else UiBoxes.slot(g, x + slot.x, y + slot.y, p);
+        }
+        UiBoxes.insetColored(g, x + GRID_X - 1, y + GRID_Y + 1, COLUMNS * CELL_W + 2, ROWS * CELL_H + 2, p, 0xFFD6D6D6);
+        UiBoxes.insetColored(g, x + SCROLL_X, y + SCROLL_Y, SCROLL_W, SCROLL_H, p, 0xFFD6D6D6);
     }
 
     @Override
