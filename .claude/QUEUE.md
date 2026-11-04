@@ -332,7 +332,7 @@ Quelle: /root/b-antworten-20261103a.md (wörtlich). Archiv (archiv.json 03.11.):
 - [ ] BOAT02 Ofen-Boot für alle Ofen-Varianten (normal, reinforced, ... nur Öfen) → QW (b-small04)
 - [ ] ENCH01 Neues Sub-Mod Simple Enchanting (Enchanting-Tische); SB besitzt alle Baublöcke (Obsidian-/Holz-Varianten), Simple Enchanting allein bringt sie mit; End Enchanter → Astral Enchanter (aktuelle Astral-Textur); Dark Enchanter Musterung wie jetzt, Kontrast/Grain wie Astral; End Obsidian auch Boden für Dark Enchanter, Lohen-Obsidian-Boden beim Astral halb so stark; End Obsidian → Nihil Obsidian (wie Blazing mit Nihilit, navy/void-Highlights) → PRIO (laufend/geplant b-ench02)
 - [ ] ARROWS01 Lichtpfeil despawnt wie normaler Pfeil; Simple Arrows Stufe 1; Trank-Slot = WE25-9 (Prüfung 03.11.: NICHT gebaut; nur ArrowRecovery kopiert Trankinhalt, kein Slot im FletchingScreen/Handler; Lichtpfeil-Code ebenfalls nicht im Repo gefunden) → PRIO (geplant b-arrows02)
-- [ ] UI02 Variante A (schlichter Kasten Inventar-Grau), danach übrige Ausreißer → PRIO (geplant b-ui03)
+- [~] (B, b-ui03, 04.11.) UI02 Variante A: KeysScreen/KeyCellScreen/KeysEditorScreen + Shapecutter im Kasten (Inventar-Grau) gebaut; Beacon + TrimStatsPanel bewusst Vanilla (Rückfrage UI03); offen Besitzer-Abnahme abnahme-b/b-ui03-preview.html
 - [ ] TROMP-1/2 Trompete: K1 gleichmäßig hell, ohne Anstoß, KEIN Stopp-/Ausklang-Geräusch; in Konzept WP-18 §4.1 eingetragen, Trompete noch nicht gebaut → PRIO
 - Weiter offen: QOL33 Free Look, RELQOA.
 

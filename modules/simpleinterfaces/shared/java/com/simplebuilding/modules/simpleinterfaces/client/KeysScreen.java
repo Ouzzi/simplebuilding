@@ -51,6 +51,38 @@ public final class KeysScreen extends Screen {
 
     private static final String K = "simpleinterfaces.keys.";
     private static final int ROW = 20, TOP = 68;
+    /** UI03 (Variant A): the page sits in a plain box in the inventory grey; off with the style toggle (comparison). */
+    static final com.simplelib.api.client.ui.UiPalette BOX = com.simplelib.api.client.ui.UiPalette.INVENTORY;
+    static final int FIELD = 0xFFD6D6D6, CONFLICT_BAR = 0xFF8F1E18;
+
+    static boolean boxed() {
+        return com.simplelib.api.client.ui.UiStyleToggle.isEnabled();
+    }
+
+    /** Text colour on the page: the box label (dark) when boxed, {@code plain} on Vanilla's dark options background. */
+    static int ink(int plain) {
+        return boxed() ? BOX.label() : plain;
+    }
+
+    /** The page box over the whole screen (the 5 px frame is where the widgets leave room). */
+    static void pageBox(GuiGraphicsExtractor g, int w, int h) {
+        if (boxed()) com.simplelib.api.client.ui.UiBoxes.box(g, 0, 0, w, h, BOX);
+    }
+
+    /** A sunk light field behind a list or picture. */
+    static void field(GuiGraphicsExtractor g, int x, int y, int w, int h) {
+        if (boxed()) com.simplelib.api.client.ui.UiBoxes.insetColored(g, x - 1, y - 1, w + 2, h + 2, BOX, FIELD);
+    }
+
+    /** Page text: no shadow on the light box, Vanilla's shadow on the dark background. */
+    static void text(GuiGraphicsExtractor g, net.minecraft.client.gui.Font font, Component c, int x, int y, int plain) {
+        g.text(font, c, x, y, ink(plain), !boxed());
+    }
+
+    static void centered(GuiGraphicsExtractor g, net.minecraft.client.gui.Font font, Component c, int cx, int y, int plain) {
+        text(g, font, c, cx - font.width(c) / 2, y, plain);
+    }
+
     /** Remembered between openings. */
     private static View view = View.MOD;
     private static KeyboardLayout.Size size = KeyboardLayout.Size.FULL;
@@ -189,7 +221,7 @@ public final class KeysScreen extends Screen {
     }
 
     /** Keyboard picture: a key was clicked - its own page lists the actions on it (remove, move, assign). */
-    private void openKey(int code) {
+    public void openKey(int code) {
         minecraft.gui.setScreen(new KeyCellScreen(this, code));
     }
 
@@ -316,7 +348,8 @@ public final class KeysScreen extends Screen {
                     list.refill();
                 }).bounds(sx + sw + 108, rowY, 100, 20).build()));
             }
-            list = addRenderableWidget(new KeysList(minecraft, width, height - 33 - TOP, TOP));
+            list = addRenderableWidget(new KeysList(minecraft, width - 16, height - 33 - TOP, TOP));
+            list.setX(8);
             list.refill();
         }
         // footer: fold all / unfold all, reset all, done
@@ -394,15 +427,23 @@ public final class KeysScreen extends Screen {
     }
 
     @Override
+    public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float delta) {
+        super.extractBackground(g, mx, my, delta);
+        pageBox(g, width, height);
+        if (list != null) field(g, list.getX(), list.getY(), list.getWidth(), list.getHeight());
+        if (probe.get("keyboard") instanceof KeyboardWidget kw) field(g, kw.getX(), kw.getY(), kw.getWidth(), kw.getHeight());
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float delta) {
         super.extractRenderState(g, mx, my, delta);
-        g.centeredText(font, title, width / 2, 7, 0xFFFFFFFF);
+        centered(g, font, title, width / 2, 7, 0xFFFFFFFF);
         if (view != View.KEYBOARD && pickCode >= 0) {
-            g.centeredText(font, t("pick", cellLabel(pickCode)), width / 2 - 52, 50, 0xFFFFFF55);
+            centered(g, font, t("pick", cellLabel(pickCode)), width / 2 - 52, 50, 0xFFFFFF55);
         }
         Component info = t("footer", KeyConflicts.sharedKeys(byKey), KeyboardStore.isCustom(KeyboardStore.selected()) ? KeyboardStore.selected()
                 : KeyboardStore.shortName(KeyboardStore.selected()) + " " + size.percent);
-        if (font.width(info) < width / 2 - 170) g.text(font, info, 8, height - 21, 0xFFA0A0A0);
+        if (font.width(info) < width / 2 - 170) text(g, font, info, 8, height - 21, 0xFFA0A0A0);
     }
 
     // --- input: assigning a key, like Vanilla's controls page --------------------------------------------------------
@@ -449,6 +490,21 @@ public final class KeysScreen extends Screen {
         @Override
         public int getRowWidth() {
             return Math.min(360, width - 20);
+        }
+
+        @Override
+        protected int scrollBarX() {
+            return getX() + getWidth() - 6;
+        }
+
+        @Override
+        protected void extractListBackground(GuiGraphicsExtractor g) {
+            if (!boxed()) super.extractListBackground(g);
+        }
+
+        @Override
+        protected void extractListSeparators(GuiGraphicsExtractor g) {
+            if (!boxed()) super.extractListSeparators(g);
         }
 
         void refill() {
@@ -508,7 +564,7 @@ public final class KeysScreen extends Screen {
         HeaderRow(String id, Component title, List<Item> items) {
             this.id = id;
             this.title = id == null ? title : title.copy().withStyle(ChatFormatting.BOLD, ChatFormatting.UNDERLINE)
-                    .append(Component.literal(" (" + items.size() + ")").withStyle(ChatFormatting.GRAY));
+                    .append(Component.literal(" (" + items.size() + ")").withStyle(boxed() ? ChatFormatting.RESET : ChatFormatting.GRAY));
             boolean folded = id != null && collapsed.contains(id);
             fold = id == null ? null : Button.builder(Component.literal(folded ? "+" : "-"), b -> {
                 if (!collapsed.remove(id)) collapsed.add(id);
@@ -523,7 +579,7 @@ public final class KeysScreen extends Screen {
         @Override
         public void extractContent(GuiGraphicsExtractor g, int mouseX, int mouseY, boolean hovered, float delta) {
             var font = Minecraft.getInstance().font;
-            g.centeredText(font, title, getContentX() + getContentWidth() / 2, getContentYMiddle() - 4, 0xFFFFFFFF);
+            KeysScreen.centered(g, font, title, getContentX() + getContentWidth() / 2, getContentYMiddle() - 4, 0xFFFFFFFF);
             if (fold != null) {
                 fold.setPosition(getContentX(), getContentY() - 2);
                 fold.extractRenderState(g, mouseX, mouseY, delta);
@@ -553,7 +609,7 @@ public final class KeysScreen extends Screen {
             this.id = id;
             boolean folded = collapsed.contains(id) && query.isEmpty();
             this.title = items.get(0).mapping.getCategory().label().copy().withStyle(ChatFormatting.UNDERLINE)
-                    .append(Component.literal(" (" + items.size() + ")").withStyle(ChatFormatting.GRAY));
+                    .append(Component.literal(" (" + items.size() + ")").withStyle(boxed() ? ChatFormatting.RESET : ChatFormatting.GRAY));
             fold = Button.builder(Component.literal(folded ? "+" : "-"), b -> {
                 if (!collapsed.remove(id)) collapsed.add(id);
                 KeysScreen.this.list.refill();
@@ -566,7 +622,7 @@ public final class KeysScreen extends Screen {
             var font = Minecraft.getInstance().font;
             fold.setPosition(getContentX() + 10, getContentY() - 2);
             fold.extractRenderState(g, mouseX, mouseY, delta);
-            g.text(font, title, getContentX() + 30, getContentYMiddle() - 4, 0xFFD0D0D0);
+            KeysScreen.text(g, font, title, getContentX() + 30, getContentYMiddle() - 4, 0xFFD0D0D0);
         }
 
         @Override
@@ -628,8 +684,8 @@ public final class KeysScreen extends Screen {
             reset.extractRenderState(g, mouseX, mouseY, delta);
             change.extractRenderState(g, mouseX, mouseY, delta);
             var font = Minecraft.getInstance().font;
-            g.text(font, fit(font, b.action(), change.getX() - getContentX() - 8), getContentX(), getContentYMiddle() - 4, 0xFFFFFFFF);
-            if (!others.isEmpty()) g.fill(change.getX() - 6, getContentY() - 1, change.getX() - 3, getContentBottom(), 0xFFFFFF00);
+            KeysScreen.text(g, font, Component.literal(fit(font, b.action(), change.getX() - getContentX() - 8)), getContentX(), getContentYMiddle() - 4, 0xFFFFFFFF);
+            if (!others.isEmpty()) g.fill(change.getX() - 6, getContentY() - 1, change.getX() - 3, getContentBottom(), boxed() ? CONFLICT_BAR : 0xFFFFFF00);
             if (view == View.MOD && hovered && mouseX < change.getX()) {
                 g.setTooltipForNextFrame(font, List.of(Component.literal(b.group()).getVisualOrderText()), mouseX, mouseY);
             }
