@@ -37,7 +37,7 @@ Nur MC 26.3 Fabric.
 5. Doku: Javadoc, Wiki-Manual EN/DE („Controller hat kein eigenes Inventar“, Trichter/Rohre).
 
 ### Tests (Gametests, Katalog `StorageTests.ALL` + `ModuleGameTest`)
-- `network_store_prefers_a_chest_with_the_same_item`: Einlegen per Klick/Shift-Klick geht in die Truhe mit derselben Sorte
+- `network_store_prefers_the_chest_with_the_same_item`: Einlegen per Klick/Shift-Klick geht in die Truhe mit derselben Sorte
   (auch wenn deren Stapel voll ist, nächster freier Platz dort), Controller bleibt leer.
 - `network_full_keeps_the_item_with_the_player`: volles Netz → Cursor/Inventar behalten das Item, Controller leer.
 - `network_controller_hopper_feeds_the_network`: Trichter über dem Controller → Item in der Truhe, Controller leer; volles Netz

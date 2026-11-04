@@ -456,7 +456,7 @@ public final class NetworkTests {
      * inventory) puts it into a chest of the network - the one that already holds stone, even when its stack there is full and it
      * is the later chest - and never into the controller.
      */
-    public static void storePrefersAChestWithTheSameItem(GameTestHelper h) {
+    public static void storePrefersTheChestWithTheSameItem(GameTestHelper h) {
         ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
         Container second = secondChest(h, controller);
         second.setItem(0, new ItemStack(Items.STONE, 64));

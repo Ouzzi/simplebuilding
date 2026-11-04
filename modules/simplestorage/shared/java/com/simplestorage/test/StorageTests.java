@@ -388,7 +388,7 @@ public final class StorageTests {
         ALL.put("network_interface_fits_the_chest", NetworkTests::interfaceFitsTheChest);
         ALL.put("network_interface_sits_flush_on_barrels", NetworkTests::interfaceSitsFlushOnBarrels);
         ALL.put("network_interface_fills_the_corner", NetworkTests::interfaceFillsTheCorner);
-        ALL.put("network_store_prefers_a_chest_with_the_same_item", NetworkTests::storePrefersAChestWithTheSameItem);
+        ALL.put("network_store_prefers_the_chest_with_the_same_item", NetworkTests::storePrefersTheChestWithTheSameItem);
         ALL.put("network_full_keeps_the_item_with_the_player", NetworkTests::fullNetworkKeepsTheItemWithThePlayer);
         ALL.put("network_controller_intake_feeds_the_network", NetworkTests::controllerIntakeFeedsTheNetwork);
         ALL.put("network_old_controller_items_move_into_the_network", NetworkTests::oldControllerItemsMoveIntoTheNetwork);

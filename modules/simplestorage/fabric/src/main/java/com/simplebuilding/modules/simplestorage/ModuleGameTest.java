@@ -666,8 +666,8 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
-    public void networkStorePrefersAChestWithTheSameItem(GameTestHelper h) {
-        StorageTests.ALL.get("network_store_prefers_a_chest_with_the_same_item").accept(h);
+    public void networkStorePrefersTheChestWithTheSameItem(GameTestHelper h) {
+        StorageTests.ALL.get("network_store_prefers_the_chest_with_the_same_item").accept(h);
     }
 
     @GameTest(structure = "simplestorage:empty")
