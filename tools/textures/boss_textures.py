@@ -51,8 +51,8 @@ BOOT = ramp((0x16, 0x16, 0x1c), (0x58, 0x58, 0x66), 8)
 EYE = [(0xff, 0x4f, 0xd8), (0xff, 0xb0, 0xf0)]
 # Brimguard: bedrock hat (grain with pits, like the Shellker shell), void cloak, violet eyes
 BED = ramp((0x16, 0x16, 0x18), (0xa8, 0xa8, 0xab), 12)
-CLOAK = ramp((0x0e, 0x0a, 0x14), (0x4a, 0x3a, 0x5e), 9)
-SKIN = ramp((0x1a, 0x14, 0x22), (0x5c, 0x4a, 0x72), 8)
+CLOAK = ramp((0x12, 0x0e, 0x1a), (0x66, 0x52, 0x80), 9)  # BOSS02: lighter top for Vanilla-like contrast
+SKIN = ramp((0x1a, 0x14, 0x22), (0x6c, 0x5a, 0x86), 8)
 BAND = ramp((0x3a, 0x12, 0x4e), (0xc0, 0x6c, 0xf0), 9)
 GLOW_EYE = [(0xc9, 0x7c, 0xff), (0xf3, 0xe4, 0xff)]
 
@@ -83,7 +83,9 @@ def box(img, u, v, w, hh, d, pal, base, k=0, fall=1.4, grain=0.8, fn=None):
                     l += fall * (0.5 - ly / (fh - 1))
                 if fw > 2:
                     l += 0.5 * (0.5 - lx / (fw - 1)) * (1 if name in ('front', 'top') else 0.4)
-                l += ((h(gx, gy, k) & 7) - 3.5) / 7.0 * grain
+                # BOSS02: calm grain like Vanilla mobs - mostly 2x2 patches, little per-pixel noise
+                l += ((h(gx // 2, gy // 2, k) & 7) - 3.5) / 7.0 * grain * 0.6
+                l += ((h(gx, gy, k + 1) & 3) - 1.5) / 6.0 * grain * 0.3
                 c = pal[max(0, min(len(pal) - 1, int(round(l))))]
                 if fn is not None:
                     r = fn(name, lx, ly, fw, fh, gx, gy, l)
@@ -199,10 +201,10 @@ def void_runner():
 
 def bedrock(face, lx, ly, fw, fh, gx, gy, l):
     n = h(gx // 2, gy // 2, 77)
-    if n < 22:
-        return (BED, l - 3.2)  # pits, two pixels wide like the shell
-    if n > 246:
-        return (BED, l + 2.2)  # pale flecks
+    if n < 14:
+        return (BED, l - 2.2)  # pits, two pixels wide like Vanilla bedrock (BOSS02: fewer, softer)
+    if n > 250:
+        return (BED, l + 1.4)  # pale flecks
     return None
 
 
@@ -258,11 +260,11 @@ def brimguard():
     layers.snap(img, 'Koerper')
     box(img, 36, 40, 8, 7, 8, SKIN, 3.6, 22, fn=bhead)
     layers.snap(img, 'Gesicht')
-    box(img, 0, 0, 34, 1, 34, BED, 4.4, 31, grain=1.1, fn=brim)
+    box(img, 0, 0, 34, 1, 34, BED, 4.4, 31, grain=0.7, fn=brim)
     for (u, v, w, hh, d, k) in ((140, 40, 34, 2, 1, 32), (140, 44, 34, 2, 1, 33), (0, 60, 1, 2, 34, 34), (72, 60, 1, 2, 34, 35)):
-        box(img, u, v, w, hh, d, BED, 5.2, k, grain=1.1, fn=crown)
-    box(img, 140, 0, 12, 6, 12, BED, 4.6, 36, grain=1.1, fn=crown)
-    box(img, 190, 0, 9, 5, 9, BED, 5.0, 37, grain=1.1, fn=crown)
+        box(img, u, v, w, hh, d, BED, 5.2, k, grain=0.7, fn=crown)
+    box(img, 140, 0, 12, 6, 12, BED, 4.6, 36, grain=0.7, fn=crown)
+    box(img, 190, 0, 9, 5, 9, BED, 5.0, 37, grain=0.7, fn=crown)
     layers.snap(img, 'Hut')
     box(img, 140, 20, 13, 2, 13, BAND, 4.6, 38, fn=band)
     layers.snap(img, 'Hutband')
@@ -277,36 +279,52 @@ def brimguard():
 # ---------------------------------------------------------------------------------------------------- items
 
 def egg_runner():
-    mats = {"b": (VIOLET[2:], 3, 1.6), "s": (SCARF[2:], 3, 0.8), "w": (BLADE[3:], 3, 0.5)}
+    """BOSS02: like the Vanilla enderman egg - a violet head with the glowing eye band, the pink scarf wound round the
+    neck with its end flying out to the right, the pale blade sticking out at the lower left."""
+    mats = {"b": (VIOLET[1:], 4, 0.6), "s": (SCARF[2:], 3, 0.5), "w": (BLADE[2:], 4, 0.3)}
     fixed = {"E": EYE[0], "F": EYE[1]}
-    rows = eggs.egg_rows("b")
-    art = ["", "", "", "",
-           "...bEEFEEb......",
-           "", "",
-           "..sssssssss.....",
-           "........sss.....",
-           ".........ss.....",
-           "..w.......s.....",
-           "..w.............",
-           "..w.............", "", "", ""]
-    rows = eggs.overlay(rows, art)
-    return eggs.shade(rows, mats, fixed, "b", seed=41)
+    art = ["................",
+           "......bbbb......",
+           ".....bbbbbb.....",
+           "....bbbbbbbb....",
+           "...bbbbbbbbbb...",
+           "...bEFEbbEFEb...",
+           "..bbbbbbbbbbbb..",
+           "..ssssssssssss..",
+           "..sssssssssssss.",
+           "..bbbbbbbbbbssss",
+           ".wbbbbbbbbbbb.ss",
+           ".wbbbbbbbbbbb...",
+           ".wwbbbbbbbbbb...",
+           "..w.bbbbbbbb....",
+           ".....bbbbbb.....",
+           "................"]
+    return eggs.grid_egg(art, mats, fixed, "b", seed=41)
 
 
 def egg_brim():
-    mats = {"b": (BED[1:], 6, 1.8), "c": (CLOAK[1:], 3, 0.6), "v": (BAND[2:], 3, 0.5)}
-    fixed = {"E": GLOW_EYE[1]}
-    rows = eggs.egg_rows("c")
-    art = ["",
+    """BOSS02: the bedrock hat as on the mob (crown, violet band, brim sticking out on both sides), below it the face in
+    the brim's shadow with two violet eyes and the cloak."""
+    mats = {"b": (BED[3:], 5, 0.7), "r": (BED[2:], 4, 0.5), "c": (CLOAK[2:], 4, 0.5), "f": (SKIN[1:], 2, 0.3),
+            "v": (BAND[2:], 4, 0.3)}
+    fixed = {"E": GLOW_EYE[0], "F": GLOW_EYE[1]}
+    art = ["................",
            "......bbbb......",
            ".....bbbbbb.....",
            ".....bbbbbb.....",
            ".....vvvvvv.....",
-           ".bbbbbbbbbbbbbb.",
-           "..bbbbbbbbbbbb..",
-           "....cEccEc......", "", "", "", "", "", "", "", ""]
-    rows = eggs.overlay(rows, art)
-    return eggs.shade(rows, mats, fixed, "c", seed=42)
+           "rrbbbbbbbbbbbbrr",
+           ".rrrrrrrrrrrrrr.",
+           "..ffffffffffff..",
+           "..ffFEffffEFff..",
+           "..cffffffffffc..",
+           "..cccccccccccc..",
+           "..cccccccccccc..",
+           "...cccccccccc...",
+           "....cccccccc....",
+           ".....cccccc.....",
+           "................"]
+    return eggs.grid_egg(art, mats, fixed, "c", seed=42)
 
 
 def essence():

@@ -322,7 +322,7 @@ Quelle: /root/b-antworten-20261102a.md (wörtlich), Plan docs/ai/PLAN-B-ABN01-20
 
 ## BESITZER-ABNAHME 03.11. → umsetzen (b-abn04)
 Quelle: /root/b-antworten-20261103a.md (wörtlich). Archiv (archiv.json 03.11.): BOSS01, FOUNDRY03, MUSIC03, MECH03, TEX03, ROHR02, BOAT02, ENCH01, ARROWS01, UI02, COND38, ROHR33, TROMP-1, TROMP-2. Offen bleiben QOL33 (Free Look) und RELQOA.
-- [ ] BOSS01 Boss-/Spawn-Ei-Texturen Vanilla-artiger (v. a. Spawn-Eier) → PRIO (geplant b-boss02)
+- [x] (B, b-boss02, 04.11.: alle 16 Spawn-Eier im Vanilla-26.3-Schema (Ei-Engine shade() neu, 5 Tier-Eier als Kopf-Motiv, Boss-Eier mit Mob-Motiv), Boss-Texturen ruhiger/heller, Formen gleich; Plan docs/ai/PLAN-B-BOSS02-2026-11-04.md; Vorschau abnahme-b/b-boss02-preview.html, Antwortcode BOSS02|…, ohne Einwand abgenommen; offen Client-Sicht) BOSS01 Boss-/Spawn-Ei-Texturen Vanilla-artiger (v. a. Spawn-Eier) → PRIO
 - [R] FOUNDRY03 Foundry-Glas wird Spezialglas, das Wärme dämmt wie die Ziegelwände darin; weitere Punkte nach Ingame-Abnahme → PRIO (geplant b-foundry04)
 - [x] MUSIC03, MECH03 abgenommen (Abnahme-Haken) → QW
 - [ ] TEX03 Blei-Farbe zurück wie vorher (Karo leise B + Glanz-Reduktion bleiben) → QW (b-small04)
