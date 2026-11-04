@@ -1,4 +1,5 @@
 {
+  "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
     "N": "simplebuilding:nihilith_shard",
@@ -11,6 +12,5 @@
   ],
   "result": {
     "id": "simplebuilding:nihil_obsidian"
-  },
-  "type": "minecraft:crafting_shaped"
+  }
 }

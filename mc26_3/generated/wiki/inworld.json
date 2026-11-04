@@ -9253,7 +9253,20 @@
   },
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "pistonRepair": {
-    "steps": []
+    "steps": [
+      {
+        "durability": 281,
+        "nugget": "simpleores:enderite_nugget",
+        "nuggetCount": 1,
+        "piston": "simplemachines:enderite_piston"
+      },
+      {
+        "durability": 226,
+        "nugget": "simplelib:netherite_nugget",
+        "nuggetCount": 1,
+        "piston": "simplemachines:netherite_piston"
+      }
+    ]
   },
   "rotator": {
     "chargePerTurn": 1,

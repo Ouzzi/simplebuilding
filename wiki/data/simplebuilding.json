@@ -97298,7 +97298,27 @@
           "required": true
         },
         {
+          "id": "simpleovens:enderite_acacia_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_bamboo_furnace_raft",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_birch_furnace_boat",
+          "required": true
+        },
+        {
           "id": "simpleovens:enderite_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_cherry_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_dark_oak_furnace_boat",
           "required": true
         },
         {
@@ -97310,7 +97330,27 @@
           "required": true
         },
         {
+          "id": "simpleovens:enderite_jungle_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_mangrove_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_oak_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_pale_oak_furnace_boat",
+          "required": true
+        },
+        {
           "id": "simpleovens:enderite_smoker",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_spruce_furnace_boat",
           "required": true
         },
         {
@@ -97581,7 +97621,27 @@
           "required": true
         },
         {
+          "id": "simpleovens:enderite_acacia_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_bamboo_furnace_raft",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_birch_furnace_boat",
+          "required": true
+        },
+        {
           "id": "simpleovens:enderite_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_cherry_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_dark_oak_furnace_boat",
           "required": true
         },
         {
@@ -97593,7 +97653,27 @@
           "required": true
         },
         {
+          "id": "simpleovens:enderite_jungle_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_mangrove_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_oak_furnace_boat",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_pale_oak_furnace_boat",
+          "required": true
+        },
+        {
           "id": "simpleovens:enderite_smoker",
+          "required": true
+        },
+        {
+          "id": "simpleovens:enderite_spruce_furnace_boat",
           "required": true
         },
         {
@@ -104732,6 +104812,60 @@
         "lines": [
           "1.21.11",
           "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "piston_repair/simplemachines:enderite_piston",
+        "kind": "piston_repair",
+        "inputs": [
+          {
+            "id": "simplemachines:enderite_piston",
+            "count": 1
+          },
+          {
+            "id": "simpleores:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simpleores:enderite_nugget"
+        ],
+        "output": {
+          "id": "simplemachines:enderite_piston",
+          "count": 1
+        },
+        "stats": {
+          "durability": 281
+        },
+        "lines": [
+          "26.3"
+        ]
+      },
+      {
+        "id": "piston_repair/simplemachines:netherite_piston",
+        "kind": "piston_repair",
+        "inputs": [
+          {
+            "id": "simplemachines:netherite_piston",
+            "count": 1
+          },
+          {
+            "id": "simplelib:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplelib:netherite_nugget"
+        ],
+        "output": {
+          "id": "simplemachines:netherite_piston",
+          "count": 1
+        },
+        "stats": {
+          "durability": 226
+        },
+        "lines": [
           "26.3"
         ]
       },
@@ -128118,7 +128252,7 @@
     "enchantments": 13,
     "tags": 55,
     "config": 230,
-    "inWorld": 473,
+    "inWorld": 475,
     "advancements": 116,
     "features": 47,
     "undocumented": 0,
