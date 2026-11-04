@@ -143,7 +143,7 @@ for b in ('copper_cable', 'chest_interface'):
     assert (RES / f'assets/{NS}/textures/block/{b}.png').is_file(), b
 pipe_upgrades = json.loads((RES / f'data/{NS}/in_world_upgrades/pipes.json').read_text(encoding='utf-8'))['upgrades']
 assert [(u['from'], u['to']) for u in pipe_upgrades] == [(f'{NS}:{a}', f'{NS}:{b}') for a, b in zip(PIPES, PIPES[1:])], pipe_upgrades
-for key in ('chestNetwork', 'controllerLootPercent'):
+for key in ('chestNetwork', 'controllerLootPercent', 'interfaceFillsGaps'):
     assert f'"{key}"' in config, key
 for key in ('direction.simplestorage.down', 'gui.simplestorage.controller.broken', 'tooltip.simplestorage.pipe.turn',
             'tooltip.simplestorage.controller.limit', 'message.simplestorage.pipe.output'):

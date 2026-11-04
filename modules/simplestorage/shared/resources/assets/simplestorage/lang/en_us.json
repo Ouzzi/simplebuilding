@@ -181,6 +181,8 @@
   "gui.simplestorage.controller.broken.conflict": "A second controller is on this network.",
   "gui.simplestorage.controller.broken.too_big": "More than %s cables and interfaces.",
   "gui.simplestorage.controller.broken.fix": "Remove containers or cables, or use a higher controller.",
+  "text.autoconfig.simplestorage.option.interfaceFillsGaps": "Interfaces Fill Gaps",
+  "text.autoconfig.simplestorage.option.interfaceFillsGaps.@Tooltip": "An interface on a chest grows to solid blocks\nbeside it, so no gap stays open. Off: it\nalways keeps the chest's width. Default: on",
   "item.simplestorage.guide_book": "Simple Storage Guide",
   "simplestorage.guide.page.1.title": "Simple Storage",
   "simplestorage.guide.page.1": "Crates of every wood that hold nine stacks of food in layers, the Storage Crafting Table that keeps its grid on its top, chests, shulker boxes, chest carts and chest boats in three tiers with more slots and bigger stacks, and bundles",

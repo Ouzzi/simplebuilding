@@ -651,6 +651,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void networkInterfaceFitsTheChest(GameTestHelper h) {
+        StorageTests.ALL.get("network_interface_fits_the_chest").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkInterfaceSitsFlushOnBarrels(GameTestHelper h) {
+        StorageTests.ALL.get("network_interface_sits_flush_on_barrels").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void pipeSideKeysCycleInOutOff(GameTestHelper h) {
         StorageTests.ALL.get("pipe_side_keys_cycle_in_out_off").accept(h);
     }

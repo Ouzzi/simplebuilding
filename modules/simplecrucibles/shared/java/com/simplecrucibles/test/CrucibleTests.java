@@ -3,6 +3,8 @@ package com.simplecrucibles.test;
 import com.google.gson.JsonObject;
 import com.simplecrucibles.SimpleCrucibles;
 import com.simplecrucibles.config.CrucibleConfig;
+import com.simplecrucibles.crucible.CrucibleBarrelBlock;
+import com.simplecrucibles.crucible.CrucibleBarrelBlockEntity;
 import com.simplecrucibles.crucible.CrucibleBlankBlock;
 import com.simplecrucibles.crucible.CrucibleBlock;
 import com.simplecrucibles.crucible.CrucibleBlockEntity;
@@ -74,6 +76,7 @@ public final class CrucibleTests {
         ALL.put("village_kitchen_in_pools", CrucibleTests::villageKitchen);
         ALL.put("barrel_attach_and_results_first", CrucibleTests::barrelAttach);
         ALL.put("barrel_attached_later_takes_over_reservations", CrucibleTests::barrelAttachedLater);
+        ALL.put("loose_barrel_faces_like_vanilla_and_opens", CrucibleTests::looseBarrelFacesLikeVanillaAndOpens);
         ALL.put("client_menu_shows_the_raised_stack_limit", CrucibleTests::clientMenuStackLimit);
         ALL.put("axe_click_reaches_axe_not_menu", CrucibleTests::axeClickReachesAxe);
         ALL.put("axe_upgrades_cauldron", CrucibleTests::axeUpgradesCauldron);
@@ -865,6 +868,50 @@ public final class CrucibleTests {
     }
 
     /** Owner N16: items already cooking when the barrel is attached send their results to the barrel too. */
+    /**
+     * DW03C-4: a loose barrel turns its lid to all six sides like Vanilla's barrel ({@code top}, default up - old worlds without it
+     * keep standing), opens while a player looks in and closes after, and is a {@code c:barrels} barrel (Simple Storage's interface).
+     */
+    private static void looseBarrelFacesLikeVanillaAndOpens(GameTestHelper h) {
+        java.util.List<String> problems = new java.util.ArrayList<>();
+        BlockState plain = CrucibleBlocks.COPPER_BARREL.defaultBlockState();
+        if (plain.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.UP) problems.add("default top " + plain);
+        if (!plain.is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
+                net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "barrels")))) problems.add("not in c:barrels");
+        for (net.minecraft.core.Direction d : net.minecraft.core.Direction.values()) {
+            if (plain.setValue(CrucibleBarrelBlock.TOP, d).getValue(CrucibleBarrelBlock.TOP) != d) problems.add("top " + d);
+        }
+        BlockState turned = plain.setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.NORTH).rotate(net.minecraft.world.level.block.Rotation.CLOCKWISE_90);
+        if (turned.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.EAST) problems.add("rotated top " + turned);
+        // an old world's state (facing, attached, open - no top) loads standing
+        // (26.3 palette entries name the block under "id": write a real one and take "top" out of its properties)
+        net.minecraft.nbt.CompoundTag tag = net.minecraft.nbt.NbtUtils.writeBlockState(plain.setValue(CrucibleBarrelBlock.FACING, net.minecraft.core.Direction.EAST)
+                .setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.NORTH));
+        boolean removed = false;
+        for (String key : tag.keySet()) {
+            if (tag.get(key) instanceof net.minecraft.nbt.CompoundTag properties && properties.contains("top")) {
+                properties.remove("top");
+                removed = true;
+            }
+        }
+        if (!removed) problems.add("no top in the written state " + tag);
+        BlockState old = net.minecraft.nbt.NbtUtils.readBlockState(h.getLevel().holderLookup(net.minecraft.core.registries.Registries.BLOCK), tag);
+        if (old.getBlock() != CrucibleBlocks.COPPER_BARREL || old.getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.UP
+                || old.getValue(CrucibleBarrelBlock.FACING) != net.minecraft.core.Direction.EAST) problems.add("old state " + old);
+        // open while a player looks in, closed after
+        BlockPos rel = new BlockPos(2, 2, 2);
+        h.setBlock(rel, plain.setValue(CrucibleBarrelBlock.TOP, net.minecraft.core.Direction.SOUTH));
+        CrucibleBarrelBlockEntity be = h.getBlockEntity(rel, CrucibleBarrelBlockEntity.class);
+        var player = h.makeMockServerPlayerInLevel();
+        be.startOpen(player);
+        if (!h.getBlockState(rel).getValue(CrucibleBarrelBlock.OPEN)) problems.add("not open while looked into");
+        be.stopOpen(player);
+        if (h.getBlockState(rel).getValue(CrucibleBarrelBlock.OPEN)) problems.add("still open after closing");
+        if (h.getBlockState(rel).getValue(CrucibleBarrelBlock.TOP) != net.minecraft.core.Direction.SOUTH) problems.add("opening turned the lid");
+        h.assertTrue(problems.isEmpty(), "loose barrel: " + problems);
+        h.succeed();
+    }
+
     private static void barrelAttachedLater(GameTestHelper h) {
         BlockPos rel = new BlockPos(2, 2, 2);
         CrucibleBlockEntity be = crucible(h, rel, Blocks.LAVA_CAULDRON.defaultBlockState(), CrucibleBlocks.IRON_CRUCIBLE);

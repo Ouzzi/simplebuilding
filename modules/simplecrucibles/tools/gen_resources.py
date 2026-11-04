@@ -16,6 +16,8 @@ CRLF, LF = b"\r\n", b"\n"
 TIERS = ("iron", "reinforced", "netherite")
 BARREL_TIERS = ("copper", "reinforced", "netherite", "enderite")
 FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
+# Vanilla's barrel blockstate rotations for its "facing" (here "top", DW03C-4).
+TOPS = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "east": {"x": 90, "y": 90}, "south": {"x": 90, "y": 180}, "west": {"x": 90, "y": 270}}
 
 def face(tex, uv, cull=None):
     out = {"texture": tex, "uv": uv}
@@ -248,14 +250,21 @@ def files():
         out[f"{a}/models/block/{name}.json"] = {"parent": "minecraft:block/block", "textures": tex, "elements": [body]}
         out[f"{a}/models/block/{name}_attached.json"] = {"parent": "minecraft:block/block", "textures": tex,
                                                          "elements": [DOCKED_BODY, *DOCK]}
+        # DW03C-4: open like Vanilla's barrel (the *_top_open texture), loose barrels turned by "top" like Vanilla's "facing".
+        out[f"{a}/models/block/{name}_open.json"] = {"parent": "minecraft:block/block", "textures": dict(tex, top=f"{NS}:block/{name}_top_open"),
+                                                     "elements": [body]}
         variants = {}
         for facing, rot in FACINGS.items():
             for attached in ("false", "true"):
                 for open_ in ("false", "true"):
-                    v = {"model": f"{NS}:block/{name}" + ("_attached" if attached == "true" else "")}
-                    if rot:
-                        v["y"] = rot
-                    variants[f"attached={attached},facing={facing},open={open_}"] = v
+                    for top, top_rot in TOPS.items():
+                        if attached == "true":
+                            v = {"model": f"{NS}:block/{name}_attached"}
+                            if rot:
+                                v["y"] = rot
+                        else:
+                            v = {"model": f"{NS}:block/{name}" + ("_open" if open_ == "true" else ""), **top_rot}
+                        variants[f"attached={attached},facing={facing},open={open_},top={top}"] = v
         out[f"{a}/blockstates/{name}.json"] = {"variants": variants}
         out[f"{a}/items/{name}.json"] = {"model": {"type": "minecraft:model", "model": f"{NS}:block/{name}"}}
         out[f"{d}/loot_table/blocks/{name}.json"] = {
@@ -336,6 +345,8 @@ def files():
         + [f"{NS}:reinforced_cauldron"]
     out["data/minecraft/tags/block/mineable/pickaxe.json"] = {"values": pickaxe}
     out["data/minecraft/tags/block/needs_stone_tool.json"] = {"values": [p for p in pickaxe if "enderite" not in p]}
+    # DW03C-4: the barrels are barrels for other mods too (Simple Storage's chest interface mounts on c:barrels).
+    out["data/c/tags/block/barrels.json"] = {"replace": False, "values": [f"{NS}:{t}_barrel" for t in BARREL_TIERS]}
     out["data/minecraft/tags/block/needs_diamond_tool.json"] = {"values": [f"{NS}:enderite_crucible", f"{NS}:enderite_barrel"]}
     return out
 

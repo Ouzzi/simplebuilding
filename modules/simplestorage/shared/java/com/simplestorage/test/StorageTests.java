@@ -385,6 +385,8 @@ public final class StorageTests {
         ALL.put("network_registered", NetworkTests::registered);
         ALL.put("network_barrels_and_shulker_boxes_join", NetworkTests::barrelsAndShulkerBoxesJoinTheNetwork);
         ALL.put("network_interface_reaches_the_wall_beside_it", NetworkTests::interfaceReachesTheWallBesideIt);
+        ALL.put("network_interface_fits_the_chest", NetworkTests::interfaceFitsTheChest);
+        ALL.put("network_interface_sits_flush_on_barrels", NetworkTests::interfaceSitsFlushOnBarrels);
         ALL.put("network_search_finds_chests_through_cables", NetworkTests::searchFindsChestsThroughCables);
         ALL.put("network_controller_takes_chests_of_its_step_or_lower", NetworkTests::controllerTakesChestsOfItsStepOrLower);
         ALL.put("network_too_many_chests_break_the_controller", NetworkTests::tooManyChestsBreakTheController);

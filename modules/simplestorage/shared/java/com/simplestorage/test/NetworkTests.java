@@ -100,6 +100,111 @@ public final class NetworkTests {
         h.succeed();
     }
 
+    /** An interface placed the way the item does it: its form, arms and edges from the neighbours that are there already. */
+    private static BlockState placedInterface(GameTestHelper h, BlockPos pos, Direction toChest) {
+        BlockState state = InterfaceBlock.withArms(StorageBlocks.CHEST_INTERFACE.defaultBlockState().setValue(InterfaceBlock.FACING, toChest),
+                h.getLevel(), h.absolutePos(pos));
+        h.setBlock(pos, state);
+        return h.getBlockState(pos);
+    }
+
+    private static AABB bounds(GameTestHelper h, BlockPos pos) {
+        return h.getBlockState(pos).getShape(h.getLevel(), h.absolutePos(pos)).bounds();
+    }
+
+    /**
+     * DW03C-1/2: on a chest the plate keeps the chest's width and, beside it, only the part below the lid (front: the lock stays
+     * free, its own form); under the chest it stays in its own cell (no face in the chest's cell, no z-fighting); on top of a chest
+     * it cannot be placed; towards the other half of a double chest it always reaches the edge; with interfaceFillsGaps off a wall
+     * beside it does not stretch it.
+     */
+    public static void interfaceFitsTheChest(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        // beside (back of) a chest that faces north, the interface to the south of it
+        BlockPos back = new BlockPos(1, 2, 2);
+        h.setBlock(back.north(), Blocks.CHEST.defaultBlockState().setValue(net.minecraft.world.level.block.ChestBlock.FACING, Direction.NORTH));
+        BlockState side = placedInterface(h, back, Direction.NORTH);
+        AABB b = bounds(h, back);
+        if (side.getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.CHEST) problems.add("back mount " + side);
+        // the lid swings back over the hinge (y 9, up to 5 px behind the chest): nothing of the interface there
+        if (net.minecraft.world.phys.shapes.Shapes.joinIsNotEmpty(side.getShape(h.getLevel(), h.absolutePos(back)),
+                Block.box(0, 9, 0, 16, 16, 5), net.minecraft.world.phys.shapes.BooleanOp.AND) || b.minY != 0.0) problems.add("back plate in the lid's way: " + b);
+        if (b.minX != 1.0 / 16 || b.maxX != 15.0 / 16) problems.add("back plate not the chest's width: x " + b.minX + ".." + b.maxX);
+        // in front of a chest that faces south (towards the interface)
+        BlockPos front = new BlockPos(4, 2, 2);
+        h.setBlock(front.north(), Blocks.CHEST.defaultBlockState().setValue(net.minecraft.world.level.block.ChestBlock.FACING, Direction.SOUTH));
+        if (placedInterface(h, front, Direction.NORTH).getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.CHEST_FRONT) problems.add("front mount");
+        // under a floating chest: own cell only, flush with the chest (no blocks around it)
+        BlockPos under = new BlockPos(1, 2, 5);
+        h.setBlock(under.above(), Blocks.CHEST);
+        BlockState below = placedInterface(h, under, Direction.UP);
+        b = bounds(h, under);
+        if (below.getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.CHEST) problems.add("under mount " + below);
+        if (b.maxY > 1.0 || b.minX != 1.0 / 16 || b.maxX != 15.0 / 16 || b.minZ != 1.0 / 16 || b.maxZ != 15.0 / 16) problems.add("under plate " + b);
+        for (Direction d : InterfaceBlock.localSides(Direction.UP)) {
+            if (below.getValue(edgeOf(localName(Direction.UP, d)))) problems.add("edge " + d + " under a floating chest");
+        }
+        // on top of a chest: refused; on top of a barrel: fine
+        if (InterfaceBlock.placeableOn(Blocks.CHEST.defaultBlockState(), Direction.DOWN)) problems.add("placeable on top of a chest");
+        if (!InterfaceBlock.placeableOn(Blocks.BARREL.defaultBlockState(), Direction.DOWN)) problems.add("not placeable on top of a barrel");
+        if (!InterfaceBlock.placeableOn(Blocks.CHEST.defaultBlockState(), Direction.UP)) problems.add("not placeable under a chest");
+        // a double chest: the plate under it reaches across the seam
+        BlockPos dl = new BlockPos(4, 4, 5), dr = dl.east();
+        BlockState left = Blocks.CHEST.defaultBlockState().setValue(net.minecraft.world.level.block.ChestBlock.FACING, Direction.SOUTH)
+                .setValue(net.minecraft.world.level.block.ChestBlock.TYPE, net.minecraft.world.level.block.state.properties.ChestType.LEFT);
+        Direction seam = net.minecraft.world.level.block.ChestBlock.getConnectedDirection(left);
+        h.setBlock(dl, left);
+        h.setBlock(dl.relative(seam), left.setValue(net.minecraft.world.level.block.ChestBlock.TYPE, net.minecraft.world.level.block.state.properties.ChestType.RIGHT));
+        BlockState doubled = placedInterface(h, dl.below(), Direction.UP);
+        if (!doubled.getValue(edgeOf(localName(Direction.UP, seam)))) problems.add("no edge toward the other half (" + seam + "): " + doubled);
+        // config off: a wall beside the plate does not stretch it
+        boolean was = StorageConfig.interfaceFillsGaps;
+        try {
+            StorageConfig.interfaceFillsGaps = false;
+            h.setBlock(back.east(), Blocks.STONE);
+            if (placedInterface(h, back, Direction.NORTH).getValue(InterfaceBlock.EDGE_E)) problems.add("edge with interfaceFillsGaps off");
+            StorageConfig.interfaceFillsGaps = true;
+            if (!placedInterface(h, back, Direction.NORTH).getValue(InterfaceBlock.EDGE_E)) problems.add("no edge with interfaceFillsGaps on");
+        } finally {
+            StorageConfig.interfaceFillsGaps = was;
+        }
+        h.assertTrue(problems.isEmpty(), "interface on chests: " + problems);
+        h.succeed();
+    }
+
+    /** DW03C-2/4: on a barrel (Vanilla and, when Simple Crucibles is there, its barrels via c:barrels) the plate is flush, no edges. */
+    public static void interfaceSitsFlushOnBarrels(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        BlockPos at = new BlockPos(3, 2, 3);
+        h.setBlock(at.north(), Blocks.BARREL);
+        h.setBlock(at.east(), Blocks.STONE);
+        BlockState flush = placedInterface(h, at, Direction.NORTH);
+        AABB b = bounds(h, at);
+        if (flush.getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.FULL) problems.add("barrel mount " + flush);
+        if (b.minX != 0.0 || b.maxX != 1.0 || b.minY != 0.0 || b.maxY != 1.0) problems.add("not flush with the barrel: " + b);
+        if (flush.getValue(InterfaceBlock.EDGE_E)) problems.add("edge strip on a flush plate");
+        var modBarrel = net.minecraft.resources.Identifier.fromNamespaceAndPath("simplecrucibles", "copper_barrel");
+        if (BuiltInRegistries.BLOCK.containsKey(modBarrel)) {
+            Block barrel = BuiltInRegistries.BLOCK.getValue(modBarrel);
+            if (!ControllerLevel.mountable(barrel)) problems.add("the copper barrel is not mountable");
+            BlockPos mod = new BlockPos(3, 2, 6);
+            h.setBlock(mod.north(), barrel);
+            if (placedInterface(h, mod, Direction.NORTH).getValue(InterfaceBlock.MOUNT) != InterfaceBlock.Mount.FULL) problems.add("copper barrel mount");
+        }
+        h.assertTrue(problems.isEmpty(), "interface on barrels: " + problems);
+        h.succeed();
+    }
+
+    /** The plate's local name (E/W/U/D as for a north plate) of the absolute side {@code side} for a plate on {@code facing}. */
+    private static Direction localName(Direction facing, Direction side) {
+        Direction[] sides = InterfaceBlock.localSides(facing);
+        Direction[] names = {Direction.EAST, Direction.WEST, Direction.UP, Direction.DOWN};
+        for (int i = 0; i < sides.length; i++) {
+            if (sides[i] == side) return names[i];
+        }
+        throw new IllegalArgumentException(side + " is no edge of a plate on " + facing);
+    }
+
     private static net.minecraft.world.level.block.state.properties.BooleanProperty edgeOf(Direction side) {
         return switch (side) {
             case EAST -> InterfaceBlock.EDGE_E;

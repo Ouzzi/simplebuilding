@@ -132,6 +132,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplecrucibles:empty")
+    public void looseBarrelFacesLikeVanillaAndOpens(GameTestHelper h) {
+        CrucibleTests.ALL.get("loose_barrel_faces_like_vanilla_and_opens").accept(h);
+    }
+
+    @GameTest(structure = "simplecrucibles:empty")
     public void clientMenuShowsTheRaisedStackLimit(GameTestHelper h) {
         CrucibleTests.ALL.get("client_menu_shows_the_raised_stack_limit").accept(h);
     }

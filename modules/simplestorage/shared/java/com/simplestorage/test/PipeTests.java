@@ -162,7 +162,8 @@ public final class PipeTests {
             reinforced.add(d);
         }
         if (!reinforced.contains(Direction.UP) || reinforced.get(4) != Direction.UP || reinforced.get(5) != Direction.DOWN) problems.add("reinforced order " + reinforced);
-        // The real block: turning moves the output arm.
+        // The real block: turning moves the output arm (DW03C-3: an arm only toward something that takes the items).
+        h.setBlock(PIPE.north(), Blocks.CHEST);
         place(h, PIPE, "pipe", Direction.DOWN);
         ItemPipeBlock.turnOutput(h.getLevel(), h.absolutePos(PIPE), h.getBlockState(PIPE), null);
         BlockState turned = h.getBlockState(PIPE);
@@ -171,7 +172,10 @@ public final class PipeTests {
         h.succeed();
     }
 
-    /** A neighbour with items grows an arm, a solid block does not; a placed pipe points into the clicked side. */
+    /**
+     * A neighbour with items grows an arm, a solid block does not; DW03C-3: no stub - no arm into nothing on the output, none to a
+     * pipe beside it unless one of the two pushes into the other.
+     */
     public static void connectionsGrowArms(GameTestHelper h) {
         h.setBlock(PIPE.north(), Blocks.CHEST);
         place(h, PIPE.south(), "pipe", Direction.DOWN);
@@ -180,9 +184,17 @@ public final class PipeTests {
         BlockState state = ItemPipeBlock.withArms(h.getBlockState(PIPE), h.getLevel(), h.absolutePos(PIPE));
         List<String> problems = new ArrayList<>();
         if (!state.getValue(PipeBlock.NORTH)) problems.add("no arm to the chest");
-        if (!state.getValue(PipeBlock.SOUTH)) problems.add("no arm to the other pipe");
+        if (state.getValue(PipeBlock.SOUTH)) problems.add("arm to a pipe beside it that neither feeds nor is fed");
         if (state.getValue(PipeBlock.EAST)) problems.add("arm to solid stone");
-        if (!state.getValue(PipeBlock.DOWN)) problems.add("the output is always an arm");
+        if (state.getValue(PipeBlock.DOWN)) problems.add("a stub on the output into air");
+        if (h.getBlockState(PIPE.south()).getValue(PipeBlock.NORTH)) problems.add("the other pipe has a stub toward this one");
+        // the south pipe turns its output into this pipe: both grow the joining arm
+        ItemPipeBlock.setOutput(h.getLevel(), h.absolutePos(PIPE.south()), h.getBlockState(PIPE.south()), Direction.NORTH, null);
+        if (!h.getBlockState(PIPE).getValue(PipeBlock.SOUTH)) problems.add("no arm to the pipe that feeds this one");
+        if (!h.getBlockState(PIPE.south()).getValue(PipeBlock.NORTH)) problems.add("the feeding pipe has no arm into this one");
+        // a chest under the output: the output arm appears
+        h.setBlock(PIPE.below(), Blocks.CHEST);
+        if (!h.getBlockState(PIPE).getValue(PipeBlock.DOWN)) problems.add("no output arm into the chest below");
         // after a neighbour changes, the placed block follows by itself
         h.setBlock(PIPE.west(), Blocks.FURNACE);
         if (!h.getBlockState(PIPE).getValue(PipeBlock.WEST)) problems.add("the furnace placed later did not grow an arm");
@@ -257,6 +269,7 @@ public final class PipeTests {
         ServerPlayer player = h.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);
         h.setBlock(PIPE.north(), Blocks.CHEST);
+        h.setBlock(PIPE.below(), Blocks.CHEST);
         place(h, PIPE, "reinforced_pipe", Direction.DOWN);
         PipeMenu menu = PipeMenu.server(1, player.getInventory(), entity(h, PIPE));
         int north = PipeMenu.BUTTON_SIDE + Direction.NORTH.ordinal();
