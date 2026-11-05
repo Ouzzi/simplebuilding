@@ -51,7 +51,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntPr
 
 /**
  * One End wood set (Ashwood, Duskwood): the full Vanilla wood set of 26.3 (shelf included since
- * docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md) plus its bud, the
+ * docs/ai/PLAN-ENDWOOD-FULL-2026-10-12.md; bookshelf and chiseled bookshelf since docs/ai/PLAN-B-SHELVES01-2026-11-04.md) plus its bud, the
  * potted bud and the End-stick scrub block. Blocks/items/entity types are built inside the loader's registration
  * callbacks ({@link #blocks()}, {@link #items()}, {@link #entities()}).
  */
@@ -67,7 +67,7 @@ public final class EndWood {
     public WoodType woodType;
     public BlockSetType setType;
     public Block log, strippedLog, wood, strippedWood, planks, stairs, slab, fence, fenceGate, door, trapdoor, button, pressurePlate,
-            sign, wallSign, hangingSign, wallHangingSign, shelf, leaves, bud, pottedBud, sticks;
+            sign, wallSign, hangingSign, wallHangingSign, shelf, bookshelf, chiseledBookshelf, leaves, bud, pottedBud, sticks;
     public Item boat, chestBoat;
     private EntityType<Boat> boatType;
     private EntityType<ChestBoat> chestBoatType;
@@ -143,6 +143,12 @@ public final class EndWood {
         // Vanilla's shelf (Blocks.OAK_SHELF): planks colour, shelf sound, Vanilla shelf block entity (BlockEntityTypeMixin).
         shelf = block(id("W_shelf"), ShelfBlock::new,
                 Properties.of().mapColor(plankColor).instrument(NoteBlockInstrument.BASS).sound(SoundType.SHELF).ignitedByLava().strength(2.0F, 3.0F));
+        // DW04C-3 (b-shelves01): bookshelf and chiseled bookshelf like Vanilla's (strength 1.5, wood / chiseled bookshelf sound);
+        // the chiseled one is Vanilla's block with Vanilla's block entity (BlockEntityTypeMixin).
+        bookshelf = block(id("W_bookshelf"), Block::new,
+                Properties.of().mapColor(plankColor).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava());
+        chiseledBookshelf = block(id("chiseled_W_bookshelf"), net.minecraft.world.level.block.ChiseledBookShelfBlock::new,
+                Properties.of().mapColor(plankColor).instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.CHISELED_BOOKSHELF).ignitedByLava());
         Properties leafProps = Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
                 .isValidSpawn((s, g, p2, e) -> false).isSuffocating((s, g, p2) -> false)
                 .ignitedByLava().pushReaction(PushReaction.POPPED).isRedstoneConductor((s, g, p2) -> false);
@@ -182,6 +188,10 @@ public final class EndWood {
         item(id("W_shelf"), p -> new BlockItem(shelf, p), new Item.Properties().useBlockDescriptionPrefix()
                 .component(net.minecraft.core.component.DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.EMPTY)
                 .cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_BLOCKS));
+        blockItem(bookshelf, ContextIntProviders.COOKING_TIME_WOOD_BLOCKS);
+        item(id("chiseled_W_bookshelf"), p -> new BlockItem(chiseledBookshelf, p), new Item.Properties().useBlockDescriptionPrefix()
+                .component(net.minecraft.core.component.DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.EMPTY)
+                .cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_BLOCKS));
         item(id("W_leaves"), p -> new BlockItem(leaves, p), new Item.Properties().useBlockDescriptionPrefix().compostable(ContextIntProviders.COMPOSTABLE_LOW));
         item(budName, p -> new BlockItem(bud, p), new Item.Properties().useBlockDescriptionPrefix()
                 .compostable(ContextIntProviders.COMPOSTABLE_LOW).cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS));
@@ -217,7 +227,7 @@ public final class EndWood {
     public List<Item> tabItems() {
         List<Item> out = new ArrayList<>();
         for (String id : List.of("W_log", "W_wood", "stripped_W_log", "stripped_W_wood", "W_planks", "W_stairs", "W_slab", "W_fence",
-                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_hanging_sign", "W_shelf", "W_boat",
+                "W_fence_gate", "W_door", "W_trapdoor", "W_pressure_plate", "W_button", "W_sign", "W_hanging_sign", "W_shelf", "W_bookshelf", "chiseled_W_bookshelf", "W_boat",
                 "W_chest_boat", "W_leaves", "B", "W_sticks")) {
             out.add(itemIds.get(id.equals("B") ? budName : id(id)));
         }

@@ -1,5 +1,7 @@
 {
   "values": [
-    "simplebuilding:guide_book"
+    "simplebuilding:guide_book",
+    "simplebuilding:blaze_book",
+    "simplebuilding:nihilith_book"
   ]
 }

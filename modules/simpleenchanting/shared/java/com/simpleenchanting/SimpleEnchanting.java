@@ -27,7 +27,15 @@ public final class SimpleEnchanting {
     public static final String OLD_TABLE = "astral_enchanting_table";
     /** Building blocks SimpleBuilding owns; this module registers twins of them only when SimpleBuilding is not installed. */
     public static final List<String> BUILDING_BLOCKS = List.of("blazing_obsidian", "nihil_obsidian", "crimson_blazewood_planks",
-            "warped_blazewood_planks", "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf");
+            "warped_blazewood_planks", "crimson_blazewood_bookshelf", "warped_blazewood_bookshelf", "chiseled_crimson_blazewood_bookshelf",
+            "chiseled_warped_blazewood_bookshelf");
+    /**
+     * Items of other mods shown in this module's tab when installed (DW04C-3, by id, no class import): SimpleBuilding's Blaze and
+     * Nihilit Books, Simple End's End bookshelves (worth {@link EnchantingRules#BLAZE_SHELF} points, tag {@code end_shelves}).
+     */
+    public static final List<String> PARTNER_ITEMS = List.of("simplebuilding:blaze_book", "simplebuilding:nihilith_book",
+            "simpleend:ashwood_bookshelf", "simpleend:duskwood_bookshelf", "simpleend:chiseled_ashwood_bookshelf",
+            "simpleend:chiseled_duskwood_bookshelf");
     /** SimpleLib materials the tables are upgraded with (8 Netherite nuggets for the Dark Enchanter). */
     public static final List<String> MATERIALS = List.of("netherite_nugget");
 

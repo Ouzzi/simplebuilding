@@ -158,13 +158,17 @@ def own_tags():
     dump(OUT / f'data/{NS}/tags/block/end_plants_may_place_on.json', {'values': ground + ['#minecraft:supports_dry_vegetation']})
     dump(OUT / f'data/{NS}/tags/block/bud_may_place_on.json', {'values': ground})
     dump(OUT / 'data/minecraft/tags/block/mineable/pickaxe.json', {'values': [f'{NS}:burrowed_end_stone']})
-    dump(OUT / 'data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:{w["name"]}_sticks' for w in WOODS]})
+    dump(OUT / 'data/minecraft/tags/block/mineable/axe.json', {'values': [f'{NS}:{w["name"]}_{p}' for w in WOODS for p in ('sticks', 'bookshelf')]
+                                                                  + [f'{NS}:chiseled_{w["name"]}_bookshelf' for w in WOODS]})
+    # DW04C-3: the End bookshelves give enchanting power like Vanilla's (the chiseled ones, like Vanilla's, do not).
+    dump(OUT / 'data/minecraft/tags/block/enchantment_power_provider.json', {'values': [f'{NS}:{w["name"]}_bookshelf' for w in WOODS]})
     dump(OUT / 'data/minecraft/tags/block/replaceable_by_trees.json', {'values': [f'{NS}:end_grass', f'{NS}:end_bush']})
     dump(OUT / 'data/minecraft/tags/block/flower_pots.json', {'values': [f'{NS}:potted_{w["bud"]}' for w in WOODS]})
     dump(OUT / 'data/minecraft/tags/block/enderman_holdable.json', {'values': [f'{NS}:end_grass', f'{NS}:end_bush']})
     safe = []
     for w in WOODS:
         safe += [f'#{NS}:{w["name"]}_logs'] + [f'{NS}:{w["name"]}_{p}' for p in PARTS if p not in ('log', 'wood', 'stripped_log', 'stripped_wood')] + [f'{NS}:{w["bud"]}']
+    safe += [f'{NS}:{w["name"]}_bookshelf' for w in WOODS] + [f'{NS}:chiseled_{w["name"]}_bookshelf' for w in WOODS]
     safe += [f'{NS}:end_grass', f'{NS}:end_bush', f'{NS}:drift_fruit', f'{NS}:spoiled_drift_fruit']
     dump(OUT / f'data/{NS}/tags/item/void_safe.json', {'values': safe})
     for biome_tag in ('is_end', 'has_structure/end_city'):
@@ -231,6 +235,55 @@ def leaves():
                 {'type': 'minecraft:item', 'name': f'{NS}:spoiled_drift_fruit'}]}]},
             sticks,
         ], 'random_sequence': f'{NS}:blocks/{n}_leaves'})
+
+
+BOOKSHELF_FILES = ('assets/minecraft/blockstates/{}.json', 'assets/minecraft/items/{}.json', 'data/minecraft/loot_table/blocks/{}.json')
+
+
+def bookshelves(jar):
+    """DW04C-3 (docs/ai/PLAN-B-SHELVES01-2026-11-04.md): bookshelf and chiseled bookshelf per End wood, Vanilla's files as format
+    templates (bookshelf: cube_column with the wood's planks; chiseled: Vanilla's multipart and slot templates). Recipes differ from
+    Vanilla's on purpose: Ashwood/Duskwood planks are in #minecraft:planks, so Vanilla's own bookshelf/chiseled recipes would shadow a
+    copy of them. Bookshelf: 6 End slabs around 3 books (without SimpleBuilding; with it SimpleBuilding's recipe takes 3 Nihilit Books
+    and the End planks). Chiseled: 6 End slabs around 3 End planks (Vanilla's rows swapped)."""
+    sub = re.compile(r'(?:minecraft:)?block/chiseled_bookshelf')
+    with zipfile.ZipFile(jar) as z:
+        files = {}
+        for kind in ('bookshelf', 'chiseled_bookshelf'):
+            for pattern in BOOKSHELF_FILES:
+                files[pattern.format(kind)] = z.read(pattern.format(kind)).decode('utf-8')
+        models = [e for e in z.namelist() if re.match(r'^assets/minecraft/models/block/chiseled_bookshelf[a-z_]*\.json$', e)]
+        files.update({e: z.read(e).decode('utf-8') for e in models})
+    for w in WOODS:
+        n = w['name']
+        chis = f'chiseled_{n}_bookshelf'
+        for src, raw in files.items():
+            kind = 'chiseled_bookshelf' if 'chiseled_bookshelf' in src else 'bookshelf'
+            own = chis if kind == 'chiseled_bookshelf' else f'{n}_bookshelf'
+            text = sub.sub(f'{NS}:block/{chis}', raw)
+            text = text.replace('minecraft:block/bookshelf"', f'{NS}:block/{n}_bookshelf"')
+            text = text.replace(f'"minecraft:{kind}"', f'"{NS}:{own}"').replace(f'minecraft:blocks/{kind}"', f'{NS}:blocks/{own}"')
+            dest = src.replace('minecraft', NS, 1).replace(kind, own)
+            (OUT / dest).parent.mkdir(parents=True, exist_ok=True)
+            (OUT / dest).write_text(text, encoding='utf-8')
+        dump(OUT / f'assets/{NS}/models/block/{n}_bookshelf.json',
+             {'parent': 'minecraft:block/cube_column', 'textures': {'end': f'{NS}:block/{n}_planks', 'side': f'{NS}:block/{n}_bookshelf'}})
+        alone = [{'condition': 'fabric:not', 'value': {'condition': 'fabric:all_mods_loaded', 'values': ['simplebuilding']}}]
+        neo = [{'type': 'neoforge:not', 'value': {'type': 'neoforge:mod_loaded', 'modid': 'simplebuilding'}}]
+        dump(OUT / f'data/{NS}/recipe/{n}_bookshelf.json', {
+            'fabric:load_conditions': alone, 'neoforge:conditions': neo, 'type': 'minecraft:crafting_shaped', 'category': 'building',
+            'key': {'K': 'minecraft:book', 'S': f'{NS}:{n}_slab'}, 'pattern': ['SSS', 'KKK', 'SSS'], 'result': {'id': f'{NS}:{n}_bookshelf'}})
+        dump(OUT / f'data/{NS}/recipe/{chis}.json', {
+            'type': 'minecraft:crafting_shaped', 'category': 'building',
+            'key': {'P': f'{NS}:{n}_planks', 'S': f'{NS}:{n}_slab'}, 'pattern': ['SSS', 'PPP', 'SSS'], 'result': {'id': f'{NS}:{chis}'}})
+        for rid, crit, cond in ((f'{n}_bookshelf', f'{NS}:{n}_slab', alone), (chis, f'{NS}:{n}_planks', None)):
+            adv = {'parent': 'minecraft:recipes/root',
+                   'criteria': {'has_the_recipe': {'conditions': {'recipes': f'{NS}:{rid}'}, 'trigger': 'minecraft:recipe_unlocked'},
+                                'has_wood': {'conditions': {'items': [{'items': crit}]}, 'trigger': 'minecraft:inventory_changed'}},
+                   'requirements': [['has_the_recipe', 'has_wood']], 'rewards': {'recipes': [f'{NS}:{rid}']}}
+            if cond:
+                adv = {'fabric:load_conditions': cond, 'neoforge:conditions': neo, **adv}
+            dump(OUT / f'data/{NS}/advancement/recipes/building_blocks/{rid}.json', adv)
 
 
 def sticks(loot):
@@ -396,6 +449,10 @@ def lang():
         for part, e, d in (('wall_sign', 'Wall Sign', 'holzwandschild'), ('wall_hanging_sign', 'Wall Hanging Sign', 'holzwandhängeschild')):
             en[f'block.{NS}.{w["name"]}_{part}'] = f'{w["en"]} {e}'
             de[f'block.{NS}.{w["name"]}_{part}'] = w['de'] + d
+        en[f'block.{NS}.{w["name"]}_bookshelf'] = f'{w["en"]} Bookshelf'
+        de[f'block.{NS}.{w["name"]}_bookshelf'] = w['de'] + 'holz-Bücherregal'
+        en[f'block.{NS}.chiseled_{w["name"]}_bookshelf'] = f'Chiseled {w["en"]} Bookshelf'
+        de[f'block.{NS}.chiseled_{w["name"]}_bookshelf'] = f'Gemeißeltes {w["de"]}holz-Bücherregal'
         en[f'block.{NS}.{w["bud"]}'] = w['bud_en']
         de[f'block.{NS}.{w["bud"]}'] = w['bud_de']
         en[f'block.{NS}.potted_{w["bud"]}'] = f'Potted {w["bud_en"]}'
@@ -417,7 +474,8 @@ def lang():
         en[f'config.{NS}.{key}.tooltip'], de[f'config.{NS}.{key}.tooltip'] = et, dt
     for path, data in ((LANG / 'en_us.json', en), (LANG / 'de_de.json', de)):
         old = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
-        old = {k: v for k, v in old.items() if k.startswith(('simpleend.guide', 'quests.', 'item.simpleend.guide_book'))}
+        # b-shelves01: keep every key written by hand elsewhere (e.g. the Nibblemite modes); the generated ones are overwritten.
+        old = dict(old)
         dump(path, dict(sorted({**old, **data}.items())))
 
 
@@ -432,6 +490,7 @@ def main(argv=None):
         shutil.rmtree(OUT)
     n, loot, tags = templates(args.jar)
     voxel_door_tops(args.jar)
+    bookshelves(args.jar)
     vanilla_tags(tags)
     own_tags()
     plants(loot)

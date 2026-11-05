@@ -678,6 +678,38 @@
       "de": {
         "summary": "Verdorbene Schwebfrucht (End-Frucht außerhalb des Ends gewachsen): 5 s Treiben - betrunkenes Torkeln mit zufälligen Zügen - dann Sanfter Fall."
       }
+    },
+    "simpleend:ashwood_bookshelf": {
+      "en": {
+        "summary": "Ashwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 ashwood slabs around 3 books (with SimpleBuilding: 6 planks, 3 Nihilit Books); drops 3 of its books (Simple End)."
+      },
+      "de": {
+        "summary": "Aschholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Aschholzstufen um 3 Bücher (mit SimpleBuilding: 6 Bretter, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
+      }
+    },
+    "simpleend:chiseled_ashwood_bookshelf": {
+      "en": {
+        "summary": "Chiseled Ashwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 ashwood slabs around 3 planks (Simple End)."
+      },
+      "de": {
+        "summary": "Gemeißeltes Aschholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Aschholzstufen um 3 Bretter (Simple End)."
+      }
+    },
+    "simpleend:duskwood_bookshelf": {
+      "en": {
+        "summary": "Duskwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 duskwood slabs around 3 books (with SimpleBuilding: 6 planks, 3 Nihilit Books); drops 3 of its books (Simple End)."
+      },
+      "de": {
+        "summary": "Dämmerholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Dämmerholzstufen um 3 Bücher (mit SimpleBuilding: 6 Bretter, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
+      }
+    },
+    "simpleend:chiseled_duskwood_bookshelf": {
+      "en": {
+        "summary": "Chiseled Duskwood Bookshelf: six book slots like Vanilla's (also Blaze and Nihilit Books), comparator = last slot used; 6 duskwood slabs around 3 planks (Simple End)."
+      },
+      "de": {
+        "summary": "Gemeißeltes Dämmerholz-Bücherregal: sechs Buchfächer wie Vanilla (auch Lohen- und Nihilit-Bücher), Komparator = zuletzt benutztes Fach; 6 Dämmerholzstufen um 3 Bretter (Simple End)."
+      }
     }
   }
 }

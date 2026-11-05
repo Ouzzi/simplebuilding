@@ -15,6 +15,14 @@
     {
       "id": "simpleenchanting:warped_blazewood_bookshelf",
       "required": false
+    },
+    {
+      "id": "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
+      "required": false
+    },
+    {
+      "id": "simpleenchanting:chiseled_warped_blazewood_bookshelf",
+      "required": false
     }
   ]
 }

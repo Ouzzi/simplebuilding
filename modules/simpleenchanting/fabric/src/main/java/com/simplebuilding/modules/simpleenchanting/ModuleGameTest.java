@@ -72,6 +72,21 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleenchanting:empty")
+    public void endShelvesCountDouble(GameTestHelper h) {
+        EnchantingTests.ALL.get("end_shelves_count_double").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void chiseledShelvesTakeModBooks(GameTestHelper h) {
+        EnchantingTests.ALL.get("chiseled_shelves_take_mod_books").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
+    public void endShelfDropsItsBooks(GameTestHelper h) {
+        EnchantingTests.ALL.get("end_shelf_drops_its_books").accept(h);
+    }
+
+    @GameTest(structure = "simpleenchanting:empty")
     public void discoverRecipeUnlocks(GameTestHelper h) {
         EnchantingTests.ALL.get("discover_recipe_unlocks").accept(h);
     }

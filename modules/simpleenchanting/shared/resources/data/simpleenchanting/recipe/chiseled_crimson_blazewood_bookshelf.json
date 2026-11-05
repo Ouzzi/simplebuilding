@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "simplebuilding"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": "minecraft:crimson_slab",
+    "W": "simpleenchanting:crimson_blazewood_planks"
+  },
+  "pattern": [
+    "WWW",
+    "SSS",
+    "WWW"
+  ],
+  "result": {
+    "id": "simpleenchanting:chiseled_crimson_blazewood_bookshelf"
+  }
+}

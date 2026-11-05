@@ -27,6 +27,11 @@ public final class EnchantingFabric implements ModInitializer {
         EnchantingRegistry.registerBlocks();
         EnchantingRegistry.registerItems();
         EnchantingRegistry.registerBlockEntity();
+        // DW04C-3: the chiseled blazewood twins use Vanilla's chiseled bookshelf block entity (Fabric API, this module is Fabric-only).
+        for (var chiseled : EnchantingRegistry.ownChiseledBookshelves()) {
+            ((net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType) net.minecraft.world.level.block.entity.BlockEntityTypes.CHISELED_BOOKSHELF)
+                    .addValidBlock(chiseled);
+        }
         EnchantingRegistry.registerTab();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out -> {
             if (!com.simplebuilding.framework.api.CreativeTabSettings.addItemsToVanillaTabs(FabricLoader.getInstance().getConfigDir(), SimpleEnchanting.MOD_ID)) return;

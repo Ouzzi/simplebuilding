@@ -221,7 +221,9 @@ def derived_core(jar) -> dict:
     jar = jar_of(jar)
     out = {'item/diamond_rod.png': t.rod_from(jar.img('item/blaze_rod'), t.DIAMOND_KEYS, 0.98)}
     for wood in ('crimson', 'warped'):
-        empty, occupied, _ = t.chiseled_front(jar, wood, 'A')
+        # b-shelves01 (owner 04.11., DW04C-3: "variation der books ... wie in vanilla"): the occupied front keeps Vanilla's books (C);
+        # Blaze and Nihilit Books in a slot are drawn over it by ChiseledBooksRenderer (shelves01_2026_11_04.books_overlay).
+        empty, occupied, _ = t.chiseled_front(jar, wood, 'C')
         out[f'block/chiseled_{wood}_blazewood_bookshelf_empty.png'] = empty
         out[f'block/chiseled_{wood}_blazewood_bookshelf_occupied.png'] = occupied
         out[f'block/chiseled_{wood}_blazewood_bookshelf_side.png'] = t.chiseled_side(jar, wood)

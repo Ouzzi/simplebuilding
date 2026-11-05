@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "simpleend:ashwood_bookshelf",
+      "required": false
+    },
+    {
+      "id": "simpleend:duskwood_bookshelf",
+      "required": false
+    }
+  ]
+}

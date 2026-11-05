@@ -97,9 +97,10 @@ public final class EndTests {
         add("guide_book", com.simplebuilding.modules.simpleend.guide.EndGuide::gameTest);
         add("registered", h -> {
             for (EndWood w : EndWood.ALL) {
-                h.assertTrue(w.blockIds.size() == 22, w.name + ": 22 blocks, got " + w.blockIds.size());
-                h.assertTrue(w.itemIds.size() == 21, w.name + ": 21 items, got " + w.itemIds.size());
+                h.assertTrue(w.blockIds.size() == 24, w.name + ": 24 blocks, got " + w.blockIds.size());
+                h.assertTrue(w.itemIds.size() == 23, w.name + ": 23 items, got " + w.itemIds.size());
                 h.assertTrue(BlockEntityTypes.SHELF.isValid(w.shelf.defaultBlockState()), w.name + " shelf block entity");
+                h.assertTrue(BlockEntityTypes.CHISELED_BOOKSHELF.isValid(w.chiseledBookshelf.defaultBlockState()), w.name + " chiseled bookshelf block entity");
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleEnd.id(w.id("W_boat"))), w.name + " boat entity");
                 h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(SimpleEnd.id(w.id("W_chest_boat"))), w.name + " chest boat entity");
                 h.assertTrue(BlockEntityTypes.SIGN.isValid(w.sign.defaultBlockState()) && BlockEntityTypes.SIGN.isValid(w.wallSign.defaultBlockState()), w.name + " sign block entity");
@@ -122,8 +123,12 @@ public final class EndTests {
                 h.assertTrue(w.shelf.defaultBlockState().is(net.minecraft.tags.TagKey.create(Registries.BLOCK,
                         net.minecraft.resources.Identifier.withDefaultNamespace("wooden_shelves"))), "wooden shelves tag");
                 for (String r : new String[] {"W_planks", "W_wood", "stripped_W_wood", "W_stairs", "W_slab", "W_fence", "W_fence_gate", "W_door",
-                        "W_trapdoor", "W_button", "W_pressure_plate", "W_sign", "W_hanging_sign", "W_shelf", "W_boat", "W_chest_boat"}) {
+                        "W_trapdoor", "W_button", "W_pressure_plate", "W_sign", "W_hanging_sign", "W_shelf", "W_bookshelf", "chiseled_W_bookshelf", "W_boat", "W_chest_boat"}) {
                     ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key = ResourceKey.create(Registries.RECIPE, SimpleEnd.id(w.id(r)));
+                    if (r.equals("W_bookshelf") && loaded("simplebuilding")) {
+                        // DW04C-3: with SimpleBuilding the End bookshelf is made of Nihilit Books (SimpleBuilding's recipe, same id path).
+                        key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", w.id(r)));
+                    }
                     h.assertTrue(recipes.byKey(key).isPresent(), "recipe " + key.identifier());
                 }
             }
@@ -140,7 +145,7 @@ public final class EndTests {
                 Items.IRON_AXE.useOn(new UseOnContext(p, InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(abs), Direction.UP, abs, false)));
                 BlockState now = h.getBlockState(at);
                 h.assertTrue(now.is(w.strippedLog) && now.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X, w.name + ": axe strips the log, got " + now);
-                for (Block b : new Block[] {w.log, w.planks, w.shelf, w.leaves, w.sticks}) h.assertTrue(fire.simpleend$canBurn(b.defaultBlockState()), BuiltInRegistries.BLOCK.getKey(b) + " burns");
+                for (Block b : new Block[] {w.log, w.planks, w.shelf, w.bookshelf, w.chiseledBookshelf, w.leaves, w.sticks}) h.assertTrue(fire.simpleend$canBurn(b.defaultBlockState()), BuiltInRegistries.BLOCK.getKey(b) + " burns");
             }
             h.assertTrue(fire.simpleend$canBurn(EndRegistry.END_GRASS.defaultBlockState()), "End grass burns");
             h.succeed();

@@ -296,6 +296,9 @@ public final class ModItemGroupsContent {
         if (com.simplebuilding.version.McVersion.FIRES) {
             rows.add(sulfurLightRow());
         }
+        if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
+            rows.add(blazewoodRow()); // DW04C-3: Besitzer 04.11. "warped varianten gehoeren in simple blocks"
+        }
         if (com.simplebuilding.version.McVersion.WOODWORK) {
             // Holzwerk (docs/ai/PLAN-HOLZWERK-2026-10-09.md): je Holzart eine Zeile - Roehren, Platten, Kessel, Kiste (Simple Storage, per Id), Schnitzholz.
             for (com.simplebuilding.woodwork.WoodBlocks.Family family : com.simplebuilding.woodwork.WoodBlocks.families()) {
@@ -304,6 +307,13 @@ public final class ModItemGroupsContent {
             }
         }
         return List.copyOf(rows);
+    }
+
+    /** Crimson and warped blazewood: planks, bookshelves, chiseled bookshelves (DW04C-3: building blocks, Simple Blocks tab). */
+    public static CreativeTabLayout.Row blazewoodRow() {
+        return CreativeTabLayout.Row.of("blazewood", ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
+                ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
+                ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF);
     }
 
     /** Sulfur torch, lantern and campfire (N58) in one row. */
@@ -566,10 +576,10 @@ public final class ModItemGroupsContent {
         }
         if (com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING) {
             // Astral-Verzauberung (Queue N27): Tisch, Lohen-Obsidian-Boden, Lohenholz, Lohen-Regale, Lohenbuch.
+            // DW04C-3 (b-shelves01): Lohenholz und -Regale stehen als Baubloecke im Tab von Simple Blocks (blazewoodRow), hier die
+            // Tische, Boeden und die beiden Buecher der starken Regale.
             rows.add(CreativeTabLayout.Row.of("astral_enchanting", ModItems.DARK_ENCHANTER, ModItems.ASTRAL_ENCHANTER, ModItems.BLAZING_OBSIDIAN, ModItems.NIHIL_OBSIDIAN,
-                    CreativeTabLayout.GAP, ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
-                    ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
-                    ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF, ModItems.BLAZE_BOOK));
+                    CreativeTabLayout.GAP, ModItems.BLAZE_BOOK, ModItems.NIHILITH_BOOK));
         }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             // Trainingspuppe (2026-10-02): der Stroh-Ruestungsstaender (Vanilla-Items gehoeren nicht in Mod-Tabs).

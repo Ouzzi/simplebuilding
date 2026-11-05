@@ -27,8 +27,7 @@ window.WIKI_MODULES = [
       "simplearrows",
       "simplemobs",
       "simpleresonance",
-      "simpleenchanting",
-      "simplepads"
+      "simpleenchanting"
     ],
     "optional": [
       "jei",
@@ -78,10 +77,10 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 490,
-      "blocks": 248,
-      "recipes": 776,
-      "config": 231,
+      "items": 491,
+      "blocks": 283,
+      "recipes": 805,
+      "config": 230,
       "features": 47
     }
   },
@@ -154,9 +153,9 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 8,
       "recipes": 8,
-      "features": 76
+      "features": 75
     },
-    "dataHash": "73d6d926fc2a"
+    "dataHash": "b04bc6ddfd77"
   },
   {
     "id": "simpleriding",
@@ -566,9 +565,9 @@ window.WIKI_MODULES = [
       "items": 11,
       "blocks": 6,
       "recipes": 22,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "45db45c91816"
+    "dataHash": "1e9b0ae11b5b"
   },
   {
     "id": "simpleinterfaces",
@@ -799,7 +798,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "72e9172c5f34"
+    "dataHash": "8add1659b652"
   },
   {
     "id": "simpletools",
@@ -1065,11 +1064,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAzUlEQVR42mOQk9D+TwlmABET2paQjH1sclANSA1v/L9u+d7/Jy8eBrOxYZgcSLO5th+mAcgKZy2dCueD2MiaQRbhNQCGc6uywRjGB2mGYaIN8HIKwNBM0IC4kKT/r59+AOPTh66AMUiMKAOQNYPwxq7TYAOWzt6AYghOA5A1w2wHaQbhupIO/AYg2w6zGWYASDMIw1yB0wCYJlya8RoAwshOhmkGuQZZM04DQBIgRciakW3GawAodcEkQQrRNeKNRpgAMkbXjC6PYgAlGADBDC0kWCrJGAAAAABJRU5ErkJggg==",
     "counts": {
       "items": 8,
-      "blocks": 47,
-      "recipes": 34,
+      "blocks": 51,
+      "recipes": 38,
       "features": 9
     },
-    "dataHash": "e6142516c812"
+    "dataHash": "c7f05b022c80"
   },
   {
     "id": "simplerespawn",
@@ -1266,7 +1265,7 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 12
     },
-    "dataHash": "970e420cb6cb"
+    "dataHash": "fba292a2667a"
   },
   {
     "id": "simplewanderers",
@@ -1490,7 +1489,7 @@ window.WIKI_MODULES = [
       "recipes": 12,
       "features": 13
     },
-    "dataHash": "ae6c8b671ea8"
+    "dataHash": "3a0da83bc035"
   },
   {
     "id": "simpleoptimization",
@@ -1597,7 +1596,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 3
     },
-    "dataHash": "d4b5b8779bb4"
+    "dataHash": "f41813886410"
   },
   {
     "id": "simplestorage",
@@ -1679,7 +1678,7 @@ window.WIKI_MODULES = [
       "recipes": 36,
       "features": 16
     },
-    "dataHash": "a5f0ab2bff35"
+    "dataHash": "48b356cfec62"
   },
   {
     "id": "simplelights",
@@ -1874,7 +1873,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleores",
     "displayName": "Simple Ores",
-    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Copper, soft Rose Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
+    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1897,17 +1896,17 @@ window.WIKI_MODULES = [
       "de": "Silbererz in der Oberwelt und im End mit Silberpfeil gegen Untote und Silberspiegel, Blei, dessen Blöcke Geräusche dämmen und den Sculk taub halten, sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen."
     },
     "purpose": {
-      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenkupfer, weich: Roségold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
-      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenkupfer, weich: Roségold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
+      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
+      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
       "items": 40,
-      "blocks": 20,
-      "recipes": 67,
+      "blocks": 19,
+      "recipes": 66,
       "features": 10
     },
-    "dataHash": "bc3c2b09dcf8"
+    "dataHash": "bcee39eff812"
   },
   {
     "id": "simplemachines",
@@ -1967,10 +1966,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mMwtPP6TwlmABFrD1wmiLVkBFBw1awdqAb0rjj0//Cl+2AaHYM0/P+06v+381FgDOJH5LdgGoAPgzSBNO+u0yPdAJCGriwrME2yATDNcS4qcL8TbQA2zTBM0AB8mgkaQEgzVgNAConVjGEASOGXL1+I1ozTgB07dhClGasBIM0gQ2AuIckAWBiADIEZRJIXYALImQXEJ4ThBlCCAdwLWD3aEHARAAAAAElFTkSuQmCC",
     "counts": {
       "items": 4,
-      "recipes": 19,
+      "recipes": 18,
       "features": 5
     },
-    "dataHash": "0ff03c70cbcf"
+    "dataHash": "a6df6f188c34"
   },
   {
     "id": "simpleresonance",
@@ -2004,7 +2003,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 8
     },
-    "dataHash": "29b559e054ce"
+    "dataHash": "380277e0cdb7"
   },
   {
     "id": "simplefoundry",
@@ -2061,43 +2060,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlklEQVR42mNQETf4TwlmABEzW1eTjKOsKlANKAzr/r912SEwTQiDNDtqhWEaAMJSXEJ4MUgzyCKsBoAUbHAw+P/l1QUwrlLQAGMYHyQHMwSnATANLzZ4wA0AsWEG4jWAWC/gNQBbgGHDGAYQshkdYzUA5FdiME4DrEQU/kcpGBCkcRpAjGYQTTsXkB2IsGghFcMNoAQDAHSQ0Ezrx2wLAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 8,
-      "recipes": 6,
+      "blocks": 10,
+      "recipes": 8,
       "features": 5
     },
-    "dataHash": "7e14fcae29fd"
-  },
-  {
-    "id": "simplepads",
-    "displayName": "Simple Pads",
-    "description": "The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers each, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra (moved out of SimpleBuilding, DW04C-5). Requires Simple Ores (Enderite tiers) and Simple Mobheads (the heads of the first tiers). Fabric only for now.",
-    "version": "0.1.0",
-    "minecraft": "26.3",
-    "loaders": [
-      "fabric"
-    ],
-    "requires": [
-      "simplelib",
-      "simpleores",
-      "simplemobheads"
-    ],
-    "optional": [
-      "simplebuilding"
-    ],
-    "stage": "new",
-    "parent": "simplebuilding",
-    "bundle": "required",
-    "intro": {
-      "en": "Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite, Enderite and copper pressure plates.",
-      "de": "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten."
-    },
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAnElEQVR42mMwt7L9TwlmABHbdu3HwFpaBmCMTQ6EuybMQDVg1oJl/0+dvQimQRpfvPgAxiA2SAwZgzQnZ+RiGoCsGQSwGQLSDLIIqwHYNCMbAtIMwxgG4NOMzRAUA5D9TAjDDKGuAcheIEYzzljAZwjBQESPRnya8RoAkkRPSOiacRqArACWlLFpxmoAKHXhUkzQAJgAqRhuACUYALsTm2UkB8siAAAAAElFTkSuQmCC",
-    "counts": {
-      "items": 3,
-      "blocks": 35,
-      "recipes": 26,
-      "features": 1
-    },
-    "dataHash": "a6711562ef9d"
+    "dataHash": "22742d426a61"
   }
 ];

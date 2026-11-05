@@ -274,5 +274,8 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
                         tableBuilder.pool(pool);
                     }
                 }, registry));
+        // DW04C-3: Simple End's bookshelves give back the 3 Nihilit Books they are made of (EndShelfLoot).
+        net.fabricmc.fabric.api.loot.v3.LootTableEvents.REPLACE.register((key, original, source, registries) ->
+                com.simplebuilding.loot.EndShelfLoot.replace(key, registries));
     }
 }

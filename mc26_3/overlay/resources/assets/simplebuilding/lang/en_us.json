@@ -3273,6 +3273,7 @@
   "block.simplebuilding.nihil_obsidian": "Nihil Obsidian",
   "item.simplebuilding.nihil_obsidian": "Nihil Obsidian",
   "item.simplebuilding.blaze_book": "Blaze Book",
+  "item.simplebuilding.nihilith_book": "Nihilit Book",
   "simplebuilding.testcentre.machines.astral_enchanting": "Dark: 15 blazewood shelves + floor = 50",
   "book.simplebuilding.machines.11.title": "Enchanter",
   "book.simplebuilding.machines.11.text": "Hit an enchanting table 20x with a netherite sledgehammer, enderite nugget in off hand.\nStrength 30: shelves; 40: blazewood shelves OR floor; 50: both. Price: levels, max 50.",

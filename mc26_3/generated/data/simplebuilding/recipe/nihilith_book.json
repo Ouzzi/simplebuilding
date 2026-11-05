@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "K": "minecraft:book",
+    "N": "simplebuilding:nihilith_shard"
+  },
+  "pattern": [
+    " N ",
+    "NKN",
+    " N "
+  ],
+  "result": {
+    "id": "simplebuilding:nihilith_book"
+  }
+}

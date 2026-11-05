@@ -41,6 +41,7 @@ public final class EnchantingRegistry {
     public static CreativeModeTab TAB;
     /** This module's building-block twins (empty with SimpleBuilding, which owns them). */
     private static final List<Block> OWN_BLOCKS = new ArrayList<>();
+    private static final List<Block> OWN_CHISELED = new ArrayList<>();
 
     private EnchantingRegistry() {}
 
@@ -55,13 +56,27 @@ public final class EnchantingRegistry {
         OWN_BLOCKS.add(block("warped_blazewood_planks", Blocks.WARPED_PLANKS, Block::new));
         OWN_BLOCKS.add(block("crimson_blazewood_bookshelf", Blocks.BOOKSHELF, p -> new Block(p.sound(SoundType.NETHER_WOOD))));
         OWN_BLOCKS.add(block("warped_blazewood_bookshelf", Blocks.BOOKSHELF, p -> new Block(p.sound(SoundType.NETHER_WOOD))));
+        // DW04C-3 (b-shelves01): the chiseled twins, Vanilla's block and block entity (the loader entry adds them to its valid blocks).
+        for (String wood : new String[] {"crimson", "warped"}) {
+            Block chiseled = block("chiseled_" + wood + "_blazewood_bookshelf", Blocks.CHISELED_BOOKSHELF,
+                    p -> new net.minecraft.world.level.block.ChiseledBookShelfBlock(p.sound(SoundType.NETHER_WOOD)));
+            OWN_BLOCKS.add(chiseled);
+            OWN_CHISELED.add(chiseled);
+        }
+    }
+
+    /** This module's chiseled bookshelf twins (empty with SimpleBuilding); they use Vanilla's chiseled bookshelf block entity. */
+    public static List<Block> ownChiseledBookshelves() {
+        return List.copyOf(OWN_CHISELED);
     }
 
     public static void registerItems() {
         DARK_ENCHANTER_ITEM = item("dark_enchanter", p -> new BlockItem(DARK_ENCHANTER, p.fireResistant()));
         ASTRAL_ENCHANTER_ITEM = item("astral_enchanter", p -> new BlockItem(ASTRAL_ENCHANTER, p.fireResistant()));
         for (Block block : OWN_BLOCKS) {
-            item(BuiltInRegistries.BLOCK.getKey(block).getPath(), p -> new BlockItem(block, p));
+            boolean chiseled = OWN_CHISELED.contains(block);
+            item(BuiltInRegistries.BLOCK.getKey(block).getPath(), p -> new BlockItem(block, chiseled
+                    ? p.component(net.minecraft.core.component.DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.EMPTY) : p));
         }
         com.simpleenchanting.guide.EnchantingGuide.register();
     }
@@ -88,6 +103,11 @@ public final class EnchantingRegistry {
         out.addAll(tableStacks());
         for (String path : SimpleEnchanting.BUILDING_BLOCKS) {
             Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath(SimpleEnchanting.buildingNamespace(), path));
+            if (item != Items.AIR) out.add(new ItemStack(item));
+        }
+        // DW04C-3: the books of the strong shelves (SimpleBuilding) and the End bookshelves (Simple End), by id, when installed.
+        for (String id : SimpleEnchanting.PARTNER_ITEMS) {
+            Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse(id));
             if (item != Items.AIR) out.add(new ItemStack(item));
         }
         out.add(com.simpleenchanting.guide.EnchantingGuide.stack());

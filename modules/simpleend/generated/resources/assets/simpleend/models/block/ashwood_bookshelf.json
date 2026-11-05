@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simpleend:block/ashwood_planks",
+    "side": "simpleend:block/ashwood_bookshelf"
+  }
+}

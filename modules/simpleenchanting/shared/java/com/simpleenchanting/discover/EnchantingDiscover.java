@@ -54,6 +54,8 @@ public final class EnchantingDiscover {
             "simpleenchanting:astral_enchanter",
             "simpleenchanting:blazing_obsidian",
             "simpleenchanting:building_blocks",
+            "simpleenchanting:chiseled_crimson_blazewood_bookshelf",
+            "simpleenchanting:chiseled_warped_blazewood_bookshelf",
             "simpleenchanting:commands",
             "simpleenchanting:config_server",
             "simpleenchanting:creative_tab_switch",
