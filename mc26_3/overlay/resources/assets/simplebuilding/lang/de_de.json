@@ -1727,7 +1727,7 @@
   "book.simplebuilding.admin.3.title": "Optionen ändern",
   "book.simplebuilding.admin.3.text": "/simplebuilding config set ändert eine Option, /simplebuilding config reset stellt den Standard wieder her.\nBeide halten die Grenzen ein, speichern sofort und aktualisieren die Clients.",
   "book.simplebuilding.admin.4.title": "Pad-Schalter",
-  "book.simplebuilding.admin.4.text": "/simplepads config set pads.enableFlypads false schaltet eine Pad-Art ab. Trank-Pads: pads.enablePotionPads.\nAlter SimpleBuilding-Schlüssel: tweaks.pads.enableFlypads.",
+  "book.simplebuilding.admin.4.text": "/simplepads config set pads.enableFlypads false schaltet eine Pad-Art ab. Trank-Pads: pads.enablePotionPads.\nAlt: tweaks.pads.enableFlypads.",
   "book.simplebuilding.admin.5.title": "Spawn-Ziel",
   "book.simplebuilding.admin.5.text": "/simplepads teleporterspawn here richtet jeden Spawn-Teleporter auf deine Stelle.\nOhne Ziel führen sie zum Weltspawn.",
   "book.simplebuilding.admin.6.title": "Chunk-Loader",
