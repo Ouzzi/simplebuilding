@@ -53,19 +53,19 @@
       ],
       "en": {
         "title": "Rose gold",
-        "summary": "Two alloys of gold, copper and silver: hard Rose Copper (about 585) and soft Rose Gold (about 750). Made in two steps: press ingots into pressings, melt them in a blast furnace.",
+        "summary": "Two alloys of gold, copper and silver: Rose Gold and the stronger-gold Rose Copper, which is made from Rose Gold. Made in two steps: press ingots into pressings, melt them in a blast furnace.",
         "details": [
-          "Pressing (crafting, shapeless, 1 pressing per recipe): Rose Copper (copper-rose) 4 gold + 2 copper + 1 silver ingot. Rose Gold (pale pink) 7 gold + 1 copper + 1 silver ingot. There are no other pressing recipes.",
-          "Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 7 or 9 ingots put in is intended: silver stays the bottleneck.",
+          "Pressing (crafting, shapeless, 1 pressing per recipe): Rose Gold (pale pink) 1 gold + 2 copper + 1 silver ingot. Rose Copper (copper-rose) 2 gold + 1 Rose Gold + 1 silver ingot. There are no other pressing recipes.",
+          "Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. One pressing costs 4 ingots and gives 1: silver stays the bottleneck.",
           "Rose Copper is a darker copper-rose, Rose Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot."
         ]
       },
       "de": {
         "title": "Roségold",
-        "summary": "Zwei Legierungen aus Gold, Kupfer und Silber: das harte Rosenkupfer (etwa 585) und das weiche Roségold (etwa 750). Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.",
+        "summary": "Zwei Legierungen aus Gold, Kupfer und Silber: Roségold und das daraus gefertigte Rosenkupfer. Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.",
         "details": [
-          "Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenkupfer (Kupfer-Rosé) 4 Gold + 2 Kupfer + 1 Silberbarren. Roségold (Zartrosa) 7 Gold + 1 Kupfer + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.",
-          "Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 7 bzw. 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.",
+          "Pressen (Werkbank, formlos, 1 Pressling je Rezept): Roségold (Zartrosa) 1 Gold + 2 Kupfer + 1 Silberbarren. Rosenkupfer (Kupfer-Rosé) 2 Gold + 1 Roségold + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.",
+          "Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Ein Pressling kostet 4 Barren und ergibt einen: Silber bleibt der Engpass.",
           "Rosenkupfer ist ein dunkleres Kupfer-Rosé, Roségold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren."
         ]
       }
@@ -80,8 +80,8 @@
         "title": "Rose gold tools and armor",
         "summary": "Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.",
         "details": [
-          "Rose Copper (hard): durability 250 like iron, speed 11, enchantability 20; armor 2/4/3/1, durability factor 15, enchantability 22.",
-          "Rose Gold (soft): durability 225, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 13, enchantability 25.",
+          "Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.",
+          "Rose Gold (the best of the two): durability 250 like iron, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.",
           "Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry)."
         ]
       },
@@ -89,8 +89,8 @@
         "title": "Roségold-Werkzeuge und -Rüstung",
         "summary": "Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.",
         "details": [
-          "Rosenkupfer (hart): Haltbarkeit 250 wie Eisen, Tempo 11, Verzauberbarkeit 20; Rüstung 2/4/3/1, Haltbarkeitsfaktor 15, Verzauberbarkeit 22.",
-          "Roségold (weich): Haltbarkeit 225, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 13, Verzauberbarkeit 25.",
+          "Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.",
+          "Roségold (das bessere): Haltbarkeit 250 wie Eisen, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.",
           "Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers)."
         ]
       }
@@ -282,18 +282,18 @@
   ],
   "recipes": [
     {
-      "id": "simpleores:rose_gold_apple",
+      "id": "simpleores:enchanted_rose_bronze_apple",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
       "group": null,
       "result": {
-        "id": "simpleores:rose_gold_apple",
+        "id": "simpleores:enchanted_rose_bronze_apple",
         "count": 1
       },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_apple.json",
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_rose_bronze_apple.json",
       "ingredients": [
         "minecraft:apple",
-        "simpleores:rose_gold_ingot"
+        "simpleores:rose_bronze_block"
       ],
       "pattern": [
         "###",
@@ -302,7 +302,7 @@
       ],
       "key": {
         "#": [
-          "simpleores:rose_gold_ingot"
+          "simpleores:rose_bronze_block"
         ],
         "A": [
           "minecraft:apple"
@@ -312,508 +312,12 @@
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 8
+            "id": "simpleores:rose_bronze_ingot",
+            "count": 72
           },
           {
             "id": "minecraft:apple",
             "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_axe",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_axe",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_axe.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "XX",
-        "XS",
-        " S"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_block",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_block",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_block.json",
-      "ingredients": [
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "###",
-        "###",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "simpleores:rose_gold_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 9
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_boots",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_boots",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_boots.json",
-      "ingredients": [
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "X X",
-        "X X"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 4
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_chestplate",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_chestplate",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_chestplate.json",
-      "ingredients": [
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "X X",
-        "XXX",
-        "XXX"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 8
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_helmet",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_helmet",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_helmet.json",
-      "ingredients": [
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "XXX",
-        "X X"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 5
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_hoe",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_hoe",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_hoe.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "XX",
-        " S",
-        " S"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 2
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
-      "type": "minecraft:blasting",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_ingot",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_ingot_from_blasting_rose_gold_pressling.json",
-      "ingredients": [
-        "simpleores:rose_gold_pressling"
-      ],
-      "slots": {
-        "ingredient": [
-          "simpleores:rose_gold_pressling"
-        ]
-      },
-      "cookingtime": 1200,
-      "experience": 0.5,
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 7
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 1
-          },
-          {
-            "id": "simpleores:silver_ingot",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_ingot_from_rose_gold_block",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": "rose_gold_ingot",
-      "result": {
-        "id": "simpleores:rose_gold_ingot",
-        "count": 9
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_ingot_from_rose_gold_block.json",
-      "ingredients": [
-        "simpleores:rose_gold_block"
-      ],
-      "ingredientGroups": [
-        [
-          "simpleores:rose_gold_block"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 9,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_block",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_leggings",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_leggings",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_leggings.json",
-      "ingredients": [
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "XXX",
-        "X X",
-        "X X"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 7
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_pickaxe",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_pickaxe",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pickaxe.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "XXX",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 3
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_pressling_a",
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "group": "rose_gold_pressling",
-      "result": {
-        "id": "simpleores:rose_gold_pressling",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressling_a.json",
-      "ingredients": [
-        "minecraft:copper_ingot",
-        "minecraft:gold_ingot",
-        "simpleores:silver_ingot"
-      ],
-      "ingredientGroups": [
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "simpleores:silver_ingot"
-        ]
-      ],
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "minecraft:gold_ingot",
-            "count": 7
-          },
-          {
-            "id": "minecraft:copper_ingot",
-            "count": 1
-          },
-          {
-            "id": "simpleores:silver_ingot",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_shovel",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_shovel",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_shovel.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "X",
-        "S",
-        "S"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:rose_gold_sword",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simpleores:rose_gold_sword",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_sword.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "X",
-        "X",
-        "S"
-      ],
-      "key": {
-        "X": [
-          "simpleores:rose_gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 2
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.125
           }
         ]
       }
@@ -850,47 +354,6 @@
         "materials": [
           {
             "id": "simpleores:rose_gold_ingot",
-            "count": 72
-          },
-          {
-            "id": "minecraft:apple",
-            "count": 1
-          }
-        ]
-      }
-    },
-    {
-      "id": "simpleores:enchanted_rose_bronze_apple",
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "group": null,
-      "result": {
-        "id": "simpleores:enchanted_rose_bronze_apple",
-        "count": 1
-      },
-      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/enchanted_rose_bronze_apple.json",
-      "ingredients": [
-        "minecraft:apple",
-        "simpleores:rose_bronze_block"
-      ],
-      "pattern": [
-        "###",
-        "#A#",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "simpleores:rose_bronze_block"
-        ],
-        "A": [
-          "minecraft:apple"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_bronze_ingot",
             "count": 72
           },
           {
@@ -1903,11 +1366,11 @@
         "materials": [
           {
             "id": "minecraft:gold_ingot",
-            "count": 4
+            "count": 2
           },
           {
-            "id": "minecraft:copper_ingot",
-            "count": 2
+            "id": "simpleores:rose_gold_ingot",
+            "count": 1
           },
           {
             "id": "simpleores:silver_ingot",
@@ -2029,8 +1492,8 @@
       },
       "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_bronze_pressling_c.json",
       "ingredients": [
-        "minecraft:copper_ingot",
         "minecraft:gold_ingot",
+        "simpleores:rose_gold_ingot",
         "simpleores:silver_ingot"
       ],
       "ingredientGroups": [
@@ -2041,16 +1504,7 @@
           "minecraft:gold_ingot"
         ],
         [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:gold_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
-        ],
-        [
-          "minecraft:copper_ingot"
+          "simpleores:rose_gold_ingot"
         ],
         [
           "simpleores:silver_ingot"
@@ -2061,11 +1515,11 @@
         "materials": [
           {
             "id": "minecraft:gold_ingot",
-            "count": 4
+            "count": 2
           },
           {
-            "id": "minecraft:copper_ingot",
-            "count": 2
+            "id": "simpleores:rose_gold_ingot",
+            "count": 1
           },
           {
             "id": "simpleores:silver_ingot",
@@ -2147,6 +1601,528 @@
         "materials": [
           {
             "id": "simpleores:rose_bronze_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.125
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_apple",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_apple",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_apple.json",
+      "ingredients": [
+        "minecraft:apple",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "###",
+        "#A#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "A": [
+          "minecraft:apple"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 8
+          },
+          {
+            "id": "minecraft:apple",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_axe",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_axe",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_axe.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "XX",
+        "XS",
+        " S"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_block",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_block",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_block.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "###",
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_boots",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_boots",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_boots.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "X X",
+        "X X"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_chestplate",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_chestplate",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_chestplate.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "X X",
+        "XXX",
+        "XXX"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_helmet",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_helmet",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_helmet.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "XXX",
+        "X X"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_hoe",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_hoe",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_hoe.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "XX",
+        " S",
+        " S"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
+      "type": "minecraft:blasting",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_ingot",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_ingot_from_blasting_rose_gold_pressling.json",
+      "ingredients": [
+        "simpleores:rose_gold_pressling"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleores:rose_gold_pressling"
+        ]
+      },
+      "cookingtime": 1200,
+      "experience": 0.5,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_ingot_from_rose_gold_block",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "rose_gold_ingot",
+      "result": {
+        "id": "simpleores:rose_gold_ingot",
+        "count": 9
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_ingot_from_rose_gold_block.json",
+      "ingredients": [
+        "simpleores:rose_gold_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleores:rose_gold_block"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 9,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_leggings",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_leggings",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_leggings.json",
+      "ingredients": [
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "XXX",
+        "X X",
+        "X X"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 7
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_pickaxe",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_pickaxe",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pickaxe.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "XXX",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 3
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_pressling_a",
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "group": "rose_gold_pressling",
+      "result": {
+        "id": "simpleores:rose_gold_pressling",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_pressling_a.json",
+      "ingredients": [
+        "minecraft:copper_ingot",
+        "minecraft:gold_ingot",
+        "simpleores:silver_ingot"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:gold_ingot"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ],
+        [
+          "simpleores:silver_ingot"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 2
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_shovel",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_shovel",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_shovel.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "X",
+        "S",
+        "S"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:rose_gold_sword",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simpleores:rose_gold_sword",
+        "count": 1
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/rose_gold_sword.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "X",
+        "X",
+        "S"
+      ],
+      "key": {
+        "X": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
             "count": 2
           },
           {
@@ -2588,24 +2564,6 @@
   ],
   "lootTables": [
     {
-      "id": "simpleores:blocks/rose_gold_block",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1,
-          "items": [
-            "simpleores:rose_gold_block"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_block.json"
-    },
-    {
       "id": "simpleores:blocks/deepslate_lead_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2847,6 +2805,24 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_bronze_block.json"
     },
     {
+      "id": "simpleores:blocks/rose_gold_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:rose_gold_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/rose_gold_block.json"
+    },
+    {
       "id": "simpleores:blocks/sage_ore",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -2978,17 +2954,6 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/tags/item/breaks_dimensional_scrap.json"
     },
     {
-      "id": "simpleores:item/repairs_rose_gold_equipment",
-      "replace": false,
-      "values": [
-        {
-          "id": "simpleores:rose_gold_ingot",
-          "required": true
-        }
-      ],
-      "source": "modules/simpleores/shared/resources/data/simpleores/tags/item/repairs_rose_gold_equipment.json"
-    },
-    {
       "id": "simpleores:item/repairs_rose_bronze_equipment",
       "replace": false,
       "values": [
@@ -2998,6 +2963,17 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/tags/item/repairs_rose_bronze_equipment.json"
+    },
+    {
+      "id": "simpleores:item/repairs_rose_gold_equipment",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleores:rose_gold_ingot",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/tags/item/repairs_rose_gold_equipment.json"
     },
     {
       "id": "simpleores:worldgen/biome/has_end_silver_ore",
@@ -3052,293 +3028,24 @@
   "enchantments": [],
   "items": [
     {
-      "id": "simpleores:rose_gold_apple",
+      "id": "simpleores:enchanted_rose_bronze_apple",
       "name": {
-        "en_us": "Rose Gold Apple",
-        "de_de": "Roségold-Apfel"
+        "en_us": "Enchanted Rose Copper Apple",
+        "de_de": "Verzauberter Rosenkupfer-Apfel"
       },
       "note": {
         "sources": [
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Gold apple, a step between the golden and the Netherite apple: 6 hunger, always edible. Gives Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. 8 rose gold ingots round an apple."
+          "summary": "Enchanted Rose Copper apple (glint): 5 hunger, always edible. Gives Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. 8 blocks of rose copper round an apple."
         },
         "de": {
-          "summary": "Roségold-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 6 Hunger, immer essbar. Gibt Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. 8 Roségoldbarren um einen Apfel."
+          "summary": "Verzauberter Rosenkupfer-Apfel (Schimmer): 5 Hunger, immer essbar. Gibt Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Rosenkupferblöcke um einen Apfel."
         }
       },
-      "texture": "assets/textures/simpleores/item/rose_gold_apple.png",
       "craftedBy": [
-        "simpleores:rose_gold_apple"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_axe",
-      "name": {
-        "en_us": "Rose Gold Axe",
-        "de_de": "Roségoldaxt"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold axe: durability 225, speed 12 (like gold), enchantability 22. Mines like iron."
-        },
-        "de": {
-          "summary": "Roségoldaxt: Haltbarkeit 225, Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_axe.png",
-      "craftedBy": [
-        "simpleores:rose_gold_axe"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_boots",
-      "name": {
-        "en_us": "Rose Gold Boots",
-        "de_de": "Roségoldstiefel"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold boots: protection 1, durability factor 13, enchantability 25."
-        },
-        "de": {
-          "summary": "Roségoldstiefel: Schutz 1, Haltbarkeitsfaktor 13, Verzauberbarkeit 25."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_boots.png",
-      "craftedBy": [
-        "simpleores:rose_gold_boots"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_chestplate",
-      "name": {
-        "en_us": "Rose Gold Chestplate",
-        "de_de": "Roségoldharnisch"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold chestplate: protection 5, durability factor 13, enchantability 25."
-        },
-        "de": {
-          "summary": "Roségoldharnisch: Schutz 5, Haltbarkeitsfaktor 13, Verzauberbarkeit 25."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_chestplate.png",
-      "craftedBy": [
-        "simpleores:rose_gold_chestplate"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_helmet",
-      "name": {
-        "en_us": "Rose Gold Helmet",
-        "de_de": "Roségoldhelm"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold helmet: protection 2, durability factor 13, enchantability 25."
-        },
-        "de": {
-          "summary": "Roségoldhelm: Schutz 2, Haltbarkeitsfaktor 13, Verzauberbarkeit 25."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_helmet.png",
-      "craftedBy": [
-        "simpleores:rose_gold_helmet"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_hoe",
-      "name": {
-        "en_us": "Rose Gold Hoe",
-        "de_de": "Roségoldhacke"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold hoe: durability 225, speed 12 (like gold), enchantability 22. Mines like iron."
-        },
-        "de": {
-          "summary": "Roségoldhacke: Haltbarkeit 225, Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_hoe.png",
-      "craftedBy": [
-        "simpleores:rose_gold_hoe"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_ingot",
-      "name": {
-        "en_us": "Rose Gold Ingot",
-        "de_de": "Roségoldbarren"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold ingot: the soft, about 750 rose gold alloy. Made only by smelting a pressling in a blast furnace."
-        },
-        "de": {
-          "summary": "Roségoldbarren: die weiche, etwa 750er Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_ingot.png",
-      "craftedBy": [
-        "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
-        "simpleores:rose_gold_ingot_from_rose_gold_block"
-      ],
-      "usedIn": [
-        "simpleores:rose_gold_apple",
-        "simpleores:rose_gold_axe",
-        "simpleores:rose_gold_block",
-        "simpleores:rose_gold_boots",
-        "simpleores:rose_gold_chestplate",
-        "simpleores:rose_gold_helmet",
-        "simpleores:rose_gold_hoe",
-        "simpleores:rose_gold_leggings",
-        "simpleores:rose_gold_pickaxe",
-        "simpleores:rose_gold_shovel",
-        "simpleores:rose_gold_sword"
-      ]
-    },
-    {
-      "id": "simpleores:rose_gold_leggings",
-      "name": {
-        "en_us": "Rose Gold Leggings",
-        "de_de": "Roségoldbeinschutz"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold leggings: protection 3, durability factor 13, enchantability 25."
-        },
-        "de": {
-          "summary": "Roségoldbeinschutz: Schutz 3, Haltbarkeitsfaktor 13, Verzauberbarkeit 25."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_leggings.png",
-      "craftedBy": [
-        "simpleores:rose_gold_leggings"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_pickaxe",
-      "name": {
-        "en_us": "Rose Gold Pickaxe",
-        "de_de": "Roségoldspitzhacke"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold pickaxe: durability 225, speed 12 (like gold), enchantability 22. Mines like iron."
-        },
-        "de": {
-          "summary": "Roségoldspitzhacke: Haltbarkeit 225, Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_pickaxe.png",
-      "craftedBy": [
-        "simpleores:rose_gold_pickaxe"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_pressling",
-      "name": {
-        "en_us": "Rose Gold Pressling",
-        "de_de": "Roségold-Pressling"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Gold, copper and silver ingots pressed together (1 per crafting recipe, see the wiki). Only a blast furnace melts it (30 s), always into exactly 1 rose gold ingot."
-        },
-        "de": {
-          "summary": "Gold-, Kupfer- und Silberbarren, zusammengepresst (1 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Roségoldbarren."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_pressling.png",
-      "craftedBy": [
-        "simpleores:rose_gold_pressling_a"
-      ],
-      "usedIn": [
-        "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling"
-      ]
-    },
-    {
-      "id": "simpleores:rose_gold_shovel",
-      "name": {
-        "en_us": "Rose Gold Shovel",
-        "de_de": "Roségoldschaufel"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold shovel: durability 225, speed 12 (like gold), enchantability 22. Mines like iron."
-        },
-        "de": {
-          "summary": "Roségoldschaufel: Haltbarkeit 225, Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_shovel.png",
-      "craftedBy": [
-        "simpleores:rose_gold_shovel"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:rose_gold_sword",
-      "name": {
-        "en_us": "Rose Gold Sword",
-        "de_de": "Roségoldschwert"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Rose Gold sword: durability 225, speed 12 (like gold), enchantability 22. Mines like iron."
-        },
-        "de": {
-          "summary": "Roségoldschwert: Haltbarkeit 225, Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
-        }
-      },
-      "texture": "assets/textures/simpleores/item/rose_gold_sword.png",
-      "craftedBy": [
-        "simpleores:rose_gold_sword"
+        "simpleores:enchanted_rose_bronze_apple"
       ],
       "usedIn": []
     },
@@ -3361,28 +3068,6 @@
       },
       "craftedBy": [
         "simpleores:enchanted_rose_gold_apple"
-      ],
-      "usedIn": []
-    },
-    {
-      "id": "simpleores:enchanted_rose_bronze_apple",
-      "name": {
-        "en_us": "Enchanted Rose Copper Apple",
-        "de_de": "Verzauberter Rosenkupfer-Apfel"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Enchanted Rose Copper apple (glint): 5 hunger, always edible. Gives Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. 8 blocks of rose copper round an apple."
-        },
-        "de": {
-          "summary": "Verzauberter Rosenkupfer-Apfel (Schimmer): 5 Hunger, immer essbar. Gibt Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. 8 Rosenkupferblöcke um einen Apfel."
-        }
-      },
-      "craftedBy": [
-        "simpleores:enchanted_rose_bronze_apple"
       ],
       "usedIn": []
     },
@@ -3707,10 +3392,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper axe: durability 250 (like iron), speed 11, enchantability 20. Mines like iron."
+          "summary": "Rose Copper axe: durability 190 (like copper), speed 8, enchantability 15. Mines like iron."
         },
         "de": {
-          "summary": "Rosenkupferaxt: Haltbarkeit 250 (wie Eisen), Tempo 11, Verzauberbarkeit 20. Baut ab wie Eisen."
+          "summary": "Rosenkupferaxt: Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15. Baut ab wie Eisen."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_axe.png",
@@ -3730,10 +3415,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper boots: protection 1, durability factor 15, enchantability 22."
+          "summary": "Rose Copper boots: protection 1, durability factor 11, enchantability 12."
         },
         "de": {
-          "summary": "Rosenkupferstiefel: Schutz 1, Haltbarkeitsfaktor 15, Verzauberbarkeit 22."
+          "summary": "Rosenkupferstiefel: Schutz 1, Haltbarkeitsfaktor 11, Verzauberbarkeit 12."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_boots.png",
@@ -3753,10 +3438,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper chestplate: protection 4, durability factor 15, enchantability 22."
+          "summary": "Rose Copper chestplate: protection 4, durability factor 11, enchantability 12."
         },
         "de": {
-          "summary": "Rosenkupferharnisch: Schutz 4, Haltbarkeitsfaktor 15, Verzauberbarkeit 22."
+          "summary": "Rosenkupferharnisch: Schutz 4, Haltbarkeitsfaktor 11, Verzauberbarkeit 12."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_chestplate.png",
@@ -3776,10 +3461,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper helmet: protection 2, durability factor 15, enchantability 22."
+          "summary": "Rose Copper helmet: protection 2, durability factor 11, enchantability 12."
         },
         "de": {
-          "summary": "Rosenkupferhelm: Schutz 2, Haltbarkeitsfaktor 15, Verzauberbarkeit 22."
+          "summary": "Rosenkupferhelm: Schutz 2, Haltbarkeitsfaktor 11, Verzauberbarkeit 12."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_helmet.png",
@@ -3799,10 +3484,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper hoe: durability 250 (like iron), speed 11, enchantability 20. Mines like iron."
+          "summary": "Rose Copper hoe: durability 190 (like copper), speed 8, enchantability 15. Mines like iron."
         },
         "de": {
-          "summary": "Rosenkupferhacke: Haltbarkeit 250 (wie Eisen), Tempo 11, Verzauberbarkeit 20. Baut ab wie Eisen."
+          "summary": "Rosenkupferhacke: Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15. Baut ab wie Eisen."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_hoe.png",
@@ -3822,10 +3507,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper ingot: the hard, about 585 rose gold alloy. Made only by smelting a pressling in a blast furnace."
+          "summary": "Rose Copper ingot: the simpler rose gold alloy. Made only by smelting a pressling in a blast furnace."
         },
         "de": {
-          "summary": "Rosenkupferbarren: die harte, etwa 585er Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird."
+          "summary": "Rosenkupferbarren: die einfachere Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_ingot.png",
@@ -3858,10 +3543,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper leggings: protection 3, durability factor 15, enchantability 22."
+          "summary": "Rose Copper leggings: protection 3, durability factor 11, enchantability 12."
         },
         "de": {
-          "summary": "Rosenkupferbeinschutz: Schutz 3, Haltbarkeitsfaktor 15, Verzauberbarkeit 22."
+          "summary": "Rosenkupferbeinschutz: Schutz 3, Haltbarkeitsfaktor 11, Verzauberbarkeit 12."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_leggings.png",
@@ -3881,10 +3566,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper pickaxe: durability 250 (like iron), speed 11, enchantability 20. Mines like iron."
+          "summary": "Rose Copper pickaxe: durability 190 (like copper), speed 8, enchantability 15. Mines like iron."
         },
         "de": {
-          "summary": "Rosenkupferspitzhacke: Haltbarkeit 250 (wie Eisen), Tempo 11, Verzauberbarkeit 20. Baut ab wie Eisen."
+          "summary": "Rosenkupferspitzhacke: Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15. Baut ab wie Eisen."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_pickaxe.png",
@@ -3904,10 +3589,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Gold, copper and silver ingots pressed together (1 per crafting recipe, see the wiki). Only a blast furnace melts it (30 s), always into exactly 1 rose copper ingot."
+          "summary": "2 gold ingots, 1 Rose Gold ingot and 1 silver ingot pressed together (shapeless, 1 per crafting recipe). Only a blast furnace melts it (30 s), always into exactly 1 rose copper ingot."
         },
         "de": {
-          "summary": "Gold-, Kupfer- und Silberbarren, zusammengepresst (1 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenkupferbarren."
+          "summary": "2 Goldbarren, 1 Roségoldbarren und 1 Silberbarren, zusammengepresst (formlos, 1 je Rezept). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Rosenkupferbarren."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_pressling.png",
@@ -3929,10 +3614,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper shovel: durability 250 (like iron), speed 11, enchantability 20. Mines like iron."
+          "summary": "Rose Copper shovel: durability 190 (like copper), speed 8, enchantability 15. Mines like iron."
         },
         "de": {
-          "summary": "Rosenkupferschaufel: Haltbarkeit 250 (wie Eisen), Tempo 11, Verzauberbarkeit 20. Baut ab wie Eisen."
+          "summary": "Rosenkupferschaufel: Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15. Baut ab wie Eisen."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_shovel.png",
@@ -3952,15 +3637,307 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "Rose Copper sword: durability 250 (like iron), speed 11, enchantability 20. Mines like iron."
+          "summary": "Rose Copper sword: durability 190 (like copper), speed 8, enchantability 15. Mines like iron."
         },
         "de": {
-          "summary": "Rosenkupferschwert: Haltbarkeit 250 (wie Eisen), Tempo 11, Verzauberbarkeit 20. Baut ab wie Eisen."
+          "summary": "Rosenkupferschwert: Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15. Baut ab wie Eisen."
         }
       },
       "texture": "assets/textures/simpleores/item/rose_bronze_sword.png",
       "craftedBy": [
         "simpleores:rose_bronze_sword"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_apple",
+      "name": {
+        "en_us": "Rose Gold Apple",
+        "de_de": "Roségold-Apfel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold apple, a step between the golden and the Netherite apple: 6 hunger, always edible. Gives Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. 8 rose gold ingots round an apple."
+        },
+        "de": {
+          "summary": "Roségold-Apfel, eine Stufe zwischen Gold- und Netherit-Apfel: 6 Hunger, immer essbar. Gibt Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. 8 Roségoldbarren um einen Apfel."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_apple.png",
+      "craftedBy": [
+        "simpleores:rose_gold_apple"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_axe",
+      "name": {
+        "en_us": "Rose Gold Axe",
+        "de_de": "Roségoldaxt"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold axe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        },
+        "de": {
+          "summary": "Roségoldaxt: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_axe.png",
+      "craftedBy": [
+        "simpleores:rose_gold_axe"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_boots",
+      "name": {
+        "en_us": "Rose Gold Boots",
+        "de_de": "Roségoldstiefel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold boots: protection 1, durability factor 15, enchantability 25."
+        },
+        "de": {
+          "summary": "Roségoldstiefel: Schutz 1, Haltbarkeitsfaktor 15, Verzauberbarkeit 25."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_boots.png",
+      "craftedBy": [
+        "simpleores:rose_gold_boots"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_chestplate",
+      "name": {
+        "en_us": "Rose Gold Chestplate",
+        "de_de": "Roségoldharnisch"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold chestplate: protection 5, durability factor 15, enchantability 25."
+        },
+        "de": {
+          "summary": "Roségoldharnisch: Schutz 5, Haltbarkeitsfaktor 15, Verzauberbarkeit 25."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_chestplate.png",
+      "craftedBy": [
+        "simpleores:rose_gold_chestplate"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_helmet",
+      "name": {
+        "en_us": "Rose Gold Helmet",
+        "de_de": "Roségoldhelm"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold helmet: protection 2, durability factor 15, enchantability 25."
+        },
+        "de": {
+          "summary": "Roségoldhelm: Schutz 2, Haltbarkeitsfaktor 15, Verzauberbarkeit 25."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_helmet.png",
+      "craftedBy": [
+        "simpleores:rose_gold_helmet"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_hoe",
+      "name": {
+        "en_us": "Rose Gold Hoe",
+        "de_de": "Roségoldhacke"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold hoe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        },
+        "de": {
+          "summary": "Roségoldhacke: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_hoe.png",
+      "craftedBy": [
+        "simpleores:rose_gold_hoe"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_ingot",
+      "name": {
+        "en_us": "Rose Gold Ingot",
+        "de_de": "Roségoldbarren"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold ingot: the better rose gold alloy. Made only by smelting a pressling in a blast furnace."
+        },
+        "de": {
+          "summary": "Roségoldbarren: die bessere Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_ingot.png",
+      "craftedBy": [
+        "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling",
+        "simpleores:rose_gold_ingot_from_rose_gold_block"
+      ],
+      "usedIn": [
+        "simpleores:rose_bronze_pressling_c",
+        "simpleores:rose_gold_apple",
+        "simpleores:rose_gold_axe",
+        "simpleores:rose_gold_block",
+        "simpleores:rose_gold_boots",
+        "simpleores:rose_gold_chestplate",
+        "simpleores:rose_gold_helmet",
+        "simpleores:rose_gold_hoe",
+        "simpleores:rose_gold_leggings",
+        "simpleores:rose_gold_pickaxe",
+        "simpleores:rose_gold_shovel",
+        "simpleores:rose_gold_sword"
+      ]
+    },
+    {
+      "id": "simpleores:rose_gold_leggings",
+      "name": {
+        "en_us": "Rose Gold Leggings",
+        "de_de": "Roségoldbeinschutz"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold leggings: protection 3, durability factor 15, enchantability 25."
+        },
+        "de": {
+          "summary": "Roségoldbeinschutz: Schutz 3, Haltbarkeitsfaktor 15, Verzauberbarkeit 25."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_leggings.png",
+      "craftedBy": [
+        "simpleores:rose_gold_leggings"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_pickaxe",
+      "name": {
+        "en_us": "Rose Gold Pickaxe",
+        "de_de": "Roségoldspitzhacke"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold pickaxe: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        },
+        "de": {
+          "summary": "Roségoldspitzhacke: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_pickaxe.png",
+      "craftedBy": [
+        "simpleores:rose_gold_pickaxe"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_pressling",
+      "name": {
+        "en_us": "Rose Gold Pressling",
+        "de_de": "Roségold-Pressling"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "1 gold, 2 copper and 1 silver ingot pressed together (shapeless, 1 per crafting recipe). Only a blast furnace melts it (30 s), always into exactly 1 rose gold ingot."
+        },
+        "de": {
+          "summary": "1 Gold-, 2 Kupfer- und 1 Silberbarren, zusammengepresst (formlos, 1 je Rezept). Nur der Hochofen schmilzt ihn (30 s), immer zu genau 1 Roségoldbarren."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_pressling.png",
+      "craftedBy": [
+        "simpleores:rose_gold_pressling_a"
+      ],
+      "usedIn": [
+        "simpleores:rose_gold_ingot_from_blasting_rose_gold_pressling"
+      ]
+    },
+    {
+      "id": "simpleores:rose_gold_shovel",
+      "name": {
+        "en_us": "Rose Gold Shovel",
+        "de_de": "Roségoldschaufel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold shovel: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        },
+        "de": {
+          "summary": "Roségoldschaufel: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_shovel.png",
+      "craftedBy": [
+        "simpleores:rose_gold_shovel"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleores:rose_gold_sword",
+      "name": {
+        "en_us": "Rose Gold Sword",
+        "de_de": "Roségoldschwert"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Rose Gold sword: durability 250 (like iron), speed 12 (like gold), enchantability 22. Mines like iron."
+        },
+        "de": {
+          "summary": "Roségoldschwert: Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22. Baut ab wie Eisen."
+        }
+      },
+      "texture": "assets/textures/simpleores/item/rose_gold_sword.png",
+      "craftedBy": [
+        "simpleores:rose_gold_sword"
       ],
       "usedIn": []
     },
@@ -4016,8 +3993,8 @@
         "simpleores:silver_ingot_from_smelting_silver_ore"
       ],
       "usedIn": [
-        "simpleores:rose_gold_pressling_a",
         "simpleores:rose_bronze_pressling_c",
+        "simpleores:rose_gold_pressling_a",
         "simpleores:silver_block",
         "simpleores:silver_nugget",
         "simpleores:silver_sheet"
@@ -4050,32 +4027,6 @@
     }
   ],
   "blocks": [
-    {
-      "id": "simpleores:rose_gold_block",
-      "name": {
-        "en_us": "Block of Rose Gold",
-        "de_de": "Roségoldblock"
-      },
-      "note": {
-        "sources": [
-          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
-        ],
-        "en": {
-          "summary": "Block of Rose Gold: nine ingots (or raw pieces) in a block, craftable both ways."
-        },
-        "de": {
-          "summary": "Roségoldblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
-        }
-      },
-      "texture": "assets/textures/simpleores/block/rose_gold_block.png",
-      "craftedBy": [
-        "simpleores:rose_gold_block"
-      ],
-      "usedIn": [
-        "simpleores:rose_gold_ingot_from_rose_gold_block",
-        "simpleores:enchanted_rose_gold_apple"
-      ]
-    },
     {
       "id": "simpleores:deepslate_lead_ore",
       "name": {
@@ -4399,6 +4350,32 @@
       "usedIn": [
         "simpleores:enchanted_rose_bronze_apple",
         "simpleores:rose_bronze_ingot_from_rose_bronze_block"
+      ]
+    },
+    {
+      "id": "simpleores:rose_gold_block",
+      "name": {
+        "en_us": "Block of Rose Gold",
+        "de_de": "Roségoldblock"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "Block of Rose Gold: nine ingots (or raw pieces) in a block, craftable both ways."
+        },
+        "de": {
+          "summary": "Roségoldblock: neun Barren (oder Rohstücke) in einem Block, in beide Richtungen herstellbar."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/rose_gold_block.png",
+      "craftedBy": [
+        "simpleores:rose_gold_block"
+      ],
+      "usedIn": [
+        "simpleores:enchanted_rose_gold_apple",
+        "simpleores:rose_gold_ingot_from_rose_gold_block"
       ]
     },
     {

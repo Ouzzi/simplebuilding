@@ -46,7 +46,7 @@
           "Mining time: the area time is computed on client and server alike; switching between sneaking (one block) and the area while mining converts the progress, so it never jumps ahead.",
           "Other mods may replace the area (SimpleBuilding: an octant with a selection in the off hand) through SimpleLib's HammerActions.",
           "While a sledgehammer is in the main hand, an outline with a faint fill marks every further block the swing takes along, and while mining them they show breaking cracks too; both follow the same list as the server. SimpleBuilding's highlight key and its option buildingHighlightOpacity (default 40) steer the outline when it is installed.",
-          "Optional (only with Simple Ores installed, otherwise not registered at all): the Rose Copper Sledgehammer (base durability 250 like iron, strike gap 23) and the Rose Gold Sledgehammer (225, gap 22), made like the Gold one from a block and two ingots of the alloy; the area, tempo and tool tier follow the two alloys of Simple Ores (mines like iron)."
+          "Optional (only with Simple Ores installed, otherwise not registered at all): the Rose Copper Sledgehammer (base durability 190 like copper, strike gap 23) and the Rose Gold Sledgehammer (250 like iron, gap 22), made like the Gold one from a block and two ingots of the alloy; the area, tempo and tool tier follow the two alloys of Simple Ores (mines like iron)."
         ]
       },
       "de": {
@@ -59,7 +59,7 @@
           "Abbauzeit: Client und Server rechnen die Flächenzeit gleich; wer beim Abbauen zwischen Schleichen (ein Block) und Fläche wechselt, behält die Abbauzeit, der Fortschritt springt nie vor.",
           "Andere Mods können die Fläche ersetzen (SimpleBuilding: ein Oktant mit Auswahl in der Nebenhand), über SimpleLibs HammerActions.",
           "Solange ein Vorschlaghammer in der Haupthand liegt, markiert ein Umriss mit zarter Füllung jeden weiteren Block, den der Schlag mitnimmt, und beim Abbauen zeigen sie ebenfalls Risse; beides folgt derselben Liste wie der Server. Ist SimpleBuilding installiert, steuern seine Hervorhebungs-Taste und seine Option buildingHighlightOpacity (Standard 40) den Umriss.",
-          "Optional (nur mit Simple Ores, sonst gar nicht registriert): der Rosenkupfer-Vorschlaghammer (Grundhaltbarkeit 250 wie Eisen, Schlagabstand 23) und der Roségold-Vorschlaghammer (225, Abstand 22), hergestellt wie der goldene aus einem Block und zwei Barren der Legierung; Fläche, Tempo und Werkzeugstufe folgen den beiden Legierungen von Simple Ores (baut ab wie Eisen)."
+          "Optional (nur mit Simple Ores, sonst gar nicht registriert): der Rosenkupfer-Vorschlaghammer (Grundhaltbarkeit 190 wie Kupfer, Schlagabstand 23) und der Roségold-Vorschlaghammer (250 wie Eisen, Abstand 22), hergestellt wie der goldene aus einem Block und zwei Barren der Legierung; Fläche, Tempo und Werkzeugstufe folgen den beiden Legierungen von Simple Ores (baut ab wie Eisen)."
         ]
       },
       "related": [
@@ -367,55 +367,6 @@
     }
   ],
   "recipes": [
-    {
-      "id": "simplehammers:rose_gold_sledgehammer",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplehammers:rose_gold_sledgehammer",
-        "count": 1
-      },
-      "source": "modules/simplehammers/shared/resources/data/simplehammers/recipe/rose_gold_sledgehammer.json",
-      "ingredients": [
-        "minecraft:stick",
-        "simpleores:rose_gold_block",
-        "simpleores:rose_gold_ingot"
-      ],
-      "pattern": [
-        "BMM",
-        " S ",
-        " S "
-      ],
-      "key": {
-        "B": [
-          "simpleores:rose_gold_block"
-        ],
-        "M": [
-          "simpleores:rose_gold_ingot"
-        ],
-        "S": [
-          "minecraft:stick"
-        ]
-      },
-      "baseMaterials": {
-        "yield": 1,
-        "materials": [
-          {
-            "id": "simpleores:rose_gold_ingot",
-            "count": 2
-          },
-          {
-            "id": "simpleores:rose_gold_block",
-            "count": 1
-          },
-          {
-            "id": "minecraft:oak_log",
-            "count": 0.25
-          }
-        ]
-      }
-    },
     {
       "id": "simplehammers:copper_sledgehammer",
       "type": "minecraft:crafting_shaped",
@@ -750,6 +701,55 @@
       }
     },
     {
+      "id": "simplehammers:rose_gold_sledgehammer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplehammers:rose_gold_sledgehammer",
+        "count": 1
+      },
+      "source": "modules/simplehammers/shared/resources/data/simplehammers/recipe/rose_gold_sledgehammer.json",
+      "ingredients": [
+        "minecraft:stick",
+        "simpleores:rose_gold_block",
+        "simpleores:rose_gold_ingot"
+      ],
+      "pattern": [
+        "BMM",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "B": [
+          "simpleores:rose_gold_block"
+        ],
+        "M": [
+          "simpleores:rose_gold_ingot"
+        ],
+        "S": [
+          "minecraft:stick"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleores:rose_gold_ingot",
+            "count": 2
+          },
+          {
+            "id": "simpleores:rose_gold_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.25
+          }
+        ]
+      }
+    },
+    {
       "id": "simplehammers:stone_sledgehammer",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -996,11 +996,11 @@
           "required": true
         },
         {
-          "id": "simplehammers:rose_bronze_sledgehammer",
+          "id": "simplehammers:rose_gold_sledgehammer",
           "required": false
         },
         {
-          "id": "simplehammers:rose_gold_sledgehammer",
+          "id": "simplehammers:rose_bronze_sledgehammer",
           "required": false
         }
       ],
@@ -1338,30 +1338,6 @@
   ],
   "items": [
     {
-      "id": "simplehammers:rose_gold_sledgehammer",
-      "name": {
-        "en_us": "Rose Gold Sledgehammer",
-        "de_de": "Roségold-Vorschlaghammer"
-      },
-      "note": {
-        "sources": [
-          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
-          "modules/simplehammers/shared/java/com/simplehammers/registry/HammerRegistry.java"
-        ],
-        "en": {
-          "summary": "A sledgehammer: mines the 3x3 area in front of you, sneak + hold use carves an octet, right-click crushes diamond and quartz blocks, hold use with material in the off hand upgrades blocks in the world."
-        },
-        "de": {
-          "summary": "Ein Vorschlaghammer: baut die 3x3-Fläche vor dir ab, Schleichen + Benutzen halten trägt ein Achtel ab, Rechtsklick zerschlägt Diamant- und Quarzblöcke, Benutzen halten mit Material in der Nebenhand wertet Blöcke in der Welt auf."
-        }
-      },
-      "texture": "assets/textures/simplehammers/item/rose_gold_sledgehammer.png",
-      "craftedBy": [
-        "simplehammers:rose_gold_sledgehammer"
-      ],
-      "usedIn": []
-    },
-    {
       "id": "simplehammers:copper_sledgehammer",
       "name": {
         "en_us": "Copper Sledgehammer",
@@ -1586,6 +1562,30 @@
       "texture": "assets/textures/simplehammers/item/rose_bronze_sledgehammer.png",
       "craftedBy": [
         "simplehammers:rose_bronze_sledgehammer"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simplehammers:rose_gold_sledgehammer",
+      "name": {
+        "en_us": "Rose Gold Sledgehammer",
+        "de_de": "Roségold-Vorschlaghammer"
+      },
+      "note": {
+        "sources": [
+          "modules/simplehammers/shared/java/com/simplehammers/item/SledgehammerItem.java",
+          "modules/simplehammers/shared/java/com/simplehammers/registry/HammerRegistry.java"
+        ],
+        "en": {
+          "summary": "A sledgehammer: mines the 3x3 area in front of you, sneak + hold use carves an octet, right-click crushes diamond and quartz blocks, hold use with material in the off hand upgrades blocks in the world."
+        },
+        "de": {
+          "summary": "Ein Vorschlaghammer: baut die 3x3-Fläche vor dir ab, Schleichen + Benutzen halten trägt ein Achtel ab, Rechtsklick zerschlägt Diamant- und Quarzblöcke, Benutzen halten mit Material in der Nebenhand wertet Blöcke in der Welt auf."
+        }
+      },
+      "texture": "assets/textures/simplehammers/item/rose_gold_sledgehammer.png",
+      "craftedBy": [
+        "simplehammers:rose_gold_sledgehammer"
       ],
       "usedIn": []
     },
