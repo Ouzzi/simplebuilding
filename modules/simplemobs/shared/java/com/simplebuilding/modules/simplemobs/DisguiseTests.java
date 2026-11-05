@@ -229,7 +229,6 @@ final class DisguiseTests {
             h.assertTrue(seen.size() == TrumpetItem.STAGES, "every step is its own note");
             h.assertTrue(Math.abs(TrumpetItem.pitch(18) - 1f) < 1e-6 && Math.abs(TrumpetItem.pitch(6) - 1f) < 1e-6 && Math.abs(TrumpetItem.pitch(24) / TrumpetItem.pitch(12) - 2f) < 1e-5,
                     "each sample is in tune at its reference, an octave is pitch x2");
-            h.assertTrue(TrumpetItem.volume(0.7f) < TrumpetItem.volume(1.4f), "the lowered (longer) sample is a little quieter");
             h.succeed();
         });
         add.accept("trumpet_use", h -> {
@@ -250,11 +249,50 @@ final class DisguiseTests {
                     "use starts holding");
             p.setXRot(-15f);
             int duration = DisguiseRegistry.TRUMPET.getUseDuration(stack, p);
-            for (int used = 0; used < 20; used++) DisguiseRegistry.TRUMPET.onUseTick(level, p, stack, duration - used); // one note every 6 ticks, no exception
+            for (int used = 0; used < 20; used++) DisguiseRegistry.TRUMPET.onUseTick(level, p, stack, duration - used); // no exception, no sound events on the server
             h.assertTrue(stack.getDamageValue() == 0 && stack.getCount() == 1, "playing costs nothing");
             MobsConfig.trumpetEnabled = was;
             var recipe = level.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "trumpet")));
             h.assertTrue(recipe.isPresent(), "the trumpet has a recipe");
+            h.succeed();
+        });
+        // TROMP-3 (05.11.): the tone is a client loop; the server only sends start/change/stop (throttled) to players in range.
+        add.accept("trumpet_net", h -> {
+            var level = h.getLevel();
+            var p = player(h, 1, 1);
+            var got = new java.util.ArrayList<TrumpetNet.TonePayload>();
+            var oldSender = TrumpetNet.sender;
+            TrumpetNet.sender = (to, payload) -> { if (payload instanceof TrumpetNet.TonePayload t) got.add(t); };
+            try {
+                TrumpetNet.forgetAll();
+                var all = java.util.List.of(p);
+                h.assertTrue(TrumpetNet.update(all, p, 6, 100) && got.size() == 1 && got.get(0).note() == 6 && got.get(0).entityId() == p.getId(), "start sends the note");
+                h.assertTrue(!TrumpetNet.update(all, p, 6, 101) && got.size() == 1, "the same note is not sent again");
+                h.assertTrue(!TrumpetNet.update(all, p, 9, 101) && got.size() == 1, "a change within the gap is held back");
+                h.assertTrue(TrumpetNet.update(all, p, 9, 102) && got.size() == 2 && got.get(1).note() == 9, "the change goes out once the gap passed");
+                h.assertTrue(!TrumpetNet.update(all, p, 9, 120) && got.size() == 2 && TrumpetNet.update(all, p, 9, 142) && got.size() == 3 && got.get(2).note() == 9, "the note is repeated every 40 ticks");
+                TrumpetNet.stop(all, p);
+                h.assertTrue(got.size() == 4 && got.get(3).note() == TrumpetNet.STOP, "stop sends -1");
+                TrumpetNet.stop(all, p);
+                h.assertTrue(got.size() == 4, "a second stop is silent");
+                var buf = io.netty.buffer.Unpooled.buffer();
+                TrumpetNet.TonePayload.CODEC.encode(buf, new TrumpetNet.TonePayload(7, 13));
+                var back = TrumpetNet.TonePayload.CODEC.decode(buf);
+                h.assertTrue(back.entityId() == 7 && back.note() == 13, "payload round trip");
+                // a real use: holding sends, releasing stops
+                ItemStack stack = new ItemStack(DisguiseRegistry.TRUMPET);
+                p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+                boolean was = MobsConfig.trumpetEnabled;
+                MobsConfig.trumpetEnabled = true;
+                got.clear();
+                TrumpetNet.update(all, p, TrumpetItem.note(-15f), 500);
+                DisguiseRegistry.TRUMPET.releaseUsing(stack, level, p, 100);
+                MobsConfig.trumpetEnabled = was;
+                h.assertTrue(got.size() == 2 && got.get(0).note() == 24 && got.get(1).note() == TrumpetNet.STOP, "holding sends the note, releasing sends stop");
+            } finally {
+                TrumpetNet.sender = oldSender;
+                TrumpetNet.forgetAll();
+            }
             h.succeed();
         });
         add.accept("cloak_head_slot", h -> {

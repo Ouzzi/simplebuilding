@@ -42,6 +42,7 @@ public final class ModuleGameTest {
     @GameTest(structure = "simplemobs:empty") public void trickMirror(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trickMirrorBalance(GameTestHelper helper) { MobsTests.ALL.get("trick_mirror_balance").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trumpetNotes(GameTestHelper helper) { MobsTests.ALL.get("trumpet_notes").accept(helper); }
+    @GameTest(structure = "simplemobs:empty") public void trumpetNet(GameTestHelper helper) { MobsTests.ALL.get("trumpet_net").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void trumpetUse(GameTestHelper helper) { MobsTests.ALL.get("trumpet_use").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakHeadSlot(GameTestHelper helper) { MobsTests.ALL.get("cloak_head_slot").accept(helper); }
     @GameTest(structure = "simplemobs:empty") public void cloakAirSwing(GameTestHelper helper) { MobsTests.ALL.get("cloak_air_swing").accept(helper); }

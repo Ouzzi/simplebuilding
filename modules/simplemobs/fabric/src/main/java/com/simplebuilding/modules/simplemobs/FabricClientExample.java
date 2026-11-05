@@ -16,6 +16,8 @@ public final class FabricClientExample implements ClientModInitializer {
                 com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.ID, com.simplebuilding.modules.simplemobs.client.WingsLookModelProperty.CODEC);
         MobsConfig.loadClient(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         FearNet.toServer = payload -> { if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(payload.type())) net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload); };
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(TrumpetNet.TonePayload.TYPE,
+                (payload, context) -> com.simplebuilding.modules.simplemobs.client.TrumpetLoop.handle(payload));
         ModelLayerRegistry.registerModelLayer(DeceiverModel.LAYER, DeceiverModel::createBodyLayer);
         ModelLayerRegistry.registerModelLayer(HowlerModel.LAYER, HowlerModel::createBodyLayer);
         EntityRendererRegistry.register(MobsRegistry.DECEIVER, DeceiverRenderer::new);
@@ -42,6 +44,7 @@ public final class FabricClientExample implements ClientModInitializer {
             com.simplebuilding.modules.simplemobs.client.DisguiseLooks.clear();
             com.simplebuilding.modules.simplemobs.client.DeceiverLooks.clear();
             DisguiseMarker.clearClient();
+            com.simplebuilding.modules.simplemobs.client.TrumpetLoop.clear();
         }));
     }
 }
