@@ -8,11 +8,11 @@
     "simplehammers:netherite_sledgehammer",
     "simplehammers:enderite_sledgehammer",
     {
-      "id": "simplehammers:rose_bronze_sledgehammer",
+      "id": "simplehammers:rose_gold_sledgehammer",
       "required": false
     },
     {
-      "id": "simplehammers:rose_gold_sledgehammer",
+      "id": "simplehammers:rose_bronze_sledgehammer",
       "required": false
     }
   ]
