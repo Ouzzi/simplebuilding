@@ -33,12 +33,12 @@ public final class PadsCommands {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        // No requirement on the root: SimpleLib's /simplepads config brings its own permission check (and runs from the console).
         dispatcher.register(Commands.literal(SimplePads.MOD_ID)
-                .requires(OPERATOR_ONLY)
-                .then(ChunkLoaderCommand.node())
-                .then(Commands.literal("teleporterspawn")
+                .then(ChunkLoaderCommand.node().requires(OPERATOR_ONLY))
+                .then(Commands.literal("teleporterspawn").requires(OPERATOR_ONLY)
                         .then(Commands.literal("here").executes(PadsCommands::setTeleporterSpawnHere)))
-                .then(Commands.literal("elytracenter")
+                .then(Commands.literal("elytracenter").requires(OPERATOR_ONLY)
                         .then(Commands.literal("worldspawn").executes(ctx -> change(ctx, "worldspawn", c -> c.spawn.useWorldSpawnAsCenter = true)))
                         .then(Commands.literal("here").executes(ctx -> {
                             BlockPos pos = ctx.getSource().getEntityOrException().blockPosition();
