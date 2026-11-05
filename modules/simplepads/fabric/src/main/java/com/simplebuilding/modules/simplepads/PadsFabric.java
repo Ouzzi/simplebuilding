@@ -43,7 +43,6 @@ public final class PadsFabric implements ModInitializer {
         // CMD24: /simplepads config for every option; a change goes to the clients at once.
         com.simplelib.api.config.ConfigCommands.server(SimplePads.MOD_ID)
                 .gson(PadsConfig.class, SimplePads::localConfig, SimplePads::replaceConfig, () -> new PadsConfig().validate())
-                .keys(PadsConfig.KEYS)
                 .file(FabricLoader.getInstance().getConfigDir(), PadsConfig.FILE)
                 .after(() -> PadsNetwork.sendConfigToAll(server))
                 .register();
