@@ -128,7 +128,8 @@ public final class CrossModGameTest {
             }
             for (ItemStack stack : BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId).getDisplayItems()) {
                 Identifier itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
-                if (!"minecraft".equals(itemId.getNamespace()) && inModTabs.contains(stack.getItem())) {
+                // QW11: Vanilla's convention - a spawn egg also stays in the Spawn Eggs tab.
+                if (!"minecraft".equals(itemId.getNamespace()) && inModTabs.contains(stack.getItem()) && !"spawn_eggs".equals(tabId.getPath())) {
                     problems.add("Vanilla tab " + tabId + " offers the mod item " + itemId);
                 }
             }
@@ -171,9 +172,151 @@ public final class CrossModGameTest {
                 }
             }
         }
+        creativeTabCleanup(problems);
         dumpCreativeTabs(System.getenv("SB_CREATIVE_TAB_DUMP"));
         helper.assertTrue(problems.isEmpty(), "creative tab coverage (" + problems.size() + "): " + problems);
         helper.succeed();
+    }
+
+    /**
+     * QW11 (owner 04.11., "creative tabs aufraeumen"): one named tab per mod, every visible item in exactly one tab of its own mod
+     * (SimpleBuilding has several themed tabs and its own test; the Simple Blocks tab hosts its building blocks), the mod tabs in the
+     * mod tree order, the block families of every tab in family order. Prints the tab table (tab, items) for the report.
+     */
+    private static void creativeTabCleanup(List<String> problems) {
+        var registry = BuiltInRegistries.CREATIVE_MODE_TAB;
+        java.util.Map<String, String> titles = new java.util.HashMap<>();
+        java.util.Map<String, java.util.Map<String, Integer>> tabsOfNamespace = new java.util.HashMap<>();
+        StringBuilder table = new StringBuilder("SB-TABS");
+        for (CreativeModeTab tab : orderedModTabs()) {
+            Identifier tabId = registry.getKey(tab);
+            String key = tab.getDisplayName().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : "";
+            if (!key.startsWith("itemgroup.")) {
+                problems.add(tabId + " has no itemgroup title key: " + key);
+            }
+            String previous = titles.put(key, tabId.toString());
+            if (previous != null) {
+                problems.add(tabId + " and " + previous + " share the title key " + key);
+            }
+            String english = englishName(tabId.getNamespace(), key);
+            if (english == null || !english.startsWith("Simple ")) {
+                problems.add(tabId + " is named '" + english + "', not 'Simple X'");
+            } else if (titles.put("name:" + english, tabId.toString()) != null) {
+                problems.add(tabId + " shares the name '" + english + "' with another tab");
+            }
+            table.append(' ').append(tabId).append('=').append(tab.getDisplayItems().size());
+            // family order: sorting a tab again changes nothing
+            List<ItemStack> shown = new ArrayList<>(tab.getDisplayItems());
+            List<ItemStack> sorted = tabSort(shown);
+            if (!"simplebuilding".equals(tabId.getNamespace()) && !sorted.equals(shown)) {
+                problems.add(tabId + " is not in family order");
+            }
+            for (ItemStack stack : tab.getDisplayItems()) {
+                Identifier item = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                tabsOfNamespace.computeIfAbsent(tabId.getNamespace(), k -> new java.util.HashMap<>()).merge(item + stack.getComponentsPatch().toString(), 1, Integer::sum);
+                if (!item.getNamespace().equals(tabId.getNamespace()) && !"minecraft".equals(item.getNamespace())) {
+                    boolean ownTabHasIt = registry.keySet().stream().filter(id -> id.getNamespace().equals(item.getNamespace()))
+                            .anyMatch(id -> registry.getValue(id).getDisplayItems().stream().anyMatch(o -> o.getItem() == stack.getItem()));
+                    if (ownTabHasIt) {
+                        problems.add(item + " stands in " + tabId + " although a tab of " + item.getNamespace() + " offers it");
+                    }
+                }
+            }
+        }
+        // every item of a mod with a tab stands exactly once in the tabs of that mod (SimpleBuilding: own test)
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            String namespace = id.getNamespace();
+            if ("minecraft".equals(namespace) || "simplebuilding".equals(namespace) || LEGACY_OR_HIDDEN.contains(id.getPath()) || HIDDEN_BY_DESIGN.contains(id.toString())) {
+                continue;
+            }
+            int count = 1;
+            List<ItemStack> seen = new ArrayList<>();
+            for (Identifier tabId : registry.keySet()) {
+                if (tabId.getNamespace().equals(namespace)) {
+                    for (ItemStack stack : registry.getValue(tabId).getDisplayItems()) {
+                        // variants of one item (heads with different mob data) are different stacks; only the same stack twice is a duplicate
+                        if (BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id)) {
+                            if (seen.stream().anyMatch(o -> ItemStack.isSameItemSameComponents(o, stack))) {
+                                count++;
+                            } else {
+                                seen.add(stack);
+                            }
+                        }
+                    }
+                }
+            }
+            if (count > 1 && tabsOfNamespace.containsKey(namespace)) {
+                problems.add(id + " stands " + count + " times in the tabs of " + namespace);
+            }
+        }
+        // one family rule: the test centre gallery (Common copy) and the tabs (SimpleLib TabSort) agree
+        try {
+            Class<?> gallery = Class.forName("com.simplebuilding.dev.testcentre.ModBlockGallery");
+            Class<?> sort = Class.forName("com.simplelib.api.TabSort");
+            for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+                String path = id.getPath();
+                Object a = gallery.getMethod("materialKey", String.class).invoke(null, path);
+                Object b = sort.getMethod("materialKey", String.class).invoke(null, path);
+                if (!a.equals(b)) {
+                    problems.add("family key differs for " + id + ": gallery " + a + " vs TabSort " + b);
+                }
+            }
+        } catch (ReflectiveOperationException e) {
+            problems.add("family rule comparison failed: " + e);
+        }
+        // tab order = mod tree order (SimpleBuilding first)
+        int last = -1;
+        for (CreativeModeTab tab : orderedModTabs()) {
+            if (!tab.shouldDisplay()) {
+                continue;
+            }
+            int rank = tabRank(registry.getKey(tab).getNamespace());
+            if (rank < last) {
+                problems.add(registry.getKey(tab) + " stands out of mod tree order");
+            }
+            last = rank;
+        }
+        System.out.println(table);
+    }
+
+    // The integration source set sees SimpleLib only at run time: its tab rules are called by reflection.
+    @SuppressWarnings("unchecked")
+    private static List<CreativeModeTab> orderedModTabs() {
+        try {
+            return (List<CreativeModeTab>) Class.forName("com.simplelib.api.CreativeTabPolicy").getMethod("orderedModTabs").invoke(null);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<ItemStack> tabSort(List<ItemStack> stacks) {
+        try {
+            return (List<ItemStack>) Class.forName("com.simplelib.api.TabSort").getMethod("sort", List.class).invoke(null, stacks);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private static int tabRank(String namespace) {
+        try {
+            return (int) Class.forName("com.simplelib.api.CreativeTabPolicy").getMethod("rank", String.class).invoke(null, namespace);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /** English name of a tab from the module's en_us.json (null when missing). */
+    private static String englishName(String namespace, String key) {
+        try (var in = CrossModGameTest.class.getResourceAsStream("/assets/" + namespace + "/lang/en_us.json")) {
+            if (in == null) {
+                return null;
+            }
+            var json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            return json.has(key) ? json.get(key).getAsString() : null;
+        } catch (java.io.IOException | RuntimeException e) {
+            return null;
+        }
     }
 
     /**

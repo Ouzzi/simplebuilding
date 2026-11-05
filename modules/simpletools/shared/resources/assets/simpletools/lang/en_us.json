@@ -87,6 +87,7 @@
   "simpletools.option.enableItemFrameReverseRotate.tooltip": "Sneak + right-click turns the item in a\nframe backwards. Default: true.",
   "item.simpletools.biome_brush": "Biome Brush",
   "item.simpletools.biome_brush.tooltip": "Biome material in off hand; sneak: one spot",
+  "itemgroup.simpletools.tools": "Simple Tools",
   "item.simpletools.guide_book": "Simple Tools Guide",
   "simpletools.guide.chapter": "Simple Tools",
   "simpletools.guide.page.1.title": "Simple Tools",

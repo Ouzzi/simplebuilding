@@ -26,6 +26,8 @@ import net.minecraft.world.item.ItemStack;
  *   <li>no mod item stands in a Vanilla tab - unless no mod tab offers it (a module without a tab of its own keeps its guide book there);
  *   <li>no plain Vanilla item (no component changes) stands in a mod tab - a Vanilla item with components, such as an enchanted book of a
  *       mod enchantment, is mod content and stays;
+ *   <li>QW11: a module without a tab list registers a collecting tab ({@link ModTabs}); the items of its namespace move there from the other
+ *       tabs; an item stands in the tab of its own mod only; the block families of a tab are ordered by {@link TabSort};
  *   <li>mod tabs follow the mod tree: a super-mod, then its sub-mods ({@code creative_tab_order.json}, generated from
  *       {@code modules/modules.json} by {@code tools/modtree/tab_order.py}); inside one mod the registration order. Fabric places the mod tabs
  *       alphabetically by id, so the page, row and column of each mod tab are set again (Fabric only, the Vanilla pages stay).
@@ -114,6 +116,7 @@ public final class CreativeTabPolicy {
             }
         }
         Registry<CreativeModeTab> registry = BuiltInRegistries.CREATIVE_MODE_TAB;
+        fillCollectors(registry);
         Set<String> homes = new HashSet<>();
         for (CreativeModeTab tab : registry) {
             Identifier id = registry.getKey(tab);
@@ -125,12 +128,69 @@ public final class CreativeTabPolicy {
             Identifier id = registry.getKey(tab);
             if (id == null || tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
             if (isVanilla(id)) {
+                // QW11: Vanilla's convention keeps a spawn egg in the Spawn Eggs tab as well as in the tab of its mod.
+                if (SPAWN_EGGS.equals(id)) continue;
                 tab.getDisplayItems().removeIf(stack -> isModItem(stack) && homes.contains(key(stack)));
                 tab.getSearchTabDisplayItems().removeIf(stack -> isModItem(stack) && homes.contains(key(stack)));
             } else {
                 tab.getDisplayItems().removeIf(CreativeTabPolicy::isPlainVanilla);
                 tab.getSearchTabDisplayItems().removeIf(CreativeTabPolicy::isPlainVanilla);
             }
+        }
+        // QW11: every item stands in the tab of its own mod - an item another mod's tab shows although its mod has a tab with it leaves
+        // that other tab (a super-mod no longer lists a sub-mod's tools). Items without a tab of their mod stay where they are.
+        java.util.Map<String, Set<String>> own = new java.util.HashMap<>();
+        for (CreativeModeTab tab : registry) {
+            Identifier id = registry.getKey(tab);
+            if (id == null || isVanilla(id) || tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
+            for (ItemStack stack : tab.getDisplayItems()) {
+                if (BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(id.getNamespace())) {
+                    own.computeIfAbsent(id.getNamespace(), k -> new HashSet<>()).add(key(stack));
+                }
+            }
+        }
+        for (CreativeModeTab tab : registry) {
+            Identifier id = registry.getKey(tab);
+            if (id == null || isVanilla(id) || tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
+            java.util.function.Predicate<ItemStack> foreign = stack -> {
+                String namespace = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
+                return !"minecraft".equals(namespace) && !namespace.equals(id.getNamespace()) && own.getOrDefault(namespace, Set.of()).contains(key(stack));
+            };
+            tab.getDisplayItems().removeIf(foreign);
+            tab.getSearchTabDisplayItems().removeIf(foreign);
+        }
+    }
+
+    private static final Identifier SPAWN_EGGS = Identifier.fromNamespaceAndPath("minecraft", "spawn_eggs");
+
+    /** QW11: fills the tabs of {@link ModTabs} with the items of their namespace from the other tabs (Vanilla's order). */
+    private static void fillCollectors(Registry<CreativeModeTab> registry) {
+        for (ModTabs.Collector collector : ModTabs.collectors()) {
+            Set<String> seen = new HashSet<>();
+            List<ItemStack> found = new ArrayList<>();
+            for (CreativeModeTab tab : registry) {
+                if (tab == collector.tab() || tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
+                for (ItemStack stack : tab.getDisplayItems()) {
+                    Identifier item = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                    if (item.getNamespace().equals(collector.namespace()) && !collector.excluded().contains(item.getPath()) && seen.add(key(stack))) {
+                        found.add(stack.copy());
+                    }
+                }
+            }
+            collector.tab().getDisplayItems().clear();
+            collector.tab().getDisplayItems().addAll(found);
+        }
+    }
+
+    /** QW11: orders the block families of every mod tab ({@link TabSort}); SimpleBuilding's tabs keep their hand-made rows. */
+    public static void sortTabs() {
+        Registry<CreativeModeTab> registry = BuiltInRegistries.CREATIVE_MODE_TAB;
+        for (CreativeModeTab tab : registry) {
+            Identifier id = registry.getKey(tab);
+            if (id == null || isVanilla(id) || "simplebuilding".equals(id.getNamespace()) || tab.getType() != CreativeModeTab.Type.CATEGORY) continue;
+            List<ItemStack> sorted = TabSort.sort(new ArrayList<>(tab.getDisplayItems()));
+            tab.getDisplayItems().clear();
+            tab.getDisplayItems().addAll(sorted);
         }
     }
 
@@ -177,6 +237,7 @@ public final class CreativeTabPolicy {
     /** Called by the mixin after Vanilla (and Fabric's pagination) built all tabs. */
     public static void apply() {
         filter();
+        sortTabs();
         reorder();
     }
 }

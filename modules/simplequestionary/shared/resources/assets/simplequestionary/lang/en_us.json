@@ -23,5 +23,6 @@
   "screen.simplequestionary.origin.mine": "Mine",
   "screen.simplequestionary.origin.mine.hint": ": a block found in the world.",
   "screen.simplequestionary.origin.find": "Find",
-  "screen.simplequestionary.origin.find.hint": ": in chests, from mobs or by trading."
+  "screen.simplequestionary.origin.find.hint": ": in chests, from mobs or by trading.",
+  "itemgroup.simplequestionary.questionary": "Simple Questionary"
 }

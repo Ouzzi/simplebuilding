@@ -103,5 +103,6 @@
   "quests.simplelib.start.subtitle": "Your free guide",
   "quests.simplelib.start.welcome.title": "A free guide",
   "quests.simplelib.start.welcome.description": "Craft or pick up a crafting table and claim the Simple Modpack guide as a reward. You can also craft it from a book and a crafting table.",
-  "commands.simplelib.moved": "%s is now %s (the old name still works for now)"
+  "commands.simplelib.moved": "%s is now %s (the old name still works for now)",
+  "itemgroup.simplelib.lib": "Simple Lib"
 }

@@ -159,6 +159,7 @@ public final class ModBlockGallery {
         return null;
     }
 
+    // QW11: Regel identisch zu com.simplelib.api.TabSort (SimpleLib sieht Common nicht in allen Loadern); CrossModGameTest prueft die Gleichheit.
     private static final List<String> FORM_SUFFIXES = List.of("_octet", "_stairs", "_slab", "_wall", "_fence_gate", "_fence",
             "_pane", "_trapdoor", "_door");
     /** Varianten-Woerter, Reihenfolge = Rang in der Spalte (Basis zuerst, dann geschliffen ... gemeisselt, Saeule). */

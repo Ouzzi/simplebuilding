@@ -20,6 +20,7 @@ public final class QuestionaryFabric implements ModInitializer {
         SimpleQuestionary.modName = ns -> FabricLoader.getInstance().getModContainer(ns).map(c -> c.getMetadata().getName()).orElse(ns);
         QuestionaryRegistry.registerBlocks();
         QuestionaryRegistry.registerItems();
+        com.simplelib.api.ModTabs.register(SimpleQuestionary.MOD_ID, "questionary", "itemgroup.simplequestionary.questionary", () -> new net.minecraft.world.item.ItemStack(QuestionaryRegistry.TABLE_ITEM));
         QuestionaryRegistry.registerMenus();
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(out ->
                 out.insertAfter(Items.LECTERN, QuestionaryRegistry.tabStacks(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));

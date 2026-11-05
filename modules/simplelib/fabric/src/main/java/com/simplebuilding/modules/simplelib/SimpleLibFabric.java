@@ -15,6 +15,7 @@ public final class SimpleLibFabric implements ModInitializer {
         com.simplelib.registry.LibMaterials.ensureBlocks();
         com.simplelib.registry.LibMaterials.ensureItems();
         com.simplelib.registry.LibItems.register();
+        com.simplelib.api.ModTabs.register(SimpleLib.MOD_ID, "lib", "itemgroup.simplelib.lib", () -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART), com.simplelib.api.ModpackGuide.ITEM_ID.getPath());
         com.simplelib.registry.LibPotions.register();
         com.simplelib.registry.LibSounds.register();
         net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries ->

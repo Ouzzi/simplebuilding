@@ -2622,8 +2622,8 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * Tab merge T1: with simpleblocks loaded SimpleBuilding registers no building-blocks tab and its rows stand, in order,
-     * behind Simple Blocks' own blocks in {@code simpleblocks:blocks}; alone it keeps {@code simplebuilding:building_blocks}.
+     * Tab merge T1: with simpleblocks loaded SimpleBuilding registers no building-blocks tab and its rows stand
+     * among Simple Blocks' blocks (family order, QW11) in {@code simpleblocks:blocks}; alone it keeps {@code simplebuilding:building_blocks}.
      */
     public static void buildingBlocksTabFollowsSimpleBlocks(GameTestHelper helper) {
         net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
@@ -2641,17 +2641,23 @@ public final class DataIntegrityTests {
             ModItemGroupsContent.populate(ModItemGroupsContent.Tab.BUILDING_BLOCKS, (CreativeModeTab.Output) (stack, visibility) -> expected.add(stack),
                     helper.getLevel().registryAccess());
             helper.assertTrue(!expected.isEmpty(), "the building blocks content is empty");
-            int start = shown.size() - expected.size();
-            if (start < 0) {
-                problems.add("Simple Blocks' tab holds " + shown.size() + " stacks, fewer than SimpleBuilding's " + expected.size());
-            } else {
-                for (int i = 0; i < expected.size(); i++) {
-                    if (!ItemStack.isSameItemSameComponents(shown.get(start + i), expected.get(i))) {
-                        problems.add("slot " + (start + i) + " is " + shown.get(start + i) + " instead of " + expected.get(i));
-                        break;
-                    }
+            // QW11: TabSort groups block families in the whole tab, so SimpleBuilding's rows are no longer a block at the end;
+            // what stays is that all of them are there.
+            if (shown.size() <= expected.size()) {
+                problems.add("Simple Blocks' tab holds " + shown.size() + " stacks, not more than SimpleBuilding's " + expected.size());
+            }
+            for (ItemStack want : expected) {
+                // an item of another mod stands in that mod's own tab (QW11), not in this one
+                Identifier wantId = BuiltInRegistries.ITEM.getKey(want.getItem());
+                if (!MOD_ID.equals(wantId.getNamespace()) && BuiltInRegistries.CREATIVE_MODE_TAB.entrySet().stream()
+                        .anyMatch(e -> e.getKey().identifier().getNamespace().equals(wantId.getNamespace())
+                                && e.getValue().getDisplayItems().stream().anyMatch(o -> o.getItem() == want.getItem()))) {
+                    continue;
                 }
-                if (start == 0) problems.add("Simple Blocks' own blocks are missing in front of SimpleBuilding's rows");
+                if (shown.stream().noneMatch(s -> ItemStack.isSameItemSameComponents(s, want))) {
+                    problems.add(want + " is missing in Simple Blocks' tab");
+                    break;
+                }
             }
         } else if (!BuiltInRegistries.CREATIVE_MODE_TAB.containsKey(own)) {
             problems.add(own + " is missing although simpleblocks is not loaded");

@@ -502,6 +502,20 @@ public final class LibTests {
         check(h, end > 0 && order.get(end + 1).equals("simpleenddragonfight"), "a nested sub-mod follows its parent");
         check(h, com.simplelib.api.CreativeTabPolicy.rank("not_a_mod") == Integer.MAX_VALUE, "unknown namespaces come last");
 
+        // QW11: the family order of the tabs (one rule with the test centre's gallery)
+        check(h, com.simplelib.api.TabSort.materialKey("mossy_stone_brick_wall").equals("stone") && com.simplelib.api.TabSort.materialKey("oak_planks_octet").equals("oak"),
+                "material key without shape and variant words");
+        check(h, com.simplelib.api.TabSort.shapeIndex("x_stairs") < com.simplelib.api.TabSort.shapeIndex("x_slab")
+                && com.simplelib.api.TabSort.shapeIndex("x_slab") < com.simplelib.api.TabSort.shapeIndex("x_wall")
+                && com.simplelib.api.TabSort.shapeIndex("x_wall") < com.simplelib.api.TabSort.shapeIndex("x_octet")
+                && com.simplelib.api.TabSort.shapeIndex("x_block") == -1, "stairs, slab, wall, octet in this order");
+        check(h, com.simplelib.api.TabSort.variantRank("stone") < com.simplelib.api.TabSort.variantRank("polished_stone")
+                && com.simplelib.api.TabSort.variantRank("polished_stone") < com.simplelib.api.TabSort.variantRank("chiseled_stone"), "variants: plain, polished, chiseled");
+        var libTab = net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB.getValue(com.simplelib.SimpleLib.id("lib"));
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(h.getLevel().enabledFeatures(), true, h.getLevel().registryAccess());
+        check(h, libTab != null && libTab.getDisplayItems().stream().anyMatch(s -> s.is(com.simplelib.registry.LibItems.WARPED_WART))
+                && libTab.getDisplayItems().stream().noneMatch(s -> s.is(com.simplelib.registry.LibItems.MODPACK_GUIDE)), "the Simple Lib tab collects the Warped Wart, not the Modpack guide");
+
         var compass = new ItemStack(Items.COMPASS);
         var book = new ItemStack(Items.ENCHANTED_BOOK);
         book.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal("Mod content"));
@@ -523,7 +537,8 @@ public final class LibTests {
         }
         for (var tab : registry) {
             var id = registry.getKey(tab);
-            if (id != null && com.simplelib.api.CreativeTabPolicy.isVanilla(id) && tab.getType() == net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) {
+            // QW11: a spawn egg also stays in Vanilla's Spawn Eggs tab
+            if (id != null && com.simplelib.api.CreativeTabPolicy.isVanilla(id) && !"spawn_eggs".equals(id.getPath()) && tab.getType() == net.minecraft.world.item.CreativeModeTab.Type.CATEGORY) {
                 for (var stack : tab.getDisplayItems()) {
                     check(h, !(com.simplelib.api.CreativeTabPolicy.isModItem(stack) && homes.contains(com.simplelib.api.CreativeTabPolicy.key(stack))),
                             "mod item " + stack + " in the Vanilla tab " + id + " although a mod tab offers it");
