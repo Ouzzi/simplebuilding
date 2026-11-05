@@ -60,9 +60,9 @@ for tag in ('item/arrows', 'entity_type/arrows', 'entity_type/impact_projectiles
     values = json.loads((RES / f'data/minecraft/tags/{tag}.json').read_text(encoding='utf-8'))['values']
     assert values == [f'{NS}:{i}' for i in ITEMS + ['crafted_arrow']], (tag, values)
 # Fletching Table (b-arrows03): one item tag and one recipe per part; parts of other mods only with them (module independence)
-PARTS = {'tip': ['flint', 'copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite', 'amethyst', 'prismarine'],
+PARTS = {'tip': ['flint', 'copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite', 'amethyst', 'prismarine', 'lead'],
          'shaft': ['stick', 'end_rod', 'blaze_rod', 'breeze_rod', 'diamond_rod'], 'fletching': ['feather', 'phantom_membrane']}
-NEEDS = {('tip', 'enderite'): 'simpleores', ('shaft', 'diamond_rod'): 'simplebuilding'}
+NEEDS = {('tip', 'enderite'): 'simpleores', ('tip', 'lead'): 'simpleores', ('shaft', 'diamond_rod'): 'simplebuilding'}
 parts_java = (JAVA / 'fletching/ArrowParts.java').read_text(encoding='utf-8')
 recipe_ids = []
 for kind, names in PARTS.items():

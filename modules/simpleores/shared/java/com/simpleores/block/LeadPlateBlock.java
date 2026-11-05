@@ -27,26 +27,36 @@ public class LeadPlateBlock extends Block {
     /** Thickness in pixels. */
     public static final double THICKNESS = 2.0;
     /** The plate lies against the side of the cell opposite to FACING (it faces away from the block it was placed on). */
-    public static final Map<Direction, VoxelShape> SHAPES = new EnumMap<>(Direction.class);
+    public static final Map<Direction, VoxelShape> SHAPES = shapes(THICKNESS);
 
-    static {
-        double t = THICKNESS, f = 16.0 - THICKNESS;
-        SHAPES.put(Direction.UP, Block.box(0, 0, 0, 16, t, 16));
-        SHAPES.put(Direction.DOWN, Block.box(0, f, 0, 16, 16, 16));
-        SHAPES.put(Direction.NORTH, Block.box(0, 0, f, 16, 16, 16));
-        SHAPES.put(Direction.SOUTH, Block.box(0, 0, 0, 16, 16, t));
-        SHAPES.put(Direction.WEST, Block.box(f, 0, 0, 16, 16, 16));
-        SHAPES.put(Direction.EAST, Block.box(0, 0, 0, t, 16, 16));
+    private final Map<Direction, VoxelShape> shapes;
+
+    /** The six plate shapes of the given thickness in pixels (the silver sheet reuses this with one pixel). */
+    protected static Map<Direction, VoxelShape> shapes(double t) {
+        double f = 16.0 - t;
+        Map<Direction, VoxelShape> m = new EnumMap<>(Direction.class);
+        m.put(Direction.UP, Block.box(0, 0, 0, 16, t, 16));
+        m.put(Direction.DOWN, Block.box(0, f, 0, 16, 16, 16));
+        m.put(Direction.NORTH, Block.box(0, 0, f, 16, 16, 16));
+        m.put(Direction.SOUTH, Block.box(0, 0, 0, 16, 16, t));
+        m.put(Direction.WEST, Block.box(f, 0, 0, 16, 16, 16));
+        m.put(Direction.EAST, Block.box(0, 0, 0, t, 16, 16));
+        return m;
     }
 
     public LeadPlateBlock(BlockBehaviour.Properties properties) {
+        this(properties, SHAPES);
+    }
+
+    protected LeadPlateBlock(BlockBehaviour.Properties properties, Map<Direction, VoxelShape> shapes) {
         super(properties);
+        this.shapes = shapes;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.getValue(FACING));
+        return this.shapes.get(state.getValue(FACING));
     }
 
     @Override

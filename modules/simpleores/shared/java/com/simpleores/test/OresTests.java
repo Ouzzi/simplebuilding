@@ -386,9 +386,38 @@ public final class OresTests {
         ALL.put("silver_mirror_recipe", h -> {
             // The silver arrow moved to Simple Arrows on 03.11. (its tests: simplearrows module_game_test_*).
             check(h, !OresRegistry.ITEMS.containsKey("silver_arrow"), "no silver arrow here any more");
-            List<ItemStack> mirror = new ArrayList<>(List.of(ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), new ItemStack(Items.GLASS_PANE),
+            check(h, craft(h, CraftingInput.of(2, 1, List.of(new ItemStack(Items.GLASS_PANE), stack("silver_sheet")))).is(item("silver_mirror")), "glass pane + silver sheet -> mirror");
+            check(h, craft(h, CraftingInput.of(2, 1, List.of(stack("silver_sheet"), new ItemStack(Items.GLASS_PANE)))).is(item("silver_mirror")), "shapeless: either order");
+            List<ItemStack> old = new ArrayList<>(List.of(ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), new ItemStack(Items.GLASS_PANE),
                     stack("silver_ingot"), ItemStack.EMPTY, stack("silver_ingot"), ItemStack.EMPTY));
-            check(h, craft(h, CraftingInput.of(3, 3, mirror)).is(item("silver_mirror")), "4 silver ingots round a glass pane -> mirror");
+            check(h, craft(h, CraftingInput.of(3, 3, old)).isEmpty(), "the old recipe (4 silver ingots round a glass pane) is gone");
+            h.succeed();
+        });
+        ALL.put("silver_sheet_recipe", h -> {
+            var input = CraftingInput.of(3, 1, List.of(stack("silver_ingot"), stack("silver_ingot"), stack("silver_ingot")));
+            check(h, craft(h, input).is(item("silver_sheet")) && craft(h, input).getCount() == 12, "3 silver ingots in a row -> 12 silver sheets");
+            h.succeed();
+        });
+        ALL.put("silver_sheet_placement", h -> {
+            BlockState sheet = OresRegistry.SILVER_SHEET.defaultBlockState();
+            check(h, new ItemStack(item("silver_sheet")).getItem() instanceof net.minecraft.world.item.BlockItem, "has a block item");
+            ServerLevel level = h.getLevel();
+            BlockPos at = h.absolutePos(new BlockPos(2, 2, 2));
+            for (Direction d : Direction.values()) {
+                BlockState s = sheet.setValue(LeadPlateBlock.FACING, d);
+                var shape = s.getShape(level, at);
+                double thickness = shape.max(d.getAxis()) - shape.min(d.getAxis());
+                check(h, Math.abs(thickness - 1.0 / 16.0) < 1.0E-9, d + ": one pixel thick, was " + thickness);
+                for (Direction.Axis axis : Direction.Axis.values()) {
+                    if (axis == d.getAxis()) continue;
+                    check(h, shape.min(axis) == 0.0 && shape.max(axis) == 1.0, d + ": covers the whole side on " + axis);
+                }
+                check(h, s.canSurvive(level, at), "needs no support (" + d + ")");
+            }
+            // placed like the plate: the facing is the clicked face
+            check(h, sheet.getBlock() instanceof LeadPlateBlock && !(OresRegistry.LEAD_PLATE.defaultBlockState().getShape(level, at).equals(sheet.getShape(level, at))), "thinner than the 2 px lead plate");
+            level.setBlockAndUpdate(at, sheet.setValue(LeadPlateBlock.FACING, Direction.NORTH));
+            check(h, level.getBlockState(at).is(OresRegistry.SILVER_SHEET), "placed");
             h.succeed();
         });
         ALL.put("silver_mirror_placement", h -> {

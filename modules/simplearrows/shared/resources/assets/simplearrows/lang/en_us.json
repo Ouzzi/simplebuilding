@@ -31,6 +31,8 @@
   "container.simplearrows.fletching.effect.tip.enderite": "+1.5 damage, flies straight for the first second",
   "item.simplearrows.crafted_arrow.tip.amethyst": "Amethyst Arrow",
   "container.simplearrows.fletching.effect.tip.amethyst": "Shatters on impact: 1 damage to everything close by",
+  "item.simplearrows.crafted_arrow.tip.lead": "Lead Arrow",
+  "container.simplearrows.fletching.effect.tip.lead": "+0.5 damage, drops faster (1.5x gravity)",
   "item.simplearrows.crafted_arrow.tip.prismarine": "Prismarine Arrow",
   "container.simplearrows.fletching.effect.tip.prismarine": "Not slowed down by water",
   "item.simplearrows.crafted_arrow.shaft.stick": "Shaft: Stick",

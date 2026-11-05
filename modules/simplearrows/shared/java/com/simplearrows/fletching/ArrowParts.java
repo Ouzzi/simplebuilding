@@ -37,7 +37,9 @@ public final class ArrowParts {
         NETHERITE("netherite", 1.5, Target.NONE, 0.0),
         ENDERITE("enderite", 1.5, Target.NONE, 0.0),
         AMETHYST("amethyst", 0.0, Target.NONE, 0.0),
-        PRISMARINE("prismarine", 0.0, Target.NONE, 0.0);
+        PRISMARINE("prismarine", 0.0, Target.NONE, 0.0),
+        /** Lead nugget (Simple Ores): a heavy head, +0.5 damage like iron but no target bonus, and the arrow falls faster. Appended last: the wire codec uses the ordinal. */
+        LEAD("lead", 0.5, Target.NONE, 0.0, LEAD_GRAVITY);
 
         private final String id;
         private final TagKey<Item> tag;
@@ -45,7 +47,15 @@ public final class ArrowParts {
         private final Target target;
         public final double targetBonus;
 
+        /** Gravity factor of this head (1 = plain). */
+        public final double gravity;
+
         Tip(String id, double damageBonus, Target target, double targetBonus) {
+            this(id, damageBonus, target, targetBonus, 1.0);
+        }
+
+        Tip(String id, double damageBonus, Target target, double targetBonus, double gravity) {
+            this.gravity = gravity;
             this.id = id;
             this.tag = partTag("tip", id);
             this.damageBonus = damageBonus;
@@ -169,6 +179,8 @@ public final class ArrowParts {
         }
     }
 
+    /** Blei-Spitze: Schwerkraft-Faktor (schwerer Kopf: faellt schneller; Phantomhaut mit 0,7 gleicht ihn fast aus). */
+    public static final double LEAD_GRAVITY = 1.5;
     /** Ein Pfeil ist fuer die erste Sekunde ohne Schwerkraft (Enderit-Spitze). */
     public static final int ENDERITE_WEIGHTLESS_TICKS = 20;
     /** Lohenrute: so viele Ticks brennt das Ziel zusaetzlich zu Flamme. */
@@ -197,9 +209,9 @@ public final class ArrowParts {
                 ByteBufCodecs.idMapper(i -> Fletching.values()[i], Fletching::ordinal), Parts::fletching,
                 Parts::new);
 
-        /** Schwerkraft-Faktor aus Schaft und Befiederung. */
+        /** Schwerkraft-Faktor aus Spitze, Schaft und Befiederung. */
         public double gravityFactor() {
-            return shaft.gravity * fletching.gravity;
+            return tip.gravity * shaft.gravity * fletching.gravity;
         }
 
         /** Zusaetzlicher Schaden gegen dieses Ziel: Spitze (Grund- und Zielbonus) plus Schaft. */

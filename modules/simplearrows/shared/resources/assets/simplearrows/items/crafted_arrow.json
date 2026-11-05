@@ -140,6 +140,13 @@
               "type": "minecraft:model",
               "model": "simplearrows:item/arrow/tip_prismarine"
             }
+          },
+          {
+            "when": "lead",
+            "model": {
+              "type": "minecraft:model",
+              "model": "simplearrows:item/arrow/tip_lead"
+            }
           }
         ],
         "fallback": {
