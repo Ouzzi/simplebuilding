@@ -581,16 +581,16 @@ public final class PadOverhaulTests {
         for (String id : List.of("elytra_pad", "reinforced_elytra_pad", "netherite_elytra_pad", "enderite_elytra_pad", "fine_elytra_pad",
                 "spawn_teleporter", "spawn_teleporter_tier_2", "enderite_spawn_teleporter", "potion_pad", "reinforced_potion_pad", "infused_potion_pad")) {
             String blockstate = resource(helper, "/assets/simplepads/blockstates/" + id + ".json");
-            helper.assertTrue(blockstate.contains("simplebuilding:block/" + id + "_active"), "the blockstate of " + id + " has no active model");
+            helper.assertTrue(blockstate.contains("simplepads:block/" + id + "_active"), "the blockstate of " + id + " has no active model");
             String model = resource(helper, "/assets/simplepads/models/block/" + id + "_active.json");
-            helper.assertTrue(model.contains("simplebuilding:block/" + id + "_active"), "the active model of " + id + " does not use its active texture");
+            helper.assertTrue(model.contains("simplepads:block/" + id + "_active"), "the active model of " + id + " does not use its active texture");
             helper.assertTrue(PadOverhaulTests.class.getResource("/assets/simplepads/textures/block/" + id + "_active.png") != null,
                     "no active texture for " + id);
         }
         for (String id : List.of("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "copper_pressure_plate",
                 "exposed_copper_pressure_plate", "weathered_copper_pressure_plate", "oxidized_copper_pressure_plate")) {
             String model = resource(helper, "/assets/simplepads/models/block/" + id + "_down.json");
-            helper.assertTrue(model.contains("simplebuilding:block/" + id + "_active"), "the pressed " + id + " does not glow");
+            helper.assertTrue(model.contains("simplepads:block/" + id + "_active"), "the pressed " + id + " does not glow");
             helper.assertTrue(PadOverhaulTests.class.getResource("/assets/simplepads/textures/block/" + id + "_active.png") != null,
                     "no glowing texture for the pressed " + id);
         }

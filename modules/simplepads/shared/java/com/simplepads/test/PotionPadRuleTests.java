@@ -259,7 +259,7 @@ public final class PotionPadRuleTests {
             }
         });
         for (String id : PotionPadRules.TABLE.keySet()) {
-            if (!registered.contains(id)) {
+            if (!registered.contains(id) && !id.startsWith("simplebuilding:")) { // optional Simple Building effects
                 problems.add("the rule table names " + id + ", which is no registered effect");
             }
         }

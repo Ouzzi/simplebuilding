@@ -145,12 +145,12 @@ public final class ModuleGameTest {
     }
 
     @GameTest
-    public void potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator(GameTestHelper h) {
+    public void potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToComparator(GameTestHelper h) {
         PadsTests.ALL.get("potion_pads_are_switched_off_by_redstone_and_report_their_state_to_a_comparator").accept(h);
     }
 
     @GameTest(maxTicks = com.simplepads.test.PotionPadTests.AUTOMATION_MAX_TICKS)
-    public void aDispenserFillsThePotionPadButAHopperCannot(GameTestHelper h) {
+    public void aDispenserFillsThePotionPadButHopperCannot(GameTestHelper h) {
         PadsTests.ALL.get("a_dispenser_fills_the_potion_pad_but_a_hopper_cannot").accept(h);
     }
 

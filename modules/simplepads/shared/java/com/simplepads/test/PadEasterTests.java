@@ -573,7 +573,7 @@ public final class PadEasterTests {
     }
 
     private static JsonObject langFile(GameTestHelper helper, String locale) {
-        String path = "assets/simplebuilding/lang/" + locale + ".json";
+        String path = "assets/simplepads/lang/" + locale + ".json";
         try (InputStream in = PadEasterTests.class.getClassLoader().getResourceAsStream(path)) {
             helper.assertTrue(in != null, path + " is not on the classpath");
             return JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();

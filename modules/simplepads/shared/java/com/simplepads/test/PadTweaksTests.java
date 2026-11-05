@@ -1030,7 +1030,7 @@ public final class PadTweaksTests {
 
         List<Block> pads = new ArrayList<>();
         for (Block block : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
-            if (block.getClass().getPackageName().startsWith("com.simplepads.tweaks")
+            if (block.getClass().getPackageName().startsWith("com.simplepads.block")
                     && block.defaultBlockState().hasProperty(BlockStateProperties.WATERLOGGED)) {
                 pads.add(block);
             }
