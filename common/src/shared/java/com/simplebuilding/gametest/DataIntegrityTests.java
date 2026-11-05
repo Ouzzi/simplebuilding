@@ -2587,6 +2587,10 @@ public final class DataIntegrityTests {
      * spacer) are the only exceptions.
      */
     public static void everyRegisteredItemIsInSomeCreativeTab(GameTestHelper helper) {
+        // tryRebuildTabContents is a no-op while its parameters stay the same, so an earlier test that switched a sub-mod
+        // left stale tabs behind (order-dependent flake): change the parameters first to force a fresh build.
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), false,
+                helper.getLevel().registryAccess());
         net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
                 helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
@@ -2624,6 +2628,10 @@ public final class DataIntegrityTests {
      * among Simple Blocks' blocks (family order, QW11) in {@code simpleblocks:blocks}; alone it keeps {@code simplebuilding:building_blocks}.
      */
     public static void buildingBlocksTabFollowsSimpleBlocks(GameTestHelper helper) {
+        // tryRebuildTabContents is a no-op while its parameters stay the same, so an earlier test that switched a sub-mod
+        // left stale tabs behind (order-dependent flake): change the parameters first to force a fresh build.
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), false,
+                helper.getLevel().registryAccess());
         net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
                 helper.getLevel().registryAccess());
         List<String> problems = new ArrayList<>();
