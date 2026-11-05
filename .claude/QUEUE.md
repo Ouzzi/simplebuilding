@@ -1094,3 +1094,36 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [x] (B, b-qw08, 04.11.) QW08-1 Wackel-Tests an der Ursache: backup (Abbruch je Lauf), void_tricks (Lookup), boar, soundproof, web_http, wreck (Diagnose), howler/mobs2 --check, wiki test_textures. Plan docs/ai/PLAN-B-QW08-2026-11-04.md
 ## b-ench03 (04.11.) - Dark Enchanter dezent animiert (DW04A, Wortlaut /root/b-antworten-20261104a.md)
 - [~] (B, b-ench03, 04.11., gebaut: Frame 0 = abgenommenes Bild, Ebene „Glimmen“ – Stern atmet, Saumspitzen/Ecken glimmen reihum, 8 Frames x 6 Ticks interpoliert wie Astral (Astral unverändert); Generator tools/textures/ench03_textures.py, Plan docs/ai/PLAN-B-ENCH03-2026-11-04.md, Bild abnahme-b/bilder/ENCH03.gif + ENCH03.jpg; offen Besitzer-Abnahme ENCH03, Client-Sicht) DW04A-4 „der dark enchanter soll auch eine leichte animation haben, subtle.“
+
+## Besitzer 05.11. (über A, B ohne Kontingent bis 06.11. 23:00 UTC)
+Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
+- [ ] IG31-42 **Block-Paletten vervollständigen** (Release-relevant, PRIO):
+  - Alle Steinfamilien sollen dieselbe Palette haben wie im Bild (Besitzer hat Mod- und Vanilla-Blöcke nach Familien aufgereiht): Block, Treppe, Stufe, Mauer, Octets, sofern bei uns üblich, plus Cracked/Chiseled-Glieder der Familie.
+  - Fehlend genannt:
+    - Polished Granite Wall.
+    - Mossy Deepslate Tiles und Mossy Deepslate Bricks (je Block, Treppe, Stufe, Mauer).
+    - Cracked Prismarine, Cracked Prismarine Bricks, Cracked Dark Prismarine.
+    - Cracked Polished Deepslate.
+    - Mossy-Varianten von Cinnabar und Sulfur (Treppe, Stufe, Mauer …).
+    - Mud Bricks (Rest).
+    - End Stone (Palette).
+    - Block of Astralit und Block of Nihilit (Varianten).
+    - Cracked Blue Nether Bricks.
+    - Cobbled Deepslate (Palette prüfen).
+  - Familienlogik des Besitzers:
+    - Jede Grundart ist eine eigene Familie, z. B. Stone, Cobblestone, Stone Bricks, Mossy Stone Bricks, Cobbled Deepslate, Polished Deepslate, Deepslate Bricks usw.
+    - Chiseled und Cracked gehören zur Familie, aus der sie entstehen (Chiseled/Cracked Stone Bricks → Stone Bricks).
+    - Deepslate selbst gehört zu Cobbled Deepslate.
+    - Ausreißer wie Deepslate pur brauchen keine volle Palette, außer es passt besser zur Kontinuität.
+  - VORGEHEN:
+    1. Erst eine Analyse-Tabelle: Familie × Glied, Bestand Vanilla/Mod, fehlt. Als Vorschau, zeigt auch die Anordnung für Testzentrum/Kreativ-Tab.
+    2. Dann bauen nach Endholz-Prozess, Texturen aus Vanilla abgeleitet.
+    3. Testzentrum/Galerie in Familien-Reihen anordnen wie im Bild.
+- [ ] IG31-43 **Free Look Fehler** (QoL-Release-Blocker):
+  - Beim Zurückdrehen nimmt die Kamera nicht den kürzesten Weg zum Fadenkreuz bzw. zur Spieler-Blickrichtung, sondern fährt den Pfad zurück.
+  - Das Zurückdrehen ruckelt.
+  - Das Fadenkreuz ruckelt im Free Look und hat einen Layout-Shift.
+  - Fix: Interpolation über den kürzesten Winkel (Yaw wrap ±180°), framebasiert mit partialTick, Fadenkreuz fest.
+- [ ] IG31-44 **Alle Befehle beginnen mit dem Namen ihrer Mod**, z. B. `/simplestorage …`, `/simpleresonance …`.
+  - Bestand aller registrierten Commands auflisten, umbenennen.
+  - Alte Namen als Alias für eine Übergangszeit. Wiki/Handbuch/Tests anpassen.
