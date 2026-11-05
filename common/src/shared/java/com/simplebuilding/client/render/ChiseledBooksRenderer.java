@@ -2,7 +2,6 @@ package com.simplebuilding.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.ModItems;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -85,7 +84,7 @@ public class ChiseledBooksRenderer implements BlockEntityRenderer<ChiseledBookSh
         poseStack.pushPose();
         // The slot geometry is that of the north-facing model; turn it like the blockstate's y rotation (north 0, east 90, ...).
         poseStack.translate(0.5F, 0.0F, 0.5F);
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - state.facing.toYRot()));
+        poseStack.mulPose(new org.joml.Matrix4f().rotationY((float) Math.toRadians(180.0F - state.facing.toYRot())));
         poseStack.translate(-0.5F, 0.0F, -0.5F);
         for (int k = 0; k < KINDS.length; k++) {
             final int kind = k;
