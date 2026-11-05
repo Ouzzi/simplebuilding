@@ -67,6 +67,7 @@ public final class LibTests {
         ALL.put("hang_watchdog_dump", HangTests::hangWatchdogDump);
         ALL.put("dev_variants_registry_persistence", DevVariantTests::registryAndPersistence);
         ALL.put("free_look_release_rules", LibTests::freeLookReleaseRules);
+        ALL.put("free_look_ease_back", LibTests::freeLookEaseBack);
         ALL.put("enderite_only_with_ores", LibTests::enderiteOnlyWithOres);
         ALL.put("modpack_guide_item", ModpackGuideTests::item);
         ALL.put("modpack_guide_sections", ModpackGuideTests::sections);
@@ -243,6 +244,16 @@ public final class LibTests {
         check(h, LibConfig.warmBaseTicks == LibConfig.WARM_BASE_MAX, "warm base not clamped");
         LibConfig.reset();
         check(h, LibConfig.warmBaseTicks == LibConfig.WARM_BASE_DEFAULT && LibConfig.eatSpeedBonus == LibConfig.EAT_BONUS_DEFAULT, "defaults wrong");
+        h.succeed();
+    }
+
+    /** IG31-43: the ease-back takes the shortest angle (170 to -170 is 20 degrees) and eases out from 1 to 0. */
+    private static void freeLookEaseBack(GameTestHelper h) {
+        check(h, Math.abs(com.simplelib.api.FreeLookRules.shortestDelta(170f, -170f) - 20f) < 1e-3f, "170 to -170 must be +20");
+        check(h, Math.abs(com.simplelib.api.FreeLookRules.shortestDelta(-170f, 170f) + 20f) < 1e-3f, "-170 to 170 must be -20");
+        check(h, Math.abs(com.simplelib.api.FreeLookRules.shortestDelta(350f, 0f) - 10f) < 1e-3f, "350 to 0 must be +10");
+        check(h, com.simplelib.api.FreeLookRules.easeOutRemaining(0f) == 1f && com.simplelib.api.FreeLookRules.easeOutRemaining(1f) == 0f, "ease ends wrong");
+        check(h, com.simplelib.api.FreeLookRules.easeOutRemaining(0.5f) < 0.2f, "ease-out must be fast at first");
         h.succeed();
     }
 

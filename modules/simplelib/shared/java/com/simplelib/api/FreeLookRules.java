@@ -1,5 +1,6 @@
 package com.simplelib.api;
 
+import net.minecraft.util.Mth;
 import java.util.Locale;
 
 /**
@@ -71,5 +72,16 @@ public final class FreeLookRules {
 
     public static boolean enforced() {
         return enforce;
+    }
+
+    /** Shortest signed angle in degrees that turns {@code from} to {@code to} (e.g. 170 to -170 is +20, not -340). */
+    public static float shortestDelta(float from, float to) {
+        return Mth.wrapDegrees(to - from);
+    }
+
+    /** Ease-out (cubic) remaining share of the start offset after {@code t} (0..1) of the duration. */
+    public static float easeOutRemaining(float t) {
+        float u = 1 - Math.max(0f, Math.min(1f, t));
+        return u * u * u;
     }
 }

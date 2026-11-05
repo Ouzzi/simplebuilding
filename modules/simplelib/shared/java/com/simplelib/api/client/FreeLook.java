@@ -64,12 +64,39 @@ public final class FreeLook {
             if (!screen) toggled = !toggled;
         }
         if (was && !active()) end(player);
-        if (!active()) {
-            yaw *= 0.66f;
-            pitch *= 0.66f;
-            if (Math.abs(yaw) < 0.05f) yaw = 0;
-            if (Math.abs(pitch) < 0.05f) pitch = 0;
+        if (was && !active() && !easing) startEase();
+        if (active()) easing = false;
+    }
+
+    /** Ease-back duration in ms (IG31-43). */
+    public static final long EASE_MS = 200;
+    private static boolean easing;
+    private static long easeStart;
+    private static float easeYaw, easePitch;
+
+    /** Start the frame-based turn back to the player's view over the shortest angle (no path history). */
+    private static void startEase() {
+        if (yaw == 0 && pitch == 0) return;
+        easeYaw = -FreeLookRules.shortestDelta(yaw, 0);
+        easePitch = pitch;
+        easeStart = System.nanoTime();
+        easing = true;
+        update();
+    }
+
+    /** Called from the render-side getters, so the easing follows frames and not ticks. */
+    private static void update() {
+        if (!easing) return;
+        float t = (System.nanoTime() - easeStart) / (EASE_MS * 1.0e6f);
+        if (t >= 1f) {
+            yaw = 0;
+            pitch = 0;
+            easing = false;
+            return;
         }
+        float r = FreeLookRules.easeOutRemaining(t);
+        yaw = easeYaw * r;
+        pitch = easePitch * r;
     }
 
     /** Free look ended: in {@link FreeLookRules.Release#PLAYER} the player takes over the camera's direction at once. */
@@ -86,6 +113,7 @@ public final class FreeLook {
 
     /** Off, no offset, and the hold key has to be released before it counts again (join, world change, respawn). */
     public static void reset() {
+        easing = false;
         held = false;
         toggled = false;
         yaw = 0;
@@ -97,20 +125,25 @@ public final class FreeLook {
 
     /** Mouse turn while on (same scale as {@code Entity.turn}: degrees = delta * 0.15). */
     public static void turn(double dYaw, double dPitch, float playerPitch) {
+        update();
+        easing = false;
         yaw += (float) (dYaw * 0.15);
         pitch = Math.max(-90 - playerPitch, Math.min(90 - playerPitch, pitch + (float) (dPitch * 0.15)));
     }
 
     public static float yawOffset() {
+        update();
         return yaw;
     }
 
     public static float pitchOffset() {
+        update();
         return pitch;
     }
 
     /** For tests: set the offset and the hold state directly. */
     public static void set(float yawOffset, float pitchOffset, boolean isHeld) {
+        easing = false;
         yaw = yawOffset;
         pitch = pitchOffset;
         held = isHeld;
@@ -133,7 +166,7 @@ public final class FreeLook {
      * a body that does not turn. Null when free look is off or the offset is zero.
      */
     public static Quaternionf handCorrection(float playerYRot, float playerXRot) {
-        if (!handFix || (yaw == 0 && pitch == 0)) return null;
+        if (!handFix || (yawOffset() == 0 && pitchOffset() == 0)) return null;
         Quaternionf body = orientation(playerYRot, playerXRot);
         float camPitch = Math.max(-90, Math.min(90, playerXRot + pitch));
         return orientation(playerYRot + yaw, camPitch).conjugate().mul(body);
@@ -144,8 +177,8 @@ public final class FreeLook {
      * it is behind the camera or free look/the option is off. {@code fovDegrees} is the vertical field of view.
      */
     public static int[] crosshairPoint(float playerXRot, int guiWidth, int guiHeight, double fovDegrees) {
-        if (!active() || !FreeLookRules.crosshair()) return null;
-        Quaternionf cam = orientation(yaw, Math.max(-90, Math.min(90, playerXRot + pitch)));
+        if ((!active() && !easing) || !FreeLookRules.crosshair()) return null;
+        Quaternionf cam = orientation(yawOffset(), Math.max(-90, Math.min(90, playerXRot + pitchOffset())));
         Vector3f v = cam.conjugate().transform(orientation(0, playerXRot).transform(new Vector3f(0, 0, -1)));
         if (v.z >= -1.0e-4f) return null;
         double focal = guiHeight / 2.0 / Math.tan(Math.toRadians(fovDegrees) / 2);
