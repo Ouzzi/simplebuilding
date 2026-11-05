@@ -176,8 +176,12 @@ public final class FreeLook {
      * Where the body direction (the real aim point) is on the screen while free look is on: {x, y} in GUI pixels, or null when
      * it is behind the camera or free look/the option is off. {@code fovDegrees} is the vertical field of view.
      */
+    public static boolean crosshairOn() {
+        return (active() || easing) && FreeLookRules.crosshair();
+    }
+
     public static int[] crosshairPoint(float playerXRot, int guiWidth, int guiHeight, double fovDegrees) {
-        if ((!active() && !easing) || !FreeLookRules.crosshair()) return null;
+        if (!crosshairOn()) return null;
         Quaternionf cam = orientation(yawOffset(), Math.max(-90, Math.min(90, playerXRot + pitchOffset())));
         Vector3f v = cam.conjugate().transform(orientation(0, playerXRot).transform(new Vector3f(0, 0, -1)));
         if (v.z >= -1.0e-4f) return null;
