@@ -19011,6 +19011,7 @@
         "simplebuilding:nihil_vault",
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
+        "simplebuilding:nihilith_book",
         "simplebuilding:nihilith_brick_slab_from_end_stone_brick_slab",
         "simplebuilding:nihilith_brick_stairs_from_end_stone_brick_stairs",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
@@ -42254,6 +42255,58 @@
       }
     },
     {
+      "id": "simplebuilding:ashwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:ashwood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json",
+      "ingredients": [
+        "simplebuilding:nihilith_book",
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        "PPP",
+        "NNN",
+        "PPP"
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:nihilith_book"
+        ],
+        "P": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 9
+          },
+          {
+            "id": "simpleend:ashwood_planks",
+            "count": 6
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:ashwood_cauldron",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -50477,6 +50530,58 @@
           {
             "id": "minecraft:diamond",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:duskwood_bookshelf",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleend:duskwood_bookshelf",
+        "count": 1
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json",
+      "ingredients": [
+        "simplebuilding:nihilith_book",
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        "PPP",
+        "NNN",
+        "PPP"
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:nihilith_book"
+        ],
+        "P": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 9
+          },
+          {
+            "id": "simpleend:duskwood_planks",
+            "count": 6
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 3
           }
         ]
       }
@@ -62018,6 +62123,54 @@
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_book",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_book",
+        "count": 1
+      },
+      "source": "mc26_3/generated/data/simplebuilding/recipe/nihilith_book.json",
+      "ingredients": [
+        "minecraft:book",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        " N ",
+        "NKN",
+        " N "
+      ],
+      "key": {
+        "K": [
+          "minecraft:book"
+        ],
+        "N": [
+          "simplebuilding:nihilith_shard"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          },
+          {
+            "id": "minecraft:sugar_cane",
+            "count": 3
+          },
+          {
+            "id": "minecraft:leather",
+            "count": 1
           }
         ]
       }
@@ -127918,7 +128071,7 @@
   "counts": {
     "items": 491,
     "blocks": 283,
-    "recipes": 802,
+    "recipes": 805,
     "lootTables": 302,
     "trades": 20,
     "enchantments": 13,
