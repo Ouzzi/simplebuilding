@@ -67,8 +67,8 @@ public final class GuideBooks {
      * {@code /befehl} im Text und {@code GuideBookTests} prueft ihn gegen den Befehlsbaum des Servers.
      */
     public static final List<String> ADMIN_COMMANDS = List.of("simplebuilding config list", "simplebuilding config get",
-            "simplebuilding config set", "simplebuilding config reset", "simplebuilding tweaks pads", "simplebuilding chunkloaders list",
-            "simplebuilding tweaks worldspawn setspawn1", "killboats", "killcarts");
+            "simplebuilding config set", "simplebuilding config reset", "simplepads config set", "simplepads chunkloaders list",
+            "simplepads teleporterspawn here", "simplebuilding killboats", "simplebuilding killcarts");
     /** Config-Optionen, die das Admin-Buch nennt; jede steht im Text und ist ein Pfad aus {@code ConfigOptions}. */
     public static final List<String> ADMIN_OPTIONS = List.of("tweaks.pads.enableFlypads", "tweaks.commands.killCommandRadius",
             "tweaks.commands.enableKillCartsCommand", "giveGuideBookOnFirstJoin", "worldGen.enableLootTableChanges",
