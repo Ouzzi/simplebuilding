@@ -37,6 +37,9 @@
       "id": "simplelib:basic_upgrade_template",
       "required": false
     },
+    "simplebuilding:astralit_slab",
+    "simplebuilding:astralit_stairs",
+    "simplebuilding:astralit_wall",
     "simplebuilding:blackstone_chess_bishop",
     "simplebuilding:blackstone_chess_bishop_flat",
     "simplebuilding:blackstone_chess_king",
@@ -115,6 +118,7 @@
     "simplebuilding:ender_quartz_pillar",
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
+    "simplebuilding:ender_quartz_wall",
     "simplebuilding:enderite_apple",
     "simplebuilding:enderite_axe",
     {
@@ -281,6 +285,9 @@
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:nihilith_quartz_checker_slab",
     "simplebuilding:nihilith_quartz_checker_stairs",
+    "simplebuilding:nihilith_slab",
+    "simplebuilding:nihilith_stairs",
+    "simplebuilding:nihilith_wall",
     "simplebuilding:octant",
     "simplebuilding:octant_black",
     "simplebuilding:octant_blue",

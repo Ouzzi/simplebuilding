@@ -66,7 +66,23 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/astralit_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/astralit_wall",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/bridge_redstone",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/ender_quartz_wall",
       "required": false
     },
     {
@@ -315,6 +331,18 @@
     },
     {
       "id": "simplemoney:links/simplebuilding/nihilith_shard",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_slab",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_stairs",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/nihilith_wall",
       "required": false
     },
     {

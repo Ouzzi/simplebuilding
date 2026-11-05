@@ -1,0 +1,17 @@
+{
+  "type": "simplebuilding:reinforced_bundle",
+  "category": "equipment",
+  "key": {
+    "B": "simplebuilding:paint_box",
+    "D": "simplebuilding:diamond_pebble",
+    "N": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "NDN",
+    "DBD",
+    "NDN"
+  ],
+  "result": {
+    "id": "simplebuilding:reinforced_paint_box"
+  }
+}

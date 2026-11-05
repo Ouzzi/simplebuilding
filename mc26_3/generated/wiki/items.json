@@ -23,6 +23,9 @@
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:astralit_quartz_checker_slab",
     "simplebuilding:astralit_quartz_checker_stairs",
+    "simplebuilding:astralit_slab",
+    "simplebuilding:astralit_stairs",
+    "simplebuilding:astralit_wall",
     "simplebuilding:auto_smither",
     "simplebuilding:autonomous_crafter",
     "simplebuilding:bamboo_cauldron",
@@ -84,6 +87,7 @@
     "simplebuilding:ender_quartz_pillar",
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
+    "simplebuilding:ender_quartz_wall",
     "simplebuilding:enderite_pole",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
@@ -155,6 +159,9 @@
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:nihilith_quartz_checker_slab",
     "simplebuilding:nihilith_quartz_checker_stairs",
+    "simplebuilding:nihilith_slab",
+    "simplebuilding:nihilith_stairs",
+    "simplebuilding:nihilith_wall",
     "simplebuilding:note_amplifier",
     "simplebuilding:oak_cauldron",
     "simplebuilding:oak_door_1_5x2",
@@ -371,6 +378,15 @@
     },
     {
       "id": "simplebuilding:astralit_quartz_checker_stairs"
+    },
+    {
+      "id": "simplebuilding:astralit_slab"
+    },
+    {
+      "id": "simplebuilding:astralit_stairs"
+    },
+    {
+      "id": "simplebuilding:astralit_wall"
     },
     {
       "id": "simplebuilding:auto_smither"
@@ -761,6 +777,9 @@
     },
     {
       "id": "simplebuilding:ender_quartz_stairs"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_wall"
     },
     {
       "id": "simplebuilding:enderite_apple"
@@ -1370,6 +1389,15 @@
     },
     {
       "id": "simplebuilding:nihilith_shard"
+    },
+    {
+      "id": "simplebuilding:nihilith_slab"
+    },
+    {
+      "id": "simplebuilding:nihilith_stairs"
+    },
+    {
+      "id": "simplebuilding:nihilith_wall"
     },
     {
       "id": "simplebuilding:note_amplifier"

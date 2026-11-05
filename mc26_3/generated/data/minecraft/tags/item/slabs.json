@@ -1,7 +1,9 @@
 {
   "values": [
+    "simplebuilding:astralit_slab",
     "simplebuilding:astralit_brick_slab",
     "simplebuilding:polished_astralit_slab",
+    "simplebuilding:nihilith_slab",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:ender_quartz_slab",

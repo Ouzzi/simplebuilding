@@ -1402,12 +1402,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 }
                 chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, p.chiseled(), Ingredient.of(p.brickSlab()))
                         .unlockedBy(getHasName(p.brickSlab()), has(p.brickSlab())).save(exporter);
-                if (p.blockStairs() != null) {
-                    // Wie quartz_stairs/quartz_slab: Treppe 6 -> 4, Stufe 3 -> 6, Steinmetz 1 -> 1 bzw. 1 -> 2
+                {
+                    // Wie quartz_stairs/quartz_slab: Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6, Steinmetz 1 -> 1 bzw. 1 -> 2
                     stairBuilder(p.blockStairs(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
                     slabBuilder(RecipeCategory.BUILDING_BLOCKS, p.blockSlab(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.blockStairs(), p.block());
                     stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.blockSlab(), p.block(), 2);
+                    wallBuilder(RecipeCategory.DECORATIONS, p.blockWall(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
+                    stonecutterResultFromBase(RecipeCategory.DECORATIONS, p.blockWall(), p.block());
                 }
 
                 // Steinmetz: Grundblock -> alles, poliert -> polierte Familie + Ziegelfamilie + Saeule +

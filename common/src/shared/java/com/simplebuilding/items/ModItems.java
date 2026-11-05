@@ -231,6 +231,9 @@ public class ModItems {
     public static final Item CHISELED_NIHILITH_BRICKS = registerItem("chiseled_nihilith_bricks", s -> new BlockItem(ModBlocks.CHISELED_NIHILITH_BRICKS, s));
     // Vervollstaendigte End-Paletten (siehe ModBlocks.END_PALETTES)
     public static final Item ASTRALIT_BLOCK = registerItem("astralit_block", s -> new BlockItem(ModBlocks.ASTRALIT_BLOCK, s));
+    public static final Item ASTRALIT_STAIRS = registerItem("astralit_stairs", s -> new BlockItem(ModBlocks.ASTRALIT_STAIRS, s));
+    public static final Item ASTRALIT_SLAB = registerItem("astralit_slab", s -> new BlockItem(ModBlocks.ASTRALIT_SLAB, s));
+    public static final Item ASTRALIT_WALL = registerItem("astralit_wall", s -> new BlockItem(ModBlocks.ASTRALIT_WALL, s));
     public static final Item POLISHED_ASTRALIT = registerItem("polished_astralit", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT, s));
     public static final Item VEINED_ASTRALIT = registerItem("veined_astralit", s -> new BlockItem(ModBlocks.VEINED_ASTRALIT, s));
     public static final Item CRYSTALLINE_ASTRALIT = registerItem("crystalline_astralit", s -> new BlockItem(ModBlocks.CRYSTALLINE_ASTRALIT, s));
@@ -242,6 +245,9 @@ public class ModItems {
     public static final Item POLISHED_ASTRALIT_SLAB = registerItem("polished_astralit_slab", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_SLAB, s));
     public static final Item POLISHED_ASTRALIT_WALL = registerItem("polished_astralit_wall", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_WALL, s));
     public static final Item NIHILITH_BLOCK = registerItem("nihilith_block", s -> new BlockItem(ModBlocks.NIHILITH_BLOCK, s));
+    public static final Item NIHILITH_STAIRS = registerItem("nihilith_stairs", s -> new BlockItem(ModBlocks.NIHILITH_STAIRS, s));
+    public static final Item NIHILITH_SLAB = registerItem("nihilith_slab", s -> new BlockItem(ModBlocks.NIHILITH_SLAB, s));
+    public static final Item NIHILITH_WALL = registerItem("nihilith_wall", s -> new BlockItem(ModBlocks.NIHILITH_WALL, s));
     public static final Item POLISHED_NIHILITH = registerItem("polished_nihilith", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH, s));
     public static final Item POLISHED_NIHILITH_STAIRS = registerItem("polished_nihilith_stairs", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_STAIRS, s));
     public static final Item POLISHED_NIHILITH_SLAB = registerItem("polished_nihilith_slab", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_SLAB, s));
@@ -259,6 +265,7 @@ public class ModItems {
     public static final Item CHISELED_ENDER_QUARTZ_BRICKS = registerItem("chiseled_ender_quartz_bricks", s -> new BlockItem(ModBlocks.CHISELED_ENDER_QUARTZ_BRICKS, s));
     public static final Item ENDER_QUARTZ_STAIRS = registerItem("ender_quartz_stairs", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_STAIRS, s));
     public static final Item ENDER_QUARTZ_SLAB = registerItem("ender_quartz_slab", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_SLAB, s));
+    public static final Item ENDER_QUARTZ_WALL = registerItem("ender_quartz_wall", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_WALL, s));
 
 
 

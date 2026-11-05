@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 497,
+      "count": 504,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3552,6 +3552,12 @@
         "simplebuilding:astralit_brick_wall_from_astralit_block_stonecutting",
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
+        "simplebuilding:astralit_slab",
+        "simplebuilding:astralit_slab_from_astralit_block_stonecutting",
+        "simplebuilding:astralit_stairs",
+        "simplebuilding:astralit_stairs_from_astralit_block_stonecutting",
+        "simplebuilding:astralit_wall",
+        "simplebuilding:astralit_wall_from_astralit_block_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
         "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
@@ -4643,6 +4649,54 @@
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_slab",
+      "name": {
+        "en_us": "Astralit Slab",
+        "de_de": "Astralitstufe"
+      },
+      "texture": "assets/textures/block/astralit_block.png",
+      "craftedBy": [
+        "simplebuilding:astralit_slab",
+        "simplebuilding:astralit_slab_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_stairs",
+      "name": {
+        "en_us": "Astralit Stairs",
+        "de_de": "Astralittreppe"
+      },
+      "texture": "assets/textures/block/astralit_block.png",
+      "craftedBy": [
+        "simplebuilding:astralit_stairs",
+        "simplebuilding:astralit_stairs_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_wall",
+      "name": {
+        "en_us": "Astralit Wall",
+        "de_de": "Astralitmauer"
+      },
+      "texture": "assets/textures/block/astralit_block.png",
+      "craftedBy": [
+        "simplebuilding:astralit_wall",
+        "simplebuilding:astralit_wall_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -9668,6 +9722,8 @@
         "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_stairs",
         "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_wall",
+        "simplebuilding:ender_quartz_wall_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
@@ -10612,6 +10668,22 @@
       "usedIn": [],
       "trades": [],
       "icon": "assets/textures/render/ender_quartz_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_quartz_wall",
+      "name": {
+        "en_us": "Ender Quartz Wall",
+        "de_de": "Enderquarzmauer"
+      },
+      "texture": "assets/textures/block/ender_quartz_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_quartz_wall",
+        "simplebuilding:ender_quartz_wall_from_ender_quartz_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_quartz_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -17959,6 +18031,12 @@
         "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_bricks_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_pillar_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_slab",
+        "simplebuilding:nihilith_slab_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_stairs",
+        "simplebuilding:nihilith_stairs_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_wall",
+        "simplebuilding:nihilith_wall_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith",
         "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
@@ -19066,6 +19144,54 @@
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_slab",
+      "name": {
+        "en_us": "Nihilit Slab",
+        "de_de": "Nihilitstufe"
+      },
+      "texture": "assets/textures/block/nihilith_block.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_slab",
+        "simplebuilding:nihilith_slab_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_slab.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_stairs",
+      "name": {
+        "en_us": "Nihilit Stairs",
+        "de_de": "Nihilittreppe"
+      },
+      "texture": "assets/textures/block/nihilith_block.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_stairs",
+        "simplebuilding:nihilith_stairs_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_stairs.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_wall",
+      "name": {
+        "en_us": "Nihilit Wall",
+        "de_de": "Nihilitmauer"
+      },
+      "texture": "assets/textures/block/nihilith_block.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_wall",
+        "simplebuilding:nihilith_wall_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -28781,6 +28907,12 @@
         "simplebuilding:astralit_brick_wall_from_astralit_block_stonecutting",
         "simplebuilding:astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:astralit_pillar_from_astralit_block_stonecutting",
+        "simplebuilding:astralit_slab",
+        "simplebuilding:astralit_slab_from_astralit_block_stonecutting",
+        "simplebuilding:astralit_stairs",
+        "simplebuilding:astralit_stairs_from_astralit_block_stonecutting",
+        "simplebuilding:astralit_wall",
+        "simplebuilding:astralit_wall_from_astralit_block_stonecutting",
         "simplebuilding:chiseled_astralit_bricks_from_astralit_block_stonecutting",
         "simplebuilding:crystalline_astralit_from_astralit_block_stonecutting",
         "simplebuilding:layered_astralit_from_astralit_block_stonecutting",
@@ -29195,6 +29327,66 @@
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_slab",
+      "name": {
+        "en_us": "Astralit Slab",
+        "de_de": "Astralitstufe"
+      },
+      "texture": "assets/textures/block/astralit_block.png",
+      "craftedBy": [
+        "simplebuilding:astralit_slab",
+        "simplebuilding:astralit_slab_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_slab.png",
+      "lootTable": "simplebuilding:blocks/astralit_slab",
+      "drops": [
+        "simplebuilding:astralit_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_stairs",
+      "name": {
+        "en_us": "Astralit Stairs",
+        "de_de": "Astralittreppe"
+      },
+      "texture": "assets/textures/block/astralit_block.png",
+      "craftedBy": [
+        "simplebuilding:astralit_stairs",
+        "simplebuilding:astralit_stairs_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_stairs.png",
+      "lootTable": "simplebuilding:blocks/astralit_stairs",
+      "drops": [
+        "simplebuilding:astralit_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_wall",
+      "name": {
+        "en_us": "Astralit Wall",
+        "de_de": "Astralitmauer"
+      },
+      "texture": "assets/textures/block/astralit_block.png",
+      "craftedBy": [
+        "simplebuilding:astralit_wall",
+        "simplebuilding:astralit_wall_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/astralit_wall.png",
+      "lootTable": "simplebuilding:blocks/astralit_wall",
+      "drops": [
+        "simplebuilding:astralit_wall"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -31650,6 +31842,8 @@
         "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_stairs",
         "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_wall",
+        "simplebuilding:ender_quartz_wall_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
@@ -31969,6 +32163,26 @@
       "lootTable": "simplebuilding:blocks/ender_quartz_stairs",
       "drops": [
         "simplebuilding:ender_quartz_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_quartz_wall",
+      "name": {
+        "en_us": "Ender Quartz Wall",
+        "de_de": "Enderquarzmauer"
+      },
+      "texture": "assets/textures/block/ender_quartz_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_quartz_wall",
+        "simplebuilding:ender_quartz_wall_from_ender_quartz_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/ender_quartz_wall.png",
+      "lootTable": "simplebuilding:blocks/ender_quartz_wall",
+      "drops": [
+        "simplebuilding:ender_quartz_wall"
       ],
       "hasCustomBehaviour": false
     },
@@ -35133,6 +35347,12 @@
         "simplebuilding:nihilith_brick_wall_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_bricks_from_nihilith_block_stonecutting",
         "simplebuilding:nihilith_pillar_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_slab",
+        "simplebuilding:nihilith_slab_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_stairs",
+        "simplebuilding:nihilith_stairs_from_nihilith_block_stonecutting",
+        "simplebuilding:nihilith_wall",
+        "simplebuilding:nihilith_wall_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith",
         "simplebuilding:polished_nihilith_from_nihilith_block_stonecutting",
         "simplebuilding:polished_nihilith_slab_from_nihilith_block_stonecutting",
@@ -35544,6 +35764,66 @@
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_slab",
+      "name": {
+        "en_us": "Nihilit Slab",
+        "de_de": "Nihilitstufe"
+      },
+      "texture": "assets/textures/block/nihilith_block.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_slab",
+        "simplebuilding:nihilith_slab_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_slab.png",
+      "lootTable": "simplebuilding:blocks/nihilith_slab",
+      "drops": [
+        "simplebuilding:nihilith_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_stairs",
+      "name": {
+        "en_us": "Nihilit Stairs",
+        "de_de": "Nihilittreppe"
+      },
+      "texture": "assets/textures/block/nihilith_block.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_stairs",
+        "simplebuilding:nihilith_stairs_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_stairs.png",
+      "lootTable": "simplebuilding:blocks/nihilith_stairs",
+      "drops": [
+        "simplebuilding:nihilith_stairs"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_wall",
+      "name": {
+        "en_us": "Nihilit Wall",
+        "de_de": "Nihilitmauer"
+      },
+      "texture": "assets/textures/block/nihilith_block.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_wall",
+        "simplebuilding:nihilith_wall_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/nihilith_wall.png",
+      "lootTable": "simplebuilding:blocks/nihilith_wall",
+      "drops": [
+        "simplebuilding:nihilith_wall"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -42219,6 +42499,210 @@
           {
             "id": "simplebuilding:dull_astralit_dust",
             "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_slab",
+        "count": 6
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_slab.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_slab_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_slab",
+        "count": 2
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_slab_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_stairs",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_stairs.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 96
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_stairs_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_stairs",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_stairs_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_wall",
+        "count": 6
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_wall.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 96
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:astralit_wall_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_wall",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_wall_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 16
           }
         ]
       }
@@ -50354,6 +50838,90 @@
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_wall",
+        "count": 6
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_wall.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 48
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_wall_from_ender_quartz_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_wall",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_wall_from_ender_quartz_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_astralit_dust",
+            "count": 8
+          },
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 8
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_apple",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -51732,6 +52300,54 @@
           "simpleores:enderite_ingot"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:netherite_paint_box",
+                "simpleores:enderite_ingot",
+                "simpleores:enderite_upgrade_template"
+              ],
+              "other": [
+                "simplebuilding:enderite_ingot",
+                "simplebuilding:enderite_upgrade_template",
+                "simplebuilding:netherite_paint_box"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simpleores:enderite_upgrade_template"
+                ],
+                "base": [
+                  "simplebuilding:netherite_paint_box"
+                ],
+                "addition": [
+                  "simpleores:enderite_ingot"
+                ]
+              },
+              "other": {
+                "template": [
+                  "simplebuilding:enderite_upgrade_template"
+                ],
+                "base": [
+                  "simplebuilding:netherite_paint_box"
+                ],
+                "addition": [
+                  "simplebuilding:enderite_ingot"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/enderite_paint_box_smithing.json"
+        }
+      ],
       "lines": [
         "26.3"
       ],
@@ -59698,6 +60314,210 @@
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_slab",
+        "count": 6
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_slab.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 48
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_slab_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_slab",
+        "count": 2
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_slab_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_stairs",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_stairs.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 96
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_stairs_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_stairs",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_stairs_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_wall",
+        "count": 6
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_wall.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 96
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_wall_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_wall",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_wall_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
           }
         ]
       }
@@ -67719,6 +68539,54 @@
           "minecraft:gold_nugget"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "26.2"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:gold_nugget",
+                "simplebuilding:paint_box",
+                "simplelib:diamond_pebble"
+              ],
+              "other": [
+                "minecraft:gold_nugget",
+                "simplebuilding:diamond_pebble",
+                "simplebuilding:paint_box"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "B": [
+                  "simplebuilding:paint_box"
+                ],
+                "D": [
+                  "simplelib:diamond_pebble"
+                ],
+                "N": [
+                  "minecraft:gold_nugget"
+                ]
+              },
+              "other": {
+                "B": [
+                  "simplebuilding:paint_box"
+                ],
+                "D": [
+                  "simplebuilding:diamond_pebble"
+                ],
+                "N": [
+                  "minecraft:gold_nugget"
+                ]
+              }
+            }
+          ],
+          "source": "src/main/generated/data/simplebuilding/recipe/reinforced_paint_box.json"
+        }
+      ],
       "lines": [
         "26.3"
       ],
@@ -75805,6 +76673,36 @@
       ]
     },
     {
+      "id": "simplebuilding:enderite_paint_box_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_paint_box",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_paint_box_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_paint_box"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_paint_box"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_pickaxe_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -79348,6 +80246,41 @@
       ]
     },
     {
+      "id": "simplebuilding:reinforced_paint_box",
+      "type": "simplebuilding:reinforced_bundle",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_paint_box",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_paint_box.json",
+      "ingredients": [
+        "minecraft:gold_nugget",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:paint_box"
+      ],
+      "pattern": [
+        "NDN",
+        "DBD",
+        "NDN"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:paint_box"
+        ],
+        "D": [
+          "simplebuilding:diamond_pebble"
+        ],
+        "N": [
+          "minecraft:gold_nugget"
+        ]
+      },
+      "lines": [
+        "26.2"
+      ]
+    },
+    {
       "id": "simplebuilding:reinforced_piston",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -82257,6 +83190,58 @@
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker_stairs.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astralit_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/astralit_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:astralit_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/astralit_wall.json"
+    },
+    {
       "id": "simplebuilding:blocks/auto_smither",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -83360,6 +84345,24 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_quartz_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:ender_quartz_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/ender_quartz_wall.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_pole",
@@ -84648,6 +85651,58 @@
         }
       ],
       "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_stairs.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simplebuilding:nihilith_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "mc26_3/generated/data/simplebuilding/loot_table/blocks/nihilith_wall.json"
     },
     {
       "id": "simplebuilding:blocks/note_amplifier",
@@ -90018,6 +91073,18 @@
           "required": false
         },
         {
+          "id": "simplebuilding:astralit_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_wall",
+          "required": true
+        },
+        {
           "id": "simplebuilding:blackstone_chess_bishop",
           "required": true
         },
@@ -90267,6 +91334,10 @@
         },
         {
           "id": "simplebuilding:ender_quartz_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:ender_quartz_wall",
           "required": true
         },
         {
@@ -90739,6 +91810,18 @@
         },
         {
           "id": "simplebuilding:nihilith_quartz_checker_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_slab",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_stairs",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_wall",
           "required": true
         },
         {
@@ -122298,10 +123381,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 491,
-    "blocks": 248,
-    "recipes": 779,
-    "lootTables": 267,
+    "items": 498,
+    "blocks": 255,
+    "recipes": 793,
+    "lootTables": 274,
     "trades": 20,
     "enchantments": 13,
     "tags": 55,
