@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:mossy_deepslate_tiles",
+  "result": {
+    "id": "simpleblocks:mossy_deepslate_tile_stairs"
+  }
+}

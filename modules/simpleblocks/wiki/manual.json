@@ -155,11 +155,48 @@
         "simpleblocks:cut_red_sandstone_stairs",
         "simpleblocks:cut_red_sandstone_wall",
         "simpleblocks:smooth_sandstone_wall",
-        "simpleblocks:smooth_red_sandstone_wall"
+        "simpleblocks:smooth_red_sandstone_wall",
+        "simpleblocks:mossy_deepslate_brick_stairs",
+        "simpleblocks:mossy_deepslate_brick_slab",
+        "simpleblocks:mossy_deepslate_brick_wall",
+        "simpleblocks:mossy_deepslate_tile_stairs",
+        "simpleblocks:mossy_deepslate_tile_slab",
+        "simpleblocks:mossy_deepslate_tile_wall",
+        "simpleblocks:mossy_tuff_brick_stairs",
+        "simpleblocks:mossy_tuff_brick_slab",
+        "simpleblocks:mossy_tuff_brick_wall",
+        "simpleblocks:mossy_mud_brick_stairs",
+        "simpleblocks:mossy_mud_brick_slab",
+        "simpleblocks:mossy_mud_brick_wall",
+        "simpleblocks:mossy_end_stone_brick_stairs",
+        "simpleblocks:mossy_end_stone_brick_slab",
+        "simpleblocks:mossy_end_stone_brick_wall",
+        "simpleblocks:mossy_cinnabar_brick_stairs",
+        "simpleblocks:mossy_cinnabar_brick_slab",
+        "simpleblocks:mossy_cinnabar_brick_wall",
+        "simpleblocks:mossy_sulfur_brick_stairs",
+        "simpleblocks:mossy_sulfur_brick_slab",
+        "simpleblocks:mossy_sulfur_brick_wall",
+        "simpleblocks:stone_wall",
+        "simpleblocks:smooth_stone_stairs",
+        "simpleblocks:polished_granite_wall",
+        "simpleblocks:polished_diorite_wall",
+        "simpleblocks:polished_andesite_wall",
+        "simpleblocks:quartz_wall",
+        "simpleblocks:smooth_quartz_wall",
+        "simpleblocks:purpur_wall",
+        "simpleblocks:quartz_brick_stairs",
+        "simpleblocks:quartz_brick_slab",
+        "simpleblocks:quartz_brick_wall",
+        "simpleblocks:end_stone_stairs",
+        "simpleblocks:end_stone_slab",
+        "simpleblocks:end_stone_wall",
+        "simpleblocks:prismarine_brick_wall",
+        "simpleblocks:dark_prismarine_wall"
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls.",
+        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls. Since the palette completion (IG31-42): stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -168,7 +205,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein.",
+        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein. Seit der Paletten-Vervollständigung (IG31-42): Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -197,11 +234,16 @@
         "simpleblocks:cracked_cinnabar_bricks",
         "simpleblocks:mossy_cinnabar_bricks",
         "simpleblocks:cracked_sulfur_bricks",
-        "simpleblocks:mossy_sulfur_bricks"
+        "simpleblocks:mossy_sulfur_bricks",
+        "simpleblocks:cracked_prismarine",
+        "simpleblocks:cracked_prismarine_bricks",
+        "simpleblocks:cracked_dark_prismarine",
+        "simpleblocks:cracked_polished_deepslate",
+        "simpleblocks:cracked_blue_nether_bricks"
       ],
       "en": {
         "title": "Cracked and Mossy Bricks",
-        "summary": "Aged variants of Vanilla bricks that have none: cracked Red Nether, Tuff, Mud, End Stone, Cinnabar and Sulfur bricks; mossy Tuff, Mud, End Stone, Cinnabar and Sulfur bricks, mossy Deepslate Bricks and Tiles.",
+        "summary": "Aged variants of Vanilla bricks that have none: cracked Red Nether, Tuff, Mud, End Stone, Cinnabar and Sulfur bricks; mossy Tuff, Mud, End Stone, Cinnabar and Sulfur bricks, mossy Deepslate Bricks and Tiles. Also cracked Prismarine, Prismarine Bricks, Dark Prismarine, Polished Deepslate and Blue Nether Bricks (smelt the base block).",
         "details": [
           "Cracked: smelt the brick in a furnace, like Vanilla's cracked stone bricks. Mossy: the brick and a Moss Block, shapeless.",
           "Full blocks only, with the properties of the brick they age.",
@@ -210,7 +252,7 @@
       },
       "de": {
         "title": "Rissige und bemooste Ziegel",
-        "summary": "Gealterte Varianten von Vanilla-Ziegeln, die keine haben: rissige Rote Netherziegel sowie rissige Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel; bemooste Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel, bemooste Tiefenschieferziegel und -fliesen.",
+        "summary": "Gealterte Varianten von Vanilla-Ziegeln, die keine haben: rissige Rote Netherziegel sowie rissige Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel; bemooste Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel, bemooste Tiefenschieferziegel und -fliesen. Außerdem rissiger Prismarin, rissige Prismarinziegel, rissiger Dunkler Prismarin, rissiger Polierter Tiefenschiefer und rissige Blaue Netherziegel (den Grundblock schmelzen).",
         "details": [
           "Rissig: den Ziegel im Ofen schmelzen, wie Vanillas rissige Steinziegel. Bemoost: der Ziegel und ein Moosblock, formlos.",
           "Nur Vollblöcke, mit den Eigenschaften des Ziegels, den sie altern.",
@@ -520,10 +562,10 @@
         "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
       ],
       "en": {
-        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 18 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 22 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
       },
       "de": {
-        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 18 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 22 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
       }
     },
     "*_slab": {

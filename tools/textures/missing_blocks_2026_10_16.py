@@ -39,6 +39,11 @@ AGED = [
     ('mossy_deepslate_bricks', 'deepslate_bricks', 'mossy'), ('mossy_deepslate_tiles', 'deepslate_tiles', 'mossy'),
     ('cracked_cinnabar_bricks', 'cinnabar_bricks', 'cracked'), ('mossy_cinnabar_bricks', 'cinnabar_bricks', 'mossy'),
     ('cracked_sulfur_bricks', 'sulfur_bricks', 'cracked'), ('mossy_sulfur_bricks', 'sulfur_bricks', 'mossy'),
+    # a-palette05 (IG31-42, owner PAL05=ok): the five missing cracked blocks, the same cracks as above (prismarine: first frame of the
+    # animated texture; blue nether bricks: our own committed texture).
+    ('cracked_prismarine', 'prismarine', 'cracked'), ('cracked_prismarine_bricks', 'prismarine_bricks', 'cracked'),
+    ('cracked_dark_prismarine', 'dark_prismarine', 'cracked'), ('cracked_polished_deepslate', 'polished_deepslate', 'cracked'),
+    ('cracked_blue_nether_bricks', 'simpleblocks:blue_nether_bricks', 'cracked'),
 ]
 # Moss ramp (dark to light): the same in every family, like Vanilla's one green on every mossy block.
 MOSS = [(58, 82, 36), (78, 108, 44), (100, 134, 56), (126, 160, 72)]
@@ -96,7 +101,11 @@ def derived(jar):
     out = {}
     with zipfile.ZipFile(jar) as z:
         for i, (name, base, kind) in enumerate(AGED):
-            src = Image.open(io.BytesIO(z.read(f'assets/minecraft/textures/block/{base}.png'))).convert('RGBA')
+            if base.startswith('simpleblocks:'):  # our own committed texture, not a Vanilla one
+                src = Image.open(OUT / f'{base.split(":")[1]}.png').convert('RGBA')
+            else:
+                src = Image.open(io.BytesIO(z.read(f'assets/minecraft/textures/block/{base}.png'))).convert('RGBA')
+            src = src.crop((0, 0, 16, 16))  # animated Vanilla textures (prismarine) are a strip of frames: take the first
             out[f'block/{name}.png'] = (cracked if kind == 'cracked' else mossy)(src, 1000 + i)
     return out
 

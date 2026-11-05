@@ -283,6 +283,17 @@
   "de": "Zinnoberziegel"
  },
  {
+  "ns": "simpleblocks",
+  "base": "mossy_cinnabar_bricks",
+  "key": "mossy_cinnabar_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "simpleblocks:block/mossy_cinnabar_bricks"
+  },
+  "en": "Mossy Cinnabar Bricks",
+  "de": "Bemooste Zinnoberziegel"
+ },
+ {
   "ns": "minecraft",
   "base": "end_stone_bricks",
   "key": "end_stone_bricks",
@@ -292,6 +303,17 @@
   },
   "en": "End Stone Bricks",
   "de": "Endsteinziegel"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "mossy_end_stone_bricks",
+  "key": "mossy_end_stone_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "simpleblocks:block/mossy_end_stone_bricks"
+  },
+  "en": "Mossy End Stone Bricks",
+  "de": "Bemooste Endsteinziegel"
  },
  {
   "ns": "minecraft",
@@ -314,6 +336,17 @@
   },
   "en": "Mud Bricks",
   "de": "Schlammziegel"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "mossy_mud_bricks",
+  "key": "mossy_mud_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "simpleblocks:block/mossy_mud_bricks"
+  },
+  "en": "Mossy Mud Bricks",
+  "de": "Bemooste Lehmziegel"
  },
  {
   "ns": "minecraft",
@@ -371,6 +404,17 @@
   "de": "Schwefelziegel"
  },
  {
+  "ns": "simpleblocks",
+  "base": "mossy_sulfur_bricks",
+  "key": "mossy_sulfur_bricks",
+  "group": "bricks",
+  "tex": {
+   "all": "simpleblocks:block/mossy_sulfur_bricks"
+  },
+  "en": "Mossy Sulfur Bricks",
+  "de": "Bemooste Schwefelziegel"
+ },
+ {
   "ns": "minecraft",
   "base": "blackstone",
   "key": "blackstone_block",
@@ -406,6 +450,17 @@
   "de": "Tiefenschieferziegel"
  },
  {
+  "ns": "simpleblocks",
+  "base": "mossy_deepslate_bricks",
+  "key": "mossy_deepslate_bricks",
+  "group": "deepslate",
+  "tex": {
+   "all": "simpleblocks:block/mossy_deepslate_bricks"
+  },
+  "en": "Mossy Deepslate Bricks",
+  "de": "Bemooste Tiefenschieferziegel"
+ },
+ {
   "ns": "minecraft",
   "base": "deepslate_tiles",
   "key": "deepslate_tiles",
@@ -415,6 +470,17 @@
   },
   "en": "Deepslate Tiles",
   "de": "Tiefenschieferfliesen"
+ },
+ {
+  "ns": "simpleblocks",
+  "base": "mossy_deepslate_tiles",
+  "key": "mossy_deepslate_tiles",
+  "group": "deepslate",
+  "tex": {
+   "all": "simpleblocks:block/mossy_deepslate_tiles"
+  },
+  "en": "Mossy Deepslate Tiles",
+  "de": "Bemooste Tiefenschieferfliesen"
  },
  {
   "ns": "minecraft",
@@ -483,6 +549,17 @@
   "de": "Tuffsteinziegel"
  },
  {
+  "ns": "simpleblocks",
+  "base": "mossy_tuff_bricks",
+  "key": "mossy_tuff_bricks",
+  "group": "tuff",
+  "tex": {
+   "all": "simpleblocks:block/mossy_tuff_bricks"
+  },
+  "en": "Mossy Tuff Bricks",
+  "de": "Bemooste Tuffsteinziegel"
+ },
+ {
   "ns": "minecraft",
   "base": "dark_prismarine",
   "key": "dark_prismarine",
@@ -549,6 +626,17 @@
   },
   "en": "Smooth Quartz Block",
   "de": "Glatter Quarzblock"
+ },
+ {
+  "ns": "minecraft",
+  "base": "quartz_bricks",
+  "key": "quartz_bricks",
+  "group": "quartz",
+  "tex": {
+   "all": "minecraft:block/quartz_bricks"
+  },
+  "en": "Quartz Bricks",
+  "de": "Quarzziegel"
  },
  {
   "ns": "minecraft",
@@ -1686,6 +1774,17 @@
  },
  {
   "ns": "simplebuilding",
+  "base": "astralit_block",
+  "key": "astralit_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/astralit_block"
+  },
+  "en": "Block of Astralit",
+  "de": "Astralitblock"
+ },
+ {
+  "ns": "simplebuilding",
   "base": "ender_quartz_block",
   "key": "ender_quartz_block",
   "group": "mod",
@@ -1716,6 +1815,17 @@
   },
   "en": "Nihilit Bricks",
   "de": "Nihilitziegel"
+ },
+ {
+  "ns": "simplebuilding",
+  "base": "nihilith_block",
+  "key": "nihilith_block",
+  "group": "mod",
+  "tex": {
+   "all": "simplebuilding:block/nihilith_block"
+  },
+  "en": "Block of Nihilit",
+  "de": "Nihilitblock"
  },
  {
   "ns": "simplebuilding",

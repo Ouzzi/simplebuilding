@@ -300,6 +300,7 @@ def scan():
     out[last_mod + 1:last_mod + 1] = BLOCKS_EXTRAS
     last_metal = max(i for i, m in enumerate(out) if m['group'] == 'metal')
     out[last_metal + 1:last_metal + 1] = ORES_EXTRAS
+    with_palette(out)
     with open(MATERIALS_JSON, 'w', encoding='utf-8') as f:
         f.write(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
     print(f'scanned {len(out)} materials')
@@ -332,9 +333,36 @@ ORES_EXTRAS = [{'ns': 'simpleores', 'base': 'lead_block', 'key': 'lead_block', '
                 'en': 'Block of Lead', 'de': 'Bleiblock'}]
 
 
+# Palette stage 2 (a-palette05, IG31-42): the octets of the families that got stairs and slabs - the seven mossy bricks of Simple
+# Blocks, Vanilla's quartz bricks (Simple Blocks gives them stairs and slabs) and SimpleBuilding's blocks of Astralit and Nihilit. Each
+# goes right behind the material in `after` (a key), inside its group.
+PALETTE_EXTRAS = [
+    ('deepslate_bricks', 'simpleblocks', 'mossy_deepslate_bricks', 'deepslate', 'Mossy Deepslate Bricks', 'Bemooste Tiefenschieferziegel'),
+    ('deepslate_tiles', 'simpleblocks', 'mossy_deepslate_tiles', 'deepslate', 'Mossy Deepslate Tiles', 'Bemooste Tiefenschieferfliesen'),
+    ('tuff_bricks', 'simpleblocks', 'mossy_tuff_bricks', 'tuff', 'Mossy Tuff Bricks', 'Bemooste Tuffsteinziegel'),
+    ('mud_bricks', 'simpleblocks', 'mossy_mud_bricks', 'bricks', 'Mossy Mud Bricks', 'Bemooste Lehmziegel'),
+    ('end_stone_bricks', 'simpleblocks', 'mossy_end_stone_bricks', 'bricks', 'Mossy End Stone Bricks', 'Bemooste Endsteinziegel'),
+    ('cinnabar_bricks', 'simpleblocks', 'mossy_cinnabar_bricks', 'bricks', 'Mossy Cinnabar Bricks', 'Bemooste Zinnoberziegel'),
+    ('sulfur_bricks', 'simpleblocks', 'mossy_sulfur_bricks', 'bricks', 'Mossy Sulfur Bricks', 'Bemooste Schwefelziegel'),
+    ('smooth_quartz', 'minecraft', 'quartz_bricks', 'quartz', 'Quartz Bricks', 'Quarzziegel'),
+    ('astralit_bricks', 'simplebuilding', 'astralit_block', 'mod', 'Block of Astralit', 'Astralitblock'),
+    ('nihilith_bricks', 'simplebuilding', 'nihilith_block', 'mod', 'Block of Nihilit', 'Nihilitblock'),
+]
+
+
+def with_palette(out):
+    """Inserts PALETTE_EXTRAS behind their anchors (skips the ones already in the list)."""
+    for after, ns, base, group, en, de in PALETTE_EXTRAS:
+        if any(m['key'] == base for m in out):
+            continue
+        entry = {'ns': ns, 'base': base, 'key': base, 'group': group, 'tex': {'all': f'{ns}:block/{base}'}, 'en': en, 'de': de}
+        out.insert(max(i for i, m in enumerate(out) if m['key'] == after) + 1, entry)
+    return out
+
+
 def materials():
     with open(MATERIALS_JSON, encoding='utf-8') as f:
-        return json.load(f)
+        return with_palette(json.load(f))
 
 
 def sided_corner():

@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Everything Simple Blocks registers: 38 blocks with their block items (plus the 15 moved from SimpleBuilding in
+ * Everything Simple Blocks registers: 80 blocks with their block items (plus the 15 moved from SimpleBuilding in
  * {@link com.simpleblocks.nature.NatureBlocks}), the Shapecutter ({@link com.simpleblocks.saw.Sawing}) and one creative tab. Properties are copied from a
  * Vanilla block, so hardness, sound, tool and map color match the family; the models of the missing stairs, slabs and
  * walls point at the Vanilla block textures (nothing is copied). The blocks are created once, in this class; loaders call
@@ -62,7 +62,19 @@ public final class BlocksRegistry {
     public static final List<String> SHAPES = List.of(
             "calcite_stairs", "calcite_slab", "calcite_wall", "netherrack_stairs", "netherrack_slab", "netherrack_wall",
             "smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall", "cut_sandstone_stairs", "cut_sandstone_wall",
-            "cut_red_sandstone_stairs", "cut_red_sandstone_wall", "smooth_sandstone_wall", "smooth_red_sandstone_wall");
+            "cut_red_sandstone_stairs", "cut_red_sandstone_wall", "smooth_sandstone_wall", "smooth_red_sandstone_wall",
+            // a-palette05 (IG31-42): the missing members of the Vanilla families ...
+            "stone_wall", "smooth_stone_stairs", "polished_granite_wall", "polished_diorite_wall", "polished_andesite_wall",
+            "quartz_wall", "smooth_quartz_wall", "purpur_wall", "quartz_brick_stairs", "quartz_brick_slab", "quartz_brick_wall",
+            "end_stone_stairs", "end_stone_slab", "end_stone_wall", "prismarine_brick_wall", "dark_prismarine_wall",
+            // ... and the shapes of the mossy bricks (registered right behind their block, see AGED).
+            "mossy_deepslate_brick_stairs", "mossy_deepslate_brick_slab", "mossy_deepslate_brick_wall",
+            "mossy_deepslate_tile_stairs", "mossy_deepslate_tile_slab", "mossy_deepslate_tile_wall",
+            "mossy_tuff_brick_stairs", "mossy_tuff_brick_slab", "mossy_tuff_brick_wall",
+            "mossy_mud_brick_stairs", "mossy_mud_brick_slab", "mossy_mud_brick_wall",
+            "mossy_end_stone_brick_stairs", "mossy_end_stone_brick_slab", "mossy_end_stone_brick_wall",
+            "mossy_cinnabar_brick_stairs", "mossy_cinnabar_brick_slab", "mossy_cinnabar_brick_wall",
+            "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall");
 
     static {
         shapes("calcite", Blocks.CALCITE, true, true, true);
@@ -72,6 +84,18 @@ public final class BlocksRegistry {
         shapes("cut_red_sandstone", Blocks.CUT_RED_SANDSTONE, true, false, true);
         shapes("smooth_sandstone", Blocks.SMOOTH_SANDSTONE, false, false, true);
         shapes("smooth_red_sandstone", Blocks.SMOOTH_RED_SANDSTONE, false, false, true);
+        shapes("stone", Blocks.STONE, false, false, true);
+        shapes("smooth_stone", Blocks.SMOOTH_STONE, true, false, false);
+        shapes("polished_granite", Blocks.POLISHED_GRANITE, false, false, true);
+        shapes("polished_diorite", Blocks.POLISHED_DIORITE, false, false, true);
+        shapes("polished_andesite", Blocks.POLISHED_ANDESITE, false, false, true);
+        shapes("quartz", Blocks.QUARTZ_BLOCK, false, false, true);
+        shapes("smooth_quartz", Blocks.SMOOTH_QUARTZ, false, false, true);
+        shapes("purpur", Blocks.PURPUR_BLOCK, false, false, true);
+        shapes("quartz_brick", Blocks.QUARTZ_BRICKS, true, true, true);
+        shapes("end_stone", Blocks.END_STONE, true, true, true);
+        shapes("prismarine_brick", Blocks.PRISMARINE_BRICKS, false, false, true);
+        shapes("dark_prismarine", Blocks.DARK_PRISMARINE, false, false, true);
     }
 
     /** Cracked and mossy bricks: full blocks only (no new brick sets); (new path, Vanilla brick it ages). */
@@ -82,12 +106,24 @@ public final class BlocksRegistry {
             new String[]{"cracked_end_stone_bricks", "end_stone_bricks"}, new String[]{"mossy_end_stone_bricks", "end_stone_bricks"},
             new String[]{"mossy_deepslate_bricks", "deepslate_bricks"}, new String[]{"mossy_deepslate_tiles", "deepslate_tiles"},
             new String[]{"cracked_cinnabar_bricks", "cinnabar_bricks"}, new String[]{"mossy_cinnabar_bricks", "cinnabar_bricks"},
-            new String[]{"cracked_sulfur_bricks", "sulfur_bricks"}, new String[]{"mossy_sulfur_bricks", "sulfur_bricks"});
+            new String[]{"cracked_sulfur_bricks", "sulfur_bricks"}, new String[]{"mossy_sulfur_bricks", "sulfur_bricks"},
+            new String[]{"cracked_prismarine", "prismarine"}, new String[]{"cracked_prismarine_bricks", "prismarine_bricks"},
+            new String[]{"cracked_dark_prismarine", "dark_prismarine"}, new String[]{"cracked_polished_deepslate", "polished_deepslate"},
+            new String[]{"cracked_blue_nether_bricks", "simpleblocks:blue_nether_bricks"});
 
     static {
         for (String[] aged : AGED) {
-            add(aged[0], BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(aged[1])), Block::new);
+            // The brick it ages: Vanilla by default, "namespace:path" for our own (blue nether bricks).
+            Block block = add(aged[0], agedBase(aged[1]), Block::new);
+            // Mossy bricks have stairs, slab and wall (a-palette05, IG31-42), right behind them: mossy_tuff_bricks -> mossy_tuff_brick_stairs.
+            if (aged[0].startsWith("mossy_")) shapes(aged[0].replace("_bricks", "_brick").replace("_tiles", "_tile"), block, true, true, true);
         }
+    }
+
+    /** The block an aged brick copies: Vanilla's, or (with a namespace) one of ours, which is not in the registry yet while this class loads. */
+    public static Block agedBase(String id) {
+        return id.startsWith(SimpleBlocks.MOD_ID + ":") ? BLOCKS.get(id.substring(SimpleBlocks.MOD_ID.length() + 1))
+                : BuiltInRegistries.BLOCK.getValue(Identifier.parse(id));
     }
 
     /** Every block path in registration order. */
@@ -206,22 +242,38 @@ public final class BlocksRegistry {
      */
     public static List<Placement> placements() {
         List<Placement> out = new ArrayList<>(List.of(
-                new Placement(false, Items.REINFORCED_DEEPSLATE, List.of("mossy_deepslate_bricks", "mossy_deepslate_tiles",
+                new Placement(false, Items.REINFORCED_DEEPSLATE, List.of("mossy_deepslate_bricks", "mossy_deepslate_brick_stairs", "mossy_deepslate_brick_slab", "mossy_deepslate_brick_wall",
+                        "mossy_deepslate_tiles", "mossy_deepslate_tile_stairs", "mossy_deepslate_tile_slab", "mossy_deepslate_tile_wall",
                         "hushed_deepslate_tiles", "hushed_deepslate_tile_stairs", "hushed_deepslate_tile_slab", "hushed_deepslate_tile_wall",
                         "sculk_tiles")),
-                new Placement(false, Items.CHISELED_TUFF_BRICKS, List.of("cracked_tuff_bricks", "mossy_tuff_bricks")),
-                new Placement(false, Items.RESIN_BRICKS, List.of("cracked_mud_bricks", "mossy_mud_bricks")),
+                new Placement(false, Items.CHISELED_TUFF_BRICKS, List.of("cracked_tuff_bricks", "mossy_tuff_bricks", "mossy_tuff_brick_stairs", "mossy_tuff_brick_slab", "mossy_tuff_brick_wall")),
+                new Placement(false, Items.RESIN_BRICKS, List.of("cracked_mud_bricks", "mossy_mud_bricks", "mossy_mud_brick_stairs", "mossy_mud_brick_slab", "mossy_mud_brick_wall")),
                 new Placement(false, Items.RED_SANDSTONE, List.of("cut_sandstone_stairs", "cut_sandstone_wall", "smooth_sandstone_wall")),
                 new Placement(false, Items.CINNABAR, List.of("cut_red_sandstone_stairs", "cut_red_sandstone_wall", "smooth_red_sandstone_wall")),
-                new Placement(false, Items.SULFUR, List.of("cracked_cinnabar_bricks", "mossy_cinnabar_bricks")),
-                new Placement(false, Items.SEA_LANTERN, List.of("cracked_sulfur_bricks", "mossy_sulfur_bricks")),
+                new Placement(false, Items.SULFUR, List.of("cracked_cinnabar_bricks", "mossy_cinnabar_bricks", "mossy_cinnabar_brick_stairs", "mossy_cinnabar_brick_slab", "mossy_cinnabar_brick_wall")),
+                new Placement(false, Items.SEA_LANTERN, List.of("cracked_sulfur_bricks", "mossy_sulfur_bricks", "mossy_sulfur_brick_stairs", "mossy_sulfur_brick_slab", "mossy_sulfur_brick_wall")),
                 new Placement(false, Items.NETHER_BRICKS, List.of("netherrack_stairs", "netherrack_slab", "netherrack_wall")),
                 new Placement(false, Items.BASALT, List.of("cracked_red_nether_bricks", "blue_nether_bricks", "blue_nether_brick_stairs",
-                        "blue_nether_brick_slab", "blue_nether_brick_wall")),
+                        "blue_nether_brick_slab", "blue_nether_brick_wall", "cracked_blue_nether_bricks")),
                 new Placement(false, Items.POLISHED_BASALT, List.of("smooth_basalt_stairs", "smooth_basalt_slab", "smooth_basalt_wall")),
-                new Placement(false, Items.PURPUR_BLOCK, List.of("cracked_end_stone_bricks", "mossy_end_stone_bricks")),
+                new Placement(false, Items.PURPUR_BLOCK, List.of("cracked_end_stone_bricks", "mossy_end_stone_bricks", "mossy_end_stone_brick_stairs", "mossy_end_stone_brick_slab", "mossy_end_stone_brick_wall")),
+                new Placement(false, Items.SMOOTH_STONE_SLAB, List.of("smooth_stone_stairs")),
                 new Placement(true, Items.TUFF, List.of("calcite_stairs", "calcite_slab", "calcite_wall")),
                 new Placement(true, Items.SCULK_VEIN, List.of("sculk_deepslate"))));
+        // a-palette05 (IG31-42): the missing members of the Vanilla families, each right behind the Vanilla member that precedes it.
+        out.add(Placement.after(false, Items.STONE_SLAB, "stone_wall"));
+        out.add(Placement.after(false, Items.POLISHED_GRANITE_SLAB, "polished_granite_wall"));
+        out.add(Placement.after(false, Items.POLISHED_DIORITE_SLAB, "polished_diorite_wall"));
+        out.add(Placement.after(false, Items.POLISHED_ANDESITE_SLAB, "polished_andesite_wall"));
+        out.add(Placement.after(false, Items.QUARTZ_SLAB, "quartz_wall"));
+        out.add(Placement.after(false, Items.SMOOTH_QUARTZ_SLAB, "smooth_quartz_wall"));
+        out.add(Placement.after(false, Items.QUARTZ_BRICKS, "quartz_brick_stairs", "quartz_brick_slab", "quartz_brick_wall"));
+        out.add(Placement.after(false, Items.PURPUR_SLAB, "purpur_wall"));
+        out.add(Placement.after(false, Items.END_STONE, "end_stone_stairs", "end_stone_slab", "end_stone_wall"));
+        out.add(Placement.after(false, Items.PRISMARINE_WALL, "cracked_prismarine"));
+        out.add(Placement.after(false, Items.PRISMARINE_BRICK_SLAB, "prismarine_brick_wall", "cracked_prismarine_bricks"));
+        out.add(Placement.after(false, Items.DARK_PRISMARINE_SLAB, "dark_prismarine_wall", "cracked_dark_prismarine"));
+        out.add(Placement.after(false, Items.POLISHED_DEEPSLATE_WALL, "cracked_polished_deepslate"));
         // The blocks that moved from SimpleBuilding, behind their base block as SimpleBuilding placed them. With SimpleBuilding
         // loaded its search-tab chains keep placing them (by id, in its order with the octets), so only without it.
         if (!SimpleBlocks.simplebuildingLoaded) {

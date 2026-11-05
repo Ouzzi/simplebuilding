@@ -27,30 +27,59 @@
     "simpleoctets:smooth_sandstone_octet",
     "simpleoctets:bricks_octet",
     "simpleoctets:cinnabar_bricks_octet",
+    {
+      "id": "simpleoctets:mossy_cinnabar_bricks_octet",
+      "required": false
+    },
     "simpleoctets:end_stone_bricks_octet",
+    {
+      "id": "simpleoctets:mossy_end_stone_bricks_octet",
+      "required": false
+    },
     "simpleoctets:mossy_stone_bricks_octet",
     "simpleoctets:mud_bricks_octet",
+    {
+      "id": "simpleoctets:mossy_mud_bricks_octet",
+      "required": false
+    },
     "simpleoctets:nether_bricks_octet",
     "simpleoctets:red_nether_bricks_octet",
     "simpleoctets:resin_bricks_octet",
     "simpleoctets:stone_bricks_octet",
     "simpleoctets:sulfur_bricks_octet",
+    {
+      "id": "simpleoctets:mossy_sulfur_bricks_octet",
+      "required": false
+    },
     "simpleoctets:blackstone_block_octet",
     "simpleoctets:cobbled_deepslate_octet",
     "simpleoctets:deepslate_bricks_octet",
+    {
+      "id": "simpleoctets:mossy_deepslate_bricks_octet",
+      "required": false
+    },
     "simpleoctets:deepslate_tiles_octet",
+    {
+      "id": "simpleoctets:mossy_deepslate_tiles_octet",
+      "required": false
+    },
     "simpleoctets:polished_blackstone_octet",
     "simpleoctets:polished_blackstone_bricks_octet",
     "simpleoctets:polished_deepslate_octet",
     "simpleoctets:polished_tuff_octet",
     "simpleoctets:tuff_octet",
     "simpleoctets:tuff_bricks_octet",
+    {
+      "id": "simpleoctets:mossy_tuff_bricks_octet",
+      "required": false
+    },
     "simpleoctets:dark_prismarine_octet",
     "simpleoctets:prismarine_octet",
     "simpleoctets:prismarine_bricks_octet",
     "simpleoctets:purpur_block_octet",
     "simpleoctets:quartz_block_octet",
     "simpleoctets:smooth_quartz_octet",
+    "simpleoctets:quartz_bricks_octet",
     "simpleoctets:copper_block_octet",
     "simpleoctets:exposed_copper_octet",
     "simpleoctets:weathered_copper_octet",
@@ -112,6 +141,10 @@
       "required": false
     },
     {
+      "id": "simpleoctets:astralit_block_octet",
+      "required": false
+    },
+    {
       "id": "simpleoctets:ender_quartz_block_octet",
       "required": false
     },
@@ -121,6 +154,10 @@
     },
     {
       "id": "simpleoctets:nihilith_bricks_octet",
+      "required": false
+    },
+    {
+      "id": "simpleoctets:nihilith_block_octet",
       "required": false
     },
     {

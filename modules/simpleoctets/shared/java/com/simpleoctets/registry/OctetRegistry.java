@@ -46,9 +46,14 @@ public final class OctetRegistry {
     public static final String SIMPLE_END = "simpleend";
     private static final Set<String> END_WOODS = Set.of("ashwood", "duskwood");
     /** Vanilla template of another mod's block whose properties that mod copies (Simple Blocks, BlocksRegistry). */
-    private static final Map<String, Block> TEMPLATES = Map.of("blue_nether_bricks", Blocks.RED_NETHER_BRICKS,
-            "hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES,
-            "polished_end_stone", Blocks.END_STONE);
+    private static final Map<String, Block> TEMPLATES = Map.ofEntries(Map.entry("blue_nether_bricks", Blocks.RED_NETHER_BRICKS),
+            Map.entry("hushed_deepslate_tiles", Blocks.DEEPSLATE_TILES),
+            Map.entry("polished_end_stone", Blocks.END_STONE),
+            // The mossy bricks (a-palette05): the brick they age.
+            Map.entry("mossy_deepslate_bricks", Blocks.DEEPSLATE_BRICKS), Map.entry("mossy_deepslate_tiles", Blocks.DEEPSLATE_TILES),
+            Map.entry("mossy_tuff_bricks", Blocks.TUFF_BRICKS), Map.entry("mossy_mud_bricks", Blocks.MUD_BRICKS),
+            Map.entry("mossy_end_stone_bricks", Blocks.END_STONE_BRICKS), Map.entry("mossy_cinnabar_bricks", Blocks.CINNABAR_BRICKS),
+            Map.entry("mossy_sulfur_bricks", Blocks.SULFUR_BRICKS));
     /** Octets stack to the engine maximum (owner N18: "128"; item stacks are saved with at most 99). */
     public static final int MAX_STACK = 99;
 

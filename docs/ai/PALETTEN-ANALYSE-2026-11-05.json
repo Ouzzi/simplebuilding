@@ -1,0 +1,4010 @@
+{
+ "families": [
+  {
+   "key": "stone",
+   "label": "Stone",
+   "group": "Stein",
+   "block": "stone",
+   "stem": "stone",
+   "octet": "stone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Vanilla hat keine Stone-Mauer",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "stone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "stone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "stone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "stone_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "stone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "smooth_stone",
+   "label": "Smooth Stone",
+   "group": "Stein",
+   "block": "smooth_stone",
+   "stem": "smooth_stone",
+   "octet": "smooth_stone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "klein",
+   "host": "Simple Blocks",
+   "note": "Vanilla nur Stufe(slab); Treppe/Mauer fehlen, Kontinuität zur Familie Stone",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "smooth_stone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "smooth_stone_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Kontinuität zur Familie Stone",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "smooth_stone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "smooth_stone_wall",
+     "status": "weggelassen",
+     "mod": null,
+     "why": "Ausreißer, Mauer nicht nötig"
+    },
+    "octet": {
+     "id": "smooth_stone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "cobblestone",
+   "label": "Cobblestone",
+   "group": "Stein",
+   "block": "cobblestone",
+   "stem": "cobblestone",
+   "octet": "cobblestone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "cobblestone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "cobblestone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "cobblestone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "cobblestone_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "cobblestone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_cobblestone",
+   "label": "Mossy Cobblestone",
+   "group": "Stein",
+   "block": "mossy_cobblestone",
+   "stem": "mossy_cobblestone",
+   "octet": "mossy_cobblestone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_cobblestone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "mossy_cobblestone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "mossy_cobblestone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "mossy_cobblestone_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "mossy_cobblestone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "stone_bricks",
+   "label": "Stone Bricks",
+   "group": "Stein",
+   "block": "stone_bricks",
+   "stem": "stone_brick",
+   "octet": "stone_bricks_octet",
+   "cracked": [
+    "cracked_stone_bricks"
+   ],
+   "chiseled": [
+    "chiseled_stone_bricks"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "stone_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "stone_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "stone_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "stone_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "stone_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_stone_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "chiseled": {
+     "id": "chiseled_stone_bricks",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "mossy_stone_bricks",
+   "label": "Mossy Stone Bricks",
+   "group": "Stein",
+   "block": "mossy_stone_bricks",
+   "stem": "mossy_stone_brick",
+   "octet": "mossy_stone_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_stone_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "mossy_stone_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "mossy_stone_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "mossy_stone_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "mossy_stone_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "granite",
+   "label": "Granite",
+   "group": "Stein",
+   "block": "granite",
+   "stem": "granite",
+   "octet": "granite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "granite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "granite_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "granite_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "granite_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "granite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "polished_granite",
+   "label": "Polished Granite",
+   "group": "Stein",
+   "block": "polished_granite",
+   "stem": "polished_granite",
+   "octet": "polished_granite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_granite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_granite_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_granite_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_granite_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "polished_granite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "diorite",
+   "label": "Diorite",
+   "group": "Stein",
+   "block": "diorite",
+   "stem": "diorite",
+   "octet": "diorite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "diorite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "diorite_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "diorite_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "diorite_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "diorite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "polished_diorite",
+   "label": "Polished Diorite",
+   "group": "Stein",
+   "block": "polished_diorite",
+   "stem": "polished_diorite",
+   "octet": "polished_diorite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_diorite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_diorite_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_diorite_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_diorite_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "polished_diorite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "andesite",
+   "label": "Andesite",
+   "group": "Stein",
+   "block": "andesite",
+   "stem": "andesite",
+   "octet": "andesite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "andesite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "andesite_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "andesite_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "andesite_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "andesite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "polished_andesite",
+   "label": "Polished Andesite",
+   "group": "Stein",
+   "block": "polished_andesite",
+   "stem": "polished_andesite",
+   "octet": "polished_andesite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_andesite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_andesite_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_andesite_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_andesite_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "polished_andesite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "cobbled_deepslate",
+   "label": "Cobbled Deepslate (+ Deepslate)",
+   "group": "Deepslate",
+   "block": "cobbled_deepslate",
+   "stem": "cobbled_deepslate",
+   "octet": "cobbled_deepslate_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_deepslate"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Deepslate pur gehört hierher (Besitzer); Octet für Deepslate pur nicht nötig (Ausreißer)",
+   "extra": [
+    "deepslate"
+   ],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "cobbled_deepslate",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "cobbled_deepslate_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "cobbled_deepslate_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "cobbled_deepslate_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "cobbled_deepslate_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_deepslate",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "polished_deepslate",
+   "label": "Polished Deepslate",
+   "group": "Deepslate",
+   "block": "polished_deepslate",
+   "stem": "polished_deepslate",
+   "octet": "polished_deepslate_octet",
+   "cracked": [
+    "cracked_polished_deepslate"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_deepslate",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_deepslate_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_deepslate_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_deepslate_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "polished_deepslate_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_polished_deepslate",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Besitzer-Wunsch IG31-42 / Familienlogik",
+     "host": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "deepslate_bricks",
+   "label": "Deepslate Bricks",
+   "group": "Deepslate",
+   "block": "deepslate_bricks",
+   "stem": "deepslate_brick",
+   "octet": "deepslate_bricks_octet",
+   "cracked": [
+    "cracked_deepslate_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "deepslate_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "deepslate_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "deepslate_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "deepslate_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "deepslate_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_deepslate_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_deepslate_bricks",
+   "label": "Mossy Deepslate Bricks",
+   "group": "Deepslate",
+   "block": "mossy_deepslate_bricks",
+   "stem": "mossy_deepslate_brick",
+   "octet": "mossy_deepslate_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_deepslate_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_deepslate_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_deepslate_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_deepslate_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_deepslate_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "deepslate_tiles",
+   "label": "Deepslate Tiles",
+   "group": "Deepslate",
+   "block": "deepslate_tiles",
+   "stem": "deepslate_tile",
+   "octet": "deepslate_tiles_octet",
+   "cracked": [
+    "cracked_deepslate_tiles"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "deepslate_tiles",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "deepslate_tile_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "deepslate_tile_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "deepslate_tile_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "deepslate_tiles_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_deepslate_tiles",
+     "status": "vanilla",
+     "mod": null
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_deepslate_tiles",
+   "label": "Mossy Deepslate Tiles",
+   "group": "Deepslate",
+   "block": "mossy_deepslate_tiles",
+   "stem": "mossy_deepslate_tile",
+   "octet": "mossy_deepslate_tiles_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_deepslate_tiles",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_deepslate_tile_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_deepslate_tile_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_deepslate_tile_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_deepslate_tiles_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "hushed_deepslate_tiles",
+   "label": "Hushed Deepslate Tiles",
+   "group": "Deepslate",
+   "block": "hushed_deepslate_tiles",
+   "stem": "hushed_deepslate_tile",
+   "octet": "hushed_deepslate_tiles_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Mod-Familie, vollständig",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "hushed_deepslate_tiles",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "hushed_deepslate_tile_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "hushed_deepslate_tile_slab",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "wall": {
+     "id": "hushed_deepslate_tile_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "hushed_deepslate_tiles_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "sculk_tiles",
+   "label": "Sculk Tiles / Sculk Deepslate",
+   "group": "Deepslate",
+   "block": "sculk_tiles",
+   "stem": "sculk_tile",
+   "octet": "sculk_tiles_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "aus",
+   "host": "Simple Blocks",
+   "note": "Sonderblöcke (animiert / Erfahrung), nur Block",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "sculk_tiles",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "sculk_tile_stairs",
+     "status": "weggelassen",
+     "mod": null,
+     "why": "Sonderblock, nur Block"
+    },
+    "slab": {
+     "id": "sculk_tile_slab",
+     "status": "weggelassen",
+     "mod": null,
+     "why": "Sonderblock, nur Block"
+    },
+    "wall": {
+     "id": "sculk_tile_wall",
+     "status": "weggelassen",
+     "mod": null,
+     "why": "Sonderblock, nur Block"
+    },
+    "octet": {
+     "id": "sculk_tiles_octet",
+     "status": "weggelassen",
+     "mod": null,
+     "why": "Sonderblock, nur Block"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "tuff",
+   "label": "Tuff",
+   "group": "Tuff",
+   "block": "tuff",
+   "stem": "tuff",
+   "octet": "tuff_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_tuff"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "tuff",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "tuff_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "tuff_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "tuff_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "tuff_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_tuff",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "polished_tuff",
+   "label": "Polished Tuff",
+   "group": "Tuff",
+   "block": "polished_tuff",
+   "stem": "polished_tuff",
+   "octet": "polished_tuff_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_tuff",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_tuff_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_tuff_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_tuff_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "polished_tuff_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "tuff_bricks",
+   "label": "Tuff Bricks",
+   "group": "Tuff",
+   "block": "tuff_bricks",
+   "stem": "tuff_brick",
+   "octet": "tuff_bricks_octet",
+   "cracked": [
+    "cracked_tuff_bricks"
+   ],
+   "chiseled": [
+    "chiseled_tuff_bricks"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "tuff_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "tuff_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "tuff_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "tuff_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "tuff_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_tuff_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": "chiseled_tuff_bricks",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "mossy_tuff_bricks",
+   "label": "Mossy Tuff Bricks",
+   "group": "Tuff",
+   "block": "mossy_tuff_bricks",
+   "stem": "mossy_tuff_brick",
+   "octet": "mossy_tuff_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_tuff_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_tuff_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_tuff_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_tuff_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_tuff_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "blackstone",
+   "label": "Blackstone",
+   "group": "Blackstone",
+   "block": "blackstone",
+   "stem": "blackstone",
+   "octet": "blackstone_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "blackstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "blackstone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "blackstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "blackstone_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "blackstone_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "polished_blackstone",
+   "label": "Polished Blackstone",
+   "group": "Blackstone",
+   "block": "polished_blackstone",
+   "stem": "polished_blackstone",
+   "octet": "polished_blackstone_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_polished_blackstone"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_blackstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_blackstone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_blackstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_blackstone_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "polished_blackstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_polished_blackstone",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "polished_blackstone_bricks",
+   "label": "Polished Blackstone Bricks",
+   "group": "Blackstone",
+   "block": "polished_blackstone_bricks",
+   "stem": "polished_blackstone_brick",
+   "octet": "polished_blackstone_bricks_octet",
+   "cracked": [
+    "cracked_polished_blackstone_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_blackstone_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_blackstone_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_blackstone_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_blackstone_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "polished_blackstone_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_polished_blackstone_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "sandstone",
+   "label": "Sandstone",
+   "group": "Sandstein",
+   "block": "sandstone",
+   "stem": "sandstone",
+   "octet": "sandstone_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_sandstone"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "sandstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "sandstone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "sandstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "sandstone_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "sandstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_sandstone",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "cut_sandstone",
+   "label": "Cut Sandstone",
+   "group": "Sandstein",
+   "block": "cut_sandstone",
+   "stem": "cut_sandstone",
+   "octet": "cut_sandstone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "cut_sandstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "cut_sandstone_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "cut_sandstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "cut_sandstone_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "cut_sandstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "smooth_sandstone",
+   "label": "Smooth Sandstone",
+   "group": "Sandstein",
+   "block": "smooth_sandstone",
+   "stem": "smooth_sandstone",
+   "octet": "smooth_sandstone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "smooth_sandstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "smooth_sandstone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "smooth_sandstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "smooth_sandstone_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "smooth_sandstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "red_sandstone",
+   "label": "Red Sandstone",
+   "group": "Sandstein",
+   "block": "red_sandstone",
+   "stem": "red_sandstone",
+   "octet": "red_sandstone_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_red_sandstone"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "red_sandstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "red_sandstone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "red_sandstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "red_sandstone_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "red_sandstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_red_sandstone",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "red_cut_sandstone",
+   "label": "Cut Red Sandstone",
+   "group": "Sandstein",
+   "block": "cut_red_sandstone",
+   "stem": "cut_red_sandstone",
+   "octet": "cut_red_sandstone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "cut_red_sandstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "cut_red_sandstone_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "cut_red_sandstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "cut_red_sandstone_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "cut_red_sandstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "red_smooth_sandstone",
+   "label": "Smooth Red Sandstone",
+   "group": "Sandstein",
+   "block": "smooth_red_sandstone",
+   "stem": "smooth_red_sandstone",
+   "octet": "smooth_red_sandstone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "smooth_red_sandstone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "smooth_red_sandstone_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "smooth_red_sandstone_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "smooth_red_sandstone_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "smooth_red_sandstone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "quartz",
+   "label": "Quartz Block",
+   "group": "Quarz & Co",
+   "block": "quartz_block",
+   "stem": "quartz",
+   "octet": "quartz_block_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_quartz_block"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Vanilla hat keine Quarz-Mauer",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "quartz_block",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "quartz_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "quartz_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "quartz_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "quartz_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_quartz_block",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "smooth_quartz",
+   "label": "Smooth Quartz",
+   "group": "Quarz & Co",
+   "block": "smooth_quartz",
+   "stem": "smooth_quartz",
+   "octet": "smooth_quartz_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "smooth_quartz",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "smooth_quartz_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "smooth_quartz_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "smooth_quartz_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "smooth_quartz_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "quartz_bricks",
+   "label": "Quartz Bricks",
+   "group": "Quarz & Co",
+   "block": "quartz_bricks",
+   "stem": "quartz_brick",
+   "octet": "quartz_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Vanilla: nur Block, keine Formen",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "quartz_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "quartz_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "quartz_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "quartz_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "quartz_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "purpur",
+   "label": "Purpur Block",
+   "group": "Quarz & Co",
+   "block": "purpur_block",
+   "stem": "purpur",
+   "octet": "purpur_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Pillar = Ausreißer",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "purpur_block",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "purpur_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "purpur_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "purpur_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "purpur_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "bricks",
+   "label": "Bricks",
+   "group": "Quarz & Co",
+   "block": "bricks",
+   "stem": "brick",
+   "octet": "bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "nether_bricks",
+   "label": "Nether Bricks",
+   "group": "Nether",
+   "block": "nether_bricks",
+   "stem": "nether_brick",
+   "octet": "nether_bricks_octet",
+   "cracked": [
+    "cracked_nether_bricks"
+   ],
+   "chiseled": [
+    "chiseled_nether_bricks"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "nether_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "nether_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "nether_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "nether_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "nether_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_nether_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "chiseled": {
+     "id": "chiseled_nether_bricks",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "red_nether_bricks",
+   "label": "Red Nether Bricks",
+   "group": "Nether",
+   "block": "red_nether_bricks",
+   "stem": "red_nether_brick",
+   "octet": "red_nether_bricks_octet",
+   "cracked": [
+    "cracked_red_nether_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "red_nether_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "red_nether_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "red_nether_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "red_nether_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "red_nether_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_red_nether_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "blue_nether_bricks",
+   "label": "Blue Nether Bricks",
+   "group": "Nether",
+   "block": "blue_nether_bricks",
+   "stem": "blue_nether_brick",
+   "octet": "blue_nether_bricks_octet",
+   "cracked": [
+    "cracked_blue_nether_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "blue_nether_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "blue_nether_brick_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "blue_nether_brick_slab",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "wall": {
+     "id": "blue_nether_brick_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "blue_nether_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_blue_nether_bricks",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Besitzer-Wunsch IG31-42 / Familienlogik",
+     "host": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "netherrack",
+   "label": "Netherrack",
+   "group": "Nether",
+   "block": "netherrack",
+   "stem": "netherrack",
+   "octet": "netherrack_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "netherrack",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "netherrack_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "netherrack_slab",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "wall": {
+     "id": "netherrack_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "netherrack_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "smooth_basalt",
+   "label": "Smooth Basalt",
+   "group": "Nether",
+   "block": "smooth_basalt",
+   "stem": "smooth_basalt",
+   "octet": "smooth_basalt_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "smooth_basalt",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "smooth_basalt_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "smooth_basalt_slab",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "wall": {
+     "id": "smooth_basalt_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "smooth_basalt_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "end_stone",
+   "label": "End Stone",
+   "group": "End",
+   "block": "end_stone",
+   "stem": "end_stone",
+   "octet": "end_stone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "Vanilla: nur Ziegel-Formen, Block selbst ohne Treppe/Stufe/Mauer",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "end_stone",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "end_stone_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "end_stone_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "end_stone_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "end_stone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "end_stone_bricks",
+   "label": "End Stone Bricks",
+   "group": "End",
+   "block": "end_stone_bricks",
+   "stem": "end_stone_brick",
+   "octet": "end_stone_bricks_octet",
+   "cracked": [
+    "cracked_end_stone_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "end_stone_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "end_stone_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "end_stone_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "end_stone_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "end_stone_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_end_stone_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_end_stone_bricks",
+   "label": "Mossy End Stone Bricks",
+   "group": "End",
+   "block": "mossy_end_stone_bricks",
+   "stem": "mossy_end_stone_brick",
+   "octet": "mossy_end_stone_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_end_stone_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_end_stone_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_end_stone_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_end_stone_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_end_stone_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "polished_end_stone",
+   "label": "Polished End Stone",
+   "group": "End",
+   "block": "polished_end_stone",
+   "stem": "polished_end_stone",
+   "octet": "polished_end_stone_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Lib",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_end_stone",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "polished_end_stone_stairs",
+     "status": "mod",
+     "mod": "Simple Lib"
+    },
+    "slab": {
+     "id": "polished_end_stone_slab",
+     "status": "mod",
+     "mod": "Simple Lib"
+    },
+    "wall": {
+     "id": "polished_end_stone_wall",
+     "status": "mod",
+     "mod": "Simple Lib"
+    },
+    "octet": {
+     "id": "polished_end_stone_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "ender_quartz",
+   "label": "Ender Quartz Block",
+   "group": "End",
+   "block": "ender_quartz_block",
+   "stem": "ender_quartz",
+   "octet": "ender_quartz_block_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_ender_quartz_bricks"
+   ],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "Chiseled hier = chiseled_ender_quartz_bricks",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "ender_quartz_block",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "ender_quartz_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "ender_quartz_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "ender_quartz_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "ender_quartz_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_ender_quartz_bricks",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    }
+   }
+  },
+  {
+   "key": "ender_quartz_bricks",
+   "label": "Ender Quartz Bricks",
+   "group": "End",
+   "block": "ender_quartz_bricks",
+   "stem": "ender_quartz_brick",
+   "octet": "ender_quartz_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "ender_quartz_bricks",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "ender_quartz_brick_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "ender_quartz_brick_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "ender_quartz_brick_wall",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "ender_quartz_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "polished_ender_quartz",
+   "label": "Polished Ender Quartz",
+   "group": "End",
+   "block": "polished_ender_quartz",
+   "stem": "polished_ender_quartz",
+   "octet": "polished_ender_quartz_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_ender_quartz",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "polished_ender_quartz_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "polished_ender_quartz_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "polished_ender_quartz_wall",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "polished_ender_quartz_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "astralit_block",
+   "label": "Block of Astralit",
+   "group": "End",
+   "block": "astralit_block",
+   "stem": "astralit",
+   "octet": "astralit_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "astralit_block",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "astralit_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "astralit_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "astralit_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "astralit_block_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "astralit_bricks",
+   "label": "Astralit Bricks",
+   "group": "End",
+   "block": "astralit_bricks",
+   "stem": "astralit_brick",
+   "octet": "astralit_bricks_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_astralit_bricks"
+   ],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "astralit_bricks",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "astralit_brick_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "astralit_brick_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "astralit_brick_wall",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "astralit_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_astralit_bricks",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    }
+   }
+  },
+  {
+   "key": "polished_astralit",
+   "label": "Polished Astralit",
+   "group": "End",
+   "block": "polished_astralit",
+   "stem": "polished_astralit",
+   "octet": "polished_astralit_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_astralit",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "polished_astralit_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "polished_astralit_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "polished_astralit_wall",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "polished_astralit_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "nihilith_block",
+   "label": "Block of Nihilith",
+   "group": "End",
+   "block": "nihilith_block",
+   "stem": "nihilith",
+   "octet": "nihilith_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "nihilith_block",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "nihilith_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "nihilith_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "nihilith_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "nihilith_block_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "nihilith_bricks",
+   "label": "Nihilith Bricks",
+   "group": "End",
+   "block": "nihilith_bricks",
+   "stem": "nihilith_brick",
+   "octet": "nihilith_bricks_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_nihilith_bricks"
+   ],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "nihilith_bricks",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "nihilith_brick_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "nihilith_brick_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "nihilith_brick_wall",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "nihilith_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_nihilith_bricks",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    }
+   }
+  },
+  {
+   "key": "polished_nihilith",
+   "label": "Polished Nihilith",
+   "group": "End",
+   "block": "polished_nihilith",
+   "stem": "polished_nihilith",
+   "octet": "polished_nihilith_block_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "SimpleBuilding",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_nihilith",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "stairs": {
+     "id": "polished_nihilith_stairs",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "slab": {
+     "id": "polished_nihilith_slab",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "wall": {
+     "id": "polished_nihilith_wall",
+     "status": "mod",
+     "mod": "SimpleBuilding"
+    },
+    "octet": {
+     "id": "polished_nihilith_block_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "prismarine",
+   "label": "Prismarine",
+   "group": "Prismarin",
+   "block": "prismarine",
+   "stem": "prismarine",
+   "octet": "prismarine_octet",
+   "cracked": [
+    "cracked_prismarine"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "prismarine",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "prismarine_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "prismarine_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "prismarine_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "prismarine_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_prismarine",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Besitzer-Wunsch IG31-42 / Familienlogik",
+     "host": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "prismarine_bricks",
+   "label": "Prismarine Bricks",
+   "group": "Prismarin",
+   "block": "prismarine_bricks",
+   "stem": "prismarine_brick",
+   "octet": "prismarine_bricks_octet",
+   "cracked": [
+    "cracked_prismarine_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "prismarine_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "prismarine_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "prismarine_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "prismarine_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "prismarine_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_prismarine_bricks",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Besitzer-Wunsch IG31-42 / Familienlogik",
+     "host": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "dark_prismarine",
+   "label": "Dark Prismarine",
+   "group": "Prismarin",
+   "block": "dark_prismarine",
+   "stem": "dark_prismarine",
+   "octet": "dark_prismarine_octet",
+   "cracked": [
+    "cracked_dark_prismarine"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "dark_prismarine",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "dark_prismarine_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "dark_prismarine_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "dark_prismarine_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "dark_prismarine_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_dark_prismarine",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Besitzer-Wunsch IG31-42 / Familienlogik",
+     "host": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mud_bricks",
+   "label": "Mud Bricks",
+   "group": "Erde & Harz",
+   "block": "mud_bricks",
+   "stem": "mud_brick",
+   "octet": "mud_bricks_octet",
+   "cracked": [
+    "cracked_mud_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mud_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "mud_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "mud_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "mud_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "mud_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_mud_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_mud_bricks",
+   "label": "Mossy Mud Bricks",
+   "group": "Erde & Harz",
+   "block": "mossy_mud_bricks",
+   "stem": "mossy_mud_brick",
+   "octet": "mossy_mud_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_mud_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_mud_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_mud_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_mud_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_mud_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "resin_bricks",
+   "label": "Resin Bricks",
+   "group": "Erde & Harz",
+   "block": "resin_bricks",
+   "stem": "resin_brick",
+   "octet": "resin_bricks_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_resin_bricks"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "resin_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "resin_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "resin_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "resin_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "resin_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_resin_bricks",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "cinnabar",
+   "label": "Cinnabar",
+   "group": "Zinnober & Schwefel",
+   "block": "cinnabar",
+   "stem": "cinnabar",
+   "octet": "cinnabar_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_cinnabar"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "cinnabar",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "cinnabar_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "cinnabar_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "cinnabar_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "cinnabar_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_cinnabar",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "polished_cinnabar",
+   "label": "Polished Cinnabar",
+   "group": "Zinnober & Schwefel",
+   "block": "polished_cinnabar",
+   "stem": "polished_cinnabar",
+   "octet": "polished_cinnabar_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_cinnabar",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_cinnabar_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_cinnabar_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_cinnabar_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "polished_cinnabar_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "cinnabar_bricks",
+   "label": "Cinnabar Bricks",
+   "group": "Zinnober & Schwefel",
+   "block": "cinnabar_bricks",
+   "stem": "cinnabar_brick",
+   "octet": "cinnabar_bricks_octet",
+   "cracked": [
+    "cracked_cinnabar_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "cinnabar_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "cinnabar_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "cinnabar_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "cinnabar_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "cinnabar_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_cinnabar_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_cinnabar_bricks",
+   "label": "Mossy Cinnabar Bricks",
+   "group": "Zinnober & Schwefel",
+   "block": "mossy_cinnabar_bricks",
+   "stem": "mossy_cinnabar_brick",
+   "octet": "mossy_cinnabar_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_cinnabar_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_cinnabar_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_cinnabar_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_cinnabar_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_cinnabar_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "sulfur",
+   "label": "Sulfur",
+   "group": "Zinnober & Schwefel",
+   "block": "sulfur",
+   "stem": "sulfur",
+   "octet": "sulfur_octet",
+   "cracked": [],
+   "chiseled": [
+    "chiseled_sulfur"
+   ],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "sulfur",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "sulfur_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "sulfur_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "sulfur_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "sulfur_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": "chiseled_sulfur",
+     "status": "vanilla",
+     "mod": null
+    }
+   }
+  },
+  {
+   "key": "polished_sulfur",
+   "label": "Polished Sulfur",
+   "group": "Zinnober & Schwefel",
+   "block": "polished_sulfur",
+   "stem": "polished_sulfur",
+   "octet": "polished_sulfur_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "polished_sulfur",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "polished_sulfur_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "polished_sulfur_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "polished_sulfur_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "polished_sulfur_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "sulfur_bricks",
+   "label": "Sulfur Bricks",
+   "group": "Zinnober & Schwefel",
+   "block": "sulfur_bricks",
+   "stem": "sulfur_brick",
+   "octet": "sulfur_bricks_octet",
+   "cracked": [
+    "cracked_sulfur_bricks"
+   ],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "sulfur_bricks",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "sulfur_brick_stairs",
+     "status": "vanilla",
+     "mod": null
+    },
+    "slab": {
+     "id": "sulfur_brick_slab",
+     "status": "vanilla",
+     "mod": null
+    },
+    "wall": {
+     "id": "sulfur_brick_wall",
+     "status": "vanilla",
+     "mod": null
+    },
+    "octet": {
+     "id": "sulfur_bricks_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": "cracked_sulfur_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "mossy_sulfur_bricks",
+   "label": "Mossy Sulfur Bricks",
+   "group": "Zinnober & Schwefel",
+   "block": "mossy_sulfur_bricks",
+   "stem": "mossy_sulfur_brick",
+   "octet": "mossy_sulfur_bricks_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "mossy_sulfur_bricks",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "stairs": {
+     "id": "mossy_sulfur_brick_stairs",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "slab": {
+     "id": "mossy_sulfur_brick_slab",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "wall": {
+     "id": "mossy_sulfur_brick_wall",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Blocks"
+    },
+    "octet": {
+     "id": "mossy_sulfur_bricks_octet",
+     "status": "fehlt",
+     "mod": null,
+     "why": "Palette vervollständigen",
+     "host": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  },
+  {
+   "key": "calcite",
+   "label": "Calcite",
+   "group": "Sonstige",
+   "block": "calcite",
+   "stem": "calcite",
+   "octet": "calcite_octet",
+   "cracked": [],
+   "chiseled": [],
+   "scope": "voll",
+   "host": "Simple Blocks",
+   "note": "",
+   "extra": [],
+   "noshape": [],
+   "cells": {
+    "block": {
+     "id": "calcite",
+     "status": "vanilla",
+     "mod": null
+    },
+    "stairs": {
+     "id": "calcite_stairs",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "slab": {
+     "id": "calcite_slab",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "wall": {
+     "id": "calcite_wall",
+     "status": "mod",
+     "mod": "Simple Blocks"
+    },
+    "octet": {
+     "id": "calcite_octet",
+     "status": "mod",
+     "mod": "Simple Octets"
+    },
+    "cracked": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    },
+    "chiseled": {
+     "id": null,
+     "status": "na",
+     "mod": null,
+     "why": "kein Vorbild in der Familie"
+    }
+   }
+  }
+ ],
+ "glieder": [
+  "block",
+  "stairs",
+  "slab",
+  "wall",
+  "octet",
+  "cracked",
+  "chiseled"
+ ],
+ "counts": {
+  "vanilla": 189,
+  "mod": 133,
+  "fehlt": 59,
+  "weggelassen": 5,
+  "na": 111
+ }
+}

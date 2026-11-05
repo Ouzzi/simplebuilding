@@ -6,6 +6,16 @@
     "simpleblocks:smooth_basalt_stairs",
     "simpleblocks:cut_sandstone_stairs",
     "simpleblocks:cut_red_sandstone_stairs",
+    "simpleblocks:mossy_deepslate_brick_stairs",
+    "simpleblocks:mossy_deepslate_tile_stairs",
+    "simpleblocks:mossy_tuff_brick_stairs",
+    "simpleblocks:mossy_mud_brick_stairs",
+    "simpleblocks:mossy_end_stone_brick_stairs",
+    "simpleblocks:mossy_cinnabar_brick_stairs",
+    "simpleblocks:mossy_sulfur_brick_stairs",
+    "simpleblocks:smooth_stone_stairs",
+    "simpleblocks:quartz_brick_stairs",
+    "simpleblocks:end_stone_stairs",
     "simpleblocks:blue_nether_brick_stairs"
   ]
 }
