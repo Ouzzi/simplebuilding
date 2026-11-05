@@ -1676,6 +1676,7 @@ public final class DataIntegrityTests {
     /** ENCH02: the enchanter fields point at Simple Enchanting's tables likewise (its own checks cover them). */
     private static boolean movedToMachines(Identifier id) {
         if (McVersion.ASTRAL_ENCHANTING && id != null && com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(id.getNamespace())) return true;
+        if (!McVersion.PADS_IN_SB && id != null && McVersion.PADS_NAMESPACE.equals(id.getNamespace())) return true; // b-pads01: Simple Pads
         return !McVersion.PISTONS_IN_SB && id != null && McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
     }
 
@@ -2820,6 +2821,8 @@ public final class DataIntegrityTests {
                     && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // MACH32-MOD: Simple Machines' Double Piston and Signal Dampener keep their row in SimpleBuilding's functional tab (by id).
                     && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // b-pads01: Simple Pads' pads, plates and Spawn Elytra are the module's, not SimpleBuilding's.
+                    && !(!McVersion.PADS_IN_SB && McVersion.PADS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
                     && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
@@ -5329,6 +5332,7 @@ public final class DataIntegrityTests {
         }
         String[] roman = {"I", "II", "III", "IV", "V", "VI"};
         for (com.simplebuilding.tweaks.block.TweaksFamilies.Family family : com.simplebuilding.tweaks.easter.EasterEggs.families()) {
+            if (!McVersion.PADS_IN_SB) break; // b-pads01: the module's own tests check the pad names
             List<Block> tiers = com.simplebuilding.tweaks.block.TweaksFamilies.tiers(family);
             for (int i = 0; i < tiers.size(); i++) {
                 String key = tiers.get(i).getDescriptionId();
