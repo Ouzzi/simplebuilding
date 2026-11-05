@@ -1224,7 +1224,7 @@ window.WIKI_MODULES = [
       "blocks": 194,
       "features": 16
     },
-    "dataHash": "b345227b38a7"
+    "dataHash": "2129ec967c6f"
   },
   {
     "id": "simpleshops",
