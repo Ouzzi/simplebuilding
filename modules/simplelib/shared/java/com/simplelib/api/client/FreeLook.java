@@ -37,7 +37,41 @@ public final class FreeLook {
     /** For tests (before/after pictures): false = the hand travels with the camera like before QOL34. */
     public static volatile boolean handFix = true;
 
+    /** DW04A-2: field-of-view factor while the wheel zooms (1 = normal). Same wheel step as the Simple Interfaces zoom. */
+    private static double zoomFactor = 1.0;
+    public static final double WHEEL_STEP = 0.88, MAX_MAGNIFICATION = 10;
+    /** Another zoom (Simple Interfaces spyglass/zoom key) in use right now: this one stays out of its way. */
+    public static volatile java.util.function.BooleanSupplier otherZoom = () -> false;
+
     private FreeLook() {}
+
+    /** Wheel step: scrolling up (positive) zooms in; bounded between 1/{@link #MAX_MAGNIFICATION} and normal. */
+    public static double zoomAfter(double current, double wheel) {
+        return Math.clamp(current * Math.pow(WHEEL_STEP, wheel), 1.0 / MAX_MAGNIFICATION, 1.0);
+    }
+
+    private static boolean zoomAllowed() {
+        Minecraft mc = Minecraft.getInstance();
+        return active() && FreeLookRules.zoom() && mc.player != null && mc.gui.screen() == null
+                && mc.options.getCameraType().isFirstPerson() && !otherZoom.getAsBoolean();
+    }
+
+    /** Wheel while free look is on: true = used (the hotbar does not scroll). */
+    public static boolean scroll(double wheel) {
+        if (wheel == 0 || !zoomAllowed()) return false;
+        zoomFactor = zoomAfter(zoomFactor, wheel);
+        return true;
+    }
+
+    /** The field-of-view factor to apply now, or 1 for Vanilla's value. */
+    public static float zoomFov() {
+        return zoomAllowed() ? (float) zoomFactor : 1f;
+    }
+
+    /** For tests. */
+    public static double zoomFactor() {
+        return zoomFactor;
+    }
 
     /** True while free look is on (held or toggled): mouse movement goes to the camera offset. */
     public static boolean active() {
@@ -65,6 +99,7 @@ public final class FreeLook {
         }
         if (was && !active()) end(player);
         if (!active()) {
+            zoomFactor = 1.0;
             yaw *= 0.66f;
             pitch *= 0.66f;
             if (Math.abs(yaw) < 0.05f) yaw = 0;
@@ -90,6 +125,7 @@ public final class FreeLook {
         toggled = false;
         yaw = 0;
         pitch = 0;
+        zoomFactor = 1.0;
         waitForRelease = true;
         while (KEY.consumeClick()) { /* drop presses made before */ }
         while (TOGGLE_KEY.consumeClick()) { /* drop presses made before */ }
@@ -97,8 +133,9 @@ public final class FreeLook {
 
     /** Mouse turn while on (same scale as {@code Entity.turn}: degrees = delta * 0.15). */
     public static void turn(double dYaw, double dPitch, float playerPitch) {
-        yaw += (float) (dYaw * 0.15);
-        pitch = Math.max(-90 - playerPitch, Math.min(90 - playerPitch, pitch + (float) (dPitch * 0.15)));
+        double scale = zoomFov();
+        yaw += (float) (dYaw * 0.15 * scale);
+        pitch = Math.max(-90 - playerPitch, Math.min(90 - playerPitch, pitch + (float) (dPitch * 0.15 * scale)));
     }
 
     public static float yawOffset() {
@@ -141,7 +178,8 @@ public final class FreeLook {
 
     /**
      * Where the body direction (the real aim point) is on the screen while free look is on: {x, y} in GUI pixels, or null when
-     * it is behind the camera or free look/the option is off. {@code fovDegrees} is the vertical field of view.
+     * it is behind the camera or free look/the option is off. {@code fovDegrees} is the vertical field of view the frame is really drawn with ({@code Camera.getFov()}: option times
+     * the FOV modifiers such as the free-look wheel zoom, sprint/speed, fluid, death).
      */
     public static int[] crosshairPoint(float playerXRot, int guiWidth, int guiHeight, double fovDegrees) {
         if (!active() || !FreeLookRules.crosshair()) return null;

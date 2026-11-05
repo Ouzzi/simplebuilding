@@ -7,6 +7,7 @@
     "CrackedIceFacesMixin",
     "FenceConnectsSnowloggedMixin",
     "GrassFreezesMixin",
+    "PaleGolemHeadMixin",
     "SnowCapsMixin"
   ],
   "client": [],

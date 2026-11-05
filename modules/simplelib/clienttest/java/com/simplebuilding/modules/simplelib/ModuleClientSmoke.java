@@ -82,8 +82,31 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(3);
         context.takeScreenshot("freelook-crosshair-option-off");
         com.simplelib.api.FreeLookRules.setCrosshair(true);
+        // DW04A-2: the wheel zooms while free look is on (the hotbar stays), the zoom is reset when it ends
+        int slot0 = context.computeOnClient(mc -> mc.player.getInventory().getSelectedSlot());
+        context.getInput().scroll(3);
+        context.waitTicks(3);
+        double zoomed = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFactor());
+        check(zoomed < 0.9, "wheel does not zoom during free look: " + zoomed);
+        check(context.computeOnClient(mc -> mc.player.getInventory().getSelectedSlot()) == slot0, "the wheel scrolled the hotbar during free look");
+        context.takeScreenshot("freelook-zoomed");
+        // b-qw10: the start point follows the real (zoomed) field of view; expectation = same pinhole projection, offset scales with tan(fov/2)
+        double[] z = context.computeOnClient(mc -> {
+            double base = mc.options.fov().get(), cam = mc.gameRenderer.mainCamera().getFov();
+            int w = mc.getWindow().getGuiScaledWidth(), h = mc.getWindow().getGuiScaledHeight();
+            int[] p0 = com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), w, h, base);
+            int[] p1 = com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), w, h, cam);
+            double k = Math.tan(Math.toRadians(base) / 2) / Math.tan(Math.toRadians(cam) / 2);
+            if (p0 == null || p1 == null) return null;
+            return new double[]{base, cam, p1[0] - (w / 2.0 + (p0[0] - w / 2.0) * k), p1[1] - (h / 2.0 + (p0[1] - h / 2.0) * k)};
+        });
+        check(z != null && z[1] < z[0] - 1, "zoom does not narrow the camera fov: " + java.util.Arrays.toString(z));
+        check(z != null && Math.abs(z[2]) <= 1.5 && Math.abs(z[3]) <= 1.5, "start point off under zoom: " + java.util.Arrays.toString(z));
         context.getInput().releaseKey(com.simplelib.api.client.FreeLook.KEY);
         context.waitTicks(30);
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFactor()) == 1.0, "zoom not reset after free look ended");
+        context.takeScreenshot("freelook-zoom-reset");
+        check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.zoomFov()) == 1f, "zoom fov still applied after free look");
         check(context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), 427, 240, 70.0)) == null, "crosshair point after free look ended");
         r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
         check(Math.abs(r[1]) < 1 && Math.abs(r[0] - yaw0) < 0.01, "release (camera mode): offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);

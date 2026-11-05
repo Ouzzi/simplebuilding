@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "waxed_faded_melon",
+  "ingredients": [
+    "simpleblocks:faded_melon",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "simpleblocks:waxed_faded_melon"
+  }
+}

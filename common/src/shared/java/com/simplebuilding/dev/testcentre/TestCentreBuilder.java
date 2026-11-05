@@ -94,6 +94,32 @@ public final class TestCentreBuilder {
         return new Result(done[0], done[1], System.currentTimeMillis() - start);
     }
 
+    /**
+     * DW04D-1 ({@code /testcenter mods|mod <id> build}): eine Zeichenflaeche fuer sich an {@code origin} (vordere linke Ecke,
+     * Standhoehe). Ihr Kasten wird vorher geleert (Entities ausser Spielern, Behaelter, Bloecke; ein Feld Rand), dann Boden
+     * (glatter Stein, Seelaternen im 6er-Raster) und die Schritte.
+     */
+    public static Result buildCanvas(ServerLevel level, BlockPos origin, TcCanvas canvas) {
+        long start = System.currentTimeMillis();
+        BoundingBox box = canvasBox(origin, canvas);
+        clear(level, box);
+        for (int x = box.minX(); x <= box.maxX(); x++) {
+            for (int z = box.minZ(); z <= box.maxZ(); z++) {
+                level.setBlock(new BlockPos(x, origin.getY() - 1, z), lamp(origin, x, z) ? LAMP : FLOOR, QUIET);
+            }
+        }
+        List<TcOp> ops = new ArrayList<>();
+        canvas.ops().forEach(op -> ops.add(op.moved(origin)));
+        int[] done = apply(level, ops);
+        return new Result(done[0], done[1], System.currentTimeMillis() - start);
+    }
+
+    /** Der Kasten, den {@link #buildCanvas} leert: die Flaeche mit einem Feld Rand, vom Boden bis zwei ueber die Hoehe. */
+    public static BoundingBox canvasBox(BlockPos origin, TcCanvas canvas) {
+        return new BoundingBox(origin.getX() - 1, origin.getY() - 1, origin.getZ() - 1,
+                origin.getX() + canvas.width(), origin.getY() + canvas.height() + 2, origin.getZ() + canvas.depth());
+    }
+
     private static boolean lamp(BlockPos origin, int x, int z) {
         return Math.floorMod(x - origin.getX(), LAMP_SPACING) == 3 && Math.floorMod(z - origin.getZ(), LAMP_SPACING) == 3;
     }

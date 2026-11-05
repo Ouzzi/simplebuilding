@@ -51,7 +51,7 @@ public final class McVersion {
     public static final boolean BRUSHED_ORES = true;
     /** Dimensional Scrap (2026-10-01): mysterious endgame block in every dimension, no use before v2. */
     public static final boolean DIMENSIONAL_SCRAP = true;
-    /** Fletching table and crafted arrows (2026-10-01, main line first). */
+    /** Fletching table and crafted arrows (2026-10-01, main line first); since 04.11. in Simple Arrows (SB knows them by id, ArrowRefs). */
     public static final boolean FLETCHING = true;
     /** Vanilla recipe book in the smithing table instead of the trim resonance button (2026-10-02). */
     public static final boolean SMITHING_RECIPE_BOOK = true;

@@ -39,6 +39,9 @@ import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Module tests of the chest network (BS29b-3): wiring, limits, the broken state, the cached search, the window's clicks, the
@@ -169,6 +172,35 @@ public final class NetworkTests {
             StorageConfig.interfaceFillsGaps = was;
         }
         h.assertTrue(problems.isEmpty(), "interface on chests: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * DW04C-1: under a chest with walls on two neighbouring sides both edge strips grow, and the 1 px corner between them is filled
+     * too (no see-through hole); with one wall only there is no corner.
+     */
+    public static void interfaceFillsTheCorner(GameTestHelper h) {
+        List<String> problems = new ArrayList<>();
+        boolean was = StorageConfig.interfaceFillsGaps;
+        try {
+            StorageConfig.interfaceFillsGaps = true;
+            BlockPos under = new BlockPos(3, 2, 3);
+            h.setBlock(under.above(), Blocks.CHEST);
+            h.setBlock(under.east(), Blocks.STONE);
+            h.setBlock(under.south(), Blocks.STONE);
+            // facing up: local E = east, U = south; the EU corner is x 15..16, z 15..16 at the top of the cell
+            VoxelShape corner = Block.box(15, 13, 15, 16, 16, 16);
+            BlockState both = placedInterface(h, under, Direction.UP);
+            if (!both.getValue(InterfaceBlock.EDGE_E) || !both.getValue(InterfaceBlock.EDGE_U)) problems.add("edges not grown: " + both);
+            if (!Shapes.joinIsNotEmpty(both.getShape(h.getLevel(), h.absolutePos(under)), corner, BooleanOp.AND)) problems.add("corner open with both edges");
+            if (Shapes.joinIsNotEmpty(both.getShape(h.getLevel(), h.absolutePos(under)), Block.box(0, 13, 0, 1, 16, 1), BooleanOp.AND)) problems.add("corner without edges");
+            h.setBlock(under.south(), Blocks.AIR);
+            BlockState one = placedInterface(h, under, Direction.UP);
+            if (Shapes.joinIsNotEmpty(one.getShape(h.getLevel(), h.absolutePos(under)), corner, BooleanOp.AND)) problems.add("corner with one edge only");
+        } finally {
+            StorageConfig.interfaceFillsGaps = was;
+        }
+        h.assertTrue(problems.isEmpty(), "interface corner: " + problems);
         h.succeed();
     }
 
@@ -405,6 +437,134 @@ public final class NetworkTests {
         ItemStack moved = menu.quickMoveStack(player, ControllerMenu.CELLS);
         if (moved.isEmpty() || !player.getInventory().getItem(9).isEmpty()) problems.add("shift-click in the inventory did not store");
         h.assertTrue(problems.isEmpty(), "window clicks: " + problems);
+        h.succeed();
+    }
+
+    /** The chest the network fills second (members order), so a test can show the same-item rule beats the order. */
+    private static Container secondChest(GameTestHelper h, ControllerChestBlockEntity controller) {
+        return (Container) h.getLevel().getBlockEntity(ChestNetwork.members(h.getLevel(), 0, controller.scan()).chests().get(1));
+    }
+
+    private static long networkCount(GameTestHelper h, ControllerChestBlockEntity controller, net.minecraft.world.item.Item item) {
+        long n = 0;
+        for (BlockPos pos : ChestNetwork.members(h.getLevel(), 0, controller.scan()).chests()) n += ((Container) h.getLevel().getBlockEntity(pos)).countItem(item);
+        return n;
+    }
+
+    /**
+     * DW04C-2: the controller has no inventory of its own. Taking stone and putting it back (click, right click, shift-click in the
+     * inventory) puts it into a chest of the network - the one that already holds stone, even when its stack there is full and it
+     * is the later chest - and never into the controller.
+     */
+    public static void storePrefersTheChestWithTheSameItem(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        Container second = secondChest(h, controller);
+        second.setItem(0, new ItemStack(Items.STONE, 64));
+        second.setItem(1, new ItemStack(Items.STONE, 10));
+        second.setItem(5, new ItemStack(Items.GOLD_INGOT, 1));
+        ServerPlayer player = player(h);
+        ControllerMenu menu = ControllerMenu.server(1, player.getInventory(), controller);
+        List<String> problems = new ArrayList<>();
+        // take a full stack (10 stone stay) and put it back one, then the rest: all of it goes where the stone is, past a free
+        // first chest and the controller's slots
+        menu.clicked(0, 0, ContainerInput.PICKUP, player);
+        if (!menu.getCarried().is(Items.STONE) || menu.getCarried().getCount() != 64) problems.add("took " + menu.getCarried());
+        menu.clicked(3, 1, ContainerInput.PICKUP, player);
+        menu.clicked(3, 0, ContainerInput.PICKUP, player);
+        if (!menu.getCarried().isEmpty()) problems.add("carried after storing " + menu.getCarried());
+        if (second.countItem(Items.STONE) != 74) problems.add("the stone chest holds " + second.countItem(Items.STONE) + " stone, not 74");
+        player.getInventory().setItem(9, new ItemStack(Items.GOLD_INGOT, 4));
+        menu.quickMoveStack(player, ControllerMenu.CELLS);
+        if (second.countItem(Items.GOLD_INGOT) != 5) problems.add("shift-clicked gold went elsewhere (" + second.countItem(Items.GOLD_INGOT) + " in the gold chest)");
+        // a new kind goes to the network in its order
+        menu.setCarried(new ItemStack(Items.DIRT, 3));
+        menu.clicked(3, 0, ContainerInput.PICKUP, player);
+        if (networkCount(h, controller, Items.DIRT) != 3) problems.add("new kind: " + networkCount(h, controller, Items.DIRT) + " dirt in the chests");
+        if (!controller.isEmpty()) problems.add("the controller holds items");
+        h.assertTrue(problems.isEmpty(), "storing through the controller: " + problems);
+        h.succeed();
+    }
+
+    /** DW04C-2: with every chest full, a stored item stays on the cursor or in the inventory - it neither vanishes nor goes into the controller. */
+    public static void fullNetworkKeepsTheItemWithThePlayer(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        for (BlockPos pos : List.of(UP_CHEST, SOUTH_CHEST)) {
+            Container chest = container(h, pos);
+            for (int i = 0; i < chest.getContainerSize(); i++) chest.setItem(i, new ItemStack(Items.DIRT, 64));
+        }
+        ServerPlayer player = player(h);
+        ControllerMenu menu = ControllerMenu.server(1, player.getInventory(), controller);
+        List<String> problems = new ArrayList<>();
+        menu.setCarried(new ItemStack(Items.STONE, 5));
+        menu.clicked(3, 0, ContainerInput.PICKUP, player);
+        if (!menu.getCarried().is(Items.STONE) || menu.getCarried().getCount() != 5) problems.add("cursor after a full network " + menu.getCarried());
+        player.getInventory().setItem(9, new ItemStack(Items.STONE, 7));
+        menu.quickMoveStack(player, ControllerMenu.CELLS);
+        if (player.getInventory().countItem(Items.STONE) != 7) problems.add("inventory holds " + player.getInventory().countItem(Items.STONE) + " stone, not 7");
+        HopperIntake intake = intake(h);
+        if (intake.rest(new ItemStack(Items.STONE, 1)).getCount() != 1) problems.add("a hopper got stone into a full network");
+        if (!controller.isEmpty()) problems.add("the controller holds items");
+        h.assertTrue(problems.isEmpty(), "full network: " + problems);
+        h.succeed();
+    }
+
+    /** What a hopper or pipe above the controller sees (both use {@code HopperBlockEntity.getContainerAt} and {@code addItem}). */
+    private record HopperIntake(Container container) {
+        ItemStack rest(ItemStack stack) {
+            return net.minecraft.world.level.block.entity.HopperBlockEntity.addItem(null, this.container, stack, Direction.DOWN);
+        }
+    }
+
+    private static HopperIntake intake(GameTestHelper h) {
+        return new HopperIntake(net.minecraft.world.level.block.entity.HopperBlockEntity.getContainerAt(h.getLevel(), h.absolutePos(CONTROLLER)));
+    }
+
+    /** DW04C-2: a hopper or pipe feeding the controller puts the item into the network (the chest with the same item first). */
+    public static void controllerIntakeFeedsTheNetwork(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        Container second = secondChest(h, controller);
+        second.setItem(2, new ItemStack(Items.IRON_INGOT, 1));
+        List<String> problems = new ArrayList<>();
+        HopperIntake intake = intake(h);
+        if (intake.container() == null || intake.container() == controller) problems.add("hoppers see the controller's own slots: " + intake.container());
+        else {
+            ItemStack rest = intake.rest(new ItemStack(Items.IRON_INGOT, 1));
+            if (!rest.isEmpty() || second.countItem(Items.IRON_INGOT) != 2) problems.add("hopper: rest " + rest + ", " + second.countItem(Items.IRON_INGOT) + " iron in its chest");
+            rest = intake.rest(new ItemStack(Items.COBBLESTONE, 8));
+            if (!rest.isEmpty() || networkCount(h, controller, Items.COBBLESTONE) != 8) problems.add("pipe stack: rest " + rest);
+            if (net.minecraft.world.level.block.entity.HopperBlockEntity.getContainerAt(h.getLevel(), h.absolutePos(CONTROLLER)).getItem(0).getCount() != 0) problems.add("intake shows an item");
+        }
+        if (controller.canPlaceItem(0, new ItemStack(Items.STONE))) problems.add("the controller's own slots take items");
+        if (!controller.isEmpty()) problems.add("the controller holds items");
+        h.assertTrue(problems.isEmpty(), "controller intake: " + problems);
+        h.succeed();
+    }
+
+    /**
+     * DW04C-2, old worlds: items an older version kept in the controller move into the chests when the window opens; what does not
+     * fit stays in the controller (listed in the window, never dropped or lost).
+     */
+    public static void oldControllerItemsMoveIntoTheNetwork(GameTestHelper h) {
+        ControllerChestBlockEntity controller = star(h, "wooden", Blocks.CHEST, Blocks.CHEST);
+        controller.setItem(0, new ItemStack(Items.STONE, 7));
+        controller.setItem(4, new ItemStack(Items.DIRT, 3));
+        ServerPlayer player = player(h);
+        ControllerMenu.server(1, player.getInventory(), controller);
+        List<String> problems = new ArrayList<>();
+        if (!controller.isEmpty()) problems.add("controller still holds items");
+        if (networkCount(h, controller, Items.STONE) != 7 || networkCount(h, controller, Items.DIRT) != 3) problems.add("chests hold " + networkCount(h, controller, Items.STONE) + " stone, " + networkCount(h, controller, Items.DIRT) + " dirt");
+        // a full network: the old item stays in the controller and is still listed
+        for (BlockPos pos : List.of(UP_CHEST, SOUTH_CHEST)) {
+            Container chest = container(h, pos);
+            for (int i = 0; i < chest.getContainerSize(); i++) chest.setItem(i, new ItemStack(Items.GOLD_BLOCK, 64));
+        }
+        controller.setItem(0, new ItemStack(Items.EMERALD, 5));
+        ControllerMenu menu = ControllerMenu.server(2, player.getInventory(), controller);
+        if (controller.countItem(Items.EMERALD) != 5) problems.add("overflow: controller keeps " + controller.countItem(Items.EMERALD) + " emeralds, not 5");
+        boolean listed = false;
+        for (int i = 0; i < ControllerMenu.CELLS; i++) listed |= menu.getSlot(i).getItem().is(Items.EMERALD) && menu.countAt(i) == 5;
+        if (!listed) problems.add("old emeralds not listed in the window");
+        h.assertTrue(problems.isEmpty(), "old controller contents: " + problems);
         h.succeed();
     }
 

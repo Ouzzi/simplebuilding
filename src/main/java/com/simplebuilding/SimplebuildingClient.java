@@ -75,9 +75,6 @@ public class SimplebuildingClient implements ClientModInitializer {
         if (ModEntities.LEVITATING_BLOCK != null) { // 26.3: the rising block belongs to Simple Blocks (b-blocksmove)
             EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         }
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            EntityRendererRegistry.register(ModEntities.CRAFTED_ARROW, com.simplebuilding.fletching.client.CraftedArrowRenderer::new);
-        }
         if (com.simplebuilding.version.McVersion.TRAINING_DUMMY) {
             EntityRendererRegistry.register(ModEntities.STRAW_ARMOR_STAND, com.simplebuilding.dummy.client.TrainingDummyRenderer.straw());
             EntityRendererRegistry.register(ModEntities.TRAINING_DUMMY, com.simplebuilding.dummy.client.TrainingDummyRenderer.dummy());
@@ -259,9 +256,6 @@ public class SimplebuildingClient implements ClientModInitializer {
         if (ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER != null) MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
         MenuScreens.register(ModScreenHandlers.BACKPACK_MENU, BackpackScreen::new);
         MenuScreens.register(ModScreenHandlers.TIERED_CHEST_MENU, com.simplebuilding.client.gui.TieredChestScreen::new);
-        if (ModScreenHandlers.FLETCHING_MENU != null) {
-            MenuScreens.register(ModScreenHandlers.FLETCHING_MENU, com.simplebuilding.client.gui.FletchingScreen::new);
-        }
         if (ModScreenHandlers.AUTO_SMITHER_MENU != null) {
             MenuScreens.register(ModScreenHandlers.AUTO_SMITHER_MENU, com.simplebuilding.client.gui.AutoSmitherScreen::new);
         }

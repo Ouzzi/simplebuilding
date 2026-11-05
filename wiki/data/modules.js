@@ -77,9 +77,9 @@ window.WIKI_MODULES = [
     ],
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR42mO4devWf0owA00NSEpKwhBLTk4GYwwD0BUbGxtj1fjnzx8w1tDQwHQBsiYFBQUUzQcOHABrfPfuHZiN1QB0jdg0X7hw4X9iYiJuA7BpBmmEYWTbUQwAOR+bs5E1o9sONwBbaMMMAWkCYWy2Y/WCljgLGAtwMv0XEREBawBhkM0EDQBp7PDn+S8nwAxmI8vBDMKZkGCa7VRY/2fZcv7nZGUkPiXCNEeacGDVjBy4oMBGDjMUA9A1Iycs9JSJ1QvImrHFDEgMXZzi3AgA+fgUIAeG5JAAAAAASUVORK5CYII=",
     "counts": {
-      "items": 492,
+      "items": 491,
       "blocks": 283,
-      "recipes": 818,
+      "recipes": 802,
       "config": 230,
       "features": 47
     }
@@ -565,9 +565,9 @@ window.WIKI_MODULES = [
       "items": 11,
       "blocks": 6,
       "recipes": 22,
-      "features": 8
+      "features": 9
     },
-    "dataHash": "f425292e2569"
+    "dataHash": "1e9b0ae11b5b"
   },
   {
     "id": "simpleinterfaces",
@@ -1365,11 +1365,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 59,
-      "recipes": 285,
-      "features": 12
+      "blocks": 89,
+      "recipes": 306,
+      "features": 13
     },
-    "dataHash": "b04a60324a03"
+    "dataHash": "f0faa11dedd9"
   },
   {
     "id": "simplecrucibles",
@@ -1637,7 +1637,7 @@ window.WIKI_MODULES = [
       "recipes": 183,
       "features": 15
     },
-    "dataHash": "f980a068bfc8"
+    "dataHash": "5b2444036cd2"
   },
   {
     "id": "simplemusic",
@@ -1938,12 +1938,12 @@ window.WIKI_MODULES = [
       "recipes": 10,
       "features": 8
     },
-    "dataHash": "1ac701cd8c82"
+    "dataHash": "432e700194e6"
   },
   {
     "id": "simplearrows",
     "displayName": "Simple Arrows",
-    "description": "Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.",
+    "description": "Arrows: the Fletching Table (moved from SimpleBuilding on 04.11., ids migrate) builds 4 arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla (tips and shafts of other mods appear with them). Fabric only for now.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1959,13 +1959,17 @@ window.WIKI_MODULES = [
     "stage": "new",
     "parent": "simplebuilding",
     "bundle": "required",
+    "intro": {
+      "en": "Arrows: the Fletching Table builds four arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow lights the spot where it sticks, the Silver Arrow hits undead harder.",
+      "de": "Pfeile: der Befiederungstisch baut vier Pfeile aus Spitze, Schaft und Befiederung, auf Wunsch mit Trank; der Lichtpfeil erhellt die Stelle, an der er steckt, der Silberpfeil trifft Untote härter."
+    },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mMwtPP6TwlmABFrD1wmiLVkBFBw1awdqAb0rjj0//Cl+2AaHYM0/P+06v+381FgDOJH5LdgGoAPgzSBNO+u0yPdAJCGriwrME2yATDNcS4qcL8TbQA2zTBM0AB8mgkaQEgzVgNAConVjGEASOGXL1+I1ozTgB07dhClGasBIM0gQ2AuIckAWBiADIEZRJIXYALImQXEJ4ThBlCCAdwLWD3aEHARAAAAAElFTkSuQmCC",
     "counts": {
-      "items": 2,
-      "recipes": 2,
-      "features": 4
+      "items": 4,
+      "recipes": 18,
+      "features": 5
     },
-    "dataHash": "d900bd3957ec"
+    "dataHash": "a6df6f188c34"
   },
   {
     "id": "simpleresonance",

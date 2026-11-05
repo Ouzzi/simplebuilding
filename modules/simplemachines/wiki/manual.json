@@ -158,10 +158,10 @@
       ],
       "en": {
         "title": "Double Piston",
-        "summary": "One block that pushes in two stages: a signal of 1 to 7 brings the head out one block like a Vanilla piston, 8 to 15 moves the body half a block forward and the head a second block - three blocks long in all.",
+        "summary": "One block that pushes in two stages: a signal of 1 to 7 brings the head out one block like a Vanilla piston, 8 to 15 slides an arm out of it and moves the head a second block - three blocks long in all.",
         "details": [
           "Place it like a piston: it faces towards you. It reads the signal like a Vanilla piston (every side except the front, from below and the block above), so Vanilla machines drive it the same way.",
-          "Stage 1 looks like a Vanilla piston that is out. At stage 2 the piston body itself moves half a block forward and the head comes out another block; the back half of the piston's own block is then empty.",
+          "Stage 1 looks like a Vanilla piston that is out. At stage 2 an arm, a thicker sleeve, comes out of the base and holds the head one block further; the base stays where it is and looks like an extended Vanilla piston. Every move slides smoothly like Vanilla's piston.",
           "It moves one block per step and looks at the signal again after each one: a falling signal brings it back one stage, a rising one sends it on. Every step pushes with Vanilla's rules (12 blocks at most, slime and honey stick, blocks with a block entity stay, obsidian stops it).",
           "Other pistons can push it while it is in (stage 0), like a retracted Vanilla piston; out (stage 1 or 2) and its head and arm it stays put. Breaking any part takes the whole piston away and drops one Double Piston.",
           "A strong signal can be weakened with the Signal Dampener: 15, 12, 9, 6 after three stage-3 Dampeners is a signal for stage 1.",
@@ -170,10 +170,10 @@
       },
       "de": {
         "title": "Doppelkolben",
-        "summary": "Ein Block, der in zwei Stufen schiebt: Ein Signal von 1 bis 7 fährt den Kopf einen Block weit aus wie beim Vanilla-Kolben, 8 bis 15 schiebt den Körper einen halben Block vor und den Kopf einen zweiten Block – zusammen drei Blöcke lang.",
+        "summary": "Ein Block, der in zwei Stufen schiebt: Ein Signal von 1 bis 7 fährt den Kopf einen Block weit aus wie beim Vanilla-Kolben, 8 bis 15 fährt ein Schaft aus ihm heraus und der Kopf einen zweiten Block – zusammen drei Blöcke lang.",
         "details": [
           "Er wird wie ein Kolben gesetzt: Er zeigt zu dir. Das Signal liest er wie ein Vanilla-Kolben (jede Seite außer der Front, von unten und der Block darüber), Vanilla-Maschinen steuern ihn also genauso.",
-          "Stufe 1 sieht aus wie ein ausgefahrener Vanilla-Kolben. In Stufe 2 rückt der Kolbenkörper selbst einen halben Block vor und der Kopf fährt einen weiteren Block aus; die hintere Hälfte des eigenen Blocks ist dann leer.",
+          "Stufe 1 sieht aus wie ein ausgefahrener Vanilla-Kolben. In Stufe 2 fährt ein Schaft, eine dickere Hülse, aus der Basis und hält den Kopf einen Block weiter; die Basis bleibt stehen und sieht aus wie ein ausgefahrener Vanilla-Kolben. Jede Bewegung gleitet flüssig wie beim Vanilla-Kolben.",
           "Er fährt je Schritt einen Block und schaut danach wieder aufs Signal: Ein fallendes Signal holt ihn eine Stufe zurück, ein steigendes schickt ihn weiter. Jeder Schritt schiebt nach den Vanilla-Regeln (höchstens 12 Blöcke, Schleim und Honig kleben, Blöcke mit Block-Entity bleiben, Obsidian hält ihn auf).",
           "Andere Kolben können ihn schieben, solange er eingefahren ist (Stufe 0), wie einen eingefahrenen Vanilla-Kolben; ausgefahren (Stufe 1 oder 2) sowie Kopf und Arm bleiben stehen. Wer ein Teil abbaut, nimmt den ganzen Kolben mit und bekommt einen Doppelkolben.",
           "Ein starkes Signal lässt sich mit dem Signaldämpfer schwächen: 15, 12, 9, 6 nach drei Dämpfern der Stufe 3 ist ein Signal für Stufe 1.",

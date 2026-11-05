@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/carved_pumpkin",
+  "textures": {
+    "front": "simpleblocks:block/faded_carved_pumpkin",
+    "side": "simpleblocks:block/faded_pumpkin_side",
+    "top": "simpleblocks:block/faded_pumpkin_top"
+  }
+}

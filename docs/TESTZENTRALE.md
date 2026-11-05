@@ -51,6 +51,17 @@ Alle unter `/sbtestcentre`, Befehlsrechte Stufe 2 (Operator/Cheats; Befehlsblöc
 | `coverage` | nennt Mod-Items, die noch keinem Abschnitt zugeordnet sind |
 | `stats [only\|without …]` | Abschnitte, Fläche, Item-Rahmen und Rüstungsständer der Planung (ohne Bau); je Abschnitt eine Zeile im Log (TZ22-2); mit Optionen die Größe eines Teilbaus |
 
+**`/testcenter` (DW04D-1, 04.11.2026).** Kurzform für den Überblick über alle Blöcke je Mod:
+`/testcenter all build [here|x y z]` = ganze Zentrale (wie `/sbtestcentre build`), `/testcenter mods build [here|x y z]` =
+nur die Block-Familien aller Mods, `/testcenter mod <id> build [here|x y z]` = ein Mod (Vorschläge per Tab). `here` (und ohne
+Ort bei `mods`/`mod`): der Bereich beginnt zwei Felder vor den Füßen (Blick nach Süden). Der Befehl leert seinen Bereich
+vorher (Entities, Behälter, Blöcke) und legt Boden. In der Zentrale steht derselbe Inhalt als Abschnitt/Bezirk `mod_blocks`
+(baut beim Erzeugen der Testwelt automatisch mit). Aufbau (`ModBlockGallery`): je Mod ein beschilderter Bereich; eine Spalte
+je Material-Familie (Basisblock + Varianten wie rissig, bemoost, gemeißelt, poliert, Ziegel; passende Vanilla-Blöcke als
+Bezug), Zeilen von vorn nach hinten Octet, Stufe, Treppe, Mauer, Zaun, Zauntor, Scheibe, Falltür, Tür, Vollblock – gleiche
+Form auf gleicher Zeile, bis 4 gestapelt; Spalten nach Kartenfarbe gereiht. Dahinter weitere Blöcke und nicht setzbare
+Items (Rahmen flach am Boden) in Gruppen nach Namensmuster. Abgeleitet aus Block-Klassen/-Tags und Ids, nichts von Hand.
+
 **Teilbau (TZ22-4, 22.10.2026).** Bereiche sind die Bezirke (`TestCentreLayout.DISTRICT_NAMES`: `workshop` = Steuerwand,
 Werkzeuge, Meißel, Planung, Abbau, Verzauberungen; `states`; `blocks`; `technics`; `combat`; `modules`; `mobs`;
 `structures`; `recipes` = Crafting-Rezepte (N13); `catalog` = Tab-Wände; `rest` = Galerie/Unsortiert) oder einzelne Abschnitts-Ids; durch Komma oder Leerzeichen

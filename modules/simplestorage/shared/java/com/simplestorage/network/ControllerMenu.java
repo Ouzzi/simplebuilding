@@ -76,6 +76,7 @@ public class ControllerMenu extends AbstractContainerMenu {
         addStandardInventorySlots(inventory, INVENTORY_X, INVENTORY_Y);
         addDataSlots(this.data);
         if (controller != null) {
+            controller.moveOwnItemsIntoNetwork(); // DW04C-2: items an older version kept in the controller go to the chests
             controller.startOpen(inventory.player);
             refresh();
         }

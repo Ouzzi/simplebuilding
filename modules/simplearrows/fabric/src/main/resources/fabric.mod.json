@@ -12,9 +12,12 @@
     "sources": "https://github.com/Ouzzi/simplebuilding",
     "issues": "https://github.com/Ouzzi/simplebuilding/issues"
   },
-  "description": "Arrows: the Light Arrow lights the spot where it sticks until it despawns like a normal arrow; the Silver Arrow hits undead harder (crafted with Simple Ores' silver). Works on its own.",
+  "description": "Arrows: the Fletching Table (tip, shaft and fletching, an optional potion: 4 arrows with their own damage and flight), the Light Arrow, which lights the spot where it sticks until it despawns like a normal arrow, and the Silver Arrow, which hits undead harder (crafted with Simple Ores' silver). Works on its own.",
   "license": "CC0-1.0",
   "environment": "*",
+  "mixins": [
+    "simplearrows.mixins.json"
+  ],
   "entrypoints": {
     "main": [
       "com.simplebuilding.modules.simplearrows.ArrowsFabric"

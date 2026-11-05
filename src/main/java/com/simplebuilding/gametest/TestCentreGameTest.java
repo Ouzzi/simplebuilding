@@ -107,4 +107,14 @@ public final class TestCentreGameTest {
     public void upgradeChainsRunByTier(GameTestHelper helper) {
         TestCentreTests.upgradeChainsRunByTier(helper);
     }
+
+    @GameTest
+    public void modBlockFamiliesStandOnceAndAligned(GameTestHelper helper) {
+        TestCentreTests.modBlockFamiliesStandOnceAndAligned(helper);
+    }
+
+    @GameTest
+    public void testcenterCommandClearsAndBuildsTheModArea(GameTestHelper helper) {
+        TestCentreTests.testcenterCommandClearsAndBuildsTheModArea(helper);
+    }
 }

@@ -401,9 +401,7 @@ public class ModItems {
     public static final Item ENDERITE_POLE = com.simplebuilding.version.McVersion.GADGET_REWORK
             ? registerItem("enderite_pole", settings -> new BlockItem(ModBlocks.ENDERITE_POLE, settings.fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC))) : null;
 
-    /** Pfeil vom Befiederungstisch; die Teile stehen in der Komponente {@code arrow_parts}. */
-    public static final Item CRAFTED_ARROW = com.simplebuilding.version.McVersion.FLETCHING
-            ? registerItem("crafted_arrow", s -> new com.simplebuilding.fletching.CraftedArrowItem(s)) : null;
+    // Pfeil vom Befiederungstisch: seit 04.11. simplearrows:crafted_arrow (Simple Arrows, b-arrows03; util/ArrowRefs).
 
     /** Stroh-Ruestungsstaender (2026-10-02); mit geschnitztem Kuerbis wird er zur Trainingspuppe. */
     public static final Item STRAW_ARMOR_STAND = com.simplebuilding.version.McVersion.TRAINING_DUMMY

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "simpleblocks:block/pale_carved_pumpkin",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simpleblocks:block/pale_carved_pumpkin"
+    },
+    "facing=south": {
+      "model": "simpleblocks:block/pale_carved_pumpkin",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simpleblocks:block/pale_carved_pumpkin",
+      "y": 270
+    }
+  }
+}

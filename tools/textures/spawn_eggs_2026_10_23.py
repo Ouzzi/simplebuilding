@@ -165,6 +165,52 @@ def shade(rows: list[str], mats: dict, fixed: dict, main: str, light=1.0, dither
     return img, stack
 
 
+def shade_legacy(rows: list[str], mats: dict, fixed: dict, main: str, light=1.0, dither=True, seed=0):
+    """DW04A-1 (owner 04.11.): the shading of the Shellker and Deceiver eggs from BEFORE BOSS02, kept on purpose. Renders a material grid. mats: letter -> (ramp, base index, noise) shaded; fixed: letter -> RGB as drawn.
+    Returns (img, layers) with layers Umriss / Grundfarbe / Motiv / Details as RGBA byte images."""
+    filled = {(x, y) for y in range(16) for x in range(16) if rows[y][x] != "."}
+    out = {name: bytearray(16 * 16 * 4) for name in ("Umriss", "Grundfarbe", "Motiv", "Details")}
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    ys = [y for _, y in filled]
+    top, bottom = min(ys), max(ys)
+    cy = (top + bottom) / 2
+    for (x, y) in filled:
+        ch = rows[y][x]
+        if ch in fixed:
+            c, layer = fixed[ch], "Details"
+        else:
+            ramp, base, noise = mats[ch]
+            up = (x, y - 1) not in filled
+            left = (x - 1, y) not in filled
+            down = (x, y + 1) not in filled
+            right = (x + 1, y) not in filled
+            if up or left or down or right:
+                lit_side = (up or left) and not (down or right)
+                c = ramp[0] if lit_side else dark(ramp[0], 0.7)
+                if not lit_side and (up or left):
+                    c = ramp[0]
+                layer = "Umriss"
+            else:
+                # light from the top left: about +1.5 in the upper left, -1.5 in the lower right
+                l = ((7.5 - x) * 0.22 + (cy - y) * 0.26) * light
+                if dither:
+                    l += ((h(x, y, seed) & 7) - 3.5) / 9.0 * noise
+                i = max(1, min(len(ramp) - 1, int(round(base + l))))
+                c = ramp[i]
+                layer = "Grundfarbe" if ch == main else "Motiv"
+        px = tuple(c[:3]) + (255,)
+        img.putpixel((x, y), px)
+        o = (y * 16 + x) * 4
+        out[layer][o:o + 4] = bytes(px)
+    # one layer per role (disjoint, opaque): the composition is exact
+    names = ["Umriss", "Grundfarbe", "Motiv", "Details"]
+    stack = []
+    for n in names:
+        if any(out[n][3::4]):
+            stack.append((n, bytes(out[n])))
+    return img, stack
+
+
 # ---------------------------------------------------------------- Shellker (Simple Mobs)
 # The mob: a shulker shell disguised as bedrock (grey noise, black pits, pale flecks), violet head inside.
 
@@ -206,7 +252,7 @@ def shellker(variant):
         rows = paint(rows, {(5, 11): "v", (6, 11): "v", (10, 10): "v", (8, 13): "v", (7, 3): "P", (10, 5): "F", (4, 4): "F",
                             (11, 12): "P"})
         main = "b"
-    return shade(rows, mats, fixed, main, seed=11)
+    return shade_legacy(rows, mats, fixed, main, seed=11)
 
 
 # ---------------------------------------------------------------- Village Wanderer (Simple Wanderers)
@@ -350,9 +396,9 @@ SHELL = [(0x12, 0x0a, 0x18), (0x1c, 0x10, 0x26), (0x26, 0x16, 0x33), (0x30, 0x1d
 SPINE = [(0xa8, 0xa2, 0x6c), (0xc9, 0xc4, 0x8a), (0xdf, 0xdb, 0xa6), (0xf0, 0xee, 0xc6)]
 
 
-def grid_egg(art, mats, fixed, main, shape=EGG, seed=0):
+def grid_egg(art, mats, fixed, main, shape=EGG, seed=0, legacy=False):
     assert all(len(r) == 16 for r in art), [r for r in art if len(r) != 16]
-    return shade(overlay(egg_rows(main, shape), art), mats, fixed, main, seed=seed)
+    return (shade_legacy if legacy else shade)(overlay(egg_rows(main, shape), art), mats, fixed, main, seed=seed)
 
 
 def soulfire_blaze_b():
@@ -467,7 +513,7 @@ def deceiver_b():
            "....oooGgooo....",
            ".....ooGgoo.....",
            "................"]
-    return grid_egg(art, mats, fixed, "o", seed=13)
+    return grid_egg(art, mats, fixed, "o", seed=13, legacy=True)  # DW04A-1: old shading
 
 
 def nibblemite_b():

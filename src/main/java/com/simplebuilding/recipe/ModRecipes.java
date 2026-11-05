@@ -52,23 +52,7 @@ public class ModRecipes {
             BackpackUpgradeRecipe.SERIALIZER
         );
 
-        // Befiederungstisch (B14): Rezepte nur fuers Vanilla-Rezeptbuch, drei Buch-Kategorien (N16).
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            Identifier fletching = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, com.simplebuilding.fletching.FletchingRecipes.ID);
-            Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, fletching, com.simplebuilding.fletching.FletchingRecipe.SERIALIZER);
-            com.simplebuilding.fletching.FletchingRecipes.TYPE = Registry.register(BuiltInRegistries.RECIPE_TYPE, fletching,
-                    com.simplebuilding.fletching.FletchingRecipes.newType());
-            for (com.simplebuilding.fletching.FletchingRecipe.Kind kind : com.simplebuilding.fletching.FletchingRecipe.Kind.values()) {
-                net.minecraft.world.item.crafting.RecipeBookCategory category = Registry.register(BuiltInRegistries.RECIPE_BOOK_CATEGORY,
-                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, com.simplebuilding.fletching.FletchingRecipes.categoryId(kind)),
-                        new net.minecraft.world.item.crafting.RecipeBookCategory());
-                switch (kind) {
-                    case TIP -> com.simplebuilding.fletching.FletchingRecipes.TIP_CATEGORY = category;
-                    case SHAFT -> com.simplebuilding.fletching.FletchingRecipes.SHAFT_CATEGORY = category;
-                    case FLETCHING -> com.simplebuilding.fletching.FletchingRecipes.FLETCHING_CATEGORY = category;
-                }
-            }
-        }
+        // Befiederungstisch (B14): Rezepttyp und Buch-Kategorien seit 04.11. in Simple Arrows (simplearrows:fletching).
 
         COUNT_BASED_SMITHING = Registry.register(
             BuiltInRegistries.RECIPE_TYPE,

@@ -6,7 +6,6 @@ import com.simplebuilding.dev.testcentre.TestCentreLayout;
 import com.simplebuilding.dummy.DummyTargets;
 import com.simplebuilding.dummy.TrainingDummy;
 import com.simplebuilding.entity.ModEntities;
-import com.simplebuilding.fletching.ArrowParts;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.version.McVersion;
@@ -217,9 +216,7 @@ public final class TrainingDummyTests {
         near(helper, EnchantmentHelper.modifyDamage(level, smite, spider, source, 5.0F), 5.0F, "smite V against the spider head");
         near(helper, EnchantmentHelper.modifyDamage(level, bane, spider, source, 5.0F), 17.5F, "bane V against the spider head");
         near(helper, EnchantmentHelper.modifyDamage(level, sharp, plain, source, 5.0F), 8.0F, "sharpness V against the pumpkin");
-        helper.assertValueEqual(ArrowParts.Tip.IRON.bonusAgainst(zombie), 2.5, "iron tip against the zombie head");
-        helper.assertValueEqual(ArrowParts.Tip.IRON.bonusAgainst(plain), 0.5, "iron tip against the pumpkin");
-        helper.assertValueEqual(ArrowParts.Tip.GOLD.bonusAgainst(zombie), 2.0, "gold tip against the zombie head");
+        // The Fletching Table's tips against the head mob: Simple Arrows' module_game_test_dummy_head_counts_for_tips (04.11.).
         helper.succeed();
     }
 
@@ -318,9 +315,12 @@ public final class TrainingDummyTests {
             }
         });
         if (McVersion.FLETCHING) {
-            for (ArrowParts.Parts parts : ArrowParts.allCombinations()) {
-                helper.assertTrue(stocked.stream().anyMatch(s -> s.is(ModItems.CRAFTED_ARROW) && ArrowParts.of(s).equals(parts)),
-                        "the archery station lacks the arrow " + parts);
+            // Simple Arrows' table arrows (by id, from its tab): every one of them stands in the station's chests.
+            List<ItemStack> crafted = com.simplebuilding.util.ArrowRefs.craftedArrows(helper.getLevel().registryAccess(), 1);
+            helper.assertTrue(!crafted.isEmpty() || com.simplebuilding.util.ArrowRefs.craftedArrow() == Items.AIR, "the Simple Arrows tab has no table arrows");
+            for (ItemStack arrow : crafted) {
+                helper.assertTrue(stocked.stream().anyMatch(s -> ItemStack.isSameItemSameComponents(s, arrow)),
+                        "the archery station lacks the arrow " + arrow.getComponentsPatch());
             }
         }
         helper.assertValueEqual(stocked.stream().filter(s -> s.is(Items.TIPPED_ARROW)).count(), (long) FeatureStations.tippedArrowCount(),

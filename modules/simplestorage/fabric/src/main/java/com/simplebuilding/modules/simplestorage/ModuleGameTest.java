@@ -661,6 +661,31 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void networkInterfaceFillsTheCorner(GameTestHelper h) {
+        StorageTests.ALL.get("network_interface_fills_the_corner").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkStorePrefersTheChestWithTheSameItem(GameTestHelper h) {
+        StorageTests.ALL.get("network_store_prefers_the_chest_with_the_same_item").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkFullKeepsTheItemWithThePlayer(GameTestHelper h) {
+        StorageTests.ALL.get("network_full_keeps_the_item_with_the_player").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkControllerIntakeFeedsTheNetwork(GameTestHelper h) {
+        StorageTests.ALL.get("network_controller_intake_feeds_the_network").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
+    public void networkOldControllerItemsMoveIntoTheNetwork(GameTestHelper h) {
+        StorageTests.ALL.get("network_old_controller_items_move_into_the_network").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void pipeSideKeysCycleInOutOff(GameTestHelper h) {
         StorageTests.ALL.get("pipe_side_keys_cycle_in_out_off").accept(h);
     }

@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 
 /**
  * DW03C (b-storage05, docs/ai/PLAN-B-STORAGE05-2026-11-03.md): pictures of the chest interface on chests and barrels, the Simple
- * Crucibles barrel lying and open, and pipes without stubs, 1920x1080 without the HUD. Only Vanilla calls and calls that existed
+ * Crucibles barrel lying and open, and pipes without stubs, 1920x1080 without the HUD. DW04C-1 (b-storage06): the filled corner. Only Vanilla calls and calls that existed
  * before the change, so the same scene photographs the old and the new state (the preview compares both).
  */
 public final class InterfaceShotsClient implements FabricClientGameTest {
@@ -61,6 +61,8 @@ public final class InterfaceShotsClient implements FabricClientGameTest {
             context.takeScreenshot(TestScreenshotOptions.of("simplestorage-dw03c-barrels").withSize(1920, 1080));
             look(context, world, 28.5, 2.4, 3.6, 28.5, 1.2, 0.5);
             context.takeScreenshot(TestScreenshotOptions.of("simplestorage-dw03c-pipes").withSize(1920, 1080));
+            look(context, world, 31.3, 0.5, -4.7, 33.0, 2.9, -3.0);
+            context.takeScreenshot(TestScreenshotOptions.of("simplestorage-dw04c-corner").withSize(1920, 1080));
             context.runOnClient(c -> {
                 if (c.gui.hud.isHidden()) c.gui.hud.toggle();
             });
@@ -168,5 +170,14 @@ public final class InterfaceShotsClient implements FabricClientGameTest {
             BlockPos at = p.east(i);
             set(l, at, ItemPipeBlock.withArms(l.getBlockState(at), l, at));
         }
+        // 7 (DW04C-1, owner's picture 6): a raised chest, its interface under it between two walls (east and south); both edge
+        // strips grow to the walls and meet in the corner, seen from below.
+        BlockPos c7 = b.offset(32, 3, -4);
+        set(l, c7, chest(Direction.SOUTH));
+        set(l, c7.below().east(), Blocks.SMOOTH_STONE.defaultBlockState());
+        set(l, c7.below().south(), Blocks.SMOOTH_STONE.defaultBlockState());
+        set(l, c7.east(), Blocks.SMOOTH_STONE.defaultBlockState());
+        set(l, c7.south(), Blocks.SMOOTH_STONE.defaultBlockState());
+        plate(l, c7.below(), Direction.UP);
     }
 }

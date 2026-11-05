@@ -444,21 +444,86 @@
       }
     },
     {
+      "id": "pale_blocks",
+      "sources": [
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PalePumpkinBlock.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/mixin/PaleGolemHeadMixin.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/Aging.java",
+        "modules/simpleblocks/shared/resources/data/simpleblocks/tags/worldgen/biome/pales_blocks.json",
+        "modules/simpleblocks/shared/java/com/simpleblocks/test/PaleTests.java"
+      ],
+      "related": [
+        "simpleblocks:faded_pumpkin",
+        "simpleblocks:bleached_pumpkin",
+        "simpleblocks:pale_pumpkin",
+        "simpleblocks:waxed_pumpkin",
+        "simpleblocks:waxed_faded_pumpkin",
+        "simpleblocks:waxed_bleached_pumpkin",
+        "simpleblocks:faded_carved_pumpkin",
+        "simpleblocks:bleached_carved_pumpkin",
+        "simpleblocks:pale_carved_pumpkin",
+        "simpleblocks:waxed_carved_pumpkin",
+        "simpleblocks:waxed_faded_carved_pumpkin",
+        "simpleblocks:waxed_bleached_carved_pumpkin",
+        "simpleblocks:faded_jack_o_lantern",
+        "simpleblocks:bleached_jack_o_lantern",
+        "simpleblocks:pale_jack_o_lantern",
+        "simpleblocks:waxed_jack_o_lantern",
+        "simpleblocks:waxed_faded_jack_o_lantern",
+        "simpleblocks:waxed_bleached_jack_o_lantern",
+        "simpleblocks:faded_melon",
+        "simpleblocks:bleached_melon",
+        "simpleblocks:pale_melon",
+        "simpleblocks:waxed_melon",
+        "simpleblocks:waxed_faded_melon",
+        "simpleblocks:waxed_bleached_melon",
+        "simpleblocks:faded_hay_block",
+        "simpleblocks:bleached_hay_block",
+        "simpleblocks:pale_hay_block",
+        "simpleblocks:waxed_hay_block",
+        "simpleblocks:waxed_faded_hay_block",
+        "simpleblocks:waxed_bleached_hay_block"
+      ],
+      "en": {
+        "title": "Pale Blocks",
+        "summary": "A pumpkin, carved pumpkin, jack o'lantern, melon or hay bale placed in the Pale Garden slowly fades like copper weathers: Faded, then Bleached, then Pale (the end stage). Use a honeycomb on it to keep it as it is (Waxed); an axe takes the wax off or scrapes one stage back.",
+        "details": [
+          "Chance per random tick like Vanilla copper (0.0569, about one stage per in-game day); a younger block of the five within 4 blocks holds an older one back, so a build fades as one. Only inside the Pale Garden; outside, every stage stays as it is.",
+          "They behave like the Vanilla block: the lantern glows, carved ones can be worn and make golems, melons drop slices without Silk Touch, hay softens falls. Shears carve a pale pumpkin into a carved one of the same stage; a carved one with a torch below makes the lantern of that stage.",
+          "Waxing: honeycomb by hand, in the crafting grid or from a dispenser, like copper. Waxed blocks never fade.",
+          "Settings: pale.enabled and pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (chance 0-1, 0 = never) in /simpleblocks config."
+        ]
+      },
+      "de": {
+        "title": "Blasse Blöcke",
+        "summary": "Ein Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen im Blassen Garten verblasst langsam, so wie Kupfer anläuft: verblasst, dann gebleicht, dann bleich (Endstufe). Mit einer Honigwabe bleibt er, wie er ist (gewachst); eine Axt nimmt das Wachs ab oder schabt eine Stufe zurück.",
+        "details": [
+          "Chance je Zufallstick wie bei Vanilla-Kupfer (0,0569, etwa eine Stufe je Spieltag); ein jüngerer der fünf Blöcke im Umkreis von 4 bremst einen älteren, so verblasst ein Bau gemeinsam. Nur im Blassen Garten; außerhalb bleibt jede Stufe, wie sie ist.",
+          "Sie verhalten sich wie der Vanilla-Block: die Laterne leuchtet, geschnitzte lassen sich aufsetzen und bauen Golems, Melonen geben ohne Behutsamkeit Scheiben, Heu dämpft Stürze. Die Schere schnitzt einen blassen Kürbis zum geschnitzten derselben Stufe; geschnitzt mit einer Fackel darunter ergibt die Laterne dieser Stufe.",
+          "Wachsen: Honigwabe per Hand, in der Werkbank oder aus dem Werfer, wie bei Kupfer. Gewachste Blöcke verblassen nie.",
+          "Einstellungen: pale.enabled sowie pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Chance 0-1, 0 = nie) in /simpleblocks config."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simpleblocks/shared/java/com/simpleblocks/snow/SnowConfig.java",
-        "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java"
+        "modules/simpleblocks/fabric/src/main/java/com/simplebuilding/modules/simpleblocks/BlocksFabric.java",
+        "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleConfig.java"
       ],
       "en": {
         "title": "Settings",
-        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100).",
+        "summary": "config/simpleblocks-server.json (server): snow.snowlogging (default true), snow.frostGrass (default true), snow.freezeOneIn (default 3, 1-100), snow.thawOneIn (default 6, 1-100); pale.enabled (default true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (default 0.0569, 0-1).",
         "details": [
           "/simpleblocks config shows and changes every option (list, get, set, reset, help); values are bounded like in the file, saved and active at once. Permission level 2."
         ]
       },
       "de": {
         "title": "Einstellungen",
-        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100).",
+        "summary": "config/simpleblocks-server.json (Server): snow.snowlogging (Standard true), snow.frostGrass (Standard true), snow.freezeOneIn (Standard 3, 1-100), snow.thawOneIn (Standard 6, 1-100); pale.enabled (Standard true), pale.pumpkin, pale.carvedPumpkin, pale.jackOLantern, pale.melon, pale.hayBlock (Standard 0,0569, 0-1).",
         "details": [
           "/simpleblocks config zeigt und ändert jede Option (list, get, set, reset, help); Werte werden wie in der Datei begrenzt, sofort gespeichert und wirksam. Berechtigung 2."
         ]
@@ -545,6 +610,50 @@
         ],
         "tagExamples": [
           "#simpleblocks:froglights"
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:bleached_jack_o_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:bleached_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/bleached_jack_o_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleblocks:bleached_carved_pumpkin"
+      ],
+      "pattern": [
+        "A",
+        "B"
+      ],
+      "key": {
+        "A": [
+          "simpleblocks:bleached_carved_pumpkin"
+        ],
+        "B": [
+          "minecraft:torch"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleblocks:bleached_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
         ]
       }
     },
@@ -1631,6 +1740,50 @@
       }
     },
     {
+      "id": "simpleblocks:faded_jack_o_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:faded_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/faded_jack_o_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleblocks:faded_carved_pumpkin"
+      ],
+      "pattern": [
+        "A",
+        "B"
+      ],
+      "key": {
+        "A": [
+          "simpleblocks:faded_carved_pumpkin"
+        ],
+        "B": [
+          "minecraft:torch"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleblocks:faded_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:grass_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -2597,6 +2750,50 @@
           {
             "id": "minecraft:netherrack",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:pale_jack_o_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:pale_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/pale_jack_o_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleblocks:pale_carved_pumpkin"
+      ],
+      "pattern": [
+        "A",
+        "B"
+      ],
+      "key": {
+        "A": [
+          "simpleblocks:pale_carved_pumpkin"
+        ],
+        "B": [
+          "minecraft:torch"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleblocks:pale_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
           }
         ]
       }
@@ -7118,6 +7315,714 @@
           }
         ]
       }
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_carved_pumpkin_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_bleached_carved_pumpkin",
+      "result": {
+        "id": "simpleblocks:waxed_bleached_carved_pumpkin",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_bleached_carved_pumpkin_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:bleached_carved_pumpkin"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:bleached_carved_pumpkin"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:bleached_carved_pumpkin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_hay_block_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_bleached_hay_block",
+      "result": {
+        "id": "simpleblocks:waxed_bleached_hay_block",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_bleached_hay_block_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:bleached_hay_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:bleached_hay_block"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:bleached_hay_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_jack_o_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_bleached_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_bleached_jack_o_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleblocks:waxed_bleached_carved_pumpkin"
+      ],
+      "pattern": [
+        "A",
+        "B"
+      ],
+      "key": {
+        "A": [
+          "simpleblocks:waxed_bleached_carved_pumpkin"
+        ],
+        "B": [
+          "minecraft:torch"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:bleached_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_jack_o_lantern_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_bleached_jack_o_lantern",
+      "result": {
+        "id": "simpleblocks:waxed_bleached_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_bleached_jack_o_lantern_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:bleached_jack_o_lantern"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:bleached_jack_o_lantern"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:bleached_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_melon_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_bleached_melon",
+      "result": {
+        "id": "simpleblocks:waxed_bleached_melon",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_bleached_melon_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:bleached_melon"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:bleached_melon"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:bleached_melon",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_pumpkin_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_bleached_pumpkin",
+      "result": {
+        "id": "simpleblocks:waxed_bleached_pumpkin",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_bleached_pumpkin_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:bleached_pumpkin"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:bleached_pumpkin"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:bleached_pumpkin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_carved_pumpkin_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_carved_pumpkin",
+      "result": {
+        "id": "simpleblocks:waxed_carved_pumpkin",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_carved_pumpkin_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:carved_pumpkin",
+        "minecraft:honeycomb"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:carved_pumpkin"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_faded_carved_pumpkin_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_faded_carved_pumpkin",
+      "result": {
+        "id": "simpleblocks:waxed_faded_carved_pumpkin",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_faded_carved_pumpkin_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:faded_carved_pumpkin"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:faded_carved_pumpkin"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:faded_carved_pumpkin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_faded_hay_block_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_faded_hay_block",
+      "result": {
+        "id": "simpleblocks:waxed_faded_hay_block",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_faded_hay_block_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:faded_hay_block"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:faded_hay_block"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:faded_hay_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_faded_jack_o_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_faded_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_faded_jack_o_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleblocks:waxed_faded_carved_pumpkin"
+      ],
+      "pattern": [
+        "A",
+        "B"
+      ],
+      "key": {
+        "A": [
+          "simpleblocks:waxed_faded_carved_pumpkin"
+        ],
+        "B": [
+          "minecraft:torch"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:faded_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_faded_jack_o_lantern_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_faded_jack_o_lantern",
+      "result": {
+        "id": "simpleblocks:waxed_faded_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_faded_jack_o_lantern_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:faded_jack_o_lantern"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:faded_jack_o_lantern"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:faded_carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_faded_melon_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_faded_melon",
+      "result": {
+        "id": "simpleblocks:waxed_faded_melon",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_faded_melon_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:faded_melon"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:faded_melon"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:faded_melon",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_faded_pumpkin_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_faded_pumpkin",
+      "result": {
+        "id": "simpleblocks:waxed_faded_pumpkin",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_faded_pumpkin_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simpleblocks:faded_pumpkin"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleblocks:faded_pumpkin"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "simpleblocks:faded_pumpkin",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_hay_block_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_hay_block",
+      "result": {
+        "id": "simpleblocks:waxed_hay_block",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_hay_block_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:hay_block",
+        "minecraft:honeycomb"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:hay_block"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:wheat",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_jack_o_lantern",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:waxed_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_jack_o_lantern.json",
+      "ingredients": [
+        "minecraft:torch",
+        "simpleblocks:waxed_carved_pumpkin"
+      ],
+      "pattern": [
+        "A",
+        "B"
+      ],
+      "key": {
+        "A": [
+          "simpleblocks:waxed_carved_pumpkin"
+        ],
+        "B": [
+          "minecraft:torch"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_jack_o_lantern_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_jack_o_lantern",
+      "result": {
+        "id": "simpleblocks:waxed_jack_o_lantern",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_jack_o_lantern_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "minecraft:jack_o_lantern"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:jack_o_lantern"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:carved_pumpkin",
+            "count": 1
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:coal",
+            "count": 0.25
+          },
+          {
+            "id": "minecraft:oak_log",
+            "count": 0.031
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_melon_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_melon",
+      "result": {
+        "id": "simpleblocks:waxed_melon",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_melon_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "minecraft:melon"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:melon"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:melon_slice",
+            "count": 9
+          },
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:waxed_pumpkin_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": "waxed_pumpkin",
+      "result": {
+        "id": "simpleblocks:waxed_pumpkin",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/waxed_pumpkin_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "minecraft:pumpkin"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:pumpkin"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:honeycomb",
+            "count": 1
+          },
+          {
+            "id": "minecraft:pumpkin",
+            "count": 1
+          }
+        ]
+      }
     }
   ],
   "lootTables": [
@@ -7156,6 +8061,95 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/azure_froglight.json"
+    },
+    {
+      "id": "simpleblocks:blocks/bleached_carved_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:bleached_carved_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_carved_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/bleached_hay_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:bleached_hay_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_hay_block.json"
+    },
+    {
+      "id": "simpleblocks:blocks/bleached_jack_o_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:bleached_jack_o_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_jack_o_lantern.json"
+    },
+    {
+      "id": "simpleblocks:blocks/bleached_melon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:bleached_melon",
+            "minecraft:melon_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_melon.json"
+    },
+    {
+      "id": "simpleblocks:blocks/bleached_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:bleached_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/bleached_pumpkin.json"
     },
     {
       "id": "simpleblocks:blocks/blue_nether_brick_slab",
@@ -7556,6 +8550,95 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dirt_slab.json"
     },
     {
+      "id": "simpleblocks:blocks/faded_carved_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:faded_carved_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/faded_carved_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/faded_hay_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:faded_hay_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/faded_hay_block.json"
+    },
+    {
+      "id": "simpleblocks:blocks/faded_jack_o_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:faded_jack_o_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/faded_jack_o_lantern.json"
+    },
+    {
+      "id": "simpleblocks:blocks/faded_melon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:faded_melon",
+            "minecraft:melon_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/faded_melon.json"
+    },
+    {
+      "id": "simpleblocks:blocks/faded_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:faded_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/faded_pumpkin.json"
+    },
+    {
       "id": "simpleblocks:blocks/frost_grass",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7908,6 +8991,95 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/netherrack_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/pale_carved_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:pale_carved_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pale_carved_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/pale_hay_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:pale_hay_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pale_hay_block.json"
+    },
+    {
+      "id": "simpleblocks:blocks/pale_jack_o_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:pale_jack_o_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pale_jack_o_lantern.json"
+    },
+    {
+      "id": "simpleblocks:blocks/pale_melon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:pale_melon",
+            "minecraft:melon_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pale_melon.json"
+    },
+    {
+      "id": "simpleblocks:blocks/pale_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:pale_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/pale_pumpkin.json"
+    },
+    {
       "id": "simpleblocks:blocks/sand_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8127,9 +9299,331 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/suspended_sand.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_bleached_carved_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_bleached_carved_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_bleached_carved_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_bleached_hay_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_bleached_hay_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_bleached_hay_block.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_bleached_jack_o_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_bleached_jack_o_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_bleached_jack_o_lantern.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_bleached_melon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_bleached_melon",
+            "minecraft:melon_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_bleached_melon.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_bleached_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_bleached_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_bleached_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_carved_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_carved_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_carved_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_faded_carved_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_faded_carved_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_faded_carved_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_faded_hay_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_faded_hay_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_faded_hay_block.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_faded_jack_o_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_faded_jack_o_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_faded_jack_o_lantern.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_faded_melon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_faded_melon",
+            "minecraft:melon_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_faded_melon.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_faded_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_faded_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_faded_pumpkin.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_hay_block",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_hay_block"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_hay_block.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_jack_o_lantern",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_jack_o_lantern"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_jack_o_lantern.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_melon",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_melon",
+            "minecraft:melon_slice"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_melon.json"
+    },
+    {
+      "id": "simpleblocks:blocks/waxed_pumpkin",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:waxed_pumpkin"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/waxed_pumpkin.json"
     }
   ],
   "tags": [
+    {
+      "id": "simpleblocks:block/golem_heads",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleblocks:faded_carved_pumpkin",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:bleached_carved_pumpkin",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:pale_carved_pumpkin",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:waxed_carved_pumpkin",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:waxed_faded_carved_pumpkin",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:waxed_bleached_carved_pumpkin",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:faded_jack_o_lantern",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:bleached_jack_o_lantern",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:pale_jack_o_lantern",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:waxed_jack_o_lantern",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:waxed_faded_jack_o_lantern",
+          "required": true
+        },
+        {
+          "id": "simpleblocks:waxed_bleached_jack_o_lantern",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/tags/block/golem_heads.json"
+    },
     {
       "id": "simpleblocks:block/snowloggable",
       "replace": false,
@@ -8199,6 +9693,17 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/tags/item/froglights.json"
+    },
+    {
+      "id": "simpleblocks:worldgen/biome/pales_blocks",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:pale_garden",
+          "required": true
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/tags/worldgen/biome/pales_blocks.json"
     }
   ],
   "advancements": [
@@ -8242,10 +9747,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 18 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 18 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -8323,6 +9828,121 @@
         "simpleblocks:azure_froglight"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:bleached_carved_pumpkin",
+      "name": {
+        "en_us": "Bleached Carved Pumpkin",
+        "de_de": "Gebleichter geschnitzter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 2 of the pale blocks: mostly pale, with warm remnants; it keeps fading in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 2 der blassen Blöcke: fast ganz blass, mit warmen Resten; im Blassen Garten verblasst er weiter."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/bleached_carved_pumpkin.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:bleached_jack_o_lantern",
+        "simpleblocks:waxed_bleached_carved_pumpkin_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:bleached_hay_block",
+      "name": {
+        "en_us": "Bleached Hay Bale",
+        "de_de": "Gebleichter Strohballen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 2 of the pale blocks: mostly pale, with warm remnants; it keeps fading in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 2 der blassen Blöcke: fast ganz blass, mit warmen Resten; im Blassen Garten verblasst er weiter."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:waxed_bleached_hay_block_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:bleached_jack_o_lantern",
+      "name": {
+        "en_us": "Bleached Jack o'Lantern",
+        "de_de": "Gebleichte Kürbislaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 2 of the pale blocks: mostly pale, with warm remnants; it keeps fading in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 2 der blassen Blöcke: fast ganz blass, mit warmen Resten; im Blassen Garten verblasst er weiter."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/bleached_jack_o_lantern.png",
+      "craftedBy": [
+        "simpleblocks:bleached_jack_o_lantern"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_bleached_jack_o_lantern_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:bleached_melon",
+      "name": {
+        "en_us": "Bleached Melon",
+        "de_de": "Gebleichte Melone"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 2 of the pale blocks: mostly pale, with warm remnants; it keeps fading in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 2 der blassen Blöcke: fast ganz blass, mit warmen Resten; im Blassen Garten verblasst er weiter."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:waxed_bleached_melon_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:bleached_pumpkin",
+      "name": {
+        "en_us": "Bleached Pumpkin",
+        "de_de": "Gebleichter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 2 of the pale blocks: mostly pale, with warm remnants; it keeps fading in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 2 der blassen Blöcke: fast ganz blass, mit warmen Resten; im Blassen Garten verblasst er weiter."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:waxed_bleached_pumpkin_from_honeycomb"
+      ]
     },
     {
       "id": "simpleblocks:blue_nether_brick_slab",
@@ -8984,6 +10604,121 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:faded_carved_pumpkin",
+      "name": {
+        "en_us": "Faded Carved Pumpkin",
+        "de_de": "Verblasster geschnitzter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 1 of the pale blocks: a Vanilla pumpkin, carved pumpkin, jack o'lantern, melon or hay bale that began to fade in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 1 der blassen Blöcke: ein Vanilla-Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen, der im Blassen Garten zu verblassen begann."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/faded_carved_pumpkin.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:faded_jack_o_lantern",
+        "simpleblocks:waxed_faded_carved_pumpkin_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:faded_hay_block",
+      "name": {
+        "en_us": "Faded Hay Bale",
+        "de_de": "Verblasster Strohballen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 1 of the pale blocks: a Vanilla pumpkin, carved pumpkin, jack o'lantern, melon or hay bale that began to fade in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 1 der blassen Blöcke: ein Vanilla-Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen, der im Blassen Garten zu verblassen begann."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:waxed_faded_hay_block_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:faded_jack_o_lantern",
+      "name": {
+        "en_us": "Faded Jack o'Lantern",
+        "de_de": "Verblasste Kürbislaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 1 of the pale blocks: a Vanilla pumpkin, carved pumpkin, jack o'lantern, melon or hay bale that began to fade in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 1 der blassen Blöcke: ein Vanilla-Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen, der im Blassen Garten zu verblassen begann."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/faded_jack_o_lantern.png",
+      "craftedBy": [
+        "simpleblocks:faded_jack_o_lantern"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_faded_jack_o_lantern_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:faded_melon",
+      "name": {
+        "en_us": "Faded Melon",
+        "de_de": "Verblasste Melone"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 1 of the pale blocks: a Vanilla pumpkin, carved pumpkin, jack o'lantern, melon or hay bale that began to fade in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 1 der blassen Blöcke: ein Vanilla-Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen, der im Blassen Garten zu verblassen begann."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:waxed_faded_melon_from_honeycomb"
+      ]
+    },
+    {
+      "id": "simpleblocks:faded_pumpkin",
+      "name": {
+        "en_us": "Faded Pumpkin",
+        "de_de": "Verblasster Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 1 of the pale blocks: a Vanilla pumpkin, carved pumpkin, jack o'lantern, melon or hay bale that began to fade in the Pale Garden."
+        },
+        "de": {
+          "summary": "Stufe 1 der blassen Blöcke: ein Vanilla-Kürbis, geschnitzter Kürbis, eine Kürbislaterne, Melone oder ein Strohballen, der im Blassen Garten zu verblassen begann."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:waxed_faded_pumpkin_from_honeycomb"
+      ]
+    },
+    {
       "id": "simpleblocks:frost_grass",
       "name": {
         "en_us": "Frost Grass",
@@ -9533,6 +11268,112 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:pale_carved_pumpkin",
+      "name": {
+        "en_us": "Pale Carved Pumpkin",
+        "de_de": "Bleicher geschnitzter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 3, the end stage of the pale blocks: fully pale, it does not change any more."
+        },
+        "de": {
+          "summary": "Stufe 3, die Endstufe der blassen Blöcke: ganz blass, er ändert sich nicht mehr."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/pale_carved_pumpkin.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simpleblocks:pale_jack_o_lantern"
+      ]
+    },
+    {
+      "id": "simpleblocks:pale_hay_block",
+      "name": {
+        "en_us": "Pale Hay Bale",
+        "de_de": "Bleicher Strohballen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 3, the end stage of the pale blocks: fully pale, it does not change any more."
+        },
+        "de": {
+          "summary": "Stufe 3, die Endstufe der blassen Blöcke: ganz blass, er ändert sich nicht mehr."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:pale_jack_o_lantern",
+      "name": {
+        "en_us": "Pale Jack o'Lantern",
+        "de_de": "Bleiche Kürbislaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 3, the end stage of the pale blocks: fully pale, it does not change any more."
+        },
+        "de": {
+          "summary": "Stufe 3, die Endstufe der blassen Blöcke: ganz blass, er ändert sich nicht mehr."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/pale_jack_o_lantern.png",
+      "craftedBy": [
+        "simpleblocks:pale_jack_o_lantern"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:pale_melon",
+      "name": {
+        "en_us": "Pale Melon",
+        "de_de": "Bleiche Melone"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 3, the end stage of the pale blocks: fully pale, it does not change any more."
+        },
+        "de": {
+          "summary": "Stufe 3, die Endstufe der blassen Blöcke: ganz blass, er ändert sich nicht mehr."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:pale_pumpkin",
+      "name": {
+        "en_us": "Pale Pumpkin",
+        "de_de": "Bleicher Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "Stage 3, the end stage of the pale blocks: fully pale, it does not change any more."
+        },
+        "de": {
+          "summary": "Stufe 3, die Endstufe der blassen Blöcke: ganz blass, er ändert sich nicht mehr."
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:sand_slab",
       "name": {
         "en_us": "Sand Slab",
@@ -9930,6 +11771,345 @@
         "simpleblocks:suspended_sand_without_simplebuilding"
       ],
       "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_carved_pumpkin",
+      "name": {
+        "en_us": "Waxed Bleached Carved Pumpkin",
+        "de_de": "Gewachster gebleichter geschnitzter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_bleached_carved_pumpkin_from_honeycomb"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_bleached_jack_o_lantern"
+      ]
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_hay_block",
+      "name": {
+        "en_us": "Waxed Bleached Hay Bale",
+        "de_de": "Gewachster gebleichter Strohballen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_bleached_hay_block_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_jack_o_lantern",
+      "name": {
+        "en_us": "Waxed Bleached Jack o'Lantern",
+        "de_de": "Gewachste gebleichte Kürbislaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_bleached_jack_o_lantern",
+        "simpleblocks:waxed_bleached_jack_o_lantern_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_melon",
+      "name": {
+        "en_us": "Waxed Bleached Melon",
+        "de_de": "Gewachste gebleichte Melone"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_bleached_melon_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_bleached_pumpkin",
+      "name": {
+        "en_us": "Waxed Bleached Pumpkin",
+        "de_de": "Gewachster gebleichter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_bleached_pumpkin_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_carved_pumpkin",
+      "name": {
+        "en_us": "Waxed Carved Pumpkin",
+        "de_de": "Gewachster geschnitzter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_carved_pumpkin_from_honeycomb"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_jack_o_lantern"
+      ]
+    },
+    {
+      "id": "simpleblocks:waxed_faded_carved_pumpkin",
+      "name": {
+        "en_us": "Waxed Faded Carved Pumpkin",
+        "de_de": "Gewachster verblasster geschnitzter Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_faded_carved_pumpkin_from_honeycomb"
+      ],
+      "usedIn": [
+        "simpleblocks:waxed_faded_jack_o_lantern"
+      ]
+    },
+    {
+      "id": "simpleblocks:waxed_faded_hay_block",
+      "name": {
+        "en_us": "Waxed Faded Hay Bale",
+        "de_de": "Gewachster verblasster Strohballen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_faded_hay_block_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_faded_jack_o_lantern",
+      "name": {
+        "en_us": "Waxed Faded Jack o'Lantern",
+        "de_de": "Gewachste verblasste Kürbislaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_faded_jack_o_lantern",
+        "simpleblocks:waxed_faded_jack_o_lantern_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_faded_melon",
+      "name": {
+        "en_us": "Waxed Faded Melon",
+        "de_de": "Gewachste verblasste Melone"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_faded_melon_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_faded_pumpkin",
+      "name": {
+        "en_us": "Waxed Faded Pumpkin",
+        "de_de": "Gewachster verblasster Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_faded_pumpkin_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_hay_block",
+      "name": {
+        "en_us": "Waxed Hay Bale",
+        "de_de": "Gewachster Strohballen"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_hay_block_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_jack_o_lantern",
+      "name": {
+        "en_us": "Waxed Jack o'Lantern",
+        "de_de": "Gewachste Kürbislaterne"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_jack_o_lantern",
+        "simpleblocks:waxed_jack_o_lantern_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_melon",
+      "name": {
+        "en_us": "Waxed Melon",
+        "de_de": "Gewachste Melone"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_melon_from_honeycomb"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:waxed_pumpkin",
+      "name": {
+        "en_us": "Waxed Pumpkin",
+        "de_de": "Gewachster Kürbis"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/pale/PaleBlocks.java"
+        ],
+        "en": {
+          "summary": "A pale block (or its Vanilla block) waxed with a honeycomb: it never fades; an axe takes the wax off."
+        },
+        "de": {
+          "summary": "Ein blasser Block (oder sein Vanilla-Block), mit einer Honigwabe gewachst: er verblasst nie; eine Axt nimmt das Wachs ab."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:waxed_pumpkin_from_honeycomb"
+      ],
+      "usedIn": []
     }
   ],
   "trades": [],
@@ -9946,14 +12126,14 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 12,
-    "recipes": 285,
-    "lootTables": 57,
-    "tags": 2,
+    "features": 13,
+    "recipes": 306,
+    "lootTables": 87,
+    "tags": 4,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 59,
+    "blocks": 89,
     "trades": 0,
     "config": 0,
     "quests": 0,

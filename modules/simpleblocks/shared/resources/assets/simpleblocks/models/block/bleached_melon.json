@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/melon",
+  "textures": {
+    "end": "simpleblocks:block/bleached_melon_top",
+    "side": "simpleblocks:block/bleached_melon_side"
+  }
+}

@@ -269,6 +269,54 @@
     },
     {
       "when": {
+        "facing": "up",
+        "mount": "chest|chest_front",
+        "edge_e": "true",
+        "edge_u": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_eu",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "up",
+        "mount": "chest|chest_front",
+        "edge_e": "true",
+        "edge_d": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_ed",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "up",
+        "mount": "chest|chest_front",
+        "edge_w": "true",
+        "edge_u": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_wu",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "up",
+        "mount": "chest|chest_front",
+        "edge_w": "true",
+        "edge_d": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_wd",
+        "x": 270
+      }
+    },
+    {
+      "when": {
         "facing": "down",
         "mount": "full"
       },
@@ -328,6 +376,54 @@
       },
       "apply": {
         "model": "simplestorage:block/chest_interface_edge_d",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "down",
+        "mount": "chest|chest_front",
+        "edge_e": "true",
+        "edge_u": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_eu",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "down",
+        "mount": "chest|chest_front",
+        "edge_e": "true",
+        "edge_d": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_ed",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "down",
+        "mount": "chest|chest_front",
+        "edge_w": "true",
+        "edge_u": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_wu",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "down",
+        "mount": "chest|chest_front",
+        "edge_w": "true",
+        "edge_d": "true"
+      },
+      "apply": {
+        "model": "simplestorage:block/chest_interface_corner_wd",
         "x": 90
       }
     },

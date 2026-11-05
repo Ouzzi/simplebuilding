@@ -20,6 +20,7 @@ common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java modules
 common/src/shared/java/com/simplebuilding/client/GaugeAutowalk.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeAutowalk.java
 common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackScreen.java allow: palette/2 slotColor/1
 common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java modules/simplestorage/shared/java/com/simplestorage/client/TieredChestScreen.java
+common/src/shared/java/com/simplebuilding/client/gui/recipebook/ThreeSlotRecipeBookComponent.java modules/simplearrows/shared/java/com/simplearrows/client/ThreeSlotRecipeBookComponent.java
 common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java modules/simplestorage/shared/java/com/simplestorage/client/BackpackTooltip.java
 common/src/shared/java/com/simplebuilding/client/property/GaugeNeedleModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/GaugeNeedleModelProperty.java
 common/src/shared/java/com/simplebuilding/client/property/TransformHintModelProperty.java modules/simplegadgets/shared/java/com/simplegadgets/client/TransformHintModelProperty.java
@@ -73,6 +74,7 @@ common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/s
 common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java modules/simplefun/forge/src/main/java/com/simplebuilding/modules/simplefun/forge/mixin/PlayerEntityMixin.java allow: getInventory/0
 common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java modules/simplelib/shared/java/com/simplelib/mixin/RecipeMapFilterMixin.java
 common/src/shared/java/com/simplebuilding/mixin/ShapelessRecipeMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/ShapelessRecipeMixin.java
+common/src/shared/java/com/simplebuilding/mixin/client/GhostSlotsInvoker.java modules/simplearrows/shared/java/com/simplearrows/mixin/client/GhostSlotsInvoker.java
 common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java modules/simplefun/shared/java/com/simplefun/mixin/ItemMixin.java
 common/src/shared/java/com/simplebuilding/mixin/client/MultiPlayerGameModeHammerProgressMixin.java modules/simplehammers/shared/java/com/simplehammers/mixin/client/MultiPlayerGameModeHammerProgressMixin.java
 common/src/shared/java/com/simplebuilding/networking/PistonConfigPayload.java modules/simplemachines/shared/java/com/simplemachines/upgrade/PistonConfigPayload.java allow: sendTo/1

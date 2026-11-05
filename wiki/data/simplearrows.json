@@ -71,6 +71,44 @@
       }
     },
     {
+      "id": "fletching_table",
+      "sources": [
+        "modules/simplearrows/shared/java/com/simplearrows/fletching/ArrowParts.java",
+        "modules/simplearrows/shared/java/com/simplearrows/fletching/CraftedArrow.java",
+        "modules/simplearrows/shared/java/com/simplearrows/fletching/FletchingMenu.java",
+        "modules/simplearrows/shared/java/com/simplearrows/fletching/FletchingRecipes.java",
+        "modules/simplearrows/shared/java/com/simplearrows/mixin/FletchingTableMixin.java"
+      ],
+      "en": {
+        "title": "Fletching Table",
+        "summary": "Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it.",
+        "details": [
+          "Tips: flint (vanilla damage), copper nugget (+2 against drowned), iron nugget (+0.5, +2 against zombies), gold nugget (+2 against undead), diamond pebble (+1), netherite nugget (+1.5, pierces one more target), enderite nugget (+1.5, no gravity for the first second; with Simple Ores), amethyst shard (shatters: 1 damage within 1.5 blocks), prismarine shard (no water drag).",
+          "The damage bonus adds to the arrow's base damage like Power and grows with the shot's speed.",
+          "Shafts: stick (vanilla), end rod (half gravity, glowing trail), blaze rod (the target burns 3 seconds longer), breeze rod (wind burst on impact); with SimpleBuilding also the diamond rod (pierces one more target). The Netherite and Enderite Poles (formerly netherite and enderite rods) are lightning rods (blocks) since 2026-10-03 and no shafts; arrows made with them earlier keep their tip and fletching and load with a stick shaft. Fletchings: feather (vanilla), phantom membrane (30 % less gravity).",
+          "Bow and crossbow enchantments work as on vanilla arrows; Infinity only saves vanilla arrows.",
+          "The Fletching Table works like the Crafting Table: the recipe book button at the same spot opens every arrow combination on the left (opening the table unlocks them all). A click moves the tip, shaft and fletching from your inventory into their slots, shift-click as many as possible; missing parts show as ghost items. Nothing is created. All numbers are fixed, nothing is configurable.",
+          "Potion slot (above the arrow, WE25-9): put in a potion, splash potion or lingering potion with an effect and the 4 arrows carry it like Vanilla's tipped arrows - a hit gives the effect at 1/8 of the potion's duration, after half a minute in the ground the potion has dried off. Each batch uses up the bottle; without a potion the table makes plain arrows.",
+          "Data-driven parts: which item is a part is its item tag simplearrows:fletching/<kind>/<part> (data packs can add items). Alone the table has 8 tips (diamond pebble and netherite nugget from SimpleLib), 4 shafts and 2 fletchings; Simple Ores adds the Enderite tip, SimpleBuilding the diamond rod.",
+          "Until 04.11.2026 the table belonged to SimpleBuilding (own tab SimpleArrows); old worlds keep their arrows, recipes and recipe book (ids move to simplearrows:)."
+        ]
+      },
+      "de": {
+        "title": "Befiederungstisch",
+        "summary": "Pfeile vom Befiederungstisch: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Befiederungstisch öffnet ihn.",
+        "details": [
+          "Spitzen: Feuerstein (Vanilla-Schaden), Kupfer-Nugget (+2 gegen Ertrunkene), Eisen-Nugget (+0,5, +2 gegen Zombies), Gold-Nugget (+2 gegen Untote), Diamantkiesel (+1), Netherit-Nugget (+1,5, durchbohrt ein Ziel mehr), Enderit-Nugget (+1,5, die erste Sekunde ohne Schwerkraft; mit Simple Ores), Amethyst-Splitter (zersplittert: 1 Schaden im Umkreis von 1,5 Blöcken), Prismarin-Splitter (kein Wasserwiderstand).",
+          "Der Schadensbonus zählt wie Stärke zum Grundschaden des Pfeils und wächst mit der Geschwindigkeit des Schusses.",
+          "Schäfte: Stock (Vanilla), Endstab (halbe Schwerkraft, Leuchtspur), Lohenrute (das Ziel brennt 3 Sekunden länger), Böenrute (Windstoß beim Aufprall); mit SimpleBuilding außerdem der Diamantstab (durchbohrt ein Ziel mehr). Netherit- und Enderitstange (früher Netherit- und Enderitstab) sind seit 2026-10-03 Blitzableiter (Blöcke) und keine Schäfte; früher damit hergestellte Pfeile behalten Spitze und Befiederung und laden mit Stock-Schaft. Befiederungen: Feder (Vanilla), Phantomhaut (30 % weniger Schwerkraft).",
+          "Bogen- und Armbrust-Verzauberungen wirken wie bei Vanilla-Pfeilen; Unendlichkeit spart nur Vanilla-Pfeile.",
+          "Der Befiederungstisch funktioniert wie die Werkbank: das Rezeptbuch-Symbol an derselben Stelle öffnet links alle Pfeil-Kombinationen (das Öffnen des Tisches schaltet alle frei). Ein Klick legt Spitze, Schaft und Befiederung aus dem Inventar in ihre Slots, Shift-Klick so viele wie möglich; fehlende Teile erscheinen als Geister-Items. Es entsteht nichts. Alle Zahlen sind fest, nichts ist einstellbar.",
+          "Trank-Slot (über dem Pfeil, WE25-9): ein Trank, Wurftrank oder Verweiltrank mit Wirkung darin, und die 4 Pfeile tragen ihn wie Vanillas getränkte Pfeile - ein Treffer gibt die Wirkung mit 1/8 der Trankdauer, nach einer halben Minute im Boden ist der Trank abgetrocknet. Jede Herstellung verbraucht die Flasche; ohne Trank macht der Tisch normale Pfeile.",
+          "Datengetriebene Teile: welches Item ein Teil ist, sagt sein Item-Tag simplearrows:fletching/<art>/<teil> (Datenpakete können Items ergänzen). Allein hat der Tisch 8 Spitzen (Diamantkiesel und Netherit-Nugget aus SimpleLib), 4 Schäfte und 2 Befiederungen; Simple Ores ergänzt die Enderit-Spitze, SimpleBuilding den Diamantstab.",
+          "Bis 04.11.2026 gehörte der Tisch zu SimpleBuilding (eigener Tab SimpleArrows); alte Welten behalten Pfeile, Rezepte und Rezeptbuch (Ids ziehen nach simplearrows: um)."
+        ]
+      }
+    },
+    {
       "id": "config_server",
       "sources": [
         "modules/simplearrows/shared/java/com/simplearrows/config/ArrowsConfig.java"
@@ -112,6 +150,198 @@
     }
   ],
   "recipes": [
+    {
+      "id": "simplearrows:fletching/fletching/feather",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/fletching/feather.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/fletching/phantom_membrane",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/fletching/phantom_membrane.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/shaft/blaze_rod",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/shaft/blaze_rod.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/shaft/breeze_rod",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/shaft/breeze_rod.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/shaft/diamond_rod",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/shaft/diamond_rod.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/shaft/end_rod",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/shaft/end_rod.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/shaft/stick",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/shaft/stick.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/amethyst",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/amethyst.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/copper",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/copper.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/diamond",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/diamond.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/enderite",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/enderite.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/flint",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/flint.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/gold",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/gold.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/iron",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/iron.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/netherite",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/netherite.json",
+      "ingredients": []
+    },
+    {
+      "id": "simplearrows:fletching/tip/prismarine",
+      "type": "simplearrows:fletching",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": null,
+        "count": 1
+      },
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/recipe/fletching/tip/prismarine.json",
+      "ingredients": []
+    },
     {
       "id": "simplearrows:light_arrow",
       "type": "minecraft:crafting_shaped",
@@ -212,10 +442,281 @@
     }
   ],
   "lootTables": [],
-  "tags": [],
-  "advancements": [],
+  "tags": [
+    {
+      "id": "simplearrows:item/fletching/fletching/feather",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:feather",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/fletching/feather.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/fletching/phantom_membrane",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:phantom_membrane",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/fletching/phantom_membrane.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/shaft/blaze_rod",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:blaze_rod",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/shaft/blaze_rod.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/shaft/breeze_rod",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:breeze_rod",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/shaft/breeze_rod.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/shaft/diamond_rod",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:diamond_rod",
+          "required": false
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/shaft/diamond_rod.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/shaft/end_rod",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:end_rod",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/shaft/end_rod.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/shaft/stick",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:stick",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/shaft/stick.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/amethyst",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:amethyst_shard",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/amethyst.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/copper",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:copper_nugget",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/copper.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/diamond",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:diamond_pebble",
+          "required": false
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/diamond.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/enderite",
+      "replace": false,
+      "values": [
+        {
+          "id": "simpleores:enderite_nugget",
+          "required": false
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/enderite.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/flint",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:flint",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/flint.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/gold",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:gold_nugget",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/gold.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/iron",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:iron_nugget",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/iron.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/netherite",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplelib:netherite_nugget",
+          "required": false
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/netherite.json"
+    },
+    {
+      "id": "simplearrows:item/fletching/tip/prismarine",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:prismarine_shard",
+          "required": true
+        }
+      ],
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/tags/item/fletching/tip/prismarine.json"
+    }
+  ],
+  "advancements": [
+    {
+      "id": "simplearrows:guide/chapter",
+      "parent": null,
+      "icon": null,
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chapter"
+      },
+      "description": {
+        "en_us": ""
+      },
+      "criteria": [
+        {
+          "name": "has_item",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:feather"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "modules/simplearrows/shared/resources/data/simplearrows/advancement/guide/chapter.json"
+    }
+  ],
   "enchantments": [],
   "items": [
+    {
+      "id": "simplearrows:crafted_arrow",
+      "name": {
+        "en_us": "Crafted Arrow",
+        "de_de": "Gefertigter Pfeil"
+      },
+      "note": {
+        "sources": [
+          "modules/simplearrows/shared/java/com/simplearrows/fletching/ArrowParts.java",
+          "modules/simplearrows/shared/java/com/simplearrows/fletching/CraftedArrow.java",
+          "modules/simplearrows/shared/java/com/simplearrows/fletching/FletchingMenu.java"
+        ],
+        "en": {
+          "summary": "Arrows from the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it."
+        },
+        "de": {
+          "summary": "Pfeile vom Befiederungstisch: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Befiederungstisch öffnet ihn."
+        }
+      },
+      "questionary": {
+        "en": {
+          "lore": [
+            "An arrow made with attention, tip by tip."
+          ],
+          "use": [
+            "Made at the Fletching Table: one tip, one shaft and one fletching make 4 arrows. Right-click the vanilla Fletching Table to open it."
+          ],
+          "secret": [
+            "At the Fletching Table a Diamond Rod works as an arrow shaft and lets the arrow pierce one more target."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Ein Pfeil, mit Aufmerksamkeit gebaut, Spitze für Spitze."
+          ],
+          "use": [
+            "Am Bogenmachertisch gefertigt: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Bogenmachertisch öffnet ihn."
+          ],
+          "secret": [
+            "Am Bogenmachertisch dient eine Diamantstange als Schaft und lässt den Pfeil ein Ziel mehr durchbohren."
+          ]
+        }
+      },
+      "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simplearrows:guide_book",
+      "name": {
+        "en_us": "Simple Arrows Guide",
+        "de_de": "Simple-Arrows-Handbuch"
+      },
+      "note": {
+        "sources": [
+          "modules/simplearrows/shared/java/com/simplearrows/guide/ArrowsGuide.java",
+          "modules/simplearrows/shared/resources/assets/simplearrows/simplelib/modpack_guide.json",
+          "modules/simplearrows/shared/resources/data/simplearrows/advancement/guide/chapter.json"
+        ],
+        "en": {
+          "summary": "Chapter \"Simple Arrows\" of the Simple Modpack guide (SimpleLib): 6 pages taken from this wiki, shown in your language. Unlocked by picking up: feather. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+        },
+        "de": {
+          "summary": "Kapitel \"Simple Arrows\" im Simple-Modpack-Handbuch (SimpleLib): 6 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Feder. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+        }
+      },
+      "texture": "assets/textures/simplearrows/item/guide_book.png",
+      "craftedBy": [],
+      "usedIn": []
+    },
     {
       "id": "simplearrows:light_arrow",
       "name": {
@@ -280,13 +781,13 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 4,
-    "recipes": 2,
+    "features": 5,
+    "recipes": 18,
     "lootTables": 0,
-    "tags": 0,
-    "advancements": 0,
+    "tags": 16,
+    "advancements": 1,
     "enchantments": 0,
-    "items": 2,
+    "items": 4,
     "blocks": 0,
     "trades": 0,
     "config": 0,

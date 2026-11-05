@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_faded_melon": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simpleblocks:faded_melon"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simpleblocks:waxed_faded_melon_from_honeycomb"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_faded_melon"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simpleblocks:waxed_faded_melon_from_honeycomb"
+    ]
+  }
+}

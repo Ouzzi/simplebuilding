@@ -56,11 +56,7 @@ public final class RecipelessJeiInfo {
         }
         // Astral-Verzauberungstisch (N27): seit N30 als Hammer-Umwandlung in der In-World-Kategorie
         // (InWorldTransformations#sledgehammerUpgrade), daher keine Info-Seite mehr.
-        // Pfeile: am Befiederungstisch aus Teilen (seit claude-q-uirest keine Rezepte mehr je Kombination) - die Infoseite
-        // ist ihr einziger JEI-Eintrag.
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            map.put("crafted_arrow", List.of(ModItems.CRAFTED_ARROW));
-        }
+        // Pfeile vom Befiederungstisch: seit 04.11. Simple Arrows (dessen JEI-Sondereintrag "simplearrows/fletching").
         // Kreativ-Baustab und Kreativ-Blaupause (Queue N29): nur im Kreativ-Inventar.
         map.put("creative_tools", List.of(ModItems.CREATIVE_BUILDING_WAND, ModItems.CREATIVE_BLUEPRINT));
         if (com.simplebuilding.version.McVersion.WOODWORK) {

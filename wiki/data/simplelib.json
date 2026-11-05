@@ -178,7 +178,8 @@
         "summary": "While Free Look is on, the mouse turns only the camera, not the player; walking and all other input stay normal. Two keys: \"Free Look (hold)\" (standard left Alt) and \"Toggle Free Look\" (unbound, set it in the controls). When it ends, the camera turns back to where you look (standard) or you turn to where the camera looked - freeLookRelease in config/simplelib-client.json or the Free Look tab of the SimpleLib settings. A server can enforce its own choice (freeLookRelease + freeLookEnforce in simplelib-server.json, sent on join). Free Look is always off after joining, a world change and a respawn.",
         "details": [
           "A key that is already down when the world opens (for example left Alt from Alt+Tab) does not switch Free Look on; release it and press again.",
-          "In first person your hand keeps the direction of your body (it does not travel with the camera), and a grey, outlined crosshair marks where you really aim; the centred one is hidden meanwhile. Switch the grey crosshair off with freeLookCrosshair in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on."
+          "In first person your hand keeps the direction of your body (it does not travel with the camera), and a grey, outlined crosshair marks where you really aim; the centred one is hidden meanwhile. Switch the grey crosshair off with freeLookCrosshair in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on.",
+          "While Free Look is on, the mouse wheel zooms in and out (the hotbar does not scroll); when Free Look ends the zoom is back to normal. Switch it off with freeLookZoom in config/simplelib-client.json or in the SimpleLib settings (Free Look tab). Standard: on."
         ]
       },
       "de": {
@@ -186,7 +187,35 @@
         "summary": "Solange Free Look an ist, dreht die Maus nur die Kamera, nicht den Spieler; Laufen und alle anderen Eingaben bleiben normal. Zwei Tasten: „Free Look (halten)“ (Standard linke Alt-Taste) und „Free Look umschalten“ (ohne Belegung, in der Steuerung festlegen). Am Ende dreht die Kamera zurück zur Blickrichtung (Standard) oder der Spieler dreht sich dorthin, wohin die Kamera schaute - freeLookRelease in config/simplelib-client.json oder der Reiter Free Look der SimpleLib-Einstellungen. Ein Server kann seine Wahl erzwingen (freeLookRelease + freeLookEnforce in simplelib-server.json, beim Betreten gesendet). Nach dem Betreten, einem Weltwechsel und einem Respawn ist Free Look immer aus.",
         "details": [
           "Eine Taste, die beim Öffnen der Welt schon gedrückt ist (z. B. linke Alt-Taste von Alt+Tab), schaltet Free Look nicht ein; loslassen und erneut drücken.",
-          "In der Ego-Perspektive bleibt deine Hand in der Richtung des Körpers (sie wandert nicht mit der Kamera), und ein graues, umrandetes Fadenkreuz zeigt, wohin du wirklich zielst; das mittige ist so lange ausgeblendet. Das graue Fadenkreuz schaltest du mit freeLookCrosshair in config/simplelib-client.json oder in den SimpleLib-Einstellungen (Reiter Free Look) ab. Standard: an."
+          "In der Ego-Perspektive bleibt deine Hand in der Richtung des Körpers (sie wandert nicht mit der Kamera), und ein graues, umrandetes Fadenkreuz zeigt, wohin du wirklich zielst; das mittige ist so lange ausgeblendet. Das graue Fadenkreuz schaltest du mit freeLookCrosshair in config/simplelib-client.json oder in den SimpleLib-Einstellungen (Reiter Free Look) ab. Standard: an.",
+          "Solange Free Look an ist, zoomt das Mausrad ein und aus (die Hotbar wechselt nicht); wenn Free Look endet, ist der Zoom wieder normal. Abschalten mit freeLookZoom in config/simplelib-client.json oder in den SimpleLib-Einstellungen (Reiter Free Look). Standard: an."
+        ]
+      }
+    },
+    {
+      "id": "aging",
+      "sources": [
+        "modules/simplelib/shared/java/com/simplelib/api/aging/AgingChain.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/Aging.java",
+        "modules/simplelib/shared/java/com/simplelib/api/aging/AgingCondition.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/AgingStateMixin.java",
+        "modules/simplelib/shared/java/com/simplelib/mixin/AgingDispenserMixin.java",
+        "modules/simplelib/tools/aging_data.py"
+      ],
+      "en": {
+        "title": "Aging blocks (for mods)",
+        "summary": "Blocks that change over time like copper weathers, for any Simple mod (first user: the pale blocks of Simple Blocks). Aging in 3 steps: (1) AgingChain.builder(id, baseBlock).stages(\"faded_x\", \"bleached_x\", \"pale_x\") with optional .when(AgingCondition.biome(tag)), .chance(() -> config), .group(id), .hint(langKey); (2) chain.registerBlocks() and chain.registerItems() in the loader's registration; (3) modules/simplelib/tools/aging_data.py writes blockstates, models, items, loot, wax recipes and the base block's tags.",
+        "details": [
+          "Every stage and its waxed copy is the base block's class with its properties, so it behaves like the base block; different behaviour comes from a subclass given with .factory(...). For full control use Vanilla's ChangeOverTimeBlock directly.",
+          "Like copper: chance per random tick (default 0.0569), a younger block of the same group within 4 blocks holds older ones back, the last stage is the end. Honeycomb (hand or dispenser) waxes, an axe takes the wax off or scrapes one stage back, with Vanilla's particles and sounds; waxed items say so in their tooltip. Vanilla base blocks that never random-tick (the pumpkin) are switched on by the chain."
+        ]
+      },
+      "de": {
+        "title": "Alternde Blöcke (für Mods)",
+        "summary": "Blöcke, die sich mit der Zeit verändern wie Kupfer, für jede Simple-Mod (erste Nutzung: die blassen Blöcke von Simple Blocks). Altern in 3 Schritten: (1) AgingChain.builder(id, Basisblock).stages(\"faded_x\", \"bleached_x\", \"pale_x\") mit optional .when(AgingCondition.biome(tag)), .chance(() -> Config), .group(id), .hint(Lang-Schlüssel); (2) chain.registerBlocks() und chain.registerItems() bei der Registrierung des Loaders; (3) modules/simplelib/tools/aging_data.py schreibt Blockstates, Modelle, Items, Loot, Wachs-Rezepte und die Tags des Basisblocks.",
+        "details": [
+          "Jede Stufe und ihre gewachste Kopie hat die Klasse und die Eigenschaften des Basisblocks und verhält sich daher wie er; abweichendes Verhalten kommt aus einer Unterklasse über .factory(...). Für volle Kontrolle Vanillas ChangeOverTimeBlock direkt nutzen.",
+          "Wie Kupfer: Chance je Zufallstick (Standard 0,0569), ein jüngerer Block derselben Gruppe im Umkreis von 4 bremst ältere, die letzte Stufe ist die Endstufe. Honigwabe (Hand oder Werfer) wachst, eine Axt nimmt das Wachs ab oder schabt eine Stufe zurück, mit Vanillas Partikeln und Geräuschen; gewachste Items sagen es im Tooltip. Vanilla-Basisblöcke ohne Zufallsticks (Kürbis) schaltet die Kette ein."
         ]
       }
     },
@@ -1469,7 +1498,7 @@
   "undocumented": [],
   "incompleteProse": {},
   "counts": {
-    "features": 8,
+    "features": 9,
     "recipes": 22,
     "lootTables": 6,
     "tags": 5,

@@ -7,7 +7,9 @@ import com.simplemachines.config.MachinesConfig;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.material.PushReaction;
+import com.simplemachines.piston.DoublePistonHeadBlock;
 import com.simplemachines.piston.DoublePistons;
+import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -67,6 +69,8 @@ public final class MachinesTests {
         ALL.put("double_piston_pushed_by_vanilla_piston", MachinesTests::doublePistonPushedByVanillaPiston);
         ALL.put("double_piston_falls_as_unit", MachinesTests::doublePistonFallsAsUnit);
         ALL.put("double_piston_switch_off_keeps_it_still", MachinesTests::doublePistonSwitchOffKeepsItStill);
+        ALL.put("double_piston_all_facings", MachinesTests::doublePistonAllFacings);
+        ALL.put("double_piston_moves_with_vanilla_blocks", MachinesTests::doublePistonMovesWithVanillaBlocks);
         ALL.put("discover_recipe_unlocks", com.simplemachines.discover.MachinesDiscover::recipeUnlocks);
         ALL.put("discover_behaviour_hints", com.simplemachines.discover.MachinesDiscover::behaviourHints);
         ALL.put("guide_book", com.simplemachines.guide.MachinesGuide::gameTest);
@@ -406,8 +410,9 @@ public final class MachinesTests {
         h.assertValueEqual(DoublePistons.targetExt(15), 2, "target 15");
         sequence(h, List.of(new Step("stage 2 for signal 15", () -> { }, () -> {
             if (ext(h, base) != 2 || !parts(h, base, 2)) return false;
+            // DW04C-6: Vanilla's extended base (12 px, front 4 px free), no longer the body moved half a block
             var bounds = at(h, base).getShape(h.getLevel(), h.absolutePos(base)).bounds();
-            return bounds.minX == 0.5 && bounds.maxX == 1.0;
+            return bounds.minX == 0.0 && bounds.maxX == 0.75;
         })));
     }
 
@@ -560,5 +565,71 @@ public final class MachinesTests {
             MachinesConfig.doublePiston = before;
         }
         h.succeed();
+    }
+
+    /**
+     * DW04C-6: all six facings at stage 2 - the base as Vanilla's extended base (12 px, the 4 px at its front free), the arm and the
+     * head one and two cells out with the base's facing - and all back to stage 0 when the signal ends.
+     */
+    public static void doublePistonAllFacings(GameTestHelper h) {
+        clear(h);
+        Map<Direction, BlockPos> bases = new java.util.EnumMap<>(Direction.class);
+        bases.put(Direction.UP, new BlockPos(1, 1, 1));
+        bases.put(Direction.DOWN, new BlockPos(3, 5, 1));
+        bases.put(Direction.NORTH, new BlockPos(5, 1, 4));
+        bases.put(Direction.SOUTH, new BlockPos(1, 1, 4));
+        bases.put(Direction.EAST, new BlockPos(2, 4, 6));
+        bases.put(Direction.WEST, new BlockPos(6, 1, 7));
+        bases.forEach((f, b) -> h.setBlock(b, MachinesRegistry.DOUBLE_PISTON.defaultBlockState().setValue(DirectionalBlock.FACING, f)));
+        sequence(h, List.of(
+                new Step("power behind every base: all at stage 2", () -> bases.forEach((f, b) -> h.setBlock(b.relative(f.getOpposite()), Blocks.REDSTONE_BLOCK)),
+                        () -> bases.entrySet().stream().allMatch(e -> stageTwoRight(h, e.getValue(), e.getKey()))),
+                new Step("power gone: all back to 0, nothing left in front", () -> bases.forEach((f, b) -> h.setBlock(b.relative(f.getOpposite()), Blocks.AIR)),
+                        () -> bases.entrySet().stream().allMatch(e -> ext(h, e.getValue()) == 0
+                                && at(h, e.getValue().relative(e.getKey())).isAir() && at(h, e.getValue().relative(e.getKey(), 2)).isAir()))));
+    }
+
+    private static boolean stageTwoRight(GameTestHelper h, BlockPos base, Direction f) {
+        BlockState arm = at(h, base.relative(f));
+        BlockState head = at(h, base.relative(f, 2));
+        if (ext(h, base) != 2 || !arm.is(MachinesRegistry.arm()) || !head.is(MachinesRegistry.head())
+                || arm.getValue(DirectionalBlock.FACING) != f || head.getValue(DirectionalBlock.FACING) != f
+                || at(h, base).getValue(DirectionalBlock.FACING) != f) {
+            return false;
+        }
+        var bounds = at(h, base).getShape(h.getLevel(), h.absolutePos(base)).bounds();
+        double front = f.getAxisDirection() == Direction.AxisDirection.POSITIVE ? bounds.max(f.getAxis()) : 1.0 - bounds.min(f.getAxis());
+        double volume = bounds.getXsize() * bounds.getYsize() * bounds.getZsize();
+        return front == 0.75 && volume == 0.75;
+    }
+
+    /**
+     * DW04C-6 (smooth like Vanilla): every step runs over Vanilla's moving block - going out the head is the moving block, going back
+     * from 2 to 1 the head with the arm's sleeve, from 1 to 0 the base itself (source piston, like Vanilla), whose collision keeps the
+     * base (DoublePistonMovingMixin); at rest the head carries neither short nor sleeve.
+     */
+    public static void doublePistonMovesWithVanillaBlocks(GameTestHelper h) {
+        clear(h);
+        BlockPos base = new BlockPos(1, 2, 4);
+        doublePiston(h, base);
+        sequence(h, List.of(
+                new Step("out: the head moves as Vanilla's moving block", () -> h.setBlock(base.west(), Blocks.REDSTONE_BLOCK),
+                        () -> movingBe(h, base.east()) instanceof PistonMovingBlockEntity m && m.isExtending() && m.getMovedState().is(MachinesRegistry.head())),
+                new Step("stage 2 at rest, head without short and sleeve", () -> { },
+                        () -> ext(h, base) == 2 && parts(h, base, 2) && !at(h, base.east(2)).getValue(DoublePistonHeadBlock.SHORT)
+                                && !at(h, base.east(2)).getValue(DoublePistonHeadBlock.SLEEVE)),
+                new Step("in 2 -> 1: the head with the sleeve slides over the arm's cell", () -> h.setBlock(base.west(), Blocks.AIR),
+                        () -> movingBe(h, base.east()) instanceof PistonMovingBlockEntity m && !m.isExtending() && !m.isSourcePiston()
+                                && m.getMovedState().is(MachinesRegistry.head()) && m.getMovedState().getValue(DoublePistonHeadBlock.SLEEVE)),
+                new Step("in 1 -> 0: the base is the moving source block and keeps its collision", () -> { },
+                        () -> movingBe(h, base) instanceof PistonMovingBlockEntity m && m.isSourcePiston() && !m.isExtending()
+                                && m.getMovedState().is(MachinesRegistry.DOUBLE_PISTON)
+                                && at(h, base).getCollisionShape(h.getLevel(), h.absolutePos(base)).toAabbs().stream().anyMatch(b -> b.contains(0.05, 0.05, 0.05))),
+                new Step("back at 0: the base is back, nothing in front", () -> { },
+                        () -> ext(h, base) == 0 && parts(h, base, 0) && at(h, base.east()).isAir())));
+    }
+
+    private static net.minecraft.world.level.block.entity.BlockEntity movingBe(GameTestHelper h, BlockPos pos) {
+        return at(h, pos).is(Blocks.MOVING_PISTON) ? h.getLevel().getBlockEntity(h.absolutePos(pos)) : null;
     }
 }

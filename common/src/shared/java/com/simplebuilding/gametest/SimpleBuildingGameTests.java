@@ -191,6 +191,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_upgrade_chains_run_by_tier", TestCentreTests::upgradeChainsRunByTier)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_mod_block_families_stand_once_and_aligned", TestCentreTests::modBlockFamiliesStandOnceAndAligned)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_testcenter_command_clears_and_builds_the_mod_area", TestCentreTests::testcenterCommandClearsAndBuildsTheModArea)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_metal_rods_attract_lightning_within_their_own_range", BlockBehaviourTests::metalRodsAttractLightningWithinTheirOwnRange)
@@ -730,24 +734,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("combat_game_test_crafty_shulker_lands_only_on_safe_ground", CombatTests::craftyShulkerLandsOnlyOnSafeGround)
                     .build(),
             GameTestSpec.named("combat_game_test_crafty_shulker_teleports_when_hit_and_respects_the_cooldown", CombatTests::craftyShulkerTeleportsWhenHitAndRespectsTheCooldown)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_each_tip_adds_its_damage_against_its_targets", FletchingTests::eachTipAddsItsDamageAgainstItsTargets)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_shafts_and_fletchings_change_the_flight", FletchingTests::shaftsAndFletchingsChangeTheFlight)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_material_shafts_are_only_the_diamond_rod", FletchingTests::materialShaftsAreOnlyTheDiamondRod)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_old_netherite_and_enderite_shafts_load_as_sticks", FletchingTests::oldNetheriteAndEnderiteShaftsLoadAsSticks)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_the_table_makes_four_arrows_from_three_parts", FletchingTests::theTableMakesFourArrowsFromThreeParts)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_recipe_book_places_the_parts_from_the_inventory", FletchingTests::recipeBookPlacesThePartsFromTheInventory)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_every_combination_has_its_recipe_book_entry", FletchingTests::everyCombinationHasItsRecipeBookEntry)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_right_clicking_the_fletching_table_opens_the_menu", FletchingTests::rightClickingTheFletchingTableOpensTheMenu)
-                    .build(),
-            GameTestSpec.named("fletching_game_test_potion_slot_makes_tipped_arrows", FletchingTests::potionSlotMakesTippedArrows)
                     .build(),
             GameTestSpec.named("crucible_game_test_cauldron_world_catalog_matches_the_rules", CrucibleTests::cauldronWorldCatalogMatchesTheRules)
                     .build(),

@@ -1498,17 +1498,6 @@
       "Der Trichter darunter ist die einzige Tür nach draußen: Ist er voll, wird nichts hergestellt. Ein Redstone-Signal ist der Ausschalter."
     ]
   },
-  "crafted_arrow": {
-    "lore": [
-      "Ein Pfeil, mit Aufmerksamkeit gebaut, Spitze für Spitze."
-    ],
-    "use": [
-      "Am Bogenmachertisch gefertigt: eine Spitze, ein Schaft und eine Befiederung ergeben 4 Pfeile. Rechtsklick auf den Vanilla-Bogenmachertisch öffnet ihn."
-    ],
-    "secret": [
-      "Am Bogenmachertisch dient eine Diamantstange als Schaft und lässt den Pfeil ein Ziel mehr durchbohren."
-    ]
-  },
   "raw_ceramic_bucket": {
     "lore": [
       "Ein Eimer aus nassem Ton, der noch überlegt, was er werden will."

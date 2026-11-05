@@ -22,7 +22,7 @@ public abstract class FreeLookCrosshairMixin {
     private void simplelib$realCrosshair(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || !mc.options.getCameraType().isFirstPerson()) return;
-        int[] p = FreeLook.crosshairPoint(mc.player.getXRot(), graphics.guiWidth(), graphics.guiHeight(), mc.options.fov().get());
+        int[] p = FreeLook.crosshairPoint(mc.player.getXRot(), graphics.guiWidth(), graphics.guiHeight(), mc.gameRenderer.mainCamera().getFov());
         if (p == null) return;
         graphics.nextStratum();
         int x = p[0], y = p[1];

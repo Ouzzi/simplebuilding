@@ -2,7 +2,7 @@
 
 Runs the full integration client (`:integration:runIntegrationClient`) under an X server (xvfb-run). The client-side FletchingProbe
 (modules/simplearrows/.../client/FletchingProbe.java) creates a flat survival world, puts flint, stick, feather and a potion of
-swiftness into the hotbar and opens a Vanilla fletching table through the server (SimpleBuilding's table menu). This script drives
+swiftness into the hotbar and opens a Vanilla fletching table through the server (Simple Arrows' table menu, from SimpleBuilding since 04.11.). This script drives
 the X11 pointer through XTest (the Pointer class of Simple Earth's menu_probe.py): pick up each part and put it into its slot, the
 potion into the potion slot, read the result (4 arrows with the potion at 1/8 duration), take the result and put it into the
 inventory, check the potion was used. Screenshots: empty, filled, tooltip of the result, taken.
@@ -137,20 +137,20 @@ def main():
                 check(f'{tag}: {item} clicked into slot {dst}', slot(st, dst)['item'] == item, slot(st, dst))
             res = slot(st, RESULT)
             check(f'{tag}: result = 4 crafted arrows with the potion at 1/8',
-                  res['item'] == 'simplebuilding:crafted_arrow' and res['count'] == 4 and res['potion'] and abs(res['durationScale'] - 0.125) < 1e-6, res)
+                  res['item'] == 'simplearrows:crafted_arrow' and res['count'] == 4 and res['potion'] and abs(res['durationScale'] - 0.125) < 1e-6, res)
             ptr.move(*point(st, RESULT))
             time.sleep(1.2)
             command('shot', name='tooltip')
             # take the result and put it into an empty inventory slot (menu index 4 = first main inventory slot)
             ptr.click(*point(st, RESULT))
             st = fresh(4)
-            check(f'{tag}: the result is on the cursor', st['carried']['item'] == 'simplebuilding:crafted_arrow' and st['carried']['potion'], st['carried'])
+            check(f'{tag}: the result is on the cursor', st['carried']['item'] == 'simplearrows:crafted_arrow' and st['carried']['potion'], st['carried'])
             ptr.click(*point(st, 4))
             st = fresh(4)
-            check(f'{tag}: arrows with the potion in the inventory', slot(st, 4)['item'] == 'simplebuilding:crafted_arrow'
+            check(f'{tag}: arrows with the potion in the inventory', slot(st, 4)['item'] == 'simplearrows:crafted_arrow'
                   and slot(st, 4)['count'] == 4 and slot(st, 4)['potion'], slot(st, 4))
             check(f'{tag}: the potion was used up', slot(st, POTION)['item'] == '', slot(st, POTION))
-            check(f'{tag}: without a potion the result is plain arrows', slot(st, RESULT)['item'] == 'simplebuilding:crafted_arrow'
+            check(f'{tag}: without a potion the result is plain arrows', slot(st, RESULT)['item'] == 'simplearrows:crafted_arrow'
                   and not slot(st, RESULT)['potion'], slot(st, RESULT))
             command('shot', name='taken')
         command('quit')

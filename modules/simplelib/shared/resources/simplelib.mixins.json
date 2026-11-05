@@ -26,7 +26,10 @@
     "CreativeModeTabsPolicyMixin",
     "LegendaryAdvancementMixin",
     "LegendaryEnchantTableMixin",
-    "LegendaryAnvilMixin"
+    "LegendaryAnvilMixin",
+    "AgingStateMixin",
+    "AgingTickAccessor",
+    "AgingDispenserMixin"
   ],
   "client": [
     "client.WarmGlowEntityMixin",
@@ -40,7 +43,9 @@
     "client.FreeLookTurnMixin",
     "client.FreeLookCameraMixin",
     "client.FreeLookHandMixin",
-    "client.FreeLookCrosshairMixin"
+    "client.FreeLookCrosshairMixin",
+    "client.FreeLookZoomMixin",
+    "client.FreeLookFovMixin"
   ],
   "server": [],
   "injectors": {

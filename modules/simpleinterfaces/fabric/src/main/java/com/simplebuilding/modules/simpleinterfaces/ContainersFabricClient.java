@@ -18,6 +18,11 @@ public final class ContainersFabricClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.KeysProbe::tick);
         KeyMappingHelper.registerKeyMapping(com.simplebuilding.modules.simpleinterfaces.client.ZoomState.KEY);
         ClientTickEvents.END_CLIENT_TICK.register(com.simplebuilding.modules.simpleinterfaces.client.ZoomState::tick);
+        // DW04A-2: the Free Look wheel zoom (simplelib) stays out of the way while the spyglass or the zoom key zooms
+        com.simplelib.api.client.FreeLook.otherZoom = () -> {
+            var p = net.minecraft.client.Minecraft.getInstance().player;
+            return p != null && com.simplebuilding.modules.simpleinterfaces.client.ZoomState.zooming(p);
+        };
         // Server values (linked containers, Easy Shulkers) and the linked panel (formerly Simple QoL).
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.modules.simpleinterfaces.network.ConfigSyncPayload.TYPE,
                 (p, c) -> c.client().execute(() -> SimpleInterfaces.receiveSync(p.json())));

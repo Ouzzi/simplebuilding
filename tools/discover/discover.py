@@ -68,8 +68,6 @@ SB_TIPS = [
      "An einem Mob benutzen: Geräusche aus oder an"),
     ("hopper_filter", ["reinforced_hopper", "netherite_hopper", "enderite_hopper"], "Set up an item filter in its menu",
      "Im Menü einen Item-Filter einstellen"),
-    ("fletching", ["minecraft:fletching_table"], "Use it to make arrows: tip, shaft, fletching",
-     "Benutzen für Pfeile: Spitze, Schaft, Befiederung"),
 ]
 
 MODS = [
@@ -82,8 +80,6 @@ MODS = [
          hand_default="mc26_3/overlay/resources",
          langs=["src/main/resources/assets/simplebuilding/lang", "mc26_3/overlay/resources/assets/simplebuilding/lang"],
          manual="wiki/manual.json", framework="reflect", tips=SB_TIPS, secret=["simplebuilding:easter_smithing"],
-         # Fletching Table parts (no ingredients in the JSON): one unlock for all, when the table or an arrow is picked up
-         grouped={"simplebuilding:fletching": ("fletching_table_parts", "combat", ["minecraft:fletching_table", "#minecraft:arrows"])},
          tip_overrides={}),
     dict(id="simplelib", ns=["simplelib"], cls="LibDiscover", package="com.simplelib.discover",
          mixin_package="com.simplelib.mixin", own_packages=["com.simplelib."]),
@@ -139,6 +135,11 @@ MODS = [
          own_packages=["com.simplemachines."]),
     dict(id="simpleenchanting", ns=["simpleenchanting"], cls="EnchantingDiscover", package="com.simpleenchanting.discover",
          own_packages=["com.simpleenchanting."]),
+    # b-arrows03 (04.11.): the Fletching Table moved here from SimpleBuilding; its part recipes (no ingredients in the JSON) share
+    # one unlock, when the table or an arrow is picked up.
+    dict(id="simplearrows", ns=["simplearrows"], cls="ArrowsDiscover", package="com.simplearrows.discover",
+         own_packages=["com.simplearrows."],
+         grouped={"simplearrows:fletching": ("fletching_table_parts", "combat", ["minecraft:fletching_table", "#minecraft:arrows"])}),
     dict(id="simpleores", ns=["simpleores"], cls="OresDiscover", package="com.simpleores.discover",
          own_packages=["com.simpleores."]),
     dict(id="simpleblocks", ns=["simpleblocks"], cls="BlocksDiscover", package="com.simpleblocks.discover",
