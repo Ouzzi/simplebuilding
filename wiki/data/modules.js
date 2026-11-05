@@ -79,7 +79,7 @@ window.WIKI_MODULES = [
     "counts": {
       "items": 491,
       "blocks": 283,
-      "recipes": 802,
+      "recipes": 805,
       "config": 230,
       "features": 47
     }
