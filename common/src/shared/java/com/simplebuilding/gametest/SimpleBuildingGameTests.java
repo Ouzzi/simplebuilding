@@ -365,6 +365,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chess_game_test_pieces_stand_on_quarters_and_swap", ChessTests::piecesStandOnQuartersAndSwap)
                     .build(),
+            GameTestSpec.named("chess_game_test_pieces_break_only_the_looked_at_piece", ChessTests::piecesBreakOnlyTheLookedAtPiece)
+                    .build(),
             GameTestSpec.named("chess_game_test_octets_mix_materials_in_one_cell", OctetMixTests::octetsMixMaterialsInOneCell)
                     .build(),
             GameTestSpec.named("chess_game_test_octets_break_only_the_looked_at_octet", OctetMixTests::octetsBreakOnlyTheLookedAtOctet)

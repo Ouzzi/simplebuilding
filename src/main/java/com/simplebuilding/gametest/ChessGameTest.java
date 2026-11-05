@@ -25,6 +25,11 @@ public final class ChessGameTest {
     }
 
     @GameTest
+    public void piecesBreakOnlyTheLookedAtPiece(GameTestHelper helper) {
+        ChessTests.piecesBreakOnlyTheLookedAtPiece(helper);
+    }
+
+    @GameTest
     public void chessRecipesCutFromCheckersAndOctets(GameTestHelper helper) {
         ChessTests.chessRecipesCutFromCheckersAndOctets(helper);
     }
