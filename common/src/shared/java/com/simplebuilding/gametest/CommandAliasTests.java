@@ -17,8 +17,6 @@ public final class CommandAliasTests {
             helper.assertTrue(old != null && old.getRedirect() == target, "/" + name + " does not lead to /simplebuilding " + name);
             helper.assertTrue(old.getRequirement() == target.getRequirement(), "/" + name + " carries another permission than its target");
         }
-        var problems = com.simplelib.api.CommandAliases.verify(helper.getLevel().getServer().getCommands().getDispatcher(), "simplebuilding");
-        helper.assertTrue(problems.isEmpty(), "command aliases of simplebuilding: " + problems);
         helper.succeed();
     }
 }

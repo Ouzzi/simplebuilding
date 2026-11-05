@@ -1,6 +1,5 @@
 package com.simplebuilding.tweaks.command;
 
-import com.simplelib.api.CommandAliases;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
@@ -46,14 +45,41 @@ public final class TweaksCommands {
     private TweaksCommands() {
     }
 
+    /**
+     * IG31-44: {@code /simplebuilding <name>} is the command; the old root stays as a redirecting alias (same node, same
+     * permission) that names the new command in chat. (The core cannot use SimpleLib's CommandAliases.)
+     */
+    private static void moved(CommandDispatcher<CommandSourceStack> d, LiteralArgumentBuilder<CommandSourceStack> old) {
+        var node = old.build();
+        var root = d.getRoot().getChild("simplebuilding");
+        if (root == null) {
+            d.getRoot().addChild(Commands.literal("simplebuilding").requires(SimplebuildingCommand.OPERATOR_ONLY).build());
+            root = d.getRoot().getChild("simplebuilding");
+        }
+        root.addChild(node);
+        var target = root.getChild(node.getName());
+        String name = node.getName();
+        Consumer<CommandSourceStack> hint = source -> source.sendSuccess(() -> Component.translatable("commands.simplebuilding.moved",
+                "/" + name, "/simplebuilding " + name).withStyle(ChatFormatting.YELLOW), false);
+        d.register(Commands.literal(name).requires(target.getRequirement())
+                .executes(ctx -> {
+                    hint.accept(ctx.getSource());
+                    return target.getCommand().run(ctx);
+                })
+                .redirect(target, ctx -> {
+                    hint.accept(ctx.getSource());
+                    return ctx.getSource();
+                }));
+    }
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        CommandAliases.nested(dispatcher, "simplebuilding", SimplebuildingCommand.OPERATOR_ONLY, Commands.literal("killboats")
+        moved(dispatcher, Commands.literal("killboats")
                 .requires(SimplebuildingCommand.OPERATOR_ONLY)
                 .executes(ctx -> executeKill(ctx, "standard", true))
                 .then(Commands.argument("mode", StringArgumentType.word())
                         .suggests((ctx, b) -> SharedSuggestionProvider.suggest(MODES, b))
                         .executes(ctx -> executeKill(ctx, StringArgumentType.getString(ctx, "mode"), true))));
-        CommandAliases.nested(dispatcher, "simplebuilding", SimplebuildingCommand.OPERATOR_ONLY, Commands.literal("killcarts")
+        moved(dispatcher, Commands.literal("killcarts")
                 .requires(SimplebuildingCommand.OPERATOR_ONLY)
                 .executes(ctx -> executeKill(ctx, "standard", false))
                 .then(Commands.argument("mode", StringArgumentType.word())
