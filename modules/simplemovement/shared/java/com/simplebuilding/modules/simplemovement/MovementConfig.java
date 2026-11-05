@@ -12,7 +12,7 @@ public final class MovementConfig {
         CAMERA, ALWAYS
     }
 
-    /** /crawl and the crawl key set the swimming pose. */
+    /** /simplemovement crawl and the crawl key set the swimming pose. */
     public boolean enableManualCrawl = true;
     /** Server allows the client autowalk key. */
     public boolean enableAutowalk = false;

@@ -122,7 +122,7 @@
   "simpleshops.guide.page.10.title": "Kaufen",
   "simpleshops.guide.page.10": "Shift-Klick wiederholt, solange Preis, Ware und Platz reichen.",
   "simpleshops.guide.page.11.title": "Server-Shop",
-  "simpleshops.guide.page.11": "Ein unbegrenzter Shop, den nur Operatoren (Berechtigungsstufe 2) mit /servershop erstellen und einrichten. Alle, auch Operatoren, kaufen im normalen Käufer-Menü.",
+  "simpleshops.guide.page.11": "Ein unbegrenzter Shop, den nur Operatoren (Berechtigungsstufe 2) mit /simpleshops servershop erstellen und einrichten. Alle, auch Operatoren, kaufen im normalen Käufer-Menü.",
   "simpleshops.guide.page.12.title": "Ender-Shops",
   "simpleshops.guide.page.12": "Wie bei der Endertruhe: Ware, Preise und Einnahmen jedes Shops liegen in den Weltdaten, die Blöcke sind nur Fenster darauf. Deshalb brauchen Verkaufsblock und Verkaufslager eine Enderperle.",
   "simpleshops.guide.page.13.title": "Schutz",

@@ -1,5 +1,6 @@
 package com.simpleshops.logic;
 
+import com.simplelib.api.CommandAliases;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -38,7 +39,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * {@code /servershop}: the operator (permission level 2) commands of the server shops. Only operators create, change or remove one;
+ * {@code /simpleshops servershop}: the operator (permission level 2) commands of the server shops. Only operators create, change or remove one;
  * buying is the normal shop menu for everyone. Rights are checked by the command tree and again by the menus.
  * <pre>
  * create [pos]   remove &lt;id&gt;   list [coords|items]   info &lt;id&gt;   tp &lt;id&gt;   edit &lt;id&gt; price|goods
@@ -66,7 +67,7 @@ public final class ServerShopCommands {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext context) {
-        dispatcher.register(Commands.literal("servershop").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+        CommandAliases.nested(dispatcher, "simpleshops", Commands.literal("servershop").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("create").executes(c -> create(c.getSource(), null))
                         .then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(c -> create(c.getSource(), BlockPosArgument.getBlockPos(c, "pos")))))
                 .then(withId("remove", n -> n.executes(c -> remove(c.getSource(), id(c)))))
@@ -181,7 +182,7 @@ public final class ServerShopCommands {
         for (ServerShops.Shop shop : shops) {
             ServerShops.Located at = ServerShops.locate(source.getServer(), shop, mode == 2);
             MutableComponent line = Component.literal(shop.id()).withStyle(Style.EMPTY.withColor(net.minecraft.ChatFormatting.GOLD)
-                    .withClickEvent(new ClickEvent.RunCommand("/servershop tp " + shop.id())));
+                    .withClickEvent(new ClickEvent.RunCommand("/simpleshops servershop tp " + shop.id())));
             if (mode >= 1) line.append(Component.literal("  " + where(shop)));
             if (mode == 2 && at != null && at.complete()) {
                 line.append(Component.literal("  ")).append(goodsText(at.shopCase())).append(Component.literal(" <- ")).append(priceText(at.sales().prices()));

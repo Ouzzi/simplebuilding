@@ -71,7 +71,7 @@ Alle vorhandenen Server-Regressionstests werden im ungefilterten 26.3-Bestandsla
 | XP-Clumping / Sofortpickup | Quelle addiert Einzelwerte ohne Vanilla `pickingCount`, alle20 Ticks/R2, kein Short-Cap; Ziel count einbezogen, Short.MAX_VALUE, resetCount1, Restkugeln nicht verlieren. Radius konfigurierbar aber ohne harte obere Schranke. | XP-Erhaltungskorrektur behalten; `xpOrbsClumpWithoutLosingExperience`. Radius-Haertung offen. |
 | XP-Skalierung | Quelle und Ziel exakt min(3, 1+Wert/500); Client-RenderState/IOrbValue wird zu OrbValueHolder und 26.3 submit. | Formel beibehalten, nicht nochmals mixen; subjektive Darstellung nicht durch Servertests bewiesen. |
 | Raketen-Stapel | Quelle config rocketStackSize64 + ItemStack-Mixin; Ziel serverSync, nur Verringerung Vanilla-Grenze, ungueltige Grenze erhoeht Vanilla nicht. | Nicht duplizieren; `theRocketStackSizeFollowsTheConfig`, Sync-/Configtests. |
-| /killboats, /killcarts | Quelle standard/empty/all, configurable enable true/false, OP. Ziel gleichnamige Befehle, OP-Schalter und Containerinhalt korrekt gedroppt, Config-Radius100. | Kein zweiter Befehlsbaum. Modus-/Contents-/Operator-/Schaltertests; Radius-Cap offen. |
+| /simplebuilding killboats, /simplebuilding killcarts | Quelle standard/empty/all, configurable enable true/false, OP. Ziel gleichnamige Befehle, OP-Schalter und Containerinhalt korrekt gedroppt, Config-Radius100. | Kein zweiter Befehlsbaum. Modus-/Contents-/Operator-/Schaltertests; Radius-Cap offen. |
 | /simpletweaks config & ModMenu/Cloth | Quelle eigene Datei und Unterbaeume. Ziel `/simplebuilding tweaks`, ausser Ziele2..4 entfallen; Config-Namen/Defaults/Tooltips/Tabs zentral. | Nicht erneut anbieten oder zweite Quelle von Gameplaywerten schaffen; `ConfigOptionTests` und Tweaks-Config-/Synctests. |
 | Claims | Quelle `ClaimState`, `ClaimProtectionHandler`, `ClaimDeedItem`, /claim-Unterbaum; nicht in SB vorhanden. Details/Sicherheitsluecken unten. | Bisherige ausdrueckliche Zurueckstellung beibehalten; Modul liefert **nur inaktive Datenerhaltung**. |
 | ModEntities, Lang-/Texturreste, TODO | Leere ModEntities; money_items, vaultCooldownDays, autowalk, brick_snowball, alte Texturen ohne aktive Referenz. TODO Kompost/Wachs/Werfer/Chatrechner/Questbuch/Extra-Inventar ohne Umsetzung. | Keine neue Funktion aus toten Texten/Ideen erfinden. Andere Module koennen separat daran arbeiten. |
@@ -241,7 +241,7 @@ Das ist kein Beweis fuer harte Caps, wo die Implementierung nur Untergrenzen bes
 
 ## Befehle, Kollisionen und Mixins
 
-Quellkommandos /killboats und /killcarts [standard|empty|all] sind bereits in SB registriert.
+Quellkommandos /simplebuilding killboats und /simplebuilding killcarts [standard|empty|all] sind bereits in SB registriert.
 Quell-/simpletweaks Unterbaeume: spawn elytra toggle/radius/flightTime/maxBoosts/boostStrength/center
 worldspawn|here|set; spawn teleporterCount; worldspawn forceExact/here/set/setspawn1..4;
 dimension nether/end; balancing rocketStackSize; commands enableKillBoats/enableKillCarts.

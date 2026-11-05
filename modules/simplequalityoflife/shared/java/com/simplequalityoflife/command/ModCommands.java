@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 /**
  * {@code /simplequalityoflife submod <name> <true|false>} (game masters, level 2): the super-mod switches. The former tweak commands
  * moved with their features into the sub-mods ({@code /simpleloot}, {@code /simplemobmanners}, {@code /simplefarming},
- * {@code /simpletools}, {@code /simplemovement}, {@code /simpleinterfaces}; {@code /crawl} belongs to Simple Movement).
+ * {@code /simpletools}, {@code /simplemovement}, {@code /simpleinterfaces}; {@code /simplemovement crawl} belongs to Simple Movement).
  */
 public class ModCommands {
 

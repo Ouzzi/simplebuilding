@@ -798,7 +798,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 17
     },
-    "dataHash": "8add1659b652"
+    "dataHash": "72e9172c5f34"
   },
   {
     "id": "simpletools",
@@ -1265,7 +1265,7 @@ window.WIKI_MODULES = [
       "recipes": 5,
       "features": 12
     },
-    "dataHash": "fba292a2667a"
+    "dataHash": "970e420cb6cb"
   },
   {
     "id": "simplewanderers",
@@ -1596,7 +1596,7 @@ window.WIKI_MODULES = [
     "counts": {
       "features": 3
     },
-    "dataHash": "f41813886410"
+    "dataHash": "d4b5b8779bb4"
   },
   {
     "id": "simplestorage",
@@ -1678,7 +1678,7 @@ window.WIKI_MODULES = [
       "recipes": 36,
       "features": 16
     },
-    "dataHash": "48b356cfec62"
+    "dataHash": "a5f0ab2bff35"
   },
   {
     "id": "simplelights",
@@ -1999,7 +1999,7 @@ window.WIKI_MODULES = [
       "items": 1,
       "features": 8
     },
-    "dataHash": "380277e0cdb7"
+    "dataHash": "29b559e054ce"
   },
   {
     "id": "simplefoundry",

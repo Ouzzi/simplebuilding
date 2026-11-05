@@ -122,7 +122,7 @@
   "simpleshops.guide.page.10.title": "Buying",
   "simpleshops.guide.page.10": "One piece of the chosen goods per trade; shift-click repeats while price, goods and room last.",
   "simpleshops.guide.page.11.title": "Server shop",
-  "simpleshops.guide.page.11": "An unlimited shop that only operators (permission level 2) create and configure with /servershop. Everybody, operators included, buys from it in the normal buyer menu.",
+  "simpleshops.guide.page.11": "An unlimited shop that only operators (permission level 2) create and configure with /simpleshops servershop. Everybody, operators included, buys from it in the normal buyer menu.",
   "simpleshops.guide.page.12.title": "Ender shops",
   "simpleshops.guide.page.12": "Like an ender chest: the goods, prices and earnings of every shop live in the world data, the blocks are only windows onto them. That is why the Sales Block and the Sales Storage need an ender pearl.",
   "simpleshops.guide.page.13.title": "Protection",

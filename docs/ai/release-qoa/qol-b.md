@@ -81,7 +81,7 @@ Voraussetzung: Fabric 26.3, Fabric API, Cloth Config; jede Mod einzeln (nur dies
 
 ### Simple Movement (QOLB-MOV)
 
-1. **QOLB-MOV-1** `/crawl` (oder gebundene Taste, Standard unbelegt) -> Spieler kriecht in Schwimmpose, ein zweites Mal -> steht wieder auf; Sprung beendet das Kriechen.
+1. **QOLB-MOV-1** `/simplemovement crawl` (oder gebundene Taste, Standard unbelegt) -> Spieler kriecht in Schwimmpose, ein zweites Mal -> steht wieder auf; Sprung beendet das Kriechen.
 2. **QOLB-MOV-2** Zweiter Spieler sieht den Kriechenden (Pose synchron).
 3. **QOLB-MOV-3** Autowalk: Standard aus -> Taste R tut nichts; `/simplemovement autowalk true` -> R schaltet Dauerlauf an/aus, Menue/Chat stoppt ihn.
 4. **QOLB-MOV-4** Leiter hochlaufen -> doppelt so schnell wie Vanilla (0.4); `/simplemovement ladderSpeed 0.2` -> Vanilla.

@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link ShopsTests}, all on the 15 x 12 x 15 arena. */
 public final class ModuleGameTest {
+    @GameTest(structure = "simpleshops:arena") public void commandAliases(GameTestHelper h) { com.simplelib.test.CommandAliasTests.module(h, "simpleshops"); }
     @GameTest(structure = "simpleshops:arena", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         ShopsTests.ALL.get("config_defaults").accept(h);

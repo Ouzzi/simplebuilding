@@ -187,14 +187,14 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/resonance shows your value, the level of the land where you stand and your newcomer protection. /resonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
+        "summary": "/simpleresonance shows your value, the level of the land where you stand and your newcomer protection. /simpleresonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
         "details": [
           "/simpleresonance config get|set|reset <option> (game masters): every setting of the server config."
         ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "/resonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /resonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
+        "summary": "/simpleresonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /simpleresonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
         "details": [
           "/simpleresonance config get|set|reset <Option> (Spielleiter): jede Einstellung der Server-Config."
         ]

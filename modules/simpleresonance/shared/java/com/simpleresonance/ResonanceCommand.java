@@ -1,5 +1,6 @@
 package com.simpleresonance;
 
+import com.simplelib.api.CommandAliases;
 import com.mojang.brigadier.CommandDispatcher;
 import com.simplebuilding.framework.api.ResonanceContracts;
 import com.simpleresonance.config.ResonanceConfig;
@@ -11,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * {@code /resonance}: everybody sees his own value, the zone level where he stands and his grace period. {@code /resonance debug}
+ * {@code /simpleresonance}: everybody sees his own value, the zone level where he stands and his grace period. {@code /simpleresonance debug}
  * (game masters) lists the possible owners of a spawn at his place with their chances and the level such a spawn would get.
  */
 public final class ResonanceCommand {
@@ -22,7 +23,7 @@ public final class ResonanceCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("resonance")
+        CommandAliases.contents(dispatcher, "simpleresonance", Commands.literal("resonance")
                 .executes(ctx -> own(ctx.getSource()))
                 .then(Commands.literal("debug").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .executes(ctx -> debug(ctx.getSource()))));

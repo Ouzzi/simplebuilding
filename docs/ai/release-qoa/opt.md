@@ -59,10 +59,10 @@ Voraussetzung: Minecraft 26.3 mit Fabric, Fabric API, die vier Opt-Jars (oder nu
 | ID | Aktion | Erwartet |
 |---|---|---|
 | QOLA-OPT-S1 | Dedizierten Server mit den Jars starten | Log: "simpleoptserver areas:" (`dynamic_distance on`, `activation_range off (config_off)`), "S5a dynamic distance: view 6..N, simulation M (fixed), target 45 MSPT" |
-| QOLA-OPT-S2 | Als Operator `/simpleopt status`; als Nicht-Operator | Operator sieht je Bereich "on/off (Grund)" und die aktuelle Weite; Nicht-Operator bekommt keine Berechtigung |
+| QOLA-OPT-S2 | Als Operator `/simpleoptserver status`; als Nicht-Operator | Operator sieht je Bereich "on/off (Grund)" und die aktuelle Weite; Nicht-Operator bekommt keine Berechtigung |
 | QOLA-OPT-S3 | `targetMspt` auf 1 setzen, Neustart, Spieler beitreten | Alle 15 s sinkt die Sichtweite um 1 bis `minView` (Log "S5a: MSPT ... -> view ..."), nie unter 3; mit `targetMspt` 45 und ruhigem Server steigt sie wieder bis `server.properties` |
 | QOLA-OPT-S4 | `dynamic_distance.mode` auf `off`, Neustart, Spieler beitreten | Sichtweite bleibt auf dem Wert aus `server.properties`, Status zeigt `off (config_off)` |
-| QOLA-OPT-S5 | S5b: `activation_range.mode` auf `auto`, Neustart; Kuehe/Huehner/Dorfbewohner in 60+ Bloecken Abstand, Spieler weit weg lassen; danach hingehen | `/simpleopt status` zeigt `activation_range on`; Mobs in der Naehe bewegen sich normal; Tiere paaren sich, Huehner legen Eier, Dorfbewohner arbeiten auch fern ganz normal (ausgenommen); ferne untaetige Mobs stehen, ohne zu springen oder zu verschwinden, und laufen bei Annaeherung sofort normal |
+| QOLA-OPT-S5 | S5b: `activation_range.mode` auf `auto`, Neustart; Kuehe/Huehner/Dorfbewohner in 60+ Bloecken Abstand, Spieler weit weg lassen; danach hingehen | `/simpleoptserver status` zeigt `activation_range on`; Mobs in der Naehe bewegen sich normal; Tiere paaren sich, Huehner legen Eier, Dorfbewohner arbeiten auch fern ganz normal (ausgenommen); ferne untaetige Mobs stehen, ohne zu springen oder zu verschwinden, und laufen bei Annaeherung sofort normal |
 | QOLA-OPT-S6 | Vanilla-Client (ohne Mod) auf diesen Server | Beitritt moeglich, Status-Texte im Klartext |
 
 ## 4. Stand der Optimierungs-Konzeptstufen
@@ -71,7 +71,7 @@ Quellen: `docs/ai/KONZEPT-SIMPLE-OPTIMIZATION-2026-10-17.md` (Abschnitte 7, 9-11
 | Stufe | Queue | Inhalt laut Konzept | Stand im Code |
 |---|---|---|---|
 | 0 | e | Konzept | fertig; Besitzer-Antworten 17.10. in Abschnitt 9 (alle Empfehlungen, Abweichung: Benchmarks auf sb-test) |
-| 1 | e1 | Geruest Super-Mod + 3 Sub-Mods, Bereichs-Tabelle, Mixin-Plugin, Config, Status-Befehl, Bench-Harness `tools/bench` | gebaut und in master (`OptCompat`, `OptAreas`, `OptSettings`, Plugin je Sub-Mod, `/simpleopt status`, `run_bench.py`, `fetch_mods.py`, `modsets.json`) |
+| 1 | e1 | Geruest Super-Mod + 3 Sub-Mods, Bereichs-Tabelle, Mixin-Plugin, Config, Status-Befehl, Bench-Harness `tools/bench` | gebaut und in master (`OptCompat`, `OptAreas`, `OptSettings`, Plugin je Sub-Mod, `/simpleoptserver status`, `run_bench.py`, `fetch_mods.py`, `modsets.json`) |
 | 2 | e2 [x] | O1 Blaetter-Culling, O7 Lichtkarte, S5a Sichtweite nach Last, M1 IP-Ping, M2 Telemetrie, Kompat-Ziel | gebaut, Gametests gruen; Ziel `compat-opt-263` (Cull Leaves, More Culling, BadOptimizations, ServerCore) existiert in `tools/testrunner/run.py`, **wurde nie gefahren** |
 | 3 | e3 [ ] (END-1) | Benchmark am Besitzer-PC, `priorities.json` fuellen | **offen, braucht den Besitzer**; `priorities.json` (je Sub-Mod): alle Bereiche `theirs`, `measured ""`, `runs 0` |
 | 4 | e4 / OPT-e4 [~] | O3, O4, O9, S5b (Standard aus), Zielpruefung | gebaut und in dieser Basis. Begruendet **nicht gebaut**: O3 Regen hinter Decken, O4 Modell-Deduplizierung (Vanilla 26.3 macht es), S1a (Messung: kein Familien-BE teurer als der Vanilla-Trichter). Die Queue-Zeile OPT-e4 steht noch auf "[~] laeuft (a-opt45b)", der Inhalt ist laut Konzept 11 und Code erledigt -> kann auf [x] (Hauptsitzung entscheidet). |

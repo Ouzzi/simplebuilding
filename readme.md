@@ -70,8 +70,8 @@ Alle nur fuer Operatoren.
 |---|---|
 | `/simplebuilding config setTrimMultiplier <wert>` / `getTrimMultiplier` | Multiplikator der Ruestungsbesatz-Boni |
 | `/simplebuilding tweaks ...` | Tweaks-Config im Spiel aendern (Pads, Spawn, Spawn-Elytra, Weltspawn, Dimensionen, Befehle) |
-| `/killboats [standard\|empty\|all]` | unbesetzte Boote im Umkreis von 100 Bloecken entfernen |
-| `/killcarts [standard\|empty\|all]` | dasselbe fuer Loren (standardmaessig abgeschaltet) |
+| `/simplebuilding killboats [standard\|empty\|all]` | unbesetzte Boote im Umkreis von 100 Bloecken entfernen |
+| `/simplebuilding killcarts [standard\|empty\|all]` | dasselbe fuer Loren (standardmaessig abgeschaltet) |
 | `/sbtestcentre build\|section\|kit\|tp\|coverage` | Testzentrale fuer manuelle Abnahme aufbauen (`docs/TESTZENTRALE.md`) |
 
 ## Config

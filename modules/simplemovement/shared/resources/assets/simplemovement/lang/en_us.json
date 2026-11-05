@@ -2,7 +2,7 @@
   "simplemovement.title": "Simple Movement",
   "simplemovement.tab.general": "General",
   "simplemovement.option.enableManualCrawl": "Manual Crawling",
-  "simplemovement.option.enableManualCrawl.tooltip": "Allow /crawl and the crawl key. The server\nvalidates and limits changes. Default: true.",
+  "simplemovement.option.enableManualCrawl.tooltip": "Allow /simplemovement crawl and the crawl key. The server\nvalidates and limits changes. Default: true.",
   "simplemovement.option.enableAutowalk": "Enable Auto-Walk",
   "simplemovement.option.enableAutowalk.tooltip": "Allows automatic walking via keybind.\nDefault: false.",
   "simplemovement.option.ladderClimbingSpeed": "Ladder Climbing Speed",

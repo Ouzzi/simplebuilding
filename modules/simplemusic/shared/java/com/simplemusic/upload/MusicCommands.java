@@ -1,5 +1,6 @@
 package com.simplemusic.upload;
 
+import com.simplelib.api.CommandAliases;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -11,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * Moderation of uploaded tracks (concept §6, owner decision U2 b): {@code /music list [pending]}, {@code approve},
+ * Moderation of uploaded tracks (concept §6, owner decision U2 b): {@code /simplemusic list [pending]}, {@code approve},
  * {@code reject}, {@code delete} (the discs become silent "scratched" discs), {@code info} with a hash or its first
  * 6+ characters, {@code ban}/{@code unban <player>} (no more uploads). Operators only (permission level 2).
  */
@@ -19,7 +20,7 @@ public final class MusicCommands {
     private MusicCommands() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("music").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+        CommandAliases.contents(dispatcher, "simplemusic", Commands.literal("music").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("list").executes(c -> list(c, false))
                         .then(Commands.literal("pending").executes(c -> list(c, true))))
                 .then(status("approve", TrackStore.Status.APPROVED))

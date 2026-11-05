@@ -31,7 +31,7 @@ public final class ShopsConfig {
     /** Seconds without a click before the server closes a shop menu (keeps an AFK player from blocking a shop). */
     public static int idleTimeoutSeconds = IDLE_DEFAULT;
 
-    /** Server shops: false = the price items vanish (sink), true = they are summed in the admin cash ({@code /servershop cash}). */
+    /** Server shops: false = the price items vanish (sink), true = they are summed in the admin cash ({@code /simpleshops servershop cash}). */
     public static boolean collectServerShopIncome = false;
 
     /** Trade terminal, own goods from afar (KONZ20 S2 W2): "take" = take out only, with a delivery time; "none" = look only. Putting in is on site only. */

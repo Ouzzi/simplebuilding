@@ -5,7 +5,7 @@ Source HEAD: `9272a4ee08211c99caa52419bfde9a336991fff5`; working tree already co
 
 ## Features
 
-- **Manual crawling**: P or /crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused.
+- **Manual crawling**: P or /simplemovement crawl sets the synchronized swimming pose. Jump exits. Commands are limited to one change per 10 ticks; spectators and passengers are refused.
 - **Auto-walk**: R toggles ordinary forward input only when the server enables qOL.enableAutowalk (default false). Opening a screen or leaving the world stops it. A click sound signals the change. It adds no speed or reach.
 - **Climbing and sliding**: Climbing speed defaults to 0.4 blocks/tick (range 0.2–0.4). Slide speed defaults to 0.8 (range 0.15–0.8). CAMERA requires looking down and sneaking; ALWAYS requires looking down without sneaking. The server rejects excess vertical movement on climbable blocks with a bounded latency allowance.
 - **Frost Walker on powder snow**: Frost Walker permits walking on powder snow. Enabled by frostWalkerWalkOnPowderSnow, default true.
@@ -64,7 +64,7 @@ Crawl synchronization adds the S2C-only `simplequalityoflife:crawl_state` UUID/b
 Only the server's validated command/jump path changes this state; the client cannot submit it.
 Tracking observers receive the current state, so client pose updates cannot undo authorized crawling.
 
-Players: `/crawl`. Owner permission: `/simplequalityoflife vaults cooldown <1..36500>`; `/simplequalityoflife tweaks ladderSpeed <0.2..0.4>`; boolean subcommands `fullDurabilityBonus`, `autowalk`, `farmlandProtect`, `frostWalkerSnow`, `hoeHarvest`, `furnaceLava`, `sharpnessCut`; list commands `muteSuffixes`/`babySuffixes` with `list`, `add`, `remove`, `clear`. Administrative command feedback is retained; gadget/key feedback uses sounds and poses.
+Players: `/simplemovement crawl`. Owner permission: `/simplequalityoflife vaults cooldown <1..36500>`; `/simplequalityoflife tweaks ladderSpeed <0.2..0.4>`; boolean subcommands `fullDurabilityBonus`, `autowalk`, `farmlandProtect`, `frostWalkerSnow`, `hoeHarvest`, `furnaceLava`, `sharpnessCut`; list commands `muteSuffixes`/`babySuffixes` with `list`, `add`, `remove`, `clear`. Administrative command feedback is retained; gadget/key feedback uses sounds and poses.
 
 ## Overlap and collision review
 
