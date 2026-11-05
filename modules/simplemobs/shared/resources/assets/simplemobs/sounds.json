@@ -112,5 +112,23 @@
       "simplemobs:entity/hollow_howler/roar_rage3"
     ],
     "subtitle": "subtitles.simplemobs.entity.hollow_howler.roar_rage"
+  },
+  "item.trumpet.low": {
+    "sounds": [
+      {
+        "name": "simplemobs:item/trumpet/low",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.simplemobs.item.trumpet"
+  },
+  "item.trumpet.high": {
+    "sounds": [
+      {
+        "name": "simplemobs:item/trumpet/high",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.simplemobs.item.trumpet"
   }
 }

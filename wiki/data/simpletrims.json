@@ -309,6 +309,7 @@
       "source": "modules/simpletrims/shared/resources/data/simpletrims/recipe/inverting_armor_upgrade.json",
       "ingredients": [
         "#minecraft:trimmable_armor",
+        "minecraft:heart_of_the_sea",
         "minecraft:ink_sac",
         "simpletrims:inverting_trim_template"
       ],
@@ -320,7 +321,8 @@
           "#minecraft:trimmable_armor"
         ],
         "addition": [
-          "minecraft:ink_sac"
+          "minecraft:ink_sac",
+          "minecraft:heart_of_the_sea"
         ]
       }
     },
@@ -769,10 +771,10 @@
             "A trim turned inside out."
           ],
           "use": [
-            "Place a trim template and strike it with an axe (with Simple Hammers: a sledgehammer) while holding an Ink Sac in the off hand; costs 4 diamonds and 2 obsidian. One template, 7 diamonds and an obsidian block make 2."
+            "Place a trim template and strike it with an axe (with Simple Hammers: a sledgehammer) while holding an Ink Sac in the off hand; costs 4 diamonds and 2 obsidian. A Heart of the Sea works too (one heart, 4 diamonds, 2 prismarine crystals). One template, 7 diamonds and an obsidian block make 2."
           ],
           "secret": [
-            "At the smithing table, template, trimmed armor and an Ink Sac cut the trim pattern out and paint the rest of the armor in the trim color."
+            "At the smithing table, template, trimmed armor and an Ink Sac (or a Heart of the Sea) cut the trim pattern out and paint the rest of the armor in the trim color."
           ]
         },
         "de": {
@@ -780,10 +782,10 @@
             "Ein Besatz von innen nach außen."
           ],
           "use": [
-            "Besatzvorlage ablegen und mit einer Axt (mit Simple Hammers: Vorschlaghammer) schlagen, einen Tintenbeutel in der Nebenhand; kostet 4 Diamanten und 2 Obsidian. Eine Vorlage, 7 Diamanten und ein Obsidianblock ergeben 2."
+            "Besatzvorlage ablegen und mit einer Axt (mit Simple Hammers: Vorschlaghammer) schlagen, einen Tintenbeutel in der Nebenhand; kostet 4 Diamanten und 2 Obsidian. Ein Herz des Meeres geht auch (ein Herz, 4 Diamanten, 2 Prismarinkristalle). Eine Vorlage, 7 Diamanten und ein Obsidianblock ergeben 2."
           ],
           "secret": [
-            "Am Schmiedetisch sparen Vorlage, Rüstung mit Besatz und ein Tintenbeutel das Besatzmuster aus und färben den Rest der Rüstung in der Besatzfarbe."
+            "Am Schmiedetisch sparen Vorlage, Rüstung mit Besatz und ein Tintenbeutel (oder Herz des Meeres) das Besatzmuster aus und färben den Rest der Rüstung in der Besatzfarbe."
           ]
         }
       },

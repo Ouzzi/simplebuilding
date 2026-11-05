@@ -49,7 +49,7 @@ def takes(sounds_json: Path = SOUNDS_JSON) -> dict:
     """Event -> file names of its takes, in sounds.json order."""
     data = json.loads(sounds_json.read_text(encoding='utf-8'))
     return {k.removeprefix(EVENT): [(s if isinstance(s, str) else s['name']).removeprefix(PREFIX) for s in v['sounds']]
-            for k, v in data.items()}
+            for k, v in data.items() if k.startswith(EVENT)}
 
 
 def selected(mode: str, mapping: Path = MAPPING, sounds_json: Path = SOUNDS_JSON) -> list:

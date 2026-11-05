@@ -34,6 +34,10 @@ public final class MobsFabric implements ModInitializer {
         net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.serverboundPlay().register(FearNet.FovPayload.TYPE, FearNet.FovPayload.CODEC);
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.registerGlobalReceiver(FearNet.FovPayload.TYPE,
                 (payload, context) -> context.server().execute(() -> FearNet.handle(payload, context.player())));
+        net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry.clientboundPlay().register(TrumpetNet.TonePayload.TYPE, TrumpetNet.TonePayload.CODEC);
+        TrumpetNet.sender = (player, payload) -> { if (net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(player, payload.type())) net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload); };
+        com.simplelib.api.PlayerState.onLeave("simplemobs:trumpet", TrumpetNet::forget);
+        com.simplelib.api.PlayerState.onStop("simplemobs:trumpet", TrumpetNet::forgetAll);
         ServerTickEvents.END_SERVER_TICK.register(FearServer::tick);
         com.simplelib.api.PlayerState.onLeave("simplemobs:fear", FearNet::forget);
         com.simplelib.api.PlayerState.onStop("simplemobs:fear", FearNet::forgetAll);

@@ -1,6 +1,6 @@
 {
   "type": "simpletrims:trim_upgrade",
-  "addition": "minecraft:ink_sac",
+  "addition": ["minecraft:ink_sac", "minecraft:heart_of_the_sea"],
   "base": "#minecraft:trimmable_armor",
   "template": "simpletrims:inverting_trim_template"
 }

@@ -114,7 +114,14 @@ public final class PlacedTemplates {
         upgrades.put(Items.GLOW_INK_SAC, TrimsRegistry.GLOWING_TRIM_TEMPLATE);
         upgrades.put(Items.GLOWSTONE_DUST, TrimsRegistry.EMITTING_TRIM_TEMPLATE);
         upgrades.put(Items.INK_SAC, TrimsRegistry.INVERTING_TRIM_TEMPLATE);
+        // WD25-3: a Heart of the Sea strikes a template inverse as well (rarer than ink, so only one is used up).
+        upgrades.put(Items.HEART_OF_THE_SEA, TrimsRegistry.INVERTING_TRIM_TEMPLATE);
         return upgrades;
+    }
+
+    /** Off-hand items one finished upgrade uses up: {@link #CATALYST_COST}, one for the rare Heart of the Sea. */
+    public static int catalystCost(Item catalyst) {
+        return catalyst == Items.HEART_OF_THE_SEA ? 1 : CATALYST_COST;
     }
 
     /** Inventory materials besides the catalyst (the catalyst stays in the off hand until the last strike). */
@@ -122,7 +129,7 @@ public final class PlacedTemplates {
         Map<Item, Integer> materials = new LinkedHashMap<>();
         if (upgrades().containsKey(catalyst)) {
             materials.put(Items.DIAMOND, 4);
-            materials.put(catalyst == Items.GLOW_INK_SAC ? Items.GLOWSTONE : catalyst == Items.INK_SAC ? Items.OBSIDIAN : Items.BLAZE_POWDER, 2);
+            materials.put(catalyst == Items.GLOW_INK_SAC ? Items.GLOWSTONE : catalyst == Items.INK_SAC ? Items.OBSIDIAN : catalyst == Items.HEART_OF_THE_SEA ? Items.PRISMARINE_CRYSTALS : Items.BLAZE_POWDER, 2);
         }
         return materials;
     }
@@ -168,7 +175,7 @@ public final class PlacedTemplates {
 
     public static boolean hasMaterials(Player player) {
         if (player.isCreative()) return true;
-        if (player.getOffhandItem().getCount() < CATALYST_COST) return false;
+        if (player.getOffhandItem().getCount() < catalystCost(player.getOffhandItem().getItem())) return false;
         for (var material : extraMaterials(player.getOffhandItem().getItem()).entrySet()) {
             if (player.getInventory().countItem(material.getKey()) < material.getValue()) return false;
         }
@@ -189,7 +196,7 @@ public final class PlacedTemplates {
                 }
             }
         }
-        player.getOffhandItem().shrink(CATALYST_COST);
+        player.getOffhandItem().shrink(catalystCost(player.getOffhandItem().getItem()));
         player.getInventory().setChanged();
     }
 

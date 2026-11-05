@@ -249,6 +249,8 @@ def takes(assets=ASSETS):
         data = json.load(f)
     out = {}
     for key, spec in data.items():
+        if not key.startswith("entity.hollow_howler."):  # TROMP-3: the trumpet shares this sounds.json
+            continue
         ev = key.removeprefix("entity.hollow_howler.")
         out[ev] = [(s if isinstance(s, str) else s["name"]).removeprefix(PREFIX) for s in spec["sounds"]]
     return out

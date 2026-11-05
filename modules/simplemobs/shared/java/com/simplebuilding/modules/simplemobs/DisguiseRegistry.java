@@ -27,6 +27,7 @@ import net.minecraft.world.item.equipment.Equippable;
 public final class DisguiseRegistry {
     public static final ResourceKey<Item> CLOAK_KEY = key("deceiver_cloak");
     public static final ResourceKey<Item> MIRROR_KEY = key("trick_mirror");
+    public static final ResourceKey<Item> TRUMPET_KEY = key("trumpet");
     /** The Deceiver's second drop (owner 11.10.): brews the Mirage potions (with Simple Building); armored Deceivers drop twice as many. */
     public static final ResourceKey<Item> SHARD_KEY = key("illusion_shard");
     public static final ResourceKey<EquipmentAsset> CLOAK_ASSET =
@@ -57,6 +58,7 @@ public final class DisguiseRegistry {
             .repairable(MobsRegistry.CLOTH)
             .setId(CLOAK_KEY));
     public static final Item SHARD = new Item(new Item.Properties().setId(SHARD_KEY));
+    public static final Item TRUMPET = new TrumpetItem(new Item.Properties().stacksTo(1).setId(TRUMPET_KEY));
     public static final Item MIRROR = new TrickMirrorItem(new Item.Properties().durability(64).rarity(Rarity.UNCOMMON).setId(MIRROR_KEY));
 
     public static final ResourceKey<Potion> VEILED_KEY = ResourceKey.create(Registries.POTION, Identifier.fromNamespaceAndPath(MobsRegistry.ID, "veiled_invisibility"));
@@ -74,6 +76,7 @@ public final class DisguiseRegistry {
     public static void items(BiConsumer<ResourceKey<Item>, Item> out) {
         out.accept(CLOAK_KEY, CLOAK);
         out.accept(MIRROR_KEY, MIRROR);
+        out.accept(TRUMPET_KEY, TRUMPET);
         out.accept(SHARD_KEY, SHARD);
     }
 

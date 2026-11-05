@@ -1414,6 +1414,14 @@
       "de": {
         "summary": "Ei + Enderperle + Amethystscherbe (formlos). Grundlage jedes Spawn-Eis aus der Brutmulde."
       }
+    },
+    "simplemobs:trumpet": {
+      "en": {
+        "summary": "Hold use to play notes; the look angle sets the pitch over two octaves (C major). Crafted from 5 copper ingots and a gold nugget."
+      },
+      "de": {
+        "summary": "Benutzen halten spielt Töne; der Blickwinkel bestimmt die Tonhöhe über zwei Oktaven (C-Dur). Aus 5 Kupferbarren und einem Goldklümpchen."
+      }
     }
   }
 }

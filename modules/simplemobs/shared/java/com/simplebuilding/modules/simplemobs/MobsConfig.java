@@ -60,6 +60,8 @@ public final class MobsConfig {
     public static boolean witherWilt = true;
     /** Trick Mirror: off by default (owner N61 E11); recipe and drop are removed, the item only works and shows in the creative tab when on. */
     public static boolean trickMirrorEnabled = false;
+    /** Trumpet (TROMP-3): hold use to play notes, pitch by the look angle. Off = the item does nothing (recipe stays). */
+    public static boolean trumpetEnabled = true;
     /**
      * Mirror effect (MOB27-1, MOB-MIRROR "stufe"): chance per hit that the attacker takes damage back instead of the bearer taking more.
      * Rises linearly with the level from {@code mirrorReflectChanceMin} (I, default 0.2) to {@code mirrorReflectChance} (V, default 0.5); 0..1.
@@ -241,6 +243,7 @@ public final class MobsConfig {
         witherSummonEnabled = bool(json, "witherSummonEnabled", true);
         witherWilt = bool(json, "witherWilt", true);
         trickMirrorEnabled = bool(json, "trickMirrorEnabled", false);
+        trumpetEnabled = bool(json, "trumpetEnabled", true);
         mirrorReflectChance = Math.max(0.0f, Math.min(1.0f, num(json, "mirrorReflectChance", 0.5f)));
         mirrorReflectChanceMin = Math.max(0.0f, Math.min(1.0f, num(json, "mirrorReflectChanceMin", 0.2f)));
         witherWingsSpeedFactor = Math.max(1.0f, Math.min(8.0f, num(json, "witherWingsSpeedFactor", 2.0f)));
@@ -358,6 +361,7 @@ public final class MobsConfig {
         o.addProperty("witherSummonEnabled", witherSummonEnabled);
         o.addProperty("witherWilt", witherWilt);
         o.addProperty("trickMirrorEnabled", trickMirrorEnabled);
+        o.addProperty("trumpetEnabled", trumpetEnabled);
         o.addProperty("mirrorReflectChance", mirrorReflectChance);
         o.addProperty("mirrorReflectChanceMin", mirrorReflectChanceMin);
         o.addProperty("witherWingsSpeedFactor", witherWingsSpeedFactor);

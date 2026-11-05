@@ -66,7 +66,7 @@ public final class TrimsJeiPlugin implements IModPlugin {
         PlacedTemplates.upgrades().forEach((catalyst, result) -> {
             List<InWorldUpgrade.Input> inputs = new ArrayList<>();
             inputs.add(new InWorldUpgrade.Input(templates, 1));
-            inputs.add(InWorldUpgrade.Input.of(catalyst, PlacedTemplates.CATALYST_COST));
+            inputs.add(InWorldUpgrade.Input.of(catalyst, PlacedTemplates.catalystCost(catalyst)));
             PlacedTemplates.extraMaterials(catalyst).forEach((item, count) -> inputs.add(InWorldUpgrade.Input.of(item, count)));
             out.add(new InWorldUpgrade("simpletrims/" + BuiltInRegistries.ITEM.getKey(result).getPath(), inputs, tools, new ItemStack(result), notes));
         });

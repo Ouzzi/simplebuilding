@@ -212,6 +212,89 @@ final class DisguiseTests {
             h.assertTrue(!MobsConfig.trickMirrorEnabled, "the mirror is off by default");
             h.succeed();
         });
+        // TROMP-3: the look angle picks a C major step (15 steps over two octaves), two samples, pitch inside Vanilla's range.
+        add.accept("trumpet_notes", h -> {
+            h.assertTrue(TrumpetItem.note(15f) == 0 && TrumpetItem.note(-15f) == 24 && TrumpetItem.note(40f) == 0 && TrumpetItem.note(-80f) == 24,
+                    "15 deg down is the lowest, 15 deg up the highest, further is clamped");
+            h.assertTrue(TrumpetItem.stage(1f) == 7 && TrumpetItem.semitone(7) == 12 && TrumpetItem.semitone(2) == 4 && TrumpetItem.semitone(13) == 23,
+                    "C major: step 7 is the octave, step 2 the third, step 13 the leading tone");
+            var seen = new HashSet<Integer>();
+            for (int s = 0; s < TrumpetItem.STAGES; s++) {
+                int n = TrumpetItem.semitone(s);
+                float pitch = TrumpetItem.pitch(n);
+                h.assertTrue(pitch >= 0.5f && pitch <= 2.0f && pitch >= 0.7f && pitch <= 1.42f, "pitch " + pitch + " of note " + n);
+                h.assertTrue(TrumpetItem.sound(n) == (n < 12 ? MobsSounds.TRUMPET_LOW : MobsSounds.TRUMPET_HIGH), "sample of note " + n);
+                seen.add(n);
+            }
+            h.assertTrue(seen.size() == TrumpetItem.STAGES, "every step is its own note");
+            h.assertTrue(Math.abs(TrumpetItem.pitch(18) - 1f) < 1e-6 && Math.abs(TrumpetItem.pitch(6) - 1f) < 1e-6 && Math.abs(TrumpetItem.pitch(24) / TrumpetItem.pitch(12) - 2f) < 1e-5,
+                    "each sample is in tune at its reference, an octave is pitch x2");
+            h.succeed();
+        });
+        add.accept("trumpet_use", h -> {
+            var level = h.getLevel();
+            var p = player(h, 1, 1);
+            ItemStack stack = new ItemStack(DisguiseRegistry.TRUMPET);
+            p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+            h.assertTrue(BuiltInRegistries.ITEM.getKey(DisguiseRegistry.TRUMPET).equals(Identifier.fromNamespaceAndPath("simplemobs", "trumpet"))
+                    && stack.getMaxStackSize() == 1 && !stack.isDamageableItem(), "a single, undamageable trumpet");
+            h.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "item.trumpet.low"))
+                    && BuiltInRegistries.SOUND_EVENT.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "item.trumpet.high")), "both samples are registered");
+            boolean was = MobsConfig.trumpetEnabled;
+            MobsConfig.trumpetEnabled = false;
+            h.assertTrue(DisguiseRegistry.TRUMPET.use(level, p, net.minecraft.world.InteractionHand.MAIN_HAND) == net.minecraft.world.InteractionResult.PASS && !p.isUsingItem(),
+                    "switched off: the trumpet does nothing");
+            MobsConfig.trumpetEnabled = true;
+            h.assertTrue(DisguiseRegistry.TRUMPET.use(level, p, net.minecraft.world.InteractionHand.MAIN_HAND).consumesAction() && p.isUsingItem(),
+                    "use starts holding");
+            p.setXRot(-15f);
+            int duration = DisguiseRegistry.TRUMPET.getUseDuration(stack, p);
+            for (int used = 0; used < 20; used++) DisguiseRegistry.TRUMPET.onUseTick(level, p, stack, duration - used); // no exception, no sound events on the server
+            h.assertTrue(stack.getDamageValue() == 0 && stack.getCount() == 1, "playing costs nothing");
+            MobsConfig.trumpetEnabled = was;
+            var recipe = level.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "trumpet")));
+            h.assertTrue(recipe.isPresent(), "the trumpet has a recipe");
+            h.succeed();
+        });
+        // TROMP-3 (05.11.): the tone is a client loop; the server only sends start/change/stop (throttled) to players in range.
+        add.accept("trumpet_net", h -> {
+            var level = h.getLevel();
+            var p = player(h, 1, 1);
+            var got = new java.util.ArrayList<TrumpetNet.TonePayload>();
+            var oldSender = TrumpetNet.sender;
+            TrumpetNet.sender = (to, payload) -> { if (payload instanceof TrumpetNet.TonePayload t) got.add(t); };
+            try {
+                TrumpetNet.forgetAll();
+                var all = java.util.List.of(p);
+                h.assertTrue(TrumpetNet.update(all, p, 6, 100) && got.size() == 1 && got.get(0).note() == 6 && got.get(0).entityId() == p.getId(), "start sends the note");
+                h.assertTrue(!TrumpetNet.update(all, p, 6, 101) && got.size() == 1, "the same note is not sent again");
+                h.assertTrue(!TrumpetNet.update(all, p, 9, 101) && got.size() == 1, "a change within the gap is held back");
+                h.assertTrue(TrumpetNet.update(all, p, 9, 102) && got.size() == 2 && got.get(1).note() == 9, "the change goes out once the gap passed");
+                h.assertTrue(!TrumpetNet.update(all, p, 9, 120) && got.size() == 2 && TrumpetNet.update(all, p, 9, 142) && got.size() == 3 && got.get(2).note() == 9, "the note is repeated every 40 ticks");
+                TrumpetNet.stop(all, p);
+                h.assertTrue(got.size() == 4 && got.get(3).note() == TrumpetNet.STOP, "stop sends -1");
+                TrumpetNet.stop(all, p);
+                h.assertTrue(got.size() == 4, "a second stop is silent");
+                var buf = io.netty.buffer.Unpooled.buffer();
+                TrumpetNet.TonePayload.CODEC.encode(buf, new TrumpetNet.TonePayload(7, 13));
+                var back = TrumpetNet.TonePayload.CODEC.decode(buf);
+                h.assertTrue(back.entityId() == 7 && back.note() == 13, "payload round trip");
+                // a real use: holding sends, releasing stops
+                ItemStack stack = new ItemStack(DisguiseRegistry.TRUMPET);
+                p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+                boolean was = MobsConfig.trumpetEnabled;
+                MobsConfig.trumpetEnabled = true;
+                got.clear();
+                TrumpetNet.update(all, p, TrumpetItem.note(-15f), 500);
+                TrumpetNet.stop(all, p);
+                MobsConfig.trumpetEnabled = was;
+                h.assertTrue(got.size() == 2 && got.get(0).note() == 24 && got.get(1).note() == TrumpetNet.STOP, "holding sends the note, releasing sends stop ");
+            } finally {
+                TrumpetNet.sender = oldSender;
+                TrumpetNet.forgetAll();
+            }
+            h.succeed();
+        });
         add.accept("cloak_head_slot", h -> {
             var level = h.getLevel();
             floor(h, 0, 8);
