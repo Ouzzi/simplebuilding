@@ -51,7 +51,6 @@ public final class LibDiscover {
     static final List<String> SECRET_SERIALIZERS = List.of();
     /** Ids (patterns with *) with a wiki/guide entry: the notes and features of the mod's manual.json. */
     static final List<String> DOCUMENTED = List.of(
-            "simplelib:aging",
             "simplelib:basic_upgrade_template",
             "simplelib:commands",
             "simplelib:copper_core",
