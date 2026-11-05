@@ -125,6 +125,10 @@ public final class EndTests {
                 for (String r : new String[] {"W_planks", "W_wood", "stripped_W_wood", "W_stairs", "W_slab", "W_fence", "W_fence_gate", "W_door",
                         "W_trapdoor", "W_button", "W_pressure_plate", "W_sign", "W_hanging_sign", "W_shelf", "W_bookshelf", "chiseled_W_bookshelf", "W_boat", "W_chest_boat"}) {
                     ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key = ResourceKey.create(Registries.RECIPE, SimpleEnd.id(w.id(r)));
+                    if (r.equals("W_bookshelf") && loaded("simplebuilding")) {
+                        // DW04C-3: with SimpleBuilding the End bookshelf is made of Nihilit Books (SimpleBuilding's recipe, same id path).
+                        key = ResourceKey.create(Registries.RECIPE, net.minecraft.resources.Identifier.fromNamespaceAndPath("simplebuilding", w.id(r)));
+                    }
                     h.assertTrue(recipes.byKey(key).isPresent(), "recipe " + key.identifier());
                 }
             }
