@@ -289,7 +289,7 @@ final class DisguiseTests {
                 DisguiseRegistry.TRUMPET.releaseUsing(stack, level, p, 100); // the item path uses level.players(), which lacks the mock player
                 TrumpetNet.stop(all, p);
                 MobsConfig.trumpetEnabled = was;
-                h.assertTrue(got.size() == 2 && got.get(0).note() == 24 && got.get(1).note() == TrumpetNet.STOP, "holding sends the note, releasing sends stop");
+                h.assertTrue(got.size() == 2 && got.get(0).note() == 24 && got.get(1).note() == TrumpetNet.STOP, "holding sends the note, releasing sends stop " + got);
             } finally {
                 TrumpetNet.sender = oldSender;
                 TrumpetNet.forgetAll();
