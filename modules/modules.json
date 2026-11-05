@@ -4791,7 +4791,7 @@
       "minecraft": "26.3",
       "defaultEnabled": true,
       "displayName": "Simple Arrows",
-      "description": "Arrows: the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla. Fabric only for now.",
+      "description": "Arrows: the Fletching Table (moved from SimpleBuilding on 04.11., ids migrate) builds 4 arrows from a tip, a shaft and a fletching, optionally with a potion; the Light Arrow (glowstone dust, stick, feather) lights the air where it sticks and the light goes when the arrow despawns like a normal arrow or is picked up; the Silver Arrow (moved from Simple Ores on 03.11., ids migrate) hits undead harder and is crafted only with Simple Ores' silver. Works on its own with Vanilla (tips and shafts of other mods appear with them). Fabric only for now.",
       "loaders": [
         "fabric"
       ],

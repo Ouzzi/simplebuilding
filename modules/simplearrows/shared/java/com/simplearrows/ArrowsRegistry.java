@@ -19,7 +19,8 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 /**
  * Everything Simple Arrows registers (Fabric: directly in the initializer): two arrow entity types like Vanilla's (0.5 x 0.5,
- * tracked from 4 chunks, updated every 20 ticks) and their items, which bows, crossbows and dispensers shoot.
+ * tracked from 4 chunks, updated every 20 ticks) and their items, which bows, crossbows and dispensers shoot; the Fletching
+ * Table ({@link com.simplearrows.fletching.Fletchings}) and the guide.
  */
 public final class ArrowsRegistry {
     public static final ResourceKey<EntityType<?>> SILVER_ARROW_KEY = ResourceKey.create(Registries.ENTITY_TYPE, SimpleArrows.id("silver_arrow"));
@@ -41,6 +42,8 @@ public final class ArrowsRegistry {
         LIGHT_ARROW = item("light_arrow", LightArrowItem::new);
         DispenserBlock.registerProjectileBehavior(SILVER_ARROW);
         DispenserBlock.registerProjectileBehavior(LIGHT_ARROW);
+        com.simplearrows.fletching.Fletchings.registerAll();
+        com.simplearrows.guide.ArrowsGuide.register();
     }
 
     public static void registerTab() {
@@ -57,8 +60,21 @@ public final class ArrowsRegistry {
         return BuiltInRegistries.ITEM.containsKey(net.minecraft.resources.Identifier.fromNamespaceAndPath(SimpleArrows.ORES_NAMESPACE, "silver_nugget"));
     }
 
-    /** Tab stacks (empty while the module is switched off): Light Arrow, then the Silver Arrow when Simple Ores is there. */
+    /**
+     * The one "Simple Arrows" tab (DW04C-4, owner 04.11.: SimpleBuilding's own arrows tab is gone; empty while the module is
+     * switched off): Light Arrow, the Silver Arrow when Simple Ores is there, every Fletching Table arrow of this installation
+     * (tip by tip), the guide.
+     */
     public static List<ItemStack> stacks() {
+        List<ItemStack> out = vanillaTabStacks();
+        if (out.isEmpty()) return out;
+        out.addAll(com.simplearrows.fletching.Fletchings.arrowStacks(1));
+        out.add(com.simplearrows.guide.ArrowsGuide.stack());
+        return out;
+    }
+
+    /** What also goes into Vanilla's combat tab after the spectral arrow: Light and Silver Arrow (not the 90 table arrows). */
+    public static List<ItemStack> vanillaTabStacks() {
         List<ItemStack> out = new ArrayList<>();
         if (!SimpleArrows.on()) return out;
         out.add(new ItemStack(LIGHT_ARROW));

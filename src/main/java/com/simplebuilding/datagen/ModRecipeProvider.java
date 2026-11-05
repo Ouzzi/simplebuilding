@@ -132,14 +132,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                     }
                 }
 
-                // Befiederungstisch (B14, N16): ein Rezept je Teil (Kategorien Spitze/Schaft/Befiederung), nur fuer das
-                // Vanilla-Rezeptbuch des Tisches. Kein Freischalt-Advancement: das Oeffnen schaltet alle frei (FletchingRecipes.unlockAll).
-                if (com.simplebuilding.version.McVersion.FLETCHING) {
-                    for (com.simplebuilding.fletching.FletchingRecipe recipe : com.simplebuilding.fletching.FletchingRecipe.all()) {
-                        output.accept(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, recipe.idPath())),
-                                recipe, null);
-                    }
-                }
+                // Befiederungstisch (B14, N16): die Teil-Rezepte sind seit 04.11. Daten von Simple Arrows (simplearrows:fletching/*).
 
                 // Astral-/Nihil-Kolben (2026-10-03): Kolben in der Mitte, Kanal-Redstone an den Kanten, polierter
                 // Stein der Farbe in den Ecken; der Nihil-Kolben zieht und bekommt deshalb den Klebekolben.

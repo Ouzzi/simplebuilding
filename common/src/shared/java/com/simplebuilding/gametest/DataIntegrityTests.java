@@ -2703,12 +2703,8 @@ public final class DataIntegrityTests {
                 modItems.add(id);
             }
         }
-        // The arrows tab is deliberately empty until fletching is enabled on this line.
         if (!spacers.isEmpty()) {
             problems.add("creative_spacer entries are disabled but were emitted in " + spacers);
-        }
-        if (!McVersion.FLETCHING) {
-            helper.assertTrue(ModItemGroupsContent.arrowsRows().isEmpty(), "disabled arrows tab is not empty");
         }
         // Bewusst doppelt (Besitzer 2026-09-28): Kupfer-, Eisen- und Enderit-Kern stehen als Freischalt-Zutat
         // neben Chunk-Loader, Launchpad und Flypad in SimplePads - und bei den Kernen in SimpleMaterials.
@@ -2728,10 +2724,6 @@ public final class DataIntegrityTests {
                 continue;
             }
             int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) || retiredGuide(id) ? 0 : 1;
-            if (com.simplebuilding.version.McVersion.FLETCHING && BuiltInRegistries.ITEM.getValue(id) == ModItems.CRAFTED_ARROW) {
-                // Ein Item, eine Variante je Teile-Kombination (B14): alle im Tab SimpleArrows, sonst nirgends.
-                tabs = new ArrayList<>(new java.util.LinkedHashSet<>(tabs));
-            }
             if (tabs.size() != expected) {
                 problems.add(id + " is offered " + tabs.size() + "x " + tabs + " instead of " + expected + "x");
             }

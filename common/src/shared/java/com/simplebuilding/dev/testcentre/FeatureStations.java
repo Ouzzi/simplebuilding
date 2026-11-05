@@ -610,10 +610,8 @@ public final class FeatureStations {
         List<List<ItemStack>> chests = new ArrayList<>();
         chests.add(launchers(ctx));
         if (com.simplebuilding.version.McVersion.FLETCHING) {
-            List<ItemStack> crafted = new ArrayList<>();
-            for (var parts : com.simplebuilding.fletching.ArrowParts.allCombinations()) {
-                crafted.add(com.simplebuilding.fletching.ArrowParts.stack(parts, 16));
-            }
+            // The Fletching Table's arrows are Simple Arrows' since 04.11.: taken from its tab by id (ArrowRefs).
+            List<ItemStack> crafted = com.simplebuilding.util.ArrowRefs.craftedArrows(ctx.lookup(), 16);
             for (int i = 0; i < crafted.size(); i += 27) {
                 chests.add(crafted.subList(i, Math.min(crafted.size(), i + 27)));
             }

@@ -97,8 +97,7 @@ public final class CrossModGameTest {
         for (Identifier tabId : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
             CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(tabId);
             Set<String> seen = new HashSet<>();
-            if (!"minecraft".equals(tabId.getNamespace()) && tab.getDisplayItems().isEmpty()
-                    && !tabId.getPath().equals("arrows")) {
+            if (!"minecraft".equals(tabId.getNamespace()) && tab.getDisplayItems().isEmpty()) {
                 problems.add(tabId + " is a mod tab without any item");
             }
             for (ItemStack stack : tab.getDisplayItems()) {

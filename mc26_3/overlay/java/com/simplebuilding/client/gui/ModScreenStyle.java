@@ -4,7 +4,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.ChestTier;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.ModScreenLayout.Box;
-import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.AutoSmitherMenu;
 import com.simplebuilding.screen.AutonomousCrafterMenu;
@@ -49,7 +48,6 @@ public final class ModScreenStyle {
     static final UiPalette AUTO_SMITHER = UiPalette.derived(0xFF4F5560);
     /** Crafter stone with a hint of the copper of its textures. */
     static final UiPalette AUTONOMOUS_CRAFTER = UiPalette.derived(0xFF5E5651);
-    static final UiPalette FLETCHING = UiPalette.derived(0xFFC5B485);
     private static final int ERROR = 0xFFC9503E;
 
     private ModScreenStyle() {}
@@ -72,7 +70,6 @@ public final class ModScreenStyle {
             case NetheriteHopperScreenHandler m -> tier(hopperTier(m));
             case AutoSmitherMenu m -> AUTO_SMITHER;
             case AutonomousCrafterMenu m -> AUTONOMOUS_CRAFTER;
-            case FletchingMenu m -> FLETCHING;
             default -> null;
         };
         if (p == null) return null;
@@ -244,92 +241,7 @@ public final class ModScreenStyle {
         return true;
     }
 
-    // ------------------------------------------------------------------ fletching table
-
-    public static boolean fletching(GuiGraphicsExtractor g, FletchingMenu menu, Font font, Component title, int left, int top,
-            int imageWidth) {
-        if (!UiStyleToggle.isEnabled()) return false;
-        UiPalette p = FLETCHING;
-        int[] inv = ModScreenLayout.inventoryOrigin(menu);
-        Box container = ModScreenLayout.container(imageWidth, inv[1]);
-        box(g, left, top, container, p);
-        box(g, left, top, ModScreenLayout.inventory(inv[0], inv[1]), UiPalette.INVENTORY);
-        Slot result = menu.getSlot(FletchingMenu.RESULT_SLOT);
-        // WD25-12: the row (book, feather, shaft, tip, arrow, result) centred in the box; positions from the menu
-        int px = FletchingMenu.PART_X, py = FletchingMenu.ROW_Y, ax = px + FLETCHING_ARROW_DX, ay = py + 1;
-        List<int[]> avoid = slotRects(menu, left, top);
-        avoid.add(titleRect(font, title, left, top));
-        avoid.add(bigRect(result, left, top));
-        avoid.add(new int[] {left + ax, top + py - 4, left + ax + 22, top + py + 21});
-        avoid.add(new int[] {left + px - 26, top + py - 4, left + px + 55, top + py + 21});
-        // VIS24-9 (FLETCH=gravur, variant A): the engraved fletched arrow in the free space above the part row.
-        avoid.add(new int[] {left + px + FLETCHING_GRAVUR_DX - 2, top + FLETCHING_GRAVUR_Y - 2,
-                left + px + FLETCHING_GRAVUR_DX + FLETCHING_GRAVUR.width() + 2, top + FLETCHING_GRAVUR_Y + FLETCHING_GRAVUR.height() + 2});
-        // The recipe book button sits left of the part row (crafting-table spot); keep the motif clear.
-        avoid.add(new int[] {left + ModScreenLayout.FLETCHING_BOOK_X, top + ModScreenLayout.FLETCHING_BOOK_Y,
-                left + ModScreenLayout.FLETCHING_BOOK_X + ModScreenLayout.FLETCHING_BOOK_W,
-                top + ModScreenLayout.FLETCHING_BOOK_Y + ModScreenLayout.FLETCHING_BOOK_H});
-        motif(g, left, top, container, p, UiMotifs.Kind.WOOD, avoid, 6);
-        // The three part slots (feather, shaft, tip) sit in one row after the recipe book button.
-        for (int k = 0; k < 54; k++) {
-            int x = px + k;
-            g.fill(left + x, top + py + 8, left + x + 1, top + py + 9, p.light());
-            g.fill(left + x, top + py + 7, left + x + 2, top + py + 8, p.slot());
-        }
-        slots(g, menu, left, top, p, result);
-        UiSymbols.engrave(g, FLETCHED_ARROW, left + ax, top + ay, p);
-        UiSymbols.engrave(g, FLETCHING_GRAVUR, left + px + FLETCHING_GRAVUR_DX, top + FLETCHING_GRAVUR_Y, p);
-        return true;
-    }
-
-    /**
-     * VIS24-9, owner FLETCH=gravur (variant A of the b-arrows01 preview, no motif ticked = A): a fletched arrow flying up to the
-     * right, engraved like the station arrows in the free space above feather, shaft and tip (left of the potion slot, WE25-9).
-     */
-    static final UiSymbols.Bitmap FLETCHING_GRAVUR = UiSymbols.Bitmap.of(
-            ".................####.",
-            "..................###.",
-            ".................#.##.",
-            "...............##...#.",
-            ".............##.......",
-            "...........##.........",
-            ".........##...........",
-            ".......##.............",
-            ".#.#.##...............",
-            "..###.................",
-            ".#.##.................",
-            "#.#.#.................",
-            ".#.#..................");
-    /** Left edge relative to the feather slot and top of the engraving (title line above, part row below). */
-    static final int FLETCHING_GRAVUR_DX = 15, FLETCHING_GRAVUR_Y = 17;
-
-    /** The fletching arrow's left edge relative to the feather slot (Vanilla crafting table: arrow 62 px right of the grid). */
-    static final int FLETCHING_ARROW_DX = 62;
-    /**
-     * WD25-12 "Pfeil-Logo": the fletching table's arrow is a real arrow - the chunky head of {@link UiSymbols#ARROW}, a
-     * 3 px shaft and two swept feathers at the tail (22x15 like the other station arrows; preview variant A).
-     */
-    static final UiSymbols.Bitmap FLETCHED_ARROW = UiSymbols.Bitmap.of(
-            "..............#.......",
-            "..............##......",
-            "##............###.....",
-            ".##...........####....",
-            "..##..........#####...",
-            "...##.........#####...",
-            "#...###############...",
-            "##...###############..",
-            "#...###############...",
-            "...##.........#####...",
-            "..##..........#####...",
-            ".##...........####....",
-            "##............###.....",
-            "..............##......",
-            "..............#.......");
-
-    public static boolean fletchingLabels(GuiGraphicsExtractor g, Font font, Component title, int x, int y) {
-        g.text(font, title, x, y, FLETCHING.label(), false);
-        return true;
-    }
+    // The fletching table's style moved with the table to Simple Arrows (FletchingScreen, b-arrows03 04.11.).
 
     // ------------------------------------------------------------------ backpack
 

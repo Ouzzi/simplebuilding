@@ -3,7 +3,6 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.blocks.custom.ChestTier;
 import com.simplebuilding.client.gui.ModScreenLayout;
 import com.simplebuilding.client.gui.ModScreenLayout.Box;
-import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.AutoSmitherMenu;
 import com.simplebuilding.screen.BackpackLayout;
@@ -46,7 +45,7 @@ public final class ModScreenStyleTests {
         report(helper, problems);
     }
 
-    /** Hopper, auto smither and fletching table: container slots (result as the big 24x24 slot) and the filter key. */
+    /** Hopper and auto smither: container slots (result as the big 24x24 slot) and the filter key. */
     public static void machineSlotsSitInsideTheirBoxes(GameTestHelper helper) {
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         Inventory inv = player.getInventory();
@@ -82,22 +81,7 @@ public final class ModScreenStyleTests {
             twoBoxes(smither, 176, 166, "auto smither", problems);
             bigSlot(smither, smither.getSlot(AutoSmitherMenu.RESULT_SLOT), "auto smither", problems);
         }
-        if (McVersion.FLETCHING) {
-            FletchingMenu fletching = new FletchingMenu(0, inv);
-            int y = fletching.getSlot(FletchingMenu.TIP_SLOT).y;
-            int x = fletching.getSlot(FletchingMenu.TIP_SLOT).x;
-            for (int index : new int[] {FletchingMenu.SHAFT_SLOT, FletchingMenu.FLETCHING_SLOT}) {
-                Slot part = fletching.getSlot(index);
-                if (part.y != y) problems.add("fletching: part slots are not on one row");
-                // Left to right: feather, shaft, tip (the tip sits next to the arrow).
-                if (x - part.x != 18 * (index - FletchingMenu.TIP_SLOT)) {
-                    problems.add("fletching: part slots are not 18 px apart");
-                }
-            }
-            twoBoxes(fletching, 176, 166, "fletching table", problems);
-            bigSlot(fletching, fletching.getSlot(FletchingMenu.RESULT_SLOT), "fletching table", problems);
-            fletchingBookButton(fletching, problems);
-        }
+        // The fletching table's layout: Simple Arrows' module_game_test_fletching_layout (04.11.).
         report(helper, problems);
     }
 
@@ -150,19 +134,6 @@ public final class ModScreenStyleTests {
         if (!container.holds(slot.x - 4, slot.y - 4, 25, 25)) problems.add(what + ": the big result slot leaves " + container);
     }
 
-    /** The recipe book button (left of the part row, crafting-table spot) lies in the container box and over no slot (round 2). */
-    private static void fletchingBookButton(AbstractContainerMenu menu, List<String> problems) {
-        int bx = ModScreenLayout.FLETCHING_BOOK_X, by = ModScreenLayout.FLETCHING_BOOK_Y;
-        int bw = ModScreenLayout.FLETCHING_BOOK_W, bh = ModScreenLayout.FLETCHING_BOOK_H;
-        Box container = ModScreenLayout.container(176, ModScreenLayout.inventoryOrigin(menu)[1]);
-        if (!container.holds(bx, by, bw, bh)) problems.add("fletching: the recipe book button (" + bx + ", " + by + ") leaves " + container);
-        for (Slot slot : menu.slots) {
-            if (!slot.isActive() || slot.container instanceof Inventory) continue;
-            if (bx < slot.x + 17 && slot.x < bx + bw && by < slot.y + 17 && slot.y < by + bh) {
-                problems.add("fletching: the recipe book button overlaps slot " + slot.index + " (" + slot.x + ", " + slot.y + ")");
-            }
-        }
-    }
 
     /**
      * N43 panels of the slotless screens (PLAN-UI-KONZEPTE-2026-10-12): the wand's buttons and the trim reference's

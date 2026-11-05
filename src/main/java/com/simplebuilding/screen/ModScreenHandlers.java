@@ -14,7 +14,6 @@ public final class ModScreenHandlers {
     public static MenuType<NetheriteHopperScreenHandler> NETHERITE_HOPPER_SCREEN_HANDLER;
     public static MenuType<BackpackMenu> BACKPACK_MENU;
     public static MenuType<TieredChestMenu> TIERED_CHEST_MENU;
-    public static MenuType<com.simplebuilding.fletching.FletchingMenu> FLETCHING_MENU;
     public static MenuType<AutoSmitherMenu> AUTO_SMITHER_MENU;
     public static MenuType<AutonomousCrafterMenu> AUTONOMOUS_CRAFTER_MENU;
 
@@ -56,12 +55,6 @@ public final class ModScreenHandlers {
                     new MenuType<>(AutonomousCrafterMenu::new, net.minecraft.world.flag.FeatureFlags.VANILLA_SET)
             );
         }
-        if (com.simplebuilding.version.McVersion.FLETCHING) {
-            FLETCHING_MENU = Registry.register(
-                    BuiltInRegistries.MENU,
-                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "fletching"),
-                    new MenuType<>(com.simplebuilding.fletching.FletchingMenu::new, net.minecraft.world.flag.FeatureFlags.VANILLA_SET)
-            );
-        }
+        // Befiederungstisch-Menue: seit 04.11. simplearrows:fletching (Simple Arrows).
     }
 }

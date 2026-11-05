@@ -4,9 +4,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.config.ServerTuning;
 import com.simplebuilding.effect.CraftyShulkerEffect;
 import com.simplebuilding.effect.ModEffects;
-import com.simplebuilding.fletching.ArrowParts;
 import com.simplebuilding.fletching.ArrowRecovery;
-import com.simplebuilding.fletching.CraftedArrow;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.mixin.AbstractArrowAccessor;
 import com.simplebuilding.tweaks.item.LaserBeam;
@@ -94,21 +92,19 @@ public final class CombatTests {
         return count;
     }
 
-    /** Ein Spieler-Pfeil steckt im Mob; beim Tod faellt er mit allen Teilen, ein getraenkter Pfeil mit seinem Trank. */
+    /**
+     * Ein Spieler-Pfeil steckt im Mob; beim Tod faellt er mit allen Komponenten (hier ein benannter Pfeil), ein getraenkter
+     * Pfeil mit seinem Trank. Die Pfeile vom Befiederungstisch (Teile) prueft seit 04.11. Simple Arrows.
+     */
     public static void arrowsInMobsDropWhenTheyDie(GameTestHelper helper) {
         ServerPlayer player = shooter(helper);
         Mob cow = cow(helper, new BlockPos(3, 2, 3));
         cow.setHealth(cow.getMaxHealth());
         ItemStack tipped = PotionContents.createItemStack(Items.TIPPED_ARROW, net.minecraft.world.item.alchemy.Potions.SWIFTNESS);
         hit(new Arrow(helper.getLevel(), player, tipped.copyWithCount(1), new ItemStack(Items.BOW)), cow);
-        ItemStack partsStack = McVersion.FLETCHING
-                ? ArrowParts.stack(new ArrowParts.Parts(ArrowParts.Tip.DIAMOND, ArrowParts.Shaft.BLAZE_ROD, ArrowParts.Fletching.FEATHER), 1)
-                : new ItemStack(Items.ARROW);
-        if (McVersion.FLETCHING) {
-            hit(new CraftedArrow(helper.getLevel(), player, partsStack.copy(), new ItemStack(Items.BOW)), cow);
-        } else {
-            hit(new Arrow(helper.getLevel(), player, partsStack.copy(), new ItemStack(Items.BOW)), cow);
-        }
+        ItemStack partsStack = new ItemStack(Items.ARROW);
+        partsStack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Marked"));
+        hit(new Arrow(helper.getLevel(), player, partsStack.copy(), new ItemStack(Items.BOW)), cow);
         helper.assertTrue(cow.isAlive(), "the cow died from two arrows, so the stuck list is not tested");
         helper.assertValueEqual(stuck(cow).size(), 2, "arrows remembered by the cow");
 
@@ -123,7 +119,7 @@ public final class CombatTests {
 
         cow.kill(helper.getLevel());
         helper.assertValueEqual(droppedMatching(helper, cow, tipped), 1, "tipped arrows dropped by the dead cow (with their potion)");
-        helper.assertValueEqual(droppedMatching(helper, cow, partsStack), 1, "crafted arrows dropped by the dead cow (with their parts)");
+        helper.assertValueEqual(droppedMatching(helper, cow, partsStack), 1, "named arrows dropped by the dead cow (with their name)");
         helper.assertTrue(stuck(cow).isEmpty(), "the dead cow still remembers arrows");
         helper.succeed();
     }
@@ -165,11 +161,11 @@ public final class CombatTests {
         helper.assertFalse(ArrowRecovery.recoverable(new Arrow(level, player, new ItemStack(Items.ARROW), new ItemStack(Items.BOW)), target),
                 "an arrow in a player is remembered");
 
-        if (McVersion.FLETCHING) {
-            CraftedArrow amethyst = new CraftedArrow(level, player,
-                    ArrowParts.stack(new ArrowParts.Parts(ArrowParts.Tip.AMETHYST, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER), 1), null);
-            helper.assertFalse(ArrowRecovery.recoverable(amethyst, cow), "a shattering amethyst arrow comes back");
-        }
+        // Shattering amethyst arrows (Simple Arrows since 04.11.) set pickup DISALLOWED themselves: module test
+        // module_game_test_amethyst_arrow_is_not_recovered.
+        Arrow shattering = new Arrow(level, player, new ItemStack(Items.ARROW), new ItemStack(Items.BOW));
+        shattering.pickup = AbstractArrow.Pickup.DISALLOWED;
+        helper.assertFalse(ArrowRecovery.recoverable(shattering, cow), "an arrow that cannot be picked up comes back");
 
         Arrow normal = new Arrow(level, player, new ItemStack(Items.ARROW), new ItemStack(Items.BOW));
         helper.assertTrue(ArrowRecovery.recoverable(normal, cow), "a plain player arrow does not come back, so the checks above prove nothing");

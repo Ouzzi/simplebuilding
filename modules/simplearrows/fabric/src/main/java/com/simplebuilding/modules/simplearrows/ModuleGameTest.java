@@ -60,4 +60,89 @@ public final class ModuleGameTest {
     public void lightArrowSwitchOff(GameTestHelper h) {
         ArrowsTests.ALL.get("light_arrow_switch_off").accept(h);
     }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingEachTipAddsItsDamageAgainstItsTargets(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_each_tip_adds_its_damage_against_its_targets").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingShaftsAndFletchingsChangeTheFlight(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_shafts_and_fletchings_change_the_flight").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingMaterialShaftsAreOnlyTheDiamondRod(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_material_shafts_are_only_the_diamond_rod").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingOldNetheriteAndEnderiteShaftsLoadAsSticks(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_old_netherite_and_enderite_shafts_load_as_sticks").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingTheTableMakesFourArrowsFromThreeParts(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_the_table_makes_four_arrows_from_three_parts").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingRecipeBookPlacesThePartsFromTheInventory(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_recipe_book_places_the_parts_from_the_inventory").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingEveryPartHasItsRecipeBookEntry(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_every_part_has_its_recipe_book_entry").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingRightClickingTheFletchingTableOpensTheMenu(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_right_clicking_the_fletching_table_opens_the_menu").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingPotionSlotMakesTippedArrows(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_potion_slot_makes_tipped_arrows").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void oldFletchingIdsMove(GameTestHelper h) {
+        ArrowsTests.ALL.get("old_fletching_ids_move").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void fletchingLayout(GameTestHelper h) {
+        ArrowsTests.ALL.get("fletching_layout").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void amethystArrowIsNotRecovered(GameTestHelper h) {
+        ArrowsTests.ALL.get("amethyst_arrow_is_not_recovered").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void dummyHeadCountsForTips(GameTestHelper h) {
+        ArrowsTests.ALL.get("dummy_head_counts_for_tips").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void tipTagsAreData(GameTestHelper h) {
+        ArrowsTests.ALL.get("tip_tags_are_data").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void discoverRecipeUnlocks(GameTestHelper h) {
+        ArrowsTests.ALL.get("discover_recipe_unlocks").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void discoverBehaviourHints(GameTestHelper h) {
+        ArrowsTests.ALL.get("discover_behaviour_hints").accept(h);
+    }
+
+    @GameTest(structure = "simplearrows:empty")
+    public void guideBook(GameTestHelper h) {
+        ArrowsTests.ALL.get("guide_book").accept(h);
+    }
 }

@@ -203,7 +203,7 @@ def recipe_audit(files):
         changed = False
         for r in rs:
             if r['result'] and r['result'] not in reach and all(any(alt_ok(a, reach) for a in slot) if slot else True for slot in r['ins']):
-                if r['type'].startswith('simplebuilding:fletching'): continue
+                if r['type'].startswith(('simplebuilding:fletching', 'simplearrows:fletching')): continue
                 reach.add(r['result']); changed = True
     for it in sorted(items - reach):
         out.append(('ITEM-UNREACHABLE', it, 'no recipe with obtainable inputs, no loot/trade/wiki-obtain source', ''))

@@ -3,11 +3,9 @@ package com.simplebuilding.clientgametest;
 import com.simplebuilding.blocks.custom.ChestTier;
 import com.simplebuilding.client.gui.AutoSmitherScreen;
 import com.simplebuilding.client.gui.BackpackScreen;
-import com.simplebuilding.client.gui.FletchingScreen;
 import com.simplebuilding.client.gui.ModScreenStyle;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.TieredChestScreen;
-import com.simplebuilding.fletching.FletchingMenu;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.AutoSmitherMenu;
 import com.simplebuilding.screen.BackpackMenu;
@@ -82,24 +80,7 @@ public final class ModUiStyleClientTest {
             menu.setData(0, 1);
             return new AutoSmitherScreen(menu, inv, Component.translatable("block.simplebuilding.auto_smither"));
         });
-        if (McVersion.FLETCHING) show(script, "modui-fletching", c -> {
-            Inventory inv = c.player.getInventory();
-            return new FletchingScreen(new FletchingMenu(0, inv), inv, Component.translatable("container.simplebuilding.fletching"));
-        });
-        if (McVersion.FLETCHING) {
-            // N16: the book with its three tabs (tip, shaft, fletching), each listing only the parts. The recipes are
-            // unlocked by opening the real table; here by command. The open state is the workbench's, so it is reset.
-            for (com.simplebuilding.fletching.FletchingRecipe recipe : com.simplebuilding.fletching.FletchingRecipe.all()) {
-                script.command("recipe give @a simplebuilding:" + recipe.idPath());
-            }
-            script.awaitPackets();
-            script.act("open the recipe book", c -> c.player.getRecipeBook().setOpen(net.minecraft.world.inventory.RecipeBookType.CRAFTING, true));
-            show(script, "modui-fletching-book", c -> {
-                Inventory inv = c.player.getInventory();
-                return new FletchingScreen(new FletchingMenu(0, inv), inv, Component.translatable("container.simplebuilding.fletching"));
-            });
-            script.act("close the recipe book again", c -> c.player.getRecipeBook().setOpen(net.minecraft.world.inventory.RecipeBookType.CRAFTING, false));
-        }
+        // The fletching table's screen (and its book) is Simple Arrows' since 04.11. (FletchingScreen; real-mouse probe there).
         if (McVersion.AUTONOMOUS_CRAFTER) show(script, "modui-autonomous-crafter", c -> {
             Inventory inv = c.player.getInventory();
             com.simplebuilding.screen.AutonomousCrafterMenu menu = new com.simplebuilding.screen.AutonomousCrafterMenu(0, inv);

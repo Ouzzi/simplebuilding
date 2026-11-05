@@ -105,12 +105,7 @@ public final class NeoForgeModRegistries {
                             com.simplebuilding.screen.TieredChestOpenData.STREAM_CODEC.decode(buffer))
             ));
 
-    /** Befiederungstisch (B14), nur Hauptlinie. */
-    public static final Supplier<MenuType<com.simplebuilding.fletching.FletchingMenu>> FLETCHING_MENU =
-            com.simplebuilding.version.McVersion.FLETCHING
-                    ? MENUS.register("fletching", () -> new MenuType<>(com.simplebuilding.fletching.FletchingMenu::new,
-                            net.minecraft.world.flag.FeatureFlags.VANILLA_SET))
-                    : null;
+    // Befiederungstisch (B14): seit 04.11. Simple Arrows (Fabric only for now); no menu here.
 
     // ENCH02 (03.11.): the enchanters are Simple Enchanting's (Fabric only for now); no menu or block entity here.
 
@@ -193,30 +188,7 @@ public final class NeoForgeModRegistries {
                     ? BLOCK_ENTITIES.register("hammock", () -> new BlockEntityType<>(com.simplebuilding.blocks.entity.custom.HammockBlockEntity::new, ModBlocks.hammockBlockEntityBlocks()))
                     : null;
 
-    /** Befiederungstisch (B14): Rezepte fuers Vanilla-Rezeptbuch, nur Hauptlinie. */
-    public static final Supplier<RecipeSerializer<com.simplebuilding.fletching.FletchingRecipe>> FLETCHING_SERIALIZER =
-            com.simplebuilding.version.McVersion.FLETCHING
-                    ? RECIPE_SERIALIZERS.register(com.simplebuilding.fletching.FletchingRecipes.ID, () -> com.simplebuilding.fletching.FletchingRecipe.SERIALIZER)
-                    : null;
-    public static final Supplier<RecipeType<com.simplebuilding.fletching.FletchingRecipe>> FLETCHING_TYPE =
-            com.simplebuilding.version.McVersion.FLETCHING
-                    ? RECIPE_TYPES.register(com.simplebuilding.fletching.FletchingRecipes.ID, com.simplebuilding.fletching.FletchingRecipes::newType)
-                    : null;
-    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_TIP_CATEGORY =
-            com.simplebuilding.version.McVersion.FLETCHING
-                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.categoryId(com.simplebuilding.fletching.FletchingRecipe.Kind.TIP),
-                            net.minecraft.world.item.crafting.RecipeBookCategory::new)
-                    : null;
-    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_SHAFT_CATEGORY =
-            com.simplebuilding.version.McVersion.FLETCHING
-                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.categoryId(com.simplebuilding.fletching.FletchingRecipe.Kind.SHAFT),
-                            net.minecraft.world.item.crafting.RecipeBookCategory::new)
-                    : null;
-    public static final Supplier<net.minecraft.world.item.crafting.RecipeBookCategory> FLETCHING_FLETCHING_PART_CATEGORY =
-            com.simplebuilding.version.McVersion.FLETCHING
-                    ? RECIPE_BOOK_CATEGORIES.register(com.simplebuilding.fletching.FletchingRecipes.categoryId(com.simplebuilding.fletching.FletchingRecipe.Kind.FLETCHING),
-                            net.minecraft.world.item.crafting.RecipeBookCategory::new)
-                    : null;
+    // Befiederungstisch (B14): recipe type and book categories are Simple Arrows' since 04.11.
 
     public static final Supplier<RecipeSerializer<BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> BackpackUpgradeRecipe.SERIALIZER);
@@ -295,17 +267,10 @@ public final class NeoForgeModRegistries {
         ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER = NETHERITE_HOPPER_MENU.get();
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
         ModScreenHandlers.TIERED_CHEST_MENU = TIERED_CHEST_MENU.get();
-        if (FLETCHING_MENU != null) ModScreenHandlers.FLETCHING_MENU = FLETCHING_MENU.get();
         if (AUTO_SMITHER_MENU != null) ModScreenHandlers.AUTO_SMITHER_MENU = AUTO_SMITHER_MENU.get();
         if (AUTO_SMITHER_BE != null) ModBlockEntities.AUTO_SMITHER_BE = AUTO_SMITHER_BE.get();
         if (AUTONOMOUS_CRAFTER_MENU != null) ModScreenHandlers.AUTONOMOUS_CRAFTER_MENU = AUTONOMOUS_CRAFTER_MENU.get();
         if (AUTONOMOUS_CRAFTER_BE != null) ModBlockEntities.AUTONOMOUS_CRAFTER_BE = AUTONOMOUS_CRAFTER_BE.get();
-        if (FLETCHING_TYPE != null) {
-            com.simplebuilding.fletching.FletchingRecipes.TYPE = FLETCHING_TYPE.get();
-            com.simplebuilding.fletching.FletchingRecipes.TIP_CATEGORY = FLETCHING_TIP_CATEGORY.get();
-            com.simplebuilding.fletching.FletchingRecipes.SHAFT_CATEGORY = FLETCHING_SHAFT_CATEGORY.get();
-            com.simplebuilding.fletching.FletchingRecipes.FLETCHING_CATEGORY = FLETCHING_FLETCHING_PART_CATEGORY.get();
-        }
         if (TIERED_CHEST_BE != null) ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         if (TRAPPED_COPPER_CHEST_BE != null) ModBlockEntities.TRAPPED_COPPER_CHEST_BE = TRAPPED_COPPER_CHEST_BE.get();
         if (TIERED_SHULKER_BOX_BE != null) ModBlockEntities.TIERED_SHULKER_BOX_BE = TIERED_SHULKER_BOX_BE.get();

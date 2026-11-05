@@ -5,7 +5,7 @@ Empty-slot silhouettes for the Fletching Table (owner 2026-10-02), like vanilla'
 - arrow_tip: a flint arrowhead pointing up-right (vanilla arrow direction), drawn by hand;
 - arrow_shaft: the outline of vanilla item/stick.png;
 - arrow_fletching: the outline of vanilla item/feather.png.
-Output goes to mc26_3/overlay/resources/assets/simplebuilding/textures/gui/sprites/container/slot/ (main line only)."""
+Output goes to modules/simplearrows/shared/resources/assets/simplearrows/textures/gui/sprites/container/slot/ (Simple Arrows since 04.11.)."""
 from PIL import Image, ImageDraw
 import os
 import sys
