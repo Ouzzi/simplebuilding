@@ -38,7 +38,7 @@
   "ability.simplemobheads.sheep": "Sheep Head",
   "ability.simplemobheads.sheep.tooltip": "Another player can shear its wearer (1-3 wool,\nthen it grows back).",
   "ability.simplemobheads.shulker": "Shulker Head",
-  "ability.simplemobheads.shulker.tooltip": "Its wearer opens shulker boxes even when the lid\nis blocked.",
+  "ability.simplemobheads.shulker.tooltip": "Its wearer opens shulker boxes even when the lid\nis blocked. Sneaking on the ground gives Resistance.",
   "ability.simplemobheads.silverfish": "Silverfish Head",
   "ability.simplemobheads.silverfish.tooltip": "Its wearer shrinks to half size.",
   "ability.simplemobheads.slime": "Slime Head",

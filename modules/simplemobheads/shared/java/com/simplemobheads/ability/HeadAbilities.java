@@ -92,6 +92,10 @@ public final class HeadAbilities {
     public static final int GAZE_AMPLIFIER = 3;
     public static final int GAZE_COOLDOWN = 600;
 
+    /** Shulker head (WF25-11): Resistance I while sneaking on the ground (refreshed every 10 ticks for 25). */
+    public static final int SHELL_TICKS = 25;
+    public static final int SHELL_AMPLIFIER = 0;
+
     private static final Map<UUID, Long> SHORN = new ConcurrentHashMap<>();
     private static final Map<UUID, Long> STEW = new ConcurrentHashMap<>();
     private static final Map<Player, Long> NEXT_EGG = new WeakHashMap<>();
@@ -291,6 +295,12 @@ public final class HeadAbilities {
         return null;
     }
 
+    /** Shulker head: the wearer hunkers down in the shell - sneaking (not flying, swimming, lying) and standing on the ground. */
+    public static boolean shellHunkered(Player player) {
+        return active(player, "shulker") && player.isShiftKeyDown() && player.onGround() && !player.isFallFlying()
+                && !player.isSwimming() && !player.isSleeping() && player.getPose() == net.minecraft.world.entity.Pose.CROUCHING;
+    }
+
     // --- every server tick of a player --------------------------------------------------------------------------
 
     public static void tick(ServerPlayer player) {
@@ -322,6 +332,9 @@ public final class HeadAbilities {
             SNIFFING.put(player, ticks);
         } else {
             SNIFFING.remove(player);
+        }
+        if (now % 10 == 0 && shellHunkered(player)) {
+            player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, SHELL_TICKS, SHELL_AMPLIFIER, true, false, true));
         }
         if (now % 10 == 0 && active(player, "allay")) {
             for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, player.getBoundingBox().inflate(ALLAY_RANGE))) {

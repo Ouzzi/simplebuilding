@@ -551,6 +551,23 @@ public final class MobHeadTests {
         check(problems, player, "breeze", () -> !HeadAbilities.tramplesFarmland(player));
         check(problems, player, "shulker", () -> HeadAbilities.opensBlockedShulkerBoxes(player));
         check(problems, player, "drowned", () -> HeadAbilities.resistsDownwardBubbles(player, true));
+        // WF25-11: the shulker head's Resistance only while sneaking with ground contact (not standing, not in the air).
+        wear(player, "shulker");
+        player.setOnGround(true);
+        player.setShiftKeyDown(false);
+        player.setPose(net.minecraft.world.entity.Pose.STANDING);
+        if (HeadAbilities.shellHunkered(player)) problems.add("shulker shell while standing");
+        player.setShiftKeyDown(true);
+        player.setPose(net.minecraft.world.entity.Pose.CROUCHING);
+        if (!HeadAbilities.shellHunkered(player)) problems.add("shulker shell not while sneaking on the ground");
+        player.setOnGround(false);
+        if (HeadAbilities.shellHunkered(player)) problems.add("shulker shell in the air");
+        player.setOnGround(true);
+        player.setPose(net.minecraft.world.entity.Pose.SWIMMING);
+        if (HeadAbilities.shellHunkered(player)) problems.add("shulker shell while swimming/lying");
+        player.setShiftKeyDown(false);
+        player.setPose(net.minecraft.world.entity.Pose.STANDING);
+        wear(player, null);
         helper.assertTrue(new ItemStack(MobHeads.item("stray")).is(ItemTags.FREEZE_IMMUNE_WEARABLES), "the stray skull is not freeze immune");
         wear(player, "silverfish");
         player.doTick();
