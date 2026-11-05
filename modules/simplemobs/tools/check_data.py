@@ -5,7 +5,7 @@ MODULE = Path(__file__).resolve().parents[1]
 DERIVED = {'shellker_shell', 'soul_fire_charge', 'soulfire_powder', 'soulfire_rod'}
 _vd = (MODULE.parents[1] / 'tools/textures/vanilla_derived.py').read_text(encoding='utf-8')
 assert "'item/shellker_shell.png'" in _vd, 'Shellker Shell texture is built by vanilla_derived.MODULE_OUTPUTS'
-ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings', 'void_wings', 'ender_heart', 'ender_gem')
+ITEMS = ('deceiver_cloth', 'deceiver_spawn_egg', 'echo_core', 'hollow_howler_spawn_egg', 'deceiver_cloak', 'trick_mirror', 'illusion_shard', 'wither_wings', 'nether_wings', 'end_wings', 'void_wings', 'ender_heart', 'ender_gem', 'trumpet')
 for locale in ('en_us', 'de_de'):
     data = json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{locale}.json').read_text(encoding='utf-8'))
     assert 'entity.simplemobs.deceiver' in data and 'entity.simplemobs.hollow_howler' in data
@@ -107,7 +107,16 @@ print('simplemobs: bilingual names, loot and assets valid')
 # every event (concept KONZEPT-HOLLOW-HOWLER-GRUSEL-2026-10-15.md section 10).
 import re
 import sys
-_snd = json.loads((MODULE / 'shared/resources/assets/simplemobs/sounds.json').read_text(encoding='utf-8'))
+_all_snd = json.loads((MODULE / 'shared/resources/assets/simplemobs/sounds.json').read_text(encoding='utf-8'))
+_snd = {k: v for k, v in _all_snd.items() if k.startswith('entity.hollow_howler.')}
+# Trumpet (TROMP-3): two samples, every event with a subtitle in both languages and an existing mono Ogg
+assert {k for k in _all_snd if k.startswith('item.trumpet.')} == {'item.trumpet.low', 'item.trumpet.high'}, 'trumpet sounds'
+for _k in ('low', 'high'):
+    _ev = _all_snd['item.trumpet.' + _k]
+    _f = MODULE / f'shared/resources/assets/simplemobs/sounds/item/trumpet/{_k}.ogg'
+    assert _f.is_file() and _f.read_bytes()[:4] == b'OggS' and _f.read_bytes()[0x27] == 1, _f
+    for _locale in ('en_us', 'de_de'):
+        assert _ev['subtitle'] in json.loads((MODULE / f'shared/resources/assets/simplemobs/lang/{_locale}.json').read_text(encoding='utf-8')), _ev['subtitle']
 _events = re.findall(r'make\("(entity\.hollow_howler\.[a-z_]+)"\)', (MODULE / 'shared/java/com/simplebuilding/modules/simplemobs/MobsSounds.java').read_text(encoding='utf-8'))
 assert _events and set(_events) == set(_snd), 'MobsSounds and sounds.json differ'
 _dir = MODULE / 'shared/resources/assets/simplemobs/sounds/entity/hollow_howler'

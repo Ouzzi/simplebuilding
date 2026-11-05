@@ -194,6 +194,7 @@ public final class TrimsTests {
             h.assertTrue(TrimGlow.getInvertLevel(stage3) == 3, "Inverting stage 3: " + stage3);
             h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, stage3, Items.INK_SAC).isEmpty(), "Inverting stage 3 stays");
             h.assertTrue(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, armor, Items.GLOW_INK_SAC).isEmpty(), "glow ink does not invert");
+            h.assertTrue(TrimGlow.getInvertLevel(smith(table, TrimsRegistry.INVERTING_TRIM_TEMPLATE, armor, Items.HEART_OF_THE_SEA)) == 1, "WD25-3: a heart of the sea inverts like ink");
             h.assertTrue(smith(table, TrimsRegistry.GLOWING_TRIM_TEMPLATE, armor, Items.GLOWSTONE_DUST).isEmpty(), "wrong material: nothing");
             h.assertTrue(smith(table, TrimsRegistry.GLOWING_TRIM_TEMPLATE, new ItemStack(Items.STICK), Items.GLOW_INK_SAC).isEmpty(), "no armor: nothing");
             h.assertTrue(table.getSlot(SmithingMenu.TEMPLATE_SLOT).mayPlace(new ItemStack(TrimsRegistry.PULSATING_TRIM_TEMPLATE))
@@ -303,8 +304,8 @@ public final class TrimsTests {
         });
         // Upgrade in the world: tool of the current mode + glow ink (glowstone dust), five strikes, materials paid at the end.
         ALL.put("in_world_upgrade", h -> {
-            for (Item catalyst : List.of(Items.GLOW_INK_SAC, Items.GLOWSTONE_DUST, Items.INK_SAC)) {
-                BlockPos rel = catalyst == Items.GLOW_INK_SAC ? new BlockPos(2, 2, 2) : catalyst == Items.GLOWSTONE_DUST ? new BlockPos(5, 2, 2) : new BlockPos(5, 2, 5);
+            for (Item catalyst : List.of(Items.GLOW_INK_SAC, Items.GLOWSTONE_DUST, Items.INK_SAC, Items.HEART_OF_THE_SEA)) {
+                BlockPos rel = catalyst == Items.GLOW_INK_SAC ? new BlockPos(2, 2, 2) : catalyst == Items.GLOWSTONE_DUST ? new BlockPos(5, 2, 2) : catalyst == Items.INK_SAC ? new BlockPos(5, 2, 5) : new BlockPos(3, 2, 3);
                 BlockPos pos = placed(h, rel, Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE);
                 ServerPlayer player = mockPlayer(h);
                 ItemStack tool = tool();
@@ -318,9 +319,9 @@ public final class TrimsTests {
                 }
                 ItemStack result = PlacedTemplates.templateAt(h.getLevel(), pos);
                 Item expected = PlacedTemplates.upgrades().get(catalyst);
-                h.assertTrue(PlacedTemplates.upgrades().size() == 3 && expected != null, "upgrade table: " + PlacedTemplates.upgrades());
+                h.assertTrue(PlacedTemplates.upgrades().size() == 4 && expected != null, "upgrade table: " + PlacedTemplates.upgrades());
                 h.assertTrue(result.is(expected), "five strikes with " + catalyst + " made " + result);
-                h.assertTrue(player.getOffhandItem().getCount() == 3 - PlacedTemplates.CATALYST_COST, "catalyst left: " + player.getOffhandItem());
+                h.assertTrue(player.getOffhandItem().getCount() == 3 - PlacedTemplates.catalystCost(catalyst), "catalyst left: " + player.getOffhandItem());
                 h.assertTrue(player.getInventory().countItem(Items.DIAMOND) == 0, "diamonds were not paid");
                 h.assertTrue(tool.getDamageValue() == PlacedTemplates.PLACED_HITS * PlacedTemplates.TOOL_DAMAGE, "tool damage " + tool.getDamageValue());
                 h.assertTrue(!PlacedTemplates.isUpgradable(h.getLevel(), pos), "an upgraded template cannot be upgraded again");

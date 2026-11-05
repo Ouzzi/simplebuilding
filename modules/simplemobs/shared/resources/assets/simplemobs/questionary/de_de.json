@@ -245,5 +245,16 @@
     "secret": [
       "Vierfaches Tempo heißt viel mehr Schaden an einer Wand. Flieg hoch."
     ]
+  },
+  "trumpet": {
+    "lore": [
+      "Messing und ein ruhiger Atem: ein klarer Ton, solange man hält."
+    ],
+    "use": [
+      "Benutzen halten: alle 0,3 s ein Ton, so klingt er weiter, solange man hält. Der Blickwinkel bestimmt die Tonhöhe: nach oben schauen = hoch, nach unten = tief, über zwei Oktaven in C-Dur (15 Stufen). Rezept: 5 Kupferbarren und ein Goldklümpchen."
+    ],
+    "secret": [
+      "Zwei Samples tragen die zwei Oktaven, damit die Klangfarbe beim Steigen nicht kippt."
+    ]
   }
 }

@@ -37,10 +37,10 @@
       "A trim turned inside out."
     ],
     "use": [
-      "Place a trim template and strike it with an axe (with Simple Hammers: a sledgehammer) while holding an Ink Sac in the off hand; costs 4 diamonds and 2 obsidian. One template, 7 diamonds and an obsidian block make 2."
+      "Place a trim template and strike it with an axe (with Simple Hammers: a sledgehammer) while holding an Ink Sac in the off hand; costs 4 diamonds and 2 obsidian. A Heart of the Sea works too (one heart, 4 diamonds, 2 prismarine crystals). One template, 7 diamonds and an obsidian block make 2."
     ],
     "secret": [
-      "At the smithing table, template, trimmed armor and an Ink Sac cut the trim pattern out and paint the rest of the armor in the trim color."
+      "At the smithing table, template, trimmed armor and an Ink Sac (or a Heart of the Sea) cut the trim pattern out and paint the rest of the armor in the trim color."
     ]
   },
   "guide_book": {

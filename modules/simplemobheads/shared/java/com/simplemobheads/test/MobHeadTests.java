@@ -557,6 +557,7 @@ public final class MobHeadTests {
         helper.assertTrue(player.getScale() < 0.6F, "the silverfish head does not shrink: " + player.getScale());
         wear(player, "slime");
         player.doTick();
+        helper.assertTrue(Math.abs(player.getScale() - 1.0F) < 1.0E-4, "taken off, still small: " + player.getScale());
         helper.assertTrue(player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.SAFE_FALL_DISTANCE) == 4.0,
                 "the slime head does not add a block of safe fall");
         wear(player, null);

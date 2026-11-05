@@ -29,6 +29,9 @@ public final class MobsSounds {
     public static final SoundEvent HOWLER_SNIFF = make("entity.hollow_howler.sniff");
     public static final SoundEvent HOWLER_ROAR = make("entity.hollow_howler.roar");
     public static final SoundEvent HOWLER_ROAR_RAGE = make("entity.hollow_howler.roar_rage");
+    /** Trumpet (TROMP-3): two samples of one steady tone, notes 0-11 use the low one, 12-24 the high one; pitch per note. */
+    public static final SoundEvent TRUMPET_LOW = make("item.trumpet.low");
+    public static final SoundEvent TRUMPET_HIGH = make("item.trumpet.high");
 
     private static SoundEvent make(String name) {
         SoundEvent ev = SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MobsRegistry.ID, name));

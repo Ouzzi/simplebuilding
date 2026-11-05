@@ -212,6 +212,51 @@ final class DisguiseTests {
             h.assertTrue(!MobsConfig.trickMirrorEnabled, "the mirror is off by default");
             h.succeed();
         });
+        // TROMP-3: the look angle picks a C major step (15 steps over two octaves), two samples, pitch inside Vanilla's range.
+        add.accept("trumpet_notes", h -> {
+            h.assertTrue(TrumpetItem.note(15f) == 0 && TrumpetItem.note(-15f) == 24 && TrumpetItem.note(40f) == 0 && TrumpetItem.note(-80f) == 24,
+                    "15 deg down is the lowest, 15 deg up the highest, further is clamped");
+            h.assertTrue(TrumpetItem.stage(1f) == 7 && TrumpetItem.semitone(7) == 12 && TrumpetItem.semitone(2) == 4 && TrumpetItem.semitone(13) == 23,
+                    "C major: step 7 is the octave, step 2 the third, step 13 the leading tone");
+            var seen = new HashSet<Integer>();
+            for (int s = 0; s < TrumpetItem.STAGES; s++) {
+                int n = TrumpetItem.semitone(s);
+                float pitch = TrumpetItem.pitch(n);
+                h.assertTrue(pitch >= 0.5f && pitch <= 2.0f && pitch >= 0.7f && pitch <= 1.42f, "pitch " + pitch + " of note " + n);
+                h.assertTrue(TrumpetItem.sound(n) == (n < 12 ? MobsSounds.TRUMPET_LOW : MobsSounds.TRUMPET_HIGH), "sample of note " + n);
+                seen.add(n);
+            }
+            h.assertTrue(seen.size() == TrumpetItem.STAGES, "every step is its own note");
+            h.assertTrue(Math.abs(TrumpetItem.pitch(18) - 1f) < 1e-6 && Math.abs(TrumpetItem.pitch(6) - 1f) < 1e-6 && Math.abs(TrumpetItem.pitch(24) / TrumpetItem.pitch(12) - 2f) < 1e-5,
+                    "each sample is in tune at its reference, an octave is pitch x2");
+            h.assertTrue(TrumpetItem.volume(0.7f) < TrumpetItem.volume(1.4f), "the lowered (longer) sample is a little quieter");
+            h.succeed();
+        });
+        add.accept("trumpet_use", h -> {
+            var level = h.getLevel();
+            var p = player(h, 1, 1);
+            ItemStack stack = new ItemStack(DisguiseRegistry.TRUMPET);
+            p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+            h.assertTrue(BuiltInRegistries.ITEM.getKey(DisguiseRegistry.TRUMPET).equals(Identifier.fromNamespaceAndPath("simplemobs", "trumpet"))
+                    && stack.getMaxStackSize() == 1 && !stack.isDamageableItem(), "a single, undamageable trumpet");
+            h.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "item.trumpet.low"))
+                    && BuiltInRegistries.SOUND_EVENT.containsKey(Identifier.fromNamespaceAndPath("simplemobs", "item.trumpet.high")), "both samples are registered");
+            boolean was = MobsConfig.trumpetEnabled;
+            MobsConfig.trumpetEnabled = false;
+            h.assertTrue(DisguiseRegistry.TRUMPET.use(level, p, net.minecraft.world.InteractionHand.MAIN_HAND) == net.minecraft.world.InteractionResult.PASS && !p.isUsingItem(),
+                    "switched off: the trumpet does nothing");
+            MobsConfig.trumpetEnabled = true;
+            h.assertTrue(DisguiseRegistry.TRUMPET.use(level, p, net.minecraft.world.InteractionHand.MAIN_HAND).consumesAction() && p.isUsingItem(),
+                    "use starts holding");
+            p.setXRot(-15f);
+            int duration = DisguiseRegistry.TRUMPET.getUseDuration(stack, p);
+            for (int used = 0; used < 20; used++) DisguiseRegistry.TRUMPET.onUseTick(level, p, stack, duration - used); // one note every 6 ticks, no exception
+            h.assertTrue(stack.getDamageValue() == 0 && stack.getCount() == 1, "playing costs nothing");
+            MobsConfig.trumpetEnabled = was;
+            var recipe = level.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("simplemobs", "trumpet")));
+            h.assertTrue(recipe.isPresent(), "the trumpet has a recipe");
+            h.succeed();
+        });
         add.accept("cloak_head_slot", h -> {
             var level = h.getLevel();
             floor(h, 0, 8);

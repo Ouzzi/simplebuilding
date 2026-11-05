@@ -140,7 +140,7 @@ public final class MobsRegistry {
     /** Tab order: tools and gear, ingredients, spawn eggs. */
     public static final java.util.List<String> TAB_ITEMS = java.util.stream.Stream.concat(java.util.stream.Stream.of(
             "calm_amulet", "deceiver_cloak", "shellker_helmet", "wither_wings", "nether_wings", "end_wings", "void_wings",
-            "soul_fire_charge",
+            "soul_fire_charge", "trumpet",
             "deceiver_cloth", "dread_link", "echo_core", "illusion_shard", "shellker_shell", "soulfire_powder",
             "soulfire_rod", "watcher_eye", "nether_heart", "nether_gem", "ender_heart", "ender_gem", "mob_essence", "egg_blank",
             "strong_gunpowder", "strong_tnt", "spawner_fragment", "spawner_chunk", "makeshift_spawner",

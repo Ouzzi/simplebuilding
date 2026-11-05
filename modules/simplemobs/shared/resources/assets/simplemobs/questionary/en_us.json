@@ -245,5 +245,16 @@
     "secret": [
       "Four times the speed means far more damage when you hit a wall. Fly high."
     ]
+  },
+  "trumpet": {
+    "lore": [
+      "Brass and a steady breath: one clear note, as long as you hold it."
+    ],
+    "use": [
+      "Hold use: a note every 0.3 s, so the tone carries on while you hold. The look angle sets the pitch: look up for high, down for low, over two octaves in C major (15 steps). Recipe: 5 copper ingots and a gold nugget."
+    ],
+    "secret": [
+      "Two samples carry the two octaves, so the tone keeps its colour when it climbs."
+    ]
   }
 }

@@ -116,6 +116,7 @@ public final class MobsDiscover {
             "simplemobs:trials_extras",
             "simplemobs:trick_mirror",
             "simplemobs:trim_abilities",
+            "simplemobs:trumpet",
             "simplemobs:void_chain",
             "simplemobs:void_potion_1",
             "simplemobs:void_potion_2",
