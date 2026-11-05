@@ -1,5 +1,6 @@
 package com.simplebuilding.modules.simpleoptserver;
 
+import com.simplelib.api.CommandAliases;
 import com.mojang.brigadier.CommandDispatcher;
 import com.simplebuilding.framework.api.OptCompat;
 import java.util.Locale;
@@ -9,7 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.players.PlayerList;
 
-/** Loader-free runtime of S5a (driven by the loader's server events) and the {@code /simpleopt status} command. */
+/** Loader-free runtime of S5a (driven by the loader's server events) and the {@code /simpleoptserver status} command. */
 public final class ServerOptRuntime {
     private static DynamicDistance.Controller controller;
 
@@ -51,7 +52,7 @@ public final class ServerOptRuntime {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> d) {
-        d.register(Commands.literal("simpleopt").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+        CommandAliases.contents(d, "simpleoptserver", Commands.literal("simpleopt").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(Commands.literal("status").executes(ctx -> {
                     var src = ctx.getSource();
                     for (OptCompat.Decision dec : OptCompat.all()) {

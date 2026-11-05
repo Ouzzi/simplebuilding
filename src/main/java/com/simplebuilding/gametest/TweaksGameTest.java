@@ -420,6 +420,11 @@ public final class TweaksGameTest {
     }
 
     @GameTest
+    public void coreCommandsLiveUnderSimplebuildingAndOldNamesLeadThere(GameTestHelper helper) {
+        CommandAliasTests.coreCommandsLiveUnderSimplebuildingAndOldNamesLeadThere(helper);
+    }
+
+    @GameTest
     public void killCartsObeysItsSwitchAndOperatorsAndDropsCartContents(GameTestHelper helper) {
         TweaksTests.killCartsObeysItsSwitchAndOperatorsAndDropsCartContents(helper);
     }

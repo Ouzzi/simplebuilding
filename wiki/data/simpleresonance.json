@@ -205,14 +205,14 @@
       ],
       "en": {
         "title": "Commands",
-        "summary": "/resonance shows your value, the level of the land where you stand and your newcomer protection. /resonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
+        "summary": "/simpleresonance shows your value, the level of the land where you stand and your newcomer protection. /simpleresonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
         "details": [
           "/simpleresonance config get|set|reset <option> (game masters): every setting of the server config."
         ]
       },
       "de": {
         "title": "Befehle",
-        "summary": "/resonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /resonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
+        "summary": "/simpleresonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /simpleresonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
         "details": [
           "/simpleresonance config get|set|reset <Option> (Spielleiter): jede Einstellung der Server-Config."
         ]
@@ -276,7 +276,7 @@
             "A notebook that measures how far you have come."
           ],
           "use": [
-            "The Simple Resonance Guide explains your player value, the danger zones, the owner of a monster spawn and the newcomer protection. Craft it shapeless from a book and an echo shard. /resonance shows your own numbers."
+            "The Simple Resonance Guide explains your player value, the danger zones, the owner of a monster spawn and the newcomer protection. Craft it shapeless from a book and an echo shard. /simpleresonance shows your own numbers."
           ],
           "secret": [
             "Its pages open in your language and nothing is consumed."
@@ -287,7 +287,7 @@
             "Ein Notizbuch, das misst, wie weit du gekommen bist."
           ],
           "use": [
-            "Das Simple-Resonance-Handbuch erklärt deinen Spielerwert, die Gefahrenzonen, den Besitzer eines Monster-Spawns und den Anfängerschutz. Formlos aus Buch und Echo-Scherbe herstellbar. /resonance zeigt deine eigenen Zahlen."
+            "Das Simple-Resonance-Handbuch erklärt deinen Spielerwert, die Gefahrenzonen, den Besitzer eines Monster-Spawns und den Anfängerschutz. Formlos aus Buch und Echo-Scherbe herstellbar. /simpleresonance zeigt deine eigenen Zahlen."
           ],
           "secret": [
             "Seine Seiten öffnen sich in deiner Sprache und nichts wird verbraucht."

@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: bodies in {@link ResonanceTests}, one @GameTest per entry (the runner reports a test missing here as absent). */
 public final class ModuleGameTest {
+    @GameTest(structure = "simpleresonance:empty") public void commandAliases(GameTestHelper h) { com.simplelib.test.CommandAliasTests.module(h, "simpleresonance"); }
     @GameTest(structure = "simpleresonance:empty") public void configCommand(GameTestHelper h) { com.simplelib.test.ConfigCommandTests.module(h, "simpleresonance", false); }
     @GameTest(structure = "simpleresonance:empty") public void registered(GameTestHelper h) { ResonanceTests.ALL.get("registered").accept(h); }
     @GameTest(structure = "simpleresonance:empty") public void configCaps(GameTestHelper h) { ResonanceTests.ALL.get("config_caps").accept(h); }

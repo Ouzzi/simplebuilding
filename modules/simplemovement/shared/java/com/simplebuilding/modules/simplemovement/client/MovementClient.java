@@ -17,7 +17,7 @@ public final class MovementClient {
  public static void tick(Minecraft c){
   if(c.player!=lastPlayer){lastPlayer=c.player;if(walking)c.options.keyUp.setDown(false);walking=false;}
   if(c.player==null||c.gui.screen()!=null){if(walking)c.options.keyUp.setDown(false);walking=false;return;}
-  if(crawlKey.consumeClick())c.player.connection.sendCommand("crawl");
+  if(crawlKey.consumeClick())c.player.connection.sendCommand("simplemovement crawl");
   // Server-controlled: only with the server's values (and switch) the key may walk.
   var config=SimpleMovement.syncedConfig();boolean allowed=config!=null&&config.enableAutowalk&&SimpleMovement.active(c.level);
   if(!allowed){if(walking)c.options.keyUp.setDown(false);walking=false;return;}

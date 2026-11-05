@@ -40,7 +40,7 @@
   "simpleresonance.guide.page.14.title": "Takeover from SimpleBuilding",
   "simpleresonance.guide.page.14": "The base multiplier of the trim resonance is taken over from config/simplebuilding.json on the first start.",
   "simpleresonance.guide.page.15.title": "Commands",
-  "simpleresonance.guide.page.15": "/resonance shows your value, the level of the land where you stand and your newcomer protection. /resonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
+  "simpleresonance.guide.page.15": "/simpleresonance shows your value, the level of the land where you stand and your newcomer protection. /simpleresonance debug (game masters) lists the possible owners of a spawn at your place with their chances.",
   "simpleresonance.guide.page.16.title": "Settings",
   "simpleresonance.guide.page.16": "More settings are in the mod's config screen."
 }

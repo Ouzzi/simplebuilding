@@ -20,7 +20,7 @@ import net.minecraft.world.item.Items;
 
 /**
  * Fabric entry (WP-22): config, the service for the framework contract, the events that feed it (ticks, kills, deaths, respawns),
- * {@code /resonance}, the guide book. All gameplay rules live in shared code.
+ * {@code /simpleresonance}, the guide book. All gameplay rules live in shared code.
  */
 public final class ResonanceFabric implements ModInitializer {
     @Override

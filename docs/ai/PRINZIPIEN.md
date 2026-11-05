@@ -278,7 +278,7 @@ Fünf Tiere, die Vanilla nicht hat: Hirsch, Wildschwein, Igel, Krebs, Zebra (mit
 ### Simple Resonance (`simpleresonance`)
 Spielerwert, Gefahrenzonen, Spawn-Besitzer-Wahl und Anfängerschutz als Schnittstelle für andere Mods (`framework` `ResonanceContracts`, reines Java); allein mit Vanilla spielbar.
 
-- **A12:** Nutzen: ein gemeinsamer, erklärbarer Erfahrungswert statt verstreuter Zähler; Zonen machen fernes Gelände abwechslungsreicher. Ändert für sich nichts am Spiel (nur Messung und `/resonance`); die Wirkung kommt erst durch Verwender wie Simple Mobs (`zoneMobsEnabled`, Standard aus). Eingriff in Vanilla: keiner im Modul selbst.
+- **A12:** Nutzen: ein gemeinsamer, erklärbarer Erfahrungswert statt verstreuter Zähler; Zonen machen fernes Gelände abwechslungsreicher. Ändert für sich nichts am Spiel (nur Messung und `/simpleresonance`); die Wirkung kommt erst durch Verwender wie Simple Mobs (`zoneMobsEnabled`, Standard aus). Eingriff in Vanilla: keiner im Modul selbst.
 - Der Wert steuert nur Chancen, nie Leben oder Schaden. Kein Modul importiert ein anderes: Verwender fragen `ResonanceContracts.get()` und behandeln `null` als „Vanilla“.
 - Spielerdaten liegen in einem `SavedData` (`simpleresonance:players`), nicht im Spieler-NBT; der alte SB-Block `SimpleBuildingData` wird einmal gelesen (Mixin) und bleibt im Kern unverändert (Welten brechen nicht).
 - Konstanten stehen in `ResonanceMath`/`ResonanceConfig`; Wiki-Zahlen müssen dort beweisbar sein. Neue Verwender nutzen den Vertrag, keine Klassen des Moduls.

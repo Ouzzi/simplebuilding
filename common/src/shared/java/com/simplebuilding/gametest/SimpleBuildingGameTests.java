@@ -2405,6 +2405,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_creative_players_lose_the_stale_flypad_flight_tag", TweaksTests::creativePlayersLoseTheStaleFlypadFlightTag)
                     .build(),
+            GameTestSpec.named("tweaks_game_test_core_commands_live_under_simplebuilding_and_old_names_lead_there", CommandAliasTests::coreCommandsLiveUnderSimplebuildingAndOldNamesLeadThere)
+                    .build(),
             GameTestSpec.named("tweaks_game_test_kill_carts_obeys_its_switch_and_operators_and_drops_cart_contents", TweaksTests::killCartsObeysItsSwitchAndOperatorsAndDropsCartContents)
                     .build(),
             GameTestSpec.named("tweaks_game_test_pads_placed_in_water_are_waterlogged_and_leave_the_water_behind", TweaksTests::padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind)

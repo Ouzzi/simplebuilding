@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.command;
 
+import com.simplelib.api.CommandAliases;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
@@ -33,7 +34,7 @@ import net.minecraft.world.entity.vehicle.minecart.Minecart;
 import net.minecraft.world.phys.AABB;
 
 /**
- * Befehle aus Simple Tweaks: {@code /killboats}, {@code /killcarts} und der Config-Baum, der dort
+ * Befehle aus Simple Tweaks: {@code /simplebuilding killboats}, {@code /simplebuilding killcarts} und der Config-Baum, der dort
  * {@code /simpletweaks ...} hiess und hier unter {@code /simplebuilding tweaks ...} haengt (gleicher
  * Unterbaum). Nur fuer Operatoren, wie der Rest von {@code /simplebuilding}. Die Claim-Befehle
  * bleiben in Simple Tweaks (docs/SIMPLETWEAKS-UEBERNAHME.md).
@@ -46,13 +47,13 @@ public final class TweaksCommands {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("killboats")
+        CommandAliases.nested(dispatcher, "simplebuilding", SimplebuildingCommand.OPERATOR_ONLY, Commands.literal("killboats")
                 .requires(SimplebuildingCommand.OPERATOR_ONLY)
                 .executes(ctx -> executeKill(ctx, "standard", true))
                 .then(Commands.argument("mode", StringArgumentType.word())
                         .suggests((ctx, b) -> SharedSuggestionProvider.suggest(MODES, b))
                         .executes(ctx -> executeKill(ctx, StringArgumentType.getString(ctx, "mode"), true))));
-        dispatcher.register(Commands.literal("killcarts")
+        CommandAliases.nested(dispatcher, "simplebuilding", SimplebuildingCommand.OPERATOR_ONLY, Commands.literal("killcarts")
                 .requires(SimplebuildingCommand.OPERATOR_ONLY)
                 .executes(ctx -> executeKill(ctx, "standard", false))
                 .then(Commands.argument("mode", StringArgumentType.word())
@@ -211,7 +212,7 @@ public final class TweaksCommands {
         spawn.spawn1Z = pos.getZ();
     }
 
-    /** Reichweite von /killboats und /killcarts: Config {@code tweaks.commands.killCommandRadius} (Standard {@link #KILL_RADIUS}). */
+    /** Reichweite von /simplebuilding killboats und /simplebuilding killcarts: Config {@code tweaks.commands.killCommandRadius} (Standard {@link #KILL_RADIUS}). */
     public static double killRadius() {
         return Math.max(1, Math.min(TweaksConfig.MAX_KILL_COMMAND_RADIUS, SimpleTweaks.config().commands.killCommandRadius));
     }

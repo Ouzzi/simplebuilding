@@ -21,23 +21,23 @@ Konfiguration auch ein Befehl.“ Nur 26.3 Fabric (Besitzer 22.10.).
 | Wurzel | Modul | Rechte | Unterbefehle | Lang/Feedback | Probleme |
 |---|---|---|---|---|---|
 | `/simplebuilding` | Kern | Op-Spieler (`OPERATOR_ONLY`) | config list/get/set/reset, setTrimMultiplier, getTrimMultiplier, chunkloaders list/remove, tweaks … | translatable | keine (Referenz) |
-| `/killboats`, `/killcarts` | Kern (Tweaks) | Op-Spieler | – | translatable | – |
+| `/simplebuilding killboats`, `/simplebuilding killcarts` | Kern (Tweaks) | Op-Spieler | – | translatable | – |
 | `/sbtestcentre` | Kern (Dev) | 2 | build, coverage, fill, give, help, here, kit, section, stats, tp | Dev-Werkzeug | bewusst englisch/Dev, nicht angefasst |
 | `/simplefun` | simplefun | 3 | tweaks yeet/bricks/breakGlass/snowballDamage …, pvp headDrops (Alias aus mobheads) | translatable | Rechte 3 statt 2; keine Config-Befehle für alle Optionen (kein simplelib) |
 | `/simplemobheads` | simplemobheads | 3 | pvp headDrops, drops creeper/wither/warden/playerKill/playerKillChance/lootingBonus, greeting, enabled, ability | translatable, Tab für ability | Rechte 3 statt 2; nur 11 von ~27 Optionen |
 | `/simplefarming` | simplefarming | 4 | farmlandProtect, hoeHarvest, sharpnessCut | translatable | Rechte 4; nicht alle Optionen; kein simplelib |
 | `/simpleloot vaults` | simpleloot | 4 | cooldown, repeat | translatable | Rechte 4; kein simplelib |
 | `/simplemobmanners` | simplemobmanners | 4 | Listen add/remove/clear/list, Schalter | translatable, Tab | Rechte 4; kein simplelib |
-| `/simplemovement`, `/crawl` | simplemovement | 4 / alle | autowalk, frostWalkerSnow, jumpBoostStep, ladderSpeed | translatable | Rechte 4; kein simplelib |
+| `/simplemovement`, `/simplemovement crawl` | simplemovement | 4 / alle | autowalk, frostWalkerSnow, jumpBoostStep, ladderSpeed | translatable | Rechte 4; kein simplelib |
 | `/simpletools` | simpletools | 4 | Schalter | translatable | Rechte 4; nicht alle Optionen |
 | `/simplequalityoflife submod` | simplequalityoflife | 4 | Sub-Mod-Schalter | translatable | Rechte 4 |
 | `/simplemaps web …` | simplemaps | 2 | export, share/unshare, show/hide, status, waypoints, full | translatable | keine Config-Befehle |
 | `/simplemaps picture` (Client) | simplemaps | Client | picture | – | ok |
-| `/music` | simplemusic | 2 | list, pending, info, ban, unban | translatable (+ Datenzeile literal) | Wurzel heißt nicht `simplemusic` (bleibt, Alias nicht nötig); keine Config-Befehle |
+| `/simplemusic` | simplemusic | 2 | list, pending, info, ban, unban | translatable (+ Datenzeile literal) | Wurzel heißt nicht `simplemusic` (bleibt, Alias nicht nötig); keine Config-Befehle |
 | `/simplemodels reload` | simplemodels | 2 | reload | **keine Rückmeldung** | Rückmeldung fehlt |
-| `/simpleopt status` | simpleoptserver | 2 | status | translatable | – |
+| `/simpleoptserver status` | simpleoptserver | 2 | status | translatable | – |
 | `/simplerespawn` | simplerespawn | alle / 2 | giveup, down, revive | translatable | keine Config-Befehle |
-| `/servershop` | simpleshops | 2 | create, add, remove, price, list, items, cash, clear, coords, goods, orphans | translatable (+ Datenzeilen literal) | keine Config-Befehle |
+| `/simpleshops servershop` | simpleshops | 2 | create, add, remove, price, list, items, cash, clear, coords, goods, orphans | translatable (+ Datenzeilen literal) | keine Config-Befehle |
 | `/simplestats` | simplestats | 2 | show, reset, reload | translatable | – |
 | `/simplesounds guide` (Client) | simplesounds | Client | guide | – | ok |
 | `/simplevisuals config visuals enableAnvilFormatting` | simplevisuals | 3 | eine Server-Option | translatable | Rechte 3 statt 2 |

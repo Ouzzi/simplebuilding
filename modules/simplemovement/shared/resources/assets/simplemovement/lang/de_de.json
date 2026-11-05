@@ -2,7 +2,7 @@
   "simplemovement.title": "Simple Movement",
   "simplemovement.tab.general": "Allgemein",
   "simplemovement.option.enableManualCrawl": "Manuelles Kriechen",
-  "simplemovement.option.enableManualCrawl.tooltip": "/crawl und die Kriechtaste erlauben. Der\nServer prüft und begrenzt Änderungen.\nStandard: true.",
+  "simplemovement.option.enableManualCrawl.tooltip": "/simplemovement crawl und die Kriechtaste erlauben. Der\nServer prüft und begrenzt Änderungen.\nStandard: true.",
   "simplemovement.option.enableAutowalk": "Auto-Walk aktivieren",
   "simplemovement.option.enableAutowalk.tooltip": "Automatisches Gehen per Tastendruck.\nStandard: false.",
   "simplemovement.option.ladderClimbingSpeed": "Leiter-Geschwindigkeit",

@@ -6,6 +6,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 
 /** Fabric adapter: ids module_game_test_<name>, bodies in {@link MusicTests}, all on simplemusic:empty (8 x 8 x 8). */
 public final class ModuleGameTest {
+    @GameTest(structure = "simplemusic:empty") public void commandAliases(GameTestHelper h) { com.simplelib.test.CommandAliasTests.module(h, "simplemusic"); }
     @GameTest(structure = "simplemusic:empty", maxTicks = 100)
     public void configDefaults(GameTestHelper h) {
         MusicTests.ALL.get("config_defaults").accept(h);

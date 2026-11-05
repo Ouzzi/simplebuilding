@@ -90,7 +90,7 @@ Stimme. Ohne Meldung (Hauptmenü, Server ohne Mod) gilt die eigene Datei. Abweic
 | `tweaks.laserPointer.effectCost` | 5 | Linsen-Ladung je Wirkung |
 | `tweaks.laserPointer.color` | `0xB38EF3` | Laserfarbe des Resonanzstabs (Amethyst hell, aus der Amethyst-Rampe des Textur-Skripts) |
 | `tweaks.balancing.echoSounderJumpCooldownTicks` | 480 | Echolot-Abklingzeit nach dem Sprung (24 s; ersetzt `echoSounderCooldownTicks` = 120, neue Namen, damit gespeicherte Altwerte nicht weiter gelten) |
-| `tweaks.commands.killCommandRadius` | 100 | Reichweite von `/killboats`, `/killcarts` |
+| `tweaks.commands.killCommandRadius` | 100 | Reichweite von `/simplebuilding killboats`, `/simplebuilding killcarts` |
 | `tweaks.optimization.xpClumpRadius` | 2.0 | Einsammel-Radius der XP-Kugeln |
 
 Außerdem: Luftsprung-Abklingzeit wird vom Server synchronisiert; die zwölf Teleporter-Ziel-Felder

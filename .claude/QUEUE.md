@@ -1124,7 +1124,7 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
   - Das Zurückdrehen ruckelt.
   - Das Fadenkreuz ruckelt im Free Look und hat einen Layout-Shift.
   - Fix: Interpolation über den kürzesten Winkel (Yaw wrap ±180°), framebasiert mit partialTick, Fadenkreuz fest.
-- [ ] IG31-44 **Alle Befehle beginnen mit dem Namen ihrer Mod**, z. B. `/simplestorage …`, `/simpleresonance …`.
+- [~] IG31-44 **Alle Befehle beginnen mit dem Namen ihrer Mod**, z. B. `/simplestorage …`, `/simpleresonance …`. (a-cmd05 05.11.: Umbenennung + Alias + Tests fertig, Lauf/Generatoren siehe Beleg)
   - Bestand aller registrierten Commands auflisten, umbenennen.
   - Alte Namen als Alias für eine Übergangszeit. Wiki/Handbuch/Tests anpassen.
 ## Besitzer 04.11. Abnahme-Antworten (DW04A)

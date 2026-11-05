@@ -35,7 +35,7 @@ N4 a, N5 o) und `KONZEPT-MUSIKPLATTE-UPLOAD-2026-10-19.md` (U1 b, U2 b, U3 4 MiB
 4. **B1** Rohling `simplemusic:blank_disc`, Ordnerliste `config/simplemusic/upload/`, Ogg-Leser + Prüfung (CRC, ein
    Strom, Vorbis-Köpfe, Mono, Rate, Dauer, Größe) – JUnit mit eigenen synthetischen Test-OGGs.
 5. **B2** Upload in Stücken (≤ 32 KiB, 1 je Spieler, Rate-Limit, Ankündigung gegen Quote), Speicher
-   `<welt>/simplemusic/tracks/<sha>.ogg` + `index.json`, Dedup, Quote 5, Befehle `/music list|approve|reject|delete|ban|info`,
+   `<welt>/simplemusic/tracks/<sha>.ogg` + `index.json`, Dedup, Quote 5, Befehle `/simplemusic list|approve|reject|delete|ban|info`,
    Moderation U-B (Einzelspieler sofort frei). GameTests über simulierte Payloads.
 6. **B3** Download in Stücken nur bei Bedarf, Client-Cache, Wiedergabe über eigene SoundInstance; Orchestrion spielt eigene
    Platten (Loop/Kiste nach `seconds`); Vanilla-Jukebox per Mixin (U1 b) hinter Schalter `jukeboxCustomDiscs` und

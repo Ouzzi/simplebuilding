@@ -37,7 +37,7 @@ Schwere: **P1** Absturz/Datenverlust/Exploit, **P2** Datenverlust im Einzelfall/
 | P3 | `TrackStore.load`: ein beschädigter Eintrag (Handbearbeitung) verwarf den ganzen Index (alle Freigaben/Sperren). | **behoben**: eintragsweise; JUnit `damagedIndexEntrySkipsOnlyItself` |
 | P3 | `TrackCache.INCOMING` (Client): abgebrochene Downloads blieben bis Spielende im Speicher, beliebig viele Hashes. | **behoben**: beim Trennen geleert (`TrackPlayer.clear`), höchstens 4 gleichzeitig, neue Downloads nur ab Stück 0 |
 | P3 | `MusicClientConfig` schrieb nicht atomar. | **behoben** (`ConfigFiles.writeAtomic`) |
-| P4 | `/music ban` nur für Spieler online; Shift+Mausrad an der Taschen-Jukebox prüft nur `mayBuild`/Spawnschutz, keine Claims (nur kosmetisch). | Queue REV2-B-6 |
+| P4 | `/simplemusic ban` nur für Spieler online; Shift+Mausrad an der Taschen-Jukebox prüft nur `mayBuild`/Spawnschutz, keine Claims (nur kosmetisch). | Queue REV2-B-6 |
 | ok | Upload (Größe, Rate, Reihenfolge, eigener SHA-256, Worker-Thread), Downloads nur für hörbare Tracks, Dateinamen nur aus Hash, Notenblatt-Edit (Längen, signiert = schreibgeschützt), Presse-Menü (Slots, Quick-Move), Orchestrion-Umzug. | – |
 
 ### simplemobs

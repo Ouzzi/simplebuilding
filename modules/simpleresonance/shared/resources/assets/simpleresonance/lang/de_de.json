@@ -40,7 +40,7 @@
   "simpleresonance.guide.page.14.title": "Übernahme aus SimpleBuilding",
   "simpleresonance.guide.page.14": "Minuten. Der Basis-Multiplikator der Besatz-Resonanz wird beim ersten Start aus config/simplebuilding.json übernommen.",
   "simpleresonance.guide.page.15.title": "Befehle",
-  "simpleresonance.guide.page.15": "/resonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /resonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
+  "simpleresonance.guide.page.15": "/simpleresonance zeigt deinen Wert, die Stufe des Landes, auf dem du stehst, und deinen Anfängerschutz. /simpleresonance debug (Spielleiter) listet die möglichen Besitzer eines Spawns an deinem Ort mit ihren Chancen.",
   "simpleresonance.guide.page.16.title": "Einstellungen",
   "simpleresonance.guide.page.16": "Weitere Einstellungen findest du im Konfigurationsbildschirm der Mod."
 }

@@ -344,7 +344,7 @@
         "title": "Moderation",
         "summary": "Everyone may upload up to 5 tracks; others hear a track only after an operator approves it, until then only the uploader. In single player and for the LAN host it is approved at once.",
         "details": [
-          "Operators: /music list [pending], /music approve|reject|delete <hash>, /music info <hash> (hash or its first 6+ characters), /music ban|unban <player>.",
+          "Operators: /simplemusic list [pending], /simplemusic approve|reject|delete <hash>, /simplemusic info <hash> (hash or its first 6+ characters), /simplemusic ban|unban <player>.",
           "Tracks live in <world>/simplemusic/tracks/ with an index.json; the same file is stored once."
         ]
       },
@@ -352,7 +352,7 @@
         "title": "Moderation",
         "summary": "Jeder darf bis zu 5 Titel hochladen; andere hören einen Titel erst nach Freigabe durch einen Operator, bis dahin nur der Hochladende. Im Einzelspieler und für den LAN-Host ist er sofort frei.",
         "details": [
-          "Operatoren: /music list [pending], /music approve|reject|delete <hash>, /music info <hash> (Hash oder seine ersten 6+ Zeichen), /music ban|unban <spieler>.",
+          "Operatoren: /simplemusic list [pending], /simplemusic approve|reject|delete <hash>, /simplemusic info <hash> (Hash oder seine ersten 6+ Zeichen), /simplemusic ban|unban <spieler>.",
           "Titel liegen in <welt>/simplemusic/tracks/ mit einer index.json; dieselbe Datei wird einmal gespeichert."
         ]
       }

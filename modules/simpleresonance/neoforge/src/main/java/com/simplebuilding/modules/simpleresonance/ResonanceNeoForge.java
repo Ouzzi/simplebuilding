@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 
 /**
  * NeoForge entry (port not requested yet): config, contract service registration and the guide book. The server events that feed
- * the service (ticks, kills, deaths) and {@code /resonance} are wired on Fabric only for now, so on NeoForge the service reports
+ * the service (ticks, kills, deaths) and {@code /simpleresonance} are wired on Fabric only for now, so on NeoForge the service reports
  * no spawn levels; the pure rules and registrations are tested ({@link com.simpleresonance.test.ResonanceTests#PURE}).
  */
 @Mod(SimpleResonance.MOD_ID)

@@ -308,7 +308,7 @@ public class TweaksConfig {
         public boolean enableKillBoatsCommand = true;
         @ConfigEntry.Gui.Tooltip
         public boolean enableKillCartsCommand = false;
-        /** Reichweite von /killboats und /killcarts um den Spieler (Bloecke). */
+        /** Reichweite von /simplebuilding killboats und /simplebuilding killcarts um den Spieler (Bloecke). */
         @ConfigEntry.Gui.Tooltip
         public int killCommandRadius = 100;
     }

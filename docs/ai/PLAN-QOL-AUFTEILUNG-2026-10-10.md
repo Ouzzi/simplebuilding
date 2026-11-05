@@ -124,7 +124,7 @@ Vorlage ist Simple Weather (Stufe 3): eigenes Modul `com.simplebuilding.modules.
 - **Befehle:** jede Sub-Mod hat ihre eigene Wurzel mit den bisherigen Unterbefehlen (`/simpleloot vaults cooldown <Tage>`,
   `/simplecreatures muteSuffixes|babySuffixes …`, `/simplefarming farmlandProtect|hoeHarvest|sharpnessCut <bool>`,
   `/simpletools fullDurabilityBonus|furnaceLava <bool>`, `/simplemovement autowalk|frostWalkerSnow <bool>`, `ladderSpeed <x>`);
-  `/crawl` gehört Simple Movement. Kein Alias in QoL (kein Import). QoL behält `/simplequalityoflife submod <id> <bool>`.
+  `/simplemovement crawl` gehört Simple Movement. Kein Alias in QoL (kein Import). QoL behält `/simplequalityoflife submod <id> <bool>`.
 - **Server-Werte am Client:** Tools (Haltbarkeitsbonus), Farming (Hacke, Gras-Umriss), Movement (Leiter, Pulverschnee,
   Autowalk) und Interfaces (Container) bekommen je ein eigenes `config_sync`-Paket (wie bisher QoL); Loot und Creatures
   sind rein serverseitig.

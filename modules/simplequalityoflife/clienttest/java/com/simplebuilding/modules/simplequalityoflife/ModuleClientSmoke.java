@@ -22,12 +22,12 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
                 }catch(ReflectiveOperationException e){throw new AssertionError(e);}
             });
             context.takeScreenshot("simplequalityoflife-world");
-            context.runOnClient(c->c.player.connection.sendCommand("crawl"));
+            context.runOnClient(c->c.player.connection.sendCommand("simplemovement crawl"));
             context.waitFor(ModuleClientSmoke::crawling);
             context.waitTicks(20);
             context.runOnClient(c->{if(c.player.getPose()!=net.minecraft.world.entity.Pose.SWIMMING)throw new AssertionError("Server-authorized crawl survives client pose updates");});
             context.takeScreenshot("simplequalityoflife-crawl");
-            context.runOnClient(c->c.player.connection.sendCommand("crawl"));
+            context.runOnClient(c->c.player.connection.sendCommand("simplemovement crawl"));
             context.waitFor(c->!crawling(c));
             // Linked containers: mark a chest (server), HUD slot, inventory with it, another GUI with it below.
             world.getServer().runOnServer(server->{
