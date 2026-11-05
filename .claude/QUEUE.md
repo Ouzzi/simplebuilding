@@ -1097,7 +1097,8 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 
 ## Besitzer 05.11. (über A, B ohne Kontingent bis 06.11. 23:00 UTC)
 Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
-- [ ] IG31-42 **Block-Paletten vervollständigen** (Release-relevant, PRIO):
+- [~] IG31-42 **Block-Paletten vervollständigen** (Release-relevant, PRIO):
+  - STAND 05.11. (a-palette05): Stufe 1 Analyse fertig, 59 fehlende Glieder (21 Mauern, 12 Treppen, 11 Stufen, 10 Octets, 5 Cracked), docs/ai/PALETTEN-ANALYSE-2026-11-05.md/.json, Vorschau a-palette05-preview.html. Bauen (Stufe 2) wartet auf Besitzer-Antwort PAL05.
   - Alle Steinfamilien sollen dieselbe Palette haben wie im Bild (Besitzer hat Mod- und Vanilla-Blöcke nach Familien aufgereiht): Block, Treppe, Stufe, Mauer, Octets, sofern bei uns üblich, plus Cracked/Chiseled-Glieder der Familie.
   - Fehlend genannt:
     - Polished Granite Wall.
