@@ -54,7 +54,7 @@ public final class WitherWings {
     public static final ResourceKey<Item> ENDER_GEM_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ID, "ender_gem"));
     public static final Item WITHER = new Item(wings(com.simplelib.api.SimpleRarity.CURSED, WITHER_DURABILITY, WITHER_ASSET).setId(WITHER_KEY));
     public static final Item NETHER = new Item(wings(com.simplelib.api.SimpleRarity.CURSED, NETHER_DURABILITY, NETHER_ASSET).setId(NETHER_KEY));
-    public static final Item END = new Item(wings(com.simplelib.api.SimpleRarity.CURSED, END_DURABILITY, END_ASSET).setId(END_KEY));
+    public static final Item END = new Item(wings(com.simplelib.api.SimpleRarity.LEGENDARY, END_DURABILITY, END_ASSET).setId(END_KEY));
     /** Stage 4: the top stage is mythic like the Ender Gem it is made with. */
     public static final Item VOID = new Item(wings(com.simplelib.api.SimpleRarity.MYTHIC, VOID_DURABILITY, VOID_ASSET).setId(VOID_KEY));
     public static final Item ENDER_HEART = new Item(com.simplelib.api.SimpleRarity.CURSED.apply(new Item.Properties()).fireResistant().setId(ENDER_HEART_KEY));

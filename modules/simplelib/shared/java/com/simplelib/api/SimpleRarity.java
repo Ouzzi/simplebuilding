@@ -35,7 +35,11 @@ import org.jspecify.annotations.Nullable;
 public enum SimpleRarity implements StringRepresentable {
     CURSED("cursed", 0xFF3030, 0xFF000000),
     MYTHIC("mythic", 0x5CF2DE, 0xFF0F1838),
-    EVIL("evil", 0xE070FF, 0xFF1A0030);
+    EVIL("evil", 0xE070FF, 0xFF1A0030),
+    // appended (ordinals are stored in the network codec); WI26-3, docs/ai/PLAN-A-TIP05-2026-11-05.md, variant A
+    LEGENDARY("legendary", 0xFFC832, 0xFF3A1800),
+    CORRUPTED("corrupted", 0x5CFFB0, 0xFF200030),
+    VOID("void", 0xB69CFF, 0xFF000000);
 
     /**
      * Flame ramp of the cursed letters, cool to hot: radiant red, red-orange, orange, gold, white-gold (the bright steps
@@ -46,6 +50,13 @@ public enum SimpleRarity implements StringRepresentable {
     public static final int[] OPAL = {0x5CF2DE, 0x6AB6FF, 0xC6A4FF};
     /** Evil: blood red, violet, lilac (cyclic); every stop reads 4.5:1 on the tooltip background. */
     public static final int[] VENOM = {0xFF5C7A, 0xE070FF, 0xA98BFF};
+    /** Corrupted: signal green, cyan; glitch bursts flash magenta and cyan. */
+    public static final int[] SIGNAL = {0x5CFFB0, 0x5CE8FF};
+    public static final int GLITCH_A = 0xFF5CE1, GLITCH_B = 0x5CE8FF;
+    /** Void: lavender, periwinkle, orchid (cyclic); the darkest stop still reads 4.5:1 on the tooltip background. */
+    public static final int[] DEEP = {0xB69CFF, 0x9FA8FF, 0xC9A6FF};
+    /** Legendary: amber, gold, pale gold (bottom to top). */
+    public static final int[] GOLD = {0xF7A81C, 0xFFC832, 0xFFE98A};
     /** Pearl: gloss on the top rows of the mythic letters. The sweeping sheen goes to white. */
     public static final int PEARL = 0xF2FBFF;
     /** Style insertion on tooltip letters: the client overlay paints letters carrying it row by row. */
@@ -156,6 +167,33 @@ public enum SimpleRarity implements StringRepresentable {
             // a heartbeat: a brief lift of the whole name twice per round, the top rows a little lighter
             double pulse = Math.max(0.0, Math.sin(2 * Math.PI * beat * 2.0)) * 0.18;
             return mix(c, 0xFFFFFF, (float) (pulse + (r <= 1 ? 0.08 : 0.0)));
+        }
+        if (this == LEGENDARY) {
+            double swell = 0.5 + 0.5 * Math.sin(2 * Math.PI * ((millis % 2600L) / 2600.0 - index * 0.08));
+            int c = ramp(GOLD, (ROWS - 1 - r) / (double) (ROWS - 1) * 0.7 + 0.3 * swell);
+            double phase = (millis % 4200L) / 1100.0;
+            if (phase < 1.0) {
+                double d = Math.abs(index - (ROWS - 1 - r) * 0.35 - (phase * (count + 6) - 3));
+                if (d < 1.6) c = mix(c, 0xFFFFFF, (float) ((1.0 - d / 1.6) * 0.9));
+            }
+            if (hash(index * 8 + r + 500, millis / 240) > 0.93) c = mix(c, 0xFFFFFF, 0.8f);
+            return c;
+        }
+        if (this == CORRUPTED) {
+            long window = millis / 600L;
+            int c = cyclic(SIGNAL, (count <= 1 ? 0.0 : (double) index / count) * 0.4 + (millis % 4000L) / 4000.0);
+            if (millis % 600L < 160L && hash(7, window) > -0.2) {
+                int band = (int) ((hash(11, window) + 1) / 2 * ROWS);
+                if (Math.abs(r - band) <= 1) c = hash(index + r, window) > 0 ? GLITCH_A : GLITCH_B;
+                else if (hash(index * 3 + 5, millis / 90) > 0.6) c = mix(c, 0xFFFFFF, 0.7f);
+            }
+            if (hash(index + 50, millis / 110) > 0.93) c = GLITCH_A;
+            return c;
+        }
+        if (this == VOID) {
+            int c = cyclic(DEEP, (count <= 1 ? 0.0 : (double) index / count) * 0.5 - (millis % 6000L) / 6000.0);
+            if (hash(index * 8 + r + 300, millis / 260) > 0.9) c = mix(c, 0xFFFFFF, 0.8f);
+            return c;
         }
         double s = (count <= 1 ? 0.0 : (double) index / count) * 0.6 + (millis % 5200L) / 5200.0;
         int c = cyclic(OPAL, s);
