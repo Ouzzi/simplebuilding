@@ -121,6 +121,10 @@ public final class McVersion {
     public static final boolean HOPPERS_IN_SB = true;
     /** Namespace of the mod hoppers, their carts and recipes ({@link #HOPPERS_IN_SB}). */
     public static final String HOPPERS_NAMESPACE = "simplebuilding";
+    /** Pads, pressure plates and the Spawn Elytra: SimpleBuilding's own on 26.2 (26.3: Simple Pads, b-pads01). */
+    public static final boolean PADS_IN_SB = true;
+    /** Namespace of the pads, plates, Spawn Elytra and their recipes ({@link #PADS_IN_SB}). */
+    public static final String PADS_NAMESPACE = "simplebuilding";
     /** Crucible SB parts: 26.3 only (SimpleLib is not built for 26.2). */
     public static final boolean CRUCIBLE = false;
     /** Trim templates in SimpleBuilding: 26.2 has no modules, the templates stay {@code simplebuilding:*} here (26.3: Simple Trims). */

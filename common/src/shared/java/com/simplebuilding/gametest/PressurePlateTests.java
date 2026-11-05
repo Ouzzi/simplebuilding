@@ -67,6 +67,7 @@ public final class PressurePlateTests {
      * Stufe), und eine zweite Wabe tut nichts.
      */
     public static void honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<Block> stages = CopperPressurePlateBlock.stages();
         List<Block> waxed = CopperPressurePlateBlock.waxedStages();
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -103,6 +104,7 @@ public final class PressurePlateTests {
      * Besitzer bleibt), erst danach wie bisher eine Oxidationsstufe; jedes Kratzen kostet 1 Haltbarkeit.
      */
     public static void theAxeScrapesTheWaxOffBeforeTheOxidation(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos plate = new BlockPos(3, 1, 3);
         helper.setBlock(plate, TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE);
         UUID owner = UUID.randomUUID();
@@ -131,6 +133,7 @@ public final class PressurePlateTests {
 
     /** Wie Vanilla-Kupfer: Platte + Honigwabe an der Werkbank ergibt die gewachste Platte, fuer jede Stufe. */
     public static void waxedCopperPlatesAreCraftedFromThePlateAndOneHoneycomb(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<Block> stages = CopperPressurePlateBlock.stages();
         List<Block> waxed = CopperPressurePlateBlock.waxedStages();
         for (int i = 0; i < stages.size(); i++) {
@@ -149,6 +152,7 @@ public final class PressurePlateTests {
      * Heruntergehen noch 40 Ticks gedrueckt, nicht einen Tick wie frueher.
      */
     public static void copperPlatesReleaseAsLateAsTheyPress(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos plate = new BlockPos(4, 1, 4);
         // Wax fixes the oxidation tier while this test measures its 40-tick delay.
         helper.setBlock(plate, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE);
@@ -184,6 +188,7 @@ public final class PressurePlateTests {
      * {@code powered=true} ein Modell aus {@code pressure_plate_down}, sonst {@code pressure_plate_up}.
      */
     public static void everyModPressurePlateVisiblySinksWhenPressed(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<String> problems = new ArrayList<>();
         BlockPos origin = helper.absolutePos(BlockPos.ZERO);
         BlockState stone = Blocks.STONE_PRESSURE_PLATE.defaultBlockState();
@@ -225,6 +230,7 @@ public final class PressurePlateTests {
 
     /** Alle Mod-Druckplatten heissen wie Vanilla-Platten: "X Pressure Plate" und "...Druckplatte". */
     public static void everyModPressurePlateIsNamedLikeTheVanillaOnes(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<String> problems = new ArrayList<>();
         JsonObject en = json("/assets/simplebuilding/lang/en_us.json", problems);
         JsonObject de = json("/assets/simplebuilding/lang/de_de.json", problems);

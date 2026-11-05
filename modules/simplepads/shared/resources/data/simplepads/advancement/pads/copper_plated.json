@@ -1,0 +1,41 @@
+{
+  "parent": "simplepads:pads/root",
+  "criteria": {
+    "copper_pressure_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplepads:copper_pressure_plate",
+              "simplepads:exposed_copper_pressure_plate",
+              "simplepads:weathered_copper_pressure_plate",
+              "simplepads:oxidized_copper_pressure_plate",
+              "simplepads:waxed_copper_pressure_plate",
+              "simplepads:waxed_exposed_copper_pressure_plate",
+              "simplepads:waxed_weathered_copper_pressure_plate",
+              "simplepads:waxed_oxidized_copper_pressure_plate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.copper_plated.description"
+    },
+    "icon": {
+      "id": "simplepads:copper_pressure_plate"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.copper_plated.title"
+    }
+  },
+  "requirements": [
+    [
+      "copper_pressure_plate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

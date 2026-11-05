@@ -40,7 +40,8 @@ public final class TweaksContent {
 
     public static void registerBlocks() {
         TweaksBlocks.init();
-        ChunkLoaderMapLayer.register(); // wayfinder map layer: 26.3 overlay, no-op twin on 26.2
+        // 26.3 (b-pads01): Simple Pads draws the chunk loader layer itself.
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) ChunkLoaderMapLayer.register(); // 26.3 overlay, no-op twin on 26.2
     }
 
     public static void registerItems() {
@@ -53,6 +54,9 @@ public final class TweaksContent {
      * verlangter Verzauberung (Flypad I: Elytra mit Reparatur, {@link com.simplebuilding.recipe.EnchantedShapelessRecipe}).
      */
     public static void registerRecipeSerializers() {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            return; // 26.3 (b-pads01): both serializers are Simple Pads' (simplepads:easter_smithing, simplepads:enchanted_shapeless)
+        }
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTweaks.id("easter_smithing"), EasterSmithingRecipe.SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTweaks.id("enchanted_shapeless"),
                 com.simplebuilding.recipe.EnchantedShapelessRecipe.SERIALIZER);
@@ -72,27 +76,30 @@ public final class TweaksContent {
     }
 
     public static void onServerTick(MinecraftServer server) {
-        SpawnElytra.serverTick(server);
-        // Chunk-Loader wecken bzw. anhalten (Besitzer kommt/geht, Schalter), siehe ChunkLoaderRegistry.
-        if (server.getTickCount() % com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity.CHECK_INTERVAL == 0) {
-            com.simplebuilding.tweaks.block.entity.ChunkLoaderRegistry.reconcile(server);
+        // 26.3 (b-pads01): Spawn Elytra, chunk loaders and the launch safety are Simple Pads'.
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            SpawnElytra.serverTick(server);
+            // Chunk-Loader wecken bzw. anhalten (Besitzer kommt/geht, Schalter), siehe ChunkLoaderRegistry.
+            if (server.getTickCount() % com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity.CHECK_INTERVAL == 0) {
+                com.simplebuilding.tweaks.block.entity.ChunkLoaderRegistry.reconcile(server);
+            }
+            LaunchSafety.serverTick(server);
         }
-        LaunchSafety.serverTick(server);
         // Testzentrale: faelliger Neubau einer veralteten Zentrale (nur in der Entwicklungswelt geplant).
         com.simplebuilding.dev.testcentre.TestCentreCommand.serverTick(server);
     }
 
     public static void onPlayerJoin(ServerPlayer player) {
         TweaksNetwork.sendConfig(player);
-        SpawnSetup.onPlayerJoin(player);
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) SpawnSetup.onPlayerJoin(player); // 26.3: Simple Pads gives the gifts
         // Einsteiger-Handbuch: einmal je Spieler, Config giveGuideBookOnFirstJoin (kein Tweak, aber
         // dies ist der gemeinsame Beitritts-Einstieg aller Loader).
         com.simplebuilding.guide.GuideBooks.onPlayerJoin(player);
-        SpawnElytra.onJoinOrRespawn(player);
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) SpawnElytra.onJoinOrRespawn(player);
     }
 
     public static void onPlayerRespawn(ServerPlayer player) {
-        SpawnElytra.onJoinOrRespawn(player);
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) SpawnElytra.onJoinOrRespawn(player);
     }
 
     public static void onLevelLoad(ServerLevel level) {

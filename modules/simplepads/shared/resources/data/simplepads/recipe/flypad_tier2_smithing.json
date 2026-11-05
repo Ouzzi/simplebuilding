@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplepads:enderite_pressure_plate",
+  "base": "simplepads:flypad",
+  "result": {
+    "id": "simplepads:reinforced_flypad"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

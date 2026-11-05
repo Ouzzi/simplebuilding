@@ -38,6 +38,10 @@ public final class TweaksComponents {
     }
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> op) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            // 26.3 (b-pads01): Simple Pads registers the component (simplepads:<name>, ids migrate); this field points at it.
+            return com.simplebuilding.util.PadRefs.component(name);
+        }
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, SimpleTweaks.id(name), op.apply(DataComponentType.builder()).build());
     }
 

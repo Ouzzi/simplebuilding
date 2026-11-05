@@ -207,6 +207,7 @@ public final class ServerTuningTests {
      * with the rule switched off it loads for an offline owner; in a blocked dimension it never loads.
      */
     public static void chunkLoadersIdleWhileTheirOwnerIsOffline(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         SimplebuildingConfig config = Simplebuilding.getConfig();
         boolean rule = config.server.chunkLoaders.requireOwnerOnline;
         String blocked = config.server.dimensionLocks.chunkLoaderBlockedDimensions;

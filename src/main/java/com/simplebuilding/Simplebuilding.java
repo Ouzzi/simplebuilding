@@ -60,6 +60,8 @@ public class Simplebuilding implements ModInitializer {
         initializeFirst("simplemachines");
         // ENCH02 (26.3): ModBlocks/ModItems point at Simple Enchanting's enchanters, so it registers first too.
         initializeFirst("simpleenchanting");
+        // b-pads01 (26.3): TweaksBlocks/TweaksItems/TweaksComponents point at Simple Pads' pads, plates and Spawn Elytra.
+        initializeFirst("simplepads");
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         // Renamed/moved ids (26.3: into SimpleLib IdMoves; 26.2: nothing to do), before any world loads.

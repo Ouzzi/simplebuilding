@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "simplepads",
+  "version": "${version}",
+  "name": "Simple Pads",
+  "description": "The pads and pressure plates of the Simple Pads tab: Launchpad, Elytra Pad, Flypad, Potion Pad, Spawn Teleporter and Chunk Loader in three tiers, the Diamond, Netherite, Enderite and copper pressure plates and the Spawn Elytra. Needs Simple Ores (Enderite) and Simple Mobheads (heads of the first tiers).",
+  "authors": [
+    "Ouzzi"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/simplebuilding",
+    "issues": "https://github.com/Ouzzi/simplebuilding/issues"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.modules.simplepads.PadsFabric"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.modules.simplepads.ModuleGameTest"
+    ],
+    "client": [
+      "com.simplebuilding.modules.simplepads.PadsFabricClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "simplelib": ">=0.4.0",
+    "simpleores": "*",
+    "simplemobheads": "*"
+  },
+  "icon": "assets/simplepads/icon.png",
+  "suggests": {
+    "simplebuilding": "*"
+  },
+  "mixins": [
+    "simplepads.mixins.json"
+  ]
+}

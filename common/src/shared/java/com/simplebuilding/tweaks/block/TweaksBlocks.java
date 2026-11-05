@@ -216,6 +216,10 @@ public final class TweaksBlocks {
     }
 
     private static Block register(String name, Function<BlockBehaviour.Properties, Block> factory) {
+        if (!McVersion.PADS_IN_SB) {
+            // 26.3 (b-pads01): Simple Pads registers the block, this field points at it (the module initialises first).
+            return com.simplebuilding.util.PadRefs.block(name);
+        }
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleTweaks.id(name));
         Block block = Registry.register(BuiltInRegistries.BLOCK, SimpleTweaks.id(name),factory.apply(BlockBehaviour.Properties.of().setId(key)));
         ALL.add(block);

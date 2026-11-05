@@ -1515,6 +1515,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 Item netheriteTemplate = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
                 Item enderiteTemplate = ModItems.ENDERITE_UPGRADE_TEMPLATE;
 
+                // 26.3 (b-pads01): pads, plates and the easter chain are Simple Pads' recipes (modules/simplepads).
+                if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
                 Item diamondPlate = TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem();
                 Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
                 Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
@@ -1603,6 +1605,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md): Rezepte und Advancements ueber den Endstufen.
                 com.simplebuilding.tweaks.datagen.EasterEggData.generate(output, items());
+                }
 
                 // Echolot/Echo Sounder (Id echo_sounder; Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten links,
                 // sieben Enderit-Nuggets aussen herum, oben mittig inzwischen auch ein Nugget

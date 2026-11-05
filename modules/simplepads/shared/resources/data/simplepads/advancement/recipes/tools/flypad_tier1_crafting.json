@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplelib:enderite_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplepads:flypad_tier1_crafting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplepads:flypad_tier1_crafting"
+    ]
+  }
+}

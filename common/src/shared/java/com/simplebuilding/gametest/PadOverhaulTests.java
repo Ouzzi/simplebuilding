@@ -96,6 +96,7 @@ public final class PadOverhaulTests {
      * Spawn-Ziel. Stufe I und II springen zum selben Ziel wie III ohne Wiedereinstiegspunkt.
      */
     public static void spawnTeleporterTiersWaitFiftyTwentyAndFiveSeconds(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(1), 50 * 20, "wait of spawn teleporter I");
         helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(2), 20 * 20, "wait of spawn teleporter II");
         helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(3), 5 * 20, "wait of spawn teleporter III");
@@ -147,6 +148,7 @@ public final class PadOverhaulTests {
      * nicht im Kreativ-Tab, sind in JEI ausgeblendet und gehoeren zu keiner Familie.
      */
     public static void oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Block[] old = {TweaksBlocks.SPAWN_TELEPORTER_TIER_3, TweaksBlocks.SPAWN_TELEPORTER_TIER_4};
         Block[] now = {TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER};
         int[] oldStage = {3, 4};
@@ -204,6 +206,7 @@ public final class PadOverhaulTests {
      * sind in JEI ausgeblendet und gehoeren zu keiner Familie.
      */
     public static void oldElytraPadsBecomeTheirNewTierInTheWorldAndTheInventory(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Block[] old = {TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD};
         Block[] now = {TweaksBlocks.ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD};
         int[] oldStage = {2, 5};
@@ -265,6 +268,7 @@ public final class PadOverhaulTests {
      * geht nicht mehr, ein fremder Kern auch nicht. Der Einstieg in die Easter-Kette nimmt dieselben Zutaten.
      */
     public static void tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         record Entry(TweaksFamilies.Family family, Item core, ItemLike plate, List<Item> unlocks, Block result) {
         }
         List<Item> trialHeads = com.simplebuilding.tweaks.heads.ModHeads.trialChamberHeads();
@@ -332,6 +336,7 @@ public final class PadOverhaulTests {
      * im Protokoll, und die Sprachdateien kennen die entfernten Meldungen nicht mehr.
      */
     public static void padsAndGadgetsWriteNoTextOnTheScreen(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         List<Component> texts = new ArrayList<>();
         TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
@@ -500,6 +505,7 @@ public final class PadOverhaulTests {
      * that does not follow the charges or the players.
      */
     public static void redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pad = new BlockPos(1, 1, 1);
         helper.setBlock(pad, TweaksBlocks.LAUNCHPAD);
@@ -570,6 +576,7 @@ public final class PadOverhaulTests {
      * or a pad that takes more than its capacity.
      */
     public static void hoppersFillOnlyWindChargesIntoTheLaunchpad(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(1, 1, 1);
         BlockPos hopperPos = pad.above();
         helper.setBlock(pad, TweaksBlocks.LAUNCHPAD);
@@ -599,6 +606,7 @@ public final class PadOverhaulTests {
 
     /** Signal edges and strength changes restart the complete warmup, even between server ticks. */
     public static void spawnTeleporterSignalChangesResetTheEntireWarmup(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(2, 1, 2);
         helper.setBlock(pad, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
         helper.setBlock(pad.west().below(), Blocks.STONE);
@@ -652,6 +660,7 @@ public final class PadOverhaulTests {
      * off again, or the active state not following the charging player.
      */
     public static void theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         List<Component> texts = new ArrayList<>();
         BlockPos bedFoot = new BlockPos(6, 1, 6);
@@ -876,6 +885,7 @@ public final class PadOverhaulTests {
      * <p>What breaks it: a state that no longer follows the pad, or a blockstate without the active model.
      */
     public static void everyPadFamilyShowsWhetherItIsWorking(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos elytra = new BlockPos(1, 1, 1);
         helper.setBlock(elytra, TweaksBlocks.ELYTRA_PAD);
@@ -944,6 +954,7 @@ public final class PadOverhaulTests {
 
     /** Real scheduled ticks: activation, cancellation, restart, cooling and bounded completion. */
     public static void padEffectsFadeInAndStopSchedulingWhenSettled(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         if (!com.simplebuilding.version.McVersion.GADGET_REWORK) {
             helper.assertFalse(TweaksBlocks.POTION_PAD.defaultBlockState().hasProperty(PadBlock.FADE), "fade leaked into 26.2");
             helper.succeed();

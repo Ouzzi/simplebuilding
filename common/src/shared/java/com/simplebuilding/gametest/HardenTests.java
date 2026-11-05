@@ -56,6 +56,7 @@ public final class HardenTests {
     }
 
     public static void boostPacketBudget(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         var spawn = SimpleTweaks.config().spawn;
         float previous = spawn.boostStrength;
         var player = helper.makeMockServerPlayerInLevel();
@@ -99,6 +100,7 @@ public final class HardenTests {
     }
 
     public static void boostNonfiniteAndWrongEquipment(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         var spawn = SimpleTweaks.config().spawn;
         float previous = spawn.boostStrength;
         try {

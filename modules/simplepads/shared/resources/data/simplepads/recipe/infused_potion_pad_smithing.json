@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplepads:enderite_pressure_plate",
+  "base": "simplepads:reinforced_potion_pad",
+  "result": {
+    "id": "simplepads:infused_potion_pad"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

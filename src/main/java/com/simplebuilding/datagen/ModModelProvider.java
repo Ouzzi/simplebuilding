@@ -266,7 +266,7 @@ public class ModModelProvider extends FabricModelProvider {
         if (com.simplebuilding.version.McVersion.STORAGE_IN_SB) registerPlacedBundle(blockStateModelGenerator);
 
         // --- 7. Aus Simple Tweaks: Druckplatten und Pads ---
-        com.simplebuilding.tweaks.datagen.TweaksModelGen.blocks(blockStateModelGenerator);
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) com.simplebuilding.tweaks.datagen.TweaksModelGen.blocks(blockStateModelGenerator); // 26.3: Simple Pads
     }
 
     /** Ein Blockmodell je Stufe aus der Vorlage, gedreht nach HORIZONTAL_FACING (Norden = 0). */

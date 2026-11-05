@@ -64,6 +64,7 @@ public final class ImmersionTests {
      * that rounds down (1 of 4 would read empty), or a state change that throws away the charges.
      */
     public static void launchpadShowsItsFillLevelInItsBlockState(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         helper.assertValueEqual(LaunchpadBlock.chargeLevel(0, 4), 0, "fill level of an empty launchpad");
         helper.assertValueEqual(LaunchpadBlock.chargeLevel(1, 16), 1, "fill level with 1 of 16 charges");
         helper.assertValueEqual(LaunchpadBlock.chargeLevel(6, 16), 2, "fill level with 6 of 16 charges");
@@ -106,6 +107,7 @@ public final class ImmersionTests {
      * light level that does not follow it.
      */
     public static void chunkLoaderShowsWhetherItKeepsChunksLoaded(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos pos = new BlockPos(1, 1, 1);
         helper.setBlock(pos, TweaksBlocks.NETHERITE_CHUNK_LOADER);
@@ -141,6 +143,7 @@ public final class ImmersionTests {
      * field or never switches back.
      */
     public static void flypadShowsActiveWhileSomeoneIsInItsField(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos pad = new BlockPos(3, 1, 3);
         helper.setBlock(pad, TweaksBlocks.FLYPAD);
         FlypadBlockEntity be = helper.getBlockEntity(pad, FlypadBlockEntity.class);
@@ -166,6 +169,7 @@ public final class ImmersionTests {
      * pitch that falls instead of rising as the edge comes closer.
      */
     public static void flypadWarningRisesTowardsTheEdgeOfItsField(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         AABB area = PadTiers.flyArea(BlockPos.ZERO, 1);
         helper.assertTrue(Math.abs(FlypadBlockEntity.edgeMargin(area, 0.5, 2.0, 0.5) - 2.0) < 1e-9,
                 "margin in the middle of flypad I's field (4 wide, 8 high): " + FlypadBlockEntity.edgeMargin(area, 0.5, 2.0, 0.5));
@@ -194,6 +198,7 @@ public final class ImmersionTests {
      * tier really has, or a missing line.
      */
     public static void padAndMachineTooltipsNameTheirNumbers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         expectLines(helper, TweaksBlocks.ENDERITE_LAUNCHPAD, "Tier III of III", "Holds 16 wind charges", "No fall damage until you land");
         expectLines(helper, TweaksBlocks.LAUNCHPAD, "Tier I of III", "Holds 4 wind charges");
         expectLines(helper, TweaksBlocks.NETHERITE_CHUNK_LOADER, "Tier II of III", "Loads this chunk and its 4 neighbors");

@@ -1,0 +1,33 @@
+{
+  "parent": "simplepads:pads/home_sweet_spawn",
+  "criteria": {
+    "best_spawn_teleporter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplepads:enderite_spawn_teleporter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.frequent_traveller.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplepads:enderite_spawn_teleporter"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.frequent_traveller.title"
+    }
+  },
+  "requirements": [
+    [
+      "best_spawn_teleporter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

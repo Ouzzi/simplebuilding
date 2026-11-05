@@ -1,0 +1,255 @@
+{
+  "flypad": {
+    "lore": [
+      "{name}: A little patch of sky you may stand on."
+    ],
+    "use": [
+      "Grants creative flight inside its area (tier I: 4x4x8 blocks, width, depth, height) and takes it back when you leave. Tier I is crafted shapeless from an Enderite Core, an Enderite Pressure Plate, a Shulker Head and an elytra with Mending."
+    ],
+    "secret": [
+      "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
+    ]
+  },
+  "reinforced_flypad": {
+    "lore": [
+      "{name}: The sky gets larger when you ask politely."
+    ],
+    "use": [
+      "Grants creative flight inside its area (tier II: 8x8x16 blocks, width, depth, height) and takes it back when you leave. Tier II is smithed from Flypad I at the smithing table."
+    ],
+    "secret": [
+      "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
+    ]
+  },
+  "stellar_flypad": {
+    "lore": [
+      "{name}: Under a stellar flypad, the ground is merely a suggestion."
+    ],
+    "use": [
+      "Grants creative flight inside its area (tier III: 16x16x32 blocks, width, depth, height) and takes it back when you leave. Tier III is smithed from Flypad II at the smithing table."
+    ],
+    "secret": [
+      "Three tiers exist: Flypad I, Reinforced Flypad II and Stellar Flypad III. Pads do not stack, each is a single piece."
+    ]
+  },
+  "elytra_pad": {
+    "lore": [
+      "{name}: One block of wing for anyone who wants to try."
+    ],
+    "use": [
+      "Hands a Spawn Elytra to every player with an empty chest slot inside its area and keeps it charged. Tier I: area 5x5, from a block below to 5 above the pad."
+    ],
+    "secret": [
+      "The Spawn Elytra exists only in the chest slot, has a flight timer and boosts, and swaps the xp bar for a blue boost bar. Three tiers, Elytra Pad I to Enderite Elytra Pad III."
+    ]
+  },
+  "netherite_elytra_pad": {
+    "lore": [
+      "{name}: Netherite widens the sky to 32 blocks."
+    ],
+    "use": [
+      "Hands a Spawn Elytra to every player with an empty chest slot inside its area and keeps it charged. Tier II: area 32x32, from a block below to 32 above the pad."
+    ],
+    "secret": [
+      "The Spawn Elytra exists only in the chest slot, has a flight timer and boosts, and swaps the xp bar for a blue boost bar. Three tiers, Elytra Pad I to Enderite Elytra Pad III."
+    ]
+  },
+  "enderite_elytra_pad": {
+    "lore": [
+      "{name}: A field of sky that is 128 blocks wide."
+    ],
+    "use": [
+      "Hands a Spawn Elytra to every player with an empty chest slot inside its area and keeps it charged. Tier III: area 128x128, from a block below to 192 above the pad."
+    ],
+    "secret": [
+      "The Spawn Elytra exists only in the chest slot, has a flight timer and boosts, and swaps the xp bar for a blue boost bar. Three tiers, Elytra Pad I to Enderite Elytra Pad III."
+    ]
+  },
+  "spawn_elytra": {
+    "lore": [
+      "An elytra that is only lent, and knows it."
+    ],
+    "use": [
+      "A temporary elytra from the spawn area or an Elytra Pad. It exists only in the chest slot, has a flight timer and boosts, and replaces the experience bar with a blue boost bar and the remaining time."
+    ],
+    "secret": [
+      "A pad keeps it charged for as long as you stay in its area, so the boosts come back while you hover above it."
+    ]
+  },
+  "launchpad": {
+    "lore": [
+      "{name}: a gust that waits for you to arrive."
+    ],
+    "use": [
+      "Charge it with wind charges (tier I: up to 4) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Iron Core, a heavy weighted pressure plate and a Trial Chamber mob head, smithed."
+    ],
+    "secret": [
+      "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
+    ]
+  },
+  "netherite_launchpad": {
+    "lore": [
+      "{name}: a gust that waits for you to arrive."
+    ],
+    "use": [
+      "Charge it with wind charges (tier II: up to 8) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Netherite Upgrade, Launchpad I and a Netherite Pressure Plate, smithed."
+    ],
+    "secret": [
+      "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
+    ]
+  },
+  "enderite_launchpad": {
+    "lore": [
+      "{name}: a gust that waits for you to arrive."
+    ],
+    "use": [
+      "Charge it with wind charges (tier III: up to 16) and stand on it for 3 seconds: it launches you, higher with more charges. Smithing: Enderite Upgrade, Launchpad II and an Enderite Pressure Plate, smithed."
+    ],
+    "secret": [
+      "Three tiers: Launchpad I, Netherite Launchpad II and Enderite Launchpad III. Pads do not stack."
+    ]
+  },
+  "potion_pad": {
+    "lore": [
+      "{name}: a stone that remembers the last drink."
+    ],
+    "use": [
+      "Stores the effects of a thrown potion and gives them to every player who steps onto it. Tier I: duration cap 45 seconds after a full charge; shorter potions and per-effect limits still apply."
+    ],
+    "secret": [
+      "Three tiers: Potion Pad, Reinforced Potion Pad II and Infused Potion Pad III. Throw a splash potion onto it to charge it."
+    ]
+  },
+  "reinforced_potion_pad": {
+    "lore": [
+      "{name}: a stone that remembers the last drink."
+    ],
+    "use": [
+      "Stores the effects of a thrown potion and gives them to every player who steps onto it. Tier II: duration cap 90 seconds after a full charge; shorter potions and per-effect limits still apply."
+    ],
+    "secret": [
+      "Three tiers: Potion Pad, Reinforced Potion Pad II and Infused Potion Pad III. Throw a splash potion onto it to charge it."
+    ]
+  },
+  "infused_potion_pad": {
+    "lore": [
+      "{name}: a stone that remembers the last drink."
+    ],
+    "use": [
+      "Stores the effects of a thrown potion and gives them to every player who steps onto it. Tier III: duration cap 180 seconds after a full charge; shorter potions and per-effect limits still apply."
+    ],
+    "secret": [
+      "Three tiers: Potion Pad, Reinforced Potion Pad II and Infused Potion Pad III. Throw a splash potion onto it to charge it."
+    ]
+  },
+  "chunk_loader": {
+    "lore": [
+      "{name}: a lantern for the land, so it does not forget to be there."
+    ],
+    "use": [
+      "Keeps chunks loaded. Tier I: only its own chunk. With default server settings, an assigned owner must be online. Smithing: Copper Core, Copper Pressure Plate and a Trial Chamber mob head."
+    ],
+    "secret": [
+      "Three tiers: Chunk Loader I, Netherite II and Enderite III."
+    ]
+  },
+  "netherite_chunk_loader": {
+    "lore": [
+      "{name}: a lantern for the land, so it does not forget to be there."
+    ],
+    "use": [
+      "Keeps chunks loaded. Tier II: 5 chunks in a cross, no diagonals. With default server settings, an assigned owner must be online. Smithing: Netherite Upgrade, Chunk Loader I and a Netherite Pressure Plate."
+    ],
+    "secret": [
+      "Three tiers: Chunk Loader I, Netherite II and Enderite III."
+    ]
+  },
+  "enderite_chunk_loader": {
+    "lore": [
+      "{name}: a lantern for the land, so it does not forget to be there."
+    ],
+    "use": [
+      "Keeps chunks loaded. Tier III: 9 chunks in a 3x3 square. With default server settings, an assigned owner must be online. Smithing: Enderite Upgrade, Chunk Loader II and an Enderite Pressure Plate."
+    ],
+    "secret": [
+      "Three tiers: Chunk Loader I, Netherite II and Enderite III."
+    ]
+  },
+  "spawn_teleporter": {
+    "lore": [
+      "{name}: a stone that knows the way home."
+    ],
+    "use": [
+      "Takes you to your own respawn point after a wait, or to the shared spawn target when powered by redstone. Tier I: 50 seconds by default, set by the server."
+    ],
+    "secret": [
+      "The waiting times of the three tiers are 50, 20 and 5 seconds. A server can change them."
+    ]
+  },
+  "spawn_teleporter_tier_2": {
+    "lore": [
+      "{name}: a stone that knows the way home."
+    ],
+    "use": [
+      "Takes you to your own respawn point after a wait, or to the shared spawn target when powered by redstone. Tier II: 20 seconds by default, set by the server."
+    ],
+    "secret": [
+      "The waiting times of the three tiers are 50, 20 and 5 seconds. A server can change them."
+    ]
+  },
+  "enderite_spawn_teleporter": {
+    "lore": [
+      "{name}: a stone that knows the way home."
+    ],
+    "use": [
+      "Takes you to your own respawn point after a wait, or to the shared spawn target when powered by redstone. Tier III: 5 seconds by default, set by the server."
+    ],
+    "secret": [
+      "The waiting times of the three tiers are 50, 20 and 5 seconds. A server can change them."
+    ]
+  },
+  "diamond_pressure_plate": {
+    "lore": [
+      "A plate that only cares about you."
+    ],
+    "use": [
+      "Reacts to players only: mobs and items do not press it."
+    ],
+    "secret": [
+      "It is a quiet way to keep a farm from triggering its own door."
+    ]
+  },
+  "netherite_pressure_plate": {
+    "lore": [
+      "A plate that decides who counts."
+    ],
+    "use": [
+      "Reacts to every player, unless a barrel sits below it: then only players carrying one of the items in the barrel press it."
+    ],
+    "secret": [
+      "The barrel below is the guest list: put in the items that act as a key. It ignores mobs."
+    ]
+  },
+  "enderite_pressure_plate": {
+    "lore": [
+      "A plate that was made for one person, and means it."
+    ],
+    "use": [
+      "A Netherite plate with a player lock. Its owner always presses it; without a barrel nobody else does. With a barrel below, also everyone whose name is on a renamed name tag in the barrel, or who carries one of the other items in it."
+    ],
+    "secret": [
+      "Put a name tag with a player's name in the barrel to give them access without a key item."
+    ]
+  },
+  "funny_stick": {
+    "lore": [
+      "A stick. A very funny stick."
+    ],
+    "use": [
+      "In the main or off hand it sends up an End-rod spark every 4 ticks, and now and then a note or a villager sparkle. Otherwise it does nothing at all. Epic, fire resistant, unstackable."
+    ],
+    "secret": [
+      "It sits at the end of a long, hidden chain: the last stage of the pads' hidden Easter levels, a Netherite template and a Netherite Ingot, and a hidden challenge, \"All That for a Stick?\", waits for whoever makes it."
+    ]
+  }
+}

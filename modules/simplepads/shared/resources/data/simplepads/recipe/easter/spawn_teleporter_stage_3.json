@@ -1,0 +1,9 @@
+{
+  "type": "simplepads:easter_smithing",
+  "addition": "simplepads:enderite_pressure_plate",
+  "base": "simplepads:spawn_teleporter_tier_2",
+  "base_stage": 2,
+  "result": "simplepads:enderite_spawn_teleporter",
+  "result_stage": 3,
+  "template": "simpleores:enderite_upgrade_template"
+}

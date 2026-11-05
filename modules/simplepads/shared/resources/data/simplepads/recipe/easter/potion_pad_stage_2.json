@@ -1,0 +1,9 @@
+{
+  "type": "simplepads:easter_smithing",
+  "addition": "simplepads:netherite_pressure_plate",
+  "base": "simplepads:potion_pad",
+  "base_stage": 1,
+  "result": "simplepads:reinforced_potion_pad",
+  "result_stage": 2,
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

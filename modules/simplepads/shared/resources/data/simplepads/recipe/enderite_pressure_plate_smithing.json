@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simpleores:enderite_ingot",
+  "base": "simplepads:netherite_pressure_plate",
+  "result": {
+    "id": "simplepads:enderite_pressure_plate"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

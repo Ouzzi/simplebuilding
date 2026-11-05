@@ -8925,52 +8925,52 @@
     "honeycomb": "minecraft:honeycomb",
     "scrape": [
       [
-        "simplebuilding:exposed_copper_pressure_plate",
-        "simplebuilding:copper_pressure_plate"
+        "simplepads:exposed_copper_pressure_plate",
+        "simplepads:copper_pressure_plate"
       ],
       [
-        "simplebuilding:weathered_copper_pressure_plate",
-        "simplebuilding:exposed_copper_pressure_plate"
+        "simplepads:weathered_copper_pressure_plate",
+        "simplepads:exposed_copper_pressure_plate"
       ],
       [
-        "simplebuilding:oxidized_copper_pressure_plate",
-        "simplebuilding:weathered_copper_pressure_plate"
+        "simplepads:oxidized_copper_pressure_plate",
+        "simplepads:weathered_copper_pressure_plate"
       ]
     ],
     "unwax": [
       [
-        "simplebuilding:waxed_copper_pressure_plate",
-        "simplebuilding:copper_pressure_plate"
+        "simplepads:waxed_copper_pressure_plate",
+        "simplepads:copper_pressure_plate"
       ],
       [
-        "simplebuilding:waxed_exposed_copper_pressure_plate",
-        "simplebuilding:exposed_copper_pressure_plate"
+        "simplepads:waxed_exposed_copper_pressure_plate",
+        "simplepads:exposed_copper_pressure_plate"
       ],
       [
-        "simplebuilding:waxed_weathered_copper_pressure_plate",
-        "simplebuilding:weathered_copper_pressure_plate"
+        "simplepads:waxed_weathered_copper_pressure_plate",
+        "simplepads:weathered_copper_pressure_plate"
       ],
       [
-        "simplebuilding:waxed_oxidized_copper_pressure_plate",
-        "simplebuilding:oxidized_copper_pressure_plate"
+        "simplepads:waxed_oxidized_copper_pressure_plate",
+        "simplepads:oxidized_copper_pressure_plate"
       ]
     ],
     "wax": [
       [
-        "simplebuilding:copper_pressure_plate",
-        "simplebuilding:waxed_copper_pressure_plate"
+        "simplepads:copper_pressure_plate",
+        "simplepads:waxed_copper_pressure_plate"
       ],
       [
-        "simplebuilding:exposed_copper_pressure_plate",
-        "simplebuilding:waxed_exposed_copper_pressure_plate"
+        "simplepads:exposed_copper_pressure_plate",
+        "simplepads:waxed_exposed_copper_pressure_plate"
       ],
       [
-        "simplebuilding:weathered_copper_pressure_plate",
-        "simplebuilding:waxed_weathered_copper_pressure_plate"
+        "simplepads:weathered_copper_pressure_plate",
+        "simplepads:waxed_weathered_copper_pressure_plate"
       ],
       [
-        "simplebuilding:oxidized_copper_pressure_plate",
-        "simplebuilding:waxed_oxidized_copper_pressure_plate"
+        "simplepads:oxidized_copper_pressure_plate",
+        "simplepads:waxed_oxidized_copper_pressure_plate"
       ]
     ]
   },

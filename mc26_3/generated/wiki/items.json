@@ -59,10 +59,8 @@
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
     "simplebuilding:chiseled_warped_blazewood_bookshelf",
-    "simplebuilding:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_fire",
-    "simplebuilding:copper_pressure_plate",
     "simplebuilding:crimson_blazewood_bookshelf",
     "simplebuilding:crimson_blazewood_planks",
     "simplebuilding:crimson_cauldron",
@@ -73,10 +71,8 @@
     "simplebuilding:dark_oak_cauldron",
     "simplebuilding:dark_oak_sheet",
     "simplebuilding:diamond_pole",
-    "simplebuilding:diamond_pressure_plate",
     "simplebuilding:dull_astralit_ore",
     "simplebuilding:dull_nihilith_ore",
-    "simplebuilding:elytra_pad",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
     "simplebuilding:ender_quartz_brick_stairs",
@@ -88,16 +84,7 @@
     "simplebuilding:ender_quartz_pillar",
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
-    "simplebuilding:enderite_chunk_loader",
-    "simplebuilding:enderite_elytra_pad",
-    "simplebuilding:enderite_flypad",
-    "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_pole",
-    "simplebuilding:enderite_pressure_plate",
-    "simplebuilding:enderite_spawn_teleporter",
-    "simplebuilding:exposed_copper_pressure_plate",
-    "simplebuilding:fine_elytra_pad",
-    "simplebuilding:flypad",
     "simplebuilding:frosted_nihilith",
     "simplebuilding:goat_horn_holder",
     "simplebuilding:gold_pole",
@@ -128,7 +115,6 @@
     "simplebuilding:hollow_stripped_spruce_log",
     "simplebuilding:hollow_stripped_warped_stem",
     "simplebuilding:hollow_warped_stem",
-    "simplebuilding:infused_potion_pad",
     "simplebuilding:iron_pole",
     "simplebuilding:jukebox_amplifier",
     "simplebuilding:jungle_cauldron",
@@ -136,7 +122,6 @@
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:lapis_quartz_checker_slab",
     "simplebuilding:lapis_quartz_checker_stairs",
-    "simplebuilding:launchpad",
     "simplebuilding:layered_astralit",
     "simplebuilding:light_blue_hammock",
     "simplebuilding:light_gray_hammock",
@@ -147,12 +132,7 @@
     "simplebuilding:nether_brick_quartz_checker",
     "simplebuilding:nether_brick_quartz_checker_slab",
     "simplebuilding:nether_brick_quartz_checker_stairs",
-    "simplebuilding:netherite_chunk_loader",
-    "simplebuilding:netherite_elytra_pad",
-    "simplebuilding:netherite_flypad",
-    "simplebuilding:netherite_launchpad",
     "simplebuilding:netherite_pole",
-    "simplebuilding:netherite_pressure_plate",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_obsidian",
     "simplebuilding:nihil_piston",
@@ -185,7 +165,6 @@
     "simplebuilding:oak_door_half_3",
     "simplebuilding:oak_sheet",
     "simplebuilding:orange_hammock",
-    "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:pale_oak_cauldron",
     "simplebuilding:pale_oak_sheet",
     "simplebuilding:pink_hammock",
@@ -215,7 +194,6 @@
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
-    "simplebuilding:potion_pad",
     "simplebuilding:potted_silent_dandelion",
     "simplebuilding:purple_hammock",
     "simplebuilding:purpur_quartz_checker",
@@ -225,22 +203,14 @@
     "simplebuilding:red_nether_brick_quartz_checker",
     "simplebuilding:red_nether_brick_quartz_checker_slab",
     "simplebuilding:red_nether_brick_quartz_checker_stairs",
-    "simplebuilding:reinforced_elytra_pad",
-    "simplebuilding:reinforced_flypad",
-    "simplebuilding:reinforced_potion_pad",
     "simplebuilding:resin_quartz_checker",
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
     "simplebuilding:sculk_jaw",
     "simplebuilding:silent_dandelion",
-    "simplebuilding:spawn_teleporter",
-    "simplebuilding:spawn_teleporter_tier_2",
-    "simplebuilding:spawn_teleporter_tier_3",
-    "simplebuilding:spawn_teleporter_tier_4",
     "simplebuilding:spruce_cauldron",
     "simplebuilding:spruce_sheet",
     "simplebuilding:standing_rod",
-    "simplebuilding:stellar_flypad",
     "simplebuilding:stripped_acacia_cauldron",
     "simplebuilding:stripped_acacia_sheet",
     "simplebuilding:stripped_bamboo_cauldron",
@@ -276,11 +246,6 @@
     "simplebuilding:warped_blazewood_planks",
     "simplebuilding:warped_cauldron",
     "simplebuilding:warped_sheet",
-    "simplebuilding:waxed_copper_pressure_plate",
-    "simplebuilding:waxed_exposed_copper_pressure_plate",
-    "simplebuilding:waxed_oxidized_copper_pressure_plate",
-    "simplebuilding:waxed_weathered_copper_pressure_plate",
-    "simplebuilding:weathered_copper_pressure_plate",
     "simplebuilding:white_hammock",
     "simplebuilding:yellow_hammock"
   ],
@@ -575,10 +540,6 @@
       "id": "simplebuilding:chiseled_warped_blazewood_bookshelf"
     },
     {
-      "id": "simplebuilding:chunk_loader",
-      "maxStackSize": 1
-    },
-    {
       "durability": 256,
       "id": "simplebuilding:color_brush",
       "maxStackSize": 1
@@ -600,9 +561,6 @@
       "enchantability": 18,
       "id": "simplebuilding:copper_chisel",
       "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:copper_pressure_plate"
     },
     {
       "cooldownTicks": 25,
@@ -682,9 +640,6 @@
       "id": "simplebuilding:diamond_pole"
     },
     {
-      "id": "simplebuilding:diamond_pressure_plate"
-    },
-    {
       "id": "simplebuilding:diamond_rod"
     },
     {
@@ -711,10 +666,6 @@
       "durability": 1500,
       "enchantability": 15,
       "id": "simplebuilding:echo_sounder",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:elytra_pad",
       "maxStackSize": 1
     },
     {
@@ -853,18 +804,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_chunk_loader",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_elytra_pad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_flypad",
-      "maxStackSize": 1
-    },
-    {
       "durability": 462,
       "enchantability": 18,
       "id": "simplebuilding:enderite_helmet",
@@ -880,10 +819,6 @@
     },
     {
       "id": "simplebuilding:enderite_horse_armor",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_launchpad",
       "maxStackSize": 1
     },
     {
@@ -912,18 +847,11 @@
       "id": "simplebuilding:enderite_pole"
     },
     {
-      "id": "simplebuilding:enderite_pressure_plate"
-    },
-    {
       "attackDamage": 7.5,
       "attackSpeed": 1.0,
       "durability": 2530,
       "enchantability": 18,
       "id": "simplebuilding:enderite_shovel",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:enderite_spawn_teleporter",
       "maxStackSize": 1
     },
     {
@@ -943,28 +871,13 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:exposed_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:fine_elytra_pad",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:fire_chip"
     },
     {
       "id": "simplebuilding:flint_chip"
     },
     {
-      "id": "simplebuilding:flypad",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:frosted_nihilith"
-    },
-    {
-      "id": "simplebuilding:funny_stick",
-      "maxStackSize": 1
     },
     {
       "durability": 256,
@@ -1080,10 +993,6 @@
       "id": "simplebuilding:ice_chip"
     },
     {
-      "id": "simplebuilding:infused_potion_pad",
-      "maxStackSize": 1
-    },
-    {
       "durability": 2000,
       "enchantability": 14,
       "id": "simplebuilding:iron_building_wand",
@@ -1178,10 +1087,6 @@
     },
     {
       "id": "simplebuilding:lapis_quartz_checker_stairs"
-    },
-    {
-      "id": "simplebuilding:launchpad",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:layered_astralit"
@@ -1331,30 +1236,11 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:netherite_chunk_loader",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_elytra_pad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_flypad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:netherite_launchpad",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:netherite_paint_box",
       "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_pole"
-    },
-    {
-      "id": "simplebuilding:netherite_pressure_plate"
     },
     {
       "cooldownTicks": 5,
@@ -1619,9 +1505,6 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:oxidized_copper_pressure_plate"
-    },
-    {
       "id": "simplebuilding:paint_box",
       "maxStackSize": 1
     },
@@ -1855,10 +1738,6 @@
       "id": "simplebuilding:polished_nihilith_wall"
     },
     {
-      "id": "simplebuilding:potion_pad",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:purple_hammock",
       "maxStackSize": 1
     },
@@ -2041,19 +1920,7 @@
       "id": "simplebuilding:red_nether_brick_quartz_checker_stairs"
     },
     {
-      "id": "simplebuilding:reinforced_elytra_pad",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_flypad",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:reinforced_paint_box",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:reinforced_potion_pad",
       "maxStackSize": 1
     },
     {
@@ -2128,34 +1995,10 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:spawn_elytra",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:spawn_teleporter",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:spawn_teleporter_tier_2",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:spawn_teleporter_tier_3",
-      "maxStackSize": 1
-    },
-    {
-      "id": "simplebuilding:spawn_teleporter_tier_4",
-      "maxStackSize": 1
-    },
-    {
       "id": "simplebuilding:spruce_cauldron"
     },
     {
       "id": "simplebuilding:spruce_sheet"
-    },
-    {
-      "id": "simplebuilding:stellar_flypad",
-      "maxStackSize": 1
     },
     {
       "cooldownTicks": 30,
@@ -2285,21 +2128,6 @@
     },
     {
       "id": "simplebuilding:warped_sheet"
-    },
-    {
-      "id": "simplebuilding:waxed_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:waxed_exposed_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:waxed_weathered_copper_pressure_plate"
-    },
-    {
-      "id": "simplebuilding:weathered_copper_pressure_plate"
     },
     {
       "id": "simplebuilding:white_hammock",

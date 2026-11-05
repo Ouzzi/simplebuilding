@@ -290,6 +290,14 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         }
 
         private void pads(AdvancementHolder tweaks) {
+            if (!com.simplebuilding.version.McVersion.PADS_IN_SB) {
+                // 26.3 (b-pads01): the pad advancements are Simple Pads' (simplepads:pads/*); the two head ones stay here.
+                AdvancementHolder head = node("pads/hot_head", tweaks, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE), AdvancementType.TASK, "blaze_head",
+                        any(TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
+                node("pads/heads_up", head, TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.SILVERFISH), AdvancementType.TASK, "mob_head",
+                        any(TweaksItems.heads().stream().filter(h -> h != TweaksItems.head(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)).toArray(ItemLike[]::new)));
+                return;
+            }
             node("pads/copper_plated", tweaks, TweaksBlocks.COPPER_PRESSURE_PLATE, AdvancementType.TASK, "copper_pressure_plate",
                     any(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
                             TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,

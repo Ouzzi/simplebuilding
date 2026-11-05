@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "simplepads:block/enderite_chunk_loader"
+    },
+    "active=true": {
+      "model": "simplepads:block/enderite_chunk_loader_active"
+    }
+  }
+}

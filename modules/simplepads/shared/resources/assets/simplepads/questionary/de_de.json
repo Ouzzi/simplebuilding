@@ -1,0 +1,255 @@
+{
+  "flypad": {
+    "lore": [
+      "{name}: Ein kleines Stück Himmel, auf dem du stehen darfst."
+    ],
+    "use": [
+      "Gewährt Kreativflug in seinem Bereich (Stufe I: 4x4x8 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe I wird formlos aus einem Enderitkern, einer Enderit-Druckplatte, einem Shulkerkopf und einer Elytra mit Reparatur hergestellt."
+    ],
+    "secret": [
+      "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
+    ]
+  },
+  "reinforced_flypad": {
+    "lore": [
+      "{name}: Der Himmel wird größer, wenn man höflich fragt."
+    ],
+    "use": [
+      "Gewährt Kreativflug in seinem Bereich (Stufe II: 8x8x16 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe II wird am Schmiedetisch aus Flugpad I geschmiedet."
+    ],
+    "secret": [
+      "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
+    ]
+  },
+  "stellar_flypad": {
+    "lore": [
+      "{name}: Unter einem Stellaren Flugpad ist der Boden nur ein Vorschlag."
+    ],
+    "use": [
+      "Gewährt Kreativflug in seinem Bereich (Stufe III: 16x16x32 Blöcke, Breite, Tiefe, Höhe) und nimmt ihn zurück, wenn du ihn verlässt. Stufe III wird am Schmiedetisch aus Flugpad II geschmiedet."
+    ],
+    "secret": [
+      "Es gibt drei Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III. Pads stapeln nicht, jedes ist ein Einzelstück."
+    ]
+  },
+  "elytra_pad": {
+    "lore": [
+      "{name}: Ein Block Flügel für jeden, der es versuchen will."
+    ],
+    "use": [
+      "Gibt jedem Spieler mit freiem Brustplatz in seinem Bereich eine Spawn-Elytra und lädt sie nach. Stufe I: Bereich 5x5, einen Block unter bis 5 über dem Pad."
+    ],
+    "secret": [
+      "Die Spawn-Elytra existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste. Drei Stufen, Elytra-Pad I bis Enderit-Elytra-Pad III."
+    ]
+  },
+  "netherite_elytra_pad": {
+    "lore": [
+      "{name}: Netherit weitet den Himmel auf 32 Blöcke."
+    ],
+    "use": [
+      "Gibt jedem Spieler mit freiem Brustplatz in seinem Bereich eine Spawn-Elytra und lädt sie nach. Stufe II: Bereich 32x32, einen Block unter bis 32 über dem Pad."
+    ],
+    "secret": [
+      "Die Spawn-Elytra existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste. Drei Stufen, Elytra-Pad I bis Enderit-Elytra-Pad III."
+    ]
+  },
+  "enderite_elytra_pad": {
+    "lore": [
+      "{name}: Ein Himmelsfeld, 128 Blöcke breit."
+    ],
+    "use": [
+      "Gibt jedem Spieler mit freiem Brustplatz in seinem Bereich eine Spawn-Elytra und lädt sie nach. Stufe III: Bereich 128x128, einen Block unter bis 192 über dem Pad."
+    ],
+    "secret": [
+      "Die Spawn-Elytra existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste. Drei Stufen, Elytra-Pad I bis Enderit-Elytra-Pad III."
+    ]
+  },
+  "spawn_elytra": {
+    "lore": [
+      "Eine Elytra, die nur geliehen ist und es weiß."
+    ],
+    "use": [
+      "Eine zeitlich begrenzte Elytra vom Spawnbereich oder einem Elytra-Pad. Sie existiert nur im Brustplatz, hat einen Flugtimer und Schübe und ersetzt die Erfahrungsleiste durch eine blaue Schubleiste mit der Restzeit."
+    ],
+    "secret": [
+      "Ein Pad hält sie geladen, solange du in seinem Bereich bleibst, die Schübe kehren also zurück, während du über ihm schwebst."
+    ]
+  },
+  "launchpad": {
+    "lore": [
+      "{name}: ein Windstoß, der auf dich wartet."
+    ],
+    "use": [
+      "Lade es mit Windkugeln auf (Stufe I: bis zu 4) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Eisenkern, schwere Druckplatte und ein Prüfungskammer-Mobkopf, geschmiedet."
+    ],
+    "secret": [
+      "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
+    ]
+  },
+  "netherite_launchpad": {
+    "lore": [
+      "{name}: ein Windstoß, der auf dich wartet."
+    ],
+    "use": [
+      "Lade es mit Windkugeln auf (Stufe II: bis zu 8) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Netherit-Aufwertung, Startrampe I und eine Netherit-Druckplatte, geschmiedet."
+    ],
+    "secret": [
+      "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
+    ]
+  },
+  "enderite_launchpad": {
+    "lore": [
+      "{name}: ein Windstoß, der auf dich wartet."
+    ],
+    "use": [
+      "Lade es mit Windkugeln auf (Stufe III: bis zu 16) und steh 3 Sekunden darauf: Es schleudert dich hoch, mit mehr Ladungen höher. Schmieden: Enderit-Aufwertung, Startrampe II und eine Enderit-Druckplatte, geschmiedet."
+    ],
+    "secret": [
+      "Drei Stufen: Startrampe I, Netherit-Startrampe II und Enderit-Startrampe III. Pads stapeln nicht."
+    ]
+  },
+  "potion_pad": {
+    "lore": [
+      "{name}: ein Stein, der sich an den letzten Trank erinnert."
+    ],
+    "use": [
+      "Speichert die Wirkungen eines geworfenen Tranks und gibt sie jedem Spieler, der darauftritt. Stufe I: Dauergrenze 45 Sekunden nach voller Ladung; kürzere Tränke und Grenzen je Wirkung gelten weiter."
+    ],
+    "secret": [
+      "Drei Stufen: Trank-Pad, Verstärktes Trank-Pad II und Durchtränktes Trank-Pad III. Wirf einen Wurftrank darauf, um es zu laden."
+    ]
+  },
+  "reinforced_potion_pad": {
+    "lore": [
+      "{name}: ein Stein, der sich an den letzten Trank erinnert."
+    ],
+    "use": [
+      "Speichert die Wirkungen eines geworfenen Tranks und gibt sie jedem Spieler, der darauftritt. Stufe II: Dauergrenze 90 Sekunden nach voller Ladung; kürzere Tränke und Grenzen je Wirkung gelten weiter."
+    ],
+    "secret": [
+      "Drei Stufen: Trank-Pad, Verstärktes Trank-Pad II und Durchtränktes Trank-Pad III. Wirf einen Wurftrank darauf, um es zu laden."
+    ]
+  },
+  "infused_potion_pad": {
+    "lore": [
+      "{name}: ein Stein, der sich an den letzten Trank erinnert."
+    ],
+    "use": [
+      "Speichert die Wirkungen eines geworfenen Tranks und gibt sie jedem Spieler, der darauftritt. Stufe III: Dauergrenze 180 Sekunden nach voller Ladung; kürzere Tränke und Grenzen je Wirkung gelten weiter."
+    ],
+    "secret": [
+      "Drei Stufen: Trank-Pad, Verstärktes Trank-Pad II und Durchtränktes Trank-Pad III. Wirf einen Wurftrank darauf, um es zu laden."
+    ]
+  },
+  "chunk_loader": {
+    "lore": [
+      "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
+    ],
+    "use": [
+      "Hält Chunks geladen. Stufe I: nur seinen eigenen Chunk. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Kupferkern, Kupfer-Druckplatte und ein Prüfungskammer-Mobkopf."
+    ],
+    "secret": [
+      "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."
+    ]
+  },
+  "netherite_chunk_loader": {
+    "lore": [
+      "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
+    ],
+    "use": [
+      "Hält Chunks geladen. Stufe II: 5 Chunks im Kreuz, ohne Diagonalen. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Netherit-Aufwertung, Chunk-Lader I und eine Netherit-Druckplatte."
+    ],
+    "secret": [
+      "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."
+    ]
+  },
+  "enderite_chunk_loader": {
+    "lore": [
+      "{name}: eine Laterne für das Land, damit es nicht vergisst, da zu sein."
+    ],
+    "use": [
+      "Hält Chunks geladen. Stufe III: 9 Chunks im 3x3-Quadrat. Mit den Server-Standardeinstellungen muss ein eingetragener Besitzer online sein. Schmieden: Enderit-Aufwertung, Chunk-Lader II und eine Enderit-Druckplatte."
+    ],
+    "secret": [
+      "Drei Stufen: Chunk-Lader I, Netherit II und Enderit III."
+    ]
+  },
+  "spawn_teleporter": {
+    "lore": [
+      "{name}: ein Stein, der den Weg nach Hause kennt."
+    ],
+    "use": [
+      "Bringt dich nach einer Wartezeit zu deinem Respawnpunkt, oder bei Redstone-Kraft zum gemeinsamen Spawnziel. Stufe I: standardmäßig 50 Sekunden, vom Server einstellbar."
+    ],
+    "secret": [
+      "Die Wartezeiten der drei Stufen betragen 50, 20 und 5 Sekunden. Ein Server kann sie ändern."
+    ]
+  },
+  "spawn_teleporter_tier_2": {
+    "lore": [
+      "{name}: ein Stein, der den Weg nach Hause kennt."
+    ],
+    "use": [
+      "Bringt dich nach einer Wartezeit zu deinem Respawnpunkt, oder bei Redstone-Kraft zum gemeinsamen Spawnziel. Stufe II: standardmäßig 20 Sekunden, vom Server einstellbar."
+    ],
+    "secret": [
+      "Die Wartezeiten der drei Stufen betragen 50, 20 und 5 Sekunden. Ein Server kann sie ändern."
+    ]
+  },
+  "enderite_spawn_teleporter": {
+    "lore": [
+      "{name}: ein Stein, der den Weg nach Hause kennt."
+    ],
+    "use": [
+      "Bringt dich nach einer Wartezeit zu deinem Respawnpunkt, oder bei Redstone-Kraft zum gemeinsamen Spawnziel. Stufe III: standardmäßig 5 Sekunden, vom Server einstellbar."
+    ],
+    "secret": [
+      "Die Wartezeiten der drei Stufen betragen 50, 20 und 5 Sekunden. Ein Server kann sie ändern."
+    ]
+  },
+  "diamond_pressure_plate": {
+    "lore": [
+      "Eine Platte, der nur du etwas bedeutest."
+    ],
+    "use": [
+      "Reagiert nur auf Spieler: Mobs und Gegenstände lösen sie nicht aus."
+    ],
+    "secret": [
+      "Ein leiser Weg, damit eine Farm ihre eigene Tür nicht auslöst."
+    ]
+  },
+  "netherite_pressure_plate": {
+    "lore": [
+      "Eine Platte, die entscheidet, wer zählt."
+    ],
+    "use": [
+      "Reagiert auf jeden Spieler, es sei denn, unter ihr steht ein Fass: Dann lösen sie nur Spieler aus, die einen der Gegenstände im Fass tragen."
+    ],
+    "secret": [
+      "Das Fass darunter ist die Gästeliste: Lege die Gegenstände hinein, die als Schlüssel dienen. Mobs ignoriert sie."
+    ]
+  },
+  "enderite_pressure_plate": {
+    "lore": [
+      "Eine Platte, die für eine Person gemacht wurde und es ernst meint."
+    ],
+    "use": [
+      "Eine Netherit-Platte mit Spielerschloss. Ihr Besitzer löst sie immer aus; ohne Fass sonst niemand. Mit einem Fass darunter auch jeder, dessen Name auf einem umbenannten Namensschild im Fass steht oder der einen der anderen Gegenstände darin trägt."
+    ],
+    "secret": [
+      "Lege ein Namensschild mit dem Namen eines Spielers ins Fass, um ihm ohne Schlüsselgegenstand Zutritt zu geben."
+    ]
+  },
+  "funny_stick": {
+    "lore": [
+      "Ein Stock. Ein sehr lustiger Stock."
+    ],
+    "use": [
+      "In der Haupt- oder Nebenhand steigt alle 4 Ticks ein Endstab-Funke auf, ab und zu eine Note oder ein Dorfbewohner-Glitzern. Sonst tut er gar nichts. Episch, feuerfest, nicht stapelbar."
+    ],
+    "secret": [
+      "Er steht am Ende einer langen, versteckten Kette: der letzten Stufe der versteckten Easter-Stufen der Pads, einer Netherit-Vorlage und eines Netheritbarrens, und eine versteckte Herausforderung, „Alles für einen Stock?“, wartet auf den, der ihn baut."
+    ]
+  }
+}

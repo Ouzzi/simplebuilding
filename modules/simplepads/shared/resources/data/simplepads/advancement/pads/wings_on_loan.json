@@ -1,0 +1,28 @@
+{
+  "parent": "simplepads:pads/liftoff",
+  "criteria": {
+    "elytra_pad": {
+      "conditions": {
+        "feature": "elytra_pad"
+      },
+      "trigger": "simplepads:pad_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplepads.pads.wings_on_loan.description"
+    },
+    "icon": {
+      "id": "simplepads:elytra_pad"
+    },
+    "title": {
+      "translate": "advancements.simplepads.pads.wings_on_loan.title"
+    }
+  },
+  "requirements": [
+    [
+      "elytra_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

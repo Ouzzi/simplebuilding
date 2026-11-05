@@ -1,8 +1,0 @@
-{
-  "type": "simplebuilding:easter_smithing",
-  "addition": "simplemobheads:shulker_head",
-  "base": "simplebuilding:stellar_flypad",
-  "result": "simplebuilding:flypad",
-  "result_stage": 1,
-  "template": "simplelib:enderite_core"
-}

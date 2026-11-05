@@ -1,0 +1,15 @@
+{
+  "type": "simplepads:enchanted_shapeless",
+  "category": "equipment",
+  "enchanted_item": "minecraft:elytra",
+  "enchantment": "minecraft:mending",
+  "ingredients": [
+    "simplelib:enderite_core",
+    "simplepads:enderite_pressure_plate",
+    "simplemobheads:shulker_head",
+    "minecraft:elytra"
+  ],
+  "result": {
+    "id": "simplepads:flypad"
+  }
+}

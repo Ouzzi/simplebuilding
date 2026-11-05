@@ -291,7 +291,7 @@ public final class GuideBooks {
             // The enderite ingot recipes belong to Simple Ores on 26.3 (IG31-13; before SimpleLib's, split stage 3d).
             case END -> List.of(McVersion.ORES_NAMESPACE + ":enderite_ingot", McVersion.ORES_NAMESPACE + ":enderite_ingot_from_scrap",
                     "simplebuilding:astralit_block_from_end_stone", "simplebuilding:nihilith_block_from_end_stone");
-            case PADS -> List.of("minecraft:stone_pressure_plate", "simplebuilding:copper_pressure_plate", "minecraft:oak_pressure_plate",
+            case PADS -> List.of("minecraft:stone_pressure_plate", McVersion.PADS_NAMESPACE + ":copper_pressure_plate", "minecraft:oak_pressure_plate",
                     "minecraft:light_weighted_pressure_plate", "minecraft:heavy_weighted_pressure_plate");
             case GADGETS -> List.of("simplebuilding:copper_core_plus", McVersion.GADGETS_NAMESPACE + ":velocity_gauge", // 26.3: Simple Gadgets' recipe
                     "simplebuilding:detector", "simplebuilding:magnet");

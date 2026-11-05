@@ -1,0 +1,130 @@
+package com.simplepads.block.entity;
+
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import com.simplepads.util.PlayerScan;
+import com.simplepads.SimplePads;
+import com.simplepads.PadsConfig;
+import com.simplepads.block.ElytraPadBlock;
+import com.simplepads.block.PadTiers;
+import com.simplepads.component.PadsComponents;
+import com.simplepads.easter.EasterEggs;
+import com.simplepads.item.PadsItems;
+import com.simplepads.spawn.SpawnElytra;
+import java.util.List;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+
+/** Elytra-Pad, 1:1 aus Simple Tweaks; ab Stufe III (Enderit) laden Boosts im ganzen Bereich. */
+public class ElytraPadBlockEntity extends OwnedBlockEntity implements PadSignalSource {
+    /** Spieler im Bereich beim letzten Durchlauf (Komparator-Signal, hoechstens 15). */
+    private int served;
+
+    public ElytraPadBlockEntity(BlockPos pos, BlockState state) {
+        super(PadsBlockEntities.ELYTRA_PAD, pos, state);
+    }
+
+    public static int tierOf(BlockState state) {
+        return state.getBlock() instanceof ElytraPadBlock pad ? pad.getTier() : 1;
+    }
+
+    public static void serverTick(Level level, BlockPos pos, BlockState state, ElytraPadBlockEntity be) {
+        // Alte Stufe im geladenen Weltbereich (vor 2026-10-07 gab es fuenf Elytra-Pad-Stufen): einmalig zur neuen Stufe.
+        if (state.getBlock() instanceof com.simplepads.block.LegacyElytraPadBlock legacy) {
+            legacy.migrate(level, pos, be);
+            return;
+        }
+        if (level.getGameTime() % 10 == 0) {
+            int count = applyArea(level, pos, state);
+            // Sichtbarer Zustand (Besitzer 2026-09-29): leuchtet, solange es jemanden versorgt.
+            com.simplepads.block.PadBlock.setActive(level, pos, ElytraPadBlock.ACTIVE, count > 0);
+            int before = be.comparatorSignal();
+            be.served = count;
+            if (be.comparatorSignal() != before) {
+                level.updateNeighbourForOutputSignal(pos, state.getBlock());
+            }
+        }
+    }
+
+    /** Zahl der versorgten Spieler (0..15) fuer den Komparator. */
+    @Override
+    public int comparatorSignal() {
+        return Math.min(15, served);
+    }
+
+    /**
+     * Ein Durchlauf ueber alle Spieler im Bereich (der Tick macht das alle halbe Sekunde); liefert,
+     * wie viele es waren. Abgeschaltet (Config oder Redstone-Signal, Besitzer 2026-09-28): niemand.
+     */
+    public static int applyArea(Level level, BlockPos pos, BlockState state) {
+        if (!SimplePads.config().pads.enableElytraPads || com.simplepads.block.PadBlock.isDisabledByRedstone(level, pos)) {
+            return 0;
+        }
+        int tier = tierOf(state);
+        AABB range = areaOf(level, pos, state);
+        List<ServerPlayer> players = PlayerScan.playersIn(level, range, ServerPlayer.class);
+        PadsConfig.Spawn config = SimplePads.config().spawn;
+
+        for (ServerPlayer player : players) {
+            applyTo(level, pos, tier, player, config);
+        }
+        return players.size();
+    }
+
+    /** Bereich dieses gesetzten Pads; die letzte Easter-Stufe ({@link EasterEggs}) ist doppelt so breit und hoch. */
+    public static AABB areaOf(Level level, BlockPos pos, BlockState state) {
+        return PadTiers.elytraArea(pos, tierOf(state), EasterEggs.isBoosted(level, pos));
+    }
+
+    /** Was ein Spieler im Bereich bekommt; auch fuer die Spieltests einzeln aufrufbar. */
+    public static void applyTo(Level level, BlockPos pos, int tier, ServerPlayer player, PadsConfig.Spawn config) {
+        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (chest.isEmpty()) {
+            ItemStack elytra = new ItemStack(PadsItems.SPAWN_ELYTRA);
+            SpawnElytra.recharge(elytra, config);
+            // Pad-Elytren schuetzen NICHT vor Fall-/Kinetikschaden, nur Spawn-Elytren.
+            elytra.set(PadsComponents.IS_SAFE_ELYTRA, false);
+            elytra.set(PadsComponents.LAST_PAD_TICK, level.getGameTime());
+            player.setItemSlot(EquipmentSlot.CHEST, elytra);
+            // Angelegt: Vanillas Elytra-Anlegeklang statt einer Meldung (keine Bildschirmtexte).
+            level.playSound(null, player.blockPosition(), SoundEvents.ARMOR_EQUIP_ELYTRA.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            // ... und eine Wolke weisser Federn (Wolkenpartikel) um die Schultern.
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 1.2, player.getZ(), 8, 0.35, 0.2, 0.35, 0.01);
+            }
+            com.simplepads.advancement.PadTriggers.feature(player, com.simplepads.advancement.PadTriggers.ELYTRA_PAD);
+        } else if (chest.is(PadsItems.SPAWN_ELYTRA)) {
+            chest.set(PadsComponents.LAST_PAD_TICK, level.getGameTime());
+            chest.set(PadsComponents.FLIGHT_TIME, config.flightTicks());
+            if (PadTiers.hasEnderiteBonus(tier) || isInBoostColumn(player, pos)) {
+                Float before = chest.get(PadsComponents.BOOST_LEVEL);
+                chest.set(PadsComponents.BOOST_LEVEL, 1.0f);
+                if (before != null && before < 1.0f) {
+                    // Boost wieder voll: ein Feuerwerks-Knistern nur fuer ihn, Funken am Ruecken.
+                    com.simplepads.util.Feedback.playTo(player, SoundEvents.FIREWORK_ROCKET_TWINKLE, SoundSource.PLAYERS, 0.5f, 1.4f);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.FIREWORK, player.getX(), player.getY() + 1.0, player.getZ(), 6, 0.25, 0.25, 0.25, 0.02);
+                    }
+                }
+            }
+            player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20, 0, true, false, false));
+        }
+    }
+
+    /** 3x3-Saeule direkt ueber dem Pad, 4 Bloecke hoch. */
+    public static boolean isInBoostColumn(ServerPlayer player, BlockPos pos) {
+        AABB boost = new AABB(pos).inflate(1.5, 0, 1.5).expandTowards(0, 4.0, 0);
+        return boost.intersects(player.getBoundingBox());
+    }
+}

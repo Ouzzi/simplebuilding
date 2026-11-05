@@ -74,7 +74,9 @@ public final class ModItemGroupsContent {
     /** Die Tabs, die SimpleBuilding selbst registriert, in {@link Tab}-Reihenfolge. */
     public static List<Tab> ownTabs() {
         boolean merged = mergedIntoSimpleBlocks();
-        return java.util.Arrays.stream(Tab.values()).filter(tab -> !(merged && tab == Tab.BUILDING_BLOCKS)).toList();
+        // 26.3 (b-pads01): the "Simple Pads" tab is the module's own (simplepads:pads).
+        return java.util.Arrays.stream(Tab.values()).filter(tab -> !(merged && tab == Tab.BUILDING_BLOCKS))
+                .filter(tab -> tab != Tab.PADS || com.simplebuilding.version.McVersion.PADS_IN_SB).toList();
     }
 
     /** Loader-Hook fuer {@link #SIMPLE_BLOCKS_TAB}: haengt die Baublock-Zeilen hinter die eigenen Bloecke von Simple Blocks. */

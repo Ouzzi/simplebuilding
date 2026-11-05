@@ -248,6 +248,17 @@ MODULES = [
                 "Light Arrow lights the spot where it sticks, the Silver Arrow hits undead harder.",
                 "Pfeile: der Befiederungstisch baut vier Pfeile aus Spitze, Schaft und Befiederung, auf Wunsch mit Trank; der "
                 "Lichtpfeil erhellt die Stelle, an der er steckt, der Silberpfeil trifft Untote härter.")),
+    dict(module="simplepads", ns="simplepads", package="com.simplepads.guide", cls="PadsGuide", kind="item",
+         author="Simple Pads", recipe="minecraft:stone_pressure_plate",
+         name=("Simple Pads Guide", "Simple-Pads-Handbuch"),
+         intro=("Pads you stand on: the Launchpad throws you up, the Elytra Pad lends a Spawn Elytra, the Flypad lets you fly "
+                "above it, the Potion Pad gives a stored potion, the Spawn Teleporter sends you home and the Chunk Loader keeps "
+                "chunks loaded - each in three tiers, the last one from Enderite (Simple Ores). Diamond, Netherite, Enderite and "
+                "copper pressure plates.",
+                "Pads zum Draufstellen: das Launchpad wirft dich hoch, das Elytra-Pad leiht dir eine Spawn-Elytra, über dem "
+                "Flypad kannst du fliegen, das Trank-Pad gibt einen gespeicherten Trank, der Spawn-Teleporter bringt dich heim "
+                "und der Chunk-Loader hält Chunks geladen - je in drei Stufen, die letzte aus Enderit (Simple Ores). Diamant-, "
+                "Netherit-, Enderit- und Kupfer-Druckplatten.")),
     dict(module="simplelights", ns="simplelights", package="com.simplelights.guide", cls="LightsGuide", kind="item",
          author="Simple Lights", recipe="minecraft:glowstone_dust",
          name=("Simple Lights Guide", "Simple-Lights-Handbuch"),
@@ -626,6 +637,7 @@ NOTE = ("Chapter \"%s\" of the Simple Modpack guide (SimpleLib): %d pages taken 
         "Benutzen dazu.")
 RECIPE_ITEM_SHORT = {  # (English, German) item names for the wiki note
     "minecraft:feather": ("feather", "Feder"),
+    "minecraft:stone_pressure_plate": ("stone pressure plate", "Steindruckplatte"),
     "minecraft:redstone": ("redstone dust", "Redstone-Staub"),
     "minecraft:lapis_lazuli": ("lapis lazuli", "Lapislazuli"),
     "minecraft:glowstone_dust": ("glowstone dust", "Glowstone-Staub"),

@@ -1,0 +1,323 @@
+package com.simplepads.easter;
+
+import com.mojang.serialization.Codec;
+import com.simplepads.SimplePads;
+import com.simplepads.block.PadsBlocks;
+import com.simplepads.block.PadFamilies;
+import com.simplepads.block.PadFamilies.Family;
+import com.simplepads.block.entity.OwnedBlockEntity;
+import com.simplepads.item.PadsItems;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Die versteckte Kette ueber den Endstufen der Pad-Familien (Besitzer 2026-09-27, Spoiler-Abschnitt in
+ * docs/SIMPLETWEAKS-UEBERNAHME.md). Die Endstufe einer Familie laesst sich im Schmiedetisch zurueck auf
+ * Stufe I schmieden: heraus kommt der gewoehnliche Stufe-I-Block, aber mit der Item-Komponente
+ * {@link #EASTER_STAGE} = 1 und dem Namen "Don't do it". Jede weitere Aufwertung kostet dasselbe wie
+ * die normale Stufe und hebt Stufe und Easter-Stufe gemeinsam; die letzte Easter-Stufe (= Zahl der
+ * Stufen der Familie) ist die Endstufe mit verschleiertem Namen und doppelter Kraft
+ * ({@link #isBoosted}). Mit Netheritbarren wird sie zum {@link FunnyStickItem}.
+ *
+ * <p>Warum eine Komponente statt eigener Bloecke: jede Easter-Stufe <b>ist</b> der Block ihrer Stufe
+ * (Verhalten, Textur, Drops), nur die Komponente und ein daraus abgeleiteter {@code item_name} sind
+ * anders. Gesetzt merkt sich die Block-Entity die Stufe ({@link OwnedBlockEntity#easterStage()}),
+ * beim Abbau schreibt {@code PadBlock#getDrops} sie wieder aufs Item. Ein Amboss setzt nur
+ * {@code custom_name}, nie die Komponente: ein umbenanntes normales Pad zaehlt nie als Easter-Pad.
+ */
+public final class EasterEggs {
+
+    /** Easter-Stufe 1..{@link #stageCount}; fehlt die Komponente, ist es ein normales Pad. */
+    public static final DataComponentType<Integer> EASTER_STAGE = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,
+            SimplePads.id("easter_stage"),
+            DataComponentType.<Integer>builder().persistent(Codec.intRange(1, 5)).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+
+    /** Hoechstens so viele Easter-Stufen hat eine Familie (bei weniger Stufen entsprechend weniger). */
+    public static final int MAX_STAGES = 5;
+
+    /** Die Advancements der Kette (alle versteckt, eigener Tab erst nach dem ersten). */
+    public static final Identifier ADV_WHAT_HAVE_YOU_DONE = SimplePads.id("easter/what_have_you_done");
+    public static final Identifier ADV_SERIOUSLY = SimplePads.id("easter/seriously");
+    public static final Identifier ADV_WORTH_IT = SimplePads.id("easter/it_was_worth_it");
+    public static final Identifier ADV_FUNNY_STICK = SimplePads.id("easter/all_that_for_a_stick");
+
+    private static @Nullable Item funnyStick;
+
+    private EasterEggs() {
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Registrierung (PadsContent)
+    // ---------------------------------------------------------------------------------------------
+
+    /** Laedt die Klasse und damit {@link #EASTER_STAGE} (NeoForge/Forge: im RegisterEvent der Komponenten). */
+    public static void registerComponents() {
+    }
+
+    public static void registerItems() {
+        if (funnyStick != null) {
+            return;
+        }
+        Identifier id = SimplePads.id("funny_stick");
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id);
+        funnyStick = Registry.register(BuiltInRegistries.ITEM, id, new FunnyStickItem(new Item.Properties().setId(key)
+                .stacksTo(1).rarity(Rarity.EPIC).fireResistant()
+                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
+    }
+
+    /** Der "Funny Stick"; erst nach {@link #registerItems()} vorhanden. */
+    public static Item funnyStick() {
+        if (funnyStick == null) {
+            throw new IllegalStateException("funny_stick is not registered yet");
+        }
+        return funnyStick;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Familien und Stufen
+    // ---------------------------------------------------------------------------------------------
+
+    /** Die Pad-Familien mit Kette; die Druckplatten sind keine Pads (keine Kraft zum Verdoppeln). */
+    public static List<Family> families() {
+        return List.of(Family.ELYTRA_PAD, Family.FLYPAD, Family.SPAWN_TELEPORTER, Family.LAUNCHPAD, Family.CHUNK_LOADER,
+                Family.POTION_PAD);
+    }
+
+    /** Zahl der Easter-Stufen: 5, oder weniger, wenn die Familie weniger Stufen hat (Flypad: 3). */
+    public static int stageCount(Family family) {
+        return Math.min(MAX_STAGES, PadFamilies.tiers(family).size());
+    }
+
+    /** Familie eines Stufenblocks, oder null (Druckplatten, alte Bloecke, fremde Bloecke). */
+    public static @Nullable Family familyOf(Block block) {
+        for (Family family : families()) {
+            if (PadFamilies.tiers(family).contains(block)) {
+                return family;
+            }
+        }
+        return null;
+    }
+
+    /** Der Block einer Easter-Stufe: Stufe s ist der Block der Stufe s. */
+    public static Block blockFor(Family family, int stage) {
+        return PadFamilies.tiers(family).get(stage - 1);
+    }
+
+    /** Stufe des Blocks in seiner Familie (1 = Stufe I), 0 ausserhalb einer Familie mit Kette. */
+    public static int tierIndex(Block block) {
+        Family family = familyOf(block);
+        return family == null ? 0 : PadFamilies.tiers(family).indexOf(block) + 1;
+    }
+
+    /**
+     * Rechnet eine gespeicherte Easter-Stufe um, die hoeher ist als die Stufenzahl der Familie: der
+     * Spawn-Teleporter hatte bis 2026-09-28 fuenf Stufen (Kette 1..5), jetzt drei - ein altes Easter-V
+     * auf dem Enderit-Teleporter (jetzt Stufe III) wird so zur letzten Easter-Stufe 3. Passende Stufen
+     * bleiben unveraendert.
+     */
+    public static int migrateStage(Block block, int stage) {
+        Family family = familyOf(block);
+        if (family != null && stage > stageCount(family)) {
+            return tierIndex(block);
+        }
+        return stage;
+    }
+
+    public static int stageOf(ItemStack stack) {
+        Integer stage = stack.get(EASTER_STAGE);
+        return stage == null ? 0 : stage;
+    }
+
+    /** Ob die Easter-Stufe zum Block passt (Stufe s = Block der Stufe s einer Familie mit Kette). */
+    public static boolean fits(Block block, int stage) {
+        Family family = familyOf(block);
+        return family != null && stage >= 1 && stage <= stageCount(family) && blockFor(family, stage) == block;
+    }
+
+    /** Die letzte Easter-Stufe: doppelte Kraft, verschleierter Name. */
+    public static boolean isFinal(Block block, int stage) {
+        Family family = familyOf(block);
+        return family != null && stage == stageCount(family) && fits(block, stage);
+    }
+
+    /** Easter-Stufe eines gesetzten Pads (0 = normal). */
+    public static int stageAt(BlockGetter level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof OwnedBlockEntity owned ? owned.easterStage() : 0;
+    }
+
+    /** Ob das gesetzte Pad die letzte Easter-Stufe ist und darum doppelt so stark wirkt. */
+    public static boolean isBoosted(BlockGetter level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof OwnedBlockEntity owned && isFinal(owned.getBlockState().getBlock(), owned.easterStage());
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Items
+    // ---------------------------------------------------------------------------------------------
+
+    /** Ein Easter-Pad der Familie auf der Stufe (Tests, Testzentrale-freie Befehle). */
+    public static ItemStack create(Family family, int stage) {
+        return mark(new ItemStack(blockFor(family, stage)), stage);
+    }
+
+    /**
+     * Setzt Easter-Stufe und Namen; die Stufe muss zum Block passen, sonst bleibt der Stapel
+     * unveraendert (ein falsch zusammengesetztes Rezept kann so kein halbes Easter-Pad bauen).
+     */
+    public static ItemStack mark(ItemStack stack, int stage) {
+        if (!(stack.getItem() instanceof net.minecraft.world.item.BlockItem blockItem) || !fits(blockItem.getBlock(), stage)) {
+            return stack;
+        }
+        stack.set(EASTER_STAGE, stage);
+        stack.set(DataComponents.ITEM_NAME, nameFor(blockItem.getBlock(), stage));
+        return stack;
+    }
+
+    /**
+     * Anzeigename der Easter-Stufe: Stufen vor der letzten heissen fuer alle Familien gleich
+     * ({@code item.simplebuilding.easter.stage_N}), die letzte heisst wie die Endstufe der Familie,
+     * mit Farbverlauf, fett und zwei verschleierten Zeichen ({@code item.simplebuilding.easter.final.<familie>},
+     * Formatcodes in der Sprachdatei, gleich viele sichtbare Zeichen wie der normale Name).
+     */
+    public static Component nameFor(Block block, int stage) {
+        Family family = familyOf(block);
+        if (family != null && isFinal(block, stage)) {
+            return Component.translatable(finalNameKey(family));
+        }
+        return Component.translatable(stageNameKey(stage));
+    }
+
+    public static String stageNameKey(int stage) {
+        return "item.simplepads.easter.stage_" + stage;
+    }
+
+    public static String finalNameKey(Family family) {
+        return "item.simplepads.easter.final." + family.name().toLowerCase(Locale.ROOT);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Die Kette: Kosten je Schritt = Kosten der normalen Stufe
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Ein Schmiedeschritt der Kette. {@code fromStage} 0 heisst: die normale Endstufe (ohne Komponente)
+     * wird zu Easter-Stufe 1. {@code result} ist der Block der Zielstufe oder, beim letzten Schritt,
+     * der Funny Stick ({@code toStage} 0).
+     */
+    public record Step(Family family, List<Item> templates, Item base, int fromStage, List<Item> additions,
+                       Item result, int toStage) {
+        /** Die erste (bei den meisten Schritten einzige) moegliche Zutat; {@code null} ohne Zutat. */
+        public @Nullable Item addition() {
+            return additions.isEmpty() ? null : additions.get(0);
+        }
+    }
+
+    /**
+     * Alle Schritte der Familie: der Einstieg kostet, was Stufe I kostet (seit 2026-09-29 der Kern der Familie
+     * im Vorlagen-Feld und die Freischalt-Zutat - bei Chunk-Loader und Launchpad jeder Trial-Chamber-Kopf, beim
+     * Flypad der Shulkerkopf, denn die Elytra mit Reparatur passt nicht mehr in den Schmiedetisch), jeder
+     * Folgeschritt die Vorlage und Zutat der normalen Aufwertung auf dieselbe Stufe; zuletzt Netherit-Vorlage +
+     * Netheritbarren zum Funny Stick.
+     */
+    public static List<Step> steps(Family family) {
+        List<Block> tiers = PadFamilies.tiers(family);
+        List<Item> netherite = List.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
+        List<Item> enderite = List.of(com.simplepads.util.PadRefs.enderiteTemplate());
+        Item netheritePlate = PadsBlocks.NETHERITE_PRESSURE_PLATE.asItem();
+        Item enderitePlate = PadsBlocks.ENDERITE_PRESSURE_PLATE.asItem();
+
+        // Vorlage und Zutat je Zielstufe 1..n, wie in ModRecipeProvider#buildTweaksRecipes.
+        List<List<Item>> templates = new ArrayList<>();
+        List<List<Item>> additions = new ArrayList<>();
+        switch (family) {
+            case ELYTRA_PAD -> {
+                // Drei Stufen seit 2026-10-07; Einstieg = Diamantkern + Elytra, dann die normalen Aufwertungen.
+                add(templates, additions, List.of(com.simplepads.util.PadRefs.core("diamond")), Items.ELYTRA);
+                add(templates, additions, netherite, netheritePlate);
+                add(templates, additions, enderite, enderitePlate);
+            }
+            case FLYPAD -> {
+                add(templates, additions, List.of(com.simplepads.util.PadRefs.core("enderite")), com.simplepads.util.PadRefs.mobHead("shulker_head"));
+                add(templates, additions, enderite, enderitePlate);
+                add(templates, additions, enderite, PadsBlocks.REINFORCED_FLYPAD.asItem());
+            }
+            case SPAWN_TELEPORTER -> {
+                // Drei Stufen seit 2026-09-28: I = Goldkern + leichte Waegeplatte + Endermankopf
+                add(templates, additions, List.of(com.simplepads.util.PadRefs.core("gold")), com.simplepads.util.PadRefs.mobHead("enderman_head"));
+                add(templates, additions, netherite, netheritePlate);
+                add(templates, additions, enderite, enderitePlate);
+            }
+            case LAUNCHPAD -> {
+                // I = Eisenkern + schwere Waegeplatte + Trial-Chamber-Kopf (2026-09-29)
+                addAny(templates, additions, List.of(com.simplepads.util.PadRefs.core("iron")), com.simplepads.util.PadRefs.trialChamberHeads());
+                add(templates, additions, netherite, netheritePlate);
+                add(templates, additions, enderite, enderitePlate);
+            }
+            case CHUNK_LOADER -> {
+                // I = Kupferkern + Kupfer-Druckplatte + Trial-Chamber-Kopf (2026-09-29)
+                addAny(templates, additions, List.of(com.simplepads.util.PadRefs.core("copper")), com.simplepads.util.PadRefs.trialChamberHeads());
+                add(templates, additions, netherite, netheritePlate);
+                add(templates, additions, enderite, enderitePlate);
+            }
+            case POTION_PAD -> {
+                // I = Netheritkern + Netherit-Druckplatte + Lohenkopf (Kern statt Vorlage seit 2026-09-29)
+                add(templates, additions, List.of(com.simplepads.util.PadRefs.core("netherite")), com.simplepads.util.PadRefs.mobHead("blaze_head"));
+                // II/III seit 2026-10-02 wie die Elytra-Pads: Netherit- bzw. Enderit-Aufwertung + Platte.
+                add(templates, additions, netherite, netheritePlate);
+                add(templates, additions, enderite, enderitePlate);
+            }
+            default -> throw new IllegalArgumentException(family + " has no easter chain");
+        }
+
+        List<Step> steps = new ArrayList<>();
+        int count = stageCount(family);
+        Item last = tiers.get(tiers.size() - 1).asItem();
+        steps.add(new Step(family, templates.get(0), last, 0, additions.get(0), tiers.get(0).asItem(), 1));
+        for (int stage = 1; stage < count; stage++) {
+            steps.add(new Step(family, templates.get(stage), tiers.get(stage - 1).asItem(), stage, additions.get(stage),
+                    tiers.get(stage).asItem(), stage + 1));
+        }
+        steps.add(new Step(family, netherite, tiers.get(count - 1).asItem(), count, List.of(Items.NETHERITE_INGOT), funnyStick(), 0));
+        return steps;
+    }
+
+    private static void add(List<List<Item>> templates, List<List<Item>> additions, List<Item> template, Item addition) {
+        addAny(templates, additions, template, List.of(addition));
+    }
+
+    private static void addAny(List<List<Item>> templates, List<List<Item>> additions, List<Item> template, List<Item> choices) {
+        templates.add(template);
+        additions.add(List.copyOf(choices));
+    }
+
+    /** "Beliebige Vorlage" der Einstiegsstufen (dieselbe Liste wie ModRecipeProvider#buildTweaksRecipes). */
+    public static List<Item> anyTemplate() {
+        return List.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
+                Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE, Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE, Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE, Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE, Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE,
+                Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE);
+    }
+}

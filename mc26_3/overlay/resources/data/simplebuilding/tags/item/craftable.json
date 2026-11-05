@@ -57,12 +57,12 @@
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
-    "simplebuilding:chunk_loader",
+    "simplepads:chunk_loader",
     "simplebuilding:construction_light",
     "simplebuilding:copper_building_wand",
     "simplebuilding:copper_chisel",
     "simplelib:copper_core",
-    "simplebuilding:copper_pressure_plate",
+    "simplepads:copper_pressure_plate",
     {
       "id": "simplehammers:copper_sledgehammer",
       "required": false
@@ -79,13 +79,13 @@
     "simplebuilding:diamond_building_wand",
     "simplebuilding:diamond_chisel",
     "simplelib:diamond_core",
-    "simplebuilding:diamond_pressure_plate",
+    "simplepads:diamond_pressure_plate",
     {
       "id": "simplehammers:diamond_sledgehammer",
       "required": false
     },
     "simplebuilding:echo_sounder",
-    "simplebuilding:elytra_pad",
+    "simplepads:elytra_pad",
     {
       "id": "simpletrims:emitting_trim_template",
       "required": false
@@ -131,9 +131,9 @@
     "simplebuilding:enderite_carrot",
     "simplebuilding:enderite_chestplate",
     "simplebuilding:enderite_chisel",
-    "simplebuilding:enderite_chunk_loader",
+    "simplepads:enderite_chunk_loader",
     "simplelib:enderite_core",
-    "simplebuilding:enderite_elytra_pad",
+    "simplepads:enderite_elytra_pad",
     "simplebuilding:enderite_helmet",
     "simplebuilding:enderite_hoe",
     "simplebuilding:enderite_horse_armor",
@@ -141,7 +141,7 @@
       "id": "simpleores:enderite_ingot",
       "required": false
     },
-    "simplebuilding:enderite_launchpad",
+    "simplepads:enderite_launchpad",
     "simplebuilding:enderite_leggings",
     "simplebuilding:enderite_nautilus_armor",
     {
@@ -149,7 +149,7 @@
       "required": false
     },
     "simplebuilding:enderite_pickaxe",
-    "simplebuilding:enderite_pressure_plate",
+    "simplepads:enderite_pressure_plate",
     "simplestorage:enderite_quiver",
     {
       "id": "simpleores:enderite_scrap",
@@ -164,14 +164,14 @@
       "id": "simplehammers:enderite_sledgehammer",
       "required": false
     },
-    "simplebuilding:enderite_spawn_teleporter",
+    "simplepads:enderite_spawn_teleporter",
     "simplebuilding:enderite_spear",
     "simplebuilding:enderite_sword",
     {
       "id": "simpleores:enderite_upgrade_template",
       "required": false
     },
-    "simplebuilding:flypad",
+    "simplepads:flypad",
     {
       "id": "simpletrims:glowing_trim_template",
       "required": false
@@ -183,7 +183,7 @@
       "id": "simplehammers:gold_sledgehammer",
       "required": false
     },
-    "simplebuilding:infused_potion_pad",
+    "simplepads:infused_potion_pad",
     "simplebuilding:iron_building_wand",
     "simplebuilding:iron_chisel",
     "simplelib:iron_core",
@@ -207,7 +207,7 @@
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:lapis_quartz_checker_slab",
     "simplebuilding:lapis_quartz_checker_stairs",
-    "simplebuilding:launchpad",
+    "simplepads:launchpad",
     {
       "id": "simpleores:layered_raw_enderite",
       "required": false
@@ -239,15 +239,15 @@
     "simplestorage:netherite_bundle",
     "simplebuilding:netherite_carrot",
     "simplebuilding:netherite_chisel",
-    "simplebuilding:netherite_chunk_loader",
+    "simplepads:netherite_chunk_loader",
     "simplelib:netherite_core",
-    "simplebuilding:netherite_elytra_pad",
-    "simplebuilding:netherite_launchpad",
+    "simplepads:netherite_elytra_pad",
+    "simplepads:netherite_launchpad",
     {
       "id": "simplelib:netherite_nugget",
       "required": false
     },
-    "simplebuilding:netherite_pressure_plate",
+    "simplepads:netherite_pressure_plate",
     "simplestorage:netherite_quiver",
     {
       "id": "simplestorage:netherite_shulker_box",
@@ -362,7 +362,7 @@
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
-    "simplebuilding:potion_pad",
+    "simplepads:potion_pad",
     {
       "id": "simpletrims:pulsating_trim_template",
       "required": false
@@ -427,11 +427,11 @@
       "id": "simplestorage:reinforced_chest",
       "required": false
     },
-    "simplebuilding:reinforced_flypad",
+    "simplepads:reinforced_flypad",
     "simpleovens:reinforced_furnace",
     "simplemachines:reinforced_hopper",
     "simplemachines:reinforced_piston",
-    "simplebuilding:reinforced_potion_pad",
+    "simplepads:reinforced_potion_pad",
     "simplestorage:reinforced_quiver",
     {
       "id": "simplestorage:reinforced_shulker_box",
@@ -456,19 +456,19 @@
     "simplebuilding:resin_quartz_checker_slab",
     "simplebuilding:resin_quartz_checker_stairs",
     "simplegadgets:rotator",
-    "simplebuilding:spawn_teleporter",
-    "simplebuilding:spawn_teleporter_tier_2",
-    "simplebuilding:stellar_flypad",
+    "simplepads:spawn_teleporter",
+    "simplepads:spawn_teleporter_tier_2",
+    "simplepads:stellar_flypad",
     "simplebuilding:stone_chisel",
     {
       "id": "simplehammers:stone_sledgehammer",
       "required": false
     },
     "simplegadgets:velocity_gauge",
-    "simplebuilding:waxed_copper_pressure_plate",
-    "simplebuilding:waxed_exposed_copper_pressure_plate",
-    "simplebuilding:waxed_oxidized_copper_pressure_plate",
-    "simplebuilding:waxed_weathered_copper_pressure_plate",
+    "simplepads:waxed_copper_pressure_plate",
+    "simplepads:waxed_exposed_copper_pressure_plate",
+    "simplepads:waxed_oxidized_copper_pressure_plate",
+    "simplepads:waxed_weathered_copper_pressure_plate",
     "simplebuilding:sculk_jaw",
     "simplelights:light_pane",
     "simplelights:transparent_light_pane",

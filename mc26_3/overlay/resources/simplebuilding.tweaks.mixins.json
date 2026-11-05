@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.tweaks.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ExperienceOrbAccessor",
+    "ExperienceOrbMixin",
+    "FireBlockInvoker",
+    "HeadAbilityConsumeEffectMixin",
+    "HeadAbilityEntityMixin",
+    "HeadAbilityFarmlandMixin",
+    "HeadAbilityLivingEntityMixin",
+    "HeadAbilityPlayerMixin",
+    "HeadAbilityShulkerBoxMixin",
+    "SkullBlockEntityTypeMixin",
+    "TweaksServerPlayerMixin",
+    "TweaksTeleportCommandMixin"
+  ],
+  "client": [
+    "client.EchoCompassFovMixin",
+    "client.ExperienceOrbRendererMixin",
+    "client.ExperienceOrbRenderStateMixin",
+    "client.SkullModelMixin",
+    "client.WornModHeadMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

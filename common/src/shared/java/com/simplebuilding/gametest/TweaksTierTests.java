@@ -58,6 +58,7 @@ public final class TweaksTierTests {
 
     /** Einzeln geladen fassen die Stufen I-III 4, 8 und 16 Windkugeln; mehr nimmt keine und verbraucht keine. */
     public static void launchpadTiersHoldFourEightAndSixteenWindCharges(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = false;
         for (int i = 0; i < 3; i++) {
@@ -85,6 +86,7 @@ public final class TweaksTierTests {
      * (ServerPlayerGameMode#useItemOn), der beim Schleichen den Block ueberspringt.
      */
     public static void sneakingWithWindChargesLoadsTheWholeHandUpToCapacity(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = false;
         ServerLevel level = helper.getLevel();
@@ -136,6 +138,7 @@ public final class TweaksTierTests {
      * keinen Fallschutz.
      */
     public static void launchStrengthPerChargeIsDoubledSoFullTiersLaunchLikeTwiceTheOldCharges(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         for (int i = 0; i < 3; i++) {
             double now = LaunchpadBlockEntity.strengthFor(CAPACITIES[i]);
             double old = 1.5 + (2 * CAPACITIES[i]) * 0.4;
@@ -161,6 +164,7 @@ public final class TweaksTierTests {
      * Beim ersten Tick behalten sie, was ihre Stufe jetzt fasst, und werfen den Rest als Windkugeln aus.
      */
     public static void oldLaunchpadsDropTheChargesTheirTierNoLongerHolds(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Block[] pads = {TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.LAUNCHPAD};
         int[] oldCharges = {32, 16};
         int[] kept = {16, 4};
@@ -192,6 +196,7 @@ public final class TweaksTierTests {
 
     /** Stufe I haelt nur den eigenen Chunk, II das Kreuz aus 5 Chunks, III die 3x3; beim Abbau kommt alles frei. */
     public static void chunkLoaderTiersForceOneFiveAndNineChunks(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         Block[] loaders = {TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER};
         int[] sizes = {1, 5, 9};
@@ -244,6 +249,7 @@ public final class TweaksTierTests {
      * Mitte des Enderit-Loaders liegt diagonal zum Kreuz und kommt frei.
      */
     public static void aNetheriteChunkLoaderTakesOverOnlyTheChunksOfItsCross(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
         BlockPos cross = helper.absolutePos(new BlockPos(1, 1, 1)).offset(16384, 0, 16384);
         BlockPos square = cross.offset(16, 0, 16);
@@ -289,6 +295,7 @@ public final class TweaksTierTests {
      * aus der Werkbank MobHeadTests).
      */
     public static void padUpgradesPayWithThePressurePlateOfTheirTargetMaterial(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Item any = Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE;
         Item net = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
         Item end = ModItems.ENDERITE_UPGRADE_TEMPLATE;
@@ -373,6 +380,7 @@ public final class TweaksTierTests {
      * fuenf Bloecke neben dem Flypad fliegt er mit Stufe III, nicht mit Stufe I.
      */
     public static void elytraPadAndFlypadAreasMatchTheirTiers(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         BlockPos origin = new BlockPos(0, 0, 0);
         int[] widths = {5, 32, 128};
         for (int tier = 1; tier <= PadTiers.MAX; tier++) {
@@ -431,6 +439,7 @@ public final class TweaksTierTests {
      * ihrem Besitzer; ihre Items tauschen sich im Inventar um (Anzahl bleibt). Kein Kreativ-Tab.
      */
     public static void oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Block[] old = {TweaksBlocks.NETHERITE_FLYPAD, TweaksBlocks.ENDERITE_FLYPAD};
         Block[] now = {TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD};
         java.util.UUID owner = java.util.UUID.randomUUID();
@@ -462,6 +471,7 @@ public final class TweaksTierTests {
 
     /** Jede Familie nennt ihre Stufen aufsteigend und damit ihre hoechste Stufe; alte Bloecke gehoeren zu keiner. */
     public static void everyFamilyNamesItsLastTier(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         java.util.Map<TweaksFamilies.Family, Block> last = java.util.Map.of(
                 TweaksFamilies.Family.ELYTRA_PAD, TweaksBlocks.ENDERITE_ELYTRA_PAD,
                 TweaksFamilies.Family.FLYPAD, TweaksBlocks.STELLAR_FLYPAD,

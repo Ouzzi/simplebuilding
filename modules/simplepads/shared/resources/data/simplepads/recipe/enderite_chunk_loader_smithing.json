@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplepads:enderite_pressure_plate",
+  "base": "simplepads:netherite_chunk_loader",
+  "result": {
+    "id": "simplepads:enderite_chunk_loader"
+  },
+  "template": "simpleores:enderite_upgrade_template"
+}

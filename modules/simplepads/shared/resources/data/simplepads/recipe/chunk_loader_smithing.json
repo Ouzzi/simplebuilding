@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#simplemobheads:trial_chamber_heads",
+  "base": "simplepads:copper_pressure_plate",
+  "result": {
+    "id": "simplepads:chunk_loader"
+  },
+  "template": "simplelib:copper_core"
+}

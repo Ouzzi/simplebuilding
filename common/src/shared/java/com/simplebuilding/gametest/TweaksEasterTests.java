@@ -93,6 +93,7 @@ public final class TweaksEasterTests {
      * Pad, das im Amboss "Don't do it" heisst, zaehlt nicht.
      */
     public static void theLastTierSmithsBackIntoDontDoItThatWorksLikeTierOne(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 1.0, 0.5));
         int index = 0;
         for (Family family : EasterEggs.families()) {
@@ -161,6 +162,7 @@ public final class TweaksEasterTests {
      * mit 1-2 verschleierten Zeichen und nicht laenger als der normale Name.
      */
     public static void easterChainNamesEveryStageAndCostsWhatTheNormalTiersCost(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<String> problems = new ArrayList<>();
         for (Family family : EasterEggs.families()) {
             List<Block> tiers = TweaksFamilies.tiers(family);
@@ -252,6 +254,7 @@ public final class TweaksEasterTests {
      * und Wiedersetzen Easter-Stufe und gespeicherten Trank.
      */
     public static void theFinalEasterPadIsTwiceAsStrongAsTheLastTier(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerLevel level = helper.getLevel();
 
         // Elytra-Pad III (Enderit): 128 -> 256 breit, 192 -> 384 hoch. Kein Durchlauf mit Spielern: der doppelte
@@ -411,6 +414,7 @@ public final class TweaksEasterTests {
      * normales Pad loest nichts aus.
      */
     public static void theEasterAdvancementsAreHiddenAndFireAlongTheChain(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         ServerAdvancementManager manager = helper.getLevel().getServer().getAdvancements();
         AdvancementHolder root = manager.get(EasterEggs.ADV_WHAT_HAVE_YOU_DONE);
         AdvancementHolder seriously = manager.get(EasterEggs.ADV_SERIOUSLY);
@@ -459,6 +463,7 @@ public final class TweaksEasterTests {
      * der Hand spruehen Funken.
      */
     public static void theFunnyStickIsSmithedFromTheFinalPadAndSparklesInTheHand(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Item stick = EasterEggs.funnyStick();
         for (Family family : EasterEggs.families()) {
             int count = EasterEggs.stageCount(family);
@@ -497,6 +502,7 @@ public final class TweaksEasterTests {
      * begruendet aus.
      */
     public static void theEasterEggsAreHiddenFromRecipeViewersAndCreativeTabs(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         Item stick = EasterEggs.funnyStick();
         List<String> problems = new ArrayList<>();
         if (!new ItemStack(stick).is(HIDDEN)) {
@@ -541,7 +547,7 @@ public final class TweaksEasterTests {
                 problems.add("the recipe advancement " + holder.id() + " unlocks an easter recipe");
             }
         }
-        if (!com.simplebuilding.dev.testcentre.TestCentreLayout.EXCLUDED.containsKey("simplebuilding:funny_stick")) {
+        if (!com.simplebuilding.dev.testcentre.TestCentreLayout.EXCLUDED.containsKey(com.simplebuilding.version.McVersion.PADS_NAMESPACE + ":funny_stick")) {
             problems.add("the test centre does not exclude the Funny Stick on purpose");
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " easter visibility problems: " + problems);

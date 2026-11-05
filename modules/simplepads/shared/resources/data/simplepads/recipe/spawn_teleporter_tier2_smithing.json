@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplepads:netherite_pressure_plate",
+  "base": "simplepads:spawn_teleporter",
+  "result": {
+    "id": "simplepads:spawn_teleporter_tier_2"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

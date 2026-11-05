@@ -182,6 +182,24 @@ def challenges_icon():
 
 
 ICONS: dict[str, dict] = {
+    "simplepads": icon("Platzhalter-Raute", {"o": "#2a2a30", "F": "#e8e8f0", "f": "#ffffff"},
+                         [("Kontur", "o"), ("Fuellung", "Ff")],
+                         "................",
+                         "......oo........",
+                         ".....oFFo.......",
+                         "....oFfFFo......",
+                         "...oFfFFFFo.....",
+                         "..oFfFFFFFFo....",
+                         ".oFFFFFFFFFFo...",
+                         ".oFFFFFFFFFFo...",
+                         "..oFFFFFFFFo....",
+                         "...oFFFFFFo.....",
+                         "....oFFFFo......",
+                         ".....oFFo.......",
+                         "......oo........",
+                         "................",
+                         "................",
+                         "................"),
     "simplechallenges": challenges_icon(),
     "simpleenchanting": icon("Verzauberer mit Buch (ENCH02)", {"o": "#1a0a12", "B": "#b04030", "b": "#7a2028",
                                                              "G": "#e8b048", "W": "#f4ead0", "S": "#3a1420", "s": "#5a2030"},
@@ -795,6 +813,7 @@ ITEM_MOTIFS = {
     "simplelights": "light_pane", "simplegadgets": "velocity_gauge", "simplemachines": "signal_dampener",
 }
 BG = {
+    "simplepads": "#8a9098",
     "wiringexample": "#8a9098", "simplemodels": "#34406a", "simplefun": "#8cc4e8", "simplesounds": "#f0d8a0",
     "simplequalityoflife": "#9ed6a6", "simpletweaks": "#d8c08a", "simpledimensions": "#c4a8e6",
     "simplesandwiches": "#a6d6e6", "simplelib": "#d8c8a0", "simpleinterfaces": "#6a8cc8", "simplemaps": "#d88a6a",

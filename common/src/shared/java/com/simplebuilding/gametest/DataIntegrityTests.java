@@ -558,7 +558,9 @@ public final class DataIntegrityTests {
         for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
             net.minecraft.world.item.crafting.Recipe<?> recipe = holder.value();
             Identifier serializer = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer());
-            if (serializer == null || !MOD_ID.equals(serializer.getNamespace())) {
+            // 26.3 (b-pads01): Simple Pads' serializers (Elytra Pad I, Flypad I, the easter chain) count like SimpleBuilding's own.
+            if (serializer == null || !(MOD_ID.equals(serializer.getNamespace())
+                    || com.simplebuilding.version.McVersion.PADS_NAMESPACE.equals(serializer.getNamespace()))) {
                 continue;
             }
             serializers.add(serializer);
@@ -598,8 +600,9 @@ public final class DataIntegrityTests {
                 }
             }
         }
-        helper.assertTrue(serializers.contains(Identifier.fromNamespaceAndPath(MOD_ID, "enchanted_shapeless")),
-                "no loaded recipe uses simplebuilding:enchanted_shapeless (Elytra Pad I / Flypad I); found only " + serializers);
+        // 26.3 (b-pads01): the serializer is Simple Pads' (simplepads:enchanted_shapeless).
+        helper.assertTrue(serializers.contains(Identifier.fromNamespaceAndPath(com.simplebuilding.version.McVersion.PADS_NAMESPACE, "enchanted_shapeless")),
+                "no loaded recipe uses " + com.simplebuilding.version.McVersion.PADS_NAMESPACE + ":enchanted_shapeless (Elytra Pad I / Flypad I); found only " + serializers);
         helper.assertTrue(problems.isEmpty(), "recipe sync problems: " + problems);
         helper.succeed();
     }
@@ -1673,6 +1676,7 @@ public final class DataIntegrityTests {
     /** ENCH02: the enchanter fields point at Simple Enchanting's tables likewise (its own checks cover them). */
     private static boolean movedToMachines(Identifier id) {
         if (McVersion.ASTRAL_ENCHANTING && id != null && com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(id.getNamespace())) return true;
+        if (!McVersion.PADS_IN_SB && id != null && McVersion.PADS_NAMESPACE.equals(id.getNamespace())) return true; // b-pads01: Simple Pads
         return !McVersion.PISTONS_IN_SB && id != null && McVersion.PISTONS_NAMESPACE.equals(id.getNamespace());
     }
 
@@ -1706,6 +1710,7 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
+        items.removeIf(i -> movedToMachines(BuiltInRegistries.ITEM.getKey(i))); // b-pads01: Simple Pads' items on 26.3 (fields point at the module)
         return items;
     }
 
@@ -2817,6 +2822,8 @@ public final class DataIntegrityTests {
                     && !(!McVersion.GADGETS_IN_SB && McVersion.GADGETS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // MACH32-MOD: Simple Machines' Double Piston and Signal Dampener keep their row in SimpleBuilding's functional tab (by id).
                     && !com.simplebuilding.util.MachineRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
+                    // b-pads01: Simple Pads' pads, plates and Spawn Elytra are the module's, not SimpleBuilding's.
+                    && !(!McVersion.PADS_IN_SB && McVersion.PADS_NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()))
                     // ENCH02: Simple Enchanting's two tables keep their place in the enchanting row (by id).
                     && !com.simplebuilding.util.EnchantingRefs.NAMESPACE.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())
                     // b-guide01: SimpleLib's Simple Modpack guide stands in the retired hub's slot of the tools tab.
@@ -3062,6 +3069,7 @@ public final class DataIntegrityTests {
      * in SimpleMachines, trailing filler.
      */
     public static void padsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) { helper.succeed(); return; } // b-pads01: Simple Pads tests its pads on 26.3
         List<String> problems = new ArrayList<>();
         List<CreativeTabLayout.Row> expected = new ArrayList<>(List.of(
                 CreativeTabLayout.Row.of("pressure_plates",
@@ -5325,6 +5333,7 @@ public final class DataIntegrityTests {
         }
         String[] roman = {"I", "II", "III", "IV", "V", "VI"};
         for (com.simplebuilding.tweaks.block.TweaksFamilies.Family family : com.simplebuilding.tweaks.easter.EasterEggs.families()) {
+            if (!McVersion.PADS_IN_SB) break; // b-pads01: the module's own tests check the pad names
             List<Block> tiers = com.simplebuilding.tweaks.block.TweaksFamilies.tiers(family);
             for (int i = 0; i < tiers.size(); i++) {
                 String key = tiers.get(i).getDescriptionId();

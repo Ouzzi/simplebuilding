@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplepads:spawn_teleporter_tier_3"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

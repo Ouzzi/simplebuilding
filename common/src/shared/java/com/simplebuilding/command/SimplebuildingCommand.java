@@ -49,9 +49,12 @@ public final class SimplebuildingCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         // Eigene Wurzel /sbtestcentre (Befehlsrechte statt nur Operator-Spieler, damit Befehlsbloecke ihn nutzen).
         com.simplebuilding.dev.testcentre.TestCentreCommand.register(dispatcher);
+        if (com.simplebuilding.version.McVersion.PADS_IN_SB) {
+            // Admin: alle Chunk-Loader auflisten / entfernen (Besitzer 2026-09-28). 26.3: /simplepads chunkloaders (b-pads01).
+            dispatcher.register(Commands.literal("simplebuilding").requires(OPERATOR_ONLY)
+                    .then(com.simplebuilding.tweaks.command.ChunkLoaderCommand.node()));
+        }
         dispatcher.register(Commands.literal("simplebuilding")
-                // Admin: alle Chunk-Loader auflisten / entfernen (Besitzer 2026-09-28).
-                .then(com.simplebuilding.tweaks.command.ChunkLoaderCommand.node())
                 .requires(OPERATOR_ONLY)
                 .then(Commands.literal("config")
                         .then(Commands.literal("setTrimMultiplier")
