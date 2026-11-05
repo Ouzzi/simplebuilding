@@ -13,8 +13,8 @@ public enum HammerTiers {
     NETHERITE("netherite", ToolMaterial.NETHERITE, 8, -2.6F, 2031, 15, 20),
     ENDERITE("enderite", Holder.MATERIAL, 9, -2.4F, 2500, 18, 19),
     /** Optional tiers (ABN30-10): exist only while Simple Ores is loaded; the numbers copy its two alloys, tempo like gold/iron. */
-    ROSE_BRONZE("rose_bronze", Holder.ROSE_BRONZE, 5, -2.8F, 250, 20, 23, "simpleores"),
-    BLOSSOM_GOLD("blossom_gold", Holder.BLOSSOM_GOLD, 5, -2.8F, 225, 22, 22, "simpleores");
+    ROSE_BRONZE("rose_bronze", Holder.ROSE_BRONZE, 5, -2.8F, 190, 15, 23, "simpleores"),
+    ROSE_GOLD("rose_gold", Holder.ROSE_GOLD, 6, -2.8F, 250, 22, 22, "simpleores");
 
     public final String name;
     public final ToolMaterial material;
@@ -74,12 +74,12 @@ public enum HammerTiers {
         static final ToolMaterial MATERIAL = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2530, 10.0F, 5.0F, 18,
                 net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
                         net.minecraft.resources.Identifier.fromNamespaceAndPath("simplelib", "repairs_enderite_equipment")));
-        /** Copies of Simple Ores' tool materials (this mod must not import it): iron durability/tempo 11, resp. 225/gold tempo 12. */
-        static final ToolMaterial ROSE_BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 11.0F, 0.0F, 20,
+        /** Copies of Simple Ores' tool materials (this mod must not import it): copper durability 190/tempo 8, resp. iron durability 250/gold tempo 12. */
+        static final ToolMaterial ROSE_BRONZE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 190, 8.0F, 1.0F, 15,
                 net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
                         net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "repairs_rose_bronze_equipment")));
-        static final ToolMaterial BLOSSOM_GOLD = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 225, 12.0F, 0.0F, 22,
+        static final ToolMaterial ROSE_GOLD = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 12.0F, 2.0F, 22,
                 net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,
-                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "repairs_blossom_gold_equipment")));
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath("simpleores", "repairs_rose_gold_equipment")));
     }
 }

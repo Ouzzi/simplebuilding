@@ -19,14 +19,14 @@ import ores_2026_10_30 as ores  # noqa: E402
 
 ROWS = [  # name, hunger, effects
     ('Goldapfel (Vanilla)', 4, 'Regeneration II 0:05, Absorption I 2:00'),
-    ('Rosenbronze-Apfel', 5, 'Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30'),
-    ('Blütengold-Apfel', 6, 'Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50'),
+    ('Rosenkupfer-Apfel', 5, 'Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30'),
+    ('Roségold-Apfel', 6, 'Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50'),
     ('Netherit-Apfel', 8, 'Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00'),
 ]
 ENCHANTED = [
     ('Verz. Goldapfel (Vanilla)', 'Regeneration II 0:20, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
-    ('Verz. Rosenbronze-Apfel', 'Regeneration II 0:30, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
-    ('Verz. Blütengold-Apfel', 'Regeneration II 0:35, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
+    ('Verz. Rosenkupfer-Apfel', 'Regeneration II 0:30, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
+    ('Verz. Roségold-Apfel', 'Regeneration II 0:35, Resistenz I 5:00, Feuerres. 5:00, Absorption IV 2:00'),
     ('Verz. Netherit-Apfel', 'Regeneration II 0:40, + Stärke II 2:00'),
 ]
 
@@ -73,7 +73,7 @@ def main() -> None:
             'Der verzauberte Apfel nutzt dieselbe Textur plus Glint (hier nur als lila Streifen angedeutet). Je Apfel eine Variante wählen, unten steht der Antwortcode.</p>',
             '<h2>Vergleich: Stufenleiter (Vanilla / Netherit)</h2>',
             '<div class="row">' + fig(gold, 'Goldapfel (Vanilla)') + fig(nether, 'Netherit-Apfel') + fig(glint(gold), 'verz. Goldapfel (Vanilla)') + fig(glint(nether), 'verz. Netherit-Apfel') + '</div>']
-    for name, ramp, code in (('Rosenbronze-Apfel (hart, Kupfer-Rosé)', 'hard', 'rose'), ('Blütengold-Apfel (weich, Zartrosa)', 'soft', 'bloom')):
+    for name, ramp, code in (('Rosenkupfer-Apfel (hart, Kupfer-Rosé)', 'hard', 'rose'), ('Roségold-Apfel (weich, Zartrosa)', 'soft', 'bloom')):
         html.append(f'<h2>{name}</h2>')
         for v, title in (('a', 'A reine Umfärbung des Goldapfels'), ('b', 'B Umfärbung mit grünem Blatt am Stiel')):
             im = ores.apple_image(j, ramp, v)

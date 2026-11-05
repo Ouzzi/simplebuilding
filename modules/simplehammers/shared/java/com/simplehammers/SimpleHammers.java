@@ -91,7 +91,7 @@ public final class SimpleHammers {
         // Test centre station (framework contract, no import of the test centre): the hammers and the guide by id.
         List<String> items = new ArrayList<>();
         TIERS.forEach(tier -> items.add(MOD_ID + ":" + tier + "_sledgehammer"));
-        if (isLoaded("simpleores")) java.util.List.of("rose_bronze", "blossom_gold").forEach(tier -> items.add(MOD_ID + ":" + tier + "_sledgehammer"));
+        if (isLoaded("simpleores")) java.util.List.of("rose_bronze", "rose_gold").forEach(tier -> items.add(MOD_ID + ":" + tier + "_sledgehammer"));
         items.add(MOD_ID + ":guide_book");
         com.simplebuilding.framework.api.TestCentreStations.register(MOD_ID, "hammers", "simplehammers.testcentre.station", items);
     }
@@ -103,6 +103,10 @@ public final class SimpleHammers {
         for (String tier : TIERS) {
             IdMoves.move(Registries.ITEM, old(tier + "_sledgehammer"), id(tier + "_sledgehammer"));
         }
+        // 05.11.: Blossom Gold became Rose Gold (optional tier of Simple Ores).
+        IdMoves.move(Registries.ITEM, id("blossom_gold_sledgehammer"), id("rose_gold_sledgehammer"));
+        IdMoves.move(Registries.RECIPE, id("blossom_gold_sledgehammer"), id("rose_gold_sledgehammer"));
+        IdMoves.move(Registries.ADVANCEMENT, id("recipes/tools/blossom_gold_sledgehammer"), id("recipes/tools/rose_gold_sledgehammer"));
         for (String enchantment : ENCHANTMENTS) {
             IdMoves.move(Registries.ENCHANTMENT, old(enchantment), id(enchantment));
         }

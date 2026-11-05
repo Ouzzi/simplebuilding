@@ -23,7 +23,7 @@ def put(path, data):
 
 
 # ---------------------------------------------------------------- names
-ALLOYS = {'rose_bronze': ('Rose Bronze', 'Rosenbronze'), 'blossom_gold': ('Blossom Gold', 'Blütengold')}
+ALLOYS = {'rose_bronze': ('Rose Copper', 'Rosenkupfer'), 'rose_gold': ('Rose Gold', 'Roségold')}
 PARTS = {'sword': ('Sword', 'schwert'), 'pickaxe': ('Pickaxe', 'spitzhacke'), 'axe': ('Axe', 'axt'), 'shovel': ('Shovel', 'schaufel'),
          'hoe': ('Hoe', 'hacke'), 'helmet': ('Helmet', 'helm'), 'chestplate': ('Chestplate', 'harnisch'),
          'leggings': ('Leggings', 'beinschutz'), 'boots': ('Boots', 'stiefel')}
@@ -35,7 +35,7 @@ BLOCKS = {
     'raw_lead_block': ('Block of Raw Lead', 'Rohbleiblock'), 'lead_block': ('Block of Lead', 'Bleiblock'),
     'lead_plate': ('Lead Plate', 'Bleiplatte'),
     'silver_mirror': ('Silver Mirror', 'Silberspiegel'),
-    'rose_bronze_block': ('Block of Rose Bronze', 'Rosenbronzeblock'), 'blossom_gold_block': ('Block of Blossom Gold', 'Blütengoldblock'),
+    'rose_bronze_block': ('Block of Rose Copper', 'Rosenkupferblock'), 'rose_gold_block': ('Block of Rose Gold', 'Roségoldblock'),
 }
 ITEMS = {'raw_silver': ('Raw Silver', 'Rohsilber'), 'silver_ingot': ('Silver Ingot', 'Silberbarren'),
          'silver_nugget': ('Silver Nugget', 'Silberklumpen'),
@@ -136,7 +136,7 @@ ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
 ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
-for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_mirror', 'rose_bronze_block', 'blossom_gold_block'):
+for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_mirror', 'rose_bronze_block', 'rose_gold_block'):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -165,7 +165,7 @@ def storage(ingot, block, folder_item='misc'):
 storage('raw_silver', 'raw_silver_block')
 storage('silver_ingot', 'silver_block')
 storage('rose_bronze_ingot', 'rose_bronze_block')
-storage('blossom_gold_ingot', 'blossom_gold_block')
+storage('rose_gold_ingot', 'rose_gold_block')
 recipe('silver_ingot_from_nuggets', 'misc', {'type': 'minecraft:crafting_shaped', 'category': 'misc', 'key': {'#': item('silver_nugget')},
                                               'pattern': ['###', '###', '###'], 'result': result('silver_ingot')}, item('silver_nugget'))
 recipe('silver_nugget', 'misc', {'type': 'minecraft:crafting_shapeless', 'category': 'misc', 'ingredients': [item('silver_ingot')],
@@ -201,10 +201,11 @@ recipe('silver_mirror', 'building_blocks', {'type': 'minecraft:crafting_shaped',
 # Pressings: 1 pressing per recipe from ingots (owner 30.10.: 6 gold + 1 copper + 1 silver make about exactly one rose gold) (owner ABN30-10: yield per pressing is always 1 ingot, the loss is in the recipe),
 # blast furnace only. Recipe cooking time is the furnace time; the 26.3 blast furnace halves it (1200 -> 600 ticks = 30 s).
 GOLD, COPPER, SILVER, NUGGET = 'minecraft:gold_ingot', 'minecraft:copper_ingot', item('silver_ingot'), item('silver_nugget')
-# IG31-35 (owner 31.10., pictures 31-rezept-1/-2): ONLY these two pressings, shapeless like the owner's pictures.
+# IG31-35 (owner 31.10., 05.11. new recipes): ONLY these two pressings, shapeless like the owner's pictures.
 PRESSINGS = {
-    'rose_bronze_pressling_c': ('rose_bronze_pressling', [GOLD] * 4 + [COPPER] * 2 + [SILVER], '4 gold, 2 copper, 1 silver'),
-    'blossom_gold_pressling_a': ('blossom_gold_pressling', [GOLD] * 7 + [COPPER] + [SILVER], '7 gold, 1 copper, 1 silver'),
+    # Owner 05.11.: Rose Gold = 1 gold + 2 copper + 1 silver; Rose Copper = 2 gold + 1 Rose Gold ingot + 1 silver (as worded; Rueckfrage: copper ingot meant?).
+    'rose_bronze_pressling_c': ('rose_bronze_pressling', [GOLD] * 2 + [item('rose_gold_ingot')] + [SILVER], '2 gold, 1 rose gold, 1 silver'),
+    'rose_gold_pressling_a': ('rose_gold_pressling', [GOLD] + [COPPER] * 2 + [SILVER], '1 gold, 2 copper, 1 silver'),
 }
 PRESSING_COUNT = 1
 BLAST_FURNACE_TICKS = 600
@@ -469,23 +470,23 @@ def note_summaries():
     notes['item:silver_ingot'] = ('Silver ingot: a part of rose gold and a base for silver items. Not a tool material.', 'Silberbarren: Bestandteil von Roségold und Grundlage für Silber-Gegenstände. Kein Werkzeugmaterial.')
     notes['item:silver_nugget'] = ('Nine make a silver ingot; the End silver ore drops them.', 'Neun ergeben einen Silberbarren; das End-Silbererz lässt sie fallen.')
     for a, (en, de) in ALLOYS.items():
-        soft = a == 'blossom_gold'
-        notes[f'item:{a}_ingot'] = ((f'{en} ingot: the {"soft, about 750" if soft else "hard, about 585"} rose gold alloy. Made only by smelting a pressling in a blast furnace.',
-                                     f'{de}barren: die {"weiche, etwa 750er" if soft else "harte, etwa 585er"} Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird.'))
-        notes[f'item:{a}_pressling'] = ((f'Gold, copper and silver ingots pressed together (1 per crafting recipe, see the wiki). Only a blast furnace melts it ({BLAST_FURNACE_TICKS // 20} s), always into exactly 1 {en.lower()} ingot.',
-                                         f'Gold-, Kupfer- und Silberbarren, zusammengepresst (1 je Rezept, siehe Wiki). Nur der Hochofen schmilzt ihn ({BLAST_FURNACE_TICKS // 20} s), immer zu genau 1 {de}barren.'))
+        soft = a == 'rose_gold'
+        notes[f'item:{a}_ingot'] = ((f'{en} ingot: the {"better" if soft else "simpler"} rose gold alloy. Made only by smelting a pressling in a blast furnace.',
+                                     f'{de}barren: die {"bessere" if soft else "einfachere"} Roségold-Legierung. Entsteht nur, wenn ein Pressling im Hochofen geschmolzen wird.'))
+        notes[f'item:{a}_pressling'] = ((f'{"1 gold, 2 copper and 1 silver ingot" if a == "rose_gold" else "2 gold ingots, 1 Rose Gold ingot and 1 silver ingot"} pressed together (shapeless, 1 per crafting recipe). Only a blast furnace melts it ({BLAST_FURNACE_TICKS // 20} s), always into exactly 1 {en.lower()} ingot.',
+                                         f'{"1 Gold-, 2 Kupfer- und 1 Silberbarren" if a == "rose_gold" else "2 Goldbarren, 1 Roségoldbarren und 1 Silberbarren"}, zusammengepresst (formlos, 1 je Rezept). Nur der Hochofen schmilzt ihn ({BLAST_FURNACE_TICKS // 20} s), immer zu genau 1 {de}barren.'))
         for part in TOOL_PARTS + ARMOR_PARTS:
             pen, pde = PARTS[part]
-            stats_en = 'durability 250 (like iron), speed 11, enchantability 20' if not soft else 'durability 225, speed 12 (like gold), enchantability 22'
-            stats_de = 'Haltbarkeit 250 (wie Eisen), Tempo 11, Verzauberbarkeit 20' if not soft else 'Haltbarkeit 225, Tempo 12 (wie Gold), Verzauberbarkeit 22'
+            stats_en = 'durability 190 (like copper), speed 8, enchantability 15' if not soft else 'durability 250 (like iron), speed 12 (like gold), enchantability 22'
+            stats_de = 'Haltbarkeit 190 (wie Kupfer), Tempo 8, Verzauberbarkeit 15' if not soft else 'Haltbarkeit 250 (wie Eisen), Tempo 12 (wie Gold), Verzauberbarkeit 22'
             if part in ARMOR_PARTS:
-                prot = {'rose_bronze': (2, 4, 3, 1), 'blossom_gold': (2, 5, 3, 1)}[a][ARMOR_PARTS.index(part)]
-                notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: protection {prot}, durability factor {15 if not soft else 13}, enchantability {22 if not soft else 25}.',
-                                             f'{de}{pde}: Schutz {prot}, Haltbarkeitsfaktor {15 if not soft else 13}, Verzauberbarkeit {22 if not soft else 25}.')
+                prot = {'rose_bronze': (2, 4, 3, 1), 'rose_gold': (2, 5, 3, 1)}[a][ARMOR_PARTS.index(part)]
+                notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: protection {prot}, durability factor {11 if not soft else 15}, enchantability {12 if not soft else 25}.',
+                                             f'{de}{pde}: Schutz {prot}, Haltbarkeitsfaktor {11 if not soft else 15}, Verzauberbarkeit {12 if not soft else 25}.')
             else:
                 notes[f'item:{a}_{part}'] = (f'{en} {pen.lower()}: {stats_en}. Mines like iron.', f'{de}{pde}: {stats_de}. Baut ab wie Eisen.')
     for a, (en, de) in ALLOYS.items():
-        soft = a == 'blossom_gold'
+        soft = a == 'rose_gold'
         res_en, res_de = ('0:50', '0:50') if soft else ('0:30', '0:30')
         eff_en, eff_de = f'Regeneration II 0:05, Absorption I 2:00, Resistance I {res_en}', f'Regeneration II 0:05, Absorption I 2:00, Resistenz I {res_de}'
         reg = '0:35' if soft else '0:30'
@@ -529,31 +530,31 @@ FEATURES = [
               'End: End-Silbererz auf den äußeren Inseln (Hochland, Mittelland, Ödland, kleine Inseln), Adern zu 6 im Endstein, je 2 bis 6 Silberklumpen: Silber, das man nach dem Drachen farmen kann, ohne tief zu graben.',
               'Gegenstände: Rohsilber, Silberbarren, Silberklumpen, Blöcke aus Silber und Rohsilber. Ofen und Hochofen schmelzen Rohsilber und jedes Erz.'])),
     feature('rose_gold', [f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_pressling_c.json', f'{DATAP}/recipe/rose_bronze_ingot_from_blasting_rose_bronze_pressling.json'],
-            ('Rose gold', 'Two alloys of gold, copper and silver: hard Rose Bronze (about 585) and soft Blossom Gold (about 750). Made in two steps: press ingots into pressings, melt them in a blast furnace.',
-             ['Pressing (crafting, shapeless, 1 pressing per recipe): Rose Bronze (copper-rose) 4 gold + 2 copper + 1 silver ingot. Blossom Gold (pale pink) 7 gold + 1 copper + 1 silver ingot. There are no other pressing recipes.',
-              'Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. The loss against the 7 or 9 ingots put in is intended: silver stays the bottleneck.',
-              'Rose Bronze is a darker copper-rose, Blossom Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot.']),
-            ('Roségold', 'Zwei Legierungen aus Gold, Kupfer und Silber: das harte Rosenbronze (etwa 585) und das weiche Blütengold (etwa 750). Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.',
-             ['Pressen (Werkbank, formlos, 1 Pressling je Rezept): Rosenbronze (Kupfer-Rosé) 4 Gold + 2 Kupfer + 1 Silberbarren. Blütengold (Zartrosa) 7 Gold + 1 Kupfer + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.',
-              'Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Der Verlust gegenüber den 7 bzw. 9 eingesetzten Barren ist gewollt: Silber bleibt der Engpass.',
-              'Rosenbronze ist ein dunkleres Kupfer-Rosé, Blütengold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren.'])),
+            ('Rose gold', 'Two alloys of gold, copper and silver: Rose Gold and the stronger-gold Rose Copper, which is made from Rose Gold. Made in two steps: press ingots into pressings, melt them in a blast furnace.',
+             ['Pressing (crafting, shapeless, 1 pressing per recipe): Rose Gold (pale pink) 1 gold + 2 copper + 1 silver ingot. Rose Copper (copper-rose) 2 gold + 1 Rose Gold + 1 silver ingot. There are no other pressing recipes.',
+              'Melting: a pressing melts only in a blast furnace (not in a furnace, smoker or campfire), 30 seconds, always into exactly 1 ingot. One pressing costs 4 ingots and gives 1: silver stays the bottleneck.',
+              'Rose Copper is a darker copper-rose, Rose Gold a pale pink. Blocks of both are craftable. Repair with the matching ingot.']),
+            ('Roségold', 'Zwei Legierungen aus Gold, Kupfer und Silber: Roségold und das daraus gefertigte Rosenkupfer. Zwei Schritte: Barren zu Presslingen pressen, im Hochofen schmelzen.',
+             ['Pressen (Werkbank, formlos, 1 Pressling je Rezept): Roségold (Zartrosa) 1 Gold + 2 Kupfer + 1 Silberbarren. Rosenkupfer (Kupfer-Rosé) 2 Gold + 1 Roségold + 1 Silberbarren. Andere Pressling-Rezepte gibt es nicht.',
+              'Schmelzen: ein Pressling schmilzt nur im Hochofen (nicht im Ofen, Räucherofen oder Lagerfeuer), 30 Sekunden, immer zu genau 1 Barren. Ein Pressling kostet 4 Barren und ergibt einen: Silber bleibt der Engpass.',
+              'Rosenkupfer ist ein dunkleres Kupfer-Rosé, Roségold ein helles Rosa. Blöcke aus beiden sind herstellbar. Repariert wird mit dem passenden Barren.'])),
     feature('rose_gold_gear', [f'{JAVA}/OresMaterials.java', f'{JAVA}/OresRegistry.java'],
             ('Rose gold tools and armor', 'Sword, pickaxe, axe, shovel, hoe and a full armor set of each alloy. Both mine like iron; neither beats diamond.',
-             ['Rose Bronze (hard): durability 250 like iron, speed 11, enchantability 20; armor 2/4/3/1, durability factor 15, enchantability 22.',
-              'Blossom Gold (soft): durability 225, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 13, enchantability 25.',
+             ['Rose Copper: durability 190 like copper, speed 8, enchantability 15; armor 2/4/3/1 like copper, durability factor 11, enchantability 12.',
+              'Rose Gold (the best of the two): durability 250 like iron, speed 12 like gold, enchantability 22; armor 2/5/3/1, durability factor 15 like iron, enchantability 25.',
               'Silver itself has no tools. With Simple Hammers installed, both alloys also get a sledgehammer (see the Simple Hammers entry).']),
             ('Roségold-Werkzeuge und -Rüstung', 'Schwert, Spitzhacke, Axt, Schaufel, Hacke und ein ganzer Rüstungssatz jeder Legierung. Beide bauen wie Eisen ab; keine schlägt Diamant.',
-             ['Rosenbronze (hart): Haltbarkeit 250 wie Eisen, Tempo 11, Verzauberbarkeit 20; Rüstung 2/4/3/1, Haltbarkeitsfaktor 15, Verzauberbarkeit 22.',
-              'Blütengold (weich): Haltbarkeit 225, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 13, Verzauberbarkeit 25.',
+             ['Rosenkupfer: Haltbarkeit 190 wie Kupfer, Tempo 8, Verzauberbarkeit 15; Rüstung 2/4/3/1 wie Kupfer, Haltbarkeitsfaktor 11, Verzauberbarkeit 12.',
+              'Roségold (das bessere): Haltbarkeit 250 wie Eisen, Tempo 12 wie Gold, Verzauberbarkeit 22; Rüstung 2/5/3/1, Haltbarkeitsfaktor 15 wie Eisen, Verzauberbarkeit 25.',
               'Silber selbst hat keine Werkzeuge. Mit Simple Hammers gibt es zu beiden Legierungen auch einen Vorschlaghammer (siehe Eintrag Simple Hammers).'])),
-    feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_blossom_gold_apple.json'],
+    feature('rose_gold_apples', [f'{JAVA}/OresFood.java', f'{JAVA}/OresRegistry.java', f'{DATAP}/recipe/rose_bronze_apple.json', f'{DATAP}/recipe/enchanted_rose_gold_apple.json'],
             ('Rose gold apples', 'A plain and an enchanted apple of each alloy, between the golden apple and the Netherite apple. Always edible, no cooldown.',
-             ['Plain: 8 ingots of the alloy round an apple. Rose Bronze apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Blossom Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.',
-              'Enchanted (glint): 8 blocks of the alloy round an apple. Rose Bronze: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Blossom Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.',
+             ['Plain: 8 ingots of the alloy round an apple. Rose Copper apple: 5 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:30. Rose Gold apple: 6 hunger, Regeneration II 0:05, Absorption I 2:00, Resistance I 0:50. Like the golden apple, plus Resistance, and no Fire Resistance.',
+              'Enchanted (glint): 8 blocks of the alloy round an apple. Rose Copper: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. Rose Gold: Regeneration II 0:35, the same. Like the enchanted golden apple. The tooltip lists every effect.',
               'For comparison: golden apple 4 hunger, Regeneration II 0:05, Absorption I 2:00; Netherite apple (SimpleBuilding) 8 hunger, Regeneration II 0:10, Absorption II 0:30, Resistance I 1:00 (plain apples have no Fire Resistance). They appear in the Food and Drinks tab behind the enchanted golden apple.']),
             ('Roségold-Äpfel', 'Je Legierung ein normaler und ein verzauberter Apfel, zwischen Goldapfel und Netherit-Apfel. Immer essbar, ohne Abklingzeit.',
-             ['Normal: 8 Barren der Legierung um einen Apfel. Rosenbronze-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Blütengold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.',
-              'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenbronze: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Blütengold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.',
+             ['Normal: 8 Barren der Legierung um einen Apfel. Rosenkupfer-Apfel: 5 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:30. Roségold-Apfel: 6 Hunger, Regeneration II 0:05, Absorption I 2:00, Resistenz I 0:50. Wie der Goldapfel plus Resistenz, ohne Feuerresistenz.',
+              'Verzaubert (Schimmer): 8 Blöcke der Legierung um einen Apfel. Rosenkupfer: Regeneration II 0:30, Resistenz I 5:00, Feuerresistenz 5:00, Absorption IV 2:00. Roségold: Regeneration II 0:35, sonst dasselbe. Wie der verzauberte Goldapfel. Der Tooltip listet jeden Effekt.',
               'Zum Vergleich: Goldapfel 4 Hunger, Regeneration II 0:05, Absorption I 2:00; Netherit-Apfel (SimpleBuilding) 8 Hunger, Regeneration II 0:10, Absorption II 0:30, Resistenz I 1:00. Sie stehen im Reiter Essen und Trinken hinter dem verzauberten Goldapfel.'])),
     feature('lead', [f'{JAVA}/OresRegistry.java', f'{DATAP}/worldgen/placed_feature/lead_ore.json', f'{DATAP}/tags/block/soundproofing.json'],
             ('Lead', 'A dull, heavy metal of stone and deepslate. Lead blocks stop the Sculk from hearing, withstand explosions and muffle sound - but are loud themselves.',

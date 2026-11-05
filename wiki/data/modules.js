@@ -1489,7 +1489,7 @@ window.WIKI_MODULES = [
       "recipes": 12,
       "features": 13
     },
-    "dataHash": "3a0da83bc035"
+    "dataHash": "114c39f55a28"
   },
   {
     "id": "simpleoptimization",
@@ -1873,7 +1873,7 @@ window.WIKI_MODULES = [
   {
     "id": "simpleores",
     "displayName": "Simple Ores",
-    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Bronze, soft Blossom Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
+    "description": "Silver ore in the Overworld and the End, and rose gold: two alloys of gold, copper and silver (hard Rose Copper, soft Rose Gold), pressed into pressings, melted in the blast furnace only, with tools and armor of their own. Since IG31-13 also Enderite (the tier above netherite; other Simple mods show their Enderite variants only with it), Dimensional Scrap and Sage Ore. Works on its own with Vanilla.",
     "version": "0.1.0",
     "minecraft": "26.3",
     "loaders": [
@@ -1896,8 +1896,8 @@ window.WIKI_MODULES = [
       "de": "Silbererz in der Oberwelt und im End mit Silberpfeil gegen Untote und Silberspiegel, Blei, dessen Blöcke Geräusche dämmen und den Sculk taub halten, sowie Roségold: zwei Legierungen aus Gold, Kupfer und Silber, zu Presslingen gepresst, nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen."
     },
     "purpose": {
-      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
-      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenbronze, weich: Blütengold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
+      "en": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenkupfer, weich: Roségold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers.",
+      "de": "Silbererz in Oberwelt und End (selten, Tiefenschiefer-Variante, End-Silber mit Klumpen) und Roségold: zwei Legierungen (hart: Rosenkupfer, weich: Roségold) aus Gold, Kupfer und Silber, als Pressling gepresst und nur im Hochofen geschmolzen, mit eigenen Werkzeugen und Rüstungen; allein mit Vanilla spielbar, Vorschlaghämmer nur mit Simple Hammers."
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
@@ -1906,7 +1906,7 @@ window.WIKI_MODULES = [
       "recipes": 66,
       "features": 10
     },
-    "dataHash": "bcee39eff812"
+    "dataHash": "ebb1b3463f7e"
   },
   {
     "id": "simplemachines",

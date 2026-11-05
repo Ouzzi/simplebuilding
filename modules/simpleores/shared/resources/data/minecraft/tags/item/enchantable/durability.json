@@ -9,14 +9,14 @@
     "simpleores:rose_bronze_chestplate",
     "simpleores:rose_bronze_leggings",
     "simpleores:rose_bronze_boots",
-    "simpleores:blossom_gold_sword",
-    "simpleores:blossom_gold_pickaxe",
-    "simpleores:blossom_gold_axe",
-    "simpleores:blossom_gold_shovel",
-    "simpleores:blossom_gold_hoe",
-    "simpleores:blossom_gold_helmet",
-    "simpleores:blossom_gold_chestplate",
-    "simpleores:blossom_gold_leggings",
-    "simpleores:blossom_gold_boots"
+    "simpleores:rose_gold_sword",
+    "simpleores:rose_gold_pickaxe",
+    "simpleores:rose_gold_axe",
+    "simpleores:rose_gold_shovel",
+    "simpleores:rose_gold_hoe",
+    "simpleores:rose_gold_helmet",
+    "simpleores:rose_gold_chestplate",
+    "simpleores:rose_gold_leggings",
+    "simpleores:rose_gold_boots"
   ]
 }
