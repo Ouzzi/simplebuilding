@@ -229,16 +229,18 @@ public final class CrossModGameTest {
             if ("minecraft".equals(namespace) || "simplebuilding".equals(namespace) || LEGACY_OR_HIDDEN.contains(id.getPath()) || HIDDEN_BY_DESIGN.contains(id.toString())) {
                 continue;
             }
-            int count = 0;
+            int count = 1;
+            List<ItemStack> seen = new ArrayList<>();
             for (Identifier tabId : registry.keySet()) {
                 if (tabId.getNamespace().equals(namespace)) {
-                    List<ItemStack> seen = new ArrayList<>();
                     for (ItemStack stack : registry.getValue(tabId).getDisplayItems()) {
-                        // variants of one item (heads with different mob data) are different stacks, not duplicates
-                        if (BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id)
-                                && seen.stream().noneMatch(o -> ItemStack.isSameItemSameComponents(o, stack))) {
-                            seen.add(stack);
-                            count++;
+                        // variants of one item (heads with different mob data) are different stacks; only the same stack twice is a duplicate
+                        if (BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id)) {
+                            if (seen.stream().anyMatch(o -> ItemStack.isSameItemSameComponents(o, stack))) {
+                                count++;
+                            } else {
+                                seen.add(stack);
+                            }
                         }
                     }
                 }
