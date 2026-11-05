@@ -45,7 +45,7 @@ public final class OresRegistry {
     /** The two alloys: path prefix, tool material, armor material, the tool numbers of the concept. */
     public enum Alloy {
         ROSE_BRONZE("rose_bronze", OresMaterials.ROSE_BRONZE_TOOLS, OresMaterials.ROSE_BRONZE_ARMOR, -3.1F, -2.0F, -1.0F),
-        BLOSSOM_GOLD("blossom_gold", OresMaterials.BLOSSOM_GOLD_TOOLS, OresMaterials.BLOSSOM_GOLD_ARMOR, -3.0F, 0.0F, -3.0F);
+        ROSE_GOLD("rose_gold", OresMaterials.ROSE_GOLD_TOOLS, OresMaterials.ROSE_GOLD_ARMOR, -3.0F, 0.0F, -3.0F);
 
         public final String id;
         public final ToolMaterial tools;
@@ -73,7 +73,7 @@ public final class OresRegistry {
     public static final Block RAW_SILVER_BLOCK = block("raw_silver_block", Blocks.RAW_GOLD_BLOCK, Block::new);
     public static final Block SILVER_BLOCK = block("silver_block", Blocks.GOLD_BLOCK, Block::new);
     public static final Block ROSE_BRONZE_BLOCK = block("rose_bronze_block", Blocks.GOLD_BLOCK, Block::new);
-    public static final Block BLOSSOM_GOLD_BLOCK = block("blossom_gold_block", Blocks.GOLD_BLOCK, Block::new);
+    public static final Block ROSE_GOLD_BLOCK = block("rose_gold_block", Blocks.GOLD_BLOCK, Block::new);
 
     /**
      * Lead (concept ORES31 section 3): quiet metal it is not - the heavy sound is the point (walking on it or mining it is loud, a lead wall
@@ -150,8 +150,8 @@ public final class OresRegistry {
         food("rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ROSE_BRONZE_APPLE));
         food("enchanted_rose_bronze_apple", p -> p.food(OresFood.ROSE_BRONZE_APPLE_FOOD, OresFood.ENCHANTED_ROSE_BRONZE_APPLE)
                 .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
-        food("blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.BLOSSOM_GOLD_APPLE));
-        food("enchanted_blossom_gold_apple", p -> p.food(OresFood.BLOSSOM_GOLD_APPLE_FOOD, OresFood.ENCHANTED_BLOSSOM_GOLD_APPLE)
+        food("rose_gold_apple", p -> p.food(OresFood.ROSE_GOLD_APPLE_FOOD, OresFood.ROSE_GOLD_APPLE));
+        food("enchanted_rose_gold_apple", p -> p.food(OresFood.ROSE_GOLD_APPLE_FOOD, OresFood.ENCHANTED_ROSE_GOLD_APPLE)
                 .rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     }
 
@@ -235,9 +235,9 @@ public final class OresRegistry {
 
     public static final String[] NATURAL = {"silver_ore", "deepslate_silver_ore", "end_silver_ore", "raw_silver_block", "lead_ore", "deepslate_lead_ore", "raw_lead_block",
             "sage_ore", "deepslate_sage_ore", "dimensional_scrap", "nether_dimensional_scrap", "end_dimensional_scrap"};
-    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "blossom_gold_block", "enderite_block"};
+    public static final String[] BUILDING = {"silver_block", "lead_block", "lead_plate", "silver_sheet", "silver_mirror", "rose_bronze_block", "rose_gold_block", "enderite_block"};
     public static final String[] INGREDIENTS = {"raw_silver", "silver_nugget", "silver_ingot", "raw_lead", "lead_nugget", "lead_ingot", "rose_bronze_pressling",
-            "rose_bronze_ingot", "blossom_gold_pressling", "blossom_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
+            "rose_bronze_ingot", "rose_gold_pressling", "rose_gold_ingot", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_nugget",
             "enderite_ingot", "enderite_upgrade_template", "sage_orb"};
     /** IG31-13: ids that moved here (items; the blocks have block items of the same path) - from SimpleLib the Enderite seven. */
     public static final List<String> FROM_SIMPLELIB = List.of("enderite_nugget", "raw_enderite", "layered_raw_enderite", "enderite_scrap", "enderite_ingot",
@@ -247,12 +247,12 @@ public final class OresRegistry {
             "layered_raw_enderite", "misc", "enderite_scrap_from_blasting_layered_raw_enderite", "misc", "enderite_ingot_from_scrap", "misc",
             "enderite_block", "decorations", "enderite_ingot", "building_blocks", "enderite_upgrade_template", "misc");
     public static final String[] TOOLS = {"rose_bronze_shovel", "rose_bronze_pickaxe", "rose_bronze_axe", "rose_bronze_hoe",
-            "blossom_gold_shovel", "blossom_gold_pickaxe", "blossom_gold_axe", "blossom_gold_hoe"};
+            "rose_gold_shovel", "rose_gold_pickaxe", "rose_gold_axe", "rose_gold_hoe"};
     public static final String[] COMBAT = {"rose_bronze_sword", "rose_bronze_helmet", "rose_bronze_chestplate", "rose_bronze_leggings",
-            "rose_bronze_boots", "blossom_gold_sword", "blossom_gold_helmet", "blossom_gold_chestplate", "blossom_gold_leggings", "blossom_gold_boots"};
+            "rose_bronze_boots", "rose_gold_sword", "rose_gold_helmet", "rose_gold_chestplate", "rose_gold_leggings", "rose_gold_boots"};
 
     /** IG31-41: the four rose gold apples, shown in the Food and Drinks tab behind the enchanted golden apple. */
-    public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "blossom_gold_apple", "enchanted_blossom_gold_apple"};
+    public static final String[] FOOD = {"rose_bronze_apple", "enchanted_rose_bronze_apple", "rose_gold_apple", "enchanted_rose_gold_apple"};
 
     private OresRegistry() {}
 }

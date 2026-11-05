@@ -2,6 +2,10 @@ package com.simpleores;
 
 import com.simpleores.config.OresConfig;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +51,44 @@ public final class SimpleOres {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ITEM, lib(path), id(path));
         }
         com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.BLOCK, lib("enderite_block"), id("enderite_block"));
+        moveBlossomGold();
         OresRegistry.RECIPES_FROM_SIMPLELIB.forEach((path, folder) -> {
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.RECIPE, lib(path), id(path));
             com.simplelib.api.IdMoves.move(net.minecraft.core.registries.Registries.ADVANCEMENT, lib("recipes/" + folder + "/" + path),
                     id("recipes/" + folder + "/" + path));
         });
+    }
+
+    /**
+     * 05.11.: "Blossom Gold" became "Rose Gold" ({@code blossom_gold_*} to {@code rose_gold_*}); items, block, recipes (recipe book) and
+     * recipe advancements (progress) of old worlds move along. Equipment assets and tags are data of this mod and need no move.
+     */
+    private static void moveBlossomGold() {
+        for (String part : List.of("ingot", "pressling", "block", "sword", "helmet", "chestplate", "leggings", "boots", "pickaxe", "axe", "shovel", "hoe", "apple")) {
+            moveId(Registries.ITEM, "blossom_gold_" + part, "rose_gold_" + part);
+        }
+        moveId(Registries.ITEM, "enchanted_blossom_gold_apple", "enchanted_rose_gold_apple");
+        moveId(Registries.BLOCK, "blossom_gold_block", "rose_gold_block");
+        // recipe name -> folder of its advancement
+        Map<String, String> recipes = new LinkedHashMap<>();
+        recipes.put("block", "building_blocks");
+        for (String part : List.of("sword", "helmet", "chestplate", "leggings", "boots")) recipes.put(part, "combat");
+        for (String part : List.of("pickaxe", "axe", "shovel", "hoe")) recipes.put(part, "tools");
+        recipes.put("apple", "food");
+        recipes.forEach((part, folder) -> moveRecipe("blossom_gold_" + part, "rose_gold_" + part, folder));
+        moveRecipe("enchanted_blossom_gold_apple", "enchanted_rose_gold_apple", "food");
+        moveRecipe("blossom_gold_pressling_a", "rose_gold_pressling_a", "misc");
+        moveRecipe("blossom_gold_ingot_from_blossom_gold_block", "rose_gold_ingot_from_rose_gold_block", "misc");
+        moveRecipe("blossom_gold_ingot_from_blasting_blossom_gold_pressling", "rose_gold_ingot_from_blasting_rose_gold_pressling", "misc");
+    }
+
+    private static void moveId(net.minecraft.resources.ResourceKey<? extends net.minecraft.core.Registry<?>> registry, String from, String to) {
+        com.simplelib.api.IdMoves.move(registry, id(from), id(to));
+    }
+
+    private static void moveRecipe(String from, String to, String folder) {
+        com.simplelib.api.IdMoves.move(Registries.RECIPE, id(from), id(to));
+        com.simplelib.api.IdMoves.move(Registries.ADVANCEMENT, id("recipes/" + folder + "/" + from), id("recipes/" + folder + "/" + to));
     }
 
     private static boolean movesRegistered;

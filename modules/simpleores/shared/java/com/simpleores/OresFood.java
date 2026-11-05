@@ -17,14 +17,14 @@ public final class OresFood {
     private static final float SATURATION = 1.2F;
 
     public static final FoodProperties ROSE_BRONZE_APPLE_FOOD = food(5);
-    public static final FoodProperties BLOSSOM_GOLD_APPLE_FOOD = food(6);
+    public static final FoodProperties ROSE_GOLD_APPLE_FOOD = food(6);
 
     /** Like the golden apple (Regeneration II 0:05, Absorption I 2:00) plus Resistance I 0:30. No Fire Resistance on the plain apples (B02, 02.11.). */
     public static final Consumable ROSE_BRONZE_APPLE = effects(
             new MobEffectInstance(MobEffects.REGENERATION, 100, 1), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0),
             new MobEffectInstance(MobEffects.RESISTANCE, 600, 0));
     /** Like the golden apple plus Resistance I 0:50. */
-    public static final Consumable BLOSSOM_GOLD_APPLE = effects(
+    public static final Consumable ROSE_GOLD_APPLE = effects(
             new MobEffectInstance(MobEffects.REGENERATION, 100, 1), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 0),
             new MobEffectInstance(MobEffects.RESISTANCE, 1000, 0));
     /** Like the enchanted golden apple: Regeneration II 0:30, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. */
@@ -32,7 +32,7 @@ public final class OresFood {
             new MobEffectInstance(MobEffects.REGENERATION, 600, 1), new MobEffectInstance(MobEffects.RESISTANCE, 6000, 0),
             new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000, 0), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 3));
     /** Regeneration II 0:35, Resistance I 5:00, Fire Resistance 5:00, Absorption IV 2:00. */
-    public static final Consumable ENCHANTED_BLOSSOM_GOLD_APPLE = effects(
+    public static final Consumable ENCHANTED_ROSE_GOLD_APPLE = effects(
             new MobEffectInstance(MobEffects.REGENERATION, 700, 1), new MobEffectInstance(MobEffects.RESISTANCE, 6000, 0),
             new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000, 0), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 3));
 

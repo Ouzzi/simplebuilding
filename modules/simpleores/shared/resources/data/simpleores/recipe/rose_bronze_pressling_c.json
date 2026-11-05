@@ -5,10 +5,7 @@
   "ingredients": [
     "minecraft:gold_ingot",
     "minecraft:gold_ingot",
-    "minecraft:gold_ingot",
-    "minecraft:gold_ingot",
-    "minecraft:copper_ingot",
-    "minecraft:copper_ingot",
+    "simpleores:rose_gold_ingot",
     "simpleores:silver_ingot"
   ],
   "result": {

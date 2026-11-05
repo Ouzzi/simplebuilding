@@ -78,6 +78,12 @@ public final class OresTests {
         return CraftingInput.of(3, 3, slots);
     }
 
+    private static CraftingInput of(ItemStack... stacks) {
+        List<ItemStack> slots = new ArrayList<>(List.of(stacks));
+        while (slots.size() < 9) slots.add(ItemStack.EMPTY);
+        return CraftingInput.of(3, 3, slots);
+    }
+
     private static ItemStack craft(GameTestHelper h, CraftingInput input) {
         ServerLevel level = h.getLevel();
         return level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
@@ -124,14 +130,16 @@ public final class OresTests {
             h.succeed();
         });
         ALL.put("tool_values", h -> {
-            ToolMaterial hard = OresMaterials.ROSE_BRONZE_TOOLS, soft = OresMaterials.BLOSSOM_GOLD_TOOLS;
-            check(h, hard.durability() == ToolMaterial.IRON.durability() && hard.durability() == 250, "hard durability = iron");
-            check(h, soft.durability() == ToolMaterial.IRON.durability() * 9 / 10, "soft durability = 90 % of iron: " + soft.durability());
-            check(h, soft.speed() == ToolMaterial.GOLD.speed() && hard.speed() < soft.speed() && hard.speed() > ToolMaterial.IRON.speed(), "tempo: soft = gold, hard between iron and gold");
-            check(h, hard.enchantmentValue() == 20 && soft.enchantmentValue() == ToolMaterial.GOLD.enchantmentValue(), "enchantability");
-            check(h, hard.attackDamageBonus() == 0.0F && soft.attackDamageBonus() == 0.0F, "attack bonus like gold");
+            ToolMaterial hard = OresMaterials.ROSE_BRONZE_TOOLS, soft = OresMaterials.ROSE_GOLD_TOOLS;
+            check(h, hard.durability() == ToolMaterial.COPPER.durability() && hard.durability() == 190, "Rose Copper durability = copper");
+            check(h, soft.durability() == ToolMaterial.IRON.durability(), "Rose Gold durability = iron: " + soft.durability());
+            check(h, soft.speed() == ToolMaterial.GOLD.speed() && hard.speed() < soft.speed() && hard.speed() > ToolMaterial.COPPER.speed() && soft.speed() > ToolMaterial.IRON.speed(),
+                    "tempo: Rose Gold = gold, Rose Copper faster than copper, both faster than their durability twin");
+            check(h, hard.enchantmentValue() == 15 && soft.enchantmentValue() == ToolMaterial.GOLD.enchantmentValue(), "enchantability");
+            check(h, hard.attackDamageBonus() == ToolMaterial.COPPER.attackDamageBonus() && soft.attackDamageBonus() == ToolMaterial.IRON.attackDamageBonus(), "attack bonus like copper / iron");
+            check(h, soft.durability() > hard.durability() && soft.speed() > hard.speed() && soft.attackDamageBonus() > hard.attackDamageBonus(), "Rose Gold is the better of the two");
             check(h, hard.durability() < ToolMaterial.DIAMOND.durability() && soft.durability() < ToolMaterial.DIAMOND.durability(), "no tier beats diamond's durability");
-            for (String alloy : new String[] {"rose_bronze", "blossom_gold"}) {
+            for (String alloy : new String[] {"rose_bronze", "rose_gold"}) {
                 ToolMaterial m = alloy.equals("rose_bronze") ? hard : soft;
                 for (String part : new String[] {"sword", "pickaxe", "axe", "shovel", "hoe"}) {
                     check(h, stack(alloy + "_" + part).getMaxDamage() == m.durability(), alloy + "_" + part + " durability " + stack(alloy + "_" + part).getMaxDamage());
@@ -144,9 +152,9 @@ public final class OresTests {
         });
         ALL.put("armor_values", h -> {
             var hard = OresMaterials.ROSE_BRONZE_ARMOR;
-            var soft = OresMaterials.BLOSSOM_GOLD_ARMOR;
-            check(h, hard.durability() == ArmorMaterials.IRON.durability() && soft.durability() == 13 && soft.durability() < hard.durability(), "durability factors");
-            check(h, hard.enchantmentValue() == 22 && soft.enchantmentValue() == 25, "enchantability");
+            var soft = OresMaterials.ROSE_GOLD_ARMOR;
+            check(h, hard.durability() == ArmorMaterials.COPPER.durability() && soft.durability() == ArmorMaterials.IRON.durability() && soft.durability() > hard.durability(), "durability factors");
+            check(h, hard.enchantmentValue() == 12 && soft.enchantmentValue() == 25, "enchantability");
             int[] hardWant = {2, 4, 3, 1}, softWant = {2, 5, 3, 1};
             ArmorType[] types = {ArmorType.HELMET, ArmorType.CHESTPLATE, ArmorType.LEGGINGS, ArmorType.BOOTS};
             for (int i = 0; i < 4; i++) {
@@ -154,36 +162,34 @@ public final class OresTests {
                 check(h, hard.defense().get(types[i]) <= ArmorMaterials.IRON.defense().get(types[i]) && soft.defense().get(types[i]) <= ArmorMaterials.IRON.defense().get(types[i]),
                         "never above iron: " + types[i]);
                 String[] parts = {"helmet", "chestplate", "leggings", "boots"};
-                check(h, stack("rose_bronze_" + parts[i]).getMaxDamage() == types[i].getDurability(15), "hard " + parts[i] + " durability");
-                check(h, stack("blossom_gold_" + parts[i]).getMaxDamage() == types[i].getDurability(13), "soft " + parts[i] + " durability");
+                check(h, stack("rose_bronze_" + parts[i]).getMaxDamage() == types[i].getDurability(11), "hard " + parts[i] + " durability");
+                check(h, stack("rose_gold_" + parts[i]).getMaxDamage() == types[i].getDurability(15), "soft " + parts[i] + " durability");
             }
             check(h, hard.toughness() == 0.0F && soft.knockbackResistance() == 0.0F, "no toughness, no knockback resistance");
             h.succeed();
         });
         ALL.put("pressing_recipes", h -> {
-            // IG31-35 (owner 31.10.): only two pressings. Hard: 4 gold + 2 copper + 1 silver ingot. Soft: 7 gold + 1 copper + 1 silver ingot.
-            int[][] hard = {{4, 2, 1, 0}};
-            for (int[] r : hard) {
-                ItemStack out = craft(h, grid(r[0], r[1], r[2], r[3]));
-                check(h, out.is(item("rose_bronze_pressling")) && out.getCount() == 1, "hard " + r[0] + "/" + r[1] + "/" + r[2] + " -> " + out);
-            }
-            int[][] soft = {{7, 1, 1, 0}};
+            // Owner 05.11.: only two pressings. Rose Gold: 1 gold + 2 copper + 1 silver. Rose Copper: 2 gold + 1 Rose Gold ingot + 1 silver (as worded).
+            ItemStack roseCopper = craft(h, of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.GOLD_INGOT), stack("rose_gold_ingot"), stack("silver_ingot")));
+            check(h, roseCopper.is(item("rose_bronze_pressling")) && roseCopper.getCount() == 1, "Rose Copper pressing: " + roseCopper);
+            check(h, craft(h, of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.COPPER_INGOT), stack("silver_ingot"))).isEmpty(), "Rose Copper needs the Rose Gold ingot, not copper");
+            int[][] soft = {{1, 2, 1, 0}};
             for (int[] r : soft) {
                 ItemStack out = craft(h, grid(r[0], r[1], r[2], r[3]));
-                check(h, out.is(item("blossom_gold_pressling")) && out.getCount() == 1, "soft " + r[0] + "/" + r[1] + "/" + r[2] + "/" + r[3] + " -> " + out);
+                check(h, out.is(item("rose_gold_pressling")) && out.getCount() == 1, "soft " + r[0] + "/" + r[1] + "/" + r[2] + "/" + r[3] + " -> " + out);
             }
-            for (int[] gone : new int[][] {{6, 2, 1, 0}, {5, 2, 1, 0}, {7, 1, 0, 1}}) {
+            for (int[] gone : new int[][] {{4, 2, 1, 0}, {7, 1, 1, 0}, {1, 2, 0, 1}}) {
                 check(h, craft(h, grid(gone[0], gone[1], gone[2], gone[3])).isEmpty(), "removed mix " + gone[0] + "/" + gone[1] + "/" + gone[2] + "/" + gone[3] + " gives nothing");
             }
-            check(h, craft(h, grid(6, 3, 0, 0)).isEmpty(), "no silver: no pressing");
-            check(h, craft(h, grid(3, 2, 1, 0)).isEmpty(), "too little gold: no pressing");
-            check(h, craft(h, grid(8, 0, 1, 0)).isEmpty(), "no copper: no pressing");
+            check(h, craft(h, grid(1, 2, 0, 0)).isEmpty(), "no silver: no pressing");
+            check(h, craft(h, grid(0, 2, 1, 0)).isEmpty(), "no gold: no pressing");
+            check(h, craft(h, grid(1, 1, 1, 0)).isEmpty(), "too little copper: no pressing");
             h.succeed();
         });
         ALL.put("pressing_melts_only_in_the_blast_furnace", h -> {
             ServerLevel level = h.getLevel();
             var recipes = level.getServer().getRecipeManager();
-            for (String alloy : new String[] {"rose_bronze", "blossom_gold"}) {
+            for (String alloy : new String[] {"rose_bronze", "rose_gold"}) {
                 SingleRecipeInput in = new SingleRecipeInput(stack(alloy + "_pressling"));
                 var blast = recipes.getRecipeFor(RecipeType.BLASTING, in, level);
                 check(h, blast.isPresent(), alloy + " pressing: a blast furnace melts it");
@@ -340,9 +346,9 @@ public final class OresTests {
             // IG31-41: eating gives the effects of docs/ai/PLAN-B-APPLE41-2026-11-01.md (a step between the golden and the Netherite apple).
             Map<String, int[][]> table = new LinkedHashMap<>();   // {effect index, ticks, amplifier}
             table.put("rose_bronze_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 600, 0}});
-            table.put("blossom_gold_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 1000, 0}});
+            table.put("rose_gold_apple", new int[][] {{0, 100, 1}, {1, 2400, 0}, {3, 1000, 0}});
             table.put("enchanted_rose_bronze_apple", new int[][] {{0, 600, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
-            table.put("enchanted_blossom_gold_apple", new int[][] {{0, 700, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
+            table.put("enchanted_rose_gold_apple", new int[][] {{0, 700, 1}, {3, 6000, 0}, {2, 6000, 0}, {1, 2400, 3}});
             @SuppressWarnings("unchecked")
             net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>[] effects = new net.minecraft.core.Holder[] {net.minecraft.world.effect.MobEffects.REGENERATION,
                     net.minecraft.world.effect.MobEffects.ABSORPTION, net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, net.minecraft.world.effect.MobEffects.RESISTANCE,
@@ -351,7 +357,7 @@ public final class OresTests {
                 var player = h.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
                 ItemStack apple = stack(row.getKey());
                 var food = apple.get(net.minecraft.core.component.DataComponents.FOOD);
-                boolean soft = row.getKey().contains("blossom");
+                boolean soft = row.getKey().contains("rose_gold");
                 check(h, food != null && food.nutrition() == (soft ? 6 : 5) && food.canAlwaysEat(), row.getKey() + " food: " + food);
                 boolean enchanted = row.getKey().startsWith("enchanted_");
                 check(h, Boolean.TRUE.equals(apple.get(net.minecraft.core.component.DataComponents.ENCHANTMENT_GLINT_OVERRIDE)) == enchanted, row.getKey() + " glint");
@@ -365,11 +371,11 @@ public final class OresTests {
                 check(h, enchanted || player.getEffect(net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE) == null, row.getKey() + " plain: no Fire Resistance");
             }
             // The step: more hunger than the golden apple (4), less than the Netherite apple (8); Resistance lasts longer than the golden apple's none.
-            check(h, 4 < 5 && 5 < 6 && 6 < 8 && 600 < 1000, "ladder gold < rose < blossom < netherite");
+            check(h, 4 < 5 && 5 < 6 && 6 < 8 && 600 < 1000, "ladder gold < rose copper < rose gold < netherite");
             h.succeed();
         });
         ALL.put("apple_recipes", h -> {
-            for (String alloy : List.of("rose_bronze", "blossom_gold")) {
+            for (String alloy : List.of("rose_bronze", "rose_gold")) {
                 for (boolean enchanted : new boolean[] {false, true}) {
                     ItemStack ring = stack(enchanted ? alloy + "_block" : alloy + "_ingot");
                     List<ItemStack> slots = new ArrayList<>();

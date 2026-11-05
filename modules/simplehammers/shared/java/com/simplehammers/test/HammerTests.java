@@ -414,7 +414,7 @@ public final class HammerTests {
         ALL.put("rose_gold_optional", h -> {
             // ABN30-10: the rose gold hammers exist exactly while Simple Ores is loaded; without it nothing is registered and nothing breaks.
             boolean ores = SimpleHammers.isLoaded("simpleores");
-            for (HammerTiers tier : new HammerTiers[] {HammerTiers.ROSE_BRONZE, HammerTiers.BLOSSOM_GOLD}) {
+            for (HammerTiers tier : new HammerTiers[] {HammerTiers.ROSE_BRONZE, HammerTiers.ROSE_GOLD}) {
                 boolean there = BuiltInRegistries.ITEM.containsKey(SimpleHammers.id(tier.id()));
                 h.assertTrue(there == ores && tier.enabled() == ores, tier.id() + " registered=" + there + " but Simple Ores loaded=" + ores);
                 if (!ores) continue;

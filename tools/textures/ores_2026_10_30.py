@@ -2,7 +2,7 @@
 
 Gold sprites of the 26.3 client jar are recoloured by luminance onto a palette ramp (the Vanilla raster and its tone
 distribution stay, so the soft transitions of PRINZIPIEN A8b are kept):
-  - hard Rose Bronze   palette B "Kupfer-Rose" (owner pick)         - soft Blossom Gold  palette A "Zart-Rosa" (owner pick)
+  - hard Rose Copper   palette B "Kupfer-Rose" (owner pick)         - soft Rose Gold  palette A "Zart-Rosa" (owner pick)
   - silver             cool grey-blue ramp; raw silver warm grey; ores keep the stone and only the gold flecks turn silver
   - tools: only the pixels that differ between the golden and the iron sprite (the head; the stick stays), armor: all pixels
   - pressing: the ingot, matte and darker, with a strap across the middle
@@ -51,11 +51,11 @@ ITEM_TOOLS = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe')
 ITEM_ARMOR = ('helmet', 'chestplate', 'leggings', 'boots')
 VANILLA_NAME = {'sword': 'sword', 'pickaxe': 'pickaxe', 'axe': 'axe', 'shovel': 'shovel', 'hoe': 'hoe', 'helmet': 'helmet',
                 'chestplate': 'chestplate', 'leggings': 'leggings', 'boots': 'boots'}
-ALLOYS = {'rose_bronze': 'hard', 'blossom_gold': 'soft'}
+ALLOYS = {'rose_bronze': 'hard', 'rose_gold': 'soft'}
 LEAD_VARIANT = 'a'      # ramp of lead_<v>; block rivets for 'c'
 ARROW_VARIANT = 'a'
 MIRROR_VARIANT = 'a'
-APPLE_VARIANT = {'rose_bronze': 'a', 'blossom_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
+APPLE_VARIANT = {'rose_bronze': 'a', 'rose_gold': 'a'}   # IG31-41: a = plain recolour, b = recolour + green leaf at the stem
 LEAF = ('#a3c75a', '#6f9a3c', '#466f2a')
 
 
