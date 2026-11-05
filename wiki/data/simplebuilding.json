@@ -46857,7 +46857,7 @@
         "id": "simplebuilding:color_brush",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/color_brush.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/color_brush.json",
       "ingredients": [
         "minecraft:brush",
         "minecraft:feather",
@@ -46875,7 +46875,6 @@
         ]
       ],
       "lines": [
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -57673,7 +57672,7 @@
         "id": "simplebuilding:netherite_paint_box",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_paint_box_smithing.json",
+      "source": "mc26_3/generated/data/simplebuilding/recipe/netherite_paint_box_smithing.json",
       "ingredients": [
         "minecraft:netherite_ingot",
         "minecraft:netherite_upgrade_smithing_template",
@@ -57691,7 +57690,6 @@
         ]
       },
       "lines": [
-        "26.2",
         "26.3"
       ],
       "baseMaterials": {
@@ -77055,7 +77053,8 @@
         ]
       },
       "lines": [
-        "1.21.11"
+        "1.21.11",
+        "26.2"
       ]
     },
     {
@@ -80145,7 +80144,8 @@
         ]
       },
       "lines": [
-        "1.21.11"
+        "1.21.11",
+        "26.2"
       ]
     },
     {
@@ -90844,7 +90844,7 @@
           "required": true
         }
       ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/color_palette_enchantable.json"
+      "source": "mc26_3/generated/data/simplebuilding/tags/item/color_palette_enchantable.json"
     },
     {
       "id": "simplebuilding:item/constructors_touch_enchantable",
