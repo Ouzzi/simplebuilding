@@ -58,7 +58,8 @@ final class WingsTests {
                         "repaired with phantom membrane like the Elytra: " + item);
                 h.assertTrue(s.has(DataComponents.DAMAGE_RESISTANT), "fire-proof like Netherite: " + item);
                 h.assertTrue(com.simplelib.api.SimpleRarity.of(s) == (item == WitherWings.VOID ? com.simplelib.api.SimpleRarity.MYTHIC
-                        : com.simplelib.api.SimpleRarity.CURSED), "stages 1-3 cursed, stage 4 mythic: " + item);
+                        : item == WitherWings.END ? com.simplelib.api.SimpleRarity.LEGENDARY : com.simplelib.api.SimpleRarity.CURSED),
+                        "stages 1-2 cursed, End legendary, Void mythic: " + item);
                 h.assertTrue(BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MobsRegistry.ID), "registered: " + item);
             }
             h.assertTrue(new ItemStack(Items.ELYTRA).getMaxDamage() == 432, "Vanilla Elytra 432");

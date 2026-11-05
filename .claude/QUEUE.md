@@ -112,8 +112,8 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [ ] WH26-10 Kompakte Blöcke Stufe 1 Compact / Stufe 2 Dense (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
 - [x] (B, b-ench02, 03.11.) WI26-1 Enchanter abbauen droppt Nuggets passend zum Rezept: Dark → Tisch + 8 Netherit-Nuggets, Astral → Dark + 8 Enderit-Nuggets (Loot `data/simpleenchanting/loot_table`, Test `breaking_drops_table_nuggets_and_stock` grün)
 - [ ] WI26-2 Schachfiguren: beim Abbau nur die angeschaute Figur (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
-- [ ] WI26-3 Zwei neue Tooltip-Stufen „Corrupted“ (Glitch) und „Void/Voided“; Vorschau zuerst (Status 01.11.: offen – Vorschau + Bau; Beleg: kein Treffer)
-- [ ] WI26-4 End-Schwingen: Legendary-Tooltip-Rang statt Cursed (Status 01.11.: offen – abhängig von WI26-3; Beleg: nicht belegt)
+- [~] WI26-3 Zwei neue Tooltip-Stufen „Corrupted“ (Glitch) und „Void/Voided“; Vorschau zuerst (Status 01.11.: offen – Vorschau + Bau; Beleg: kein Treffer) [05.11. a-tip05: Enum + Variante A + Vorschau, offen Besitzer-Wahl]
+- [~] WI26-4 End-Schwingen: Legendary-Tooltip-Rang statt Cursed (Status 01.11.: offen – abhängig von WI26-3; Beleg: nicht belegt) [05.11. a-tip05: End Wings LEGENDARY (Variante A), offen Gate]
 - [ ] WI26-5 JEI „Mob Drops“: Layout korrigieren (Mob links vom Pfeil, Slots) (Status 01.11.: offen – Layout fixen; Beleg: AUDM24-3 Teilstand; Layout nicht belegt)
 - [ ] WI26-6 Enderherz ab dem 4. besiegten Drachen (1× pro Spieler, platziert um das Endportal) (Status 01.11.: offen – Bau; Beleg: Drachen-Zähler (simpleenddragonfight) vorhanden, Enderherz-Drop nicht belegt)
 
