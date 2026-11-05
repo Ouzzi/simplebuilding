@@ -1097,7 +1097,7 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 
 ## Besitzer 05.11. (über A, B ohne Kontingent bis 06.11. 23:00 UTC)
 Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
-- [~] (A, a-silverlead05, 05.11.) Silberblech (1-px-Platte wie Bleiplatte, 3 Barren -> 12) + Silberspiegel = Glasscheibe + Silberblech + Blei-Pfeilspitze (Schwerkraft x1,5, +0,5 Schaden); Plan docs/ai/PLAN-A-SILVERLEAD-2026-11-05.md; Tests silver_sheet_*/silver_mirror_recipe/fletching; offen Client-Sicht, Gate
+- [x] (A, a-silverlead05, 05.11., gepusht auf Hub, Tests+check grün) Silberblech (1-px-Platte wie Bleiplatte, 3 Barren -> 12) + Silberspiegel = Glasscheibe + Silberblech + Blei-Pfeilspitze (Schwerkraft x1,5, +0,5 Schaden); Plan docs/ai/PLAN-A-SILVERLEAD-2026-11-05.md; Tests silver_sheet_*/silver_mirror_recipe/fletching grün; offen Client-Sicht, Gate (Prod)
 - [ ] IG31-42 **Block-Paletten vervollständigen** (Release-relevant, PRIO):
   - Alle Steinfamilien sollen dieselbe Palette haben wie im Bild (Besitzer hat Mod- und Vanilla-Blöcke nach Familien aufgereiht): Block, Treppe, Stufe, Mauer, Octets, sofern bei uns üblich, plus Cracked/Chiseled-Glieder der Familie.
   - Fehlend genannt:
