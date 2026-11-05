@@ -1365,11 +1365,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42qWSIQ7CQBBFe4gKTlCFrKMCgaoiJJVwgFpQ1RyAI+BQ3AKBRGCxhASFqG7zJ/nJzHRSRMVru/3737abTZbrbTeFBJfb6xeSpjMhys73jxVcH9/u+W7lzmLTHAWOkQGU96fLUMCJWTYXKOCYORYyAgZ1fTCw6N9zvhFU1W5Q9F/APM8XsQDoogcZyn8FZbkRWCyKlTAqQOgFgGUt4IYaASbzX8cEAM+hQEso0kWWQ4H+Cr0f+r/16kbgDxIFgGVuHAhPIk4XAqBFvkiMgC88LEaZEUyhB68MB6pVB/byAAAAAElFTkSuQmCC",
     "counts": {
       "items": 1,
-      "blocks": 59,
-      "recipes": 285,
+      "blocks": 101,
+      "recipes": 364,
       "features": 12
     },
-    "dataHash": "b04a60324a03"
+    "dataHash": "1f81518ca5a3"
   },
   {
     "id": "simplecrucibles",
@@ -1445,11 +1445,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAArUlEQVR42mOwCrD6TwlmABG77u7Ciq00BMAYm9yEExNQDVhwYcH/s8/OgmmYxi1dAf9PLEiB80FyIAzSnDEhA9MAmGaQJhgGGYJsEEgzyCK8BswqcgBjmCFVYQZgDDOAoAtgBoAwTDNRBsD8is8AmCEoBuAKNJgBuOThBuALNLyBCjMAX6DhDVR0A3D5Gac81QzAFWiwKMMljxKNoNSFrhEd44xGmACpGOEFCjAA7+40ZjR1wYIAAAAASUVORK5CYII=",
     "counts": {
       "items": 1,
-      "blocks": 177,
-      "recipes": 523,
+      "blocks": 187,
+      "recipes": 546,
       "features": 6
     },
-    "dataHash": "efc2c46bb77e"
+    "dataHash": "45c5031d9bd6"
   },
   {
     "id": "simplehammers",

@@ -173,11 +173,48 @@
         "simpleblocks:cut_red_sandstone_stairs",
         "simpleblocks:cut_red_sandstone_wall",
         "simpleblocks:smooth_sandstone_wall",
-        "simpleblocks:smooth_red_sandstone_wall"
+        "simpleblocks:smooth_red_sandstone_wall",
+        "simpleblocks:mossy_deepslate_brick_stairs",
+        "simpleblocks:mossy_deepslate_brick_slab",
+        "simpleblocks:mossy_deepslate_brick_wall",
+        "simpleblocks:mossy_deepslate_tile_stairs",
+        "simpleblocks:mossy_deepslate_tile_slab",
+        "simpleblocks:mossy_deepslate_tile_wall",
+        "simpleblocks:mossy_tuff_brick_stairs",
+        "simpleblocks:mossy_tuff_brick_slab",
+        "simpleblocks:mossy_tuff_brick_wall",
+        "simpleblocks:mossy_mud_brick_stairs",
+        "simpleblocks:mossy_mud_brick_slab",
+        "simpleblocks:mossy_mud_brick_wall",
+        "simpleblocks:mossy_end_stone_brick_stairs",
+        "simpleblocks:mossy_end_stone_brick_slab",
+        "simpleblocks:mossy_end_stone_brick_wall",
+        "simpleblocks:mossy_cinnabar_brick_stairs",
+        "simpleblocks:mossy_cinnabar_brick_slab",
+        "simpleblocks:mossy_cinnabar_brick_wall",
+        "simpleblocks:mossy_sulfur_brick_stairs",
+        "simpleblocks:mossy_sulfur_brick_slab",
+        "simpleblocks:mossy_sulfur_brick_wall",
+        "simpleblocks:stone_wall",
+        "simpleblocks:smooth_stone_stairs",
+        "simpleblocks:polished_granite_wall",
+        "simpleblocks:polished_diorite_wall",
+        "simpleblocks:polished_andesite_wall",
+        "simpleblocks:quartz_wall",
+        "simpleblocks:smooth_quartz_wall",
+        "simpleblocks:purpur_wall",
+        "simpleblocks:quartz_brick_stairs",
+        "simpleblocks:quartz_brick_slab",
+        "simpleblocks:quartz_brick_wall",
+        "simpleblocks:end_stone_stairs",
+        "simpleblocks:end_stone_slab",
+        "simpleblocks:end_stone_wall",
+        "simpleblocks:prismarine_brick_wall",
+        "simpleblocks:dark_prismarine_wall"
       ],
       "en": {
         "title": "Missing Stairs, Slabs and Walls",
-        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls.",
+        "summary": "Stairs, slabs and walls Vanilla lacks: Calcite, Netherrack and Smooth Basalt (all three), Cut (Red) Sandstone stairs and walls, Smooth (Red) Sandstone walls. Since the palette completion (IG31-42): stairs, slabs and walls for the mossy bricks, End Stone, Quartz Bricks and the missing walls and stairs of Stone, Polished Granite/Diorite/Andesite, Quartz, Smooth Quartz, Purpur, Prismarine Bricks and Dark Prismarine.",
         "details": [
           "Crafting table: 6 stairs from 6 blocks, 6 slabs from 3, 6 walls from 6; stonecutter: one block makes one stair or wall, two slabs.",
           "The models use the Vanilla block textures, so they match resource packs. Hardness and sound are those of the full block.",
@@ -186,7 +223,7 @@
       },
       "de": {
         "title": "Fehlende Treppen, Stufen und Mauern",
-        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein.",
+        "summary": "Treppen, Stufen und Mauern, die Vanilla fehlen: Kalzit, Netherrack und Glatter Basalt (alle drei), Treppen und Mauern aus Geschnittenem (Rotem) Sandstein, Mauern aus Glattem (Rotem) Sandstein. Seit der Paletten-Vervollständigung (IG31-42): Treppen, Stufen und Mauern für die bemoosten Ziegel, Endstein, Quarzziegel sowie die fehlenden Mauern und Treppen von Stein, Poliertem Granit/Diorit/Andesit, Quarz, Glattem Quarz, Purpur, Prismarinziegeln und Dunklem Prismarin.",
         "details": [
           "Werkbank: 6 Treppen aus 6 Blöcken, 6 Stufen aus 3, 6 Mauern aus 6; Steinmetz: ein Block ergibt eine Treppe oder Mauer, zwei Stufen.",
           "Die Modelle nutzen die Vanilla-Blocktexturen und passen daher zu Ressourcenpaketen. Härte und Klang sind die des Vollblocks.",
@@ -215,11 +252,16 @@
         "simpleblocks:cracked_cinnabar_bricks",
         "simpleblocks:mossy_cinnabar_bricks",
         "simpleblocks:cracked_sulfur_bricks",
-        "simpleblocks:mossy_sulfur_bricks"
+        "simpleblocks:mossy_sulfur_bricks",
+        "simpleblocks:cracked_prismarine",
+        "simpleblocks:cracked_prismarine_bricks",
+        "simpleblocks:cracked_dark_prismarine",
+        "simpleblocks:cracked_polished_deepslate",
+        "simpleblocks:cracked_blue_nether_bricks"
       ],
       "en": {
         "title": "Cracked and Mossy Bricks",
-        "summary": "Aged variants of Vanilla bricks that have none: cracked Red Nether, Tuff, Mud, End Stone, Cinnabar and Sulfur bricks; mossy Tuff, Mud, End Stone, Cinnabar and Sulfur bricks, mossy Deepslate Bricks and Tiles.",
+        "summary": "Aged variants of Vanilla bricks that have none: cracked Red Nether, Tuff, Mud, End Stone, Cinnabar and Sulfur bricks; mossy Tuff, Mud, End Stone, Cinnabar and Sulfur bricks, mossy Deepslate Bricks and Tiles. Also cracked Prismarine, Prismarine Bricks, Dark Prismarine, Polished Deepslate and Blue Nether Bricks (smelt the base block).",
         "details": [
           "Cracked: smelt the brick in a furnace, like Vanilla's cracked stone bricks. Mossy: the brick and a Moss Block, shapeless.",
           "Full blocks only, with the properties of the brick they age.",
@@ -228,7 +270,7 @@
       },
       "de": {
         "title": "Rissige und bemooste Ziegel",
-        "summary": "Gealterte Varianten von Vanilla-Ziegeln, die keine haben: rissige Rote Netherziegel sowie rissige Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel; bemooste Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel, bemooste Tiefenschieferziegel und -fliesen.",
+        "summary": "Gealterte Varianten von Vanilla-Ziegeln, die keine haben: rissige Rote Netherziegel sowie rissige Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel; bemooste Tuff-, Lehm-, Endstein-, Zinnober- und Schwefelziegel, bemooste Tiefenschieferziegel und -fliesen. Außerdem rissiger Prismarin, rissige Prismarinziegel, rissiger Dunkler Prismarin, rissiger Polierter Tiefenschiefer und rissige Blaue Netherziegel (den Grundblock schmelzen).",
         "details": [
           "Rissig: den Ziegel im Ofen schmelzen, wie Vanillas rissige Steinziegel. Bemoost: der Ziegel und ein Moosblock, formlos.",
           "Nur Vollblöcke, mit den Eigenschaften des Ziegels, den sie altern.",
@@ -1114,6 +1156,40 @@
       }
     },
     {
+      "id": "simpleblocks:cracked_blue_nether_bricks_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_blue_nether_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_blue_nether_bricks_from_smelting.json",
+      "ingredients": [
+        "simpleblocks:blue_nether_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:blue_nether_bricks"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 2
+          },
+          {
+            "id": "simplelib:warped_wart",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:cracked_cinnabar_bricks_from_smelting",
       "type": "minecraft:smelting",
       "category": "blocks",
@@ -1138,6 +1214,40 @@
         "materials": [
           {
             "id": "minecraft:cinnabar",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cracked_dark_prismarine_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_dark_prismarine",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_dark_prismarine_from_smelting.json",
+      "ingredients": [
+        "minecraft:dark_prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_prismarine"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 8
+          },
+          {
+            "id": "minecraft:ink_sac",
             "count": 1
           }
         ]
@@ -1259,6 +1369,96 @@
           {
             "id": "minecraft:ice",
             "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cracked_polished_deepslate_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_polished_deepslate",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_polished_deepslate_from_smelting.json",
+      "ingredients": [
+        "minecraft:polished_deepslate"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_deepslate"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cracked_prismarine_bricks_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_prismarine_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_prismarine_bricks_from_smelting.json",
+      "ingredients": [
+        "minecraft:prismarine_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine_bricks"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:cracked_prismarine_from_smelting",
+      "type": "minecraft:smelting",
+      "category": "blocks",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:cracked_prismarine",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/cracked_prismarine_from_smelting.json",
+      "ingredients": [
+        "minecraft:prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine"
+        ]
+      },
+      "cookingtime": 200,
+      "experience": 0.1,
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 4
           }
         ]
       }
@@ -1600,6 +1800,74 @@
       }
     },
     {
+      "id": "simpleblocks:dark_prismarine_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dark_prismarine_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dark_prismarine_wall.json",
+      "ingredients": [
+        "minecraft:dark_prismarine"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:dark_prismarine"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 48
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:dark_prismarine_wall_from_dark_prismarine_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:dark_prismarine_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/dark_prismarine_wall_from_dark_prismarine_stonecutting.json",
+      "ingredients": [
+        "minecraft:dark_prismarine"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:dark_prismarine"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 8
+          },
+          {
+            "id": "minecraft:ink_sac",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:dirt_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -1626,6 +1894,186 @@
           {
             "id": "minecraft:dirt",
             "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:end_stone_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_slab.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_slab_from_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:end_stone_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_slab_from_end_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:end_stone_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_stairs.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_stairs_from_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:end_stone_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_stairs_from_end_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:end_stone_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_wall.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:end_stone_wall_from_end_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:end_stone_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/end_stone_wall_from_end_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:end_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:end_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
           }
         ]
       }
@@ -2106,6 +2554,210 @@
       }
     },
     {
+      "id": "simpleblocks:mossy_cinnabar_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_cinnabar_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 3
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_slab_from_mossy_cinnabar_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_cinnabar_brick_slab_from_mossy_cinnabar_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_cinnabar_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_stairs_from_mossy_cinnabar_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_cinnabar_brick_stairs_from_mossy_cinnabar_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_cinnabar_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_wall_from_mossy_cinnabar_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_cinnabar_brick_wall_from_mossy_cinnabar_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cinnabar",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:mossy_cinnabar_bricks_from_moss_block",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -2142,6 +2794,210 @@
       }
     },
     {
+      "id": "simpleblocks:mossy_deepslate_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 3
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_slab_from_mossy_deepslate_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_brick_slab_from_mossy_deepslate_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_stairs_from_mossy_deepslate_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_brick_stairs_from_mossy_deepslate_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_wall_from_mossy_deepslate_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_brick_wall_from_mossy_deepslate_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:mossy_deepslate_bricks_from_moss_block",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -2163,6 +3019,210 @@
           "minecraft:moss_block"
         ]
       ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tile_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_tile_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 3
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_slab_from_mossy_deepslate_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tile_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_tile_slab_from_mossy_deepslate_tiles_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tile_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_tile_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_stairs_from_mossy_deepslate_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tile_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_tile_stairs_from_mossy_deepslate_tiles_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tile_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_tile_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_wall_from_mossy_deepslate_tiles_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tile_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_deepslate_tile_wall_from_mossy_deepslate_tiles_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      },
       "baseMaterials": {
         "yield": 1,
         "materials": [
@@ -2214,6 +3274,210 @@
       }
     },
     {
+      "id": "simpleblocks:mossy_end_stone_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_end_stone_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 3
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_slab_from_mossy_end_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_end_stone_brick_slab_from_mossy_end_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_end_stone_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_stairs_from_mossy_end_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_end_stone_brick_stairs_from_mossy_end_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_end_stone_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_wall_from_mossy_end_stone_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_end_stone_brick_wall_from_mossy_end_stone_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:mossy_end_stone_bricks_from_moss_block",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -2244,6 +3508,234 @@
           },
           {
             "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_mud_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          },
+          {
+            "id": "minecraft:mud",
+            "count": 3
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_slab_from_mossy_mud_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_mud_brick_slab_from_mossy_mud_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:mud",
+            "count": 1
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_mud_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          },
+          {
+            "id": "minecraft:mud",
+            "count": 6
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_stairs_from_mossy_mud_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_mud_brick_stairs_from_mossy_mud_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:mud",
+            "count": 1
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_mud_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          },
+          {
+            "id": "minecraft:mud",
+            "count": 6
+          },
+          {
+            "id": "minecraft:wheat",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_wall_from_mossy_mud_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_mud_brick_wall_from_mossy_mud_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:mud",
+            "count": 1
+          },
+          {
+            "id": "minecraft:wheat",
             "count": 1
           }
         ]
@@ -2290,6 +3782,210 @@
       }
     },
     {
+      "id": "simpleblocks:mossy_sulfur_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_sulfur_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 12
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_slab_from_mossy_sulfur_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_sulfur_brick_slab_from_mossy_sulfur_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_sulfur_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 24
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_stairs_from_mossy_sulfur_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_sulfur_brick_stairs_from_mossy_sulfur_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_sulfur_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 24
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_wall_from_mossy_sulfur_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_sulfur_brick_wall_from_mossy_sulfur_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:sulfur_spike",
+            "count": 4
+          },
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:mossy_sulfur_bricks_from_moss_block",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -2320,6 +4016,210 @@
           },
           {
             "id": "minecraft:moss_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_tuff_brick_slab.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_tuff_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 3
+          },
+          {
+            "id": "minecraft:tuff",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_slab_from_mossy_tuff_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_tuff_brick_slab_from_mossy_tuff_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_tuff_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:tuff",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_tuff_brick_stairs.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_tuff_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          },
+          {
+            "id": "minecraft:tuff",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_stairs_from_mossy_tuff_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_tuff_brick_stairs_from_mossy_tuff_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_tuff_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:tuff",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_tuff_brick_wall.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleblocks:mossy_tuff_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 6
+          },
+          {
+            "id": "minecraft:tuff",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_wall_from_mossy_tuff_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/mossy_tuff_brick_wall_from_mossy_tuff_bricks_stonecutting.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_tuff_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:moss_block",
+            "count": 1
+          },
+          {
+            "id": "minecraft:tuff",
             "count": 1
           }
         ]
@@ -2597,6 +4497,570 @@
           {
             "id": "minecraft:netherrack",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:polished_andesite_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:polished_andesite_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/polished_andesite_wall.json",
+      "ingredients": [
+        "minecraft:polished_andesite"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:polished_andesite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:polished_andesite_wall_from_polished_andesite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:polished_andesite_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/polished_andesite_wall_from_polished_andesite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_andesite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_andesite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:polished_diorite_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:polished_diorite_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/polished_diorite_wall.json",
+      "ingredients": [
+        "minecraft:polished_diorite"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:polished_diorite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 6
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:polished_diorite_wall_from_polished_diorite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:polished_diorite_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/polished_diorite_wall_from_polished_diorite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_diorite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_diorite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "id": "minecraft:quartz",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:polished_granite_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:polished_granite_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/polished_granite_wall.json",
+      "ingredients": [
+        "minecraft:polished_granite"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:polished_granite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:polished_granite_wall_from_polished_granite_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:polished_granite_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/polished_granite_wall_from_polished_granite_stonecutting.json",
+      "ingredients": [
+        "minecraft:polished_granite"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:polished_granite"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 2
+          },
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:prismarine_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:prismarine_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/prismarine_brick_wall.json",
+      "ingredients": [
+        "minecraft:prismarine_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:prismarine_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 54
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:prismarine_brick_wall_from_prismarine_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:prismarine_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/prismarine_brick_wall_from_prismarine_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:prismarine_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:prismarine_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:prismarine_shard",
+            "count": 9
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:purpur_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:purpur_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/purpur_wall.json",
+      "ingredients": [
+        "minecraft:purpur_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:purpur_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:purpur_wall_from_purpur_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:purpur_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/purpur_wall_from_purpur_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:purpur_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:purpur_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:chorus_fruit",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_brick_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_brick_slab",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_brick_slab.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:quartz_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_brick_slab_from_quartz_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_brick_slab",
+        "count": 2
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_brick_slab_from_quartz_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_brick_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_brick_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_brick_stairs.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:quartz_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_brick_stairs_from_quartz_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_brick_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_brick_stairs_from_quartz_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_brick_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_brick_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_brick_wall.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:quartz_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_brick_wall_from_quartz_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_brick_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_brick_wall_from_quartz_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_bricks"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_wall.json",
+      "ingredients": [
+        "minecraft:quartz_block"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:quartz_wall_from_quartz_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:quartz_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/quartz_wall_from_quartz_block_stonecutting.json",
+      "ingredients": [
+        "minecraft:quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
           }
         ]
       }
@@ -6836,6 +9300,66 @@
       }
     },
     {
+      "id": "simpleblocks:smooth_quartz_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:smooth_quartz_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/smooth_quartz_wall.json",
+      "ingredients": [
+        "minecraft:smooth_quartz"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:smooth_quartz"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:smooth_quartz_wall_from_smooth_quartz_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:smooth_quartz_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/smooth_quartz_wall_from_smooth_quartz_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_quartz"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_quartz"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleblocks:smooth_red_sandstone_wall",
       "type": "minecraft:crafting_shaped",
       "category": "misc",
@@ -6951,6 +9475,127 @@
           {
             "id": "minecraft:sand",
             "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:smooth_stone_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:smooth_stone_stairs",
+        "count": 4
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/smooth_stone_stairs.json",
+      "ingredients": [
+        "minecraft:smooth_stone"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:smooth_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 4,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:smooth_stone_stairs_from_smooth_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:smooth_stone_stairs",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/smooth_stone_stairs_from_smooth_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:smooth_stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:smooth_stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:stone_wall",
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:stone_wall",
+        "count": 6
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/stone_wall.json",
+      "ingredients": [
+        "minecraft:stone"
+      ],
+      "pattern": [
+        "###",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 6,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleblocks:stone_wall_from_stone_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleblocks:stone_wall",
+        "count": 1
+      },
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/recipe/stone_wall_from_stone_stonecutting.json",
+      "ingredients": [
+        "minecraft:stone"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:stone"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
           }
         ]
       }
@@ -7328,6 +9973,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_blue_ice.json"
     },
     {
+      "id": "simpleblocks:blocks/cracked_blue_nether_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_blue_nether_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_blue_nether_bricks.json"
+    },
+    {
       "id": "simpleblocks:blocks/cracked_cinnabar_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7344,6 +10007,24 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_cinnabar_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cracked_dark_prismarine",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_dark_prismarine"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_dark_prismarine.json"
     },
     {
       "id": "simpleblocks:blocks/cracked_end_stone_bricks",
@@ -7412,6 +10093,60 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_packed_ice.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cracked_polished_deepslate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_polished_deepslate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_polished_deepslate.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cracked_prismarine",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_prismarine"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_prismarine.json"
+    },
+    {
+      "id": "simpleblocks:blocks/cracked_prismarine_bricks",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:cracked_prismarine_bricks"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cracked_prismarine_bricks.json"
     },
     {
       "id": "simpleblocks:blocks/cracked_red_nether_bricks",
@@ -7540,6 +10275,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/cut_sandstone_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/dark_prismarine_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:dark_prismarine_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dark_prismarine_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/dirt_slab",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7554,6 +10307,58 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/dirt_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/end_stone_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:end_stone_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/end_stone_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/end_stone_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:end_stone_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/end_stone_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/end_stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:end_stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/end_stone_wall.json"
     },
     {
       "id": "simpleblocks:blocks/frost_grass",
@@ -7712,6 +10517,58 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/levitating_sand.json"
     },
     {
+      "id": "simpleblocks:blocks/mossy_cinnabar_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_cinnabar_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_cinnabar_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_cinnabar_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_cinnabar_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_cinnabar_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_cinnabar_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_cinnabar_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_cinnabar_brick_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/mossy_cinnabar_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7728,6 +10585,58 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_cinnabar_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_deepslate_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_deepslate_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_deepslate_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_deepslate_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_deepslate_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_deepslate_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_brick_wall.json"
     },
     {
       "id": "simpleblocks:blocks/mossy_deepslate_bricks",
@@ -7748,6 +10657,58 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_bricks.json"
     },
     {
+      "id": "simpleblocks:blocks/mossy_deepslate_tile_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_deepslate_tile_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_tile_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_deepslate_tile_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_deepslate_tile_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_tile_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_deepslate_tile_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_deepslate_tile_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_tile_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/mossy_deepslate_tiles",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7764,6 +10725,58 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_deepslate_tiles.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_end_stone_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_end_stone_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_end_stone_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_end_stone_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_end_stone_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_end_stone_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_end_stone_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_end_stone_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_end_stone_brick_wall.json"
     },
     {
       "id": "simpleblocks:blocks/mossy_end_stone_bricks",
@@ -7784,6 +10797,58 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_end_stone_bricks.json"
     },
     {
+      "id": "simpleblocks:blocks/mossy_mud_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_mud_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_mud_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_mud_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_mud_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_mud_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_mud_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_mud_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_mud_brick_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/mossy_mud_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7802,6 +10867,58 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_mud_bricks.json"
     },
     {
+      "id": "simpleblocks:blocks/mossy_sulfur_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_sulfur_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_sulfur_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_sulfur_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_sulfur_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_sulfur_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_sulfur_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_sulfur_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_sulfur_brick_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/mossy_sulfur_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -7818,6 +10935,58 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_sulfur_bricks.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_tuff_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_tuff_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_tuff_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_tuff_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_tuff_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_tuff_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/mossy_tuff_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:mossy_tuff_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/mossy_tuff_brick_wall.json"
     },
     {
       "id": "simpleblocks:blocks/mossy_tuff_bricks",
@@ -7906,6 +11075,166 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/netherrack_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/polished_andesite_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:polished_andesite_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/polished_andesite_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/polished_diorite_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:polished_diorite_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/polished_diorite_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/polished_granite_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:polished_granite_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/polished_granite_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/prismarine_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:prismarine_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/prismarine_brick_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/purpur_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:purpur_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/purpur_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/quartz_brick_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:quartz_brick_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/quartz_brick_slab.json"
+    },
+    {
+      "id": "simpleblocks:blocks/quartz_brick_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:quartz_brick_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/quartz_brick_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/quartz_brick_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:quartz_brick_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/quartz_brick_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/quartz_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:quartz_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/quartz_wall.json"
     },
     {
       "id": "simpleblocks:blocks/sand_slab",
@@ -8057,6 +11386,24 @@
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_basalt_wall.json"
     },
     {
+      "id": "simpleblocks:blocks/smooth_quartz_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:smooth_quartz_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_quartz_wall.json"
+    },
+    {
       "id": "simpleblocks:blocks/smooth_red_sandstone_wall",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -8091,6 +11438,42 @@
         }
       ],
       "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_sandstone_wall.json"
+    },
+    {
+      "id": "simpleblocks:blocks/smooth_stone_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:smooth_stone_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/smooth_stone_stairs.json"
+    },
+    {
+      "id": "simpleblocks:blocks/stone_wall",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleblocks:stone_wall"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleblocks/shared/resources/data/simpleblocks/loot_table/blocks/stone_wall.json"
     },
     {
       "id": "simpleblocks:blocks/suspended_gravel",
@@ -8242,10 +11625,10 @@
           "modules/simpleblocks/shared/resources/data/simpleblocks/advancement/guide/chapter.json"
         ],
         "en": {
-          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 16 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
+          "summary": "Chapter \"Simple Blocks\" of the Simple Modpack guide (SimpleLib): 20 pages taken from this wiki, shown in your language. Unlocked by picking up: clay ball. Craft the guide from a book and a crafting table; an old single guide turns into it when used."
         },
         "de": {
-          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 16 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
+          "summary": "Kapitel \"Simple Blocks\" im Simple-Modpack-Handbuch (SimpleLib): 20 Seiten aus diesem Wiki, in deiner Sprache. Freigeschaltet durch Aufheben von: Tonklumpen. Das Handbuch entsteht aus Buch und Werkbank; ein altes Einzelhandbuch wird beim Benutzen dazu."
         }
       },
       "texture": "assets/textures/simpleblocks/item/guide_book.png",
@@ -8455,7 +11838,8 @@
         "simpleblocks:blue_nether_brick_stairs",
         "simpleblocks:blue_nether_brick_stairs_from_blue_nether_bricks_stonecutting",
         "simpleblocks:blue_nether_brick_wall",
-        "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting"
+        "simpleblocks:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting",
+        "simpleblocks:cracked_blue_nether_bricks_from_smelting"
       ]
     },
     {
@@ -8626,6 +12010,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:cracked_blue_nether_bricks",
+      "name": {
+        "en_us": "Cracked Blue Nether Bricks",
+        "de_de": "Rissige Blaue Netherziegel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_blue_nether_bricks.png",
+      "craftedBy": [
+        "simpleblocks:cracked_blue_nether_bricks_from_smelting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:cracked_cinnabar_bricks",
       "name": {
         "en_us": "Cracked Cinnabar Bricks",
@@ -8646,6 +12054,30 @@
       "texture": "assets/textures/simpleblocks/block/cracked_cinnabar_bricks.png",
       "craftedBy": [
         "simpleblocks:cracked_cinnabar_bricks_from_smelting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_dark_prismarine",
+      "name": {
+        "en_us": "Cracked Dark Prismarine",
+        "de_de": "Rissiger Dunkler Prismarin"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_dark_prismarine.png",
+      "craftedBy": [
+        "simpleblocks:cracked_dark_prismarine_from_smelting"
       ],
       "usedIn": []
     },
@@ -8788,6 +12220,78 @@
       },
       "craftedBy": [
         "simpleblocks:cracked_packed_ice_from_packed_ice_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_polished_deepslate",
+      "name": {
+        "en_us": "Cracked Polished Deepslate",
+        "de_de": "Rissiger Polierter Tiefenschiefer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_polished_deepslate.png",
+      "craftedBy": [
+        "simpleblocks:cracked_polished_deepslate_from_smelting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_prismarine",
+      "name": {
+        "en_us": "Cracked Prismarine",
+        "de_de": "Rissiger Prismarin"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_prismarine.png",
+      "craftedBy": [
+        "simpleblocks:cracked_prismarine_from_smelting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:cracked_prismarine_bricks",
+      "name": {
+        "en_us": "Cracked Prismarine Bricks",
+        "de_de": "Rissige Prismarinziegel"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Cracked brick variant of a Vanilla or Simple Blocks brick block. Smelt the plain bricks in a furnace to get it. See the chapter on cracked and mossy bricks."
+        },
+        "de": {
+          "summary": "Rissige Ziegelvariante eines Vanilla- oder Simple-Blocks-Ziegelblocks. Die glatten Ziegel im Ofen schmelzen. Siehe das Kapitel zu rissigen und moosigen Ziegeln."
+        }
+      },
+      "texture": "assets/textures/simpleblocks/block/cracked_prismarine_bricks.png",
+      "craftedBy": [
+        "simpleblocks:cracked_prismarine_bricks_from_smelting"
       ],
       "usedIn": []
     },
@@ -8960,6 +12464,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:dark_prismarine_wall",
+      "name": {
+        "en_us": "Dark Prismarine Wall",
+        "de_de": "Dunkle Prismarinmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:dark_prismarine_wall",
+        "simpleblocks:dark_prismarine_wall_from_dark_prismarine_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:dirt_slab",
       "name": {
         "en_us": "Dirt Slab",
@@ -8980,6 +12508,78 @@
       "craftedBy": [
         "simpleblocks:dirt_slab",
         "simpleblocks:sawing/dirt_slab_from_dirt"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:end_stone_slab",
+      "name": {
+        "en_us": "End Stone Slab",
+        "de_de": "Endsteinstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:end_stone_slab",
+        "simpleblocks:end_stone_slab_from_end_stone_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:end_stone_stairs",
+      "name": {
+        "en_us": "End Stone Stairs",
+        "de_de": "Endsteintreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:end_stone_stairs",
+        "simpleblocks:end_stone_stairs_from_end_stone_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:end_stone_wall",
+      "name": {
+        "en_us": "End Stone Wall",
+        "de_de": "Endsteinmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:end_stone_wall",
+        "simpleblocks:end_stone_wall_from_end_stone_stonecutting"
       ],
       "usedIn": []
     },
@@ -9244,6 +12844,78 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:mossy_cinnabar_brick_slab",
+      "name": {
+        "en_us": "Mossy Cinnabar Brick Slab",
+        "de_de": "Bemooste Zinnoberziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_cinnabar_brick_slab",
+        "simpleblocks:mossy_cinnabar_brick_slab_from_mossy_cinnabar_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_stairs",
+      "name": {
+        "en_us": "Mossy Cinnabar Brick Stairs",
+        "de_de": "Bemooste Zinnoberziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_cinnabar_brick_stairs",
+        "simpleblocks:mossy_cinnabar_brick_stairs_from_mossy_cinnabar_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_cinnabar_brick_wall",
+      "name": {
+        "en_us": "Mossy Cinnabar Brick Wall",
+        "de_de": "Bemooste Zinnoberziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_cinnabar_brick_wall",
+        "simpleblocks:mossy_cinnabar_brick_wall_from_mossy_cinnabar_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:mossy_cinnabar_bricks",
       "name": {
         "en_us": "Mossy Cinnabar Bricks",
@@ -9264,6 +12936,85 @@
       "texture": "assets/textures/simpleblocks/block/mossy_cinnabar_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_cinnabar_bricks_from_moss_block"
+      ],
+      "usedIn": [
+        "simpleblocks:mossy_cinnabar_brick_slab",
+        "simpleblocks:mossy_cinnabar_brick_slab_from_mossy_cinnabar_bricks_stonecutting",
+        "simpleblocks:mossy_cinnabar_brick_stairs",
+        "simpleblocks:mossy_cinnabar_brick_stairs_from_mossy_cinnabar_bricks_stonecutting",
+        "simpleblocks:mossy_cinnabar_brick_wall",
+        "simpleblocks:mossy_cinnabar_brick_wall_from_mossy_cinnabar_bricks_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_slab",
+      "name": {
+        "en_us": "Mossy Deepslate Brick Slab",
+        "de_de": "Bemooste Tiefenschieferziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_deepslate_brick_slab",
+        "simpleblocks:mossy_deepslate_brick_slab_from_mossy_deepslate_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_stairs",
+      "name": {
+        "en_us": "Mossy Deepslate Brick Stairs",
+        "de_de": "Bemooste Tiefenschieferziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_deepslate_brick_stairs",
+        "simpleblocks:mossy_deepslate_brick_stairs_from_mossy_deepslate_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_brick_wall",
+      "name": {
+        "en_us": "Mossy Deepslate Brick Wall",
+        "de_de": "Bemooste Tiefenschieferziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_deepslate_brick_wall",
+        "simpleblocks:mossy_deepslate_brick_wall_from_mossy_deepslate_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -9289,6 +13040,85 @@
       "craftedBy": [
         "simpleblocks:mossy_deepslate_bricks_from_moss_block"
       ],
+      "usedIn": [
+        "simpleblocks:mossy_deepslate_brick_slab",
+        "simpleblocks:mossy_deepslate_brick_slab_from_mossy_deepslate_bricks_stonecutting",
+        "simpleblocks:mossy_deepslate_brick_stairs",
+        "simpleblocks:mossy_deepslate_brick_stairs_from_mossy_deepslate_bricks_stonecutting",
+        "simpleblocks:mossy_deepslate_brick_wall",
+        "simpleblocks:mossy_deepslate_brick_wall_from_mossy_deepslate_bricks_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_slab",
+      "name": {
+        "en_us": "Mossy Deepslate Tile Slab",
+        "de_de": "Bemooste Tiefenschieferfliesenstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_deepslate_tile_slab",
+        "simpleblocks:mossy_deepslate_tile_slab_from_mossy_deepslate_tiles_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_stairs",
+      "name": {
+        "en_us": "Mossy Deepslate Tile Stairs",
+        "de_de": "Bemooste Tiefenschieferfliesentreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_deepslate_tile_stairs",
+        "simpleblocks:mossy_deepslate_tile_stairs_from_mossy_deepslate_tiles_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_deepslate_tile_wall",
+      "name": {
+        "en_us": "Mossy Deepslate Tile Wall",
+        "de_de": "Bemooste Tiefenschieferfliesenmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_deepslate_tile_wall",
+        "simpleblocks:mossy_deepslate_tile_wall_from_mossy_deepslate_tiles_stonecutting"
+      ],
       "usedIn": []
     },
     {
@@ -9312,6 +13142,85 @@
       "texture": "assets/textures/simpleblocks/block/mossy_deepslate_tiles.png",
       "craftedBy": [
         "simpleblocks:mossy_deepslate_tiles_from_moss_block"
+      ],
+      "usedIn": [
+        "simpleblocks:mossy_deepslate_tile_slab",
+        "simpleblocks:mossy_deepslate_tile_slab_from_mossy_deepslate_tiles_stonecutting",
+        "simpleblocks:mossy_deepslate_tile_stairs",
+        "simpleblocks:mossy_deepslate_tile_stairs_from_mossy_deepslate_tiles_stonecutting",
+        "simpleblocks:mossy_deepslate_tile_wall",
+        "simpleblocks:mossy_deepslate_tile_wall_from_mossy_deepslate_tiles_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_slab",
+      "name": {
+        "en_us": "Mossy End Stone Brick Slab",
+        "de_de": "Bemooste Endsteinziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_end_stone_brick_slab",
+        "simpleblocks:mossy_end_stone_brick_slab_from_mossy_end_stone_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_stairs",
+      "name": {
+        "en_us": "Mossy End Stone Brick Stairs",
+        "de_de": "Bemooste Endsteinziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_end_stone_brick_stairs",
+        "simpleblocks:mossy_end_stone_brick_stairs_from_mossy_end_stone_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_end_stone_brick_wall",
+      "name": {
+        "en_us": "Mossy End Stone Brick Wall",
+        "de_de": "Bemooste Endsteinziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_end_stone_brick_wall",
+        "simpleblocks:mossy_end_stone_brick_wall_from_mossy_end_stone_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -9337,6 +13246,85 @@
       "craftedBy": [
         "simpleblocks:mossy_end_stone_bricks_from_moss_block"
       ],
+      "usedIn": [
+        "simpleblocks:mossy_end_stone_brick_slab",
+        "simpleblocks:mossy_end_stone_brick_slab_from_mossy_end_stone_bricks_stonecutting",
+        "simpleblocks:mossy_end_stone_brick_stairs",
+        "simpleblocks:mossy_end_stone_brick_stairs_from_mossy_end_stone_bricks_stonecutting",
+        "simpleblocks:mossy_end_stone_brick_wall",
+        "simpleblocks:mossy_end_stone_brick_wall_from_mossy_end_stone_bricks_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_slab",
+      "name": {
+        "en_us": "Mossy Mud Brick Slab",
+        "de_de": "Bemooste Lehmziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_mud_brick_slab",
+        "simpleblocks:mossy_mud_brick_slab_from_mossy_mud_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_stairs",
+      "name": {
+        "en_us": "Mossy Mud Brick Stairs",
+        "de_de": "Bemooste Lehmziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_mud_brick_stairs",
+        "simpleblocks:mossy_mud_brick_stairs_from_mossy_mud_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_mud_brick_wall",
+      "name": {
+        "en_us": "Mossy Mud Brick Wall",
+        "de_de": "Bemooste Lehmziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_mud_brick_wall",
+        "simpleblocks:mossy_mud_brick_wall_from_mossy_mud_bricks_stonecutting"
+      ],
       "usedIn": []
     },
     {
@@ -9360,6 +13348,85 @@
       "texture": "assets/textures/simpleblocks/block/mossy_mud_bricks.png",
       "craftedBy": [
         "simpleblocks:mossy_mud_bricks_from_moss_block"
+      ],
+      "usedIn": [
+        "simpleblocks:mossy_mud_brick_slab",
+        "simpleblocks:mossy_mud_brick_slab_from_mossy_mud_bricks_stonecutting",
+        "simpleblocks:mossy_mud_brick_stairs",
+        "simpleblocks:mossy_mud_brick_stairs_from_mossy_mud_bricks_stonecutting",
+        "simpleblocks:mossy_mud_brick_wall",
+        "simpleblocks:mossy_mud_brick_wall_from_mossy_mud_bricks_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_slab",
+      "name": {
+        "en_us": "Mossy Sulfur Brick Slab",
+        "de_de": "Bemooste Schwefelziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_sulfur_brick_slab",
+        "simpleblocks:mossy_sulfur_brick_slab_from_mossy_sulfur_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_stairs",
+      "name": {
+        "en_us": "Mossy Sulfur Brick Stairs",
+        "de_de": "Bemooste Schwefelziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_sulfur_brick_stairs",
+        "simpleblocks:mossy_sulfur_brick_stairs_from_mossy_sulfur_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_sulfur_brick_wall",
+      "name": {
+        "en_us": "Mossy Sulfur Brick Wall",
+        "de_de": "Bemooste Schwefelziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_sulfur_brick_wall",
+        "simpleblocks:mossy_sulfur_brick_wall_from_mossy_sulfur_bricks_stonecutting"
       ],
       "usedIn": []
     },
@@ -9385,6 +13452,85 @@
       "craftedBy": [
         "simpleblocks:mossy_sulfur_bricks_from_moss_block"
       ],
+      "usedIn": [
+        "simpleblocks:mossy_sulfur_brick_slab",
+        "simpleblocks:mossy_sulfur_brick_slab_from_mossy_sulfur_bricks_stonecutting",
+        "simpleblocks:mossy_sulfur_brick_stairs",
+        "simpleblocks:mossy_sulfur_brick_stairs_from_mossy_sulfur_bricks_stonecutting",
+        "simpleblocks:mossy_sulfur_brick_wall",
+        "simpleblocks:mossy_sulfur_brick_wall_from_mossy_sulfur_bricks_stonecutting"
+      ]
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_slab",
+      "name": {
+        "en_us": "Mossy Tuff Brick Slab",
+        "de_de": "Bemooste Tuffziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_tuff_brick_slab",
+        "simpleblocks:mossy_tuff_brick_slab_from_mossy_tuff_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_stairs",
+      "name": {
+        "en_us": "Mossy Tuff Brick Stairs",
+        "de_de": "Bemooste Tuffziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_tuff_brick_stairs",
+        "simpleblocks:mossy_tuff_brick_stairs_from_mossy_tuff_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:mossy_tuff_brick_wall",
+      "name": {
+        "en_us": "Mossy Tuff Brick Wall",
+        "de_de": "Bemooste Tuffziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:mossy_tuff_brick_wall",
+        "simpleblocks:mossy_tuff_brick_wall_from_mossy_tuff_bricks_stonecutting"
+      ],
       "usedIn": []
     },
     {
@@ -9409,7 +13555,14 @@
       "craftedBy": [
         "simpleblocks:mossy_tuff_bricks_from_moss_block"
       ],
-      "usedIn": []
+      "usedIn": [
+        "simpleblocks:mossy_tuff_brick_slab",
+        "simpleblocks:mossy_tuff_brick_slab_from_mossy_tuff_bricks_stonecutting",
+        "simpleblocks:mossy_tuff_brick_stairs",
+        "simpleblocks:mossy_tuff_brick_stairs_from_mossy_tuff_bricks_stonecutting",
+        "simpleblocks:mossy_tuff_brick_wall",
+        "simpleblocks:mossy_tuff_brick_wall_from_mossy_tuff_bricks_stonecutting"
+      ]
     },
     {
       "id": "simpleblocks:nautilus_shell_block",
@@ -9529,6 +13682,222 @@
       "craftedBy": [
         "simpleblocks:netherrack_wall",
         "simpleblocks:netherrack_wall_from_netherrack_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:polished_andesite_wall",
+      "name": {
+        "en_us": "Polished Andesite Wall",
+        "de_de": "Polierte Andesitmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:polished_andesite_wall",
+        "simpleblocks:polished_andesite_wall_from_polished_andesite_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:polished_diorite_wall",
+      "name": {
+        "en_us": "Polished Diorite Wall",
+        "de_de": "Polierte Dioritmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:polished_diorite_wall",
+        "simpleblocks:polished_diorite_wall_from_polished_diorite_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:polished_granite_wall",
+      "name": {
+        "en_us": "Polished Granite Wall",
+        "de_de": "Polierte Granitmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:polished_granite_wall",
+        "simpleblocks:polished_granite_wall_from_polished_granite_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:prismarine_brick_wall",
+      "name": {
+        "en_us": "Prismarine Brick Wall",
+        "de_de": "Prismarinziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:prismarine_brick_wall",
+        "simpleblocks:prismarine_brick_wall_from_prismarine_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:purpur_wall",
+      "name": {
+        "en_us": "Purpur Wall",
+        "de_de": "Purpurmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:purpur_wall",
+        "simpleblocks:purpur_wall_from_purpur_block_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:quartz_brick_slab",
+      "name": {
+        "en_us": "Quartz Brick Slab",
+        "de_de": "Quarzziegelstufe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Slab variant of a Simple Blocks block, crafted in a row of three blocks of its material (six slabs); it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Plattenvariante eines Simple-Blocks-Blocks, in einer Reihe aus drei Blöcken des Materials hergestellt (sechs Platten); auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:quartz_brick_slab",
+        "simpleblocks:quartz_brick_slab_from_quartz_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:quartz_brick_stairs",
+      "name": {
+        "en_us": "Quartz Brick Stairs",
+        "de_de": "Quarzziegeltreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:quartz_brick_stairs",
+        "simpleblocks:quartz_brick_stairs_from_quartz_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:quartz_brick_wall",
+      "name": {
+        "en_us": "Quartz Brick Wall",
+        "de_de": "Quarzziegelmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:quartz_brick_wall",
+        "simpleblocks:quartz_brick_wall_from_quartz_bricks_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:quartz_wall",
+      "name": {
+        "en_us": "Quartz Wall",
+        "de_de": "Quarzmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:quartz_wall",
+        "simpleblocks:quartz_wall_from_quartz_block_stonecutting"
       ],
       "usedIn": []
     },
@@ -9798,6 +14167,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:smooth_quartz_wall",
+      "name": {
+        "en_us": "Smooth Quartz Wall",
+        "de_de": "Glatte Quarzmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:smooth_quartz_wall",
+        "simpleblocks:smooth_quartz_wall_from_smooth_quartz_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:smooth_red_sandstone_wall",
       "name": {
         "en_us": "Smooth Red Sandstone Wall",
@@ -9846,6 +14239,30 @@
       "usedIn": []
     },
     {
+      "id": "simpleblocks:smooth_stone_stairs",
+      "name": {
+        "en_us": "Smooth Stone Stairs",
+        "de_de": "Glatte Steintreppe"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Stair variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Treppenvariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:smooth_stone_stairs",
+        "simpleblocks:smooth_stone_stairs_from_smooth_stone_stonecutting"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simpleblocks:snow_cap",
       "name": {
         "en_us": "Snow Cap",
@@ -9881,6 +14298,30 @@
         }
       },
       "craftedBy": [],
+      "usedIn": []
+    },
+    {
+      "id": "simpleblocks:stone_wall",
+      "name": {
+        "en_us": "Stone Wall",
+        "de_de": "Steinmauer"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleblocks/shared/java/com/simpleblocks/BlocksRegistry.java",
+          "modules/simpleblocks/shared/java/com/simpleblocks/test/BlocksTests.java"
+        ],
+        "en": {
+          "summary": "Wall variant of a Simple Blocks block, crafted from six blocks of its material; it also works in the stonecutter."
+        },
+        "de": {
+          "summary": "Mauervariante eines Simple-Blocks-Blocks, aus sechs Blöcken des Materials hergestellt; auch im Steinsägewerk nutzbar."
+        }
+      },
+      "craftedBy": [
+        "simpleblocks:stone_wall",
+        "simpleblocks:stone_wall_from_stone_stonecutting"
+      ],
       "usedIn": []
     },
     {
@@ -9947,13 +14388,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 12,
-    "recipes": 285,
-    "lootTables": 57,
+    "recipes": 364,
+    "lootTables": 99,
     "tags": 2,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 59,
+    "blocks": 101,
     "trades": 0,
     "config": 0,
     "quests": 0,

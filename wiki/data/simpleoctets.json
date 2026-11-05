@@ -661,6 +661,102 @@
       }
     },
     {
+      "id": "simpleoctets:astralit_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_block",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astralit_block_from_octets.json",
+      "ingredients": [
+        "simpleoctets:astralit_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ],
+        [
+          "simpleoctets:astralit_block_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:astralit_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astralit_block_octet_from_astralit_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astralit_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astralit_block_octet_from_astralit_block_sawing.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:astralit_block_octet_from_astralit_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:astralit_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/astralit_block_octet_from_astralit_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:astralit_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:astralit_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:astralit_block",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:astralit_bricks_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -8305,6 +8401,74 @@
       }
     },
     {
+      "id": "simpleoctets:mossy_cinnabar_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_cinnabar_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_cinnabar_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_cinnabar_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_cinnabar_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_cinnabar_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_cinnabar_bricks_octet_from_mossy_cinnabar_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_cinnabar_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_cinnabar_bricks_octet_from_mossy_cinnabar_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_cinnabar_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_cinnabar_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:mossy_cobblestone_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -8405,6 +8569,278 @@
       }
     },
     {
+      "id": "simpleoctets:mossy_deepslate_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_deepslate_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_deepslate_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_deepslate_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_deepslate_bricks_octet_from_mossy_deepslate_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_deepslate_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_deepslate_bricks_octet_from_mossy_deepslate_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_bricks"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_deepslate_tiles_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_deepslate_tiles",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_deepslate_tiles_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_deepslate_tiles_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ],
+        [
+          "simpleoctets:mossy_deepslate_tiles_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_deepslate_tiles_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_deepslate_tiles_octet_from_mossy_deepslate_tiles_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_deepslate_tiles_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_deepslate_tiles_octet_from_mossy_deepslate_tiles_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_deepslate_tiles"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_deepslate_tiles"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_end_stone_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_end_stone_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_end_stone_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_end_stone_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_end_stone_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_end_stone_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_end_stone_bricks_octet_from_mossy_end_stone_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_end_stone_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_end_stone_bricks_octet_from_mossy_end_stone_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_end_stone_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_end_stone_bricks"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_mud_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_mud_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_mud_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_mud_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_mud_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_mud_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_mud_bricks_octet_from_mossy_mud_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_mud_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_mud_bricks_octet_from_mossy_mud_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_mud_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_mud_bricks"
+        ]
+      }
+    },
+    {
       "id": "simpleoctets:mossy_stone_bricks_from_octets",
       "type": "minecraft:crafting_shapeless",
       "category": "building",
@@ -8501,6 +8937,142 @@
             "id": "minecraft:stone",
             "count": 1
           }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_sulfur_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_sulfur_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_sulfur_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_sulfur_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_sulfur_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_sulfur_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_sulfur_bricks_octet_from_mossy_sulfur_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_sulfur_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_sulfur_bricks_octet_from_mossy_sulfur_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_sulfur_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_sulfur_bricks"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_tuff_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleblocks:mossy_tuff_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_tuff_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:mossy_tuff_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ],
+        [
+          "simpleoctets:mossy_tuff_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:mossy_tuff_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:mossy_tuff_bricks_octet_from_mossy_tuff_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:mossy_tuff_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/mossy_tuff_bricks_octet_from_mossy_tuff_bricks_sawing.json",
+      "ingredients": [
+        "simpleblocks:mossy_tuff_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "simpleblocks:mossy_tuff_bricks"
         ]
       }
     },
@@ -8887,6 +9459,102 @@
         "materials": [
           {
             "id": "minecraft:netherrack",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihilith_block_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_block",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihilith_block_from_octets.json",
+      "ingredients": [
+        "simpleoctets:nihilith_block_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ],
+        [
+          "simpleoctets:nihilith_block_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:nihilith_block_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihilith_block_octet_from_nihilith_block_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihilith_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihilith_block_octet_from_nihilith_block_sawing.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:nihilith_block_octet_from_nihilith_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:nihilith_block_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/nihilith_block_octet_from_nihilith_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:nihilith_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:nihilith_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "simplebuilding:nihilith_block",
             "count": 1
           }
         ]
@@ -12380,6 +13048,102 @@
       "slots": {
         "ingredient": [
           "minecraft:quartz_block"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 8,
+        "materials": [
+          {
+            "id": "minecraft:quartz",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:quartz_bricks_from_octets",
+      "type": "minecraft:crafting_shapeless",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "minecraft:quartz_bricks",
+        "count": 1
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/quartz_bricks_from_octets.json",
+      "ingredients": [
+        "simpleoctets:quartz_bricks_octet"
+      ],
+      "ingredientGroups": [
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ],
+        [
+          "simpleoctets:quartz_bricks_octet"
+        ]
+      ],
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "simpleoctets:quartz_bricks_octet",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:quartz_bricks_octet_from_quartz_bricks_sawing",
+      "type": "simpleblocks:sawing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:quartz_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/quartz_bricks_octet_from_quartz_bricks_sawing.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_bricks"
+        ]
+      }
+    },
+    {
+      "id": "simpleoctets:quartz_bricks_octet_from_quartz_bricks_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simpleoctets:quartz_bricks_octet",
+        "count": 8
+      },
+      "source": "modules/simpleoctets/shared/resources/data/simpleoctets/recipe/quartz_bricks_octet_from_quartz_bricks_stonecutting.json",
+      "ingredients": [
+        "minecraft:quartz_bricks"
+      ],
+      "slots": {
+        "ingredient": [
+          "minecraft:quartz_bricks"
         ]
       },
       "baseMaterials": {
@@ -17362,6 +18126,35 @@
       ]
     },
     {
+      "id": "simpleoctets:astralit_block_octet",
+      "name": {
+        "en_us": "Block of Astralit Octet Cell",
+        "de_de": "Astralitblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:astralit_block_octet_from_astralit_block_sawing",
+        "simpleoctets:astralit_block_octet_from_astralit_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:astralit_block_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:astralit_bricks_octet",
       "name": {
         "en_us": "Astralit Bricks Octet Cell",
@@ -19717,6 +20510,34 @@
       "usedIn": []
     },
     {
+      "id": "simpleoctets:mossy_cinnabar_bricks_octet",
+      "name": {
+        "en_us": "Mossy Cinnabar Bricks Octet Cell",
+        "de_de": "Bemooste Zinnoberziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_cinnabar_bricks_octet_from_mossy_cinnabar_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_cinnabar_bricks_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:mossy_cobblestone_octet",
       "name": {
         "en_us": "Mossy Cobblestone Octet Cell",
@@ -19746,6 +20567,118 @@
       ]
     },
     {
+      "id": "simpleoctets:mossy_deepslate_bricks_octet",
+      "name": {
+        "en_us": "Mossy Deepslate Bricks Octet Cell",
+        "de_de": "Bemooste Tiefenschieferziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_deepslate_bricks_octet_from_mossy_deepslate_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_deepslate_bricks_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:mossy_deepslate_tiles_octet",
+      "name": {
+        "en_us": "Mossy Deepslate Tiles Octet Cell",
+        "de_de": "Bemooste Tiefenschieferfliesen-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_deepslate_tiles_octet_from_mossy_deepslate_tiles_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_deepslate_tiles_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:mossy_end_stone_bricks_octet",
+      "name": {
+        "en_us": "Mossy End Stone Bricks Octet Cell",
+        "de_de": "Bemooste Endsteinziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_end_stone_bricks_octet_from_mossy_end_stone_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_end_stone_bricks_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:mossy_mud_bricks_octet",
+      "name": {
+        "en_us": "Mossy Mud Bricks Octet Cell",
+        "de_de": "Bemooste Lehmziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_mud_bricks_octet_from_mossy_mud_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_mud_bricks_from_octets"
+      ]
+    },
+    {
       "id": "simpleoctets:mossy_stone_bricks_octet",
       "name": {
         "en_us": "Mossy Stone Bricks Octet Cell",
@@ -19772,6 +20705,62 @@
       ],
       "usedIn": [
         "simpleoctets:mossy_stone_bricks_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:mossy_sulfur_bricks_octet",
+      "name": {
+        "en_us": "Mossy Sulfur Bricks Octet Cell",
+        "de_de": "Bemooste Schwefelziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_sulfur_bricks_octet_from_mossy_sulfur_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_sulfur_bricks_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:mossy_tuff_bricks_octet",
+      "name": {
+        "en_us": "Mossy Tuff Bricks Octet Cell",
+        "de_de": "Bemooste Tuffsteinziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:mossy_tuff_bricks_octet_from_mossy_tuff_bricks_sawing"
+      ],
+      "usedIn": [
+        "simpleoctets:mossy_tuff_bricks_from_octets"
       ]
     },
     {
@@ -19888,6 +20877,35 @@
       ],
       "usedIn": [
         "simpleoctets:netherrack_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:nihilith_block_octet",
+      "name": {
+        "en_us": "Block of Nihilit Octet Cell",
+        "de_de": "Nihilitblock-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:nihilith_block_octet_from_nihilith_block_sawing",
+        "simpleoctets:nihilith_block_octet_from_nihilith_block_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:nihilith_block_from_octets"
       ]
     },
     {
@@ -20932,6 +21950,35 @@
       ],
       "usedIn": [
         "simpleoctets:quartz_block_from_octets"
+      ]
+    },
+    {
+      "id": "simpleoctets:quartz_bricks_octet",
+      "name": {
+        "en_us": "Quartz Bricks Octet Cell",
+        "de_de": "Quarzziegel-Achtelzelle"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCellBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/OctetCells.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/block/MaterialOctetBlock.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/item/MaterialOctetItem.java",
+          "modules/simpleoctets/shared/java/com/simpleoctets/registry/OctetRegistry.java"
+        ],
+        "en": {
+          "summary": "An octet (0.5 x 0.5 x 0.5) of its material; right-click places it into the clicked corner. The Shapecutter (Simple Blocks; without it the stonecutter) cuts 8 from the full block, 8 craft back into it."
+        },
+        "de": {
+          "summary": "Ein Achtel (0,5 x 0,5 x 0,5) seines Materials; Rechtsklick setzt es in die angeklickte Ecke. Die Formsäge (Simple Blocks; ohne sie der Steinmetz) schneidet 8 aus dem Vollblock, 8 ergeben ihn wieder."
+        }
+      },
+      "craftedBy": [
+        "simpleoctets:quartz_bricks_octet_from_quartz_bricks_sawing",
+        "simpleoctets:quartz_bricks_octet_from_quartz_bricks_stonecutting"
+      ],
+      "usedIn": [
+        "simpleoctets:quartz_bricks_from_octets"
       ]
     },
     {
@@ -22371,13 +23418,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 6,
-    "recipes": 523,
+    "recipes": 546,
     "lootTables": 0,
     "tags": 0,
     "advancements": 1,
     "enchantments": 0,
     "items": 1,
-    "blocks": 177,
+    "blocks": 187,
     "trades": 0,
     "config": 0,
     "quests": 0,
