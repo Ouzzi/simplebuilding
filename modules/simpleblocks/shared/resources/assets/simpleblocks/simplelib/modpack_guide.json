@@ -9,7 +9,7 @@
       "title": "simpleblocks.guide.chapter",
       "icon": "minecraft:clay_ball",
       "page_key": "simpleblocks.guide.page",
-      "pages": 16,
+      "pages": 20,
       "advancement": "simpleblocks:guide/chapter",
       "hint": "minecraft:clay_ball"
     }
