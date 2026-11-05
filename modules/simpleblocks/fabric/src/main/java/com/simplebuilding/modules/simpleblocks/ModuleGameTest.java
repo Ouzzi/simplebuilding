@@ -262,6 +262,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
+    public void snowFallPlantOneLayer(GameTestHelper h) {
+        BlocksTests.ALL.get("snow_fall_plant_one_layer").accept(h);
+    }
+
+    @GameTest(structure = "simpleblocks:empty", maxTicks = 100)
     public void frostGrassDropsAndTags(GameTestHelper h) {
         BlocksTests.ALL.get("frost_grass_drops_and_tags").accept(h);
     }

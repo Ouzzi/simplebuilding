@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.levelgen.Heightmap;
 
-/** SNOW32-FALL: next to Vanilla's precipitation tick, one {@link SnowCapBlock} where Vanilla snow cannot stand. */
+/** SNOW32-FALL: next to Vanilla's precipitation tick, one {@link SnowCapBlock} where Vanilla snow cannot stand, or one snowlogged layer on a plant. */
 public final class SnowCaps {
     private SnowCaps() {}
 
@@ -24,14 +24,32 @@ public final class SnowCaps {
             return;
         }
         BlockPos top = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, column);
-        if (!level.isInsideBuildHeight(top.getY()) || !level.getBlockState(top).isAir()) {
+        if (!level.isInsideBuildHeight(top.getY())) {
+            return;
+        }
+        BlockState at = level.getBlockState(top);
+        boolean plant = SnowConfig.snowlogging && Snowlogging.canHold(at) && !at.is(net.minecraft.tags.BlockTags.FENCES);
+        if (!at.isAir() && !plant) {
             return;
         }
         Biome biome = level.getBiome(top).value();
         if (biome.getPrecipitationAt(top, level.getSeaLevel()) == Biome.Precipitation.SNOW
                 && level.getBrightness(LightLayer.BLOCK, top) < 10) {
-            capAt(level, top);
+            if (plant) {
+                snowlogPlant(level, top, at);
+            } else {
+                capAt(level, top);
+            }
         }
+    }
+
+    /** One snow layer on a flower, grass or fern: the plant shares its cell with a single layer (never more). */
+    public static boolean snowlogPlant(ServerLevel level, BlockPos pos, BlockState plant) {
+        if (SnowBlocks.SNOWLOGGED == null || !Snowlogging.canHold(plant) || !SnowloggedBlock.snowSurvives(level, pos)) {
+            return false;
+        }
+        Snowlogging.snowlog(level, pos, plant);
+        return true;
     }
 
     /** Puts the cap into the air cell {@code top} if the block below has no full top face and nothing is there yet (never stacks). */
