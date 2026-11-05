@@ -38,6 +38,8 @@ public final class CompatibilityTests {
  static Identifier id(String namespace, String path) { return Identifier.fromNamespaceAndPath(namespace, path); }
  static Identifier old(String path) { return id("simpletweaks", path); }
  static Identifier now(String path) { return id("simplebuilding", path); }
+ /** The id an entry really has: Simple Pads took the pad ids over from simplebuilding (04.11.2026, IdMoves). */
+ static Identifier canon(Registry<?> r, Identifier target) { Identifier pads=id("simplepads",target.getPath()); return target.getNamespace().equals("simplebuilding") && r.containsKey(pads) ? pads : target; }
  static RegistryOps<Tag> ops(GameTestHelper h) { return RegistryOps.create(NbtOps.INSTANCE, h.getLevel().registryAccess()); }
  static ItemStack stack(GameTestHelper h, String path) {
   CompoundTag tag=new CompoundTag();tag.putString("id",old(path).toString());tag.putInt("count",1);
@@ -77,7 +79,7 @@ public final class CompatibilityTests {
   require(h,r.getValue(old(path))==expected.value(),"Value by ID "+path);
   require(h,r.getValue(ResourceKey.create(r.key(),old(path)))==expected.value(),"Value by key "+path);
   require(h,r.containsKey(old(path)),"Contains "+path);
-  require(h,r.getKey(expected.value()).equals(target),"Canonical save ID "+path);
+  require(h,r.getKey(expected.value()).equals(canon(r,target)),"Canonical save ID "+path);
  }
  static void lookups(GameTestHelper h) {
   if(!simpleBuilding()) {
@@ -97,7 +99,7 @@ public final class CompatibilityTests {
   for(String x:java.util.stream.Stream.concat(LegacyAliases.BLOCKS.stream(),java.util.stream.Stream.of("laser_pointer","spawn_elytra")).toList()) {
    ItemStack s=stack(h,x); require(h,!s.isEmpty(),"Decoded "+x);
    CompoundTag saved=(CompoundTag)ItemStack.CODEC.encodeStart(ops(h),s).getOrThrow();
-   require(h,saved.getStringOr("id","").equals(LegacyAliases.target(BuiltInRegistries.ITEM,old(x)).toString()),"Canonical stack "+x);
+   require(h,saved.getStringOr("id","").equals(canon(BuiltInRegistries.ITEM,LegacyAliases.target(BuiltInRegistries.ITEM,old(x))).toString()),"Canonical stack "+x);
   }h.succeed();
  }
  static void stackCounts(GameTestHelper h) {
@@ -127,7 +129,7 @@ public final class CompatibilityTests {
    CompoundTag tag=new CompoundTag();tag.putIntArray("Owner",new int[]{1,2,3,4});
    BlockEntity be=loadBE(h,type,tag);CompoundTag saved=be.saveWithoutMetadata(h.getLevel().registryAccess());
    require(h,java.util.Arrays.equals(saved.getIntArray("Owner").orElseThrow(),new int[]{1,2,3,4}),"Owner survives "+type);
-   require(h,BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()).equals(now(type)),"Canonical BE "+type);
+   require(h,BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()).equals(canon(BuiltInRegistries.BLOCK_ENTITY_TYPE,now(type))),"Canonical BE "+type);
   }h.succeed();
  }
  static void charges(GameTestHelper h) {
@@ -142,8 +144,9 @@ public final class CompatibilityTests {
   CompoundTag c=new CompoundTag();c.putInt("simpletweaks:flight_time",6000);c.putFloat("simpletweaks:boost_level",0.5f);c.putLong("simpletweaks:last_pad_tick",17);c.putBoolean("simpletweaks:is_safe_elytra",true);tag.put("components",c);
   ItemStack s=ItemStack.CODEC.parse(ops(h),tag).getOrThrow();
   CompoundTag saved=((CompoundTag)ItemStack.CODEC.encodeStart(ops(h),s).getOrThrow()).getCompoundOrEmpty("components");
-  for(String x:LegacyAliases.COMPONENTS){require(h,saved.contains("simplebuilding:"+x),"Component retained "+x);require(h,!saved.contains("simpletweaks:"+x),"Component canonical "+x);}
-  require(h,saved.getIntOr("simplebuilding:flight_time",0)==6000 && saved.getFloatOr("simplebuilding:boost_level",0)==0.5f && saved.getLongOr("simplebuilding:last_pad_tick",0)==17 && saved.getBooleanOr("simplebuilding:is_safe_elytra",false),"All values unchanged");h.succeed();
+  for(String x:LegacyAliases.COMPONENTS){require(h,saved.contains(canon(BuiltInRegistries.DATA_COMPONENT_TYPE,now(x)).toString()),"Component retained "+x);require(h,!saved.contains("simpletweaks:"+x),"Component canonical "+x);}
+  String ns=canon(BuiltInRegistries.DATA_COMPONENT_TYPE,now("flight_time")).getNamespace()+":";
+  require(h,saved.getIntOr(ns+"flight_time",0)==6000 && saved.getFloatOr(ns+"boost_level",0)==0.5f && saved.getLongOr(ns+"last_pad_tick",0)==17 && saved.getBooleanOr(ns+"is_safe_elytra",false),"All values unchanged");h.succeed();
  }
  static void deed(GameTestHelper h) {
   ItemStack s=stack(h,"claim_deed");CompoundTag data=new CompoundTag();data.putLong("ClaimPos",123456);data.putString("OwnerName","Someone else");data.putString("UnknownFutureField","preserve");s.set(DataComponents.CUSTOM_DATA,CustomData.of(data));
