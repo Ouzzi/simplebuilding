@@ -111,10 +111,10 @@ Neu eingetragen (standen nur in /root/sb-tools-b/wd25.md bzw. /root/b-antworten-
 - [ ] WH26-9 Claim-Urkunde neu: Grid der Claims, Karten-Optik, Handels-UI mit Claim-Credits (Status 01.11.: offen – Vorschau zuerst, dann Bau; Beleg: DeedMapScreen/Claims vorhanden; Credits-Handelsscreen nicht belegt)
 - [ ] WH26-10 Kompakte Blöcke Stufe 1 Compact / Stufe 2 Dense (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
 - [x] (B, b-ench02, 03.11.) WI26-1 Enchanter abbauen droppt Nuggets passend zum Rezept: Dark → Tisch + 8 Netherit-Nuggets, Astral → Dark + 8 Enderit-Nuggets (Loot `data/simpleenchanting/loot_table`, Test `breaking_drops_table_nuggets_and_stock` grün)
-- [ ] WI26-2 Schachfiguren: beim Abbau nur die angeschaute Figur (Status 01.11.: offen – komplett offen; Beleg: kein Treffer)
+- [x] (A, a-fix05, 05.11.) WI26-2 Schachfiguren: beim Abbau nur die angeschaute Figur (ChessPiecesBlock.playerWillDestroy/destroy, Test chess_game_test_pieces_break_only_the_looked_at_piece)
 - [ ] WI26-3 Zwei neue Tooltip-Stufen „Corrupted“ (Glitch) und „Void/Voided“; Vorschau zuerst (Status 01.11.: offen – Vorschau + Bau; Beleg: kein Treffer)
-- [ ] WI26-4 End-Schwingen: Legendary-Tooltip-Rang statt Cursed (Status 01.11.: offen – abhängig von WI26-3; Beleg: nicht belegt)
-- [ ] WI26-5 JEI „Mob Drops“: Layout korrigieren (Mob links vom Pfeil, Slots) (Status 01.11.: offen – Layout fixen; Beleg: AUDM24-3 Teilstand; Layout nicht belegt)
+- [ ] WI26-4 End-Schwingen: Legendary-Tooltip-Rang statt Cursed (05.11. a-fix05: NICHT gebaut – SimpleRarity kennt nur CURSED/MYTHIC/EVIL, kein LEGENDARY; hängt an WI26-3 (neue Stufen, Vorschau zuerst, Besitzer-Optik))
+- [~] (A, a-fix05, 05.11.) WI26-5 JEI „Mob Drops“: Opfer ohne Spawn-Ei (Abyssal Wither) bekommt Wither-Schädel mit Mob-Name links vom Pfeil, Ergebnis-Slots 18 px statt 26-px-Ausgabehintergrund (modules/simplelib MobDropCategory); offen JEI-Client-Sicht
 - [ ] WI26-6 Enderherz ab dem 4. besiegten Drachen (1× pro Spieler, platziert um das Endportal) (Status 01.11.: offen – Bau; Beleg: Drachen-Zähler (simpleenddragonfight) vorhanden, Enderherz-Drop nicht belegt)
 
 ## Besitzer 30.10. abends – In-Game-Abnahme 1 (IG31) – Bilder /root/sb-tools-a/owner-img/30-*
