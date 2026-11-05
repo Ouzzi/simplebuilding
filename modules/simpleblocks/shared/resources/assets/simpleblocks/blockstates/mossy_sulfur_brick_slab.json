@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleblocks:block/mossy_sulfur_brick_slab"
+    },
+    "type=double": {
+      "model": "simpleblocks:block/mossy_sulfur_bricks"
+    },
+    "type=top": {
+      "model": "simpleblocks:block/mossy_sulfur_brick_slab_top"
+    }
+  }
+}

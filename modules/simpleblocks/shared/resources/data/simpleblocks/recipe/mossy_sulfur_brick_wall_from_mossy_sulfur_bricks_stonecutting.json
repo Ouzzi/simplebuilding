@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simpleblocks:mossy_sulfur_bricks",
+  "result": {
+    "id": "simpleblocks:mossy_sulfur_brick_wall"
+  }
+}

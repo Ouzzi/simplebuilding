@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleblocks:block/mossy_deepslate_brick_slab"
+    },
+    "type=double": {
+      "model": "simpleblocks:block/mossy_deepslate_bricks"
+    },
+    "type=top": {
+      "model": "simpleblocks:block/mossy_deepslate_brick_slab_top"
+    }
+  }
+}

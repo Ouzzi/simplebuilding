@@ -25,11 +25,41 @@ SHAPES = [  # (family id, base block, which shapes, textures)
     ('smooth_sandstone', 'minecraft:smooth_sandstone', 'w', dict(top='minecraft:block/sandstone_top', side='minecraft:block/sandstone_top', wall='minecraft:block/sandstone_top')),
     ('smooth_red_sandstone', 'minecraft:smooth_red_sandstone', 'w', dict(top='minecraft:block/red_sandstone_top', side='minecraft:block/red_sandstone_top', wall='minecraft:block/red_sandstone_top')),
 ]
+
+
+def _tex(top, side=None, wall=None):
+    return dict(top=top, side=side or top, wall=wall or side or top)
+
+
+# Palette stage 2 (a-palette05, IG31-42): mossy families (stairs/slab/wall of the mossy block, its own derived texture) ...
+for _stem, _block in (('mossy_deepslate_brick', 'mossy_deepslate_bricks'), ('mossy_deepslate_tile', 'mossy_deepslate_tiles'),
+                      ('mossy_tuff_brick', 'mossy_tuff_bricks'), ('mossy_mud_brick', 'mossy_mud_bricks'),
+                      ('mossy_end_stone_brick', 'mossy_end_stone_bricks'), ('mossy_cinnabar_brick', 'mossy_cinnabar_bricks'),
+                      ('mossy_sulfur_brick', 'mossy_sulfur_bricks')):
+    SHAPES.append((_stem, f'{NS}:{_block}', 'sSw', _tex(f'{NS}:block/{_block}')))
+# ... and the missing members of Vanilla families (textures: the Vanilla block's).
+SHAPES += [
+    ('stone', 'minecraft:stone', 'w', _tex('minecraft:block/stone')),
+    ('smooth_stone', 'minecraft:smooth_stone', 's', _tex('minecraft:block/smooth_stone')),
+    ('polished_granite', 'minecraft:polished_granite', 'w', _tex('minecraft:block/polished_granite')),
+    ('polished_diorite', 'minecraft:polished_diorite', 'w', _tex('minecraft:block/polished_diorite')),
+    ('polished_andesite', 'minecraft:polished_andesite', 'w', _tex('minecraft:block/polished_andesite')),
+    ('quartz', 'minecraft:quartz_block', 'w', _tex('minecraft:block/quartz_block_top', 'minecraft:block/quartz_block_side')),
+    ('smooth_quartz', 'minecraft:smooth_quartz', 'w', _tex('minecraft:block/quartz_block_bottom')),
+    ('purpur', 'minecraft:purpur_block', 'w', _tex('minecraft:block/purpur_block')),
+    ('quartz_brick', 'minecraft:quartz_bricks', 'sSw', _tex('minecraft:block/quartz_bricks')),
+    ('end_stone', 'minecraft:end_stone', 'sSw', _tex('minecraft:block/end_stone')),
+    ('prismarine_brick', 'minecraft:prismarine_bricks', 'w', _tex('minecraft:block/prismarine_bricks')),
+    ('dark_prismarine', 'minecraft:dark_prismarine', 'w', _tex('minecraft:block/dark_prismarine')),
+]
 AGED = [('cracked_red_nether_bricks', 'red_nether_bricks'), ('cracked_tuff_bricks', 'tuff_bricks'), ('mossy_tuff_bricks', 'tuff_bricks'),
         ('cracked_mud_bricks', 'mud_bricks'), ('mossy_mud_bricks', 'mud_bricks'), ('cracked_end_stone_bricks', 'end_stone_bricks'),
         ('mossy_end_stone_bricks', 'end_stone_bricks'), ('mossy_deepslate_bricks', 'deepslate_bricks'), ('mossy_deepslate_tiles', 'deepslate_tiles'),
         ('cracked_cinnabar_bricks', 'cinnabar_bricks'), ('mossy_cinnabar_bricks', 'cinnabar_bricks'),
-        ('cracked_sulfur_bricks', 'sulfur_bricks'), ('mossy_sulfur_bricks', 'sulfur_bricks')]
+        ('cracked_sulfur_bricks', 'sulfur_bricks'), ('mossy_sulfur_bricks', 'sulfur_bricks'),
+        # a-palette05 (IG31-42): cracked Prismarine x3, Polished Deepslate and Blue Nether Bricks (base: our own block, hence the namespace).
+        ('cracked_prismarine', 'prismarine'), ('cracked_prismarine_bricks', 'prismarine_bricks'), ('cracked_dark_prismarine', 'dark_prismarine'),
+        ('cracked_polished_deepslate', 'polished_deepslate'), ('cracked_blue_nether_bricks', f'{NS}:blue_nether_bricks')]
 
 # name -> dict(kind, family, base item, textures)
 BLOCKS = {}
@@ -314,7 +344,7 @@ def recipes():
         recipe(cut_id, {'type': 'minecraft:stonecutting', 'ingredient': base, 'result': cut}, base,
                'decorations' if kind == 'wall' else 'building_blocks')
     for name, base in AGED:
-        brick = f'minecraft:{base}'
+        brick = base if ':' in base else f'minecraft:{base}'
         if name.startswith('cracked_'):
             recipe(f'{name}_from_smelting', {'type': 'minecraft:smelting', 'category': 'blocks', 'cookingtime': 200, 'experience': 0.1,
                                              'ingredient': brick, 'result': result(name)}, brick)
@@ -398,16 +428,33 @@ def tags():
 # --- lang -------------------------------------------------------------------------------------------------------------
 EN_FAMILY = {'calcite': 'Calcite', 'netherrack': 'Netherrack', 'smooth_basalt': 'Smooth Basalt', 'cut_sandstone': 'Cut Sandstone',
              'cut_red_sandstone': 'Cut Red Sandstone', 'smooth_sandstone': 'Smooth Sandstone', 'smooth_red_sandstone': 'Smooth Red Sandstone',
-             HUSHED: 'Hushed Deepslate Tile', BLUE: 'Blue Nether Brick'}
+             HUSHED: 'Hushed Deepslate Tile', BLUE: 'Blue Nether Brick',
+             'mossy_deepslate_brick': 'Mossy Deepslate Brick', 'mossy_deepslate_tile': 'Mossy Deepslate Tile', 'mossy_tuff_brick': 'Mossy Tuff Brick',
+             'mossy_mud_brick': 'Mossy Mud Brick', 'mossy_end_stone_brick': 'Mossy End Stone Brick', 'mossy_cinnabar_brick': 'Mossy Cinnabar Brick',
+             'mossy_sulfur_brick': 'Mossy Sulfur Brick', 'stone': 'Stone', 'smooth_stone': 'Smooth Stone', 'polished_granite': 'Polished Granite',
+             'polished_diorite': 'Polished Diorite', 'polished_andesite': 'Polished Andesite', 'quartz': 'Quartz', 'smooth_quartz': 'Smooth Quartz',
+             'purpur': 'Purpur', 'quartz_brick': 'Quartz Brick', 'end_stone': 'End Stone', 'prismarine_brick': 'Prismarine Brick',
+             'dark_prismarine': 'Dark Prismarine'}
 DE_FAMILY = {'calcite': 'Kalzit', 'netherrack': 'Netherrack-', 'smooth_basalt': 'Glatte Basalt', 'cut_sandstone': 'Geschnittene Sandstein',
              'cut_red_sandstone': 'Geschnittene Rote Sandstein', 'smooth_sandstone': 'Glatte Sandstein', 'smooth_red_sandstone': 'Glatte Rote Sandstein',
-             HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel'}
+             HUSHED: 'Gedämpfte Tiefenschieferfliesen', BLUE: 'Blaue Netherziegel',
+             'mossy_deepslate_brick': 'Bemooste Tiefenschieferziegel', 'mossy_deepslate_tile': 'Bemooste Tiefenschieferfliesen',
+             'mossy_tuff_brick': 'Bemooste Tuffziegel', 'mossy_mud_brick': 'Bemooste Lehmziegel', 'mossy_end_stone_brick': 'Bemooste Endsteinziegel',
+             'mossy_cinnabar_brick': 'Bemooste Zinnoberziegel', 'mossy_sulfur_brick': 'Bemooste Schwefelziegel', 'stone': 'Stein',
+             'smooth_stone': 'Glatte Stein', 'polished_granite': 'Polierte Granit', 'polished_diorite': 'Polierte Diorit',
+             'polished_andesite': 'Polierte Andesit', 'quartz': 'Quarz', 'smooth_quartz': 'Glatte Quarz', 'purpur': 'Purpur',
+             'quartz_brick': 'Quarzziegel', 'end_stone': 'Endstein', 'prismarine_brick': 'Prismarinziegel', 'dark_prismarine': 'Dunkle Prismarin'}
 DE_KIND = {'stairs': 'treppe', 'slab': 'stufe', 'wall': 'mauer'}
 EN_KIND = {'stairs': 'Stairs', 'slab': 'Slab', 'wall': 'Wall'}
 EN_BRICK = {'red_nether_bricks': 'Red Nether Bricks', 'tuff_bricks': 'Tuff Bricks', 'mud_bricks': 'Mud Bricks', 'end_stone_bricks': 'End Stone Bricks',
-            'deepslate_bricks': 'Deepslate Bricks', 'deepslate_tiles': 'Deepslate Tiles', 'cinnabar_bricks': 'Cinnabar Bricks', 'sulfur_bricks': 'Sulfur Bricks'}
+            'deepslate_bricks': 'Deepslate Bricks', 'deepslate_tiles': 'Deepslate Tiles', 'cinnabar_bricks': 'Cinnabar Bricks', 'sulfur_bricks': 'Sulfur Bricks',
+            'prismarine': 'Prismarine', 'prismarine_bricks': 'Prismarine Bricks', 'dark_prismarine': 'Dark Prismarine',
+            'polished_deepslate': 'Polished Deepslate', f'{NS}:blue_nether_bricks': 'Blue Nether Bricks'}
 DE_BRICK = {'red_nether_bricks': 'Rote Netherziegel', 'tuff_bricks': 'Tuffziegel', 'mud_bricks': 'Lehmziegel', 'end_stone_bricks': 'Endsteinziegel',
-            'deepslate_bricks': 'Tiefenschieferziegel', 'deepslate_tiles': 'Tiefenschieferfliesen', 'cinnabar_bricks': 'Zinnoberziegel', 'sulfur_bricks': 'Schwefelziegel'}
+            'deepslate_bricks': 'Tiefenschieferziegel', 'deepslate_tiles': 'Tiefenschieferfliesen', 'cinnabar_bricks': 'Zinnoberziegel', 'sulfur_bricks': 'Schwefelziegel',
+            'prismarine': 'Prismarin', 'prismarine_bricks': 'Prismarinziegel', 'dark_prismarine': 'Dunkler Prismarin',
+            'polished_deepslate': 'Polierter Tiefenschiefer', f'{NS}:blue_nether_bricks': 'Blaue Netherziegel'}
+DE_SINGULAR = {'prismarine', 'dark_prismarine', 'polished_deepslate'}  # masculine: Rissiger, not Rissige
 
 
 def names():
@@ -423,11 +470,11 @@ def names():
             en[name], de[name] = 'Sculk Tiles', 'Sculk-Fliesen'
         elif b['kind'] == 'cube':
             base = AGED_BASE[name]
-            word_en, word_de = ('Cracked', 'Rissige') if name.startswith('cracked_') else ('Mossy', 'Bemooste')
+            word_en, word_de = ('Cracked', 'Rissiger' if base in DE_SINGULAR else 'Rissige') if name.startswith('cracked_') else ('Mossy', 'Bemooste')
             if base == 'red_nether_bricks':
                 de_name = 'Rissige Rote Netherziegel'
             else:
-                de_name = f'{word_de} {DE_BRICK[base]}' if word_de == 'Rissige' else f'{word_de} {DE_BRICK[base]}'
+                de_name = f'{word_de} {DE_BRICK[base]}'
             en[name], de[name] = f'{word_en} {EN_BRICK[base]}', de_name
         else:
             fam = b['family']

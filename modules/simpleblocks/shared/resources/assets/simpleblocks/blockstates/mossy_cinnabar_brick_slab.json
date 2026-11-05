@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simpleblocks:block/mossy_cinnabar_brick_slab"
+    },
+    "type=double": {
+      "model": "simpleblocks:block/mossy_cinnabar_bricks"
+    },
+    "type=top": {
+      "model": "simpleblocks:block/mossy_cinnabar_brick_slab_top"
+    }
+  }
+}

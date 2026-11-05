@@ -15,9 +15,9 @@ java = (MODULE / 'shared/java/com/simpleblocks/BlocksRegistry.java').read_text(e
 # Names in BlocksRegistry: the explicit adds, the SHAPES list and the AGED pairs must equal the generator's block list.
 registry = set(re.findall(r'add\("([a-z_]+)"', java))
 registry |= {m for m in re.findall(r'"([a-z_]+_(?:stairs|slab|wall))"', java.split('SHAPES = List.of(')[1].split(');')[0])}
-registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_]+"\}', java)}
+registry |= {m for m in re.findall(r'new String\[\]\{"([a-z_]+)", "[a-z_:]+"\}', java)}
 assert registry == set(g.BLOCKS), (sorted(registry ^ set(g.BLOCKS)))
-assert len(g.BLOCKS) == 38, len(g.BLOCKS)
+assert len(g.BLOCKS) == 80, len(g.BLOCKS)  # 38 + 42 of palette stage 2 (a-palette05)
 
 assert subprocess.run([sys.executable, str(MODULE / 'tools/generate_data.py'), '--check']).returncode == 0
 
