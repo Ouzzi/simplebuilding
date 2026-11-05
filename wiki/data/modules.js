@@ -698,7 +698,7 @@ window.WIKI_MODULES = [
       "recipes": 9,
       "features": 7
     },
-    "dataHash": "48f29b5e309e"
+    "dataHash": "555f31d81f0f"
   },
   {
     "id": "simplemobs",
@@ -729,12 +729,12 @@ window.WIKI_MODULES = [
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA00lEQVR42mPwcgj4TwlmABGXj9zFwNY8AnCMzIfJ71hwAtWAQ2sv/L9/5RmYBims0nL47yWiAWbDxGB8kOaW4gmYBsAwugEwDOODLMJqALJimAHTtLT+H3K3AtPIBmIYABLMllD4/7QqBq4BhP93acHZMMNA6sAuQjcAXTM2A0AYpwHomsEGXM8i3wCY7ciuAGnGaQAsHLDZDjMEphlnLMAMwOZ3kIEEDYAZgm4AstNxJiSQBDavoGvGagAodcEkkQ3BphnDAJgAOkZOmdjk4QZQggG69BxeWTVzmgAAAABJRU5ErkJggg==",
     "counts": {
-      "items": 54,
+      "items": 55,
       "blocks": 8,
-      "recipes": 120,
+      "recipes": 121,
       "features": 25
     },
-    "dataHash": "b9de8a554623"
+    "dataHash": "53f27fc25f35"
   },
   {
     "id": "simpleweather",

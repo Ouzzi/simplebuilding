@@ -3447,6 +3447,47 @@
       }
     },
     {
+      "id": "simplemobs:trumpet",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplemobs:trumpet",
+        "count": 1
+      },
+      "source": "modules/simplemobs/shared/resources/data/simplemobs/recipe/trumpet.json",
+      "ingredients": [
+        "minecraft:copper_ingot",
+        "minecraft:gold_nugget"
+      ],
+      "pattern": [
+        "NCC",
+        " CC",
+        "  C"
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_ingot"
+        ],
+        "N": [
+          "minecraft:gold_nugget"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 1,
+        "materials": [
+          {
+            "id": "minecraft:copper_ingot",
+            "count": 5
+          },
+          {
+            "id": "minecraft:gold_ingot",
+            "count": 0.111
+          }
+        ]
+      }
+    },
+    {
       "id": "simplemobs:void_wings_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -6623,6 +6664,50 @@
       "usedIn": []
     },
     {
+      "id": "simplemobs:trumpet",
+      "name": {
+        "en_us": "Trumpet",
+        "de_de": "Trompete"
+      },
+      "note": {
+        "en": {
+          "summary": "Hold use to play notes; the look angle sets the pitch over two octaves (C major). Crafted from 5 copper ingots and a gold nugget."
+        },
+        "de": {
+          "summary": "Benutzen halten spielt Töne; der Blickwinkel bestimmt die Tonhöhe über zwei Oktaven (C-Dur). Aus 5 Kupferbarren und einem Goldklümpchen."
+        }
+      },
+      "texture": "assets/textures/simplemobs/item/trumpet.png",
+      "questionary": {
+        "en": {
+          "lore": [
+            "Brass and a steady breath: one clear note, as long as you hold it."
+          ],
+          "use": [
+            "Hold use: a note every 0.3 s, so the tone carries on while you hold. The look angle sets the pitch: look up for high, down for low, over two octaves in C major (15 steps). Recipe: 5 copper ingots and a gold nugget."
+          ],
+          "secret": [
+            "Two samples carry the two octaves, so the tone keeps its colour when it climbs."
+          ]
+        },
+        "de": {
+          "lore": [
+            "Messing und ein ruhiger Atem: ein klarer Ton, solange man hält."
+          ],
+          "use": [
+            "Benutzen halten: alle 0,3 s ein Ton, so klingt er weiter, solange man hält. Der Blickwinkel bestimmt die Tonhöhe: nach oben schauen = hoch, nach unten = tief, über zwei Oktaven in C-Dur (15 Stufen). Rezept: 5 Kupferbarren und ein Goldklümpchen."
+          ],
+          "secret": [
+            "Zwei Samples tragen die zwei Oktaven, damit die Klangfarbe beim Steigen nicht kippt."
+          ]
+        }
+      },
+      "craftedBy": [
+        "simplemobs:trumpet"
+      ],
+      "usedIn": []
+    },
+    {
       "id": "simplemobs:void_potion_1",
       "name": {
         "en_us": "Void Potion I",
@@ -7202,12 +7287,12 @@
   "incompleteProse": {},
   "counts": {
     "features": 25,
-    "recipes": 120,
+    "recipes": 121,
     "lootTables": 46,
     "tags": 10,
     "advancements": 1,
     "enchantments": 0,
-    "items": 54,
+    "items": 55,
     "blocks": 8,
     "trades": 0,
     "config": 0,
