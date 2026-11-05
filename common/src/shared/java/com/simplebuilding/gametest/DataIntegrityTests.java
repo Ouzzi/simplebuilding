@@ -2643,6 +2643,13 @@ public final class DataIntegrityTests {
             }
             int at = 0;
             for (ItemStack want : expected) {
+                // an item of another mod stands in that mod's own tab (QW11), not in this one
+                Identifier wantId = BuiltInRegistries.ITEM.getKey(want.getItem());
+                if (!MOD_ID.equals(wantId.getNamespace()) && BuiltInRegistries.CREATIVE_MODE_TAB.entrySet().stream()
+                        .anyMatch(e -> e.getKey().identifier().getNamespace().equals(wantId.getNamespace())
+                                && e.getValue().getDisplayItems().stream().anyMatch(o -> o.getItem() == want.getItem()))) {
+                    continue;
+                }
                 while (at < shown.size() && !ItemStack.isSameItemSameComponents(shown.get(at), want)) at++;
                 if (at >= shown.size()) {
                     problems.add(want + " is missing in Simple Blocks' tab or out of SimpleBuilding's row order");
