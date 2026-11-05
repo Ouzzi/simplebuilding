@@ -232,8 +232,12 @@ public final class CrossModGameTest {
             int count = 0;
             for (Identifier tabId : registry.keySet()) {
                 if (tabId.getNamespace().equals(namespace)) {
+                    List<ItemStack> seen = new ArrayList<>();
                     for (ItemStack stack : registry.getValue(tabId).getDisplayItems()) {
-                        if (BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id)) {
+                        // variants of one item (heads with different mob data) are different stacks, not duplicates
+                        if (BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(id)
+                                && seen.stream().noneMatch(o -> ItemStack.isSameItemSameComponents(o, stack))) {
+                            seen.add(stack);
                             count++;
                         }
                     }
@@ -242,6 +246,21 @@ public final class CrossModGameTest {
             if (count > 1 && tabsOfNamespace.containsKey(namespace)) {
                 problems.add(id + " stands " + count + " times in the tabs of " + namespace);
             }
+        }
+        // one family rule: the test centre gallery (Common copy) and the tabs (SimpleLib TabSort) agree
+        try {
+            Class<?> gallery = Class.forName("com.simplebuilding.dev.testcentre.ModBlockGallery");
+            Class<?> sort = Class.forName("com.simplelib.api.TabSort");
+            for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+                String path = id.getPath();
+                Object a = gallery.getMethod("materialKey", String.class).invoke(null, path);
+                Object b = sort.getMethod("materialKey", String.class).invoke(null, path);
+                if (!a.equals(b)) {
+                    problems.add("family key differs for " + id + ": gallery " + a + " vs TabSort " + b);
+                }
+            }
+        } catch (ReflectiveOperationException e) {
+            problems.add("family rule comparison failed: " + e);
         }
         // tab order = mod tree order (SimpleBuilding first)
         int last = -1;
