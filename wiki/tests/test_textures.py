@@ -81,6 +81,45 @@ class TextureIndexTests(unittest.TestCase):
         self.assertEqual((spark['module'], spark['kind']), ('simplefoo', 'particle'))
         self.assertTrue(spark['source'].startswith('modules/simplefoo/shared/'), 'shared layer wins like modules.py')
 
+    def test_one_card_per_block_with_roles_and_categories(self):
+        base = 'src/main/resources/assets/simplebuilding/'
+        for name in ('oven_top', 'oven_side', 'oven_front_on', 'oven_front', 'oven_bottom'):
+            self.put(base + f'textures/block/{name}.png', png(16, 16))
+        self.put(base + 'textures/item/oven_key.png', png(16, 16))
+        self.put(base + 'textures/item/iron_pickaxe_head.png', png(16, 16))
+        self.put(base + 'textures/block/wheat_stage0.png', png(16, 16))
+        self.put(base + 'textures/block/wheat_stage1.png', png(16, 16))
+        self.put(base + 'textures/gui/container/box.png', png(16, 16))
+        self.put(base + 'textures/block/odd_name.png', png(16, 16))
+        self.put(base + 'blockstates/oven.json', json.dumps({'variants': {'lit=true': {'model': 'simplebuilding:block/oven_on'}}}))
+        self.put(base + 'models/block/oven_on.json', json.dumps({'parent': 'block/orientable', 'textures': {
+            'top': 'simplebuilding:block/oven_top', 'side': 'simplebuilding:block/oven_side',
+            'front': 'simplebuilding:block/oven_front_on', 'bottom': 'simplebuilding:block/oven_bottom'}}))
+        self.put(base + 'blockstates/furnace_thing.json', json.dumps({'variants': {'': {'model': 'simplebuilding:block/ft'}}}))
+        self.put(base + 'models/block/ft.json', json.dumps({'textures': {'all': 'simplebuilding:block/odd_name'}}))
+        index, _ = tx.build(self.repo, self.wiki, self.entries())
+        by_id = {t['id']: t for t in index['textures']}
+        oven = {k: t for k, t in by_id.items() if t['group'] == 'simplebuilding:oven'}
+        self.assertEqual(set(oven), {f'simplebuilding:block/oven_{n}' for n in ('top', 'side', 'front_on', 'front', 'bottom')},
+                         'sides, state and bottom of one block share one group')
+        self.assertEqual(by_id['simplebuilding:block/oven_top']['role'], 'top')
+        self.assertEqual(by_id['simplebuilding:block/oven_front_on']['role'], 'front_on')
+        self.assertEqual({t['cat'] for t in oven.values()}, {'block_machine'})
+        self.assertEqual(by_id['simplebuilding:block/wheat_stage0']['group'], by_id['simplebuilding:block/wheat_stage1']['group'])
+        self.assertEqual(by_id['simplebuilding:block/wheat_stage1']['cat'], 'block_plant')
+        self.assertEqual(by_id['simplebuilding:block/odd_name']['group'], 'simplebuilding:furnace_thing',
+                         'the blockstate owner beats the name stem')
+        self.assertEqual(by_id['simplebuilding:item/oven_key']['group'], 'simplebuilding:oven_key')
+        self.assertEqual(by_id['simplebuilding:item/iron_pickaxe_head']['cat'], 'item_tool')
+        self.assertEqual(by_id['simplebuilding:gui/container/box']['cat'], 'gui')
+
+    def test_categorize_by_kind_and_name(self):
+        self.assertEqual(tx.categorize('entity', 'ns:entity/boat', False), 'entity')
+        self.assertEqual(tx.categorize('particle', 'ns:particle/spark', False), 'particle')
+        self.assertEqual(tx.categorize('item', 'ns:apple_pie', False), 'item_food')
+        self.assertEqual(tx.categorize('block', 'ns:stone_bricks', True), 'block_build')
+        self.assertEqual(tx.categorize('trims', 'ns:x', False), 'other')
+
     def test_reuses_wiki_copy_and_links_item_icon(self):
         icon = png(16, 16, 5)
         self.put('src/main/resources/assets/simplebuilding/textures/block/stone.png', icon)

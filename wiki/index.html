@@ -717,6 +717,16 @@ a.chip:hover { text-decoration: none; }
 .tx-grid-wide { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .tx-tile { display: flex; flex-direction: column; align-items: center; gap: .3rem; min-width: 0; padding: .55rem .45rem .45rem; font: inherit; color: var(--text); text-align: center; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); cursor: zoom-in; content-visibility: auto; contain-intrinsic-size: 150px 120px; }
 .tx-tile:hover, .tx-tile:focus-visible { border-color: var(--accent); }
+.tx-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .65rem; align-items: start; }
+.tx-card { display: flex; flex-direction: column; gap: .4rem; min-width: 0; padding: .55rem .6rem .6rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); content-visibility: auto; contain-intrinsic-size: 260px 150px; }
+.tx-card-h { display: flex; flex-direction: column; gap: .1rem; }
+.tx-card-name { font-size: .88rem; line-height: 1.2; overflow-wrap: anywhere; }
+.tx-card-body { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tx-card .tx-tile.tx-mini { flex-direction: column; width: 92px; padding: .35rem .25rem .3rem; gap: .2rem; box-shadow: none; background: var(--bg); content-visibility: visible; }
+.tx-card .tx-mini .tx-imgs { min-height: 0; flex-wrap: wrap; gap: .2rem; }
+.tx-pane.tx-sm { width: 44px; height: 44px; }
+.tx-role { font-size: .68rem; line-height: 1.15; color: var(--muted); overflow-wrap: anywhere; max-width: 100%; }
+.tx-more { align-self: flex-start; }
 .tx-imgs { display: flex; gap: .4rem; align-items: center; justify-content: center; min-height: 56px; }
 .tx-pane { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--slot-bg); border-radius: 4px; box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); }
 .tx-pane.tx-big { width: 208px; height: 208px; }
@@ -5446,7 +5456,9 @@ Object.assign(STR.en, {
   txZoom: 'Zoom', txZoomCap: '(here at most {0}×)', txOriginal: 'Original', txBg: 'Background', txBgLight: 'Light', txBgDark: 'Dark', txBgSlot: 'Slot grey',
   txPlay: 'Play', txPause: 'Pause', txFrame: 'Frame {0}/{1}', txFrames: '{0} frames, {1} ticks each', txClose: 'Close', txPrev: 'Previous', txNext: 'Next',
   txSource: 'Source', txFile: 'Wiki file', txSize: 'Size', txFrameSize: 'Frame', txBytes: 'Bytes', txModified: 'Last changed', txMcmeta: '.mcmeta', txOpenEntry: 'Open item page', txOpenFile: 'Open file',
-  txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Entity', txKind_gui: 'GUI', txKind_particle: 'Particle', txKind_mob_effect: 'Effect', txKind_trims: 'Armor trim', txKind_palettes: 'Palette', txKind_misc: 'Misc', txKind_painting: 'Painting', txKind_models: 'Armor model', txKind_environment: 'Environment', txKind_shot: 'Screenshot'
+  txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Entity', txKind_gui: 'GUI', txKind_particle: 'Particle', txKind_mob_effect: 'Effect', txKind_trims: 'Armor trim', txKind_palettes: 'Palette', txKind_misc: 'Misc', txKind_painting: 'Painting', txKind_models: 'Armor model', txKind_environment: 'Environment', txKind_shot: 'Screenshot',
+  txCategory: 'Category', txCatAll: 'All categories', txCards: '{0} cards', txMore: '+{0} more', txLess: 'Show fewer', txMain: 'Main',
+  txCat_block_build: 'Blocks: building', txCat_block_wood: 'Blocks: wood', txCat_block_ore: 'Blocks: ores and metals', txCat_block_machine: 'Blocks: machines and redstone', txCat_block_deco: 'Blocks: decoration', txCat_block_plant: 'Blocks: plants', txCat_item_tool: 'Items: tools', txCat_item_armor: 'Items: armor', txCat_item_food: 'Items: food', txCat_item_material: 'Items: materials', txCat_item_misc: 'Items: other', txCat_gui: 'GUI and sprites', txCat_entity: 'Entities and mobs', txCat_particle: 'Particles and effects', txCat_other: 'Other'
 });
 Object.assign(STR.de, {
   navTextures: 'Texturen', txIntro: 'Jede Textur aller Module, direkt aus den Ressourcen gelesen. Links: wie im Spiel (Item-Icon bzw. 3D-Ansicht), rechts: die Texturdatei selbst. Klick vergrößert.',
@@ -5459,10 +5471,12 @@ Object.assign(STR.de, {
   txZoom: 'Zoom', txZoomCap: '(hier höchstens {0}×)', txOriginal: 'Original', txBg: 'Hintergrund', txBgLight: 'Hell', txBgDark: 'Dunkel', txBgSlot: 'Slot-Grau',
   txPlay: 'Abspielen', txPause: 'Anhalten', txFrame: 'Bild {0}/{1}', txFrames: '{0} Bilder, je {1} Ticks', txClose: 'Schließen', txPrev: 'Zurück', txNext: 'Weiter',
   txSource: 'Quelle', txFile: 'Wiki-Datei', txSize: 'Maße', txFrameSize: 'Einzelbild', txBytes: 'Bytes', txModified: 'Zuletzt geändert', txMcmeta: '.mcmeta', txOpenEntry: 'Zur Item-Seite', txOpenFile: 'Datei öffnen',
-  txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Kreatur', txKind_gui: 'GUI', txKind_particle: 'Partikel', txKind_mob_effect: 'Effekt', txKind_trims: 'Rüstungsbesatz', txKind_palettes: 'Palette', txKind_misc: 'Sonstiges', txKind_painting: 'Gemälde', txKind_models: 'Rüstungsmodell', txKind_environment: 'Umgebung', txKind_shot: 'Bildschirmfoto'
+  txKind_item: 'Item', txKind_block: 'Block', txKind_entity: 'Kreatur', txKind_gui: 'GUI', txKind_particle: 'Partikel', txKind_mob_effect: 'Effekt', txKind_trims: 'Rüstungsbesatz', txKind_palettes: 'Palette', txKind_misc: 'Sonstiges', txKind_painting: 'Gemälde', txKind_models: 'Rüstungsmodell', txKind_environment: 'Umgebung', txKind_shot: 'Bildschirmfoto',
+  txCategory: 'Kategorie', txCatAll: 'Alle Kategorien', txCards: '{0} Karten', txMore: '+{0} weitere', txLess: 'Weniger zeigen', txMain: 'Haupt',
+  txCat_block_build: 'Blöcke: Bausteine', txCat_block_wood: 'Blöcke: Holz', txCat_block_ore: 'Blöcke: Erze und Metalle', txCat_block_machine: 'Blöcke: Maschinen und Redstone', txCat_block_deco: 'Blöcke: Deko', txCat_block_plant: 'Blöcke: Pflanzen', txCat_item_tool: 'Items: Werkzeuge', txCat_item_armor: 'Items: Rüstung', txCat_item_food: 'Items: Essen', txCat_item_material: 'Items: Materialien', txCat_item_misc: 'Items: Sonstiges', txCat_gui: 'GUI und Sprites', txCat_entity: 'Kreaturen und Mobs', txCat_particle: 'Partikel und Effekte', txCat_other: 'Sonstiges'
 });
 var TX_STORE = 'simplebuilding-wiki-textures';
-var TX = { area: 'all', q: '', mod: '', kind: '', anim: '', res: '', sort: 'name', desc: false, show: 'both', zoom: 8, bg: 'slot', loading: false, list: [], lb: -1, playing: true, timer: 0, frame: 0 };
+var TX = { area: 'all', cat: '', open: {}, q: '', mod: '', kind: '', anim: '', res: '', sort: 'name', desc: false, show: 'both', zoom: 8, bg: 'slot', loading: false, list: [], lb: -1, playing: true, timer: 0, frame: 0 };
 (function () {
   try { var s = JSON.parse(window.localStorage.getItem(TX_STORE) || '{}'); ['show', 'zoom', 'bg', 'sort', 'desc'].forEach(function (k) { if (s[k] != null) TX[k] = s[k]; }); } catch (err) { /* ohne Speicher: Standard */ }
 })();
@@ -5497,6 +5511,7 @@ function txFiltered() {
   var out = base.filter(function (t) {
     if (TX.mod && t.module !== TX.mod) return false;
     if (TX.area !== 'ui' && TX.kind && t.kind !== TX.kind) return false;
+    if (TX.area !== 'ui' && TX.cat && t.cat !== TX.cat) return false;
     if (TX.anim && (!!t.anim) !== (TX.anim === 'yes')) return false;
     if (TX.res && !t.shot && txRes(t) !== TX.res) return false;
     if (q) { var hay = norm([t.id, t.name && t.name.en, t.name && t.name.de, typeof t.name === 'string' ? t.name : '', t.item, t.source].join(' ')); if (hay.indexOf(q) < 0) return false; }
@@ -5523,6 +5538,51 @@ function txFiltered() {
     return 0;
   });
   return out;
+}
+/* Eine Karte je Block/Item: Texturen mit gleichem "group" (aus Modell-Verweisen, sonst Namensstamm; wiki/textures.py). */
+function txGroupName(ms) {
+  var m = ms.find(function (x) { return x.item && !x.role; }) || ms.find(function (x) { return x.item; });
+  if (m) return txName(m);
+  var tail = String(ms[0].group || ms[0].id).split(':').pop().split('/').pop();
+  return prettyFromId(tail);
+}
+function txGroups(list) {
+  var map = new Map(), groups = [];
+  list.forEach(function (t) {
+    if (t.shot || !t.group) { groups.push({ key: t.id || t.file, members: [t], solo: true }); return; }
+    var k = t.module + '|' + t.group, g = map.get(k);
+    if (!g) { g = { key: k, members: [] }; map.set(k, g); groups.push(g); }
+    g.members.push(t);
+  });
+  groups.forEach(function (g) {
+    g.members.sort(function (a, b) { return String(a.role || '').localeCompare(String(b.role || ''), LANG, { numeric: true }) || a.id.localeCompare(b.id); });
+    g.name = g.solo ? txName(g.members[0]) : txGroupName(g.members);
+  });
+  return groups;
+}
+function txSortGroups(groups) {
+  function key(g) {
+    var t = g.members[0];
+    switch (TX.sort) {
+      case 'module': return [txModName(t.module), g.name];
+      case 'kind': return [txKindLabel(t.kind), g.name];
+      case 'size': return [Math.max.apply(null, g.members.map(function (m) { return m.w * m.h; })), g.name];
+      case 'modified': return [g.members.reduce(function (a, m) { return m.modified > a ? m.modified : a; }, ''), g.name];
+      default: return [g.name, t.id];
+    }
+  }
+  var dir = TX.desc ? -1 : 1;
+  if (TX.sort === 'modified') dir = -dir;
+  var keyed = groups.map(function (g) { return [key(g), g]; });
+  keyed.sort(function (a, b) {
+    for (var i = 0; i < a[0].length; i++) {
+      if (a[0][i] === b[0][i]) continue;
+      if (typeof a[0][i] === 'number') return (a[0][i] - b[0][i]) * dir;
+      return String(a[0][i]).localeCompare(String(b[0][i]), LANG) * dir;
+    }
+    return 0;
+  });
+  return keyed.map(function (x) { return x[1]; });
 }
 /* Ein Einzelbild der Datei in einem Kasten von box px, pixelgenau (ganzzahlig, wo es geht). */
 function txCrop(t, box, frame) {
@@ -5555,13 +5615,40 @@ function txTile(t, i) {
   var txLabelAttr = esc(name);
   return '<button type="button" class="tx-tile' + (TX.area === 'ui' ? ' tx-wide' : '') + '" data-tx-open="' + i + '" data-tx-id="' + txIdAttr + '" data-tx-path="' + txPathAttr + '" data-tx-label="' + txLabelAttr + '" title="' + esc(t.id) + '"><span class="tx-imgs">' + body + '</span><span class="tx-name">' + esc(name) + '</span><span class="tx-meta">' + meta + ' · ' + esc(txModName(t.module)) + '</span></button>';
 }
+/* Kleine Kachel in einer Karte: dieselben data-Attribute wie txTile (Zoom, Dev-Overlay mit Stift). */
+function txMini(t, i) {
+  var body = '';
+  if (TX.show !== 'sheet') body += '<span class="tx-pane tx-sm" title="' + esc(T('txFinal')) + '">' + txFinal(t, 40) + '</span>';
+  if (TX.show === 'sheet' || (TX.show === 'both' && t.icon)) body += '<span class="tx-pane tx-sm" title="' + esc(T('txSheet')) + '">' + txSheetThumb(t, 40) + '</span>';
+  var role = t.role ? t.role.replace(/_/g, ' ') : txKindLabel(t.kind);
+  return '<button type="button" class="tx-tile tx-mini" data-tx-open="' + i + '" data-tx-id="' + esc(t.id) + '" data-tx-path="' + esc(t.file) + '" data-tx-label="' + esc(txName(t)) + '" title="' + esc(t.id + ' · ' + txRes(t) + (t.anim ? ' · ▶ ' + t.anim.count : '')) + '"><span class="tx-imgs">' + body + '</span><span class="tx-role">' + esc(role) + '</span></button>';
+}
+function txCard(g, start) {
+  var m = g.members, limit = 12, open = TX.open[g.key] || m.length <= limit, shown = open ? m : m.slice(0, limit);
+  var h = '<section class="tx-card"><header class="tx-card-h"><b class="tx-card-name">' + esc(g.name) + '</b><span class="tx-meta">' + esc(T('txCat_' + (m[0].cat || 'other'))) + ' · ' + esc(txModName(m[0].module)) + ' · ' + m.length + '</span></header><div class="tx-card-body">';
+  h += shown.map(function (t, k) { return txMini(t, start + k); }).join('');
+  h += '</div>';
+  if (m.length > limit) h += '<button type="button" class="chip tx-more" data-tx-more="' + esc(g.key) + '">' + esc(open ? T('txLess') : T('txMore', m.length - limit)) + '</button>';
+  return h + '</section>';
+}
 function txGridHtml() {
-  TX.list = txFiltered();
-  var total = TX.area === 'ui' ? txUiList().length : txAll().length;
-  var h = '<p class="ar-status" role="status">' + esc(T('txCount', TX.list.length, total)) + '</p>';
-  if (TX.area === 'ui') h += '<p class="hint">' + esc(T(txShots().length ? 'txUiShotsIntro' : 'txUiNoShots')) + '</p>';
+  var flat = txFiltered(), total = TX.area === 'ui' ? txUiList().length : txAll().length;
+  var h, body;
+  if (TX.area === 'ui') {
+    TX.list = flat;
+    h = '<p class="ar-status" role="status">' + esc(T('txCount', TX.list.length, total)) + '</p>';
+    h += '<p class="hint">' + esc(T(txShots().length ? 'txUiShotsIntro' : 'txUiNoShots')) + '</p>';
+    body = '<div class="tx-grid tx-grid-wide">' + TX.list.map(txTile).join('') + '</div>';
+  } else {
+    var groups = txSortGroups(txGroups(flat)), starts = [], n = 0;
+    TX.list = [];
+    groups.forEach(function (g) { starts.push(n); n += g.members.length; TX.list = TX.list.concat(g.members); });
+    /* Hinter eingeklappten Karten fehlen Kacheln: die Indizes zaehlen trotzdem alle Mitglieder, die Lightbox laeuft durch alle. */
+    h = '<p class="ar-status" role="status">' + esc(T('txCount', TX.list.length, total)) + ' · ' + esc(T('txCards', groups.length)) + '</p>';
+    body = '<div class="tx-cards">' + groups.map(function (g, k) { return txCard(g, starts[k]); }).join('') + '</div>';
+  }
   if (!TX.list.length) return h + '<p class="hint">' + esc(T('txEmpty')) + ' <button type="button" class="chip" data-tx-reset>' + esc(T('txReset')) + '</button></p>';
-  return h + '<div class="tx-grid' + (TX.area === 'ui' ? ' tx-grid-wide' : '') + '">' + TX.list.map(txTile).join('') + '</div>';
+  return h + body;
 }
 function txOptions(values, current, label) {
   return '<option value="">' + esc(T('txAll')) + '</option>' + values.map(function (v) {
@@ -5572,6 +5659,14 @@ function txCounted(list, fn, labelFn) {
   var m = new Map();
   list.forEach(function (t) { var k = fn(t); if (k) m.set(k, (m.get(k) || 0) + 1); });
   return Array.from(m.keys()).map(function (k) { return [k, labelFn ? labelFn(k) : k, m.get(k)]; });
+}
+var TX_CATS = ['block_build', 'block_wood', 'block_ore', 'block_machine', 'block_deco', 'block_plant', 'item_tool', 'item_armor', 'item_food', 'item_material', 'item_misc', 'gui', 'entity', 'particle', 'other'];
+function txCatRow(all) {
+  if (TX.area === 'ui') return '';
+  var cards = {}, seen = {};
+  all.forEach(function (t) { var k = t.module + '|' + (t.group || t.id); if (!seen[k]) { seen[k] = 1; cards[t.cat] = (cards[t.cat] || 0) + 1; } });
+  return '<div class="ar-frow" role="group" aria-label="' + esc(T('txCategory')) + '"><span class="ar-flabel">' + esc(T('txCategory')) + '</span>' + txChip('cat', '', T('txCatAll')) +
+    TX_CATS.filter(function (c) { return cards[c]; }).map(function (c) { return txChip('cat', c, T('txCat_' + c) + ' (' + cards[c] + ')'); }).join('') + '</div>';
 }
 function txChip(key, v, label) { return '<button type="button" class="chip" data-tx="' + key + '" data-v="' + esc(v) + '" aria-pressed="' + (String(TX[key]) === String(v)) + '">' + esc(label) + '</button>'; }
 function pageTextures() {
@@ -5585,7 +5680,7 @@ function pageTextures() {
   var res = txCounted(all, txRes).sort(function (a, b) { var pa = a[0].split('×'), pb = b[0].split('×'); return pa[0] * pa[1] - pb[0] * pb[1] || a[0].localeCompare(b[0]); });
   var sorts = [['name', 'txSortName'], ['module', 'txSortModule'], ['kind', 'txSortKind'], ['size', 'txSortSize'], ['modified', 'txSortModified']];
   h += '<p class="muted">' + esc(T('txIntro')) + '</p>';
-  h += '<div class="ar-filters tx-bar">' +
+  h += '<div class="ar-filters tx-bar">' + txCatRow(all) +
     '<div class="ar-frow" role="group">' + txChip('area', 'all', T('txAreaAll')) + txChip('area', 'ui', T('txAreaUi')) +
     '<input type="search" data-tx-q value="' + esc(TX.q) + '" placeholder="' + esc(T('txSearch')) + '" aria-label="' + esc(T('txSearch')) + '"></div>' +
     '<div class="ar-frow">' +
@@ -5614,10 +5709,11 @@ $main.addEventListener('change', function (ev) {
   TX[key] = ev.target.value; if (key === 'sort') txSave(); txRefresh(false);
 });
 $main.addEventListener('click', function (ev) {
-  var el = ev.target.closest ? ev.target.closest('[data-tx],[data-tx-dir],[data-tx-open],[data-tx-reset]') : null;
+  var el = ev.target.closest ? ev.target.closest('[data-tx],[data-tx-dir],[data-tx-open],[data-tx-reset],[data-tx-more]') : null;
   if (!el || !$main.contains(el)) return;
   if (el.hasAttribute('data-tx-open')) { txOpen(Number(el.getAttribute('data-tx-open'))); return; }
-  if (el.hasAttribute('data-tx-reset')) { TX.q = ''; TX.mod = ''; TX.kind = ''; TX.anim = ''; TX.res = ''; txRefresh(true); return; }
+  if (el.hasAttribute('data-tx-reset')) { TX.q = ''; TX.mod = ''; TX.kind = ''; TX.cat = ''; TX.anim = ''; TX.res = ''; txRefresh(true); return; }
+  if (el.hasAttribute('data-tx-more')) { var gk = el.getAttribute('data-tx-more'); TX.open[gk] = !TX.open[gk]; txRefresh(false); return; }
   if (el.hasAttribute('data-tx-dir')) { TX.desc = !TX.desc; txSave(); el.setAttribute('aria-pressed', String(TX.desc)); txRefresh(false); return; }
   var key = el.getAttribute('data-tx'), v = el.getAttribute('data-v');
   TX[key] = v;

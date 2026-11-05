@@ -186,6 +186,185 @@ def existing_copies(wiki: Path, claimed: set[str] | None = None) -> dict[bytes, 
     return copies
 
 
+# --- Grouping (one card per block/item) and categories --------------------------------------
+# Suffixes that only name a variant (side, state, stage, overlay) of the same object.
+VARIANT_RE = re.compile(
+    r"(?:_(?:top|bottom|side|sides|front|back|left|right|inside|outside|inner|outer|end|on|off|open|closed|lit|unlit|"
+    r"active|inactive|powered|unpowered|full|empty|half|base|overlay|inventory|gui|ground|item|block|particle|"
+    r"stage\d+|frame\d*|layer\d*|phase\d+|age\d+|level\d+|state\d+|\d+|[a-z]\d|north|south|east|west|up|down|"
+    r"emissive|glow|mask|small|large|cracked|wet|dry|filled|plus|minus|mid|middle|head|foot|post|tip|bud|flower))+$")
+
+
+def stem_of(path: str) -> str:
+    return path.rsplit("/", 1)[-1].removesuffix(".png")
+
+
+def base_stem(stem: str) -> str:
+    """Name stem without variant suffixes (oven_front_on -> oven); never empty."""
+    return VARIANT_RE.sub("", stem) or stem
+
+
+def _refs(value, out: list) -> None:
+    if isinstance(value, dict):
+        for k, v in value.items():
+            if k == "model" and isinstance(v, str):
+                out.append(v)
+            else:
+                _refs(v, out)
+    elif isinstance(value, list):
+        for v in value:
+            _refs(v, out)
+
+
+def _rid(ns: str, ref: str) -> tuple[str, str]:
+    if ":" in ref:
+        a, b = ref.split(":", 1)
+        return a, b
+    return ns, ref
+
+
+def model_owners(layers: list[Path]) -> dict[str, set[str]]:
+    """texture id (ns:path) -> owner names (ns:name) taken from blockstates, item definitions and models."""
+    models: dict[tuple[str, str], dict] = {}
+    owners_of: dict[tuple[str, str], set[str]] = {}
+    for layer in layers:
+        assets = layer / "assets"
+        if not assets.is_dir():
+            continue
+        for js in assets.glob("*/models/**/*.json"):
+            ns = js.relative_to(assets).parts[0]
+            rel = js.relative_to(assets / ns / "models").with_suffix("").as_posix()
+            try:
+                models[(ns, rel)] = json.loads(js.read_text(encoding="utf-8"))
+            except ValueError:
+                continue
+        for folder in ("blockstates", "items"):
+            for js in assets.glob(f"*/{folder}/**/*.json"):
+                ns = js.relative_to(assets).parts[0]
+                name = js.relative_to(assets / ns / folder).with_suffix("").as_posix()
+                try:
+                    data = json.loads(js.read_text(encoding="utf-8"))
+                except ValueError:
+                    continue
+                refs: list[str] = []
+                _refs(data, refs)
+                for ref in refs:
+                    owners_of.setdefault(_rid(ns, ref), set()).add(f"{ns}:{name}")
+    result: dict[str, set[str]] = {}
+
+    def textures_of(key, seen=()):
+        model = models.get(key)
+        if not model or key in seen:
+            return {}
+        found = {}
+        parent = model.get("parent")
+        if isinstance(parent, str):
+            found.update(textures_of(_rid(key[0], parent), seen + (key,)))
+        for k, v in (model.get("textures") or {}).items():
+            if isinstance(v, str) and not v.startswith("#"):
+                found[k] = v
+        return found
+
+    for key in models:
+        ns, rel = key
+        own = owners_of.get(key) or ({f"{ns}:{rel.split('/', 1)[-1]}"} if rel.split("/", 1)[0] in ("block", "item") else set())
+        for ref in textures_of(key).values():
+            tns, tpath = _rid(ns, ref)
+            for o in own:
+                result.setdefault(f"{tns}:{tpath}", set()).add(o)
+    return result
+
+
+def group_key(ns: str, path: str, kind: str, owners: set[str]) -> str:
+    """Card key of a texture: the owning block/item of the models, else the name stem."""
+    stem = stem_of(path)
+    if kind in ("block", "item"):
+        names = {o.split(":", 1)[1] for o in owners if o.split(":", 1)[0] == ns}
+        base = base_stem(stem)
+        for cand in (stem, base):
+            if cand in names:
+                return f"{ns}:{cand}"
+        if len(names) == 1:
+            return f"{ns}:{next(iter(names))}"
+        return f"{ns}:{base}"
+    parts = path.split("/")
+    if kind == "entity" and len(parts) > 2:
+        return f"{ns}:entity/{parts[1]}"
+    if kind in ("entity", "particle"):
+        return f"{ns}:{kind}/{base_stem(stem)}"
+    return f"{ns}:{path[:-4]}"
+
+
+def role_of(group: str, path: str, kind: str) -> str:
+    stem = stem_of(path)
+    name = group.split(":", 1)[1].rsplit("/", 1)[-1]
+    if stem == name:
+        return ""
+    if stem.startswith(name + "_"):
+        return stem[len(name) + 1:]
+    if stem.endswith("_" + name):
+        return stem[:-len(name) - 1]
+    return stem
+
+
+CATEGORY_RULES = [
+    ("block_wood", re.compile(r"plank|(?:^|_)logs?(?:_|$)|wood|stem|hyphae|bamboo|sign|door|trapdoor|fence|barrel|bookshelf|ladder|crafting|cauldron|chest|boat|beam")),
+    ("block_ore", re.compile(r"(?:^|_)ore(?:s|_|$)|(?:^|_)deepslate_|raw_|ingot|nugget|_block$|ancient|netherite|diamond|emerald|gold|iron|copper|lapis|amethyst|crystal|obsidian|enderit")),
+    ("block_machine", re.compile(r"redstone|piston|lever|button|pressure|lamp|hopper|dispenser|dropper|furnace|oven|repeater|comparator|observer|rail|machine|crucible|smither|anvil|press|grinder|pad|wire|sensor|detector|beacon|light|torch|lantern|jukebox|speaker|container|storage|shop|trade|spawner|portal|teleport")),
+    ("block_plant", re.compile(r"sapling|flower|leaves|grass|vine|crop|mushroom|fern|bush|seed|wheat|carrot|potato|beet|berry|moss|lily|kelp|coral|bud|plant|cactus|dripleaf|azalea|rose|tulip|stage")),
+    ("block_deco", re.compile(r"carpet|bed|banner|glass|pane|candle|pot|painting|frame|statue|head|skull|rug|cushion|chair|table|shelf|sofa|vase|flag|trophy|clock|mirror|curtain|hammock|cage|lattice|plaque")),
+]
+ITEM_RULES = [
+    ("item_armor", re.compile(r"helmet|chestplate|leggings|boots|armor|shield|trim|cape|elytra|backpack")),
+    ("item_tool", re.compile(r"pickaxe|axe|shovel|hoe|sword|hammer|sickle|saw|shears|bow|crossbow|arrow|trident|spear|rod|wand|staff|bucket|compass|map|tool|wrench|key|flint|brush|lead|saddle|sledge")),
+    ("item_food", re.compile(r"apple|bread|sandwich|cake|cookie|pie|stew|soup|meat|beef|pork|chicken|mutton|fish|salmon|cod|carrot|potato|berry|berries|food|steak|cheese|honey|milk|juice|potion|bottle|melon|pumpkin|egg|drink|candy|jam|burger")),
+    ("item_material", re.compile(r"ingot|nugget|dust|powder|shard|fragment|scrap|raw_|gem|pearl|core|essence|dye|string|paper|fabric|fiber|fibre|plate|rod$|stick|coal|clay|brick|pressling|ash|salt|slime|leather|feather|bone|flake|heart|crystal|amber")),
+]
+
+
+def categorize(kind: str, key: str, is_block: bool) -> str:
+    """Category of a card from the pack path (kind) and the name; no hand-kept list."""
+    name = key.split(":", 1)[1].rsplit("/", 1)[-1]
+    if kind == "gui":
+        return "gui"
+    if kind in ("entity", "models", "painting"):
+        return "entity"
+    if kind in ("particle", "mob_effect"):
+        return "particle"
+    if kind in ("block", "item"):
+        if is_block:
+            for cat, rx in CATEGORY_RULES:
+                if rx.search(name):
+                    return cat
+            return "block_build"
+        for cat, rx in ITEM_RULES:
+            if rx.search(name):
+                return cat
+        return "item_misc"
+    return "other"
+
+
+def assign_groups(textures: list[dict], owners: dict[str, set[str]]) -> None:
+    """Adds "group", "role" and "cat" to every entry (in place); one card per group in the wiki."""
+    groups: dict[tuple[str, str], list[dict]] = {}
+    for e in textures:
+        ns, path = e["id"].split(":", 1)
+        key = group_key(ns, path + ".png", e["kind"], owners.get(e["id"], set()))
+        e["group"] = key
+        groups.setdefault((e["module"], key), []).append(e)
+    for (module, key), members in groups.items():
+        is_block = any(m["kind"] == "block" for m in members) or any(
+            m.get("itemSection") == "blocks" for m in members)
+        kinds = [m["kind"] for m in members]
+        kind = "block" if "block" in kinds else "item" if "item" in kinds else kinds[0]
+        cat = categorize(kind, key, is_block)
+        for m in members:
+            ns, path = m["id"].split(":", 1)
+            m["role"] = role_of(key, path + ".png", m["kind"])
+            m["cat"] = cat
+            m.pop("itemSection", None)
+
+
 def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, bytes]]:
     """The index and the sheet copies it needs (wiki path -> bytes)."""
     copies = existing_copies(wiki, claimed_copies(wiki, entries))
@@ -193,6 +372,10 @@ def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, 
     dates = git_dates(repo)
     writes: dict[str, bytes] = {}
     textures = []
+    owners: dict[str, set[str]] = {}
+    for mid, layers in texture_roots(repo, entries):
+        for tid, names in model_owners(layers).items():
+            owners.setdefault(tid, set()).update(names)
     for src in collect_sources(repo, entries):
         payload = src["source"].read_bytes()
         size = png_size(payload)
@@ -227,6 +410,7 @@ def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, 
                              "de": link["name"].get("de_de") or link["name"].get("en_us") or pretty(stem)}
             entry["item"] = link["id"]
             entry["itemMod"] = link["mod"]
+            entry["itemSection"] = link["section"]
             if link["icon"] and link["icon"] != file:
                 entry["icon"] = link["icon"]
         layer_src = src["source"].with_name(stem + ".layers.json")
@@ -241,6 +425,7 @@ def build(repo: Path, wiki: Path, entries: list[dict]) -> tuple[dict, dict[str, 
         if source in dates:
             entry["modified"] = dates[source]
         textures.append(entry)
+    assign_groups(textures, owners)
     order = {e["id"]: i for i, e in enumerate(entries)}
     textures.sort(key=lambda e: (order.get(e["module"], 99), e["id"]))
     return {"schema": 1, "modules": [e["id"] for e in entries], "textures": textures}, writes
