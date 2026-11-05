@@ -45,7 +45,7 @@ ABILITIES = {
     "slime": ("Its wearer falls one block further without damage.", "Der Träger fällt einen Block tiefer ohne Schaden."),
     "silverfish": ("Its wearer shrinks to half size.", "Der Träger schrumpft auf die halbe Größe."),
     "breeze": ("Its wearer, light as the wind, never tramples farmland.", "Leicht wie der Wind: der Träger zertrampelt kein Ackerland."),
-    "shulker": ("Its wearer opens shulker boxes even when the lid is blocked.", "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."),
+    "shulker": ("Its wearer opens shulker boxes even when the lid is blocked. Sneaking on the ground gives Resistance.", "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel. Schleichen am Boden gibt Resistenz."),
     "drowned": ("Magma bubble columns do not drag its wearer down.", "Magma-Blasensäulen ziehen den Träger nicht nach unten."),
     "cow": ("Another player can milk its wearer with a bucket.", "Ein anderer Spieler kann den Träger mit einem Eimer melken."),
     "sheep": ("Another player can shear its wearer (1-3 wool, then it grows back).", "Ein anderer Spieler kann den Träger scheren (1-3 Wolle, dann wächst sie nach)."),

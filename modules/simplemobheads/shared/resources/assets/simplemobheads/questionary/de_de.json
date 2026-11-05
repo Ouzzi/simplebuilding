@@ -227,7 +227,7 @@
    "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
   ],
   "secret": [
-   "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."
+   "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel. Schleichen am Boden gibt Resistenz."
   ]
  },
  "shulker_wall_head": {
@@ -238,7 +238,7 @@
    "Fällt, wenn die Explosion eines geladenen Creepers den Mob tötet, ein Kopf je Explosion; kein Rezept. Auf Boden oder Wand stellen, tragen (der Mob sieht dich nur halb so weit) oder auf einen Notenblock setzen."
   ],
   "secret": [
-   "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel."
+   "Der Träger öffnet Shulkerkisten auch mit versperrtem Deckel. Schleichen am Boden gibt Resistenz."
   ]
  },
  "drowned_head": {

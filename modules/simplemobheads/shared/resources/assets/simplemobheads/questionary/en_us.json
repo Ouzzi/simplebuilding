@@ -227,7 +227,7 @@
    "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
   ],
   "secret": [
-   "Its wearer opens shulker boxes even when the lid is blocked."
+   "Its wearer opens shulker boxes even when the lid is blocked. Sneaking on the ground gives Resistance."
   ]
  },
  "shulker_wall_head": {
@@ -238,7 +238,7 @@
    "Dropped when a charged creeper's explosion kills the mob, one head per explosion; no recipe. Place it on the floor or a wall, wear it (that mob sees you only half as far), or put it on a note block."
   ],
   "secret": [
-   "Its wearer opens shulker boxes even when the lid is blocked."
+   "Its wearer opens shulker boxes even when the lid is blocked. Sneaking on the ground gives Resistance."
   ]
  },
  "drowned_head": {
