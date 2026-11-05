@@ -5,6 +5,7 @@ import com.simplebuilding.blocks.entity.custom.ChessPiecesBlockEntity;
 import com.simplebuilding.chess.ChessItems;
 import com.simplebuilding.chess.ChessPiece;
 import com.simplebuilding.version.BlockCodecs;
+import java.util.Arrays;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -48,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>Gesetzt wird ueber die Figuren-Items ({@link com.simplebuilding.items.custom.ChessPieceItem}). Leere Hand: dreht die
  * angeklickte Figur um 90 Grad; mit Schleichen nimmt sie sie auf. Braucht einen tragfaehigen Boden, wasserfuellbar,
- * von Kolben zerstoert; Abbauen droppt alle Figuren ({@link #getDrops}, keine Loot-Tabelle).
+ * von Kolben zerstoert; Abbauen durch einen Spieler nimmt nur die angeschaute Figur ({@link #playerWillDestroy}), sonst droppt es alle ({@link #getDrops}, keine Loot-Tabelle).
  */
 public class ChessPiecesBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -138,6 +140,73 @@ public class ChessPiecesBlock extends BaseEntityBlock implements SimpleWaterlogg
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         BlockEntity be = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         return be instanceof ChessPiecesBlockEntity pieces ? pieces.all() : List.of();
+    }
+
+
+    private record Breaking(LevelAccessor level, BlockPos pos, ItemStack[] rest, int[] rotations) {
+    }
+
+    private static final ThreadLocal<Breaking> BREAKING = new ThreadLocal<>();
+
+    /**
+     * Abbauen durch einen Spieler nimmt nur die angeschaute Figur (WI26-2): die uebrigen werden aus der Block-Entity
+     * genommen (Drops = nur diese Figur) und in {@link #destroy} wieder hingestellt. Die letzte Figur nimmt die Zelle mit.
+     */
+    @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        BREAKING.remove();
+        if (level.getBlockEntity(pos) instanceof ChessPiecesBlockEntity be && be.count() > 1) {
+            int looked = lookedSlot(player, pos, be);
+            ItemStack[] rest = new ItemStack[ChessPiecesBlockEntity.SLOTS];
+            int[] rotations = new int[ChessPiecesBlockEntity.SLOTS];
+            Arrays.fill(rest, ItemStack.EMPTY);
+            for (int slot = 0; slot < rest.length; slot++) {
+                if (slot != looked && !be.piece(slot).isEmpty()) {
+                    rotations[slot] = be.rotation(slot);
+                    rest[slot] = be.take(slot);
+                }
+            }
+            BREAKING.set(new Breaking(level, pos.immutable(), rest, rotations));
+        }
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    /** Der Platz der Figur, auf die {@code player} schaut; trifft der Strahl keine, die hoechste belegte. */
+    public static int lookedSlot(Player player, BlockPos pos, ChessPiecesBlockEntity be) {
+        Vec3 eye = player.getEyePosition();
+        Vec3 view = player.getViewVector(1.0F);
+        BlockHitResult hit = be.shape().clip(eye, eye.add(view.scale(player.blockInteractionRange() + 1.0)), pos);
+        if (hit != null) {
+            int slot = slotAt(pos, hit.getLocation().add(view.scale(0.01)));
+            if (!be.piece(slot).isEmpty()) {
+                return slot;
+            }
+        }
+        for (int slot = ChessPiecesBlockEntity.SLOTS - 1; slot > 0; slot--) {
+            if (!be.piece(slot).isEmpty()) {
+                return slot;
+            }
+        }
+        return 0;
+    }
+
+    /** Nach dem Entfernen durch einen Spieler: die uebrigen Figuren kommen zurueck. */
+    @Override
+    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
+        super.destroy(level, pos, state);
+        Breaking breaking = BREAKING.get();
+        BREAKING.remove();
+        if (breaking == null || breaking.level() != level || !breaking.pos().equals(pos)) {
+            return;
+        }
+        level.setBlock(pos, state, Block.UPDATE_ALL);
+        if (level.getBlockEntity(pos) instanceof ChessPiecesBlockEntity be) {
+            for (int slot = 0; slot < breaking.rest().length; slot++) {
+                if (!breaking.rest()[slot].isEmpty()) {
+                    be.put(slot, breaking.rest()[slot], breaking.rotations()[slot]);
+                }
+            }
+        }
     }
 
     /** Mittlere Maustaste: die erste Figur der Zelle. */

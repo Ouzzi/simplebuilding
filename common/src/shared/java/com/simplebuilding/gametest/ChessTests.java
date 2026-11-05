@@ -283,6 +283,53 @@ public final class ChessTests {
     }
 
     /**
+     * WI26-2: Abbauen durch einen Spieler (echter {@code ServerPlayerGameMode#destroyBlock}) nimmt nur die angeschaute
+     * Figur, die uebrigen bleiben mit Drehung stehen; die letzte Figur nimmt die Zelle mit.
+     */
+    public static void piecesBreakOnlyTheLookedAtPiece(GameTestHelper helper) {
+        if (!McVersion.CHESS) {
+            helper.succeed();
+            return;
+        }
+        ServerPlayer player = player(helper, false);
+        Vec3 stand = helper.absoluteVec(new Vec3(1.5, 3.0, 0.2));
+        player.setPos(stand.x, stand.y, stand.z);
+        BlockPos floor = new BlockPos(1, 1, 1);
+        BlockPos cell = floor.above();
+        helper.setBlock(floor, ModBlocks.LAPIS_QUARTZ_CHECKER);
+        Item pawn = ChessItems.piece(ChessColor.LAPIS, ChessPiece.PAWN, false);
+        double[][] quarters = {{1.25, 1.25}, {1.75, 1.25}, {1.25, 1.75}, {1.75, 1.75}};
+        for (int slot : new int[] {0, 1, 3}) {
+            use(helper, player, new ItemStack(pawn), floor, new Vec3(quarters[slot][0], 2.0, quarters[slot][1]), Direction.UP);
+        }
+        ChessPiecesBlockEntity be = (ChessPiecesBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(cell));
+        helper.assertTrue(be != null && be.count() == 3, "three pieces set");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        helper.getBlockState(cell).useWithoutItem(helper.getLevel(), player, hit(helper, cell, new Vec3(1.75, 2.1, 1.25), Direction.UP));
+        int rotation = be.rotation(1);
+        helper.assertTrue(rotation != 0, "slot 1 turned");
+        // mine slot 3 (looked at)
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, helper.absoluteVec(new Vec3(1.75, 2.1, 1.75)));
+        helper.assertTrue(player.gameMode.destroyBlock(helper.absolutePos(cell)), "mining refused");
+        ChessPiecesBlockEntity after = (ChessPiecesBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(cell));
+        helper.assertTrue(helper.getBlockState(cell).is(ModBlocks.CHESS_PIECES) && after != null, "the cell was removed: " + helper.getBlockState(cell));
+        helper.assertValueEqual(after.count(), 2, "pieces left after mining one");
+        helper.assertTrue(after.piece(3).isEmpty() && !after.piece(0).isEmpty() && !after.piece(1).isEmpty(), "wrong piece mined");
+        helper.assertValueEqual(after.rotation(1), rotation, "rotation kept");
+        helper.assertValueEqual(dropped(helper, pawn), 1, "only the looked-at piece dropped");
+        // mine slot 0, then the last one (slot 1) takes the cell
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, helper.absoluteVec(new Vec3(1.25, 2.1, 1.25)));
+        player.gameMode.destroyBlock(helper.absolutePos(cell));
+        ChessPiecesBlockEntity last = (ChessPiecesBlockEntity) helper.getLevel().getBlockEntity(helper.absolutePos(cell));
+        helper.assertTrue(last != null && last.count() == 1 && !last.piece(1).isEmpty(), "one piece should be left");
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, helper.absoluteVec(new Vec3(1.75, 2.1, 1.25)));
+        player.gameMode.destroyBlock(helper.absolutePos(cell));
+        helper.assertTrue(helper.getBlockState(cell).isAir(), "the last piece left a cell: " + helper.getBlockState(cell));
+        helper.assertValueEqual(dropped(helper, pawn), 3, "all three pieces dropped one by one");
+        helper.succeed();
+    }
+
+    /**
      * Rezepte: die Formsäge (ohne Simple Blocks der Steinmetz) schneidet aus jedem Schachbrett (Quarz: Quarzblock) 8 Achtel
      * seiner Farbe, der Steinmetz aus jedem Achtel
      * jede der zwoelf Figuren seiner Farbe, aus jedem Schachbrett Treppe (1) und Stufe (2); die Werkbank macht aus sechs
