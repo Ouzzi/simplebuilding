@@ -1118,6 +1118,7 @@ Regel: je Punkt <= 1-2 h, keine Besitzer-Wahl/Optik-Entscheidung. Plan docs/ai/P
 - [x] (B, b-arrows03, 04.11., Plan docs/ai/PLAN-B-ARROWS03-2026-11-04.md; Modul-Tests 28/28 Fabric + 28/28 standalone grün) DW04C-4 „simple arrows existiert 2 mal der creative tab, die simple building arrows sollen in simple arrows ausgelagert werden auch der fletching table.“ Ein Tab „Simple Arrows“; Befiederungstisch + alle Tisch-Pfeile im Modul (`com.simplearrows.fletching`), IdMoves `simplebuilding:` → `simplearrows:` (Pfeil, arrow_parts, Menü, Rezepttyp, 3 Kategorien, 16 Rezepte, Fortschritt), Teile datengetrieben (Item-Tags), Tisch-Pfeile jetzt in `#minecraft:arrows`. Offen: Client-Sicht, Bündel/Gate.
 ## Besitzer 05.11. (über A, B ohne Kontingent bis 06.11. 23:00 UTC)
 Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
+- [x] (A, a-silverlead05, 05.11., gepusht auf Hub, Tests+check grün) Silberblech (1-px-Platte wie Bleiplatte, 3 Barren -> 12) + Silberspiegel = Glasscheibe + Silberblech + Blei-Pfeilspitze (Schwerkraft x1,5, +0,5 Schaden); Plan docs/ai/PLAN-A-SILVERLEAD-2026-11-05.md; Tests silver_sheet_*/silver_mirror_recipe/fletching grün; offen Client-Sicht, Gate (Prod)
 - [ ] IG31-42 **Block-Paletten vervollständigen** (Release-relevant, PRIO):
   - Alle Steinfamilien sollen dieselbe Palette haben wie im Bild (Besitzer hat Mod- und Vanilla-Blöcke nach Familien aufgereiht): Block, Treppe, Stufe, Mauer, Octets, sofern bei uns üblich, plus Cracked/Chiseled-Glieder der Familie.
   - Fehlend genannt:

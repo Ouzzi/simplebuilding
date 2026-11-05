@@ -118,6 +118,7 @@ public final class OresDiscover {
             "simpleores:silver_mirror",
             "simpleores:silver_nugget",
             "simpleores:silver_ore",
+            "simpleores:silver_sheet",
             "simpleores:soundproofing");
     static final List<Tip> TIPS = List.of();
 

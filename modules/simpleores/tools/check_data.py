@@ -17,7 +17,7 @@ config_keys = re.findall(r'"([A-Za-z]+)"', keys)
 assert config_keys == ['enabled', 'soundproofing', 'soundproofFactor', 'soundproofThreshold', 'soundproofRecords',
                        'sageOre', 'dimensionalScrap'], config_keys
 BLOCKS = ('silver_ore', 'deepslate_silver_ore', 'end_silver_ore', 'raw_silver_block', 'silver_block', 'lead_ore', 'deepslate_lead_ore', 'raw_lead_block', 'lead_block', 'lead_plate',
-          'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
+          'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'blossom_gold_block')
 ALLOYS = ('rose_bronze', 'blossom_gold')
 GEAR = ('sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots')
 ITEMS = ('raw_silver', 'silver_ingot', 'silver_nugget', 'raw_lead', 'lead_ingot', 'lead_nugget') + tuple(f'{a}_{p}' for a in ALLOYS for p in ('ingot', 'pressling') + GEAR) \

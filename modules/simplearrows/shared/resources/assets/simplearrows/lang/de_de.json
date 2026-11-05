@@ -31,6 +31,8 @@
   "container.simplearrows.fletching.effect.tip.enderite": "+1,5 Schaden, fliegt die erste Sekunde gerade",
   "item.simplearrows.crafted_arrow.tip.amethyst": "Amethystpfeil",
   "container.simplearrows.fletching.effect.tip.amethyst": "Zersplittert beim Aufprall: 1 Schaden an allem in der Nähe",
+  "item.simplearrows.crafted_arrow.tip.lead": "Bleipfeil",
+  "container.simplearrows.fletching.effect.tip.lead": "+0,5 Schaden, sinkt schneller (1,5fache Schwerkraft)",
   "item.simplearrows.crafted_arrow.tip.prismarine": "Prismarinpfeil",
   "container.simplearrows.fletching.effect.tip.prismarine": "Wird im Wasser nicht gebremst",
   "item.simplearrows.crafted_arrow.shaft.stick": "Schaft: Stock",

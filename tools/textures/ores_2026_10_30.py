@@ -208,6 +208,26 @@ def arrow_images(j: 'Jar', v: str) -> dict:
     return {'item/silver_arrow.png': item_out, 'entity/projectiles/silver_arrow.png': ent_out}
 
 
+def sheet_image(j: 'Jar') -> Image.Image:
+    """Silver sheet (05.11.): six tones taken from the silver ingot sprite (its opaque pixels, even luminance quantiles), laid out as a smooth
+    diagonal sheen with a light top-left and a dark bottom-right edge and a few brighter flecks. Few hard steps (A8b)."""
+    ingot = recolor(j.img('item/gold_ingot'), 'silver')
+    px = sorted((ingot.getpixel((x, y))[:3] for x in range(ingot.width) for y in range(ingot.height) if ingot.getpixel((x, y))[3] > 200), key=lum, reverse=True)
+    tones = [px[round(k * (len(px) - 1) / 5)] for k in range(6)]   # 0 = lightest
+    out = Image.new('RGBA', (16, 16))
+    for y in range(16):
+        for x in range(16):
+            v = 1.6 + 1.4 * (x + y) / 30.0
+            if x == 0 or y == 0:
+                v -= 1.0
+            elif x == 15 or y == 15:
+                v += 1.2
+            elif (x * 7 + y * 13) % 29 == 0:
+                v -= 1.0
+            out.putpixel((x, y), tones[max(0, min(5, int(v + 0.5)))] + (255,))
+    return out
+
+
 def mirror_image(j: 'Jar', v: str) -> Image.Image:
     """Silver block frame round a glass pane (variants: a = 2 px frame, b = 1 px frame + brighter pane, c = frame with corner studs)."""
     frame_src = recolor(j.img('block/gold_block'), 'silver')
@@ -289,6 +309,7 @@ def derived(jar) -> dict:
         out[f'item/{alloy}_apple.png'] = apple_image(j, ramp, APPLE_VARIANT[alloy])
     out.update(lead_images(j, LEAD_VARIANT))
     # The silver arrow (arrow_images) moved to Simple Arrows on 03.11.: arrows_derived.py draws it.
+    out['block/silver_sheet.png'] = sheet_image(j)
     out['block/silver_mirror.png'] = mirror_image(j, MIRROR_VARIANT)
     return out
 

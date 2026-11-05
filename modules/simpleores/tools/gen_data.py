@@ -34,6 +34,7 @@ BLOCKS = {
     'lead_ore': ('Lead Ore', 'Bleierz'), 'deepslate_lead_ore': ('Deepslate Lead Ore', 'Tiefenschiefer-Bleierz'),
     'raw_lead_block': ('Block of Raw Lead', 'Rohbleiblock'), 'lead_block': ('Block of Lead', 'Bleiblock'),
     'lead_plate': ('Lead Plate', 'Bleiplatte'),
+    'silver_sheet': ('Silver Sheet', 'Silberblech'),
     'silver_mirror': ('Silver Mirror', 'Silberspiegel'),
     'rose_bronze_block': ('Block of Rose Bronze', 'Rosenbronzeblock'), 'blossom_gold_block': ('Block of Blossom Gold', 'Blütengoldblock'),
 }
@@ -78,7 +79,7 @@ SAGE_ORES = ['sage_ore', 'deepslate_sage_ore']
 
 # ---------------------------------------------------------------- assets
 for path in BLOCKS:
-    if path in ('silver_mirror', 'lead_plate'):
+    if path in ('silver_mirror', 'lead_plate', 'silver_sheet'):
         continue
     put(ASSETS / f'blockstates/{path}.json', {'variants': {'': {'model': f'{NS}:block/{path}'}}})
     put(ASSETS / f'models/block/{path}.json', {'parent': 'minecraft:block/cube_all', 'textures': {'all': f'{NS}:block/{path}'}})
@@ -105,6 +106,15 @@ put(ASSETS / 'models/block/lead_plate.json', {
                             'north': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'north'}, 'south': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'south'},
                             'west': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'west'}, 'east': {'uv': [0, 14, 16, 16], 'texture': '#plate', 'cullface': 'east'}}}]})
 put(ASSETS / 'items/lead_plate.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/lead_plate'}})
+# Silver sheet (05.11.): the same placing as the lead plate, one pixel thick, own texture (derived from the silver ingot).
+put(ASSETS / 'blockstates/silver_sheet.json', {'variants': {f'facing={d}': {'model': f'{NS}:block/silver_sheet', 'x': x, 'y': y} for d, (x, y) in PLATE_ROT.items()}})
+put(ASSETS / 'models/block/silver_sheet.json', {
+    'textures': {'sheet': f'{NS}:block/silver_sheet', 'particle': f'{NS}:block/silver_sheet'},
+    'elements': [{'from': [0, 0, 0], 'to': [16, 1, 16],
+                  'faces': {'down': {'uv': [0, 0, 16, 16], 'texture': '#sheet', 'cullface': 'down'}, 'up': {'uv': [0, 0, 16, 16], 'texture': '#sheet'},
+                            'north': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'north'}, 'south': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'south'},
+                            'west': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'west'}, 'east': {'uv': [0, 15, 16, 16], 'texture': '#sheet', 'cullface': 'east'}}}]})
+put(ASSETS / 'items/silver_sheet.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:block/silver_sheet'}})
 for path in ITEMS:
     handheld = path.rsplit('_', 1)[-1] in TOOL_PARTS
     put(ASSETS / f'models/item/{path}.json', {'parent': 'minecraft:item/handheld' if handheld else 'minecraft:item/generated',
@@ -136,7 +146,7 @@ ore_drop('deepslate_silver_ore', 'raw_silver')
 ore_drop('end_silver_ore', 'silver_nugget', (2, 6))
 ore_drop('lead_ore', 'raw_lead', (1, 2))
 ore_drop('deepslate_lead_ore', 'raw_lead', (1, 2))
-for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_mirror', 'rose_bronze_block', 'blossom_gold_block'):
+for path in ('raw_silver_block', 'silver_block', 'raw_lead_block', 'lead_block', 'lead_plate', 'silver_sheet', 'silver_mirror', 'rose_bronze_block', 'blossom_gold_block'):
     self_drop(path)
 
 # ---------------------------------------------------------------- recipes (+ advancements)
@@ -193,10 +203,12 @@ for source in ('raw_lead', 'lead_ore', 'deepslate_lead_ore'):
 recipe('lead_plate', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': item('lead_ingot')},
                                          'pattern': ['###'], 'result': result('lead_plate', 6)}, item('lead_ingot'))
 
-# Silver mirror: a silver frame round a glass pane. (The silver arrow moved to Simple Arrows on 03.11., its recipe needs this mod.)
-recipe('silver_mirror', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building',
-                                            'key': {'I': item('silver_ingot'), 'G': 'minecraft:glass_pane'},
-                                            'pattern': [' I ', 'IGI', ' I '], 'result': result('silver_mirror')}, item('silver_ingot'))
+# Silver sheet (05.11.): three silver ingots in a row make twelve sheets (same ratio as the lead plate: 3 ingots = 0.75 block of volume).
+recipe('silver_sheet', 'building_blocks', {'type': 'minecraft:crafting_shaped', 'category': 'building', 'key': {'#': item('silver_ingot')},
+                                           'pattern': ['###'], 'result': result('silver_sheet', 12)}, item('silver_ingot'))
+# Silver mirror (05.11.): a glass pane and a silver sheet (the old frame recipe of four ingots is gone). The silver arrow needs this mod.
+recipe('silver_mirror', 'building_blocks', {'type': 'minecraft:crafting_shapeless', 'category': 'building',
+                                            'ingredients': ['minecraft:glass_pane', item('silver_sheet')], 'result': result('silver_mirror')}, item('silver_sheet'))
 
 # Pressings: 1 pressing per recipe from ingots (owner 30.10.: 6 gold + 1 copper + 1 silver make about exactly one rose gold) (owner ABN30-10: yield per pressing is always 1 ingot, the loss is in the recipe),
 # blast furnace only. Recipe cooking time is the furnace time; the 26.3 blast furnace halves it (1200 -> 600 ticks = 30 s).
@@ -422,9 +434,12 @@ def note_summaries():
                                          'Neun Bleibarren. Explosionswiderstand 1000 (etwas unter Obsidian), Härte 25, braucht eine Eisenspitzhacke. Hält Vibrationen wie Wolle auf (Sculk und Wächter hören nicht hindurch), ist aber laut beim Betreten und Abbauen und dämmt Geräusche dahinter (siehe Blei).')
         elif p == 'raw_lead_block':
             notes['block:raw_lead_block'] = ('Nine raw lead; craftable both ways. Needs a stone pickaxe.', 'Neun Rohblei; in beide Richtungen herstellbar. Braucht eine Steinspitzhacke.')
+        elif p == 'silver_sheet':
+            notes['block:silver_sheet'] = ('A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Three silver ingots in a row make 12. Needs an iron pickaxe.',
+                                           'Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke.')
         elif p == 'silver_mirror':
-            notes['block:silver_mirror'] = ('A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from 4 silver ingots and a glass pane. No mechanic.',
-                                            'Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus 4 Silberbarren und einer Glasscheibe. Keine Mechanik.')
+            notes['block:silver_mirror'] = ('A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from a glass pane and a silver sheet. No mechanic.',
+                                            'Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik.')
         elif p.endswith('_ore'):
             drop_en, drop_de = ('2 to 6 silver nuggets', '2 bis 6 Silberklumpen') if p == 'end_silver_ore' else ('raw silver', 'Rohsilber')
             where_en, where_de = ('on the outer End islands', 'auf den äußeren End-Inseln') if p == 'end_silver_ore' else (
@@ -579,9 +594,9 @@ FEATURES = [
               'Gewichte: ein Bleiblock zählt 1, eine Bleiplatte 0,5 (Tag simpleores:soundproofing_half), zwei Platten hintereinander entsprechen also einem Block. Blei-Octets aus Simple Octets (nur mit dieser Mod) stehen im ersten Tag und zählen einen ganzen Block, egal wie wenig sie von der Zelle füllen; sie halten auch Vibrationen wie Wolle auf.'])),
     feature('silver_mirror', [f'{JAVA}/block/SilverMirrorBlock.java', f'{DATAP}/recipe/silver_mirror.json'],
             ('Silver mirror', 'A wall decoration of silver and glass.',
-             ['Recipe: 4 silver ingots around a glass pane. The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration.']),
+             ['Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration.']),
             ('Silberspiegel', 'Eine Wanddekoration aus Silber und Glas.',
-             ['Rezept: 4 Silberbarren um eine Glasscheibe. Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration.'])),
+             ['Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration.'])),
     feature('enderite', [f'{JAVA}/OresRegistry.java', f'{JAVA}/OresLoot.java', f'{DATAP}/recipe/enderite_ingot_from_scrap.json'],
             ('Enderite', 'The tier above netherite (moved here from SimpleLib, IG31-13). The Enderite variants of the other Simple mods - chests, furnaces, crucibles, hammers, backpacks - appear only while Simple Ores is installed.',
              ['On its own: End city treasure holds Enderite scrap (15 %), the Enderite upgrade (30 %) and raw Enderite fragments or nuggets; with SimpleBuilding it fills those chests itself.',

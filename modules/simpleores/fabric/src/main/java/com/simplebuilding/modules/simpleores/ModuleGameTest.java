@@ -94,6 +94,16 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void silverSheetRecipe(GameTestHelper h) {
+        OresTests.ALL.get("silver_sheet_recipe").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
+    public void silverSheetPlacement(GameTestHelper h) {
+        OresTests.ALL.get("silver_sheet_placement").accept(h);
+    }
+
+    @GameTest(structure = "simpleores:arena", maxTicks = 100)
     public void silverMirrorPlacement(GameTestHelper h) {
         OresTests.ALL.get("silver_mirror_placement").accept(h);
     }

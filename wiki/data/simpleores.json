@@ -188,14 +188,14 @@
         "title": "Silver mirror",
         "summary": "A wall decoration of silver and glass.",
         "details": [
-          "Recipe: 4 silver ingots around a glass pane. The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration."
+          "Recipe: a glass pane and a silver sheet (shapeless; three silver ingots make 12 sheets). The mirror hangs on a wall in the four directions, one pixel thick, and falls off when the wall goes. It has no function: pure decoration."
         ]
       },
       "de": {
         "title": "Silberspiegel",
         "summary": "Eine Wanddekoration aus Silber und Glas.",
         "details": [
-          "Rezept: 4 Silberbarren um eine Glasscheibe. Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration."
+          "Rezept: eine Glasscheibe und ein Silberblech (formlos; drei Silberbarren ergeben 12 Bleche). Der Spiegel hängt in den vier Richtungen an einer Wand, ein Pixel dick, und fällt ab, wenn die Wand verschwindet. Er hat keine Funktion: reine Dekoration."
         ]
       }
     },
@@ -2492,7 +2492,7 @@
     },
     {
       "id": "simpleores:silver_mirror",
-      "type": "minecraft:crafting_shaped",
+      "type": "minecraft:crafting_shapeless",
       "category": "building",
       "group": null,
       "result": {
@@ -2502,31 +2502,26 @@
       "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_mirror.json",
       "ingredients": [
         "minecraft:glass_pane",
-        "simpleores:silver_ingot"
+        "simpleores:silver_sheet"
       ],
-      "pattern": [
-        " I ",
-        "IGI",
-        " I "
-      ],
-      "key": {
-        "I": [
-          "simpleores:silver_ingot"
-        ],
-        "G": [
+      "ingredientGroups": [
+        [
           "minecraft:glass_pane"
+        ],
+        [
+          "simpleores:silver_sheet"
         ]
-      },
+      ],
       "baseMaterials": {
         "yield": 1,
         "materials": [
           {
-            "id": "simpleores:silver_ingot",
-            "count": 4
-          },
-          {
             "id": "minecraft:sand",
             "count": 0.375
+          },
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 0.25
           }
         ]
       }
@@ -2555,6 +2550,37 @@
           {
             "id": "simpleores:silver_ingot",
             "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "simpleores:silver_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simpleores:silver_sheet",
+        "count": 12
+      },
+      "source": "modules/simpleores/shared/resources/data/simpleores/recipe/silver_sheet.json",
+      "ingredients": [
+        "simpleores:silver_ingot"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simpleores:silver_ingot"
+        ]
+      },
+      "baseMaterials": {
+        "yield": 12,
+        "materials": [
+          {
+            "id": "simpleores:silver_ingot",
+            "count": 3
           }
         ]
       }
@@ -2889,6 +2915,24 @@
         }
       ],
       "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_ore.json"
+    },
+    {
+      "id": "simpleores:blocks/silver_sheet",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1,
+          "items": [
+            "simpleores:silver_sheet"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "modules/simpleores/shared/resources/data/simpleores/loot_table/blocks/silver_sheet.json"
     }
   ],
   "tags": [
@@ -3975,8 +4019,8 @@
         "simpleores:blossom_gold_pressling_a",
         "simpleores:rose_bronze_pressling_c",
         "simpleores:silver_block",
-        "simpleores:silver_mirror",
-        "simpleores:silver_nugget"
+        "simpleores:silver_nugget",
+        "simpleores:silver_sheet"
       ]
     },
     {
@@ -4414,10 +4458,10 @@
           "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
         ],
         "en": {
-          "summary": "A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from 4 silver ingots and a glass pane. No mechanic."
+          "summary": "A wall decoration: a silver frame round a glass pane, one pixel thick, in four directions. Crafted from a glass pane and a silver sheet. No mechanic."
         },
         "de": {
-          "summary": "Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus 4 Silberbarren und einer Glasscheibe. Keine Mechanik."
+          "summary": "Eine Wanddekoration: ein Silberrahmen um eine Glasscheibe, ein Pixel dick, in vier Richtungen. Hergestellt aus einer Glasscheibe und einem Silberblech. Keine Mechanik."
         }
       },
       "texture": "assets/textures/simpleores/block/silver_mirror.png",
@@ -4449,6 +4493,31 @@
         "simpleores:silver_ingot_from_blasting_silver_ore",
         "simpleores:silver_ingot_from_smelting_silver_ore"
       ]
+    },
+    {
+      "id": "simpleores:silver_sheet",
+      "name": {
+        "en_us": "Silver Sheet",
+        "de_de": "Silberblech"
+      },
+      "note": {
+        "sources": [
+          "modules/simpleores/shared/java/com/simpleores/OresRegistry.java"
+        ],
+        "en": {
+          "summary": "A one pixel thin silver sheet that covers a whole side of its cell; it is laid on the side you click (floor, wall, ceiling) like the lead plate. Three silver ingots in a row make 12. Needs an iron pickaxe."
+        },
+        "de": {
+          "summary": "Ein ein Pixel dünnes Silberblech, das eine ganze Seite seiner Zelle bedeckt; es wird wie die Bleiplatte an die angeklickte Seite gelegt (Boden, Wand, Decke). Drei Silberbarren in einer Reihe ergeben 12. Braucht eine Eisenspitzhacke."
+        }
+      },
+      "texture": "assets/textures/simpleores/block/silver_sheet.png",
+      "craftedBy": [
+        "simpleores:silver_sheet"
+      ],
+      "usedIn": [
+        "simpleores:silver_mirror"
+      ]
     }
   ],
   "trades": [],
@@ -4466,13 +4535,13 @@
   "incompleteProse": {},
   "counts": {
     "features": 10,
-    "recipes": 66,
-    "lootTables": 19,
+    "recipes": 67,
+    "lootTables": 20,
     "tags": 6,
     "advancements": 1,
     "enchantments": 0,
     "items": 40,
-    "blocks": 19,
+    "blocks": 20,
     "trades": 0,
     "config": 0,
     "quests": 0,

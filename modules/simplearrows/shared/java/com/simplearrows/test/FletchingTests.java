@@ -66,6 +66,8 @@ public final class FletchingTests {
         check(helper, ArrowParts.Tip.DIAMOND, cow, 1.0);
         check(helper, ArrowParts.Tip.NETHERITE, cow, 1.5);
         check(helper, ArrowParts.Tip.ENDERITE, cow, 1.5);
+        check(helper, ArrowParts.Tip.LEAD, cow, 0.5);
+        check(helper, ArrowParts.Tip.LEAD, zombie, 0.5);   // no target bonus, unlike iron
         helper.succeed();
     }
 
@@ -83,6 +85,10 @@ public final class FletchingTests {
                 - 0.035) < 1.0E-9, "gravity with phantom membrane fletching");
         helper.assertValueEqual(arrow(helper, parts(ArrowParts.Tip.ENDERITE, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER)).getGravity(),
                 0.0, "gravity of an enderite arrow in its first second");
+        helper.assertTrue(Math.abs(arrow(helper, parts(ArrowParts.Tip.LEAD, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER)).getGravity() - 0.075) < 1.0E-9,
+                "gravity of a lead arrow: 1.5 x 0.05");
+        helper.assertTrue(Math.abs(arrow(helper, parts(ArrowParts.Tip.LEAD, ArrowParts.Shaft.STICK, ArrowParts.Fletching.PHANTOM_MEMBRANE)).getGravity() - 0.0525) < 1.0E-9,
+                "lead head with phantom membrane: 1.5 x 0.7 x 0.05");
         helper.assertValueEqual((int) arrow(helper, parts(ArrowParts.Tip.NETHERITE, ArrowParts.Shaft.STICK, ArrowParts.Fletching.FEATHER)).getPierceLevel(),
                 ArrowParts.NETHERITE_EXTRA_PIERCE, "pierce level of a netherite arrow");
         helper.assertValueEqual((int) arrow(helper, ArrowParts.Parts.VANILLA).getPierceLevel(), 0, "pierce level of the plain arrow");
@@ -495,6 +501,7 @@ public final class FletchingTests {
         }
         boolean ores = BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath(SimpleArrows.ORES_NAMESPACE, "enderite_nugget"));
         boolean sb = sbItem("diamond_rod") != Items.AIR;
+        if (ArrowParts.available(ArrowParts.Tip.LEAD) != BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath(SimpleArrows.ORES_NAMESPACE, "lead_nugget"))) problems.add("lead tip present mismatch");
         if (ArrowParts.available(ArrowParts.Tip.ENDERITE) != ores) problems.add("enderite tip present=" + !ores);
         if (ArrowParts.available(ArrowParts.Shaft.DIAMOND_ROD) != sb) problems.add("diamond rod shaft present=" + !sb);
         var recipes = helper.getLevel().getServer().getRecipeManager();
