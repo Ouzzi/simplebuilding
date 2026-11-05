@@ -1902,11 +1902,11 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAn0lEQVR42mOwc/b+TwlmABEHTl4FYzkVA6IwSO2sFXtQDQBJfPjyAwWv230KA0dn1YHV5le2IwxA1oxNEwiXt82EY5ghKAbg0oiumWQDsGnGMICUAIRhlDAAGbBiy1GsGBTa2DBOAyhyAUji045+FHy5NhYDb03wwh4G+DTBNMIwVgNwaUTXTLIB6JqxGnDpxkOSoxJuACxaSMVwAyjBAM3PSSRSKodsAAAAAElFTkSuQmCC",
     "counts": {
       "items": 40,
-      "blocks": 19,
-      "recipes": 66,
+      "blocks": 20,
+      "recipes": 67,
       "features": 10
     },
-    "dataHash": "bcee39eff812"
+    "dataHash": "3a9b2c83edbc"
   },
   {
     "id": "simplemachines",
@@ -1966,10 +1966,10 @@ window.WIKI_MODULES = [
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mMwtPP6TwlmABFrD1wmiLVkBFBw1awdqAb0rjj0//Cl+2AaHYM0/P+06v+381FgDOJH5LdgGoAPgzSBNO+u0yPdAJCGriwrME2yATDNcS4qcL8TbQA2zTBM0AB8mgkaQEgzVgNAConVjGEASOGXL1+I1ozTgB07dhClGasBIM0gQ2AuIckAWBiADIEZRJIXYALImQXEJ4ThBlCCAdwLWD3aEHARAAAAAElFTkSuQmCC",
     "counts": {
       "items": 4,
-      "recipes": 18,
+      "recipes": 19,
       "features": 5
     },
-    "dataHash": "a6df6f188c34"
+    "dataHash": "0ff03c70cbcf"
   },
   {
     "id": "simpleresonance",
