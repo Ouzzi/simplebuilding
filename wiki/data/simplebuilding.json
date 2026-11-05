@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "mc26_3/generated/wiki/items.json",
       "present": true,
-      "count": 496,
+      "count": 497,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -17968,6 +17968,23 @@
       ],
       "trades": [],
       "icon": "assets/textures/render/nihilith_block.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_book",
+      "name": {
+        "en_us": "Nihilit Book",
+        "de_de": "Nihilitbuch"
+      },
+      "texture": "assets/textures/item/nihilith_book.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_book"
+      ],
+      "usedIn": [
+        "simplebuilding:ashwood_bookshelf",
+        "simplebuilding:duskwood_bookshelf"
+      ],
+      "trades": [],
       "hasCustomBehaviour": false
     },
     {
@@ -122281,7 +122298,7 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 490,
+    "items": 491,
     "blocks": 248,
     "recipes": 779,
     "lootTables": 267,
