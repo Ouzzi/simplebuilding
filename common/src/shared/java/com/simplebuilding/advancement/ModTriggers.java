@@ -102,6 +102,8 @@ public final class ModTriggers {
         if (!com.simplebuilding.version.McVersion.TRIMS_IN_SB) all.remove(TRIM_TEMPLATE_FORGED);
         // 26.3: the backpacks are Simple Storage's; Pitching Camp waits for Vanilla's placed_block (split stage 8c-2).
         if (!com.simplebuilding.version.McVersion.STORAGE_IN_SB) all.remove(BACKPACK_PLACED);
+        // 26.3 (b-pads01): the pad features are Simple Pads' (simplepads:pad_used).
+        if (!com.simplebuilding.version.McVersion.PADS_IN_SB) all.removeAll(List.of(LAUNCHPAD, FLYPAD, ELYTRA_PAD, SPAWN_TELEPORT, POTION_PAD));
         if (!com.simplebuilding.version.McVersion.CRUCIBLE) return List.copyOf(all);
         all.add(CRUCIBLE_BUILT);
         all.add(SOUL_LAVA_SCOOPED);
