@@ -56,6 +56,7 @@ public final class SnowTests {
         all.put("frost_grass_looks_like_snowy_grass", SnowTests::frostGrassLooksLikeSnowyGrass);
         all.put("snow_cap_on_fence_stairs_slab", SnowTests::snowCapOnFenceStairsSlab);
         all.put("snow_cap_single_removable_support", SnowTests::snowCapSingleRemovableSupport);
+        all.put("snow_fall_plant_one_layer", SnowTests::snowFallPlantOneLayer);
         all.put("config_command", h -> com.simplelib.test.ConfigCommandTests.module(h, "simpleblocks", false));
     }
 
@@ -337,6 +338,21 @@ public final class SnowTests {
         helper.assertTrue(!SnowCaps.capAt(level, helper.absolutePos(top.above())), "a top slab has a full face: no cap (Vanilla snow stands there)");
         // not raining here: the tick itself does nothing
         SnowCaps.tick(level, helper.absolutePos(new BlockPos(0, 2, 1)));
+        helper.succeed();
+    }
+
+    /** SNOW32-FALL: falling snow puts exactly one layer on a flower (snowlogged, 1 layer) and never a second one. */
+    public static void snowFallPlantOneLayer(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos pos = new BlockPos(1, 2, 1);
+        helper.setBlock(pos.below(), Blocks.STONE);
+        helper.setBlock(pos, Blocks.POPPY);
+        BlockState poppy = helper.getBlockState(pos);
+        helper.assertTrue(SnowCaps.snowlogPlant(level, helper.absolutePos(pos), poppy), "layer placed on the flower");
+        BlockState cell = helper.getBlockState(pos);
+        helper.assertTrue(cell.is(SnowBlocks.SNOWLOGGED) && cell.getValue(SnowloggedBlock.LAYERS) == 1, "one layer: " + cell);
+        helper.assertTrue(!SnowCaps.snowlogPlant(level, helper.absolutePos(pos), cell), "no second layer");
+        helper.assertTrue(helper.getBlockState(pos).getValue(SnowloggedBlock.LAYERS) == 1, "still one layer");
         helper.succeed();
     }
 
