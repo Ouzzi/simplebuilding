@@ -1,0 +1,60 @@
+{
+  "values": [
+    {
+      "id": "simplebuilding:hollow_ashwood_log",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_ashwood_log",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:ashwood_sheet",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_ashwood_sheet",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:ashwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_ashwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:carved_ashwood_log",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:hollow_duskwood_log",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:hollow_stripped_duskwood_log",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:duskwood_sheet",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_duskwood_sheet",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:duskwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:stripped_duskwood_cauldron",
+      "required": false
+    },
+    {
+      "id": "simplebuilding:carved_duskwood_log",
+      "required": false
+    }
+  ]
+}
