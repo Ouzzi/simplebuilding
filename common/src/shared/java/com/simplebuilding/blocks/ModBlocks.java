@@ -445,11 +445,17 @@ public class ModBlocks {
     // beschichteten Endstein (Astralit leuchtet mit 10); Enderquarz ist die dritte, violette Palette
     // aus Astralit, Nihilith und Quarz, ohne Leuchten.
     public static final Block ASTRALIT_BLOCK = registerBlock("astralit_block", ASTRAL_END_STONE, Block::new);
+    public static final Block ASTRALIT_STAIRS = registerBlock("astralit_stairs", ASTRALIT_BLOCK, s -> new StairBlock(ASTRALIT_BLOCK.defaultBlockState(), s));
+    public static final Block ASTRALIT_SLAB = registerBlock("astralit_slab", ASTRALIT_BLOCK, SlabBlock::new);
+    public static final Block ASTRALIT_WALL = registerBlock("astralit_wall", ASTRALIT_BLOCK, s -> new WallBlock(s.forceSolidOn()));
     public static final Block POLISHED_ASTRALIT = registerBlock("polished_astralit", ASTRAL_END_STONE, Block::new);
     public static final Block POLISHED_ASTRALIT_STAIRS = registerBlock("polished_astralit_stairs", POLISHED_ASTRALIT, s -> new StairBlock(POLISHED_ASTRALIT.defaultBlockState(), s));
     public static final Block POLISHED_ASTRALIT_SLAB = registerBlock("polished_astralit_slab", POLISHED_ASTRALIT, SlabBlock::new);
     public static final Block POLISHED_ASTRALIT_WALL = registerBlock("polished_astralit_wall", POLISHED_ASTRALIT, s -> new WallBlock(s.forceSolidOn()));
     public static final Block NIHILITH_BLOCK = registerBlock("nihilith_block", NIHIL_END_STONE, Block::new);
+    public static final Block NIHILITH_STAIRS = registerBlock("nihilith_stairs", NIHILITH_BLOCK, s -> new StairBlock(NIHILITH_BLOCK.defaultBlockState(), s));
+    public static final Block NIHILITH_SLAB = registerBlock("nihilith_slab", NIHILITH_BLOCK, SlabBlock::new);
+    public static final Block NIHILITH_WALL = registerBlock("nihilith_wall", NIHILITH_BLOCK, s -> new WallBlock(s.forceSolidOn()));
     public static final Block POLISHED_NIHILITH = registerBlock("polished_nihilith", NIHIL_END_STONE, Block::new);
     public static final Block POLISHED_NIHILITH_STAIRS = registerBlock("polished_nihilith_stairs", POLISHED_NIHILITH, s -> new StairBlock(POLISHED_NIHILITH.defaultBlockState(), s));
     public static final Block POLISHED_NIHILITH_SLAB = registerBlock("polished_nihilith_slab", POLISHED_NIHILITH, SlabBlock::new);
@@ -490,6 +496,7 @@ public class ModBlocks {
     public static final Block CRYSTALLINE_NIHILITH = registerBlock("crystalline_nihilith", NIHILITH_BLOCK, Block::new);
     public static final Block FROSTED_NIHILITH = registerBlock("frosted_nihilith", NIHILITH_BLOCK, Block::new);
     public static final Block ENDER_QUARTZ_SLAB = registerBlock("ender_quartz_slab", ENDER_QUARTZ_BLOCK, SlabBlock::new);
+    public static final Block ENDER_QUARTZ_WALL = registerBlock("ender_quartz_wall", ENDER_QUARTZ_BLOCK, s -> new WallBlock(s.forceSolidOn()));
 
     // --- SCHACH (docs/ai/PLAN-SCHACH-2026-10-06.md, McVersion.CHESS) ---
     /** Treppe und Stufe eines Quarz-Schachbretts (Eigenschaften vom Schachbrett, Astralit leuchtet mit 5). */
@@ -535,20 +542,21 @@ public class ModBlocks {
     /**
      * Eine End-Palette nach dem Vorbild von Endstein und Purpur: Grundblock, Ziegel samt Treppe,
      * Stufe und Mauer, polierter Block samt Treppe, Stufe und Mauer, Saeule und gemeisselte Ziegel.
-     * {@code blockStairs}/{@code blockSlab} sind Treppe und Stufe direkt am Grundblock, wie
-     * {@code quartz_stairs}/{@code quartz_slab} am Quarzblock; nur Enderquarz hat sie, sonst null.
+     * {@code blockStairs}/{@code blockSlab}/{@code blockWall} sind Treppe, Stufe und Mauer direkt am Grundblock, wie
+     * {@code quartz_stairs}/{@code quartz_slab} am Quarzblock; alle drei Paletten haben sie (IG31-42 Stufe E).
      * Datagen (Modelle, Tags, Beute, Rezepte) und die Spieltests laufen ueber {@link #END_PALETTES},
      * damit keine der drei Paletten an einer Stelle vergessen wird.
      */
     public record EndPalette(String material, Block block, Block bricks, Block brickStairs, Block brickSlab,
                              Block brickWall, Block polished, Block polishedStairs, Block polishedSlab,
-                             Block polishedWall, Block pillar, Block chiseled, Block blockStairs, Block blockSlab) {
-        /** Alle Bloecke in der Reihenfolge des Kreativ-Tabs (elf, bei Enderquarz dreizehn). */
+                             Block polishedWall, Block pillar, Block chiseled, Block blockStairs, Block blockSlab, Block blockWall) {
+        /** Alle Bloecke in der Reihenfolge des Kreativ-Tabs (vierzehn). */
         public List<Block> blocks() {
             List<Block> out = new java.util.ArrayList<>(List.of(block));
             if (blockStairs != null) {
                 out.add(blockStairs);
                 out.add(blockSlab);
+                out.add(blockWall);
             }
             out.addAll(List.of(bricks, brickStairs, brickSlab, brickWall, polished, polishedStairs, polishedSlab,
                     polishedWall, pillar, chiseled));
@@ -564,20 +572,20 @@ public class ModBlocks {
         }
 
         public List<Block> walls() {
-            return List.of(brickWall, polishedWall);
+            return blockWall == null ? List.of(brickWall, polishedWall) : List.of(blockWall, brickWall, polishedWall);
         }
     }
 
     public static final EndPalette ASTRALIT_PALETTE = new EndPalette("astralit", ASTRALIT_BLOCK, ASTRALIT_BRICKS,
             ASTRALIT_BRICK_STAIRS, ASTRALIT_BRICK_SLAB, ASTRALIT_BRICK_WALL, POLISHED_ASTRALIT, POLISHED_ASTRALIT_STAIRS,
-            POLISHED_ASTRALIT_SLAB, POLISHED_ASTRALIT_WALL, ASTRALIT_PILLAR, CHISELED_ASTRALIT_BRICKS, null, null);
+            POLISHED_ASTRALIT_SLAB, POLISHED_ASTRALIT_WALL, ASTRALIT_PILLAR, CHISELED_ASTRALIT_BRICKS, ASTRALIT_STAIRS, ASTRALIT_SLAB, ASTRALIT_WALL);
     public static final EndPalette NIHILITH_PALETTE = new EndPalette("nihilith", NIHILITH_BLOCK, NIHILITH_BRICKS,
             NIHILITH_BRICK_STAIRS, NIHILITH_BRICK_SLAB, NIHILITH_BRICK_WALL, POLISHED_NIHILITH, POLISHED_NIHILITH_STAIRS,
-            POLISHED_NIHILITH_SLAB, POLISHED_NIHILITH_WALL, NIHILITH_PILLAR, CHISELED_NIHILITH_BRICKS, null, null);
+            POLISHED_NIHILITH_SLAB, POLISHED_NIHILITH_WALL, NIHILITH_PILLAR, CHISELED_NIHILITH_BRICKS, NIHILITH_STAIRS, NIHILITH_SLAB, NIHILITH_WALL);
     public static final EndPalette ENDER_QUARTZ_PALETTE = new EndPalette("ender_quartz", ENDER_QUARTZ_BLOCK, ENDER_QUARTZ_BRICKS,
             ENDER_QUARTZ_BRICK_STAIRS, ENDER_QUARTZ_BRICK_SLAB, ENDER_QUARTZ_BRICK_WALL, POLISHED_ENDER_QUARTZ,
             POLISHED_ENDER_QUARTZ_STAIRS, POLISHED_ENDER_QUARTZ_SLAB, POLISHED_ENDER_QUARTZ_WALL, ENDER_QUARTZ_PILLAR,
-            CHISELED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_STAIRS, ENDER_QUARTZ_SLAB);
+            CHISELED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_STAIRS, ENDER_QUARTZ_SLAB, ENDER_QUARTZ_WALL);
     public static final List<EndPalette> END_PALETTES = List.of(ASTRALIT_PALETTE, NIHILITH_PALETTE, ENDER_QUARTZ_PALETTE);
 
     /**

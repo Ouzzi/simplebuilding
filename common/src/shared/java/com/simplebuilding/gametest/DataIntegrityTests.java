@@ -2047,17 +2047,15 @@ public final class DataIntegrityTests {
             }
             assertShapedRecipe(helper, modRecipes, "chiseled_" + m + "_bricks", p.chiseled().asItem(), 1,
                     new String[]{"#", "#"}, Map.of('#', p.brickSlab().asItem()), problems);
-            helper.assertTrue(p.blocks().size() == (p == ModBlocks.ENDER_QUARTZ_PALETTE ? 13 : 11)
-                            && (p.blockStairs() == null) == (p != ModBlocks.ENDER_QUARTZ_PALETTE),
-                    m + ": ender quartz alone has stairs and a slab at the base block (13 blocks), the others 11 - but "
-                            + p.blocks().size());
-            if (p.blockStairs() != null) {
-                // like quartz_stairs and quartz_slab from the quartz block
-                assertShapedRecipe(helper, modRecipes, path(p.blockStairs()), p.blockStairs().asItem(), 4,
-                        new String[]{"#  ", "## ", "###"}, Map.of('#', block), problems);
-                assertShapedRecipe(helper, modRecipes, path(p.blockSlab()), p.blockSlab().asItem(), 6, new String[]{"###"},
-                        Map.of('#', block), problems);
-            }
+            helper.assertTrue(p.blocks().size() == 14 && p.blockStairs() != null && p.blockWall() != null,
+                    m + ": stairs, slab and wall at the base block (14 blocks) - but " + p.blocks().size());
+            // like quartz_stairs and quartz_slab from the quartz block
+            assertShapedRecipe(helper, modRecipes, path(p.blockStairs()), p.blockStairs().asItem(), 4,
+                    new String[]{"#  ", "## ", "###"}, Map.of('#', block), problems);
+            assertShapedRecipe(helper, modRecipes, path(p.blockSlab()), p.blockSlab().asItem(), 6, new String[]{"###"},
+                    Map.of('#', block), problems);
+            assertShapedRecipe(helper, modRecipes, path(p.blockWall()), p.blockWall().asItem(), 6,
+                    new String[]{"###", "###"}, Map.of('#', block), problems);
 
             // block -> everything, polished -> its family + bricks family + pillar + chiseled,
             // bricks -> their family + chiseled
@@ -3124,7 +3122,8 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("end_stones",
                         ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),
                 CreativeTabLayout.Row.of("astralit",
-                        ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
+                        ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_STAIRS, ModItems.ASTRALIT_SLAB, ModItems.ASTRALIT_WALL,
+                        ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                         ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
                         ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("astralit_alternates",
@@ -3133,7 +3132,8 @@ public final class DataIntegrityTests {
                         ModItems.POLISHED_ASTRALIT, ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB,
                         ModItems.POLISHED_ASTRALIT_WALL),
                 CreativeTabLayout.Row.of("nihilith",
-                        ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
+                        ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_STAIRS, ModItems.NIHILITH_SLAB, ModItems.NIHILITH_WALL,
+                        ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
                         ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR,
                         ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("nihilith_alternates",
@@ -3142,7 +3142,7 @@ public final class DataIntegrityTests {
                         ModItems.POLISHED_NIHILITH, ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB,
                         ModItems.POLISHED_NIHILITH_WALL),
                 CreativeTabLayout.Row.of("ender_quartz",
-                        ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB,
+                        ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, ModItems.ENDER_QUARTZ_WALL,
                         ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
                         ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS),
                 CreativeTabLayout.Row.of("polished_ender_quartz",
