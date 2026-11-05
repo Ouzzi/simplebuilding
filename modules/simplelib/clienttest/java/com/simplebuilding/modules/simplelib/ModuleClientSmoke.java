@@ -64,7 +64,7 @@ public final class ModuleClientSmoke implements FabricClientGameTest {
         context.waitTicks(1);
         float[] r = context.computeOnClient(mc -> new float[]{mc.player.getYRot(), com.simplelib.api.client.FreeLook.yawOffset()});
         check(Math.abs(r[0] - yaw0) < 0.01 && Math.abs(r[1]) > 5, "hold: camera offset " + r[1] + ", player yaw " + yaw0 + " -> " + r[0]);
-        // QOL34: the real crosshair (grey, outlined) stands left of the centre when the camera turned right; before/after pictures of the hand
+        // QOL34: the (vanilla) crosshair is moved to the aim point, left of the centre when the camera turned right; before/after pictures of the hand
         context.runOnClient(mc -> mc.player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND_PICKAXE)));
         context.waitTicks(20);
         int[] point = context.computeOnClient(mc -> com.simplelib.api.client.FreeLook.crosshairPoint(mc.player.getXRot(), mc.getWindow().getGuiScaledWidth(),
