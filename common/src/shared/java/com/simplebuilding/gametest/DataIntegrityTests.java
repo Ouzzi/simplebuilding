@@ -1710,6 +1710,7 @@ public final class DataIntegrityTests {
         items.addAll(com.simplebuilding.woodwork.WoodBlocks.items());
         // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
         items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
+        items.removeIf(i -> movedToMachines(BuiltInRegistries.ITEM.getKey(i))); // b-pads01: Simple Pads' items on 26.3 (fields point at the module)
         return items;
     }
 
