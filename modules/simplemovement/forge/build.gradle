@@ -3,6 +3,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '7.0.36'
 }
 ext.forgeMixinConfigs = ['simplemovement.mixins.json', 'simplemovement.forge.mixins.json']
+// SimpleLib (CommandAliases) nested next to framework.
+ext.forgeBundleSimplelib = true
 apply from: rootProject.file('gradle/module-forge.gradle')
 ext.forgeNativeConfig = [id: 'simplemovement', modId: 'simplemovement', root: 'modules/simplemovement/shared/java', screens: ['com/simplebuilding/modules/simplemovement/MovementScreen.java'], factory: 'com.simplebuilding.modules.simplemovement.MovementScreen.create(parent)']
 apply from: rootProject.file('gradle/forge-native-config.gradle')

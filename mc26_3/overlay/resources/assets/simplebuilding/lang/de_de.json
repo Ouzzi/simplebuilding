@@ -3637,5 +3637,6 @@
   "simplebuilding.testcentre.command.built_partial": "Teilbau: %s (%s von %s Abschnitten) – /sbtestcentre build baut alles",
   "simplebuilding.testcentre.command.section_not_built": "Abschnitt %s gehört nicht zu diesem Bau (%s)",
   "simplebuilding.testcentre.section.structures": "Strukturen",
-  "simplebuilding.modpack_guide.section": "SimpleBuilding"
+  "simplebuilding.modpack_guide.section": "SimpleBuilding",
+  "commands.simplebuilding.moved": "%s heißt jetzt %s (der alte Name geht vorerst weiter)"
 }
