@@ -621,6 +621,11 @@ public final class ModuleGameTest {
     }
 
     @GameTest(structure = "simplestorage:empty")
+    public void jeiBackpackRecipesListed(GameTestHelper h) {
+        StorageTests.ALL.get("jei_backpack_recipes_listed").accept(h);
+    }
+
+    @GameTest(structure = "simplestorage:empty")
     public void pipeRegistered(GameTestHelper h) {
         StorageTests.ALL.get("pipe_registered").accept(h);
     }

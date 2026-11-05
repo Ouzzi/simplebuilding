@@ -203,7 +203,7 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
     static final int FRAME = 5, FRAME_BOTTOM = 7;
     /** Row of the seam in the backpack's one box (the crafting part above, backpack rows from 84). */
     static final int SEAM_Y = BackpackLayout.FIRST_ROW_Y - 3;
-    static final UiPalette LEATHER = UiPalette.derived(0xFF8E6440);
+    static final UiPalette LEATHER = UiPalette.derived(0xFFCFA578); // WF25-5: brown almost as light as the inventory grey, a little darker
 
     /** Backpack colours: a dyed backpack in its dye (muted like a shulker box), Enderite violet, else leather. */
     public static UiPalette palette(BackpackTier tier, int dye) {

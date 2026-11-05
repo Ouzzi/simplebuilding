@@ -102,7 +102,7 @@ public final class LibTests {
             // derived palettes of the mod screens: leather backpack, auto smither, crafter, fletching, astral table, crafting table,
             // the paper of deed / table, the Wayfinder's brown, the sales-block copper, the death vault violet (SP22-3),
             // the jukebox brown of Simple Music's upload window and sheet editor (owner 23.10.)
-            int[] fills = {0xFF8E6440, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F, 0xFF3C2D57,
+            int[] fills = {0xFF8E6440, 0xFFCFA578, 0xFF4F5560, 0xFF5E5651, 0xFFC5B485, 0xFF4B3866, 0xFFA27A4A, 0xFFE2D3AA, 0xFFB08A57, 0xFFB9774F, 0xFF3C2D57,
                     0xFF6B4A35};
             for (int fill : fills) {
                 palettes.put("derived " + Integer.toHexString(fill), com.simplelib.api.client.ui.UiPalette.derived(fill));

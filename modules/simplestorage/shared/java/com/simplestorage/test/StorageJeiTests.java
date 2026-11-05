@@ -25,4 +25,22 @@ public final class StorageJeiTests {
         }
         h.succeed();
     }
+
+    /**
+     * WF25-5: every backpack recipe is a plain crafting/smithing recipe the viewer lists itself (its type is the Vanilla one, it
+     * has displays, it is not "special") - including the reinforced backpack, whose serializer is custom.
+     */
+    public static void backpackRecipesListed(GameTestHelper h) {
+        var recipes = h.getLevel().getServer().getRecipeManager().getRecipes();
+        for (String path : SimpleStorage.MOVED_BACKPACK_RECIPES) {
+            var holder = recipes.stream().filter(r -> r.id().identifier().equals(SimpleStorage.id(path))).findFirst().orElse(null);
+            h.assertTrue(holder != null, "backpack recipe " + path + " is not loaded");
+            var recipe = holder.value();
+            var type = recipe.getType();
+            h.assertTrue(type == net.minecraft.world.item.crafting.RecipeType.CRAFTING || type == net.minecraft.world.item.crafting.RecipeType.SMITHING,
+                    path + " has the recipe type " + type + ", the viewer does not list it");
+            h.assertTrue(!recipe.isSpecial() && !recipe.display().isEmpty(), path + " has no display for the viewer");
+        }
+        h.succeed();
+    }
 }
