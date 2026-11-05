@@ -1119,7 +1119,7 @@ Bild: /root/sb-tools-a/owner-img/05-blockpalette.webp
     1. Erst eine Analyse-Tabelle: Familie × Glied, Bestand Vanilla/Mod, fehlt. Als Vorschau, zeigt auch die Anordnung für Testzentrum/Kreativ-Tab.
     2. Dann bauen nach Endholz-Prozess, Texturen aus Vanilla abgeleitet.
     3. Testzentrum/Galerie in Familien-Reihen anordnen wie im Bild.
-- [ ] IG31-43 **Free Look Fehler** (QoL-Release-Blocker):
+- [~] IG31-43 **Free Look Fehler** (QoL-Release-Blocker): [~ a-freelook05 d46fe6024 05.11.: Rueckdrehung 200 ms frame-basiert ueber kuerzesten Winkel, Fadenkreuz mit partialTick; offen Client-Sicht]
   - Beim Zurückdrehen nimmt die Kamera nicht den kürzesten Weg zum Fadenkreuz bzw. zur Spieler-Blickrichtung, sondern fährt den Pfad zurück.
   - Das Zurückdrehen ruckelt.
   - Das Fadenkreuz ruckelt im Free Look und hat einen Layout-Shift.
