@@ -2518,7 +2518,7 @@
         "forge"
       ],
       "requires": [],
-      "optional": [],
+      "optional": ["simplemobs"],
       "checks": [
         "modules/simpleenddragonfight/tools/check_data.py"
       ],
