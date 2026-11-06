@@ -5134,6 +5134,10 @@ public final class DataIntegrityTests {
 
     /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
     static net.minecraft.world.item.Rarity expectedRarity(String path) {
+        // Besitzer-Raenge (RarityRules, TIP05): SimpleRarity.apply laesst die Vanilla-Seltenheit als Rueckfall auf EPIC.
+        if (com.simplelib.api.RarityRules.forPath(path) != null) {
+            return net.minecraft.world.item.Rarity.EPIC;
+        }
         net.minecraft.world.item.Rarity exception = RARITY_EXCEPTIONS.get(path);
         if (exception != null) {
             return exception;
