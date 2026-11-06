@@ -56,6 +56,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.simplecrucibles]]
+modId="simpletools"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplecrucibles]]
 modId="simplestorage"
 mandatory=false
 versionRange="[0,)"

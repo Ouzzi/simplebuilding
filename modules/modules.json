@@ -3452,7 +3452,8 @@
         "jei",
         "jade",
         "simplestorage",
-        "simpleores"
+        "simpleores",
+        "simpletools"
       ],
       "checks": [
         "modules/simplecrucibles/tools/check_data.py"
