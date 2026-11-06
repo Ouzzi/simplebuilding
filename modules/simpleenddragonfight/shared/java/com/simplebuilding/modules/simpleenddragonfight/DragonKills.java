@@ -24,18 +24,21 @@ public final class DragonKills extends SavedData {
     public static final Codec<DragonKills> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.INT.optionalFieldOf("kills", 0).forGetter(d -> d.kills),
             UUIDUtil.CODEC.optionalFieldOf("last_dragon").forGetter(d -> Optional.ofNullable(d.lastDragon)),
-            UUIDUtil.CODEC.listOf().optionalFieldOf("rewarded", List.of()).forGetter(d -> new ArrayList<>(d.rewarded))
-    ).apply(i, (k, last, r) -> new DragonKills(k, last.orElse(null), r)));
+            UUIDUtil.CODEC.listOf().optionalFieldOf("rewarded", List.of()).forGetter(d -> new ArrayList<>(d.rewarded)),
+            UUIDUtil.CODEC.listOf().optionalFieldOf("jewel_rewarded", List.of()).forGetter(d -> new ArrayList<>(d.jewelRewarded))
+    ).apply(i, (k, last, r, j) -> new DragonKills(k, last.orElse(null), r, j)));
     public static final SavedDataType<DragonKills> TYPE = new SavedDataType<>(
             Identifier.fromNamespaceAndPath(DragonFightRegistry.ID, "dragon_kills"), DragonKills::new, CODEC, DataFixTypes.SAVED_DATA_COMMAND_STORAGE);
 
     private int kills;
     private @Nullable UUID lastDragon;
     private final Set<UUID> rewarded = new HashSet<>();
+    private final Set<UUID> jewelRewarded = new HashSet<>();
 
-    public DragonKills() { this(0, null, List.of()); }
+    public DragonKills() { this(0, null, List.of(), List.of()); }
 
-    public DragonKills(int kills, @Nullable UUID lastDragon, List<UUID> rewarded) {
+    public DragonKills(int kills, @Nullable UUID lastDragon, List<UUID> rewarded, List<UUID> jewelRewarded) {
+        this.jewelRewarded.addAll(jewelRewarded);
         this.kills = Math.max(0, kills);
         this.lastDragon = lastDragon;
         this.rewarded.addAll(rewarded);
@@ -60,5 +63,11 @@ public final class DragonKills extends SavedData {
 
     public void markReward(UUID player) {
         if (rewarded.add(player)) setDirty();
+    }
+
+    public boolean hasJewel(UUID player) { return jewelRewarded.contains(player); }
+
+    public void markJewel(UUID player) {
+        if (jewelRewarded.add(player)) setDirty();
     }
 }

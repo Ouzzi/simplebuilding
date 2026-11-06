@@ -23,7 +23,7 @@ public final class DragonFightConfig {
     public static final List<String> KEYS = List.of("enabled", "raiseBaseHealth", "maxPlayers", "countCreative", "leaveGraceSeconds",
             "islandRadius", "speedMultiplier", "speedPerPlayer", "speedCap", "crystalHealScaling", "mitesEnabled", "waveIntervalSeconds",
             "miteBase", "miteExtraPerTwoPlayers", "maxAliveMites", "animationEnabled", "animationTicks", "maxQueued", "exposeSpawnEgg", "summonScaling", "summonMaxMultiplier", "summonSpeedCap",
-            "rewardEnabled", "rewardFromDragon", "rewardItem");
+            "rewardEnabled", "rewardFromDragon", "rewardItem", "rewardJewelFromDragon", "rewardJewelItem", "tintFromDragon", "summonAttackCap");
 
     public static boolean enabled = true;
     /** On: 300 health per counted player; off: the Vanilla base (200) per player. */
@@ -56,6 +56,13 @@ public final class DragonFightConfig {
     public static boolean rewardEnabled = true;
     public static int rewardFromDragon = 4;
     public static String rewardItem = "simplemobs:ender_heart";
+    /** WI26-6: second reward (default Ender Gem) from the n-th defeated dragon on; 0 = off. */
+    public static int rewardJewelFromDragon = 10;
+    public static String rewardJewelItem = "simplemobs:ender_gem";
+    /** WI26-6: the n-th fight and later: dragon in chorus colour (client tint); 0 = off. */
+    public static int tintFromDragon = 4;
+    /** Damage the dragon deals never rises above this factor through summonings (health and speed follow summonMaxMultiplier). */
+    public static double summonAttackCap = 2.0;
 
     private DragonFightConfig() {}
 
@@ -111,6 +118,10 @@ public final class DragonFightConfig {
         rewardEnabled = bool(json, "rewardEnabled", true);
         rewardFromDragon = clamp(integer(json, "rewardFromDragon", 4), 1, 1000);
         rewardItem = text(json, "rewardItem", "simplemobs:ender_heart");
+        rewardJewelFromDragon = clamp(integer(json, "rewardJewelFromDragon", 10), 0, 1000);
+        rewardJewelItem = text(json, "rewardJewelItem", "simplemobs:ender_gem");
+        tintFromDragon = clamp(integer(json, "tintFromDragon", 4), 0, 1000);
+        summonAttackCap = clamp(number(json, "summonAttackCap", 2.0), 1.0, 10.0);
     }
 
     public static JsonObject toJson() {
@@ -140,6 +151,10 @@ public final class DragonFightConfig {
         o.addProperty("rewardEnabled", rewardEnabled);
         o.addProperty("rewardFromDragon", rewardFromDragon);
         o.addProperty("rewardItem", rewardItem);
+        o.addProperty("rewardJewelFromDragon", rewardJewelFromDragon);
+        o.addProperty("rewardJewelItem", rewardJewelItem);
+        o.addProperty("tintFromDragon", tintFromDragon);
+        o.addProperty("summonAttackCap", summonAttackCap);
         return o;
     }
 

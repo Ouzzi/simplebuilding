@@ -25,8 +25,13 @@ public final class DragonRewards {
     private DragonRewards() {}
 
     /** The configured reward item, or null if the id is unknown (mod not loaded): then nothing is given or marked. */
-    public static Item item() {
-        Identifier id = Identifier.tryParse(DragonFightConfig.rewardItem);
+    public static Item item() { return lookup(DragonFightConfig.rewardItem); }
+
+    /** The configured jewel (from {@code rewardJewelFromDragon} on; default the Ender Gem of Simple Mobs), or null. */
+    public static Item jewel() { return lookup(DragonFightConfig.rewardJewelItem); }
+
+    private static Item lookup(String name) {
+        Identifier id = Identifier.tryParse(name);
         return id == null ? null : BuiltInRegistries.ITEM.getOptional(id).orElse(null);
     }
 
@@ -38,28 +43,38 @@ public final class DragonRewards {
         return out;
     }
 
+    /** Participants who get the jewel for this kill ({@code rewardJewelFromDragon} 0 = off). */
+    public static List<UUID> dueJewel(DragonKills data, Collection<UUID> participants) {
+        List<UUID> out = new ArrayList<>();
+        if (!DragonFightConfig.rewardEnabled || DragonFightConfig.rewardJewelFromDragon <= 0 || data.kills() < DragonFightConfig.rewardJewelFromDragon) return out;
+        for (UUID p : participants) if (!data.hasJewel(p)) out.add(p);
+        return out;
+    }
+
     /** A dragon was defeated: count it and place the rewards for the online participants around the portal. Returns the number placed. */
     public static int onDefeated(ServerLevel level, UUID dragon, BlockPos center, Collection<? extends Player> participants) {
         DragonKills data = DragonKills.get(level.getServer());
         data.defeat(dragon);
-        Item item = item();
-        if (item == null) return 0;
-        List<UUID> due = due(data, participants.stream().map(Player::getUUID).toList());
-        int n = 0;
+        List<UUID> ids = participants.stream().map(Player::getUUID).toList();
+        Item heart = item(), jewel = jewel();
+        List<UUID> dueHeart = heart == null ? List.of() : due(data, ids), dueJewel = jewel == null ? List.of() : dueJewel(data, ids);
+        int total = dueHeart.size() + dueJewel.size(), n = 0;
         for (Player player : participants) {
             UUID id = player.getUUID();
-            if (!due.contains(id)) continue;
-            double a = Math.PI * 2 * n / due.size();
-            ItemEntity e = new ItemEntity(level, center.getX() + 0.5 + Math.cos(a) * RING, center.getY() + 2.0, center.getZ() + 0.5 + Math.sin(a) * RING, new ItemStack(item));
-            e.setTarget(id);
-            e.setUnlimitedLifetime();
-            e.setNoGravity(true);
-            e.setDeltaMovement(0, 0, 0);
-            level.addFreshEntity(e);
-            data.markReward(id);
-            player.sendSystemMessage(Component.translatable("message.simpleenddragonfight.reward", new ItemStack(item).getHoverName()));
-            n++;
+            if (dueHeart.contains(id)) { place(level, center, player, heart, n++, total); data.markReward(id); }
+            if (dueJewel.contains(id)) { place(level, center, player, jewel, n++, total); data.markJewel(id); }
         }
         return n;
+    }
+
+    private static void place(ServerLevel level, BlockPos center, Player player, Item item, int n, int total) {
+        double a = Math.PI * 2 * n / Math.max(1, total);
+        ItemEntity e = new ItemEntity(level, center.getX() + 0.5 + Math.cos(a) * RING, center.getY() + 2.0, center.getZ() + 0.5 + Math.sin(a) * RING, new ItemStack(item));
+        e.setTarget(player.getUUID());
+        e.setUnlimitedLifetime();
+        e.setNoGravity(true);
+        e.setDeltaMovement(0, 0, 0);
+        level.addFreshEntity(e);
+        player.sendSystemMessage(Component.translatable("message.simpleenddragonfight.reward", new ItemStack(item).getHoverName()));
     }
 }
