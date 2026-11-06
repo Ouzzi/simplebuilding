@@ -134,11 +134,23 @@
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/cracked_astralit_bricks",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/chiseled_ender_quartz_bricks",
       "required": false
     },
     {
+      "id": "simplemoney:links/simplebuilding/cracked_ender_quartz_bricks",
+      "required": false
+    },
+    {
       "id": "simplemoney:links/simplebuilding/chiseled_nihilith_bricks",
+      "required": false
+    },
+    {
+      "id": "simplemoney:links/simplebuilding/cracked_nihilith_bricks",
       "required": false
     },
     {
