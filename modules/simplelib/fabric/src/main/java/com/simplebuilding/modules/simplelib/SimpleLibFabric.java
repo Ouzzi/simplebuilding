@@ -18,8 +18,14 @@ public final class SimpleLibFabric implements ModInitializer {
         com.simplelib.api.ModTabs.register(SimpleLib.MOD_ID, "lib", "itemgroup.simplelib.lib", () -> new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART), com.simplelib.api.ModpackGuide.ITEM_ID.getPath());
         com.simplelib.registry.LibPotions.register();
         com.simplelib.registry.LibSounds.register();
-        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries ->
-                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART)));
+        net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents.modifyOutputEvent(net.minecraft.world.item.CreativeModeTabs.INGREDIENTS).register(entries -> {
+            entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibItems.WARPED_WART));
+            // WF25-10: the Strong Upgrade (template, shard) while a mod requested it; the tab rules move both into the Simple Lib tab.
+            if (com.simplelib.registry.LibMaterials.requested(com.simplelib.material.StrongUpgradeDrops.GROUP)) {
+                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_template")));
+                entries.accept(new net.minecraft.world.item.ItemStack(com.simplelib.registry.LibMaterials.item("strong_upgrade_shard")));
+            }
+        });
         // b-guide01: the Simple Modpack guide - Vanilla Tools tab (SimpleBuilding shows it in its own tab instead, and the tab
         // rules then drop it here), the chapter unlock query, and the FTB Quests start chapter when SimpleBuilding is absent
         // (SimpleBuilding's own first quest gives the guide).
