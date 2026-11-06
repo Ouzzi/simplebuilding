@@ -79,6 +79,9 @@ Jedes neue Feature (Mob, Block, Mechanik, Item) braucht vor dem Bau eine kurze K
 ### A13 Mod-Struktur-Seite aktuell halten (Besitzer 30.10.)
 `docs/MODSTRUKTUR.html` (Baum am Desktop, Liste am Handy) und `docs/MODSTRUKTUR.md` werden aus `modules/modules.json` erzeugt (`python tools/modtree/modtree.py`). Bei jedem neuen Mod, jedem Sub-Mod-Umzug und jeder geänderten Abhängigkeit neu erzeugen und im selben Commit mitgeben; `checkModtree` (in `check`) schlägt bei veralteten Dateien fehl. Geplante Mods ohne Manifest-Eintrag: `tools/modtree/planned.json`. Die Hauptsitzung veröffentlicht die HTML als Artifact neu.
 
+### A14 Wirkungen telegrafieren (Besitzer 06.11.)
+Alles, was den Spieler beeinflusst oder stören kann (Statuseffekte durch Items, Verlangsamung, Schaden, Sperren, automatische Aktionen), wird **sichtbar kommuniziert**, damit ein Aha-Moment entsteht: der Spieler soll erkennen, *woher* die Wirkung kommt. Mittel: eine dezente, aber eindeutige Anzeige an der Quelle (z. B. rote, weich rotierende „Leuchtturm“-Animation hinter dem auslösenden Item im Slot – SimpleLib-Baustein `SlotAlert`), passender Tooltip-Text, ggf. Partikel/Ton. Nicht grell, nicht ablenkend, nur solange die Wirkung aktiv ist; Config/reduced-motion respektieren. Beispiel: Collapsed-Blöcke (Slowness im Inventar).
+
 ## Teil 2 – Je Mod
 
 Reihenfolge wie `modules/modules.json`; Mods ohne Sonderregeln stehen mit „keine eigenen Regeln bisher“ da, damit jede Mod einen Platz für ihre Regeln hat. Neue Module bekommen hier
