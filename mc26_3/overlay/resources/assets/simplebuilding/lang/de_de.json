@@ -3655,5 +3655,15 @@
   "simplebuilding.modpack_guide.section": "SimpleBuilding",
   "text.autoconfig.simplebuilding.option.enableSimplePads": "Simple Pads aktivieren",
   "text.autoconfig.simplebuilding.option.enableSimplePads.@Tooltip": "Schaltet das gebündelte Modul Simple Pads an oder aus. Aus blendet die Kreativ-Einträge des Moduls aus; vorhandene Gegenstände funktionieren weiter. Wirkt nach einem Neustart. Standard: an.",
-  "commands.simplebuilding.moved": "%s heißt jetzt %s (der alte Name geht vorerst weiter)"
+  "commands.simplebuilding.moved": "%s heißt jetzt %s (der alte Name geht vorerst weiter)",
+  "block.simplebuilding.cracked_astralit_bricks": "Rissige Astralitziegel",
+  "item.simplebuilding.cracked_astralit_bricks": "Rissige Astralitziegel",
+  "block.simplebuilding.cracked_nihilith_bricks": "Rissige Nihilitziegel",
+  "item.simplebuilding.cracked_nihilith_bricks": "Rissige Nihilitziegel",
+  "block.simplebuilding.cracked_ender_quartz_bricks": "Rissige Enderquarzziegel",
+  "item.simplebuilding.cracked_ender_quartz_bricks": "Rissige Enderquarzziegel",
+  "block.simplebuilding.nihilith_ashwood_planks": "Nihilit-Aschholzbretter",
+  "item.simplebuilding.nihilith_ashwood_planks": "Nihilit-Aschholzbretter",
+  "block.simplebuilding.nihilith_duskwood_planks": "Nihilit-Dämmerholzbretter",
+  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit-Dämmerholzbretter"
 }

@@ -1071,7 +1071,7 @@ window.WIKI_MODULES = [
       "recipes": 38,
       "features": 9
     },
-    "dataHash": "c7f05b022c80"
+    "dataHash": "6d0c7fdcc122"
   },
   {
     "id": "simplerespawn",

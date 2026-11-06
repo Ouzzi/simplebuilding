@@ -309,10 +309,10 @@ public final class ModItemGroupsContent {
         return List.copyOf(rows);
     }
 
-    /** Crimson and warped blazewood: planks, bookshelves, chiseled bookshelves (DW04C-3: building blocks, Simple Blocks tab). */
+    /** Crimson and warped blazewood (a-end07: plus the Nihilit End planks): planks, bookshelves, chiseled bookshelves (DW04C-3: building blocks, Simple Blocks tab). */
     public static CreativeTabLayout.Row blazewoodRow() {
         return CreativeTabLayout.Row.of("blazewood", ModItems.CRIMSON_BLAZEWOOD_PLANKS, ModItems.WARPED_BLAZEWOOD_PLANKS,
-                ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
+                ModItems.NIHILITH_ASHWOOD_PLANKS, ModItems.NIHILITH_DUSKWOOD_PLANKS, ModItems.CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.WARPED_BLAZEWOOD_BOOKSHELF,
                 ModItems.CHISELED_CRIMSON_BLAZEWOOD_BOOKSHELF, ModItems.CHISELED_WARPED_BLAZEWOOD_BOOKSHELF);
     }
 
@@ -373,7 +373,7 @@ public final class ModItemGroupsContent {
                         ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_STAIRS, ModItems.ASTRALIT_SLAB, ModItems.ASTRALIT_WALL,
                         ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                         ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
-                        ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
+                        ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.CRACKED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("astralit_alternates",
                         ModItems.VEINED_ASTRALIT, ModItems.CRYSTALLINE_ASTRALIT, ModItems.LAYERED_ASTRALIT),
                 CreativeTabLayout.Row.of("polished_astralit",
@@ -383,7 +383,7 @@ public final class ModItemGroupsContent {
                         ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_STAIRS, ModItems.NIHILITH_SLAB, ModItems.NIHILITH_WALL,
                         ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
                         ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR,
-                        ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
+                        ModItems.CHISELED_NIHILITH_BRICKS, ModItems.CRACKED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("nihilith_alternates",
                         ModItems.VEINED_NIHILITH, ModItems.CRYSTALLINE_NIHILITH, ModItems.FROSTED_NIHILITH),
                 CreativeTabLayout.Row.of("polished_nihilith",
@@ -392,7 +392,7 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("ender_quartz",
                         ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, ModItems.ENDER_QUARTZ_WALL,
                         ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
-                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS),
+                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS, ModItems.CRACKED_ENDER_QUARTZ_BRICKS),
                 CreativeTabLayout.Row.of("polished_ender_quartz",
                         ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),

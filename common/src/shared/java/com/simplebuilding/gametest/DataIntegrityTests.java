@@ -2158,6 +2158,26 @@ public final class DataIntegrityTests {
             problems.add("unexpected end palette stonecutter cuts: " + strayCuts);
         }
 
+        // a-end07 (Wunsch 7): the cracked End bricks smelt from their smooth bricks (like Vanilla's cracked stone bricks), need a pickaxe
+        // like them (same light) and drop themselves.
+        for (Map.Entry<Block, Block> cracked : ModBlocks.CRACKED_END_BRICKS.entrySet()) {
+            String name = path(cracked.getKey());
+            RecipeHolder<?> smelt = modRecipes.get(Identifier.fromNamespaceAndPath(MOD_ID, name + "_from_smelting"));
+            if (smelt == null || !(smelt.value() instanceof net.minecraft.world.item.crafting.SmeltingRecipe smelting)) {
+                problems.add(name + ": smelting recipe missing");
+                continue;
+            }
+            var input = new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(cracked.getValue()));
+            if (!smelting.matches(input, level) || !smelting.assemble(input).is(cracked.getKey().asItem())) {
+                problems.add(name + ": does not smelt from " + path(cracked.getValue()));
+            }
+            if (!cracked.getKey().defaultBlockState().is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) {
+                problems.add(name + ": not in the pickaxe tag");
+            }
+            if (cracked.getKey().defaultBlockState().getLightEmission() != cracked.getValue().defaultBlockState().getLightEmission()) {
+                problems.add(name + ": light differs from its bricks");
+            }
+        }
         helper.assertValueEqual(mined.toString(), minedExpected.toString(), "how the end stone family is mined");
         helper.assertTrue(problems.isEmpty(), "end brick set recipes: " + problems);
         helper.succeed();
@@ -3133,7 +3153,7 @@ public final class DataIntegrityTests {
                         ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_STAIRS, ModItems.ASTRALIT_SLAB, ModItems.ASTRALIT_WALL,
                         ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
                         ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
-                        ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
+                        ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.CRACKED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("astralit_alternates",
                         ModItems.VEINED_ASTRALIT, ModItems.CRYSTALLINE_ASTRALIT, ModItems.LAYERED_ASTRALIT),
                 CreativeTabLayout.Row.of("polished_astralit",
@@ -3143,7 +3163,7 @@ public final class DataIntegrityTests {
                         ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_STAIRS, ModItems.NIHILITH_SLAB, ModItems.NIHILITH_WALL,
                         ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
                         ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR,
-                        ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
+                        ModItems.CHISELED_NIHILITH_BRICKS, ModItems.CRACKED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
                 CreativeTabLayout.Row.of("nihilith_alternates",
                         ModItems.VEINED_NIHILITH, ModItems.CRYSTALLINE_NIHILITH, ModItems.FROSTED_NIHILITH),
                 CreativeTabLayout.Row.of("polished_nihilith",
@@ -3152,7 +3172,7 @@ public final class DataIntegrityTests {
                 CreativeTabLayout.Row.of("ender_quartz",
                         ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB, ModItems.ENDER_QUARTZ_WALL,
                         ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
-                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS),
+                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS, ModItems.CRACKED_ENDER_QUARTZ_BRICKS),
                 CreativeTabLayout.Row.of("polished_ender_quartz",
                         ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
                         ModItems.POLISHED_ENDER_QUARTZ_WALL),

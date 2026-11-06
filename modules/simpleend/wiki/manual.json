@@ -681,10 +681,10 @@
     },
     "simpleend:ashwood_bookshelf": {
       "en": {
-        "summary": "Ashwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 ashwood slabs around 3 books (with SimpleBuilding: 6 planks, 3 Nihilit Books); drops 3 of its books (Simple End)."
+        "summary": "Ashwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 ashwood slabs around 3 books (with SimpleBuilding: 6 Nihilit planks of that wood, 3 Nihilit Books); drops 3 of its books (Simple End)."
       },
       "de": {
-        "summary": "Aschholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Aschholzstufen um 3 Bücher (mit SimpleBuilding: 6 Bretter, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
+        "summary": "Aschholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Aschholzstufen um 3 Bücher (mit SimpleBuilding: 6 Nihilit-Bretter der Holzart, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
       }
     },
     "simpleend:chiseled_ashwood_bookshelf": {
@@ -697,10 +697,10 @@
     },
     "simpleend:duskwood_bookshelf": {
       "en": {
-        "summary": "Duskwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 duskwood slabs around 3 books (with SimpleBuilding: 6 planks, 3 Nihilit Books); drops 3 of its books (Simple End)."
+        "summary": "Duskwood Bookshelf: enchanting power like Vanilla's bookshelf; 2 points at the Simple Enchanting enchanters. 6 duskwood slabs around 3 books (with SimpleBuilding: 6 Nihilit planks of that wood, 3 Nihilit Books); drops 3 of its books (Simple End)."
       },
       "de": {
-        "summary": "Dämmerholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Dämmerholzstufen um 3 Bücher (mit SimpleBuilding: 6 Bretter, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
+        "summary": "Dämmerholz-Bücherregal: Verzauberungskraft wie Vanillas Bücherregal; 2 Punkte an den Simple-Enchanting-Tischen. 6 Dämmerholzstufen um 3 Bücher (mit SimpleBuilding: 6 Nihilit-Bretter der Holzart, 3 Nihilit-Bücher); gibt beim Abbau 3 seiner Bücher zurück (Simple End)."
       }
     },
     "simpleend:chiseled_duskwood_bookshelf": {

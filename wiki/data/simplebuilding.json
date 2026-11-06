@@ -5913,13 +5913,15 @@
         "en": {
           "summary": "A book bound with blaze powder instead of leather; three of them go into a blazewood bookshelf.",
           "details": [
-            "Recipe: 8 Blaze Powder around 1 Book."
+            "Recipe: 8 Blaze Powder around 1 Book.",
+            "In a chiseled bookshelf it shows its own ember-coloured spines; every slot position has its own colour (red, orange, gold, crimson, amber, rose), like Vanilla's books."
           ]
         },
         "de": {
           "summary": "Ein Buch, mit Lohenstaub statt Leder gebunden; drei davon kommen in ein Lohen-Bücherregal.",
           "details": [
-            "Rezept: 8 Lohenstaub um 1 Buch."
+            "Rezept: 8 Lohenstaub um 1 Buch.",
+            "In einem gemeißelten Regal zeigt es eigene Glut-Buchrücken; jede Fachposition hat ihre eigene Farbe (Rot, Orange, Gold, Karmesin, Bernstein, Rosa), wie bei Vanillas Büchern."
           ]
         },
         "sources": [
@@ -18063,6 +18065,27 @@
         "simplebuilding:duskwood_bookshelf"
       ],
       "trades": [],
+      "note": {
+        "en": {
+          "summary": "A book with four Nihilit Shards in a plus around it; three go into an End bookshelf (Simple End), together with six Nihilit planks.",
+          "details": [
+            "Recipe: 4 Nihilit Shards in a plus around 1 Book.",
+            "In a chiseled bookshelf it shows its own spines in the Nihilit colours; every slot position has its own colour (navy, teal, violet, indigo, deep sea, void)."
+          ]
+        },
+        "de": {
+          "summary": "Ein Buch mit vier Nihilitsplittern im Plus; drei davon kommen mit sechs Nihilit-Brettern in ein End-Bücherregal (Simple End).",
+          "details": [
+            "Rezept: 4 Nihilitsplitter im Plus um 1 Buch.",
+            "In einem gemeißelten Regal zeigt es eigene Buchrücken in Nihilit-Farben; jede Fachposition hat ihre eigene Farbe (Marine, Türkis, Violett, Indigo, Tiefsee, Leere)."
+          ]
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "common/src/shared/java/com/simplebuilding/client/render/ChiseledBooksRenderer.java",
+          "tools/textures/shelves01_2026_11_04.py"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19104,6 +19127,7 @@
         "simplebuilding:nihil_purpur_block",
         "simplebuilding:nihil_redstone",
         "simplebuilding:nihil_vault",
+        "simplebuilding:nihilith_ashwood_planks",
         "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_block_from_end_stone",
         "simplebuilding:nihilith_book",
@@ -19111,6 +19135,7 @@
         "simplebuilding:nihilith_brick_stairs_from_end_stone_brick_stairs",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
         "simplebuilding:nihilith_bricks_from_end_stone_bricks",
+        "simplebuilding:nihilith_duskwood_planks",
         "simplebuilding:nihilith_end_rod",
         "simplebuilding:nihilith_pillar_from_purpur_pillar",
         "simplebuilding:nihilith_quartz_checker",
@@ -39941,8 +39966,8 @@
       },
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/ashwood_bookshelf.json",
       "ingredients": [
-        "simplebuilding:nihilith_book",
-        "simpleend:ashwood_planks"
+        "simplebuilding:nihilith_ashwood_planks",
+        "simplebuilding:nihilith_book"
       ],
       "pattern": [
         "PPP",
@@ -39954,7 +39979,7 @@
           "simplebuilding:nihilith_book"
         ],
         "P": [
-          "simpleend:ashwood_planks"
+          "simplebuilding:nihilith_ashwood_planks"
         ]
       },
       "lines": [
@@ -39965,18 +39990,18 @@
         "materials": [
           {
             "id": "simplebuilding:dull_nihilith_shard",
-            "count": 48
+            "count": 96
           },
           {
             "id": "minecraft:sugar_cane",
             "count": 9
           },
           {
-            "id": "simpleend:ashwood_planks",
-            "count": 6
+            "id": "minecraft:leather",
+            "count": 3
           },
           {
-            "id": "minecraft:leather",
+            "id": "simpleend:ashwood_planks",
             "count": 3
           }
         ]
@@ -48194,7 +48219,7 @@
       "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/duskwood_bookshelf.json",
       "ingredients": [
         "simplebuilding:nihilith_book",
-        "simpleend:duskwood_planks"
+        "simplebuilding:nihilith_duskwood_planks"
       ],
       "pattern": [
         "PPP",
@@ -48206,7 +48231,7 @@
           "simplebuilding:nihilith_book"
         ],
         "P": [
-          "simpleend:duskwood_planks"
+          "simplebuilding:nihilith_duskwood_planks"
         ]
       },
       "lines": [
@@ -48217,18 +48242,18 @@
         "materials": [
           {
             "id": "simplebuilding:dull_nihilith_shard",
-            "count": 48
+            "count": 96
           },
           {
             "id": "minecraft:sugar_cane",
             "count": 9
           },
           {
-            "id": "simpleend:duskwood_planks",
-            "count": 6
+            "id": "minecraft:leather",
+            "count": 3
           },
           {
-            "id": "minecraft:leather",
+            "id": "simpleend:duskwood_planks",
             "count": 3
           }
         ]
@@ -58290,6 +58315,50 @@
       }
     },
     {
+      "id": "simplebuilding:nihilith_ashwood_planks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_ashwood_planks",
+        "count": 2
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_ashwood_planks.json",
+      "ingredients": [
+        "simplebuilding:nihilith_shard",
+        "simpleend:ashwood_planks"
+      ],
+      "pattern": [
+        " N ",
+        "NPN",
+        " N "
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "P": [
+          "simpleend:ashwood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          },
+          {
+            "id": "simpleend:ashwood_planks",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:nihilith_block",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -59752,6 +59821,50 @@
           {
             "id": "simplebuilding:dull_nihilith_shard",
             "count": 0.25
+          }
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:nihilith_duskwood_planks",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_duskwood_planks",
+        "count": 2
+      },
+      "source": "mc26_3/overlay/resources/data/simplebuilding/recipe/nihilith_duskwood_planks.json",
+      "ingredients": [
+        "simplebuilding:nihilith_shard",
+        "simpleend:duskwood_planks"
+      ],
+      "pattern": [
+        " N ",
+        "NPN",
+        " N "
+      ],
+      "key": {
+        "N": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "P": [
+          "simpleend:duskwood_planks"
+        ]
+      },
+      "lines": [
+        "26.3"
+      ],
+      "baseMaterials": {
+        "yield": 2,
+        "materials": [
+          {
+            "id": "simplebuilding:dull_nihilith_shard",
+            "count": 16
+          },
+          {
+            "id": "simpleend:duskwood_planks",
+            "count": 1
           }
         ]
       }
@@ -91162,6 +91275,18 @@
         },
         {
           "id": "simplebuilding:chiseled_nihilith_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_astralit_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_nihilith_bricks",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cracked_ender_quartz_bricks",
           "required": true
         },
         {
@@ -123383,7 +123508,7 @@
   "counts": {
     "items": 498,
     "blocks": 255,
-    "recipes": 793,
+    "recipes": 795,
     "lootTables": 274,
     "trades": 20,
     "enchantments": 13,

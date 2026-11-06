@@ -263,6 +263,9 @@ public class ModItems {
     public static final Item POLISHED_ENDER_QUARTZ_WALL = registerItem("polished_ender_quartz_wall", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ_WALL, s));
     public static final Item ENDER_QUARTZ_PILLAR = registerItem("ender_quartz_pillar", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_PILLAR, s));
     public static final Item CHISELED_ENDER_QUARTZ_BRICKS = registerItem("chiseled_ender_quartz_bricks", s -> new BlockItem(ModBlocks.CHISELED_ENDER_QUARTZ_BRICKS, s));
+    public static final Item CRACKED_ASTRALIT_BRICKS = registerItem("cracked_astralit_bricks", s -> new BlockItem(ModBlocks.CRACKED_ASTRALIT_BRICKS, s));
+    public static final Item CRACKED_NIHILITH_BRICKS = registerItem("cracked_nihilith_bricks", s -> new BlockItem(ModBlocks.CRACKED_NIHILITH_BRICKS, s));
+    public static final Item CRACKED_ENDER_QUARTZ_BRICKS = registerItem("cracked_ender_quartz_bricks", s -> new BlockItem(ModBlocks.CRACKED_ENDER_QUARTZ_BRICKS, s));
     public static final Item ENDER_QUARTZ_STAIRS = registerItem("ender_quartz_stairs", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_STAIRS, s));
     public static final Item ENDER_QUARTZ_SLAB = registerItem("ender_quartz_slab", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_SLAB, s));
     public static final Item ENDER_QUARTZ_WALL = registerItem("ender_quartz_wall", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_WALL, s));
@@ -529,6 +532,10 @@ public class ModItems {
             ? registerItem("crimson_blazewood_planks", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_PLANKS, s)) : null;
     public static final Item WARPED_BLAZEWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("warped_blazewood_planks", s -> new BlockItem(ModBlocks.WARPED_BLAZEWOOD_PLANKS, s)) : null;
+    public static final Item NIHILITH_ASHWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("nihilith_ashwood_planks", s -> new BlockItem(ModBlocks.NIHILITH_ASHWOOD_PLANKS, s)) : null;
+    public static final Item NIHILITH_DUSKWOOD_PLANKS = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
+            ? registerItem("nihilith_duskwood_planks", s -> new BlockItem(ModBlocks.NIHILITH_DUSKWOOD_PLANKS, s)) : null;
     public static final Item CRIMSON_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING
             ? registerItem("crimson_blazewood_bookshelf", s -> new BlockItem(ModBlocks.CRIMSON_BLAZEWOOD_BOOKSHELF, s)) : null;
     public static final Item WARPED_BLAZEWOOD_BOOKSHELF = com.simplebuilding.version.McVersion.ASTRAL_ENCHANTING

@@ -3562,5 +3562,15 @@
   "simplebuilding.testcentre.blocks.row.copper_light_panes_colored": "Colored copper panes",
   "simplebuilding.testcentre.blocks.row.sulfur_lights": "Sulfur lights",
   "simplebuilding.testcentre.modules.itemless": "Without item",
-  "commands.simplebuilding.moved": "%s is now %s (the old name still works for now)"
+  "commands.simplebuilding.moved": "%s is now %s (the old name still works for now)",
+  "block.simplebuilding.cracked_astralit_bricks": "Cracked Astralit Bricks",
+  "item.simplebuilding.cracked_astralit_bricks": "Cracked Astralit Bricks",
+  "block.simplebuilding.cracked_nihilith_bricks": "Cracked Nihilit Bricks",
+  "item.simplebuilding.cracked_nihilith_bricks": "Cracked Nihilit Bricks",
+  "block.simplebuilding.cracked_ender_quartz_bricks": "Cracked Ender Quartz Bricks",
+  "item.simplebuilding.cracked_ender_quartz_bricks": "Cracked Ender Quartz Bricks",
+  "block.simplebuilding.nihilith_ashwood_planks": "Nihilit Ashwood Planks",
+  "item.simplebuilding.nihilith_ashwood_planks": "Nihilit Ashwood Planks",
+  "block.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks",
+  "item.simplebuilding.nihilith_duskwood_planks": "Nihilit Duskwood Planks"
 }

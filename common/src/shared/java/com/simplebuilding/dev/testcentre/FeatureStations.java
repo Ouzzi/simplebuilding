@@ -832,6 +832,8 @@ public final class FeatureStations {
                 new ItemStack(Items.BLAZE_POWDER, 64), new ItemStack(Items.CRIMSON_PLANKS, 16), new ItemStack(Items.WARPED_PLANKS, 16),
                 new ItemStack(Items.PAPER, 16), new ItemStack(Items.CRYING_OBSIDIAN, 8), new ItemStack(ModItems.CRIMSON_BLAZEWOOD_PLANKS, 8),
                 new ItemStack(ModItems.WARPED_BLAZEWOOD_PLANKS, 8), new ItemStack(ModItems.BLAZE_BOOK, 6),
+                new ItemStack(ModItems.NIHILITH_ASHWOOD_PLANKS, 8), new ItemStack(ModItems.NIHILITH_DUSKWOOD_PLANKS, 8),
+                new ItemStack(ModItems.NIHILITH_BOOK, 6), new ItemStack(ModItems.NIHILITH_SHARD, 16),
                 new ItemStack(ModItems.DARK_ENCHANTER), new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.BOOK, 4),
                 new ItemStack(Items.EXPERIENCE_BOTTLE, 64), new ItemStack(Items.GOLDEN_APPLE, 2)));
         c.title(0, 3, wallZ, TcText.t("section.astral", "Enchanter"),

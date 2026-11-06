@@ -21,7 +21,7 @@
   "category": "building",
   "key": {
     "N": "simplebuilding:nihilith_book",
-    "P": "simpleend:duskwood_planks"
+    "P": "simplebuilding:nihilith_duskwood_planks"
   },
   "pattern": [
     "PPP",

@@ -386,6 +386,17 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:cracked_astralit_bricks",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:chiseled_ender_quartz_bricks",
       "tier": 4,
       "hours": 25.0,
@@ -397,7 +408,29 @@
       "chance": 0.1
     },
     {
+      "item": "simplebuilding:cracked_ender_quartz_bricks",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
       "item": "simplebuilding:chiseled_nihilith_bricks",
+      "tier": 4,
+      "hours": 25.0,
+      "craft": 2,
+      "safetyFloor": 8,
+      "merchant": "wandering_trader",
+      "level": 5,
+      "stock": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "simplebuilding:cracked_nihilith_bricks",
       "tier": 4,
       "hours": 25.0,
       "craft": 2,
