@@ -182,7 +182,9 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
  <div class="top"><h1>Simplemods Zentrale</h1>
   <span class="stamp" id="stamp"><span class="dot" id="livedot"></span><span class="txt" id="stamptxt">lädt …</span></span>
   <button class="iconbtn" id="reload" title="Jetzt aktualisieren" aria-label="Jetzt aktualisieren">↻</button>
-  <button class="iconbtn" id="theme" title="Farbschema" aria-label="Farbschema wechseln">◐</button></div>
+  <button class="iconbtn" id="theme" title="Farbschema" aria-label="Farbschema wechseln">◐</button>
+  <span id="sitebar" style="display:none;gap:6px;align-items:center"><a class="btn ghost sm" href="/dev/">Wiki (Dev)</a><a class="btn ghost sm" href="/">Wiki</a>
+   <form method="post" action="/api/auth/logout" style="margin:0"><button class="btn ghost sm" type="submit" id="logout">Abmelden</button></form></span></div>
  <nav>
   <a href="#status" data-t="status">Status <span class="badge" id="b-status"></span></a>
   <a href="#start" data-t="start">Laptop-Start</a>
@@ -280,12 +282,12 @@ select.sel{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--l
   <div id="dl-list"><div class="skel"></div><div class="skel"></div></div>
 </section>
 <section id="links">
-  <div class="card"><h3>Wiki</h3><div class="btns"><a class="btn" href="https://simplemods-wiki.azarfane.com">Wiki (master)</a><a class="btn ghost" href="https://simplemods-wiki-dev.azarfane.com">Wiki-dev (Arbeitsstand)</a></div></div>
+  <div class="card"><h3>Wiki</h3><div class="btns"><a class="btn" href="https://simplemods-wiki.azarfane.com/">Wiki (Production)</a><a class="btn ghost" href="https://simplemods-wiki.azarfane.com/dev/">Wiki (Dev, Arbeitsstand)</a></div></div>
   <div class="card"><h3>Repo</h3><div class="btns"><a class="btn ghost" href="https://github.com/Ouzzi/simplebuilding">GitHub</a></div></div>
 </section>
 <section id="dev">
   <div class="card"><h3>Wiki (dev)</h3><p class="mut small">Spiegel des Arbeitsstands mit Auswahlkästchen: Texturen und Items lassen sich direkt in die KI-Queue legen.</p>
-  <div class="btns"><a class="btn" href="/wiki/" target="_blank" rel="noopener">Wiki (dev) öffnen ↗</a></div></div>
+  <div class="btns"><a class="btn" href="https://simplemods-wiki.azarfane.com/dev/" target="_blank" rel="noopener">Wiki (dev) öffnen ↗</a></div></div>
 </section>
 <section id="kiqueue">
   <div class="card"><h3>KI-Queue</h3>
@@ -560,6 +562,10 @@ $('dl-kind').onchange=e=>{dl.kind=e.target.value;renderDownloads();};
 $('dl-build').onchange=e=>{dl.build=+e.target.value;dl.mc='';renderDownloads();};
 document.addEventListener('click',e=>{if(e.target.id==='dl-retry'){dl.err='';$('dl-list').innerHTML='<div class="skel"></div>';downloadsLoad();}});
 downloadsLoad();
+
+// one host (a-zw06): wiki links + logout when this page runs behind the own login (/api/auth/check answers JSON)
+fetch('/api/auth/check',{cache:'no-store'}).then(r=>r.ok&&(r.headers.get('Content-Type')||'').startsWith('application/json')?r.json():null)
+ .then(me=>{if(!me)return;const b=document.getElementById("sitebar");b.style.display="inline-flex";document.getElementById('logout').title='Angemeldet als '+me.user;}).catch(()=>{});
 
 // "Neuen PC einrichten": command with this Zentrale's address (the installer file comes from the browser download)
 (function(){
