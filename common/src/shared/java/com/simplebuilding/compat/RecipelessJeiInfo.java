@@ -44,7 +44,10 @@ public final class RecipelessJeiInfo {
         }
         if (com.simplebuilding.version.McVersion.SAGE_ORE) {
             map.put("sage_ore", List.of(ModBlocks.SAGE_ORE, ModBlocks.DEEPSLATE_SAGE_ORE));
-            map.put("sage_orb", List.of(ModItems.SAGE_ORB));
+            if (!com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleores")) {
+                // a-blocks07: Simple Ores crafts the orb back out of the Sage Orb Block; then the page is a usage hint (supplementalPages).
+                map.put("sage_orb", List.of(ModItems.SAGE_ORB));
+            }
         }
         if (com.simplebuilding.version.McVersion.BREWING_EFFECTS) {
             // Waerter-Fuehler (N24): nur vom Waerter, Brauzutat des Dunkelheitstranks.
@@ -74,6 +77,9 @@ public final class RecipelessJeiInfo {
     /** Usage hints for craftable items, separate from the recipeless coverage contract. */
     public static Map<String, List<ItemLike>> supplementalPages() {
         Map<String, List<ItemLike>> map = new LinkedHashMap<>();
+        if (com.simplebuilding.version.McVersion.SAGE_ORE && com.simplebuilding.platform.ModEnvironment.isModLoaded("simpleores")) {
+            map.put("sage_orb", List.of(ModItems.SAGE_ORB));
+        }
         if (com.simplebuilding.version.McVersion.SMALL_PLACEABLES) {
             map.put("hammer_fire_chips", List.of(ModItems.FIRE_CHIP, net.minecraft.world.item.Items.FIRE_CHARGE));
             map.put("hammer_ice_chips", com.simplebuilding.version.McVersion.NATURE_VARIANTS
